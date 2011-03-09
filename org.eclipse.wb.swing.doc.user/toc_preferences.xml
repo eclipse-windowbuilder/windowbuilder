@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Preferences" link_to="../org.eclipse.wb.doc.user/toc_preferences.xml#preferences">
+	<topic href="html/preferences/swing/index.html" label="Swing"> 
+		<topic href="html/preferences/swing/preferences_code_generation.html" label="Code Generation">
+			<topic href="html/preferences/swing/preferences_event_handlers.html" label="Event Handlers"/>
+			<topic href="html/preferences/swing/preferences_nls.html" label="NLS"/>
+			<topic href="html/preferences/swing/preferences_variables.html" label="Variables"/>
+		</topic> 
+		<topic href="html/preferences/swing/preferences_layouts.html" label="Layouts">
+			<topic href="html/preferences/swing/preferences_absolute.html" label="Absolute"/>
+			<topic href="html/preferences/swing/preferences_gridbaglayout.html" label="GridBagLayout"/>
+			<topic href="html/preferences/swing/preferences_jgoodies_formlayout.html" label="JGoodies FormLayout"/>
+			<topic href="html/preferences/swing/preferences_miglayout.html" label="MiGLayout"/>
+		</topic> 
+		<topic href="html/preferences/swing/preferences_lookandfeel.html" label="LookAndFeel"/>
+	</topic> 
+</toc>

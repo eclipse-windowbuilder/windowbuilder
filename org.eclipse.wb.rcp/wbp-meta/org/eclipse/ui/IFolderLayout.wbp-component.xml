@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="addView">
+			<parameter type="java.lang.String" name="viewId"/>
+		</method>
+	</methods>
+</component>

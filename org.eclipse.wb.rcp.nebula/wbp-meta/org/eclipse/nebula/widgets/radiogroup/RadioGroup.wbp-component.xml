@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.radiogroup.RadioGroupInfo"/>
+	<description>SWT Widget that presents a group of radio buttons.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.radiogroup.RadioGroup(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+					<parameter name="select0">align LEFT LEFT RIGHT CENTER</parameter>
+					<parameter name="select1">orientation HORIZONTAL HORIZONTAL VERTICAL</parameter>
+					<parameter name="select2">direction LEFT_TO_RIGHT LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.radiogroup"/>
+	</exposing-rules>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">150</parameter>
+		<parameter name="liveComponent.forcedSize.height">70</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">isHorizontal()</parameter>
+		<parameter name="flowContainer.component">org.eclipse.nebula.widgets.radiogroup.RadioItem</parameter>
+	</parameters>
+</component>

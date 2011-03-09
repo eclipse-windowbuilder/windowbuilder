@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Layout Managers" link_to="../org.eclipse.wb.doc.user/toc_layoutmanagers.xml#layoutmanagers">
+	<topic href="html/layoutmanagers/swt/index.html" label="SWT"> 
+		<topic href="html/layoutmanagers/swt/absolutelayout.html" label="Absolute Layout"/>
+		<topic href="html/layoutmanagers/swt/filllayout.html" label="FillLayout"/>
+		<topic href="html/layoutmanagers/swt/formlayout.html" label="FormLayout"/>
+		<topic href="html/layoutmanagers/swt/gridlayout.html" label="GridLayout"/>
+		<topic href="html/layoutmanagers/swt/grouplayout.html" label="GroupLayout"/>
+		<topic href="html/layoutmanagers/swt/rowlayout.html" label="RowLayout"/>
+		<topic href="html/layoutmanagers/swt/stacklayout.html" label="StackLayout"/>
+		<topic href="html/layoutmanagers/swt/swing/borderlayout.html" label="Swing BorderLayout"/>
+		<topic href="html/layoutmanagers/swt/swing/boxlayout.html" label="Swing BoxLayout"/>
+	</topic> 
+</toc>
+

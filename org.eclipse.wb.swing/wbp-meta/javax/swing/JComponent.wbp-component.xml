@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<!-- location/size/bounds -->
+		<method name="setPreferredSize">
+			<parameter type="java.awt.Dimension"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced
+		names="debugGraphicsOptions actionMap alignmentX alignmentY autoscrolls componentPopupMenu debugGraphicsOptions doubleBuffered inheritsPopupMenu inputVerifier nextFocusableComponent opaque requestFocusEnabled verifyInputWhenFocusTarget"/>
+	<properties-hidden names="layout transferHandler"/>
+	<property id="setDebugGraphicsOptions(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.DebugGraphics</parameter>
+			<parameter name="fields">*remove NONE_OPTION LOG_OPTION FLASH_OPTION BUFFERED_OPTION</parameter>
+		</editor>
+	</property>
+	<property id="setAlignmentX(float)">
+		<editor id="swing.alignmentX"/>
+	</property>
+	<property id="setAlignmentY(float)">
+		<editor id="swing.alignmentY"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

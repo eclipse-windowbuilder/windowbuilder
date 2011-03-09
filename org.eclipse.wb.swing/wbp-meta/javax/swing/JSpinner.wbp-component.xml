@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A lightweight component that allows the lets the user select a number or an object value from
+		an ordered sequence.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JSpinner()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.SpinnerModel" property="setModel(javax.swing.SpinnerModel)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="model"/>
+	<properties-advanced names="border editor value"/>
+	<properties-hidden names="UI"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JComboBox"/>
+		<morphTarget class="javax.swing.JTextField"/>
+		<morphTarget class="javax.swing.JList"/>
+		<morphTarget class="javax.swing.JLabel"/>
+	</morphTargets>
+</component>

@@ -1,0 +1,20 @@
+import org.eclipse.swt.widgets.Composite;
+
+field
+	private %ControllerClass% m_controller;
+%WidgetFields%
+
+method
+	public %TypeName%(Composite parent, int style) {
+		super(parent, style);
+%Widgets%this%
+		m_controller = new %ControllerClass%(this);
+	}
+
+method
+	@Override
+	protected void checkSubclass () {
+		// Disable the check that prevents subclassing of SWT components
+	}
+
+%WidgetGetters%

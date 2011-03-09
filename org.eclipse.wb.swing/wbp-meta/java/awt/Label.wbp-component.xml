@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A Label object is a component for placing text in a container. A label displays a single line
+		of read-only text. The text can be changed by the application, but a user cannot edit itdirectly.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Label("New label")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setAlignment(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">java.awt.Label</parameter>
+			<parameter name="fields">LEFT RIGHT CENTER</parameter>
+		</editor>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.TextField"/>
+		<morphTarget class="java.awt.Button"/>
+		<morphTarget class="java.awt.Checkbox"/>
+	</morphTargets>
+</component>

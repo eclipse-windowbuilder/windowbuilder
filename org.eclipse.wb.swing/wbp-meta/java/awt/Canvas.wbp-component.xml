@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A Canvas component represents a blank rectangular area of the screen onto which the
+		application can draw or from which the application can trap input events from the user.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Canvas()]]></source>
+	</creation>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">100</parameter>
+		<parameter name="liveComponent.forcedSize.height">100</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="addView">
+			<parameter type="java.lang.String" name="viewId"/>
+			<parameter type="int" name="relationship"/>
+			<parameter type="float" name="ratio"/>
+			<parameter type="java.lang.String" name="refId"/>
+		</method>
+		<method name="addPlaceholder">
+			<parameter type="java.lang.String" name="viewId"/>
+			<parameter type="int" name="relationship"/>
+			<parameter type="float" name="ratio"/>
+			<parameter type="java.lang.String" name="refId"/>
+		</method>
+		<method name="addStandaloneView">
+			<parameter type="java.lang.String" name="viewId"/>
+			<parameter type="boolean" name="showTitle"/>
+			<parameter type="int" name="relationship"/>
+			<parameter type="float" name="ratio"/>
+			<parameter type="java.lang.String" name="refId"/>
+		</method>
+		<method name="addStandaloneViewPlaceholder">
+			<parameter type="java.lang.String" name="viewId"/>
+			<parameter type="int" name="relationship"/>
+			<parameter type="float" name="ratio"/>
+			<parameter type="java.lang.String" name="refId"/>
+			<parameter type="boolean" name="showTitle"/>
+		</method>
+		<!-- folders -->
+		<method name="createPlaceholderFolder">
+			<parameter type="java.lang.String" name="folderId"/>
+			<parameter type="int" name="relationship"/>
+			<parameter type="float" name="ratio"/>
+			<parameter type="java.lang.String" name="refId"/>
+		</method>
+		<method name="createFolder">
+			<parameter type="java.lang.String" name="folderId"/>
+			<parameter type="int" name="relationship"/>
+			<parameter type="float" name="ratio"/>
+			<parameter type="java.lang.String" name="refId"/>
+		</method>
+		<!-- shortcuts -->
+		<method name="addFastView">
+			<parameter type="java.lang.String" name="viewId"/>
+		</method>
+		<method name="addFastView">
+			<parameter type="java.lang.String" name="viewId"/>
+			<parameter type="float" name="ratio"/>
+		</method>
+		<method name="addShowViewShortcut">
+			<parameter type="java.lang.String" name="viewId"/>
+		</method>
+		<method name="addPerspectiveShortcut">
+			<parameter type="java.lang.String" name="perspectiveId"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<standard-bean-properties/>
+	<properties-advanced names="editorReuseThreshold"/>
+	<property id="setEditorAreaVisible(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setFixed(boolean)">
+		<defaultValue value="false"/>
+	</property>
+</component>

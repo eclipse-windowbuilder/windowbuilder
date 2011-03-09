@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.ScrolledCompositeInfo"/>
+	<description>Instances of this class are controls which are capable of containing other controls within a
+		scrolling frame.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.ScrolledComposite(%parent%, org.eclipse.swt.SWT.BORDER | org.eclipse.swt.SWT.H_SCROLL | org.eclipse.swt.SWT.V_SCROLL)]]></source>
+		<invocation signature="setExpandVertical(boolean)"><![CDATA[true]]></invocation>
+		<invocation signature="setExpandHorizontal(boolean)"><![CDATA[true]]></invocation>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER | H_SCROLL | V_SCROLL"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER H_SCROLL V_SCROLL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setContent" order="last">
+			<parameter type="org.eclipse.swt.widgets.Control"/>
+		</method>
+		<method name="setMinSize" order="last">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+		</method>
+	</methods>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.swt.widgets.Composite"/>
+		<morphTarget class="org.eclipse.swt.widgets.Group"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

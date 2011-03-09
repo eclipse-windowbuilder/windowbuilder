@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Preferences" link_to="../org.eclipse.wb.doc.user/toc_preferences.xml#preferences">
+	<topic href="html/preferences/swt/index.html" label="SWT"> 
+		<topic href="html/preferences/swt/preferences_code_generation.html" label="Code Generation">
+			<topic href="html/preferences/swt/preferences_event_handlers.html" label="Event Handlers"/>
+			<topic href="html/preferences/swt/preferences_jface_data_bindings.html" label="JFace Data Bindings"/>
+			<topic href="html/preferences/swt/preferences_nls.html" label="NLS"/>
+			<topic href="html/preferences/swt/preferences_variables.html" label="Variables"/>
+		</topic> 
+		<topic href="html/preferences/swt/preferences_forms_api.html" label="Forms API"/>
+		<topic href="html/preferences/swt/preferences_layouts.html" label="Layouts">
+			<topic href="html/preferences/swt/preferences_absolute.html" label="Absolute"/>
+			<topic href="html/preferences/swt/preferences_formlayout.html" label="FormLayout"/>
+			<topic href="html/preferences/swt/preferences_gridlayout.html" label="GridLayout"/>
+		</topic> 
+		<topic href="html/preferences/swt/preferences_preferencepage.html" label="PreferencePage"/>
+	</topic> 
+</toc>

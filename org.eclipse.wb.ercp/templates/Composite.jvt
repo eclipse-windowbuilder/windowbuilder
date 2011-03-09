@@ -1,0 +1,11 @@
+import org.eclipse.swt.widgets.Composite;
+
+method
+	/**
+	 * Create the composite.
+	 */
+	public %TypeName%(Composite parent, int style) {
+		super(parent, style);
+		%SWTLayout%
+	}
+

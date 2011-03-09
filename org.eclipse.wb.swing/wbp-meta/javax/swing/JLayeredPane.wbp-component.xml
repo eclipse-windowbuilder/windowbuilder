@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JLayeredPaneInfo"/>
+	<description>JLayeredPane adds depth to a JFC/Swing container, allowing components to overlap each other
+		when needed. An Integer object specifies each component's depth in the container, where
+		higher-numbered components sit "on top" of other components.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JLayeredPane()]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="setLayer">
+			<parameter type="java.awt.Component"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setLayer">
+			<parameter type="java.awt.Component"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="border"/>
+	<properties-advanced names="enabled font"/>
+	<properties-hidden names="UI"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JPanel"/>
+		<morphTarget class="javax.swing.JLayeredPane"/>
+		<morphTarget class="javax.swing.JDesktopPane"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">true</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

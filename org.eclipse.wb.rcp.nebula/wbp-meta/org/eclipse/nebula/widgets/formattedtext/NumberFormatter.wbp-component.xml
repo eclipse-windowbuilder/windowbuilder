@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class provides formatting of Number values in a FormattedText.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.formattedtext.NumberFormatter(null, null, java.util.Locale.getDefault())]]></source>
+	</creation>
+	<!-- PROPERTIES -->
+	<method-property title="fixedLengths" method="setFixedLengths(boolean,boolean)"/>
+	<property id="setDecimalSeparatorAlwaysShown(boolean)">
+		<defaultValue value="false"/>
+	</property>
+</component>

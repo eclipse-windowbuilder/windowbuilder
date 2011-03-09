@@ -1,0 +1,114 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
+
+method
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell();
+		shell.setLayout(new FillLayout());
+		shell.setSize(400, 300);
+		shell.setText("Menu test");
+		{
+			Menu menubar = new Menu(shell, SWT.BAR);
+			shell.setMenuBar(menubar);
+			{
+				MenuItem fileMenu = new MenuItem(menubar, SWT.CASCADE);
+				fileMenu.setText("&File");
+				{
+					Menu popupmenu = new Menu(fileMenu);
+					fileMenu.setMenu(popupmenu);
+					{
+						MenuItem newMenuItem = new MenuItem(popupmenu, SWT.CASCADE);
+						newMenuItem.setText("&New");
+						{
+							Menu newMenu = new Menu(newMenuItem);
+							newMenuItem.setMenu(newMenu);
+							{
+								MenuItem newFileItem = new MenuItem(newMenu, SWT.NONE);
+								newFileItem.setText("&File");
+							}
+							{
+								MenuItem newFileItem = new MenuItem(newMenu, SWT.NONE);
+								newFileItem.setText("F&older");
+							}
+						}
+					}
+					{
+						MenuItem openMenuItem = new MenuItem(popupmenu, SWT.NONE);
+						openMenuItem.setText("&Open...\tCtrl+O");
+					}
+					{
+						MenuItem saveMenuItem = new MenuItem(popupmenu, SWT.NONE);
+						saveMenuItem.setText("&Save\tCtrl+S");
+					}
+					{
+						MenuItem separater = new MenuItem(popupmenu, SWT.SEPARATOR);
+					}
+					{
+						MenuItem quitMenuItem = new MenuItem(popupmenu, SWT.NONE);
+						quitMenuItem.setText("&Quit\tCtrl+Q");
+					}
+				}
+			}
+			{
+				MenuItem editMenu = new MenuItem(menubar, SWT.CASCADE);
+				editMenu.setText("&Edit");
+				{
+					Menu popupmenu = new Menu(editMenu);
+					editMenu.setMenu(popupmenu);
+					{
+						MenuItem cutMenuItem = new MenuItem(popupmenu, SWT.NONE);
+						cutMenuItem.setText("&Cut\tCtrl+X");
+					}
+					{
+						MenuItem copyMenuItem = new MenuItem(popupmenu, SWT.NONE);
+						copyMenuItem.setText("&Copy\tCtrl+C");
+					}
+					{
+						MenuItem pasteMenuItem = new MenuItem(popupmenu, SWT.NONE);
+						pasteMenuItem.setText("&Paste\tCtrl+V");
+					}
+				}
+			}
+		}
+		{
+			List list = new List(shell, SWT.BORDER);
+			list.setItems(new String[] { "This ListBox contains a popup menu.", "Right-click to see the popup menu." });
+			{
+				Menu popupmenu = new Menu(list);
+				list.setMenu(popupmenu);
+				{
+					MenuItem popupItem = new MenuItem(popupmenu, SWT.NONE);
+					popupItem.setText("&Popup Item");
+				}
+				{
+					MenuItem cascadeItem = new MenuItem(popupmenu, SWT.CASCADE);
+					cascadeItem.setText("&Cascade Menu");
+					{
+						Menu cascademenu = new Menu(cascadeItem);
+						cascadeItem.setMenu(cascademenu);
+						{
+							MenuItem cascadeItem1 = new MenuItem(cascademenu, SWT.NONE);
+							cascadeItem1.setText("Cascade Item &1");
+						}
+						{
+							MenuItem cascadeItem2 = new MenuItem(cascademenu, SWT.NONE);
+							cascadeItem2.setText("Cascade Item &2");
+						}
+					}
+				}
+			}
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

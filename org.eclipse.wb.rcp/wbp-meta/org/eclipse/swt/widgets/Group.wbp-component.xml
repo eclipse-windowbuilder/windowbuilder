@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Instances of this class provide an etched border with an optional title.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.Group(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<x-attribute name="text" value="New Group"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+					<parameter name="select0">border NONE NONE SHADOW_ETCHED_IN SHADOW_ETCHED_OUT SHADOW_IN SHADOW_OUT SHADOW_NONE</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.swt.widgets.Composite"/>
+		<morphTarget class="org.eclipse.swt.custom.ScrolledComposite"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="directEdit.location.insets">-5 5 0 0</parameter>
+		<parameter name="directEdit.location.horizontalAlignment">left</parameter>
+		<parameter name="directEdit.location.verticalAlignment">top</parameter>
+		<parameter name="shouldDrawDotsBorder">false</parameter>
+		<!-- for Forms API -->
+		<parameter name="FormsAPI.paintBordersFor">true</parameter>
+		<parameter name="FormsAPI.adapt(Composite)">true</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.ContainerInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="setLayout">
+			<parameter type="java.awt.LayoutManager" child="true"/>
+		</method>
+		<method name="add">
+			<parameter type="java.awt.Component" child="true"/>
+		</method>
+		<method name="add">
+			<parameter type="java.awt.Component" child="true" parent2="true"/>
+			<parameter type="java.lang.Object" child2="true"/>
+		</method>
+		<method name="add">
+			<parameter type="java.lang.String" child2="true"/>
+			<parameter type="java.awt.Component" child="true" parent2="true"/>
+		</method>
+		<method name="setFocusTraversalPolicy" order="last">
+			<parameter type="java.awt.FocusTraversalPolicy"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="focusTraversalPolicy focusCycleRoot focusTraversalPolicyProvider"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">true</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<factory>
+	<!-- createButton() -->
+	<method name="createButton">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="java.lang.String" defaultSource="&quot;New Button&quot;"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER</parameter>
+				<parameter name="select0">type PUSH PUSH CHECK RADIO TOGGLE ARROW</parameter>
+				<parameter name="select1">align LEFT LEFT CENTER RIGHT</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a button as a part of the form.</description>
+	</method>
+
+
+	<!-- createComposite() -->
+	<method name="createComposite">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<description>Creates the composite as a part of the form.</description>
+	</method>
+
+	<method name="createComposite">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER H_SCROLL V_SCROLL NO_BACKGROUND NO_FOCUS NO_MERGE_PAINTS
+					NO_REDRAW_RESIZE NO_RADIO_GROUP</parameter>
+			</editor>
+		</parameter>
+		<description>Creates the composite as a part of the form.</description>
+	</method>
+
+
+	<!-- createComposite() -->
+	<method name="createCompositeSeparator">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<description>Creats the composite that can serve as a separator between various parts of a form.
+			Separator height should be controlled by setting the height hint on the layout data for the
+			composite.</description>
+		<parameters>
+			<parameter name="layout.has">false</parameter>
+		</parameters>
+	</method>
+
+
+	<!-- createLabel() -->
+	<method name="createLabel">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="java.lang.String" defaultSource="&quot;New Label&quot;"/>
+		<description>Creates a label as a part of the form.</description>
+	</method>
+
+	<method name="createLabel">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="java.lang.String" defaultSource="&quot;New Label&quot;"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER SEPARATOR WRAP</parameter>
+				<parameter name="select0">dir VERTICAL HORIZONTAL VERTICAL</parameter>
+				<parameter name="select1">shadow SHADOW_OUT SHADOW_IN SHADOW_OUT SHADOW_NONE</parameter>
+				<parameter name="select2">align LEFT LEFT CENTER RIGHT</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a label as a part of the form.</description>
+	</method>
+
+
+	<!-- createHyperlink() -->
+	<method name="createHyperlink">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="java.lang.String" defaultSource="&quot;New Hyperlink&quot;"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER WRAP NO_FOCUS</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a hyperlink as a part of the form. The hyperlink will be added to the hyperlink
+			group that belongs to this toolkit.</description>
+	</method>
+
+
+	<!-- createImageHyperlink() -->
+	<method name="createImageHyperlink">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER WRAP NO_FOCUS</parameter>
+				<parameter name="select0">align_h LEFT LEFT RIGHT</parameter>
+				<parameter name="select1">align_v CENTER TOP CENTER BOTTOM</parameter>
+			</editor>
+		</parameter>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New ImageHyperlink"]]></invocation>
+		<description>Creates an image hyperlink as a part of the form. The hyperlink will be added to the
+			hyperlink group that belongs to this toolkit.</description>
+	</method>
+
+
+	<!-- createFormText() -->
+	<method name="createFormText">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="boolean"/>
+		<invocation signature="setText(java.lang.String,boolean,boolean)"
+			><![CDATA["New FormText", false, false]]></invocation>
+		<description>Creates a rich text as a part of the form.</description>
+	</method>
+
+
+	<!-- createSeparator() -->
+	<method name="createSeparator">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="select0">dir VERTICAL HORIZONTAL VERTICAL</parameter>
+				<parameter name="select1">shadow SHADOW_OUT SHADOW_IN SHADOW_OUT SHADOW_NONE</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a separator label as a part of the form.</description>
+	</method>
+
+
+	<!-- createTable() -->
+	<method name="createTable">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER CHECK FULL_SELECTION HIDE_SELECTION VIRTUAL</parameter>
+				<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+			</editor>
+		</parameter>
+		<invocation signature="setLinesVisible(boolean)"><![CDATA[true]]></invocation>
+		<invocation signature="setHeaderVisible(boolean)"><![CDATA[true]]></invocation>
+		<description>Creates a table as a part of the form.</description>
+	</method>
+
+
+	<!-- createText() -->
+	<method name="createText">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="java.lang.String" defaultSource="&quot;New Text&quot;"
+			property="property.setter: setText(java.lang.String)"/>
+		<description>Creates a text as a part of the form.</description>
+	</method>
+
+	<method name="createText">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="java.lang.String" defaultSource="&quot;New Text&quot;"
+			property="property.setter: setText(java.lang.String)"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER READ_ONLY WRAP H_SCROLL V_SCROLL PASSWORD SEARCH CANCEL</parameter>
+				<parameter name="select0">align LEFT LEFT CENTER RIGHT</parameter>
+				<parameter name="select1">lines SINGLE SINGLE MULTI</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a text as a part of the form.</description>
+	</method>
+
+
+	<!-- createTree() -->
+	<method name="createTree">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER CHECK FULL_SELECTION VIRTUAL</parameter>
+				<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a tree widget as a part of the form.</description>
+	</method>
+
+
+	<!-- createExpandableComposite() -->
+	<method name="createExpandableComposite">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.ui.forms.widgets.ExpandableComposite.TWISTIE">
+			<editor id="style">
+				<parameter name="title">ExpansionStyle</parameter>
+				<parameter name="class">org.eclipse.ui.forms.widgets.ExpandableComposite</parameter>
+				<parameter name="select0">expander TWISTIE TWISTIE TREE_NODE</parameter>
+				<parameter name="select1">title NO_TITLE NO_TITLE SHORT_TITLE_BAR TITLE_BAR</parameter>
+				<parameter name="set">FOCUS_TITLE CLIENT_INDENT COMPACT EXPANDED
+				LEFT_TEXT_CLIENT_ALIGNMENT</parameter>
+			</editor>
+		</parameter>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New ExpandableComposite"]]></invocation>
+		<description>Creates an expandable composite as a part of the form.</description>
+	</method>
+
+
+	<!-- createSection() -->
+	<method name="createSection">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int"
+			defaultSource="org.eclipse.ui.forms.widgets.Section.TWISTIE | org.eclipse.ui.forms.widgets.Section.TITLE_BAR">
+			<editor id="style">
+				<parameter name="title">SectionStyle</parameter>
+				<parameter name="class">org.eclipse.ui.forms.widgets.Section</parameter>
+				<parameter name="select0">expander 0 0 TWISTIE TREE_NODE</parameter>
+				<parameter name="select1">title NO_TITLE NO_TITLE SHORT_TITLE_BAR TITLE_BAR</parameter>
+				<parameter name="set">FOCUS_TITLE CLIENT_INDENT COMPACT EXPANDED LEFT_TEXT_CLIENT_ALIGNMENT
+					DESCRIPTION</parameter>
+			</editor>
+		</parameter>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Section"]]></invocation>
+		<description>Creates a section as a part of the form.</description>
+	</method>
+
+
+	<!-- createForm() -->
+	<method name="createForm">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Form"]]></invocation>
+		<description>Creates a form widget in the provided parent. Note that this widget does not scroll its
+			content, so make sure there is a scrolled composite up the parent chain. If you require scrolling,
+			use 'createScrolledForm' instead.</description>
+	</method>
+
+
+	<!-- createScrolledForm() -->
+	<method name="createScrolledForm">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New ScrolledForm"]]></invocation>
+		<description>Creates a scrolled form widget in the provided parent. If you do not require scrolling
+			because there is already a scrolled composite up the parent chain, use 'createForm'
+		instead.</description>
+	</method>
+
+
+</factory>

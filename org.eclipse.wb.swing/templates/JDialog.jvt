@@ -1,0 +1,32 @@
+import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JDialog;
+
+method
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					%TypeName% dialog = new %TypeName%();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+method
+	/**
+	 * Create the dialog.
+	 */
+	public %TypeName%() {
+		setBounds(100, 100, %DefaultFormSize%);
+		%ContentPane.SwingLayout%
+	}
+

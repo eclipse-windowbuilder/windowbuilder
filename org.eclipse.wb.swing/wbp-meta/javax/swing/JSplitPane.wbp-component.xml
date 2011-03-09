@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <model class="org.eclipse.wb.internal.swing.model.component.JSplitPaneInfo"/>
+    <description>JSplitPane is used to divide two (and only two) Components. The two Components are
+        graphically divided based on the look and feel implementation, and the two Components can then be
+        interactively resized by the user.</description>
+    <!-- CREATION -->
+    <creation>
+        <source><![CDATA[new javax.swing.JSplitPane()]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+            <parameter type="boolean" property="setContinuousLayout(boolean)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+            <parameter type="java.awt.Component" child="true"/>
+            <parameter type="java.awt.Component" child="true"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+            <parameter type="boolean" property="setContinuousLayout(boolean)"/>
+            <parameter type="java.awt.Component" child="true"/>
+            <parameter type="java.awt.Component" child="true"/>
+        </constructor>
+    </constructors>
+    <!-- METHODS -->
+    <methods>
+    	<!-- children -->
+        <method name="setLeftComponent">
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+        <method name="setRightComponent">
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+        <method name="setTopComponent">
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+        <method name="setBottomComponent">
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+    	<!-- divider -->
+    	<method name="setDividerLocation" order="last">
+    		<parameter type="int"/>
+    	</method>
+    	<method name="setDividerLocation" order="last">
+    		<parameter type="double"/>
+    	</method>
+    </methods>
+    <!-- PROPERTIES -->
+    <properties-preferred names="continuousLayout orientation"/>
+    <properties-advanced names="border dividerLocation dividerSize font lastDividerLocation"/>
+    <properties-hidden names="UI bottomComponent leftComponent rightComponent topComponent validateRoot"/>
+    <property id="setOrientation(int)">
+        <editor id="staticField">
+            <parameter name="class">javax.swing.JSplitPane</parameter>
+            <parameter name="fields">HORIZONTAL_SPLIT VERTICAL_SPLIT</parameter>
+        </editor>
+    </property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

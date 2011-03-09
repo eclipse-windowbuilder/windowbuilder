@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Instances of this class represent a selectable user interface object that displays a text
+		with links.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.Link(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["<a>New Link</a>"]]></invocation>
+		<x-attribute name="text" value="&lt;a>New Link&lt;a/>"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text"/>
+</component>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A field editor for a file path type preference. A standard file dialog appears when the user
+		presses the change button.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.preference.FileFieldEditor("id", "New FileFieldEditor", %parentComposite%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="boolean"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="boolean"/>
+			<parameter type="int" property="setValidateStrategy(int)"
+				defaultSource="org.eclipse.jface.preference.StringFieldEditor.VALIDATE_ON_FOCUS_LOST"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setValidateStrategy(int)">
+		<defaultValue value="1"/>
+	</property>
+</component>

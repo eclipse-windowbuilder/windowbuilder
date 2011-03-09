@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A WYSIWYG Markup editor, which will be based on StyledText widget and will allow basic HTML
+		authoring, as well as will support most of features from jface text editing infrastructure.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new com.onpositive.richtexteditor.viewer.RichTextViewer(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER H_SCROLL V_SCROLL NO_BACKGROUND NO_FOCUS NO_MERGE_PAINTS
+						NO_REDRAW_RESIZE NO_RADIO_GROUP EMBEDDED</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER H_SCROLL V_SCROLL NO_BACKGROUND NO_FOCUS NO_MERGE_PAINTS
+						NO_REDRAW_RESIZE NO_RADIO_GROUP EMBEDDED</parameter>
+				</editor>
+			</parameter>
+			<parameter type="com.onpositive.richtexteditor.viewer.RichTextViewerControlConfiguration"/>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<include method="getTextWidget"/>
+		<include method="getControl"/>
+	</exposing-rules>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="viewer.control.method">getControl</parameter>
+	</parameters>
+</component>

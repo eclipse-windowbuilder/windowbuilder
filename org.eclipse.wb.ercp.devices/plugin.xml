@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+	<!-- ======================================================== -->
+	<!-- Device -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.ercp.devices">
+		<!-- Samples -->
+		<category id="samples" name="Samples">
+			<device id="samples.176x220-1" name="176x220 #1" image="/devices/Samples/176x220-1.jpg">
+				<display x="51" y="103" width="176" height="220"/>
+			</device>
+			<device id="samples.176x220-2" name="176x220 #2" image="/devices/Samples/176x220-2.jpg">
+				<display x="54" y="60" width="176" height="220"/>
+			</device>
+			<device id="samples.176x220-3" name="176x220 #3" image="/devices/Samples/176x220-3.jpg">
+				<display x="56" y="99" width="176" height="220"/>
+			</device>
+			<device id="samples.240x320-1" name="240x320 #1" image="/devices/Samples/240x320-1.jpg">
+				<display x="55" y="88" width="240" height="320"/>
+			</device>
+			<device id="samples.240x320-2" name="240x320 #2" image="/devices/Samples/240x320-2.jpg">
+				<display x="63" y="133" width="240" height="320"/>
+			</device>
+			<device id="samples.240x320-3" name="240x320 #3" image="/devices/Samples/240x320-3.jpg">
+				<display x="63" y="107" width="240" height="320"/>
+			</device>
+			<device id="samples.320x240-1" name="320x240 #1" image="/devices/Samples/320x240-1.jpg">
+				<display x="64" y="121" width="320" height="240"/>
+			</device>
+			<device id="samples.320x480-1" name="320x480 #1" image="/devices/Samples/320x480-1.png">
+				<display x="39" y="144" width="320" height="480"/>
+			</device>
+			<device id="samples.480x320-1" name="320x480 #1" image="/devices/Samples/480x320-1.png">
+				<display x="144" y="37" width="480" height="320"/>
+			</device>
+			<device id="samples.800x352-1" name="800x352 #1" image="/devices/Samples/800x352-1.jpg">
+				<display x="204" y="70" width="800" height="352"/>
+			</device>
+		</category>
+	</extension>
+</plugin>

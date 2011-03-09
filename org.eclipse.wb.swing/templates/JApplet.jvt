@@ -1,0 +1,10 @@
+import javax.swing.JApplet;
+
+method
+	/**
+	 * Create the applet.
+	 */
+	public %TypeName%() {
+		%ContentPane.SwingLayout%
+	}
+

@@ -1,0 +1,99 @@
+<html>
+<head>
+<style type="text/css">
+	body {
+		background-color: %bg_color%;
+    	font-size: 10pt;
+    	font-family: Verdana,Helvetica;
+    }
+    h3 {
+    	font-size: 12pt;
+    }
+    a {
+    	font-weight: bold;
+    	font-size: 8pt;
+    	text-decoration: none;
+    }
+    a:link {
+    	color: #0000FF;
+    }
+	a:visited {
+		color: #0000FF;
+	}
+	a:hover {
+		color: #002FFF;
+	}
+	p {
+		text-indent: 20pt;
+	}
+	.stackTrace {
+    	font-size: 10pt;
+    	font-family: monospace;
+    }
+	.red {
+    	font-family: monospace;
+    	color: red;
+    }
+</style>
+<script language="JavaScript">
+function toggleVisible(elementId) {
+	if (getVisible(elementId) == 'none') {
+		setVisible(elementId, 'block');
+	} else {
+		setVisible(elementId, 'none');
+	}
+}
+function getVisible(elementId) {
+	if (document.getElementById) {
+		return document.getElementById(elementId).style.display;
+	} else {
+		if (document.layers) {
+			return document.elementId.display;
+		} else {
+			return document.all.elementId.style.display;
+		}
+	}
+}
+function setVisible(elementId, visibilityValue) {
+	if (document.getElementById) {
+		document.getElementById(elementId).style.display = visibilityValue;
+	} else {
+		if (document.layers) {
+			document.elementId.display = visibilityValue;
+		} else {
+			document.all.elementId.style.display = visibilityValue;
+		}
+	}
+}
+function toggleVisibleAll() {
+	toggleVisible('stack');
+	toggleVisible('stackVisible');
+	toggleVisible('stackHidden');
+}
+function disableContextMenu(element) {
+    element.oncontextmenu = function() {
+       return false;
+    }
+}
+function onLoad() {
+    disableContextMenu(document);
+}
+</script>
+</head>
+<body onload="onLoad();">
+<h3>%error_message%</h3>
+<p>%error_description%</p>
+			<p><div id="stackVisible" style="display:block;">
+				<a href="javascript:toggleVisibleAll();">Show stack trace.</a>
+			</div>
+			<div id="stackHidden" style="display:none;">
+				<a href="javascript:toggleVisibleAll();">Hide stack trace.</a>
+			</div></p>
+	<div id="stack" class="stackTrace" style="display:none;">
+		<h3>Stack trace:</h3>
+			<pre>%stack_trace_short%</pre>
+		<h3>Full context stack trace:</h3>
+			<pre>%stack_trace_full%</pre>
+	</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.forms.layout.table.TableWrapLayoutInfo"/>
+	<description>This implementation of the layout algorithm attempts to position controls in the composite
+		using a two-pass autolayout HTML table algorithm recommeded by HTML 4.01 W3C specification. The main
+		differences with GridLayout is that it has two passes and that width and height are not calculated in
+		the same pass.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.TableWrapLayout()]]></source>
+	</creation>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout-data.has">true</parameter>
+		<parameter name="layout-data.class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+		<parameter name="layout.setInBlock">true</parameter>
+	</parameters>
+</component>

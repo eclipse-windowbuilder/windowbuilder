@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A component that combines a button or editable field and a drop-down list. The user can
+		select a value from the drop-down list, which appears at the user's request. If you make the combo box
+		editable, then the combo box includes an editable field into which the user can type a value.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JComboBox()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.ComboBoxModel" property="setModel(javax.swing.ComboBoxModel)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.Object[]" defaultSource="new java.lang.Object[]{}"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="addItem">
+			<parameter type="java.lang.Object"/>
+		</method>
+		<method name="setSelectedIndex" order="after setModel(javax.swing.ComboBoxModel)">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="editable maximumRowCount model"/>
+	<properties-advanced
+		names="actionCommand border editor keySelectionManager lightWeightPopupEnabled popupVisible renderer"/>
+	<properties-hidden names="UI popupVisible"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JList"/>
+		<morphTarget class="javax.swing.JTextField"/>
+		<morphTarget class="javax.swing.JSpinner"/>
+		<morphTarget class="javax.swing.JLabel"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.rightAlignment.isTarget">true</parameter>
+	</parameters>
+</component>

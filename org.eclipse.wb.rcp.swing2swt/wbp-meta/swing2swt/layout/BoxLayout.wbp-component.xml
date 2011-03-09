@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.swing2swt.layout.BoxLayoutInfo"/>
+	<description>A layout manager that allows multiple components to be laid out either vertically or
+		horizontally. The components will not wrap so, for example, a vertical arrangement of components will
+		stay vertically arranged when the frame is resized.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new swing2swt.layout.BoxLayout(swing2swt.layout.BoxLayout.X_AXIS)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int">
+				<editor id="staticField">
+					<parameter name="class">swing2swt.layout.BoxLayout</parameter>
+					<parameter name="fields">X_AXIS Y_AXIS</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="copyPropertyTop from=Constructor/axis to=axis"/>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">isHorizontal()</parameter>
+		<parameter name="flowContainer.component">org.eclipse.swt.widgets.Control</parameter>
+	</parameters>
+</component>

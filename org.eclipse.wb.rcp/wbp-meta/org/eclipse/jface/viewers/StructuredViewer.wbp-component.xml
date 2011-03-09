@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<methods-exclude signature="setSorter(org.eclipse.jface.viewers.ViewerSorter)"/>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="sorter"/>
+	<property id="setUseHashlookup(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setSorter(org.eclipse.jface.viewers.ViewerSorter)">
+		<editor id="innerClass">
+			<parameter name="mode">inner</parameter>
+			<parameter name="name">Sorter</parameter>
+			<parameter name="class">org.eclipse.jface.viewers.ViewerSorter</parameter>
+			<parameter name="source"><![CDATA[
+private static class ${name} extends org.eclipse.jface.viewers.ViewerSorter {
+	public int compare(org.eclipse.jface.viewers.Viewer viewer, Object e1, Object e2) {
+		Object item1 = e1;
+		Object item2 = e2;
+		return 0;
+	}
+}
+			]]></parameter>
+		</editor>
+	</property>
+</component>

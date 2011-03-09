@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.grid.GridInfo"/>
+	<description>The Grid widget is a spreadsheet/table component that offers features not currently found in
+		the base SWT Table. Features include cell selection, column grouping, column spanning, row headers,
+		and more.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.grid.Grid(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER LEFT_TO_RIGHT RIGHT_TO_LEFT H_SCROLL V_SCROLL NO_FOCUS CHECK
+						VIRTUAL</parameter>
+					<parameter name="select0">general NONE NONE SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.grid"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="headerVisible linesVisible treeLinesVisible"/>
+	<properties-advanced
+		names="itemHeight lineColor topIndex setCellSelection(org.eclipse.swt.graphics.Point)"/>
+	<properties-hidden names="selection itemCount"/>
+	<property-tag name="setCellSelection(org.eclipse.swt.graphics.Point)" tag="title" value="cellSelection"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">150</parameter>
+		<parameter name="liveComponent.forcedSize.height">100</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component">org.eclipse.nebula.widgets.grid.GridColumn
+			org.eclipse.nebula.widgets.grid.GridColumnGroup</parameter>
+		<parameter name="flowContainer.1.group">Columns</parameter>
+		<parameter name="flowContainer.2">true</parameter>
+		<parameter name="flowContainer.2.horizontal">false</parameter>
+		<parameter name="flowContainer.2.component">org.eclipse.nebula.widgets.grid.GridItem</parameter>
+		<parameter name="flowContainer.2.group">Rows</parameter>
+	</parameters>
+</component>

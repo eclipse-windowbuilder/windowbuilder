@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.rcp" priority="-1">
+			<resourcePrefixes>
+				<resourcePrefix>NA</resourcePrefix>
+			</resourcePrefixes>
+			<palette condition="!(isdef isXWT)">
+				<category id="org.eclipse.wb.rcp.SWT_AWT" name="SWT_AWT" open="false">
+					<entry class="org.eclipse.wb.internal.rcp.swtawt.palette.SwingCompositeEntryInfo"/>
+					<entry class="org.eclipse.wb.internal.swing.palette.SwingPaletteEntryInfo"/>
+				</category>
+			</palette>
+		</toolkit>
+	</extension>
+
+
+</plugin>

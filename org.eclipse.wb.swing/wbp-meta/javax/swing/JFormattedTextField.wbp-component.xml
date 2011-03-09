@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A lightweight component that allows the editing of a single line of text using a predefined
+		mask.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JFormattedTextField()]]></source>
+	</creation>
+	<!-- PROPERTIES -->
+	<properties-advanced names="formatterFactory"/>
+	<property id="setFocusLostBehavior(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.JFormattedTextField</parameter>
+			<parameter name="fields">COMMIT_OR_REVERT REVERT COMMIT PERSIST</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.rightAlignment.isTarget">true</parameter>
+	</parameters>
+</component>

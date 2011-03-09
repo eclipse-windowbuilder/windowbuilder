@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.core.model.JavaInfo"/>
+	<x-model class="org.eclipse.wb.internal.core.xml.model.XmlObjectInfo"/>
+	<!-- DESCRIPTION -->
+	<description>The most generic Java Object.</description>
+	<!-- CREATION -->
+	<creation-default>
+		<source><![CDATA[new %component.class%()]]></source>
+	</creation-default>
+	<!-- PROPERTIES -->
+	<standard-bean-properties/>
+	<public-field-properties/>
+</component>

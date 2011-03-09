@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.TrayItemInfo"/>
+	<description>Constructs a new instance of this class given its parent (which must be a Tray) and a style
+		value describing its behavior and appearance. The item is added to the end of the items maintained by
+		its parent.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.TrayItem(org.eclipse.swt.widgets.Display.getDefault().getSystemTray(), org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Tray" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="image toolTipText"/>
+	<properties-advanced names=""/>
+	<property-tag name="toolTipText" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="double-click.listener">selection/widgetSelected</parameter>
+	</parameters>
+</component>

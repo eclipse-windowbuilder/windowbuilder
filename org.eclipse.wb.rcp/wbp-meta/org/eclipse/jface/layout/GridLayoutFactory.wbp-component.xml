@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="equalWidth">
+			<parameter type="boolean"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="numColumns">
+			<parameter type="int"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="spacing">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="spacing">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="margins">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="margins">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="extendedMargins">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="extendedMargins">
+			<parameter type="org.eclipse.swt.graphics.Rectangle"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="applyTo">
+			<parameter type="org.eclipse.swt.widgets.Composite"/>
+		</method>
+		<method name="generateLayout">
+			<parameter type="org.eclipse.swt.widgets.Composite"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<method-single-property title="equalWidth" method="equalWidth(boolean)"/>
+	<method-single-property title="numColumns" method="numColumns(int)"/>
+	<method-single-property title="spacingP" method="spacing(org.eclipse.swt.graphics.Point)"/>
+	<method-single-property title="marginsP" method="margins(org.eclipse.swt.graphics.Point)"/>
+	<method-single-property title="extendedMarginsR"
+		method="extendedMargins(org.eclipse.swt.graphics.Rectangle)"/>
+	<method-property title="spacing" method="spacing(int,int)"/>
+	<method-property title="margins" method="margins(int,int)"/>
+	<method-property title="extendedMargins" method="extendedMargins(int,int,int,int)"/>
+</component>

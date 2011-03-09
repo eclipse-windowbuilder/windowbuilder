@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo"/>
+	<description>The AWT border layout lays out a container, arranging and resizing its components to fit in
+		five regions: north, south, east, west, and center.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.BorderLayout(0, 0)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setHgap(int)"/>
+			<parameter type="int" property="setVgap(int)"/>
+		</constructor>
+	</constructors>
+</component>

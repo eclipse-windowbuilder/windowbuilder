@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.TabItemInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.TabItemInfo"/>
+	<description>Instances of this class represent a selectable user interface object corresponding to a tab
+		for a page in a tab folder.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.TabItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Item"]]></invocation>
+		<x-attribute name="text" value="New Item"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.TabFolder" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.TabFolder" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- select on double click -->
+		<parameter name="double-click.runScript">doSelect()</parameter>
+		<!-- simple container -->
+		<parameter name="simpleContainer">true</parameter>
+		<parameter name="simpleContainer.component">org.eclipse.swt.widgets.Control</parameter>
+		<parameter name="simpleContainer.x-association">property control</parameter>
+	</parameters>
+</component>

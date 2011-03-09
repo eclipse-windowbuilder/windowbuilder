@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The Scrollbar class embodies a scroll bar, a familiar user-interface object. A scroll bar
+		provides a convenient means for allowing a user to select from a range of values.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Scrollbar()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setOrientation(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setOrientation(int)"/>
+			<parameter type="int" property="setValue(int)"/>
+			<parameter type="int" property="setVisibleAmount(int)"/>
+			<parameter type="int" property="setMinimum(int)"/>
+			<parameter type="int" property="setMaximum(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setOrientation(int)">
+		<editor id="staticField">
+			<parameter name="class">java.awt.Scrollbar</parameter>
+			<parameter name="fields">HORIZONTAL VERTICAL</parameter>
+		</editor>
+	</property>
+</component>

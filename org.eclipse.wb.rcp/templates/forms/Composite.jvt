@@ -1,0 +1,28 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+
+field
+	private final FormToolkit %field-prefix%toolkit = new FormToolkit(Display.getCurrent());
+
+method
+	/**
+	 * Create the composite.
+	 * @param parent
+	 * @param style
+	 */
+	public %TypeName%(Composite parent, int style) {
+		super(parent, style);
+		addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent e) {
+				%this%%field-prefix%toolkit.dispose();
+			}
+		});
+		%this%%field-prefix%toolkit.adapt(this);
+		%this%%field-prefix%toolkit.paintBordersFor(this);
+		%SWTLayout%
+	}
+

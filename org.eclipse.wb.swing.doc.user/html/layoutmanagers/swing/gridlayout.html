@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Swing GridLayout</title>
+	<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Swing GridLayout</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>The <b>GridLayout</b> class is a layout manager that lays out a 
+		container's components in a rectangular grid. The container is divided 
+		into equal-sized rectangles, and one component is placed in each 
+		rectangle. When both the number of rows and the number of columns have 
+		been set to non-zero values, either by a constructor or by the <b>
+		setRows</b> and <b>setColumns</b> methods, the number of columns 
+		specified is ignored. Instead, the number of columns is determined from 
+		the specified number of rows and the total number of components in the 
+		layout. So, for example, if three rows and two columns have been 
+		specified and nine components are added to the layout, they will be 
+		displayed as three rows of three columns. Specifying the number of 
+		columns affects the layout only when the number of rows is set to zero.<ul>
+		<li><a href="#MainFeatures">Main Features</a></li>
+		<li><a href="#GraphicalFeedback">Graphical Feedback</a></li>
+	</ul>
+    <p></p>
+<h2><a name="MainFeatures"></a>Main Features</h2>
+            <ul>
+              <li>Select <b>GridLayout</b> from the <b>Layouts</b> palette and 
+				drop it on a JFrame or JPanel</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gl_design_view.gif"></p>
+</blockquote>
+<ul>
+				<li>Graphical feedback is provided for all drop and move 
+				interactions</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gl_drop1.gif">&nbsp;
+				<img border="0" src="images/gl_move1.gif" width="296" height="266"></p>
+</blockquote>
+<ul>
+				<li>Horizontal and vertical gaps can be specified using the <b>
+				<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane.html">Property Pane</a></b></li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gl_properties1.gif" align="top" width="196" height="137">&nbsp;
+	<img border="0" src="images/gl_gaps.gif" width="296" height="266"></p>
+</blockquote>
+<ul>
+				<li>The number of columns and rows can be specified using the <b>
+				<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane.html">Property Pane</a></b></li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gl_properties2.gif" align="top" width="196" height="137">&nbsp;
+	<img border="0" src="images/gl_columns.gif" width="296" height="266"></p>
+</blockquote>
+          <p></p>
+            <h2><a name="GraphicalFeedback"></a>Graphical Feedback</h2>
+            <ul>
+              <li>When moving a widget or adding a new widget, the current drop 
+				point is highlighted in red<br>
+				<br>
+	<img border="0" src="images/gl_drop1.gif">&nbsp;
+	<img border="0" src="images/gl_drop2.gif" width="296" height="266"><br>
+				<img border="0" src="images/gl_move1.gif" width="296" height="266">&nbsp;
+				<img border="0" src="images/gl_move2.gif" width="296" height="266"></li>
+            </ul>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

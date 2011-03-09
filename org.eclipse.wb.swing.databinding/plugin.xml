@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+      <extension-point id="observeTypeContainer" name="Observable container"
+            schema="schema/observeTypeContainer.exsd"/>
+      <!-- ======================================================== -->
+      <!-- Parser -->
+      <!-- ======================================================== -->
+      <extension point="org.eclipse.wb.core.databinding.databindingFactories">
+            <factory class="org.eclipse.wb.internal.swing.databinding.SwingDatabindingFactory"/>
+      </extension>
+      <!-- ======================================================== -->
+      <!-- ObserveType -->
+      <!-- ======================================================== -->
+      <extension point="org.eclipse.wb.swing.databinding.observeTypeContainer">
+            <container
+                  class="org.eclipse.wb.internal.swing.databinding.model.beans.BeansObserveTypeContainer"
+                  priority="100"/>
+            <container
+                  class="org.eclipse.wb.internal.swing.databinding.model.components.ComponentsObserveTypeContainer"
+                  priority="99"/>
+      </extension>
+      <!-- ======================================================== -->
+      <!-- DesignPage -->
+      <!-- ======================================================== -->
+      <extension point="org.eclipse.wb.core.designPageFactories">
+            <factory class="org.eclipse.wb.internal.swing.databinding.DesignPageFactory"/>
+      </extension>
+      <!-- ======================================================== -->
+      <!-- Wizards -->
+      <!-- ======================================================== -->
+      <extension point="org.eclipse.ui.newWizards">
+            <wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+                  class="org.eclipse.wb.internal.swing.databinding.wizards.autobindings.AutomaticDatabindingWizard"
+                  icon="icons/newjprj_wiz.gif"
+                  id="org.eclipse.wb.swing.databinding.AutobindingWizard"
+                  name="Swing Automatic Databinding">
+                  <description> Create an Swing container with automatic generated JSR-295 bindings </description>
+            </wizard>
+      </extension>      
+</plugin>

@@ -1,0 +1,119 @@
+<html>
+
+<head>
+<title>RCP PageBookViewPage Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>RCP PageBookViewPage Wizard</h1>
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+        <img src="images/wizard_rcp_pagebookviewpage0.gif" align="left" hspace="10">Subclasses of the RCP <b>Page</b> class can be
+              created using the <b>RCP PageBookViewPage</b> wizard. The wizard can be
+              selected from the drop down wizard menu or from the
+              Eclipse <b>New</b> wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name, view name/title and hit the <b>Finish</b>
+              button.</td>
+  </tr>
+  <tr>
+    <td>
+      <br>
+		<img src="images/wizard_rcp_pagebookviewpage1.gif">&nbsp; 
+		<img src="images/wizard_rcp_pagebookviewpage2.gif"></td>
+  </tr>
+  <tr>
+    <td>
+    <p><br>
+	The wizard generates the following code.</p>
+		<blockquote>
+			<p><font face="Courier" size="2"><font color="#7f0055"><b>import</b></font> 
+			org.eclipse.jface.action.IMenuManager;<br>
+			<font color="#7f0055"><b>import</b></font> 
+			org.eclipse.jface.action.IToolBarManager;<br>
+			<font color="#7f0055"><b>import</b></font> org.eclipse.swt.SWT;<br>
+			<font color="#7f0055"><b>import</b></font> 
+			org.eclipse.swt.widgets.Composite;<br>
+			<font color="#7f0055"><b>import</b></font> 
+			org.eclipse.swt.widgets.Control;<br>
+			<font color="#7f0055"><b>import</b></font> 
+			org.eclipse.ui.part.IPageSite;<br>
+			<font color="#7f0055"><b>import</b></font> org.eclipse.ui.part.Page;<br>
+			<br>
+			<font color="#7f0055"><b>public</b></font> <font color="#7f0055"><b>
+			class</b></font> RcpPageBookView <font color="#7f0055"><b>extends</b></font> 
+			Page {<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private</b></font> Composite 
+			m_control;<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>public</b></font> RcpPageBookView() 
+			{<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>public</b></font>
+			<font color="#7f0055"><b>void</b></font> createControl(Composite 
+			parent) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Composite container =
+			<font color="#7f0055"><b>new</b></font> Composite(parent, SWT.<font color="#0000c0"><i>NULL</i></font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_control = container;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>public</b></font> Control getControl() 
+			{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return m_control;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>public</b></font>
+			<font color="#7f0055"><b>void</b></font> init(IPageSite pageSite) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>super</b></font>.init(pageSite);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; createActions();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initializeToolBar();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initializeMenu();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>public</b></font>
+			<font color="#7f0055"><b>void</b></font> setFocus() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3f7f5f">// Set the 
+			focus</font><br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private</b></font>
+			<font color="#7f0055"><b>void</b></font> createActions() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3f7f5f">// Create the 
+			actions</font><br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private</b></font>
+			<font color="#7f0055"><b>void</b></font> initializeToolBar() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IToolBarManager toolbarManager = 
+			getSite().getActionBars().getToolBarManager();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private</b></font>
+			<font color="#7f0055"><b>void</b></font> initializeMenu() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IMenuManager menuManager = 
+			getSite().getActionBars().getMenuManager();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+			}</font></p>
+		</blockquote>
+      <p>When editing RCP Pages, all of the standard SWT layouts, containers 
+		and widgets are available.</p>
+      <p>When editing Pages, SWT Designer adds a new Palette category, <b>
+	JFace Actions</b>, for defining actions and assigning them to the view's toolbar and
+      menu.</p>
+      <p>
+		<img src="images/wizard_rcp_pagebookviewpage3.gif"></p>
+      <p>New actions may be created using the <b>New</b> command, and existing actions may be added using the
+		<b>External</b> command. New actions are created as inner classes of the current
+      class and are automatically added to the palette for easy access. Any existing actions may be deleted using the <b> Delete</b>
+      key. Selecting an action allows you to edit its icons,
+      label and tool tip text within the property pane.&nbsp;</p>
+      <p>The view's toolbar is live and actions may be dropped on it. Actions and separators may be dragged from the 
+		palette and dropped on the toolbar. Toolbar actions may be rearranged 
+		using drag/drop and
+      deleted using the <b>Delete</b> key.</p>
+      <p>The
+      view's menu is also live and actions may be dropped on it. Actions, separators and menu managers may be dragged from
+      the palette and dropped into the menu. Menus may be rearranged using 
+		drag/drop and
+      deleted using the <b>Delete</b> key.</p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

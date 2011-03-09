@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A TextArea object is a multi-line region that displays text. It can be set to allow editing
+		or to be read-only.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.TextArea()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setRows(int)"/>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setRows(int)"/>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setRows(int)"/>
+			<parameter type="int" property="setColumns(int)"/>
+			<parameter type="int">
+				<editor id="staticField">
+					<parameter name="class">java.awt.TextArea</parameter>
+					<parameter name="fields">SCROLLBARS_BOTH SCROLLBARS_VERTICAL_ONLY SCROLLBARS_HORIZONTAL_ONLY SCROLLBARS_NONE</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.TextField"/>
+	</morphTargets>
+</component>

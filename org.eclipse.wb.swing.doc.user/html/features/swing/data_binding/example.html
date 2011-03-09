@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>Swing Data Binding Example</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../../../book.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>Swing Data Binding Example</h1>
+	<h3>Supported for JDK 1.5 
+	and above only</h3>
+	<table border="0" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td valign="top">As an example of how the the data binding tools can be 
+	used, consider the following <b>Phone Book</b> example. The phone book 
+	manages a set of phone groups. Each phone group in turn holds onto one or 
+	more persons. For each person, various e-mail and phone contact information 
+	is maintained. Editing a person's description should update the same data 
+	shown in the list. The final code for the <b>Phone Book</b> project is available
+			<a href="SwingBindingsTest.zip">here</a>.</td>
+		</tr>
+	</table>
+	<ol>
+		<li>
+		<p class="pnoall">Use Designer to create the skeleton of the <b>
+		JPhoneBook.java</b> class<br>
+		<br>
+		<img border="0" src="images/example1.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Create the following model classes:</li>
+	</ol>
+	<blockquote>
+		<ul>
+			<li>
+			<p class="pnoall">Class <b>Person</b> with properties: <b>name</b>,
+			<b>email</b>, <b>phone</b>, <b>mobilePhone1</b>, <b>mobilePhone2</b></li>
+			<li>
+			<p class="pnoall">Class <b>PhoneGroup</b> with properties: <b>name</b>,
+			<b>persons</b></li>
+			<li>
+			<p class="pnoall">Class <b>PhoneGroups</b> with properties: <b>
+			groups</b></li>
+		</ul>
+	</blockquote>
+	<ol>
+		<li value="3">
+		<p class="pnoall">Add the following to the <b>JPhoneBook</b> class:<br>
+		<br>
+		<font face="Courier" size="2">&nbsp;&nbsp;&nbsp; private PhoneGroups 
+		m_groups = new PhoneGroups();<br>
+		</font><br>
+		And add some initial data:<br>
+		<br>
+		<font face="Courier" size="2">&nbsp;&nbsp;&nbsp; PhoneGroup group1 = new 
+		PhoneGroup(&quot;Developer Team&quot;);<br>
+&nbsp;&nbsp;&nbsp; m_groups.addGroup(group1);<br>
+&nbsp;&nbsp;&nbsp; group1.addPerson(new Person(&quot;Konstantin Scheglov&quot;, 
+		&quot;kosta@nospam.com&quot;, &quot;1234567890&quot;, &quot;&quot;, &quot;&quot;));<br>
+&nbsp;&nbsp;&nbsp; group1.addPerson(new Person(&quot;Alexander Mitin&quot;, 
+		&quot;mitin@nospam.com&quot;, &quot;&quot;, &quot;0987654321&quot;, &quot;&quot;));<br>
+&nbsp;&nbsp;&nbsp; group1.addPerson(new Person(&quot;Alexander Lobas&quot;, 
+		&quot;lobas@nospam.com&quot;, &quot;&quot;, &quot;&quot;, &quot;111-222-333-00&quot;));<br>
+&nbsp;</font></li>
+		<li>
+		<p class="pnoall">Set the content for the group viewer. Click the
+	<b>Bindings</b> tab in the editor. Select <b>m_groupList</b> in the 
+		<b>Targets (Widgets)</b> 
+		list, <b>&lt;Self Object&gt;</b> in the <b>Target Properties</b> list, select <b>m_groups</b> in the <b>
+		<img border="0" src="images/data_binding_beans_button.gif" align="absbottom"> 
+		Model (Beans) </b>list, and <b>groups</b> in the <b>Model Properties</b> list.
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/swing/images/data_binding_tab.gif" align="absbottom"><br>
+	<br><img border="0" src="images/example2.gif"><br>&nbsp;</p></li>
+		<li>
+		<p class="pnoall">Click the
+	<img border="0" src="images/binding_button.gif" width="26" height="24" align="absbottom">
+	<b>Bind</b> button to open the <b>Create Data Binding</b> dialog. <b>m_groups.group</b> 
+		contains elements of type <b>PhoneGroup</b>, so select the type <b>
+		PhoneGroup</b> and its <b>&lt;EL Expression&gt;</b> property. In the EL 
+		Expression field, type &quot;${name} ({$personCount})&quot;. Note that selecting 
+		the <b>name</b> property would result in just the name of the group 
+		being displayed. You can use EL Expressions to create more complex 
+		results. In this case, we can show the name plus the number of people in 
+		the group.<br>
+		<br>
+		<img border="0" src="images/example3.gif">&nbsp;<img border="0" src="images/example4.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Click <b>OK</b> to see <b>m_groups.groups</b> bound to
+		<b>m_groupsList</b> in the table. You can also see that the detail 
+		binding between <b>m_groupsList</b> and the <b>EL Expression</b> has 
+		also been created.<br>
+		<br>
+		<img border="0" src="images/example5.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Run the application to see that the list of phone 
+		groups is populated and that each group shows its person count.<br>
+		<br>
+		<img border="0" src="images/example6.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Next we would like selecting a group to show all of 
+		its contained persons. Switch back to the
+	<b>Bindings</b> tab. 
+		Select the <b>&lt;Self Object&gt;</b> of the <b>m_personTable</b> in the <b>Target 
+		Widget</b> list and <b>
+		m_groupList</b> and <b>selectedElement/persons</b> in the <b>Model Widget</b> list and click the
+	<img border="0" src="images/binding_button.gif" width="26" height="24" align="absbottom">
+	<b>Bind</b> button to open the <b>Create Data Binding</b> dialog.<br>
+		<br>
+		<img border="0" src="images/example7.gif" align="top">
+		<img border="0" src="images/example8.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">We need to show the properties of a <b>Person</b> object in <b>
+		m_personTable</b>, so click the <b>Add</b> button to add a table column 
+		binding for each property (<b>name</b>, <b>email</b>, <b>phone</b>, <b>
+		mobilePhone1</b> and <b>mobilePhone2</b>). You can order the <b>Person</b> 
+		properties using the <b>&lt;&lt;</b> and <b>&gt;&gt;</b> buttons<br>
+		<br>
+		<img border="0" src="images/example9.gif">&nbsp;<img border="0" src="images/example10.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Click <b>OK</b> twice and run the application. See 
+		that selecting a group now updates the <b>Persons</b> list.<br>
+		<br>
+		<img border="0" src="images/example11.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">&nbsp;Switch back to the
+	<b>Bindings</b> tab. Next we need to bind <b>selectedElement</b> of the <b>m_personTable</b> (a 
+		Person object) into the various text editors.<br>
+		<br>
+		<img border="0" src="images/example12.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Select the first <b>Text</b> widget (<b>m_nameTextField</b>) 
+		and its <b>text</b> property and the <b>m_personTable</b> and its <b>
+		selectedElement/name</b> property. Click the
+	<img border="0" src="images/binding_button.gif" width="26" height="24" align="absbottom">
+	<b>Bind</b> button to open the <b>Create Data Binding </b>dialog. Leave 
+		everything set to the defaults and click the <b>OK</b> button.<br>
+		<br>
+		<img border="0" src="images/example13.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Bind each <b>selectedElement</b> property to its associated
+		<b>Text</b> field.<br>
+		<br>
+		<img border="0" src="images/example14.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Run the application. See that selecting a 
+		group updates the <b>Persons</b> list and selecting a <b>Person</b> now 
+		updates each of the <b>Text</b> fields.<br>
+		<br>
+		<img border="0" src="images/example15.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall">Also note that changing any of the data in the text 
+		fields immediately updates the data in the table. <b>The magic of data 
+		binding!</b><br>
+		<br>
+		<img border="0" src="images/example16.gif"></li>
+	</ol>
+	      </body>
+</html>

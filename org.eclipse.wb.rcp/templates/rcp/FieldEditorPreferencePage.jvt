@@ -1,0 +1,29 @@
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
+
+method
+	/**
+	 * Create the preference page.
+	 */
+	public %TypeName%() {
+		super(FLAT);
+	}
+
+method
+	/**
+	 * Create contents of the preference page.
+	 */
+	@Override
+	protected void createFieldEditors() {
+		// Create the field editors
+	}
+
+method
+	/**
+	 * Initialize the preference page.
+	 */
+	public void init(IWorkbench workbench) {
+		// Initialize the preference page
+	}
+

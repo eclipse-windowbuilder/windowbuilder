@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.TreeInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.TreeInfo"/>
+	<description>Instances of this class provide a selectable user interface object that displays a hierarchy
+		of items and issue notificiation when an item in the hierarchy is selected.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.Tree(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CHECK FULL_SELECTION VIRTUAL</parameter>
+					<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- SELECTION -->
+		<method name="selectAll"/>
+		<method name="showSelection"/>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="linesVisible headerVisible"/>
+	<properties-advanced names="itemCount"/>
+	<property id="setSortDirection(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">UP DOWN NONE</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- flow container: TreeColumn -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component">org.eclipse.swt.widgets.TreeColumn</parameter>
+		<!-- flow container: TreeItem -->
+		<parameter name="flowContainer.tree.2">true</parameter>
+		<parameter name="flowContainer.tree.2.component">org.eclipse.swt.widgets.TreeItem</parameter>
+	</parameters>
+</component>

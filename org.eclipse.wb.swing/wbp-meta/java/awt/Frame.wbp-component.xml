@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="title"/>
+	<properties-advanced names="extendedState maximizedBounds state undecorated"/>
+	<property-tag name="title" tag="isText" value="true"/>
+	<property id="setState(int)">
+		<editor id="staticField">
+			<parameter name="class">java.awt.Frame</parameter>
+			<parameter name="fields">NORMAL ICONIFIED</parameter>
+		</editor>
+	</property>
+	<property id="setExtendedState(int)">
+		<editor id="staticField">
+			<parameter name="class">java.awt.Frame</parameter>
+			<parameter name="fields">NORMAL ICONIFIED MAXIMIZED_HORIZ MAXIMIZED_VERT MAXIMIZED_BOTH</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="directEdit.location.insets">5 25 0 0</parameter>
+		<parameter name="directEdit.location.horizontalAlignment">left</parameter>
+		<parameter name="directEdit.location.verticalAlignment">top</parameter>
+	</parameters>
+</component>

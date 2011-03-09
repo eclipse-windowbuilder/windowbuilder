@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <description>A component that lets the user graphically select a value by sliding a knob within a bounded
+        interval. The slider can show both major tick marks and minor tick marks between them. The number of
+        values between the tick marks is controlled with setMajorTickSpacing and setMinorTickSpacing.</description>
+    <!-- CREATION -->
+    <creation>
+        <source><![CDATA[new javax.swing.JSlider()]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setMinimum(int)"/>
+            <parameter type="int" property="setMaximum(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setMinimum(int)"/>
+            <parameter type="int" property="setMaximum(int)"/>
+            <parameter type="int" property="setValue(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+            <parameter type="int" property="setMinimum(int)"/>
+            <parameter type="int" property="setMaximum(int)"/>
+            <parameter type="int" property="setValue(int)"/>
+        </constructor>
+    </constructors>
+	<!-- METHODS -->
+	<methods>
+		<methods-exclude signature="setLabelTable(java.util.Dictionary)"/>
+	</methods>
+	<!-- PROPERTIES -->
+    <properties-preferred names="maximum minimum orientation value"/>
+    <properties-advanced names="extent inverted valueIsAdjusting"/>
+    <properties-hidden names="UI labelTable"/>
+    <property id="setOrientation(int)">
+        <editor id="staticField">
+            <parameter name="class">javax.swing.SwingConstants</parameter>
+            <parameter name="fields">HORIZONTAL VERTICAL</parameter>
+        </editor>
+    </property>
+</component>

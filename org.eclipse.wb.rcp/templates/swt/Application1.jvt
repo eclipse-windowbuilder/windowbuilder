@@ -1,0 +1,48 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+field
+	protected Shell %field-prefix%shell;
+
+method
+	/**
+	 * Launch the application.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			%TypeName% window = new %TypeName%();
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+method
+	/**
+	 * Open the window.
+	 */
+	public void open() {
+		Display display = Display.getDefault();
+		%CreateMethod%();
+		%this%%field-prefix%shell.open();
+		%this%%field-prefix%shell.layout();
+		while (!%this%%field-prefix%shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}
+
+method
+	/**
+	 * Create contents of the window.
+	 */
+	protected void %CreateMethod%() {
+		%this%%field-prefix%shell = new Shell();
+		%this%%field-prefix%shell.setSize(%DefaultFormSize%);
+		%this%%field-prefix%shell.setText("SWT Application");
+		%field-prefix-shell.SWTLayout%
+	}
+

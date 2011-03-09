@@ -1,0 +1,66 @@
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.swt.widgets.Composite;
+
+field
+	private DataBindingContext m_bindingContext;
+
+field
+	private %BeanClass% %BeanField%;
+%WidgetFields%
+
+method
+	public %TypeName%(Composite parent, int style, %BeanClass% new%BeanName%) {
+		this(parent, style);
+		set%BeanName%(new%BeanName%);
+	}
+
+method
+	public %TypeName%(Composite parent, int style) {
+		super(parent, style);
+%Widgets%this%
+		if (%BeanFieldAccess% != null) {
+			m_bindingContext = initDataBindings();
+		}
+	}
+
+method
+	@Override
+	protected void checkSubclass () {
+		// Disable the check that prevents subclassing of SWT components
+	}
+
+method
+	private DataBindingContext initDataBindings() {
+%Observables%
+		//
+		DataBindingContext bindingContext = new DataBindingContext();
+		//
+%Bindings%
+		//
+		return bindingContext;
+	}
+
+method
+	public %BeanClass% get%BeanName%() {
+		return %BeanFieldAccess%;
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%) {
+		set%BeanName%(new%BeanName%, true);
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%, boolean update) {
+		%BeanFieldAccess% = new%BeanName%;
+		if (update) {
+			if (m_bindingContext != null) {
+				m_bindingContext.dispose();
+				m_bindingContext = null;
+			}
+			if (%BeanFieldAccess% != null) {
+				m_bindingContext = initDataBindings();
+			}
+		}
+	}
+

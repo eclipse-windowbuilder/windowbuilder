@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.wb.core" id="layoutManagers" name="Layout managers for toolkit"/>
+      </appinfo>
+      <documentation>
+         Allows to provide descriptions for layout managers for GUI toolkit.
+We use them later:
+
+1. To select default layout manager for new GUI forms or containers;
+
+2. To show them in popup menu for container - quickly select layout manager (may be).
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <choice minOccurs="1" maxOccurs="unbounded">
+            <element ref="layout" minOccurs="1" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="layout">
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="library"/>
+         </sequence>
+         <attribute name="toolkit" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The name of layout manager class.
+Don&apos;t know yet what to do with absolute/null layout manager.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="source" type="string">
+            <annotation>
+               <documentation>
+                  The source of expression for setLayout(*) invocation.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="creationId" type="string">
+            <annotation>
+               <documentation>
+                  The creationId for looking source of expression for setLayout(*) invocation.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="library">
+      <annotation>
+         <documentation>
+            JAR and optional ZIP with source to add to IJavaProject, when component added from palette.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="type" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of type to check, if JAR is already in classpath.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="bundle" type="string" use="required">
+            <annotation>
+               <documentation>
+                  ID of OSGi bundle, that contains JAR and source ZIP.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="jar" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Path to JAR inside of bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="src" type="string">
+            <annotation>
+               <documentation>
+                  Path to optional source ZIP.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiInfo"/>
+      </appinfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

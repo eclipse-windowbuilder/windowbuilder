@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<factory>
+	<!-- newCheckList() -->
+	<method name="newCheckList">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<parameter type="int" defaultSource="org.eclipse.swt.SWT.BORDER | org.eclipse.swt.SWT.FULL_SELECTION">
+			<editor id="style">
+				<parameter name="class">org.eclipse.swt.SWT</parameter>
+				<parameter name="set">BORDER FULL_SELECTION HIDE_SELECTION</parameter>
+				<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+			</editor>
+		</parameter>
+		<description>Creates a table viewer on a newly-created table control under the given parent.
+			The table control is created using the given SWT style bits, plus the SWT.CHECK style
+			bit. The table shows its contents in a single column, with no header. The viewer has no
+			input, no content provider, a default label provider, no sorter, and no
+		filters.</description>
+	</method>
+</factory>

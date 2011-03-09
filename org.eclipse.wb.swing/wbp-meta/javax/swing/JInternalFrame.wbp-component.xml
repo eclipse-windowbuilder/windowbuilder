@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JInternalFrameInfo"/>
+	<description>A lightweight object that provides many of the features of a native frame, including
+		dragging, closing, becoming an icon, resizing, title display, and support for a menu bar.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JInternalFrame("New JInternalFrame")]]></source>
+		<invocation signature="setVisible(boolean)"><![CDATA[true]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="boolean" property="setResizable(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="boolean" property="setResizable(boolean)"/>
+			<parameter type="boolean" property="setClosable(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="boolean" property="setResizable(boolean)"/>
+			<parameter type="boolean" property="setClosable(boolean)"/>
+			<parameter type="boolean" property="setMaximizable(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="boolean" property="setResizable(boolean)"/>
+			<parameter type="boolean" property="setClosable(boolean)"/>
+			<parameter type="boolean" property="setMaximizable(boolean)"/>
+			<parameter type="boolean" property="setIconifiable(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setContentPane">
+			<parameter type="java.awt.Container" child="true"/>
+		</method>
+		<method name="pack"/>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="closable iconifiable maximizable resizable title"/>
+	<properties-advanced names="desktopIcon font"/>
+	<properties-hidden names="JMenuBar UI contentPane glassPane layer layeredPane menuBar rootPane"/>
+	<property id="setDefaultCloseOperation(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.JFrame</parameter>
+			<parameter name="fields">DO_NOTHING_ON_CLOSE HIDE_ON_CLOSE DISPOSE_ON_CLOSE
+			EXIT_ON_CLOSE</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

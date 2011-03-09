@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Installation" link_to="toc.xml#installation" topic="html/installation/index.html"> 
+	<topic 
+		label="System Requirements"
+		href="html/installation/system.html"/>
+   <topic href="html/installation/updatesite_3.6.html" label="Using update site for Eclipse 3.6">
+   </topic>
+   <topic href="html/installation/updatesite_3.5.html" label="Using update site for Eclipse 3.5">
+   </topic>
+   <topic href="html/installation/updatesite_3.4.html" label="Using update site for Eclipse 3.4">
+   </topic>
+	<topic 
+		label="Uninstall"
+		href="html/installation/uninstall.html"/> 
+</toc>

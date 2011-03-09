@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.viewers.TableViewerColumnInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.jface.TableViewerColumnInfo"/>
+	<description>ViewerColumn implementation for TableViewer to enable column-specific label
+		providers and editing support.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.viewers.TableViewerColumn(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<x-attribute name="text" value="New Column"/>
+		<x-attribute name="width" value="100"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.jface.viewers.TableViewer" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="fields">NONE LEFT CENTER RIGHT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.jface.viewers.TableViewer" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="fields">NONE LEFT CENTER RIGHT</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.jface.viewers.TableViewer"/>
+			<parameter type="org.eclipse.swt.widgets.TableColumn" parent="true">
+				<tag name="Wrapper.wrapped" value="true"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="ViewerColumn.method">getColumn</parameter>
+		<parameter name="ViewerColumn.invocation.0">setText(java.lang.String) "New Column"</parameter>
+		<parameter name="ViewerColumn.invocation.1">setWidth(int) 100</parameter>
+	</parameters>
+</component>

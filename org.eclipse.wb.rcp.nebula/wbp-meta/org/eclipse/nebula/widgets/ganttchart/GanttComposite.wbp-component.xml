@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The GanttComposite is the workhorse of the GANTT chart.</description>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.ganttchart"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="drawVerticalLinesOverride drawHorizontalLinesOverride"/>
+	<properties-advanced names="eventSpacerOverride fixedRowHeightOverride"/>
+	<property id="setDrawVerticalLinesOverride(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setDrawHorizontalLinesOverride(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setUseAdvancedTooltips(boolean)">
+		<getter name="isUseAdvancedTooltips"/>
+	</property>
+	<property id="setShowDaysOnEvents(boolean)">
+		<getter name="isShowingDaysOnEvents"/>
+	</property>
+	<property id="setShowPlannedDates(boolean)">
+		<getter name="isShowingPlannedDates"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- selection listener -->
+	</parameters>
+</component>

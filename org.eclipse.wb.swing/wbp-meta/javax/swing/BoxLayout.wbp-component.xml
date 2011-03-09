@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.BoxLayoutInfo"/>
+	<description>A layout manager that allows multiple components to be laid out either vertically or
+		horizontally. The components will not wrap so, for example, a vertical arrangement of components will
+		stay vertically arranged when the frame is resized.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.BoxLayout(%parent%, javax.swing.BoxLayout.X_AXIS)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.awt.Container">
+				<tag name="property.no" value="true"/>
+			</parameter>
+			<parameter type="int">
+				<editor id="staticField">
+					<parameter name="class">javax.swing.BoxLayout</parameter>
+					<parameter name="fields">X_AXIS Y_AXIS LINE_AXIS PAGE_AXIS</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+</component>

@@ -1,0 +1,10 @@
+import javax.swing.JPanel;
+
+method
+	/**
+	 * Create the panel.
+	 */
+	public %TypeName%() {
+		%SwingLayout%
+	}
+

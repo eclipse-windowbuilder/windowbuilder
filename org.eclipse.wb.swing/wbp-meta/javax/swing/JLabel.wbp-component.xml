@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A display area for a short text string or an image, or both. A label does not react to input
+		events. As a result, it cannot get the keyboard focus. A label can, however, display a keyboard
+		alternative as a convenience for a nearby component that has a keyboard alternative but can't display
+		it.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JLabel("New label")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setHorizontalAlignment(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+			<parameter type="int" property="setHorizontalAlignment(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+			<parameter type="int" property="setHorizontalAlignment(int)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setDisplayedMnemonic" order="after setDisplayedMnemonic(char)">
+			<parameter type="int"/>
+		</method>
+		<method name="setDisplayedMnemonicIndex" order="after setDisplayedMnemonic(char)">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text icon labelFor"/>
+	<properties-advanced
+		names="border disabledIcon displayedMnemonicIndex horizontalTextPosition iconTextGap verticalTextPosition"/>
+	<properties-hidden names="UI"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<property-tag name="labelFor" tag="useObjectEditor" value="true"/>
+	<property id="setVerticalAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">TOP CENTER BOTTOM</parameter>
+		</editor>
+	</property>
+	<property id="setHorizontalAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT LEADING TRAILING</parameter>
+		</editor>
+	</property>
+	<property id="setVerticalTextPosition(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">TOP CENTER BOTTOM</parameter>
+		</editor>
+	</property>
+	<property id="setHorizontalTextPosition(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT LEADING TRAILING</parameter>
+		</editor>
+	</property>
+	<property id="setDisplayedMnemonic(char)">
+		<category value="preferred"/>
+	</property>
+	<property id="setDisplayedMnemonic(int)">
+		<category value="advanced"/>
+		<editor id="swing.displayedMnemonic"/>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JCheckBox"/>
+		<morphTarget class="javax.swing.JRadioButton"/>
+		<morphTarget class="javax.swing.JButton"/>
+		<morphTarget class="javax.swing.JTextField"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.rightAlignment.isLabel">true</parameter>
+	</parameters>
+</component>

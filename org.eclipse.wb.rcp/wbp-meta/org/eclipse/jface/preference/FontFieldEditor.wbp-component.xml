@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A field editor for a font type preference.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.preference.FontFieldEditor("id", "New FontFieldEditor", null, %parentComposite%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="java.lang.String" defaultSource="null"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="FieldEditor.exposeMethods">getLabelControl</parameter>
+	</parameters>
+</component>

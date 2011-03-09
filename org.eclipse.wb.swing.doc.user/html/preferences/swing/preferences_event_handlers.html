@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Preferences - Swing &gt; Code Generation &gt; Event Handlers</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><h1>Preferences - Swing &gt; Code Generation &gt; Event Handlers</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><img src="images/preferences_event_handlers.gif"><p>This page is used to control various 
+		<b>Swing &gt; Code Generation &gt; Event Handler</b> options.</p>
+      <h2>Event code generation</h2>
+      <p>This preference determines how event handlers are generated. The first
+      option, <b>Create anonymous class</b>, generates an anonymous adapter
+      class located inline with the widget definition. For example:
+      <dl>
+        <dt>
+		<span style="font-family: Courier New; font-size: 8pt; background-color: #FFFFFF; background-position: 0% 50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</span>
+		<span style="font-size: 8.0pt; font-family: Courier New; color: black; background-color: white; background-repeat: repeat; background-attachment: scroll; mso-highlight: white; background-position: 0%">Button button = <b>new</b> Button(shell, SWT.NONE);<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; button.addSelectionListener(new SelectionAdapter() {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void widgetSelected(SelectionEvent e)
+          {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });</span></dt>
+      </dl>
+      <p>The second option, <b>Create inner class</b>, generates an adapter
+      class as an inner class. Options are provided to add the inner class at 
+		the beginning or end of the class as well as specify the pattern used to 
+		name the inner class. For example:<font SIZE="1">
+      <dl>
+        <dl>
+          <dt><span style='mso-tab-count:
+1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><span style="font-size: 8.0pt; font-family: Courier New; color: black; background-color: white; background-repeat: repeat; background-attachment: scroll; mso-highlight: white; background-position: 0%"><b>private</b> <b>class</b> ButtonSelectionListener <b>extends</b>
+          SelectionAdapter {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<b>public</b> <b>void</b>
+          widgetSelected(SelectionEvent e) {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			}<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Button button = <b>new</b> Button(shell, SWT.NONE);<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; button.addSelectionListener(<b>new</b>
+          ButtonSelectionListener());</span></dt>
+      </dl>
+      </dl>
+    <p>The pattern can include the template variables (names enclosed between 
+	&quot;${&quot; and &quot;}&quot;) shown below. Capitalizing the name of any variable will cause 
+	the value of the variable to be capitalized before it is inserted into the 
+	resulting text.<ul>
+		<li><b>component_name</b> - the name of the component to which the 
+		handler is being attached</li>
+		<li><b>component_class_name</b> - the name of the class of the component 
+		to which the handler is being attached </li>
+		<li><b>listener_name</b> - the name of the event being handled</li>
+		<li><b>listener_className</b> - the name of the event listener</li>
+		</ul>
+		<p>The third option, <b>Implement listener interface in parent class</b>,
+      adds the the listener interface to the parent class and adds the
+      appropriate methods to the class definition. For example:<font SIZE="1">
+      <dl>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+		<span style="font-size: 8.0pt; font-family: Courier New; color: black; background-color: white; background-repeat: repeat; background-attachment: scroll; mso-highlight: white; background-position: 0%">
+		<b>public</b> <b>class</b> MyClass <b>implements</b> SelectionListener {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Button button = <b>new</b> Button(shell, SWT.NONE);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; button.addSelectionListener(<b>this</b>);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>public</b> <b>void</b> widgetSelected(SelectionEvent e)
+        {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>public</b> <b>void</b>
+        widgetDefaultSelected(SelectionEvent e) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+      </dl>
+      <h2>Create stub event handler methods named</h2>
+      <p>This preference determines whether the text field below it is
+enabled.<span style="mso-spacerun: yes">  </span>Now whenever an event
+handler is added, a method stub is created with the name given in the text
+field.<span style="mso-spacerun: yes">  </span>A line of code is also added to
+the event handler which calls the newly created method.<span
+style="mso-spacerun: yes">  </span>If you move your mouse over the text field,
+a tool tip will appear which gives you information on how to specify the names
+of the method stubs generated.
+    <p>Use this field to change the pattern used to generate the name of the 
+	method that will be invoked from within the event handler. The pattern can 
+	include the template variables (names enclosed between &quot;${&quot; and &quot;}&quot;) shown 
+	below. Capitalizing the name of any variable will cause the value of the 
+	variable to be capitalized before it is inserted into the resulting text.<ul>
+		<li><b>component_name</b> - the name of the component to which the 
+		handler is being attached</li>
+		<li><b>component_class_name</b> - the name of the class of the component 
+		to which the handler is being attached </li>
+		<li><b>event_name</b> - the name of the event being handled&quot;)</li>
+		</ul>
+      <h2>Delete stub event handler methods on component delete</h2>
+      <p>This preference determines whether handler methods associated with a 
+		component are deleted when the component is deleted.<h2>Declare 
+		parameters in event handlers as 'final'</h2>
+      <p>This preference determines whether 'final' is added to the parameters 
+		in event handlers.<h2>Show icon decorator for components with events</h2>
+      <p>This preference controls whether components with event handlers are shown with 
+		an icon decorator.<p>
+	<img border="0" src="images/event_icon_decorator.gif" width="248" height="181"></td>
+	</tr>
+</table>
+
+</body></html>

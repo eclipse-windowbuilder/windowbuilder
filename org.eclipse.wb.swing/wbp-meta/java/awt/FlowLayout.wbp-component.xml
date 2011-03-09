@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo"/>
+	<description>A flow layout arranges components in a left-to-right flow, much like lines of text in a
+		paragraph. Flow layouts are typically used to arrange buttons in a panel. It will arrange buttons left
+		to right until no more buttons fit on the same line.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 5)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setAlignment(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setAlignment(int)"/>
+			<parameter type="int" property="setHgap(int)"/>
+			<parameter type="int" property="setVgap(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">java.awt.FlowLayout</parameter>
+			<parameter name="fields">LEFT RIGHT CENTER LEADING TRAILING</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="FlowLayout.horizontal">true</parameter>
+		<parameter name="layout.implicit.make-explicit.source">new FlowLayout()</parameter>
+	</parameters>
+</component>

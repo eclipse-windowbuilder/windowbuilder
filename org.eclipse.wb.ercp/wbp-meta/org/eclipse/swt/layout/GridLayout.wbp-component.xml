@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo"/>
+	<description>Instances of this class lay out the control children of a Composite in a grid.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.layout.GridLayout(1, false)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="numColumns"/>
+			<parameter type="boolean" property="makeColumnsEqualWidth"/>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout-data.has">true</parameter>
+		<parameter name="layout-data.class">org.eclipse.swt.layout.GridData</parameter>
+	</parameters>
+</component>

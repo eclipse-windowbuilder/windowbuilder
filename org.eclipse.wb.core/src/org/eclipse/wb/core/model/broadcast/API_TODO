@@ -1,0 +1,8 @@
+1. Split all broadcasts on separate interfaces with single method,
+	which name is same as name of interface, with lower case first letter.
+	
+2. Enhance BroadcastSupport to support classes with several broadcast interfaces.
+
+3. Use BroadcastGroup to add several broadcasts to same component. 
+
+4. Create adapter classes which implement several interfaces which are often used together.

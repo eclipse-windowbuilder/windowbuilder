@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- Designer content type-->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designerContentPatterns">
+		<includePattern>org.eclipse.ui.application.ActionBarAdvisor</includePattern>
+		<includePattern>org.eclipse.ui.IPerspectiveFactory</includePattern>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Exceptions -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.exceptions">
+		<file path="resources/exceptions.xml"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Class loader -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoadingContributor">
+		<contributor namespace="org.eclipse.wb.rcp."/>
+		<contributor namespace="org.eclipse.wb.internal.rcp."/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.classLoaderInitializers">
+		<initializer class="org.eclipse.wb.internal.swt.utils.ResourceManagerClassLoaderInitializer"
+			toolkit="org.eclipse.wb.rcp"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Classpath -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.projectClasspathListeners">
+		<listener class="org.eclipse.wb.internal.rcp.support.PdeProjectClasspathListener"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseFactories">
+		<factory class="org.eclipse.wb.internal.rcp.parser.ParseFactory" priority="1"/>
+		<simpleModel_CIC class="org.eclipse.wb.internal.rcp.parser.ParseFactorySimpleModelCic"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.descriptionVersionsProviderFactories">
+		<factory class="org.eclipse.wb.internal.rcp.RcpDescriptionVersionsProviderFactory"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.executionFlowProviders">
+		<provider class="org.eclipse.wb.internal.rcp.parser.RcpExecutionFlowProvider"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Expression evaluators -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.invocationEvaluatorInterceptors">
+		<interceptor class="org.eclipse.wb.internal.rcp.model.RcpInvocationEvaluatorInterceptor"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.unknownParameterEvaluators">
+		<evaluator class="org.eclipse.wb.internal.rcp.model.RcpMethodParameterEvaluator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Components hierarchy -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.componentsHierarchyProviders">
+		<provider class="org.eclipse.wb.internal.rcp.model.widgets.exposed.ItemsHierarchyProvider"/>
+		<provider
+			class="org.eclipse.wb.internal.rcp.model.widgets.exposed.SectionPartHierarchyProvider"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Parsing context processors -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseContextProcessors">
+		<processor class="org.eclipse.wb.internal.rcp.model.forms.FormToolkitParseContextProcessor"
+		/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Description driven features -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+		<participator
+			class="org.eclipse.wb.internal.rcp.model.forms.FormToolkitJavaInfoParticipator"/>
+		<participator class="org.eclipse.wb.internal.rcp.model.util.SwtAwtJavaInfoParticipator"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.rootProcessors">
+		<processor class="org.eclipse.wb.internal.rcp.model.util.ActivatorGetImagesDisposer"/>
+		<processor class="org.eclipse.wb.internal.rcp.model.jface.action.ActionRootProcessor"/>
+		<processor class="org.eclipse.wb.internal.rcp.model.jface.FieldEditorRootProcessor"/>
+		<processor class="org.eclipse.wb.internal.rcp.model.forms.FormToolkitRootProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- IAdaptableFactory -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.adaptableFactories">
+		<factory class="org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerAdaptableFactory"
+		/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Properties -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.propertyEditors">
+		<editor type="org.eclipse.swt.graphics.Cursor"
+			class="org.eclipse.wb.internal.rcp.model.property.CursorPropertyEditor"/>
+		<configurableEditor id="Dialog_ButtonID"
+			class="org.eclipse.wb.internal.rcp.model.jface.DialogButtonIdPropertyEditor"/>
+		<configurableEditor id="FieldEditor_LabelsConstants"
+			class="org.eclipse.wb.internal.rcp.model.jface.FieldEditorLabelsConstantsPropertyEditor"
+		/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.rcp">
+			<provider class="org.eclipse.wb.internal.rcp.ToolkitProvider"/>
+			<resourcePrefixes>
+				<resourcePrefix>org.eclipse.swt.</resourcePrefix>
+				<resourcePrefix>org.eclipse.jface.</resourcePrefix>
+				<resourcePrefix>org.eclipse.ui.</resourcePrefix>
+				<resourcePrefix>org.eclipse.riena.</resourcePrefix>
+				<resourcePrefix>org.eclipse.wb.swt.</resourcePrefix>
+			</resourcePrefixes>
+			<classLoader-bundle bundle="org.eclipse.wb.swt.widgets.baseline"
+				namespaces="org.eclipse.wb.swt.widgets.baseline"/>
+			<classPath-byteCode-processor
+				processor="org.eclipse.wb.internal.rcp.model.util.ActivatorGetImagesByteCodeProcessor"/>
+			<palette>
+				<category id="org.eclipse.wb.rcp.system" name="System" description="System tools">
+					<entry id="system.selection"
+						class="org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo"/>
+					<entry id="system.marquee"
+						class="org.eclipse.wb.core.editor.palette.model.entry.MarqueeSelectionToolEntryInfo"/>
+					<entry id="system.chooseComponent"
+						class="org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo"/>
+					<entry id="system.tabOrder"
+						class="org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo"
+					/>
+				</category>
+				<category id="org.eclipse.wb.rcp.composites" name="Composites"
+					description="Composites">
+					<component class="org.eclipse.swt.widgets.Composite"/>
+					<component class="org.eclipse.swt.widgets.Group"/>
+					<component class="org.eclipse.swt.custom.ScrolledComposite"/>
+					<component class="org.eclipse.swt.custom.SashForm"/>
+					<component class="org.eclipse.swt.widgets.TabFolder"/>
+					<component class="org.eclipse.swt.widgets.TabItem"/>
+					<component class="org.eclipse.swt.custom.CTabFolder"/>
+					<component class="org.eclipse.swt.custom.CTabItem"/>
+					<component class="org.eclipse.swt.custom.ViewForm"/>
+					<component class="org.eclipse.swt.custom.CBanner"/>
+				</category>
+				<category id="org.eclipse.wb.rcp.layouts" name="Layouts" description="SWT Layouts">
+					<entry id="system.layout.absolute"
+						class="org.eclipse.wb.internal.swt.palette.AbsoluteLayoutEntryInfo"/>
+					<component class="org.eclipse.swt.layout.FillLayout"/>
+					<component class="org.eclipse.swt.layout.GridLayout"/>
+					<component class="org.eclipse.swt.layout.FormLayout"/>
+					<component class="org.eclipse.swt.layout.RowLayout"/>
+					<component class="org.eclipse.swt.custom.StackLayout"/>
+				</category>
+				<category id="org.eclipse.wb.rcp.controls" name="Controls" description="Controls">
+					<component class="org.eclipse.swt.widgets.Label"/>
+					<component class="org.eclipse.swt.widgets.Text"/>
+					<component class="org.eclipse.swt.widgets.Combo"/>
+					<component class="org.eclipse.swt.widgets.Button"/>
+					<component class="org.eclipse.swt.widgets.Button" creationId="check"/>
+					<component class="org.eclipse.swt.widgets.Button" creationId="radio"/>
+					<component class="org.eclipse.swt.widgets.Spinner"/>
+					<component class="org.eclipse.swt.widgets.DateTime"/>
+					<component class="org.eclipse.swt.widgets.Table"/>
+					<component class="org.eclipse.swt.widgets.TableColumn"/>
+					<component class="org.eclipse.swt.widgets.TableItem"/>
+					<component class="org.eclipse.swt.custom.TableCursor"/>
+					<component class="org.eclipse.swt.widgets.Tree"/>
+					<component class="org.eclipse.swt.widgets.TreeColumn"/>
+					<component class="org.eclipse.swt.widgets.TreeItem"/>
+					<component class="org.eclipse.swt.widgets.List"/>
+					<component class="org.eclipse.swt.widgets.ToolBar"/>
+					<component class="org.eclipse.swt.widgets.ToolItem"/>
+					<component class="org.eclipse.swt.widgets.ToolItem" creationId="check"/>
+					<component class="org.eclipse.swt.widgets.ToolItem" creationId="radio"/>
+					<component class="org.eclipse.swt.widgets.ToolItem" creationId="dropDown"/>
+					<component class="org.eclipse.swt.widgets.ToolItem" creationId="separator"/>
+					<component class="org.eclipse.swt.widgets.CoolBar"/>
+					<component class="org.eclipse.swt.widgets.CoolItem"/>
+					<component class="org.eclipse.swt.widgets.Label"
+						creationId="separatorHorizontal"/>
+					<component class="org.eclipse.swt.widgets.Label" creationId="separatorVertical"/>
+					<component class="org.eclipse.swt.widgets.ProgressBar"/>
+					<component class="org.eclipse.swt.widgets.Canvas"/>
+					<component class="org.eclipse.swt.widgets.Scale"/>
+					<component class="org.eclipse.swt.widgets.Slider"/>
+					<component class="org.eclipse.swt.browser.Browser"/>
+					<component class="org.eclipse.swt.widgets.Link"/>
+					<component class="org.eclipse.swt.widgets.ExpandBar"/>
+					<component class="org.eclipse.swt.widgets.ExpandItem"/>
+					<component class="org.eclipse.swt.custom.CLabel"/>
+					<component class="org.eclipse.swt.custom.CCombo"/>
+					<component class="org.eclipse.swt.custom.StyledText"/>
+					<component class="org.eclipse.swt.custom.TableTree" condition="!(isdef isXWT)"/>
+					<component class="org.eclipse.swt.dnd.DragSource"/>
+					<component class="org.eclipse.swt.dnd.DropTarget"/>
+					<component class="org.eclipse.swt.widgets.TrayItem" condition="!(isdef isXWT)"/>
+				</category>
+				<category id="org.eclipse.wb.rcp.jface" name="JFace" description="JFace">
+					<component class="org.eclipse.jface.viewers.ComboViewer"/>
+					<component class="org.eclipse.jface.viewers.ListViewer"/>
+					<component class="org.eclipse.jface.viewers.TableViewer"/>
+					<component class="org.eclipse.jface.viewers.TableViewerColumn"/>
+					<static-factory class="org.eclipse.jface.viewers.CheckboxTableViewer">
+						<method signature="newCheckList(org.eclipse.swt.widgets.Composite,int)"
+							name="CheckboxTableViewer"/>
+					</static-factory>
+					<component class="org.eclipse.jface.viewers.TreeViewer"/>
+					<component class="org.eclipse.jface.viewers.TreeViewerColumn"/>
+					<component class="org.eclipse.jface.viewers.CheckboxTreeViewer"/>
+					<component class="org.eclipse.jface.viewers.TableTreeViewer"
+						condition="!(isdef isXWT)"/>
+					<entry id="org.eclipse.wb.rcp.jface.TableComposite"
+						class="org.eclipse.wb.internal.rcp.palette.TableCompositeEntryInfo"/>
+					<entry id="org.eclipse.wb.rcp.jface.TableViewerComposite"
+						class="org.eclipse.wb.internal.rcp.palette.TableViewerCompositeEntryInfo"/>
+					<entry id="org.eclipse.wb.rcp.jface.TreeComposite"
+						class="org.eclipse.wb.internal.rcp.palette.TreeCompositeEntryInfo"/>
+					<entry id="org.eclipse.wb.rcp.jface.TreeViewerComposite"
+						class="org.eclipse.wb.internal.rcp.palette.TreeViewerCompositeEntryInfo"/>
+					<component class="org.eclipse.jface.text.TextViewer"/>
+					<component class="org.eclipse.jface.fieldassist.ControlDecoration"
+						condition="!(isdef isXWT)"/>
+				</category>
+				<category id="org.eclipse.wb.rcp.FormsAPI" name="Forms API"
+					description="Forms API widgets" open="false" optional="true">
+					<component class="org.eclipse.ui.forms.widgets.ColumnLayout"/>
+					<component class="org.eclipse.ui.forms.widgets.TableWrapLayout"/>
+					<instance-factory class="org.eclipse.ui.forms.widgets.FormToolkit">
+						<method
+							signature="createButton(org.eclipse.swt.widgets.Composite,java.lang.String,int)"
+							name="Button"/>
+						<method signature="createComposite(org.eclipse.swt.widgets.Composite,int)"
+							name="Composite"/>
+						<method
+							signature="createCompositeSeparator(org.eclipse.swt.widgets.Composite)"
+							name="Composite Separator"/>
+						<method
+							signature="createLabel(org.eclipse.swt.widgets.Composite,java.lang.String,int)"
+							name="Label"/>
+						<method
+							signature="createHyperlink(org.eclipse.swt.widgets.Composite,java.lang.String,int)"
+							name="Hyperlink"/>
+						<method
+							signature="createImageHyperlink(org.eclipse.swt.widgets.Composite,int)"
+							name="ImageHyperlink"/>
+						<method
+							signature="createFormText(org.eclipse.swt.widgets.Composite,boolean)"
+							name="FormText"/>
+						<method signature="createSeparator(org.eclipse.swt.widgets.Composite,int)"
+							name="Separator"/>
+						<method signature="createTable(org.eclipse.swt.widgets.Composite,int)"
+							name="Table"/>
+						<method
+							signature="createText(org.eclipse.swt.widgets.Composite,java.lang.String,int)"
+							name="Text"/>
+						<method signature="createTree(org.eclipse.swt.widgets.Composite,int)"
+							name="Tree"/>
+						<method
+							signature="createExpandableComposite(org.eclipse.swt.widgets.Composite,int)"
+							name="ExpandableComposite"/>
+						<method signature="createSection(org.eclipse.swt.widgets.Composite,int)"
+							name="Section"/>
+						<method signature="createForm(org.eclipse.swt.widgets.Composite)"
+							name="Form"/>
+						<method signature="createScrolledForm(org.eclipse.swt.widgets.Composite)"
+							name="ScrolledForm"/>
+					</instance-factory>
+				</category>
+				<category id="org.eclipse.wb.rcp.fieldEditors" name="FieldEditors"
+					description="FieldEditor's for FieldEditorPreferencePage"
+					condition="!(isdef isXWT)">
+					<component class="org.eclipse.jface.preference.BooleanFieldEditor"/>
+					<component class="org.eclipse.jface.preference.StringFieldEditor"/>
+					<component class="org.eclipse.jface.preference.IntegerFieldEditor"/>
+					<entry class="org.eclipse.wb.internal.rcp.palette.DoubleFieldEditorEntryInfo"/>
+					<component class="org.eclipse.jface.preference.ComboFieldEditor"/>
+					<component class="org.eclipse.jface.preference.RadioGroupFieldEditor"/>
+					<component class="org.eclipse.jface.preference.ColorFieldEditor"/>
+					<component class="org.eclipse.jface.preference.FontFieldEditor"/>
+					<component class="org.eclipse.jface.preference.ScaleFieldEditor"/>
+					<component class="org.eclipse.jface.preference.PathEditor"/>
+					<component class="org.eclipse.jface.preference.DirectoryFieldEditor"/>
+					<component class="org.eclipse.jface.preference.FileFieldEditor"/>
+				</category>
+				<category id="org.eclipse.wb.rcp.menu" name="Menu">
+					<component class="org.eclipse.swt.widgets.Menu" creationId="bar"
+						condition="ReflectionUtils.isSuccessorOf(
+							rootModel.object,
+							'org.eclipse.swt.widgets.Shell')"/>
+					<component class="org.eclipse.swt.widgets.Menu"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="cascade"/>
+					<component class="org.eclipse.swt.widgets.MenuItem"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="radio"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="check"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="separator"/>
+				</category>
+			</palette>
+		</toolkit>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.paletteComponentExists">
+		<component package="org.eclipse.swt." always="true"/>
+		<component package="org.eclipse.jface." hasType="true"/>
+		<component package="org.eclipse.ui.forms.widgets." hasType="true"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Layout managers -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.layoutManagers">
+		<layout toolkit="org.eclipse.wb.rcp" id="gridLayout" name="GridLayout"
+			class="org.eclipse.swt.layout.GridLayout"/>
+		<layout toolkit="org.eclipse.wb.rcp" id="fillLayout" name="FillLayout"
+			class="org.eclipse.swt.layout.FillLayout"/>
+		<layout toolkit="org.eclipse.wb.rcp" id="rowLayout" name="RowLayout"
+			class="org.eclipse.swt.layout.RowLayout"/>
+		<layout toolkit="org.eclipse.wb.rcp" id="formLayout" name="FormLayout"
+			class="org.eclipse.swt.layout.FormLayout"/>
+		<layout toolkit="org.eclipse.wb.rcp" id="stackLayout" name="StackLayout"
+			class="org.eclipse.swt.custom.StackLayout"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Surround with -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.surroundWith">
+		<target toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.swt.model.util.surround.CompositeSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.swt.model.util.surround.GroupSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.rcp.model.util.surround.ScrolledCompositeSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.rcp.model.util.surround.SashFormSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.rcp.model.util.surround.TabFolderSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.rcp.model.util.surround.CTabFolderSurroundTarget"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.surroundWith">
+		<processor toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutSurroundProcessor"/>
+		<processor toolkit="org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutSurroundProcessor"/>
+	</extension>
+
+
+
+	<!-- ======================================================== -->
+	<!-- NLS sources -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.nlsSources">
+		<binding toolkit="org.eclipse.wb.rcp"
+			description="org.eclipse.wb.core.nls.bundle.eclipse.old.EclipseSource"/>
+		<binding toolkit="org.eclipse.wb.rcp"
+			description="org.eclipse.wb.core.nls.bundle.eclipse.modern.ModernEclipseSource"/>
+		<binding toolkit="org.eclipse.wb.rcp"
+			description="org.eclipse.wb.core.nls.bundle.pure.direct.DirectSource"/>
+		<binding toolkit="org.eclipse.wb.rcp"
+			description="org.eclipse.wb.core.nls.bundle.pure.field.FieldSource"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.preferenceTransfer">
+		<transfer id="org.eclipse.wb.rcp.preferencesTransfer" icon="icons/preference_transfer.png"
+			name="Designer RCP Preferences">
+			<mapping scope="instance">
+				<entry node="org.eclipse.wb.rcp"/>
+			</mapping>
+		</transfer>
+	</extension>
+
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.rcp.preferences.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.rcp.model.layout.absolute.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.rcp.preferences.event.PreferenceInitializer"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page category="org.eclipse.wb.core.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.MainPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.MainPreferencePage" name="SWT">
+			<keywordReference id="org.eclipse.wb.kw.rcp.root"/>
+		</page>
+		<!-- Code generation -->
+		<page category="org.eclipse.wb.rcp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.code.CodeGenerationPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.code.CodeGenerationPreferencePage"
+			name="Code Generation">
+			<keywordReference id="org.eclipse.wb.kw.rcp.codeGeneration"/>
+		</page>
+		<page category="org.eclipse.wb.rcp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.event.EventsPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.event.EventsPreferencePage" name="Event handlers">
+			<keywordReference id="org.eclipse.wb.kw.rcp.eventHandlers"/>
+		</page>
+		<page category="org.eclipse.wb.rcp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.code.VariablesPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.code.VariableNamesPreferencePage" name="Variables"/>
+		<page category="org.eclipse.wb.rcp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.code.NlsPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.code.NLSPreferencePage" name="NLS"/>
+		<!-- Layouts -->
+		<page category="org.eclipse.wb.rcp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.layout.LayoutsPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.layout.LayoutSupportPreferencePage" name="Layouts"/>
+		<page category="org.eclipse.wb.rcp.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.layout.AbsoluteLayoutPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.layout.AbsoluteLayoutSupportPreferencePage"
+			name="Absolute">
+			<keywordReference id="org.eclipse.wb.kw.rcp.absoluteLayout"/>
+		</page>
+		<page category="org.eclipse.wb.rcp.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.layout.GridLayoutPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.layout.GridLayoutPreferencePage" name="GridLayout"/>
+		<page category="org.eclipse.wb.rcp.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.layout.FormLayoutPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.layout.FormLayoutPreferencePage" name="FormLayout"/>
+		<!-- RCP -->
+		<page category="org.eclipse.wb.rcp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.rcp.FormsPreferencePage"
+			id="org.eclipse.wb.rcp.preferences.forms.FormsPreferencePage" name="Forms API"/>
+		<page category="org.eclipse.wb.rcp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.rcp.preferences.rcp.PreferencePagePreferencePage"
+			id="org.eclipse.wb.rcp.preferences.rcp.PreferencePagePreferencePage"
+			name="PreferencePage"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.keywords">
+		<keyword label="%preferenceKeywords.rcp.root" id="org.eclipse.wb.kw.rcp.root"/>
+		<keyword label="%preferenceKeywords.rcp.codeGeneration"
+			id="org.eclipse.wb.kw.rcp.codeGeneration"/>
+		<keyword label="%preferenceKeywords.rcp.eventHandlers"
+			id="org.eclipse.wb.kw.rcp.eventHandlers"/>
+		<keyword label="%preferenceKeywords.rcp.absoluteLayout"
+			id="org.eclipse.wb.kw.rcp.absoluteLayout"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.rcp.gef.EditPartFactory" priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.editPartConfigurators">
+		<configurator class="org.eclipse.wb.internal.rcp.gef.policy.RcpPolicyConfigurator"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.rcp.gef.LayoutEditPolicyFactory" priority="1"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories for TreeViewer -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.treeEditPartFactories">
+		<factory class="org.eclipse.wb.internal.rcp.gefTree.EditPartFactory" priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.treeEditPartConfigurators">
+		<configurator class="org.eclipse.wb.internal.rcp.gefTree.policy.RcpPolicyConfigurator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- New Wizards -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.eclipse.wb.rcp" name="SWT Designer" parentCategory="org.eclipse.wb"
+			wbp-menu-inline="true"/>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.project.NewProjectWizard"
+			icon="icons/wizard/Project/wizard.gif" id="org.eclipse.wb.rcp.project.wizard"
+			name="SWT/JFace Java Project" project="true" wbp-menu-visible="false">
+			<description> Create a Java project with SWT/JFace support </description>
+		</wizard>
+		<!-- SWT Items -->
+		<category id="org.eclipse.wb.rcp.swt" name="SWT"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard name="Application Window" icon="icons/wizard/ApplicationWindow/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.swt"
+			class="org.eclipse.wb.internal.rcp.wizards.swt.application.SwtApplicationWizard"
+			id="org.eclipse.wb.rcp.swt.SWTApplicationWizard">
+			<description> Create an SWT application window </description>
+		</wizard>
+		<wizard name="Dialog" icon="icons/wizard/Dialog/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.swt"
+			class="org.eclipse.wb.internal.rcp.wizards.swt.dialog.DialogWizard"
+			id="org.eclipse.wb.rcp.swt.SWTDialogWizard">
+			<description> Create an SWT dialog </description>
+		</wizard>
+		<wizard name="Composite" icon="icons/wizard/Composite/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.swt"
+			class="org.eclipse.wb.internal.rcp.wizards.swt.composite.CompositeWizard"
+			id="org.eclipse.wb.rcp.swt.SWTCompositeWizard">
+			<description> Create an SWT Composite or Group </description>
+		</wizard>
+		<wizard name="Shell" icon="icons/wizard/Shell/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.swt"
+			class="org.eclipse.wb.internal.rcp.wizards.swt.shell.ShellWizard"
+			id="org.eclipse.wb.rcp.swt.SWTShellWizard">
+			<description> Create an SWT Shell </description>
+		</wizard>
+		<!-- JFace Items -->
+		<category id="org.eclipse.wb.rcp.jface" name="JFace"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard name="Dialog" icon="icons/wizard/JFace/Dialog/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.jface"
+			class="org.eclipse.wb.internal.rcp.wizards.jface.dialog.DialogWizard"
+			id="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.jface.DialogWizard">
+			<description> Create a JFace dialog </description>
+		</wizard>
+		<wizard name="TitleAreaDialog" icon="icons/wizard/JFace/TitleAreaDialog/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.jface"
+			class="org.eclipse.wb.internal.rcp.wizards.jface.dialog.TitleAreaDialogWizard"
+			id="org.eclipse.wb.rcp.jface.TitleAreaDialogWizard">
+			<description> Create a JFace title area dialog </description>
+		</wizard>
+		<wizard name="ApplicationWindow" icon="icons/wizard/JFace/ApplicationWindow/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.jface"
+			class="org.eclipse.wb.internal.rcp.wizards.jface.application.JFaceApplicationWizard"
+			id="org.eclipse.wb.rcp.jface.ApplicationWindowWizard">
+			<description> Create an ApplicationWindow </description>
+		</wizard>
+		<wizard name="WizardPage" icon="icons/wizard/JFace/WizardPage/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.jface"
+			class="org.eclipse.wb.internal.rcp.wizards.jface.wizard.WizardPageWizard"
+			id="org.eclipse.wb.rcp.jface.WizardPageWizard">
+			<description> Create a Wizard Page </description>
+		</wizard>
+		<wizard name="Wizard" icon="icons/wizard/JFace/Wizard/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.jface"
+			class="org.eclipse.wb.internal.rcp.wizards.jface.wizard.WizardWizard"
+			id="org.eclipse.wb.rcp.jface.WizardWizard">
+			<description> Create a Wizard</description>
+		</wizard>
+		<!-- RCP Items -->
+		<category id="org.eclipse.wb.rcp.rcp" name="RCP"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard name="ViewPart" icon="icons/wizard/ViewPart/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.view.ViewPartWizard"
+			id="org.eclipse.wb.rcp.rcp.ViewPartWizard">
+			<description> Create a Eclipse ViewPart </description>
+		</wizard>
+		<wizard name="EditorPart" icon="icons/wizard/EditorPart/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.editor.EditorPartWizard"
+			id="org.eclipse.wb.rcp.rcp.EditorPartWizard">
+			<description> Create a Eclipse EditorPart </description>
+		</wizard>
+		<wizard name="MultiPageEditorPart" icon="icons/wizard/MultiPageEditorPart/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.editor.MultiPageEditorPartWizard"
+			id="org.eclipse.wb.rcp.wizards.rcp.editor.MultiPageEditorPartWizard">
+			<description>Create a Eclipse MultiPageEditorPart</description>
+		</wizard>
+		<wizard name="PreferencePage" icon="icons/wizard/PreferencePage/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.preference.PreferencePageWizard"
+			id="org.eclipse.wb.rcp.rcp.PreferencePageWizard">
+			<description> Create a Eclipse PreferencePage </description>
+		</wizard>
+		<wizard name="PropertyPage" icon="icons/wizard/PropertyPage/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.property.PropertyPageWizard"
+			id="org.eclipse.wb.rcp.rcp.PropertyPageWizard">
+			<description> Create a Eclipse PropertyPage </description>
+		</wizard>
+		<wizard name="PageBookViewPage" icon="icons/wizard/PageBook/page.png"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.pagebook.PageBookWizard"
+			id="org.eclipse.wb.rcp.rcp.PageBookViewPageWizard">
+			<description> Create a Page for PageBookView </description>
+		</wizard>
+		<wizard name="Perspective" icon="icons/wizard/Perspective/wizard.png"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.perspective.PerspectiveWizard"
+			id="org.eclipse.wb.rcp.rcp.PerspectiveWizard">
+			<description> Create a Eclipse Perspective Factory </description>
+		</wizard>
+		<wizard name="ActionBarAdvisor" icon="icons/wizard/ActionBarAdvisor/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.rcp"
+			class="org.eclipse.wb.internal.rcp.wizards.rcp.advisor.ActionBarAdvisorWizard"
+			id="org.eclipse.wb.rcp.rcp.ActionBarAdvisorWizard">
+			<description> Create a Eclipse ActionBarAdvisor </description>
+		</wizard>
+		<!-- Forms Items -->
+		<category id="org.eclipse.wb.rcp.forms" name="Forms"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard name="FormPage" icon="icons/wizard/Forms/FormPage/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.forms"
+			class="org.eclipse.wb.internal.rcp.wizards.forms.page.FormPageWizard"
+			id="org.eclipse.wb.rcp.forms.FormPageWizard">
+			<description> Create an Eclipse Forms FormPage </description>
+		</wizard>
+		<wizard name="SectionPart" icon="icons/wizard/Forms/SectionPart/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.forms"
+			class="org.eclipse.wb.internal.rcp.wizards.forms.section.SectionPartWizard"
+			id="org.eclipse.wb.rcp.forms.SectionPartWizard">
+			<description> Create an Eclipse Forms SectionPart </description>
+		</wizard>
+		<wizard name="DetailsPage" icon="icons/wizard/Forms/IDetailsPage/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.forms"
+			class="org.eclipse.wb.internal.rcp.wizards.forms.details.DetailsPageWizard"
+			id="org.eclipse.wb.rcp.forms.DetailsPageWizard">
+			<description> Create an Eclipse Forms DetailsPage </description>
+		</wizard>
+		<wizard name="MasterDetailsBlock" icon="icons/wizard/Forms/MasterDetailsBlock/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.forms"
+			class="org.eclipse.wb.internal.rcp.wizards.forms.master.MasterDetailsBlockWizard"
+			id="org.eclipse.wb.rcp.forms.MasterDetailsBlockWizard">
+			<description> Create an Eclipse Forms MasterDetailsBlock </description>
+		</wizard>
+		<wizard name="ViewPart" icon="icons/wizard/Forms/ViewPart/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.forms"
+			class="org.eclipse.wb.internal.rcp.wizards.forms.view.ViewPartWizard"
+			id="org.eclipse.wb.rcp.forms.ViewPartWizard">
+			<description> Create an Eclipse Forms ViewPart </description>
+		</wizard>
+		<wizard name="Composite" icon="icons/wizard/Forms/Composite/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.forms"
+			class="org.eclipse.wb.internal.rcp.wizards.forms.composite.CompositeWizard"
+			id="org.eclipse.wb.rcp.forms.CompositeWizard">
+			<description> Create an Eclipse Forms Composite </description>
+		</wizard>
+	</extension>
+
+	<!-- ======================================================== -->
+	<!-- Baseline -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.baselineSupport">
+		<support class="org.eclipse.wb.internal.rcp.laf.BaselineSupport"/>
+	</extension>
+
+</plugin>

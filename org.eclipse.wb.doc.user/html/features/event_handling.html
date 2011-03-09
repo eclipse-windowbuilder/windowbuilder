@@ -1,0 +1,140 @@
+<html>
+
+<head>
+<title>Event Handling</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h1>Event Handling </h1>
+
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<!-- MSTableType="nolayout" -->
+	<tr>
+		<td valign="top">
+
+<p>Events
+occur when the user interacts with the UI.<span style="mso-spacerun: yes">
+</span>The appropriate event-handling code is then executed.<span
+style="mso-spacerun: yes"> </span>In order to know when events occur, event
+handlers must first be added to your components.<span style="mso-spacerun:
+yes"> </span>The tool makes it very easy to add and remove event listeners
+to your components.</p>
+
+		</td>
+		<td valign="top" rowspan="2">
+
+			<img src="../userinterface/images/property_pane_events.png" alt="" border="0" hspace="5" align="right"></td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<h2>Adding an Event Handler</h2>
+
+<p>
+			There
+are two ways to add an event handler with the the editor.<span
+style="mso-spacerun: yes"> </span>The first way is through the <b><a href="../userinterface/property_pane.html">Property Pane</a></b>.<span
+style="mso-spacerun: yes"> </span>First select a component in either the <b><a href="../userinterface/component_tree.html">Component Tree</a></b> or the <b><a href="../userinterface/design_view.html">Design View</a></b>.<span style="mso-spacerun: yes"> 
+Click the <b>Show Events</b> </span>
+			<img border="0" src="../userinterface/images/events.gif" width="16" height="16"> 
+button to reveal the events list in the <b><a href="../userinterface/property_pane.html">Property Pane</a></b>.<span style="mso-spacerun: yes">
+E</span>xpand an event and double-click or press <b>Enter</b> on the event 
+handler you
+wish to implement.</p></td>
+            </tr>
+	<tr>
+		<td valign="top" colspan="2">
+
+<p>The
+second way to add an event handler is to simply <a href="../userinterface/context_menu.html">right-click</a> on a 
+component (either
+in the <b><a href="../userinterface/design_view.html">Design View</a></b> or in the <b><a href="../userinterface/component_tree.html">Component Tree</a></b>), select 
+<b>Add event handler &gt; [name of the
+event] &gt; [name of the event handler to implement]</b>.</p>
+
+<p>
+<img border=0
+src="images/add_event_handler_menu.png" v:shapes="_x0000_i1049"></p>
+
+<p>A
+quick way to add event listeners to buttons (including check and radio buttons)
+and menu items is to simply double-click on the
+button or menu item. When
+double-clicked, a selection event listener will be created.</p>
+
+<p>
+Any way you add an event, the tool will automatically create an event 
+handler
+for the selected event method.<span style="mso-spacerun: yes"> </span>The editor
+will then switch to the <b><a href="../userinterface/source_view.html">Source View</a></b> and go directly to the new event handler
+method.<span style="mso-spacerun: yes"> </span>The code generated looks like
+the following:</p>
+
+<font SIZE="2">
+<dl>
+	<dd></font><font face="Courier"><font COLOR="#0000c0">browseButton</font> = <font COLOR="#7f0055">
+	<b>new</b></font> Button(shell, SWT.<font COLOR="#0000c0"><i>NONE</i></font>);</font></dd>
+	<dd><font face="Courier"><font COLOR="#0000c0">browseButton</font>.addSelectionListener(<font COLOR="#7f0055"><b>new</b></font> 
+	SelectionListener() {</font><dl>
+		<dd><font face="Courier"><font COLOR="#7f0055"><b>public</b></font> <font COLOR="#7f0055"><b>
+		void</b></font> widgetDefaultSelected(SelectionEvent arg0) {</font></dd>
+		<dd><font face="Courier">}</font></dd>
+		<dd><font face="Courier"><font COLOR="#7f0055"><b>public</b></font> <font COLOR="#7f0055"><b>
+		void</b></font> widgetSelected(SelectionEvent arg0) {</font></dd>
+		<dd><font face="Courier">}</font></dd>
+	</dl>
+	</dd>
+	<dd><font face="Courier">});</font></dd>
+	<dd><font face="Courier"><font COLOR="#0000c0">browseButton</font>.setText(<font COLOR="#2a00ff">&quot;Browse...&quot;</font>);</font></dd>
+</dl>
+
+<p>
+<img border=0
+src="images/event_line_number_menu.png" v:shapes="_x0000_i1051" align="right" hspace="10">There
+are two ways to quickly return to the event-handling code from the <b><a href="../userinterface/design_view.html">Design View</a></b>.<span style="mso-spacerun: yes"> </span>In the <b><a href="../userinterface/property_pane.html">Property Pane</a></b>, 
+c<span style="mso-spacerun: yes">lick the <b>Show Events</b> </span>
+			<img border="0" src="../userinterface/images/events.gif" width="16" height="16"> 
+button and expand the event.<span style="mso-spacerun: yes"> </span>Then double-click
+or press <b>Enter</b> on the event method to return to the code.<span
+style="mso-spacerun: yes"> </span>The events' list in the <b><a href="../userinterface/property_pane.html">Property Pane</a></b> 
+is a list of all the events implemented, and each individual event's property
+value is the list of methods implemented.<span style="mso-spacerun: yes">
+</span>If a method has been implemented, its property value is the line number
+in the source code where its event-handling code begins.</p>
+<p>The
+other way to quickly return to the event-handling code is to right-click on a
+component (either in the <b><a href="../userinterface/design_view.html">Design View</a></b> or in the <b><a href="../userinterface/component_tree.html">Component Tree</a></b>), and then select
+the menu item for the correct method that was implemented.<span
+style="mso-spacerun: yes"> </span>Shown to the right is &quot;<b>actionPerformed 
+-&gt; line 111</b>&quot;
+being selected.<span style="mso-spacerun: yes"> </span>In this example, &quot;actionPerformed&quot; is the event method, and &quot;111&quot; is the line number in
+the source code on which the method begins.</p>
+
+<p class=MsoNormal style='margin-top:12.0pt;text-align:justify;line-height:
+14.0pt;mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>Note:
+the tool is also able to generate an event handler
+stub method when a new event is created by setting the appropriate code 
+generation preferences.</p>
+
+<h2>Deleting an Event Handler</h2>
+
+<p class=MsoNormal style='margin-top:12.0pt;text-align:justify;line-height:
+14.0pt;mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>There
+is only one way to delete an existing event handler in the editor.<span
+style="mso-spacerun: yes"> </span>Select a component in either the <b><a href="../userinterface/design_view.html">Design View</a></b> 
+or in the <b><a href="../userinterface/component_tree.html">Component Tree</a></b>.<span style="mso-spacerun: yes"> </span>In the <b><a href="../userinterface/property_pane.html">Property Pane</a></b> 
+expand expand the event, click on the event method you wish to delete and then press 
+<b>Delete</b>.<span
+style="mso-spacerun: yes"> </span>If there are no other methods that have been
+implemented for that event, the tool will also delete the event listener
+for that event.</p>
+
+		</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

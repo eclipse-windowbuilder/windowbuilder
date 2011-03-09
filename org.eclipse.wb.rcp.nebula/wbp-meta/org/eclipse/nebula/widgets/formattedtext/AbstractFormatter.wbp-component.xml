@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.formattedtext.AbstractFormatterInfo"/>
+	<description>Base class of formatters. Formatters can directly implement <code>ITextFormatter</code>, or
+		inherit this abstract class.</description>
+	<!-- PROPERTIES -->
+	<property id="setIgnore(boolean)">
+		<category value="advanced"/>
+		<defaultValue value="false"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="visible">false</parameter>
+		<parameter name="instanceProperty.exclude-properties">Class</parameter>
+	</parameters>
+</component>

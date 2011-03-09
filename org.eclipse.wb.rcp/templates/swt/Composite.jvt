@@ -1,0 +1,19 @@
+import org.eclipse.swt.widgets.Composite;
+
+method
+	/**
+	 * Create the composite.
+	 * @param parent
+	 * @param style
+	 */
+	public %TypeName%(Composite parent, int style) {
+		super(parent, style);
+		%SWTLayout%
+	}
+
+method
+	@Override
+	protected void checkSubclass () {
+		// Disable the check that prevents subclassing of SWT components
+	}
+

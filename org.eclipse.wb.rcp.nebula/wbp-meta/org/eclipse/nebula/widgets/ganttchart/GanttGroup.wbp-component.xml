@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!--<model class="org.eclipse.wb.internal.rcp.nebula.ganttchart.GanttGroupInfo"/>-->
+	<description>A GanttGroup is a group of GanttEvents that will all draw on the same horizontal "line" in
+		the GanttChart.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.ganttchart.GanttGroup(%parent%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setVerticalEventAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">TOP CENTER BOTTOM</parameter>
+		</editor>
+	</property>
+</component>

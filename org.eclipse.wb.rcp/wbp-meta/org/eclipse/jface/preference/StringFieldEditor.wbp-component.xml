@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A field editor for a string type preference.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.preference.StringFieldEditor("id", "New StringFieldEditor", -1, org.eclipse.jface.preference.StringFieldEditor.VALIDATE_ON_KEY_STROKE, %parentComposite%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="int" property="setTextLimit(int)"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="int" property="setTextLimit(int)"/>
+			<parameter type="int" property="setValidateStrategy(int)" defaultSource="org.eclipse.jface.preference.StringFieldEditor.VALIDATE_ON_KEY_STROKE"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setTextLimit(int)">
+		<defaultValue value="-1"/>
+	</property>
+	<property id="setValidateStrategy(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.jface.preference.StringFieldEditor</parameter>
+			<parameter name="fields">VALIDATE_ON_KEY_STROKE VALIDATE_ON_FOCUS_LOST</parameter>
+		</editor>
+		<defaultValue value="0"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="FieldEditor.exposeMethods">getLabelControl getTextControl</parameter>
+	</parameters>
+</component>

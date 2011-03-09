@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.WizardPageInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="setControl">
+			<parameter type="org.eclipse.swt.widgets.Control"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="title description"/>
+	<properties-advanced names="visible"/>
+	<property id="setVisible(boolean)">
+		<defaultValue value="true"/>
+	</property>
+</component>

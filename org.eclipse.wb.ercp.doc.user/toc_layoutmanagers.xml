@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Layout Managers" link_to="../org.eclipse.wb.doc.user/toc_layoutmanagers.xml#layoutmanagers">
+	<topic href="html/layoutmanagers/eRCP/index.html" label="eRCP"> 
+		<topic href="html/layoutmanagers/eRCP/absolutelayout.html" label="Absolute Layout"/>
+		<topic href="html/layoutmanagers/eRCP/filllayout.html" label="FillLayout"/>
+		<topic href="html/layoutmanagers/eRCP/gridlayout.html" label="GridLayout"/>
+		<topic href="html/layoutmanagers/eRCP/rowlayout.html" label="RowLayout"/>
+		<!-- topic href="html/layoutmanagers/eRCP/stacklayout.html" label="StackLayout" -->
+	</topic> 
+</toc>
+

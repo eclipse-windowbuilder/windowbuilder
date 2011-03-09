@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <model class="org.eclipse.wb.internal.rcp.model.forms.SectionPartInfo"/>
+    <creation>
+        <source><![CDATA[new org.eclipse.ui.forms.SectionPart(%parent%, (org.eclipse.ui.forms.widgets.FormToolkit) null, org.eclipse.ui.forms.widgets.Section.TWISTIE | org.eclipse.ui.forms.widgets.Section.TITLE_BAR)]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+            <parameter type="org.eclipse.ui.forms.widgets.FormToolkit"/>
+            <parameter type="int">
+                <editor id="style">
+                    <parameter name="title">SectionStyle</parameter>
+                    <parameter name="class">org.eclipse.ui.forms.widgets.Section</parameter>
+                    <parameter name="select0">expander 0 0 TWISTIE TREE_NODE</parameter>
+                    <parameter name="select1">title NO_TITLE NO_TITLE SHORT_TITLE_BAR TITLE_BAR</parameter>
+                    <parameter name="set">FOCUS_TITLE CLIENT_INDENT COMPACT EXPANDED
+                        LEFT_TEXT_CLIENT_ALIGNMENT DESCRIPTION</parameter>
+                </editor>
+            </parameter>
+        </constructor>
+        <constructor>
+            <parameter type="org.eclipse.ui.forms.widgets.Section" parent="true"/>
+        </constructor>
+    </constructors>
+</component>

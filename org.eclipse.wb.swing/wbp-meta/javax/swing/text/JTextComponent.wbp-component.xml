@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <!-- PROPERTIES -->
+    <properties-preferred names="text"/>
+	<properties-advanced names="border caret caretColor caretPosition disabledTextColor document dragEnabled focusAccelerator highlighter keymap margin navigationFilter selectedTextColor selectionColor selectionEnd selectionStart"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JTextField"/>
+		<morphTarget class="javax.swing.JFormattedTextField"/>
+		<morphTarget class="javax.swing.JPasswordField"/>
+		<morphTarget class="javax.swing.JTextArea"/>
+		<morphTarget class="javax.swing.JTextPane"/>
+		<morphTarget class="javax.swing.JEditorPane"/>
+	</morphTargets>
+</component>

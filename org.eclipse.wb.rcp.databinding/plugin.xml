@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension-point id="observeTypeContainer" name="Observable container"
+		schema="schema/observeTypeContainer.exsd"/>
+	<extension-point id="observeFactory" name="Global observe factory" schema="schema/observeFactory.exsd"/>
+
+
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.databinding.databindingFactories">
+		<factory class="org.eclipse.wb.internal.rcp.databinding.JFaceDatabindingsFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- ObserveType -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.rcp.databinding.observeTypeContainer">
+		<container class="org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer"
+			priority="100"/>
+		<container
+			class="org.eclipse.wb.internal.rcp.databinding.model.widgets.WidgetsObserveTypeContainer"
+			priority="99"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.rcp.databinding.preferences.PreferenceInitializer"/>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page category="org.eclipse.wb.rcp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.rcp.databinding.preferences.DbCodeGenerationPreferencePage"
+			id="org.eclipse.wb.internal.rcp.databinding.codeGenerationPage" name="JFace Data Bindings"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Wizards -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.eclipse.wb.internal.rcp.databinding" name="Databinding"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.internal.rcp.databinding"
+			class="org.eclipse.wb.internal.rcp.databinding.wizards.autobindings.AutomaticDatabindingWizard"
+			icon="icons/newjprj_wiz.gif" id="org.eclipse.wb.internal.rcp.databinding.AutobindingWizard"
+			name="JFace Automatic Databinding">
+			<description>Create an SWT container with automatic generated JFace bindings</description>
+		</wizard>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- DesignPage -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designPageFactories">
+		<factory class="org.eclipse.wb.internal.rcp.databinding.DesignPageFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Class loader -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoaderInitializers">
+		<initializer
+			class="org.eclipse.wb.internal.rcp.databinding.parser.BindingContextClassLoaderInitializer"
+			toolkit="org.eclipse.wb.rcp"/>
+	</extension>
+</plugin>

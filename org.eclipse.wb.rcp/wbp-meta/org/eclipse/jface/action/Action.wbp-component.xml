@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="org.eclipse.jface.resource.ImageDescriptor"
+				property="setImageDescriptor(org.eclipse.jface.resource.ImageDescriptor)"
+				defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int"/>
+		</constructor>
+	</constructors>
+</component>

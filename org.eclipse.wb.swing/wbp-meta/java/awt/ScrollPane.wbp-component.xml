@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A container class which implements automatic horizontal and/or vertical scrolling for a
+		single child component.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.ScrollPane()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int">
+				<editor id="staticField">
+					<parameter name="class">java.awt.ScrollPane</parameter>
+					<parameter name="fields">SCROLLBARS_AS_NEEDED SCROLLBARS_ALWAYS
+					SCROLLBARS_NEVER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.Panel"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

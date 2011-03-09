@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.gbl.GridBagConstraintsInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="gridx"/>
+			<parameter type="int" property="gridy"/>
+			<parameter type="int" property="gridwidth"/>
+			<parameter type="int" property="gridheight"/>
+			<parameter type="double" property="weightx"/>
+			<parameter type="double" property="weighty"/>
+			<parameter type="int" property="anchor"/>
+			<parameter type="int" property="fill"/>
+			<parameter type="java.awt.Insets" property="insets"/>
+			<parameter type="int" property="ipadx"/>
+			<parameter type="int" property="ipady"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="fill">
+		<editor id="staticField">
+			<parameter name="class">java.awt.GridBagConstraints</parameter>
+			<parameter name="fields">NONE HORIZONTAL VERTICAL BOTH</parameter>
+		</editor>
+	</property>
+	<property id="anchor">
+		<editor id="staticField">
+			<parameter name="class">java.awt.GridBagConstraints</parameter>
+			<parameter name="fields"> CENTER NORTH NORTHEAST EAST SOUTHEAST SOUTH SOUTHWEST WEST NORTHWEST
+				PAGE_START PAGE_END LINE_START LINE_END FIRST_LINE_START FIRST_LINE_END LAST_LINE_START
+				LAST_LINE_END BASELINE BASELINE_LEADING BASELINE_TRAILING ABOVE_BASELINE
+				ABOVE_BASELINE_LEADING ABOVE_BASELINE_TRAILING BELOW_BASELINE BELOW_BASELINE_LEADING
+				BELOW_BASELINE_TRAILING</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="visible">false</parameter>
+		<parameter name="variable.name">gbc</parameter>
+	</parameters>
+</component>

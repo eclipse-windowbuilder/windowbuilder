@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class is the abstract superclass of all user interface objects.</description>
+	<!-- METHODS -->
+	<methods>
+		<!-- setData() -->
+		<method name="setData">
+			<parameter type="java.lang.Object"/>
+		</method>
+		<method name="setData">
+			<parameter type="java.lang.String"/>
+			<parameter type="java.lang.Object"/>
+		</method>
+	</methods>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.swt.widgets"/>
+		<exclude package="org.eclipse.swt.custom"/>
+		<exclude package="org.eclipse.ui.forms.widgets"/>
+	</exposing-rules>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="GEF.relatedToolkitPackages.1">org.eclipse.wb.internal.swt</parameter>
+		<parameter name="GEF.relatedToolkitPackages.2">org.eclipse.wb.internal.rcp</parameter>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.swt.widgets.Widget"><![CDATA[
+			Dispose 
+		]]></parameter>
+	</parameters>
+</component>

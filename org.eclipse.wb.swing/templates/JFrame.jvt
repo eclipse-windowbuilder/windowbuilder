@@ -1,0 +1,30 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+
+method
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					%TypeName% frame = new %TypeName%();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+method
+	/**
+	 * Create the frame.
+	 */
+	public %TypeName%() {
+		setBounds(100, 100, %DefaultFormSize%);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		%ContentPane.SwingLayout%
+	}
+

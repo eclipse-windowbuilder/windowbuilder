@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.FieldLayoutPreferencePageInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="org.eclipse.jface.resource.ImageDescriptor"
+				property="setImageDescriptor(org.eclipse.jface.resource.ImageDescriptor)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="addField">
+			<parameter type="org.eclipse.jface.preference.FieldEditor"/>
+		</method>
+	</methods>
+</component>

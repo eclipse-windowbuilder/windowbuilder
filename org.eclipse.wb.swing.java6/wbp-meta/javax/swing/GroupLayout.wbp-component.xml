@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo2"/>
+	<order>last</order>
+	<description>Swing GroupLayout.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.GroupLayout(%parent%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.awt.Container" parent="true"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setVerticalGroup" order="after setHorizontalGroup(javax.swing.GroupLayout.Group)">
+			<parameter type="javax.swing.GroupLayout$Group"/>
+		</method>
+		<method name="linkSize" order="after setVerticalGroup(javax.swing.GroupLayout.Group)">
+			<parameter type="int"/>
+			<parameter type="java.awt.Component[]"/>
+		</method>
+		<method name="linkSize" order="after setVerticalGroup(javax.swing.GroupLayout.Group)">
+			<parameter type="java.awt.Component[]"/>
+		</method>
+	</methods>
+</component>

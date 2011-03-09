@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<toolkit id="org.eclipse.wb.swing"/>
+	<model class="org.eclipse.wb.internal.swing.model.layout.absolute.ConstraintsAbsoluteLayoutDataInfo"/>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new test.MyConstraints(0, 0, 0, 0)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setX(int)"/>
+			<parameter type="int" property="setY(int)"/>
+			<parameter type="int" property="setWidth(int)"/>
+			<parameter type="int" property="setHeight(int)"/>
+		</constructor>
+	</constructors>
+</component>

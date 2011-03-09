@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.PopupDialogInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Shell"/>
+			<parameter type="int" property="setShellStyle(int)"/>
+			<parameter type="boolean"/>
+			<parameter type="boolean"/>
+			<parameter type="boolean"/>
+			<parameter type="boolean"/>
+			<parameter type="java.lang.String" property="setTitleText(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setInfoText(java.lang.String)"/>
+		</constructor>
+	</constructors>
+</component>

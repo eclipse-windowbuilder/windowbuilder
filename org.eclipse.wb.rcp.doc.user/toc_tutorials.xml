@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Tutorials &amp; Demos" link_to="../org.eclipse.wb.doc.user/toc_tutorials.xml#tutorials"> 
+	<topic href="html/features/swt/data_binding/example.html" label="SWT/JFace Data Binding"/>
+</toc>

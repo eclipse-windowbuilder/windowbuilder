@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.layout.ColumnPixelDataInfo"/>
+	<description>Describes the width of a column in pixels, and whether the column is resizable.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.viewers.ColumnPixelData(150, true, true)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="width"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="width"/>
+			<parameter type="boolean" property="resizable"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="width"/>
+			<parameter type="boolean" property="resizable"/>
+			<parameter type="boolean" property="addTrim"/>
+		</constructor>
+	</constructors>
+</component>

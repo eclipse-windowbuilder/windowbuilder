@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.ViewFormInfo"/>
+	<description>Instances of this class implement a Composite that lays out three children horizontally and
+		allows programmatic control of layout and border parameters. ViewForm is used in the workbench to
+		implement a view's label/menu/toolbar local bar.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.ViewForm(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setContent">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+		<method name="setTopLeft">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+		<method name="setTopCenter">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+		<method name="setTopRight">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<property id="setBorderVisible(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setTopCenterSeparate(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- border -->
+		<parameter name="shouldDrawBorder">true</parameter>
+	</parameters>
+</component>

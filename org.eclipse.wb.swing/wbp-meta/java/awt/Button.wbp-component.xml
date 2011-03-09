@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class creates a labeled button. The application can cause some action to happen when the
+		button is pushed.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Button("New button")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setLabel(java.lang.String)"/>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.Label"/>
+		<morphTarget class="java.awt.Checkbox"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="double-click.listener">action/performed</parameter>
+	</parameters>
+</component>

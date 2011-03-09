@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo"/>
+	<description>An implementation of a menu bar. You add JMenu objects to the menu bar to construct a menu.
+		When the user selects a JMenu object, its associated JPopupMenu is displayed, allowing the user to
+		select one of the JMenuItems on it.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JMenuBar()]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="add">
+			<parameter type="javax.swing.JMenu" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="border"/>
+	<properties-hidden names="UI helpMenu"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="NVO.disabled">true</parameter>
+	</parameters>
+</component>

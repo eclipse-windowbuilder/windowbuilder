@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="product_all">
+	<import file="../com.instantiations.eclipse.shared_build/build-macros.xml" />
+
+	<!-- ================================================= -->
+	<target name="set_recorder" if="recorder.file"
+		depends="read_build_properties">
+		<echo>recorder file ${build.root}/${recorder.file}</echo>
+		<mkdir dir="${build.root}"/>
+		<touch file="${build.root}/${recorder.file}"></touch>
+		<record name="${build.root}/${recorder.file}" loglevel="${recorder.level}"/>
+		<echoproperties format="text" destfile="${build.root}/properties.txt" />
+	</target>
+
+	<!-- ================================================= -->
+	<target name="read_build_properties">
+		<read_product_properties />
+	</target>
+
+	<!-- ================================================= -->
+	<target name="setup_workspace"
+	        if="setup.workspace"
+	        depends="read_build_properties">
+		<init_cc_workspace />
+		<eclipsetools.setClasspathVariable name="ECLIPSE32_HOME"
+			location="/opt/eclipses/eclipse_321" />
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_init"
+	        depends="read_build_properties, set_recorder, setup_workspace">
+		<checkEclipseRunning />
+		<checkEclipseClasspathVariable varname="ECLIPSE32_HOME" />
+		<checkEclipseClasspathVariable varname="ECLIPSE33_HOME" />
+		<checkEclipseClasspathVariable varname="ECLIPSE34_HOME" />
+		<checkEclipseClasspathVariable varname="ECLIPSE35_HOME" />
+		<init_product_properties eclipseSource="3.3"/>
+		<set_build_environments />
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_2.0" depends="product_init">
+		<build_product buildTarget="build_2.0" />
+		<zip_product prefix="" eclipseTarget="2.0">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_2.1" depends="product_init">
+		<build_product buildTarget="build_2.1" />
+		<zip_product prefix="" eclipseTarget="2.1">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_3.0" depends="product_init">
+		<build_product buildTarget="build_3.0" />
+		<zip_product prefix="" eclipseTarget="3.0">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_3.1" depends="product_init">
+		<build_product buildTarget="build_3.1" />
+		<zip_product prefix="" eclipseTarget="3.1">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_3.2" depends="product_init">
+		<build_product buildTarget="build_3.2" />
+		<zip_product prefix="" eclipseTarget="3.2">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_3.3" depends="product_init">
+		<build_product buildTarget="build_3.3" />
+		<zip_product prefix="" eclipseTarget="3.3">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_3.4" depends="product_init">
+		<build_product buildTarget="build_3.4" />
+		<zip_product prefix="" eclipseTarget="3.4">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_3.5" depends="product_init">
+		<build_product buildTarget="build_3.5" />
+		<zip_product prefix="" eclipseTarget="3.5">
+			<zipfileset dir="../designer" includes="designer-delete.bat" prefix="" />
+		</zip_product>
+	</target>
+
+	<!-- ================================================= -->
+	<target name="product_all" depends="product_init">
+		<build_product buildTarget="build_all" />
+		<ant antfile="../org.eclipse.wb.css.feature_installer/build-installer.xml"
+			dir="../org.eclipse.wb.css.feature_installer"
+		     target="build_installer" />
+		<createLoadImage product="CSSEditor" eclipsetarget="3.2"/>
+		<createLoadImage product="CSSEditor" eclipsetarget="3.3"/>
+		<createLoadImage product="CSSEditor" eclipsetarget="3.4"/>
+		<createLoadImage product="CSSEditor" eclipsetarget="3.5"/>
+		<finalize_build_product/>
+	</target>
+
+</project>

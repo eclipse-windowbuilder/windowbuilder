@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Edit Data Binding Dialog</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../../../book.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>Edit Data Binding Dialog</h1>
+	<h3>Supported for Eclipse 3.3 
+	and above only</h3>
+	<p class="pnoall">The tool provides two ways to quickly edit existing Data 
+	Bindings: the <b>Data Bindings</b> menu and the <b>bindings property</b> in 
+	the property pane.</p>
+	<div align="left">
+		<div align="left">
+			<table border="0" cellpadding="0" cellspacing="0" id="table4" width="800">
+				<tr>
+					<td valign="top">
+			<h2>Data Binding Menu</h2>
+			<p>The <b>Data Bindings</b> menu provides the ability to quickly 
+			edit a data binding for a widget. If the widget has existing data 
+			bindings, those are shown at the top of the cascaded menu and a list 
+			of widget properties is shown in a submenu. Clicking on a bound 
+			property will open the
+				<b>Edit Data Binding</b> dialog.<p>&nbsp;</td>
+					<td width="20">&nbsp;</td>
+					<td valign="top">
+			<h2>Bindings Property</h2>
+			<p class="pnoall">The <b>bindings property</b> in the property pane 
+			opens up to show a list of all bindable properties of the widget. 
+			Clicking the
+			<img border="0" src="images/dot-dot-dot-button.gif" width="20" height="13" align="bottom"> 
+				button next to a bound property will open the <b>Edit Data 
+			Binding</b> dialog.</p>
+	<p>&nbsp;</td>
+				</tr>
+				<tr>
+					<td valign="top">
+			<img border="0" src="images/data_binding_menu2.gif"></td>
+					<td width="20">&nbsp;</td>
+					<td valign="top">
+			<img border="0" src="images/data_binding_property_pane2.gif"></td>
+				</tr>
+				<tr>
+					<td valign="top">
+					<img border="0" src="images/edit_data_binding1.gif"></td>
+					<td width="20">&nbsp;</td>
+					<td valign="top">
+	<p class="pnoall">The <b>Edit Data 
+				Binding</b> dialog is used to 
+	customize the properties of the data binding itself. When editing a 
+	binding, the update strategy from <b>
+	target to model</b> and <b>model to target</b> may be specified as well as 
+	any strategy-specific properties (validators and converters). </p>
+	<p class="pnoall">When the Target or Model is a Text widget and the text 
+	property is selected, the triggering event may be specified as <b>SWT.Modify</b>,
+	<b>SWT.FocusOut</b> or <b>SWT.NONE</b>.</p>
+	<p class="pnoall">
+	<img border="0" src="images/text_events.gif"></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					&nbsp;</td>
+					<td width="20">&nbsp;</td>
+					<td valign="top">
+	&nbsp;</td>
+				</tr>
+				<tr>
+					<td valign="top">
+					<img border="0" src="images/edit_data_binding2.gif"></td>
+					<td width="20">&nbsp;</td>
+					<td valign="top">
+	<p class="pnoall">Predefined update value strategies - <b>POLICY_UPDATE</b>,
+	<b>POLICY_NEVER</b>, <b>POLICY_ON_REQUEST</b> and <b>POLICY_CONVERT</b> - 
+	may be selected or a custom strategy class may chosen.</p>
+	<p class="pnoall">
+	<img border="0" src="images/update_value_strategy1.gif" align="top">&nbsp;
+	<img border="0" src="images/update_value_strategy2.gif"></p>
+	<p class="pnoall">
+	When binding to a <b>selection</b> object, the entire 
+	object may be bound to using the <b>Selection as object</b> radio button or 
+	one of its fields may be bound to using the <b>Part of selection</b> radio 
+	button. When <b>Part of selection</b> is chosen, the type of the selection 
+	should be specified in the <b>Class</b> field. A property specific to the 
+	specified class may then be specified.</p>
+					</td>
+				</tr>
+			</table>
+			<p class="pnoall">
+	If the <b>Strategy Properties</b> section is expanded for either the <b>Target</b> 
+	or <b>Model</b>, validators (AfterConvert, AfterGet and BeforeSet) and converters 
+	can be specified.</p>
+			<p class="pnoall">
+	<img src="images/edit_binding_strategy_properties.gif" alt=""></p>
+			<p class="pnoall">
+	If necessary, the resulting binding object can be assigned to a field. This 
+	can be useful when you need to bind to the <b>validationStatus</b> of the 
+	binding itself.</p>
+			<p class="pnoall">
+	<img border="0" src="images/assign_binding_to_field.gif">&nbsp;&nbsp;
+	<img border="0" src="images/validation_status.gif" align="top"></p>
+	<h2>
+	Source</h2>
+			<p class="pnoall">Clicking the <b>Finish</b> button will generate 
+			the necessary data binding code which may then be seen in the <b>Source</b> 
+			view. An <b>initDataBindings()</b> method is created, if it does not 
+			already exist and a call the that method is added to the end of the 
+			widget creation process. Any needed observables are created first 
+			followed by the creation of the <b>Data Binding Context</b>. The 
+			data bindings are then created using the new context.</p>
+			<p class="pnoall">
+			<img border="0" src="images/data_binding_source2.gif"></p>
+			<p class="pnoall"><i><b>Warning: </b>do not edit the <b>
+			initDataBinding()</b> method by hand (without carefully matching the 
+			code generation pattern used by the tooll) as it will be regenerated 
+			in its entirety any time the tool needs to add, remove or update a 
+			data binding.</i></div>
+	</div>
+          </body>
+</html>

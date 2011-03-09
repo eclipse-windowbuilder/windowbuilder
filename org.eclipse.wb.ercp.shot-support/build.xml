@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name="eswt.shot-support" default="make_jar" basedir=".">
+    <target name="make_jar">
+    	<delete file="eswt.shot-support.jar"/>
+    	<delete file="../org.eclipse.wb.ercp/eswt.shot-support.jar"/>
+        <jar destfile="eswt.shot-support.jar">
+        	<fileset dir="bin">
+				<include name="**/*"/>
+        	</fileset>
+        </jar>
+    	<copy file="eswt.shot-support.jar" todir="../org.eclipse.wb.ercp"/>
+    </target>
+</project>

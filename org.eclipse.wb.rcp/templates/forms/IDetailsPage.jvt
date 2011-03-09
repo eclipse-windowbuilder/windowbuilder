@@ -1,0 +1,97 @@
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.IDetailsPage;
+import org.eclipse.ui.forms.IFormPart;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+
+field
+	private IManagedForm %field-prefix%managedForm;
+
+
+method
+	/**
+	 * Create the details page.
+	 */
+	public %TypeName%() {
+		// Create the details page
+	}
+
+method
+	/**
+	 * Initialize the details page.
+	 * @param form
+	 */
+	public void initialize(IManagedForm form) {
+		%this%%field-prefix%managedForm = form;
+	}
+
+method
+	/**
+	 * Create contents of the details page.
+	 * @param parent
+	 */
+	public void createContents(Composite parent) {
+		FormToolkit toolkit = %this%%field-prefix%managedForm.getToolkit();
+		parent.setLayout(new FillLayout());
+		//		
+		Section section = toolkit.createSection(parent, 
+			ExpandableComposite.EXPANDED | ExpandableComposite.TITLE_BAR);
+		section.setText("Empty Section");
+		//
+		Composite composite = toolkit.createComposite(section, SWT.NONE);
+		toolkit.paintBordersFor(composite);
+		section.setClient(composite);
+	}
+
+method
+	public void dispose() {
+		// Dispose
+	}
+
+method
+	public void setFocus() {
+		// Set focus
+	}
+
+method
+	private void update() {
+		// Update
+	}
+
+method
+	public boolean setFormInput(Object input) {
+		return false;
+	}
+
+method
+	public void selectionChanged(IFormPart part, ISelection selection) {
+		IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+		update();
+	}
+
+method
+	public void commit(boolean onSave) {
+		// Commit
+	}
+
+method
+	public boolean isDirty() {
+		return false;
+	}
+
+method
+	public boolean isStale() {
+		return false;
+	}
+
+method
+	public void refresh() {
+		update();
+	}
+

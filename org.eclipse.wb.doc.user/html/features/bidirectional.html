@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Bi-directional Code Generation</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../book.css" rel="stylesheet" type="text/css">
+<style>
+</style>
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>Bi-directional Code Generation</h1>
+	<table border="0" cellpadding="5" cellspacing="0" id="table1" width="910">
+		<tr>
+			<td valign="top">
+			<b>WindowBuilder Pro </b>is a powerful and easy to use bi-directional 
+			Java GUI designer, that directly generates Java code which can be changed in the 
+				<b><a href="../userinterface/design_view.html">Design View</a> </b> or directly in 
+			the <b><a href="../userinterface/source_view.html">Source View</a></b>. All changes made 
+				to the source code will be reflected in the graphical 
+				designer. The tool can read and write almost any
+format and reverse-engineer most hand-written Java GUI code. It also supports
+free form code editing (make changes anywhere...not just in <i>special</i>
+areas) and most user refactorings (you can move, rename and subdivide methods
+without a problem).<p>
+		<img border="0" src="../userinterface/images/source_view_right.png" width="902" height="305"></p>
+		<h2 style="font-weight: bold">Editing hand-written windows</h2>
+		<p>Most GUI builders in the world will only read and write the 
+			code that they themselves create. <b>WindowBuilder Pro </b>is an exception to 
+			that rule. It can read and write not only the code it creates, but 
+			also a great deal of code written by hand(&gt;90%). If you come across 
+			a case that does not work, send it to us for analysis. The more 
+			broken examples that we can "fix", the better the tool will get in 
+			the long run (and the better chance you will have of salvaging your 
+			old code as-is).</p><p>Note that dynamic GUI code can not be rendered or edited. The
+problem with dynamic code is that it generally relies on runtime
+calculations that have no meaning at runtime. Widgets created in a loop
+(where the loop parameters are passed in externally) are a good
+example. Widgets created in conditionals where the value of the
+conditional is not known until runtime are another example. Dynamic GUI
+code constructed from the results of complex database queries is yet
+another example.</p>
+		<h2 style="font-weight: bold">Modifying generated code</h2>
+		<p>The <b>WindowBuilder Pro </b>parser has a good understanding of basic 
+			Java code and various Swing and SWT patterns. As a result, it is 
+			very refactoring friendly and very resilient in the face of hand 
+			made changes. You can make changes or add code anywhere you like and 
+		the tool will reverse engineer it when possible. You can also 
+			refactor the code in almost any conceivable way and the tool will still be able to parse it and render it in the <b>
+		<a href="../userinterface/design_view.html">Design View</a></b>. For 
+			example, use the tool to create a new Swing JFrame, add some 
+			widgets, and then use the Eclipse refactoring tools to extract some 
+			of the widgets into their own methods.</p>
+		<h2 style="font-weight: bold;">No special tags required</h2>
+		<p>Using special tags or marking code read-only would 
+			go against several of <b>WindowBuilder Pro's</b> major design goals. 
+		The tool does 
+			not make any distinction between generated code and user-written 
+			code. The tool is designed to generated the same code that you would 
+			write by hand and to make minimal changes to the source when you 
+			make a change to the design view. The tool never regenerates the 
+			entire source for a file. If you change a single property, it will 
+			change only a single line of code. That line of code could 
+			theoretically be anywhere in the source file (including within lines 
+			originally created by the tool or within lines that you wrote by 
+			hand).</p>
+		<h2 style="font-weight: bold;">Specific constructs that can't be parsed</h2>
+		<p>Here are some examples of constructs that the parser 
+			does not yet handle:</p>
+		<ul>
+			<li>Re-use of GridBagConstraint objects across multiple widgets 
+				(we support reusing the same variable but not the same objects)</li>
+			<li>UI construction through the use of local 
+				parameterized helper methods</li>
+			<li>Multiple aliases (fields or local variables) referring to 
+				the same component</li>
+			<li>Multiple references to the same widget definition through 
+			multiple invocations of the same helper method</li>
+			<li>Dynamic GUI code based on runtime calculations</li>
+		</ul>
+			</td>
+		</tr>
+		</table>
+	      </body>
+</html>

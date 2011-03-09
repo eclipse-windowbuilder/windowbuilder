@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>Swing Data Binding</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../../../book.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>Swing Data Binding</h1>
+	<div align="left">
+	<p class="pnoall">The tool can create new <b>Data Bindings</b> in several 
+	different ways:</p>
+		<ul>
+			<li>
+			<p class="pnoall">Click the
+	<b><a href="#DataBindingTab">Bindings</a></b> tab in the editor to created and edit 
+			the bindings.</p></li>
+			<li>
+			<p class="pnoall">Right-clicking on a widget and selecting the <b>
+			<a href="#DataBindingMenu">Data Binding</a></b> menu.</p></li>
+			<li>
+			<p class="pnoall">Expanding the <b><a href="#BindingsProperty">bindings</a></b> property in the 
+			property pane.</p></li>
+			<li>
+			<p class="pnoall">Use the <b>
+			<a href="#AutomaticWizard">Swing Automatic Data Binding</a></b> 
+			wizard to create a complete user interface from a domain (bean) 
+			class.</p></li>
+		</ul>
+		<p class="pnoall">The tool will generate or update any necessary data binding 
+		code which may then be seen in the <b><a href="#Source">Source</a></b> 
+		view.</p>
+		<p class="pnoall">Detailed <a href="example.html">data binding example</a> 
+		code is available <a href="SwingBindingsTest.zip">here</a>.</p>
+	</div>
+	<h2><a name="DataBindingTab"></a>Data Binding Tab</h2>
+	<p class="pnoall">Click the
+	<b>Bindings</b> tab in the editor to created and edit 
+	data bindings.</p>
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/swing/images/data_binding_tab.gif" align="absbottom"></p>
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/swing/images/automatic_data_binding8.gif"></p>
+	<p class="pnoall">The <b>Bindings</b> tab supports the creation 
+	<b> 
+	<a href="swing_bindings.html">JSR 295 Swing data bindings</a></b>.</p>
+	<h2><a name="DataBindingMenu"></a>Data Binding Menu</h2>
+	<p class="pnoall">The <b>Data Bindings</b> menu provides the ability to 
+	quickly create or edit data bindings for a widget. If the widget does not 
+	have any data bindings, the menu immediately cascades out to show the 
+	available properties of the widget that can be bound to a model property. If 
+	the widget has existing data bindings, those are shown at the top of the 
+	cascaded menu followed by a separator and a list of widget properties. 
+	Clicking on an unbound property will open the <b>
+	<a href="create_data_binding_wizard.html">Create Data 
+				Binding</a></b> wizard while clicking a bound property will open 
+	the <b><a href="edit_data_binding_dialog.html">Edit Data Binding</a></b> 
+	dialog.</p>
+	<p class="pnoall">
+	<img border="0" src="images/data_binding_menu.gif">. </p>
+	<h2><a name="BindingsProperty"></a>Bindings 
+	Property</h2>
+	<p class="pnoall">The <b>bindings property</b> in the property 
+				pane opens up to show a list of all bindable properties of the 
+				widget. Clicking the
+				<img border="0" src="images/dot-dot-dot-button.gif" width="20" height="13" align="bottom"> 
+				button next to an unbound property will open the <b>
+	<a href="create_data_binding_wizard.html">Create Data 
+				Binding</a> </b> wizard while clicking the
+				<img border="0" src="images/dot-dot-dot-button.gif" width="20" height="13" align="bottom"> 
+				button next to a bound property will open the <b>
+	<a href="edit_data_binding_dialog.html">Edit Data Binding</a></b> dialog.</p>
+	<p class="pnoall">
+				<img border="0" src="images/data_binding_property_pane2.gif">. </p>
+	<h2><a name="AutomaticWizard"></a>Automatic Data Binding Wizard</h2>
+	<p class="pnoall">The <b>
+	<a href="../../../wizards/swing/automatic_databinding.html">Swing Automatic Data Binding</a></b> wizard can be used 
+	to create new user interface classes (Composites, Dialogs or Windows) 
+	complete with widgets, layouts and data bindings from arbitrary domain model 
+	(bean) classes..</p>
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/swing/images/automatic_data_binding2.gif" align="top">&nbsp;
+	<img border="0" src="../../../wizards/swing/images/automatic_data_binding5.gif"></p>
+	<h2><a name="IconDecorator"></a>Icon 
+	Decorator</h2>
+	<p class="pnoall">Any widget with a data binding assigned to will show up in 
+	the component tree with an icon decorator:&nbsp;
+	<img border="0" src="images/icon_decorator2.gif" align="absbottom">&nbsp;
+	<img border="0" src="images/icon_decorator3.gif" align="absbottom"></p>
+	<p class="pnoall">
+	<img border="0" src="images/icon_decorator.gif"></p>
+	<h2>
+	<a name="Source"></a>Source</h2>
+		<p class="pnoall"><b>The tool</b> will generate or update any necessary data binding 
+		code which may then be seen in the <b>Source</b> view. An <b>initDataBindings()</b> 
+		method is created, if it does not already exist and a call to that 
+		method is added to the end of the widget creation process.</p>
+	<p class="pnoall">Within the <b>initDataBindings()</b> method, any needed 
+	bean properties are created followed by the creation of each binding.</p>
+	<p class="pnoall">
+	<img border="0" src="images/data_binding_source.gif"></p>
+	<p class="pnoall"><i><b>Warning: </b>do not edit the <b>initDataBinding()</b> 
+	method by hand (without carefully matching the code generation pattern used 
+	by the tool) as it will be regenerated in its entirety any time 
+	the tool needs to add, remove or update a data binding.</i></p>
+	      </body>
+</html>

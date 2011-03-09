@@ -1,0 +1,101 @@
+<config>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.core.databinding/bin">
+		<include prefix="org/eclipse/wb/internal/core/databinding/"
+			source="/org.eclipse.wb.core.databinding/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.core.xml/bin">
+		<include prefix="org/eclipse/wb/internal/core/xml/" source="/org.eclipse.wb.core.xml/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.xwt/bin">
+		<include prefix="org/eclipse/wb/internal/xwt/" source="/org.eclipse.wb.xwt/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.core/bin">
+		<include prefix="org/eclipse/wb/internal/core/" source="/org.eclipse.wb.core/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.layout.group/bin">
+		<include prefix="org/eclipse/wb/internal/model/layout/group"
+			source="/org.eclipse.wb.layout.group/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing.FormLayout/bin">
+		<include prefix="org/eclipse/wb/internal/swing/FormLayout/"
+			source="/org.eclipse.wb.swing.FormLayout/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing.MigLayout/bin">
+		<include prefix="org/eclipse/wb/internal/swing/MigLayout/"
+			source="/org.eclipse.wb.swing.MigLayout/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing.ams/bin">
+		<include prefix="org/eclipse/wb/internal/swing/ams/" source="/org.eclipse.wb.swing.ams/src/"
+		/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing.jsr296/bin">
+		<include prefix="org/eclipse/wb/internal/swing/jsr296/"
+			source="/org.eclipse.wb.swing.jsr296/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing.java6/bin">
+		<include prefix="org/eclipse/wb/internal/swing/model/layout/group"
+			source="/org.eclipse.wb.swing.java6/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing.databinding/bin">
+		<include prefix="org/eclipse/wb/internal/swing/databinding/"
+			source="/org.eclipse.wb.swing.databinding/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swing/bin">
+		<include prefix="org/eclipse/wb/internal/swing/" source="/org.eclipse.wb.swing/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.swt/bin">
+		<include prefix="org/eclipse/wb/internal/swt/" source="/org.eclipse.wb.swt/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.ercp/bin">
+		<include prefix="org/eclipse/wb/internal/ercp/" source="/org.eclipse.wb.ercp/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.rcp.databinding.emf/bin">
+		<include prefix="org/eclipse/wb/internal/rcp/databinding/emf/"
+			source="/org.eclipse.wb.rcp.databinding.emf/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.rcp.databinding/bin">
+		<include prefix="org/eclipse/wb/internal/rcp/databinding/"
+			source="/org.eclipse.wb.rcp.databinding/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.rcp.nebula/bin">
+		<include prefix="org/eclipse/wb/internal/rcp/nebula/"
+			source="/org.eclipse.wb.rcp.nebula/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.rcp.swing2swt/bin">
+		<include prefix="org/eclipse/wb/internal/rcp/swing2swt/"
+			source="/org.eclipse.wb.rcp.swing2swt/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.rcp/bin">
+		<include prefix="org/eclipse/wb/internal/rcp/" source="/org.eclipse.wb.rcp/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/com.google.gdt.eclipse.designer.hosted/bin">
+		<include prefix="com/google/gdt/eclipse/designer/hosted"
+			source="/com.google.gdt.eclipse.designer.hosted/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/com.google.gdt.eclipse.designer.GXT/bin">
+		<include prefix="com/google/gdt/eclipse/designer/gxt/"
+			source="/com.google.gdt.eclipse.designer.GXT/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/com.google.gdt.eclipse.designer.UiBinder/bin">
+		<include prefix="com/google/gdt/eclipse/designer/uibinder/"
+			source="/com.google.gdt.eclipse.designer.UiBinder/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/com.google.gdt.eclipse.designer.SmartGWT/bin">
+		<include prefix="com/google/gdt/eclipse/designer/smart/"
+			source="/com.google.gdt.eclipse.designer.SmartGWT/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/com.google.gdt.eclipse.designer.GWTExt/bin">
+		<include prefix="com/google/gdt/eclipse/designer/gwtext/"
+			source="/com.google.gdt.eclipse.designer.GWTExt/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/com.google.gdt.eclipse.designer/bin">
+		<include prefix="com/google/gdt/eclipse/designer/"
+			source="/com.google.gdt.eclipse.designer/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.core.temp/bin">
+		<include prefix="org/eclipse/wb/core/temp/" source="/org.eclipse.wb.core.temp/src/"/>
+	</directory>
+	<directory path="${__Eclipse_Location_}/org.eclipse.wb.css/bin">
+		<include prefix="org/eclipse/wb/css/" source="/org.eclipse.wb.css/src/"/>
+	</directory>
+</config>

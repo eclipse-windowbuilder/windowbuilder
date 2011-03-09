@@ -1,0 +1,69 @@
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.part.ViewPart;
+
+field
+	public static final String ID = "%VIEW_ID%"; //$NON-NLS-1$
+
+field
+	private final FormToolkit %field-prefix%toolkit = new FormToolkit(Display.getCurrent());
+
+method
+	public %TypeName%() {
+	}
+
+method
+	/**
+	 * Create contents of the view part.
+	 * @param parent
+	 */
+	@Override
+	public void createPartControl(Composite parent) {
+		Composite container = %this%%field-prefix%toolkit.createComposite(parent, SWT.NONE);
+		%this%%field-prefix%toolkit.paintBordersFor(container);
+		%container.SWTLayout%
+		createActions();
+		initializeToolBar();
+		initializeMenu();
+	}
+
+method
+	public void dispose() {
+		%this%%field-prefix%toolkit.dispose();
+		super.dispose();
+	}
+
+method
+	/**
+	 * Create the actions.
+	 */
+	private void createActions() {
+		// Create the actions
+	}
+
+method
+	/**
+	 * Initialize the toolbar.
+	 */
+	private void initializeToolBar() {
+		IToolBarManager tbm = getViewSite().getActionBars().getToolBarManager();
+	}
+
+method
+	/**
+	 * Initialize the menu.
+	 */
+	private void initializeMenu() {
+		IMenuManager manager = getViewSite().getActionBars().getMenuManager();
+	}
+
+method
+	@Override
+	public void setFocus() {
+		// Set the focus
+	}
+

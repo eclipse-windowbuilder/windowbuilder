@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.TableTreeInfo"/>
+	<description>A TableTree is a selectable user interface object that displays a hierarchy of
+		items, and issues notification when an item is selected. As of 3.1 use Tree, TreeItem and
+		TreeColumn.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.TableTree(%parent%, org.eclipse.swt.SWT.BORDER | org.eclipse.swt.SWT.FULL_SELECTION)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER | FULL_SELECTION"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CHECK FULL_SELECTION HIDE_SELECTION VIRTUAL</parameter>
+					<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- SELECTION -->
+		<method name="setSelection">
+			<parameter type="org.eclipse.swt.custom.TableTreeItem[]"/>
+		</method>
+		<method name="selectAll"/>
+		<method name="showSelection"/>
+		<method name="showItem">
+			<parameter type="org.eclipse.swt.custom.TableTreeItem"/>
+		</method>
+	</methods>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<include method="getTable"/>
+	</exposing-rules>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

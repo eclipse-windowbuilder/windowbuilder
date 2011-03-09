@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class provides feedback to the user about the state of a long-running task.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ercp.swt.mobile.TaskTip(%parent%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Shell" parent="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Shell" parent="true"/>
+			<parameter type="int">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="fields">SMOOTH INDETERMINATE</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+</component>

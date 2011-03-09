@@ -1,0 +1,51 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+method
+	/**
+	 * Launch the application.
+	 * @param args
+	 */
+	public static void main(String args[]) {
+		try {
+			Display display = Display.getDefault();
+			%TypeName% shell = new %TypeName%(display);
+			shell.open();
+			shell.layout();
+		    while (!shell.isDisposed()) {
+		    	if (!display.readAndDispatch()) {
+					display.sleep();
+				}
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+method
+	/**
+	 * Create the shell.
+	 * @param display
+	 */
+	public %TypeName%(Display display) {
+		super(display, SWT.SHELL_TRIM);
+		%CreateMethod%();
+	}
+
+method
+	/**
+	 * Create contents of the shell.
+	 */
+	protected void %CreateMethod%() {
+		setText("SWT Application");
+		setSize(%DefaultFormSize%);
+		%SWTLayout%
+	}
+
+method
+	@Override
+	protected void checkSubclass () {
+		// Disable the check that prevents subclassing of SWT components
+	}
+

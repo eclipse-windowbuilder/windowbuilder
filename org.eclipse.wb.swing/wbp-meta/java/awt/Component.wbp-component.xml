@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.ComponentInfo"/>
+	<!-- CREATION -->
+	<creation-default>
+		<source><![CDATA[new %component.class%()]]></source>
+	</creation-default>
+	<!-- METHODS -->
+	<methods>
+		<methods-include signature="/set\w+\([^,]+\)/"/>
+		<methods-exclude signature="setVisible(boolean)"/>
+		<!-- location/size/bounds with several arguments -->
+		<method name="setLocation">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setBounds">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+	</methods>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="java.awt"/>
+		<exclude package="javax.swing"/>
+		<include method="getContentPane"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-advanced names="bounds location size maximumSize minimumSize preferredSize"/>
+	<properties-advanced names="cursor componentOrientation focusable focusTraversalKeysEnabled ignoreRepaint name visible locale"/>
+	<property-tag name="locale" tag="noDefaultValue" value="true"/>
+	<property id="setComponentOrientation(java.awt.ComponentOrientation)">
+		<editor id="staticField">
+			<parameter name="class">java.awt.ComponentOrientation</parameter>
+			<parameter name="fields">UNKNOWN LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="interceptOnlyDuringExecution">true</parameter>
+	</parameters>
+</component>

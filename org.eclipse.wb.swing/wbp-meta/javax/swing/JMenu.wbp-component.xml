@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo"/>
+	<description>An implementation of a menu - a popup window containing JMenuItem's that is displayed when
+		the user selects an item on the JMenuBar. In addition to JMenuItem's, a JMenu can also contain
+		JSeparator's. </description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JMenu("New menu")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="add">
+			<parameter type="javax.swing.JMenuItem" child="true"/>
+		</method>
+		<method name="add">
+			<parameter type="javax.swing.Action" name="action"/>
+			<tag name="implicitFactory" value="true"/>
+		</method>
+		<!-- separator -->
+		<method name="addSeparator">
+			<tag name="voidFactory.creationSupport"
+				value="org.eclipse.wb.internal.swing.model.component.menu.JMenuSeparatorCreationSupport"/>
+			<tag name="voidFactory.componentClass" value="javax.swing.JPopupMenu$Separator"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="delay popupMenuVisible selected"/>
+	<properties-hidden names="accelerator popupMenuVisible tearOff"/>
+	<property id="setMnemonic(char)">
+		<category value="preferred"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="NVO.disabled">true</parameter>
+	</parameters>
+</component>

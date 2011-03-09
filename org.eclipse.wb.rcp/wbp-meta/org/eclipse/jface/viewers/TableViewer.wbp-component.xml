@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<x-model class="org.eclipse.wb.internal.xwt.model.jface.TableViewerInfo"/>
+	<description>A concrete viewer based on a SWT Table control.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.viewers.TableViewer(%parent%, org.eclipse.swt.SWT.BORDER | org.eclipse.swt.SWT.FULL_SELECTION)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER | FULL_SELECTION"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CHECK FULL_SELECTION HIDE_SELECTION</parameter>
+					<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Table" parent="true">
+				<tag name="Wrapper.wrapped" value="true"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setLabelProvider(org.eclipse.jface.viewers.IBaseLabelProvider)">
+		<editor id="innerClass">
+			<parameter name="mode">inner</parameter>
+			<parameter name="name">TableLabelProvider</parameter>
+			<parameter name="class">org.eclipse.jface.viewers.ITableLabelProvider</parameter>
+			<parameter name="source"><![CDATA[
+private class ${name} extends org.eclipse.jface.viewers.LabelProvider implements org.eclipse.jface.viewers.ITableLabelProvider {
+	public org.eclipse.swt.graphics.Image getColumnImage(Object element, int columnIndex) {
+		return null;
+	}
+	public String getColumnText(Object element, int columnIndex) {
+		return element.toString();
+	}
+}
+			]]></parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="viewer.control.method">getTable</parameter>
+		<!-- refresh -->
+		<parameter name="viewer.configureNew"><![CDATA[
+			control.getPropertyByTitle('headerVisible').setValue(true);
+			control.getPropertyByTitle('linesVisible').setValue(true);
+			]]></parameter>
+		<!-- flow container: TableColumn -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component">org.eclipse.jface.viewers.TableViewerColumn</parameter>
+	</parameters>
+</component>

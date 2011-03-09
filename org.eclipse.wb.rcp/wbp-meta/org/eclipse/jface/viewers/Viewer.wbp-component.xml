@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.jface.ViewerInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<methods-exclude signature="setInput(java.lang.Object)"/>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="viewer.control.method">getControl</parameter>
+	</parameters>
+</component>

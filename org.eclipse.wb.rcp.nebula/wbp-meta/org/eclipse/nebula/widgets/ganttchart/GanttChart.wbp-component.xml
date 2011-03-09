@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The GANTT chart is a fully customizable widget for displaying anything from a simple chart to
+		allowing user interaction via drag and drop and resizing and well as dependency interaction.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.ganttchart.GanttChart(%parent%, org.eclipse.swt.SWT.NONE, null, null)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+				<!-- disabled cause in parameter mixed values from 
+					org.eclipse.swt.SWT & org.eclipse.nebula.widgets.ganttchart.IGanttFlags  
+				<editor id="style">
+					<parameter name="class">org.eclipse.nebula.widgets.ganttchart.IGanttFlags</parameter>
+					<parameter name="select0">scroll H_SCROLL_INFINITE H_SCROLL_FIXED_RANGE H_SCROLL_NONE</parameter>
+				</editor>-->
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.ISettings" defaultSource="null">
+				<!-- disabled cause exists only DefaultSettings
+					<editor id="instanceList">
+					<parameter-list name="types">org.eclipse.nebula.widgets.ganttchart.DefaultSettings</parameter-list>
+					<parameter-list name="titles">DEFAULT</parameter-list>
+				</editor>-->
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.IColorManager" defaultSource="null">
+				<editor id="instanceList">
+					<parameter-list name="types">org.eclipse.nebula.widgets.ganttchart.DefaultColorManager</parameter-list>
+					<parameter-list name="types"
+						>org.eclipse.nebula.widgets.ganttchart.themes.ColorThemeGrayBlue</parameter-list>
+					<parameter-list name="types">org.eclipse.nebula.widgets.ganttchart.themes.ColorThemeSilver</parameter-list>
+					<parameter-list name="types"
+						>org.eclipse.nebula.widgets.ganttchart.themes.ColorThemeWindowsBlue</parameter-list>
+					<parameter-list name="titles">DEFAULT</parameter-list>
+					<parameter-list name="titles">GRAY_BLUE</parameter-list>
+					<parameter-list name="titles">SILVER</parameter-list>
+					<parameter-list name="titles">WIN_BLUE</parameter-list>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.IColorManager" defaultSource="null">
+				<editor id="instanceList">
+					<parameter-list name="types">org.eclipse.nebula.widgets.ganttchart.DefaultColorManager</parameter-list>
+					<parameter-list name="types"
+						>org.eclipse.nebula.widgets.ganttchart.themes.ColorThemeGrayBlue</parameter-list>
+					<parameter-list name="types">org.eclipse.nebula.widgets.ganttchart.themes.ColorThemeSilver</parameter-list>
+					<parameter-list name="types"
+						>org.eclipse.nebula.widgets.ganttchart.themes.ColorThemeWindowsBlue</parameter-list>
+					<parameter-list name="titles">DEFAULT</parameter-list>
+					<parameter-list name="titles">GRAY_BLUE</parameter-list>
+					<parameter-list name="titles">SILVER</parameter-list>
+					<parameter-list name="titles">WIN_BLUE</parameter-list>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.IPaintManager" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.ILanguageManager" defaultSource="null"/>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.ganttchart"/>
+		<include method="getGanttComposite"/>
+	</exposing-rules>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">150</parameter>
+		<parameter name="liveComponent.forcedSize.height">100</parameter>
+		<!-- selection listener -->
+		<!-- flow container 1 -->
+		<parameter name="flowContainer.tree.1">true</parameter>
+		<parameter name="flowContainer.tree.1.horizontal">true</parameter>
+		<parameter name="flowContainer.tree.1.component">org.eclipse.nebula.widgets.ganttchart.GanttGroup</parameter>
+		<parameter name="flowContainer.tree.1.group">Groups</parameter>
+		<!-- flow container 2 -->
+		<parameter name="flowContainer.tree.2">true</parameter>
+		<parameter name="flowContainer.tree.2.horizontal">true</parameter>
+		<parameter name="flowContainer.tree.2.component">org.eclipse.nebula.widgets.ganttchart.GanttEvent</parameter>
+		<parameter name="flowContainer.tree.2.group">Events</parameter>
+	</parameters>
+</component>

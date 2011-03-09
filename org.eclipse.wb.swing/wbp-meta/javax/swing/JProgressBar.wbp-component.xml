@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <description>A component that, by default, displays an integer value within a bounded interval. A progress
+        bar typically communicates the progress of some work by displaying its percentage of completion and
+        possibly a textual display of this percentage.</description>
+    <!-- CREATION -->
+    <creation>
+        <source><![CDATA[new javax.swing.JProgressBar()]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setMinimum(int)"/>
+            <parameter type="int" property="setMaximum(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+            <parameter type="int" property="setMinimum(int)"/>
+            <parameter type="int" property="setMaximum(int)"/>
+        </constructor>
+    </constructors>
+    <!-- PROPERTIES -->
+    <properties-preferred names="maximum minimum orientation value"/>
+    <properties-advanced names="border borderPainted model string"/>
+    <properties-hidden names="UI"/>
+    <property id="setOrientation(int)">
+        <editor id="staticField">
+            <parameter name="class">javax.swing.SwingConstants</parameter>
+            <parameter name="fields">HORIZONTAL VERTICAL</parameter>
+        </editor>
+    </property>
+</component>

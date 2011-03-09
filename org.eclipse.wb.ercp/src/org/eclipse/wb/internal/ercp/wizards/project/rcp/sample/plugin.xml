@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- ViewPart's -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.views">
+		<view category="org.eclipse.ercp.eworkbench.viewCategory" class="${packageName}.views.MyViewPart"
+			id="${packageName}.views.MyViewPart" name="My ViewPart"/>
+	</extension>
+	<!-- ======================================================== -->
+	<!-- PreferencePage's -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.preferencePages">
+		<page class="${packageName}.preferences.PreferencePage_1"
+			id="${packageName}.preferences.PreferencePage1" name="My PreferencePage 1"> </page>
+		<page category="${packageName}.preferences.PreferencePage_1"
+			class="${packageName}.preferences.PreferencePage_2"
+			id="${packageName}.preferences.PreferencePage2" name="My PreferencePage 2"/>
+	</extension>
+	<!-- ======================================================== -->
+	<!-- Application -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ercp.eworkbench.applications">
+		<application id="${packageName}.myApplication" name="My eRCP application">
+			<views normal="${packageName}.views.MyViewPart"/>
+		</application>
+	</extension>
+</plugin>

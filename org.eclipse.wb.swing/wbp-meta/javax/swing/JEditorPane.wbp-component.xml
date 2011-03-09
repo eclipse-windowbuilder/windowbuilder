@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <description>A text component to edit various kinds of content.</description>
+    <!-- CREATION -->
+    <creation>
+        <source><![CDATA[new javax.swing.JEditorPane()]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="java.net.URL" property="setPage(java.net.URL)"/>
+        </constructor>
+        <constructor>
+            <parameter type="java.lang.String" property="setPage(java.lang.String)"/>
+        </constructor>
+        <constructor>
+            <parameter type="java.lang.String" property="setPage(java.lang.String)"/>
+            <parameter type="java.lang.String" property="setText(java.lang.String)"/>
+        </constructor>
+    </constructors>
+    <!-- PROPERTIES -->
+    <properties-advanced names="editorKit page"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

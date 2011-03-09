@@ -1,0 +1,113 @@
+<html>
+
+<head>
+<title>JFace Wizard Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h1>RCP MultiPageEditorPart Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+	<img src="images/wizard_rcp_multipageeditorpart0.gif" align="left" hspace="10">Subclasses of the RCP <b>MultiPageEditorPart</b> class can be
+              created using the <b>RCP MultiPageEditorPart</b> wizard. The wizard can be
+              selected from the drop down wizard menu or from the
+              Eclipse <b>New</b> wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name, use the <b>Add</b> 
+				button to add individual <b>EditorParts</b> that have already 
+				been created, and hit the <b>Finish</b>
+              button.</td>
+  </tr>
+  <tr>
+    <td>
+	<br>
+	<img src="images/wizard_rcp_multipageeditorpart1.gif">&nbsp; 
+	<img src="images/wizard_rcp_multipageeditorpart2.gif"></td>
+  </tr>
+  <tr>
+    <td>
+	<p><br>
+	<img src="images/wizard_rcp_multipageeditorpart3.gif"><p>The wizard generates the following code.</p>
+      <blockquote>
+              <dl>
+                <dt><b><font face="Courier" size="2" color="#7f0055">import</font></b><font face="Courier New" size="2"> 
+				org.eclipse.core.runtime.IProgressMonitor;<br>
+				</font><b><font face="Courier" size="2" color="#7f0055">import</font></b><font face="Courier New" size="2"> 
+				org.eclipse.ui.PartInitException;<br>
+				</font><b><font face="Courier" size="2" color="#7f0055">import</font></b><font face="Courier New" size="2"> 
+				org.eclipse.ui.part.MultiPageEditorPart;<br>
+				<br>
+				</font><b><font face="Courier" size="2" color="#7f0055">public</font></b><font face="Courier New" size="2">
+				</font><b><font face="Courier" size="2" color="#7f0055">class</font></b><font face="Courier New" size="2"> 
+				RcpMultiPageEditorTtest </font><b>
+				<font face="Courier" size="2" color="#7f0055">extends</font></b><font face="Courier New" size="2"> 
+				MultiPageEditorPart {<br>
+&nbsp;&nbsp;&nbsp; </font><b><font face="Courier" size="2" color="#7f0055">
+				public</font></b><font face="Courier New" size="2"> </font><b>
+				<font face="Courier" size="2" color="#7f0055">static</font></b><font face="Courier New" size="2">
+				</font><b><font face="Courier" size="2" color="#7f0055">final</font></b><font face="Courier New" size="2"> 
+				String </font><font size="2" color="#0000c0" face="Courier"><i>
+				ID</i></font><font face="Courier New" size="2"> = </font>
+				<font size="2" color="#2a00ff" face="Courier">&quot;sample.rcp.RcpMultiPageEditorTtest&quot;</font><font face="Courier New" size="2">;
+				</font><font face="Courier" size="2" color="#3f7f5f">
+				//$NON-NLS-1$</font><font face="Courier New" size="2"><br>
+				<br>
+&nbsp;&nbsp;&nbsp; </font><b><font face="Courier" size="2" color="#7f0055">
+				public</font></b><font face="Courier New" size="2"> 
+				RcpMultiPageEditorTtest() {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+				<br>
+&nbsp;&nbsp;&nbsp; </font><b><font face="Courier" size="2" color="#7f0055">
+				protected</font></b><font face="Courier New" size="2"> </font>
+				<b><font face="Courier" size="2" color="#7f0055">void</font></b><font face="Courier New" size="2"> 
+				createPages() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><b>
+				<font face="Courier" size="2" color="#7f0055">try</font></b><font face="Courier New" size="2"> 
+				{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addPage(</font><b><font face="Courier" size="2" color="#7f0055">new</font></b><font face="Courier New" size="2"> 
+				FirstEditorPage(), (org.eclipse.ui.IEditorInput) </font><b>
+				<font face="Courier" size="2" color="#7f0055">null</font></b><font face="Courier New" size="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addPage(</font><b><font face="Courier" size="2" color="#7f0055">new</font></b><font face="Courier New" size="2"> 
+				SecondEditorPage(), (org.eclipse.ui.IEditorInput) </font><b>
+				<font face="Courier" size="2" color="#7f0055">null</font></b><font face="Courier New" size="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addPage(</font><b><font face="Courier" size="2" color="#7f0055">new</font></b><font face="Courier New" size="2"> 
+				ThirdEditorPage(), (org.eclipse.ui.IEditorInput) </font><b>
+				<font face="Courier" size="2" color="#7f0055">null</font></b><font face="Courier New" size="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } </font><b>
+				<font face="Courier" size="2" color="#7f0055">catch</font></b><font face="Courier New" size="2"> 
+				(PartInitException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+				<br>
+&nbsp;&nbsp;&nbsp; </font><b><font face="Courier" size="2" color="#7f0055">
+				public</font></b><font face="Courier New" size="2"> </font><b>
+				<font face="Courier" size="2" color="#7f0055">boolean</font></b><font face="Courier New" size="2"> 
+				isSaveAsAllowed() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><b>
+				<font face="Courier" size="2" color="#7f0055">return</font></b><font face="Courier New" size="2">
+				</font><b><font face="Courier" size="2" color="#7f0055">false</font></b><font face="Courier New" size="2">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+				<br>
+&nbsp;&nbsp;&nbsp; </font><b><font face="Courier" size="2" color="#7f0055">
+				public</font></b><font face="Courier New" size="2"> </font><b>
+				<font face="Courier" size="2" color="#7f0055">void</font></b><font face="Courier New" size="2"> 
+				doSave(IProgressMonitor monitor) {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+				<br>
+&nbsp;&nbsp;&nbsp; </font><b><font face="Courier" size="2" color="#7f0055">
+				public</font></b><font face="Courier New" size="2"> </font><b>
+				<font face="Courier" size="2" color="#7f0055">void</font></b><font face="Courier New" size="2"> 
+				doSaveAs() {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+				}</font></dt>
+              </dl>
+      </blockquote>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A convenience class for creating a GanttScope instead of using the specific constructors on
+		the GanttEvent.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.ganttchart.GanttScope(%parent%, "New Scope")]]></source>
+		<invocation signature="setEndDate(java.util.Calendar)"><![CDATA[java.util.Calendar.getInstance()]]></invocation>
+		<invocation signature="setStartDate(java.util.Calendar)"><![CDATA[java.util.Calendar.getInstance()]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+		</constructor>
+	</constructors>
+</component>

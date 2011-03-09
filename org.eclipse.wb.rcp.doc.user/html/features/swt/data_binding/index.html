@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>SWT/JFace Data Binding</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../../../book.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>SWT/JFace Data Binding</h1>
+	<div align="left">
+	<p class="pnoall">The tool can create new <b>Data Bindings</b> in several 
+	different ways:</p>
+		<ul>
+			<li>
+			<p class="pnoall">Click the
+	<b><a href="#DataBindingTab">Bindings</a></b> tab in the editor to created and edit 
+			the bindings.</p></li>
+			<li>
+			<p class="pnoall">Right-clicking on a widget and selecting the <b>
+			<a href="#DataBindingMenu">Data Binding</a></b> menu.</p></li>
+			<li>
+			<p class="pnoall">Expanding the <b><a href="#BindingsProperty">bindings</a></b> property in the 
+			property pane.</p></li>
+			<li>
+			<p class="pnoall">Use the <b>
+			<a href="#AutomaticWizard">JFace Automatic Data Binding</a></b> 
+			wizard to create a complete user interface from a domain (bean) 
+			class.</p></li>
+		</ul>
+		<p class="pnoall">The tool will generate or update any necessary data binding 
+		code which may then be seen in the <b><a href="#Source">Source</a></b> 
+		view.</p>
+		<p class="pnoall">Detailed <a href="example.html">data binding example</a> 
+		code is available <a href="DataBindingTest.zip">here</a>.</p>
+	</div>
+	<h2><a name="DataBindingTab"></a>Data Binding Tab</h2>
+	<p class="pnoall">Click the
+	<b>Bindings</b> tab in the editor to created and edit 
+	data bindings.</p>
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/databinding/images/data_binding_tab.gif" align="absbottom"></p>
+	<p class="pnoall">
+	<img border="0" src="images/data_bindings.gif" width="862" height="607"></p>
+	<p class="pnoall">The <b>Bindings</b> tab supports the creation 
+	of three types of data bindings:</p>
+	<ul>
+		<li>
+		<p class="pnoall"><b><a href="swt_bindings.html">SWT Data Bindings</a></b></li>
+		<li>
+		<p class="pnoall"><b><a href="jface_bindings.html">JFace Data Bindings</a></b></li>
+		<li>
+		<p class="pnoall"><b><a href="emf_bindings.html">EMF Data Bindings</a></b></li>
+	</ul>
+	<h2><a name="DataBindingMenu"></a>Data Binding Menu</h2>
+	<p class="pnoall">The <b>Data Bindings</b> menu provides the ability to 
+	quickly create or edit data bindings for a widget. If the widget does not 
+	have any data bindings, the menu immediately cascades out to show the 
+	available properties of the widget that can be bound to a model property. If 
+	the widget has existing data bindings, those are shown at the top of the 
+	cascaded menu followed by a separator and a list of widget properties. 
+	Clicking on an unbound property will open the <b>
+	<a href="create_data_binding_wizard.html">Create Data 
+				Binding</a></b> wizard while clicking a bound property will open 
+	the <b><a href="edit_data_binding_dialog.html">Edit Data Binding</a></b> 
+	dialog.</p>
+	<p class="pnoall">
+	<img border="0" src="images/data_binding_menu.gif">. </p>
+	<h2><a name="BindingsProperty"></a>Bindings 
+	Property</h2>
+	<p class="pnoall">The <b>bindings property</b> in the property 
+				pane opens up to show a list of all bindable properties of the 
+				widget. Clicking the
+				<img border="0" src="images/dot-dot-dot-button.gif" width="20" height="13" align="bottom"> 
+				button next to an unbound property will open the <b>
+	<a href="create_data_binding_wizard.html">Create Data 
+				Binding</a> </b> wizard while clicking the
+				<img border="0" src="images/dot-dot-dot-button.gif" width="20" height="13" align="bottom"> 
+				button next to a bound property will open the <b>
+	<a href="edit_data_binding_dialog.html">Edit Data Binding</a></b> dialog.</p>
+	<p class="pnoall">
+				<img border="0" src="images/data_binding_property_pane2.gif">. </p>
+	<h2><a name="AutomaticWizard"></a>Automatic Data Binding Wizard</h2>
+	<p class="pnoall">The <b>
+	<a href="../../../wizards/databinding/automatic.html">JFace Automatic Data Binding</a></b> wizard can be used 
+	to create new user interface classes (Composites, Dialogs or Windows) 
+	complete with widgets, layouts and data bindings from arbitrary domain model 
+	(bean) classes..</p>
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/databinding/images/automatic_data_binding2.gif">&nbsp;
+	<img border="0" src="../../../wizards/databinding/images/automatic_data_binding5.gif"></p>
+	<h2><a name="IconDecorator"></a>Icon 
+	Decorator</h2>
+	<p class="pnoall">Any widget with a data binding assigned to will show up in 
+	the component tree with an icon decorator:&nbsp;
+	<img border="0" src="images/icon_decorator2.gif" width="28" height="26" align="absbottom">&nbsp;
+	<img border="0" src="images/icon_decorator3.gif" width="30" height="28" align="absbottom"></p>
+	<p class="pnoall">
+	<img border="0" src="images/icon_decorator.gif" width="338" height="484"></p>
+	<h2>
+	<a name="Source"></a>Source</h2>
+		<p class="pnoall">The tool will generate or update any necessary data binding 
+		code which may then be seen in the <b>Source</b> view. An <b>initDataBindings()</b> 
+		method is created, if it does not already exist and a call to that 
+		method is added to the end of the widget creation process.</p>
+	<p class="pnoall">Within the <b>initDataBindings()</b> method, any needed 
+	observables are created first followed by the creation of the <b>Data 
+	Binding Context</b>. Simple SWT data bindings are then created using the new 
+	context followed by any JFace content providers, list providers and inputs 
+	that are needed.</p>
+	<p class="pnoall">
+	<img border="0" src="images/data_binding_source.gif" width="670" height="496"></p>
+	<p class="pnoall"><i><b>Warning: </b>do not edit the <b>initDataBinding()</b> 
+	method by hand (without carefully matching the code generation pattern used 
+	by the tool) as it will be regenerated in its entirety any time 
+	the tool needs to add, remove or update a data binding.</i></p>
+	<h2>
+	Preferences</h2>
+		<p class="pnoall">Various
+		<a href="../../../preferences/swt/preferences_jface_data_bindings.html">preferences</a> are available to control the data binding code that is 
+		generated.</p>
+	<p class="pnoall">
+	<img src="../../../preferences/swt/images/preferences_jface_data_bindings.gif"></p>
+	      </body>
+</html>

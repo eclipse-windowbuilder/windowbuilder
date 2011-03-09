@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.ExpandableCompositeInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.forms.ExpandableCompositeInfo"/>
+	<description>This composite is capable of expanding or collapsing a single client that is its direct
+		child. The composite renders an expansion toggle affordance (according to the chosen style), and a
+		title that also acts as a hyperlink (can be selected and is traversable). The client is layed out
+		below the title when expanded, or hidden when collapsed.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.ExpandableComposite(%parent%, org.eclipse.swt.SWT.NONE, org.eclipse.ui.forms.widgets.ExpandableComposite.TWISTIE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New ExpandableComposite"]]></invocation>
+		<x-attribute name="text" value="New ExpandableComposite"/>
+		<x-attribute name="expanded" value="true"/>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="ExpandableComposite.TWISTIE"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"  defaultSource="org.eclipse.ui.forms.widgets.ExpandableComposite.TWISTIE">
+				<editor id="style">
+					<parameter name="title">ExpansionStyle</parameter>
+					<parameter name="class">org.eclipse.ui.forms.widgets.ExpandableComposite</parameter>
+					<parameter name="select0">expander TWISTIE TWISTIE TREE_NODE</parameter>
+					<parameter name="select1">title NO_TITLE NO_TITLE SHORT_TITLE_BAR TITLE_BAR</parameter>
+					<parameter name="set"> FOCUS_TITLE CLIENT_INDENT COMPACT EXPANDED
+						LEFT_TEXT_CLIENT_ALIGNMENT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setTextClient">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+		<method name="setClient">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+		<!-- orders -->
+		<method name="setExpanded" order="after setText(java.lang.String)">
+			<parameter type="boolean"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text expanded"/>
+	<properties-advanced
+		names="clientVerticalSpacing descriptionVerticalSpacing marginWidth marginHeight"/>
+	<properties-advanced names="toggleColor activeToggleColor"/>
+	<properties-advanced names="titleBarForeground titleBarTextMarginWidth"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- direct edit -->
+		<parameter name="directEdit.location.insets">-5 15 0 0</parameter>
+		<parameter name="directEdit.location.horizontalAlignment">left</parameter>
+		<parameter name="directEdit.location.verticalAlignment">top</parameter>
+		<!-- flip expanded -->
+		<parameter name="double-click.flipBooleanProperty">expanded</parameter>
+	</parameters>
+</component>

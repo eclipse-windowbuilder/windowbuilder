@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The List component presents the user with a scrolling list of text items. The list can be set
+		up so that the user can choose either one item or multiple items.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.List()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int"/>
+		</constructor>
+		<constructor>
+			<parameter type="int"/>
+			<parameter type="boolean" property="setMultipleMode(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.TextField"/>
+		<morphTarget class="java.awt.Choice"/>
+	</morphTargets>
+</component>

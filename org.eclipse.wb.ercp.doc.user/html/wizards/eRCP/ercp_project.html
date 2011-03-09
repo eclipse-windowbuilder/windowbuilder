@@ -1,0 +1,91 @@
+<html>
+
+<head>
+<title>eRCP Plug-in Project Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>eRCP Plug-in Project Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+      <div align="left">
+        <img src="images/wizard_ercp_project0.gif" align="left" hspace="10">In order to use Eclipse SWT, JFace and RCP components,
+              you need to make sure that all of the appropriate SWT, JFace
+              and RCP jar files are on your classpath. The <b>eRCP Plug-in Project</b>
+              wizard creates a standard eRCP Plug-in project which has all of the needed
+              libraries added.
+              The wizard can be
+              selected from the drop down <b>WindowBuilder</b> wizard menu or from the
+              Eclipse <b>New</b> or <b>New Project</b> wizards.
+              <p>To use the wizard, enter the project name and specify where the 
+				project should be located. Choose whether to create some initial 
+				sample content and hit the <b>Finish</b>
+              button. 
+      </div>
+      <p><img src="images/wizard_ercp_project1.gif">&nbsp; 
+		<img src="images/wizard_ercp_project2.gif"></p>
+    <p>The wizard creates a plug-in project and generates content for the <b>
+	MANIFEST.MF</b> file similar to 
+	the following.</p>
+		<blockquote>
+			<font SIZE="2" COLOR="#800000">
+			<p ALIGN="LEFT"><font face="Courier">Manifest-Version</font></font><font face="Courier" SIZE="2">: 
+			1.0</font><font SIZE="2" COLOR="#800000"><b><font face="Courier"><br>
+			Bundle-ManifestVersion</font></b></font><font face="Courier" SIZE="2">: 
+			2</font><font SIZE="2" COLOR="#800000"><b><font face="Courier"><br>
+			Bundle-Name</font></b></font><font face="Courier" SIZE="2">: 
+			eRCP Plug-in</font><font SIZE="2" COLOR="#800000"><b><font face="Courier"><br>
+			Bundle-SymbolicName</font></b></font><font face="Courier"><font SIZE="2">: 
+			eRCP;</font><font SIZE="2" COLOR="#808000"><i>singleton</i></font></font><font face="Courier" SIZE="2">:=true</font><font SIZE="2" COLOR="#800000"><b><font face="Courier"><br>
+			Bundle-Version</font></b></font><font face="Courier" SIZE="2">: 
+			1.0.0</font><font SIZE="2" COLOR="#800000"><b><font face="Courier"><br>
+			Bundle-Activator</font></b></font><font face="Courier" SIZE="2">: 
+			ercp.Activator</font><font SIZE="2" COLOR="#800000"><b><font face="Courier"><br>
+			Require-Bundle</font></b></font><font face="Courier" SIZE="2">: 
+			org.eclipse.ui,<br>
+			org.eclipse.core.runtime,<br>
+			org.eclipse.ercp.eworkbench,<br>
+			org.eclipse.ercp.ui.workbench</font><font face="Courier" SIZE="2" COLOR="#800000"><br>
+			Eclipse-LazyStart</font><font SIZE="2"><font face="Courier">: true</font></p>
+			</font>
+		</blockquote>
+    	<p> 
+		<img src="images/wizard_ercp_project3.gif" width="345" height="359"></p>
+		<p>Note that before you can create an <b>eRCP Plugin Project</b>, you 
+		need to download and install a <b>
+		<a href="http://www.eclipse.org/downloads/download.php?file=/dsdp/ercp/eRCP-v20070801.win32-x86.zip">
+		eRCP distribution</a></b> from Eclipse.org and configure Eclipse to use 
+		it as your target platform:</p>
+		<ol>
+			<li>Download the Eclipse eRCP runtime. </li>
+			<li>Install the Eclipse eRCP runtime by unzipping it. e.g., 
+			C:\eRCP-v20070801-0820. <br>
+			Do not unzip this into your Eclipse directory (keep it separate). 
+			</li>
+			<li>Copy the <b>eswt-converged.dll</b> file from:<br>
+&nbsp;&nbsp;&nbsp; <b>\eRCP-v20070801-0820\win32\eRCP\plugins\org.eclipse.ercp.swt.win32_1.0.2\os 
+			\win32\x86</b> <br>
+			to:<br>
+&nbsp;&nbsp;&nbsp; <b>C:\Windows\System32</b></li>
+			<li>Select \eRCP-v20070801-0820\win32\eRCP in your Eclipse <b>
+			Plug-in Development &gt; Target Platform</b> preferences.<br>
+			<br>
+		<img src="images/ercp_target_platform.gif" width="578" height="449"><br>
+&nbsp;</li>
+			<li>To run the app, you can click the <b>Launch an Eclipse 
+			application</b> link in the plugin.xml/manifest editor. This will 
+			fail initially, so you will need to access the launch configuration 
+			and select the <b>org.eclipse.ercp.eworkbench.eWorkbench</b> 
+			application.<br>
+			<br>
+		<img src="images/ercp_launch.gif" width="617" height="438"></li>
+		</ol>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

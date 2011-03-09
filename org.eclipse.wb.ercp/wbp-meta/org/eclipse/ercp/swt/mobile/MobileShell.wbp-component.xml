@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+        		<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CLOSE MIN MAX RESIZE TITLE RIGHT_TO_LEFT</parameter>
+					<parameter name="macro0">trim SHELL_TRIM DIALOG_TRIM NO_TRIM</parameter>
+					<parameter name="select0">modality MODELESS PRIMARY_MODAL MODELESS APPLICATION_MODAL SYSTEM_MODAL</parameter>
+        		</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Display"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+        		<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CLOSE MIN MAX RESIZE TITLE RIGHT_TO_LEFT</parameter>
+					<parameter name="macro0">trim SHELL_TRIM DIALOG_TRIM NO_TRIM</parameter>
+					<parameter name="select0">modality MODELESS PRIMARY_MODAL MODELESS APPLICATION_MODAL SYSTEM_MODAL</parameter>
+        		</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Display"/>
+			<parameter type="int">
+        		<editor id="staticField">
+        			<parameter name="class">org.eclipse.ercp.swt.mobile.MobileShell</parameter>
+        			<parameter name="fields">NO_STATUS_PANE SMALL_STATUS_PANE LARGE_STATUS_PANE</parameter>
+        		</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Display"/>
+		</constructor>
+	</constructors>
+</component>

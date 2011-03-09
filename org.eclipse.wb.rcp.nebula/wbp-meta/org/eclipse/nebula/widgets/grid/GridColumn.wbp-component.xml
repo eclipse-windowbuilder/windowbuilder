@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.grid.GridColumnInfo"/>
+	<description>Instances of this class represent a column in a grid widget.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.grid.GridColumn(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setWidth(int)"><![CDATA[150]]></invocation>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Column"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.Grid" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">CHECK</parameter>
+					<parameter name="select0">align NONE NONE LEFT RIGHT CENTER</parameter>
+					</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.Grid" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">CHECK</parameter>
+					<parameter name="select0">align NONE NONE LEFT RIGHT CENTER</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.GridColumnGroup" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">CHECK</parameter>
+					<parameter name="select0">align NONE NONE LEFT RIGHT CENTER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setText(java.lang.String)" order="afterCreation"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.grid"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text width tree"/>
+	<properties-advanced names="resizeable checkable"/>
+	<property id="setAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT RIGHT CENTER</parameter>
+		</editor>
+	</property>
+	<property id="setSort(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">UP DOWN NONE</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+</component>

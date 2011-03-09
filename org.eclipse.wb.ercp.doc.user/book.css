@@ -1,0 +1,6 @@
+/* 
+ * Import standard Eclipse help stylesheet.
+ * You can find the actual book.css file in org.eclipse.sdk plugin.
+ * Feel free to add your own styles here.
+ */
+@import "../PRODUCT_PLUGIN/book.css";

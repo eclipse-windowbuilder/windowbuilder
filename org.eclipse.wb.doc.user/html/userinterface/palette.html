@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Palette</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Palette</h1>
+<table border="0" cellspacing="0" cellpadding="0" width="900">
+	<tr>
+		<td width="256" valign="top" rowspan="2">
+		<img src="images/palette_swt.png" border="0" align="top">&nbsp;
+		<img src="images/palette_swing.png" border="0"></td>
+		<td valign="top" colspan="3">The 
+<b>Palette</b> provides quick access to toolkit-specific components as well as any custom 
+		components installed by the user. The <b>Palette</b> is organized into categories which 
+		may be expanded, collapsed or hidden.<p>To add a components to the <b>
+			<a href="design_view.html">Design View</a></b>, you can:</p>
+		<ul>
+			<li>Select it in the palette and drop it on the <b>
+			<a href="design_view.html">Design View</a></b>  
+			or <b>
+	<a href="component_tree.html">Component Tree</a> </b> by 
+			clicking in the desired location.</li>
+			<li>Use the <b>Choose Component</b> command to select the widget 
+			type from <b>Choose Component</b> dialog.</li>
+		</ul>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">Multiple widgets of the same type may be 
+		added to the <b>
+			<a href="design_view.html">Design View</a> </b> by holding down the <b>Ctrl</b> key when 
+		selecting the widget in the <b>Palette</b>.<p>The palette may be customized by 
+		right-clicking anywhere in the palette to access the 
+		<a href="palette_context_menu.html">palette context 
+		menu</a> or by opening the <b><a href="palette_manager.html">Palette 
+		Manager</a></b> dialog..</p>
+		<p>The following commands are common to every palette:</p>
+		<ul>
+			<li>Selection</li>
+			<li>Marquee</li>
+			<li>Choose component</li>
+			<li>Tab Order</li>
+		</ul>
+		</td>
+		<td valign="top" width="10">
+		&nbsp;</td>
+		<td valign="top">
+		<img src="images/palette_context_menu.png" border="0" align="left"></td>
+	</tr>
+</table>
+<h2>Common Palette Commands</h2>
+        <table border="0" cellpadding="5" cellspacing="0" width="800">
+          <tr>
+            <td bgcolor="#e8e8d8">
+			<h3>Icon</h3>
+			</td>
+            <td bgcolor="#e8e8d8" width="130">
+			<h3>Menu Name</h3>
+			</td>
+            <td bgcolor="#e8e8d8">
+      <h3>Description</h3>
+			</td>
+          </tr>
+			<tr>
+            <td align="center" bgcolor="#fcfcf4" valign="top">
+			<img src="images/SelectionTool.gif" alt="" width="16" height="16"></td>
+            <td bgcolor="#fcfcf4" valign="top" width="130">
+			<b>Selection</b></td>
+            <td bgcolor="#fcfcf4" valign="top">
+      Select one or more widgets. Hold the <b>Shift</b> or <b>Ctrl</b> key down 
+		to select multiple widgets.<p>
+		<img src="images/single_selection.png" border="0"></td>
+          </tr>
+			<tr>
+            <td align="center" bgcolor="#f2f2e6" valign="top">
+			<img src="images/MarqueeSelectionTool.gif" alt="" width="16" height="16"></td>
+            <td bgcolor="#f2f2e6" valign="top" width="130">
+			<b>Marquee</b></td>
+            <td bgcolor="#f2f2e6" valign="top">
+      Rubber band select multiple widgets. Hold the <b>Alt</b> key and start 
+		dragging to automatically activate the <b>Marquee</b> tool.<p>
+		<img src="images/marquee_select.png" border="0"></td>
+          </tr>
+			<tr>
+            <td align="center" bgcolor="#fcfcf4" valign="top">
+			<img src="images/ChooseComponent.gif" alt="" width="16" height="16"></td>
+            <td bgcolor="#fcfcf4" valign="top" width="130">
+			<b>Choose component</b></td>
+            <td bgcolor="#fcfcf4" valign="top">
+      	Adds a component to the editor. Enter the name of the class or select it 
+		from the history list. You can right-click on an item in the list to <b>
+		Remove from History</b>.<p>
+		<img src="images/choose_component_dialog.png" border="0" width="261" height="224">&nbsp;
+		<img src="images/remove_from_history.png" border="0" align="top"></td>
+          	</tr>
+			<tr>
+            <td align="center" bgcolor="#f2f2e6" valign="top">
+			<img src="images/tab_order.gif" alt="" width="16" height="16"></td>
+            <td bgcolor="#f2f2e6" valign="top" width="130">
+			<b>Tab Order</b></td>
+            <td bgcolor="#f2f2e6" valign="top">
+      	Set the tab order of the components.
+		<ol>
+			<li>Start by selecting the top-level container (such as the JFrame).</li>
+			<li>Activate the Tab Order tool.</li>
+			<li>Click the components in the desired order.<p>Click a component 
+			more than once to increment its index.</p>
+			<p>Shift+Click to exclude a component.</p>
+			<p>Ctrl+Click to move the selected&nbsp; index to another component.</li>
+			<li>Deactivate the Tab Order tool by choosing another tool (such as
+			<b>Selection</b>).</li>
+		</ol>
+		<p>
+		<img src="images/set_tab_order.png" border="0" width="296" height="137"></td>
+          	</tr>
+			</table>
+      
+
+
+      <p>&nbsp;</p>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>The position of the <b>Palette</b> may be configured via 
+		drag and drop or by right-clicking on the <b>Palette</b> header and 
+		selecting the <b>Dock On</b> command. The <b>Palette</b> may be docked to either the left or right 
+		side of the <b><a href="design_view.html">Design View</a></b>. 
+		<p>
+	<img border="0" src="../preferences/images/flyout_palette1.png">&nbsp;
+		<img border="0" src="images/palette_dock_on.gif" align="top"></p>
+		<p>The <b>
+		Palette</b> may also be collapse and expanded on demand.</p>
+	<p>
+		<img border="0" src="../preferences/images/flyout_palette2.png">&nbsp;
+		</p>
+	<p>The <b>Palette</b> is also available as a standalone view. Use the <b>
+	Window &gt; Show View &gt; Other...</b> command and open the <b>WindowBuilder &gt; 
+	Palette</b> view or right-click on the <b>Palette</b> and select the <b>Extract as 
+	view</b> command. Closing the <b>Palette</b> view will make the <b>Palette</b> 
+	reappear as embedded view within the editor.</p>
+	<p>
+	<img border="0" src="../preferences/images/windowbuilder_views.png">&nbsp;
+		<img border="0" src="../preferences/images/palette_view.png" align="top">&nbsp;
+		<img border="0" src="images/palette_extract_as_view.gif" align="top"></p>
+            
+
+
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+            
+
+
+</body></html>

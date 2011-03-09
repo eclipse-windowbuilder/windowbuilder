@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- Java Designer content type-->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designerContentPatterns">
+		<excludePattern>XWT.load</excludePattern>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Exceptions -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.exceptions">
+		<file path="resources/exceptions.xml"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Java parser validator -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseFactories">
+		<validator class="org.eclipse.wb.internal.xwt.parser.XwtJavaParseValidator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.preferenceTransfer">
+		<transfer id="org.eclipse.wb.xwt.preferencesTransfer"
+			icon="icons/preference_transfer.png" name="Designer XWT Preferences">
+			<mapping scope="instance">
+				<entry node="org.eclipse.wb.xwt"/>
+			</mapping>
+		</transfer>
+	</extension>
+
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.xwt.preferences.PreferenceInitializer"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- XWT content type and editor -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.eclipse.wb.xwt.content-type"
+			base-type="org.eclipse.core.runtime.xml" file-extensions="xwt" name="XWT File"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.editors">
+		<editor id="org.eclipse.wb.xwt.editor.XwtEditor"
+			class="org.eclipse.wb.internal.xwt.editor.XwtEditor"
+			contributorClass="org.eclipse.wb.internal.xwt.editor.XwtEditorContributor"
+			icon="icons/editor_xwt.png" name="WindowBuilder Editor">
+			<contentTypeBinding contentTypeId="org.eclipse.wb.xwt.content-type"/>
+		</editor>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.xml.pairResourceProviders">
+		<provider class="org.eclipse.wb.internal.xwt.editor.XwtPairResourceProvider"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Actions and commands -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution id="org.eclipse.wb.xwt.editor.actions"
+			targetID="org.eclipse.wb.xwt.editor.XwtEditor">
+			<action id="org.eclipse.wb.core.xml.editor.actions.SwitchAction"
+				class="org.eclipse.wb.internal.core.xml.editor.actions.SwitchAction"
+				definitionId="org.eclipse.wb.core.xml.editor.actions.SwitchAction"
+				label="%actions.switch.name" tooltip="%actions.switch.text" menubarPath="navigate/open.ext2"
+				helpContextId="switch_page"/>
+			<action id="org.eclipse.wb.core.xml.editor.actions.SwitchPairEditorAction"
+				class="org.eclipse.wb.internal.core.xml.editor.actions.SwitchPairEditorAction"
+				definitionId="org.eclipse.wb.core.xml.editor.actions.SwitchPairEditorAction"
+				label="%actions.switchPair.name" tooltip="%actions.switchPair.text"
+				menubarPath="navigate/open.ext2" helpContextId="switch_page"/>
+		</editorContribution>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Class loader -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoadingContributor">
+		<contributor namespace="org.eclipse.wb.internal.xwt."/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.rcp">
+			<resourcePrefixes>
+				<resourcePrefix>NA</resourcePrefix>
+			</resourcePrefixes>
+			<palette>
+				<!-- System -->
+				<x-entry category="org.eclipse.wb.rcp.system" id="system.selection"
+					class="org.eclipse.wb.internal.core.xml.editor.palette.model.SelectionToolEntryInfo"/>
+				<x-entry category="org.eclipse.wb.rcp.system" id="system.marquee"
+					class="org.eclipse.wb.internal.core.xml.editor.palette.model.MarqueeSelectionToolEntryInfo"/>
+				<x-entry category="org.eclipse.wb.rcp.system" id="system.chooseComponent"
+					class="org.eclipse.wb.internal.core.xml.editor.palette.model.ChooseComponentEntryInfo"/>
+				<!-- Layout -->
+				<x-entry category="org.eclipse.wb.rcp.layouts" id="rcp.layouts.absolute"
+					class="org.eclipse.wb.internal.xwt.palette.AbsoluteLayoutEntryInfo"/>
+				<!-- Forms API -->
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.swt.widgets.Composite" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.swt.widgets.Button" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.swt.widgets.Label" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.swt.widgets.Table" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.swt.widgets.Text" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.Form" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.ScrolledForm" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.ExpandableComposite" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.Section" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.FormText" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.Hyperlink" condition="isdef isXWT"/>
+				<component category="org.eclipse.wb.rcp.FormsAPI"
+					class="org.eclipse.ui.forms.widgets.ImageHyperlink" condition="isdef isXWT"/>
+			</palette>
+		</toolkit>
+	</extension>
+
+	<!-- ======================================================== -->
+	<!-- Description processors -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.xml.descriptionRulesProviders">
+		<provider class="org.eclipse.wb.internal.xwt.parser.XwtDescriptionRulesProvider"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.xml.descriptionProcessors">
+		<processor class="org.eclipse.wb.internal.xwt.parser.XwtDescriptionProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- PropertyEditor -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.xml.propertyEditors">
+		<!-- typed -->
+		<editor type="org.eclipse.swt.graphics.Color"
+			class="org.eclipse.wb.internal.xwt.model.property.editor.color.ColorPropertyEditor"/>
+		<editor type="org.eclipse.swt.graphics.Font"
+			class="org.eclipse.wb.internal.xwt.model.property.editor.font.FontPropertyEditor"/>
+		<editor type="org.eclipse.swt.graphics.Image"
+			class="org.eclipse.wb.internal.xwt.model.property.editor.ImagePropertyEditor"/>
+		<!-- configurable -->
+		<configurableEditor id="style"
+			class="org.eclipse.wb.internal.xwt.model.property.editor.style.StylePropertyEditor"/>
+		<configurableEditor id="FormAttachment.controlSelection"
+			class="org.eclipse.wb.internal.xwt.model.layout.form.ControlSelectionPropertyEditor"/>
+		<configurableEditor id="innerClass"
+			class="org.eclipse.wb.internal.xwt.model.property.editor.InnerClassPropertyEditor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.xwt.gef.EditPartFactory" priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.xwt.gef.LayoutEditPolicyFactory" priority="1"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories for TreeViewer -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.treeEditPartFactories">
+		<factory class="org.eclipse.wb.internal.xwt.gefTree.EditPartFactory" priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.treeEditPolicyFactories">
+		<factory class="org.eclipse.wb.internal.xwt.gefTree.LayoutEditPolicyFactory" priority="1"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Rename refactoring participants -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
+		<renameParticipant
+			class="org.eclipse.wb.internal.xwt.refactoring.EventListenerMethodRenameParticipant"
+			id="org.eclipse.wb.xwt.refactoring.EventListenerMethodRenameParticipant"
+			name="XWT rename participant">
+			<enablement>
+				<with variable="element">
+					<instanceof value="org.eclipse.jdt.core.IMethod"/>
+				</with>
+			</enablement>
+		</renameParticipant>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- New Wizards -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.eclipse.wb.xwt" name="XWT"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard name="XWT Application" icon="icons/wizard/Application/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.xwt"
+			class="org.eclipse.wb.internal.xwt.wizards.ApplicationWizard"
+			id="org.eclipse.wb.xwt.wizards.ApplicationWizard">
+			<description>Create XWT Application</description>
+		</wizard>
+		<wizard name="XWT Composite" icon="icons/wizard/Composite/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.xwt"
+			class="org.eclipse.wb.internal.xwt.wizards.CompositeWizard"
+			id="org.eclipse.wb.xwt.wizards.CompositeWizard">
+			<description>Create XWT Composite</description>
+		</wizard>
+		<wizard name="XWT Forms Application" icon="icons/wizard/Application/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.xwt"
+			class="org.eclipse.wb.internal.xwt.wizards.FormsApplicationWizard"
+			id="org.eclipse.wb.xwt.wizards.FormsApplicationWizard">
+			<description>Create XWT Forms Application</description>
+		</wizard>
+		<wizard name="XWT Forms Composite" icon="icons/wizard/Composite/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.xwt"
+			class="org.eclipse.wb.internal.xwt.wizards.FormsCompositeWizard"
+			id="org.eclipse.wb.xwt.wizards.FormsCompositeWizard">
+			<description>Create XWT Forms Composite</description>
+		</wizard>
+	</extension>
+
+</plugin>

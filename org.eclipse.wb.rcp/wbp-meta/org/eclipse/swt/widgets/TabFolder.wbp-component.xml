@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.TabFolderInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.TabFolderInfo"/>
+	<description>Instances of this class implement the notebook user interface metaphor. It allows the user to
+		select a notebook page from set of pages.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.TabFolder(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+					<parameter name="select0">dir TOP TOP BOTTOM</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- refresh -->
+		<parameter name="refresh_afterCreate"><![CDATA[
+			import org.eclipse.swt.SWT;
+			import org.eclipse.swt.widgets.*;
+			if (object.getItemCount() == 0) {
+				item = new TabItem(object, SWT.NONE);
+				item.setText("Empty TabFolder");
+				  label = new Label(object, SWT.CENTER);
+				  label.setText("Drop new TabItem(s).");
+				item.setControl(label);
+			}
+			]]></parameter>
+		<!-- flow container: Control -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component">org.eclipse.swt.widgets.Control</parameter>
+		<parameter name="flowContainer.1.reference">org.eclipse.swt.widgets.TabItem</parameter>
+		<!-- flow container: TabItem -->
+		<parameter name="flowContainer.2">true</parameter>
+		<parameter name="flowContainer.2.horizontal">true</parameter>
+		<parameter name="flowContainer.2.component">org.eclipse.swt.widgets.TabItem</parameter>
+		<parameter name="flowContainer.2.reference">org.eclipse.swt.widgets.TabItem</parameter>
+	</parameters>
+</component>

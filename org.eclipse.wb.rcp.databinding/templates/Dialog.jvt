@@ -1,0 +1,99 @@
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
+
+field
+	private DataBindingContext m_bindingContext;
+
+field
+	private %BeanClass% %BeanField%;
+%WidgetFields%
+
+method
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public %TypeName%(Shell parentShell) {
+		super(parentShell);
+	}
+
+method
+	public %TypeName%(Shell parentShell, %BeanClass% new%BeanName%) {
+		super(parentShell);
+		set%BeanName%(new%BeanName%, false);
+	}
+
+method
+	/**
+	 * Create contents of the dialog.
+	 * @param parent
+	 */
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Composite container = (Composite) super.createDialogArea(parent);
+%Widgets%container%
+		if (%BeanFieldAccess% != null) {
+			m_bindingContext = initDataBindings();
+		}
+		return container;
+	}
+
+method
+	/**
+	 * Create contents of the button bar.
+	 * @param parent
+	 */
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+		createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
+	}
+
+method
+	/**
+	 * Return the initial size of the dialog.
+	 */
+	@Override
+	protected Point getInitialSize() {
+		return new Point(%DefaultFormSize%);
+	}
+
+method
+	private DataBindingContext initDataBindings() {
+%Observables%
+		//
+		DataBindingContext bindingContext = new DataBindingContext();
+		//
+%Bindings%
+		//
+		return bindingContext;
+	}
+
+method
+	public %BeanClass% get%BeanName%() {
+		return %BeanFieldAccess%;
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%) {
+		set%BeanName%(new%BeanName%, true);
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%, boolean update) {
+		%BeanFieldAccess% = new%BeanName%;
+		if (update) {
+			if (m_bindingContext != null) {
+				m_bindingContext.dispose();
+				m_bindingContext = null;
+			}
+			if (%BeanFieldAccess% != null) {
+				m_bindingContext = initDataBindings();
+			}
+		}
+	}
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.widgets.ControlInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.ControlInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<methods-include signature="/set\w+\([^,]+\)/"/>
+		<!-- Bounds -->
+		<method name="setLocation">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setLocation">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+		</method>
+		<method name="setSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setSize">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+		</method>
+		<method name="setBounds">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setBounds">
+			<parameter type="org.eclipse.swt.graphics.Rectangle"/>
+		</method>
+		<method name="pack"/>
+		<!-- LAYOUT -->
+		<method name="setLayoutData">
+			<parameter type="java.lang.Object" child="true"/>
+		</method>
+		<!-- menu parent/child relations -->
+		<method name="setMenu">
+			<parameter type="org.eclipse.swt.widgets.Menu" child="true">
+				<tag name="associateOnlyFirstTime" value="true"/>
+			</parameter>
+		</method>
+		<!-- disable interception -->
+		<method name="computeSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="binaryExecutionFlow.dontVisit" value="true"/>
+		</method>
+		<method name="computeSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="boolean"/>
+			<tag name="binaryExecutionFlow.dontVisit" value="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced
+		names="handle backgroundImage dragDetect capture cursor redraw bounds location size visible"/>
+	<property id="setCapture(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setRedraw(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- DragSource -->
+		<parameter name="simpleContainer.9">true</parameter>
+		<parameter name="simpleContainer.9.component">org.eclipse.swt.dnd.DragSource</parameter>
+		<!-- DropTarget -->
+		<parameter name="simpleContainer.8">true</parameter>
+		<parameter name="simpleContainer.8.component">org.eclipse.swt.dnd.DropTarget</parameter>
+		<!-- Menu popup -->
+		<parameter name="simpleContainer.7">true</parameter>
+		<parameter name="simpleContainer.7.x-association">property menu</parameter>
+		<parameter name="simpleContainer.7.component-validator"><![CDATA[
+			return isComponentType('org.eclipse.swt.widgets.Menu') && component.isPopup();
+		]]></parameter>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.swt.widgets.Control"><![CDATA[
+			DragDetect FocusIn FocusOut Help KeyDown KeyUp MenuDetect
+			MouseDoubleClick MouseDown MouseEnter MouseExit MouseHover 
+			MouseUp MouseMove Move Paint Resize Traverse 
+		]]></parameter>
+	</parameters>
+</component>

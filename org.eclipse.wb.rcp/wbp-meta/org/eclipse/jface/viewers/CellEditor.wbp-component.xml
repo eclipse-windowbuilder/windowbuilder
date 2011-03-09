@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<toolkit id="org.eclipse.wb.rcp"/>
+	<model class="org.eclipse.wb.core.model.WrapperMethodInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="Wrapper.method">getControl</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Component Tree</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Component Tree</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top">
+			<img src="images/component_tree.png" alt="" width="289" height="303"></td>
+		<td valign="top" width="10">&nbsp;</td>
+		<td valign="top">
+<p>The <b>Component Tree</b> shows the hierarchical relationship between all of the 
+components in the <b>
+		<a href="design_view.html">Design View</a></b>.</p>
+		<p>Each component in the tree shows is icon (with 
+		potential decorators), its variable name and text label. Components may 
+		be represented as local variables or fields, and variable names must be 
+		unique within the scope in which the component is defined.
+		</p>
+		<p>
+			<img src="images/event_icon_decorator.png" alt="" align="right">Icon decorators (see table below) are used to indicate whether a 
+		component defines and events or is exposed as a public component of a 
+		custom container.</p>
+		<p>Expand the components in the tree using the <b>Expand All</b>
+			<img src="images/expand_all.gif" alt="" width="16" height="16"> 
+		button, and collapse them using the <b>Collapse All</b>
+			<img src="images/collapse_all.gif" alt="" width="16" height="16"> 
+		button.</p>
+		<p>Right-click on an entry in the tree to access the same
+		<a href="context_menu.html">context menu</a> available in the <b>
+		<a href="design_view.html">Design View</a></b>. Components may be re-arranged in the tree via drag/drop and 
+		deleted using the <b>Delete</b> key.</p>
+		<p>Multiple components may be selected in the tree by holding down the <b>
+		Ctrl</b> key to add individual selections or the <b>Shift</b> key to add 
+		contiguous selections.</td>
+	</tr>
+</table>
+<h2>Decorators</h2>
+        <table border="0" cellpadding="5" cellspacing="0" width="800">
+          <tr>
+            <td bgcolor="#e8e8d8">
+			<h3>Icon</h3>
+			</td>
+            <td bgcolor="#e8e8d8" width="130">
+			<h3>Decorator Name</h3>
+			</td>
+            <td bgcolor="#e8e8d8">
+      <h3>Description</h3>
+			</td>
+          </tr>
+			<tr>
+            <td align="center" bgcolor="#fcfcf4" valign="top">
+			<img src="images/exposed_decorator.gif" alt=""></td>
+            <td bgcolor="#fcfcf4" valign="top" width="130">
+			<b>Exposed</b></td>
+            <td bgcolor="#fcfcf4" valign="top">
+      Child widgets exposed in a custom container.</td>
+          </tr>
+			<tr>
+            <td align="center" bgcolor="#f2f2e6" valign="top">
+			<img src="images/event_decorator.gif" alt="" width="7" height="7"></td>
+            <td bgcolor="#f2f2e6" valign="top" width="130">
+			<b>Event</b></td>
+            <td bgcolor="#f2f2e6" valign="top">
+      Components with one or more event handlers defined. </td>
+          </tr>
+			</table>
+      
+
+
+</body></html>

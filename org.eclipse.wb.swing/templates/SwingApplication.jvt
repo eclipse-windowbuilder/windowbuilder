@@ -1,0 +1,41 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+
+field
+	private JFrame %field-prefix%frame;
+
+method
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					%TypeName% window = new %TypeName%();
+					window.%field-prefix%frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+method
+	/**
+	 * Create the application.
+	 */
+	public %TypeName%() {
+		initialize();
+	}
+
+method
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		%this%%field-prefix%frame = new JFrame();
+		%this%%field-prefix%frame.setBounds(100, 100, %DefaultFormSize%);
+		%this%%field-prefix%frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+

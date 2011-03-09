@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.bean.AbstractActionInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String">
+				<tag name="actionKey" value="Name"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String">
+				<tag name="actionKey" value="Name"/>
+			</parameter>
+			<parameter type="javax.swing.Icon">
+				<tag name="actionKey" value="SmallIcon"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="NVO.disabled">true</parameter>
+	</parameters>
+</component>

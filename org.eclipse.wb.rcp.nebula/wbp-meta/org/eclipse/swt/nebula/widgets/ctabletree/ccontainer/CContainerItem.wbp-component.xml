@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Item for CContainer</description>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.swt.nebula.widgets.ctabletree.ccontainer"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-hidden names="open selected f:fixedHeight f:fixedTitleHeight"/>
+	<properties-hidden
+		names="setLocation(org.eclipse.swt.graphics.Point) setBounds(org.eclipse.swt.graphics.Rectangle) setSize(org.eclipse.swt.graphics.Point)"/>
+	<property-tag name="setText(java.lang.String)" tag="title" value="text"/>
+	<property-tag name="setText(java.lang.String[])" tag="title" value="texts"/>
+	<property id="setEnabled(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setIsGridLine(boolean)">
+		<defaultValue value="false"/>
+	</property>
+</component>

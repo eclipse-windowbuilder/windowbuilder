@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A field editor for an enumeration type preference. The choices are presented as a list of
+		radio buttons.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.preference.RadioGroupFieldEditor("id", "New RadioGroupFieldEditor", 1, new String[][]{{"name_1", "value_1"}, {"name_2", "value_2"}}, %parentComposite%, false)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="int" defaultSource="1"/>
+			<parameter type="java.lang.String[][]" defaultSource="new String[][]{}">
+				<editor id="FieldEditor_LabelsConstants"/>
+			</parameter>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="int" defaultSource="1"/>
+			<parameter type="java.lang.String[][]" defaultSource="new String[][]{}">
+				<editor id="FieldEditor_LabelsConstants"/>
+			</parameter>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+			<parameter type="boolean"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setIndent(int)">
+		<defaultValue value="8"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="FieldEditor.exposeMethods">getLabelControl getRadioBoxControl</parameter>
+	</parameters>
+</component>

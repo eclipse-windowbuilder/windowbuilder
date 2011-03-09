@@ -1,0 +1,58 @@
+import javax.swing.JPanel;
+import org.jdesktop.beansbinding.BindingGroup;
+
+field
+	private BindingGroup m_bindingGroup;
+
+field
+	private %BeanClass% %BeanField%;
+%ComponentFields%
+
+method
+	public %TypeName%(%BeanClass% new%BeanName%) {
+		this();
+		set%BeanName%(new%BeanName%);
+	}
+
+method
+	public %TypeName%() {
+		%Components%this%
+		if (%BeanFieldAccess% != null) {
+			m_bindingGroup = initDataBindings();
+		}
+	}
+%LAZY%
+method
+	protected BindingGroup initDataBindings() {
+%Bindings%
+		//
+		BindingGroup bindingGroup = new BindingGroup();
+%Group%
+		//
+		return bindingGroup;
+	}
+
+method
+	public %BeanClass% get%BeanName%() {
+		return %BeanFieldAccess%;
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%) {
+		set%BeanName%(new%BeanName%, true);
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%, boolean update) {
+		%BeanFieldAccess% = new%BeanName%;
+		if (update) {
+			if (m_bindingGroup != null) {
+				m_bindingGroup.unbind();
+				m_bindingGroup = null;
+			}
+			if (%BeanFieldAccess% != null) {
+				m_bindingGroup = initDataBindings();
+			}
+		}
+	}
+

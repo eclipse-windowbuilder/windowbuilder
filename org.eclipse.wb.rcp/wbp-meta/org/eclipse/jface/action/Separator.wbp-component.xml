@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description> A separator is a special kind of contribution item which acts as a visual separator and,
+		optionally, acts as a group marker. Unlike group markers, separators do have a visual representation
+		for menus and toolbars. </description>
+</component>

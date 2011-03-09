@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Instances of this class are selectable user interface objects that represent a range of
+		positive, numeric values.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.Scale(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+					<parameter name="select0">dir HORIZONTAL HORIZONTAL VERTICAL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setMinimum" order="after setMaximum(int)">
+			<parameter type="int"/>
+		</method>
+		<method name="setSelection" order="after setMinimum(int)">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="minimum maximum selection"/>
+</component>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>CompositeTable is a custom SWT grid control that: 1.Gives you control over the layout of your
+		rows. 2.Automatically edits in place using any SWT control Manages CRUD operations simply and
+		automatically. 3.Requests only visible data using a virtual table API for maximum scalability and
+		performance. </description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.nebula.widgets.compositetable.CompositeTable(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setRunTime(boolean)" order="last"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.swt.nebula.widgets.compositetable"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="linesVisible"/>
+	<properties-advanced names="numRowsInCollection maxRowsVisible topRow"/>
+	<properties-hidden names="selection"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">150</parameter>
+		<parameter name="liveComponent.forcedSize.height">150</parameter>
+		<!-- selection listener -->
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">false</parameter>
+		<parameter name="flowContainer.component-validator"><![CDATA[ReflectionUtils.getFullyQualifiedName(component.description.componentClass,false) == 'org.eclipse.swt.widgets.Composite' && container.getChildren().size() < 2]]></parameter>
+		<parameter name="flowContainer.reference">org.eclipse.swt.widgets.Composite</parameter>
+	</parameters>
+</component>

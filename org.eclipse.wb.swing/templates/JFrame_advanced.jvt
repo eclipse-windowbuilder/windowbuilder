@@ -1,0 +1,39 @@
+import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+field
+	private JPanel %field-prefix%contentPane;
+
+method
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					%TypeName% frame = new %TypeName%();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+method
+	/**
+	 * Create the frame.
+	 */
+	public %TypeName%() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, %DefaultFormSize%);
+		%this%%field-prefix%contentPane = new JPanel();
+		%this%%field-prefix%contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		%this%%field-prefix%contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(%this%%field-prefix%contentPane);
+	}
+

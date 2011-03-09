@@ -1,0 +1,52 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+
+method
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell();
+		shell.setLayout(new RowLayout(SWT.HORIZONTAL));
+		shell.setText("RowLayout test");
+		{
+			Button button = new Button(shell, SWT.NONE);
+			button.setText("button");
+		}
+		{
+			Button button = new Button(shell, SWT.NONE);
+			button.setText("button with long caption");
+		}
+		{
+			Group group = new Group(shell, SWT.NONE);
+			group.setLayout(new FillLayout(SWT.VERTICAL));
+			group.setText("Group");
+			{
+				Button button = new Button(group, SWT.NONE);
+				button.setText("long long long button");
+			}
+			{
+				Button button = new Button(group, SWT.NONE);
+				button.setText("button");
+			}
+			{
+				Button button = new Button(group, SWT.NONE);
+				button.setText("button");
+			}
+		}
+		{
+			Label label = new Label(shell, SWT.NONE);
+			label.setText("label");
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

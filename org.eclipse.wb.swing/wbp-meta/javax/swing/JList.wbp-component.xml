@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A component that allows the user to select one or more objects from a list.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JList()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.ListModel" property="setModel(javax.swing.ListModel)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setSelectedIndex" order="after setModel(javax.swing.ListModel)">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="model selectionMode visibleRowCount"/>
+	<properties-advanced
+		names="cellRenderer dragEnabled dropMode fixedCellHeight fixedCellWidth selectionBackground selectionForeground selectionModel"/>
+	<properties-hidden names="UI"/>
+	<property id="setLayoutOrientation(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.JList</parameter>
+			<parameter name="fields">VERTICAL HORIZONTAL_WRAP VERTICAL_WRAP</parameter>
+		</editor>
+	</property>
+	<property id="setSelectionMode(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.ListSelectionModel</parameter>
+			<parameter name="fields">SINGLE_SELECTION SINGLE_INTERVAL_SELECTION
+			MULTIPLE_INTERVAL_SELECTION</parameter>
+		</editor>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JComboBox"/>
+		<morphTarget class="javax.swing.JTextField"/>
+		<morphTarget class="javax.swing.JSpinner"/>
+		<morphTarget class="javax.swing.JLabel"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

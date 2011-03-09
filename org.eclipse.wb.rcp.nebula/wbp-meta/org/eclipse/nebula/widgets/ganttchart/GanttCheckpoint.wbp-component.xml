@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Convenience class for creating a checkpoint instead of using the constructors on GanttEvent.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.ganttchart.GanttCheckpoint(%parent%, "New Checkpoint", java.util.Calendar.getInstance())]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+		</constructor>
+	</constructors>
+</component>

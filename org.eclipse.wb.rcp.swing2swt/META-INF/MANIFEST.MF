@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.wb.rcp.swing2swt;singleton:=true
+Bundle-Version: 0.0.0
+Bundle-Activator: org.eclipse.wb.internal.rcp.swing2swt.Activator
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.wb.core,
+ org.eclipse.wb.swt,
+ org.eclipse.wb.rcp
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.wb.internal.rcp.swing2swt;x-friends:="org.eclipse.wb.tests",
+ org.eclipse.wb.internal.rcp.swing2swt.layout;x-friends:="org.eclipse.wb.tests"
+Bundle-Localization: plugin

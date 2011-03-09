@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo"/>
+	<description>A CardLayout object is a layout manager for a container. It treats each component in the
+		container as a card. Only one card is visible at a time, and the container acts as a stack of cards.
+		The first component added to a CardLayout object is the visible component when the container is first displayed.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.CardLayout(0, 0)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setHgap(int)"/>
+			<parameter type="int" property="setVgap(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flow container -->
+		<parameter name="flowContainer.tree">true</parameter>
+		<parameter name="flowContainer.tree.component">java.awt.Component</parameter>
+		<parameter name="flowContainer.tree.association">%parent%.add(%child%)</parameter>
+	</parameters>
+</component>

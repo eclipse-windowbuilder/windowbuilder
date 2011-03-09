@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo"/>
+	<description>FormLayout is a powerful, flexible and precise general purpose layout manager. It aligns
+		components vertically and horizontally in a dynamic rectangular grid of cells, with each component
+		occupying one or more cells.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new com.jgoodies.forms.layout.FormLayout()]]></source>
+	</creation>
+</component>

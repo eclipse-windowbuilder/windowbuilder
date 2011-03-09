@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.gallery.GalleryInfo"/>
+	<description>SWT Widget that displays a picture gallery</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.gallery.Gallery(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<invocation
+			signature="setItemRenderer(org.eclipse.nebula.widgets.gallery.AbstractGalleryItemRenderer)"
+			><![CDATA[new org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer()]]></invocation>
+		<invocation
+			signature="setGroupRenderer(org.eclipse.nebula.widgets.gallery.AbstractGalleryGroupRenderer)"
+			><![CDATA[new org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer()]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">VIRTUAL BORDER</parameter>
+					<parameter name="select0">general SINGLE SINGLE MULTI</parameter>
+					<parameter name="select1">orientation NONE NONE V_SCROLL H_SCROLL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setItemRenderer(org.eclipse.nebula.widgets.gallery.AbstractGalleryItemRenderer)"
+			order="afterCreation"/>
+		<method signature="setGroupRenderer(org.eclipse.nebula.widgets.gallery.AbstractGalleryGroupRenderer)"
+			order="afterCreation"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.gallery"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="vertical"/>
+	<properties-advanced names="itemCount"/>
+	<property id="setGroupRenderer(org.eclipse.nebula.widgets.gallery.AbstractGalleryGroupRenderer)">
+		<editor id="instanceList">
+			<parameter-list name="types">org.eclipse.nebula.widgets.gallery.DefaultGalleryGroupRenderer</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.gallery.NoGroupRenderer</parameter-list>
+			<parameter-list name="titles">DEFAULT</parameter-list>
+			<parameter-list name="titles">NO</parameter-list>
+		</editor>
+	</property>
+	<property id="setItemRenderer(org.eclipse.nebula.widgets.gallery.AbstractGalleryItemRenderer)">
+		<editor id="instanceList">
+			<parameter-list name="types">org.eclipse.nebula.widgets.gallery.DefaultGalleryItemRenderer</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.gallery.ListItemRenderer</parameter-list>
+			<parameter-list name="titles">DEFAULT</parameter-list>
+			<parameter-list name="titles">LIST</parameter-list>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- selection listener -->
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">isHorizontal()</parameter>
+		<parameter name="flowContainer.component">org.eclipse.nebula.widgets.gallery.GalleryItem</parameter>
+	</parameters>
+</component>

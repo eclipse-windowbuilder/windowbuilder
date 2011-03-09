@@ -1,0 +1,139 @@
+<html>
+
+<head>
+<title>SWT Shell Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>SWT Shell Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+        <img src="images/wizard_swt_shell0.gif" align="left" hspace="10">Subclasses of the SWT <b>Shell</b> class can be
+              created using the <b>SWT Shell</b>&nbsp; wizard. The wizard can be
+              selected from the drop down wizard menu or from the
+              Eclipse <b>New</b> wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name and hit the <b>Finish</b>
+              button.<p>The <b>org.eclipse.swt.widgets.Shell</b> class is the default
+              superclass.</td>
+  </tr>
+  <tr>
+    <td>
+      <br>
+		<img src="images/wizard_swt_shell1.gif">&nbsp; 
+		<img src="images/wizard_swt_shell2.gif"></td>
+  </tr>
+  <tr>
+    <td>
+    <p><br>
+	The wizard generates the following code including a <b>main()</b> method.</p>
+		<blockquote>
+			<b>
+			<font SIZE="2" COLOR="#7f0055">
+			<p><font face="Courier">import</font><font face="Courier" SIZE="2"> </font></font></b>
+			<font face="Courier" size="2">org.eclipse.swt.SWT;</font><b><font face="Courier" SIZE="2" COLOR="#7f0055"><br>
+			import</font></b><font SIZE="2"><font face="Courier"> 
+			org.eclipse.swt.widgets.Display;</font></font><font SIZE="2" COLOR="#7f0055"><b><font face="Courier"><br>
+			import</font></b></font><font SIZE="2"><font face="Courier"> 
+			org.eclipse.swt.widgets.Shell;<br>
+			</font></font><font SIZE="2" COLOR="#7f0055"><b>
+			<font face="Courier"><br>
+			public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>class</b></font><font SIZE="2"> 
+			SwtShell </font><font SIZE="2" COLOR="#7f0055"><b>extends</b></font></font><font SIZE="2"><font face="Courier"> 
+			Shell {<br>
+			</font></font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+			</font><font SIZE="2" COLOR="#7f0055"><b>static</b></font><font SIZE="2">
+			</font><font SIZE="2" COLOR="#7f0055"><b>void</b></font></font><font SIZE="2"><font face="Courier"> 
+			main(String[] args) {<br>
+			</font></font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>try</b></font><font face="Courier" SIZE="2"> 
+			{<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">Display display = Display.<i>getDefault</i>();<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">SwtShell shell = </font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font SIZE="2"><font face="Courier"> 
+			SwtShell(</font></font><font face="Courier"><font SIZE="2">display, 
+			SWT.</font><font SIZE="2" COLOR="#0000c0"><i>SHELL_TRIM</i></font></font><font face="Courier" SIZE="2">);<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">shell.open();<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">shell.layout();<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>while</b></font><font SIZE="2"><font face="Courier"> 
+			(!shell.isDisposed()) {<br>
+			</font></font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>if</b></font><font face="Courier" SIZE="2"> 
+			(!display.readAndDispatch()) {<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">display.sleep();<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">}<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">}<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">} </font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>catch</b></font><font SIZE="2"><font face="Courier"> 
+			(Exception e) {<br>
+			</font></font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">e.printStackTrace();<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">}<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">}<br>
+			<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>public</b></font><font SIZE="2"><font face="Courier"> 
+			SwtShell(Display display,
+			</font></font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>int</b></font><font face="Courier" SIZE="2"> 
+			style</font><font face="Courier" SIZE="2">) {<br>
+			</font><font face="Courier" SIZE="2"> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font SIZE="2" COLOR="#7f0055"><b><font face="Courier">super</font></b></font><font face="Courier"><font SIZE="2">(display, 
+			style</font><font SIZE="2">);</font></font><font SIZE="2" face="Courier"><br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">createContents();<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">}<br>
+			<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+			protected</b></font><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>void</b></font></font><font face="Courier" SIZE="2"> 
+			createContents() {<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">setText(</font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;SWT</font><font SIZE="2" COLOR="#2a00ff" face="Courier"> 
+			Application&quot;</font><font SIZE="2"><font face="Courier">);<br>
+			</font></font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">setSize(450, 300);<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier">&nbsp;&nbsp;&nbsp;
+			</font><font face="Courier" SIZE="2">}<br>
+			<br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier">
+			<b>&nbsp;&nbsp;&nbsp; </b></font><font face="Courier" SIZE="2"> 
+			<b><font color="#7F0055">protected void</font></b> checkSubclass() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font><font SIZE="2" COLOR="#3f7f5f" face="Courier">// Disable the 
+			check that prevents subclassing of SWT components</font><font face="Courier" SIZE="2"><br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font face="Courier" SIZE="2">}<br>
+			</font><font SIZE="2"><font face="Courier">}</font></p>
+			</font>
+		</blockquote>
+		<p>When editing SWT Shells, all of the standard SWT layouts,
+      containers, widgets and menus are available. Custom or third party
+      controls may be added via the <b>
+		<a href="../../../com.instantiations.designer.doc.user/html/userinterface/palette.html">Choose 
+		Component</a></b> command.</p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

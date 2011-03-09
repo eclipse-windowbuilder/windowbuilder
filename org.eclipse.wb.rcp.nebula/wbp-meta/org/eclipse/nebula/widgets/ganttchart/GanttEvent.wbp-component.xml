@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.ganttchart.GanttEventInfo"/>
+	<description>One GanttEvent represents one "active" object int the GANTT chart.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.ganttchart.GanttEvent(%parent%, "New Event", java.util.Calendar.getInstance(), java.util.Calendar.getInstance(), 50)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="int" property="setPercentComplete(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="int" property="setPercentComplete(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="int" property="setPercentComplete(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="int" property="setPercentComplete(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="org.eclipse.swt.graphics.Image"
+				property="setPicture(org.eclipse.swt.graphics.Image)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="org.eclipse.swt.graphics.Image"
+				property="setPicture(org.eclipse.swt.graphics.Image)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="name resizable"/>
+	<properties-advanced names="fixedRowHeight gradientStatusColor statusColor showBoldText textDisplayFormat"/>
+	<property id="setShowBoldText(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setVerticalEventAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">CENTER TOP BOTTOM</parameter>
+		</editor>
+	</property>
+	<property id="setHorizontalTextLocation(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT</parameter>
+		</editor>
+	</property>
+	<property id="setVerticalTextLocation(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">TOP CENTER BOTTOM</parameter>
+		</editor>
+		<defaultValue value="org.eclipse.swt.SWT.CENTER"/>
+	</property>
+</component>

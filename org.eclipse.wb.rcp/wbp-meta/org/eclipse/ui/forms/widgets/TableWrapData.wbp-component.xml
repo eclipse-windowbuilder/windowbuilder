@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDataInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.forms.layout.table.TableWrapDataInfo"/>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.TableWrapData(org.eclipse.ui.forms.widgets.TableWrapData.LEFT, org.eclipse.ui.forms.widgets.TableWrapData.TOP, 1, 1)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" defaultSource="org.eclipse.ui.forms.widgets.TableWrapData.LEFT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+					<parameter name="fields">LEFT CENTER RIGHT FILL FILL_GRAB</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="int" defaultSource="org.eclipse.ui.forms.widgets.TableWrapData.LEFT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+					<parameter name="fields">LEFT CENTER RIGHT FILL FILL_GRAB</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int" defaultSource="org.eclipse.ui.forms.widgets.TableWrapData.TOP">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+					<parameter name="fields">TOP MIDDLE BOTTOM FILL FILL_GRAB</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="int" defaultSource="org.eclipse.ui.forms.widgets.TableWrapData.LEFT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+					<parameter name="fields">LEFT CENTER RIGHT FILL FILL_GRAB</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int" defaultSource="org.eclipse.ui.forms.widgets.TableWrapData.TOP">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+					<parameter name="fields">TOP MIDDLE BOTTOM FILL FILL_GRAB</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int" defaultSource="1" property="rowspan"/>
+			<parameter type="int" defaultSource="1" property="colspan"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="align">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT FILL</parameter>
+		</editor>
+	</property>
+	<property id="valign">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.ui.forms.widgets.TableWrapData</parameter>
+			<parameter name="fields">TOP MIDDLE BOTTOM FILL</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="layoutData.exclude-properties">Class Constructor</parameter>
+		<parameter name="layoutData.compatibleLayout">org.eclipse.ui.forms.widgets.TableWrapLayout</parameter>
+		<parameter name="isDefault"><![CDATA[
+			if (signature == "<init>()") {
+				return true;
+			}
+			if (signature == "<init>(int)") {
+				return args[0] == org.eclipse.ui.forms.widgets.TableWrapData.LEFT;
+			}
+			if (signature == "<init>(int,int)") {
+				return
+					args[0] == org.eclipse.ui.forms.widgets.TableWrapData.LEFT &&
+					args[1] == org.eclipse.ui.forms.widgets.TableWrapData.TOP;
+			}
+			if (signature == "<init>(int,int,int,int)") {
+				return
+					args[0] == org.eclipse.ui.forms.widgets.TableWrapData.LEFT &&
+					args[1] == org.eclipse.ui.forms.widgets.TableWrapData.TOP &&
+					args[2] == 1 &&
+					args[3] == 1;
+			}
+			return false;
+		]]></parameter>
+	</parameters>
+</component>

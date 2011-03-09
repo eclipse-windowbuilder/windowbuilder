@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The toolkit is responsible for creating SWT controls adapted to work in Eclipse forms. In
+		addition to changing their presentation properties (fonts, colors etc.), various listeners are
+		attached to make them behave correctly in the form context.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.FormToolkit(org.eclipse.swt.widgets.Display.getDefault())]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="adapt">
+			<parameter type="org.eclipse.swt.widgets.Composite"/>
+		</method>
+		<method name="adapt">
+			<parameter type="org.eclipse.swt.widgets.Control"/>
+			<parameter type="boolean"/>
+			<parameter type="boolean"/>
+		</method>
+		<method name="paintBordersFor">
+			<parameter type="org.eclipse.swt.widgets.Composite"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<property id="setBorderStyle(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">NULL BORDER</parameter>
+		</editor>
+	</property>
+	<property id="setOrientation(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">NULL LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
+		</editor>
+	</property>
+</component>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A check box is a graphical component that can be in either an &quot;on&quot; (true)
+		or &quot;off&quot; (false) state. Clicking on a check box changes its state from
+		&quot;on&quot; to &quot;off&quot;, or from &quot;off&quot; to &quot;on&quot;.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Checkbox("New check box")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setLabel(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setLabel(java.lang.String)"/>
+			<parameter type="boolean" property="setState(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setLabel(java.lang.String)"/>
+			<parameter type="boolean" property="setState(boolean)"/>
+			<parameter type="java.awt.CheckboxGroup" property="setCheckboxGroup(java.awt.CheckboxGroup)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setLabel(java.lang.String)"/>
+			<parameter type="java.awt.CheckboxGroup" property="setCheckboxGroup(java.awt.CheckboxGroup)"/>
+			<parameter type="boolean" property="setState(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.Label"/>
+		<morphTarget class="java.awt.Button"/>
+	</morphTargets>
+</component>

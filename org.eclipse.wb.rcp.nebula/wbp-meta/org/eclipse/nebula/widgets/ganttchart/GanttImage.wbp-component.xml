@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Convenience class for creating an image in the chart instead of using the constructors in
+		GanttEvent.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.ganttchart.GanttImage(%parent%, "New Image", java.util.Calendar.getInstance(), null)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="org.eclipse.swt.graphics.Image"
+				property="setPicture(org.eclipse.swt.graphics.Image)"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.ganttchart.GanttChart" parent="true"/>
+			<parameter type="java.lang.Object"/>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="java.util.Calendar"/>
+			<parameter type="org.eclipse.swt.graphics.Image"
+				property="setPicture(org.eclipse.swt.graphics.Image)"/>
+		</constructor>
+	</constructors>
+</component>

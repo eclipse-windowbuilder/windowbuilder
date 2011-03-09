@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.PreferencePageInfo"/>
+	<!-- PROPERTIES -->
+	<properties-preferred names="title imageDescriptor"/>
+	<properties-advanced names="visible"/>
+	<property id="setVisible(boolean)">
+		<defaultValue value="true"/>
+	</property>
+</component>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.CoolItemInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.CoolItemInfo"/>
+	<description>Instances of this class are selectable user interface objects that represent the dynamically
+		positionable areas of a CoolBar.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.CoolItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.CoolBar" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">DROP_DOWN</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.CoolBar" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">DROP_DOWN</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setMinimumSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setPreferredSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- simple container -->
+		<parameter name="simpleContainer">true</parameter>
+		<parameter name="simpleContainer.component-validator"><![CDATA[
+			isComponentType('org.eclipse.swt.widgets.Control')
+		]]></parameter>
+		<parameter name="simpleContainer.x-association">property control</parameter>
+	</parameters>
+</component>

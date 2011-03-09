@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>An implementation of a two-state button -- an item that can be selected or deselected, and
+		which displays its state to the user.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JToggleButton("New toggle button")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="selected"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JToggleButton"/>
+		<morphTarget class="javax.swing.JRadioButton"/>
+		<morphTarget class="javax.swing.JCheckBox"/>
+		<morphTarget class="javax.swing.JButton"/>
+		<morphTarget class="javax.swing.JLabel"/>
+	</morphTargets>
+</component>

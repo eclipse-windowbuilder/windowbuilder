@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.layout.column.ColumnLayoutInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.forms.layout.column.ColumnLayoutInfo"/>
+	<description>This layout manager arranges children of the composite parent in vertical columns. All the
+		columns are identical size and children are stretched horizontally to fill the column width. The goal
+		is to give layout some reasonable range of column numbers to allow it to handle various parent widths.
+		That way, column number will drop to the lowest number in the range when width decreases, and grow up
+		to the highest number in the range when allowed by the parent width.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.ColumnLayout()]]></source>
+	</creation>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout-data.has">true</parameter>
+		<parameter name="layout-data.class">org.eclipse.ui.forms.widgets.ColumnLayoutData</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">true</parameter>
+	</parameters>
+</component>

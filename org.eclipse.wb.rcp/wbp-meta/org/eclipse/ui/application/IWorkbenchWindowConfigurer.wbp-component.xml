@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.core.model.JavaInfo"/>
+	<!-- PROPERTIES -->
+	<standard-bean-properties/>
+	<property id="setShowCoolBar(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setShowFastViewBars(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setShowMenuBar(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setShowPerspectiveBar(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setShowProgressIndicator(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setShowStatusLine(boolean)">
+		<defaultValue value="true"/>
+	</property>
+</component>

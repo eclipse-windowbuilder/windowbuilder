@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.rcp.ViewPartInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="invocationChain: getViewSite().getActionBars().getToolBarManager()"
+			>org.eclipse.jface.action.ToolBarManager</parameter>
+		<parameter name="invocationChain: getViewSite().getActionBars().getMenuManager()"
+			>org.eclipse.jface.action.MenuManager</parameter>
+		<!-- actions -->
+		<parameter name="actionContainer.signature">createActions()</parameter>
+		<parameter name="actionContainer.header">private void createActions()</parameter>
+		<parameter name="actionContainer.invocation">createActions()</parameter>
+	</parameters>
+</component>

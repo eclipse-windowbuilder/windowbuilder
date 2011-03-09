@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.DialogInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="createButtonBar">
+			<parameter type="org.eclipse.swt.widgets.Composite"/>
+			<tag name="binaryExecutionFlow.dontVisit" value="true"/>
+		</method>
+		<method name="createButton">
+			<parameter type="org.eclipse.swt.widgets.Composite" name="parent" parent="true"/>
+			<parameter type="int" name="id">
+				<editor id="Dialog_ButtonID"/>
+			</parameter>
+			<parameter type="java.lang.String" name="text"/>
+			<parameter type="boolean" name="default"/>
+			<tag name="implicitFactory" value="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<property id="setBlockOnOpen(boolean)">
+		<defaultValue value="true"/>
+	</property>
+</component>

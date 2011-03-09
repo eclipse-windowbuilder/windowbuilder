@@ -1,0 +1,599 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wb.core" id="toolkits" name="GUI toolkits"/>
+      </appInfo>
+      <documentation>
+         This extension is used to specify that plugin works with some GUI toolkit,
+so for example we can look in it for component descriptions (*.wbp-component.xml files).
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <choice>
+            <element ref="toolkit"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="toolkit">
+      <annotation>
+         <documentation>
+            Extension that tells that this plugin provides information (for example descriptions) for GUI toolkit.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="provider" minOccurs="0" maxOccurs="1"/>
+            <element ref="resourcePrefixes" minOccurs="0" maxOccurs="1"/>
+            <element ref="classLoader-bundle" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="classLoader-library" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="classPath-byteCode-processor" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="palette" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The ID of GUI toolkit, for example
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Priority, used for sorting. Bigger value - in beginning of list.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="provider">
+      <annotation>
+         <documentation>
+            Provider for toolkit, initializes ToolkitDescription.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="palette">
+      <complexType>
+         <choice minOccurs="0" maxOccurs="unbounded">
+            <element ref="category" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="entry" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="x-entry" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="component" minOccurs="0" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="condition" type="string">
+            <annotation>
+               <documentation>
+                  Optional MVEL expression that should be evaluated to boolean.
+It can use appropriate version variables: rcp.version, gwt.version
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="category">
+      <complexType>
+         <choice minOccurs="0" maxOccurs="unbounded">
+            <element ref="entry" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="x-entry" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="component" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="static-factory" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="instance-factory" minOccurs="0" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  &quot;Short id&quot; of category.
+It will be qualified with &quot;id&quot; of defining plugin.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="visible" type="boolean">
+            <annotation>
+               <documentation>
+                  If &quot;false&quot;, then this category is hidden on palette.
+By default is &quot;true&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="open" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="optional" type="boolean">
+            <annotation>
+               <documentation>
+                  If &quot;true&quot;, then this category is optional, i.e. for some addtional set of components and should be hidden is these components are not available. Currently we check this by checking that category is empty.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="next" type="string">
+            <annotation>
+               <documentation>
+                  The ID of category to put this cetegory before it. If empty - this category will be added as last (current last).
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="condition" type="string">
+            <annotation>
+               <documentation>
+                  Optional MVEL expression that should be evaluated to boolean.
+It can use appropriate version variables: rcp.version, gwt.version
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="entry">
+      <annotation>
+         <documentation>
+            General palette entry - selection tool, choose bean, etc.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.wb.internal.core.editor.palette.EntryInfo"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  Optional category, to specify entry in some already defined category.
+In Designer itself entries usually defined directly in &quot;category&quot;, so don&apos;t require separate category specification.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  Optional name, allows override default name of entry.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="x-entry">
+      <annotation>
+         <documentation>
+            XML. General palette entry - selection tool, choose bean, etc.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.wb.internal.core.editor.palette.EntryInfo"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  Optional category, to specify entry in some already defined category.
+In Designer itself entries usually defined directly in &quot;category&quot;, so don&apos;t require separate category specification.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  Optional name, allows override default name of entry.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="component">
+      <annotation>
+         <documentation>
+            Specific entry for adding some component with JavaInfo model.
+         </documentation>
+      </annotation>
+      <complexType>
+         <choice minOccurs="0" maxOccurs="1">
+            <element ref="library" minOccurs="0" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  Optional &quot;id&quot;.
+By default &quot;id&quot; of component is &quot;id&quot; of category plus qualified component class name.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Class of the component, for example &quot;javax.swing.JButton&quot;.
+This entry will be invisible if we will not able to load this class in current project.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="creationId" type="string">
+            <annotation>
+               <documentation>
+                  Optional id of creation block for this component. For example &quot;Button&quot; for &quot;check&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="icon" type="string">
+            <annotation>
+               <documentation>
+                  Optional &quot;forced&quot; icon, allows specify for component entry different icon than in component description.
+So, for example for SWT we can specify different icons for push/check/radio buttons, that use same class Button (so same component description).
+Value: full path to the icon relative to bundle that describes this component entry.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  Optional name, by default short name of component class will be used,
+for example &quot;JButton&quot; for &quot;javax.swing.JButton&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  Optional category, to specify entry in some already defined category.
+In Designer itself entries usually defined directly in &quot;category&quot;, so don&apos;t require separate category specification.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  Optional signature, qualified component class name by default.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="condition" type="string">
+            <annotation>
+               <documentation>
+                  Optional MVEL expression that should be evaluated to boolean.
+It can use appropriate version variables: rcp.version, gwt.version
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="enabled" type="string">
+            <annotation>
+               <documentation>
+                  Optional MVEL expression that should be evaluated to boolean.
+It is executed in editor ClassLoader, so can access project classes.
+
+Companion for &quot;condition&quot; attribute.
+Sometimes we want to show that in general component is usable, but something is wrong in configuration.
+
+For example in GWT-Ext maps require additional script libraries.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="visible" type="boolean">
+            <annotation>
+               <documentation>
+                  If &quot;false&quot;, then this component is hidden on palette.
+By default is &quot;true&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="library">
+      <annotation>
+         <documentation>
+            JAR and optional ZIP with source to add to IJavaProject, when component added from palette.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="type" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of type to check, if JAR is already in classpath.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="bundle" type="string" use="required">
+            <annotation>
+               <documentation>
+                  ID of OSGi bundle, that contains JAR and source ZIP.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="jar" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Path to JAR inside of bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="src" type="string">
+            <annotation>
+               <documentation>
+                  Path to optional source ZIP.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="static-factory">
+      <annotation>
+         <documentation>
+            Definition for static factory class.
+         </documentation>
+      </annotation>
+      <complexType>
+         <choice minOccurs="1" maxOccurs="unbounded">
+            <element ref="method" minOccurs="1" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  Optional category, to specify entries in some already defined category.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="instance-factory">
+      <complexType>
+         <choice minOccurs="1" maxOccurs="unbounded">
+            <element ref="method" minOccurs="1" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  Optional category, to specify entries in some already defined category.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="method">
+      <annotation>
+         <documentation>
+            Definition for single method in &quot;static-factory&quot; or &quot;instance-factory&quot;.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  Optional &quot;id&quot;.
+By default &quot;id&quot; of is name of factory class signature of method.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="signature" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The signature of static method in factory class.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  Optional name, by default signature of method will be used.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  Optional description, empty by default.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="classLoader-bundle">
+      <annotation>
+         <documentation>
+            Declares that some OSGi bundle should be added to the editor ClassLoader.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="bundle" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The &quot;id&quot; of bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="namespaces" type="string">
+            <annotation>
+               <documentation>
+                  Space separated list of packages.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="classLoader-library">
+      <annotation>
+         <documentation>
+            Declares that JAR from some bundle should be added to the editor ClassLoader.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="bundle" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The &quot;id&quot; of bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="jar" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The path to JAR in bundle.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="classPath-byteCode-processor">
+      <annotation>
+         <documentation>
+            Adds byte code processor to the ClassLoader of this toolkit.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="processor" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.temp.utils.reflect.IByteCodeProcessor"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="resourcePrefix" type="string">
+   </element>
+
+   <element name="resourcePrefixes">
+      <complexType>
+         <sequence>
+            <element ref="resourcePrefix" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

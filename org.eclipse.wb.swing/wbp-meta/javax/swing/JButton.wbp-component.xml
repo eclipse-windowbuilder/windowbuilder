@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>An implementation of a "push" button.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JButton("New button")]]></source>
+	</creation>
+	<creation id="empty">
+		<source><![CDATA[new javax.swing.JButton()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)" defaultSource="null"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="icon"/>
+	<properties-advanced names="defaultCapable selected"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JToggleButton"/>
+		<morphTarget class="javax.swing.JRadioButton"/>
+		<morphTarget class="javax.swing.JCheckBox"/>
+		<morphTarget class="javax.swing.JLabel"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="double-click.listener">action/performed</parameter>
+		<parameter name="noExposedChildren">true</parameter>
+	</parameters>
+</component>

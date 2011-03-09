@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A menu item that can be selected or deselected. If selected, the menu item typically appears
+		with a checkmark next to it. If unselected or deselected, the menu item appears without a checkmark.
+		Like a regular menu item, a check box menu item can have either text or a graphic icon associated with
+		it, or both.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JCheckBoxMenuItem("New check item")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="selected"/>
+	<properties-hidden names="state"/>
+</component>

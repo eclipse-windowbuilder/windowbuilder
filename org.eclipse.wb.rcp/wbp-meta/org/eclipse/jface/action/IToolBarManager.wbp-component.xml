@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="emptyText">(Empty ToolBarManager)</parameter>
+	</parameters>
+</component>

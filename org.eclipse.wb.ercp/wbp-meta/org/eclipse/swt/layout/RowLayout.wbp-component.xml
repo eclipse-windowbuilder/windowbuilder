@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo"/>
+	<description>Instances of this class determine the size and position of the children of a Composite by
+		placing them either in horizontal rows or vertical columns within the parent Composite.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.layout.RowLayout(org.eclipse.swt.SWT.HORIZONTAL)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="type"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="type">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">HORIZONTAL VERTICAL</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout-data.has">true</parameter>
+		<parameter name="layout-data.class">org.eclipse.swt.layout.RowData</parameter>
+	</parameters>
+</component>

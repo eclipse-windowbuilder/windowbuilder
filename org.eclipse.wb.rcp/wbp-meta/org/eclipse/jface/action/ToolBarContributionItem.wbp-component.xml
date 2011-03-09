@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.action.ToolBarContributionItemInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.jface.action.IToolBarManager" child="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.jface.action.IToolBarManager" child="true"/>
+			<parameter type="java.lang.String"/>
+		</constructor>
+	</constructors>
+</component>

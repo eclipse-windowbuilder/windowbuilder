@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Data Binding" link_to="../org.eclipse.wb.doc.user/toc_databinding.xml#databinding"> 
+	<topic href="html/features/swt/data_binding/index.html" label="SWT/JFace"> 
+		<topic href="html/features/swt/data_binding/swt_bindings.html" label="SWT Data Bindings"/>
+		<topic href="html/features/swt/data_binding/jface_bindings.html" label="JFace Data Bindings"/>
+		<topic href="html/features/swt/data_binding/emf_bindings.html" label="EMF Data Bindings"/>
+		<topic href="html/features/swt/data_binding/create_data_binding_wizard.html" label="Create Data Binding Wizard"/>
+		<topic href="html/features/swt/data_binding/edit_data_binding_dialog.html" label="Edit Data Binding Dialog"/>
+	</topic>
+</toc>

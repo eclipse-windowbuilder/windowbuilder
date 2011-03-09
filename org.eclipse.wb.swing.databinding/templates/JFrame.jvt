@@ -1,0 +1,82 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.jdesktop.beansbinding.BindingGroup;
+
+field
+	private BindingGroup m_bindingGroup;
+
+field
+	private JPanel m_contentPane;
+
+field
+	private %BeanClass% %BeanField%;
+%ComponentFields%
+
+method
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					%TypeName% frame = new %TypeName%();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+method
+	/**
+	 * Create the frame.
+	 */
+	public %TypeName%() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, %DefaultFormSize%);
+		m_contentPane = new JPanel();
+		setContentPane(m_contentPane);
+		//
+		%Components%m_contentPane%
+		if (%BeanFieldAccess% != null) {
+			m_bindingGroup = initDataBindings();
+		}
+	}
+%LAZY%
+method
+	protected BindingGroup initDataBindings() {
+%Bindings%
+		//
+		BindingGroup bindingGroup = new BindingGroup();
+%Group%
+		//
+		return bindingGroup;
+	}
+
+method
+	public %BeanClass% get%BeanName%() {
+		return %BeanFieldAccess%;
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%) {
+		set%BeanName%(new%BeanName%, true);
+	}
+
+method
+	public void set%BeanName%(%BeanClass% new%BeanName%, boolean update) {
+		%BeanFieldAccess% = new%BeanName%;
+		if (update) {
+			if (m_bindingGroup != null) {
+				m_bindingGroup.unbind();
+				m_bindingGroup = null;
+			}
+			if (%BeanFieldAccess% != null) {
+				m_bindingGroup = initDataBindings();
+			}
+		}
+	}
+

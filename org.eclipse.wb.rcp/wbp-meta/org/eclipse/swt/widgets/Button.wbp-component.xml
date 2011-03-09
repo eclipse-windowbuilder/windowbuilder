@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.widgets.ButtonInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.ButtonInfo"/>
+	<description>Instances of this class represent a selectable user interface object that issues notification
+		when pressed and released.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.Button(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Button"]]></invocation>
+		<x-attribute name="text" value="New Button"/>
+	</creation>
+	<creation id="empty">
+		<source><![CDATA[new org.eclipse.swt.widgets.Button(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<creation id="check" name="Check Button">
+		<source><![CDATA[new org.eclipse.swt.widgets.Button(%parent%, org.eclipse.swt.SWT.CHECK)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["Check Button"]]></invocation>
+		<description>Instances of this class represent a selectable user interface object that issues
+			notification when checked and unchecked.</description>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="CHECK"/>
+		<x-attribute name="text" value="Check Button"/>
+	</creation>
+	<creation id="radio" name="Radio Button">
+		<source><![CDATA[new org.eclipse.swt.widgets.Button(%parent%, org.eclipse.swt.SWT.RADIO)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["Radio Button"]]></invocation>
+		<description>Instances of this class represent a selectable user interface object that issues
+			notification when selected and unselected.</description>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="RADIO"/>
+		<x-attribute name="text" value="Radio Button"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT</parameter>
+					<parameter name="select0">type PUSH PUSH CHECK RADIO TOGGLE ARROW</parameter>
+					<parameter name="select1">align LEFT LEFT CENTER RIGHT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image selection"/>
+	<properties-advanced names="background"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<property-tag name="image" tag="isImage" value="true"/>
+	<property id="setAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT</parameter>
+		</editor>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.swt.widgets.Button"/>
+		<morphTarget class="org.eclipse.swt.widgets.Button" creationId="check"/>
+		<morphTarget class="org.eclipse.swt.widgets.Button" creationId="radio"/>
+		<morphTarget class="org.eclipse.swt.widgets.Label"/>
+		<morphTarget class="org.eclipse.swt.widgets.Text"/>
+		<morphTarget class="org.eclipse.swt.widgets.Combo"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="double-click.listener">selection/widgetSelected</parameter>
+		<parameter name="x.double-click.listener">Selection</parameter>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.swt.widgets.Button"><![CDATA[
+			Selection
+		]]></parameter>
+	</parameters>
+</component>

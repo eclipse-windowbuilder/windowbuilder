@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exceptions>
+	<exception id="1001" title="Multiple constraints detected for single component.">You appear to be (erroneously) 
+		using a double association for <b>{2}</b> with more than one set of constraints. WindowBuilder does not
+		know which one to use and update. Please correct your code to make it parsable. Also note that this code
+		may not work as expected.<p/>{0}<p/>{1}</exception>
+</exceptions>

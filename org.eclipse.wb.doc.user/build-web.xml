@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="docs_all">
+    <!-- $Id: build-web.xml,v 1.4 2009-05-21 14:28:45 gnebling Exp $ -->
+    <import file="../com.instantiations.eclipse.shared_build/build-macros.xml" />
+    <property name="recorder.level" value="info"/>
+
+
+    <!-- ================================================= -->
+    <target name="set_recorder" if="recorder.file"
+            depends="read_build_properties">
+            <echo>recorder file ${build.root}/${recorder.file}</echo>
+            <record name="${build.root}/${recorder.file}" loglevel="${recorder.level}"/>
+    </target>
+
+    <!-- ================================================= -->
+    <target name="read_build_properties">
+            <read_product_properties />
+    </target>
+
+    <!-- ================================================= -->
+    <target name="setup_workspace"
+            if="setup.workspace"
+            depends="read_build_properties">
+            <init_cc_workspace />
+    </target>
+
+    <!-- ================================================= -->
+    <target name="product_init"
+            depends="read_build_properties, setup_workspace">
+            <checkEclipseRunning />
+            <checkEclipseClasspathVariable varname="ECLIPSE_HOME"/>
+            <init_product_properties eclipseSource="3.0"/>
+    </target>
+
+    <!-- ================================================= -->
+    <target name="docs_all" depends="set_recorder, product_init">
+    	<property name="build.local" value="${build.root}"/>
+
+    	<echo message="getting projects from ${build.local}" />
+        <!-- D2GWT  -->
+    	<build_documentation primary = "org.eclipse.wb.doc.user">
+        	<projects>
+				<project name="com.google.gdt.eclipse.designer.doc.user">
+					<fileset dir="${build.local}/com.google.gdt.eclipse.designer.doc.user/html" >
+						<exclude name="**/Thumbs.db"/>
+					</fileset>
+					<!-- Stylesheets directory -->
+					<fileset dir="${build.local}/com.google.gdt.eclipse.designer.doc.user">
+						<include name="*.css" />
+					</fileset>
+				</project>
+				<project name="org.eclipse.wb.swing.doc.user">
+					<fileset dir="${build.local}/org.eclipse.wb.swing.doc.user/html" >
+						<exclude name="**/Thumbs.db"/>
+					</fileset>
+					<!-- Stylesheets directory -->
+					<fileset dir="${build.local}/org.eclipse.wb.swing.doc.user">
+						<include name="*.css" />
+					</fileset>
+				</project>
+				<project name="org.eclipse.wb.rcp.doc.user">
+					<fileset dir="${build.local}/org.eclipse.wb.rcp.doc.user/html" >
+						<exclude name="**/Thumbs.db"/>
+					</fileset>
+					<!-- Stylesheets directory -->
+					<fileset dir="${build.local}/org.eclipse.wb.rcp.doc.user">
+						<include name="*.css" />
+					</fileset>
+				</project>
+        		<project name="org.eclipse.wb.doc.user">
+        			<fileset dir="${build.local}/org.eclipse.wb.doc.user/html" >
+						<exclude name="**/Thumbs.db"/>
+					</fileset>
+					<!-- Stylesheets directory -->
+        			<fileset dir="${build.local}/org.eclipse.wb.doc.user">
+						<include name="*.css" />
+					</fileset>
+				</project>
+				<!--
+        		<project name="com.instantiations.common.help">
+					<fileset dir="${build.local}/com.instantiations.common.help/html" >
+						<exclude name="**/Thumbs.db"/>
+					</fileset>
+					<fileset dir="${build.local}/com.instantiations.common.help/images" />
+					<fileset dir="${build.local}/com.instantiations.common.help/stylesheets">
+						<include name="**/*.css" />
+					</fileset>					
+				</project>
+        		-->
+        	</projects>
+        </build_documentation>
+    	<!--<replace dir="${build.out}/docs">
+    	    <replacetoken>book.css</replacetoken>
+    		<replacevalue>common-docs.css</replacevalue>
+    	</replace>-->  	    	    	    	
+    	<finalize_build_product/>
+	</target>
+	
+	
+
+</project>

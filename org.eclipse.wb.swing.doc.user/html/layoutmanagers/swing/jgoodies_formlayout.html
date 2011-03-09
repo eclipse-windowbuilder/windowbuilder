@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>JGoodies Form Layout</title>
+	<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>JGoodies FormLayout</h1>
+<table border="0" width="850" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><b>JGoodies FormLayout</b> is a powerful, flexible and precise 
+		general purpose layout manager. It aligns components vertically and 
+		horizontally in a dynamic rectangular grid of cells, with each component 
+		occupying one or more cells. A whitepaper about the <b>FormLayout</b> 
+		available <a href="http://www.jgoodies.com/articles/forms.pdf">online</a>. 
+		To use <b>FormLayout</b> you first define the grid by specifying the 
+		columns and rows. In a second step you add components to the grid. You 
+		can specify columns and rows via human-readable String descriptions or 
+		via arrays of <b>ColumnSpec</b> and <b>RowSpec</b> instances. Each 
+		component managed by a <b>FormLayout</b> is associated with an instance 
+		of <b>CellConstraints</b>. The constraints object specifies where a 
+		component should be located on the form's grid and how the component 
+		should be positioned. In addition to its constraints object the <b>
+		FormLayout</b> also considers each component's minimum and preferred 
+		sizes in order to determine a component's size.<p>Note that <b>JGoodies FormLayout</b> support is only 
+    available in the Professional version of the product. <br>
+	This layout also requires the use of the <b>JGoodies FormLayout</b> jar file 
+	(forms-1.0.6.jar or higher).</p>
+	<ul>
+		<li><a href="#MainFeatures">Main Features</a></li>
+		<li><a href="#PopupHeaderMenu">Popup Header Menu</a></li>
+		<li><a href="#GraphicalFeedback">Graphical Feedback</a></li>
+		<li><a href="#ColumnRowEditing">Column &amp; Row Editing</a></li>
+		<li><a href="#Preferences">Preferences</a></li>
+		<li><a href="#SourceCodeGenerationParsing">Source Code Generation &amp; 
+		Parsing</a></li>
+	</ul>
+    <p></p>
+            <blockquote>
+				<p>This feature is based on 
+				technology from the JGoodies Forms.<br>
+				<a href="http://www.jgoodies.com/freeware/forms/">
+				http://www.jgoodies.com/freeware/forms/</a><br>
+				Copyright &copy 2002-2009 JGoodies Karsten Lentzsch</p>
+</blockquote>
+<h2><a name="MainFeatures"></a>Main Features</h2>
+            <ul>
+              <li>Select <b>JGoodies FormLayout</b> from the <b>Layouts</b> palette and 
+				drop it on a JFrame or JPanel</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_design_view.gif"></p>
+</blockquote>
+<ul>
+              <li>The <b>JGoodies FormLayout</b> jar file (forms-1.1.0.jar) will automatically be added 
+				to your project and the classpath adjusted</li>
+				<li>Graphical feedback is provided for all column, row and cell 
+				interactions</li>
+				<li>Column and row properties may be changed via a popup menu or 
+				property dialog</li>
+				<li>Convert existing layouts (null, <b>GridBagLayout</b>, etc.) to 
+				<b>JGoodies 
+				FormLayout</b> with intelligent column, row and gap creation</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/null_convert.gif" width="328" height="254">
+	<img border="0" src="images/jgfl_convert.gif" width="328" height="254"></p>
+</blockquote>
+<ul>
+				<li>Automatically add gaps when adding new columns or rows</li>
+            </ul>
+            <h2><a name="PopupHeaderMenu"></a>Popup Header Menu</h2>
+            <ul>
+              <li>Right-click on the header area to access the popup header menu</li>
+            </ul>
+<blockquote>
+&nbsp;<img border="0" src="images/jgfl_menu_row.gif" width="339" height="451" align="top">&nbsp;
+	&nbsp;
+	<img border="0" src="images/jgfl_menu_column.gif" width="401" height="467"></blockquote>
+<ul>
+				<li>Insert new columns or rows before the current column or row</li>
+				<li>Add a new column or row at the end of the current list</li>
+				<li>Delete entire columns or rows or just their widget contents</li>
+				<li>Set the column alignment to left, right, center or fill</li>
+				<li>Specify that the column or row should grow to fill the 
+				available space</li>
+				<li>Group or ungroup columns or rows</li>
+				<li>Set the sizing spec that should be used for the column or row 
+				(various column, row and gap types are available)</li>
+				<li>Edit the properties of the current column or row</li>
+            </ul>
+          <p></p>
+            <h2><a name="GraphicalFeedback"></a>Graphical Feedback</h2>
+            <ul>
+              <li>When moving a widget or adding a new widget, open cells are 
+				highlighted green while populated cells are highlighted red and 
+				insertion points are highlighted in yellow<br>
+				<br>
+				<img border="0" src="images/jgfl_add1.gif">
+				<img border="0" src="images/jgfl_add2.gif">
+				<img border="0" src="images/jgfl_add3.gif"><br>
+&nbsp;</li>
+				<li>Phantom drop point to the right and below the current cells 
+				will create new columns, rows and gaps as needed<br>
+				<br>
+				<img border="0" src="images/jgfl_move1.gif">
+				<img border="0" src="images/jgfl_move2.gif"></li>
+            </ul>
+<ul>
+	<li>The currently selected cell shows its column and row spanning 
+				handles and alignment handles<p>
+	<img border="0" src="images/jgfl_alignment_one.gif"></li>
+</ul>
+<ul>
+	<li>Set the alignment of a cell using its popup alignment menu or the 
+	toolbar</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_toolbar.gif"></p>
+	<p>
+	<img border="0" src="images/jgfl_cell_align1.gif">
+	<img border="0" src="images/jgfl_cell_align2.gif"></p>
+</blockquote>
+<ul>
+	<li>Right-click on a column to set its grow property</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/jgfl_grow1.gif">
+	<img border="0" src="images/jgfl_grow2.gif" align="top"></p>
+</blockquote>
+<ul>
+              <li>Grouped columns and rows are color highlighted to indicate 
+				which are in the same group</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/jgfl_group1.gif">
+	<img border="0" src="images/jgfl_group2.gif" align="top">
+	<img border="0" src="images/jgfl_group3.gif" align="top"></p>
+</blockquote>
+<ul>
+              <li>Column and row sizing handles make it easy to set the size 
+				of a column or row</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_resize_column1.gif">
+	<img border="0" src="images/jgfl_resize_column2.gif"><br>
+	<br>
+	<img border="0" src="images/jgfl_resize_row1.gif">
+	<img border="0" src="images/jgfl_resize_row2.gif"></p>
+</blockquote>
+<ul>
+              <li>Reorder columns and rows by dragging them (with their 
+				associated gap columns or rows)</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_reorder_row1.gif">
+	<img border="0" src="images/jgfl_reorder_row2.gif">
+	<img border="0" src="images/jgfl_reorder_row3.gif"></p>
+</blockquote>
+<ul>
+              <li>Column and rows borders are indicated with gray lines</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_group3.gif" align="top" width="333" height="254"></p>
+</blockquote>
+<ul>
+              <li>Interactive column and row spanning feedback is provided</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/jgfl_span1.gif">
+	<img border="0" src="images/jgfl_span2.gif"></p>
+</blockquote>
+<ul>
+	<li>Full keyboard support for quickly changing alignment values</li>
+</ul>
+<blockquote>
+	<table border="0" cellpadding="0" cellspacing="0" id="table1" width="421">
+		<tr>
+			<td colspan="3" bgcolor="#C0C0C0">&nbsp;Cells</td>
+		</tr>
+		<tr>
+			<td>D</td>
+			<td width="10">&nbsp;</td>
+			<td>default horizontal</td>
+		</tr>
+		<tr>
+			<td>Shift+D</td>
+			<td width="10">&nbsp;</td>
+			<td>default vertical</td>
+		</tr>
+		<tr>
+			<td>F</td>
+			<td width="10">&nbsp;</td>
+			<td>fill horizontal</td>
+		</tr>
+		<tr>
+			<td>Shift+F</td>
+			<td width="10">&nbsp;</td>
+			<td>fill vertical</td>
+		</tr>
+		<tr>
+			<td>L, C, R</td>
+			<td width="10">&nbsp;</td>
+			<td>left/center/right for horizontal</td>
+		</tr>
+		<tr>
+			<td>T, M, B</td>
+			<td width="10">&nbsp;</td>
+			<td>top/middle/bottom for vertical</td>
+		</tr>
+	</table>
+</blockquote>
+<h2><a name="ColumnRowEditing"></a>Column &amp; Row Editing</h2>
+              <ul>
+				<li>Double click on a column or row to access its property 
+				dialog</li>
+				<li>Switch between columns and rows using the arrow buttons</li>
+</ul>
+<blockquote>
+	<img border="0" src="images/jgfl_column_properties1.gif">
+	<img border="0" src="images/jgfl_row_properties1.gif"></blockquote>
+<ul>
+	<li>Select from any of the predefined column or gap templates</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_column_properties2.gif">
+	<img border="0" src="images/jgfl_row_properties2.gif"></p>
+</blockquote>
+              <ul>
+				<li>Set the column or row alignment</li>
+				<li>Specify the resize behavior and the relative weights of each 
+				column or row</li>
+				<li>Set the size of the column or row<ul>
+					<li>Specify a constant size in a variety of units</li>
+					<li>Specify minimum and maximum sizes</li>
+				</ul>
+				</li>
+              </ul>
+            <blockquote>
+				<p>
+				<img border="0" src="images/jgfl_column_properties3.gif">
+				<img border="0" src="images/jgfl_row_properties3.gif"></p>
+</blockquote>
+<ul>
+	<li>Floating layout assistant for constraints
+	<img border="0" src="images/assistant.gif" width="16" height="16" align="top"></li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_layout_assistant_cell.gif"></p>
+</blockquote>
+<ul>
+	<li>Open the Columns or Rows editing dialog from the <b>
+	<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane.html">Property Pane</a></b> or the right-click context menu of the panel.</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_panel_properties.gif" align="top">&nbsp;
+	<img border="0" src="images/jgfl_panel_menu.gif"></p>
+</blockquote>
+<ul>
+	<li>Insert or add new columns and rows</li>
+	<li>Open the property dialog for an individual column or row</li>
+	<li>Group and ungroup columns or rows</li>
+	<li>Rearrange the order of the columns or rows</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/jgfl_edit_columns.gif" align="top"><br>
+	<br>
+			<img border="0" src="images/jgfl_edit_rows.gif" align="top"></p>
+</blockquote>
+		<h2><br>
+				<a name="Preferences" href="../../preferences/swing/preferences_jgoodies_formlayout.html">Preferences</a></h2>
+              <ul>
+                <li>Control whether automatic grab is used for text widgets, 
+				comboboxes, tables, etc.</li>
+              </ul>
+		<blockquote>
+			<p>
+			<img border="0" src="images/jgfl_auto_grab1.gif" align="top" width="320" height="201">&nbsp;
+			<img border="0" src="images/jgfl_auto_grab2.gif" align="top" width="320" height="201"></p>
+		</blockquote>
+		<ul>
+				<li>Control whether labels are automatically right-aligned when 
+				next to a text widget</li>
+              </ul>
+              <blockquote>
+				<p>
+	<img border="0" src="images/jgfl_auto_right_label1.gif" align="top" width="320" height="201">&nbsp;
+	<img border="0" src="images/jgfl_auto_right_label2.gif" align="top" width="320" height="201"></p>
+		</blockquote>
+              <h2><a name="SourceCodeGenerationParsing"></a>Source Code 
+				Generation &amp; Parsing</h2>
+              <ul>
+                <li>Intelligently convert existing layouts (null, <b>GridBagLayout</b>, etc.) to 
+				<b>JGoodies 
+				FormLayout</b> with column, row and gap creation</li>
+				<li>Generated code will use predefined FormFactory constants as 
+				necessary</li>
+				<li>Parser can understand reused CellConstraint objects</li>
+                <li>Parser supports all CellConstraint styles<ul>
+                <li>Creation methods intended for use by humans<br>
+				CellConstraints cc = new CellConstraints();<br>
+				cc.xy(2, 1); // second col, first row<br>
+				cc.xy(2, 1, &quot;right, bottom&quot;); // aligned to right and bottom<br>
+				cc.xy(2, 1, &quot;r, b&quot;); // abbreviated alignment<br>
+				cc.xywh(2, 1, 4, 3); // spans 4 cols, 3 rows<br>
+				cc.xywh(2, 1, 4, 3, &quot;right, bottom&quot;);<br>
+				cc.xywh(2, 1, 4, 3, &quot;r, b&quot;);<br>
+&nbsp;</li>
+				<li>Constructors intended for builders<br>
+				new CellConstraints(); // first col, first row<br>
+				new CellConstraints(2, 1);<br>
+				new CellConstraints(2, 1, 4, 3);<br>
+				new CellConstraints(2, 1, CellConstraints.RIGHT, 
+				CellConstraints.BOTTOM);<br>
+&nbsp;</li>
+				<li>Constructors intended for building UIs from XML<br>
+				CellConstraints cc = new 
+				CellConstraints();<br>
+				new CellConstraints(&quot;2, 1&quot;);<br>
+				new CellConstraints(&quot;2, 1, r, b&quot;);<br>
+				new CellConstraints(&quot;2, 1, 4, 3&quot;);<br>
+				new CellConstraints(&quot;2, 1, 4, 3, r, b&quot;);</li>
+              </ul></li>
+              </ul>
+            <blockquote>
+				<p>
+				<img border="0" src="images/jgfl_source1.gif">&nbsp;</p>
+</blockquote>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

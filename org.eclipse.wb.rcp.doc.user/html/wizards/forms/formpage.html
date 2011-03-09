@@ -1,0 +1,143 @@
+<html>
+
+<head>
+<title>Forms FormPage Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" width="700">
+  <tr>
+    <td><h1>Forms FormPage Wizard</h1>
+      <div align="left">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td valign="top">
+			<img src="images/wizard_forms_formpage0.gif" align="left" hspace="10">Subclasses of the Eclipse Forms <b>FormPage</b> class can be
+              created using the <b>Forms FormPage </b>wizard. The wizard can be
+              selected from the drop down Designer wizard menu or from the
+              Eclipse <b>New</b> wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name and hit the <b>Finish</b>
+              button. 
+              <p>For more information on using Eclipse Forms, see the <a href="http://dev.eclipse.org/viewcvs/index.cgi/~checkout~/pde-ui-home/working/EclipseForms/EclipseForms.html">Eclipse
+              Forms Programming Guide</a>. </td>
+          </tr>
+        </table>
+      </div>
+      <p><img src="images/wizard_forms_formpage1.gif">&nbsp;
+      <img src="images/wizard_forms_formpage2.gif"></p>
+    <p>The wizard generates the following code.</p>
+                <dl>
+                  <dd>
+			<font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">import</font></b></font><font face="Courier" SIZE="2"> </font>
+					<font face="Courier New" size="2">org.eclipse.swt.widgets.Composite;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd>
+			<font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">import</font></b></font><font face="Courier" SIZE="2"> </font>
+					<font face="Courier New" size="2">org.eclipse.ui.forms.IManagedForm;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd>
+			<font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">import</font></b></font><font face="Courier" SIZE="2"> </font>
+					<font face="Courier New" size="2">org.eclipse.ui.forms.editor.FormEditor;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd>
+			<font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">import</font></b></font><font face="Courier" SIZE="2"> </font>
+					<font face="Courier New" size="2">org.eclipse.ui.forms.editor.FormPage;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd>
+			<font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">import</font></b></font><font face="Courier" SIZE="2"> </font>
+					<font face="Courier New" size="2">org.eclipse.ui.forms.widgets.FormToolkit;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd>
+			<font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">import</font></b></font><font face="Courier" SIZE="2"> </font>
+					<font face="Courier New" size="2">org.eclipse.ui.forms.widgets.ScrolledForm;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier" size="2" color="#7f0055"><b>public</b></font><font face="Courier New" size="2">
+                    </font><font face="Courier" size="2" color="#7f0055"><b>class</b></font><font face="Courier New" size="2"> FormsFormPage
+                    </font><font face="Courier" size="2" color="#7f0055"><b>extends</b></font><font face="Courier New" size="2"> FormPage {<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    </font><font face="Courier" size="2" color="#7f0055"><b>public</b></font><font face="Courier New" size="2"> FormsFormPage(String id, String title) {<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Courier" size="2" color="#7f0055"><b>super</b></font><font face="Courier New" size="2">(id, title);<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp; }<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    </font><font face="Courier" size="2" color="#7f0055"><b>public</b></font><font face="Courier New" size="2"> FormsFormPage(FormEditor editor, String id,
+                    String title) {<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Courier" size="2" color="#7f0055"><b>super</b></font><font face="Courier New" size="2">(editor, id, title);<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp; }<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    </font><font face="Courier" size="2" color="#7f0055"><b>protected</b></font><font face="Courier New" size="2">
+                    </font><font face="Courier" size="2" color="#7f0055"><b>void</b></font><font face="Courier New" size="2"> createFormContent(IManagedForm managedForm) {<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;FormToolkit toolkit =
+                    managedForm.getToolkit();<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;ScrolledForm form =
+                    managedForm.getForm();<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;form.setText(</font><font size="2" color="#2a00ff" face="Courier">&quot;Empty FormPage&quot;</font><font face="Courier New" size="2">);<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;Composite body = form.getBody();<o:p>
+                    <br>
+                    </o:p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<o:p>toolkit.decorateFormHeading(form.getForm());</o:p></font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;toolkit.paintBordersFor(body);<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">&nbsp;&nbsp;&nbsp; }<o:p>
+                    </o:p>
+                    </font></dd>
+                  <dd><font face="Courier New" size="2">}</font></dd>
+                </dl>
+      <p>When editing Eclipse Forms FormPages, a set of specialized
+		<a href="../../palettes/swt_palette.html#EclipseForms">Eclipse Forms widgets</a> is available with their own unique widget palette.
+                    These widgets provide the &quot;flat&quot; look that is a
+                    signature element of the Eclipse Forms API. Standard
+      widgets and layout managers can also be used although they won't use the
+                    flat look.</p>
+	<p><img src="images/wizard_forms_formpage3.gif" width="840" height="478"></p> 
+    </td>
+  </tr>
+</table>
+</body>
+</html>

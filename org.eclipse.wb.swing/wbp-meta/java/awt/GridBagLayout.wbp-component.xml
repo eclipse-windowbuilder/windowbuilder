@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo"/>
+	<description>The GridBagLayout class is a flexible layout manager that aligns components vertically and
+		horizontally, without requiring that the components be of the same size. Each GridBagLayout object
+		maintains a dynamic, rectangular grid of cells, with each component occupying, one or more cells.</description>
+</component>

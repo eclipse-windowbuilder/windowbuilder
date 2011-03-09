@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.FormInfo"/>
+	<description>Form is a custom control that renders a title and an optional background image above the body
+		composite. It can be used alone when part of parents that are scrolled. If scrolling is required, use
+		ScrolledForm instead because it has an instance of Form and adds scrolling capability.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.Form(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Form"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<include method="getHead"/>
+		<include method="getBody"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image"/>
+	<properties-advanced
+		names="backgroundImageAlignment backgroundImageClipped backgroundImageTiled separatorColor"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<property id="setBackgroundImageAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="directEdit.location.insets">-5 15 0 0</parameter>
+		<parameter name="directEdit.location.horizontalAlignment">left</parameter>
+		<parameter name="directEdit.location.verticalAlignment">top</parameter>
+	</parameters>
+</component>

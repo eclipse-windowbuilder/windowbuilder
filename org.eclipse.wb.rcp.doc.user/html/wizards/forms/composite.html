@@ -1,0 +1,86 @@
+<html>
+
+<head>
+<title>Forms Composite Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>Forms Composite Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td><img src="images/wizard_forms_composite0.gif" align="left" hspace="10">Subclasses of the SWT Composite class can be
+              created using the <b>Forms Composite</b> wizard. The wizard can be
+              selected from the drop down wizard menu or from the
+              Eclipse New wizard.
+              <p>To use the wizard, select the project source folder and package 
+				to contain the class. Then enter the class name and hit the 
+				Finish button. 
+      <p>For more information on using Eclipse Forms, see the <a href="http://dev.eclipse.org/viewcvs/index.cgi/~checkout~/pde-ui-home/working/EclipseForms/EclipseForms.html">Eclipse
+              Forms Programming Guide</a>. 
+      <p>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><p><br>
+	<img src="images/wizard_forms_composite1.gif">&nbsp; 
+		<img src="images/wizard_forms_composite2.gif"></p>
+      <p>The wizard generates the following code.</dd>
+        </p>
+		<blockquote>
+			<font SIZE="2" COLOR="#7f0055"><b>
+			<p><font face="Courier">import</font></b></font><font SIZE="2"><font face="Courier"> 
+			org.eclipse.swt.widgets.Composite;<br>
+			<font color="#7f0055"><b>import</b></font> 
+			org.eclipse.swt.widgets.Display;<br>
+			<font color="#7f0055"><b>import</b></font> 
+			org.eclipse.ui.forms.widgets.FormToolkit;<br>
+			</font></font><font SIZE="2" COLOR="#7f0055"><b>
+			<font face="Courier"><br>
+			public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>class</b></font><font SIZE="2"> 
+			FormsComposite </font><font SIZE="2" COLOR="#7f0055"><b>extends</b></font></font><font SIZE="2"><font face="Courier"> 
+			Composite {<br>
+&nbsp;&nbsp;&nbsp; private final FormToolkit
+			<font color="#2a00ff" face="Courier" size="2">toolkit</font> =
+			<font color="#7f0055"><b>new</b></font> 
+			FormToolkit(Display.getCurrent());<br>
+			</font></font><font face="Courier"><font SIZE="2" COLOR="#7f0055">
+			<b>&nbsp;&nbsp;&nbsp; public</b></font><font SIZE="2"> 
+			FormsComposite(Composite parent, </font>
+			<font SIZE="2" COLOR="#7f0055"><b>int</b></font></font><font face="Courier" SIZE="2"> 
+			style) {<br>
+			&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp; 
+			</font><b><font SIZE="2" COLOR="#7f0055" face="Courier">super</font></b><font SIZE="2"><font face="Courier">(parent, style);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<font color="#2a00ff" face="Courier" size="2">toolkit</font>.adapt(<font color="#7f0055"><b>this</b></font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<font color="#2a00ff" face="Courier" size="2">toolkit</font>.paintBordersFor(<font color="#7f0055"><b>this</b></font>);</font></font><font face="Courier" SIZE="2"><br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2"><font face="Courier">}</font></font><font face="Courier" SIZE="2"><br>
+			</font><font SIZE="2"><font face="Courier">}</font></p>
+			</font>
+	</blockquote>
+      <p>When editing SWT Composites, all of the standard SWT layouts,
+      containers, widgets and menus are available. Custom or third party
+      controls may be added via the <b>
+		<a href="../../../com.instantiations.designer.doc.user/html/userinterface/palette.html">Choose 
+		Component</a></b> command.</p>
+	<p>Use the <b>Expose property...</b> command added to
+	<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane_context_menu.html">
+	property pane context menu</a> 
+	to expose any widget property as a public property of the class. Use the <b>Expose component...</b> 
+	command added to the popup menu in the <b>
+	<a href="../../../com.instantiations.designer.doc.user/html/userinterface/design_view.html">
+	Design View</a></b> to add an 
+	accessor for any widget.</p>
+	<p>
+	<img border="0" src="../swt/images/expose_property_menu.gif" width="305" height="249" align="top">&nbsp;
+	<img border="0" src="../swt/images/expose_component_menu.gif" width="237" height="332" align="top"></p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

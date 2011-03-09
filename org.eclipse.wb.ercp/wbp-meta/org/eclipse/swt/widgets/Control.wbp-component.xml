@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.widgets.ControlInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<methods-include signature="/set\w+\([^,]+\)/"/>
+		<!-- Bounds -->
+		<method name="setLocation">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setLocation">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setSize">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setSize">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setBounds">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="setBounds">
+			<parameter type="org.eclipse.swt.graphics.Rectangle"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<method name="pack"/>
+		<!-- LAYOUT -->
+		<method name="setLayoutData">
+			<parameter type="java.lang.Object" child="true"/>
+			<tag name="noFactory" value="true"/>
+		</method>
+		<!-- menu parent/child relations -->
+		<method name="setMenu">
+			<parameter type="org.eclipse.swt.widgets.Menu" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="capture redraw bounds location size visible"/>
+</component>

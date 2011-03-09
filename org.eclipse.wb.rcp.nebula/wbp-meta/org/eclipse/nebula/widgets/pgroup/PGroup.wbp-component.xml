@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The PGroup widget is a expandable/collapsible composite widget with attractive styling and an
+		extensible design.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.pgroup.PGroup(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New PGroup"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">LEFT_TO_RIGHT RIGHT_TO_LEFT SMOOTH</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setImagePosition(int)" order="after setImage(org.eclipse.swt.graphics.Image)"/>
+		<method signature="setExpanded(boolean)" order="last"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.pgroup"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="image text strategy toggleRenderer"/>
+	<properties-advanced names="selection"/>
+	<property id="setImagePosition(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT RIGHT TOP</parameter>
+		</editor>
+	</property>
+	<property id="setLinePosition(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">BOTTOM CENTER</parameter>
+		</editor>
+	</property>
+	<property id="setTogglePosition(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT RIGHT</parameter>
+		</editor>
+	</property>
+	<property id="setStrategy(org.eclipse.nebula.widgets.pgroup.AbstractGroupStrategy)">
+		<editor id="instanceList">
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.FormGroupStrategy</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.RectangleGroupStrategy</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.SimpleGroupStrategy</parameter-list>
+			<parameter-list name="titles">FORM</parameter-list>
+			<parameter-list name="titles">RECTANGLE</parameter-list>
+			<parameter-list name="titles">SIMPLE</parameter-list>
+		</editor>
+	</property>
+	<property id="setToggleRenderer(org.eclipse.nebula.widgets.pgroup.AbstractRenderer)">
+		<editor id="instanceList">
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.ChevronsToggleRenderer</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.MinMaxToggleRenderer</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.TreeNodeToggleRenderer</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.pgroup.TwisteToggleRenderer</parameter-list>
+			<parameter-list name="types">null</parameter-list>
+			<parameter-list name="titles">CHEVRONS</parameter-list>
+			<parameter-list name="titles">MINMAX</parameter-list>
+			<parameter-list name="titles">TREENODE</parameter-list>
+			<parameter-list name="titles">TWISTE</parameter-list>
+			<parameter-list name="titles">NONE</parameter-list>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flip expanded -->
+		<parameter name="double-click.flipBooleanProperty">expanded</parameter>
+	</parameters>
+</component>

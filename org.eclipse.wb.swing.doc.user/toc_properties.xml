@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Properties" link_to="../org.eclipse.wb.doc.user/toc_userinterface.xml#properties"> 
+	<topic href="html/properties/property_editor_border.html" label="Border Editor"/>
+	<topic href="html/properties/property_editor_combobox_model.html" label="ComboBox Model Editor"/>
+	<topic href="html/properties/property_editor_key_stroke.html" label="Key Stroke Editor"/>
+	<topic href="html/properties/property_editor_label_for.html" label="Label For Editor"/>
+	<topic href="html/properties/property_editor_list_model.html" label="List Model Editor"/>
+	<topic href="html/properties/property_editor_spinner_model.html" label="Spinner Model Editor"/>
+	<topic href="html/properties/property_editor_table_model.html" label="Table Model Editor"/>
+	<topic href="html/properties/property_editor_tree_model.html" label="Tree Model Editor"/>
+</toc>

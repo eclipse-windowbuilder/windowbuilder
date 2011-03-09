@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Preferences" topic="html/preferences/index.html">
+   <topic href="html/preferences/preferences_code_parsing.html" label="Code Parsing"/>
+   <anchor id="preferences"/>
+   <topic href="html/preferences/preferences_usage_profiler.html" label="Usage Profiler"/>
+   <topic href="html/preferences/preferences_export.html" label="Export/Import"/>
+</toc>

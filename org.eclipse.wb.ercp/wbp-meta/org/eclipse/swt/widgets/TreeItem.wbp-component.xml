@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.widgets.TreeItemInfo"/>
+	<description>Instances of this class represent a selectable user interface object that represents an item
+		in a tree.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.TreeItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Item"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Tree" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Tree" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.TreeItem" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setExpanded" order="last">
+			<parameter type="boolean"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image checked expanded grayed"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flip expanded -->
+		<parameter name="double-click.flipBooleanProperty">expanded</parameter>
+	</parameters>
+</component>

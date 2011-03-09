@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.GridLayoutInfo"/>
+	<description>The GridLayout class is a layout manager that lays out a container's components in a
+		rectangular grid. The container is divided into equal-sized rectangles, and one component is placed in
+		each rectangle.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.GridLayout(1, 0, 0, 0)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setRows(int)"/>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setRows(int)"/>
+			<parameter type="int" property="setColumns(int)"/>
+			<parameter type="int" property="setHgap(int)"/>
+			<parameter type="int" property="setVgap(int)"/>
+		</constructor>
+	</constructors>
+</component>

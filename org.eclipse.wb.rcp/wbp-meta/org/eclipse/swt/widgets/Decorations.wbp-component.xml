@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="setMenuBar">
+			<parameter type="org.eclipse.swt.widgets.Menu" child="true"/>
+		</method>
+	</methods>
+</component>

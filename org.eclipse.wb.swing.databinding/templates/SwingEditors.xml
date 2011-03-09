@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container>
+	<descriptors name="Swing.Components"
+		class="org.eclipse.wb.internal.swing.databinding.wizards.autobindings.SwingComponentDescriptor">
+		<!-- String -->
+		<descriptor>
+			<setDefault/>
+			<addImage value="components/JTextField.gif"/>
+			<addName value="JTextField"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JTextField"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JTextArea.gif"/>
+			<addName value="JTextArea"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JTextArea"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JTextPane.gif"/>
+			<addName value="JTextPane"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JTextPane"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JEditorPane.gif"/>
+			<addName value="JEditorPane"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JEditorPane"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JPasswordField.gif"/>
+			<addName value="JPasswordField"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JPasswordField"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JFormattedTextField.gif"/>
+			<addName value="JFormattedTextField"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JFormattedTextField"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/TextField.gif"/>
+			<addName value="AWT TextField"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="java.awt.TextField"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/TextArea.gif"/>
+			<addName value="AWT TextArea"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="java.awt.TextArea"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JLabel.gif"/>
+			<addName value="JLabel"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JLabel"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/Label.gif"/>
+			<addName value="AWT Label"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="java.awt.Label"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JButton.gif"/>
+			<addName value="JButton"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JButton"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JCheckBox.gif"/>
+			<addName value="JCheckBox"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JCheckBox"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JRadioButton.gif"/>
+			<addName value="JRadioButton"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JRadioButton"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JToggleButton.gif"/>
+			<addName value="JToggleButton"/>
+			<addImage value="types/String.png"/>
+			<addName value="text"/>
+			<setComponentClass value="javax.swing.JToggleButton"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/Button.gif"/>
+			<addName value="AWT Button"/>
+			<addImage value="types/String.png"/>
+			<addName value="label"/>
+			<setComponentClass value="java.awt.Button"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/Checkbox.gif"/>
+			<addName value="AWT Checkbox"/>
+			<addImage value="types/String.png"/>
+			<addName value="label"/>
+			<setComponentClass value="java.awt.Checkbox"/>
+			<setPropertyClass value="java.lang.String"/>
+		</descriptor>
+		<!-- Boolean -->
+		<descriptor>
+			<setDefault/>
+			<addImage value="components/JCheckBox.gif"/>
+			<addName value="JCheckBox"/>
+			<addImage value="types/Boolean.png"/>
+			<addName value="selected"/>
+			<setComponentClass value="javax.swing.JCheckBox"/>
+			<setPropertyClass value="boolean java.lang.Boolean"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JRadioButton.gif"/>
+			<addName value="JRadioButton"/>
+			<addImage value="types/Boolean.png"/>
+			<addName value="selected"/>
+			<setComponentClass value="javax.swing.JRadioButton"/>
+			<setPropertyClass value="java.lang.Boolean"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/Checkbox.gif"/>
+			<addName value="AWT Checkbox"/>
+			<addImage value="types/Boolean.png"/>
+			<addName value="state"/>
+			<setComponentClass value="java.awt.Checkbox"/>
+			<setPropertyClass value="java.lang.Boolean"/>
+		</descriptor>
+		<!-- Integer -->
+		<descriptor>
+			<setDefault/>
+			<addImage value="components/JSlider.gif"/>
+			<addName value="JSlider"/>
+			<addImage value="types/Number.png"/>
+			<addName value="value"/>
+			<setComponentClass value="javax.swing.JSlider"/>
+			<setPropertyClass value="int java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JSpinner.gif"/>
+			<addName value="JSpinner"/>
+			<addImage value="types/Number.png"/>
+			<addName value="value"/>
+			<setComponentClass value="javax.swing.JSpinner"/>
+			<setPropertyClass value="java.lang.Object"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JProgressBar.gif"/>
+			<addName value="JProgressBar"/>
+			<addImage value="types/Number.png"/>
+			<addName value="value"/>
+			<setComponentClass value="javax.swing.JProgressBar"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JScrollBar.gif"/>
+			<addName value="JScrollBar"/>
+			<addImage value="types/Number.png"/>
+			<addName value="value"/>
+			<setComponentClass value="javax.swing.JScrollBar"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/Scrollbar.gif"/>
+			<addName value="AWT Scrollbar"/>
+			<addImage value="types/Number.png"/>
+			<addName value="value"/>
+			<setComponentClass value="java.awt.Scrollbar"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JComboBox.gif"/>
+			<addName value="JComboBox"/>
+			<addImage value="types/Number.png"/>
+			<addName value="selectedIndex"/>
+			<setComponentClass value="javax.swing.JComboBox"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/Choice.gif"/>
+			<addName value="AWT Choice"/>
+			<addImage value="types/Number.png"/>
+			<addName value="selectedIndex"/>
+			<setComponentClass value="java.awt.Choice"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JList.gif"/>
+			<addName value="JList"/>
+			<addImage value="types/Number.png"/>
+			<addName value="selectedIndex"/>
+			<setComponentClass value="javax.swing.JList"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/List.gif"/>
+			<addName value="List"/>
+			<addImage value="types/Number.png"/>
+			<addName value="selectedIndex"/>
+			<setComponentClass value="java.awt.List"/>
+			<setPropertyClass value="java.lang.Integer"/>
+		</descriptor>
+		<!-- Icon & Image -->
+		<descriptor>
+			<setDefault/>
+			<addImage value="components/JButton.gif"/>
+			<addName value="JButton"/>
+			<addImage value="types/Image.png"/>
+			<addName value="icon"/>
+			<setComponentClass value="javax.swing.JButton"/>
+			<setPropertyClass value="javax.swing.Icon"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JCheckBox.gif"/>
+			<addName value="JCheckBox"/>
+			<addImage value="types/Image.png"/>
+			<addName value="icon"/>
+			<setComponentClass value="javax.swing.JCheckBox"/>
+			<setPropertyClass value="javax.swing.Icon"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JRadioButton.gif"/>
+			<addName value="JRadioButton"/>
+			<addImage value="types/Image.png"/>
+			<addName value="icon"/>
+			<setComponentClass value="javax.swing.JRadioButton"/>
+			<setPropertyClass value="javax.swing.Icon"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JToggleButton.gif"/>
+			<addName value="JToggleButton"/>
+			<addImage value="types/Image.png"/>
+			<addName value="icon"/>
+			<setComponentClass value="javax.swing.JToggleButton"/>
+			<setPropertyClass value="javax.swing.Icon"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="components/JLabel.gif"/>
+			<addName value="JLabel"/>
+			<addImage value="types/Image.png"/>
+			<addName value="icon"/>
+			<setComponentClass value="javax.swing.JLabel"/>
+			<setPropertyClass value="javax.swing.Icon"/>
+		</descriptor>
+	</descriptors>
+	<descriptors name="AutoBinding.UpdateStrategy"
+		class="org.eclipse.wb.internal.swing.databinding.wizards.autobindings.AutoBindingUpdateStrategyDescriptor">
+		<descriptor>
+			<setName value="READ_WRITE"/>
+			<setSourceCode value="AutoBinding.UpdateStrategy.READ_WRITE"/>
+			<setImage value="strategy_read_write.png"/>
+		</descriptor>
+		<descriptor>
+			<setDefault/>
+			<setName value="READ"/>
+			<setSourceCode value="AutoBinding.UpdateStrategy.READ"/>
+			<setImage value="strategy_read.png"/>
+		</descriptor>
+		<descriptor>
+			<setName value="READ_ONCE"/>
+			<setSourceCode value="AutoBinding.UpdateStrategy.READ_ONCE"/>
+			<setImage value="strategy_read.png"/>
+		</descriptor>
+	</descriptors>
+</container>

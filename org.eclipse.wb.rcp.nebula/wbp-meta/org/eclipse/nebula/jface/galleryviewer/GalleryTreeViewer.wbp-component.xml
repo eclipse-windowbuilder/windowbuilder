@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A concrete tree viewer based on an Gallery widget.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">VIRTUAL BORDER</parameter>
+					<parameter name="select0">general SINGLE SINGLE MULTI</parameter>
+					<parameter name="select1">orientation NONE NONE V_SCROLL H_SCROLL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.gallery.Gallery" parent="true"/>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.jface.galleryviewer"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<property id="setContentProvider(org.eclipse.jface.viewers.IContentProvider)">
+		<editor id="innerClass">
+			<parameter name="mode">inner</parameter>
+			<parameter name="name">GalleryContentProvider</parameter>
+			<parameter name="class">org.eclipse.jface.viewers.IContentProvider</parameter>
+			<parameter name="source"><![CDATA[
+private static class ${name} implements org.eclipse.jface.viewers.IStructuredContentProvider {
+	public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
+	}
+	public void dispose() {
+	}
+    public Object[] getElements(Object inputElement) {
+        return null;
+    }
+}
+			]]></parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+			<parameter name="viewer.control.method">getGallery</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A single-line Text control which constrains the user input by styles.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ercp.swt.mobile.ConstrainedText(%parent%, org.eclipse.swt.SWT.BORDER, org.eclipse.ercp.swt.mobile.ConstrainedText.NUMERIC)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER READ_ONLY</parameter>
+					<parameter name="select0">align LEFT LEFT CENTER RIGHT</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.ercp.swt.mobile.ConstrainedText</parameter>
+					<parameter name="fields">DECIMAL NUMERIC PHONENUMBER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- ADD -->
+		<method name="append">
+			<parameter type="java.lang.String"/>
+		</method>
+		<method name="insert">
+			<parameter type="java.lang.String"/>
+		</method>
+		<!-- SELECTION -->
+		<method name="setSelection">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="showSelection"/>
+		<method name="selectAll"/>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text"/>
+	<properties-advanced names="textLimit selection"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.rightAlignment.isTarget">true</parameter>
+	</parameters>
+</component>

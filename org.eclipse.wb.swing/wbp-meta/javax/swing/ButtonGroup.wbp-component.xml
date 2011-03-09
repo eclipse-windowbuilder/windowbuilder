@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.bean.ButtonGroupInfo"/>
+	<description>ButtonGroup is used to create a multiple exclusion scope for a set of buttons. Creating a set
+		of buttons with the same ButtonGroup object means that turning "on" one of those buttons turns off all
+		other buttons in the group.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.ButtonGroup()]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="add">
+			<parameter type="javax.swing.AbstractButton"/>
+		</method>
+	</methods>
+</component>

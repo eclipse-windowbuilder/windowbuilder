@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>What's New - v4.2.0</title>
+	<link href="../../book.css" rel="stylesheet" type="text/css">	
+</head>
+
+<body>
+<h1 style="mso-pagination: widow-orphan lines-together; tab-stops: 0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in">What's New - v4.2.0</h1>
+
+<ul>
+	<li>
+	<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+	<a href="#SWT_VisualInheritance">Support 
+	for SWT Visual Inheritance</a></li>
+	<li>
+	<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+	<a href="#FreeCellMode">New &quot;Free 
+	cell mode&quot; edit policy for SWT GridLayout</a></li>
+	<li>
+	<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+	<a href="#NonVisualBeans">Support 
+	for non-visual beans</a></li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="#SWT">Enhanced SWT support</a></li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="#JFace_RCP">Enhanced JFace &amp; RCP support</a></li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="#Swing">Enhanced Swing support</a></li>
+	<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="#CodeGeneration">Code 
+Generation &amp; Parsing enhancements</a></li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="#Editor_PropertyPane">Editor &amp; Property Pane Enhancements</a><br>
+&nbsp;</li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="v410.html">v4.1.0</a></li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="v400.html">v4.0.0</a></li>
+<li>
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a href="v300.html">v3.0.0</a></li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="SWT_VisualInheritance"></a>Support 
+for SWT Visual Inheritance</h2>
+<ul>
+	<li>Inherit from any Composite or Shell subclass</li>
+	<li>All inherited widgets are visible</li>
+	<li>Access inherited widgets exposed via public or protected accessors</li>
+	<li>Inherited widgets appear in tree with &quot;i&quot; decorator</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="FreeCellMode"></a>New &quot;Free cell 
+mode&quot; edit policy for SWT GridLayout</h2>
+<ul>
+	<li>Position widgets freely in any open cell</li>
+	<li>Insert new rows and columns between existing cells</li>
+	<li>Rearrange rows and columns via drag/drop</li>
+	<li>Double-click or right-click on header to set/clear horizontal/vertical 
+	grab</li>
+	<li>Interactive column and row spanning feedback</li>
+	<li>Right-click on the header area to access the popup header menu</li>
+	<li>Right-click to delete rows and columns</li>
+	<li>Filler labels automatically managed</li>
+	<li>Option for Text widgets to automatically grab horizontally</li>
+	<li>Option to automatically right-align label widgets to the left of text 
+	widgets</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="NonVisualBeans"></a>Support for 
+non-visual beans</h2>
+<ul>
+	<li>Non-visual beans placed in a &quot;(non-visual beans)&quot; category</li>
+	<li>Marked in source with &quot;// @wb:location=X,Y&quot; tag</li>
+	<li>Option for creating non-visual beans as fields</li>
+	<li>Reorder non-visual beans via drag/drop</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="SWT"></a>Enhanced SWT support</h2>
+<ul>
+	<li>Enhanced support for custom SWT widgets</li>
+	<li>Option to generate Eclipse 3.0-style GridData</li>
+	<li>New &quot;Set tab order&quot; command on container context menu</li>
+	<li>Automatically autosize widgets in null and FormLayout</li>
+	<li>New &quot;Autosize widget&quot; command for FormLayout</li>
+	<li>Reparenting support for Forms ExpandableComposite and Section</li>
+	<li>Enhanced layout assistants for FillLayout &amp; GridLayout</li>
+	<li>Support for protected properties in SWT</li>
+	<li>Support for SWT Point property</li>
+	<li>Support for 3.2 CoolBar vertical style</li>
+	<li>Support for 3.2 sortColumn/sortDirection properties</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="JFace_RCP"></a>Enhanced JFace &amp; RCP support</h2>
+<ul>
+	<li>Show events for label and main controls for field editors in popup</li>
+	<li>Support for name/icon properties for views/editors</li>
+	<li>Support for view category editing and creation</li>
+	<li>Support for toolbar/coolbar managers on design canvas</li>
+	<li>Create ID field for new ViewPart</li>
+	<li>Wizard for ViewPart adds view declaration in plugin.xml</li>
+	<li>Wizard for EditorPart adds editor declaration in plugin.xml</li>
+	<li>Create view/editor extensions when needed</li>
+	<li>Automatically adapt non-form control</li>
+	<li>Add/remove paintBorders/adapt using popup menu</li>
+	<li>&quot;Adapt control&quot; popup items for Forms API</li>
+	<li>Support for clientVerticalSpacing/marginWidth/marginHeight properties 
+	for ExpandableComposite/Section</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="Swing"></a>Enhanced Swing support</h2>
+<ul>
+	<li>Show value feedback for insets/padding in GridBagLayout</li>
+	<li>Support for focus traversal policy for Swing</li>
+	<li>New &quot;Set tab order&quot; command on container context menu</li>
+	<li>Automatically autosize widgets in null and SpringLayout</li>
+	<li>New &quot;Flatten Hierarchy&quot; action for Swing container</li>
+	<li>Option for changing size to preferred on move in absolute layout</li>
+	<li>New &quot;Autosize widget&quot; command for SpringLayout</li>
+	<li>Don't show sub-components when &quot;isContainer == FALSE&quot; in bean descriptor</li>
+	<li>Support for custom layout managers</li>
+	<li>Support for JBuilder XYLayout and XYConstraints</li>
+	<li>Support for Swing components from fields</li>
+	<li>Mark container as focus cycle root when setting focus policy</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="CodeGeneration"></a>Code 
+Generation &amp; Parsing enhancements</h2>
+<ul>
+	<li>Option for specifying default code generation method</li>
+	<li>Option to to surround method invocation code with try{}catch{}</li>
+	<li>Support for &quot;this&quot; prefix before field</li>
+	<li>Option for disabling complex expressions evaluations</li>
+	<li>Option for enable/disable reparse after custom component change</li>
+	<li>Support for options for position of event handler inner class</li>
+	<li>Option for removing &quot;real&quot; event handlers during component remove</li>
+	<li>Provide JDK 1.5 versions of ResourceManager as needed</li>
+	<li>Ignore during parsing methods that have single argument subclass of 
+	EventObject</li>
+	<li>Support for components from static factories</li>
+	<li>Support for borders from static factories</li>
+	<li>Understand SWT code for controls with more than two arguments in 
+	constructor</li>
+	<li>Support for adding new controls with complex constructors</li>
+	<li>Support for constructor arguments for SWT controls</li>
+	<li>Support for enumeration properties</li>
+</ul>
+<h2 style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<a name="Editor_PropertyPane"></a>Editor &amp; Property Pane Enhancements</h2>
+<ul>
+	<li>Option for automatically drop down combo property editors on activation</li>
+	<li>&quot;Expose property...&quot; item added to property table popup menu</li>
+	<li>Option to automatically direct edit new widgets</li>
+	<li>Support for editing layout properties with multi-selection</li>
+	<li>Refresh custom components palette after receiving focus</li>
+	<li>Support for preferred property descriptors</li>
+	<li>Remember expansion state in image selection dialog</li>
+	<li>Group constructor properties in complex &quot;constructor&quot; property</li>
+</ul>
+</body>
+</html>

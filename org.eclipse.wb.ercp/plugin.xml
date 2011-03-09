@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+	<!-- ======================================================== -->
+	<!-- Extension points -->
+	<!-- ======================================================== -->
+	<extension-point id="devices" name="eRCP mobile devices" schema="schema/devices.exsd"/>
+
+
+	<!-- ======================================================== -->
+	<!-- Class loader -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoadingContributor">
+		<contributor namespace="org.eclipse.wb.internal.ercp."/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.classLoaderInitializers">
+		<initializer class="org.eclipse.wb.internal.swt.utils.ResourceManagerClassLoaderInitializer"
+			toolkit="org.eclipse.wb.ercp"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseFactories">
+		<factory class="org.eclipse.wb.internal.ercp.parser.ParseFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.ercp">
+			<provider class="org.eclipse.wb.internal.ercp.ToolkitProvider"/>
+			<resourcePrefixes>
+				<resourcePrefix>org.eclipse.swt.</resourcePrefix>
+				<resourcePrefix>org.eclipse.jface.</resourcePrefix>
+				<resourcePrefix>org.eclipse.ui.</resourcePrefix>
+				<resourcePrefix>org.eclipse.ercp.</resourcePrefix>
+			</resourcePrefixes>
+			<palette>
+				<category id="org.eclipse.wb.ercp.system" name="System">
+					<entry id="system.selection"
+						class="org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo"/>
+					<entry id="system.marquee"
+						class="org.eclipse.wb.core.editor.palette.model.entry.MarqueeSelectionToolEntryInfo"/>
+					<entry id="system.chooseComponent"
+						class="org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo"/>
+					<entry id="system.tabOrder"
+						class="org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo"
+					/>
+				</category>
+				<category id="org.eclipse.wb.ercp.composites" name="Composites">
+					<component class="org.eclipse.swt.widgets.Composite"/>
+					<component class="org.eclipse.swt.widgets.Canvas"/>
+					<component class="org.eclipse.swt.widgets.Table"/>
+					<component class="org.eclipse.swt.widgets.Tree"/>
+					<component class="org.eclipse.ercp.swt.mobile.ListBox"/>
+					<component class="org.eclipse.ercp.swt.mobile.ListView"/>
+					<component class="org.eclipse.ercp.swt.mobile.SortedList"/>
+				</category>
+				<category id="org.eclipse.wb.ercp.layouts" name="Layouts">
+					<entry id="system.layout.absolute"
+						class="org.eclipse.wb.internal.swt.palette.AbsoluteLayoutEntryInfo"/>
+					<component class="org.eclipse.swt.layout.FillLayout"/>
+					<component class="org.eclipse.swt.layout.GridLayout"/>
+					<!-- component class="org.eclipse.swt.layout.FormLayout" -->
+					<component class="org.eclipse.swt.layout.RowLayout"/>
+				</category>
+				<category id="org.eclipse.wb.ercp.controls" name="Controls">
+					<component class="org.eclipse.swt.widgets.Button"/>
+					<component class="org.eclipse.swt.widgets.Button" creationId="check"/>
+					<component class="org.eclipse.swt.widgets.Button" creationId="radio"/>
+					<component class="org.eclipse.swt.widgets.Label"/>
+					<component class="org.eclipse.swt.widgets.Text"/>
+					<component class="org.eclipse.swt.widgets.Combo"/>
+					<component class="org.eclipse.swt.widgets.List"/>
+					<component class="org.eclipse.swt.widgets.ProgressBar"/>
+					<component class="org.eclipse.swt.widgets.Slider"/>
+					<component class="org.eclipse.swt.browser.Browser"/>
+					<component class="org.eclipse.swt.widgets.Table"/>
+					<component class="org.eclipse.swt.widgets.TableColumn"/>
+					<component class="org.eclipse.swt.widgets.TableItem"/>
+					<component class="org.eclipse.swt.widgets.Tree"/>
+					<component class="org.eclipse.swt.widgets.TreeItem"/>
+				</category>
+				<category id="org.eclipse.wb.ercp.mobile" name="Mobile">
+					<component class="org.eclipse.ercp.swt.mobile.CaptionedControl"/>
+					<component class="org.eclipse.ercp.swt.mobile.ConstrainedText"/>
+					<component class="org.eclipse.ercp.swt.mobile.TextExtension"/>
+					<component class="org.eclipse.ercp.swt.mobile.DateEditor"/>
+					<component class="org.eclipse.ercp.swt.mobile.HyperLink"/>
+					<component class="org.eclipse.ercp.swt.mobile.ListBox"/>
+					<component class="org.eclipse.ercp.swt.mobile.ListBoxItem"/>
+					<component class="org.eclipse.ercp.swt.mobile.ListView"/>
+					<component class="org.eclipse.ercp.swt.mobile.SortedList"/>
+					<component class="org.eclipse.ercp.swt.mobile.Command"/>
+				</category>
+				<category id="org.eclipse.wb.ercp.menu" name="Menu">
+					<component class="org.eclipse.swt.widgets.Menu" creationId="bar"/>
+					<component class="org.eclipse.swt.widgets.Menu"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="cascade"/>
+					<component class="org.eclipse.swt.widgets.MenuItem"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="radio"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="check"/>
+					<component class="org.eclipse.swt.widgets.MenuItem" creationId="separator"/>
+				</category>
+				<category id="org.eclipse.wb.ercp.jface" name="JFace">
+					<component class="org.eclipse.jface.viewers.CheckboxTreeViewer"/>
+					<component class="org.eclipse.jface.viewers.ComboViewer"/>
+					<component class="org.eclipse.jface.viewers.ListViewer"/>
+					<component class="org.eclipse.jface.viewers.TableViewer"/>
+					<component class="org.eclipse.jface.viewers.TreeViewer"/>
+				</category>
+			</palette>
+		</toolkit>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Layout managers -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.layoutManagers">
+		<layout toolkit="org.eclipse.wb.ercp" id="gridLayout" name="GridLayout"
+			class="org.eclipse.swt.layout.GridLayout" source="new GridLayout(1, false)"/>
+		<layout toolkit="org.eclipse.wb.ercp" id="fillLayout" name="FillLayout"
+			class="org.eclipse.swt.layout.FillLayout" source="new FillLayout()"/>
+		<layout toolkit="org.eclipse.wb.ercp" id="rowLayout" name="RowLayout"
+			class="org.eclipse.swt.layout.RowLayout" source="new RowLayout()"/>
+		<layout toolkit="org.eclipse.wb.ercp" id="formLayout" name="FormLayout"
+			class="org.eclipse.swt.layout.FormLayout" source="new FormLayout()"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- NLS sources -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.nlsSources">
+		<binding toolkit="org.eclipse.wb.ercp"
+			description="org.eclipse.wb.core.nls.bundle.eclipse.old.EclipseSource"/>
+		<binding toolkit="org.eclipse.wb.ercp"
+			description="org.eclipse.wb.core.nls.bundle.pure.direct.DirectSource"/>
+		<binding toolkit="org.eclipse.wb.ercp"
+			description="org.eclipse.wb.core.nls.bundle.pure.field.FieldSource"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.preferenceTransfer">
+		<transfer id="org.eclipse.wb.ercp.preferencesTransfer"
+			icon="icons/preference_transfer.png" name="Designer eRCP Preferences">
+			<mapping scope="instance">
+				<entry node="org.eclipse.wb.ercp"/>
+			</mapping>
+		</transfer>
+	</extension>
+
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.ercp.preferences.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.ercp.model.layout.absolute.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.ercp.preferences.event.PreferenceInitializer"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page category="org.eclipse.wb.core.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.MainPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.MainPreferencePage" name="eRCP">
+			<keywordReference id="org.eclipse.wb.kw.ercp.root"/>
+		</page>
+		<!-- Code generation -->
+		<page category="org.eclipse.wb.ercp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.code.CodeGenerationPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.code.CodeGenerationPreferencePage"
+			name="Code Generation">
+			<keywordReference id="org.eclipse.wb.kw.ercp.codeGeneration"/>
+		</page>
+		<page category="org.eclipse.wb.ercp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.event.EventsPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.event.EventsPreferencePage" name="Event handlers">
+			<keywordReference id="org.eclipse.wb.kw.ercp.eventHandlers"/>
+		</page>
+		<page category="org.eclipse.wb.ercp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.code.VariablesPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.code.VariableNamesPreferencePage"
+			name="Variables"/>
+		<page category="org.eclipse.wb.ercp.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.code.NlsPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.code.NLSPreferencePage" name="NLS"/>
+		<!-- Layouts -->
+		<page category="org.eclipse.wb.ercp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.layout.LayoutsPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.layout.LayoutSupportPreferencePage"
+			name="Layouts"/>
+		<page category="org.eclipse.wb.ercp.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.layout.AbsoluteLayoutPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.layout.AbsoluteLayoutSupportPreferencePage"
+			name="Absolute">
+			<keywordReference id="org.eclipse.wb.kw.ercp.absoluteLayout"/>
+		</page>
+		<page category="org.eclipse.wb.ercp.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.layout.GridLayoutPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.layout.GridLayoutPreferencePage"
+			name="GridLayout"/>
+		<!-- Mobile devices -->
+		<page category="org.eclipse.wb.ercp.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.ercp.preferences.devices.DevicesPreferencePage"
+			id="org.eclipse.wb.ercp.preferences.MobileDevicesPreferencePage"
+			name="Mobile Devices"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.keywords">
+		<keyword label="%preferenceKeywords.ercp.root" id="org.eclipse.wb.kw.ercp.root"/>
+		<keyword label="%preferenceKeywords.ercp.codeGeneration"
+			id="org.eclipse.wb.kw.ercp.codeGeneration"/>
+		<keyword label="%preferenceKeywords.ercp.eventHandlers"
+			id="org.eclipse.wb.kw.ercp.eventHandlers"/>
+		<keyword label="%preferenceKeywords.ercp.absoluteLayout"
+			id="org.eclipse.wb.kw.ercp.absoluteLayout"/>
+	</extension>
+
+	<!-- ======================================================== -->
+	<!-- New Wizards -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.newWizards">
+		<category parentCategory="org.eclipse.wb" id="org.eclipse.wb.ercp"
+			name="eRCP Designer" wbp-menu-name="eRCP"/>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.ercp"
+			class="org.eclipse.wb.internal.ercp.wizards.project.rcp.NewProjectWizard"
+			icon="icons/wizard/Project/wizard.gif"
+			id="org.eclipse.wb.ercp.wizards.project.rcp.NewProjectWizard"
+			name="eRCP Plug-in Project" project="true">
+			<description> Create a Plug-in project with eRCP support </description>
+		</wizard>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.ercp"
+			class="org.eclipse.wb.internal.ercp.wizards.project.swt.NewProjectWizard"
+			icon="icons/wizard/Project/wizard.gif"
+			id="org.eclipse.wb.ercp.wizards.project.swt.NewProjectWizard"
+			name="eSWT Java Project" project="true">
+			<description> Create a Java project with eSWT support </description>
+		</wizard>
+		<!-- SWT -->
+		<category parentCategory="org.eclipse.wb/org.eclipse.wb.ercp"
+			id="org.eclipse.wb.ercp.swt" name="SWT" wbp-menu-inline="true"/>
+		<wizard
+			category="org.eclipse.wb/org.eclipse.wb.ercp/org.eclipse.wb.ercp.swt"
+			id="org.eclipse.wb.ercp.ApplicationWizard" 
+			class="org.eclipse.wb.internal.ercp.wizards.application.SwtApplicationWizard"
+			icon="icons/wizard/ApplicationWindow/wizard.gif"
+			name="Application Window">
+			<description> Create an eSWT application window </description>
+		</wizard>
+		<wizard
+			category="org.eclipse.wb/org.eclipse.wb.ercp/org.eclipse.wb.ercp.swt"
+			id="org.eclipse.wb.ercp.CompositeWizard" 
+			class="org.eclipse.wb.internal.ercp.wizards.composite.CompositeWizard"
+			icon="icons/wizard/Composite/wizard.gif"
+			name="Composite">
+			<description> Create an eSWT Composite </description>
+		</wizard>
+		<wizard
+			category="org.eclipse.wb/org.eclipse.wb.ercp/org.eclipse.wb.ercp.swt"
+			id="org.eclipse.wb.ercp.ShellWizard"
+			class="org.eclipse.wb.internal.ercp.wizards.shell.ShellWizard"
+			icon="icons/wizard/Shell/wizard.gif" 
+			name="Shell">
+			<description> Create an eSWT Shell </description>
+		</wizard>
+		<!-- RCP -->
+		<category parentCategory="org.eclipse.wb/org.eclipse.wb.ercp"
+			id="org.eclipse.wb.ercp.rcp" name="RCP" wbp-menu-inline="true"/>
+		<wizard
+			category="org.eclipse.wb/org.eclipse.wb.ercp/org.eclipse.wb.ercp.rcp"
+			id="org.eclipse.wb.ercp.PreferencePageWizard"
+			class="org.eclipse.wb.internal.ercp.wizards.preferences.PreferencePageWizard"
+			icon="icons/wizard/PreferencePage/wizard.gif"
+			name="PreferencePage">
+			<description> Create a Eclipse PreferencePage </description>
+		</wizard>
+		<wizard
+			category="org.eclipse.wb/org.eclipse.wb.ercp/org.eclipse.wb.ercp.rcp"
+			id="org.eclipse.wb.ercp.ViewPartWizard"
+			class="org.eclipse.wb.internal.ercp.wizards.viewpart.ViewPartWizard"
+			icon="icons/wizard/ViewPart/wizard.gif"
+			name="ViewPart">
+			<description> Create a Eclipse ViewPart </description>
+		</wizard>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Device -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+		<participator class="org.eclipse.wb.internal.ercp.devices.DeviceSelectionJavaInfoParticipator"/>
+	</extension>
+	<extension point="org.eclipse.wb.ercp.devices">
+		<!-- Generic -->
+		<category id="generic" name="Generic">
+			<device id="generic.qvga-landscape" name="QVGA Landscape"
+				image="icons/devices/Generic/qvga-landscape.gif">
+				<display x="20" y="20" width="320" height="240"/>
+			</device>
+			<device id="generic.qvga-portrait" name="QVGA Portrait"
+				image="icons/devices/Generic/qvga-portrait.gif">
+				<display x="20" y="20" width="240" height="320"/>
+			</device>
+			<device id="generic.vga-landscape" name="VGA Landscape"
+				image="icons/devices/Generic/vga-landscape.gif">
+				<display x="20" y="20" width="640" height="480"/>
+			</device>
+			<device id="generic.vga-portrait" name="VGA Portrait"
+				image="icons/devices/Generic/vga-portrait.gif">
+				<display x="20" y="20" width="480" height="640"/>
+			</device>
+		</category>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.ercp.gef.EditPartFactory" priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.editPartConfigurators">
+		<configurator class="org.eclipse.wb.internal.ercp.gef.policy.CommandDropPolicyConfigurator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories for TreeViewer -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.treeEditPartFactories">
+		<factory class="org.eclipse.wb.internal.ercp.gefTree.EditPartFactory" priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.treeEditPartConfigurators">
+		<configurator class="org.eclipse.wb.internal.ercp.gefTree.policy.CommandDropPolicyConfigurator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- ControlEditPart delegates -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.swt.controlEditPartDelegateProviders">
+		<provider class="org.eclipse.wb.internal.ercp.gef.part.delegete.ControlEditPartDelegateProvider"/>
+	</extension>
+</plugin>

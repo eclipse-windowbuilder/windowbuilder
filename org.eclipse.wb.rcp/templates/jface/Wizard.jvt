@@ -1,0 +1,18 @@
+import org.eclipse.jface.wizard.WizardPage;
+
+method
+	public %TypeName%() {
+		setWindowTitle("New Wizard");
+	}
+
+method
+	@Override
+	public void addPages() {
+	}
+
+method
+	@Override
+	public boolean performFinish() {
+		return false;
+	}
+	

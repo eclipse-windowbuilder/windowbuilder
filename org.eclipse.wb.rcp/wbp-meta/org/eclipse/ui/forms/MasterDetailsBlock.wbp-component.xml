@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.MasterDetailsBlockInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="FormToolkit.configureMethod">createMasterPart(org.eclipse.ui.forms.IManagedForm,org.eclipse.swt.widgets.Composite)</parameter>
+	</parameters>
+</component>

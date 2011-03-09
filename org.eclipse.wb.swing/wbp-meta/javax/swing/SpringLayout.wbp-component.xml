@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo"/>
+	<description>A SpringLayout lays out the children of its associated container according to a set of
+		constraints (relative to each other and container).</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.SpringLayout()]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="putConstraint">
+			<parameter type="java.lang.String"/>
+			<parameter type="java.awt.Component"/>
+			<parameter type="int"/>
+			<parameter type="java.lang.String"/>
+			<parameter type="java.awt.Component"/>
+		</method>
+		<method name="putConstraint">
+			<parameter type="java.lang.String"/>
+			<parameter type="java.awt.Component"/>
+			<parameter type="javax.swing.Spring"/>
+			<parameter type="java.lang.String"/>
+			<parameter type="java.awt.Component"/>
+		</method>
+	</methods>
+</component>

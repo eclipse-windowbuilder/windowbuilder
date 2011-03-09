@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- Designer content type-->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designerContentPatterns">
+		<includePattern>java.applet.</includePattern>
+		<includePattern>javax.swing.</includePattern>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Exceptions -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.exceptions">
+		<file path="resources/exceptions.xml"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Bundle class loading -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoadingContributor">
+		<contributor namespace="org.eclipse.wb.internal.swing."/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Description processors -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.descriptionProcessors">
+		<processor class="org.eclipse.wb.internal.swing.DescriptionProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Components hierarchy -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.componentsHierarchyProviders">
+		<provider
+			class="org.eclipse.wb.internal.swing.model.component.exposed.SwingHierarchyProvider"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Description driven features -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.rootProcessors">
+		<processor class="org.eclipse.wb.internal.swing.model.bean.ActionRootProcessor"/>
+		<processor class="org.eclipse.wb.internal.swing.model.bean.ButtonGroupRootProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseFactories">
+		<factory class="org.eclipse.wb.internal.swing.parser.ParseFactory"/>
+		<simpleModel_CIC class="org.eclipse.wb.internal.swing.parser.ParseFactorySimpleModelCic"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.executionFlowProviders">
+		<provider class="org.eclipse.wb.internal.swing.parser.SwingExecutionFlowProvider"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+		<participator class="org.eclipse.wb.internal.swing.model.bean.ActionJavaInfoParticipator"/>
+		<participator
+			class="org.eclipse.wb.internal.swing.model.bean.ButtonGroupJavaInfoParticipator"/>
+		<participator class="org.eclipse.wb.internal.swing.customize.CustomizerSupport"/>
+	</extension>
+	
+	<extension point="org.eclipse.wb.core.rootProcessors">
+		<processor class="org.eclipse.wb.internal.swing.laf.ui.LafRootProcessor"/>
+	</extension>
+	
+
+	<!-- ======================================================== -->
+	<!-- Expression evaluators -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.expressionEvaluators">
+		<evaluator
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.list.ListModelEvaluator"
+			priority="1"/>
+		<evaluator
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelEvaluator"
+			priority="1"/>
+		<evaluator
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModelEvaluator"
+			priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.invocationEvaluatorInterceptors">
+		<interceptor
+			class="org.eclipse.wb.internal.swing.model.component.SwingInvocationEvaluatorInterceptor"
+		/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- PropertyEditor -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.propertyEditors">
+		<!-- geometry -->
+		<editor type="java.awt.Point"
+			class="org.eclipse.wb.internal.swing.model.property.editor.geometry.PointPropertyEditor"/>
+		<editor type="java.awt.Rectangle"
+			class="org.eclipse.wb.internal.swing.model.property.editor.geometry.RectanglePropertyEditor"/>
+		<editor type="java.awt.Dimension"
+			class="org.eclipse.wb.internal.swing.model.property.editor.geometry.DimensionPropertyEditor"/>
+		<editor type="java.awt.Insets"
+			class="org.eclipse.wb.internal.swing.model.property.editor.geometry.InsetsPropertyEditor"/>
+		<!-- resources -->
+		<editor type="java.awt.Color"
+			class="org.eclipse.wb.internal.swing.model.property.editor.color.ColorPropertyEditor"/>
+		<editor type="java.awt.Font"
+			class="org.eclipse.wb.internal.swing.model.property.editor.font.FontPropertyEditor"/>
+		<editor type="javax.swing.border.Border"
+			class="org.eclipse.wb.internal.swing.model.property.editor.border.BorderPropertyEditor"/>
+		<editor type="javax.swing.Icon"
+			class="org.eclipse.wb.internal.swing.model.property.editor.icon.IconPropertyEditor"/>
+		<editor type="java.awt.Image"
+			class="org.eclipse.wb.internal.swing.model.property.editor.icon.ImagePropertyEditor"/>
+		<!-- resources -->
+		<editor type="java.awt.Cursor"
+			class="org.eclipse.wb.internal.swing.model.property.editor.cursor.CursorPropertyEditor"/>
+		<editor type="javax.swing.KeyStroke"
+			class="org.eclipse.wb.internal.swing.model.property.editor.accelerator.KeyStrokePropertyEditor"/>
+		<!-- models -->
+		<editor type="javax.swing.ComboBoxModel"
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.combo.ComboBoxModelPropertyEditor"/>
+		<editor type="javax.swing.ListModel"
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.list.ListModelPropertyEditor"/>
+		<editor type="javax.swing.table.TableModel"
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelPropertyEditor"/>
+		<editor type="javax.swing.tree.TreeModel"
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModelPropertyEditor"/>
+		<editor type="javax.swing.SpinnerModel"
+			class="org.eclipse.wb.internal.swing.model.property.editor.models.spinner.SpinnerModelPropertyEditor"/>
+		<!-- configurable -->
+		<configurableEditor id="swing.alignmentX"
+			class="org.eclipse.wb.internal.swing.model.property.editor.alignment.AlignmentXPropertyEditor"/>
+		<configurableEditor id="swing.alignmentY"
+			class="org.eclipse.wb.internal.swing.model.property.editor.alignment.AlignmentYPropertyEditor"/>
+		<configurableEditor id="swing.displayedMnemonic"
+			class="org.eclipse.wb.internal.swing.model.property.editor.DisplayedMnemonicKeyPropertyEditor"/>
+		<!-- providers -->
+		<provider
+			class="org.eclipse.wb.internal.swing.model.property.editor.beans.JavaBeanEditorProvider"
+		/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.standardToolkitPackages">
+		<package prefix="java.awt."/>
+		<package prefix="javax.swing."/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- ExpressionConverter -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.propertyConverters">
+		<converter type="java.awt.Point"
+			class="org.eclipse.wb.internal.swing.model.property.converter.PointConverter"/>
+		<converter type="java.awt.Rectangle"
+			class="org.eclipse.wb.internal.swing.model.property.converter.RectangleConverter"/>
+		<converter type="java.awt.Dimension"
+			class="org.eclipse.wb.internal.swing.model.property.converter.DimensionConverter"/>
+		<converter type="java.awt.Insets"
+			class="org.eclipse.wb.internal.swing.model.property.converter.InsetsConverter"/>
+		<converter type="java.awt.Color"
+			class="org.eclipse.wb.internal.swing.model.property.converter.ColorConverter"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- NLS sources -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.nlsSources">
+		<binding toolkit="org.eclipse.wb.swing"
+			description="org.eclipse.wb.core.nls.bundle.eclipse.old.EclipseSource"/>
+		<binding toolkit="org.eclipse.wb.swing"
+			description="org.eclipse.wb.core.nls.bundle.eclipse.modern.ModernEclipseSource"/>
+		<binding toolkit="org.eclipse.wb.swing"
+			description="org.eclipse.wb.core.nls.bundle.pure.direct.DirectSource"/>
+		<binding toolkit="org.eclipse.wb.swing"
+			description="org.eclipse.wb.core.nls.bundle.pure.field.FieldSource"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.preferenceTransfer">
+		<transfer id="org.eclipse.wb.swing.preferencesTransfer" icon="icons/preference_transfer.png"
+			name="Designer Swing Preferences">
+			<mapping scope="instance">
+				<entry node="org.eclipse.wb.swing"/>
+			</mapping>
+		</transfer>
+	</extension>
+
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.swing.preferences.PreferenceInitializer"/>
+		<initializer
+			class="org.eclipse.wb.internal.swing.model.layout.absolute.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.swing.model.layout.gbl.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.swing.preferences.event.PreferenceInitializer"/>
+		<initializer class="org.eclipse.wb.internal.swing.preferences.laf.PreferenceInitializer"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page category="org.eclipse.wb.core.preferences.MainPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.MainPreferencePage"
+			id="org.eclipse.wb.swing.preferences.SwingPreferencePage" name="Swing">
+			<keywordReference id="org.eclipse.wb.kw.swing.root"/>
+		</page>
+		<!-- Code generation -->
+		<page category="org.eclipse.wb.swing.preferences.SwingPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.code.CodeGenerationPreferencePage"
+			id="org.eclipse.wb.swing.preferences.code.CodeGenerationPreferencePage"
+			name="Code Generation">
+			<keywordReference id="org.eclipse.wb.kw.swing.codeGeneration"/>
+		</page>
+		<page category="org.eclipse.wb.swing.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.event.EventsPreferencePage"
+			id="org.eclipse.wb.swing.preferences.event.EventsPreferencePage" name="Event handlers">
+			<keywordReference id="org.eclipse.wb.kw.swing.eventHandlers"/>
+		</page>
+		<page category="org.eclipse.wb.swing.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.code.VariablesPreferencePage"
+			id="org.eclipse.wb.swing.preferences.code.VariableNamesPreferencePage" name="Variables"/>
+		<page category="org.eclipse.wb.swing.preferences.code.CodeGenerationPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.code.NlsPreferencePage"
+			id="org.eclipse.wb.swing.preferences.code.NLSPreferencePage" name="NLS"/>
+		<!-- Layouts -->
+		<page category="org.eclipse.wb.swing.preferences.SwingPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.layout.LayoutsPreferencePage"
+			id="org.eclipse.wb.swing.preferences.layout.LayoutSupportPreferencePage" name="Layouts"/>
+		<page category="org.eclipse.wb.swing.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.layout.AbsoluteLayoutPreferencePage"
+			id="org.eclipse.wb.swing.preferences.layout.AbsoluteLayoutSupportPreferencePage"
+			name="Absolute">
+			<keywordReference id="org.eclipse.wb.kw.swing.absoluteLayout"/>
+		</page>
+		<page category="org.eclipse.wb.swing.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.layout.GridBagLayoutPreferencePage"
+			id="org.eclipse.wb.swing.preferences.layout.GridBagLayoutPreferencePage"
+			name="GridBagLayout"/>
+		<page category="org.eclipse.wb.swing.preferences.SwingPreferencePage"
+			class="org.eclipse.wb.internal.swing.preferences.laf.LafPreferencePage"
+			id="org.eclipse.wb.swing.preferences.LAF" name="LookAndFeel"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.keywords">
+		<keyword label="%preferenceKeywords.swing.root" id="org.eclipse.wb.kw.swing.root"/>
+		<keyword label="%preferenceKeywords.swing.codeGeneration"
+			id="org.eclipse.wb.kw.swing.codeGeneration"/>
+		<keyword label="%preferenceKeywords.swing.eventHandlers"
+			id="org.eclipse.wb.kw.swing.eventHandlers"/>
+		<keyword label="%preferenceKeywords.swing.absoluteLayout"
+			id="org.eclipse.wb.kw.swing.absoluteLayout"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.swing.gef.EditPartFactory"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.swing.gef.policy.layout.LayoutEditPolicyFactory"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.editPartConfigurators">
+		<configurator
+			class="org.eclipse.wb.internal.swing.gef.policy.menu.MenuDropPolicyConfigurator"/>
+		<configurator
+			class="org.eclipse.wb.internal.swing.gef.policy.action.ActionDropPolicyConfigurator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.swing">
+			<provider class="org.eclipse.wb.internal.swing.ToolkitProvider"/>
+			<resourcePrefixes>
+				<resourcePrefix>com.borland.</resourcePrefix>
+				<resourcePrefix>java.applet.</resourcePrefix>
+				<resourcePrefix>java.awt.</resourcePrefix>
+				<resourcePrefix>java.util.</resourcePrefix>
+				<resourcePrefix>javax.swing.</resourcePrefix>
+				<resourcePrefix>org.jdesktop.</resourcePrefix>
+			</resourcePrefixes>
+			<palette>
+				<category id="org.eclipse.wb.swing.system" name="System" description="System tools">
+					<entry id="system.selection"
+						class="org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo"/>
+					<entry id="system.marquee"
+						class="org.eclipse.wb.core.editor.palette.model.entry.MarqueeSelectionToolEntryInfo"/>
+					<entry id="system.chooseComponent"
+						class="org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo"/>
+					<entry id="system.tabOrder"
+						class="org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo"
+					/>
+				</category>
+				<category id="org.eclipse.wb.swing.containers" name="Containers"
+					description="Swing containers">
+					<component class="javax.swing.JPanel"/>
+					<component class="javax.swing.JScrollPane"/>
+					<component class="javax.swing.JSplitPane"/>
+					<component class="javax.swing.JTabbedPane"/>
+					<component class="javax.swing.JToolBar"/>
+					<component class="javax.swing.JLayeredPane"/>
+					<component class="javax.swing.JDesktopPane"/>
+					<component class="javax.swing.JInternalFrame"/>
+				</category>
+				<category id="org.eclipse.wb.swing.layouts" name="Layouts"
+					description="Swing/AWT layout managers">
+					<entry id="system.layout.absolute"
+						class="org.eclipse.wb.internal.swing.palette.AbsoluteLayoutEntryInfo"/>
+					<component class="java.awt.FlowLayout"/>
+					<component class="java.awt.BorderLayout"/>
+					<component class="java.awt.GridLayout"/>
+					<component class="java.awt.GridBagLayout"/>
+					<component class="java.awt.CardLayout"/>
+					<component class="javax.swing.BoxLayout"/>
+					<component class="javax.swing.SpringLayout"/>
+				</category>
+				<category id="org.eclipse.wb.swing.jb" name="JBuilder" optional="true"
+					description="JBuilder layout managers">
+					<component class="com.borland.jbcl.layout.VerticalFlowLayout"/>
+				</category>
+				<category id="org.eclipse.wb.swing.BoxLayout" name="Struts &amp; Springs"
+					description="javax.swing.Box helper entries" open="false">
+					<static-factory class="javax.swing.Box">
+						<method signature="createHorizontalBox()" name="Horizontal Box"/>
+						<method signature="createVerticalBox()" name="Vertical Box"/>
+						<method signature="createHorizontalStrut(int)" name="Horizontal strut"/>
+						<method signature="createVerticalStrut(int)" name="Vertical strut"/>
+						<method signature="createHorizontalGlue()" name="Horizontal glue"/>
+						<method signature="createVerticalGlue()" name="Vertical glue"/>
+						<method signature="createRigidArea(java.awt.Dimension)" name="Rigid area"/>
+						<method signature="createGlue()" name="Glue"/>
+					</static-factory>
+				</category>
+				<category id="org.eclipse.wb.swing.components" name="Components"
+					description="Swing components">
+					<component class="javax.swing.JLabel"/>
+					<component class="javax.swing.JTextField"/>
+					<component class="javax.swing.JComboBox"/>
+					<component class="javax.swing.JButton"/>
+					<component class="javax.swing.JCheckBox"/>
+					<component class="javax.swing.JRadioButton"/>
+					<component class="javax.swing.JToggleButton"/>
+					<component class="javax.swing.JTextArea"/>
+					<component class="javax.swing.JFormattedTextField"/>
+					<component class="javax.swing.JPasswordField"/>
+					<component class="javax.swing.JTextPane"/>
+					<component class="javax.swing.JEditorPane"/>
+					<component class="javax.swing.JSpinner"/>
+					<component class="javax.swing.JList"/>
+					<component class="javax.swing.JTable"/>
+					<component class="javax.swing.JTree"/>
+					<component class="javax.swing.JProgressBar"/>
+					<component class="javax.swing.JScrollBar"/>
+					<component class="javax.swing.JSeparator"/>
+					<component class="javax.swing.JSlider"/>
+				</category>
+				<category id="org.eclipse.wb.swing.actions" name="Swing Actions"
+					description="Container with javax.swing.Action's" open="false">
+					<entry id="action.new"
+						class="org.eclipse.wb.internal.swing.palette.ActionNewEntryInfo"/>
+					<entry id="action.external"
+						class="org.eclipse.wb.internal.swing.palette.ActionExternalEntryInfo"/>
+				</category>
+				<category id="org.eclipse.wb.swing.components.menu" name="Menu"
+					description="Menu components" open="false">
+					<component class="javax.swing.JMenuBar"/>
+					<component class="javax.swing.JPopupMenu"/>
+					<component class="javax.swing.JMenu"/>
+					<component class="javax.swing.JMenuItem"/>
+					<component class="javax.swing.JCheckBoxMenuItem"/>
+					<component class="javax.swing.JRadioButtonMenuItem"/>
+				</category>
+				<category id="org.eclipse.wb.swing.components.awt" name="AWT Components"
+					description="AWT components" open="false">
+					<component class="java.awt.Panel"/>
+					<component class="java.awt.Canvas"/>
+					<component class="java.awt.ScrollPane"/>
+					<component class="java.awt.Button"/>
+					<component class="java.awt.Label"/>
+					<component class="java.awt.Checkbox"/>
+					<component class="java.awt.Choice"/>
+					<component class="java.awt.List"/>
+					<component class="java.awt.Scrollbar"/>
+					<component class="java.awt.TextField"/>
+					<component class="java.awt.TextArea"/>
+				</category>
+			</palette>
+		</toolkit>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.paletteComponentExists">
+		<component package="java.awt." always="true"/>
+		<component package="javax.swing." always="true"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Surround with -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+		<participator class="org.eclipse.wb.internal.swing.model.layout.LayoutJavaInfoParticipator"
+		/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.surroundWith">
+		<!-- processors -->
+		<processor toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutSurroundProcessor"/>
+		<processor toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutSurroundProcessor"/>
+		<!-- targets -->
+		<target toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.util.surround.JPanelSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.util.surround.JPanelWithBorderSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.util.surround.JSplitPaneSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.util.surround.JScrollPaneSurroundTarget"/>
+		<target toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.model.util.surround.JTabbedPaneSurroundTarget"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Layout managers -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.layoutManagers">
+		<layout toolkit="org.eclipse.wb.swing" id="flowLayout" name="FlowLayout"
+			class="java.awt.FlowLayout"/>
+		<layout toolkit="org.eclipse.wb.swing" id="borderLayout" name="BorderLayout"
+			class="java.awt.BorderLayout"/>
+		<layout toolkit="org.eclipse.wb.swing" id="boxLayout" name="BoxLayout"
+			class="javax.swing.BoxLayout"/>
+		<layout toolkit="org.eclipse.wb.swing" id="gridLayout" name="GridLayout"
+			class="java.awt.GridLayout"/>
+		<layout toolkit="org.eclipse.wb.swing" id="cardLayout" name="CardLayout"
+			class="java.awt.CardLayout"/>
+		<layout toolkit="org.eclipse.wb.swing" id="gridBagLayout" name="GridBagLayout"
+			class="java.awt.GridBagLayout"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- LayoutStyle -->
+	<!-- ======================================================== -->
+	<extension-point id="layoutStyle" name="LayoutStyle support" schema="schema/layoutStyle.exsd"/>
+	<extension-point id="lookAndFeel" name="External LookAndFeel libraries"
+		schema="schema/lookAndFeel.exsd"/>
+	<extension point="org.eclipse.wb.swing.layoutStyle">
+		<support class="org.eclipse.wb.internal.swing.laf.DefaultLayoutStyleSupport"/>
+	</extension>
+
+	<!-- ======================================================== -->
+	<!-- GEF Tree -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.treeEditPartFactories">
+		<factory class="org.eclipse.wb.internal.swing.gefTree.EditPartFactory"/>
+	</extension>
+	<extension point="org.eclipse.wb.core.treeEditPolicyFactories">
+		<factory class="org.eclipse.wb.internal.swing.gefTree.LayoutEditPolicyFactory"/>
+	</extension>
+
+	<!-- ======================================================== -->
+	<!-- New Wizards -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.eclipse.wb.swing" name="Swing Designer" parentCategory="org.eclipse.wb"
+			wbp-menu-name="Swing"/>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.wizards.frame.NewJFrameWizard"
+			icon="icons/wizard/JFrame/wizard.gif" id="org.eclipse.wb.swing.JFrame" name="JFrame">
+			<description>Create an empty JFrame</description>
+		</wizard>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.wizards.panel.NewJPanelWizard"
+			icon="icons/wizard/JPanel/wizard.gif" id="org.eclipse.wb.swing.JPanel" name="JPanel">
+			<description>Create an empty JPanel</description>
+		</wizard>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.wizards.dialog.NewJDialogWizard"
+			icon="icons/wizard/JDialog/wizard.gif" id="org.eclipse.wb.swing.JDialog" name="JDialog">
+			<description>Create an empty JDialog</description>
+		</wizard>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.wizards.applet.NewJAppletWizard"
+			icon="icons/wizard/JApplet/wizard.gif" id="org.eclipse.wb.swing.JApplet" name="JApplet">
+			<description>Create an empty JApplet</description>
+		</wizard>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.wizards.frame.NewJInternalFrameWizard"
+			icon="icons/wizard/JInternalFrame/wizard.gif" id="org.eclipse.wb.swing.JInternalFrame"
+			name="JInternalFrame">
+			<description>Create an empty JInternalFrame</description>
+		</wizard>
+		<wizard category="org.eclipse.wb/org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.wizards.application.NewSwingApplicationWizard"
+			icon="icons/wizard/SwingApplication/wizard.gif"
+			id="org.eclipse.wb.swing.ApplicationWindow" name="Application Window">
+			<description>Create a Swing application window</description>
+		</wizard>
+	</extension>
+</plugin>

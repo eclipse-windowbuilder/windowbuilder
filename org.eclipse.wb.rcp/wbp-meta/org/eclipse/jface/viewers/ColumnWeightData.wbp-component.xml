@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.layout.ColumnWeightDataInfo"/>
+	<description>Describes the width of a column in terms of a weight, a minimum width, and whether the column
+		is resizable.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.viewers.ColumnWeightData(1, org.eclipse.jface.viewers.ColumnWeightData.MINIMUM_WIDTH, true)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="weight"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="weight"/>
+			<parameter type="int" property="minimumWidth"
+				defaultSource="org.eclipse.jface.viewers.ColumnWeightData.MINIMUM_WIDTH"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="weight"/>
+			<parameter type="int" property="minimumWidth"
+				defaultSource="org.eclipse.jface.viewers.ColumnWeightData.MINIMUM_WIDTH"/>
+			<parameter type="boolean" property="resizable"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="weight"/>
+			<parameter type="boolean" property="resizable"/>
+		</constructor>
+	</constructors>
+</component>

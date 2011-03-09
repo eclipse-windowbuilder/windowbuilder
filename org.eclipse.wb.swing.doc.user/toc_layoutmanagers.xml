@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Layout Managers" link_to="../org.eclipse.wb.doc.user/toc_layoutmanagers.xml#layoutmanagers">
+	<topic href="html/layoutmanagers/swing/index.html" label="Swing"> 
+		<topic href="html/layoutmanagers/swing/absolutelayout.html" label="Absolute Layout"/>
+		<topic href="html/layoutmanagers/swing/borderlayout.html" label="BorderLayout"/>
+		<topic href="html/layoutmanagers/swing/boxlayout.html" label="BoxLayout"/>
+		<topic href="html/layoutmanagers/swing/cardlayout.html" label="CardLayout"/>
+		<topic href="html/layoutmanagers/swing/flowlayout.html" label="FlowLayout"/>
+		<topic href="html/layoutmanagers/swing/gridbaglayout.html" label="GridBagLayout"/>
+		<topic href="html/layoutmanagers/swing/gridlayout.html" label="GridLayout"/>
+		<topic href="html/layoutmanagers/swing/grouplayout.html" label="GroupLayout"/>
+		<topic href="html/layoutmanagers/swing/jgoodies_formlayout.html" label="JGoodies FormLayout"/>
+		<topic href="html/layoutmanagers/swing/miglayout.html" label="MiGLayout"/>
+		<topic href="html/layoutmanagers/swing/springlayout.html" label="SpringLayout"/>
+	</topic> 
+</toc>
+

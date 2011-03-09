@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.CBannerInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.CBannerInfo"/>
+	<description>Instances of this class implement a Composite that lays out its children and allows
+		programmatic control of the layout. It draws a separator between the left and right children which can
+		be dragged to resize the right control. CBanner is used in the workbench to layout the toolbar area
+		and perspective switching toolbar.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.CBanner(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- border -->
+		<parameter name="shouldDrawBorder">true</parameter>
+	</parameters>
+</component>

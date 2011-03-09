@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.DragSourceInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.DragSourceInfo"/>
+	<description>DragSource defines the source object for a drag and drop transfer.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.dnd.DragSource(%parent%, org.eclipse.swt.dnd.DND.DROP_MOVE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Control" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.dnd.DND.DROP_MOVE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.dnd.DND</parameter>
+					<parameter name="select0">operation DROP_MOVE DROP_NONE DROP_COPY DROP_MOVE DROP_LINK</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.swt.dnd.DragSource"><![CDATA[
+			DragStart DragSetData DragEnd
+		]]></parameter>
+	</parameters>
+</component>

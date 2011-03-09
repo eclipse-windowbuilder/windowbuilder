@@ -1,0 +1,72 @@
+<html>
+
+<head>
+<title>SWT Composite Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>SWT Composite Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+	<img src="images/wizard_swt_composite0.gif" align="left" hspace="10" vspace="10">Subclasses of the SWT Composite class can be
+              created using the SWT Composite wizard. The wizard can be
+              selected from the drop down <b>WindowBuilder</b> wizard menu or from the
+              Eclipse New wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name and hit the Finish
+              button. 
+      <p>The <b>org.eclipse.swt.widgets.Composite</b> class is the default
+              superclass. You can select an alternative superclass by entering
+              its name into the <b>Superclass</b> field or by choosing it via
+              the bottom <b>Browse</b> button. 
+      <p><img src="images/wizard_swt_composite1.gif">&nbsp; <img src="images/wizard_swt_composite2.gif"></p>
+      <p>The wizard generates the following code.</dd>
+        </p>
+		<blockquote>
+			<font SIZE="2" COLOR="#7f0055"><b>
+			<p><font face="Courier">import</font></b></font><font SIZE="2"><font face="Courier"> 
+			org.eclipse.swt.widgets.Composite;<br>
+			</font></font><font SIZE="2" COLOR="#7f0055"><b>
+			<font face="Courier"><br>
+			public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>class</b></font><font SIZE="2"> 
+			SwtComposite </font><font SIZE="2" COLOR="#7f0055"><b>extends</b></font></font><font SIZE="2"><font face="Courier"> 
+			Composite {<br>
+			</font></font><font face="Courier"><font SIZE="2" COLOR="#7f0055">
+			<b>&nbsp;&nbsp;&nbsp; public</b></font><font SIZE="2"> 
+			SwtComposite(Composite parent, </font>
+			<font SIZE="2" COLOR="#7f0055"><b>int</b></font></font><font SIZE="2"><font face="Courier"> 
+			style) {<br>
+			</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp; 
+			super</b></font><font SIZE="2"><font face="Courier">(parent, style);<br>
+			</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2"><font face="Courier">}<br>
+			}</font></p>
+			</font>
+	</blockquote>
+      <p>When editing SWT Composites, all of the standard SWT layouts,
+      containers, widgets and menus are available. Custom or third party
+      controls may be added via the <b>
+		<a href="../../../com.instantiations.designer.doc.user/html/userinterface/palette.html">Choose 
+		Component</a></b> command.</p>
+	<p>Use the <b>Expose property...</b> command added to
+	<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane_context_menu.html">
+	property pane context menu</a> 
+	to expose any widget property as a public property of the class. Use the <b>Expose component...</b> 
+	command added to the popup menu in the <b>
+	<a href="../../../com.instantiations.designer.doc.user/html/userinterface/design_view.html">
+	Design View</a></b> to add an 
+	accessor for any widget.</p>
+	<p>
+	<img border="0" src="images/expose_property_menu.gif" width="305" height="249" align="top">&nbsp;
+	<img border="0" src="images/expose_component_menu.gif" width="237" height="332" align="top"></p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

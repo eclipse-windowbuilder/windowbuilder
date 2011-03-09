@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo"/>
+	<description>FillLayout is the simplest layout class. It lays out controls in a single row or column,
+		forcing them to be the same size.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.layout.FillLayout(org.eclipse.swt.SWT.HORIZONTAL)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="type"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="type">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">HORIZONTAL VERTICAL</parameter>
+		</editor>
+	</property>
+</component>

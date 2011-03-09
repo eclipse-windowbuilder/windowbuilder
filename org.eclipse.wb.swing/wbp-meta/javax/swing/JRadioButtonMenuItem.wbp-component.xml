@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>An implementation of a radio button menu item. A JRadioButtonMenuItem is a menu item that is
+		part of a group of menu items in which only one item in the group can be selected. The selected item
+		displays its selected state. Selecting it causes any other selected item to switch to the unselected
+		state. To control the selected state of a group of radio button menu items, use a ButtonGroup object.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JRadioButtonMenuItem("New radio item")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+			<parameter type="boolean" property="setSelected(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="selected"/>
+</component>

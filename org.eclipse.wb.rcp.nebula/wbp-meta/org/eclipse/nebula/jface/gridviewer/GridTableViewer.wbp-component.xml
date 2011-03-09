@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A concrete table viewer based on an Grid control.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.jface.gridviewer.GridTableViewer(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER LEFT_TO_RIGHT RIGHT_TO_LEFT H_SCROLL V_SCROLL NO_FOCUS CHECK
+						VIRTUAL</parameter>
+					<parameter name="select0">general NONE NONE SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.Grid" parent="true"/>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.jface.gridviewer"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<property id="setRowHeaderLabelProvider(org.eclipse.jface.viewers.CellLabelProvider)">
+		<category value="preferred"/>
+		<editor id="innerClass">
+			<parameter name="mode">inner</parameter>
+			<parameter name="name">GridTableRowHeaderLabelProvider</parameter>
+			<parameter name="class">org.eclipse.jface.viewers.CellLabelProvider</parameter>
+			<parameter name="source"><![CDATA[
+private static class ${name} extends org.eclipse.jface.viewers.CellLabelProvider {
+	public org.eclipse.swt.graphics.Image getToolTipImage(Object object) {
+		return super.getToolTipImage(object);
+	}
+	public String getToolTipText(Object element) {
+		return super.getToolTipText(element);
+	}
+	public org.eclipse.swt.graphics.Color getToolTipBackgroundColor(Object object) {
+		return super.getToolTipBackgroundColor(object);
+	}
+	public org.eclipse.swt.graphics.Color getToolTipForegroundColor(Object object) {
+		return super.getToolTipForegroundColor(object);
+	}
+	public org.eclipse.swt.graphics.Font getToolTipFont(Object object) {
+		return super.getToolTipFont(object);
+	}
+	public org.eclipse.swt.graphics.Point getToolTipShift(Object object) {
+		return super.getToolTipShift(object);
+	}
+	public boolean useNativeToolTip(Object object) {
+		return super.useNativeToolTip(object);
+	}
+	public int getToolTipTimeDisplayed(Object object) {
+		return super.getToolTipTimeDisplayed(object);
+	}
+	public int getToolTipDisplayDelayTime(Object object) {
+		return super.getToolTipDisplayDelayTime(object);
+	}
+	public int getToolTipStyle(Object object) {
+		return super.getToolTipStyle(object);
+	}
+	public void update(org.eclipse.jface.viewers.ViewerCell cell) {
+	}
+	protected void initialize(org.eclipse.jface.viewers.ColumnViewer viewer, org.eclipse.jface.viewers.ViewerColumn column) {
+		super.initialize(viewer, column);
+	}
+	public void dispose(org.eclipse.jface.viewers.ColumnViewer viewer, org.eclipse.jface.viewers.ViewerColumn column) {
+		super.dispose(viewer, column);
+	}
+}
+			]]></parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="viewer.control.method">getGrid</parameter>
+	</parameters>
+</component>

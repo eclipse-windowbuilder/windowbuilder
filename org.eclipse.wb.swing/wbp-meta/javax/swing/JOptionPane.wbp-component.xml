@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A component which implements standard dialog box controls.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JOptionPane()]]></source>
+	</creation>
+	<!-- PROPERTIES -->
+	<properties-preferred
+		names="icon initialValue inputValue message messageType optionType value wantsInput"/>
+	<properties-hidden names="UI"/>
+	<property id="setMessageType(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.JOptionPane</parameter>
+			<parameter name="fields">ERROR_MESSAGE INFORMATION_MESSAGE WARNING_MESSAGE QUESTION_MESSAGE
+				PLAIN_MESSAGE</parameter>
+		</editor>
+	</property>
+	<property id="setOptionType(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.JOptionPane</parameter>
+			<parameter name="fields">DEFAULT_OPTION YES_NO_OPTION YES_NO_CANCEL_OPTION
+			OK_CANCEL_OPTION</parameter>
+		</editor>
+	</property>
+</component>

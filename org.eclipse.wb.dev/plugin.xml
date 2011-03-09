@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+	<extension point="org.eclipse.core.resources.builders" id="wbBuilder"
+		name="WindowBuilder Developer Project Builder">
+		<builder hasNature="true">
+			<run class="org.eclipse.wb.internal.dev.builder.WbBuilder"/>
+		</builder>
+	</extension>
+
+	<extension point="org.eclipse.core.resources.natures" id="wbNature"
+		name="WindowBuilder Developer Project Nature">
+		<runtime>
+			<run class="org.eclipse.wb.internal.dev.builder.WbNature"/>
+		</runtime>
+		<builder id="org.eclipse.wb.dev.wbBuilder"/>
+	</extension>
+
+	<extension point="org.eclipse.core.resources.markers" id="wbProblem"
+		name="WindowBuilder Developer Problem">
+		<super type="org.eclipse.core.resources.problemmarker"/>
+		<persistent value="true"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.startup">
+		<startup class="org.eclipse.wb.internal.dev.tree.VistaTreeFixer"/>
+	</extension>
+
+</plugin>

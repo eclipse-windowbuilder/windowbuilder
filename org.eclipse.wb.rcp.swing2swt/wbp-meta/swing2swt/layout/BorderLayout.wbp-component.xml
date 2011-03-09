@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.swing2swt.layout.BorderLayoutInfo"/>
+	<description>The border layout lays out a container, arranging and resizing its components to fit in
+		five regions: north, south, east, west, and center.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new swing2swt.layout.BorderLayout(0, 0)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setHgap(int)"/>
+			<parameter type="int" property="setVgap(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flow container -->
+		<parameter name="flowContainer.tree">true</parameter>
+		<parameter name="flowContainer.tree.component">com.google.gwt.user.client.ui.Widget</parameter>
+	</parameters>
+</component>

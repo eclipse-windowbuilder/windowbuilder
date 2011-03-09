@@ -1,0 +1,27 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.part.ViewPart;
+
+field
+	public static final String ID = "%VIEW_ID%"; //$NON-NLS-1$
+
+method
+	public %TypeName%() {
+	}
+
+method
+	/**
+	 * Create contents of the view part.
+	 */
+	@Override
+	public void createPartControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		%container.SWTLayout%
+	}
+
+method
+	@Override
+	public void setFocus() {
+		// set the focus
+	}
+

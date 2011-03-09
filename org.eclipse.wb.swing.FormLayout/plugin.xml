@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseFactories">
+		<factory class="org.eclipse.wb.internal.swing.FormLayout.parser.ParseFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.swing.FormLayout.gef.LayoutEditPolicyFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.swing">
+			<resourcePrefixes>
+				<resourcePrefix>com.jgoodies.</resourcePrefix>
+			</resourcePrefixes>
+			<classLoader-bundle bundle="org.eclipse.wb.swing.FormLayout.lib"
+				namespaces="com.jgoodies.forms"/>
+			<palette>
+				<component class="com.jgoodies.forms.layout.FormLayout"
+					category="org.eclipse.wb.swing.layouts">
+					<library type="com.jgoodies.forms.layout.FormLayout"
+						bundle="org.eclipse.wb.swing.FormLayout.lib" jar="forms-1.3.0.jar"
+						src="forms-1.3.0-src.zip"/>
+				</component>
+				<category id="org.eclipse.wb.swing.JGoodies" name="JGoodies" optional="true"
+					description="JGoodies components">
+					<entry
+						class="org.eclipse.wb.internal.swing.FormLayout.palette.DefaultComponentFactoryCreateLabelEntryInfo"/>
+					<entry
+						class="org.eclipse.wb.internal.swing.FormLayout.palette.DefaultComponentFactoryCreateTitleEntryInfo"
+					/>
+				</category>
+			</palette>
+		</toolkit>
+	</extension>
+	
+	<extension point="org.eclipse.wb.core.paletteComponentExists">
+		<component package="com.jgoodies.forms." always="true"/>
+	</extension>
+	
+
+	<!-- ======================================================== -->
+	<!-- Layout managers -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.layoutManagers">
+		<layout toolkit="org.eclipse.wb.swing" id="JGoodies.FormLayout"
+			name="JGoodies FormLayout" class="com.jgoodies.forms.layout.FormLayout">
+			<library type="com.jgoodies.forms.layout.FormLayout"
+				bundle="org.eclipse.wb.swing.FormLayout.lib" jar="forms-1.3.0.jar"
+				src="forms-1.3.0-src.zip"/>
+		</layout>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Surround with -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.surroundWith">
+		<!-- processors -->
+		<processor toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutSurroundProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.swing.FormLayout.model.PreferenceInitializer"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page category="org.eclipse.wb.swing.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.swing.FormLayout.preferences.FormLayoutPreferencePage"
+			id="org.eclipse.wb.swing.FormLayout.preferences.FormLayoutPreferencePage"
+			name="JGoodies FormLayout"/>
+	</extension>
+
+
+</plugin>

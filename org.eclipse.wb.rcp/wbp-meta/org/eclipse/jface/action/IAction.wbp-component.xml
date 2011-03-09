@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo"/>
+	<!-- PROPERTIES -->
+	<standard-bean-properties/>
+	<public-field-properties/>
+	<properties-preferred names="text imageDescriptor"/>
+	<property id="setAccelerator(int)">
+		<editor id="swtAccelerator"/>
+	</property>
+</component>

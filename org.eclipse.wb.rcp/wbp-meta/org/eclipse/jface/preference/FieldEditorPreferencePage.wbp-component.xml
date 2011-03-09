@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.FieldEditorPreferencePageInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" defaultSource="FLAT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.jface.preference.FieldEditorPreferencePage</parameter>
+					<parameter name="fields">FLAT GRID</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="int" defaultSource="FLAT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.jface.preference.FieldEditorPreferencePage</parameter>
+					<parameter name="fields">FLAT GRID</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setTitle(java.lang.String)"/>
+			<parameter type="org.eclipse.jface.resource.ImageDescriptor"
+				property="setImageDescriptor(org.eclipse.jface.resource.ImageDescriptor)"/>
+			<parameter type="int" defaultSource="FLAT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.jface.preference.FieldEditorPreferencePage</parameter>
+					<parameter name="fields">FLAT GRID</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="addField">
+			<parameter type="org.eclipse.jface.preference.FieldEditor" child="true"/>
+		</method>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">false</parameter>
+		<parameter name="flowContainer.component">org.eclipse.jface.preference.FieldEditor</parameter>
+	</parameters>
+</component>

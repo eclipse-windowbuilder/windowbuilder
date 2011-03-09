@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Swing GridBagLayout</title>
+	<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Swing GridBagLayout</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>The <b>GridBagLayout</b> class is a flexible layout manager that 
+		aligns components vertically, horizontally or along their baseline 
+		without requiring that the components be of the same size. Each <b>
+		GridBagLayout</b> object maintains a dynamic, rectangular grid of cells, 
+		with each component occupying one or more cells, called its display 
+		area. Each component managed by a <b>GridBagLayout</b> is associated 
+		with an instance of <b>GridBagConstraints</b>. The constraints object 
+		specifies where a component's display area should be located on the grid 
+		and how the component should be positioned within its display area. In 
+		addition to its constraints object, the <b>GridBagLayout</b> also 
+		considers each component's minimum and preferred sizes in order to 
+		determine a component's size.
+	<ul>
+		<li><a href="#MainFeatures">Main Features</a></li>
+		<li><a href="#PopupHeaderMenu">Popup Header Menu</a></li>
+		<li><a href="#GraphicalFeedback">Graphical Feedback</a></li>
+		<li><a href="#ColumnRowEditing">Column &amp; Row Editing</a></li>
+		<li><a href="#Preferences">Preferences</a></li>
+		<li><a href="#SourceCodeGenerationParsing">Source Code Generation &amp; 
+		Parsing</a></li>
+	</ul>
+    <p></p>
+<h2><a name="MainFeatures"></a>Main Features</h2>
+            <ul>
+              <li>Select <b>GridBagLayout</b> from the <b>Layouts</b> palette and 
+				drop it on a JFrame or JPanel</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_design_view.gif"></p>
+</blockquote>
+<ul>
+				<li>Graphical feedback is provided for all column, row and cell 
+				interactions</li>
+				<li>Column and row properties may be changed via a popup menu or 
+				property dialog</li>
+				<li>Convert existing layouts (null, <b>FormLayout</b>, etc.) to <b>
+				GridBagLayout</b> with intelligent column, row and gap creation</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/null_convert.gif" width="328" height="254">
+	<img border="0" src="images/gbl_convert.gif" width="328" height="254"></p>
+</blockquote>
+<ul>
+				<li>Automatically add gaps (insets) when adding new columns or rows</li>
+            </ul>
+            <h2><a name="PopupHeaderMenu"></a>Popup Header Menu</h2>
+            <ul>
+              <li>Right-click on the header area to access the popup header menu</li>
+            </ul>
+<blockquote>
+&nbsp;<img border="0" src="images/gbl_menu_row.gif" align="top">&nbsp;
+	&nbsp;
+	<img border="0" src="images/gbl_menu_column.gif" width="178" height="272"></blockquote>
+<ul>
+				<li>Insert new columns or rows before the current column or row</li>
+				<li>Add a new column or row at the end of the current list</li>
+				<li>Delete entire columns or rows or just their widget contents</li>
+				<li>Set the column alignment to left, right, center or fill</li>
+				<li>Specify that the column or row should grow to fill the 
+				available space</li>
+				<li>Edit the properties of the current column or row</li>
+            </ul>
+          <p></p>
+            <h2><a name="GraphicalFeedback"></a>Graphical Feedback</h2>
+            <ul>
+              <li>When moving a widget or adding a new widget, open cells are 
+				highlighted green while populated cells are highlighted red and 
+				insertion points are highlighted in yellow<br>
+				<br>
+				<img border="0" src="images/gbl_add1.gif">
+				<img border="0" src="images/gbl_add2.gif" width="328" height="254">
+				<img border="0" src="images/gbl_add3.gif" width="328" height="254"><br>
+&nbsp;</li>
+				<li>Phantom drop point to the right and below the current cells 
+				will create new columns, rows and gaps as needed<br>
+				<br>
+				<img border="0" src="images/gbl_move1.gif">
+				<img border="0" src="images/gbl_move2.gif" width="328" height="254"></li>
+            </ul>
+<ul>
+	<li>The currently selected cell shows its column and row spanning 
+				handles and alignment handles<p>
+	<img border="0" src="images/gbl_alignment_one.gif"></li>
+</ul>
+<ul>
+	<li>Set the alignment of a cell using its popup alignment menu or the 
+	toolbar</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_toolbar.gif" width="336" height="30"></p>
+	<p>
+	<img border="0" src="images/gbl_cell_align1.gif">
+	<img border="0" src="images/gbl_cell_align2.gif" width="328" height="254"></p>
+</blockquote>
+<ul>
+	<li>Set the grow property by using a cell's popup alignment menu or right-clicking on a column</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/gbl_grow1.gif">
+	<img border="0" src="images/gbl_grow2.gif" align="top" width="328" height="254">
+	<img border="0" src="images/gbl_grow3.gif" align="top" width="328" height="254"></p>
+</blockquote>
+<ul>
+              <li>Column and row sizing handles make it easy to set the size 
+				of a column or row</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_resize_column1.gif">
+	<img border="0" src="images/gbl_resize_column2.gif" width="328" height="254"><br>
+	<br>
+	<img border="0" src="images/gbl_resize_row1.gif" width="328" height="254">
+	<img border="0" src="images/gbl_resize_row2.gif" width="328" height="254"></p>
+</blockquote>
+<ul>
+              <li>Reorder columns and rows by dragging them (with their 
+				associated gap columns or rows)</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_reorder_row1.gif">
+	<img border="0" src="images/gbl_reorder_row2.gif" width="328" height="254">
+	<img border="0" src="images/gbl_reorder_row3.gif" width="328" height="254"></p>
+</blockquote>
+<ul>
+              <li>Column and rows borders are indicated with gray lines</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_borders.gif" align="top" width="328" height="254"></p>
+</blockquote>
+<ul>
+              <li>Interactive column and row spanning feedback is provided</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/gbl_span1.gif">
+	<img border="0" src="images/gbl_span2.gif" width="328" height="254"></p>
+</blockquote>
+<ul>
+	<li>Full keyboard support for quickly changing alignment values</li>
+</ul>
+<blockquote>
+	<table border="0" cellpadding="0" cellspacing="0" id="table1" width="421">
+		<tr>
+			<td colspan="3" bgcolor="#C0C0C0">&nbsp;Cells</td>
+		</tr>
+		<tr>
+			<td>F</td>
+			<td width="10">&nbsp;</td>
+			<td>fill horizontal</td>
+		</tr>
+		<tr>
+			<td>Shift+F</td>
+			<td width="10">&nbsp;</td>
+			<td>fill vertical</td>
+		</tr>
+		<tr>
+			<td>H</td>
+			<td width="10">&nbsp;</td>
+			<td>grow horizontal</td>
+		</tr>
+		<tr>
+			<td>V</td>
+			<td width="10">&nbsp;</td>
+			<td>grow vertical</td>
+		</tr>
+		<tr>
+			<td>L, C, R</td>
+			<td width="10">&nbsp;</td>
+			<td>left/center/right for horizontal</td>
+		</tr>
+		<tr>
+			<td>T, M, B</td>
+			<td width="10">&nbsp;</td>
+			<td>top/middle/bottom for vertical</td>
+		</tr>
+		<tr>
+			<td>Shift+L</td>
+			<td width="10">&nbsp;</td>
+			<td>vertical baseline (Java 6)</td>
+		</tr>
+		<tr>
+			<td>Shift+A</td>
+			<td width="10">&nbsp;</td>
+			<td>above baseline (Java 6)</td>
+		</tr>
+		<tr>
+			<td>Shift+B</td>
+			<td width="10">&nbsp;</td>
+			<td>below baseline (Java 6)</td>
+		</tr>
+		</table>
+</blockquote>
+<h2><a name="ColumnRowEditing"></a>Column &amp; Row Editing</h2>
+              <ul>
+				<li>Double click on a column or row to access its property 
+				dialog</li>
+				<li>Switch between columns and rows using the arrow buttons</li>
+</ul>
+<blockquote>
+	<img border="0" src="images/gbl_column_properties1.gif" align="top">
+	<img border="0" src="images/gbl_row_properties1.gif" width="255" height="325"></blockquote>
+              <ul>
+				<li>Set the column or row alignment</li>
+				<li>Specify the resize behavior of each 
+				column or row</li>
+				<li>Set the minimum size of the column or row</li>
+				<li>Floating layout assistant
+	<img border="0" src="images/assistant.gif" width="16" height="16" align="top"></li>
+              </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_layout_assistant.gif"></p>
+</blockquote>
+<ul>
+	<li>Edit individual constraint properties for each widget in the property 
+	pane.</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/gbl_properties.gif" align="top" width="190" height="199">&nbsp;
+	</p>
+</blockquote>
+              <h2><br>
+				<a name="Preferences" href="../../preferences/swing/preferences_gridbaglayout.html">Preferences</a></h2>
+              <ul>
+                <li>Control whether to use the long or short constructor style 
+				for <b>GridBagConstraints</b></li>
+				<li>Control whether automatic grab is used for text widgets, 
+				comboboxes, tables, etc.</li>
+              </ul>
+		<blockquote>
+			<p>
+	<img border="0" src="images/gbl_auto_grab1.gif" align="top">&nbsp;
+	<img border="0" src="images/gbl_auto_grab2.gif" align="top" width="320" height="201"></p>
+		</blockquote>
+		<ul>
+				<li>Control whether labels are automatically right-aligned when 
+				next to a text widget</li>
+              </ul>
+              <blockquote>
+				<p>
+	<img border="0" src="images/gbl_auto_right_label1.gif" align="top">&nbsp;
+	<img border="0" src="images/gbl_auto_right_label2.gif" align="top" width="320" height="201"></p>
+		</blockquote>
+              <h2><a name="SourceCodeGenerationParsing"></a>Source Code 
+				Generation &amp; Parsing</h2>
+              <ul>
+                <li>Intelligently convert existing layouts (null, <b>FormLayout</b>, etc.) to 
+				<b>GridBagLayout</b> with column, row and gap creation</li>
+				<li>Parser can understand long or short constructor style for 
+				<b>GridBagConstraints</b></li>
+              </ul>
+<blockquote>
+				<p>
+				<img border="0" src="images/gbl_source1.gif">&nbsp;</p>
+</blockquote>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,74 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+method
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell();
+		shell.setSize(400, 300);
+		shell.setLayout(new FormLayout());
+		shell.setText("FormLayout test");
+		{
+			Button upperLeft = new Button(shell, SWT.NONE);
+			FormData formData = new FormData();
+			formData.top = new FormAttachment(0, 5);
+			formData.left = new FormAttachment(0, 5);
+			upperLeft.setLayoutData(formData);
+			upperLeft.setText("Upper Left Corner");
+		}
+		{
+			Button upperRight = new Button(shell, SWT.NONE);
+			FormData formData = new FormData();
+			formData.right = new FormAttachment(100, -5);
+			formData.top = new FormAttachment(0, 5);
+			upperRight.setLayoutData(formData);
+			upperRight.setText("Upper Right Corner");
+		}
+		{
+			Button lowerLeft = new Button(shell, SWT.NONE);
+			FormData formData = new FormData();
+			formData.bottom = new FormAttachment(100, -5);
+			formData.left = new FormAttachment(0, 5);
+			lowerLeft.setLayoutData(formData);
+			lowerLeft.setText("Lower Left Corner");
+		}
+		{
+			Button lowerRight = new Button(shell, SWT.NONE);
+			FormData formData = new FormData();
+			formData.bottom = new FormAttachment(100, -5);
+			formData.right = new FormAttachment(100, -5);
+			lowerRight.setLayoutData(formData);
+			lowerRight.setText("Lower Right Corner");
+		}
+		Button centered;
+		{
+			centered = new Button(shell, SWT.NONE);
+			FormData formData = new FormData();
+			formData.bottom = new FormAttachment(50, 25);
+			formData.right = new FormAttachment(50, 50);
+			formData.top = new FormAttachment(50, -25);
+			formData.left = new FormAttachment(50, -50);
+			centered.setLayoutData(formData);
+			centered.setText("Centered");
+		}
+		{
+			Button attached = new Button(shell, SWT.NONE);
+			FormData formData = new FormData();
+			formData.top = new FormAttachment(centered, 5, SWT.BOTTOM);
+			formData.left = new FormAttachment(centered, 5, SWT.RIGHT);
+			attached.setLayoutData(formData);
+			attached.setText("Attached");
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

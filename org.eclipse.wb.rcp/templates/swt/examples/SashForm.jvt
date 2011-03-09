@@ -1,0 +1,37 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Shell;
+
+method
+	public static void main(String args[]) {
+		Display display = Display.getDefault();
+		Shell shell = new Shell();
+		shell.setText("SashForm test");
+		shell.setLayout(new FillLayout(SWT.VERTICAL));
+		{
+			SashForm form = new SashForm(shell, SWT.VERTICAL);
+			{
+				Group group = new Group(form, SWT.BORDER);
+				group.setText("Group 1");
+			}
+			{
+				Group group = new Group(form, SWT.BORDER);
+				group.setText("Group 2");
+			}
+			{
+				Group group = new Group(form, SWT.BORDER);
+				group.setText("Group 3");
+			}
+			form.setWeights(new int[] { 1, 2, 3 });
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

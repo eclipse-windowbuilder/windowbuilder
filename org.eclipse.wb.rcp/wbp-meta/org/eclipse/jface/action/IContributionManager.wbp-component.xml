@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="add">
+			<parameter type="org.eclipse.jface.action.IAction">
+				<tag name="voidFactory.requiredJavaInfo" value="true"/>
+			</parameter>
+			<tag name="voidFactory.creationSupport"
+				value="org.eclipse.wb.internal.rcp.model.jface.action.ContributionManagerActionCreationSupport"/>
+			<tag name="voidFactory.componentClass" value="org.eclipse.jface.action.ActionContributionItem"/>
+			<tag name="voidFactory.dontFilterProperties" value="true"/>
+		</method>
+		<method name="add">
+			<parameter type="org.eclipse.jface.action.IContributionItem" child="true"/>
+		</method>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="NVO.disabled">true</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component">org.eclipse.jface.action.ActionContributionItem
+		</parameter>
+	</parameters>
+</component>

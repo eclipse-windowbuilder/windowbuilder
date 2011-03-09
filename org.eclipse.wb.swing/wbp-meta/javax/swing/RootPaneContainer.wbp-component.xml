@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JFrameInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="setContentPane">
+			<parameter type="java.awt.Container" child="true"/>
+		</method>
+		<method name="setGlassPane">
+			<parameter type="java.awt.Component" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-hidden names="contentPane glassPane layeredPane"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

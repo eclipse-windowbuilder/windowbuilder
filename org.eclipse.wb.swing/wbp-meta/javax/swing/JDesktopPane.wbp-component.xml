@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <description>A container used to create a multiple-document interface or a virtual desktop.</description>
+    <!-- PROPERTIES -->
+    <properties-advanced names="desktopManager"/>
+    <properties-hidden names="UI"/>
+</component>

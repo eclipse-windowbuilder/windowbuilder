@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<factory>
+	<!-- Box -->
+	<method name="createHorizontalBox">
+		<description>Creates a Box that displays its components from left to right, using X_AXIS
+		style.</description>
+		<parameters>
+			<parameter name="layout.has">true</parameter>
+			<parameter name="variable.name">horizontalBox</parameter>
+			<parameter name="variable.acronym">hbox</parameter>
+		</parameters>
+	</method>
+	<method name="createVerticalBox">
+		<description>Creates a Box that displays its components from top to bottom, using Y_AXIS
+		style.</description>
+		<parameters>
+			<parameter name="layout.has">true</parameter>
+			<parameter name="variable.name">verticalBox</parameter>
+			<parameter name="variable.acronym">vbox</parameter>
+		</parameters>
+	</method>
+	<!-- Glue -->
+	<method name="createGlue">
+		<description>Creates an invisible "glue" component that can be useful in a Box whose visible
+			components have a maximum width (for a horizontal box) or height (for a vertical box). You can
+			think of the glue component as being a gooey substance that expands as much as necessary to fill
+			the space between its neighboring components.</description>
+		<parameters>
+			<parameter name="variable.name">glue</parameter>
+			<parameter name="variable.acronym">glue</parameter>
+		</parameters>
+	</method>
+	<method name="createHorizontalGlue">
+		<description>By putting horizontal glue between two components in a left-to-right box, you make any
+			extra space go between those components, instead of to the right of all the components.
+		</description>
+		<parameters>
+			<parameter name="variable.name">horizontalGlue</parameter>
+			<parameter name="variable.acronym">hglue</parameter>
+		</parameters>
+	</method>
+	<method name="createVerticalGlue">
+		<description>By putting vertical glue between two components in a top-to-bottom box, you make any
+			extra space go between those components, instead of to the bottom of all the components.
+		</description>
+		<parameters>
+			<parameter name="variable.name">verticalGlue</parameter>
+			<parameter name="variable.acronym">vglue</parameter>
+		</parameters>
+	</method>
+	<!-- Strut -->
+	<method name="createRigidArea">
+		<parameter type="java.awt.Dimension" defaultSource="new java.awt.Dimension(20, 20)"/>
+		<description>Use this rigid area you want a fixed-size space between two components. It is recommended
+			to use rigid areas instead of struts.</description>
+		<parameters>
+			<parameter name="variable.name">rigidArea</parameter>
+			<parameter name="variable.acronym">rgd</parameter>
+		</parameters>
+	</method>
+	<method name="createHorizontalStrut">
+		<parameter type="int" defaultSource="20"/>
+		<description>Creates an invisible, fixed-width component. In a horizontal box, you typically use this
+			method to force a certain amount of space between two components. In a vertical box, you might use
+			this method to force the box to be at least the specified width. The invisible component has no
+			height unless excess space is available, in which case it takes its share of available space, just
+			like any other component that has no maximum height.</description>
+		<parameters>
+			<parameter name="variable.name">horizontalStrut</parameter>
+			<parameter name="variable.acronym">hstrut</parameter>
+		</parameters>
+	</method>
+	<method name="createVerticalStrut">
+		<parameter type="int" defaultSource="20"/>
+		<description>Creates an invisible, fixed-height component. In a vertical box, you typically use this
+			method to force a certain amount of space between two components. In a horizontal box, you might
+			use this method to force the box to be at least the specified height. The invisible component has
+			no width unless excess space is available, in which case it takes its share of available space,
+			just like any other component that has no maximum width.</description>
+	<parameters>
+		<parameter name="variable.name">verticalStrut</parameter>
+		<parameter name="variable.acronym">vstrut</parameter>
+	</parameters>
+	</method>
+</factory>

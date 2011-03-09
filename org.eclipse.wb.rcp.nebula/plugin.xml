@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.parseFactories">
+		<factory class="org.eclipse.wb.internal.rcp.nebula.parser.ParseFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.rcp">
+			<resourcePrefixes>
+				<resourcePrefix>org.eclipse.nebula.</resourcePrefix>
+				<resourcePrefix>org.eclipse.swt.nebula.</resourcePrefix>
+			</resourcePrefixes>
+			<palette condition="!(isdef isXWT)">
+				<category id="org.eclipse.wb.rcp.nebula" name="Nebula"
+					description="Nebula custom widgets" next="org.eclipse.wb.internal.rcp.FormsAPI"
+					open="false" optional="true">
+					<!-- CDateTime -->
+					<component class="org.eclipse.nebula.widgets.cdatetime.CDateTime"/>
+					<!-- CalendarCombo -->
+					<component class="org.eclipse.nebula.widgets.calendarcombo.CalendarCombo"/>
+					<!-- DateChooser -->
+					<component class="org.eclipse.nebula.widgets.datechooser.DateChooser"/>
+					<component class="org.eclipse.nebula.widgets.datechooser.DateChooserCombo"/>
+					<!-- PGroup -->
+					<component class="org.eclipse.nebula.widgets.pgroup.PGroup"/>
+					<!-- CollapsibleButtons -->
+					<component
+						class="org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons"/>
+					<entry id="nebula.collapsiblebuttons.custombutton"
+						class="org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons.CollapsibleButtonEntryInfo"/>
+					<!-- Gallery -->
+					<component class="org.eclipse.nebula.widgets.gallery.Gallery"/>
+					<component class="org.eclipse.nebula.widgets.gallery.GalleryItem"/>
+					<!-- GalleryViewer -->
+					<component class="org.eclipse.nebula.jface.galleryviewer.GalleryTreeViewer"/>
+					<!-- PShelf -->
+					<component class="org.eclipse.nebula.widgets.pshelf.PShelf"/>
+					<component class="org.eclipse.nebula.widgets.pshelf.PShelfItem"/>
+					<!-- CTableTree -->
+					<component class="org.eclipse.swt.nebula.widgets.ctabletree.CTableTree"/>
+					<component
+						class="org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn"/>
+					<component class="org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem"/>
+					<!-- Grid -->
+					<component class="org.eclipse.nebula.widgets.grid.Grid"/>
+					<component class="org.eclipse.nebula.widgets.grid.GridColumn"/>
+					<component class="org.eclipse.nebula.widgets.grid.GridColumnGroup"/>
+					<component class="org.eclipse.nebula.widgets.grid.GridItem"/>
+					<!-- GanttChart -->
+					<component class="org.eclipse.nebula.widgets.ganttchart.GanttChart"/>
+					<component class="org.eclipse.nebula.widgets.ganttchart.GanttGroup"/>
+					<component class="org.eclipse.nebula.widgets.ganttchart.GanttEvent"/>
+					<component class="org.eclipse.nebula.widgets.ganttchart.GanttCheckpoint"/>
+					<component class="org.eclipse.nebula.widgets.ganttchart.GanttImage"/>
+					<component class="org.eclipse.nebula.widgets.ganttchart.GanttScope"/>
+					<!-- CompositeTable -->
+					<component class="org.eclipse.swt.nebula.widgets.compositetable.CompositeTable"/>
+					<!-- FormattedText -->
+					<component class="org.eclipse.nebula.widgets.formattedtext.FormattedText"/>
+					<!-- GridViewer's -->
+					<component class="org.eclipse.nebula.jface.gridviewer.GridTableViewer"/>
+					<component class="org.eclipse.nebula.jface.gridviewer.GridTreeViewer"/>
+					<component class="org.eclipse.nebula.jface.gridviewer.GridViewerColumn"/>
+					<!-- RadioGroup -->
+					<component class="org.eclipse.nebula.widgets.radiogroup.RadioGroup"/>
+					<component class="org.eclipse.nebula.widgets.radiogroup.RadioItem"/>
+					<!-- RadioGroupViewer -->
+					<component class="org.eclipse.nebula.jface.viewer.radiogroup.RadioGroupViewer"/>
+					<!-- TableCombo -->
+					<component class="org.eclipse.nebula.widgets.tablecombo.TableCombo"/>
+					<!-- TableComboViewer -->
+					<component class="org.eclipse.nebula.jface.tablecomboviewer.TableComboViewer"/>
+				</category>
+			</palette>
+		</toolkit>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.paletteComponentExists">
+		<component package="org.eclipse.swt.nebula.widgets." hasType="true" priority="1"/>
+		<component package="org.eclipse.nebula.widgets." hasType="true"/>
+		<component package="org.eclipse.nebula.jface." hasType="true"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.rcp.nebula.gef.EditPartFactory" priority="1"/>
+	</extension>
+
+</plugin>

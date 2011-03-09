@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Panel is the simplest container class. A panel provides space in which an application can
+		attach any other component, including other panels.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Panel()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.awt.LayoutManager" child="true"/>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.ScrollPane"/>
+	</morphTargets>
+</component>

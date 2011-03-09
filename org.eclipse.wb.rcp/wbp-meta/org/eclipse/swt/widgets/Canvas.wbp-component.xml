@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Instances of this class provide a surface for drawing arbitrary graphics.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.Canvas(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER H_SCROLL V_SCROLL NO_BACKGROUND NO_FOCUS NO_MERGE_PAINTS NO_REDRAW_RESIZE NO_RADIO_GROUP</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- border -->
+		<parameter name="shouldDrawBorder"><![CDATA[
+			object.getClass().getName().equals('org.eclipse.swt.widgets.Canvas')
+		]]></parameter>
+	</parameters>
+</component>

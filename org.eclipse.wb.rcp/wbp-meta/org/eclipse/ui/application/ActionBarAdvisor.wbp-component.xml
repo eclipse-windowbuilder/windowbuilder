@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.rcp.ActionBarAdvisorInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="actionContainer.signature">makeActions(org.eclipse.ui.IWorkbenchWindow)</parameter>
+		<parameter name="actionContainer.header">protected void makeActions(org.eclipse.ui.IWorkbenchWindow
+			window)</parameter>
+	</parameters>
+</component>

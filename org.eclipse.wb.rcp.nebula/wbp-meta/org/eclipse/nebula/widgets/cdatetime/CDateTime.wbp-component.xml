@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description> The CDateTime provides both textual and graphical means for setting the attributes of a
+		java.util.Date class.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.cdatetime.CDateTime(%parent%, org.eclipse.nebula.widgets.cdatetime.CDT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.nebula.widgets.cdatetime.CDT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.nebula.widgets.cdatetime.CDT</parameter>
+					<parameter name="set">BORDER SPINNER TAB_FIELDS CLOCK_12_HOUR CLOCK_24_HOUR CLOCK_DISCRETE
+						COMPACT HORIZONTAL</parameter>
+					<parameter name="select0">general NONE NONE SIMPLE DROP_DOWN</parameter>
+					<!--
+						not working (no effect for setButtonVisible), use individual property buttonVisibility & buttonVisible 
+					<parameter name="select">buttonVisibility BUTTON_AUTO BUTTON_AUTO BUTTON_ALWAYS BUTTON_NEVER BUTTON_MANUAL</parameter>
+					-->
+					<parameter name="select1">buttonPosition BUTTON_RIGHT BUTTON_RIGHT BUTTON_LEFT</parameter>
+					<parameter name="select2">dateFormat NONE NONE DATE_SHORT DATE_MEDIUM DATE_LONG</parameter>
+					<parameter name="select3">timeFormat NONE NONE TIME_SHORT TIME_MEDIUM</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.cdatetime"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="pattern"/>
+	<properties-advanced names="format locale"/>
+	<property id="setFormat(int)">
+		<editor id="style">
+			<parameter name="class">org.eclipse.nebula.widgets.cdatetime.CDT</parameter>
+			<parameter name="select0">dateFormat NONE NONE DATE_SHORT DATE_MEDIUM DATE_LONG</parameter>
+			<parameter name="select1">timeFormat NONE NONE TIME_SHORT TIME_MEDIUM</parameter>
+		</editor>
+		<defaultValue value="org.eclipse.nebula.widgets.cdatetime.CDT.NONE"/>
+	</property>
+	<property id="setSelection(java.util.Date)">
+		<category value="preferred"/>
+		<editor id="customDate">
+			<parameter name="functions">import java.text.SimpleDateFormat;</parameter>
+			<parameter name="toString">new
+				SimpleDateFormat(control.getPattern(),control.getLocale()).format(value)</parameter>
+			<parameter name="toDate">new
+				SimpleDateFormat(control.getPattern(),control.getLocale()).parse(value)</parameter>
+		</editor>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.nebula.widgets.calendarcombo.CalendarCombo"/>
+		<morphTarget class="org.eclipse.nebula.widgets.datechooser.DateChooser"/>
+		<morphTarget class="org.eclipse.nebula.widgets.datechooser.DateChooserCombo"/>
+		<morphTarget class="org.eclipse.swt.widgets.DateTime"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="SWT.runAsyncMessages">true</parameter>
+		<!-- selection listener -->
+		<parameter name="double-click.listener">selection/widgetSelected</parameter>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.nebula.widgets.cdatetime.CDateTime"><![CDATA[
+			Selection
+		]]></parameter>
+	</parameters>
+</component>

@@ -1,0 +1,75 @@
+org.eclipse.wb.core.editor.multi.MultiPageEditor содержит две страницы:
+  Source - стандартный org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor
+  Design - org.eclipse.wb.core.editor.DesignPage
+  
+org.eclipse.wb.core.editor.DesignPage есть PageBook, с двумя страницами:
+  Собственно GUI редактор - org.eclipse.wb.core.editor.DesignComposite
+  Отображалка ошибок - org.eclipse.wb.core.editor.errors.ExceptionComposite
+  
+Когда в MultiPageEditor переключаются с Source на Design, вызывается DesignPage.handleActivate(), который
+дергает org.eclipse.wb.core.editor.UndoManager.activate(). Если UndoManager обнаруживает, что
+исходник ICompilationUnit-а еще ни разу не парсили или он изменился, то выставляются всякие listener-ы, а затем
+дергают DesignPage.internal_refreshGEF().
+
+DesignPage.internal_refreshGEF() делает две операции:
+  - дергает DesignPage.disposeAll(), при этом убивает текущую модель, включая все ресурсы, которые она держит, очищает GEF и палитру.
+  - поднимает IRunnableWithProgress, который вызывает DesignPage.internal_refreshGEF_withProgress(),
+    отрабатывая ошибки и, если нужно, делает DesignPage.showExceptionOnDesignPane().
+
+DesignPage.internal_refreshGEF_withProgress() использует JavaInfoParser.parse(m_compilationUnit), получает root JavaInfo.
+Затем конфигурирует этот root JavaInfo с DesignPageSite, который можетиспользуется для общения с текущим редактором.
+Зачем дергается m_rootObject.refresh();
+В конце вызов DesignComposite.refresh(m_rootObject, monitor); показывает GEF, дерево компонентов, палитру и Action'ы.
+
+
+
+org.eclipse.wb.core.parser.JavaInfoParser создает ASTEditor, т.о. AST CompilationUnit, и спрашивает поочередно
+у каждого org.eclipse.wb.core.parser.IParseFactory.getRootContext(), при этом если передан CompilationUnit с
+типами, относящимися к этому IParseFactory, к его родному тулкиту, то он возвращает ParseRootContext.
+
+ParseRootContext - это контейнер с root JavaInfo (только если у нас что-то вроде "public class MyFrame extends JFrame",
+а если "main()", то будет "null"); плюс ExecutionFlowDescription.
+
+ExecutionFlowDescription - это описание способа обхода AST. Все начинается с некоторых MethodDeclaration-ов, а затем
+org.eclipse.wb.core.eval.ExecutionFlowUtils идет по AST Statement за Statement-ом, делая переходы в вызываемые
+локальные методы, при помощи org.eclipse.wb.core.model.creation.ThisCreationSupport и CGLib-а, даже если
+вызовы этих локальных методов производятся из bytecode-а subperclass-а.
+
+Если для JavaInfoParser ни один из IParseFactory не отдал ParseRootContext, тогда считается. что у нас должна быть функция "main()".
+Если нет "main()", будет ошибка.
+
+Когда JavaInfoParser получил ParseRootContext, он просит ExecutionFlowUtils произвести обход AST по этому execution flow используя
+visitor org.eclipse.wb.core.parser.JavaInfoParser.ExecutionFlowParseVisitor.
+В процессе этого каждый встреченный ClassInstanceCreation или MethodInvocation передается опять же в каждый IParseFactory.
+Если IParseFactory определяет, что переданное есть создание компонента из его тулкита, оно создает
+его (с соответствующим CreationSupport) и возвращает. Побеждает первый, но вообще-то конфликтов быть не должно.
+
+ExecutionFlowParseVisitor.bindChild_MethodInvocation() или bindChild_ClassInstanceCreation() используется для создания
+declaration-based parent/child связей, по parent/child флажкам в *.wbp-component.xml описаниях.
+
+После того, как все AST обошли, вызывается JavaInfoParser.getRoot(). Он:
+ - посылает m_editorState.getBroadcast().getListener(JavaEventListener.class).bindComponents(m_components), давая шанс
+   привязать все, что хотело бы привязаться, зная все созданные JavaInfo объекты.
+ - дергает JavaInfoUtils.bindBinaryComponents(m_components), который привязывает модели тулкит объектов в parent/child, если
+   собственно тулкит объекты реально связаны, но произошло это в коде, который мы не видели - скажем где-то в байткоде класса-предка.
+ - выбирается root JavaInfo как JavaInfo с самым длинным чле... то есть с самым большим количеством детей... хотя выходит правильно начал...
+ - этот root JavaInfo оповещается всех, что он главный root.getBroadcastJava().treeAlmostComplete(root, m_components);
+ 
+ 
+  Парсинг на этом закончен.
+
+  
+  
+  Во время редактирования все edit операции делаются между вызовами ObjectInfo.start/endEdit(), либо напрямую, либо косвенно, через
+org.eclipse.wb.core.utils.execution.ExecutionUtils.run(ObjectInfo objectInfo, RunnableEx runnable). При этом когда
+ObjectInfo.endEdit() замечает, что мы завершили операцию верхнего уровня, то он дергает ObjectInfo.refresh(). После этого происходит
+вызов всяких ObjectInfo.refresh*() методов. В честности JavaInfo.refresh_create(), который делает такой же обход AST по execution flow,
+как и JavaInfoParser. На этот раз модели не создаются, а просто происходит исполнение через
+org.eclipse.wb.core.model.JavaInfoEvaluationHelper. В конце из ObjectInfo.refresh() посылаются два оповещения:
+  getBroadcastObject().refreshed();
+  getBroadcastObject().refreshed2();
+GEF слушает одно или оба оповещения и производит refresh() для EditPart-ов.
+
+
+  Почти все GEF команды сделаны через org.eclipse.wb.core.gef.command.EditCommand, которая использует
+ExecutionUtils.run(ObjectInfo objectInfo, RunnableEx runnable), таким образом инициирует refresh() операцию по завершению.

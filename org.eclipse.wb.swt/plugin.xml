@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- Designer content type-->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designerContentPatterns">
+		<includePattern>org.eclipse.swt.widgets.</includePattern>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Exceptions -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.exceptions">
+		<file path="resources/exceptions.xml"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Extension points -->
+	<!-- ======================================================== -->
+	<extension-point id="controlEditPartDelegateProviders" name="Providers for ControlEditPart delegetes"
+		schema="schema/controlEditPartDelegateProviders.exsd"/>
+
+
+	<!-- ======================================================== -->
+	<!-- Bundle class loading -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoadingContributor">
+		<contributor namespace="org.eclipse.wb.internal.swt."/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Description processors -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.descriptionProcessors">
+		<processor class="org.eclipse.wb.internal.swt.DescriptionProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Components hierarchy -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.componentsHierarchyProviders">
+		<provider class="org.eclipse.wb.internal.swt.model.widgets.exposed.ItemsHierarchyProvider"/>
+		<provider class="org.eclipse.wb.internal.swt.model.widgets.exposed.ControlsHierarchyProvider"/>
+		<provider class="org.eclipse.wb.internal.swt.model.widgets.exposed.ViewersHierarchyProvider"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Description driven features -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.rootProcessors">
+		<processor class="org.eclipse.wb.internal.swt.utils.AsyncMessagesSupport"/>
+		<processor class="org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryRootProcessor"/>
+	</extension>
+	
+
+	<!-- ======================================================== -->
+	<!-- Expression evaluators -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.expressionEvaluators">
+		<evaluator class="org.eclipse.wb.internal.swt.support.DisplayEvaluator" priority="1"/>
+		<evaluator class="org.eclipse.wb.internal.swt.model.property.editor.image.ImageEvaluator"
+			priority="1"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.invocationEvaluatorInterceptors">
+		<interceptor class="org.eclipse.wb.internal.swt.model.widgets.SwtInvocationEvaluatorInterceptor"
+		/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.unknownParameterEvaluators">
+		<evaluator class="org.eclipse.wb.internal.swt.model.widgets.SwtMethodParameterEvaluator"/>
+	</extension>
+	
+	<extension point="org.eclipse.wb.core.rootProcessors">
+		<processor class="org.eclipse.wb.internal.swt.model.widgets.SwtShellParameterDisposer"/>
+	</extension>
+	
+
+	<!-- ======================================================== -->
+	<!-- Properties -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.propertyConverters">
+		<converter class="org.eclipse.wb.internal.swt.model.property.converter.PointConverter"
+			type="org.eclipse.swt.graphics.Point"/>
+		<converter class="org.eclipse.wb.internal.swt.model.property.converter.RectangleConverter"
+			type="org.eclipse.swt.graphics.Rectangle"/>
+	</extension>
+
+	<extension point="org.eclipse.wb.core.propertyEditors">
+		<!-- geometry -->
+		<editor class="org.eclipse.wb.internal.swt.model.property.editor.geometry.PointPropertyEditor"
+			type="org.eclipse.swt.graphics.Point"/>
+		<editor class="org.eclipse.wb.internal.swt.model.property.editor.geometry.RectanglePropertyEditor"
+			type="org.eclipse.swt.graphics.Rectangle"/>
+		<!-- graphics -->
+		<editor class="org.eclipse.wb.internal.swt.model.property.editor.image.ImagePropertyEditor"
+			type="org.eclipse.swt.graphics.Image"/>
+		<editor
+			class="org.eclipse.wb.internal.swt.model.property.editor.image.ImageDescriptorPropertyEditor"
+			type="org.eclipse.jface.resource.ImageDescriptor"/>
+		<editor class="org.eclipse.wb.internal.swt.model.property.editor.font.FontPropertyEditor"
+			type="org.eclipse.swt.graphics.Font"/>
+		<editor class="org.eclipse.wb.internal.swt.model.property.editor.color.ColorPropertyEditor"
+			type="org.eclipse.swt.graphics.Color"/>
+		<!-- misc -->
+		<configurableEditor id="swtAccelerator"
+			class="org.eclipse.wb.internal.swt.model.property.editor.AcceleratorPropertyEditor"/>
+		<configurableEditor
+			class="org.eclipse.wb.internal.swt.model.layout.form.ControlSelectionPropertyEditor"
+			id="FormAttachment.controlSelection"/>
+	</extension>
+	
+	<extension point="org.eclipse.wb.core.standardToolkitPackages">
+		<package prefix="org.eclipse.swt."/>
+		<package prefix="org.eclipse.jface."/>
+		<package prefix="org.eclipse.ui."/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Surround with -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+		<participator class="org.eclipse.wb.internal.swt.model.layout.LayoutJavaInfoParticipator"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.swt.gef.EditPartFactory"/>
+	</extension>
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.swt.gef.LayoutEditPolicyFactory"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories for TreeViewer -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.treeEditPartFactories">
+		<factory class="org.eclipse.wb.internal.swt.gefTree.EditPartFactory"/>
+	</extension>
+	<extension point="org.eclipse.wb.core.treeEditPolicyFactories">
+		<factory class="org.eclipse.wb.internal.swt.gefTree.LayoutEditPolicyFactory"/>
+	</extension>
+
+</plugin>

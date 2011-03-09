@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exceptions>
+	<!-- ======================================================== -->
+	<!-- Component descriptions -->
+	<!-- ======================================================== -->
+	<exception id="5000" title="Component description missing">{product_name} couldn't find the
+		description (*.wbp-component.xml file) for the component with class {0}. In general,
+		{product_name} contains descriptions for all supported GUI components. Even if some
+		component doesn't have a direct description, the description for its super class can be used
+		(to some extent, for example, constructors require specific descriptions). It is expected
+		that {product_name} will not try to ask for descriptions for components that can't be found.
+		Please send a test case to support.</exception>
+	<exception id="5001" title="Unable to load *.wbp-component.xml description.">For component
+		{0}.<p/>Check root exception for details.</exception>
+	<exception id="5002" title="No GUI toolkit">{product_name} does not know the GUI toolkit used
+		for : {0}. You may be trying to open something unsupported by {product_name}.</exception>
+	<exception id="5003" title="Problem with static field editor">{product_name} found a problem in
+		the configurable static field editor: {0}. Try to fix it yourself or contact support.</exception>
+	<exception id="5004" title="Not Java project" warning="true">You attempted to open {0} which is
+		not in a Java project: {1}. Create a valid Java project according to the toolkit requirements.</exception>
+	<!-- filler filler filler filler filler -->
+</exceptions>

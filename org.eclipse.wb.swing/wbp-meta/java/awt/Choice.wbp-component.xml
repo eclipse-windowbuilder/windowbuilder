@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The Choice class presents a pop-up menu of choices. The current choice is displayed as the
+		title of the menu.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.Choice()]]></source>
+	</creation>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.TextField"/>
+		<morphTarget class="java.awt.List"/>
+	</morphTargets>
+</component>

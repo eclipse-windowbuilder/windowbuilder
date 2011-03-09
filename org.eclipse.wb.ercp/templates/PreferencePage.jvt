@@ -1,0 +1,34 @@
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
+
+method
+	/**
+	 * Create the preference page.
+	 */
+	public %TypeName% () {
+		super();
+	}
+
+method
+	/**
+	 * Create contents of the preference page.
+	 */
+	@Override
+	public Control createContents(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		%container.SWTLayout%
+		return container;
+	}
+
+method
+	/**
+	 * Initialize the preference page.
+	 */
+    public void init(IWorkbench workbench) {
+    	// Initialize the preference page
+    }
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Instances of this class represent a selectable user interface object that displays a list of
+		strings and issues notificiation when a string selected. A list may be single or multi select.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.List(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER H_SCROLL V_SCROLL</parameter>
+					<parameter name="select0">selection SINGLE SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- items -->
+		<method name="add">
+			<parameter type="java.lang.String"/>
+		</method>
+		<method name="add">
+			<parameter type="java.lang.String"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setItem">
+			<parameter type="int"/>
+			<parameter type="java.lang.String"/>
+		</method>
+		<method name="setItems">
+			<parameter type="java.lang.String[]"/>
+		</method>
+		<!-- selection -->
+		<method name="select" order="after setItems(java.lang.String[])">
+			<parameter type="int"/>
+		</method>
+		<method name="select" order="after setItems(java.lang.String[])">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="select" order="after setItems(java.lang.String[])">
+			<parameter type="int[]"/>
+		</method>
+		<method name="setSelection" order="after setItems(java.lang.String[])">
+			<parameter type="int"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setSelection" order="after setItems(java.lang.String[])">
+			<parameter type="int[]"/>
+		</method>
+		<method name="setSelection" order="after setItems(java.lang.String[])">
+			<parameter type="java.lang.String[]"/>
+		</method>
+		<method name="selectAll" order="after setItems(java.lang.String[])"/>
+		<method name="showSelection"/>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="items"/>
+	<properties-advanced names="selection topIndex"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.swt.widgets.List"><![CDATA[
+			Selection
+		]]></parameter>
+	</parameters>
+</component>

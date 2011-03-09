@@ -1,0 +1,187 @@
+<html>
+
+<head>
+<title>Menu Editing</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h1>Menu Editing</h1>
+
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top">
+		<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+		<img border=0
+src="images/menu_swing.png" v:shapes="_x0000_i1100" align="right" hspace="10"><img border=0 width=136 height=173
+src="images/menu_swt.png" v:shapes="_x0000_i1100" align="right" hspace="10">Menus
+are a must for just about all GUIs. Using the editor, it is quick and painless to create menu bars and
+popup menus. </p>
+		<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>To 
+create a menu bar on your window, select <b>Menu Bar</b> (SWT) or <b>JMenuBar</b> 
+(Swing) from the <b>
+		<a href="../userinterface/palette.html">Palette</a></b>, and then place it on your window 
+in the <b><a href="../userinterface/design_view.html">Design View</a></b>. </p>
+		<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+		<i>Note that these instructions only apply to window types that support 
+		menubars (e.g., SWT Shells, SWT Application Windows, and Swing JFrames). 
+		They do not apply to window types that can't have menubars (e.g., 
+		Dialogs &amp; Wizards) or that manage their own menubars through a special 
+		framework (e.g., JFace ApplicationWindow).</i></p></td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<img border=0 width=298 height=113
+src="images/menu_editing1.png" v:shapes="_x0000_i1100" align="right" hspace="10" vspace="10">Each window can have 
+at most one <b>Menu Bar</b>, and the only place that you can put a <b>Menu Bar</b> 
+is directly on a window. A particular menu will only be displayed on the window 
+on which it was created. After the <b>Menu Bar</b> is placed, you should see a 
+blank menu bar across the top of your window in the <b><a href="../userinterface/design_view.html">
+Design View</a></b>.</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<img border=0
+src="images/menu_editing2.png" v:shapes="_x0000_i1101" align="left" hspace="10" vspace="10"><p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>To
+add individual menus to the menu bar, select <b>Cascade Menu Item</b> (SWT) or
+<b>JMenu</b> (Swing) from the <b>
+<a href="../userinterface/palette.html">Palette</a></b>, and then place it on the menu bar.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing3.png" v:shapes="_x0000_i1102" align="right" hspace="10" vspace="10">To
+add a menu item to a menu, select the dropdown menu and add a <b>Menu Item</b> 
+or <b>JMenuItem</b> to the
+dropdown menu that is displayed. If you
+want to make a submenu, add a <b>Cascade Menu</b> or <b>JMenu</b> to the menu.</p>
+
+<p>&nbsp;</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing4.png" v:shapes="_x0000_i1103" align="left" hspace="10" vspace="10">Menu
+items can also be a check or radio style. To create a checkbox or radio button menu item, select 
+<b>Check Menu Item</b> / <b>JCheckBoxMenuItem </b>&nbsp;or
+<b>Radio Menu Item</b> / <b>JRadioButtonMenuItem</b> from the <b><a href="../userinterface/palette.html">Palette</a> </b>and add it to a menu. 
+Under SWT, <b>Check Menus Items</b> and <b>Radio Menu Items</b> are
+<b>Menu Items</b> with their style set to <b>CHECK</b> or <b>RADIO</b>. To make a check or radio menu item initially be selected, set the
+selection property to true in the <b><a href="../userinterface/property_pane.html">Property Pane</a> </b> for that menu item.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing5.png" v:shapes="_x0000_i1104" align="right" hspace="10" vspace="10">You
+can also add an <a href="../userinterface/property_editor_image.html">image</a> to a menu item. Simply select the menu item, click on the 
+<a href="../userinterface/property_editor_image.html">image</a> property in the <b><a href="../userinterface/property_pane.html">Property Pane</a></b>, click on the 
+			<img border="0" src="../userinterface/images/ellipses.png" align="absbottom" width="16" height="16"> button in the property editor, and select
+an <a href="../userinterface/property_editor_image.html">image</a>.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing6.png" v:shapes="_x0000_i1105" align="left" hspace="10" vspace="10">Setting
+the text of a menu item is the same as setting the text of any other
+control. In the <b><a href="../userinterface/property_pane.html">Property Pane</a></b>, set the 
+<b>text</b>
+property to the desired text. Under SWT, placing an ampersand (&amp;) before a letter in the 
+<b>text</b> property will
+create a mnemonic for that menu item. For Swing, you should set the <b>mnemonic</b> property.
+On most platforms, the letter after the ampersand or the character 
+indicated by the <b>mnemonic</b> property will be underlined
+when you run the program. When you
+press this key when the menu is displayed, the menu item will be selected.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing7.png" v:shapes="_x0000_i1106" align="right" hspace="10" vspace="10">To
+quickly test what the menu will look like in your application, use the <b>
+<a href="../userinterface/toolbar.html">Test/Preview</a></b>
+			<img src="../userinterface/images/test.png" alt="" width="16" height="16"> command. To use this feature,
+click on the <b><a href="../userinterface/toolbar.html">Test/Preview</a> </b>
+			<img src="../userinterface/images/test.png" alt="" width="16" height="16"> button in the <b>
+<a href="../userinterface/toolbar.html">Toolbar</a></b> above the <b><a href="../userinterface/design_view.html">Design View</a> </b> or 
+<a href="../userinterface/context_menu.html">right-click</a>
+in the <b><a href="../userinterface/design_view.html">Design View</a> </b> and select <b>
+<a href="../userinterface/context_menu.html">Test/Preview</a></b>.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing8.png" v:shapes="_x0000_i1107" align="left" hspace="10" vspace="10">In
+addition to creating a menu bar, you can also create a popup menu for any
+control, including the window. Simply
+select <b>Popup Menu</b> (SWT) or <b>JPopupMenu</b> (Swing) from the <b><a href="../userinterface/palette.html">Palette</a></b>, move it over to the desired control
+in the <b><a href="../userinterface/design_view.html">Design View</a></b> and click to place it on that control. Only one popup menu can be placed on a
+control. After a popup menu is placed
+on a control, a little menu icon will appear on that control as shown below. The 
+popup menu will also automatically open, so that you can drop menu items on it.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing9.png" v:shapes="_x0000_i1108" align="right" hspace="10" vspace="10">If you click away from the popup menu, it will disappear. If
+you click on the popup menu icon, the popup menu will reappear.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+<p style='mso-pagination:widow-orphan lines-together;tab-stops:0in .5in 1.0in 1.5in 2.0in 2.5in 3.0in 3.5in 4.0in 4.5in 5.0in 5.5in 6.0in right 6.5in'>
+<img border=0 width=296 height=111
+src="images/menu_editing10.png" v:shapes="_x0000_i1109" align="left" hspace="10" vspace="10">Adding
+menu items to the popup menu is identical to adding menu items to the dropdown
+menus on the menu bar. To see your
+popup menu at work, use the <b><a href="../userinterface/toolbar.html">
+Test/Preview</a></b>
+			<img src="../userinterface/images/test.png" alt="" width="16" height="16"> command and right-click on the
+control you added the popup menu to. The menu you created will now appear.</p>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+
+As
+you have seen above, creating menus in the editor is very quick and
+easy. Adding a selection event handler
+for the menu item is also easy. Simply
+double-click a menu item and a selection event handler will be created for you.</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

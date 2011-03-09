@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JPanelInfo"/>
+	<description>A generic lightweight container.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JPanel()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor/>
+		<constructor>
+			<parameter type="java.awt.LayoutManager" child="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="boolean" property="setDoubleBuffered(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.awt.LayoutManager" child="true"/>
+			<parameter type="boolean" property="setDoubleBuffered(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="border"/>
+	<properties-advanced names="enabled font"/>
+	<properties-hidden names="UI"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JLayeredPane"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">true</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

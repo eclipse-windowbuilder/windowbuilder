@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A TextField object is a text component that allows for the editing of a single line of text.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new java.awt.TextField()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+	</constructors>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="java.awt.TextArea"/>
+		<morphTarget class="java.awt.Label"/>
+		<morphTarget class="java.awt.Choice"/>
+	</morphTargets>
+</component>

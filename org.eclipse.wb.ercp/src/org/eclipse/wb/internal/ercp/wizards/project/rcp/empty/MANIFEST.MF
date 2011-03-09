@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ${bundleName}
+Bundle-SymbolicName: ${bundleSymbolicName};singleton:=true
+Bundle-Version: 0.0.0.qualifier
+Bundle-Activator: ${packageName}.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ercp.eworkbench,
+ org.eclipse.ercp.ui.workbench
+Eclipse-LazyStart: true

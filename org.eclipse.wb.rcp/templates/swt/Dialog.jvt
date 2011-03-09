@@ -1,0 +1,51 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Dialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+field
+	protected Object %field-prefix%result;
+
+field
+	protected Shell %field-prefix%shell;
+
+method
+	/**
+	 * Create the dialog.
+	 * @param parent
+	 * @param style
+	 */
+	public %TypeName%(Shell parent, int style) {
+		super(parent, style);
+		setText("SWT Dialog");
+	}
+
+method
+	/**
+	 * Open the dialog.
+	 * @return the result
+	 */
+	public Object open () {
+	    %CreateMethod%();
+		%this%%field-prefix%shell.open();
+		%this%%field-prefix%shell.layout();
+		Display display = getParent().getDisplay();
+		while (!%this%%field-prefix%shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+		return %this%%field-prefix%result;
+	}
+
+method
+	/**
+	 * Create contents of the dialog.
+	 */
+	private void %CreateMethod%() {
+		%this%%field-prefix%shell = new Shell(getParent(), getStyle());
+		%this%%field-prefix%shell.setSize(%DefaultFormSize%);
+		%this%%field-prefix%shell.setText(getText());
+		%field-prefix-shell.SWTLayout%
+	}
+

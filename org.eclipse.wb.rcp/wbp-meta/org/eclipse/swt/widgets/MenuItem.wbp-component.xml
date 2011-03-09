@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.menu.MenuItemInfo"/>
+	<description>Instances of this class represent a selectable user interface object that represents an item
+		in a menu.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.MenuItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Item"]]></invocation>
+		<description>Instances of this class represent a selectable user interface object that represents an
+			item in a menu.</description>
+		<x-attribute name="text" value="New Item"/>
+	</creation>
+	<creation id="check" name="Check MenuItem">
+		<source><![CDATA[new org.eclipse.swt.widgets.MenuItem(%parent%, org.eclipse.swt.SWT.CHECK)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New CheckBox"]]></invocation>
+		<description>Instances of this class represent a selectable user interface object that issues
+			notification when checked and unchecked. Any number of them can be checked in same group.</description>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="CHECK"/>
+		<x-attribute name="text" value="New CheckBox"/>
+	</creation>
+	<creation id="radio" name="Radio MenuItem">
+		<source><![CDATA[new org.eclipse.swt.widgets.MenuItem(%parent%, org.eclipse.swt.SWT.RADIO)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New RadioButton"]]></invocation>
+		<description>Instances of this class represent a selectable user interface object that issues
+			notification when checked and unchecked. Only one of them can be checked in same group. </description>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="RADIO"/>
+		<x-attribute name="text" value="New RadioButton"/>
+	</creation>
+	<creation id="cascade" name="Cascade Menu">
+		<source><![CDATA[new org.eclipse.swt.widgets.MenuItem(%parent%, org.eclipse.swt.SWT.CASCADE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New SubMenu"]]></invocation>
+		<parameter name="MenuItem.createCascadeMenu">true</parameter>
+		<description>Special MenuItem that has cascade sub-menu.</description>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="CASCADE"/>
+		<x-attribute name="text" value="New SubMenu"/>
+	</creation>
+	<creation id="separator" name="Separator MenuItem">
+		<source><![CDATA[new org.eclipse.swt.widgets.MenuItem(%parent%, org.eclipse.swt.SWT.SEPARATOR)]]></source>
+		<description>Special MenuItem that looks as horizontal separator line.</description>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="SEPARATOR"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Menu" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="select0">style NONE NONE CHECK RADIO SEPARATOR CASCADE</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Menu" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="select0">style NONE NONE CHECK RADIO SEPARATOR CASCADE</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- parent/child -->
+		<method name="setMenu">
+			<parameter type="org.eclipse.swt.widgets.Menu" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.swt.widgets.MenuItem"/>
+		<morphTarget class="org.eclipse.swt.widgets.MenuItem" creationId="check"/>
+		<morphTarget class="org.eclipse.swt.widgets.MenuItem" creationId="radio"/>
+		<morphTarget class="org.eclipse.swt.widgets.MenuItem" creationId="cascade"/>
+		<morphTarget class="org.eclipse.swt.widgets.MenuItem" creationId="separator"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="double-click.listener">selection/widgetSelected</parameter>
+		<parameter name="x.double-click.listener">Selection</parameter>
+	</parameters>
+</component>

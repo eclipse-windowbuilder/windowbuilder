@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <!-- ======================================================== -->
+   <!-- Extension points -->
+   <!-- ======================================================== -->
+   <extension-point id="testPoint" name="Extension point for testing" schema="schema/testPoint.exsd"/>
+
+
+   <!-- ======================================================== -->
+   <!-- Toolkit -->
+   <!-- ======================================================== -->
+   <extension point="org.eclipse.wb.core.toolkits">
+      <toolkit id="org.eclipse.wb.swing"/> 
+   </extension>
+
+
+   <!-- ======================================================== -->
+   <!-- Class loader -->
+   <!-- ======================================================== -->
+   <extension point="org.eclipse.wb.core.classLoadingContributor">
+      <!-- for testing ExternalFactoriesHelper#loadBundleClass(String) -->
+      <contributor namespace="org.eclipse.wb.tests.designer.core.util.ExternalFactoriesHelperTest$"/>
+   </extension>
+
+   <!-- ======================================================== -->
+   <!-- Property Editor -->
+   <!-- ======================================================== -->
+   <extension point="org.eclipse.wb.core.xml.propertyEditors">
+   		<configurableEditor
+    		id="testEditor"
+            class="org.eclipse.wb.tests.designer.XML.NoopConfigurablePropertyEditor"/>
+   </extension>
+
+</plugin>

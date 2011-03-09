@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>JFace Data Bindings</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../../../book.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>JFace Data Bindings</h1>
+	<h3>Supported for Eclipse 3.3 
+	and above only</h3>
+	<p class="pnoall">Click the
+	<b>Bindings</b> tab in the editor to created and edit 
+	data bindings.</p>
+	<p class="pnoall">
+	<img border="0" src="../../../wizards/databinding/images/data_binding_tab.gif" align="absbottom"></p>
+	<p class="pnoall">
+	<img border="0" src="images/data_binding_jface1.gif"></p>
+	<p class="pnoall"><b>JFace Viewers</b> can bind to a content provider, label 
+	provider and input object. The content provider (an <b>
+	ObservableListContentProvider</b> or <b>ObservableSetContentProvider</b>) is 
+	calculated automatically based on the input. The label provider (and <b>
+	ObservableMapLabelProvider</b>) is created based on the observed bean and 
+	its selected properties.</p>
+	<h2>Viewers</h2>
+	<p class="pnoall">Any viewers defined in the current compilation unit are shown in the 
+	widget list. Several properties including the input can be selected in the 
+	properties list</p>
+	<p class="pnoall">
+	<img border="0" src="images/viewers.gif"></p>
+	<h2>Input Types</h2>
+	<p class="pnoall">Several types of inputs are supported:</p>
+	<ul>
+		<li>
+		<p class="pnoall"><b>
+		<img border="0" src="images/data_binding_beans_button.gif" align="absbottom"> 
+		Collections</b>: any field of the current compilation unit that is a <b>
+		java.lang.List</b> or <b>java.lang.Set</b> may be selected. The filter 
+		field above the list can be used to filter the list of collections. The
+		<img border="0" src="images/clear_filter_button.gif" width="23" height="22" align="absbottom"> 
+		clear button can be used to clear the filter and restore the full list.
+		<br>
+		<br>
+		<img border="0" src="images/input_collection.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall"><b>
+		<img border="0" src="images/data_binding_beans_button.gif" align="absbottom"> 
+		Beans</b>: any field of the current compilation unit may be selected. 
+		The filter field above the list can be used to filter the list of beans. 
+		The
+		<img border="0" src="images/clear_filter_button.gif" width="23" height="22" align="absbottom"> 
+		clear button can be used to clear the filter and restore the full list.
+		<b>Beans</b> are the primary data source for bindings (usually the 
+		model). Any property of the <b>Bean</b> may be observed.<br>
+		<br>
+		<img border="0" src="images/input_beans.gif"><br>
+&nbsp;</li>
+		<li>
+		<p class="pnoall"><b>
+		<img border="0" src="images/data_binding_widgets_button.gif" width="23" height="22" align="absbottom"> 
+		Selection</b>: any object (usually a JFace viewer) with a <b>selection</b> 
+		property of type <b>org.eclipse.jface.viewers.IStructuredSelection</b> 
+		may be selected. The filter field above the list can be used to filter 
+		the list of selections. The
+		<img border="0" src="images/clear_filter_button.gif" width="23" height="22" align="absbottom"> 
+		clear button can be used to clear the filter and restore the full list. 
+		Typically, the selection of one viewer is bound to the input of another 
+		viewer in a master-detail relationship. <b>New with Eclipse 3.4</b>: If 
+		the selection target provide multiple selection or checked elements, 
+		those are available as inputs as well.<br>
+		<br>
+		<img border="0" src="images/input_selection.gif" align="top"></li>
+	</ul>
+	<h2>New JFace Bindings</h2>
+	<p class="pnoall">New bindings are created by selecting a <b>Viewer</b>, an
+	<b>Input</b> and clicking the
+	<img border="0" src="images/binding_button.gif" width="26" height="24" align="absbottom">
+	<b>Bind</b> button. When creating a binding, the <b>Content Provider</b> and
+	<b>Label Provider</b> may be specified. </p>
+	<p class="pnoall">
+	<img border="0" src="images/edit_binding_jface1.gif" align="top">&nbsp;
+	<img border="0" src="images/edit_binding_jface2.gif"></p>
+	<p class="pnoall">
+	<b>For Eclipse 3.4 and above</b>: </p>
+	<p class="pnoall">
+	For <b>TreeViewer</b> inputs, the <b>Input Bean Class</b>, <b>
+	IObservableFactory</b>, <b>Tree Structure Advisor</b>, <b>Content Provider</b> 
+	and <b>Label Provider</b> may be specified.</p>
+	<p class="pnoall">
+	<img border="0" src="images/create_data_binding_tree_jface.gif" align="top"></p>
+	<p class="pnoall">
+	In order to simplify this, the tool can generate a number of pre-defined 
+	helper classes that implement most of the needed tree behavior.</p>
+	<p class="pnoall">
+	<img border="0" src="images/create_data_binding_tree_designer.gif"></p>
+	<h2>Existing JFace Bindings</h2>
+	<p class="pnoall">At the top of the page, existing <b>Bound Viewers</b> are 
+	listed. The <b>Content Provider</b> and <b>Input</b> 
+	are listed for each viewer. </p>
+	<p class="pnoall">
+	<img border="0" src="images/bound_viewers_jface.gif"></p>
+	<p class="pnoall">Clicking the
+	<img border="0" src="images/data_binding_edit_button.gif" align="absbottom">
+	<b>Edit</b> button or <b>Edit</b> menu opens the <b>Edit Binding</b> dialog 
+	where the providers may be modified.</p>
+	<p class="pnoall">
+	<img border="0" src="images/edit_binding_jface3.gif" align="top">&nbsp;&nbsp;&nbsp;&nbsp;
+	<img border="0" src="images/edit_binding_jface4.gif"></p>
+	<p class="pnoall">The
+	<img border="0" src="images/data_binding_delete_button.gif" align="absbottom">
+	<b>Delete</b> button or <b>Delete</b> menu is used to delete the selected 
+	bound viewer while the
+	<img border="0" src="images/data_binding_delete_all_button.gif" align="absbottom">
+	<b>Delete All</b> button or <b>Delete All</b> menu is used to delete all of 
+	the bound viewers.</p>
+	<p class="pnoall">The
+	<img border="0" src="images/data_binding_move_up_button.gif" align="absbottom">
+	<b>Move Up</b> and
+	<img border="0" src="images/data_binding_move_down_button.gif" align="absbottom">
+	<b>Move Down</b> buttons and menus are used to change the order of the 
+	bindings while the
+	<img border="0" src="images/data_binding_goto_definition_button.gif" align="absbottom">
+	<b>Goto Definition</b> button and menu are used to jump to the generated 
+	code for the binding.</p>
+	<h2>
+	Source</h2>
+		<p class="pnoall">As bindings are created or edited on the Bindings tab, 
+		the necessary data binding 
+		code is generated which may then be seen in the <b>Source</b> view. An <b>initDataBindings()</b> 
+		method is created, if it does not already exist and a call to that 
+		method is added to the end of the widget creation process.</p>
+	<p class="pnoall">Within the <b>initDataBindings()</b> method, any needed 
+	observables are created first followed by the creation of the <b>Data 
+	Binding Context</b>. Simple SWT data bindings are then created using the new 
+	context followed by any JFace content providers, list providers and inputs 
+	that are needed.</p>
+	<p class="pnoall">
+	<img border="0" src="images/data_binding_source.gif"></p>
+	<p class="pnoall"><i><b>Warning: </b>do not edit the <b>initDataBinding()</b> 
+	method by hand (without carefully matching the code generation pattern used 
+	by the tool) as it will be regenerated in its entirety any time 
+	the tool needs to add, remove or update a data binding.</i></p>
+          </body>
+</html>

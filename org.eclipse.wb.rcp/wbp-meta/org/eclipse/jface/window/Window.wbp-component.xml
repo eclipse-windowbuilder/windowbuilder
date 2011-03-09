@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.WindowInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="close">
+			<tag name="binaryExecutionFlow.dontVisit" value="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="returnCode"/>
+	<property id="setBlockOnOpen(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setShellStyle(int)">
+		<editor id="style">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="set">BORDER CLOSE MIN MAX RESIZE TITLE RIGHT_TO_LEFT</parameter>
+			<parameter name="macro0">trim SHELL_TRIM DIALOG_TRIM NO_TRIM</parameter>
+			<parameter name="select0">modality MODELESS PRIMARY_MODAL MODELESS APPLICATION_MODAL SYSTEM_MODAL</parameter>
+		</editor>
+		<defaultValue value="0"/>
+	</property>
+</component>

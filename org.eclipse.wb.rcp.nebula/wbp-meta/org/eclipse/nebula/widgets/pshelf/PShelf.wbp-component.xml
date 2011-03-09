@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.pshelf.PShelfInfo"/>
+	<description>The PShelf widget is a composite widget that is similar to a tab folder. It contains items
+		which can be selected to show their client areas.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.pshelf.PShelf(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER SIMPLE LEFT_TO_RIGHT RIGHT_TO_LEFT </parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setRenderer(org.eclipse.nebula.widgets.pshelf.AbstractRenderer)" order="afterCreation"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.pshelf"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="renderer"/>
+	<property id="setRenderer(org.eclipse.nebula.widgets.pshelf.AbstractRenderer)">
+		<editor id="instanceList">
+			<parameter-list name="types">org.eclipse.nebula.widgets.pshelf.PaletteShelfRenderer</parameter-list>
+			<parameter-list name="types">org.eclipse.nebula.widgets.pshelf.RedmondShelfRenderer</parameter-list>
+			<parameter-list name="titles">PALETTE</parameter-list>
+			<parameter-list name="titles">REDMOND</parameter-list>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- selection listener -->
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">false</parameter>
+		<parameter name="flowContainer.component">org.eclipse.nebula.widgets.pshelf.PShelfItem</parameter>
+	</parameters>
+</component>

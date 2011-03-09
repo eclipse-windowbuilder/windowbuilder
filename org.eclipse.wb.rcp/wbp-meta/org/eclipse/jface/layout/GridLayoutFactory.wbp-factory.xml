@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<factory>
+	<allMethodsAreFactories>false</allMethodsAreFactories>
+	<method name="swtDefaults" factory="true">
+		<description>Creates a GridLayoutFactory that creates GridLayouts with the default SWT
+			values.</description>
+	</method>
+	<method name="fillDefaults" factory="true">
+		<description>Creates a GridLayoutFactory that creates GridLayouts with no margins and
+			default dialog spacing.</description>
+	</method>
+	<method name="copy" factory="true">
+		<description>Creates a copy of the reciever.</description>
+	</method>
+	<method name="createFrom" factory="true">
+		<parameter type="org.eclipse.swt.layout.GridLayout"/>
+		<description>Creates a factory that creates copies of the given layout.</description>
+	</method>
+	<method name="copyLayout" factory="true">
+		<parameter type="org.eclipse.swt.layout.GridLayout"/>
+		<description>Copies the given GridLayout instance.</description>
+	</method>
+	<method name="create" factory="true">
+		<description>Creates a new GridLayout, and initializes it with values from the
+		factory.</description>
+	</method>
+</factory>

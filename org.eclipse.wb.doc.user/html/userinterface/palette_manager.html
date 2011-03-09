@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Palette Manager</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Palette Manager</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top">
+		<img src="images/palette_context_menu2.png" border="0" align="left"></td>
+		<td valign="top" width="10">&nbsp;</td>
+		<td valign="top" width="566">The <b>Palette Manager</b> may be accessed 
+		from the <a href="palette_context_menu.html">palette context menu</a>. 
+		<p>The <b>Palette Manager</b> dialog allows the toolkit-specific palette to be 
+			fully configured. Categories and entries may be added, 
+			edited, rearranged and removed and JAR files imported. </p>
+		<p>Items may be rearranged using the <b>Up</b> and
+			<b>Down</b> buttons or via drag and drop. The <b>Collapse All</b> 
+			and <b>Expand All</b> buttons show or hide all of the elements in 
+			the list.</p>
+		<p>Items may be hidden from the palette by unchecking the checkbox next 
+		to their category or component name.</p>
+		</td>
+	</tr>
+</table>
+<p>
+		<img src="images/palette_manager_swt.png" border="0" align="top">&nbsp;
+		<img src="images/palette_manager_swng.png" border="0" align="top"></p>
+<h2>
+		Palette Manager Commands</h2>
+        <table border="0" cellpadding="5" cellspacing="0" width="900">
+          <tbody><tr>
+            <td bgcolor="#e8e8d8" width="100">
+			<h3>Command</h3>
+			</td>
+            <td bgcolor="#e8e8d8" width="800">
+      <h3>Description</h3>
+			</td>
+          </tr>
+			<tr>
+            <td bgcolor="#fcfcf4" valign="top" width="100">
+			<b>Add Category...</b></td>
+            <td bgcolor="#fcfcf4" valign="top" width="800">
+      Create a new category to contain palette entries. The category may have a 
+		name, a description and an initial state of <b>visible</b> and/or <b>
+		opened by default</b>. The category can be inserted before any existing 
+		category or inserted at the end of the list.<p>
+		<img src="images/new_palette_category.png" border="0"></td>
+          </tr>
+			<tr>
+            <td bgcolor="#f2f2e6" valign="top" width="100">
+			<b>Add Entry &gt;&gt;</b></td>
+            <td bgcolor="#f2f2e6" valign="top" width="800">
+      	<img src="images/add_entry_menu.gif" border="0" align="top" hspace="5">Clicking 
+		the <b>Add Entry &gt;&gt;</b> button pops up the <b>Add Entry </b>menu. 
+		<p>Select the <b>Component...</b> command to create a new palette entry representing a user-specified component. The entry 
+		must have a name, class, and a description (visible as hover help in the palette). 
+		If the widget defines its own icon in its bean info, that icon will be 
+		used by default. The component may be initially <b>visible</b> or not and 
+		may be added to any available category.</p>
+		<p>
+		<img src="images/add_component_dialog.png" border="0"><p>Select the <b>
+		Single static factory...</b> command to add 
+		a single component from a static <a href="../features/factories.html">factory</a>. To add a single factory item, give it a name, select the factory 
+		class and method signature, and give it a description. The component may 
+		be initially <b>visible</b> or not and may be added to any available 
+		category.</p>
+		<p>
+		<img src="images/add_static_factory_dialog.png" border="0"></p>
+		<p>Select the <b>Several static factories...</b> command to add 
+		a multiple components from a static <a href="../features/factories.html">factory</a>. To add a multiple factory items at the same time, select the factory 
+		class and method signatures. The component name and description will be 
+		given default values. The components will be initially <b>visible</b> 
+		and may be added to any available category.</p>
+		<p>
+		<img src="images/add_static_factories_dialog.png" border="0"><p>Select 
+		the <b>Single instance factory...</b> command to add 
+		a single component from an instance factory. To add a single factory item, give it a name, select the factory 
+		class and method signature, and give it a description. The component may 
+		be initially <b>visible</b> or not and may be added to any available 
+		category.</p>
+		<p>
+		<img src="images/add_instance_factory_dialog.png" border="0"></p>
+		<p>Select the <b>Several instance factories...</b> command to add 
+		a multiple components from an instance factory. To add a multiple factory items at the same time, select the factory 
+		class and method signatures. The component name and description will be 
+		given default values. The components will be initially <b>visible</b> 
+		and may be added to any available category.</p>
+		<p>
+		<img src="images/add_instance_factories_dialog.png" border="0"></td>
+          </tr>
+			<tr>
+            <td bgcolor="#fcfcf4" valign="top" width="100">
+			<b>Import Jar...</b></td>
+            <td bgcolor="#fcfcf4" valign="top" width="800">
+      Create multiple new palette entries using widget classes from a JAR file 
+		(selected from the classpath, workspace or from disk). 
+		Optionally create a new category to add the entries to. The category 
+		name defaults to the name of the JAR.<p>
+			<img border="0" src="images/palette_import_jar_archive_dialog.gif" align="top" width="416" height="344">&nbsp;
+      		<img border="0" src="images/palette_workspace_jar_selection_dialog.png" width="314" height="340"><p>
+			<i>If no widgets appear when you select a jar file, this is usually an 
+		indication that the jar file does not provide a proper JavaBean manifest 
+		readable by Sun's JavaBean manifest reader. Please contact the jar 
+		provider for a correction. As long as the jar is on your project path, 
+		you should be able to add individual widgets to the palette manually by 
+		using the <b>Add Entry &gt;&gt;</b> command.</i></td>
+          	</tr>
+			<tr>
+            <td bgcolor="#F2F2E6" valign="top" width="100">
+			<b>Edit...</b></td>
+            <td bgcolor="#F2F2E6" valign="top" width="800">
+      Edit the selected category or component.<p>
+		<img src="images/edit_palette_category.png" border="0" width="394" height="249"></p>
+		<p>
+		<img src="images/edit_palette_component.png" border="0" width="415" height="235"></td>
+          	</tr>
+			<tr>
+            <td bgcolor="#FCFCF4" valign="top" width="100">
+			<b>Remove...</b></td>
+            <td bgcolor="#FCFCF4" valign="top" width="800">
+            Remove the selected category or entry.</td>
+          </tr>
+			<tr>
+            <td bgcolor="#F2F2E6" valign="top" width="100">
+			<b>Up</b></td>
+            <td bgcolor="#F2F2E6" valign="top" width="800">
+      Move the selected component upward in the list. Components may also be 
+		moved via drag/drop.</td>
+          	</tr>
+			<tr>
+            <td bgcolor="#FCFCF4" valign="top" width="100">
+			<b>Down</b></td>
+            <td bgcolor="#FCFCF4" valign="top" width="800">
+            Move the selected component downward in the list. Components may 
+			also be moved via drag/drop.</td>
+          	</tr>
+			<tr>
+            <td bgcolor="#F2F2E6" valign="top" width="100">
+			<b>Collapse All</b></td>
+            <td bgcolor="#F2F2E6" valign="top" width="800">
+      Collapse all of the components in the tree.</td>
+          	</tr>
+			<tr>
+            <td bgcolor="#FCFCF4" valign="top" width="100">
+			<b>Expand All</b></td>
+            <td bgcolor="#FCFCF4" valign="top" width="800">
+            Expand all of the components in the tree.</td>
+          	</tr>
+			</tbody></table>
+      
+
+
+</body></html>

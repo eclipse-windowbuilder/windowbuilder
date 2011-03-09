@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="WindowBuilder Pro User Guide" topic="html/index.html">
+	<topic label="Quick Start" href="html/quick_start.html" />
+	<topic label="What's New" href="html/whatsnew/index.html" />
+	<topic label="Installation" href="html/installation/index.html">
+		<link toc="toc_installation.xml" />
+	</topic>
+	<topic label="User Interface" href="html/userinterface/index.html">
+		<link toc="toc_userinterface.xml" />
+	</topic>
+	<topic label="Features" href="html/features/index.html">
+		<link toc="toc_features.xml" />
+	</topic>
+	<anchor id="product-features" />
+	<topic label="Data Binding" href="html/features/data_binding.html">
+		<link toc="toc_databinding.xml" />
+	</topic>
+	<topic label="Layout Managers" href="html/layoutmanagers/index.html">
+		<link toc="toc_layoutmanagers.xml" />
+	</topic>
+	<topic label="Wizards" href="html/wizards/index.html">
+		<link toc="toc_wizards.xml" />
+	</topic>
+	<topic label="Preferences" href="html/preferences/index.html">
+		<link toc="toc_preferences.xml" />
+	</topic>
+	<topic label="Tutorials" href="html/tutorials/index.html">
+		<link toc="toc_tutorials.xml" />
+	</topic>
+	<topic label="Support" href="html/support/product_support.html">
+		<topic label="Error Reporting" href="html/error_reporting.html" />
+		<topic label="Reproducible Test Cases" href="html/support/test_cases.html" />
+		<topic label="User Support Forum" href="http://www.eclipse.org/forums/index.php?t=thread&amp;frm_id=214" />
+	</topic>
+	<topic label="Accessibility" href="html/accessibility.html"/>
+	<topic label="Tips &amp; Tricks" href="html/tipsandtricks.html" />
+	<topic label="FAQ" href="html/faq.html" />
+	<topic label="License" href="http://www.eclipse.org/legal/epl-v10.html" />
+	<anchor id="terms-of-service" />
+</toc>

@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>MiG Layout</title>
+	<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>MiGLayout</h1>
+<table border="0" width="850" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+		<table cellSpacing="0" cellPadding="0" width="900" align="center" bgColor="#ffffff" border="0">
+			<tr>
+				<td>
+				<p class="style18"><b>MiGLayout</b> is the most versatile and 
+				flexible Swing and SWT Layout Manager for Java, yet it is very 
+				easy to learn and use. It is using String <em>or</em> API 
+				type-checked constraints to format the layout. <b>MiGLayout</b> 
+				can produce flowing, grid based, absolute (with links), grouped 
+				and docking layouts. You will never have to switch to another 
+				layout manager ever again! <b>MiGLayout</b> is created to be to 
+				manually coded layouts what Matisse/GroupLayout is to IDE 
+				supported visual layouts.</td>
+			</tr>
+		</table>
+		<p>Note that <b>MiGLayout</b> support is only 
+    available in the Professional version of the product. <br>
+	This layout also requires the use of the <b>MiGLayout</b> jar file 
+	(miglayout-3.6.jar or higher).</p>
+	<ul>
+		<li><a href="#MainFeatures">Main Features</a></li>
+		<li><a href="#PopupHeaderMenu">Popup Header Menu</a></li>
+		<li><a href="#GraphicalFeedback">Graphical Feedback</a></li>
+		<li><a href="#ColumnRowEditing">Column, Row &amp; Cell Editing</a></li>
+		<li><a href="#Preferences">Preferences</a></li>
+		<li><a href="#SourceCodeGenerationParsing">Source Code Generation &amp; 
+		Parsing</a></li>
+	</ul>
+    <p></p>
+            <blockquote>
+				<p>This feature is based on 
+				technology from MiG InfoCom AB.<br>
+				<a href="http://www.miglayout.com/">
+				http://www.miglayout.com/</a><br>
+				Copyright &copy 2006-2007 MiG InfoCom AB</p>
+</blockquote>
+<h2><a name="MainFeatures"></a>Main Features</h2>
+            <ul>
+              <li>Select <b>MiGLayout</b> from the <b>Layouts</b> palette and 
+				drop it on a JFrame or JPanel</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/mig_design_view.gif"></p>
+</blockquote>
+<ul>
+              <li>The <b>MiGLayout</b> jar file (miglayout-3.6.jar) will automatically be added 
+				to your project and the classpath adjusted</li>
+				<li>Graphical feedback is provided for all column, row and cell 
+				interactions</li>
+				<li>Column and row properties may be changed via a popup menu or 
+				property dialog</li>
+				<li>Convert existing layouts (null, <b>GridBagLayout</b>, etc.) to 
+				<b>MiGLayout</b> with intelligent column and row creation</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/null_convert.gif" width="328" height="254">
+	<img border="0" src="images/mig_convert.gif" width="328" height="254"></p>
+</blockquote>
+            <h2><a name="PopupHeaderMenu"></a>Popup Header Menu</h2>
+            <ul>
+              <li>Right-click on the header area to access the popup header menu</li>
+            </ul>
+<blockquote>
+&nbsp;<img border="0" src="images/mig_menu_row.gif" align="top">&nbsp;
+	&nbsp;
+	<img border="0" src="images/mig_menu_column.gif"></blockquote>
+<ul>
+				<li>Insert new columns or rows before the current column or row</li>
+				<li>Add a new column or row at the end of the current list</li>
+				<li>Delete entire columns or rows or just their widget contents</li>
+				<li>Set the column alignment to left, right, center or fill</li>
+				<li>Specify that the column or row should grow to fill the 
+				available space</li>
+				<li>Set columns and rows to default or preferred sizes</li>
+				<li>Edit the properties of the current column or row</li>
+            </ul>
+          <p></p>
+            <h2><a name="GraphicalFeedback"></a>Graphical Feedback</h2>
+            <ul>
+              <li>When moving a widget or adding a new widget, open cells are 
+				highlighted green while populated cells are highlighted red and 
+				insertion points are highlighted in yellow<br>
+				<br>
+				<img border="0" src="images/mig_add1.gif">
+				<img border="0" src="images/mig_add2.gif">
+				<img border="0" src="images/mig_add3.gif"><br>
+&nbsp;</li>
+				<li>Phantom drop point to the right and below the current cells 
+				will create new columns and rows as needed<br>
+				<br>
+				<img border="0" src="images/mig_move1.gif">
+				<img border="0" src="images/mig_move2.gif"></li>
+            </ul>
+<ul>
+	<li>The currently selected cell shows its column and row spanning 
+				handles and alignment handles<p>
+	<img border="0" src="images/mig_alignment_one.gif"></li>
+</ul>
+<ul>
+	<li>Set the alignment of a cell using its popup alignment menu or the 
+	toolbar</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/mig_toolbar.gif"></p>
+	<p>
+	<img border="0" src="images/mig_cell_align1.gif">
+	<img border="0" src="images/mig_cell_align2.gif"></p>
+</blockquote>
+<ul>
+	<li>Right-click on a column to set its grow property</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/mig_grow1.gif">
+	<img border="0" src="images/mig_grow2.gif" align="top"></p>
+</blockquote>
+<ul>
+              <li>Column and row sizing handles make it easy to set the size 
+				of a column or row</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/mig_resize_column1.gif">
+	<img border="0" src="images/mig_resize_column2.gif"><br>
+	<br>
+	<img border="0" src="images/mig_resize_row1.gif">
+	<img border="0" src="images/mig_resize_row2.gif"></p>
+</blockquote>
+<ul>
+              <li>Reorder columns and rows by dragging them</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/mig_reorder_row1.gif">
+	<img border="0" src="images/mig_reorder_row2.gif">
+	<img border="0" src="images/mig_reorder_row3.gif"></p>
+</blockquote>
+<ul>
+              <li>Column and rows borders are indicated with gray lines</li>
+            </ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/mig_gray_lines.gif" align="top"></p>
+</blockquote>
+<ul>
+              <li>Interactive column and row spanning feedback is provided</li>
+            </ul>
+<blockquote>
+	<p><img border="0" src="images/mig_span1.gif">
+	<img border="0" src="images/mig_span2.gif"></p>
+</blockquote>
+<ul>
+	<li>Split cells horizontally or vertically</li>
+</ul>
+		<blockquote>
+			<p><img border="0" src="images/mig_cell_split1.gif">&nbsp;
+			<img border="0" src="images/mig_cell_split2.gif"></p>
+		</blockquote>
+		<ul>
+	<li>Full keyboard support for quickly changing alignment values</li>
+</ul>
+<blockquote>
+	<table border="0" cellpadding="0" cellspacing="0" id="table1" width="421">
+		<tr>
+			<td colspan="3" bgcolor="#C0C0C0">&nbsp;Cells</td>
+		</tr>
+		<tr>
+			<td>D</td>
+			<td width="10">&nbsp;</td>
+			<td>default horizontal</td>
+		</tr>
+		<tr>
+			<td>Shift+D</td>
+			<td width="10">&nbsp;</td>
+			<td>default vertical</td>
+		</tr>
+		<tr>
+			<td>F</td>
+			<td width="10">&nbsp;</td>
+			<td>fill horizontal</td>
+		</tr>
+		<tr>
+			<td>Shift+F</td>
+			<td width="10">&nbsp;</td>
+			<td>fill vertical</td>
+		</tr>
+		<tr>
+			<td>L, C, R</td>
+			<td width="10">&nbsp;</td>
+			<td>left/center/right for horizontal</td>
+		</tr>
+		<tr>
+			<td>T, M, B</td>
+			<td width="10">&nbsp;</td>
+			<td>top/middle/bottom for vertical</td>
+		</tr>
+	</table>
+</blockquote>
+<h2><a name="ColumnRowEditing"></a>Column, Row &amp; Cell Editing</h2>
+		<ul>
+				<li>Double click on a column or row to access its property 
+				dialog</li>
+				<li>Switch between columns and rows using the arrow buttons</li>
+</ul>
+<blockquote>
+	<img border="0" src="images/mig_column_properties1.gif">
+	<img border="0" src="images/mig_row_properties1.gif"></blockquote>
+              <ul>
+				<li>Enter arbitrary specifications into the Specification field</li>
+				<li>Set the column or row alignment</li>
+				<li>Specify the resize behavior and the relative weights of each 
+				column or row</li>
+				<li>Set the minimum, maximum and preferred size of the column or row</li>
+              </ul>
+<blockquote>
+	<p><img border="0" src="images/mig_column_properties2.gif">
+	<img border="0" src="images/mig_row_properties2.gif"></p>
+</blockquote>
+		<ul>
+			<li>Floating layout assistant for cell constraints
+			<img border="0" src="images/assistant.gif" width="16" height="16" align="top"></li>
+		</ul>
+		<blockquote>
+	<p>
+	<img border="0" src="images/mig_layout_assistant_cell.gif" width="248" height="164"></p>
+</blockquote>
+		<ul>
+			<li>Edit individual constraint properties for each widget in the <b>
+			<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane.html">Property Pane</a></b> or the right-click context menu of the 
+			widget..</li>
+		</ul>
+		<blockquote>
+			<p><img border="0" src="images/mig_properties.gif">&nbsp;
+			<img border="0" src="images/mig_cell_menu.gif" width="246" height="136" align="top"></p>
+		</blockquote>
+		<ul>
+			<li>Click the &quot;...&quot; button to specify an arbitrary cell constraint 
+			specification (such as docking)</li>
+		</ul>
+		<blockquote>
+			<p>
+			<img border="0" src="images/mig_cell_specifications.gif" align="top">&nbsp;
+			<img border="0" src="images/mig_cell_docking.gif" align="top" width="380" height="236"></p>
+		</blockquote>
+		<ul>
+			<li>Specify arbitrary layout, column &amp; row constraints (such as panel insets)</li>
+		</ul>
+		<blockquote>
+			<p>
+			<img border="0" src="images/mig_property_layout_constraints.gif" align="top">&nbsp;
+			<img border="0" src="images/mig_property_col_constraints.gif"></p>
+			<p><img border="0" src="images/mig_panel_insets.gif"></p>
+		</blockquote>
+<ul>
+	<li>Open the Columns or Rows editing dialog from the <b>
+	<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane.html">Property Pane</a></b> or the right-click context menu of the panel.<p>
+			<img border="0" src="images/mig_property_col_specs.gif" align="top">&nbsp;
+	<img border="0" src="images/jgfl_panel_menu.gif"></p>
+	<p>&nbsp;</li>
+	<li>Insert or add new columns and rows</li>
+	<li>Open the property dialog for an individual column or row</li>
+	<li>Rearrange the order of the columns or rows</li>
+</ul>
+		<blockquote>
+			<p><img border="0" src="images/mig_column_specifications.gif"></p>
+		</blockquote>
+              <h2><a name="Preferences" href="../../preferences/swing/preferences_miglayout.html">Preferences</a></h2>
+              <ul>
+                <li>Control whether automatic grab is used for text widgets, 
+				comboboxes, tables, etc.</li>
+              </ul>
+		<blockquote>
+			<p>
+			<img border="0" src="images/mig_auto_grab1.gif" align="top">&nbsp;
+			<img border="0" src="images/mig_auto_grab2.gif" align="top"></p>
+		</blockquote>
+		<ul>
+				<li>Control whether labels are automatically right-aligned when 
+				next to a text widget</li>
+              </ul>
+              <blockquote>
+				<p>
+	<img border="0" src="images/mig_auto_right_label1.gif" align="top">&nbsp;
+	<img border="0" src="images/mig_auto_right_label2.gif" align="top"></p>
+		</blockquote>
+              <h2><a name="SourceCodeGenerationParsing"></a>Source Code 
+				Generation &amp; Parsing</h2>
+              <ul>
+                <li>Intelligently convert existing layouts (null, <b>GridBagLayout</b>, etc.) to 
+				<b>MiGLayout</b> with column and row creation</li>
+				<li>Generated code will use string-based constants</li>
+              </ul>
+		<blockquote>
+				<p>
+				<img border="0" src="images/mig_source1.gif">&nbsp;</p>
+</blockquote>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

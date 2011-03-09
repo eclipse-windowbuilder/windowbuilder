@@ -1,0 +1,41 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+
+method
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell();
+		shell.setLayout(new FillLayout());
+		shell.setText("Table test");
+		{
+			Table table = new Table(shell, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION | SWT.MULTI);
+			table.setLinesVisible(true);
+			table.setHeaderVisible(true);
+			{
+				TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+				tableColumn.setWidth(100);
+				tableColumn.setText("First column");
+			}
+			{
+				TableColumn tableColumn = new TableColumn(table, SWT.CENTER);
+				tableColumn.setWidth(200);
+				tableColumn.setText("Center column");
+			}
+			{
+				TableColumn tableColumn = new TableColumn(table, SWT.RIGHT);
+				tableColumn.setWidth(150);
+				tableColumn.setText("Right column");
+			}
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

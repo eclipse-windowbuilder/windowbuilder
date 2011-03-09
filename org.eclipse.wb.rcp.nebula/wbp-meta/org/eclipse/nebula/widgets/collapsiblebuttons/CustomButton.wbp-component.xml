@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The Custom Button is inner button for CollapsibleButtons Widget.</description>
+	<!-- CREATION -->
+	<!-- CONSTRUCTORS -->
+	<!-- METHODS -->
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.collapsiblebuttons"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-hidden names="number"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- selection listener -->
+	</parameters>
+</component>

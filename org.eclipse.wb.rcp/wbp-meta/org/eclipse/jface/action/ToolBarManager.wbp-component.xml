@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT WRAP RIGHT SHADOW_OUT</parameter>
+					<parameter name="select0">dir HORIZONTAL HORIZONTAL VERTICAL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+</component>

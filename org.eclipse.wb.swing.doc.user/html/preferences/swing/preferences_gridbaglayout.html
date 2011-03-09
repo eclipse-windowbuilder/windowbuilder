@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Preferences - Swing &gt; GridBagLayout</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><h1>Preferences - Swing &gt; Layouts &gt; GridBagLayout</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><img src="images/preferences_gridbaglayout.gif"><p>This page is used to control various 
+		<b>Swing &gt; Layouts &gt; GridBagLayout</b> options.</p>
+	<h2>Use long constructor for GridBagConstraints</h2>
+      	<p>This preference
+          determines whether <b>Swing Designer</b> generates empty <b>GridBagLayout</b> constructors
+          or fully populated constructors. When empty constructors are used,
+          individual <b>GridBagConstraint</b> values are set by accessing the
+          appropriate fields. For example:
+        </p>
+		<font SIZE="2">
+		<blockquote>
+			<p><font face="Courier">JButton </font></font><font face="Courier">
+			<font SIZE="2" COLOR="#0000c0">myButton</font><font SIZE="2"> =
+			</font><font SIZE="2" COLOR="#7f0055"><b>new</b></font></font><font face="Courier" SIZE="2"> 
+			JButton();<br>
+			GridBagConstraints gridBagConstraints = </font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font face="Courier" SIZE="2"> 
+			GridBagConstraints();<br>
+			gridBagConstraints.insets = </font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font face="Courier" SIZE="2"> 
+			Insets(0, 0, 12, 23);<br>
+			gridBagConstraints.ipady = 30;<br>
+			gridBagConstraints.ipadx = 26;<br>
+			gridBagConstraints.gridy = 1;<br>
+			gridBagConstraints.gridx = 1;<br>
+			getContentPane().add(myButton, gridBagConstraints);<br>
+			myButton.setText(</font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;New 
+			JButton&quot;</font><font SIZE="2"><font face="Courier">);</font></p>
+		</blockquote>
+		</font>
+      <p>When fully populated constructors are used, all of the
+      <b>GridBagConstraint</b> values are set in the constructor. For example:
+        <font SIZE="2">
+		<blockquote>
+			<p><font face="Courier">JButton myButton = </font></font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font face="Courier" SIZE="2"> 
+			JButton();<br>
+			getContentPane().add(myButton, </font>
+			<font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font face="Courier" SIZE="2"> 
+			GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,<br>
+&nbsp;&nbsp;&nbsp; GridBagConstraints.CENTER, </font>
+			<font FACE="Courier" SIZE="2">GridBagConstraints.NONE,&nbsp;<br>
+&nbsp;&nbsp;&nbsp; </font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font face="Courier" SIZE="2"> 
+			Insets(0, 0, 10, 24), 39, 33));<br>
+			myButton.setText(</font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;New 
+			JButton&quot;</font><font SIZE="2"><font face="Courier">);</font></p>
+		</blockquote>
+		</font>
+		<h2>Use automatic horizontal/vertical grab</h2>
+      <p>This preference controls whether new text-oriented widgets (<b>JText</b>,
+		<b>JComboBox</b>, etc.) are set to grab horizontally when they are added 
+		to the window and whether new <b>JTable</b> and <b>JTree</b> widgets are 
+		set to grab horizontally and vertically when they are added to the 
+		window.<p>
+	<img border="0" src="../../layoutmanagers/swing/images/gbl_auto_grab1.gif" align="top">&nbsp;
+	<img border="0" src="../../layoutmanagers/swing/images/gbl_auto_grab2.gif" align="top"><h2>
+		Automatically align right Label-like components before Text components</h2>
+      <p>This preference controls whether <b>JLabels</b> should be right aligned when 
+		they are to the left of a <b>JText</b> or <b>JComboBox</b> widget.<p>
+	<img border="0" src="../../layoutmanagers/swing/images/gbl_auto_right_label1.gif" align="top">&nbsp;
+	<img border="0" src="../../layoutmanagers/swing/images/gbl_auto_right_label2.gif" align="top"><h2>
+		Automatically change insets to generate column/row gaps</h2>
+      <p>This preference controls whether the components insets are 
+		automatically managed to artificially create column/row gaps. Turn this 
+		preference off, if you wish to manually adjust the component insets.<h2>
+		Column gap</h2>
+      <p>This preference determines the default column gap that is created by 
+		adjusting the component left and right insets.<h2>
+		Row gap</h2>
+      <p>This preference determines the default row gap that is created by 
+		adjusting the component top and bottom insets.<h2>Create variable for 
+		GridBagConstraints 
+		using pattern</h2>
+      <p>This preference determines what pattern will be used to generate 
+		GridBagConstraints. The following styles are supported:<ul>
+			<li>${constraintsAcronym}_${controlName} -- gbc_helloWorldButton</li>
+			<li>${constraintsAcronym}${controlName-cap} -- gbcHelloWorldButton</li>
+			<li>${controlName}${constraintsClassName} -- helloWorldGridBagConstraints</li>
+			<li>${dataDefaultName} -- gridBagConstraints_1</li>
+			</ul>
+			</td>
+	</tr>
+</table>
+
+</body></html>

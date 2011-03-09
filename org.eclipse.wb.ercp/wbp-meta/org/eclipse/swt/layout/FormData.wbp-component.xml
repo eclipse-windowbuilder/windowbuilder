@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.form.FormDataInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="width"/>
+			<parameter type="int" property="height"/>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layoutData.exclude-properties">Class Constructor</parameter>
+		<parameter name="layoutData.compatibleLayout">org.eclipse.swt.layout.FormLayout</parameter>
+	</parameters>
+</component>

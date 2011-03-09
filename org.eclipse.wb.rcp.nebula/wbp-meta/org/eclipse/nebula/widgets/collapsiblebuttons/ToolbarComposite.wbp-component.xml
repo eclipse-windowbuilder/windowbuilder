@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Widget that provides a toolbar inside CollapsibleButtons.</description>
+	<!-- CREATION -->
+	<!-- CONSTRUCTORS -->
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.collapsiblebuttons"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- selection listener -->
+	</parameters>
+</component>

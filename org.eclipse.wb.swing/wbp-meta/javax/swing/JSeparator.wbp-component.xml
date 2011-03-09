@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A horizontal or vertical line used to separate other controls.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JSeparator()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setOrientation(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="orientation"/>
+	<properties-advanced names="border enabled font"/>
+	<properties-hidden names="UI"/>
+	<property id="setOrientation(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">HORIZONTAL VERTICAL</parameter>
+		</editor>
+	</property>
+</component>

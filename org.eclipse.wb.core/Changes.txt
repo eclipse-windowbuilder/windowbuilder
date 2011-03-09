@@ -1,0 +1,2245 @@
+January 2011 - Version 0.9.0
+--------------------------
+[+] WindowBuilder Donation to Eclipse.org
+     Code namespace changed to org.eclipse.wb.*
+     Eclipse.org copyright header added to all files
+     Version numbers reset to 0.9.0
+[+] Enhanced GWT support
+     Support for GWT 2.2.0
+     Change GWT Designer version to 2.2.0
+     Improved support for GWT UiBinder
+     Use unmodified GWT distribution
+     Support for @UiChild
+     Support for SmartGWT 2.4
+     Enhanced GXT data binding
+[+] Enhanced SWT support
+     Support for "Name" property in Viewer
+     Data binding support for DateTime
+     Enhanced XWT data binding
+[-] Fix for "NoClassDefFoundError" in data bindings
+[-] Fix for GWT Map support
+[-] Fix for "JMenu" bounds
+[-] Fix for using "ui.xml" with "HTMLPanel" in Java UI
+[-] Fix for "last" target statement for JFrame
+[-] Fix for resolving "pure" generic type variables
+[-] Fix for evaluating anonymous Viewers
+[-] Fix for method bindings for adding ColumnConfig to GridPanel
+[-] Fix for JGoodies Windows L&F under Linux
+
+December 17 2010 -  Version 8.1.1
+--------------------------
+[+] Enhanced GWT support
+     Support for GWT 2.1.1
+     Improved support for GWT UiBinder
+     Support for @UiField(provided) and @UiFactory
+     Support for @UiTemplate annotation
+     Support for @UiConstructor properties
+     Support for UiBinder Grid
+     Support for Cell Widgets
+     Improved GXT support
+     Improved SmartGWT support
+     Improved Maven support
+     WebKit rendering for 32-bit Windows
+[+] XWT (XML Window Toolkit) Support
+     Improved XWT data binding support
+     Improved XWT FormLayout support
+     Support for "object" selection property editor
+[+] Enhanced SWT support
+     Better detection of "style" constructor argument in "Composite"
+[+] Enhanced Swing support
+     Improved support for for "addSeparator()" and "JPopupMenu"
+[+] Editor & Property Pane Enhancements
+     Provide better error messages for common cases
+     Support for using "Ctrl+PageUp/PageDown" in editors
+     New "Select" sub-menu in context menu
+     Deleting a root now just clears its children
+[+] Code Generation & Parsing enhancements
+     Ignore errors in CompilationUnit when parsing UiBinder
+     Better support for parsing generics
+     Reparse automatically after "ui.xml" file change
+[-] Fix for "HTMLPanel" and clearing "UiBinderUtil.hiddenDiv"
+[-] Fix for negative sizes for top level widgets
+[-] Fix for empty GWT Composites
+[-] Fix for parsing org.jdesktop.layout.GroupLayout into valid model
+[-] Fix for attribute "location" for GWT SimplePager
+[-] Fix for changing "MenuItem" style to "NONE"
+[-] Fix for loading descriptions for "DateBox" and "DatePicker"
+[-] Fox for GWT UiBindr UTF-8 usage
+[-] Fix for NPE in GPE "CompiledClass"
+
+October 20 2010 -  Version 8.1.0
+--------------------------
+[+] Enhanced GWT support
+     Support for GWT UiBinder
+     Support for GWT 2.1
+     Initial support for Cell Widgets
+     Improved GXT support
+     Improved SmartGWT support
+     Improved Maven support
+     WebKit rendering for 64-bit Windows
+[+] XWT (XML Window Toolkit) Support
+     Improved XWT data binding support
+[+] Enhanced JFace & RCP support
+     Support for "CCombo" in "ComboViewer"
+     Improved data binding support
+[+] Enhanced Swing support
+     Support for JGoodies "DefaultComponentFactory"
+     Support for JGFL 1.3.0
+     Improved GridBagLayout support
+     Improved MiGLayout support
+     Improved JSR296 support
+[+] Editor & Property Pane Enhancements
+     Palette loading optimizations
+     Center display/preview on main Eclipse Shell monitor
+[+] Code Generation & Parsing enhancements
+     Rewrite unsupported "super.setLayout()" into supported "setLayout()"
+     Allow visiting "lazy" methods more than once
+     Improved parsing of Swing Actions
+[-] Fix for ignoring references to non-existing projects
+[-] Fix for switching between GWT versions in same Eclipse session
+[-] Fix for NLS exceptions
+[-] Fix for memory leaks
+[-] Fix for negative GWT resizing
+[-] Fix for JGFL "insert bounds" when no columns/rows
+[-] Fix for missing ZipFileResources
+[-] Fix for adding GXT "ColumnConfig" into just created "Grid"
+[-] Fix for double conversion into "GridData2"
+[-] Fix for SecurityManager dead lock
+[-] Fix for preventing NPE with JTabbedPane.setModel()
+[-] Fix for MiGLayout on NVO
+[-] Fix for using GXT Composites
+[-] Fix for changing Swing fonts
+[-] Fix for misplaced XWT files
+[-] Fix for manual initBindings() changes
+
+September 16 2010 - Version 8.0.0
+--------------------------
+[+] Product Re-Launch
+     Old licensing and activation removed
+     Products available free of charge
+     Docs and product rebranded 
+     New Google Terms of Service in place
+[+] Enhanced GWT support
+     Initial/beta support for GWT UiBinder
+     Initial/beta support for GWT 2.1
+     Support for GWT 2.0.4
+     WebKit rendering for OSX and Linux
+     Improved SmartGWT support
+[+] XWT (XML Window Toolkit) Support
+     Initial support for XWT Data Binding 
+     Support for DragSource and DropTarget
+[+] Enhanced SWT support
+     Added Size actions for SWT & JFace Dialog Shells
+[+] Enhanced Swing support
+     Support for dropping JMenuBar on JInternalFrame
+     Improved SpringLayout support
+[+] Editor & Property Pane Enhancements
+     Support for Object properties in Constructor property
+[+] Code Generation & Parsing enhancements
+     Support for deprecated "Container.add(String,Component)" association
+[-] Fix for inner class abstract actions
+[-] Fix for GWT 1.7 and RootLayoutPanel
+[-] Fix for wrong CaptionPanel bounds
+[-] Fix for reparse when WBP editor is not active
+[-] Fix for NPE when parsing Viewer
+[-] Fix for detached structure view
+[-] Fix for crashing with TableViewer
+[-] Fix for deleting virtual FormAttachment
+[-] Fix for TableItem bounds under Linux
+[-] Fix for checking that project is valid Java project
+[-] Fix for binding action from ActionFactory
+[-] Fix for excluding "margins/borders/paddings" when set size in pixels
+[-] Fix for WizardPage without control
+[-] Fix for using existing NLS source even without comment
+[-] Fix for NPE during GridLayout move
+[-] Fix for minor memory leaks
+[-] Fix for understanding pattern "this.value = value"
+[-] Fix for JComboBox and baseline
+[-] Fix for "application pattern" and "separate declare, then assign"
+[-] Fix for "varArgs" without arguments in execution flow
+
+June 23 20010 - Version 7.6.0
+--------------------------
+[+] XWT (XML Window Toolkit) Support
+     Wizards for creating XWT Applications and Composites
+     Wizards for creating XWT Forms Applications and Composites
+     Support for all SWT and JFace components and properties
+     Support for all standard SWT layout managers like GridLayout and FormLayout
+     Support for SWT event handling
+     Bi-directional editing between the design view and the XML source code
+[+] Enhanced GWT support
+     Improved support for SmartGWT
+     Support for dropping any "Widget" on "Tree"
+     GWT wizards are context sensitive
+     Improved GWT-Ext table support
+     Improved GXT column model support
+     Ignore invalid "web.xml" file when search HTML file
+[+] Enhanced SWT support
+     Rendering support for GridLayoutFactory and GridDataFactory
+[+] Enhanced Swing support
+     Major performance improvements in OSX
+     General speed improvements under all platforms
+[+] Code Generation & Parsing enhancements
+     Evaluate generic method invocations
+[-] Fix for "too wide Button" in GWT "strict" mode
+[-] Fix for infinite recursion with fragments
+[-] Fix for selecting resource from "war" sub-folder
+[-] Fix for NPE in non-UI thread
+[-] Fix for "application pattern" and constructor
+[-] Fix for RCP ViewPart and EditorPart creation
+[-] Fix for JTabbedPane using indexOfComponent()
+[-] Fix for GBL test and AWT events queue
+[-] Fix for inheriting "null" layout
+[-] Fix for adding component with inner class
+[-] Fix for preventing "exit()" from "windowClosed()" listener
+[-] Fix for rendering GXT "TreeGrid" columns
+[-] Fix for "bridge" method and "super" invocation
+[-] Fix for hiding perspective editing area
+[-] Fix for editing palette when editing perspectives
+[-] Fix for uninitialized palette entries
+[-] Fix for crashing with TableViewer
+[-] Fix for deleting virtual FormAttachment
+[-] Fix for TableItem bounds under Linux
+[-] Fix for broken SmartGWT decorations
+[-] Fix for automatic alignment preferences and JGoodies FormLayout
+[-] Fix for ignoring unknown XML entities
+
+May 18 20010 - Version 7.5.0
+--------------------------
+[+] Enhanced GWT support
+     Support for GWT 2.0.3
+     Support for SmartGWT
+     Support for Ext GWT (GWT) Data Binding
+     Support for xulrunner-1.9.2
+[+] Enhanced SWT support
+     Improved FormLayout support
+[+] Enhanced JFace & RCP support
+     Call "FormToolkit.dispose()" in templates for "Composite" and "ViewPart"
+[+] Enhanced NLS support
+     Support for "always visible locales"
+[+] Editor & Property Pane Enhancements
+     New property editors for "Double", "Byte", "Short" and "Long"
+     Support "condition" for "palette" and "category" elements
+     Support for "topBounds.pack" parameter
+[-] Fix to exclude incompatible "LayoutData" models from hierarchy
+[-] Fix for GPE 1.3 compatibility
+[-] Fix for using non visual object as a target
+[-] Fix for MigLout problem with "height pref!"
+[-] Fix for "JLabel" without text
+[-] Fix for resolving "logical children"
+[-] Fix for classpath fragments
+[-] Fix for dangling GXT "CardLayout"
+[-] Fix for empty GWT web.xml files
+[-] Fix for for "JSplitPane" copy/paste
+[-] Fix for GXT "AccordionLayout" and "top toolbar"
+[-] Fix for inheriting SWT "absolute" layout
+[-] Fix for "IDetailsPage"
+[-] Fix for "GridBagLayout" with empty columns/rows
+[-] Fix for "lazy" and "return;" without expression
+[-] Fix for dangling JavaDoc before adding "MethodDeclaration"
+[-] Fix for disposing "WizardDialog" and Eclipse 3.6 M7
+[-] Fix for preventing NVOs as roots
+[-] Fix for resolving "exposed logical field"
+[-] Fix for adding library without src archive
+
+March 19 20010 - Version 7.4.0
+--------------------------
+[+] Enhanced Data Binding support
+     Support inner classes defined within initDataBindings()
+     Support for preInitBindings() and postInitBindings()
+     Support for creating observable objects using EMFProperties (EMF 2.5)
+[+] Enhanced GWT support
+     Support for GWT 2.0.1 and 2.0.2 (Java API only)
+     Support for Ext GWT (GXT) 2.1.1
+     Support for GPE 1.3
+     Use "web.xml" to get HTML file from "welcome-file" element
+     Support for embedding a "Composite" created using "UiBinder"
+     Support for "border" of GXT "ContentPanel.body"
+     Check GXT resources only if module imports GXT module
+     Add GPE natures to project when it is present 
+[+] Enhanced SWT support
+     Enhanced automatic FormLayout mode with property pane support
+     Reintroduced "classic" FormLayout editing mode and preferences 
+     FormLayout classic: added percent offsets management using design pane.
+     Ask user use "FormLayout" instead of "absolute"
+     Support for "DROP_DOWN" style of "DateTime"
+     Support for "navigation figures" for "StackLayout"
+[+] Enhanced JFace & RCP support
+     Support for using "view inside of IFolderLayout" as reference on "IPageLayout"
+     Support for rendering "FilteredItemsSelectionDialog"
+     Parsing support for JFace GridLayoutFactory and GridDataFactory
+[+] Enhanced Swing support
+     MigLayout dimension editing dialogs should use "zero" based index
+[+] Enhanced NLS support
+     Better NLS support for embedded panels
+[+] Code Generation & Parsing enhancements
+     Significant parsing and speed optimizations
+     Convert "instanceOfJFrame.add()" into "instanceOfJFrame.getContentPane().add()"
+     Ignore unnecessary "LayoutData"
+     Support for invoking "constructor" with "TypeVariable" parameter
+[+] Editor & Property Pane Enhancements
+     Ask about removing "inner type" listener, if used more than once
+[-] Fix for checking GWT 2.0 "entry points" as "seed types"
+[-] Fix for committing changes into editor after deleting event listener
+[-] Fix for "NPE" when parsing stand alone SWT with "viewer"
+[-] Fix for disposing JFace "Action" icon too early
+[-] Fix for using integer as size in "DockLayoutPanel"
+[-] Fix for committing changes into editor after deleting event listener
+[-] Fix for performance problem in SWT "AbstractSupport"
+[-] Fix for "html" file in sub-folder and referencing "css" files
+[-] Fix for optimized Swing component creation
+[-] Fix for empty GWT *.properties files
+[-] Fix for ignoring non existing source folders
+[-] Fix for using "FormToolkit" from local variable
+[-] Fix for bad GXT placeholders
+[-] Fix for incorrectly grown GXT Composite on WebKit
+[-] Fix for creating model for anonymous "javax.swing.Action" class
+[-] Fix for preventing hang even if child "Widget" is bad and has no "Element"
+[-] Fix for rewriting "setLayout(LayoutManager)"
+[-] Fix for "StackOverflowError" when "TableViewer" has event listener.
+[-] Fix for GWT "AbsolutePanel" aligning only its own widgets.
+[-] Fix for skipping bad characters at beginning of file
+[-] Fix for ignore header painting for inactive headers
+[-] Fix for generating default GXT ColumnModel
+[-] Fix for excluding incompatible "LayoutData" models from hierarchy
+[-] Fix for handling JTabbedPane tabs without models
+
+January 26 2010 - Version 7.3.0
+--------------------------
+[+] Enhanced Data Binding support
+     Support for virtual bindings
+     Support for sub properties of observeDetails() 
+     Show all Composites in Beans list
+     Improved EMF DataBinding support
+[+] Enhanced GWT support
+     Support for GWT 2.0 (Java API only)
+     Support for new GWT layout panels
+     Support for Ext GWT (GXT) 2.1.0
+     Simplify adding GXT and GWT-Ext to project at creation time
+     Show "GXT UI" actions in context menu if configured
+     Support for generic components and their event listeners
+     Support for alignment actions for GXT "AbsoluteLayout"
+     Support for GXT "Component.setContextMenu()"
+     Include "EnvironmentTab" into GWT launch
+     Support for untyped GXT events
+     Support for VerticalPanel Cell properties
+     Added "SuggestBox" to palette
+     New GXT "LayoutContainer" Wizard
+     Show GWT 2.0 "strict mode" widgets on palette only in "strict mode"
+     Support for "CaptionPanel" (any not abstract Composite) as non-this root
+[+] Enhanced SWT support
+     Support for "TextViewer"
+     Support for Nebula CButton & TableCombo
+     Special warning when user attempts to parse SWT UI without configuring project for SWT
+     Support for rendering "FilteredItemsSelectionDialog"
+[+] Enhanced JFace & RCP support
+     Support for "SectionPart" constructor with "FormPage"
+     Generate and use "TableViewerColumnSorter" for sorting by "TableViewerColumn"
+     Support for "org.eclipse.ui.splash.AbstractSplashHandler"
+     New code generation preference for FieldEditors
+     Support for "DoubleFieldEditor"
+[+] Enhanced Swing support
+     New "Automatically change insets to generate column/row gaps" preference
+     Support for parsing custom "ButtonGroup"
+     Step up to Substance-5.3 LAFs
+     Support for copy/paste panels with "GribBagLayout"
+     Execute any "Container.add(Component+[,...])" methods.
+[+] Code Generation & Parsing enhancements
+     Various parsing and speed optimizations
+     Support for "@wbp.nls.resourceBundle" tag to support user-specific ResourceBundle
+     Support for "local type" as listener type
+     Support for "v++" and "v--" expressions
+     Support for "string + int" and "string + null"
+     Support for evaluating "import static" methods
+     New template preferences for Layout and LayoutData 
+     New template preference for inner event handler classes
+[+] Editor & Property Pane Enhancements
+     Support for "Integer" (as object) property editor
+     In "split mode", when delay is -1, then reparse on save
+     Option to highlight visited/evaluated lines in source
+     Support "Rename..." action for "lazy" variable
+     Support for creation flow in absolute layouts
+     Show "unknown" boolean values
+     Hide JFace widgets when not on path
+     Improved Linux GTK support
+     New "Go To Problem in Source" Button on error page
+[-] Fix for using GXT with standard GWT Composite
+[-] Fix for "PagingToolbar"
+[-] Fix for deleting "ButtonGroup" with Buttons
+[-] Fix for executing "foo(Object...)" with array arguments "foo(new Object[]{})"
+[-] Fix for rendering for all "TabPanel" items
+[-] Fix for dangling GXT "LayoutData"
+[-] Fix for GXT "ContentPanel" and "AbsoluteLayout"
+[-] Fix for hiding "exposed field" by "local"
+[-] Fix for ensuring that top/bottom components of "ContentPanel" have "parent" set
+[-] Fix for deploying in GWT 1.5, when "lib" projects used
+[-] Fix for GXT TableLayout empty columns
+[-] Fix for hanging in auto build
+[-] Fix for "IconHelper.initialized"
+[-] Fix for using "null" as parent for "Shell"
+[-] Fix for moving if component is in different method than target
+[-] Fix for adding GXT "Radio" to "RadioGroup"
+[-] Fix for ignoring non-jar files in classpath
+[-] Fix for dropping "Menu bar" on "inner Shell" of JFace "[Application]Window"
+[-] Fix for executing "Window.close()"
+[-] Fix for executing "IContributionItem.setVisible()"
+[-] Fix for lockup in Google Maps
+[-] Fix for Swing JInternalFrame visibility
+[-] Fix for morphing GXT "FlexTable" into "Grid"
+[-] Fix for empty GXT ButtonGroups
+[-] Fix for right-to-left orientation
+[-] Fix for GWT Tree with null TreeImage
+[-] Fix for MigLayout "aligny baseline" problem
+[-] Fix for "FormPanel" and "addButton()"
+[-] Fix for executing "JComboBox.addItem(Object)"
+[-] Fix for GXT ComboBox
+[-] Fix for bugs in IBM Java
+[-] Fix for GWT NPE when move "RemoteService" without "Async" reference
+[-] Fix for "visible" state of "JApplet"
+[-] Fix for "SectionStack"
+[-] Fix for ignoring GXT "ComboBox.setStore(null)"
+[-] Fix for various Linux GTK issues
+[-] Fix for problems parsing GroupLayout
+[-] Fix for Data Binding and Nebula GridTreeViewer
+[-] Fix for Substance L&F bugs
+[-] Fix for EMF Data Binding issues
+[-] Fix for enablement actions when switch from one Designer editor to another
+[-] Fix for parsing forms in the default package
+[-] Fix for ignoring non-existing required projects
+[-] Fix for rendering GXT "TabPanel" replaced with placeholder.
+[-] Fix for ignoring assignments to "inherited" fields.
+[-] Fix for "jface.IAction.accelerator" property with single key value.
+[-] Fix for modifying forms with JFace "Action" and icon.
+[-] Fix for rendering GWT "HTMLTable.setText()" and "HTMLTable.setHTML()".
+[-] Fix for visual SWT/RCP menu editing while using Eclipse Cocoa 64-bit.
+[-] Fix for preventing "NPE" when parsing standalone SWT with "viewer"
+
+October 6 2009 - Version 7.2.0
+--------------------------
+[+] Enhanced Data Binding support
+     Added visual marker for model beans
+     Support for nested viewer bindings
+     Support for ObservableMapCellLabelProvider
+     Support for SWT DateTime
+     Support for Table Cell Editing
+     Enclose SWT DB code in try/catch blocks
+     Optionally generate Eclipse 3.5-only code (no deprecated code)
+     Set defaults for new strategy objects
+     Support for external controller objects
+[+] Enhanced GWT support
+     Support for Ext GWT (GXT) 2.0.1
+     Support for GWT 1.7 and IE8
+     New multi-page CSS Style Editor
+     Enhanced CSS Style Editor Dialog
+     Enhanced CSS Style Name property
+     Support for "new Viewport(panel)"
+     Improved hosted mode start up error handling
+[+] Enhanced SWT support
+     Support for Cursor property type
+     Support for TrayItem
+     Support for Nebula RadioGroup & RadioItem
+     Support for "live baseline"
+     Support for "BeanInfo.getIcon(kind)" in SWT
+     New "Remove setSize()" context menu command for Shells
+[+] Enhanced JFace & RCP support
+     Support for CellEditors as viewers
+     Support for "visual inheritance" in EditorPart
+     Added Forms API pref page
+     Improved Riena support
+[+] Enhanced Swing support
+     Improved MiGLayout support
+     Improved GroupLayout support
+     Support for editing cell constraints
+     Improved GridBagLayout support
+     Support for dropping Actions from factories in lazy mode
+     Support for "live baseline"
+     Support for configurable column/row gap
+     Use Double.MIN_VALUE as weight for filler column/row
+[+} Code Generation & Parsing enhancements
+     Various parsing and speed optimizations
+     Support for parameterized/generic events
+     Support for FormToolkit in parameter of constructor
+     Support for "IBeanAttributes.SWT_STYLE" bean parameter
+     Support for UTF-8 *.properties files
+     Support for "lazy" code generation for NVOs
+     Support for "wbp-meta/ConfigureClassLoader.mvel" scripts
+     Support for "EventQueue.invokeAndWait" and "SwingUtilities.invokeAndWait"
+     Include source code into parsing exceptions
+[+] Editor & Property Pane Enhancements
+     Use place holders for broken custom components
+     Significant performance optimizations
+     New "Extract as view" command in Palette and Structure views
+     Show better message when unable to load "super" class
+     Added Undo/Redo actions to editor toolbar
+     Show warning when trying to drop abstract components
+     Added Usage Profiler for tracking product feature usage
+     Auto-rename template validation
+     Use full HTMl for property pane & palette tooltips
+     API support for customizing properties
+     API support for reading palette files from JARs
+[-] Fix for "inner Action" and variable
+[-] Fix for constructor without modifier in context
+[-] Fix for unknown field type in context
+[-] Fix for leak in FactoryDescriptionHelper
+[-] Fix for parameters and GWT 1.6
+[-] Fix for JComboBox.setModel(null)
+[-] Fix for using "relative" path in GWT
+[-] Fix for property table flickering under OSX
+[-] Fix for using "method parameter" variable in different method
+[-] Fix for method signature and type variable without bounds
+[-] Fix for using isDesignTime() when run customizer
+[-] Fix for using "Cell/colSpan" property to expand component beyond existing columns
+[-] Fix for intervals of spanned columns on the end
+[-] Fix for "native" method in parsing context
+[-] Fix for using "Beans.isDesignTime()" during Test/Preview
+[-] Fix for custom GWT EntryPoint
+[-] Fix for keyboard moving in AbsoluteLayout
+[-] Fix for TableColumn and popup Menu at same place
+[-] Fix for "-noserver" and GWT 1.6
+[-] Fix for unused "FormToolkit" constructor parameter
+[-] Fix for Data Binding classloader issues
+[-] Fix for morphing
+[-] Fix for default value of "Vector" unknown parameter
+[-] Fix for FormLayout "replicate width"
+[-] Fix for "insert before first" feedback in FlexTable
+[-] Fix for converting NVO into VO by moving onto container
+[-] Fix for SectionPart and additional constructor parameters
+[-] Fix for "Surround with" and GridLayout
+[-] Fix for using inner listener/event classes
+[-] Fix for using inner listener/event classes
+[-] Fix for memory leak
+[-] Fix for wrong association of Property and "button presentation"
+[-] Fix for deleting "wrapper"
+[-] Fix for "remember variable name in setName()" and lazy pattern
+[-] Fix for copy/paste for "flow" and "absolute" Swing layouts
+[-] Fix for problem parsing Nebula's FormattedText
+[-] Fix for only using "*.jar" files for JarResourcesLoader
+[-] Fix for using JPanel with GBL and "filler" dimensions
+[-] Fix for re-indenting source after Statement move
+[-] Fix for anonymous GWT "Command" and "Open Command" action
+[-] Fix for dangling GridBagLayout
+[-] Fix for FormLayout "replicate width" when "SWT.DEFAULT" alignment used
+[-] Fix for ignoring "JList.setListData(null)" invocations
+[-] Fix for new non-visual objects
+[-] Fix for dropping Composite with exposed Control and implicit LayoutData
+[-] Fix for ensuring that "SWTResourceManager" is generated for "Cursor" properties
+[-] Fix for deducing block/flat code style
+[-] Fix for NPE when setting "no properties" during refresh
+[-] Fix for copying parents and children
+[-] Fix for extra "SwingAction_xx" when move "Action" on canvas
+[-] Fix for NPE when using "TableViewer Composite" and layout inheritance
+[-] Fix for memory leak related to CGLib
+[-] Fix for avoiding "out of sync" exceptions
+[-] Fix for GridData and default alignment values
+[-] Fix for national character usage under UTF-8 or UTF-16
+[-] Fix for validating GridData "horizontalSpan" and "verticalSpan" values
+[-] Fix for renaming ICompilationUnit when "Design" is open
+[-] Fix for "listener as class" and "inner type" code generation
+
+June 24 2009 - Version 7.1.0
+--------------------------
+[+] Enhanced SWT/JFace Data Binding support
+     EMF Data Binding support
+     Support for new Eclipse 3.5 coding style
+     Support for Eclipse 3.5 nested property bindings
+[+] Enhanced GWT support
+     General support for GWT 1.6.4
+     Support for new GWT project structure
+     Support for Google GWT plugin
+     Support for GWT 1.6 DatePicker, DateBox and LazyPanel
+     Context menu action "Open Command" for GWT MenuItem
+     Support for RootPanel.get(String)
+     Show special message for NPE in GWT Mail sample
+[+] Enhanced SWT support
+     New "Set minimal size" action for Composite
+     Support for non-standard SWT constructors
+[+] Enhanced JFace & RCP support
+     Support for IViewSite.getWorkbenchWindow()
+     New "Expose viewer..." action
+[+] Enhanced Swing support
+     Improved Swing Data Binding support
+[+] Enhanced NLS support
+     New "Add key/value" in NLS dialog
+     Sort *.properties files by key
+[+} Code Generation & Parsing enhancements
+     Various parsing and speed optimizations
+     Improved error messages for common cases
+     Ask for main entry point if multiple detected
+     Various advanced parser enhancements
+     Support for factory inheritance
+[+] Editor & Property Pane Enhancements
+     Support for Eclipse 3.5
+     Support for OSX Cocoa
+     Support for BeanInfo inheritance
+     Support for "setComponent(SomeType)" properties
+     Support for Object properties in custom components
+     Show better message when bad custom component fails
+     Check for JDK compatibility
+[-] Fix for "format on save" and UndoManager
+[-] Fix for memory leaks
+[-] Fix for PropertyTable and refreshing sub-properties
+[-] Fix for EventQueue.invokeLater()
+[-] Fix for Realm.runWithDefault()
+[-] Fix for ClassCastException when replace FormLayout with GridBagLayout 
+[-] Fix for morphing and dangling JavaInfo references 
+[-] Fix for GPE generated module 
+[-] Fix for evaluating "new Object[dim_1][dim_2][...]" 
+[-] Fix for using History in GWT 1.6, add "__gwt_historyFrame" frame 
+[-] Fix for SashForm and delete child control/weight 
+[-] Fix for logical hierarchy in Composite 
+[-] Fix for applying ComboBoxModel (as non-visual bean) in custom component 
+[-] Fix for GWT-Ext Component with specific ID 
+[-] Fix for zero size Section 
+[-] Fix for inc/dec "numColumns" property in GridLayout 
+[-] Fix for any zero size Control 
+[-] Fix for NPE when click into empty space in components tree 
+[-] Fix for evaluating single Expression more than one time 
+[-] Fix for "implicit" factory
+[-] Fix for several VariableDeclarationFragments
+[-] Fix for ignore infinite recursion
+[-] Fix for "hidemode 3" and invisible component 
+[-] Fix for NPE when set size property 
+[-] Fix for dropping first control on Group 
+[-] Fix for creating RemoteService in module with several source folders 
+[-] Fix for java.awt.Font copy/paste
+[-] Fix for launching GWT 1.5 module using GWT 1.6 hosted mode 
+[-] Fix for deleting RemoteService when no Async or Impl 
+[-] Fix for binding Hyperlink constructor parameters 
+[-] Fix for parsing ASTNode when generics 
+[-] Fix for replacing some layout with StackLayout 
+[-] Fix for BorderLayout without center widget 
+[-] Fix for indirectly exposed children 
+[-] Fix for method declaration source 
+[-] Fix for using "m_" prefix from Java options 
+[-] Fix for using formatted line comments 
+[-] Fix for SWT_AWT and focus 
+[-] Fix for moving Statement and empty lines 
+[-] Fix for "null" as component class 
+[-] Fix for parsing inner classes 
+[-] Fix for direct edit issues
+[-] Fix for replacing GridLayout with "null"
+[-] Fix for HTMLTable
+
+March 24 2009 - Version 7.0.0
+--------------------------
+[+] New support for UI Factories
+     Full support for Static & Instance factories
+     Create UI Factory classes from selected widgets
+     Add UI Factories to palette
+[+] Enhanced SWT/JFace Data Binding support
+     New Data Binding Tab replaces Data Binding dialog
+     SWT & JFace bindings merged into a single UI
+     Support for simple nested bindings
+     Improved binding dialogs
+[+] New Swing Data Binding (JSR 295) support
+     New Data Binding Tab
+     New Swing Automatic Data Binding wizard
+     Icon decorator for bound components
+     Choose Bean targets and models
+     Choose Widget targets and models
+     Filter targets and models
+     Filter properties
+     Specify Swing binding properties
+     Edit and Delete existing bindings
+     Generate initDataBindings() method
+[+] Enhanced GWT support
+     Support for ImageBundle
+     Improved FlexTable & Grid support 
+     Full support for GWT-Ext (widgets & layouts)
+     Automatically add GWT-Ext support to projects
+[+] Enhanced SWT support
+     Improved Accelerator Editor
+     Improved FormLayout support
+     Improved GridLayout & TableWrapLayout support
+     Support for Nebula widgets
+[+] Enhanced JFace & RCP support
+     Support for TableViewerColumn & TreeViewerColumn
+     Support for TableColumnLayout & TreeColumnLayout
+     New Wizard & MultiPageEditorPart wizards
+     Support for ControlDecoration
+     Visual Menu Editing for ViewParts & ActionsBarAdvisors
+     Improved RCP Action support
+[+] Enhanced Swing support
+     Support for MiG Layout
+     New Border Editor
+     Improved Swing Action support
+     Improved Swing Model support (List, Tree, Table, Combo)
+     Improved KeyStroke Editor
+     Improved Font Editor
+     Improved ButtonGroup support
+     Improved SpringLayout support
+     Improved Look-n-Feel support
+[+] Enhanced NLS support
+     Type keys into text properties by name
+     Select key in String Editor
+[+] Code Generation & Parsing enhancements
+     Improved parsing using binary execution flow
+     Improved code generation preferences with preview
+[+] Editor & Property Pane Enhancements
+     Improved error reporting
+     New "Surround With" support
+     Improved property table & editors
+     Improved widget palette
+     New customization API
+
+January 19 2009 - Version 6.9.0
+--------------------------
+[+] Enhanced GWT support
+     Optionally use names or hex values for CSS color
+     Support for CaptionPanel
+     Link CSS file using gwt.xml descriptor
+     Support for ModuleName.gwtd.xml file for external CSS files
+     Support for RemoteService interfaces inheritance
+     Support for "static boolean isDesignTime()"
+     Improved support for local proxies
+[+] Enhanced JFace & RCP support
+     Support for editing Riena ViewParts
+[+] Enhanced Swing support
+     Better support for "isContainer"
+     Support for negative GBL insets
+     Support for editing standalone JMenuBar subclasses
+[+] Enhanced NLS support
+     Optionally use fully qualified name of enclosing type in NLS key
+[+] Code Generation & Parsing enhancements
+     Delay parsing when buffer changes happen during save
+[+] Editor & Property Pane enhancements
+     Check for JVM and Java project compatibility
+     Hide editor before converting to field/local
+     Various property pane ergonomic enhancements
+[-] Fix for GWT-Ext issues
+[-] Fix for generics template variables
+[-] Fix for protected properties in IBM Java
+[-] Fix for disposing decorated images
+[-] Fix for NPE when delete component with active PropertyEditor
+[-] Fix for java.beans.PropertyEditor and using setAsText()
+[-] Fix for various Linux issues
+[-] Fix for SWT menu issues
+[-] Fix for GroupLayout issues
+[-] Fix for using Linux with Compiz
+
+September 30 2008 - Version 6.8.0
+--------------------------
+[+] Enhanced SWT/JFace Data Binding support
+     Added new JFace Automatic Data Binding wizard
+     Support for master/details binding 
+[+] Enhanced GWT support
+     Support for GWT 1.5
+     Added Decorated* widgets to palette
+     Added MicrosoftMap and YahooMap to GWT-Ext palette
+     Support for HTML id property
+     Use "Standard" GWT theme for GWT 1.5
+     Automatically add "-Xmx128m" for new GWT launch configurations 
+     Improved Web Project support
+     Support for RemoteServiceRelativePath annotation
+     Separate templates for different GWT versions
+     Don't show properties for Composite without widget
+     Support for renamed gwt-user.jar files
+[+] Enhanced JFace & RCP support
+     Support for exposing JFace Dialog button
+     Support for "helpAvailable" property in TitleAreaDialog
+[+] Enhanced Swing support
+     Support for JLayeredPane
+     Support for rendering custom JTable models 
+     Improved JBuilder-generated code rendering
+     Improved JSR-296 (AppFramework) wizard
+[+] Enhanced NLS support
+     Support for more languages and countries
+     Support for properties of "workbench" actions
+     Prefix NLS key with type name for Modern Eclipse style
+[+] Editor & Property Pane enhancements
+     Issue auto-build warning, if no .class file detected
+     Show value even for non-modified CustomBeanInfoProperty
+     Filter out "variable" property for "this" Swing container
+     Show "visible" property
+[-] Fix for JFrame.add(component)
+[-] Fix for GWT failure with Composite with Images
+[-] Fix for modules with same name in different projects
+[-] Fix for ignoring "labelTable" property
+[-] Fix for "private static final boolean isDesignTime()"
+[-] Fix for supporting spaces in Eclipse location
+[-] Fix for parsing hex strings
+[-] Fix for GWT SplitPane display issue
+[-] Fix for referencing GWT jar's
+[-] Fix for "exotic" locales
+[-] Fix for string externalization
+[-] Fix for CTabFolder gradients
+[-] Fix for "Java > Editor > Save Actions"
+[-] Fix for extract/restore structure/palette
+[-] Fix for skipping annotations in compilation participant
+[-] Fix for duplicate TableColumn creation
+[-] Fix for SmartGWT
+[-] Fix for GWT-Ext GridPanel and TreePanel
+[-] Fix for wrong preview window bounds under Linux
+[-] Fix for using JLayeredPane model for JDesktopPane
+[-] Fix for applying accelerator/mnemonic key in Swing Action
+
+June 26 2008 - Version 6.7.0
+--------------------------
+[+] Ready for IBM Rational Software Certification
+     Validated as Ready for IBM Rational software
+     Achieved the Ready for IBM Rational software Best Practices Indicator
+[+] Enhanced SWT/JFace Data Binding support
+     Support for new Eclipse 3.4 data binding APIs 
+     Support TreeViewer input bindings
+     Support for simple (Designer custom) TreeViewer binding
+     Support for binding multi selection and checked elements
+     Support for direct binding to WritableValues
+     Support attributes that are WritableValues
+     Support for bindings assigned to fields
+     Support for binding to the validation status of another binding 
+[+] Enhanced GWT support
+     Added GWT Compile Application launch configuration
+     Added new "GWT library" wizard
+     Improved support MyGWT and GWT-Ext
+     Added GWT-Ext palette
+     Support for project-specific GWT_HOME using classpath
+     Support for FireFox 3/GRE 1.9 under Linux
+     Support for Safari 3.1 under OSX
+     Support for ConstantsWithLookup
+     Limited support for Windows/IE strict modes
+     64-Bit development support
+[+] Enhanced SWT support
+     Support for drag/drop of ButtonGroups on MenuItems
+     Support for TableCursor
+[+] Enhanced Swing support
+     Support for JGoodies FormLayout v1.2.0
+     Added GroupLayout to default layout manager list
+     Create Swing GUI in AWT EventQueue
+     Allow JInternalFrame on any container, not just JDesktopPane
+     Support for "this.getClass()" for Swing Icon creation
+     Support for rendering JFrame/JDialog.add(component)
+     Support for JFileChooser
+     Improved JBuilder-generated code rendering
+[+] Enhanced NLS support
+     Allow use default package for *.properties in NLS
+[+] Code Generation & Parsing enhancements
+     Improved JBuilder 2006 code generation compatibility
+     Parsing support for "add(component, constraints, -1)"
+     Use ColumnSpec/RowSpec.decode() for JGFL 1.2
+[+] Editor & Property Pane enhancements
+     Reduced flickering under Linux
+[-] Fix for GWT-Ext
+[-] Fix for SWT data property
+[-] Fix for Ready for Rational
+[-] Fix for GWT-Ext ButtonListenerAdapter
+[-] Fix for invalid GWT screen shot image bounds
+[-] Fix for FreeBSD
+[-] Fix for invalid location during create/paste
+[-] Fix for invalid menu bar bounds
+[-] Fix for Swing Application template
+[-] Fix for Forms templates
+[-] Fix for SWT Data Binding 
+[-] Fix for JTable on JScrollPane
+[-] Fix for boolean accessor code generation
+[-] Fix for "Highlight containers without borders"
+[-] Fix for deleting SWT TableTrees and TableTreeViewers
+[-] Fix for removing Swing borders
+[-] Fix for to prevent duplicate naming
+[-] Fix for rendering NetBeans generated code
+[-] Fix for memory leak
+[-] Fix for problem with GWT-Ext 2.0.3
+[-] Fix for GroupLayout rendering
+[-] Fix for GWT rendering under OSX 10.5.2
+[-] Fix for double clicking on OK in NLS dialog
+[-] Fix for exposed components in layout assistants
+[-] Fix for rendering Swing menus in panels
+[-] Fix for moving menu items in the component tree
+[-] Fix for custom JComboBox subclasses
+[-] Fix for loading abstract Swing classes
+[-] Fix for loading NLS fragments
+[-] Fix for creating JFrame children several times
+[-] Fix for exposing sub-components in MyGWT
+
+February 21 2008 - Version 6.6.0
+--------------------------
+[+] Enhanced SWT/JFace Data Binding support
+     Support DataBindingContext assigned to a field
+     Custom Label Provider support for JFace Data Bindings
+     Preferences for controlling code generation
+     Added support for initializeContext(DataBindingContext context) method
+     Support for SWTObservables.observeDelayedValue()
+[+] Enhanced GWT support
+     Support for GWT 1.4.61
+     Create GWT JUnit Test Cases
+     JUnit GWT Application launch configuration
+     Preference for generating Async interfaces for RemoteServices
+     Preference to check for Composite default constructors
+     Preference to check for client-side compilation issues
+     Preference to set the GWT tests source folder
+     Search for *.gwt.xml modules in all source folders
+     Improved support MyGWT and GWT-ExtT
+[+] Enhanced SWT support
+     Support for OSX 10.5 Leopard using Eclipse 3.3.2
+     Support for CmtComponent as value for custom SWT property editor
+[+] Enhanced JFace & RCP support
+     Support for one argument constructor in SectionPart
+[+] Enhanced Swing support
+     Support for adding Document events in JTextComponent
+     Support for generating/parsing TableModel with cells
+[+] Code Generation & Parsing enhancements
+     Improved JBuilder 2006 code generation compatibility
+     Optionally add "throws Exception" to widget definition method
+     Generate "fields with initializer" directly on top of type
+[+] Editor & Property Pane enhancements
+     Improved error reporting
+     Support for EXPLICIT_PROPERTY_CHANGE tag of BeanDescriptor
+     Copy/paste for properties with custom PropertyEditors
+     Show window decorations by default under Linux and OSX
+[+} Installation enhancements
+     Distribution via Pulse
+     Update site
+[-] Fix for memory leak with perspectives
+[-] Fix for JIDE components
+[-] Fix to replace return type in "lazy creation" method during morphing
+[-] Fix for in-line "script" in GWT apps
+[-] Fix for drag a GWT menu bar with menu items 
+[-] Fix for "choose layout manager" message
+[-] Fix for Document subclass
+[-] Fix for CSS and line delimiter
+[-] Fix for "title" in add(Component,String)
+[-] Fix to ignore exceptions during fetching CSS units
+[-] Fix for widgets in AbsolutePanels in GWT Trees
+[-] Fix to make sure that adapter class implements listener interface
+[-] Fix for deleting popup menus in some layouts
+[-] Fix for GWT menu plugin.xml warnings
+[-] Fix for OSX 10.5 crash
+[-] Fix to suppress Web and J2EE actions on non-resources
+[-] Fix for problems with fields accessed by non-visual beans
+[-] Fix for exposing "int" properties (and other primitive types)
+[-] Fix for "GWT Module integration problem"
+[-] Fox for morphing using JB'06 style
+[-] Fix for "mnemonic" and "accelerator" for JMenu
+[-] Fix for using "this." in GWT
+[-] Fix for GWT-Ext and "native JS" methods in anonymous types
+[-] Fix for GWTCompileVisitor to support GWTExt
+[-] Fix for deleting empty inner event handler classes
+[-] Fix for externalizing strings under Eclipse 3.2
+[-] Fix for moving menus via drag/drop
+[-] Fix for setting default layout on custom composites
+
+October 26 2007 - Version 6.5.0
+--------------------------
+[+] Enhanced SWT/JFace Data Binding support
+     Support for update strategy converters and validators
+     Support for binding to exposed controls
+[+] Enhanced GWT support
+     Support for GWT 1.4.60
+     Optionally create EntryPoint and public resources
+     Support for new GWT bootstrap process
+     Support for GWT KitchenSink example
+     Support for GWT Mail example
+     Add warning for Composite without default constructor
+     Improved support for Linux
+     Improved support for SplitPanels
+     Support for custom TabPanels
+     Automatically add missing default constructor for Composite
+     Support for @gwt.resource in ImageBundle
+     Support for images in CustomButton.Face
+     Support for String[] return type for Constants
+     Support for RemoteServices during design time
+[+] Enhanced SWT support
+     Add "Show Headers" option to Table context menu
+     Removed dispose() method from Composite template
+     Improved ResourceManager class
+[+] Enhanced JFace & RCP support
+     Added TableColumn to JFace Viewers palette category
+     Added FilteredList to JFace Viewers palette category
+[+] Enhanced Swing support
+     Added "unspecified" LAF selection item
+     Render glue elements in menubar at design time
+     Enhanced GridBagLayout support
+     Support for GBL gap columns/rows
+     Show placeholders for bad widgets
+[+] Enhanced NLS support
+     Support for ResourceBundle.getBundle(name,Locale)
+[+] Code Generation & Parsing enhancements
+     Preference to control visibility of Swing widget accessor methods
+     Support for modifier of accessor method
+     Improved error reporting during parsing
+     Improved support for non-visual beans
+     Automatically create JavaDoc for new widget definition methods
+[+] Editor & Property Pane enhancements
+     Show window sizing feedback
+     Support for exporting Designer preferences
+     Support for importing Designer preferences
+     Preference to enable/disable determining GUI content type
+     Clear cached images on refresh
+[-] Fix for abstract classes in ProjectClassLoader
+[-] Fix for NPE when several popup menu's for one Control
+[-] Fix for parsing multiple oupup menus for a single control
+[-] Fix for empty accelerators in JFace app window actions
+[-] Fix for GWT MenuItem
+[-] Fix for GWT RichTextArea
+[-] Fix for GWT "Javascript undefined"
+[-] Fix for OSX property table scrollbar
+[-] Fix for inner classes
+[-] Fix for insets modification
+[-] Fix for using GWT Composite.setWidget()
+[-] Fix for data binding parsing
+[-] Fix for performance problems with large Grids
+[-] Fix for palette scrollbar
+[-] Fix for copy action and code folding
+[-] Fix for Swing customizer lockup
+[-] Fix for adding "final" to event handlers
+[-] Fix for gwt-ext widgets
+[-] Fix for GWT *TabPanels
+[-] Fix for "Extract Frame" refactoring
+[-] Fix for extra parent/child link
+[-] Fix for undefined symbol in libgwt-ll.so
+[-] Fix for ViewPart toolbar placement
+[-] Fix for layouts added to custom Composites
+[-] Fix for GWT ComboBox on FlexTable
+[-] Fix for GWT OSX shell.computeTrim emulation
+[-] Fix for exposing array properties
+[-] Fix for exposing "text" property from a Text widget
+[-] Fix for CSS editor
+
+
+June 29 2007 - Version 6.4.0
+--------------------------
+[+] Support for SWT/JFace Data Binding
+     Support SWT Data bindings
+     Support JFace Data bindings
+     Icon decorator for bound components
+     Data Binding menu
+     Property pane support for "binding" property
+     Create Data Binding wizard
+     Choose Bean targets, models and inputs
+     Choose Widget targets and models
+     Choose selection targets, models and inputs
+     Choose collection inputs
+     Filter targets and models
+     Filter properties
+     Specify SWT binding properties
+     Specify JFace binding properties
+     Edit and Delete existing bindings
+     Generate initDataBindings() method
+[+] Enhanced GWT support
+     Improved support for OSX
+     Support for GWT 1.4.10
+     Support for ImageBundle from 1.4.10
+     Support for new GWT 1.4.10 widgets
+     Use Label as placeholder for bad widgets
+     Support for alignment of widgets in cells of Grid and FlexTable
+[+] Enhanced SWT support
+     Support for drop action from ActionFactory in tree
+     Support for drop action to MenuManager, ToolBar on CoolBar in tree
+[+] Enhanced JFace & RCP support
+     Support for "delete" action for ActionInfo
+[+] Enhanced Swing support
+     Support for JGoodies forms 1.1.0
+[+] Enhanced NLS support
+     Support for source containers from plugin fragments
+[+] Editor & Property Pane enhancements
+     Optional decoration of components with events
+     Remember last selection and expansion state on refresh
+     Work around preventing preview window flickering on Metacity
+[-] Fix for resources leak on undo/cleanUp TopLevelJavaInfo subclasses.
+[-] Fix to check for BUNDLE_NAME field in existing Eclipse NLS source
+[-] Fix for invalid menu bar coordinates on JInternalFrame
+[-] Fix for invalid visual parent on menu bar submenu item
+[-] Fix for invalid cell coordinates in FlexTable under OSX
+[-] Fix for JComboBox items and quotes
+[-] Fix for modifying GridData properties using property table
+[-] Fix for primitives as custom SWT properties
+[-] Fix for Swing visual inheritance
+[-] Fix for using '/' instead of '.' in resource bundle name
+[-] Fix to prevent infinite recursion in classpath
+[-] Fix for GWT invokeNativeObject
+[-] Fix for bad widget sizes in GWT OSX
+[-] Fix for GWT Image and Hidden widgets
+[-] Fix for GWT PopupPanel and DialogBox
+
+April 30 2007 - Version 6.3.0
+--------------------------
+[+] Support for Web Projects
+     New wizard for creating Web Projects
+     New wizards for creating Applets, HTML pages, JSP pages & Servlets
+     Set Web Project Deployment properties
+     Set Web Project GWT properties
+     New Web Project Deployment command
+     Web Project > Project preferences
+     Web Project > Deployment preferences
+     HTML Templates preferences
+     JSP Templates preferences
+[+] Enhanced GWT support
+     Support for OSX
+     Support for "Parameters" in GWT launch configuration
+     Support for "URL" in GWT launch configuration
+     Enhanced Compiler checks for valid GWT Java code
+     Automatic project recompilation triggered by gwt.xml changes
+     QuickFix for adding <inherits name="the.module.name"/>
+     Use main module URL during remote services deployment
+[+] Enhanced SWT support
+     Suppress AbsoluteLayout location/size hints preference
+[+] Enhanced Swing support
+     Suppress AbsoluteLayout location/size hints preference
+     Enable editing custom absolute layouts preference
+[+] Code Generation & Parsing enhancements
+     Enhanced support for singleton and instance factories
+[+] Editor & Property Pane enhancements
+     Widget ordering support for AbsoluteLayout
+     Allow Swing property editors for SWT controls
+     Support for SWT property editors for non-visual beans
+     Support for widget resizing by keyboard
+     Linux preview window offset preferences
+[-] Fix for converting "standard" GWT project to GWT Designer project
+[-] Fix for supporting custom JDialogs
+[-] Fix for JComboBox children and references of beans using accessor
+[-] Fix for FocusTraversalOnArray
+[-] Fix for OutOfMemoryError exceptions
+[-] Fix for infinite grow of undo selection map
+[-] Fix for GroupLayout
+[-] Fix for GWT menus
+[-] Fix for Swing menus
+[-] Fix for duplicate GWT resources
+[-] Fix for SWT menu editing under OSX
+[-] Fix for 3.3M6 Browser problem
+
+6 March 2007 - Version 6.2.0
+--------------------------
+[+] Enhanced GWT support
+     Support for GWT 1.3.3
+     New EntryPoint wizard
+     Enhanced CSS Style Selection dialog
+     Added HTML option to GWT launch configuration
+     Support for I18N Messages at design time
+     Support for HTMLTable.getRowFormatter().xxx() methods
+[+] Enhanced SWT support
+     Improved GroupLayout support
+     Baseline support for DateTime widget
+[+] Enhanced Swing support
+     Support for OSX using Eclipse 3.3 & JDK 1.5 Release 5 Developer Preview 2
+     Support for Java 6 GroupLayout
+     New Swing color dialog
+     Improved SpringLayout support
+[+] Code Generation & Parsing enhancements
+     Enhanced support for singleton and instance factories
+     Generate name of LayoutData based on name of Control
+[+] Editor & Property Pane enhancements
+     Enhanced Palette Manager to support badly defined widget jars
+[-] Fix for Cookies
+[-] Fix for using NullLiteral as value of GenericProperty
+[-] Fix for GroupLayout under OSX
+[-] Fix for invalid CCombo3 drop-down height in MacOS & Linux
+[-] Fix for SWT GroupLayout and "Composite.layout(true)"
+[-] Fix for GroupLayout and visual inheritance
+[-] Fix for GWT I18N problems with Composites
+[-] Fix for SWT dialog and modality
+[-] Fix for empty GWT NLS Constants interface
+[-] Fix for avoiding references to GWT classes after closing editor
+[-] Fix for supporting GWT.log() method for History
+[-] Fix for viewing files in ClearCase
+[-] Fix for GWT StackOverflowException
+
+26 January 2007 - Version 6.1.0
+--------------------------
+[+] Enhanced GWT support
+     Support for IE7 and GWT 1.2.11, 1.2.22 & 1.3.1
+     Support for Linux and Mozilla
+     Support for visual inheritance
+     Support for cut, copy and paste
+     Compiler checks for valid GWT Java code
+     Support for "compiler style" option during deployment & launching
+     Deployment dialog option for setting maximum GWT compiler memory
+     Support for all GWTShell flags in launch configuration
+     Support for renaming CSS rules
+     Support for sorting CSS rules
+     Support for adding Widget's as items in Tree
+     Improved support for GWT KitchenSink example
+     Automatically add missing RootPanel references
+     Added action for converting a Java project into a GWT project
+     Remove "@gwt.typeArgs" JavaDoc tags during "Async" generation
+     Deployment adds jars for all required (referenced) projects
+     Support for accessing Java object fields from JavaScript
+     Support for linked source folders
+     Support for complex constructors
+     Enhanced FormPanel support
+     Support for Hidden widget
+[+] Enhanced SWT support
+     Support for new Eclipse 3.3 DateTime widget
+     Improved SWTResourceManager support for Java 5
+[+] Enhanced JFace & RCP support
+     Enhanced FieldPreferencePage code generation
+[+] Code Generation & Parsing enhancements
+     Basic support for singleton and instance factories
+[+] Editor & Property Pane enhancements
+     Setting font color now changes widget foreground color
+     Support for adding any beans as "non-visual"
+[-] Fix for JFace Viewer Sizing Problem
+[-] Fix for invalid dependencies in libshot.so
+[-] Fix for Beans.isDesignTime() during image/size caching
+[-] Fix for GWT deployment
+[-] Fix for IE7 and GWT 1.2.11 issues
+[-] Fix for adding TableViewer to FormPage
+[-] Fix for "Create Swing component fields in initializers" pref
+[-] Fix for restoring text actions
+[-] Fix for NPE and initializer in field
+[-] Fix for XTT
+[-] Fix for moving from JScrollPane
+[-] Fix for popup menu on JScrollPane and JTable
+[-] Fix for moving multiple widgets under SpringLayout
+[-] Fix for SWT ToolItems with dropdown menus
+[-] Fix for invalid GWT menu code generation in block mode
+[-] Fix for moving widgets in GWT Grid/FlexTable
+[-] Fix for GroupLayout floating Layout Assistant
+[-] Fix for using menu subclasses
+[-] Fix for adding controls on absolute layout under OSX
+[-] Fix for GWT component icons
+[-] Fix for pasting on different layout managers
+[-] Fix for "accelerator" property
+[-] Fix for copy/paste of Dimension properties
+[-] Fix for NLS and GWT image property
+[-] Fix for overlapping widgets in a GWT HTMLTable
+[-] Fix for creating empty plugin.xml file
+[-] Fix for GWT "styleName" property and multi-selection
+[-] Fix for HTMLTable cellSpacing/cellPadding properties
+[-] Fix for CSS dialogs
+[-] Fix for Swing Customizer focus problem
+[-] Fix for HTML widget icon
+[-] Fix for NPE in CSS selection dialog
+[-] Fix for CSS files in referenced modules/projects
+[-] Fix for exposing simple GWT widgets
+[-] Fix for GWT crash with Composites
+
+25 October 2006 - Version 6.0.0
+--------------------------
+[+] New GWT Designer product
+     Bi-direction code generation for Google Web Toolkit API
+     GWT Java Project, Module and RemoteService wizards
+     Composite, DialogBox and PopupPanel wizards
+     Support for all standard GWT panels and widgets
+     Support for custom composites, panels and widgets
+     Rich editing for all panel types
+     Matisse-style snapping feedback for AbsolutePanels
+     Graphically layout Grids, FlexTables and TabPanels
+     Integrated CSS support (create, edit and render new CSS styles)
+     GWT Launch Configuration and launch shortcut
+     Builder for automatic creation of "async" parts of a RemoteService 
+     Intelligent refactoring support for renaming modules and services
+     Internationalization support using GWT-specific patterns
+     One-click WAR file build and deployment support
+     Extremely fast due to using ASM for fast bytecode modification
+[+] Enhanced SWT support
+     Enhanced menu support
+[+] Enhanced JFace & RCP support
+     Support for SourceViewer
+[+] Enhanced Swing support
+     Enhanced menu support
+[+] Editor & Property Pane enhancements
+     Added "Refresh" button to toolbar
+     Enhanced usability of property pane
+[-] Fix for default widget in WidgetSelectionDialog
+[-] Fix for IOOBE in GridDataInfo
+[-] Fix for images for class path when project does not use source folders
+[-] Fix for updating "Convert local to field" state after conversion
+[-] Fix for converting field editors into fields
+[-] Fix for deleting multiple widgets
+[-] Fix for SWT dialog Shell style property
+[-] Fix for "Widget is disposed" for Text propety editor actions
+[-] Fix for using NLS messages class in required project
+[-] Fix for NPE in TextControlActionsManager when open important properties dialog
+[-] Fix for NPE during "Extract frame" refactoring
+[-] Fix for custom Composite with GridLayout copy/paste
+[-] Fix NLS and properties of JTabbedPane tab
+[-] Fix for index in NON-NLS comments
+[-] Fix for moving column/row headers in JGFL
+[-] Fix for CCE during move over SWT TabItem
+[-] Fix for drop down list focus under Linux
+[-] Fix for menu separator code generation
+
+03 September 2006 - Version 5.1.0
+--------------------------
+[+] Enhanced NLS support
+     Support for multiple sources
+     Support for configuring Eclipse Message classes
+     Support for configuring resource bundle usage
+     Support for the new, modern Eclipse internationalization format
+     Update Design view when text in a property file changes
+[+] Enhanced Swing GridBagLayout Support
+     Show column and row headers
+     Rearrange rows and columns via drag/drop
+     Double-click header to set/clear horizontal/vertical fill
+     Right-click on the header area to access the popup header menu
+     Preserve GridBagLayout constraints during move
+[+] Enhanced Palette Manager
+     Added Widget Palette Plug-in Wizard
+     Convert widget JARs into Eclipse widget plug-ins
+[+] Enhanced SWT support
+     Added SWT GroupLayout preferences
+[+] Enhanced JFace & RCP support
+     Support for adding CompositeSeparator to Section in tree
+[+] Enhanced Swing support
+     Baseline snapping support for SpringLayout
+     New preference to use old-style component creation
+     Generate new GridLayout(rows, columns) by default
+[+] Editor & Property Pane enhancements
+     Added editor content type detection
+     Show problems decorator for Designer editor icon
+     Use separate preferences to control auto size on text/image change
+[-] Fix problems showing JGoodies Controls in Palette Manager
+[-] Fix for JGoodies "live" widgets creation
+[-] Fix for NPE after first externalize
+[-] Fix for NPE after "format on save"
+[-] Fix for renaming field with "this." prefix
+[-] Fix for small drop area on empty JMenu
+[-] Fix for CCE during JMenu move over menu content
+[-] Fix for double control after copy/paste when select parent and its children
+[-] Fix for LAF code generation
+[-] Fix for switching between CardLayout cards
+[-] Fix to prevent recursion for read only bean properties
+[-] Fix for adding separator to Section when Section is selected
+[-] Fix StackOverflowError with edit image in Palette Manager entry dialog
+[-] Fix for "dead selection feedbacks" after pressing ESC during move
+[-] Fix for Link widget
+[-] Fix for creating empty plugin.xml files in plugin projects
+
+6 June 2006 - Version 5.0.0
+--------------------------
+[+] Support for Swing & SWT GroupLayout
+     Select GroupLayout from the Swing Layouts or SWT Layouts palette
+     Position and size widgets using GroupLayout constraints
+     Align widgets horizontally and vertically
+     Indent widgets intelligently
+     Insert widgets intelligently
+     Align widgets along text baselines
+     Align widgets to margins
+     Anchor widgets to the left, right or both sides
+     Anchor widgets to the top, bottom or both sides
+     Set anchors via popup context menus
+     Align and center widgets using toolbar
+     Set widget anchoring and resizing via context menu
+     Align and center widgets using toolbar
+     Set alignment, size and spacing using floating layout assistant
+     Preferences to control feedback colors, popup alignment menus and code generation
+     Ported SWT GroupLayout from Swing GroupLayout
+[+] Support for creating and editing RCP ActionBarAdvisors
+     New wizard for creating ActionBarAdvisor classes
+     ActionBarAdvisor palette includes common and local actions
+     Create toolbars and buttons with drag/drop
+     Edit Coolbar and Menus with Actions tab
+     Actions list prepopulated with actions defined in ActionFactory class
+     Drag menu category to create a fully populated menu
+     Update associated WorkbenchWindowAdvisor class
+     Support for ToolBarManager style property
+[+] New Palette Manager
+     Configure palette categories and entries with Palette Manager dialog
+     Add categories, entries and separators using palette menu
+     Import multiple widgets from JAR archives
+     Rearrange items using drag/drop
+     Revert to default palette
+     New palette extension points for Swing and SWT
+[+] Enhanced NLS support
+     Ask about using old or new value when renaming key to existing one
+     Improved support for default locale
+     Support for VA Java NLS pattern
+[+] Enhanced SWT support
+     Enhanced snapping feedback for absolute / null layout
+     Support for Eclipse 3.2 ExpandBar & ExpandItem
+     Support for "Expose control" for menu items
+     Support for the GridLayout(cols, equal) constructor
+     Enhanced GridData code generation
+     Support for Accessibility properties & AccessibleListener
+     Support for adding Forms API Toolkits to any window
+     Automatically add Forms API JAR to .classpath and plugin manifest
+     Added Superclass field to Shell and Composite wizards
+     Basic support for custom static factories
+     Morphing Composite/Group to SashForm
+     Support for grouping components in a GridLayout
+[+] Enhanced JFace & RCP support
+     Support for StructuredViewer
+     Enhanced parsing of JFace dialogs
+     Support for viewers in static factories
+[+] Enhanced Swing support
+     Enhanced snapping feedback for absolute / null layout
+     Support for default GridBagLayout insets
+     Support for LAF read/change in main() method
+     Option for displaying grid in SpringLayout
+     Support for "Expose component" for menu items
+     Support for JGoodies Forms version 1.0.6
+     Added Superclass field to JPanel wizard
+[+] Code Generation & Parsing enhancements
+     Option to set variable name in widget: setData("name", "widget-name")
+     Ignore code in "if (!Beans.isDesignTime())" during parsing
+[+] Editor & Property Pane enhancements
+     Option for maximizing editor on "Design" page activation
+     Option for formatting source code on editor save
+     Show "<No Properties>" message when there is no selection in editor
+     Select images from source folders and referenced projects in classpath mode
+     Save property table column widths in Designer preferences
+[-] Fix for JFace Dialog button properties
+[-] Fix for custom integer properties
+[-] Fix for adding direct Control subclasses
+[-] Fix for IllegalArgumentException for zero-size controls
+[-] Fix for local/field conversion operations for JTabbedPanes
+[-] Fix for LAF selection dialog icons (class and package)
+[-] Fix for externalizing JTabbedPane tab titles
+[-] Fix for drop of second component of JTabbedPane tab
+[-] Fix for CCE for CustomLayoutInfo
+[-] Fix for layout problem with EditorPart and FormLayout
+[-] Fix for using viewer on tab/tool/cool items
+[-] Fix for moving/resizing standalone views on perspective
+[-] Fix for Tab/Shift+Tab for Text+Button property editors
+[-] Fix for NPE when no buttons bar for Dialog
+[-] Fix for renaming field referenced from main() method
+[-] Fix for lockup during modal JDialog editing
+[-] Fix for adding FormToolkit to JFace Dialog
+[-] Fix for adding Forms API control on form without FormToolkit
+[-] Fix for CoolBar position on ActionBarAdvisor
+[-] Fix for lockup using DPanel customizer
+[-] Fix for deleting multiple widgets in SWT GridLayout
+
+3 March 2006 - Version 4.3.0
+--------------------------
+[+] Support for creating and editing RCP Perspectives
+     New wizard for creating Perspective Factories
+     Perspective declaration added to plugin.xml
+     Perspective palette includes common and local views
+     Change view locations and sizes with drag/drop
+     Create folders by stacking views
+     Manage placeholder & fast views and view & perspective shortcuts
+[+] Support for visual tab order editing for SWT & Swing
+     Clicking "Tab Order" button places editor into tab order mode
+     Click on components in desired tab order
+     Ctrl+click a component to move its tab position to another
+     Shift+click to add/remove a tab stop from a component
+[+] Enhanced NLS support
+     Show widget icons in locale table
+     Added "Delete key" & "Delete locale" actions in locale table
+     Show tooltip with components in locale table
+     Use Enter and Tab to navigate locale table
+     Support for ClassName.class.getName() as BUNDLE_NAME in NLS
+     Automatically sort keys in properties files
+[+] Enhanced SWT support
+     Support for alignment to any control in FormLayout
+     Enhanced attachment feedback in FormLayout
+     Show warning when change number of columns in GridLayout
+     Support for scrollbars events of ScrolledComposite
+     Support for icons of custom SWT controls
+     Support for custom SWT property editors
+     Support for SWT customizers
+     Support for cross-parent alignment for SWT absolute layout
+[+] Enhanced JFace & RCP support
+     Support for SectionParts
+     Support for properties of buttons on JFace Dialogs
+     Support for "parent" argument of ViewPart.createPartControl(Composite parent)
+     Support for custom FormToolkit's
+[+] Enhanced Swing support
+     Support for alignment to any control in SpringLayout
+     Enhanced constraint feedback in SpringLayout
+     Support for morphing to subclass/other
+     Support for "Insets" argument of EmptyBorder
+     Added "Set frame size" menu for frames
+[+] Code Generation & Parsing enhancements
+     Major performance enhancements (windows open 2X-3X faster)
+     Option for creating Swing components fields in initializers
+     Option for adding 'final' to event handlers parameters
+     Support for "${default_name}" in variable name template
+     Ignore 'null' assignments in field declarations
+     Support for parents passed as arguments
+     Support for parsing refactored methods in any order
+     Enhanced support for factories
+     Support for static methods from current class
+     Don't create default constructors until needed
+     Support for public/protected/default static fields in superclasses
+     Check that variable name is not reserved Java identifier
+     Support for Java5 enum properties and EnumSet
+[+] Editor & Property Pane enhancements
+     Support for required properties
+     Preference for highlight/ignore required properties
+     Show class hierarchy tooltip and double click to open
+     New tree-based image selection dialog
+     Support for selecting images from classpath jar's
+     Option for enabling/disabling "Test" action
+     Enable copy, but prevent cut for top level components
+     Minimal support for JBuilder OpenTools API
+     Use better plus/minus images for property table
+     Support for selecting images in projects with multiple source folders
+[-] Fix for attaching control to viewer on FormLayout
+[-] Fix for TableViewer morphing
+[-] Fix for switching between tab items
+[-] Fix for NPE during adding controls to 'this' JPanel
+[-] Fix for hiding components in event handlers
+[-] Fix for JGoodies components reparse
+[-] Fix for NPE during conversion to JGFL
+[-] Fix for reparenting from GBL
+[-] Fix for conversion to GBL in case of zero size controls
+[-] Fix for auto-edit activation after reparenting
+[-] Fix for Swing actions
+[-] Fix for position for new controls in Composite
+[-] Fix for prefix after opening brace in adding new method
+[-] Fix for components reparenting in accessors case
+[-] Fix for abstract method during "Expose control"
+[-] Fix for JGFL row/column alignment/size
+[-] Fix for Viewer as control of ViewPart
+[-] Fix for ViewPart and actions
+[-] Fix for toolbar/menu for ViewPart
+[-] Fix for creating toolbar/menu in ViewPart
+[-] Fix for wrong code generation for ScrolledComposite
+[-] Fix for TitledBorder copy/paste
+[-] Fix for ExpandableComposite copy/paste
+[-] Fix for double click in bean selection dialog
+[-] Fix for move/delete components
+[-] Fix for "Property editor" size after editor maximize when view used
+[-] Fix for "Designer Property" view update during source editing
+[-] Fix for morphing to subclass/other in SWT
+[-] Fix for "this" as argument to method that creates SWT control
+[-] Fix for moving control to SashForm in widgets tree
+[-] Fix for "type mismatch between read and write methods"
+[-] Fix for SWT GridLayout coping and pasting
+[-] Fix for attaching to control in different method
+[-] Fix for exception during Forms API controls style changing
+[-] Fix for control/component selection property editor for FormLayout/SpringLayout
+[-] Fix to add auto externalized values in all locales
+[-] Fix for Label sub-bean visibility on GridLayout
+[-] Fix for editors for composite properties
+[-] Fix for "Set size of component to preferred on move"
+[-] Fix for "replicate width/height" in SpringLayout
+[-] Fix to check that string is correct float/double value
+[-] Fix for memory leak in JFrame's with JTextField's
+[-] Fix for properties for custom Swing layout
+[-] Fix for memory leak after switch from Source to Design
+[-] Fix for clipboard actions enablement
+[-] Fix for GBL weight handles position
+[-] Fix for setName() position in "instance creation in field" mode for CardLayout
+[-] Fix for extracted frame class loading directly after refactoring
+[-] Fix for marquee selection of controls on inactive tab items
+[-] Fix for creating new RCP parts in plugin project without plugin.xml
+[-] Fix for custom FocusTraversalPolicy
+[-] Fix for JPopupMenu on JList
+[-] Fix for adding actions to empty toolbar in ApplicationWindow
+[-] Fix for adding FieldEditor's to FieldLayoutPreferencePage
+[-] Fix for NPE with JIDE BookmarkPane
+
+18 October 2005 - Version 4.2.0
+--------------------------
+[+] Support for SWT Visual Inheritance
+     Inherit from any Composite or Shell subclass
+     All inherited widgets are visible
+     Access inherited widgets exposed via public or protected accessors
+     Inherited widgets appear in tree with "i" decorator
+[+] New "Free cell mode" edit policy for SWT GridLayout
+     Position widgets freely in any open cell
+     Insert new rows and columns between existing cells
+     Rearrange rows and columns via drag/drop
+     Double-click header to set/clear horizontal/vertical grab
+     Interactive column and row spanning feedback
+     Right-click on the header area to access the popup header menu
+     Right-click to delete rows and columns
+     Filler labels automatically managed
+     Option for Text widgets to automatically grab horizontally
+     Option to automatically right-align label widgets to the left of text widgets
+[+] Support for non-visual beans
+     Non-visual beans placed in a "(non-visual beans)" category
+     Marked in source with "// @wb:location=X,Y" tag
+     Option for creating non-visual beans as fields
+     Reorder non-visual beans via drag/drop
+[+] Enhanced SWT support
+     Enhanced support for custom SWT widgets
+     Option to generate Eclipse 3.0-style GridData
+     New "Set tab order" command on container context menu
+     Automatically autosize widgets in null and FormLayout
+     New "Autosize widget" command for FormLayout
+     Reparenting support for Forms ExpandableComposite and Section
+     Enhanced layout assistants for FillLayout & GridLayout
+     Support for protected properties in SWT
+     Support for SWT Point property
+     Support for 3.2 CoolBar vertical style
+     Support for 3.2 sortColumn/sortDirection properties
+[+] Enhanced JFace & RCP support
+     Show events for label and main controls for field editors in popup
+     Support for name/icon properties for views/editors
+     Support for view category editing and creation
+     Support for toolbar/coolbar managers on design canvas
+     Create ID field for new ViewPart
+     Wizard for ViewPart adds view declaration in plugin.xml
+     Wizard for EditorPart adds editor declaration in plugin.xml
+     Create view/editor extensions when needed
+     Automatically adapt non-form control
+     Add/remove paintBorders/adapt using popup menu
+     "Adapt control" popup items for Forms API
+     Support for clientVerticalSpacing/marginWidth/marginHeight properties for ExpandableComposite/Section
+[+] Enhanced Swing support
+     Show value feedback for insets/padding in GBL
+     Support for focus traversal policy for Swing
+     New "Set tab order" command on container context menu
+     Automatically autosize widgets in null and SpringLayout
+     New "Flatten Hierarchy" action for Swing container
+     Option for changing size to preferred on move in absolute layout
+     New "Autosize widget" command for SpringLayout
+     Don't show sub-components when "isContainer == FALSE" in bean descriptor
+     Support for custom layout managers
+     Support for JBuilder XYLayout and XYConstraints
+     Support for Swing components from fields
+     Mark container as focus cycle root when setting focus policy
+[+] Code Generation & Parsing enhancements
+     Option for specifying default code generation method
+     Option to to surround method invocation code with try{}catch{}
+     Support for "this" prefix before field
+     Option for disabling complex expressions evaluations
+     Option for enable/disable reparse after custom component change
+     Support for options for position of event handler inner class
+     Option for removing "real" event handlers during component remove
+     Provide JDK 1.5 versions of ResourceManager as needed
+     Ignore during parsing methods that have single argument subclass of EventObject
+     Support for components from static factories
+     Support for borders from static factories
+     Understand SWT code for controls with more than two arguments in constructor
+     Support for adding new controls with complex constructors
+     Support for constructor arguments for SWT controls
+     Support for enumeration properties
+[+] Editor & Property Pane enhancements
+     Option for automatically drop down combo property editors on activation
+     "Expose property..." item added to property table popup menu
+     Option to automatically direct edit new widgets
+     New preferences to control visibility of palette categories
+     Support for editing layout properties with multi-selection
+     Refresh custom components palette after receiving focus
+     Support for preferred property descriptors
+     Remember expansion state in image selection dialog
+     Group constructor properties in complex "constructor" property
+[-] Fix for qualified name rename
+[-] Fix for sections reparenting
+[-] Fix for FormLayout alignment
+[-] Fix for component rename in case when name is same as type name
+[-] Fix for wrong parent set while adding control to TabItem in widgets tree
+[-] Fix for JGoodies FormLayout alignment change
+[-] Fix to restore "select" property for Combo/CCombo
+[-] Fix for adding new children to JTabbedPane
+[-] Fix for SWT button copy/paste
+[-] Fix for "Extract Frame"
+[-] Fix for autoCreateResourceManager preference
+[-] Fix for separators location in ApplicationWindow & ViewPart
+[-] Fix for Forms API Composite copy/paste
+[-] Fix for replicate width/height in SWT FormLayout
+[-] Fix for ExpandableComposite/Section drop on client area
+[-] Fix for JBuilder VerticalFlowLayout
+[-] Fix for ScrolledComposite
+[-] Fix for important properties and JFace dialog buttons
+[-] Fix for NPE for view's without toolbar manager
+[-] Fix for tab order change for Composite with viewer's
+[-] Fix for JLabel with "null" as text
+[-] Fix for ApplicationWindow without toolbar/coolbar/menu manager
+[-] Fix for SWT MenuBar
+[-] Fix for removing several components from GBL
+[-] Fix for StackLayout and topControl assignment position
+[-] Fix for changing order fo controls in FormLayout
+[-] Fix for adding layout to ViewForm
+[-] Fix for NPE during adding Forms API Form/ScrolledForm
+[-] Fix for properties loss after morphing
+[-] Fix for moving Swing menu in tree.
+[-] Fix for implicit layout delete/re-add
+[-] Fix for (primitiv type) cast
+[-] Fix for JGFL string constraints height change
+[-] Fix for layout actions in popup
+
+9 July 2005 - Version 4.1.0
+--------------------------
+[+] New Dockable Flyout Palette & Property Editor
+     Dock the Property Editor to the top, bottom, left or right of the design view
+     Dock the Palette to the left or right of the design view
+     Palette & Property Editor may be easily collapsed and expanded
+     Palette & Property Editor available as separate views
+[+] Added new Property Manager
+     Important properties are highlighted in bold and sorted to the top of the list
+     Hidden properties are removed from the property list
+     Hidden properties may be toggled on and off
+     New preference page for configuring properties
+[+] Automatically rename variables based on text property
+     Rename always, never or only for defaults
+     Specify renaming patterns using text, classname and acronym
+     Use the first n elements of the text value
+     New preference page for configuring variable names
+[+] Enhanced NLS support
+     Added flag icons for all locales
+     Support for ResourceBundle.getBundle("name").getString("key")
+[+] Enhanced SWT support
+     Support for setting SWT tab order within a container
+     Added BIDI (RIGHT_TO_LEFT) support for SWT GridLayout, FlowLayout and RowLayout
+     Added an Eclipse Forms Composite wizard
+     Added an SWT Dialog wizard
+     Support for Forms borders/adapt for SWT frames
+     Support for direct edit/double click for ToolItem
+     Enhanced support for FormLayout
+     Support for drop down toolbar items and menus
+     Keyboard navigation for menus
+     Support for ColorRegistry & FontRegistry
+     Support for Eclipse 3.1 GridLayout enhancements
+     New "Autosize widget" command for null layout
+     Added tooltips for FormLayout popup figures
+[+] Enhanced JFace & RCP support
+     Support for adding existing actions for ApplicationWindow/ViewPart
+     Enhanced display of ViewParts and EditorParts
+[+] Enhanced Swing support
+     Added icons for borders and an option to show them in control tree
+     Show position in title for BorderLayout, JScrollPane, JSplitPane
+     Improved support for custom Swing widgets and customizers
+     Support for object properties
+     Added support for JGoodies Component Factory and widgets
+     Added "JTable on JScrollPane" palette entry
+     Resize JFrame using content pane handles
+     Support for JMenuBar for JApplet
+     Enhanced support for SpringLayout
+     Keyboard navigation for menus
+     Enhanced support for JTable columns
+     New "Autosize widget" command for null layout
+     Added tooltips for SpringLayout popup figures
+     Support for AbstractButton.setMnemonic(char)
+[+] Editor & Property Pane enhancements
+     New toolbar options to evenly distribute controls
+     New Rename command to rename multiple widgets at once
+     New Set Layout command on the context menu
+     New Change Style command on the context menu
+     Option to highlight borderless containers (with dotted outline)
+     Use the Esc key to cancel an add operation
+     Added read-only "class" property
+[+] Add imports in Eclipse-configured order
+[+] Added option to suppress version warnings
+[*] Automatically reserve edit after first change of compilation unit
+[*] Added support for "new ImageIcon(path[, description])"
+[*] Support for reparenting on tab item
+[*] Move TableTree instead of inner Table
+[-] Fix for deleting JGFL components in reverse order
+[-] Fix for moving JTabbedPane tabs
+[-] Fix for problem with CompoundBorder and separate borders in variables
+[-] Fix for text property editors and focus
+[-] Fix for SWT menu moving exception
+[-] Fix for null to GBL conversion for container with border
+[-] Fix for mismatched layout data issue
+[-] Fix for additional editor pages for ApplicationWindow/ViewPart (Eclipse 3.1 bug)
+[-] Fix for Forms Toolkit in SWT frame
+[-] Fix for moving statements with end of line comments
+[-] Fix for Forms borders with nested SWT Frames
+[-] Fix for forms and preview
+[-] Fix for RTL and checkbox
+[-] Fix for illegal character literal
+[-] Fix for copy/paste of border inside of TitledBorder
+[-] Fix for removing properties that do not exist in target component during morphing
+[-] Fix for paste on JScrollPane
+[-] Fix for disappearing JGFL column header problem
+[-] Fix for pasting layout data on other layouts
+[-] Fix for struts/rigid resize for BoxLayout
+[-] Fix for field rename problem
+[-] Fix for OutOfMemory for external JFace actions
+[-] Fix for unicode characters
+[-] Fix for viewer controls copy/paste
+[-] Fix for multiple move on SWT FormLayout
+[-] Fix for Composite size for preview
+[-] Fix for adding component in empty block
+[-] Fix for implicit/default layouts and copy/paste
+[-] Fix for double "setBounds" after copy/paste
+[-] Fix for TableTree copy/paste
+[-] Fix for inner Table copy/paste for TableTree
+[-] Fix for NPE during SWT Frame copy/paste
+
+5 April 2005 - Version 4.0.0
+--------------------------
+[+] Support for the SWT_AWT bridge allowing SWT and Swing to be mixed
+     New SWT_AWT palette
+	 Embed any Swing widget into an SWT or RCP window
+[+] Support for JGoodies FormLayout
+	 Graphically manage columns and rows
+	 Graphically manage cell alignment and column/row spanning
+	 Graphically reorder and resize columns and rows
+	 Automatically handle gap columns and rows
+	 Intelligently convert existing layouts to JGFL
+	 Support for different units like pixels and dialog units
+	 Support for all predefined FormLayout types
+	 Support for grouping and ungrouping columns
+	 Color highlighting for grouped columns and rows
+	 Floating layout assistant for cells, columns and rows
+	 Intelligently merge and split columns and rows
+[+] Support for new Eclipse 3.1 SWT elements
+	 Support for the SWT Spinner & Link control 
+	 Support for the SWT TreeColumns 
+	 Support for virtual tables
+[+] Enhanced SWT support
+	 Support for SWT DragSource & DropTarget
+	 Support for SWT TableItems & TreeItems
+	 Support for SWT toggle buttons 
+	 Support for SWT Cursor property 
+	 Support for strikeout and underline properties for SWT fonts (Windows-only) 
+	 Support for new 3.0 SWT RowLayout properties 
+	 Enhanced SWT FormLayout support
+     Support for SWT color constants sources
+     Support for custom SWT drag/drop transfer classes
+[+] Enhanced JFace support
+	 Support for ApplicationWindow coolbars
+	 Style property support for JFace Action
+	 Icon support for SWT Dialogs, TitleAreaDialogs and ApplicationWindows
+	 Support for Shell events in ApplicationWindow 
+	 Support for JFace action accelerator property 
+[+] Enhanced Swing support
+	 Support for custom Swing properties and editors 
+	 Support for custom Swing widget customizers
+	 Support for superclasses in Swing JFrame wizard 
+	 Keyboard navigation support for all Swing layouts 
+	 Support for GridBagConstraints subclasses with custom defaults 
+	 Support for instantiating custom JTable/JTree/JComboBox models 
+	 Added support for parsing and editing JTable columns 
+     Tooltips for GBL selection handles, with option on preference page
+     Support for static method factory for GridBagConstraints
+     Support for custom component icons in tree and palette
+[+] Enhanced NLS support
+     Added flag for copying default values in all locales
+     Enhanced NLS support to allow selection of any messages class
+     Added flag in "New Local" dialog to copy default values to new properties file
+     Added ability to auto-externalize strings for newly added widgets
+[+] Editor & Property Pane enhancements
+     Use Ctrl key to add custom widgets by name
+     Automatically add to Custom Controls palette via Choose Bean
+     Support for mouse wheel in property table when design canvas is active
+     Support for copy/paste (Ctrl+C/X/V) in text property editors
+     Added tooltips for most component properties
+[+] Code Parsing enhancements
+     Support for code hiding
+     Support for default string property value when expression can not be converted
+[*] Split existing SWT ResourceManager into SWTResourceManager and ResourceManager
+[*] Support for JTabbedPane tabs properties copy/paste
+[*] Select controls after paste for SWT and Swing
+[*] Save/restore selection for undo
+[*] Space/Enter as option for activating direct edit
+[*] Message for adding components on JTabbedPane
+[*] Support for deferred field references
+[*] Support for direct edit for tab items, SWT and Swing
+[*] Add project class loader and root folder to LAF class loader
+[*] New preference to control maximum bean instantiation time
+[*] Support for String[] property for JavaBeans
+[*] BorderLayout: set constraints when adding components in tree, accept only if there is free position
+[*] Support for CheckboxTableViewer around an existing table
+[*] Support for advanced Java syntax highlighting
+[*] Prevent System.exit() in any class loaded from workspace
+[*] Support for JScrollPane child in constructor
+[*] Support for image selection from BundleActivator/BundleContext plugin classes
+[*] Support for setLocation(java.awt.Point)
+[*] Support for custom widget ImageIcon properties
+[*] Automatically sense Swing accessor mode
+[*] Added option for capitalizing first letter of field after prefix
+[*] Support for font property in TitledBorder
+[-] Fix for SWT Item copy/paste
+[-] Fix for various inifinite loop conditions involving custom components
+[-] Fix for SWT font coping in case of empty font name
+[-] Fix for default values for SWT RowLayout integer field properties
+[-] Fix for SWT menubars in null layout
+[-] Fix for ScrolledComposite no content bug
+[-] Fix for selecting bean that are not in project build path
+[-] Fix for various morphing issues
+[-] Fix for Stack/BorderLayout and popup/bar menus
+[-] Fix for ApplicationWindow actions formating
+[-] Fix for ignoring case of image file extensions
+[-] Fix for flat toolbars and coolbars in JFace app windows
+[-] Fix for italics in SWT fonts
+[-] Fix for reparent problem in JSplitPane
+[-] Fix for custom component in default package
+[-] Fix for JMenuItem problem under Rational Application Developer 6.0
+[-] Fix for ViewPart container visibility
+[-] Fix for editing menus in accessors mode
+[-] Fix for controls in method a() invoked from beginning of b() and more control in b() after 'a' invocation
+[-] Fix for adding parent association for JSplitPane/JScrollPane/JTabbedPane when adding in tree
+[-] Fix for menu/toolbar separators moving
+[-] Fix to add 'setDisplayedMnemonicIndex' after 'setText' for Swing Buttons
+[-] Fix for parent association in accessors mode
+[-] Fix for move from JScrollPane
+[-] Fix for statement move in case when statement starts in beginning of line
+[-] Fix for placing new object after existing on ToolBar on CoolBar
+[-] Fix for event delete
+[-] Fix for JMenuBar accessor method name on JFrame in accessors mode
+[-] Fix for externalize/select locale problem
+[-] Fix for events and accessors mode
+[-] Fix for ViewPart preview
+[-] Fix for thumbnail loop
+[-] Fix for JFileChooser problem
+[-] Fix for "bad" custom beans
+[-] Fix for Forms API Form toolbar
+[-] Fix for absolute layout keyboard move delta problem
+[-] Fix for NPE during popup remove
+[-] Fix to accept menu bar only on Shell
+[-] Fix for SWT BorderLayout component adding
+[-] Fix to generate field names using prefix/suffix
+
+08 December 2004 - Version 3.0.0
+--------------------------
+[+] Support for Eclipse Forms
+     Create "flat look" user interfaces
+     New wizards for FormPages, DetailPages and MasterDetailsBlocks
+     New Eclipse Forms palette supporting all Eclipse Forms widgets
+     Support for ColumnLayout and TableWrapLayout
+     New Forms API preferences to optionally generate paintBordersFor()
+[+] Support for Swing Visual Inheritance
+     Inherit from any JFrame, JDialog, JApplet or JPanel subclass
+     All inherited widgets are visible
+     Access inherited widgets exposed via public or protected accessors
+     Inherited widgets appear in tree with "i" decorator
+[+] Enhanced support for custom Swing panels
+     Access subcomponents exposed via public accessors
+     New "Expose component" command to generate accessor
+     Subcomponents appear in tree with special decorator
+     Add new children to subcomponent containers
+     Automatically recognize custom bean properties
+[+] Added new event handler code generation options
+     Create anonymous class
+     Create inner class
+     Implement listener interface in parent class
+[+] Enhanced SWT support
+     New SWT Shell wizard
+     New Eclipse EditorPart wizard
+     Enhanced FieldEditor support
+     Keyboard support for FormLayout
+     SWT custom widget support for String[], Font and Color properties
+     SWT custom Item support
+     New SWT > PreferencePage preferences
+     Added support for Eclipse 3.0 Browser widget
+     Added option to highlight borderless Composites
+     Support for top right control in CTabFolder
+     Support for SWT Shell.defaultButton property
+[+] Enhanced Swing support
+     New Swing Application wizard
+     Support for JLabel.setLabelFor()
+     Keyboard support for SpringLayout
+     Support for JSpinner models (number, list and date)
+[+] Editor & Property Pane enhancements
+     Added Replicate Width and Replicate Height commands to toolbar
+     Support for arrow key movement in various layouts
+     Preference to control when to use layout grid
+     Support for source code hint for events
+     Enhanced visual feedback for null layout move and size operations
+     Placed wizards into categories
+[+] Enhanced documentation
+     Split product docs into separate distribution
+     Added detailed product preference docs
+     Added detailed wizards and palettes docs
+[+] Support for selecting provider as top level class
+[+] Support for externalized key editing
+[*] Support for FormData width & height
+[*] Support for FormLayout offset, marginWidth & marginHeight
+[*] Use default form size preference in all wizards
+[*] Support for multiple widget moving in SpringLayout
+[*] Disable graphical editing of read-only files
+[*] Support for integer, boolean & String constants and fields
+[*] Option for using '-' as character when full text is selected in spin control
+[*] Improved support for custom widgets
+[*] Drag and drop for several selected widgets in tree
+[-] Fix for SpringLayout performance problems
+[-] Fix for setting SWT GridLayout properties via property pane
+[-] Fix for Swing menubar generation
+[-] Fix for Linux layouts
+[-] Fix for minor memory leak
+[-] Fix for CheckboxTableViewers in Composites
+[-] Fix for adding controls to JScrollPane in tree
+[-] Fix for popup menu and SWT Composites
+[-] Fix to prevent Swing menu object being dropped on wrong parent
+[-] Fix for loosing selection during source editing
+[-] Fix for Swing menu separators in accessor creation mode
+[-] Fix for problem with SpringLayout and Borders
+[-] Fix for JSplitPane problem dropping children in widget tree
+[-] Fix for ScrolledComposite children using non-null layouts
+[-] Fix for custom Swing component copy/paste
+[-] Fix for ButtonGroup and SpringLayout
+[-] Fix for TitleAreaDialog
+[-] Fix for renaming shared variables
+[-] Fix for Swing reparenting
+[-] Fix JSplitPane code generation problem
+[-] Fix for SWT Shell modality property
+[-] Fix for abstract Swing superclasses
+[-] Fix for JSpinner display
+[-] Fix for FormLayout/SpringLayout attached control removal
+
+19 August 2004 - Version 2.1.0
+--------------------------
+[+] Enhanced NLS support
+    Now available in Swing Designer Pro
+    Now available in all SWT Designer Pro versions
+    Editing widget text now updates .properties files
+    Support for multiple string extraction styles
+[+] Support for Eclipse FieldEditor PreferencePages
+    Create standard PreferencePages or FieldEditorPreferencePages
+    New FieldEditor palette supporting all Eclipse FieldEditors
+    Access inner controls to set tooltips, colors and other properties
+[+] Support for custom Swing look and feels
+    Built-in support for Liquid, Kunststoff, and JGoodies LAFs
+    New Swing > Look and Feel preference page
+[+] Support for Swing SpringLayout
+    Set widget sizes and positions
+    Attach widgets to container or siblings using dynamic snap points
+    SpringLayout preference page defines default offsets
+    Convert other layouts to SpringLayout
+[+] Enhanced support for SWT Dialog buttons
+    Create and use custom dialog buttons IDs
+    Implement buttonPressed event handlers for buttons
+[+] Improved support for ViewParts
+    Define actions, toolbars and menus
+[+] Improved GridBagLayout support
+    Added optional cell spanning handle
+    Added prefs to control spanning, inset and fill handles
+    Moved GBL prefs to a GridBagLayout pref page
+    Convert other layouts into GBL
+[+] Improved SWT GridLayout support
+    Added sizing handles to widgets in SWT GridLayout
+    Intelligent floating layout assistant
+[+] Change drop down to show component tree roots rather than method names
+[+] Added maximize/restore buttons to the properties and design panes
+[+] New option to place event properties on a separate tab
+[+] Optional Important Properties dialog which appears when adding a widget
+[+] Select images relative to the class, source folder or plugin
+[+] Improved support for importing VAJ/VE windows
+[+] Graphically set preferred size on Swing panels & frames
+[+] New option to add IColorProvider support to generated LabelProviders
+[+] Added support for ICellModifier to TableViewers and TableTreeViewers
+[+] Added SWT Text widget support for password style, echoChar, tabs and topIndex
+[+] Alignment toolbar support for Swing NullLayoutManager
+[+] Added property pane support for BorderLayout constraints
+[+] Implement Swing action/performed listener on double-click
+[+] Added null layout to SWT Layout palette
+[+] Added morphing to subclasses or to any control
+[+] New Eclipse PropertyPage wizard
+[+] Added support for new Eclipse 3.0 CTabFolder styles
+[+] Added support for SWT setData() property
+[+] Added support for JFace ApplicationWindow StatusLineManagers
+[+] Added platform widget filtering to the Choose Bean dialog
+[+] Added multiple select to the Custom Controls Add dialog
+[*] Treat empty custom Composite subclasses as containers rather than predefined panels
+[*] Use 'getInitialSize' instead of 'setSize' in 'configureShell'
+[*] Replace ResourceManager if contents in workspace and in plugin are not same
+[*] Improved support for JPopupMenus
+[*] Improved support for Swing CardLayout
+[*] Improved SWT layout conversion
+[*] Improved Draft Mode for Linux and Mac (no more flashing preview window)
+[*] Moved layout assistant button to editor local toolbar
+[*] Improved cut/copy/paste support
+[-] Fix for panels with Swing BoxLayouts
+[-] Fix for problem with reparsing SWT TableTrees
+[-] Fix for problem opening some wizards
+[-] Fix for loading classes from dependent projects
+[-] Fix for memory leak with SyncThread
+[-] Fix for Linux display problems
+[-] Fix for Linux dropdown problems
+[-] Fix for problem loading custom classes from external projects
+[-] Fix for copying BoxLayout struts and widgets with Swing borders defined
+[-] Fix for WSAD (JDK 1.3) test mode issue
+
+25 May 2004 - Version 2.0.0
+--------------------------
+[+] New Swing Desinger Pro and Free editions
+[+] Updated docs on web site and within the product help
+[+] Enhanced NLS support preview in SWT Designer Pro for Eclipse 3.0
+[+] New Custom Controls palette and preference pages
+[+] Support for all Swing & AWT widgets including new JDK 1.4 widgets 
+    Choose Bean command to drop 3rd party widgets
+[+] Support for all Swing containers including 
+    JPanel, JScrollPane, JSplitPane, JTabbedPane 
+    JDesktopPane and JInternalPane
+    Drop a JScrollPane onto an existing table, list or text widget
+[+] Support for most Swing Layout Managers including 
+    Absolute, Flow, Border, Grid, Card, Box and GridBag 
+    Spring layout will be available in the future
+[+] Support for Swing menus and popups 
+[+] Change Look & Feel on the fly (Metal, Motif, Windows) 
+[+] Support for multiple code generation styles (VAJ, VE, JBuilder, NetBeans, etc.) 
+[+] New wizards for JFrame, JDialog, JInternalFrame, JPanel and JApplet
+[+] Support for radio button groups and Swing Actions
+[+] Support for standard SWT Designer features like 
+    templates, morphing, cut/copy/paste, unlimited undo/redo, etc. 
+[+] Powerful graphical support for GridBagLayout 
+    Set widget size and insets 
+    Set horizontal & vertical fill 
+    Set column & row weights 
+    Span multiple columns & rows 
+    Insert new widgets into open cells 
+    Insert new widgets to create new columns & rows 
+    Intelligent floating layout assistant 
+[+] Powerful graphical support for BoxLayout 
+    Create horizontal and vertical struts 
+    Create horizontal and vertical glue 
+[+] SWT Choose Bean command to drop 3rd party SWT widgets
+[+] Code Generation pref to create all components as fields by default
+[+] Preference for automatic go to definition on selection on design page
+[+] Added SWT separator to palette
+[+] Enhanced and simplified SWT menu creation
+[+] New JFace TitleAreaDialog and Eclipse PreferencePage wizards
+[+] New license manager 
+    On-line and off-line activation
+    Evaluate SWT Designer Pro or Swing Designer Pro
+
+
+18 Mar 2004 - Version 1.2.4
+--------------------------
+[+] Added new Code Generation options page
+[+] Support for flat mode (e.g., create components within 
+    the same scope rather than in separate blocks)
+[+] Prefix (separate) component creation with blank lines or custom comments
+[+] Declare variables at the top of the method or where first assigned
+[+] Optionally declare widget variables as final
+[+] Share variables like "girdData", "formData", "label", "button", etc.
+[+] Automatically create event handler stub methods
+[+] Set the default variable name for different types
+[+] Specify which widget types should be created as fields automatically
+[+] New "Attachment Style" menu for FormLayout
+[+] New Layout Assistant for FormLayout
+[+] Added new ViewPart wizard
+[+] Added options to control the editor layout
+    Place the Source view on a separate tab or in a split pane
+    Place the Canvas to the right, left, top or bottom of the editor
+[+] Show grid feedback during null & form layout move or size operations
+[+] Convert any layout to an equivalent null layout
+[+] New "sticky mode". Hold down Ctrl key to add multiple widgets of the same type
+[+] Support for image selection relative to project
+[+] New gradient editor for CLabels
+[+] Set the trim style for Shells
+[+] Added Draft Mode for showing widgets on the Mac
+[+] Added Thumbnail/Overview to Outline view
+[+] Added setSize() support for JFace ApplicationWindows
+[*] Improved memory and resource management 
+[-] Fix for refresh form with frame when frame was changed in other editor.
+[-] Fixes: for actions in Application window and for font property.
+[-] Fix for popup menu problem in Table-based controls
+[-] Fix for layout problem in ThisGroup/ThisCompositeInfo 
+[-] Fix for frame copy and paste.
+[-] Fix for stack overflow problem with complex stack layouts
+[-] Fix for image descriptor in WizardPages
+[-] Fix for dialog button creation in tree
+[-] Fix for moving dialog buttons in JFace dialog
+
+
+29 Jan 2004 - Version 1.2.3
+--------------------------
+[+] Extract Frame refactoring (Eclipse 3.0)
+    Extract custom Composite and Groups from existing windows
+[+] New widget morphing command
+    Convert between similar widget types while preserving
+    common settings and events
+[+] Added support for StackLayout
+[+] Added support for Swing-style layouts
+    BorderLayout, FlowLayout and GridLayout
+    Hot keys for BorderLayout ('N', 'S', 'W', 'E' and 'C')
+    Hot keys for FlowLayout ('L', 'C' and 'R')
+[+] ScrolledComposite support
+[+] Canvas support
+[+] StyledText support
+[+] Added support for Cut, Copy and Paste
+    Use the system Edit menu or the Design page context menu
+[+] Added new toolbar within editor
+	Buttons to test, cut, copy, paste and delete
+	Buttons to align widgets within null layout
+	Buttons to center widgets within null layout
+[+] Set individual widget size in RowLayout (RowData)
+[+] Non-default properties highlighted in property pane
+[+] ViewForm: highlight engaged positions with red color
+[+] Hot keys ('L', 'C', 'R') for changing table columns align
+[+] PropertyTable: show tooltips if property title or value does not fits in cell
+[+] Added new FormLayout and Menu examples to the Example wizard
+[+] Enabled limited FormLayout support in the free edition
+[*] Automatic rollback in the event of a Designer internal error
+[-] Fix for Combo, CCombo and List position of "select" method (should be after "setItems")
+
+
+08 Dec 2003 - Version 1.2.2
+--------------------------
+[+] SWT Frame wizard for creating custom Composites and Groups
+[+] New tool for adding embedded frames to the layout
+[+] Added new widget template commands - save, apply & clear
+[+] Added new template styles to SWT Application wizard
+[+] Added Eclipse integrated help and context (F1) help
+[+] Added switch between source/design action
+[+] Added new diagnostic mode for capturing detailed error information
+[*] Performance and speed enhancements
+[*] Improved undo/redo support
+[-] Fixed bugs with FormLayout attachments
+[-] Fixed bugs with JFace ApplicationWindows
+[-] Fixed bug with CoolBars
+[-] Fixed bug with ViewForms
+[-] Fixed bug with ResourceManager usage
+[-] Fixed bug with [C]TabFolder display
+
+
+07 Nov 2003 - Version 1.2.1
+--------------------------
+[+] FormLayout Support with Intelligent "snap" points
+    for fixed, percentage and widget attachments
+    Specify preferences for default offsets and percentages
+    Convert null layouts to FormLayouts and vice versa
+[+] Multiple widget select and property update
+    Easily change common properties on multiple widgets.
+[+] Marquee select
+[+] SWT Composite wizard for creating custom subclasses of 
+    org.eclipse.swt.widgets.Composite
+[+] SWT/JFace Java Project wizard. Automatically adds the correct
+	SWT and JFace imports and the ResourceManager class to the project.
+[+] Added New Wizard shortcuts and toolbar items
+[+] Integration with platform Undo, Redo and Revert
+[+] Preference for controlling default layout manager to use for
+    new windows. Composites may also inherit the parent layout manager
+[+] Set the shell size in code or dynamically
+[+] See the natural size of the window and the minumum size of the window
+[*] ResourceManager automatically added to project when needed
+[*] Improved support for Linux/Motif
+[*] Reparenting support in null layout
+[-] Fix for clipping and z-order issues
+[-] Fixed problem with default line ending styles
+[-] Fixed bug causing source corruption
+[-] Fixed "Widget is disposed" problem under Linux
+[-] Fixed problem with external strings and source folders
+[-] Fixed bug with non static value in call of setItems() call.
+    "Argument can not be null produced". Fixed by providing empty
+    String array instead of null.
+
+
+30 Sep 2003 - Version 1.2.0
+--------------------------
+[+] New control drop support in control tree.
+    (select control in palette, then click in control tree)
+[+] Support for externalized strings. If you used "Externalize strings"
+    action in Eclipse, Designer will parse access to method "getString",
+    parse class with messages for property file name and read needed
+    strings from property file.
+[+] Font support.
+[+] Direct text edit support for Button, Label, Group, TableColumn.
+[+] New grid layout context menu options like "Set number of columns"
+
+
+05 Sep 2003 - Version 1.1.2
+--------------------------
+[*] Now Designer will use options from "Code generation" page during
+    generation of field names.
+[+] Drag&Drop support in control tree.
+[+] Context menu in control tree.
+[+] "Test..." item in context menu.
+[+] "Delete Layout" item in context menu.
+[+] "Please choose a layout manager" message for composites without
+    layout manager (optional, can be turned off in preferences)
+[*] H/V_SCROLL style bits for Text.
+
+
+20 Aug 2003 - Version 1.1.1
+--------------------------
+[*] Now Designer understands controls inherited from supported controls.
+    For example, if you use in code control MaskText, Designer will
+    support this control as Text.
+[*] Compatibility with GEF 2.1.0, so now Designer can be used when other
+    products that require GEF (for example TogetherSoft) are installed.
+
+
+18 Aug 2003 - Version 1.1.0
+--------------------------
+[+] Linux with GTK2 support.
+    It is possible, that it also works for other OS's, but this was not tested.
+    Please inform us if you can use Designer on other platforms (Mac, Motif)
+
+
+15 Aug 2003 - Version 1.0.4
+--------------------------
+[+] Absolute layout support (work when no layout set for Composite,
+    should be enabled in Preferences)
+[+] Eclipse ViewPart support, so now you can designer designer Eclipse views.
+[+] ViewForm support, allows to create Eclipse-like views.
+[*] Image property for Label added.
+
+
+12 Aug 2003 - Version 1.0.3
+--------------------------
+[-] Fixed bug with TabFolder and layout data.
+[-] Fixed bug with Dialog and Viewer's.
+
+
+11 Aug 2003 - Version 1.0.2
+--------------------------
+[-] Fixed bugs with images.

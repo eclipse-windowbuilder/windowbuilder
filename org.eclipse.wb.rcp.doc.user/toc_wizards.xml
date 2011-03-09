@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Wizards" link_to="../org.eclipse.wb.doc.user/toc_wizards.xml#wizards"> 
+	<topic href="html/wizards/swt/index.html" label="SWT/JFace/RCP"> 
+		<topic href="html/wizards/swt/project.html" label="SWT/JFace Java Project"/>
+		<topic href="html/wizards/swt/application_window.html" label="SWT" >
+			<topic href="html/wizards/swt/application_window.html" label="Application Window"/>
+			<topic href="html/wizards/swt/composite.html" label="Composite"/>
+			<topic href="html/wizards/swt/dialog.html" label="Dialog"/>
+			<topic href="html/wizards/swt/shell.html" label="Shell"/>
+		</topic>
+		<topic href="html/wizards/jface/dialog.html" label="JFace" >
+			<topic href="html/wizards/jface/dialog.html" label="Dialog"/>
+			<topic href="html/wizards/jface/titleareadialog.html" label="TitleAreaDialog"/>
+			<topic href="html/wizards/jface/applicationwindow.html" label="ApplicationWindow"/>
+			<topic href="html/wizards/jface/wizard.html" label="Wizard"/>
+			<topic href="html/wizards/jface/wizardpage.html" label="WizardPage"/>
+		</topic>
+		<topic href="html/wizards/rcp/viewpart.html" label="RCP" >
+			<topic href="html/wizards/rcp/viewpart.html" label="ViewPart"/>
+			<topic href="html/wizards/rcp/editorpart.html" label="EditorPart"/>
+			<topic href="html/wizards/rcp/multipageeditorpart.html" label="MultiPageEditorPart"/>
+			<topic href="html/wizards/rcp/preferencepage.html" label="PreferencePage"/>
+			<topic href="html/wizards/rcp/propertypage.html" label="PropertyPage"/>
+			<topic href="html/wizards/rcp/pagebookviewpage.html" label="PageBookViewPage"/>
+			<topic href="html/wizards/rcp/perspective.html" label="Perspective"/>
+			<topic href="html/wizards/rcp/actionbaradvisor.html" label="ActionBarAdvisor"/>
+		</topic>
+		<topic href="html/wizards/forms/formpage.html" label="Forms" >
+			<topic href="html/wizards/forms/formpage.html" label="FormPage"/>
+			<topic href="html/wizards/forms/sectionpart.html" label="SectionPart"/>
+			<topic href="html/wizards/forms/detailspage.html" label="DetailsPage"/>
+			<topic href="html/wizards/forms/masterdetailsblock.html" label="MasterDetailsBlock"/>
+			<topic href="html/wizards/forms/viewpart.html" label="ViewPart"/>
+			<topic href="html/wizards/forms/composite.html" label="Composite"/>
+		</topic>
+		<topic href="html/wizards/xwt/application.html" label="XWT" >
+			<topic href="html/wizards/xwt/application.html" label="Application"/>
+			<topic href="html/wizards/xwt/composite.html" label="Composite"/>
+			<topic href="html/wizards/xwt/forms_application.html" label="Forms Application"/>
+			<topic href="html/wizards/xwt/forms_composite.html" label="Forms Composite"/>
+		</topic>
+		<topic href="html/wizards/databinding/automatic.html" label="Data Binding" >
+			<topic href="html/wizards/databinding/automatic.html" label="Automatic Data Binding"/>
+		</topic>
+	</topic> 
+</toc>

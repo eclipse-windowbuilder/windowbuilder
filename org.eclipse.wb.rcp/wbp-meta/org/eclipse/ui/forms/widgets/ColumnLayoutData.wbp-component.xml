@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.layout.column.ColumnLayoutDataInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.forms.layout.column.ColumnLayoutDataInfo"/>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.ColumnLayoutData()]]></source>
+	</creation>
+	<creation id="forPaste">
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.ColumnLayoutData(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="widthHint"/>
+			<parameter type="int" property="heightHint"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="widthHint"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="horizontalAlignment">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.ui.forms.widgets.ColumnLayoutData</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT FILL</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="layoutData.compatibleLayout">org.eclipse.ui.forms.widgets.ColumnLayout</parameter>
+	</parameters>
+</component>

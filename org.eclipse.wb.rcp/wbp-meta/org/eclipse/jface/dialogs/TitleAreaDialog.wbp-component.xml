@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.TitleAreaDialogInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="setTitle">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="createDialogArea(org.eclipse.swt.widgets.Composite)"/>
+		</method>
+		<method name="setMessage">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="createDialogArea(org.eclipse.swt.widgets.Composite)"/>
+		</method>
+		<method name="setTitleImage">
+			<parameter type="org.eclipse.swt.graphics.Image"/>
+			<tag name="thisTargetMethod" value="createDialogArea(org.eclipse.swt.widgets.Composite)"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="message title titleImage"/>
+</component>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Code Generation" link_to="../org.eclipse.wb.doc.user/toc_features.xml#codegeneration"> 
+	<topic href="html/features/ercp_code_generation.html" label="eRCP Code Generation"/>
+</toc>

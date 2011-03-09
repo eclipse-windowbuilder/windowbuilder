@@ -1,0 +1,430 @@
+<html>
+<head>
+<title>Visual Inheritance</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../book.css" rel="stylesheet" type="text/css">
+<style>
+</style>
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>Visual Inheritance</h1>
+	<div align="left">
+		<table border="0" cellpadding="5" cellspacing="0" id="table1" width="850">
+			<tr>
+				<td valign="top">
+			The tool supports visual inheritance of 
+			SWT <b>Shells</b> and <b>Composites</b>, Swing <b>JFrames</b>, <b>
+			JDialogs</b>, <b>JApplets</b> and <b>JPanels</b>. Visual inheritance 
+			supports the following features:<ul>
+	<li>Inherit from any <b>Shell</b>, <b>Composite</b>,
+	<b>JFrame</b>, <b>JDialog</b>, <b>JApplet</b> or <b>JPanel</b> 
+	subclass</li>
+	<li>All inherited widgets are visible</li>
+	<li>Access inherited widgets exposed via public or protected accessors</li>
+	<li>Access inherited custom properties</li>
+	<li>Inherited widgets appear in tree with the 
+	&quot;exposed&quot; 
+			<img src="../userinterface/images/exposed_decorator.gif" alt="" width="6" height="6"> decorator</li>
+</ul>
+			<p>The following is an example of two 
+			<b>Composites</b> in an inheritance hierarchy. The first <b>Composite</b> uses 
+			a <b>GridLayout</b> and has two <b>Labels</b>, two <b>Text</b> widgets, a 
+			<b>Button</b> and an 
+			inner <b>Composite</b> widget. </p>
+			<p>
+			<img border="0" src="images/visual_inheritance_parent.png" align="top"></p>
+			<p>
+			The inner <b>Composite</b> widget has been exposed as 
+			a public component using the <b>
+			<a href="../userinterface/context_menu.html">Expose Component</a></b> command. <b>
+			<a href="../userinterface/context_menu.html">Expose Component</a></b> converts a component to a field and adds a public 
+			accessor for it. Finally, the <b>background</b> color property of 
+			the first <b>Text</b> widget and the <b>text</b> property of the <b>Button</b> have been exposed as a public properties of the 
+			<b>Composite</b> using 
+			the <b><a href="../userinterface/property_pane_context_menu.html">Expose Property</a></b> command. <b>
+			<a href="../userinterface/property_pane_context_menu.html">Expose Property</a></b> adds a 
+			pair of accessors for getting and setting the desired property of 
+			the target widget.</p>
+			<p>
+			<img border="0" src="images/visual_inheritance_expose_component_menu.png" align="top">&nbsp;
+			<img border="0" src="images/visual_inheritance_expose_property_menu.png" align="top"></p>
+			<blockquote>
+				<font SIZE="2" COLOR="#7f0055"><b>
+				<dl>
+					<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> org.eclipse.swt.SWT;</dd>
+					</font><font SIZE="2" COLOR="#7f0055"><b>
+					<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> 
+					org.eclipse.swt.graphics.Color;</dd>
+					</font><font SIZE="2" COLOR="#7f0055"><b>
+					<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> org.eclipse.swt.layout.*;</dd>
+					</font><font SIZE="2" COLOR="#7f0055"><b>
+					<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> org.eclipse.swt.widgets.*;</dd>
+					</font><font SIZE="2" COLOR="#7f0055"><b>
+					<font face="Courier">
+					<br>
+&nbsp;</font><dd><font face="Courier">public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+					<font SIZE="2" COLOR="#7f0055"><b>class</b></font><font SIZE="2"> 
+					ParentComposite </font><font SIZE="2" COLOR="#7f0055"><b>
+					extends</b></font></font><font SIZE="2"><font face="Courier"> Composite {</font><dl>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+						Button </font><font SIZE="2" COLOR="#0000c0">
+						browseButton</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+						Composite </font><font SIZE="2" COLOR="#0000c0">
+						composite</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+						Text </font><font SIZE="2" COLOR="#0000c0">secondField</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+						Text </font><font SIZE="2" COLOR="#0000c0">firstField</font></font><font SIZE="2"><font face="Courier">;<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2"> 
+						ParentComposite(Composite parent, </font>
+						<font SIZE="2" COLOR="#7f0055"><b>int</b></font></font><font SIZE="2"><font face="Courier"> 
+						style) {</font><dl>
+							<dd></font>
+							<font SIZE="2" COLOR="#7f0055" face="Courier"><b>super</b></font><font SIZE="2"><font face="Courier">(parent, 
+							style);</font></dd>
+							<dd><font face="Courier">createContents();</font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier">}<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+						</font><font SIZE="2" COLOR="#7f0055"><b>void</b></font></font><font SIZE="2"><font face="Courier"> 
+						createContents() {</font><dl>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+							GridLayout gridLayout = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font></font><font SIZE="2"><font face="Courier"> 
+							GridLayout();</font></dd>
+							<dd><font face="Courier">gridLayout.</font></font><font SIZE="2" COLOR="#0000c0" face="Courier">numColumns</font><font SIZE="2"><font face="Courier"> 
+							= 3;</font></dd>
+							<dd><font face="Courier">setLayout(gridLayout);<br>
+&nbsp;</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+							Label firstFieldLabel = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							Label(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd><font face="Courier">firstFieldLabel.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;First 
+							Field&quot;</font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">firstField</font><font SIZE="2"> 
+							= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							Text(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+							GridData gd_firstField = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd></font>
+							<font SIZE="2" COLOR="#0000c0" face="Courier">firstField</font><font SIZE="2"><font face="Courier">.setLayoutData(gd_firstField);<br>
+&nbsp;</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">
+							browseButton</font><font SIZE="2"> = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							Button(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">
+							browseButton</font><font SIZE="2">.setLayoutData(</font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">));</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">
+							browseButton</font><font SIZE="2">.setText(</font><font SIZE="2" COLOR="#2a00ff">&quot;Browse...&quot;</font></font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+							Label secondFieldLabel = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							Label(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd><font face="Courier">secondFieldLabel.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;Second 
+							Field&quot;</font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">
+							secondField</font><font SIZE="2"> = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							Text(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+							GridData gd_secondField = </font>
+							<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">, 
+							2, 1);</font></dd>
+							<dd></font>
+							<font SIZE="2" COLOR="#0000c0" face="Courier">
+							secondField</font><font SIZE="2"><font face="Courier">.setLayoutData(gd_secondField);<br>
+&nbsp;</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">composite</font><font SIZE="2"> 
+							= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							Composite(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">composite</font><font SIZE="2">.setLayoutData(</font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+							GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+							SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font><font SIZE="2">,
+							</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font></font><font SIZE="2"><font face="Courier">, 
+							3, 1) );</font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier">}<br>
+&nbsp;</font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#7f0055" face="Courier"><b>
+						<span style="background-color: #FFFF99">public</span></b></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99"> 
+						Composite getComposite() {</span></font><dl>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+							<span style="background-color: #FFFF99">return</span></b></font><font SIZE="2"><span style="background-color: #FFFF99">
+							</span></font><font SIZE="2" COLOR="#0000c0">
+							<span style="background-color: #FFFF99">composite</span></font></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">;</span></font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">}<br>
+&nbsp;</span></font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#7f0055" face="Courier"><b>
+						<span style="background-color: #FFFF99">public</span></b></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99"> 
+						String getBrowseButtonText() {</span></font><dl>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+							<span style="background-color: #FFFF99">return</span></b></font><font SIZE="2"><span style="background-color: #FFFF99">
+							</span></font><font SIZE="2" COLOR="#0000c0">
+							<span style="background-color: #FFFF99">browseButton</span></font></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">.getText();</span></font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">}<br>
+&nbsp;</span></font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+						<span style="background-color: #FFFF99">public</span></b></font><font SIZE="2"><span style="background-color: #FFFF99">
+						</span></font><font SIZE="2" COLOR="#7f0055"><b>
+						<span style="background-color: #FFFF99">void</span></b></font></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99"> 
+						setBrowseButtonText(String text) {</span></font><dl>
+							<dd></font>
+							<font SIZE="2" COLOR="#0000c0" face="Courier">
+							<span style="background-color: #FFFF99">browseButton</span></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">.setText(text);</span></font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">}<br>
+&nbsp;</span></font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#7f0055" face="Courier"><b>
+						<span style="background-color: #FFFF99">public</span></b></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99"> 
+						Color getFirstFieldBackground() {</span></font><dl>
+							<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+							<span style="background-color: #FFFF99">return</span></b></font><font SIZE="2"><span style="background-color: #FFFF99">
+							</span></font><font SIZE="2" COLOR="#0000c0">
+							<span style="background-color: #FFFF99">firstField</span></font></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">.getBackground();</span></font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">}<br>
+&nbsp;</span></font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+						<span style="background-color: #FFFF99">public</span></b></font><font SIZE="2"><span style="background-color: #FFFF99">
+						</span></font><font SIZE="2" COLOR="#7f0055"><b>
+						<span style="background-color: #FFFF99">void</span></b></font></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99"> 
+						setFirstFieldBackground(Color background) {</span></font><dl>
+							<dd></font>
+							<font SIZE="2" COLOR="#0000c0" face="Courier">
+							<span style="background-color: #FFFF99">firstField</span></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">.setBackground(background);</span></font></dd>
+						</dl>
+						</dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">}</span></font></dd>
+					</dl>
+					</dd>
+					<dd><font face="Courier">}</font></dd>
+				</dl>
+				</font></blockquote>
+			<p>The second <b>Composite</b> inherits from 
+			the first and sets the inner <b>Composite's</b> layout manager via 
+			its accessor from the superclass and then adds several new widgets 
+			to the inner <b>Composite</b>. It also adds several new widgets that appear after the 
+			inherited widgets and use the <b>GridLayout</b> layout manager inherited 
+			from the superclass. Finally, it overrides the <b>background</b> color for 
+			the first <b>Text</b> widget and the text setting of the <b>Button</b> using the accessors defined in the first Composite.<br>
+			<br>
+			Note that the exposed and inherited inner <b>Composite</b> from the superclass 
+			shows up in the component tree with a small 
+			<img src="../userinterface/images/exposed_decorator.gif" alt="" width="6" height="6"> overlay icon. The 
+			other widgets defined in the first <b>Composite</b> do not show up in the 
+			tree because they are private to that <b>Composite</b>. </p>
+			<p>
+			<img border="0" src="images/visual_inheritance_child.png" width="754" height="427" align="top"></p>
+			<font SIZE="2" COLOR="#7f0055"><b>
+			<dl>
+				<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> org.eclipse.swt.SWT;</dd>
+				</font><font SIZE="2" COLOR="#7f0055"><b>
+				<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> org.eclipse.swt.layout.*;</dd>
+				</font><font SIZE="2" COLOR="#7f0055"><b>
+				<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> org.eclipse.swt.widgets.*;</dd>
+				</font><font SIZE="2" COLOR="#7f0055"><b>
+				<font face="Courier">
+				<br>
+&nbsp;</font><dd><font face="Courier">public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+				<font SIZE="2" COLOR="#7f0055"><b>class</b></font><font SIZE="2"> 
+				ChildComposite </font><font SIZE="2" COLOR="#7f0055"><b>extends</b></font></font><font SIZE="2"><font face="Courier"> 
+				ParentComposite {</font><dl>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+					List </font><font SIZE="2" COLOR="#0000c0">list</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+					Text </font><font SIZE="2" COLOR="#0000c0">sixthField</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+					Text </font><font SIZE="2" COLOR="#0000c0">fifthField</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+					Text </font><font SIZE="2" COLOR="#0000c0">fourthField</font></font><font SIZE="2"><font face="Courier">;</font></dd>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>private</b></font><font SIZE="2"> 
+					Text </font><font SIZE="2" COLOR="#0000c0">thirdField</font></font><font SIZE="2"><font face="Courier">;<br>
+&nbsp;</font></dd>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2"> 
+					ChildComposite(Composite parent, </font>
+					<font SIZE="2" COLOR="#7f0055"><b>int</b></font></font><font SIZE="2"><font face="Courier"> 
+					style) {</font><dl>
+						<dd></font>
+						<font SIZE="2" COLOR="#7f0055" face="Courier"><b>super</b></font><font SIZE="2"><font face="Courier">(parent, 
+						style);</font></dd>
+					</dl>
+					</dd>
+					<dd><font face="Courier">}<br>
+&nbsp;</font></dd>
+					<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+					</font><font SIZE="2" COLOR="#7f0055"><b>void</b></font></font><font SIZE="2"><font face="Courier"> 
+					createContents() {</font><dl>
+						<dd></font>
+						<font SIZE="2" COLOR="#7f0055" face="Courier"><b>super</b></font><font SIZE="2"><font face="Courier">.createContents();<br>
+&nbsp;</font></dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">setFirstFieldBackground(Display.<i>getCurrent</i>().getSystemColor(SWT.</span></font></font><font SIZE="2" COLOR="#0000c0" face="Courier"><i><span style="background-color: #FFFF99">COLOR_YELLOW</span></i></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">));</span></font></dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">setBrowseButtonText(</span></font></font><font SIZE="2" COLOR="#2a00ff" face="Courier"><span style="background-color: #FFFF99">&quot;Find...&quot;</span></font><font SIZE="2"><font face="Courier"><span style="background-color: #FFFF99">);</span><br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						GridLayout gridLayout = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font></font><font SIZE="2"><font face="Courier"> 
+						GridLayout();</font></dd>
+						<dd><font face="Courier">gridLayout.</font></font><font SIZE="2" COLOR="#0000c0" face="Courier">numColumns</font><font SIZE="2"><font face="Courier"> 
+						= 2;</font></dd>
+						<dd><font face="Courier"><span style="background-color: #FFFF99">getComposite().setLayout(gridLayout);</span><br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						Label thirdFieldLabel = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Label(getComposite(), SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd><font face="Courier">thirdFieldLabel.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;Third 
+						Field&quot;</font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">thirdField</font><font SIZE="2"> 
+						= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Text(getComposite(), SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						GridData gd_thirdField = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#0000c0" face="Courier">thirdField</font><font SIZE="2"><font face="Courier">.setLayoutData(gd_thirdField);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						Label fourthFieldLabel = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Label(getComposite(), SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd><font face="Courier">fourthFieldLabel.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;Fourth 
+						Field&quot;</font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">fourthField</font><font SIZE="2"> 
+						= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Text(getComposite(), SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						GridData gd_fourthField = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#0000c0" face="Courier">fourthField</font><font SIZE="2"><font face="Courier">.setLayoutData(gd_fourthField);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">list</font><font SIZE="2"> 
+						= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						List(getComposite(), SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">list</font><font SIZE="2">.setItems(</font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						String[] {</font><font SIZE="2" COLOR="#2a00ff">&quot;First 
+						Item&quot;</font><font SIZE="2">, </font>
+						<font SIZE="2" COLOR="#2a00ff">&quot;Second Item&quot;</font></font><font SIZE="2"><font face="Courier">});</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">list</font><font SIZE="2">.setLayoutData(</font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font></font><font SIZE="2"><font face="Courier">, 
+						2, 1));<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						Label fifthFieldLabel = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Label(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd><font face="Courier">fifthFieldLabel.setLayoutData(</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font SIZE="2"><font face="Courier"> 
+						GridData());</font></dd>
+						<dd><font face="Courier">fifthFieldLabel.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;Fifth 
+						Field&quot;</font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">fifthField</font><font SIZE="2"> 
+						= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Text(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						GridData gd_fifthField = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">, 
+						2, 1);</font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#0000c0" face="Courier">fifthField</font><font SIZE="2"><font face="Courier">.setLayoutData(gd_fifthField);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						Label sixthFieldLabel = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Label(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd><font face="Courier">sixthFieldLabel.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;Sixth 
+						Field&quot;</font><font SIZE="2"><font face="Courier">);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#0000c0">sixthField</font><font SIZE="2"> 
+						= </font><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Text(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>BORDER</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						GridData gd_sixthField = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						GridData(SWT.</font><font SIZE="2" COLOR="#0000c0"><i>FILL</i></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>CENTER</i></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>true</b></font><font SIZE="2">,
+						</font><font SIZE="2" COLOR="#7f0055"><b>false</b></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd></font>
+						<font SIZE="2" COLOR="#0000c0" face="Courier">sixthField</font><font SIZE="2"><font face="Courier">.setLayoutData(gd_sixthField);<br>
+&nbsp;</font></dd>
+						<dd></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+						Button searchButton = </font>
+						<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						Button(</font><font SIZE="2" COLOR="#7f0055"><b>this</b></font><font SIZE="2">, 
+						SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);</font></dd>
+						<dd><font face="Courier">searchButton.setText(</font></font><font SIZE="2" COLOR="#2a00ff" face="Courier">&quot;Search...&quot;</font><font SIZE="2"><font face="Courier">);</font></dd>
+					</dl>
+					</dd>
+					<dd><font face="Courier">}</font></dd>
+				</dl>
+				</dd>
+				<dd><font face="Courier">}</font></dd>
+			</dl>
+			</font>
+				</td>
+			</tr>
+			</table>
+	</div>
+          </body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- LayoutStyle -->
+	<!-- ======================================================== -->
+   	<extension point="org.eclipse.wb.swing.layoutStyle">
+		<support class="org.eclipse.wb.internal.swing.java6.laf.LayoutStyleSupport" priority="1"/>
+	</extension>
+	
+	<!-- ======================================================== -->
+	<!-- Baseline -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.baselineSupport">
+		<support class="org.eclipse.wb.internal.swing.java6.laf.BaselineSupport" priority="2"/>
+	</extension>
+
+ 	<!-- ======================================================== -->
+	<!-- Policy -->
+	<!-- ======================================================== -->
+ 	<extension point="org.eclipse.wb.core.editPolicyFactories">
+    	<factory class="org.eclipse.wb.internal.swing.java6.gef.LayoutEditPolicyFactory2"/>
+ 	</extension>
+
+ 	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.swing">
+			<resourcePrefixes>
+				<resourcePrefix>javax.swing.GroupLayout</resourcePrefix>
+				<resourcePrefix>org.jdesktop.layout.GroupLayout</resourcePrefix>
+			</resourcePrefixes>
+			<palette>
+				<component class="javax.swing.GroupLayout"
+					category="org.eclipse.wb.swing.layouts">
+				</component>
+			</palette>
+		</toolkit>
+	</extension>
+	
+ 	<!-- ======================================================== -->
+	<!-- Layout -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.layoutManagers">
+    	<layout
+			class="javax.swing.GroupLayout"
+			id="groupLayout"
+			name="GroupLayout"
+			source="new GroupLayout(%parent%);"
+			toolkit="org.eclipse.wb.swing">
+		</layout>
+	</extension>
+	
+	<!-- ======================================================== -->
+	<!-- CL Contributor -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.classLoadingContributor">
+		<contributor namespace="org.eclipse.wb.internal.swing.java6."/>
+	</extension>
+	
+</plugin>

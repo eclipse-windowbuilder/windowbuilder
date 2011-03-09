@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+    <extension point="org.eclipse.ui.startup">
+        <startup
+            class="org.eclipse.wb.internal.discovery.ui.WBDiscoveryEarlyStartup">
+        </startup>
+    </extension>
+    
+  	<extension point="org.eclipse.ui.preferencePages">
+        <page id="org.eclipse.wb.internal.discovery.ui.preferences.ToolkitsPreferencePage"
+            category="org.eclipse.wb.core.preferences.MainPreferencePage"
+            class="org.eclipse.wb.internal.discovery.ui.preferences.ToolkitsPreferencePage"
+            name="UI Toolkits">
+        </page>
+    </extension>
+	
+	<!-- extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.eclipse.wb.core.guiEditor"
+			id="org.eclipse.wb.internal.discovery.ui.preferences.ManageToolkitsAction">
+			
+			<action
+				label="Manage WindowBuilder Toolkits"
+				icon="icons/wb_toolkits2.gif"
+				toolbarPath="additions"
+				tooltip="Manage WindowBuilder Toolkits"
+				class="org.eclipse.wb.internal.discovery.ui.preferences.ManageToolkitsAction"
+				id="org.eclipse.wb.internal.discovery.ui.preferences.ManageToolkitsAction"/>
+		</editorContribution>
+	</extension -->
+	
+    <!-- extension
+        point="org.eclipse.wb.core.toolkits">
+        
+        <toolkit
+            id="org.eclipse.wb.discovery.mockToolkit"
+            priority="0">
+            
+            <provider
+                class="org.eclipse.wb.internal.discovery.ui.wbtoolkit.MockToolkit">
+            </provider>
+        </toolkit>
+    </extension -->
+
+</plugin>

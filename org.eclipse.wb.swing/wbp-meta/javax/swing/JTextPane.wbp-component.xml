@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A text component that can be marked up with attributes that are represented graphically.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JTextPane()]]></source>
+	</creation>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

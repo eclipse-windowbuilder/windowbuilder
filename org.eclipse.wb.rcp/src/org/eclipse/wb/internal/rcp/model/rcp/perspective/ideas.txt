@@ -1,0 +1,37 @@
+  Component is:
+  
+1. Class and ComponentDescription.
+2. CreationSupport.
+3. VariableSupport.
+4. Association.
+
+
+  Class and ComponentDescription.
+1. IPageLayout.addXXX() - no class.
+2. IPageLayout.createXXX() - return class. But getObject() itself returns "null", just because we work
+    with IPageLayout as with interface, we don't know its implementation.
+    !!!!!!! May be we should implement it? !!!!!!!
+
+
+  CreationSupport.
+1. IPageLayout.addXXX() - VoidInvocationCreationSupport subclass, may be our Proxy implementation
+    of IPageLayout will even return not-null object even for "void" methods.
+2. IPageLayout.createXXX() - may be same as for IPageLayout.addXXX().
+
+
+  VariableSupport.
+1. IPageLayout.addXXX() - VoidInvocationVariableSupport.
+2. IPageLayout.createXXX() - LocalUniqueVariableSupport, may be even with BlockStatementGenerator for
+    folders.
+
+  Association.
+1. IPageLayout.addXXX() - InvocationVoidAssociation.
+2. IPageLayout.createXXX() - InvocationVoidAssociation.
+
+
+  EditorArea is ObjectInfo, implements some XXX interface to access its ID, Control and bounds.
+  
+  View/Perspective shortcuts and FastViews are ObjectInfo's, with special AbsComInfo-like methods to
+    access bounds.
+    
+    

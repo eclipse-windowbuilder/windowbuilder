@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.CTabFolderInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.CTabFolderInfo"/>
+	<description>Instances of this class implement the notebook user interface metaphor. It allows the user to
+		select a notebook page from set of pages.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.CTabFolder(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<invocation signature="setSelectionBackground(org.eclipse.swt.graphics.Color)"
+			><![CDATA[org.eclipse.swt.widgets.Display.getCurrent().getSystemColor(org.eclipse.swt.SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT)]]></invocation>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CLOSE FLAT</parameter>
+					<parameter name="select0">dir TOP TOP BOTTOM</parameter>
+					<parameter name="select1">selection MULTI SINGLE MULTI</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-advanced names="selection"/>
+	<properties-hidden names="MIN_TAB_WIDTH"/>
+	<property id="setTabPosition(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">TOP BOTTOM</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="liveComponent.forcedSize.width">150</parameter>
+		<parameter name="liveComponent.forcedSize.height">100</parameter>
+		<!-- refresh -->
+		<parameter name="refresh_afterCreate"><![CDATA[
+			import org.eclipse.swt.SWT;
+			import org.eclipse.swt.widgets.*;
+			import org.eclipse.swt.custom.*;
+			if (object.getItemCount() == 0) {
+				item = new CTabItem(object, SWT.NONE);
+				item.setText("Empty CTabFolder");
+				  label = new Label(object, SWT.CENTER);
+				  label.setText("Drop new CTabItem(s).");
+				item.setControl(label);
+				object.setSelection(item);
+			}
+			]]></parameter>
+		<!-- flow container: Control -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component">org.eclipse.swt.widgets.Control</parameter>
+		<parameter name="flowContainer.1.reference">org.eclipse.swt.custom.CTabItem</parameter>
+		<!-- flow container: TabItem -->
+		<parameter name="flowContainer.2">true</parameter>
+		<parameter name="flowContainer.2.horizontal">true</parameter>
+		<parameter name="flowContainer.2.component">org.eclipse.swt.custom.CTabItem</parameter>
+		<parameter name="flowContainer.2.reference">org.eclipse.swt.custom.CTabItem</parameter>
+	</parameters>
+</component>

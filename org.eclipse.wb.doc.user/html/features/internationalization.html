@@ -1,0 +1,209 @@
+<html>
+
+<head>
+<title>Internationalization (i18n) / Localization</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h1>Internationalization (i18n) / Localization</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+    <p>The tool has powerful internationalization (i18n) support. It can
+    externalize component strings, create and manage resource bundles for
+    multiple languages, switch locales on fly and edit translated strings in
+    context.</p>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td valign="top">
+			<img border="0" src="images/nls_package_explorer1.png" align="top"></td>
+			<td valign="top" width="10"></td>
+			<td valign="top">The editor's internationalization functions center
+              around two items on the <b>
+			<a href="../userinterface/toolbar.html">Toolbar</a> </b> - the
+			<b>Externalize Strings</b>
+              button
+			<img src="../userinterface/images/globe3.png" alt="" width="16" height="16">
+      		and the drop down <b>Locales</b> list&nbsp;(which lists
+              any locales defined for the current window).
+              <blockquote>
+				<p>
+      <img src="../userinterface/images/choose_locale.gif" alt=""></p>
+			</blockquote></td>
+		</tr>
+	</table>
+      <p>To illustrate how to use various internationalization
+              functions, we will start with the simple example shown below. This
+              example includes a variety of widget types each containing a
+              static string label.</p>
+	<p><img border="0" src="images/nls_design_view1.png"></p>
+      <p>The source for this example looks like the following. Note that all of
+      the widget and window text elements are hard coded as string literals within
+      the source. For an internationalized application, these strings need to be
+      extracted to a resource (property) file and accessed via a key.</p>
+    <p><img border="0" src="images/nls_source_view1.png"></p>
+      <h2>The Externalize Strings dialog</h2>
+      <p>To begin the internationalization process, click the <b>Externalize
+      Strings</b> button
+			<img src="../userinterface/images/globe3.png" alt="" width="16" height="16">
+      to open the <b>Externalize Strings</b> dialog. Initially, the dialog
+      should present a list of all of the hard coded string properties assigned
+      to any component within the window. If any NLS string externalization 
+		sources have been created for other classes in the same package, they 
+		will be listed in the <b>Existing sources</b> list (the list will be 
+		empty if no class in the package have been externalized). Select an 
+		existing source or create a new one by clicking the <b>New...</b> 
+		button.</p>
+      <p><img border="0" src="images/nls_externalize_strings1.png"></p>
+	<p>Click the <b>New...</b> button to create a new NLS strings source (more 
+	than one source may be used). Four different types of sources are 
+	supported: <b>Classic Eclipse message class</b>, <b>Modern Eclipse message class</b>, 
+	<b>Direct ResourceBundle 
+	usage</b> and <b>ResourceBundle in field</b>. When a source type is 
+	selected, an example of what the code will look like is shown in the 
+	<b>Example</b> field.</p>
+	<p>For the <b>Classic Eclipse message class</b> style, you can create a new 
+	bundle accessor class or select an existing one. You can also specify the 
+	name and location of the resource bundle property file that should be used.</p>
+	<p><img border="0" src="images/nls_new_source1.png"></p>
+	<p>For the <b>Modern Eclipse message class</b> style, you can create a new 
+	bundle accessor class or select an existing one. You can also specify the 
+	name and location of the resource bundle property file that should be used.</p>
+	<p><img border="0" src="images/nls_new_source2.png"></p>
+	<p>For the <b>Direct ResourceBundle usage</b> style, you only need to 
+	specify the name and location of the resource bundle property file that 
+	should be used.</p>
+	<p><img border="0" src="images/nls_new_source3.png"></p>
+	<p>For the <b>ResourceBundle in field</b> style, in addition to the name and 
+	location of the resource bundle property file, you also need to specify the 
+	name of the field that the resource bundle should be assigned to.</p>
+	<p><img border="0" src="images/nls_new_source4.png"></p>
+      <p>Once the source has been created, click the <b>Enable All</b> button to 
+		select all of the strings within all of the components. Finally, click the 
+		<b>Externalize</b>
+      button to begin the extraction process. The strings will be extracted to 
+		the source selected in the <b>Existing sources</b> list. Turning on the
+		<b>Copy strings to all locales</b> option causes the extracted strings 
+		to be copied to all of the defined locales rather than only the default 
+		locale</p>
+      <p><img border="0" src="images/nls_externalize_strings2.png"></p>
+      <p>Switch to the tab named after the resource bundle to see the results 
+		(if multiple sources are used, there will be a tab for each source). 
+		Each string will have been give a default key name based on the name of 
+		the window class, the variable name of the component and the property 
+		name of the string (usually just &quot;text&quot;). The icon 
+		representing each component is shown next to the key. Hovering over the 
+		icon will display a tooltip showing the widgets using that key.</p>
+      <p><img border="0" src="images/nls_externalize_strings3.png"></p>
+      <p>Note that both the key names and string values are editable within the
+      dialog. You can use the <b>Enter</b> and <b>Tab</b> keys to traverse the 
+		cells in the table.</p>
+      <p><img border="0" src="images/nls_externalize_strings4.png"></p>
+	<p>If you change the value of a key so that it matches another existing key, 
+	you will need to confirm the change.</p>
+	<p><img border="0" src="images/nls_rename_key.png"></p>
+      <h2>Messages class and properties
+      files</h2>
+      <p>After closing the dialog, note that a couple of additional files have
+      been created. The first is a properties file (resource bundle) for the
+      default locale that includes all of the keys and their associated values.</p>
+      <p><img border="0" src="images/nls_package_explorer2.png">&nbsp;&nbsp;
+      <img border="0" src="images/nls_properties_default.png" align="top"></p>
+      <p>The second (optional) file is a <b>Messages</b> class whose job is to interface to the
+      resource bundle via the key names. The classic Eclipse message class 
+		format looks like the following:</p>
+      <p><img border="0" src="images/nls_messages.png"></p>
+	<p>The modern Eclipse message class format looks like the following:</p>
+	<p><img border="0" src="images/nls_messages2.png" width="558" height="512"></p>
+      <p>If we now take another look at the source view when using the <b>
+		ResourceBundle in field</b> style, we see that all of the
+      hard coded strings have been replaced calls to ResourceBundle with the
+      string key names are arguments. Note that these keys themselves will
+      remain constant across multiple languages and should be ignored for
+      internationalization purposes. As such, they have all been marked with the
+      <b>//$NON-NLS-1$</b> end-of-line comment.</p>
+      <p><img border="0" src="images/nls_source_view2.png"></p>
+	<h2>Adding a new locale</h2>
+      <p>Once an default resource bundle has been created, it is easy to add a
+      second (or third) language, by clicking the <b>Externalize Strings</b>
+      button again. The dialog will open up focused on the first resource bundle
+      tab. Click the <b>New locale...</b> button to open up the <b>New Locale</b>
+      dialog. This dialog lists all of the known locales. You can select a <b>Language</b>
+      code (like fr for French) and an optional <b>Country</b> code, or you
+      can select from the list of <b>All locales</b>. You can also select 
+		whether the strings in the new locale should be copied from an existing 
+		locale (like the default locale) or left blank (copied from &quot;none&quot;) 
+		using the drop down list in the <b>Copy strings from</b> field..</p>
+      <p><img border="0" src="images/nls_new_locale.png">&nbsp;&nbsp;
+		<img border="0" src="images/nls_new_locale2.png"></p>
+      <p>After selecting the new locale, click <b>OK</b> to add the locale as a
+      new column in the table. The strings values will match the
+      locale specified in the <b>Copy string from</b> field in the <b>New Locale</b> 
+		dialog. You can then enter translated values yourself or leave
+      that task to a language expert. If you right-click on a cell, you can 
+		internalize a key (remove a row) or remove an entire locale (column).</p>
+      <p><img border="0" src="images/nls_externalize_strings5.png"></p>
+      <p>Upon closing the dialog for the second time, you will see that a new
+      properties file has been created for the new locale.</p>
+      <p><img border="0" src="images/nls_package_explorer3.png">&nbsp;
+      <img border="0" src="images/nls_properties_fr.png" align="top"></p>
+      <p>If you switch back to the <b><a href="../userinterface/design_view.html">Design View</a></b>, you will see that the <b>Locales</b>
+      drop down list now contains two value - one for the default locale and one
+      for the second locale. Selecting the second locale will update the design
+      view to show the appropriate string values in context.</p>
+      <p><img border="0" src="images/nls_design_view2.png"></p>
+      <p>Selecting the default locale will then restore the string values to the
+      original language. Thus, you can use the <b>Locales</b> drop down list to
+      quickly switch between languages in order to check the layout.</p>
+      <p><img border="0" src="images/nls_design_view3.png"></p>
+      <h2>Editing string values in the
+      design view</h2>
+      <p>It is also important to note that you can continue to edit the string
+      values within the <b><a href="../userinterface/design_view.html">Design View</a> </b> (either via 
+		<a href="../userinterface/design_view.html#DirectEdit">direct edit</a> or in the <b><a href="../userinterface/property_pane.html">Property Pane</a></b>) and
+		the tool will automatically update the appropriate properties
+      file. If the default locale is selected, the default properties file will
+      be changed. If the second locale is selected its corresponding properties
+      file will be updated. Conversely, if you edit the text in one of the 
+		property files, the <b><a href="../userinterface/design_view.html">Design View</a> </b> will be updated when the 
+		editor takes focus.</p>
+      <p><img border="0" src="images/nls_design_view4.png"></p>
+      <h2>Adding new components</h2>
+      <p>You may even add new widget with new text components to the window and
+      incrementally externalize them via the <b>Externalize Strings</b> dialog.
+      If you open the dialog and switch to the <b>Properties</b> tab, you will
+      see a list of any non-externalized strings.&nbsp;</p>
+      <p><img border="0" src="images/nls_externalize_strings6.png">&nbsp;</p>
+      <p>Select those strings and click <b>Externalize</b> them to add a new
+      key/value pair to the properties file selected in the <b>Existing sources</b> 
+		list. If multiple locales have been
+      defined and the <b>Copy strings to all locales</b> option is checked, the new key/value pair will be added to all of 
+		the locales
+      simultaneously. Translate the secondary locales as necessary.</p>
+      <p><img border="0" src="images/nls_externalize_strings7.png"></p>
+      <h2>Using existing keys in the property pane</h2>
+<p>Enter keys directly into the property pane by prefixing them with an 
+asterisks (*) or click the
+			<img border="0" src="../userinterface/images/ellipses.png" align="absbottom"> button 
+to access the <b>String Editor</b> and select a key from an existing resource 
+bundle. </p>
+	<p>
+		<img src="images/nls_key_as_value.gif"></p>
+	<p>To use a value from a resource 
+bundle, check the <b>Use existing NLS source/key</b> checkbox and click the <b>
+Browse </b>button. The <b>Choose Key</b> dialog will open where you can select a 
+String source and a key/value pair. You can filter the list of key/value pairs 
+that is shown by entering a string in the <b>Search string</b> field. By 
+default, key names are searched but you can also search values or both keys and 
+values by selecting the appropriate radio button at the bottom of the dialog.</p>
+<p>
+			<img src="../userinterface/images/property_editor_string2.png" alt="" border="0" hspace="0" vspace="5">&nbsp;
+			<img src="../userinterface/images/property_editor_string3.png" alt="" border="0" hspace="0" vspace="5" width="335" height="374" align="top"></p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

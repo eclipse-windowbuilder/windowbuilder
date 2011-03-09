@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo"/>
+	<description>MigLayout is the most versatile and flexible Swing and SWT Layout Manager for Java, yet it is
+		very easy to learn and use. MigLayout can produce flowing, grid based, absolute (with links), grouped
+		and docking layouts.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new net.miginfocom.swing.MigLayout()]]></source>
+	</creation>
+	<!-- PROPERTIES -->
+	<properties-hidden names="layoutConstraints columnConstraints rowConstraints constraintMap"/>
+</component>

@@ -1,0 +1,24 @@
+import org.eclipse.ui.dialogs.PropertyPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+
+method
+	/**
+	 * Create the property page.
+	 */
+	public %TypeName%() {
+	}
+
+method
+	/**
+	 * Create contents of the property page.
+	 * @param parent
+	 */
+	@Override
+	public Control createContents(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		%container.SWTLayout%
+		return container;
+	}
+

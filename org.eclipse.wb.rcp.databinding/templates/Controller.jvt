@@ -1,0 +1,52 @@
+%package%
+import org.eclipse.core.databinding.DataBindingContext;
+%imports%
+
+public class %HostClass%Controller {
+	private %HostClass% %HostField%;
+	private DataBindingContext m_bindingContext;
+	private %BeanClass% %BeanField%;
+
+	public %HostClass%Controller(%HostClass% %HostVariable%, %BeanClass% new%BeanName%) {
+		%HostField% = %HostVariable%;
+		set%BeanName%(new%BeanName%);
+	}
+
+	public %HostClass%Controller(%HostClass% %HostVariable%) {
+		%HostField% = %HostVariable%;
+		if (%BeanFieldAccess% != null) {
+			m_bindingContext = initDataBindings();
+		}
+	}
+
+	private DataBindingContext initDataBindings() {
+%Observables%
+		//
+		DataBindingContext bindingContext = new DataBindingContext();
+		//
+%Bindings%
+		//
+		return bindingContext;
+	}
+
+	public %BeanClass% get%BeanName%() {
+		return %BeanFieldAccess%;
+	}
+
+	public void set%BeanName%(%BeanClass% new%BeanName%) {
+		set%BeanName%(new%BeanName%, true);
+	}
+
+	public void set%BeanName%(%BeanClass% new%BeanName%, boolean update) {
+		%BeanFieldAccess% = new%BeanName%;
+		if (update) {
+			if (m_bindingContext != null) {
+				m_bindingContext.dispose();
+				m_bindingContext = null;
+			}
+			if (%BeanFieldAccess% != null) {
+				m_bindingContext = initDataBindings();
+			}
+		}
+	}
+}

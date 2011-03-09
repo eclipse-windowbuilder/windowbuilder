@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons.CollapsibleButtonsInfo"/>
+	<description>The Collapsible Buttons Widget is a customizable collapsible buttons widget modeled after the
+		bottom left buttons widget in Microsoft Outlook. The widget is highly customizable from simple flags
+		for setting things on and off, to extending interfaces for controlling how the buttons should be
+		painted and other more advanced aspects.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons(%parent%, org.eclipse.swt.SWT.NONE, org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager.SKIN_AUTO_DETECT)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER LEFT_TO_RIGHT RIGHT_TO_LEFT H_SCROLL V_SCROLL SINGLE MULTI
+						NO_FOCUS CHECK VIRTUAL</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"
+				defaultSource="org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager.SKIN_AUTO_DETECT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager</parameter>
+					<parameter name="fields">SKIN_AUTO_DETECT SKIN_BLUE SKIN_OLIVE SKIN_SILVER
+						SKIN_OFFICE_2007 SKIN_NONE</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER LEFT_TO_RIGHT RIGHT_TO_LEFT H_SCROLL V_SCROLL SINGLE MULTI
+						NO_FOCUS CHECK VIRTUAL</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager" defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER LEFT_TO_RIGHT RIGHT_TO_LEFT H_SCROLL V_SCROLL SINGLE MULTI
+						NO_FOCUS CHECK VIRTUAL</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"
+				defaultSource="org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager.SKIN_AUTO_DETECT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager</parameter>
+					<parameter name="fields">SKIN_AUTO_DETECT SKIN_BLUE SKIN_OLIVE SKIN_SILVER
+						SKIN_OFFICE_2007 SKIN_NONE</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager" defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER LEFT_TO_RIGHT RIGHT_TO_LEFT H_SCROLL V_SCROLL SINGLE MULTI
+						NO_FOCUS CHECK VIRTUAL</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"
+				defaultSource="org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager.SKIN_AUTO_DETECT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager</parameter>
+					<parameter name="fields">SKIN_AUTO_DETECT SKIN_BLUE SKIN_OLIVE SKIN_SILVER
+						SKIN_OFFICE_2007 SKIN_NONE</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.collapsiblebuttons.IColorManager" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.collapsiblebuttons.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.collapsiblebuttons.ILanguageSettings" defaultSource="null"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="addButton">
+			<parameter type="java.lang.String"/>
+			<parameter type="java.lang.String"/>
+			<parameter type="org.eclipse.swt.graphics.Image"/>
+			<parameter type="org.eclipse.swt.graphics.Image"/>
+			<tag name="implicitFactory" value="true"/>
+		</method>
+	</methods>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.collapsiblebuttons"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- selection listener -->
+		<parameter name="double-click.listener">button/clicked</parameter>
+	</parameters>
+</component>

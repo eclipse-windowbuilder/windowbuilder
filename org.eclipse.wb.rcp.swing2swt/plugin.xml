@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.rcp">
+			<resourcePrefixes>
+				<resourcePrefix>swing2swt.</resourcePrefix>
+			</resourcePrefixes>
+			<classLoader-library bundle="org.eclipse.wb.rcp.swing2swt" jar="swing2swt.jar"/>
+			<palette condition="!(isdef isXWT)">
+				<component class="swing2swt.layout.FlowLayout"
+					category="org.eclipse.wb.rcp.layouts">
+					<library type="swing2swt.layout.FlowLayout"
+						bundle="org.eclipse.wb.rcp.swing2swt" jar="swing2swt.jar"/>
+				</component>
+				<component class="swing2swt.layout.BoxLayout"
+					category="org.eclipse.wb.rcp.layouts">
+					<library type="swing2swt.layout.BoxLayout"
+						bundle="org.eclipse.wb.rcp.swing2swt" jar="swing2swt.jar"/>
+				</component>
+				<component class="swing2swt.layout.BorderLayout"
+					category="org.eclipse.wb.rcp.layouts">
+					<library type="swing2swt.layout.BorderLayout"
+						bundle="org.eclipse.wb.rcp.swing2swt" jar="swing2swt.jar"/>
+				</component>
+			</palette>
+		</toolkit>
+	</extension>
+	
+	<extension point="org.eclipse.wb.core.paletteComponentExists">
+		<component package="swing2swt.layout." witness="org.eclipse.swt.SWT"/>
+	</extension>
+	
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.rcp.swing2swt.gef.LayoutEditPolicyFactory"/>
+	</extension>
+
+</plugin>

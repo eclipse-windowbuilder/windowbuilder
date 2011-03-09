@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JFrameInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="setJMenuBar">
+			<parameter type="javax.swing.JMenuBar" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="defaultCloseOperation"/>
+	<properties-advanced names="rootPaneCheckingEnabled"/>
+	<properties-hidden names="JMenuBar rootPane transferHandler"/>
+	<property id="setDefaultCloseOperation(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.JFrame</parameter>
+			<parameter name="fields"> DO_NOTHING_ON_CLOSE HIDE_ON_CLOSE DISPOSE_ON_CLOSE EXIT_ON_CLOSE
+			</parameter>
+		</editor>
+	</property>
+</component>

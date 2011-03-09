@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Data Binding" link_to="../org.eclipse.wb.doc.user/toc_databinding.xml#databinding"> 
+	<topic href="html/features/swing/data_binding/index.html" label="Swing"> 
+		<topic href="html/features/swing/data_binding/swing_bindings.html" label="Swing Data Bindings"/>
+		<topic href="html/features/swing/data_binding/create_data_binding_wizard.html" label="Create Data Binding Wizard"/>
+		<topic href="html/features/swing/data_binding/edit_data_binding_dialog.html" label="Edit Data Binding Dialog"/>
+	</topic>
+</toc>

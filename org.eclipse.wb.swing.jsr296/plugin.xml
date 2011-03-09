@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.swing"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Description driven features -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.rootProcessors">
+		<processor class="org.eclipse.wb.internal.swing.jsr296.model.Jsr296RootProcessor"/>
+	</extension>
+	
+	
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPartFactories">
+		<factory class="org.eclipse.wb.internal.swing.jsr296.gef.EditPartFactory" priority="1"/>
+	</extension>
+
+
+</plugin>

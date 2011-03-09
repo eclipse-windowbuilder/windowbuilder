@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo"/>
+	<!-- PROPERTIES -->
+	<properties-preferred names="labelText preferenceName"/>
+	<property id="setPreferenceName(java.lang.String)">
+		<editor id="constantSelection">
+			<parameter name="type">java.lang.String</parameter>
+		</editor>
+	</property>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Formatter for percent values in a FormattedText.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.formattedtext.PercentFormatter(null, null, java.util.Locale.getDefault())]]></source>
+	</creation>
+</component>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.jface.WrapperInfo"/>
+	<description>FormattedText is a decorator component adding input and display mask capabilities on a Text
+		widget. Formatting is based on a public formatter API.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.formattedtext.FormattedText(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER READ_ONLY H_SCROLL V_SCROLL</parameter>
+					<parameter name="select0">align LEFT LEFT CENTER RIGHT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Text" parent="true"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setFormatter">
+			<parameter type="org.eclipse.nebula.widgets.formattedtext.ITextFormatter" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<property id="setFormatter(org.eclipse.nebula.widgets.formattedtext.ITextFormatter)">
+		<editor id="instanceObject">
+			<parameter name="class">org.eclipse.nebula.widgets.formattedtext.AbstractFormatter</parameter>
+			<parameter name="source"><![CDATA[
+	new org.eclipse.nebula.widgets.formattedtext.AbstractFormatter() {
+		public String getDisplayString(){
+			return null;
+		}
+		public String getEditString(){
+			return null;
+		}
+		public boolean isValid(){
+			return true;
+		}
+		public Object getValue(){
+			return null;
+		}
+		public void setValue(Object value){
+		}
+		public void verifyText(org.eclipse.swt.events.VerifyEvent e) {
+			if ( ignore ) {
+      			return;
+	    	}
+    	}
+	}
+			]]></parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="Wrapper.method">getControl</parameter>
+	</parameters>
+</component>

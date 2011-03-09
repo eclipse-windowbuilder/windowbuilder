@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.SectionInfo"/>
+	<description>A variation of the expandable composite that adds optional description below the title.
+		Section is often used as a basic building block in forms because it provides for logical grouping of
+		information.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.Section(%parent%, org.eclipse.ui.forms.widgets.Section.TWISTIE | org.eclipse.ui.forms.widgets.Section.TITLE_BAR)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Section"]]></invocation>
+		<x-attribute name="text" value="New Section"/>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int">
+				<editor id="style">
+					<parameter name="title">SectionStyle</parameter>
+					<parameter name="class">org.eclipse.ui.forms.widgets.Section</parameter>
+					<parameter name="select0">expander 0 0 TWISTIE TREE_NODE</parameter>
+					<parameter name="select1">title NO_TITLE NO_TITLE SHORT_TITLE_BAR TITLE_BAR</parameter>
+					<parameter name="set">FOCUS_TITLE CLIENT_INDENT COMPACT EXPANDED
+						LEFT_TEXT_CLIENT_ALIGNMENT DESCRIPTION</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setDescriptionControl">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+		<method name="setSeparatorControl">
+			<parameter type="org.eclipse.swt.widgets.Control" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="description"/>
+	<properties-advanced names="titleBarBackground titleBarBorderColor titleBarGradientBackground"/>
+</component>

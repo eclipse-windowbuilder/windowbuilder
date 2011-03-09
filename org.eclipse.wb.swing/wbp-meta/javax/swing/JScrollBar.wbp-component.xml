@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <description>An implementation of a scrollbar. The user positions the knob in the scrollbar to determine
+        the contents of the viewing area. The program typically adjusts the display so that the end of the
+        scrollbar represents the end of the displayable contents, or 100% of the contents.</description>
+    <!-- CREATION -->
+    <creation>
+        <source><![CDATA[new javax.swing.JScrollBar()]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setOrientation(int)"/>
+            <parameter type="int" property="setValue(int)"/>
+            <parameter type="int"/>
+            <parameter type="int" property="setMinimum(int)"/>
+            <parameter type="int" property="setMaximum(int)"/>
+        </constructor>
+    </constructors>
+    <!-- PROPERTIES -->
+    <properties-preferred names="blockIncrement maximum minimum orientation unitIncrement value"/>
+    <properties-advanced names="border font model valueIsAdjusting visibleAmount"/>
+    <properties-hidden names="UI"/>
+    <property id="setOrientation(int)">
+        <editor id="staticField">
+            <parameter name="class">javax.swing.JScrollBar</parameter>
+            <parameter name="fields">HORIZONTAL VERTICAL</parameter>
+        </editor>
+    </property>
+</component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="setColumnData">
+			<parameter type="org.eclipse.swt.widgets.Widget" parent2="true"/>
+			<parameter type="org.eclipse.jface.viewers.ColumnLayoutData" child2="true"/>
+			<tag name="secondaryAssociation.alwaysDelete" value="true"/>
+		</method>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.managesChildChild">true</parameter>
+	</parameters>
+</component>

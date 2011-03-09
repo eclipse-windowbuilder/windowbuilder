@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.swing">
+   <annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wb.swing" id="layoutStyle" name="LayoutStyle support"/>
+      </appInfo>
+      <documentation> [Enter description of this extension point.] </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <choice minOccurs="1" maxOccurs="unbounded">
+            <element ref="support"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation> </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="support">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation> </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.swing.laf.ILayoutStyleSupport"
+                  />
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation> </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation> [Enter the first release in which this extension point appears.] </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation> [Enter extension point usage example here.] </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation> [Enter API information here.] </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation> [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

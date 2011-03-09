@@ -1,0 +1,29 @@
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.SectionPart;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+
+method
+	/**
+	 * Create the SectionPart.
+	 * @param parent
+	 * @param toolkit
+	 * @param style
+	 */
+	public %TypeName%(Composite parent, FormToolkit toolkit, int style) {
+		super(parent, toolkit, style);
+		createClient(getSection(), toolkit);
+	}
+
+method
+	/**
+	 * Fill the section.
+	 */
+	private void createClient(Section section, FormToolkit toolkit) {
+		section.setText("New SectionPart");
+		Composite container = toolkit.createComposite(section);
+		%container.SWTLayout%
+		section.setClient(container);
+	}
+

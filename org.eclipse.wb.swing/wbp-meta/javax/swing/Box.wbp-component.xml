@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<methods-exclude signature="setLayout(java.awt.LayoutManager)"/>
+	</methods>
+</component>

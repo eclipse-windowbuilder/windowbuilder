@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A field editor for an double type preference.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.wb.swt.DoubleFieldEditor("id", "New DoubleFieldEditor", %parentComposite%)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setPreferenceName(java.lang.String)"/>
+			<parameter type="java.lang.String" property="setLabelText(java.lang.String)"/>
+			<parameter type="org.eclipse.swt.widgets.Composite">
+				<tag name="parentComposite" value="true"/>
+			</parameter>
+			<parameter type="int" property="setTextLimit(int)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setValidRange">
+			<parameter type="double" name="min"/>
+			<parameter type="double" name="max"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<method-property title="validRange" method="setValidRange(double,double)"/>
+	<property id="setTextLimit(int)">
+		<defaultValue value="10"/>
+	</property>
+</component>

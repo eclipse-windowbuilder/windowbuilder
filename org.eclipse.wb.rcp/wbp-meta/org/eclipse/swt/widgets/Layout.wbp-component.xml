@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.LayoutInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.layout.LayoutInfo"/>
+	<order>first</order>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="NVO.disabled">true</parameter>
+		<!-- LayoutData -->
+		<parameter name="layout-data.virtual">new %LDC%()</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer.component">org.eclipse.swt.widgets.Control</parameter>
+		<!-- GEF packages -->
+		<parameter name="GEF.relatedToolkitPackages.1">org.eclipse.wb.internal.swt</parameter>
+		<parameter name="GEF.relatedToolkitPackages.2">org.eclipse.wb.internal.rcp</parameter>
+	</parameters>
+</component>

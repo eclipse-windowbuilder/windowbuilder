@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.ApplicationWindowInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="addMenuBar"/>
+		<method name="addStatusLine"/>
+		<method name="addToolBar">
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT WRAP RIGHT SHADOW_OUT</parameter>
+					<parameter name="select0">dir HORIZONTAL HORIZONTAL VERTICAL</parameter>
+				</editor>
+			</parameter>
+		</method>
+		<method name="addCoolBar">
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT</parameter>
+					<parameter name="select0">type HORIZONTAL HORIZONTAL VERTICAL</parameter>
+				</editor>
+			</parameter>
+		</method>
+		<method name="setStatus">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="createContents(org.eclipse.swt.widgets.Composite)"/>
+		</method>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- for adding actions in ActionContainerInfo -->
+		<parameter name="actionContainer.signature">createActions()</parameter>
+		<parameter name="actionContainer.header">private void createActions()</parameter>
+		<parameter name="actionContainer.invocation">createActions()</parameter>
+	</parameters>
+</component>

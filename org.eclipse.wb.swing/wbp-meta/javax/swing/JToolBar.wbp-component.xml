@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JToolBarInfo"/>
+	<description>A component that is useful for displaying commonly used Action's or controls.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JToolBar()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setOrientation(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setName(java.lang.String)"/>
+			<parameter type="int" property="setOrientation(int)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- separators -->
+		<method name="addSeparator">
+			<tag name="voidFactory.creationSupport"
+				value="org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorCreationSupport"/>
+			<tag name="voidFactory.componentClass" value="javax.swing.JToolBar$Separator"/>
+		</method>
+		<method name="addSeparator">
+			<parameter type="java.awt.Dimension"/>
+			<tag name="voidFactory.creationSupport"
+				value="org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorCreationSupport"/>
+			<tag name="voidFactory.componentClass" value="javax.swing.JToolBar$Separator"/>
+		</method>
+		<!-- Action -->
+		<method name="add">
+			<parameter type="javax.swing.Action" name="action"/>
+			<tag name="implicitFactory" value="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="floatable orientation rollover"/>
+	<properties-advanced names="border borderPainted margin"/>
+	<properties-hidden names="UI"/>
+	<property id="setOrientation(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">HORIZONTAL VERTICAL</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- refresh -->
+		<parameter name="refresh_afterCreate"><![CDATA[
+			import javax.swing.*;
+			if (object.getComponentCount() == 0) {
+				object.add(new JLabel("Empty JToolBar"));
+			}
+			]]></parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">true</parameter>
+		<parameter name="flowContainer.component">java.awt.Component javax.swing.Action</parameter>
+		<parameter name="flowContainer.association">%parent%.add(%child%)</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>FormLayout</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>SWT FormLayout</h1>
+<p>FormLayout class that implements an constraint-based layout manager. With 
+constraint-based layout, you have independent control over the sizing behavior 
+of each of the four sides of a widget. The top, bottom, left, and right sides 
+can be independently attached to the sides of the parent container or the sides 
+of any sibling widget within the same container using either fixed or relative 
+offsets. This proves to be surprisingly powerful and can be used to emulate 
+almost any of the other layout managers. The FormLayout class is very simple and 
+only specifies the margins of the container. The real power is in the FormData 
+object, which holds up to four different FormConstraint objects. </p>
+<p>In <b>Automatic 
+		Mode</b>, attachments are determined automatically based on the position 
+		of the widgets themselves. In <b>Classic</b> mode, full control over the 
+attachments on each widget side is available.</p>
+<ul>
+	<li><b><a href="#MainFeatures">Main Features</a></b></li>
+	<li><b><a href="#GraphicalFeedback">Graphical Feedback</a></b></li>
+	<li><b><a href="../../preferences/swt/preferences_formlayout.html">
+	Preferences</a></b></li>
+</ul>
+    <p></p>
+<h2><a name="MainFeatures"></a>Main Features</h2>
+<ul>
+	<li>Select <b>FormLayout</b> from the <b>Layouts</b> palette and 
+				drop it on a Window or Composite</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/frml_design_view.gif"></p>
+</blockquote>
+<ul>
+	<li>Graphical feedback is provided for all widget size and 
+				position operations</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/frml_indent1.gif">&nbsp;
+	<img border="0" src="images/frml_margins3.gif" align="top"></p>
+</blockquote>
+<ul>
+				<li>Support for <b>Automatic Placement</b> mode and <b>Classic</b> 
+				mode.</li>
+            </ul>
+          <blockquote>
+			<p>
+	<img border="0" src="images/frml_alignment6.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment6c.gif" align="top"></p>
+</blockquote>
+          <p></p>
+            <h2><a name="GraphicalFeedback"></a>Graphical Feedback</h2>
+<ul>
+	<li>Position and size widgets using FormLayout constraints</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_position1.gif">&nbsp;
+	<img border="0" src="images/frml_size1.gif"></p>
+</blockquote>
+<ul>
+	<li>Align widgets horizontally and vertically</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_alignment7.gif">&nbsp;
+	<img border="0" src="images/frml_alignment8.gif"></p>
+</blockquote>
+<ul>
+	<li>Indent widgets intelligently</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_indent1.gif">&nbsp;
+	<img border="0" src="images/frml_indent2.gif"></p>
+</blockquote>
+<ul>
+	<li>Align widgets to margins</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_margins1.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_margins2.gif" align="top"></p>
+	<p>
+	<img border="0" src="images/frml_margins3.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Anchor widgets to the left, right or both sides</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_alignment1.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment2.gif" align="top"></p>
+	<p>
+	<img border="0" src="images/frml_alignment3.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment3c.gif" align="top" width="313" height="248"></p>
+</blockquote>
+<ul>
+	<li>Anchor widgets to the top, bottom or both sides</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_alignment4.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment5.gif" align="top"></p>
+	<p>
+	<img border="0" src="images/frml_alignment6.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment6c.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Align widgets to percentage offsets</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/frml_percentage1.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_percentage2.gif" align="top"></p>
+	<p>
+	<img border="0" src="images/frml_percentage3.gif" align="top" width="313" height="248">&nbsp;
+	<img border="0" src="images/frml_percentage4.gif" align="top" width="313" height="248"></p>
+</blockquote>
+<ul>
+	<li>Set anchors via popup context menus</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_alignment_menu1.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment_menu2.gif" align="top"></p>
+	<p>
+	<img border="0" src="images/frml_alignment_menu3.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_alignment_menu4.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Set anchors and offsets via the <b>
+				<a href="../../../com.instantiations.designer.doc.user/html/userinterface/property_pane.html">Property Pane</a></b><p>
+	<img border="0" src="images/frml_properties.gif" align="top" width="199" height="188"></p>&nbsp;</li>
+	<li>Align and center widgets using toolbar</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/align_toolbar.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Set anchors and alignment using floating layout assistant
+	<img border="0" src="images/assistant.gif" width="16" height="16" align="top"></li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/frml_assistant1.gif" align="top">&nbsp;
+	<img border="0" src="images/frml_assistant2.gif" align="top"></p>
+</blockquote>
+</body>
+</html>

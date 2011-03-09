@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<factory>
+	<method name="new_Frame">
+		<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		<description>Creates a new java.awt.Frame. This frame is the root for the AWT components
+			that will be embedded within the composite. In order for the embedding to succeed, the
+			composite must have been created with the SWT.EMBEDDED style and have no
+		children.</description>
+		<parameters>
+			<parameter name="layout.has">true</parameter>
+		</parameters>
+	</method>
+</factory>

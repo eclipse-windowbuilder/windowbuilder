@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Swing GroupLayout</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>SWT GroupLayout</h1>
+<p><b>GroupLayout</b> is a LayoutManager that hierarchically groups components 
+in order to position them in a Container. <b>GroupLayout</b> is intended for use 
+by builders, but may be hand-coded as well. Grouping is done by instances of the
+<b>Group</b> class. <b>GroupLayout</b> supports two types of groups. A 
+sequential group positions its child elements sequentially, one after another. A 
+parallel group aligns its child elements in one of four ways. <br>
+<br>
+Each group may contain any number of elements, where an element is a <b>Group</b>,
+<b>Component</b>, or gap. A gap can be thought of as an invisible component with 
+a minimum, preferred and maximum size. In addition GroupLayout supports a 
+preferred gap, whose value comes from <b>LayoutStyle</b>. <br>
+<br>
+Elements are similar to a spring. Each element has a range as specified by a 
+minimum, preferred and maximum. Gaps have either a developer-specified range, or 
+a range determined by <b>LayoutStyle</b>. The range for Components is determined 
+from the Component's <b>getMinimumSize</b>, <b>getPreferredSize</b> and <b>
+getMaximumSize</b> methods. In addition, when adding Components you may specify 
+a particular range to use instead of that from the component. The range for a <b>
+Group</b> is determined by the type of group. A <b>ParallelGroup's</b> range is 
+the maximum of the ranges of its elements. A <b>SequentialGroup's</b> range is 
+the sum of the ranges of its elements. <br>
+<br>
+<b>GroupLayout</b> treats each axis independently. That is, there is a group 
+representing the horizontal axis, and a group representing the vertical axis. 
+The horizontal group is responsible for determining the minimum, preferred and 
+maximum size along the horizontal axis as well as setting the x and width of the 
+components contained in it. The vertical group is responsible for determining 
+the minimum, preferred and maximum size along the vertical axis as well as 
+setting the y and height of the components contained in it. Each Component must 
+exist in both a horizontal and vertical group, otherwise an <b>
+IllegalStateException</b> is thrown during layout, or when the minimum, 
+preferred or maximum size is requested. </p>
+<ul>
+	<li><b><a href="#MainFeatures">Main Features</a></b></li>
+	<li><b><a href="#GraphicalFeedback">Graphical Feedback</a></b></li>
+</ul>
+    <p></p>
+<h2><a name="MainFeatures"></a>Main Features</h2>
+<ul>
+	<li>Select <b>GroupLayout</b> from the <b>Layouts</b> palette and 
+				drop it on a Shell or Composite</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_design_view.gif"></p>
+</blockquote>
+<ul>
+				<li>Graphical feedback is provided for all widget size and 
+				position operations</li>
+            </ul>
+            <blockquote>
+				<p>
+	<img border="0" src="images/group_indent1.gif">&nbsp;
+	<img border="0" src="images/group_align2.gif"></p>
+</blockquote>
+          <p></p>
+            <h2><a name="GraphicalFeedback"></a>Graphical Feedback</h2>
+<ul>
+	<li>Position and size widgets using GroupLayout constraints</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_align3.gif">&nbsp;
+	<img border="0" src="images/group_align4.gif">E</p>
+</blockquote>
+<ul>
+	<li>Align widgets horizontally and vertically</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_align1.gif">&nbsp;
+	<img border="0" src="images/group_align2.gif"></p>
+</blockquote>
+<ul>
+	<li>Indent widgets intelligently</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/group_indent1.gif">&nbsp;
+	<img border="0" src="images/group_indent2.gif"></p>
+</blockquote>
+<ul>
+	<li>Insert widgets intelligently</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_insert1.gif">&nbsp;
+	<img border="0" src="images/group_insert2.gif"></p>
+</blockquote>
+<ul>
+	<li>Align widgets along text baselines</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_baseline1.gif" align="top">&nbsp;
+	<img border="0" src="images/group_baseline2.gif"></p>
+</blockquote>
+<ul>
+	<li>Align widgets to margins</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_margin1.gif" align="top">&nbsp;
+	<img border="0" src="images/group_margin2.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Anchor widgets to the left, right or both sides</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_anchor1.gif" align="top">&nbsp;
+	<img border="0" src="images/group_anchor2.gif" align="top">&nbsp;
+	<img border="0" src="images/group_anchor3.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Anchor widgets to the top, bottom or both sides</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_anchor1.gif" align="top">&nbsp;
+	<img border="0" src="images/group_anchor4.gif" align="top">&nbsp;
+	<img border="0" src="images/group_anchor5.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Set anchors via popup context menus</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_anchor6.gif" align="top">&nbsp;
+	<img border="0" src="images/group_anchor7.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Set widget anchoring and resizing via context menu</li>
+</ul>
+<blockquote>
+	<p><img border="0" src="images/group_menu_anchor.gif" align="top">&nbsp;
+	<img border="0" src="images/group_menu_resizing.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Align and center widgets using toolbar</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/align_toolbar.gif" align="top"></p>
+</blockquote>
+<ul>
+	<li>Set alignment, size and spacing using floating layout assistant</li>
+</ul>
+<blockquote>
+	<p>
+	<img border="0" src="images/group_layout_assistant1.gif" align="top">&nbsp;
+	<img border="0" src="images/group_layout_assistant2.gif" align="top"></p>
+</blockquote>
+</body>
+</html>

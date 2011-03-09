@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Wizards" link_to="../org.eclipse.wb.doc.user/toc_wizards.xml#wizards"> 
+	<topic href="html/wizards/swing/index.html" label="Swing"> 
+		<topic href="html/wizards/swing/jframe.html" label="JFrame"/>
+		<topic href="html/wizards/swing/jpanel.html" label="JPanel"/>
+		<topic href="html/wizards/swing/jdialog.html" label="JDialog"/>
+		<topic href="html/wizards/swing/japplet.html" label="JApplet"/>
+		<topic href="html/wizards/swing/jinternalframe.html" label="JInternalFrame"/>
+		<topic href="html/wizards/swing/application_window.html" label="Application Window"/>
+		<topic href="html/wizards/swing/automatic_databinding.html" label="Automatic Data Binding"/>
+	</topic> 
+</toc>

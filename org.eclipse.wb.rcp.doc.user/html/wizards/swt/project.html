@@ -1,0 +1,100 @@
+<html>
+
+<head>
+<title>SWT Java Project Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>SWT Java Project Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="850">
+  <tr>
+    <td>
+      <div align="left">
+        In order to use Eclipse SWT and JFace components,
+              you need to make sure that all of the appropriate SWT and JFace
+              jar files are on your classpath. The <b>SWT Java Project</b>
+              wizard creates a standard Java project which has all of the needed
+              libraries added.
+              The wizard can be
+              selected from the drop down wizard menu or from the
+              Eclipse <b>New</b> or <b>New Project</b> wizards.
+              <p>To use the wizard, enter the project name and specify where the 
+				project should be located. In addition, specify the location of 
+				your SWT installation, choose whether to create some initial 
+				sample content and hit the <b>Finish</b>
+              button. 
+      </div>
+      <p><img src="images/wizard_swt_project1.gif">&nbsp; 
+		<img src="images/wizard_swt_project2.gif"></p>
+    <p>The wizard creates a Java project and generates content for the <b>.classpath</b> 
+	file similar to the following.</p>
+		<blockquote>
+			<font SIZE="2" COLOR="#008080">
+			<p><font face="Courier">&lt;?</font></font><font face="Courier"><font SIZE="2" COLOR="#3f7f7f">xml
+			</font><font SIZE="2" COLOR="#7f007f">version</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;1.0&quot;
+			</font><font SIZE="2" COLOR="#7f007f">encoding</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;UTF-8&quot;</font></font><font face="Courier" SIZE="2" COLOR="#008080">?&gt;<br>
+			&lt;</font><font SIZE="2" COLOR="#3f7f7f" face="Courier">classpath</font><font face="Courier" SIZE="2" COLOR="#008080">&gt;<br>
+			</font><font face="Courier"><font SIZE="2" COLOR="#008080">&nbsp;&nbsp;&nbsp; 
+			&lt;</font><font SIZE="2" COLOR="#3f7f7f">classpathentry </font>
+			<font SIZE="2" COLOR="#7f007f">kind</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;src&quot;
+			</font><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;src&quot;</font></font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; </font><font face="Courier"><font SIZE="2" COLOR="#008080">&lt;</font><font SIZE="2" COLOR="#3f7f7f">classpathentry
+			</font><font SIZE="2" COLOR="#7f007f">kind</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;con&quot;
+			</font><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot;</font></font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.osgi_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.osgi.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.ui.forms_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.ui.forms.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.core.commands_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.core.commands.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.equinox.common_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.equinox.common.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.equinox.registry_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.equinox.registry.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.core.runtime_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.core.runtime.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.text_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.text.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.swt.os.platform_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.swt.os.platform.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.jface_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.jface.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.jface.text_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.jface.text.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;classpathentry </font>
+			<font size="2" color="#7f007f" face="Courier">kind</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;lib&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"> </font><font face="Courier"><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font></font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.ui.workbench_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+			<font size="2" color="#7f007f" face="Courier">sourcepath</font><font SIZE="2" face="Courier">=</font><font size="2" color="#2a00ff" face="Courier">&quot;C:/eclipse/plugins/org.eclipse.ui.workbench.source_X.X.X.jar&quot;</font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+&nbsp;&nbsp;&nbsp; </font><font face="Courier"><font SIZE="2" COLOR="#008080">&lt;</font><font SIZE="2" COLOR="#3f7f7f">classpathentry
+			</font><font SIZE="2" COLOR="#7f007f">kind</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;output&quot;
+			</font><font SIZE="2" COLOR="#7f007f">path</font><font SIZE="2">=</font><font SIZE="2" COLOR="#2a00ff">&quot;bin&quot;</font></font><font face="Courier" SIZE="2" COLOR="#008080">/&gt;<br>
+			&lt;/</font><font SIZE="2" COLOR="#3f7f7f" face="Courier">classpath</font><font SIZE="2" COLOR="#008080"><font face="Courier">&gt;</font></font></p>
+		</blockquote>
+		<p>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

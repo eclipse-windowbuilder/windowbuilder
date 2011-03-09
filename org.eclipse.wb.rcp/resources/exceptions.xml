@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exceptions>
+	<exception id="3000" title="Unable to find FormToolkit or IManagedForm method/field."> To generate new
+		Forms API components in IDetailsPage/MasterDetailsBlock, WindowBuilder needs to know how to access the
+		FormToolkit (or IManagedForm, so that getToolkit() can be used). Therefore, you should create a field
+		or method with a FormToolkit or IManagedForm. <p>For example:</p>
+		<pre>
+	public class MyMasterDetailsBlock extends MasterDetailsBlock {
+		private FormToolkit m_toolkit;
+		...
+		protected void createMasterPart(IManagedForm managedForm, Composite parent) {
+			m_toolkit = managedForm.getToolkit();
+			Section section = m_toolkit.createSection(parent, Section.EXPANDED | Section.TITLE_BAR);
+			...
+		}
+		...
+	}
+		</pre>
+	</exception>
+	<exception id="3001" title="Graphical editing is not provided for Wizard classes." warning="true">
+		<pre>
+	Please use the Source page to make any changes.
+	Individual WizardPages may be edited graphically.
+		</pre>
+	</exception>
+	<exception id="3002" title="Graphical editing is not provided for MultiPageEditorPart classes."
+		warning="true">
+		<pre>
+	Please use the Source page to make any changes.
+	Individual EditorParts may be edited graphically.
+		</pre>
+	</exception>
+	<exception id="3003" title="No Control for WizardPage." warning="true"> WizardPage is responsible for
+		ensuring the created control is accessible via getControl(). The simplest way to ensure this is to
+		make your createControl() method look like this:
+		<pre>
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		setControl(container);
+	}
+		</pre>
+	</exception>
+	<exception id="3004" title="No method open() in SWT Dialog." warning="true">SWT Dialogs have no standard entry point, but
+		all standard Dialogs use the method "open()". Therefore, WindowBuilder also requires a method with the
+		name "open" and any number of parameters but was not able to find it.</exception>
+	<exception id="3005" title="Java project not configured for SWT." warning="true">If you wish to use SWT,
+		please add the appropriate SWT jars to your classpath, or create a new SWT/JFace Java Project. You may
+		also create a plug-in project and allow PDE to manage the classpath for you.</exception>
+	<exception id="3006" title="No main Shell in SWT Dialog." warning="true">SWT Dialog is pattern in which you create a main
+		Shell, open it and then run the event loop. However, WindowBuilder was not able to find the creation
+		of the main Shell in your dialog. Create a new SWT Dialog using "SWT > Dialog" wizard and look at the
+		expected structure of the SWT Dialog.</exception>
+	<exception id="3007" title="Graphical editing is not provided for this widget classes."
+		warning="true"> TabItem, CTabItem and some others can not be editing in graphical UI:
+		<pre>
+	Please use the Source page to make any changes.
+		</pre>
+	</exception>
+</exceptions>

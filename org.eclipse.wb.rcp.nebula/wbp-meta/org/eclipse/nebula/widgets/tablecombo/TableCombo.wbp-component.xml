@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The TableCombo class represents a selectable user interface object that combines a
+		label, textfield, and a table and issues notification when an item is selected from the
+		table.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.tablecombo.TableCombo(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT READ_ONLY</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.tablecombo"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="showTableHeader showTableLines visibleItemCount"/>
+	<properties-advanced names="selection"/>
+	<properties-hidden names="tableVisible"/>
+	<property id="setShowTableLines(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setShowTableHeader(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setShowImageWithinSelection(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setShowColorWithinSelection(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setShowFontWithinSelection(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setDisplayColumnIndex(int)">
+		<defaultValue value="0"/>
+	</property>
+	<property id="setTableWidthPercentage(int)">
+		<defaultValue value="100"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+	</parameters>
+</component>

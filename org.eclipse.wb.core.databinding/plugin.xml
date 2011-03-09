@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="databindingFactories" name="Factories for parsing support"
+      schema="schema/databindingFactories.exsd"/>
+
+   <!-- ======================================================== -->
+   <!-- Parser -->
+   <!-- ======================================================== -->
+   <extension point="org.eclipse.wb.core.parseFactories">
+      <noModel
+         class="org.eclipse.wb.internal.core.databinding.parser.ParseFactoryNoModelDatabindings"
+      />
+   </extension>
+
+
+   <!-- ======================================================== -->
+   <!-- IRootProcessor -->
+   <!-- ======================================================== -->
+   <extension point="org.eclipse.wb.core.rootProcessors">
+      <processor
+         class="org.eclipse.wb.internal.core.databinding.parser.DatabindingRootProcessor"/>
+   </extension>
+
+</plugin>

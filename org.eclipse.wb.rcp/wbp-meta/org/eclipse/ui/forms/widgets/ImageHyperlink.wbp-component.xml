@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class extends hyperlink widget by adding the capability to render an image relative to
+		the text. If no text has been set, only image will be shown. Images for hover and active states can be
+		set in addition to the normal state image.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.ImageHyperlink(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New ImageHyperlink"]]></invocation>
+		<x-attribute name="text" value="New ImageHyperlink"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER WRAP NO_FOCUS</parameter>
+					<parameter name="select0">align_h LEFT LEFT RIGHT</parameter>
+					<parameter name="select1">align_v CENTER TOP CENTER BOTTOM</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="image"/>
+	<property-tag name="image" tag="isImage" value="true"/>
+</component>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.bean.ActionInfo"/>
+	<description>The Action interface provides a useful extension to the ActionListener interface in cases
+		where the same functionality may be accessed by several controls.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.action.Action("New Action")]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="putValue">
+			<parameter type="java.lang.String"/>
+			<parameter type="java.lang.Object"/>
+		</method>
+	</methods>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="NVO.disabled">true</parameter>
+	</parameters>
+</component>

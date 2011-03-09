@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="toc_installation.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_userinterface.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_features.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_databinding.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_layoutmanagers.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_wizards.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_preferences.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="toc_tutorials.xml"
+            primary="false">
+      </toc>
+   </extension>
+
+</plugin>

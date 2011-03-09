@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container>
+	<descriptors name="SWT.Widgets"
+		class="org.eclipse.wb.internal.rcp.databinding.wizards.autobindings.SwtWidgetDescriptor">
+		<!-- String -->
+		<descriptor>
+			<addImage value="widgets/Text.gif"/>
+			<addName value="Text"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Text"/>
+			<setCreateCode value="new Text(%parent%, SWT.BORDER | SWT.SINGLE)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%, SWT.None)"/>
+		</descriptor>
+		<descriptor>
+			<setPropertyType value="java.lang.String java.util.Date char byte java.lang.Character java.lang.Byte"/>
+			<setDefault/>
+			<addImage value="widgets/Text.gif"/>
+			<addName value="Text"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text(SWT.Modify)"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Text"/>
+			<setCreateCode value="new Text(%parent%, SWT.BORDER | SWT.SINGLE)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%, SWT.Modify)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Text.gif"/>
+			<addName value="Text"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text(SWT.FocusOut)"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Text"/>
+			<setCreateCode value="new Text(%parent%, SWT.BORDER | SWT.SINGLE)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%, SWT.FocusOut)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Combo.gif"/>
+			<addName value="Combo"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Combo"/>
+			<setCreateCode value="new Combo(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/CCombo.gif"/>
+			<addName value="CCombo"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text"/>
+			<setFullClassName value="org.eclipse.swt.custom.CCombo"/>
+			<setCreateCode value="new CCombo(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Label.gif"/>
+			<addName value="Label"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Label"/>
+			<setCreateCode value="new Label(%parent%, SWT.NONE)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/CLabel.gif"/>
+			<addName value="CLabel"/>
+			<addImage value="types/String2.png"/>
+			<addName value="text"/>
+			<setFullClassName value="org.eclipse.swt.custom.CLabel"/>
+			<setCreateCode value="new CLabel(%parent%, SWT.NONE)"/>
+			<setBindingCode value="SWTObservables.observeText(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Combo.gif"/>
+			<addName value="Combo"/>
+			<addImage value="types/String2.png"/>
+			<addName value="selection"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Combo"/>
+			<setCreateCode value="new Combo(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSelection(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/CCombo.gif"/>
+			<addName value="CCombo"/>
+			<addImage value="types/String2.png"/>
+			<addName value="selection"/>
+			<setFullClassName value="org.eclipse.swt.custom.CCombo"/>
+			<setCreateCode value="new CCombo(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSelection(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/List.gif"/>
+			<addName value="List"/>
+			<addImage value="types/String2.png"/>
+			<addName value="selection"/>
+			<setFullClassName value="org.eclipse.swt.widgets.List"/>
+			<setCreateCode value="new List(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSelection(%widget%)"/>
+		</descriptor>
+		<!-- Boolean -->
+		<descriptor>
+			<setPropertyType value="boolean java.lang.Boolean"/>
+			<setDefault/>
+			<addImage value="widgets/Button_check.gif"/>
+			<addName value="Button(SWT.CHECK)"/>
+			<addImage value="types/Boolean4.png"/>
+			<addName value="selection"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Button"/>
+			<setCreateCode value="new Button(%parent%, SWT.CHECK)"/>
+			<setBindingCode value="SWTObservables.observeSelection(%widget%)"/>
+		</descriptor>
+		<!-- Integer -->
+		<descriptor>
+			<setPropertyType value="int java.lang.Integer short java.lang.Short float java.lang.Float double java.lang.Double java.math.BigInteger java.math.BigDecimal"/>
+			<setDefault/>
+			<addImage value="widgets/Scale.gif"/>
+			<addName value="Scale"/>
+			<addImage value="types/Number2.png"/>
+			<addName value="selection"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Scale"/>
+			<setCreateCode value="new Scale(%parent%, SWT.HORIZONTAL)"/>
+			<setBindingCode value="SWTObservables.observeSelection(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Spinner.gif"/>
+			<addName value="Spinner"/>
+			<addImage value="types/Number2.png"/>
+			<addName value="selection"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Spinner"/>
+			<setCreateCode value="new Spinner(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSelection(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Combo.gif"/>
+			<addName value="Combo"/>
+			<addImage value="types/Number2.png"/>
+			<addName value="selectionIndex"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Combo"/>
+			<setCreateCode value="new Combo(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSingleSelectionIndex(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/CCombo.gif"/>
+			<addName value="CCombo"/>
+			<addImage value="types/Number2.png"/>
+			<addName value="selectionIndex"/>
+			<setFullClassName value="org.eclipse.swt.custom.CCombo"/>
+			<setCreateCode value="new CCombo(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSingleSelectionIndex(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/List.gif"/>
+			<addName value="List"/>
+			<addImage value="types/Number2.png"/>
+			<addName value="selectionIndex"/>
+			<setFullClassName value="org.eclipse.swt.widgets.List"/>
+			<setCreateCode value="new List(%parent%, SWT.BORDER)"/>
+			<setBindingCode value="SWTObservables.observeSingleSelectionIndex(%widget%)"/>
+		</descriptor>
+		<descriptor>
+			<addImage value="widgets/Table.gif"/>
+			<addName value="Table"/>
+			<addImage value="types/Number2.png"/>
+			<addName value="selectionIndex"/>
+			<setFullClassName value="org.eclipse.swt.widgets.Table"/>
+			<setCreateCode value="new Table(%parent%, SWT.BORDER | SWT.FULL_SELECTION)"/>
+			<setBindingCode value="SWTObservables.observeSingleSelectionIndex(%widget%)"/>
+		</descriptor>
+	</descriptors>
+	<descriptors name="JFaceBinding.Strategy"
+		class="org.eclipse.wb.internal.rcp.databinding.wizards.autobindings.JFaceBindingStrategyDescriptor">
+		<descriptor>
+			<setDefault/>
+			<setName value="Update All"/>
+			<setTargetStrategyCode value="null"/>
+			<setModelStrategyCode value="null"/>
+			<setImage value="policy_update.png"/>
+		</descriptor>
+		<descriptor>
+			<setName value="Update widget to bean"/>
+			<setTargetStrategyCode value="null"/>
+			<setModelStrategyCode value="UpdateValueStrategy.POLICY_NEVER"/>
+			<setImage value="policy_target_model.png"/>
+		</descriptor>
+		<descriptor>
+			<setName value="Update bean to widget"/>
+			<setTargetStrategyCode value="UpdateValueStrategy.POLICY_NEVER"/>
+			<setModelStrategyCode value="null"/>
+			<setImage value="policy_model_target.png"/>
+		</descriptor>
+		<descriptor>
+			<setName value="Update never"/>
+			<setTargetStrategyCode value="UpdateValueStrategy.POLICY_NEVER"/>
+			<setModelStrategyCode value="UpdateValueStrategy.POLICY_NEVER"/>
+			<setImage value="policy_never.png"/>
+		</descriptor>
+	</descriptors>
+</container>

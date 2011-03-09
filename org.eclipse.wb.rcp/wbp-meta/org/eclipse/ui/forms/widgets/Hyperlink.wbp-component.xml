@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>Hyperlink is a concrete implementation of the abstract base class that draws text in the
+		client area. Text can be wrapped and underlined. Hyperlink is typically added to the hyperlink group
+		so that certain properties are managed for all the hyperlinks that belong to it.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.Hyperlink(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Hyperlink"]]></invocation>
+		<x-attribute name="text" value="New Hyperlink"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER WRAP NO_FOCUS</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

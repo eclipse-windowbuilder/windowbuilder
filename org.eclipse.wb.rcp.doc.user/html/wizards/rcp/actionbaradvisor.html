@@ -1,0 +1,130 @@
+<html>
+
+<head>
+<title>Wizards - RCP - ActionBarAdvisors</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h1>RCP ActionBarAdvisor Wizard</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" width="700">
+  <tr>
+    <td>
+	<h3>
+		<img src="images/wizard_rcp_actionbaradvisor0.gif" align="left" hspace="10"></h3>Subclasses of the RCP <b>ActionBarAdvisor</b> class can be
+              created using the <b>RCP ActionBarAdvisor</b> wizard (Eclipse 3.1 
+			or above). The wizard can be
+              selected from the drop down Designer wizard menu or from the
+              Eclipse <b>New</b> wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name and editor name and hit the <b>Finish</b>
+              button.</td>
+  </tr>
+  <tr>
+    <td>
+	<br>
+		<img src="images/wizard_rcp_actionbaradvisor1.gif">&nbsp;
+      <img src="images/wizard_rcp_actionbaradvisor2.gif"></td>
+  </tr>
+  <tr>
+    <td>
+    <p><br>
+	The wizard generates the following code.</p>
+      <blockquote>
+              <dl>
+                <dt><font face="Courier" size="2" color="#7f0055"><b>import</b></font><font face="Courier New" size="2"> 
+				org.eclipse.jface.action.ICoolBarManager;<br>
+				</font><font face="Courier" size="2" color="#7f0055"><b>import</b></font><font face="Courier New" size="2"> 
+				org.eclipse.jface.action.IMenuManager;<br>
+				</font><font face="Courier" size="2" color="#7f0055"><b>import</b></font><font face="Courier New" size="2"> 
+				org.eclipse.ui.IWorkbenchWindow;<br>
+				</font><font face="Courier" size="2" color="#7f0055"><b>import</b></font><font face="Courier New" size="2"> 
+				org.eclipse.ui.application.ActionBarAdvisor;<br>
+				</font><font face="Courier" size="2" color="#7f0055"><b>import</b></font><font face="Courier New" size="2"> 
+				org.eclipse.ui.application.IActionBarConfigurer;<br>
+				<br>
+				</font><font face="Courier" size="2" color="#7f0055"><b>public class</b></font><font face="Courier New" size="2"> 
+				RcpActionBarAdvisor </font>
+				<font face="Courier" size="2" color="#7f0055"><b>extends</b></font><font face="Courier New" size="2"> ActionBarAdvisor {<br>
+&nbsp;&nbsp;&nbsp; </font><font face="Courier" size="2" color="#7f0055"><b>public</b></font><font face="Courier New" size="2"> 
+				RcpActionBarAdvisor(IActionBarConfigurer configurer) 
+				{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier" size="2" color="#7f0055"><b>super</b></font><font face="Courier New" size="2">(configurer);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </font><font face="Courier" size="2" color="#7f0055"><b>
+				protected void</b></font><font face="Courier New" size="2"> 
+				makeActions(IWorkbenchWindow window) {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </font><font face="Courier" size="2" color="#7f0055"><b>
+				protected void</b></font><font face="Courier New" size="2"> 
+				fillCoolBar(ICoolBarManager coolBar) {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </font><font face="Courier" size="2" color="#7f0055"><b>
+				protected void</b></font><font face="Courier New" size="2"> 
+				fillMenuBar(IMenuManager menuBar) {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+				}&nbsp;&nbsp;&nbsp; </font></dt>
+              </dl>
+      </blockquote>
+      <p>ActionBarAdvisors use their own unique palette. The first palette category, <b>
+		<a href="../../palettes/swt_palette.html#JFaceActions">JFace Actions</a></b>, contains a list of all of the actions defined in the local plugin.xml 
+	file as well as commands to create new actions, menu managers and toolbar 
+		managers. The <b>ActionFactory</b> category contains 
+	common actions frequently used in RCP applications.</p>
+	<p>
+      <img src="images/wizard_rcp_actionbaradvisor3.gif"></p>
+      <p>Tool bars and actions may be dragged and dropped on the Coolbar within 
+		the design area. Actions and separators may also&nbsp; be dragged to 
+		the menubar.</p>
+      <p>
+		<img src="images/wizard_rcp_actionbaradvisor4.gif">&nbsp;&nbsp;
+		</p>
+      <p>New actions may be created using the <b>New</b> command, and existing actions may be added using the
+		<b>External</b> command. New actions are created as inner classes of the current
+      class and are automatically added to the palette for easy access. Any existing actions may be deleted using the <b> Delete</b>
+      key. Selecting an action allows you to edit its icons,
+      label and tool tip text within the property pane.&nbsp;</p>
+      <p>The toolbar is live and actions may be dropped on it. Actions and separators may be dragged from the 
+		palette and dropped on the toolbar. Toolbar actions may be rearranged 
+		using drag/drop and
+      deleted using the <b>Delete</b> key.</p>
+      <p>The
+      menubar is also live and actions may be dropped on it. Actions, separators and menu managers may be dragged from
+      the palette and dropped into the menu. Menus may be rearranged using 
+		drag/drop and
+      deleted using the <b>Delete</b> key.</p>
+      <p>
+		<img src="images/wizard_rcp_actionbaradvisor5.gif">
+    <p>The <b>ActionFactory</b> category is prepopulated with all of the actions defined 
+	in the Eclipse ActionFactory class.</p>
+	<p>
+		<img src="images/wizard_rcp_actionbaradvisor6.gif" width="144" height="436" align="top"></p>
+	<p>
+		When the ActionBarAdvisor itself is selected in the property pane, 
+	properties for its associated WorkbenchWindowAdvisor class are shown.</p><p>
+		<img border="0" src="images/wizard_rcp_actionbaradvisor7.gif" align="top">
+      <blockquote>
+              <dl>
+                <dt><font face="Courier New" size="2">public void preWindowOpen() 
+				{<br>
+&nbsp;&nbsp;&nbsp; IWorkbenchWindowConfigurer configurer = getWindowConfigurer();<br>
+&nbsp;&nbsp;&nbsp; configurer.setTitle(&quot;Sample RCP App&quot;);<br>
+&nbsp;&nbsp;&nbsp; configurer.setShowFastViewBars(true);<br>
+&nbsp;&nbsp;&nbsp; configurer.setInitialSize(new Point(200, 200));<br>
+&nbsp;&nbsp;&nbsp; configurer.setShowCoolBar(true);<br>
+&nbsp;&nbsp;&nbsp; configurer.setShowStatusLine(false);<br>
+				}<br>
+				&nbsp;</font></dt>
+              </dl>
+      </blockquote>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

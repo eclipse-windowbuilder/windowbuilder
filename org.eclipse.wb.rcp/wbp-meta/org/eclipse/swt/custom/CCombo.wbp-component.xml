@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The CCombo class represents a selectable user interface object that combines a text field and
+		a list and issues notificiation when an item is selected from the list.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.CCombo(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER READ_ONLY FLAT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<!-- ADD -->
+		<method name="add">
+			<parameter type="java.lang.String"/>
+		</method>
+		<method name="add">
+			<parameter type="java.lang.String"/>
+			<parameter type="int"/>
+		</method>
+		<method name="setItem">
+			<parameter type="int"/>
+			<parameter type="java.lang.String"/>
+		</method>
+		<method name="setItems">
+			<parameter type="java.lang.String[]"/>
+		</method>
+		<!-- SELECTION -->
+		<method name="select">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text items"/>
+	<properties-advanced names="textLimit selection"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.swt.widgets.Combo"/>
+		<morphTarget class="org.eclipse.swt.widgets.Button"/>
+		<morphTarget class="org.eclipse.swt.widgets.Label"/>
+		<morphTarget class="org.eclipse.swt.widgets.Text"/>
+		<morphTarget class="org.eclipse.swt.widgets.DateTime"/>
+		<morphTarget class="org.eclipse.swt.widgets.Spinner"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

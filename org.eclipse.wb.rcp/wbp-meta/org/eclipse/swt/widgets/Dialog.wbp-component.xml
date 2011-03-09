@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.DialogInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Shell"/>
+			<parameter type="int" name="style" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER CLOSE MIN MAX RESIZE TITLE RIGHT_TO_LEFT</parameter>
+					<parameter name="macro0">trim SHELL_TRIM DIALOG_TRIM NO_TRIM</parameter>
+					<parameter name="select0">modality MODELESS PRIMARY_MODAL MODELESS
+						APPLICATION_MODAL SYSTEM_MODAL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="dontCacheDescription">true</parameter>
+	</parameters>
+</component>

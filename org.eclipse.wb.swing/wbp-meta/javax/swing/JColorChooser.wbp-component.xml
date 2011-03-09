@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JColorChooser()]]></source>
+	</creation>
+	<!-- PROPERTIES -->
+	<properties-preferred names="color"/>
+	<properties-advanced names="dragEnabled"/>
+	<properties-hidden names="UI chooserPanels previewPanel selectionModel"/>
+</component>

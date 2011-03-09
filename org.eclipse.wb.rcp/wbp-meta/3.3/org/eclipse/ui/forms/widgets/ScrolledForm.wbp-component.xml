@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.forms.ScrolledFormInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.forms.ScrolledFormInfo"/>
+	<description>ScrolledForm is a control that is capable of scrolling an instance of the Form class. It
+		should be created in a parent that will allow it to use all the available area (for example, a shell,
+		a view or an editor).</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.ScrolledForm(%parent%)]]></source>
+		<invocation signature="setExpandVertical(boolean)"><![CDATA[true]]></invocation>
+		<invocation signature="setExpandHorizontal(boolean)"><![CDATA[true]]></invocation>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New ScrolledForm"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER H_SCROLL V_SCROLL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<include method="getBody"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image"/>
+	<properties-advanced names="expandHorizontal expandVertical minWidth minHeight origin"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<property id="setBusy(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="directEdit.location.insets">-5 15 0 0</parameter>
+		<parameter name="directEdit.location.horizontalAlignment">left</parameter>
+		<parameter name="directEdit.location.verticalAlignment">top</parameter>
+	</parameters>
+</component>

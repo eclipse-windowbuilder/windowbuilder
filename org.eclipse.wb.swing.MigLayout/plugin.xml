@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+
+	<!-- ======================================================== -->
+	<!-- Toolkit -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.toolkits">
+		<toolkit id="org.eclipse.wb.swing">
+			<resourcePrefixes>
+				<resourcePrefix>net.miginfocom.</resourcePrefix>
+			</resourcePrefixes>
+			<classLoader-bundle bundle="org.eclipse.wb.swing.MigLayout.lib"
+				namespaces="net.miginfocom"/>
+			<palette>
+				<component class="net.miginfocom.swing.MigLayout"
+					category="org.eclipse.wb.swing.layouts">
+					<library type="net.miginfocom.swing.MigLayout"
+						bundle="org.eclipse.wb.swing.MigLayout.lib" jar="miglayout15-swing.jar"
+						src="miglayout-src.zip"/>
+				</component>
+			</palette>
+		</toolkit>
+	</extension>
+	
+	<extension point="org.eclipse.wb.core.paletteComponentExists">
+		<component package="net.miginfocom.swing." always="true"/>
+	</extension>
+	
+
+	<!-- ======================================================== -->
+	<!-- Layout managers -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.layoutManagers">
+		<layout toolkit="org.eclipse.wb.swing" id="MigLayout" name="MigLayout"
+			class="net.miginfocom.swing.MigLayout">
+			<library type="net.miginfocom.swing.MigLayout"
+				bundle="org.eclipse.wb.swing.MigLayout.lib" jar="miglayout15-swing.jar"
+				src="miglayout-src.zip"/>
+		</layout>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Surround with -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.surroundWith">
+		<!-- processors -->
+		<processor toolkit="org.eclipse.wb.swing"
+			class="org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutSurroundProcessor"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Preferences -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.eclipse.wb.internal.swing.MigLayout.model.PreferenceInitializer"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page category="org.eclipse.wb.swing.preferences.layout.LayoutSupportPreferencePage"
+			class="org.eclipse.wb.internal.swing.MigLayout.preferences.MigLayoutPreferencePage"
+			id="org.eclipse.wb.swing.MigLayout.preferences.MigLayoutPreferencePage"
+			name="MigLayout"/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- GEF factories -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.editPolicyFactories">
+		<factory class="org.eclipse.wb.internal.swing.MigLayout.gef.LayoutEditPolicyFactory"/>
+	</extension>
+
+</plugin>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="setPartName">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="init(org.eclipse.ui.IViewSite)"/>
+		</method>
+		<method name="setContentDescription">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="init(org.eclipse.ui.IViewSite)"/>
+		</method>
+		<method name="setTitle">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="init(org.eclipse.ui.IViewSite)"/>
+		</method>
+		<method name="setTitleToolTip">
+			<parameter type="java.lang.String"/>
+			<tag name="thisTargetMethod" value="init(org.eclipse.ui.IViewSite)"/>
+		</method>
+		<method name="setTitleImage">
+			<parameter type="org.eclipse.swt.graphics.Image"/>
+			<tag name="thisTargetMethod" value="init(org.eclipse.ui.IViewSite)"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="title"/>
+	<property-tag name="titleImage" tag="noDefaultValue" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="NVO.disabled">true</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.grid.GridItemInfo"/>
+	<description>Instances of this class represent a selectable user interface object that represents an item in a grid.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.grid.GridItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Row"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.Grid" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+				<!--<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">TOGGLE</parameter>
+				</editor>-->
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.Grid" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.GridItem" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.nebula.widgets.grid.GridItem" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setText">
+			<parameter type="int"/>
+			<parameter type="java.lang.String"/>
+		</method>
+		<method name="setChecked">
+			<parameter type="int"/>
+			<parameter type="boolean"/>
+		</method>
+	</methods>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.grid"/>
+	</exposing-rules>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flip expanded -->
+		<parameter name="double-click.flipBooleanProperty">expanded</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer.tree">true</parameter>
+		<parameter name="flowContainer.tree.horizontal">true</parameter>
+		<parameter name="flowContainer.tree.component">org.eclipse.nebula.widgets.grid.GridItem</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="eventsProperty.componentAccess">.getSource()</parameter>
+	</parameters>
+</component>

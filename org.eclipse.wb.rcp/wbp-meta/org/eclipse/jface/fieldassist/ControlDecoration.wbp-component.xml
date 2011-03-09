@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.ControlDecorationInfo"/>
+	<description>ControlDecoration renders an image decoration near a control. It allows clients to specify an
+		image and a position for the image relative to the control. A ControlDecoration may be assigned
+		description text, which can optionally be shown when the user hovers over the image. Clients can
+		decorate any kind of control.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.fieldassist.ControlDecoration(%parent%, org.eclipse.swt.SWT.LEFT | org.eclipse.swt.SWT.TOP)]]></source>
+		<invocation signature="setDescriptionText(java.lang.String)"><![CDATA["Some description"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Control" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="select0">horizontal 0 LEFT RIGHT</parameter>
+					<parameter name="select1">vertical 0 TOP CENTER BOTTOM</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Control" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="select0">horizontal 0 LEFT RIGHT</parameter>
+					<parameter name="select1">vertical 0 TOP CENTER</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.swt.widgets.Composite"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="show"/>
+		<method name="hide"/>
+	</methods>
+</component>

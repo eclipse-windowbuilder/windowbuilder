@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="pack"/>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="iconImage"/>
+	<properties-advanced names="focusableWindowState locationByPlatform"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

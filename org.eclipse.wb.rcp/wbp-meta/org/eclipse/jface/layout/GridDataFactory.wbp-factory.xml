@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<factory>
+	<allMethodsAreFactories>false</allMethodsAreFactories>
+	<method name="swtDefaults" factory="true">
+		<description>Creates a new GridDataFactory initialized with the SWT defaults.</description>
+	</method>
+	<method name="fillDefaults" factory="true">
+		<description> Creates a GridDataFactory initialized with defaults that will cause the
+			control to fill its cell.</description>
+	</method>
+	<method name="defaultsFor" factory="true">
+		<parameter type="org.eclipse.swt.widgets.Control"/>
+		<description>Returns a GridDataFactory initialized with heuristicly generated defaults for
+			the given control.</description>
+	</method>
+	<method name="copy" factory="true">
+		<description>Creates a copy of the reciever.</description>
+	</method>
+	<method name="createFrom" factory="true">
+		<parameter type="org.eclipse.swt.layout.GridData"/>
+		<description>Creates a new GridDataFactory that creates copies of the given GridData by
+			default.</description>
+	</method>
+	<method name="copyData" factory="true">
+		<parameter type="org.eclipse.swt.layout.GridData"/>
+		<description>Returns a copy of the given GridData.</description>
+	</method>
+	<method name="create" factory="true">
+		<description>Creates a new GridLayout, and initializes it with values from the
+		factory.</description>
+	</method>
+</factory>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo"/>
+	<description>An implementation of a popup menu - a small window that pops up and displays a series of
+		choices. A JPopupMenu is used for the menu that appears when the user selects an item on the menu bar.
+		It is also used for "pull-right" menu that appears when the selects a menu item that activates it.
+		Finally, a JPopupMenu can also be used anywhere else you want a menu to appear. For example, when the
+		user right-clicks in a specified area.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JPopupMenu()]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<method name="add">
+			<parameter type="javax.swing.JMenuItem" child="true"/>
+		</method>
+		<method name="addSeparator">
+			<tag name="voidFactory.creationSupport"
+				value="org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuSeparatorCreationSupport"/>
+			<tag name="voidFactory.componentClass" value="javax.swing.JPopupMenu$Separator"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="border invoker lightWeightPopupEnabled selectionModel"/>
+	<properties-hidden names="UI"/>
+</component>

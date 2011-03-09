@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Design View</title>
+<link href="../../book.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Design View</h1>
+<table border="0" width="800" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top">
+<p>The <b>Design View</b> is your virtual sketchpad. You can add or remove 
+components, edit layout properties, direct edit labels, and see what your overall 
+design looks like as it evolves. </p>
+<p><img border="0" src="images/design_view.png" width="558" height="446"></p>
+	<p>Select a component in the <b>Design View </b>to make it appear in the
+<b><a href="property_pane.html">Property Pane</a></b>, where you can edit its properties. This will also activate selection 
+handles for the component. Selection handles allow you change layout properties 
+of the selected control and, for some layout managers, also layout properties of 
+sibling controls. All properties that can be changed in the <b>Design View</b> can be also changed in 
+the <b><a href="property_pane.html">Property Pane</a></b>. Depending on the 
+	<a href="../layoutmanagers/index.html">layout manager</a> in effect, row and column headers may be visible in the 
+	header area.</p>
+	<p>Right-click on component to access the same
+		<a href="context_menu.html">context menu</a> available in the <b>
+	<a href="component_tree.html">Component Tree</a></b>. Components may added 
+	by choosing them from the <b><a href="palette.html">Palette</a></b> and 
+		deleted using the <b>Delete</b> key.</p>
+<h2>Component Selection</h2>Use the
+			<img src="images/SelectionTool.gif" alt="" width="16" height="16">
+	<b>Selection</b> tool in the <b><a href="palette.html">Palette</a> </b>to select one or more widgets. Hold the <b>Shift</b> or <b>Ctrl</b> key down 
+		to select multiple widgets.<p>
+		<img src="images/single_selection.png" border="0"><p>Use the
+			<img src="images/MarqueeSelectionTool.gif" alt="" width="16" height="16">
+	<b>Marquee</b> tool in the <b><a href="palette.html">Palette</a> </b>to rubber band select multiple widgets. 
+Hold the <b>Alt</b> key and start dragging to automatically activate the&nbsp;
+	<b>Marquee</b> tool.</p>
+	<p>
+		<img src="images/marquee_select.png" border="0"><h2>
+<a name="DirectEdit">Direct Edit</a></h2>
+<p>There
+is a quick way to edit the text property of buttons (including check and radio
+buttons), labels, text fields, groups, and table columns.<span
+style="mso-spacerun: yes"> </span>First select a component in the <b>
+Design View</b><span style="mso-spacerun: yes">, and then hit the <b>Space</b></span> key to reveal an edit box in which you can set
+the component's text property.</p>
+<p>
+		<img src="images/direct_edit.png" border="0" width="230" height="147"><h2>
+Moving Components</h2>
+<p>Whenever a component is moved in the <b>Design View</b>, drag feedback is 
+provided that is layout manager specific. In an x,y oriented layout like 
+absolute layout, the live component is shown moving with a tooltip showing its 
+current location. Dynamic snap / alignment points are provided to make it 
+convenient to align the component with other components or the window margin.</p>
+<p>
+		<img src="images/feedback_drag_xy.png" border="0" width="229" height="124"><p>
+		In grid oriented layouts different feedback is shown depending on which 
+		cell the cursor is over. If the cursor is positioned over an open cell, 
+		the cell is highlighted in green and the cursor shows a green check 
+		mark. If the cursor is positioned over a row or column border, the row 
+		or column border is highlighted in yellow indicating that a new row or 
+		column will be inserted. If the cursor is positioned over an already 
+		populated cell, that cell is highlighted in red and the cursor shows a 
+		red minus sign. <p>
+		<img src="images/feedback_drag_grid1.png" border="0" width="229" height="124">&nbsp;
+		<img src="images/feedback_drag_grid2.png" border="0" width="229" height="124">&nbsp;
+		<img src="images/feedback_drag_grid3.png" border="0" width="229" height="124"><h2>
+Resizing Components</h2>
+<p>Whenever a component is resized in the <b>Design View</b>, size feedback is 
+provided that is layout manager specific. In an x,y oriented layout like 
+absolute layout, an outline of the new size is shown with a tooltip showing its 
+current size. Dynamic snap / alignment points are provided to make it convenient 
+to align the component with other components or the window margin. Resizing a 
+component also snaps to the preferred size of the resized component or to the 
+size (vertical or horizontal) of any other component on the same parent.</p>
+<p>
+		<img src="images/feedback_size_xy.png" border="0" width="229" height="124"><p>
+		In grid oriented layouts, resizing a component will cause it to span 
+		more than one rows or columns. During the resize operation, the cells 
+		that will be occupied by the component are outlined in green.<p>
+		<img src="images/feedback_size_grid.png" border="0" width="229" height="124"></td>
+	</tr>
+</table>
+      
+
+
+</body></html>

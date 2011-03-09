@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>The Calendar Combo Widget is a combo box widget that opens a calendar when dropped down. The
+		calendar is modelled after Microsoft Outlook's calendar widget and acts and behaves exactly the same
+		(and it is also theme based).</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.calendarcombo.CalendarCombo(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="boolean" defaultSource="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.IColorManager" defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.IColorManager" defaultSource="null"/>
+			<parameter type="boolean" defaultSource="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.CalendarCombo" defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.CalendarCombo" defaultSource="null"/>
+			<parameter type="boolean" defaultSource="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.CalendarCombo" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.IColorManager" defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">MULTI NO_FOCUS READ_ONLY</parameter>
+				</editor>
+			</parameter>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.CalendarCombo" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.ISettings" defaultSource="null"/>
+			<parameter type="org.eclipse.nebula.widgets.calendarcombo.IColorManager" defaultSource="null"/>
+			<parameter type="boolean" defaultSource="true"/>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.calendarcombo"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<property id="setDate(java.util.Date)">
+		<category value="preferred"/>
+		<editor id="customDate">
+			<parameter name="functions">import java.text.SimpleDateFormat;</parameter>
+			<parameter name="toString">new SimpleDateFormat("dd.MM.yyyy").format(value)</parameter>
+			<parameter name="toDate">new SimpleDateFormat("dd.MM.yyyy").parse(value)</parameter>
+		</editor>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.nebula.widgets.cdatetime.CDateTime"/>
+		<morphTarget class="org.eclipse.nebula.widgets.datechooser.DateChooser"/>
+		<morphTarget class="org.eclipse.nebula.widgets.datechooser.DateChooserCombo"/>
+		<morphTarget class="org.eclipse.swt.widgets.DateTime"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- selection listener -->
+		<parameter name="double-click.listener">selection/widgetSelected</parameter>
+	</parameters>
+</component>

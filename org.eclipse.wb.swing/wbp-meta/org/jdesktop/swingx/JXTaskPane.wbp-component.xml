@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.swingx.JXTaskPaneInfo"/>
+	<description>A container for tasks and other arbitrary components.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.jdesktop.swingx.JXTaskPane()]]></source>
+	</creation>
+	<!-- METHODS -->
+	<methods>
+		<!-- Action -->
+		<method name="add">
+			<parameter type="javax.swing.Action" name="action"/>
+			<tag name="implicitFactory" value="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names=""/>
+	<properties-advanced names=""/>
+	<properties-hidden names=""/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flow container -->
+		<parameter name="flowContainer.tree">true</parameter>
+		<parameter name="flowContainer.tree.horizontal">false</parameter>
+		<parameter name="flowContainer.tree.component">javax.swing.Action</parameter>
+		<parameter name="flowContainer.tree.association">%parent%.add(%child%)</parameter>
+	</parameters>
+</component>

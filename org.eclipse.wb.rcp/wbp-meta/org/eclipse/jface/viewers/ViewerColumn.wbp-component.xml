@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.viewers.ViewerColumnInfo"/>
+	<!-- PROPERTIES -->
+	<properties-preferred names="editingSupport labelProvider"/>
+	<property id="setLabelProvider(org.eclipse.jface.viewers.CellLabelProvider)">
+		<editor id="innerClass">
+			<parameter name="mode">anonymous</parameter>
+			<parameter name="name">ViewerColumnCellLabelProvider</parameter>
+			<parameter name="class">org.eclipse.jface.viewers.CellLabelProvider</parameter>
+			<parameter name="source"><![CDATA[
+new org.eclipse.jface.viewers.ColumnLabelProvider() {
+	public org.eclipse.swt.graphics.Image getImage(Object element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getText(Object element) {
+		// TODO Auto-generated method stub
+		return element == null ? "" : element.toString();
+	}
+}
+			]]></parameter>
+		</editor>
+	</property>
+	<property id="setEditingSupport(org.eclipse.jface.viewers.EditingSupport)">
+		<editor id="innerClass">
+			<parameter name="mode">anonymous</parameter>
+			<parameter name="disableInXML">true</parameter>
+			<parameter name="name">ViewerColumnEditingSupport</parameter>
+			<parameter name="class">org.eclipse.jface.viewers.EditingSupport</parameter>
+			<parameter name="source"><![CDATA[
+new org.eclipse.jface.viewers.EditingSupport(${parent.parent.firstChild[org.eclipse.jface.viewers.ColumnViewer].expression}) {
+	protected boolean canEdit(Object element) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	protected org.eclipse.jface.viewers.CellEditor getCellEditor(Object element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	protected Object getValue(Object element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	protected void setValue(Object element, Object value) {
+		// TODO Auto-generated method stub
+	}
+}
+			]]></parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- GEF validators -->
+		<parameter name="wrapped.GEF.requestValidator.child"><![CDATA[
+			def existChildrenByType(type) {
+			  foreach(child : parent.getChildren()){
+			    if(isComponentType(child,type)){
+			      return true;
+			    }
+			  }
+			  return false;
+			}
+			existChildrenByType("org.eclipse.jface.viewers.Viewer")
+			]]></parameter>
+	</parameters>
+</component>

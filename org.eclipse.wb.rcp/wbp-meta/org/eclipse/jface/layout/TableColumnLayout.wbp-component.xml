@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.jface.layout.TableColumnLayoutInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- simple container -->
+		<parameter name="simpleContainer">true</parameter>
+		<parameter name="simpleContainer.component">org.eclipse.swt.widgets.Table</parameter>
+	</parameters>
+</component>

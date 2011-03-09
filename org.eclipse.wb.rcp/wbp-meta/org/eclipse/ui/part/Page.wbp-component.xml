@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.rcp.PageInfo"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="invocationChain: getSite().getActionBars().getToolBarManager()"
+			>org.eclipse.jface.action.ToolBarManager</parameter>
+		<parameter name="invocationChain: getSite().getActionBars().getMenuManager()"
+			>org.eclipse.jface.action.MenuManager</parameter>
+	</parameters>
+</component>

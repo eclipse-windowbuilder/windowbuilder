@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<method name="align">
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.LEFT">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="fields">BEGINNING CENTER END FILL LEFT RIGHT</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.CENTER">
+				<editor id="staticField">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="fields">BEGINNING CENTER END FILL TOP BOTTOM</parameter>
+				</editor>
+			</parameter>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="exclude">
+			<parameter type="boolean"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="grab">
+			<parameter type="boolean" defaultSource="false"/>
+			<parameter type="boolean" defaultSource="false"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="hint">
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.DEFAULT"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.DEFAULT"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="hint">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="indent">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="indent">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="minSize">
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.DEFAULT"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.DEFAULT"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="minSize">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="span">
+			<parameter type="int"/>
+			<parameter type="int"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="span">
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+			<tag name="returnThis" value="true"/>
+		</method>
+		<method name="applyTo">
+			<parameter type="org.eclipse.swt.widgets.Control"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<method-single-property title="exclude" method="exclude(boolean)"/>
+	<method-single-property title="spanP" method="span(org.eclipse.swt.graphics.Point)"/>
+	<method-single-property title="hintP" method="hint(org.eclipse.swt.graphics.Point)"/>
+	<method-single-property title="indentP" method="indent(org.eclipse.swt.graphics.Point)"/>
+	<method-single-property title="minSizeP" method="minSize(org.eclipse.swt.graphics.Point)"/>
+	<method-property title="grab" method="grab(boolean,boolean)"/>
+	<method-property title="align" method="align(int,int)"/>
+	<method-property title="span" method="span(int,int)"/>
+	<method-property title="hint" method="hint(int,int)"/>
+	<method-property title="indent" method="indent(int,int)"/>
+	<method-property title="minSize" method="minSize(int,int)"/>
+</component>

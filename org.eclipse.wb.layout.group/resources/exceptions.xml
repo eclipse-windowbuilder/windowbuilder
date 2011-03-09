@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exceptions>
+	<!-- parse errors -->
+	<exception id="1100" title="Unable to parse GroupLayout code.">WindowBuilder is unable to parse 
+		this GroupLayout code. Either the GroupLayout code contains compile errors or the code contains 
+		patterns unknown to the code parser. Please send a test case to support.
+	</exception>
+	<!-- code gen errors -->
+	<exception id="1200" title="Unable to generate GroupLayout code.">Invalid code generated for GroupLayout. Please contact support.
+	</exception>
+</exceptions>

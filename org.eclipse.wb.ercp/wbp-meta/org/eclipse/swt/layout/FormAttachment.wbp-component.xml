@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.form.FormAttachmentInfo"/>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="numerator"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="numerator"/>
+			<parameter type="int" property="offset"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="numerator"/>
+			<parameter type="int" property="denominator"/>
+			<parameter type="int" property="offset"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Control" property="control"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Control" property="control"/>
+			<parameter type="int" property="offset"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Control" property="control"/>
+			<parameter type="int" property="offset"/>
+			<parameter type="int" property="alignment"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id='control'>
+		<editor id='controlSelection'/>
+	</property>
+	<property id='alignment'>
+		<editor id='staticField'>
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">TOP BOTTOM LEFT RIGHT CENTER DEFAULT</parameter>
+		</editor>
+	</property>
+</component>

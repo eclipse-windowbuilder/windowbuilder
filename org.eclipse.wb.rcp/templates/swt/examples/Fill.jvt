@@ -1,0 +1,47 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+
+method
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell();
+		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
+		shell.setText("FillLayout test");
+		{
+			Button button = new Button(shell, SWT.NONE);
+			button.setText("button");
+		}
+		{
+			Group group = new Group(shell, SWT.NONE);
+			group.setLayout(new FillLayout(SWT.VERTICAL));
+			group.setText("Group");
+			{
+				Button button = new Button(group, SWT.NONE);
+				button.setText("button 1");
+			}
+			{
+				Button button = new Button(group, SWT.NONE);
+				button.setText("button 2");
+			}
+			{
+				Button button = new Button(group, SWT.NONE);
+				button.setText("button 3");
+			}
+		}
+		{
+			Text text = new Text(shell, SWT.BORDER | SWT.MULTI);
+			text.setText("text");
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

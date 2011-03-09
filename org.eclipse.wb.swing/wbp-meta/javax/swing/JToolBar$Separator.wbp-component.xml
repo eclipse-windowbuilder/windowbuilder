@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JToolBarSeparatorInfo"/>
+	<description>A toolbar-specific separator. An object with dimension but no contents used to divide buttons on a tool bar into groups.</description>
+</component>

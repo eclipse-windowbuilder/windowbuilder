@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.layout.StackLayoutInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.layout.StackLayoutInfo"/>
+	<description>This Layout stacks all the controls one on top of the other and resizes all
+		controls to have the same size and location. The control specified in topControl is visible
+		and all other controls are not visible.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.StackLayout()]]></source>
+	</creation>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">true</parameter>
+		<parameter name="flowContainer.component">org.eclipse.swt.widgets.Control</parameter>
+	</parameters>
+</component>

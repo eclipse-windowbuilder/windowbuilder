@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- METHODS -->
+	<methods>
+		<methods-exclude signature="setModel(javax.swing.ButtonModel)"/>
+		<method name="setMnemonic" order="after setMnemonic(char)">
+			<parameter type="int"/>
+		</method>
+		<method name="setDisplayedMnemonicIndex" order="after setMnemonic(char)">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text"/>
+	<properties-advanced
+		names="actionCommand border borderPainted contentAreaFilled disabledIcon disabledSelectedIcon displayedMnemonicIndex focusPainted hideActionText horizontalTextPosition iconTextGap label margin model multiClickThreshhold pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon verticalTextPosition"/>
+	<properties-hidden names="UI label"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PROPERTIES EDITORS-->
+	<property id="setVerticalAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">TOP CENTER BOTTOM</parameter>
+		</editor>
+	</property>
+	<property id="setHorizontalAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT LEADING TRAILING</parameter>
+		</editor>
+	</property>
+	<property id="setVerticalTextPosition(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">TOP CENTER BOTTOM</parameter>
+		</editor>
+	</property>
+	<property id="setHorizontalTextPosition(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT LEADING TRAILING</parameter>
+		</editor>
+	</property>
+	<!-- PROPERTIES: mnemonic -->
+	<property id="setMnemonic(char)">
+		<category value="preferred"/>
+	</property>
+	<property id="setMnemonic(int)">
+		<category value="advanced"/>
+		<editor id="swing.displayedMnemonic"/>
+	</property>
+</component>

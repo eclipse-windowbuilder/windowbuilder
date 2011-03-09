@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A lightweight component that allows the editing of a single line of text.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JTextField()]]></source>
+		<invocation signature="setColumns(int)"><![CDATA[10]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setColumns(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="columns"/>
+	<properties-advanced names="action actionCommand scrollOffset"/>
+	<property id="setHorizontalAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.SwingConstants</parameter>
+			<parameter name="fields">LEFT CENTER RIGHT LEADING TRAILING</parameter>
+		</editor>
+	</property>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JSpinner"/>
+		<morphTarget class="javax.swing.JLabel"/>
+		<morphTarget class="javax.swing.JComboBox"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.rightAlignment.isTarget">true</parameter>
+	</parameters>
+</component>

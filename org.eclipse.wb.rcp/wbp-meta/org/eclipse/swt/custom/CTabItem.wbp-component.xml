@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.CTabItemInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.CTabItemInfo"/>
+	<description>Instances of this class represent a selectable user interface object that represent a page in
+		a notebook widget.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.custom.CTabItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Item"]]></invocation>
+		<x-attribute name="text" value="New Item"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.custom.CTabFolder" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">CLOSE</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.custom.CTabFolder" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">CLOSE</parameter>
+				</editor>
+			</parameter>
+			<parameter type="int"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text image"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- select on double click -->
+		<parameter name="double-click.runScript">doSelect()</parameter>
+		<!-- simple container -->
+		<parameter name="simpleContainer">true</parameter>
+		<parameter name="simpleContainer.component">org.eclipse.swt.widgets.Control</parameter>
+		<parameter name="simpleContainer.x-association">property control</parameter>
+	</parameters>
+</component>

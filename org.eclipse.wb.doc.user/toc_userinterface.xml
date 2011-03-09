@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="User Interface" topic="html/userinterface/index.html">
+	<topic href="html/userinterface/design_view.html" label="Design View"/>
+	<topic href="html/userinterface/source_view.html" label="Source View"/>
+	<topic href="html/userinterface/structure_view.html" label="Structure View">
+		<topic href="html/userinterface/component_tree.html" label="Component Tree" />
+		<topic href="html/userinterface/property_pane.html" label="Property Pane">
+			<topic href="html/userinterface/property_pane_context_menu.html" label="Property Pane Context Menu" />
+			<topic href="html/userinterface/property_editor_string.html" label="String Editor" />
+			<topic href="html/userinterface/property_editor_string_array.html" label="String Array Editor" />
+			<topic href="html/userinterface/property_editor_color.html" label="Color Editor" />
+			<topic href="html/userinterface/property_editor_font.html" label="Font Editor" />
+			<topic href="html/userinterface/property_editor_image.html" label="Icon / Image Editor" />
+			<topic href="html/userinterface/property_editor_point.html" label="Point Editor" />
+			<topic href="html/userinterface/property_editor_rectangle.html" label="Rectangle Editor" />
+			<topic href="html/userinterface/property_editor_inset.html" label="Inset Editor" />
+			<topic href="html/userinterface/property_editor_taborder.html" label="Tab Order Editor" />
+			<anchor id="properties" />
+		</topic>
+	</topic>
+	<topic href="html/userinterface/palette.html" label="Palette">
+		<topic href="html/userinterface/palette_context_menu.html" label="Palette Context Menu" />
+		<topic href="html/userinterface/palette_manager.html" label="Palette Manager" />
+		<anchor id="palettes" />
+		<topic href="html/NewComponentsTutorial.pdf" label="New Component Tutorial (PDF)" />
+		<topic href="html/DesignerCustomizationAPI.pdf" label="Customization API (PDF)" />
+	</topic>
+	<topic href="html/userinterface/toolbar.html" label="Toolbar" />
+	<topic href="html/userinterface/context_menu.html" label="Context Menu" />
+	<anchor id="userinterface" />
+</toc>

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.eclipse.org/wb/WBPComponent"
+	xmlns="http://www.eclipse.org/wb/WBPComponent" elementFormDefault="qualified">
+
+	<xs:annotation>
+		<xs:documentation>Schema for *.wbp-component.xml descriptions.</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="component">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- license -->
+				<xs:element name="license" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute name="type" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- toolkit -->
+				<xs:element name="toolkit" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute name="id" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- model -->
+				<xs:element name="model" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xmlns="http://www.w3.org/1999/xhtml">Specifies model class, subclass
+							of <samp>org.eclipse.wb.core.model.JavaInfo</samp>. Usually only
+							WindowBuilder should specify model class, because mostly internals of
+							WindowBuilder are closed, so you just can not know how to write new model classes.
+							Fortunately, existing models, such as <samp>ComponentInfo</samp> or
+								<samp>ContainerInfo</samp> (for Swing <samp>java.awt.Component</samp> and
+								<samp>java.awt.Container</samp>), or for SWT, are flexible enough, so you can
+							specify many things just using *.wbp-component.xml files. If you don't specify
+							"model" tag, the model of super-class will be used.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="class" type="ClassName"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- x-model -->
+				<xs:element name="x-model" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute name="class" type="ClassName"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- order -->
+				<xs:element name="order" minOccurs="0"/>
+				<!-- description -->
+				<xs:element name="description" minOccurs="0"/>
+				<!-- creation -->
+				<xs:element name="creation-default" type="Creation" minOccurs="0"/>
+				<xs:element name="creation" type="Creation" minOccurs="0" maxOccurs="unbounded"/>
+				<!-- constructors -->
+				<xs:element name="constructors" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<!-- constructor -->
+							<xs:element name="constructor" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="parameter" type="MethodParameter" minOccurs="0"
+											maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<!-- /constructor -->
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<!-- methods -->
+				<xs:element name="methods" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<!-- methods-include -->
+							<xs:element name="methods-include" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="signature" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<!-- methods-exclude -->
+							<xs:element name="methods-exclude" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="signature" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<!-- method -->
+							<xs:element name="method" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="parameter" type="MethodParameter" minOccurs="0"
+											maxOccurs="unbounded"/>
+										<xs:element name="tag" type="TagType" minOccurs="0"
+											maxOccurs="unbounded"/>
+									</xs:sequence>
+									<xs:attribute name="name" type="xs:string" use="required"/>
+									<xs:attribute name="order" type="MethodOrderType"/>
+									<xs:attribute name="executable" type="xs:boolean"/>
+								</xs:complexType>
+							</xs:element>
+							<!-- /method -->
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<!-- method orders -->
+				<xs:element name="method-order" type="MethodsOrderType" minOccurs="0"/>
+				<!-- exposed children -->
+				<xs:element name="exposing-rules" type="ExposingRulesType" minOccurs="0"/>
+				<!-- standard bean properties -->
+				<xs:element name="standard-bean-properties" minOccurs="0"/>
+				<xs:element name="public-field-properties" minOccurs="0"/>
+				<xs:element name="properties-preferred" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="names" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties-normal" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="names" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties-advanced" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="names" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties-hidden" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="names" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties-noDefaultValue" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="names" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="property-tag" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="name" type="xs:string" use="required"/>
+						<xs:attribute name="tag" type="xs:string" use="required"/>
+						<xs:attribute name="value" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- method based property (single parameter) -->
+				<xs:element name="method-single-property" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:group ref="PropertyConfigurationElements"/>
+						<xs:attribute name="title" type="xs:string" use="required"/>
+						<xs:attribute name="method" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- method based property (multiple parameters) -->
+				<xs:element name="method-property" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="title" type="xs:string" use="required"/>
+						<xs:attribute name="method" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<!-- configuring properties -->
+				<xs:element name="property" type="PropertyConfiguration" minOccurs="0" maxOccurs="unbounded"/>
+				<!-- configurable (not standard bean) properties -->
+				<xs:element name="add-property" type="ConfigurablePropertyType" minOccurs="0"
+					maxOccurs="unbounded"/>
+				<!-- morphing targets -->
+				<xs:element name="morphTargets" type="MorphingType" minOccurs="0"/>
+				<!-- untyped parameters -->
+				<xs:element name="parameters" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="parameter" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="name" type="xs:string" use="required"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<!-- XXX -->
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<!-- Creation type -->
+	<xs:complexType name="Creation">
+		<xs:sequence>
+			<xs:element name="source" type="xs:string"/>
+			<!-- invocation -->
+			<xs:element name="invocation" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true">
+					<xs:attribute name="signature" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<!-- parameter -->
+			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true">
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<!-- description -->
+			<xs:element name="description" minOccurs="0"/>
+			<!-- XML -->
+			<!-- attribute -->
+			<xs:element name="x-attribute" type="XAttributeType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- content -->
+			<xs:element name="x-content" minOccurs="0" maxOccurs="1">
+				<xs:complexType mixed="true"/>
+			</xs:element>
+			<!-- tag -->
+			<xs:element name="tag" type="TagType" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<!-- generics -->
+			<xs:element name="typeParameters" type="TypeParametersType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+	
+	<!-- TypeParameters type -->
+	<xs:complexType name="TypeParametersType">
+		<xs:sequence maxOccurs="unbounded"> 
+			<xs:element name="typeParameter" type="TypeParameterType"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- TypeParameter type -->
+	<xs:complexType name="TypeParameterType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="title" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<!-- ExposingRuleType -->
+	<xs:complexType name="XAttributeType">
+		<xs:attribute name="ns"/>
+		<xs:attribute name="name" use="required"/>
+		<xs:attribute name="value" use="required"/>
+	</xs:complexType>
+	
+
+	<!-- MethodParameter type -->
+	<xs:complexType name="MethodParameter">
+		<xs:sequence>
+			<xs:element name="editor" type="PropertyEditor" minOccurs="0"/>
+			<xs:element name="tag" type="TagType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<!-- attributes -->
+		<xs:attribute name="type" type="ClassName" use="required"/>
+		<xs:attribute name="parent" type="xs:boolean"/>
+		<xs:attribute name="child" type="xs:boolean"/>
+		<xs:attribute name="parent2" type="xs:boolean"/>
+		<xs:attribute name="child2" type="xs:boolean"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="defaultSource" type="xs:string"/>
+		<xs:attribute name="property" type="PropertyId"/>
+	</xs:complexType>
+
+
+	<!-- PropertyEditor type -->
+	<xs:complexType name="PropertyEditor">
+		<xs:sequence>
+			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="parameter-list" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<!-- attributes -->
+		<xs:attribute name="id" type="EditorId" use="required"/>
+	</xs:complexType>
+
+
+	<!-- ExposingRulesType -->
+	<xs:complexType name="ExposingRulesType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:choice>
+				<xs:element name="exclude" type="ExposingRuleType"/>
+				<xs:element name="include" type="ExposingRuleType"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- ExposingRuleType -->
+	<xs:complexType name="ExposingRuleType">
+		<xs:attribute name="package" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="method" type="xs:string"/>
+	</xs:complexType>
+
+
+
+	<!-- ConfigurableProperty type -->
+	<xs:complexType name="ConfigurablePropertyType">
+		<xs:sequence>
+			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="parameter-list" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<!-- attributes -->
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="title" type="xs:string" use="required"/>
+	</xs:complexType>
+
+
+
+	<!-- PropertyConfiguration type -->
+	<xs:complexType name="PropertyConfiguration">
+		<xs:group ref="PropertyConfigurationElements"/>
+		<!-- attributes -->
+		<xs:attribute name="id" type="PropertyId" use="required"/>
+	</xs:complexType>
+	
+	<xs:group name="PropertyConfigurationElements">
+		<xs:sequence>
+			<!-- category -->
+			<xs:element name="category" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="value" type="PropertyCategory" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<!-- editor -->
+			<xs:element name="editor" type="PropertyEditor" minOccurs="0"/>
+			<!-- defaultValue -->
+			<xs:element name="defaultValue" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<!-- getter -->
+			<xs:element name="getter" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	
+
+	<!-- Tag type -->
+	<xs:complexType name="TagType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+
+
+
+
+
+	<!-- Java class type -->
+	<xs:simpleType name="ClassName">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="PropertyId">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="PropertyCategory">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="preferred"/>
+			<xs:enumeration value="normal"/>
+			<xs:enumeration value="advanced"/>
+			<xs:enumeration value="hidden"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Editor id type -->
+	<xs:simpleType name="EditorId">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+
+
+	<!-- ======================================================== -->
+	<!-- Methods order -->
+	<!-- ======================================================== -->
+
+	<!-- Method order specification type -->
+	<xs:simpleType name="MethodOrderType">
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="after .*|first|last|afterCreation|beforeAssociation|afterAssociation|afterLastStatement|afterChildren .*|afterParentChildren .*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Method order (default) specification type -->
+	<xs:simpleType name="DefaultMethodOrderType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="afterCreation"/>
+			<xs:enumeration value="beforeAssociation"/>
+			<xs:enumeration value="afterAssociation"/>
+			<xs:enumeration value="last"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="MethodsOrderType">
+		<xs:sequence>
+			<!-- default -->
+			<xs:element name="default" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="order" type="DefaultMethodOrderType" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<!-- method -->
+			<xs:element name="method" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="signature" type="xs:string" use="required"/>
+					<xs:attribute name="order" type="MethodOrderType" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<!-- methods -->
+			<xs:element name="methods" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s" minOccurs="1" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string"/>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="order" type="MethodOrderType" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="MorphingType">
+		<xs:sequence>
+			<!-- morphing no inherit targets -->
+			<xs:element name="noInherit" minOccurs="0" maxOccurs="1"/>
+			<!-- morphing targets -->
+			<xs:element name="morphTarget" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="class" type="ClassName" use="required"/>
+					<xs:attribute name="creationId" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

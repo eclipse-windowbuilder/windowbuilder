@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class provides formatting of Date values in a FormattedText, resticting the edit and
+		display to the time part. Supports a subset of time patterns.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.formattedtext.DateFormatter(null, null, java.util.Locale.getDefault())]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.util.Locale" property="setLocale(java.util.Locale)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String"/>
+			<parameter type="java.util.Locale" property="setLocale(java.util.Locale)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String"/>
+			<parameter type="java.lang.String"/>
+			<parameter type="java.util.Locale" property="setLocale(java.util.Locale)"/>
+		</constructor>
+	</constructors>
+</component>

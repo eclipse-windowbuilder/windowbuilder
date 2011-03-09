@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A control that displays a set of hierarchical data as an outline.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JTree()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="javax.swing.tree.TreeModel"
+				property="setModel(javax.swing.tree.TreeModel)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="editable model rootVisible"/>
+	<properties-advanced
+		names="anchorSelectionPath cellEditor cellRenderer dragEnabled dropMode expandsSelectedPaths invokesStopCellEditing largeModel leadSelectionPath rowHeight scrollsOnExpand selectionModel toggleClickCount"/>
+	<properties-hidden names="UI"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="variable.name">tree</parameter>
+		<parameter name="variable.acronym">tree</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,14 @@
+
+1. Спросить про wizard page для SingleFrameApp
+
+2. Спросить про Javadoc теги в description, так как мы уже используем свой renderer в custom tooltip. 
+
+
+1. Layout assistant. Нужно запоминать позицию.
+2. Убрать (Java 6) из GBL context menu.
+
+
+
+1. Поддержать конфигурируемые wizard'ы, добавляемые через extension point или из текущего проекта.
+
+

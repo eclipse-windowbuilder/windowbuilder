@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>This class is a read-only text control that is capable of rendering wrapped text. Text can be
+		rendered as-is or by parsing the formatting XML tags. Independently, words that start with http:// can
+		be converted into hyperlinks on the fly.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.ui.forms.widgets.FormText(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Hyperlink"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setText">
+			<parameter type="java.lang.String" name="text"/>
+			<parameter type="boolean" name="parseTags"/>
+			<parameter type="boolean" name="expandURLs"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="loadingText"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<method-property title="text" method="setText(java.lang.String,boolean,boolean)"/>
+	<property id="setText(java.lang.String,boolean,boolean)">
+		<category value="preferred"/>
+	</property>
+	<!-- PARAMETERS -->	<parameters>
+		<parameter name="layout.has">false</parameter>
+	</parameters>
+</component>

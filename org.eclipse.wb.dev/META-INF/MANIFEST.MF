@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Designer internal developers Plug-in
+Bundle-SymbolicName: org.eclipse.wb.dev;singleton:=true
+Bundle-Version: 1.0.9
+Bundle-Activator: org.eclipse.wb.internal.dev.Activator
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui,
+ org.eclipse.jface.text,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.ui,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.workbench.texteditor
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Eclipse-LazyStart: true
+Bundle-ClassPath: lib/commons-io-2.0.1.jar,
+ .

@@ -1,0 +1,99 @@
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.part.IPageSite;
+import org.eclipse.ui.part.Page;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+
+field
+	private Composite %field-prefix%control;
+
+method
+	/**
+	 * Create the PageBookView Page.
+	 */
+	public %TypeName%() {
+	}
+
+method
+	/**
+	 * Create contents of the PageBookView Page.
+	 * @param parent
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		%container.SWTLayout%
+		%this%%field-prefix%control = container;
+	}
+
+method
+	@Override
+	public Control getControl() {
+		return %this%%field-prefix%control;
+	}
+
+method
+	@Override
+	public void init(IPageSite pageSite) {
+		super.init(pageSite);
+		createActions();
+		initializeToolBar();
+		initializeMenu();
+	}
+
+method
+	@Override
+	public void setFocus() {
+		// Set the focus
+	}
+
+method
+	/**
+	 * Create the actions.
+	 */
+	private void createActions() {
+		// Create the actions
+	}
+
+method
+	/**
+	 * Initialize the toolbar.
+	 */
+	private void initializeToolBar() {
+		IToolBarManager toolbarManager = getSite().getActionBars().getToolBarManager();
+	}
+
+method
+	/**
+	 * Initialize the menu.
+	 */
+	private void initializeMenu() {
+		IMenuManager menuManager = getSite().getActionBars().getMenuManager();
+	}
+
+method
+	@Override
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
+	}
+
+method
+	@Override
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+	}
+
+method
+	@Override
+	public ISelection getSelection() {
+		return null;
+	}
+
+method
+	@Override
+	public void setSelection(ISelection selection) {
+	}
+

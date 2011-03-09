@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.ctabletree.CTableTreeItemInfo"/>
+	<description>Row item for CTableTree widget</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Row"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTree" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTree" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="java.lang.Class" defaultSource="null"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTree" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="java.lang.Class[]" defaultSource="new java.lang.Class[0]"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+			<parameter type="java.lang.Class[]" defaultSource="new java.lang.Class[0]"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.nebula.widgets.ctabletree.CTableTree" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="displayExpression"/>
+			</parameter>
+			<parameter type="int" defaultSource="-1"/>
+			<parameter type="java.lang.Class[]" defaultSource="new java.lang.Class[0]"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setText(java.lang.String)" order="afterCreation"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.swt.nebula.widgets.ctabletree"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="text expanded"/>
+	<properties-advanced names="treeIndent"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- flip expanded -->
+		<parameter name="double-click.flipBooleanProperty">expanded</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer.tree">true</parameter>
+		<parameter name="flowContainer.tree.horizontal">false</parameter>
+		<parameter name="flowContainer.tree.component">org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem</parameter>
+	</parameters>
+</component>

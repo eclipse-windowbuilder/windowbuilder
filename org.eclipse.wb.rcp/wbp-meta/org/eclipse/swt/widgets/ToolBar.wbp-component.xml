@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.ToolBarInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.ToolBarInfo"/>
+	<description>Instances of this class support the layout of selectable tool bar items.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.ToolBar(%parent%, org.eclipse.swt.SWT.FLAT | org.eclipse.swt.SWT.RIGHT)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="FLAT | RIGHT"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT WRAP RIGHT SHADOW_OUT</parameter>
+					<parameter name="select0">dir HORIZONTAL HORIZONTAL VERTICAL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- border -->
+		<parameter name="shouldDrawBorder">true</parameter>
+		<!-- refresh -->
+		<parameter name="refresh_afterCreate"><![CDATA[
+			import org.eclipse.swt.SWT;
+			import org.eclipse.swt.widgets.*;
+			if (object.getItemCount() == 0) {
+				item = new ToolItem(object, SWT.NONE);
+				item.setText("Empty ToolBar");
+			}
+			]]></parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">isHorizontal()</parameter>
+		<parameter name="flowContainer.component">org.eclipse.swt.widgets.ToolItem</parameter>
+	</parameters>
+</component>

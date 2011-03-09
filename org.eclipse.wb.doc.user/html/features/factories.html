@@ -1,0 +1,260 @@
+<html>
+<head>
+<title>Factories</title>
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<link href="../../book.css" rel="stylesheet" type="text/css">
+<style>
+</style>
+</head>
+<body bgcolor="#FFFFFF">
+    <h1>Factories</h1>
+	<table border="0" cellpadding="5" cellspacing="0" id="table1" width="830">
+		<tr>
+			<td valign="top">
+			The tool supports the creation of custom factory classes 
+			and methods. This is a convenient way to 
+			create customized, reusable versions of common components. The tool supports 
+			the following features:<ul>
+				<li><a href="#Creating">Create a static factory method from any widget</a></li>
+				<li><a href="#Parameterizing">Factory methods may be parameterized with one or more 
+				arguments</a></li>
+				<li><a href="#Applying">Morph any widget into a factory instance</a></li>
+				<li><a href="#AddingToPalette">Add any factory component to the palette</a></li>
+			</ul>
+			<p>The following is an example of a simple button that is converted 
+			into multiple factories. The button has two properties set: its text 
+			is set to &quot;OK&quot; and its color is set to red.</p>
+			<p>
+			<img border="0" src="images/factory_example.png" align="top" width="184" height="116">&nbsp;
+			<img border="0" src="images/create_factory_menu.png" align="top" width="296" height="84"></p>
+			<font SIZE="2">
+			<dl>
+				<dd><font face="Courier">JButton okButton = </font> </font>
+				<font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+				new</b></font><font SIZE="2"> JButton(</font><font SIZE="2" COLOR="#2a00ff">&quot;OK&quot;</font></font><font SIZE="2"><font face="Courier">);</font></dd>
+				<dd><font face="Courier">okButton.setForeground(Color.</font></font><font SIZE="2" COLOR="#0000c0" face="Courier"><i>RED</i></font><font SIZE="2"><font face="Courier">);</font></dd>
+			</dl>
+			</font>
+			<h2><a name="Creating">Creating</a> a factory method</h2>
+			<p>Right-click on the component and select the <b>Factory &gt; Create 
+			factory...</b> command. In the <b>Create Factory</b> dialog, enter 
+			the name of the factory class (or select an existing factory using 
+			the <b>Browse</b> button) and the method name for the (static) 
+			factory method. If you wish the new factory to be added to the <b>
+			<a href="../userinterface/palette.html">Palette</a></b>, select a palette category or 
+			create a new category using the <b><a href="../userinterface/palette_manager.html">
+			Palette Manager</a></b>.</p>
+			<p>Below this, you will see a list if <b>Creation arguments</b> and
+			<b>Invocations</b>. <b>Creation arguments</b> are passed directly to 
+			the constructor of the widget while <b>Invocations</b> are applied 
+			to the widget after creation. Note that for SWT factories, the <b>
+			parent</b> container must be passed as an argument as shown below on 
+			the right (<b>parent</b> cannot be unchecked).</p>
+			<p>
+			<img border="0" src="images/create_factory_dialog1.png" align="top" width="403" height="461">&nbsp;
+			<img border="0" src="images/create_factory_dialog2.png" align="top" width="397" height="518"></p>
+			<h2><a name="Parameterizing">Parameterizing</a> a factory method</h2>
+			<p>As shown in the SWT example above and in the two examples below, 
+			a check in a leaf node within the tree indicates that a particular 
+			attribute should be a parameterized argument of the factory method. 
+			Checking the <b>text</b> creation argument will cause the <b>text</b> 
+			property to be passed into the method and applied to the widget. 
+			Likewise, checking the <b>foreground</b> invocation property will 
+			cause the <b>foreground</b> property to be passed into the method 
+			and applied to the widget.</p>
+			<p>
+			<img border="0" src="images/create_factory_dialog3.png" align="top">&nbsp;
+			<img border="0" src="images/create_factory_dialog4.png" align="top" width="403" height="476"></p>
+			<p>
+			If an invocation property should be ignored entirely, uncheck it in 
+			the <b>Invocations</b> list as shown below.</p>
+			<p>
+			<img border="0" src="images/create_factory_dialog5.png" align="top"></p>
+			<p>
+			Clicking <b>Create</b> or <b>OK</b>, will create the factory class, if necessary, and 
+			add the factory method to it. Click <b>Create</b> to create multiple 
+			related methods at one time; click <b>OK</b> to create a single 
+			method and close the dialog. </p>
+			<p>
+			Each factory method will be tagged 
+			with a <b>@wbp.factory</b> Javadoc tag. The tool uses 
+			that tag to identify factory methods in a factory class. If you 
+			create any factory methods by hand, you should add this same tag in 
+			order to identify it to the editor. Any arguments passed into the 
+			method should be identified with an <b>@wbp.factory.parameter.source</b> 
+			Javadoc tag. That tag should also include the name of the parameter 
+			and a suitable default value (used for initial code generation).</p>
+			<dl>
+				<font SIZE="2" COLOR="#7f0055"><b>
+				<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> javax.swing.JButton;</dd>
+				</font><font SIZE="2" COLOR="#7f0055"><b>
+				<dd><font face="Courier">import</font></b></font><font SIZE="2" face="Courier"> java.awt.Color;<br>
+&nbsp;</font><font SIZE="2" COLOR="#7f0055"><b><dd><font face="Courier">public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+				<font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f0055"><b>class</b></font></font><font SIZE="2"><font face="Courier"> 
+				MyFactory {</font></font></dd>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">/**</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#3f5fbf">*</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f9fbf"><b>@wbp.factory</dd>
+					</b></font></font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">*/</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f0055"><b>static</b></font></font><font SIZE="2"><font face="Courier"> 
+					JButton createRedOkButton() {</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JButton button =
+				</font></font><font face="Courier">
+				<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						JButton(</font><font SIZE="2" COLOR="#2a00ff">&quot;OK&quot;</font></font><font face="Courier" SIZE="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; button.setForeground(Color.</font><font SIZE="2" COLOR="#0000c0" face="Courier"><i>RED</i></font><font face="Courier" SIZE="2">);</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b><br>
+				</b></font><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>return</b></font><font SIZE="2"><font face="Courier"> 
+						button;</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;</font></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">/**</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#3f5fbf">*</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f9fbf"><b>@wbp.factory</dd>
+					</b></font></font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#3f5fbf">*</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f9fbf"><b>@wbp.factory.parameter.source</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#3f5fbf">text</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#3f5fbf">&quot;OK&quot;</dd>
+					</font></font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">*/</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f0055"><b>static</b></font></font><font SIZE="2"><font face="Courier"> 
+					JButton createRedButton(String text) {</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JButton button =
+				</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>new</b></font><font face="Courier" SIZE="2"> 
+						JButton(text);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; button.setForeground(Color.</font><font SIZE="2" COLOR="#0000c0" face="Courier"><i>RED</i></font><font face="Courier" SIZE="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#7f0055" face="Courier"><b>return</b></font><font SIZE="2"><font face="Courier"> 
+						button;</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;</font></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">/**</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#3f5fbf">*</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f9fbf"><b>@wbp.factory</dd>
+					</b></font></font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#3f5fbf">*</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f9fbf"><b>@wbp.factory.parameter.source</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#3f5fbf">foreground</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#3f5fbf">java.awt.Color.RED</dd>
+					</font></font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">*/</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f0055"><b>static</b></font></font><font SIZE="2"><font face="Courier"> 
+					JButton createColoredOkButton(Color foreground) {</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JButton button =
+				</font></font><font face="Courier">
+				<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						JButton(</font><font SIZE="2" COLOR="#2a00ff">&quot;OK&quot;</font></font><font face="Courier" SIZE="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; button.setForeground(foreground);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#7f0055" face="Courier"><b>return</b></font><font SIZE="2"><font face="Courier"> 
+						button;</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;</font></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">/**</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#3f5fbf">*</font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f9fbf"><b>@wbp.factory</dd>
+					</b></font></font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#3f5fbf" face="Courier">*/</dd>
+					</font><font SIZE="2"></dd>
+				</font>
+				<dd><font face="Courier" SIZE="2">&nbsp;&nbsp;&nbsp; </font>
+				<font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>public</b></font><font SIZE="2">
+				</font><font SIZE="2" COLOR="#7f0055"><b>static</b></font></font><font SIZE="2"><font face="Courier"> 
+					JButton createOkButton() {</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JButton button =
+				</font></font><font face="Courier">
+				<font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+						JButton(</font><font SIZE="2" COLOR="#2a00ff">&quot;OK&quot;</font></font><font face="Courier" SIZE="2">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+				<font SIZE="2" COLOR="#7f0055" face="Courier"><b>return</b></font><font SIZE="2"><font face="Courier"> 
+						button;</font></dd>
+				<dd><font face="Courier">&nbsp;&nbsp;&nbsp; }</font></dd>
+				<dd><font face="Courier">}</font></dd>
+			</dl></font>
+			<p>
+			The original widget source will be also replaced with a call to the 
+			newly created factory method.</p>
+			<dl>
+				<dd>
+				<font SIZE="2" face="Courier">
+				JButton okButton = MyFactory.<i>createRedOkButton</i>();</font></dd>
+			</dl>
+			<h2>
+			<a name="Applying">Applying</a> a factory to a widget</h2>
+			<p>
+			Once created, a factory may be applied to an existing widget using 
+			the <b>Factory &gt; Select Factory...</b> command. This is very similar 
+			to a <a href="morphing.html">morphing</a> operation. Once a factory 
+			has been selected, its methods are shown directly in the <b>Factory</b> 
+			cascade menu as shown below.</p>
+			<p>
+			<img border="0" src="images/select_factory_menu.png" align="top" width="382" height="149"><h2>
+			<a name="AddingToPalette">Adding</a> factories to the palette</h2>
+			<p>
+			Factories may also be added to the palette for quick access using 
+			either the <b><a href="../userinterface/palette_manager.html">Palette Manager</a></b> 
+			or the <b><a href="../userinterface/palette_context_menu.html">Palette context menu</a></b>.<p>
+      	<img src="images/factory_custom_palette.png" border="0"><p>
+			To add a single factory item, give it a name, select the factory 
+			class and method signature, and give it a description. The component 
+			may be initially <b>visible</b> or not and may be added to any available 
+		category.</p>
+		<p>
+		<img src="../userinterface/images/add_static_factory_dialog2.png" border="0" width="463" height="278"></p>
+			<p>
+		To add a multiple factory items at the same time, select the factory 
+		class and method signatures. The component name and description will be 
+		given default values. The components will be initially <b>visible</b> 
+		and may be added to any available category.</p>
+		<p>
+		<img src="../userinterface/images/add_static_factories_dialog2.png" border="0" width="381" height="236"></td>
+		</tr>
+		</table>
+	      </body>
+</html>

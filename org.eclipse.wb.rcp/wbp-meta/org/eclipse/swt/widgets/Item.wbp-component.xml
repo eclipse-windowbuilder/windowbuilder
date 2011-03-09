@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.widgets.ItemInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.ItemInfo"/>
+	<!-- CREATION -->
+	<creation-default>
+		<source><![CDATA[new %component.class%(%parent%, 0)]]></source>
+	</creation-default>
+	<!-- METHODS -->
+	<methods>
+		<methods-include signature="/set\w+\([^,]+\)/"/>
+	</methods>
+</component>

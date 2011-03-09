@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.core.xml" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wb.core.xml" id="paletteComponentExists" name="Palette component quick check for existence"/>
+      </appInfo>
+      <documentation>
+         This extension point is used to provide information for more optimal check for component existence in project that direct loading its class.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="component" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="component">
+      <complexType>
+         <attribute name="package" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The prefix of package name, so this rule controls all classes in this package and its sub-packages.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="witness" type="string">
+            <annotation>
+               <documentation>
+                  Name of class which existence indicates that components from this package also exist.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="hasType" type="boolean">
+            <annotation>
+               <documentation>
+                  Specifies that Class may be always in ClassLoader, but not IJavaProject. So, we should check for IType existence.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="always" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

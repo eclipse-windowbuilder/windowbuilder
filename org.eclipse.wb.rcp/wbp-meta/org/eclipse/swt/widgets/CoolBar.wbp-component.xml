@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.model.widgets.CoolBarInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.widgets.CoolBarInfo"/>
+	<description>Instances of this class provide an area for dynamically positioning the items they contain.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.widgets.CoolBar(%parent%, org.eclipse.swt.SWT.FLAT)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="FLAT"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER FLAT</parameter>
+					<parameter name="select0">type HORIZONTAL HORIZONTAL VERTICAL</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">150</parameter>
+		<parameter name="liveComponent.forcedSize.height">30</parameter>
+		<!-- refresh -->
+		<parameter name="refresh_afterCreate"><![CDATA[
+			import org.eclipse.swt.SWT;
+			import org.eclipse.swt.widgets.*;
+			if (object.getItemCount() == 0) {
+				coolItem = new CoolItem(object, SWT.NONE);
+				//
+				toolBar = new ToolBar(object, SWT.FLAT | SWT.RIGHT);
+				toolItem = new ToolItem(toolBar, SWT.NONE);
+				toolItem.setText("Empty CoolBar");
+				//
+				coolItem.setControl(toolBar);
+				coolItem.setSize(150, 30);
+			}
+			]]></parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer">true</parameter>
+		<parameter name="flowContainer.horizontal">isHorizontal()</parameter>
+		<parameter name="flowContainer.component">org.eclipse.swt.widgets.CoolItem</parameter>
+	</parameters>
+</component>

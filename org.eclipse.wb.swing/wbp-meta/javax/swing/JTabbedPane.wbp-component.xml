@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+    <model class="org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo"/>
+    <description>A component that lets the user switch between a group of components by clicking on a tab with
+        a given title and/or icon.</description>
+    <!-- CREATION -->
+    <creation>
+        <source><![CDATA[new javax.swing.JTabbedPane(javax.swing.JTabbedPane.TOP)]]></source>
+    </creation>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="int" property="setTabPlacement(int)"/>
+        </constructor>
+        <constructor>
+            <parameter type="int" property="setTabPlacement(int)"/>
+            <parameter type="int" property="setTabLayoutPolicy(int)"/>
+        </constructor>
+    </constructors>
+    <!-- METHODS -->
+    <methods>
+        <!-- setModel() -->
+    	<method name="setModel" executable="false">
+    		<parameter type="javax.swing.SingleSelectionModel"/>
+    	</method>
+    	<!-- add() -->
+        <method name="add">
+            <parameter type="java.lang.String" property="tab: title"/>
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+        <method name="addTab">
+            <parameter type="java.lang.String" property="tab: title"/>
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+        <method name="addTab">
+            <parameter type="java.lang.String" property="tab: title"/>
+            <parameter type="javax.swing.Icon" property="tab: icon"/>
+            <parameter type="java.awt.Component" child="true"/>
+        </method>
+        <method name="addTab">
+            <parameter type="java.lang.String" property="tab: title"/>
+            <parameter type="javax.swing.Icon" property="tab: icon"/>
+            <parameter type="java.awt.Component" child="true"/>
+            <parameter type="java.lang.String" property="tab: tooltip"/>
+        </method>
+        <!-- insert() -->
+        <method name="insertTab">
+            <parameter type="java.lang.String" property="tab: title"/>
+            <parameter type="javax.swing.Icon" property="tab: icon"/>
+            <parameter type="java.awt.Component" child="true"/>
+            <parameter type="java.lang.String" property="tab: tooltip"/>
+            <parameter type="int"/>
+        </method>
+        <!-- set*At -->
+        <method name="setTitleAt">
+            <parameter type="int"/>
+            <parameter type="java.lang.String" property="tab: title"/>
+        </method>
+        <method name="setIconAt">
+            <parameter type="int"/>
+            <parameter type="javax.swing.Icon" property="tab: icon"/>
+        </method>
+        <method name="setDisabledIconAt">
+            <parameter type="int"/>
+            <parameter type="javax.swing.Icon" property="tab: disabledIcon"/>
+        </method>
+        <method name="setToolTipTextAt">
+            <parameter type="int"/>
+            <parameter type="java.lang.String" property="tab: tooltip"/>
+        </method>
+        <method name="setBackgroundAt">
+            <parameter type="int"/>
+            <parameter type="java.awt.Color" property="tab: background"/>
+        </method>
+        <method name="setForegroundAt">
+            <parameter type="int"/>
+            <parameter type="java.awt.Color" property="tab: foreground"/>
+        </method>
+        <method name="setEnabledAt">
+            <parameter type="int"/>
+            <parameter type="boolean" property="tab: enabled" defaultSource="true"/>
+        </method>
+        <method name="setDisplayedMnemonicIndexAt">
+            <parameter type="int"/>
+            <parameter type="int" property="tab: mnemonicIndex"/>
+        </method>
+        <method name="setMnemonicAt">
+            <parameter type="int"/>
+            <parameter type="int" property="tab: mnemonic"/>
+        </method>
+    </methods>
+    <!-- PROPERTIES -->
+    <properties-preferred names="tabLayoutPolicy tabPlacement"/>
+    <properties-advanced names="model"/>
+    <properties-hidden names="UI selectedComponent"/>
+    <property id="setTabPlacement(int)">
+        <editor id="staticField">
+            <parameter name="class">javax.swing.JTabbedPane</parameter>
+            <parameter name="fields">TOP BOTTOM LEFT RIGHT</parameter>
+        </editor>
+    </property>
+    <property id="setTabLayoutPolicy(int)">
+        <editor id="staticField">
+            <parameter name="class">javax.swing.JTabbedPane</parameter>
+            <parameter name="fields">WRAP_TAB_LAYOUT SCROLL_TAB_LAYOUT</parameter>
+        </editor>
+    </property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	    <!-- flow container -->
+	    <parameter name="flowContainer.tree">true</parameter>
+	    <parameter name="flowContainer.tree.horizontal">isHorizontal()</parameter>
+	    <parameter name="flowContainer.tree.component">java.awt.Component</parameter>
+	    <parameter name="flowContainer.tree.association"
+	        ><![CDATA[%parent%.addTab(\"New tab\", null, %child%, null)]]></parameter>
+	</parameters>
+</component>

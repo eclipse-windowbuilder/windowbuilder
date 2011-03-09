@@ -1,0 +1,71 @@
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+
+method
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell();
+		shell.setLayout(new FillLayout());
+		shell.setText("TabFolder test");
+		{
+			TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
+			{
+				TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+				tabItem.setText("First tab");
+				{
+					Composite composite = new Composite(tabFolder, SWT.NONE);
+					composite.setLayout(new GridLayout());
+					tabItem.setControl(composite);
+					{
+						Label label = new Label(composite, SWT.NONE);
+						label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+						label.setText("label");
+					}
+					{
+						Text text = new Text(composite, SWT.BORDER);
+						text.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
+						text.setText("text");
+					}
+					{
+						List list = new List(composite, SWT.BORDER);
+						list.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.FILL_VERTICAL));
+					}
+				}
+			}
+			{
+				TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+				tabItem.setText("Second tab");
+				{
+					Tree tree = new Tree(tabFolder, SWT.BORDER);
+					tabItem.setControl(tree);
+				}
+			}
+			{
+				TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+				tabItem.setText("Third tab");
+				{
+					Text text = new Text(tabFolder, SWT.BORDER | SWT.MULTI);
+					tabItem.setControl(text);
+					text.setText("text");
+				}
+			}
+		}
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}

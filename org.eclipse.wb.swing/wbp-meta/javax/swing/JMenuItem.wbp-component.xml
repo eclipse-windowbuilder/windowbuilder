@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.menu.JMenuItemInfo"/>
+	<description>An implementation of an item in a menu. A menu item is essentially a button sitting in a
+		list. When the user selects the "button", the action associated with the menu item is performed. A
+		JMenuItem contained in a JPopupMenu performs exactly that function.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JMenuItem("New menu item")]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+		</constructor>
+		<constructor>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="javax.swing.Icon" property="setIcon(javax.swing.Icon)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.lang.String" property="setText(java.lang.String)"/>
+			<parameter type="int" property="setMnemonic(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<properties-preferred names="accelerator"/>
+	<properties-advanced names="armed mnemonic toolTipText verticalAlignment"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="javax.swing.JMenuItem"/>
+		<morphTarget class="javax.swing.JCheckBoxMenuItem"/>
+		<morphTarget class="javax.swing.JRadioButtonMenuItem"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<!-- GEF -->
+		<parameter name="GEF.transparentOnBorders.always">true</parameter>
+		<parameter name="NVO.disabled">true</parameter>
+	</parameters>
+</component>

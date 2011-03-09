@@ -1,0 +1,60 @@
+/*******************************************************************************
+ * Copyright (c) 2011 Google, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Google, Inc. - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.wb.tests.designer.core.eval.primities;
+
+import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
+
+/**
+ * @author scheglov_ke
+ */
+public class CharTest extends AbstractEngineTest {
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Project creation
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void test_setUp() throws Exception {
+    do_projectCreate();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // int
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void test_char_value() throws Exception {
+    check_char("'a'", 'a');
+  }
+
+  public void test_char_cast_int() throws Exception {
+    check_char("(char)0x30", (char) 0x30);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private void check_char(String expression, char expected) throws Exception {
+    Object actual = evaluateExpression(expression, "char");
+    assertEquals(new Character(expected), actual);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Project disposing
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  @Override
+  public void test_tearDown() throws Exception {
+    do_projectDispose();
+  }
+}

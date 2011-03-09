@@ -1,0 +1,147 @@
+<html>
+
+<head>
+<title>RCP ViewPart Wizard</title>
+<link href="../../../book.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<h1>RCP ViewPart Wizard</h1>
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+  <tr>
+    <td>
+        <img src="images/wizard_rcp_viewpart0.gif" align="left" hspace="10">Subclasses of the RCP <b>ViewPart</b> class can be
+              created using the <b>RCP ViewPart</b> wizard. The wizard can be
+              selected from the drop down wizard menu or from the
+              Eclipse <b>New</b> wizard.
+              <p>To use the wizard, select the project source folder and package
+              to contain the class. Then enter the class name, view name/title and hit the <b>Finish</b>
+              button.</td>
+  </tr>
+  <tr>
+    <td>
+      <br>
+		<img src="images/wizard_rcp_viewpart1.gif">&nbsp; <img src="images/wizard_rcp_viewpart2.gif"></td>
+  </tr>
+  <tr>
+    <td>
+    <p><br>
+	The wizard generates the following code.</p>
+		<blockquote>
+			<p><font face="Courier" size="2"><b><font color="#7f0055">import</font></b> 
+			org.eclipse.jface.action.IMenuManager;<br>
+			<b><font color="#7f0055">import</font></b> 
+			org.eclipse.jface.action.IToolBarManager;</font><b><font SIZE="2" COLOR="#7f0055"><br>
+			<font face="Courier">import</font></font></b><font SIZE="2"><font face="Courier"> 
+			org.eclipse.swt.SWT;</font></font><font SIZE="2" COLOR="#7f0055"><b><font face="Courier"><br>
+			import</font></b></font><font SIZE="2"><font face="Courier"> 
+			org.eclipse.swt.widgets.Composite;</font></font><font SIZE="2" COLOR="#7f0055"><b><font face="Courier"><br>
+			import</font></b></font><font SIZE="2"><font face="Courier"> 
+			org.eclipse.ui.part.ViewPart;</font></font><font SIZE="2" COLOR="#7f0055"><b><font face="Courier"><br>
+			<br>
+			public</font></b></font><font face="Courier"><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>class</b></font><font SIZE="2"> 
+			RcpViewPart </font><font SIZE="2" COLOR="#7f0055"><b>extends</b></font></font><font SIZE="2"><font face="Courier"> 
+			ViewPart {<br>
+			</font></font><font face="Courier"><font SIZE="2" COLOR="#7f0055">
+			<b><br>
+&nbsp;&nbsp;&nbsp; public</b></font><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>static</b></font><font SIZE="2">
+			</font><font SIZE="2" COLOR="#7f0055"><b>final</b></font><font SIZE="2"> 
+			String </font><font SIZE="2" COLOR="#0000c0"><i>ID</i></font><font SIZE="2"> 
+			= </font><font SIZE="2" COLOR="#2a00ff">&quot;com.test.RcpViewPart&quot;</font><font SIZE="2">;
+			</font></font><font SIZE="2" COLOR="#3f7f5f"><font face="Courier">
+			//$NON-NLS-1$<br>
+			</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b><br>
+			</b></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp; 
+			public</b></font><font SIZE="2"><font face="Courier"> RcpViewPart() 
+			{<br>
+			</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font face="Courier" SIZE="2">}<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier"><br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2" COLOR="#646464" face="Courier">@Override<br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+			public</b></font><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>void</b></font></font><font face="Courier" SIZE="2"> 
+			createPartControl(Composite parent) {<br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font face="Courier" SIZE="2">Composite container =
+			</font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>new</b></font><font SIZE="2"> 
+			Composite(parent, SWT.</font><font SIZE="2" COLOR="#0000c0"><i>NONE</i></font></font><font SIZE="2"><font face="Courier">);<br>
+			<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; createActions();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initializeToolBar();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initializeMenu();</font></font><font face="Courier" size="2"><br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font face="Courier" SIZE="2">}<br>
+			</font><font face="Courier" size="2"><br>
+			&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private void </b></font>
+			createActions() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3f7f5f">// Create the 
+			actions</font><br>
+&nbsp;&nbsp;&nbsp; }<br>
+			<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private void </b></font>
+			initializeToolBar() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IToolBarManager toolbarManager=getViewSite().getActionBars().getToolBarManager();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; }<br>
+			<br>
+&nbsp;&nbsp;&nbsp; <font color="#7f0055"><b>private void </b></font>
+			initializeMenu() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IMenuManager menuManager = 
+			getViewSite().getActionBars().getMenuManager();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; }<br>
+			</font><font SIZE="2" COLOR="#646464" face="Courier"><br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2" COLOR="#646464" face="Courier">@Override<br>
+			</font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font face="Courier"><font SIZE="2" COLOR="#7f0055"><b>
+			public</b></font><font SIZE="2"> </font>
+			<font SIZE="2" COLOR="#7f0055"><b>void</b></font></font><font SIZE="2"><font face="Courier"> 
+			setFocus() {<br>
+			</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2" COLOR="#3f7f5f" face="Courier">// set the 
+			focus</font><font SIZE="2"><font face="Courier"><br>
+			</font></font><font SIZE="2" COLOR="#7f0055" face="Courier"><b>&nbsp;&nbsp;&nbsp;
+			</b></font><font SIZE="2"><font face="Courier">}<br>
+			}</font></p>
+			</font>
+		</blockquote>
+      <p>When editing RCP ViewParts, all of the standard SWT layouts, containers 
+		and widgets are available.</p>
+      <p>If the ViewPart is created in an existing plugin project, the 
+		plugin.xml file is also updated with the appropriate view declaration.</p>
+	<p>
+		<img border="0" src="images/wizard_rcp_viewpart3.gif"></p>
+	<p>When editing ViewParts, SWT Designer adds a new Palette category, <b>
+	<a href="../../palettes/swt_palette.html#JFaceActions">JFace Actions</a></b>, for defining actions and assigning them to the view's toolbar and
+      menu.</p>
+      <p><img src="images/wizard_rcp_viewpart4.gif" width="670" height="386"></p>
+      <p>New actions may be created using the <b>New</b> command, and existing actions may be added using the
+		<b>External</b> command. New actions are created as inner classes of the current
+      class and are automatically added to the palette for easy access. Any existing actions may be deleted using the <b> Delete</b>
+      key. Selecting an action allows you to edit its icons,
+      label and tool tip text within the property pane.&nbsp;</p>
+      <p>The view's toolbar is live and actions may be dropped on it. Actions and separators may be dragged from the 
+		palette and dropped on the toolbar. Toolbar actions may be rearranged 
+		using drag/drop and
+      deleted using the <b>Delete</b> key.</p>
+      <p>The
+      view's menu is also live and actions may be dropped on it. Actions, separators and menu managers may be dragged from
+      the palette and dropped into the menu. Menus may be rearranged using 
+		drag/drop and
+      deleted using the <b>Delete</b> key.</p>
+    <p>When the ViewPart itself is selected in the property pane, its <b>name</b> 
+	and <b>icon</b> may be edited as part of the <b>Extension</b> property.<p>
+		<img src="images/wizard_rcp_viewpart5.gif"></td>
+  </tr>
+</table>
+</body>
+</html>

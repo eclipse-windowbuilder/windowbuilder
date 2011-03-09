@@ -1,0 +1,101 @@
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.part.IPageBookViewPage;
+import org.eclipse.ui.part.IPageSite;
+
+field
+	private Composite %field-prefix%control;
+
+field
+	private IPageSite %field-prefix%site;
+
+method
+	/**
+	 * Create the PageBookView Page.
+	 */
+	public %TypeName%() {
+	}
+
+method
+	/**
+	 * Create contents of the PageBookView Page.
+	 * @param parent
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		%container.SWTLayout%
+		%this%%field-prefix%control = container;
+	}
+
+method
+	@Override
+	public void dispose() {
+		if (%this%%field-prefix%control != null && !%this%%field-prefix%control.isDisposed()) {
+			%this%%field-prefix%control.dispose();
+		}
+	}
+
+method
+	@Override
+	public Control getControl() {
+		return %this%%field-prefix%control;
+	}
+
+method
+	@Override
+	public IPageSite getSite() {
+		return %this%%field-prefix%site;
+	}
+
+method
+	@Override
+	public void init(IPageSite pageSite) {
+		%this%%field-prefix%site = pageSite;
+		createActions();
+		initializeToolBar();
+		initializeMenu();
+	}
+
+method
+	/**
+	 * This method exists for backward compatibility.
+     */
+	@Override
+	public void setActionBars(IActionBars actionBars) {
+	}
+
+method
+	@Override
+	public void setFocus() {
+		// Set the focus
+	}
+
+method
+	/**
+	 * Create the actions
+	 */
+	private void createActions() {
+		// Create the actions
+	}
+
+method
+	/**
+	 * Initialize the toolbar.
+	 */
+	private void initializeToolBar() {
+		IToolBarManager toolbarManager = getSite().getActionBars().getToolBarManager();
+	}
+
+method
+	/**
+	 * Initialize the menu.
+	 */
+	private void initializeMenu() {
+		IMenuManager menuManager = getSite().getActionBars().getMenuManager();
+	}
+

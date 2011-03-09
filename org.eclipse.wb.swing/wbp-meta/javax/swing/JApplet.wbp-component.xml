@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.AppletInfo"/>
+	<!-- METHODS -->
+	<methods>
+		<method name="setJMenuBar">
+			<parameter type="javax.swing.JMenuBar" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-advanced names="rootPaneCheckingEnabled"/>
+	<properties-hidden names="JMenuBar rootPane transferHandler"/>
+</component>

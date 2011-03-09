@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Features" topic="html/features/index.html">
+	<topic href="html/features/bidirectional.html" label="Bi-directional Code Generation" >
+		<anchor id="codegeneration" />
+	</topic>
+	<topic href="html/features/internationalization.html" label="Internationalization (i18n)" />
+	<topic href="html/features/custom_composites.html" label="Custom Composites &amp; Panels" />
+	<topic href="html/features/factories.html" label="Factories" />
+	<topic href="html/features/visual_inheritance.html" label="Visual Inheritance" />
+	<topic href="html/features/event_handling.html" label="Event Handling" />
+	<topic href="html/features/menu_editing.html" label="Menu Editing" />
+	<topic href="html/features/morphing.html" label="Widget Morphing" />
+	<topic href="html/features/editing_existing_window.html" label="Editing Existing Windows" />
+	<anchor id="features" />
+</toc>

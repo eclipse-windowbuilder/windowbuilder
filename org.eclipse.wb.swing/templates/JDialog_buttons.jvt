@@ -1,0 +1,52 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+field
+	private final JPanel %field-prefix%contentPanel = new JPanel();
+
+method
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			%TypeName% dialog = new %TypeName%();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+method
+	/**
+	 * Create the dialog.
+	 */
+	public %TypeName%() {
+		setBounds(100, 100, %DefaultFormSize%);
+		getContentPane().setLayout(new BorderLayout());
+		%this%%field-prefix%contentPanel.setLayout(new FlowLayout());
+		%this%%field-prefix%contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(%this%%field-prefix%contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+

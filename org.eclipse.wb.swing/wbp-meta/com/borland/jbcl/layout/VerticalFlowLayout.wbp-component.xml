@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<description>A Layout usefull to put components ordered vertically.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new com.borland.jbcl.layout.VerticalFlowLayout(com.borland.jbcl.layout.VerticalFlowLayout.TOP, 5, 5, true, false)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="boolean" property="setHorizontalFill(boolean)"/>
+			<parameter type="boolean" property="setVerticalFill(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setAlignment(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setAlignment(int)"/>
+			<parameter type="boolean" property="setHorizontalFill(boolean)"/>
+			<parameter type="boolean" property="setVerticalFill(boolean)"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setAlignment(int)"/>
+			<parameter type="int" property="setHgap(int)"/>
+			<parameter type="int" property="setVgap(int)"/>
+			<parameter type="boolean" property="setHorizontalFill(boolean)"/>
+			<parameter type="boolean" property="setVerticalFill(boolean)"/>
+		</constructor>
+	</constructors>
+	<!-- PROPERTIES -->
+	<property id="setAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">com.borland.jbcl.layout.VerticalFlowLayout</parameter>
+			<parameter name="fields">TOP MIDDLE BOTTOM</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="FlowLayout.horizontal">false</parameter>
+	</parameters>
+</component>

@@ -1,0 +1,23 @@
+import org.eclipse.jface.action.ICoolBarManager;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
+
+method
+	public %TypeName%(IActionBarConfigurer configurer) {
+		super(configurer);
+	}
+
+method
+	protected void makeActions(IWorkbenchWindow window) {
+	}
+
+method
+	protected void fillCoolBar(ICoolBarManager coolBar) {
+	}
+
+method
+	protected void fillMenuBar(IMenuManager menuBar) {
+	}
+

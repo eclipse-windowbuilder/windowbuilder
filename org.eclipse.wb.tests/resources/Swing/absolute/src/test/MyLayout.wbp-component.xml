@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.layout.absolute.ConstraintsAbsoluteLayoutInfo"/>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new test.MyLayout(0, 0)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="setWidth(int)"/>
+			<parameter type="int" property="setHeight(int)"/>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="absoluteLayout.constraintsClass">test.MyConstraints</parameter>
+		<parameter name="absoluteLayout.setBounds.width"><![CDATA[
+			if (value == component.getPreferredSize().width) {
+				return 0;
+			}
+			return value;
+		]]></parameter>
+		<parameter name="absoluteLayout.setBounds.height"><![CDATA[
+			if (value == component.getPreferredSize().height) {
+				return 0;
+			}
+			return value;
+		]]></parameter>
+	</parameters>
+</component>

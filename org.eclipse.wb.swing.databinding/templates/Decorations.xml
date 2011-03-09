@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorations>
+
+	<!-- AWT -->
+
+	<decoration class="java.awt.Component">
+		<advanced properties="focusable name"/>
+		<hidden properties="accessibleContext"/>
+	</decoration>
+
+	<decoration class="java.awt.Button" parent="java.awt.Component">
+		<preferred properties="label"/>
+		<advanced properties="actionCommand"/>
+		<hidden properties="actionListeners"/>
+	</decoration>
+
+	<decoration class="java.awt.Canvas" parent="java.awt.Component">
+		<hidden properties="bufferStrategy"/>
+	</decoration>
+
+	<decoration class="java.awt.Checkbox" parent="java.awt.Component">
+		<preferred properties="label state"/>
+		<advanced properties="selectedObjects"/>
+		<hidden properties="checkboxGroup itemListeners"/>
+	</decoration>
+
+	<decoration class="java.awt.Choice" parent="java.awt.Component">
+		<preferred properties="selectedIndex selectedItem"/>
+		<advanced properties="selectedObjects"/>
+		<hidden properties="itemListeners"/>
+	</decoration>
+
+	<decoration class="java.awt.Label" parent="java.awt.Component">
+		<preferred properties="text"/>
+		<advanced properties="alignment"/>
+	</decoration>
+
+	<decoration class="java.awt.List" parent="java.awt.Component">
+		<preferred properties="selectedIndex selectedItem"/>
+		<advanced properties="selectedIndexes selectedItems selectedObjects rows visibleIndex"/>
+		<hidden properties="actionListeners itemListeners multipleSelections"/>
+	</decoration>
+
+	<decoration class="java.awt.Scrollbar" parent="java.awt.Component">
+		<preferred properties="maximum minimum value"/>
+		<hidden properties="adjustmentListeners"/>
+	</decoration>
+
+	<decoration class="java.awt.TextComponent" parent="java.awt.Component">
+		<preferred properties="text"/>
+		<advanced properties="caretPosition selectionEnd selectionStart"/>
+		<hidden properties="textListeners inputMethodRequests"/>
+	</decoration>
+
+	<decoration class="java.awt.TextField" parent="java.awt.TextComponent">
+		<advanced properties="columns echoChar echoCharacter"/>
+		<hidden properties="actionListeners"/>
+	</decoration>
+
+	<decoration class="java.awt.TextArea" parent="java.awt.TextComponent">
+		<advanced properties="columns minimumSize preferredSize rows scrollbarVisibility"/>
+	</decoration>
+
+	<decoration class="java.awt.Container" parent="java.awt.Component">
+		<advanced properties="alignmentX alignmentY insets maximumSize minimumSize preferredSize"/>
+		<hidden
+			properties="componentCount components containerListeners focusCycleRoot focusTraversalPolicy focusTraversalPolicyProvider focusTraversalPolicySet layout"
+		/>
+	</decoration>
+
+	<decoration class="java.applet.Applet" parent="java.awt.Container">
+		<advanced properties="parameterInfo"/>
+		<hidden properties="appletContext codeBase documentBase locale stub"/>
+	</decoration>
+
+	<decoration class="java.awt.ScrollPane" parent="java.awt.Container">
+		<advanced properties="HScrollbarHeight VScrollbarWidth"/>
+		<hidden properties="HAdjustable VAdjustable"/>
+	</decoration>
+
+	<decoration class="java.awt.Window" parent="java.awt.Container">
+		<advanced
+			properties="alwaysOnTop alwaysOnTopSupported focused focusableWindow focusableWindowState locationByPlatform iconImages"/>
+		<hidden
+			properties="bounds bufferStrategy cursor focusCycleRootAncestor focusOwner graphicsConfiguration inputContext locale locationRelativeTo modalExclusionType mostRecentFocusOwner ownedWindows owner toolkit warningString windowFocusListeners windowListeners windowStateListeners"
+		/>
+	</decoration>
+
+	<decoration class="java.awt.Dialog" parent="java.awt.Window">
+		<preferred properties="title"/>
+		<hidden properties="modalityType"/>
+	</decoration>
+
+	<decoration class="java.awt.Frame" parent="java.awt.Window">
+		<preferred properties="title"/>
+		<advanced properties="cursorType extendedState"/>
+		<hidden properties="maximizedBounds menuBar"/>
+	</decoration>
+
+	<!-- Swing -->
+
+	<decoration class="javax.swing.JComponent" parent="java.awt.Container">
+		<advanced
+			properties="autoscrolls border inheritsPopupMenu managingFocus opaque requestFocusEnabled validateRoot visibleRect"/>
+		<hidden
+			properties="accessibleContext actionMap ancestorListeners baselineResizeBehavior componentPopupMenu debugGraphicsOptions doubleBuffered graphics inputVerifier nextFocusableComponent optimizedDrawingEnabled paintingForPrint paintingTile registeredKeyStrokes rootPane topLevelAncestor transferHandler UI UIClassID verifyInputWhenFocusTarget vetoableChangeListeners"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JWindow" parent="java.awt.Window">
+		<hidden properties="contentPane glassPane graphics layeredPane rootPane transferHandler"/>
+	</decoration>
+
+	<decoration class="javax.swing.JDialog" parent="java.awt.Dialog">
+		<advanced properties="active modal resizable showing undecorated"/>
+		<hidden properties="JMenuBar contentPane glassPane graphics layeredPane rootPane transferHandler"/>
+	</decoration>
+
+	<decoration class="javax.swing.JFrame" parent="java.awt.Frame">
+		<advanced properties="active resizable showing state undecorated"/>
+		<hidden
+			properties="JMenuBar contentPane glassPane graphics layeredPane maximizedBounds menuBar rootPane transferHandler"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JApplet" parent="java.applet.Applet">
+		<advanced properties="active appletInfo"/>
+		<hidden
+			properties="JMenuBar contentPane contentPane glassPane graphics layeredPane rootPane transferHandler"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.AbstractButton" parent="javax.swing.JComponent">
+		<preferred properties="icon text"/>
+		<advanced
+			properties="actionCommand borderPainted contentAreaFilled displayedMnemonicIndex focusPainted hideActionText horizontalAlignment horizontalTextPosition iconTextGap"/>
+		<hidden
+			properties="action actionListeners changeListeners itemListeners label margin model mnemonic multiClickThreshhold selected selectedObjects"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JButton" parent="javax.swing.AbstractButton">
+		<advanced
+			properties="defaultButton defaultCapable disabledIcon disabledSelectedIcon pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon selected selectedIcon verticalAlignment verticalTextPosition"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JCheckBox" parent="javax.swing.AbstractButton">
+		<preferred properties="selected"/>
+		<advanced
+			properties="borderPaintedFlat disabledIcon disabledSelectedIcon icon pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon selectedIcon verticalAlignment verticalTextPosition"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JRadioButton" parent="javax.swing.AbstractButton">
+		<preferred properties="selected"/>
+		<advanced
+			properties="disabledIcon disabledSelectedIcon icon pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon selectedIcon verticalAlignment verticalTextPosition"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JToggleButton" parent="javax.swing.AbstractButton">
+		<preferred properties="selected"/>
+		<advanced
+			properties="disabledIcon disabledSelectedIcon icon pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon selectedIcon verticalAlignment verticalTextPosition"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JMenuItem" parent="javax.swing.AbstractButton">
+		<advanced
+			properties="armed disabledIcon disabledSelectedIcon pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon selectedIcon verticalAlignment verticalTextPosition"/>
+		<hidden properties="accelerator component menuDragMouseListeners menuKeyListeners subElements"/>
+	</decoration>
+
+	<decoration class="javax.swing.JMenu" parent="javax.swing.JMenuItem">
+		<advanced
+			properties="delay disabledIcon disabledSelectedIcon height itemCount menuComponentCount popupMenuVisible pressedIcon rolloverEnabled rolloverIcon rolloverSelectedIcon selectedIcon tearOff topLevelMenu verticalAlignment verticalTextPosition"/>
+		<hidden properties="componentOrientation menuComponents menuListeners popupMenu"/>
+	</decoration>
+
+	<decoration class="javax.swing.JColorChooser" parent="javax.swing.JComponent">
+		<preferred properties="color"/>
+		<advanced properties="dragEnabled"/>
+		<hidden properties="chooserPanels previewPanel selectionModel"/>
+	</decoration>
+
+	<decoration class="javax.swing.JComboBox" parent="javax.swing.JComponent">
+		<preferred properties="selectedIndex selectedItem"/>
+		<advanced properties="actionCommand lightWeightPopupEnabled"/>
+		<hidden
+			properties="action actionListeners editor itemListeners keySelectionManager model popupMenuListeners prototypeDisplayValue renderer selectedObjects"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JFileChooser" parent="javax.swing.JComponent">
+		<preferred properties="dialogTitle selectedFile"/>
+		<advanced
+			properties="approveButtonMnemonic controlButonsAreShown currentDirectory directorySelectionEnabled dragEnabled fileSelectionMode multiSelectonEnabled"/>
+		<hidden
+			properties="acceptAllFileFilter acceptAllFileFilterUsed accessory actionListeners choosableFileFilters fileFilter fileSystemView fileView"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JInternalFrame" parent="javax.swing.JComponent">
+		<preferred properties="title"/>
+		<advanced properties="closable defaultCloseOperation icon iconifiable layer maximizable warningString"/>
+		<hidden
+			properties="JMenuBar contentPane cursor desktopIcon desktopPane focusCycleRootAncestor focusOwner glassPane internalFrameListeners lastCursor layeredPane menuBar mostRecentFocusOwner normalBounds"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JLabel" parent="javax.swing.JComponent">
+		<preferred properties="icon text"/>
+		<advanced
+			properties="displayedMnemonic displayedMnemonicIndex horizontalTextPosition iconTextGap verticalTextPosition"/>
+		<hidden properties="labelFor"/>
+	</decoration>
+
+	<decoration class="javax.swing.JList" parent="javax.swing.JComponent">
+		<preferred properties="selectedIndex selectedValue"/>
+		<advanced
+			properties="anchorSelectionIndex dragEnabled firstVisibleIndex fixedCellHeight fixedCellWidth lastVisibleIndex layoutOrientation leadSelectionIndex maxSelectionIndex minSelectionIndex scrollableTracksViewportHeight scrollableTracksViewportWidth selectionEmpty selectionMode"/>
+		<hidden
+			properties="cellRenderer dropLocation dropMode listData listSelectionListeners model preferredScrollableViewportSize prototypeCellValue selectionModel"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JMenuBar" parent="javax.swing.JComponent">
+		<advanced properties="borderPainted"/>
+		<hidden properties="component helpMenu margin selectionModel subElements"/>
+	</decoration>
+
+	<decoration class="javax.swing.JOptionPane" parent="javax.swing.JComponent">
+		<preferred properties="icon initialSelectionValue initialValue inputValue message value"/>
+		<advanced properties="maxCharactersPerLineCount messageType optionType wantsInput"/>
+	</decoration>
+
+	<decoration class="javax.swing.JPopupMenu" parent="javax.swing.JComponent">
+		<preferred properties="label"/>
+		<advanced properties="borderPainted lightWeightPopupEnabled"/>
+		<hidden
+			properties="component invoker margin menuKeyListeners popupMenuListeners selected selectionModel subElements"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JProgressBar" parent="javax.swing.JComponent">
+		<preferred properties="maximum minimum value"/>
+		<advanced properties="borderPainted orientation percentComplete string stringPainted"/>
+		<hidden properties="changeListeners model"/>
+	</decoration>
+
+	<decoration class="javax.swing.JRootPane" parent="javax.swing.JComponent">
+		<advanced properties="windowDecorationStyle"/>
+		<hidden properties="JMenuBar contentPane defaultButton glassPane layeredPane menuBar"/>
+	</decoration>
+
+	<decoration class="javax.swing.JScrollBar" parent="javax.swing.JComponent">
+		<preferred properties="maximum minimum value"/>
+		<advanced properties="blockIncrement orientation valueIsAdjusting visibleAmound"/>
+		<hidden properties="adjustmentListeners model"/>
+	</decoration>
+
+	<decoration class="javax.swing.JSlider" parent="javax.swing.JComponent">
+		<preferred properties="maximum minimum value"/>
+		<advanced
+			properties="majorTickSpacing minorTickSpacing paintLabels paintTicks paintTrack snapToTicks valueIsAdjusting"/>
+		<hidden properties="changeListeners labelTable model"/>
+	</decoration>
+
+	<decoration class="javax.swing.JSpinner" parent="javax.swing.JComponent">
+		<preferred properties="nextValue previousValue value"/>
+		<hidden properties="changeListeners editor model"/>
+	</decoration>
+
+	<decoration class="javax.swing.JTabbedPane" parent="javax.swing.JComponent">
+		<hidden properties="changeListeners"/>
+	</decoration>
+
+	<decoration class="javax.swing.JTable" parent="javax.swing.JComponent">
+		<advanced
+			properties="autoCreateColumnsFromModel autoCreateRowSorter autoResizeMode cellSelectionEnabled columnSelectionAllowed dragEnabled fillViewportHeight scrollableTracksViewportHeight scrollableTracksViewportWidth selectedColumnCount selectedRowCount selectionMode surrendersFocusOnKeystroke updateSelectionOnSort"/>
+		<hidden
+			properties="cellEditor columnModel dropLocation dropMode editorComponent intercellSpacing model preferredScrollableViewportSize rowSorter selectedColumns selectedRows selectionModel tableHeader"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JTree" parent="javax.swing.JComponent">
+		<advanced
+			properties="dragEnabled expandsSelectedPaths fixedRowHeight invokesStopCellEditing scrollableTracksViewportHeight scrollableTracksViewportWidth showRootHandles"/>
+		<hidden
+			properties="anchorSelectionPath cellEditor cellRenderer dropLocation dropMode editingPath lastSelectedPathComponent leadSelectionPath model preferredScrollableViewportSize selectionModel selectionPath selectionPaths selectionRows treeExpansionListeners treeSelectionListeners treeWillExpandListeners"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.text.JTextComponent" parent="javax.swing.JComponent">
+		<preferred properties="text"/>
+		<advanced
+			properties="caretPosition caretColor disabledTextColor document dragEnabled selectedText scrollableTracksViewportHeight scrollableTracksViewportWidth"/>
+		<hidden
+			properties="actions caret caretListeners componentOrientation dropLocation dropMode focusAccelerator highlighter inputMethodRequests keymap margin navigationFilter preferredScrollableViewportSize selectedTextColor selectionColor selectionEnd selectionStart"
+		/>
+	</decoration>
+
+	<decoration class="javax.swing.JEditorPane" parent="javax.swing.text.JTextComponent">
+		<hidden properties="contentType editorKit hyperlinkListeners page"/>
+	</decoration>
+
+	<decoration class="javax.swing.JTextPane" parent="javax.swing.JEditorPane">
+		<advanced properties="styledDocument"/>
+		<hidden properties="characterAttributes inputAttributes logicalStyle paragraphAttributes"/>
+	</decoration>
+
+	<decoration class="javax.swing.JTextField" parent="javax.swing.text.JTextComponent">
+		<advanced properties="actionCommand horizontalAlignment scrollOffset"/>
+		<hidden properties="action actionListeners horizontalVisibility"/>
+	</decoration>
+
+	<decoration class="javax.swing.JFormattedTextField" parent="javax.swing.JTextField">
+		<preferred properties="value"/>
+		<advanced properties="editValid focusLostBehavior"/>
+		<hidden properties="formatter formatterFactory"/>
+	</decoration>
+
+	<decoration class="javax.swing.JPasswordField" parent="javax.swing.JTextField">
+		<preferred properties="echoChar password"/>
+	</decoration>
+
+</decorations>

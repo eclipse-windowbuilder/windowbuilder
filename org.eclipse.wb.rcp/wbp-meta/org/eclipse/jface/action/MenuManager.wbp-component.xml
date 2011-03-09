@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.jface.action.MenuManager("New MenuManager")]]></source>
+	</creation>
+</component>

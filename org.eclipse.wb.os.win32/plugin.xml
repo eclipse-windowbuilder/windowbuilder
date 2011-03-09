@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<!-- ======================================================== -->
+	<!-- OSSupport -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.os.OSSupport">
+		<support class="org.eclipse.wb.internal.os.win32.OSSupportWin32"/>
+	</extension>
+</plugin>

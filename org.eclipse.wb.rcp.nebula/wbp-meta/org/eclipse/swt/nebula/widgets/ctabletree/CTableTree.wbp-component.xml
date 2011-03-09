@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.ctabletree.CTableTreeInfo"/>
+	<description>The CTableTree widget is a custom TableTree component created with two primary purposes:
+		1.Allow items to expand and collapse independently of one another 2.Separate the creation and
+		maintenance of Cells from the implementation of the TableTree. </description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.nebula.widgets.ctabletree.CTableTree(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<method-order>
+		<method signature="setHeaderVisible(boolean)" order="last"/>
+		<method signature="setTreeColumn(int)"
+			order="afterChildren org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn"/>
+	</method-order>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.swt.nebula.widgets.ctabletree.ccontainer"/>
+		<exclude package="org.eclipse.swt.nebula.widgets.ctabletree"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="linesVisible headerVisible selectable treeColumn"/>
+	<properties-advanced
+		names="drawViewportEast drawViewportNorth drawViewportSouth drawViewportWest paintGridAsBackground marginHeight marginWidth treeIndent mode"/>
+	<properties-hidden names="itemCount topIndex sortDirection operation"/>
+	<property id="setHorizontalLinesVisible(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setVerticalLinesVisible(boolean)">
+		<defaultValue value="true"/>
+	</property>
+	<property id="setSelectable(boolean)">
+		<defaultValue value="false"/>
+	</property>
+	<property id="setDirtyFlag(int)">
+		<editor id="style">
+			<parameter name="class">org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainer</parameter>
+			<parameter name="set">DIRTY_ORDERED DIRTY_VISIBLE DIRTY_PAINTED</parameter>
+		</editor>
+		<defaultValue value="0"/>
+	</property>
+	<property id="setMode(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainer</parameter>
+			<parameter name="fields">MODE_MARQUEE MODE_NORMAL MODE_CREATE</parameter>
+		</editor>
+		<defaultValue value="org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainer.MODE_MARQUEE"/>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+		<!-- new -->
+		<parameter name="liveComponent.forcedSize.width">100</parameter>
+		<parameter name="liveComponent.forcedSize.height">100</parameter>
+		<!-- flow container -->
+		<parameter name="flowContainer.1">true</parameter>
+		<parameter name="flowContainer.1.horizontal">true</parameter>
+		<parameter name="flowContainer.1.component"
+			>org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn</parameter>
+		<parameter name="flowContainer.1.group">Columns</parameter>
+		<parameter name="flowContainer.2">true</parameter>
+		<parameter name="flowContainer.2.horizontal">false</parameter>
+		<parameter name="flowContainer.2.component">org.eclipse.swt.nebula.widgets.ctabletree.CTableTreeItem</parameter>
+		<parameter name="flowContainer.2.group">Rows</parameter>
+	</parameters>
+</component>

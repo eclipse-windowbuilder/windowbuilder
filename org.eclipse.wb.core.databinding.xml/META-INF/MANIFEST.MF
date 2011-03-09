@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.wb.core.databinding.xml;singleton:=true
+Bundle-Version: 0.0.0
+Bundle-Activator: org.eclipse.wb.internal.core.databinding.xml.Activator
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.wb.core,
+ org.eclipse.wb.core.xml,
+ org.eclipse.wb.core.databinding
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Localization: plugin
+Export-Package: org.eclipse.wb.internal.core.databinding.xml.model,
+ org.eclipse.wb.internal.core.databinding.xml.ui

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exceptions>
+	<!-- ======================================================== -->
+	<!-- General -->
+	<!-- ======================================================== -->
+	<exception id="0" title="Wrapper">This is a wrapper exception for other exceptions. In general, you should
+		not see it. If you see it, this means that there is a bug in our exception displaying code. :-) </exception>
+	<exception id="1" title="Unexpected exception">An unexpected situation happened. We don't know exactly
+		what it means or how to fix it. Maybe this isn't even a problem in {product_name} itself, but in your
+		Eclipse installation, other plug-ins, etc. Report this to support and include any descriptions, source
+		code examples, screen shots, etc. We will ask for more of them, if there is not enough to identify and
+		fix your problem. ;-)</exception>
+	<exception id="2" title="Incomplete product installation">Incomplete product installation or upgrade
+		detected. Please install or update the entire product. If the problem persists, un-install and
+		re-install the entire product. Also ensure that the Eclipse JDT and PDE are fully installed as
+		required by the system requirements.</exception>
+	<exception id="99" title="Future exception">Congratulations! You found a case that we know about, however
+		have not implemented support for it yet. Please report to support what you did and why this is
+		important for you, and we will try to implement this feature.</exception>
+	<!-- ======================================================== -->
+	<!-- Parser -->
+	<!-- ======================================================== -->
+	<exception id="100" title="No root methods">The parser can't find any root method(s) (entry points for
+		parsing). The parser starts parsing from known method(s) for each GUI toolkit. For example, for Swing
+		it starts from the constructor of a JPanel or JFrame. If the currently parsed class is not a subclass
+		of a Swing component, the parser will try to find a main(java.lang.String[]) method. If it also does
+		not exist, this exception will be shown. Usually this means that you are trying to parse something not
+		supported by {product_name} (for example, a non-GUI compilation unit). <p> Note that even if
+			{product_name} can't recognize your code pattern automatically, sometimes you can still teach
+			{product_name} to work with it by providing a <code>@wbp.parser.entryPoint</code> JavaDoc hint.
+			For example:</p>
+		<pre>
+	public class MyClass {
+		/**
+		 * <b>@wbp.parser.entryPoint</b>
+		 */
+		public void someNonStandardEntryPoint() {
+			JFrame frame = new JFrame();
+			...;
+		}
+	}
+		</pre>
+	</exception>
+	<exception id="101" title="Unparsable Code" warning="true">Your current source contains one or more
+		compilation problems. Please see the Eclipse Problems view and resolve them before trying to edit the
+		class with {product_name}. </exception>
+	<exception id="103" title="Unknown GUI toolkit">The parser parsed the compilation unit, but can't identify
+		any GUI toolkit, so {product_name} can't display any GUI to edit. This can be caused by one of the
+		following reasons: <ul>
+			<li>This class is not an editable UI class and contains no UI components.</li>
+			<li>{product_name} does not recognize the GUI toolkit or library used in this class.</li>
+			<li>{product_name} does not understand this GUI type/pattern in a supported GUI toolkit.</li>
+			<li>Problems exist with the classpath. For example, the compilation unit uses SWT classes, but the
+				SWT/JFace libraries are not included into the classpath.</li>
+		</ul></exception>
+	<exception id="104" title="Invalid non-visual bean description">The wrong format is being used to describe
+		non visual beans [format: @wbp.nonvisual location=<b>X</b>,<b>Y</b>]: <span class="red">{0}</span>
+	</exception>
+	<exception id="105" title="Graphical editing is not provided for factory classes/methods." warning="true">
+		<pre>
+	Please use the Source page to make any changes.
+		</pre>
+	</exception>
+	<exception id="106" title="No primary type." warning="true"> Compilation unit <code>{0}</code> has no
+		primary type. This can be caused by one of the following reasons: <ul>
+			<li>Compilation unit is empty because it was not fully created by wizard.</li>
+			<li>It has type(s) with other name(s) than name of the compilation unit.</li>
+		</ul>
+	</exception>
+	<exception id="107" title="Different parents for double associations" warning="true"> The <b>{0}</b>
+		component is added to a parent component more than once.<ul>
+			<li>{1}</li>
+			<li>{2}</li>
+		</ul>
+	</exception>
+	<exception id="108" title="Incompatible Java versions" warning="true"> Eclipse is running under {1}, but
+		this Java project has a {0} Java compliance level, so {product_name} will not be able to load classes
+		from this project. Use a lower level of Java for the project, or run Eclipse using a newer Java
+		version. </exception>
+	<exception id="109" title="Unable to load 'super' class">{product_name} was unable to load class
+		<code>{0}</code> that is used as super class for your form. This usually happens when: <ul>
+			<li>Compilation unit has compilation problems.</li>
+			<li>Super class is in project, but automatic build is turned off.</li>
+		</ul></exception>
+	<exception id="110" title="No primary type.">Compilation unit <code>{0}</code> has primary type, but
+		{product_name} can not find its AST. This can be caused by one of the following reasons: <ul>
+			<li>Compilation unit references unknown type, most probably as part of generics.</li>
+		</ul>
+	</exception>
+	<exception id="111" title="This is not a GUI class and can't be edited graphically" warning="true">The
+		parser parsed the compilation unit, but can't identify any GUI toolkit. Usually this happens when you
+		open a compilation unit without any GUI, such as an empty class, data bean, etc. You should also check
+		your classpath and ensure that your code is compiling properly.</exception>
+	<!-- ======================================================== -->
+	<!-- ASTEditor -->
+	<!-- ======================================================== -->
+	<exception id="201" title="ASTEditor string replacement problem">ASTEditor (internal class for
+		source/ASTNode's manipulations) found a problem while replacing a substring in the compilation unit
+		source code. This problem can be caused by prior problems in AST manipulations. Please contact support
+		and provide a test case and log file.</exception>
+	<exception id="203" title="Unknown variable type/binding">{product_name} can not access type or binding
+		information about variable <b>{0}</b>. This usually happens when compilation unit has compilation
+		problems, such as: <ul>
+			<li>Declaring any field with unknown type.</li>
+			<li>Declaring variable with unknown type on execution flow.</li>
+		</ul>
+	</exception>
+	<exception id="204" title="Unknown type binding">{product_name} can not access type binding information
+		for node <b>{0}</b>. This usually happens when compilation unit has compilation problems. Possible
+		reasons and solutions: <ul>
+			<li>Using not existing types.</li>
+			<li>Not all required libraries are included into Java project.</li>
+			<li>Organize imports should be done to import required types by their fully qualified names.</li>
+		</ul>
+	</exception>
+	<exception id="205" title="Unable to parse source.">{product_name} was not able to parse source
+		<b>{0}</b>.
+		<br/>
+		<pre>{1}</pre>
+		<br/>Possible reasons: <ul>
+			<li>Using old versions of libraries in your Java project.</li>
+			<li>Not all required dependencies exist in your Java project.</li>
+			<li>Compilation errors in your Java project.</li>
+			<li>Use of conflicting variable name such as com, org, net, edu, java, or javax.</li>
+			<li>Bug in {product_name}.</li>
+		</ul>
+	</exception>
+	<exception id="206" title="No such plugin.">{product_name} was not able to find plugin
+		<b>{0}</b>. Possible reasons: <ul>
+			<li>Not all required dependencies exist in your Eclipse.</li>
+			<li>Bug in {product_name}.</li>
+		</ul>
+	</exception>
+	<!-- ======================================================== -->
+	<!-- Evaluation -->
+	<!-- ======================================================== -->
+	<exception id="300" title="Unknown expression">The AST evaluation engine was unable to evaluate the
+		expression '{0}'. This can be caused by many problems - compilation errors, unsupported code
+		structures, etc. Please contact support with details.</exception>
+	<exception id="303" title="Variable not found">The AST evaluation engine was unable to find the variable
+		(SimpleName) with name '{0}'. This can be caused by many problems - compilation errors, unsupported
+		code structures, etc. Please contact support and provide details.</exception>
+	<exception id="304" title="No method invocation">
+		<p>The AST evaluation engine was unable to find an invocation of the method</p>
+		<pre>{0}</pre>
+		<p>As a result, the engine can't evaluate the values of the parameter '<b>{1}</b>' of this method.
+			Depending on the context where these parameters are used, they can: <ul>
+				<li>be ignored, for example, "button.setText(unknownParameter)"</li>
+				<li>cause a parsing exception, for example, when a parameter is required to create a component
+					instance - "new JButton(unknownParameter)"</li>
+			</ul>
+		</p>
+		<p>You can use the <b>"@wbp.eval.method.parameter {parameter name} {Java expression}"</b> JavaDoc tag
+			to force the value of the parameter, so your code will be evaluated even if the method is not
+			invoked.</p>
+		<p>For example:</p>
+		<pre>
+    public class MyPanel extends JPanel {
+        /**
+         * <b>@wbp.eval.method.parameter text "Some forced text"</b>
+         */
+        public MyPanel(String text) {
+            final JButton okButton = new JButton(text);
+            add((Component) okButton);
+        }
+    }
+        </pre>
+		<p>Note that you can use any valid Java expressions, including operators, invocations of static
+			methods, etc.</p>
+		<pre>
+    <b>@wbp.eval.method.parameter text "Hello " + "World!"</b>
+    <b>@wbp.eval.method.parameter alignment javax.swing.SwingConstants.LEFT</b>
+    <b>@wbp.eval.method.parameter customers new ArrayList()</b>
+        </pre>
+	</exception>
+	<exception id="305" title="Single method invocation expected">The method <pre>{0}</pre>
+		<p>is invoked in the following places: <code>{1}</code>.</p>
+		<p>As a result, {product_name} can't decide which one to use.</p>
+		<p>Maybe you should consider extracting this method into a separate static/instance factory class.</p>
+	</exception>
+	<exception id="306" title="Local instance method invocation">{product_name} can't invoke the local
+		instance method {0}.</exception>
+	<exception id="307" title="Exception during constructor evaluation">An exception happened during
+		evaluation of<p>{0}</p> Constructor <code>{1}</code> was used with the parameters <code>{2}</code>.
+		<br/>Note: null values may occur when parsing complex expressions that can't be resolved at
+		design-time. <pre>{3}</pre>
+	</exception>
+	<exception id="308" title="Exception during method invocation evaluation">An exception happened during
+		evaluation of<p>{0}</p> Method <code>{1}</code> was used with the parameters <code>{2}</code>. </exception>
+	<exception id="309" title="Exception during super method invocation evaluation">An exception happened
+		during evaluation of<p>{0}</p> Method <code>{1}</code> was used with the parameters <code>{2}</code>.
+		<pre>{3}</pre>
+	</exception>
+	<exception id="311" title="Unable to create 'this' component. Non-public constructor.">Your top level
+		component calls a non-public constructor <code>{0}</code>. Normally, {product_name} uses CGLib to
+		create a superclass instance. However CGLib can't call non-public constructors (at least in different
+		ClassLoaders), so make the constructor public so that it can be rendered in {product_name}.</exception>
+	<exception id="312" title="Expression part of invocation is null.">Expression part of invocation
+		<b>{0}</b> was evaluated into <b>null</b>. Possible reasons and solutions: <ul>
+			<li>You use some object that really evaluates to <b>null</b> at design time, for example not
+				initialized singletons, no required environment, etc.</li>
+			<li>Evaluation of expression at the end requires some parameter passed into constructor. By
+				default {product_name} gives all parameters default value (false, zero or null). You can use
+				JavaDoc tag on constructor <b>@wbp.eval.method.parameter obj new SomeObject()</b> to set
+				better value. See documentation for details.</li>
+			<li>In any case, you always can use code hiding (see documentation) or
+				<b>Beans.isDesignTime()</b>.</li>
+		</ul>
+	</exception>
+	<exception id="313" title="Exception during 'super' constructor evaluation">An exception happened during
+		evaluation of constructor <code>{0}</code> using arguments <code>{1}</code>. <pre>{2}</pre>
+	</exception>
+	<exception id="314" title="Unable to find 'super' constructor" warning="true">{product_name} was not able
+		to find constructor with signature <code>{0}</code> in <code>{1}</code>. </exception>
+	<exception id="315" title="Anonymous class creation can not be evaluated." warning="true">
+		In general case it is impossible to evaluate creation of anonymous class. So, expression
+		<code>{0}</code> was not evaluated. </exception>
+	<!-- ======================================================== -->
+	<!-- Execution flow -->
+	<!-- ======================================================== -->
+	<exception id="400" title="Single constructor expected">The parser starts parsing from known method(s) for
+		each GUI toolkit. For example, for Swing it starts from the constructor of a JPanel or JFrame.
+		However, if you have more than one constructor, the parser can't decide which to use, so you should
+		help it by adding a <b>@wbp.parser.constructor</b> JavaDoc tag to the constructor that should be used
+		as the entry point. <p>For example:</p>
+		<pre>
+	public class MyPanel extends JPanel {
+		/**
+		 * <b>@wbp.parser.constructor</b>
+		 */
+		public MyPanel(String text) {
+		}
+		public MyPanel(Icon icon) {
+		}
+	}
+		</pre>
+	</exception>
+	<!-- ======================================================== -->
+	<!-- Component descriptions -->
+	<!-- ======================================================== -->
+	<exception id="500" title="Component description missing">{product_name} couldn't find the description
+		(*.wbp-component.xml file) for the component with class {0}. In general, {product_name} contains
+		descriptions for all supported GUI components. Even if some component doesn't have a direct
+		description, the description for its super class can be used (to some extent, for example,
+		constructors require specific descriptions). It is expected that {product_name} will not try to ask
+		for descriptions for components that can't be found. Please send a test case to support.</exception>
+	<exception id="501" title="Problem with static field editor">{product_name} found a problem in the
+		configurable static field editor: {0}. Try to fix it yourself or contact support.</exception>
+	<exception id="502" title="Unable to load *.wbp-component.xml description.">For component {0}.<p/>Check
+		root exception for details.</exception>
+	<exception id="503" title="No GUI toolkit">{product_name} does not know the GUI toolkit used for : {0}.
+		You may be trying to open something unsupported by {product_name}.</exception>
+	<!-- ======================================================== -->
+	<!-- Miscellaneous -->
+	<!-- ======================================================== -->
+	<exception id="900" title="No support for this Operating System found">{product_name} did not find the
+		plug-in supporting the Operating System and/or Windowing System that you are using. In most cases this
+		is caused by an incorrect, incomplete or corrupted installation.<br/> Please try re-installing the
+		complete product into a clean Eclipse environment. </exception>
+</exceptions>

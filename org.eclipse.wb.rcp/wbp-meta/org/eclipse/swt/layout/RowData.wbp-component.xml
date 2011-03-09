@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swt.model.layout.RowDataInfo"/>
+	<x-model class="org.eclipse.wb.internal.xwt.model.layout.RowDataInfo"/>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.swt.layout.RowData(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT)]]></source>
+	</creation>
+	<creation id="forPaste">
+		<source><![CDATA[new org.eclipse.swt.layout.RowData(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT)]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="int" property="width" defaultSource="org.eclipse.swt.SWT.DEFAULT"/>
+			<parameter type="int" property="height" defaultSource="org.eclipse.swt.SWT.DEFAULT"/>
+		</constructor>
+		<constructor>
+			<parameter type="org.eclipse.swt.graphics.Point"/>
+		</constructor>
+	</constructors>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="XWT.hasModel">true</parameter>
+		<parameter name="layoutData.exclude-properties">Class Constructor</parameter>
+		<parameter name="layoutData.compatibleLayout">org.eclipse.swt.layout.RowLayout</parameter>
+		<parameter name="isDefault"><![CDATA[
+			if (signature == "<init>(int,int)") {
+				return
+					args[0] == org.eclipse.swt.SWT.DEFAULT &&
+					args[1] == org.eclipse.swt.SWT.DEFAULT;
+			}
+			return false;
+		]]></parameter>
+	</parameters>
+</component>

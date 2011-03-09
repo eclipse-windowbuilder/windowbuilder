@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo"/>
+	<description>Provides a scrollable view of a lightweight component. A JScrollPane manages a viewport,
+		optional vertical and horizontal scroll bars, and optional row and column heading viewports.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new javax.swing.JScrollPane()]]></source>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="java.awt.Component" child="true"/>
+			<parameter type="int" property="setVerticalScrollBarPolicy(int)"/>
+			<parameter type="int" property="setHorizontalScrollBarPolicy(int)"/>
+		</constructor>
+		<constructor>
+			<parameter type="java.awt.Component" child="true"/>
+		</constructor>
+		<constructor>
+			<parameter type="int" property="setVerticalScrollBarPolicy(int)"/>
+			<parameter type="int" property="setHorizontalScrollBarPolicy(int)"/>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setViewportView">
+			<parameter type="java.awt.Component" child="true"/>
+		</method>
+		<method name="setRowHeaderView">
+			<parameter type="java.awt.Component" child="true"/>
+		</method>
+		<method name="setColumnHeaderView">
+			<parameter type="java.awt.Component" child="true"/>
+		</method>
+		<method name="setCorner">
+			<parameter type="java.lang.String"/>
+			<parameter type="java.awt.Component" child="true"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="horizontalScrollBarPolicy verticalScrollBarPolicy"/>
+	<properties-advanced
+		names="background border columnHeader font foreground horizontalScrollBar rowHeader verticalScrollBar viewport wheelScrollingEnabled"/>
+	<properties-hidden names="UI validateRoot"/>
+	<property id="setVerticalScrollBarPolicy(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.ScrollPaneConstants</parameter>
+			<parameter name="fields">VERTICAL_SCROLLBAR_AS_NEEDED VERTICAL_SCROLLBAR_NEVER
+				VERTICAL_SCROLLBAR_ALWAYS</parameter>
+		</editor>
+	</property>
+	<property id="setHorizontalScrollBarPolicy(int)">
+		<editor id="staticField">
+			<parameter name="class">javax.swing.ScrollPaneConstants</parameter>
+			<parameter name="fields">HORIZONTAL_SCROLLBAR_AS_NEEDED HORIZONTAL_SCROLLBAR_NEVER
+				HORIZONTAL_SCROLLBAR_ALWAYS</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="gridLayout.grabHorizontal">true</parameter>
+		<parameter name="gridLayout.grabVertical">true</parameter>
+	</parameters>
+</component>

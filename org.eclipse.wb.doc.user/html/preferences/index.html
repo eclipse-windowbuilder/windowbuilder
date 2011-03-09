@@ -1,0 +1,100 @@
+<html><head><title>Preferences - WindowBuilder</title>
+<link href="../../book.css" rel="stylesheet" type="text/css" />
+</head>
+<body><h1>Preferences - WindowBuilder</h1>
+<table border="0" width="1000" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><img src="images/preferences_windowbuilder.png">
+		<p>Here is the list of core preference pages:</p><ul>
+        <li><b><font size="4"><a href="preferences_code_parsing.html">Code Parsing</a></font></b></li>
+		<li><font size="4"><b><a href="preferences_usage_profiler.html">Usage Profiler</a></b></font></li>
+      </ul>
+      <p>Preferences maybe <a href="preferences_export.html">exported and imported</a> using the Eclipse Preference Export/Import facility.</p>
+
+      <h2>General Comments</h2>
+      <p>The positions of the <b><a href="../userinterface/palette.html">Palette</a>
+		</b>and <b><a href="../userinterface/structure_view.html">Structure View</a> </b> may be configured via 
+		drag and drop or by right-clicking on the header and 
+		selecting the <b>Dock On</b> command. The <b><a href="../userinterface/palette.html">Palette</a>
+		</b>may be docked to either the left or right 
+		side of the <b>
+			<a href="../userinterface/design_view.html">Design View</a></b>.</p>
+	<p>
+	<img border="0" src="images/flyout_palette1.png">&nbsp;
+		<img border="0" src="../userinterface/images/palette_dock_on.gif" align="top">&nbsp;
+		</p>
+	<p>The <b><a href="../userinterface/structure_view.html">Structure View</a></b> may be docked to the top, bottom, left or right of the 
+	<b>
+			<a href="../userinterface/design_view.html">Design View</a></b>.</p>
+	<p><img border="0" src="images/dock_left.png">&nbsp;
+	<img border="0" src="images/dock_top.png" align="top">&nbsp;
+		<img border="0" src="../userinterface/images/structure_view_dock_on.gif" align="top" width="269" height="242"></p>
+	<p>The <b><a href="../userinterface/palette.html">Palette</a> </b>and <b>
+	<a href="../userinterface/structure_view.html">Structure View</a> </b> are also available as standalone views. 
+	Use the <b>
+	Window &gt; Show View &gt; Other...</b> command and open the <b>WindowBuilder </b>
+	category or right-click on the header and select the <b>Extract as 
+	view</b> command. Closing the view will make it reappear as embedded view 
+	within the editor.</p>
+	<p>
+	<img border="0" src="images/windowbuilder_views.png">&nbsp;
+		<img border="0" src="images/palette_view.png" align="top">&nbsp;
+		<img border="0" src="images/structure_view.png" align="top">&nbsp;
+		<img border="0" src="../userinterface/images/palette_extract_as_view.gif" align="top">
+	<img border="0" src="../userinterface/images/structure_extract_as_view.gif" align="top"></p>
+      <h2>Editor Layout</h2>
+      <p>This preference controls the position of the <b>
+		<a href="../userinterface/source_view.html">Source View</a></b> relative to
+      the <b><a href="../userinterface/design_view.html">Design View</a></b>. By default, they are &quot;on separate notebook
+      tabs&quot; labeled <b>Source</b> and <b>Design</b> (you can select which 
+		page is first). Additional options are
+      provided to show the <b><a href="../userinterface/source_view.html">Source 
+		View</a></b> and <b><a href="../userinterface/design_view.html">Design View</a></b> side by side or one above
+      the other.
+      <p>
+		<img border="0" src="../userinterface/images/source_view_right.png" width="902" height="305"><p>
+<img border="0" src="../userinterface/images/source_view_bottom.png" width="545" height="456">&nbsp;
+<img border="0" src="../userinterface/images/source_view.png" width="442" height="456"><h2>Sync Delay (ms)</h2>
+      <p>When the <b><a href="../userinterface/source_view.html">Source View</a></b> and <b>
+		<a href="../userinterface/design_view.html">Design View</a></b> are both visible, this preference determines
+      the delay used to synchronize the two panes. If the user types in the
+      <b><a href="../userinterface/source_view.html">Source View</a></b>, the source will be re-parsed and the <b>
+		<a href="../userinterface/design_view.html">Design View</a></b> will be
+      updated after a period specified by the sync delay.
+      Use &quot;-1&quot; to synchronize only on save.<h2>Associate WindowBuilder editor with automatically recognized Java GUI files</h2>
+      <p>This preference determines whether <b>WindowBuilder Pro</b> will attempt to 
+		automatically recognize GUI files and associate the <b>WindowBuilder</b> editor with 
+		them.<h2>Maximize editor on &quot;Design&quot; page activation</h2>
+      <p>This preference determines whether the <b>WindowBuilder</b> editor will be 
+		automatically maximized when switching to the <b>
+			<a href="../userinterface/design_view.html">Design View</a></b>.
+	  <h2>Format source code (and reparse) on editor save</h2>
+      <p>This preference determines whether the generated source code will be 
+		formatted using your Eclipse code formatting preferences whenever the 
+		<b>WindowBuilder</b> editor is saved.
+      <h2>Go to component definition in source on selection</h2>
+      <p>This preference controls whether the source definition of a component is 
+		highlighted any time a component is selected in the <b>
+			<a href="../userinterface/design_view.html">Design View</a></b>.
+	  <h2>Automatically add to palette when using Choose Component</h2>
+      <p>This preference controls the whether beans selected using the <b>Choose
+      Component</b> command are automatically added to the 
+		<b>Custom Controls</b> palette.<h2>Accept drop non-visual beans to 
+		design canvas</h2>
+      <p>This preference controls whether non-visual beans may be dropped on the 
+		design canvas.<h2>Show debug information on console</h2>
+      <p>This preference controls whether debugging info is written to the Java 
+		console window.<h2>Show warning for incompatible Eclipse/WindowBuilder versions</h2>
+      <p>This preference controls whether the tool shows a version warning when 
+		there is a mismatch between the version of the tool you are using and 
+		the version of Eclipse you are using. In general, a version of 
+		the tool built for Eclipse 3.4 will not work with Eclipse 3.6 and vice versa. In 
+		some situations, a newer milestone or integration build will work with 
+		the latest build, so this preference gives you the ability to 
+		suppress the unnecessary and distracting warning in those cases.
+		<font color="#CC0000">Be warned, however, that using the tool&nbsp; in a 
+		mismatched Eclipse version may result in unpredictable behavior.</font></td>
+	</tr>
+</table>
+</body>
+</html>

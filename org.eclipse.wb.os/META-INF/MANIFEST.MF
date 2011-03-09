@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.wb.os;singleton:=true
+Bundle-Version: 0.0.0
+Bundle-Activator: org.eclipse.wb.os.Activator
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.wb.os
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin

@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.swing">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wb.swing" id="lookAndFeel" name="External LookAndFeel support"/>
+      </appInfo>
+      <documentation>
+         Provides external LookAndFeel classes for WindowBuilder.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <choice>
+            <element ref="category" minOccurs="0" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="category">
+      <complexType>
+         <sequence>
+            <element ref="LookAndFeel" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="LookAndFeel">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The string uniquely identifying LookAndFeel.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The display name of this LookAndFeel.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The Java class of LookAndFeel. Must be the instance of javax.swing.LookAndFeel.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="javax.swing.LookAndFeel:"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="jarFile" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The java archive containing LookAndFeel class.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="resource"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="initializer" type="string">
+            <annotation>
+               <documentation>
+                  Class performing some initialization procedures before applying LookAndFeel to Swing UI. Ex., puts license code or sets theme.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.swing.laf.external.ILookAndFeelInitializer"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="condition" type="string">
+            <annotation>
+               <documentation>
+                  Optional MVEL expression that should be evaluated to boolean. It can use appropriate variables: isWindows
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

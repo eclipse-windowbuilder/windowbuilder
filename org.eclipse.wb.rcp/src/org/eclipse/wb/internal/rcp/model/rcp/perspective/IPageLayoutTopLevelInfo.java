@@ -1,0 +1,32 @@
+/*******************************************************************************
+ * Copyright (c) 2011 Google, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Google, Inc. - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.wb.internal.rcp.model.rcp.perspective;
+
+import org.eclipse.ui.IPageLayout;
+
+/**
+ * Interface for some top-level element of {@link IPageLayout}.
+ * 
+ * @author scheglov_ke
+ * @coverage rcp.model.rcp
+ */
+public interface IPageLayoutTopLevelInfo {
+  /**
+   * @return the ID of this {@link IPageLayoutTopLevelInfo}.
+   */
+  String getId();
+
+  /**
+   * @return the source for ID of this {@link IPageLayoutTopLevelInfo}, it should be evaluated into
+   *         same value as {@link #getId()}.
+   */
+  String getIdSource();
+}
