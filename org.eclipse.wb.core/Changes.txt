@@ -1,4 +1,4 @@
-January 2011 - Version 0.9.0
+March 2011 - Version 0.9.0
 --------------------------
 [+] WindowBuilder Donation to Eclipse.org
      Code namespace changed to org.eclipse.wb.*
