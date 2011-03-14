@@ -69,7 +69,6 @@ class P2Provisioner {
    * @throws OperationCanceledException thrown if the user cancelled
    */
   public void installToolkits(final IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
-    // TODO: should we create our own provisioning UI instead of using the default?
     provisioningUI = ProvisioningUI.getDefaultUI();
     repositoryLoadingJob = new LoadMetadataRepositoryJob(provisioningUI);
     
@@ -113,7 +112,6 @@ class P2Provisioner {
    * @throws OperationCanceledException thrown if the user cancelled
    */
   public void uninstallToolkits(final IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
-    // TODO: should we create our own provisioning UI instead of using the default?
     provisioningUI = ProvisioningUI.getDefaultUI();
     repositoryLoadingJob = new LoadMetadataRepositoryJob(provisioningUI);
     
@@ -138,17 +136,6 @@ class P2Provisioner {
       });
     }
   }
-  
-  // TODO:
-  
-//  private ProvisioningUI createProvisioningUI() {
-//    IProvisioningAgent agent = (IProvisioningAgent) ServiceHelper.getService(getContext(), IProvisioningAgent.SERVICE_NAME);
-//    ProvisioningSession session = new ProvisioningSession(agent);
-//    Policy policy = (Policy) ServiceHelper.getService(ProvUIActivator.getContext(), Policy.class.getName());
-//    if (policy == null)
-//      policy = new Policy();
-//    return new ProvisioningUI(session, IProfileRegistry.SELF, policy);
-//  }
   
   private URI[] getRepositories() {
     List<URI> uris = new ArrayList<URI>();
