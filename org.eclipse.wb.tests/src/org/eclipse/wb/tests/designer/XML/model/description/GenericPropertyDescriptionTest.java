@@ -48,6 +48,26 @@ public class GenericPropertyDescriptionTest extends AbstractCoreTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Tests
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * We should ignore case when description tries to reference not existing property.
+   */
+  public void test_ignoreNoSuchProperty() throws Exception {
+    prepareMyComponent(new String[]{}, new String[]{
+        "<property id='setNoSuchProperty(boolean)'>",
+        "  <defaultValue value='false'/>",
+        "</property>"});
+    ComponentDescription description = getMyDescription();
+    String id = "setNoSuchProperty(boolean)";
+    // no such property, but description loaded
+    GenericPropertyDescription property = description.getProperty(id);
+    assertNull(property);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Types
   //
   ////////////////////////////////////////////////////////////////////////////

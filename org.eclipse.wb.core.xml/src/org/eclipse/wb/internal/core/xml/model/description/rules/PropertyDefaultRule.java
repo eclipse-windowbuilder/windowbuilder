@@ -42,8 +42,10 @@ public final class PropertyDefaultRule extends Rule {
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
     GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
-    String text = attributes.getValue("value");
-    Object value = ScriptUtils.evaluate(m_classLoader, text);
-    propertyDescription.setDefaultValue(value);
+    if (propertyDescription != null) {
+      String text = attributes.getValue("value");
+      Object value = ScriptUtils.evaluate(m_classLoader, text);
+      propertyDescription.setDefaultValue(value);
+    }
   }
 }
