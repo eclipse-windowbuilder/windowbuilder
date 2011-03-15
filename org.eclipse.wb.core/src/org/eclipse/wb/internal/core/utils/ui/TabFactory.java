@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
 /**
- * This class provides a convienient shorthand forcreating and initializing {@link TabItem}.
+ * This class provides a convenient shorthand for creating and initializing {@link TabItem}.
  * 
  * @author lobas_av
  */
