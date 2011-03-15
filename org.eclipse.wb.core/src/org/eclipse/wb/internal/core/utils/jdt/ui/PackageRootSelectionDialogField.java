@@ -134,6 +134,20 @@ public final class PackageRootSelectionDialogField extends StringButtonDialogFie
     }
   }
 
+  public void setRootWithoutUpdate(IPackageFragmentRoot packageFragmentRoot) {
+    m_root = packageFragmentRoot;
+    if (m_root != null) {
+      String newText = getRootString(m_root);
+      if (!getText().equals(newText)) {
+        setTextWithoutUpdate(newText);
+      }
+    }
+    //
+    if (m_listener != null) {
+      m_listener.rootChanged(m_root);
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // IDialogFieldListener
