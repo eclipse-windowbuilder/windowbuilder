@@ -97,8 +97,8 @@ public final class ImageUtils {
     // prepare Swing image from Icon
     BufferedImage awtImage;
     {
-      int width = icon.getIconWidth();
-      int height = icon.getIconHeight();
+      int width = Math.max(1, icon.getIconWidth());
+      int height = Math.max(1, icon.getIconHeight());
       awtImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
       Graphics2D graphics2D = awtImage.createGraphics();
       icon.paintIcon(null, graphics2D, 0, 0);
