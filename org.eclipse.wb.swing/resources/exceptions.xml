@@ -4,4 +4,10 @@
 		using a double association for <b>{2}</b> with more than one set of constraints. WindowBuilder does not
 		know which one to use and update. Please correct your code to make it parsable. Also note that this code
 		may not work as expected.<p/>{0}<p/>{1}</exception>
+	<exception id="1002" title="Graphical editing is not provided for Action classes." warning="true">
+		<pre>
+			Please use the Source page to make any changes.
+			Actions can be graphically added to the JToolBar and JMenu.
+		</pre>
+	</exception>
 </exceptions>

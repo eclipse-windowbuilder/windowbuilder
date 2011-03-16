@@ -28,7 +28,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.Activator;
-import org.eclipse.wb.internal.swing.ISwingExceptionConstants;
+import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
@@ -433,7 +433,7 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
           "}");
     } catch (Throwable e) {
       DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-      assertEquals(ISwingExceptionConstants.MORE_THAN_ONE_CONSTRAINTS, de.getCode());
+      assertEquals(IExceptionConstants.MORE_THAN_ONE_CONSTRAINTS, de.getCode());
     }
   }
 

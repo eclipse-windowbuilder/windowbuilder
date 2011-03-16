@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
  * @author scheglov_ke
  * @coverage swing
  */
-public interface ISwingExceptionConstants {
+public interface IExceptionConstants {
   int MORE_THAN_ONE_CONSTRAINTS = 1001;
+  int NO_DESIGN_ACTION = 1002;
 }

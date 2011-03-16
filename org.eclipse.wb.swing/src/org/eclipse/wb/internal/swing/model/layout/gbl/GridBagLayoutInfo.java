@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.swing.ISwingExceptionConstants;
+import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -71,7 +71,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
           List<GridBagConstraintsInfo> constraintsList =
               component.getChildren(GridBagConstraintsInfo.class);
           if (constraintsList.size() > 1) {
-            throw new DesignerException(ISwingExceptionConstants.MORE_THAN_ONE_CONSTRAINTS,
+            throw new DesignerException(IExceptionConstants.MORE_THAN_ONE_CONSTRAINTS,
                 component.toString(),
                 constraintsList.toString(),
                 component.getVariableSupport().getComponentName());

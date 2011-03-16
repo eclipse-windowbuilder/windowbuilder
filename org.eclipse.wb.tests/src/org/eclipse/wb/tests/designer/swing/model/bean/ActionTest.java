@@ -26,6 +26,8 @@ import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatemen
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo;
 import org.eclipse.wb.internal.swing.model.bean.ActionExpressionAccessor;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
@@ -82,6 +84,23 @@ public class ActionTest extends SwingModelTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
+  public void test_noDesign_forActions() throws Exception {
+    try {
+      parseJavaInfo(
+          "public class Test extends AbstractAction {",
+          "  public Test() {",
+          "    putValue(NAME, 'My name');",
+          "    putValue(SHORT_DESCRIPTION, 'My short description');",
+          "  }",
+          "  public void actionPerformed(ActionEvent e) {",
+          "  }",
+          "}");
+      fail();
+    } catch (DesignerException e) {
+      assertEquals(IExceptionConstants.NO_DESIGN_ACTION, e.getCode());
+    }
+  }
+
   /**
    * No {@link AbstractAction}'s - no {@link ActionContainerInfo} and {@link ActionInfo}'s.
    */

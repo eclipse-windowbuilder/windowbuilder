@@ -29,8 +29,10 @@ import org.eclipse.wb.internal.core.parser.IParseFactory;
 import org.eclipse.wb.internal.core.parser.ParseRootContext;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.bean.ActionAnonymousCreationSupport;
 import org.eclipse.wb.internal.swing.model.bean.ActionInnerCreationSupport;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -73,6 +75,10 @@ public class ParseFactory extends AbstractParseFactory {
   public ParseRootContext getRootContext(AstEditor editor,
       TypeDeclaration typeDeclaration,
       ITypeBinding typeBinding) throws Exception {
+    // special unsupported classes
+    if (AstNodeUtils.isSuccessorOf(typeBinding, "javax.swing.Action")) {
+      throw new DesignerException(IExceptionConstants.NO_DESIGN_ACTION);
+    }
     // check for Swing/AWT type
     {
       // check if there are java.awt.Component successors
