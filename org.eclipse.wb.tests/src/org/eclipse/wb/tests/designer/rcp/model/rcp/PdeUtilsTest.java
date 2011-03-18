@@ -21,6 +21,8 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewCategoryInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 import org.eclipse.wb.tests.designer.TestUtils;
+import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
+import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.pde.core.plugin.IPluginElement;
@@ -271,16 +273,22 @@ public class PdeUtilsTest extends AbstractPdeTest {
   /**
    * Test for {@link PdeUtils#addLibrary(String)}.
    */
+  @DisposeProjectAfter
   public void test_addLibrary() throws Exception {
+    // prepare empty PDE project
+    do_projectDispose();
+    do_projectCreate();
+    PdeProjectConversionUtils.convertToPDE(m_project, null);
+    // add library
     String jarPath = TestUtils.createTemporaryJar("foo.txt", "bar");
     try {
-      ProjectUtils.addExternalJar(m_javaProject, jarPath, null);
       // add library into manifest
       String jarName = FilenameUtils.getName(jarPath);
       m_utils.addLibrary(jarName);
       // validate manifest
       String manifest = getManifest();
       assertThat(manifest).contains(jarName);
+      assertThat(manifest).contains("Bundle-ClassPath: .,\n " + jarName + "\n");
     } finally {
       new File(jarPath).delete();
     }

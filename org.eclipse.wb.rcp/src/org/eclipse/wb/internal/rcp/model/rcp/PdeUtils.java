@@ -197,6 +197,15 @@ public final class PdeUtils {
       @Override
       protected void modifyModel(IBaseModel model, IProgressMonitor monitor) throws CoreException {
         IPluginModelBase plugin = (IPluginModelBase) model;
+        // if first library, add "." entry
+        if (plugin.getPluginBase().getLibraries().length == 0) {
+          addLibrary0(plugin, ".");
+        }
+        // add library
+        addLibrary0(plugin, name);
+      }
+
+      private void addLibrary0(IPluginModelBase plugin, String name) throws CoreException {
         // create library
         IPluginLibrary library = plugin.getPluginFactory().createLibrary();
         library.setName(name);

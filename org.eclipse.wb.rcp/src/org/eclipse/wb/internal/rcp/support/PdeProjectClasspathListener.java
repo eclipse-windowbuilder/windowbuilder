@@ -15,10 +15,9 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.swt.graphics.Font;
 
 /**
- * Shell for {@link Font} preview.
+ * {@link IProjectClasspathListener} for PDE.
  * 
  * @author scheglov_ke
  * @coverage rcp.support
