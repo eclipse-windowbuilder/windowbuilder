@@ -5,6 +5,9 @@
       version="0.9.0"
       provider-name="%providerName"
       plugin="org.eclipse.wb.ercp"
+      os="win32"
+      ws="win32"
+      arch="x86"
       image="eclipse_update_120.jpg">
 
    <description>
@@ -29,6 +32,9 @@
 
    <plugin
          id="org.eclipse.wb.ercp"
+         os="win32"
+         ws="win32"
+         arch="x86"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
