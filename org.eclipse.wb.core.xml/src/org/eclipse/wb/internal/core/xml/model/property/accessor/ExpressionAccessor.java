@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.description.AbstractDescription;
 import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
+import org.eclipse.wb.internal.core.xml.model.utils.AttributeResolver;
 
 /**
  * Accessor for {@link XmlProperty} value.
@@ -28,6 +29,7 @@ import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
  */
 public abstract class ExpressionAccessor extends AbstractDescription {
   protected final String m_attribute;
+  private String m_resolvedAttribute;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -48,6 +50,16 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    */
   public final String getAttribute() {
     return m_attribute;
+  }
+
+  /**
+   * @return the resolved attribute, if the namespace available.
+   */
+  protected String getResolvedAttribute(XmlObjectInfo object, String attribute) {
+    if (m_resolvedAttribute == null) {
+      m_resolvedAttribute = AttributeResolver.getResolved(object, attribute);
+    }
+    return m_resolvedAttribute;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -80,7 +92,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    */
   public String getExpression(XmlObjectInfo object) {
     DocumentElement element = getElement(object);
-    return element.getAttribute(m_attribute);
+    return element.getAttribute(getResolvedAttribute(object, m_attribute));
   }
 
   /**
@@ -91,7 +103,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    */
   public void setExpression(XmlObjectInfo object, String expression) throws Exception {
     DocumentElement element = getElement(object);
-    element.setAttribute(m_attribute, expression);
+    element.setAttribute(getResolvedAttribute(object, m_attribute), expression);
     ExecutionUtils.refresh(object);
   }
 
@@ -104,16 +116,16 @@ public abstract class ExpressionAccessor extends AbstractDescription {
 
   /**
    * @return the value of property in given {@link XmlObjectInfo}, may be
-   *         {@link Property#UNKNOWN_VALUE} is attribute was not set.
+   *         {@link Property#UNKNOWN_VALUE} if attribute was not set.
    */
   public Object getValue(XmlObjectInfo object) throws Exception {
-    return object.getAttributeValue(m_attribute);
+    return object.getAttributeValue(getResolvedAttribute(object, m_attribute));
   }
 
   /**
    * @return the default value of property in given {@link XmlObjectInfo}.
    */
-  public Object getDefaultValue(XmlObjectInfo object) throws Exception {
+  public Object getDefaultValue(@SuppressWarnings("unused") XmlObjectInfo object) throws Exception {
     return Property.UNKNOWN_VALUE;
   }
 

@@ -35,6 +35,7 @@ import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescrip
 import org.eclipse.wb.internal.core.xml.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.property.event.EventsProperty;
+import org.eclipse.wb.internal.core.xml.model.utils.AttributeResolver;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -239,8 +240,8 @@ public class XmlObjectInfo extends ObjectInfo {
   public final void setObject(Object object) throws Exception {
     m_object = object;
     // send "ready" to description
-    if (!m_objectReadySent) {
-      m_objectReadySent = true;
+    if (!isObjectReadySent()) {
+      setObjectReadySent(true);
       m_description.visit(this, AbstractDescription.STATE_OBJECT_READY);
     }
     // initialize
@@ -318,9 +319,11 @@ public class XmlObjectInfo extends ObjectInfo {
   private final Map<String, Object> m_attributeValues = Maps.newHashMap();
 
   /**
-   * Registers value for attribute, during rendering.
+   * Registers value for attribute during rendering. Resolves the attribute (adds namespace
+   * qualifier if applicable).
    */
   public final void registerAttributeValue(String attribute, Object value) {
+    attribute = AttributeResolver.getResolved(this, attribute);
     m_attributeValues.put(attribute, value);
   }
 
@@ -378,7 +381,7 @@ public class XmlObjectInfo extends ObjectInfo {
   public void refresh_dispose() throws Exception {
     m_object = null;
     m_attributeValues.clear();
-    m_objectReadySent = false;
+    setObjectReadySent(false);
     super.refresh_dispose();
   }
 
@@ -432,5 +435,13 @@ public class XmlObjectInfo extends ObjectInfo {
         }
       }
     });
+  }
+
+  public final void setObjectReadySent(boolean value) {
+    m_objectReadySent = value;
+  }
+
+  public final boolean isObjectReadySent() {
+    return m_objectReadySent;
   }
 }

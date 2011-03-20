@@ -172,6 +172,34 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
     assertEquals(123, accessor.getValue(myComponent));
   }
 
+  /**
+   * Test for {@link MethodExpressionAccessor#setExpression(XmlObjectInfo, String)} while using
+   * attribute namespace.
+   */
+  public void test_setExpression_withAttributeNamespace() throws Exception {
+    prepareMyComponent(new String[]{
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public void setTest(int value) {",
+        "}"}, new String[]{"<x-property-attribute-xmlns url='http://www.eclipse.org/wb/xwt'/>"});
+    prepareProperty();
+    // not modified
+    assertFalse(accessor.isModified(myComponent));
+    assertEquals(null, accessor.getExpression(myComponent));
+    // set expression
+    accessor.setExpression(myComponent, "123");
+    assertXML(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "<Shell>",
+        "  <t:MyComponent wbp:name='myComponent' wbp:test='123'/>",
+        "</Shell>");
+    // modified
+    assertTrue(accessor.isModified(myComponent));
+    assertEquals("123", accessor.getExpression(myComponent));
+    assertEquals(123, accessor.getValue(myComponent));
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Utils
