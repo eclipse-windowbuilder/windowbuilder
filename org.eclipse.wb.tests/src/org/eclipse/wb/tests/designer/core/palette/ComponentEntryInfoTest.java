@@ -776,7 +776,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
         // PDE manifest also updated
         {
           String manifest = getFileContent("META-INF/MANIFEST.MF");
-          assertThat(manifest).contains("Bundle-ClassPath: myClasses.jar");
+          assertThat(manifest).contains("Bundle-ClassPath: .,\n myClasses.jar");
         }
       }
     } finally {
