@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -29,6 +30,8 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Statement;
+
+import org.osgi.framework.Bundle;
 
 import java.util.List;
 
@@ -40,6 +43,14 @@ import java.util.List;
  * @coverage bindings.swing.model
  */
 public final class DataBindingsCodeUtils {
+  /**
+   * External {@link Bundle} with JSR-295 libraries.
+   */
+  private static final Bundle EXTRAS_BUNDLE;
+  static {
+    EXTRAS_BUNDLE = Platform.getBundle("org.eclipse.wb.swing.extras");
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Utils
@@ -52,16 +63,33 @@ public final class DataBindingsCodeUtils {
     return ProjectUtils.hasType(javaProject, "org.jdesktop.beansbinding.AutoBinding");
   }
 
-  // FIXME remove this method after approving check using hasDBLibraries()
+  /**
+   * @return the external {@link Bundle} providing JSR-295 libraries.
+   */
+  public static Bundle getExtrasBundle() {
+    return EXTRAS_BUNDLE;
+  }
+
+  /**
+   * @return <code>true</code> if data binding is available for given {@link IJavaProject}.
+   */
+  public static boolean isDBAvailable(IJavaProject javaProject) {
+    return hasDBLibraries(javaProject) || getExtrasBundle() != null;
+  }
+
+  /**
+   * Ensure that given {@link IJavaProject} has JSR-295 libraries.
+   */
   public static boolean ensureDBLibraries(IJavaProject javaProject) throws Exception {
-    /*if (!hasDBLibraries(javaProject)) {
-    	ProjectUtils.addJar(
-    		javaProject,
-    		Activator.getDefault().getBundle(),
-    		"beansbinding-1.2.1.jar",
-    		"beansbinding-1.2.1-src.zip");
-    	return true;
-    }*/
+    Bundle extrasBundle = getExtrasBundle();
+    if (!hasDBLibraries(javaProject) && extrasBundle != null) {
+      ProjectUtils.addJar(
+          javaProject,
+          extrasBundle,
+          "lib/beansbinding-1.2.1.jar",
+          "lib/beansbinding-1.2.1-src.zip");
+      return true;
+    }
     return false;
   }
 

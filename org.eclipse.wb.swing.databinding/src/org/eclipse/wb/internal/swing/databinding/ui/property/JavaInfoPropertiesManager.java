@@ -48,7 +48,7 @@ public class JavaInfoPropertiesManager extends AbstractJavaInfoPropertiesManager
     if (JavaInfoUtils.hasTrueParameter(javaInfo, "databinding.disable")) {
       return false;
     }
-    if (!DataBindingsCodeUtils.hasDBLibraries(javaInfo.getEditor().getJavaProject())) {
+    if (!DataBindingsCodeUtils.isDBAvailable(javaInfo.getEditor().getJavaProject())) {
       return false;
     }
     return (javaInfo instanceof AbstractComponentInfo || javaInfo.getParent() instanceof NonVisualBeanContainerInfo)

@@ -47,7 +47,7 @@ public final class DesignPageFactory implements IEditorPageFactory {
   ////////////////////////////////////////////////////////////////////////////
   public static boolean isSwingDB(ICompilationUnit compilationUnit) {
     IJavaProject javaProject = compilationUnit.getJavaProject();
-    if (DataBindingsCodeUtils.hasDBLibraries(javaProject)) {
+    if (DataBindingsCodeUtils.isDBAvailable(javaProject)) {
       try {
         IImportDeclaration[] imports = compilationUnit.getImports();
         for (IImportDeclaration importDeclaration : imports) {
