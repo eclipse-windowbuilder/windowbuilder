@@ -1559,13 +1559,11 @@ public class JavaInfoUtils {
       oldAssociation.remove();
       newAssociationRequired = true;
     }
-    // prepare target (possibly move component)
-    StatementTarget associationTarget;
+    // move component ASTNode's, prepare statements target
+    StatementTarget componentTarget;
     {
-      StatementTarget componentTarget = targetProvider.getTarget();
-      // move component ASTNode's, prepare association target
+      componentTarget = targetProvider.getTarget();
       component.getVariableSupport().ensureInstanceReadyAt(componentTarget);
-      associationTarget = component.getVariableSupport().getAssociationTarget(componentTarget);
     }
     // move/reparent component
     if (isReparenting) {
@@ -1574,6 +1572,9 @@ public class JavaInfoUtils {
     } else {
       targetProvider.move();
     }
+    // now, when all moving are done, prepare association target
+    StatementTarget associationTarget =
+        component.getVariableSupport().getAssociationTarget(componentTarget);
     // update association
     if (isReparenting || newAssociationRequired) {
       if (component.getAssociation() == null) {

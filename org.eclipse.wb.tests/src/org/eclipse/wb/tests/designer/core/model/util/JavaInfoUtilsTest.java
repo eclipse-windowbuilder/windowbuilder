@@ -16,12 +16,14 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.core.model.association.CompoundAssociation;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
+import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils.IMoveTargetProvider;
@@ -59,6 +61,7 @@ import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -2506,6 +2509,75 @@ public class JavaInfoUtilsTest extends SwingModelTest {
         "}");
   }
 
+  /**
+   * There was implementation when we used {@link MethodInvocation} as target for new association.
+   * However after preparing this {@link MethodInvocation} was removed because of moving component
+   * from its old parent.
+   */
+  public void test_move_removeInvocation_whichIsAfterAssociation() throws Exception {
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class MyButton extends JButton {",
+            "}"));
+    setFileContentSrc(
+        "test/MyButton.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <methods>",
+            "    <method name='setEnabled' order='afterAssociation'>",
+            "      <parameter type='boolean'/>",
+            "    </method>",
+            "  </methods>",
+            "</component>"));
+    waitForAutoBuild();
+    // parse
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  private final MyButton button = new MyButton();",
+        "  public Test() {",
+        "    JPanel panelA = new JPanel();",
+        "    add(panelA);",
+        "    ",
+        "    JPanel panelB = new JPanel();",
+        "    add(panelB);",
+        "    ",
+        "    panelA.add(button);",
+        "    button.setEnabled(false);",
+        "  }",
+        "}");
+    final ComponentInfo button = getJavaInfoByName("button");
+    final ContainerInfo panelB = getJavaInfoByName("panelB");
+    // install handler for removing setEnabled() invocation
+    button.addBroadcastListener(new ObjectEventListener() {
+      @Override
+      public void childRemoveBefore(ObjectInfo parent, ObjectInfo child) throws Exception {
+        button.removeMethodInvocations("setEnabled(boolean)");
+      }
+    });
+    // do move
+    JavaInfoUtils.move(
+        button,
+        AssociationObjects.invocationChild("%parent%.add(%child%)", true),
+        panelB,
+        null);
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  private final MyButton button = new MyButton();",
+        "  public Test() {",
+        "    JPanel panelA = new JPanel();",
+        "    add(panelA);",
+        "    ",
+        "    JPanel panelB = new JPanel();",
+        "    add(panelB);",
+        "    panelB.add(button);",
+        "  }",
+        "}");
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // sort*ByFlow()
@@ -3436,9 +3508,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
         "    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
         "    {method: public test.MyFactory test.MyContainer.getFactory()} {property} {}");
     // send broadcast to move "getFactory()" into InstanceFactoryContainerInfo
-    InstanceFactoryRootProcessor.INSTANCE.process(
-        panel,
-        ImmutableList.<JavaInfo>of(exposedFactory));
+    InstanceFactoryRootProcessor.INSTANCE.process(panel, ImmutableList.<JavaInfo>of(exposedFactory));
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(new MyContainer())/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
