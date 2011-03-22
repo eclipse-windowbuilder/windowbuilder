@@ -142,12 +142,6 @@
 						<xs:attribute name="value" type="xs:string" use="required"/>
 					</xs:complexType>
 				</xs:element>
-				<!-- property xml attribute default namespace -->
-				<xs:element name="x-property-attribute-xmlns" minOccurs="0" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:attribute name="url" type="xs:string" use="required"/>
-					</xs:complexType>
-				</xs:element>
 				<!-- method based property (single parameter) -->
 				<xs:element name="method-single-property" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>

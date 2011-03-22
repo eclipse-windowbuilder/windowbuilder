@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescrip
 import org.eclipse.wb.internal.core.xml.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.property.event.EventsProperty;
-import org.eclipse.wb.internal.core.xml.model.utils.AttributeResolver;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -323,7 +322,6 @@ public class XmlObjectInfo extends ObjectInfo {
    * qualifier if applicable).
    */
   public final void registerAttributeValue(String attribute, Object value) {
-    attribute = AttributeResolver.getResolved(this, attribute);
     m_attributeValues.put(attribute, value);
   }
 

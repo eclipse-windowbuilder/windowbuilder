@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.description.AbstractDescription;
 import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
-import org.eclipse.wb.internal.core.xml.model.utils.AttributeResolver;
 
 /**
  * Accessor for {@link XmlProperty} value.
@@ -52,16 +51,6 @@ public abstract class ExpressionAccessor extends AbstractDescription {
     return m_attribute;
   }
 
-  /**
-   * @return the resolved attribute, if the namespace available.
-   */
-  protected String getResolvedAttribute(XmlObjectInfo object, String attribute) {
-    if (m_resolvedAttribute == null) {
-      m_resolvedAttribute = AttributeResolver.getResolved(object, attribute);
-    }
-    return m_resolvedAttribute;
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Value
@@ -92,7 +81,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    */
   public String getExpression(XmlObjectInfo object) {
     DocumentElement element = getElement(object);
-    return element.getAttribute(getResolvedAttribute(object, m_attribute));
+    return element.getAttribute(m_attribute);
   }
 
   /**
@@ -103,7 +92,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    */
   public void setExpression(XmlObjectInfo object, String expression) throws Exception {
     DocumentElement element = getElement(object);
-    element.setAttribute(getResolvedAttribute(object, m_attribute), expression);
+    element.setAttribute(m_attribute, expression);
     ExecutionUtils.refresh(object);
   }
 
@@ -119,7 +108,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    *         {@link Property#UNKNOWN_VALUE} if attribute was not set.
    */
   public Object getValue(XmlObjectInfo object) throws Exception {
-    return object.getAttributeValue(getResolvedAttribute(object, m_attribute));
+    return object.getAttributeValue(m_attribute);
   }
 
   /**
