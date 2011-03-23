@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
  */
 public abstract class ExpressionAccessor extends AbstractDescription {
   protected final String m_attribute;
-  private String m_resolvedAttribute;
 
   ////////////////////////////////////////////////////////////////////////////
   //
