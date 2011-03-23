@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 
@@ -500,6 +501,9 @@ public class SwingImageUtils {
           ImageProducer source = image.getSource();
           source.startProduction(new AwtToSwtImageConverter(bufferedImage, swtImageData));
           return new Image(null, swtImageData);
+        } catch (Throwable e) {
+          // fallback to ImageIO.
+          return ImageUtils.convertToSWT(image);
         } finally {
           swtImage.dispose();
         }
