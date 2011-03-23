@@ -355,7 +355,7 @@ public class UiContext {
   /**
    * Sends {@link SWT#Selection} event to given {@link Button}.
    */
-  public void selectButton(Button button, boolean selection) {
+  private void selectButton(Button button, boolean selection) {
     button.setSelection(selection);
     clickButton(button);
   }
@@ -364,15 +364,6 @@ public class UiContext {
    * Sends {@link SWT#Selection} event to given {@link Button}.
    */
   public void selectButton(Button button) {
-    selectButton(button, true);
-  }
-
-  /**
-   * Selects {@link Button} with given text.
-   */
-  public void selectButton(String text) {
-    Button button = getButtonByText(text);
-    Assert.isNotNull(button, "Can not find button with text |" + text + "|");
     // if Button in RADIO, deselect all other RADIO Button's
     if ((button.getStyle() & SWT.RADIO) != 0) {
       Control[] children = button.getParent().getChildren();
@@ -388,6 +379,15 @@ public class UiContext {
     }
     // select needed Button
     button.setFocus();
+    selectButton(button, true);
+  }
+
+  /**
+   * Selects {@link Button} with given text.
+   */
+  public void selectButton(String text) {
+    Button button = getButtonByText(text);
+    Assert.isNotNull(button, "Can not find button with text |" + text + "|");
     selectButton(button);
   }
 
@@ -430,6 +430,21 @@ public class UiContext {
         // stop it any case
         break;
       }
+    }
+    // not found
+    return null;
+  }
+
+  /**
+   * @return the {@link Control} located in children on its {@link Composite} after given one.
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T getControlAfter(Control reference) {
+    Control[] children = reference.getParent().getChildren();
+    // get next Control
+    int index = ArrayUtils.indexOf(children, reference);
+    if (index < children.length - 1) {
+      return (T) children[index + 1];
     }
     // not found
     return null;

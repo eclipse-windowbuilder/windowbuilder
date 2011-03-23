@@ -15,8 +15,6 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.Pair;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
@@ -122,11 +120,12 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
     // handle selection
     control.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
-        ExecutionUtils.runLog(new RunnableEx() {
-          public void run() throws Exception {
-            getPresentation().onClick(propertyTable, property);
-          }
-        });
+        try {
+          getPresentation().onClick(propertyTable, property);
+        } catch (Throwable e) {
+          propertyTable.deactivateEditor(false);
+          propertyTable.handleException(e);
+        }
       }
     });
     return control;
