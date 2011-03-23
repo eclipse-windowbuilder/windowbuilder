@@ -258,12 +258,14 @@ public class GridConvertionHelper {
     ////////////////////////////////////////////////////////////////////////////
     private ComponentInGroup(IAbstractComponentInfo component, Rectangle bounds, boolean horizontal) {
       m_component = component;
+      int width = Math.max(1, bounds.width);
+      int height = Math.max(1, bounds.height);
       if (horizontal) {
         m_min = bounds.x;
-        m_max = bounds.x + bounds.width;
+        m_max = bounds.x + width;
       } else {
         m_min = bounds.y;
-        m_max = bounds.y + bounds.height;
+        m_max = bounds.y + height;
       }
     }
 

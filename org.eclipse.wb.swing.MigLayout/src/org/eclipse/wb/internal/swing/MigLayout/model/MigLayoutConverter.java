@@ -113,28 +113,6 @@ public final class MigLayoutConverter {
       // write constraints
       constraints.write();
     }
-    /*// convert empty columns into gaps
-    {
-    	List<MigColumnInfo> dimensions = layout.getColumns();
-    	int[] counts = layout.getColumnComponentsCounts();
-    	for (int i = 0; i < dimensions.size(); i++) {
-    		if (counts[i] == 0) {
-    			MigDimensionInfo dimension = dimensions.get(i);
-    			dimension.convertToNearestGap(5);
-    		}
-    	}
-    }
-    // convert empty rows into gaps
-    {
-    	List<MigRowInfo> dimensions = layout.getRows();
-    	int[] counts = layout.getRowComponentsCounts();
-    	for (int i = 0; i < dimensions.size(); i++) {
-    		if (counts[i] == 0) {
-    			MigDimensionInfo dimension = dimensions.get(i);
-    			dimension.convertToNearestGap(5);
-    		}
-    	}
-    }*/
     // write dimensions
     layout.setObject(new MigLayout());
     layout.writeDimensions();

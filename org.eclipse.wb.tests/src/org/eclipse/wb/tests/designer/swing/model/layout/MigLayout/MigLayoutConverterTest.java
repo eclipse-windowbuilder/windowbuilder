@@ -11,9 +11,12 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutConverter;
+import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.JTable;
 
 /**
  * Test for {@link MigLayoutConverter}.
@@ -35,7 +38,7 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_empty() throws Exception {
+  public void test_noComponents() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel {",
@@ -52,6 +55,38 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
         "  public Test() {",
         "    setSize(450, 300);",
         "    setLayout(new MigLayout('', '[]', '[]'));",
+        "  }",
+        "}");
+  }
+
+  /**
+   * {@link JTable} has zero preferred size, so when we convert it into {@link MigLayoutInfo}, it
+   * does not fit into any column/row.
+   */
+  public void test_zeroSizeComponent() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    {",
+            "      JTable table = new JTable();",
+            "      add(table);",
+            "    }",
+            "  }",
+            "}");
+    panel.refresh();
+    //
+    setLayout(panel, MigLayout.class);
+    assertEditor(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new MigLayout('', '[1px]', '[1px]'));",
+        "    {",
+        "      JTable table = new JTable();",
+        "      add(table, 'cell 0 0,alignx left,aligny top');",
+        "    }",
         "  }",
         "}");
   }
