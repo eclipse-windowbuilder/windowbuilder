@@ -299,22 +299,4 @@ public final class ComponentDescription extends AbstractDescription
       property.visit(object, state);
     }
   }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Attributes Namespace
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private String m_propertyAttributeXmlns;
-
-  /**
-   * @return the value of 'x-property-attribute-xmlns' tag.
-   */
-  public String getPropertyAttributeXmlns() {
-    return m_propertyAttributeXmlns;
-  }
-
-  public void setPropertyAttributeXmlns(String xmlns) {
-    m_propertyAttributeXmlns = xmlns;
-  }
 }
