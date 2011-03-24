@@ -60,17 +60,9 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
     }
     // prepare description parts
     String title = propertyDescriptor.getName();
-    String attribute = StringUtils.uncapitalize(title);
+    String attribute = StringUtils.substringBeforeLast(StringUtils.uncapitalize(title), "(");
     Method getMethod = propertyDescriptor.getReadMethod();
     Class<?> propertyType = propertyDescriptor.getPropertyType();
-    // don't use ambiguous setters (unless String)
-    if (StringUtils.contains(attribute, '(')) {
-      if (StringUtils.endsWith(attribute, "(java.lang.String)")) {
-        attribute = StringUtils.substringBeforeLast(attribute, "(");
-      } else {
-        return;
-      }
-    }
     // prepare property parts
     String id = ReflectionUtils.getMethodSignature(setMethod);
     ExpressionAccessor accessor = new MethodExpressionAccessor(attribute, setMethod, getMethod);
