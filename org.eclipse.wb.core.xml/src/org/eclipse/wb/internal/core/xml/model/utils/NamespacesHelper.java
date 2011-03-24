@@ -113,9 +113,17 @@ public class NamespacesHelper {
       }
     }
     // add new namespace
-    String name = generateUniqueName(base);
+    String name = getNewName(uri, base);
     add(name, uri);
     return name;
+  }
+
+  /**
+   * @return the new name of namespace of given URI. Subclasses can override this to provide better
+   *         names for known toolkit packages.
+   */
+  protected String getNewName(String uri, String base) {
+    return generateUniqueName(base);
   }
 
   ////////////////////////////////////////////////////////////////////////////
