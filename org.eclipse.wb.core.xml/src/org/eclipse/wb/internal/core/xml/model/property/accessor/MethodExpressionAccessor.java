@@ -93,4 +93,16 @@ public final class MethodExpressionAccessor extends ExpressionAccessor {
     // other
     return super.getAdapter(adapter);
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Access
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the getter of the property.
+   */
+  public Method getGetter() {
+    return m_getter;
+  }
 }
