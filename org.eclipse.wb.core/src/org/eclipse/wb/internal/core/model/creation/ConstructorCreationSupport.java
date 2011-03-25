@@ -31,15 +31,18 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.accessor.ConstructorAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
+import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -184,7 +187,7 @@ public final class ConstructorCreationSupport extends CreationSupport
       for (Map.Entry<String, String> entry : creationDescription.getParameters().entrySet()) {
         JavaInfoUtils.setParameter(javaInfo, entry.getKey(), entry.getValue());
       }
-      // fill type parameters by defaults
+      // fill type parameters with defaults
       Map<String, TypeParameterDescription> typeParameters =
           creationDescription.getTypeParameters();
       for (Entry<String, TypeParameterDescription> parameter : typeParameters.entrySet()) {
@@ -415,6 +418,7 @@ public final class ConstructorCreationSupport extends CreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
+  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SE_BAD_FIELD_INNER_CLASS")
   public IClipboardCreationSupport getClipboard() throws Exception {
     final String source = getClipboardSource();
     return new IClipboardCreationSupport() {
@@ -431,11 +435,38 @@ public final class ConstructorCreationSupport extends CreationSupport
    * @return the source for copy/paste.
    */
   private String getClipboardSource() throws Exception {
+    AstEditor editor = m_javaInfo.getEditor();
+    String typeArgumentsSource = editor.getTypeArgumentsSource(m_creation);
     String argumentsSource = m_utils.getClipboardArguments(m_description.getParameters());
+    String methodStubs = getClipboardSourceMethodStubs(editor);
     return "new "
         + m_javaInfo.getDescription().getComponentClass().getName()
+        + typeArgumentsSource
         + "("
         + argumentsSource
-        + ")";
+        + ")"
+        + methodStubs;
+  }
+
+  /**
+   * @return the {@link AnonymousClassDeclaration} method stubs, may be empty string.
+   */
+  private String getClipboardSourceMethodStubs(AstEditor editor) throws Exception {
+    AnonymousClassDeclaration anonymousDeclaration = m_creation.getAnonymousClassDeclaration();
+    if (anonymousDeclaration != null) {
+      StringBuilder sb = new StringBuilder();
+      sb.append(" {\n");
+      List<MethodDeclaration> methodDeclarations =
+          DomGenerics.methodDeclarations(anonymousDeclaration);
+      for (MethodDeclaration methodDeclaration : methodDeclarations) {
+        String stubSource = editor.getMethodStubSource(methodDeclaration);
+        sb.append(stubSource);
+        sb.append("\n");
+      }
+      sb.append("}");
+      return sb.toString();
+    } else {
+      return "";
+    }
   }
 }

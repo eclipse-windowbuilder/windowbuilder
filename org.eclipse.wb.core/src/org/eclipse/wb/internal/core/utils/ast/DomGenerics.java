@@ -13,6 +13,8 @@ package org.eclipse.wb.internal.core.utils.ast;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.core.utils.GenericsUtils;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.ArrayCreation;
@@ -149,6 +151,11 @@ public class DomGenerics {
   @SuppressWarnings("unchecked")
   public static List<BodyDeclaration> bodyDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
     return anonymousDeclaration.bodyDeclarations();
+  }
+
+  public static List<MethodDeclaration> methodDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
+    List<BodyDeclaration> bodyDeclarations = bodyDeclarations(anonymousDeclaration);
+    return GenericsUtils.select(bodyDeclarations, MethodDeclaration.class);
   }
 
   ////////////////////////////////////////////////////////////////////////////

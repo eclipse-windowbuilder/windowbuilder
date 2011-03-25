@@ -7329,6 +7329,75 @@ public class AstEditorTest extends AbstractJavaTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Source utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Test for {@link AstEditor#getTypeArgumentsSource(ClassInstanceCreation)}.
+   */
+  public void test_getTypeArgumentsSource() throws Exception {
+    createTypeDeclaration_Test(
+        "import java.util.*;",
+        "public class Test {",
+        "  void foo() {",
+        "    new Object();",
+        "    new ArrayList<Integer>();",
+        "    new HashMap<String, Double>();",
+        "    new LinkedList<Short>() {};",
+        "  }",
+        "}");
+    // no type arguments
+    check_getTypeArgumentsSource("new Object", "");
+    // single type argument
+    check_getTypeArgumentsSource("new ArrayList", "<java.lang.Integer>");
+    // two type arguments
+    check_getTypeArgumentsSource("new HashMap", "<java.lang.String, java.lang.Double>");
+    // anonymous
+    check_getTypeArgumentsSource("new LinkedList", "<java.lang.Short>");
+  }
+
+  private void check_getTypeArgumentsSource(String src, String expected) {
+    ClassInstanceCreation creation = getNode(src, ClassInstanceCreation.class);
+    assertEquals(expected, m_lastEditor.getTypeArgumentsSource(creation));
+  }
+
+  /**
+   * Test for {@link AstEditor#getMethodStubSource(MethodDeclaration)}.
+   */
+  public void test_getMethodStubSource() throws Exception {
+    createTypeDeclaration_Test(
+        "import java.util.*;",
+        "public class Test {",
+        "  void methodA() {",
+        "  }",
+        "  public String methodB(int a, String b, Double c) {",
+        "    return 'b';",
+        "  }",
+        "  public static final int methodC() {",
+        "    return 42;",
+        "  }",
+        "}");
+    {
+      MethodDeclaration method = getNode("methodA", MethodDeclaration.class);
+      assertEquals("\tvoid methodA() {\n\t}", m_lastEditor.getMethodStubSource(method));
+    }
+    {
+      MethodDeclaration method = getNode("methodB", MethodDeclaration.class);
+      assertEquals(
+          "\tpublic java.lang.String methodB(int a, java.lang.String b, java.lang.Double c) {"
+              + "\n\t\treturn (java.lang.String) null;\n\t}",
+          m_lastEditor.getMethodStubSource(method));
+    }
+    {
+      MethodDeclaration method = getNode("methodC", MethodDeclaration.class);
+      assertEquals(
+          "\tpublic static final int methodC() {\n\t\treturn 0;\n\t}",
+          m_lastEditor.getMethodStubSource(method));
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Project disposing
   //
   ////////////////////////////////////////////////////////////////////////////

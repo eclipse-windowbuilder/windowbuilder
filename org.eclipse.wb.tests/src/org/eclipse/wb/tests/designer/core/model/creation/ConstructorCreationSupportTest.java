@@ -34,6 +34,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
@@ -599,6 +600,144 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
       Property styleProperty = PropertyUtils.getByPath(button, "Constructor/style");
       ((GenericProperty) styleProperty).setExpression("test.Styles.NONE", Property.UNKNOWN_VALUE);
       assertClipboardSource(button, "new test.MyButton(test.Styles.NONE)");
+    }
+  }
+
+  /**
+   * {@link ConstructorCreationSupport} should include type arguments into clipboard source.
+   */
+  public void test_clipboard_typeArguments() throws Exception {
+    // prepare generic MyButton
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class MyButton<T, S> extends JButton {",
+            "  public MyButton() {",
+            "  }",
+            "}"));
+    setFileContentSrc(
+        "test/MyButton.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <creation>",
+            "    <source><![CDATA[new test.MyButton<%T%>()]]></source>",
+            "    <typeParameters>",
+            "      <typeParameter name='T' type='java.lang.Object' title='arg T'/>",
+            "      <typeParameter name='S' type='java.lang.Object' title='arg S'/>",
+            "    </typeParameters>",
+            "  </creation>",
+            "</component>"));
+    waitForAutoBuild();
+    // parse
+    final ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    {",
+            "      MyButton<Double, String> button = new MyButton<Double, String>();",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}");
+    panel.refresh();
+    // do copy/paste
+    {
+      ComponentInfo button = getJavaInfoByName("button");
+      doCopyPaste(button, new PasteProcedure<ComponentInfo>() {
+        @Override
+        public void run(ComponentInfo copy) throws Exception {
+          ((FlowLayoutInfo) panel.getLayout()).add(copy, null);
+        }
+      });
+      assertEditor(
+          "public class Test extends JPanel {",
+          "  public Test() {",
+          "    {",
+          "      MyButton<Double, String> button = new MyButton<Double, String>();",
+          "      add(button);",
+          "    }",
+          "    {",
+          "      MyButton<Double, String> myButton = new MyButton<Double, String>();",
+          "      add(myButton);",
+          "    }",
+          "  }",
+          "}");
+    }
+  }
+
+  /**
+   * {@link ConstructorCreationSupport} should support {@link AnonymousClassDeclaration} in
+   * clipboard source.
+   */
+  public void test_clipboard_anonymousClassDeclaration() throws Exception {
+    // prepare generic MyButton
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public abstract class MyButton extends JButton {",
+            "  public MyButton() {",
+            "  }",
+            "  protected abstract String myStringMethod(int a, double b, String c);",
+            "  protected abstract void myVoidMethod();",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    final ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    {",
+            "      MyButton button = new MyButton() {",
+            "        protected String myStringMethod(int a, double b, String c) {",
+            "          return 'foo';",
+            "        }",
+            "        protected void myVoidMethod() {",
+            "        }",
+            "      };",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}");
+    panel.refresh();
+    // do copy/paste
+    {
+      ComponentInfo button = getJavaInfoByName("button");
+      doCopyPaste(button, new PasteProcedure<ComponentInfo>() {
+        @Override
+        public void run(ComponentInfo copy) throws Exception {
+          ((FlowLayoutInfo) panel.getLayout()).add(copy, null);
+        }
+      });
+      assertEditor(
+          "public class Test extends JPanel {",
+          "  public Test() {",
+          "    {",
+          "      MyButton button = new MyButton() {",
+          "        protected String myStringMethod(int a, double b, String c) {",
+          "          return 'foo';",
+          "        }",
+          "        protected void myVoidMethod() {",
+          "        }",
+          "      };",
+          "      add(button);",
+          "    }",
+          "    {",
+          "      MyButton myButton = new MyButton() {",
+          "        protected String myStringMethod(int a, double b, String c) {",
+          "          return (String) null;",
+          "        }",
+          "        protected void myVoidMethod() {",
+          "        }",
+          "      };",
+          "      add(myButton);",
+          "    }",
+          "  }",
+          "}");
     }
   }
 

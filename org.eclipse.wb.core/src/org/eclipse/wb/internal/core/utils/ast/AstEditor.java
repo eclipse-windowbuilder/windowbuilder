@@ -17,6 +17,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.binding.BindingContext;
 import org.eclipse.wb.internal.core.utils.ast.binding.DesignerMethodBinding;
@@ -33,7 +34,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageDeclaration;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -57,6 +57,7 @@ import org.eclipse.jdt.core.dom.Javadoc;
 import org.eclipse.jdt.core.dom.LineComment;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.ParenthesizedExpression;
 import org.eclipse.jdt.core.dom.PrimitiveType;
@@ -2152,16 +2153,14 @@ public final class AstEditor {
    * 
    *         <code>public void split(String s, int count)</code> -> <code>String s, int count</code>
    */
-  public String getParametersSource(MethodDeclaration method) throws JavaModelException {
+  public String getParametersSource(MethodDeclaration method) {
     StringBuffer sb = new StringBuffer();
-    //
     for (SingleVariableDeclaration parameter : DomGenerics.parameters(method)) {
       if (sb.length() != 0) {
         sb.append(", ");
       }
       sb.append(getSource(parameter));
     }
-    //
     return sb.toString();
   }
 
@@ -2170,7 +2169,7 @@ public final class AstEditor {
    * 
    *         <code>public void split(String s, int count)</code> -> <code>{"s", "count"}</code>
    */
-  public String[] getParameterNames(MethodDeclaration method) throws JavaModelException {
+  public String[] getParameterNames(MethodDeclaration method) {
     List<SingleVariableDeclaration> parameters = DomGenerics.parameters(method);
     String names[] = new String[parameters.size()];
     //
@@ -2234,6 +2233,121 @@ public final class AstEditor {
     }
     // replace binding
     replaceMethodBinding(method);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Source utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the source of stub copy of given {@link MethodDeclaration}.
+   */
+  public String getMethodStubSource(MethodDeclaration methodDeclaration) throws Exception {
+    IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(methodDeclaration);
+    // header
+    StringBuilder sb = new StringBuilder();
+    sb.append("\t");
+    sb.append(getMethodHeaderSource(methodDeclaration));
+    sb.append(" {\n");
+    // return stub
+    {
+      ITypeBinding returnType = methodBinding.getReturnType();
+      String returnTypeName = AstNodeUtils.getFullyQualifiedName(returnType, false);
+      if (!returnTypeName.equals("void")) {
+        sb.append("\t\treturn ");
+        sb.append(AstParser.getDefaultValue(returnTypeName));
+        sb.append(";\n");
+      }
+    }
+    // close body
+    sb.append("\t}");
+    return sb.toString();
+  }
+
+  /**
+   * @return the copy of {@link MethodDeclaration} header source, which uses same names for
+   *         parameters and fully qualified names for all types.
+   */
+  public String getMethodHeaderSource(MethodDeclaration method) {
+    StringBuffer sb = new StringBuffer();
+    IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(method);
+    // append modifiers
+    {
+      List<ASTNode> modifiersNodes = DomGenerics.modifiersNodes(method);
+      List<Modifier> modifiers = GenericsUtils.select(modifiersNodes, Modifier.class);
+      for (Modifier modifier : modifiers) {
+        sb.append(modifier);
+        sb.append(" ");
+      }
+    }
+    // append return type
+    {
+      ITypeBinding returnType = methodBinding.getReturnType();
+      String returnTypeName = AstNodeUtils.getFullyQualifiedName(returnType, false);
+      sb.append(returnTypeName);
+      sb.append(" ");
+    }
+    // append name
+    sb.append(method.getName().getIdentifier());
+    sb.append("(");
+    // append parameters
+    {
+      ITypeBinding[] parameterTypes = methodBinding.getParameterTypes();
+      List<SingleVariableDeclaration> parameters = DomGenerics.parameters(method);
+      for (int i = 0; i < parameterTypes.length; i++) {
+        ITypeBinding parameterType = parameterTypes[i];
+        String parameterTypeName = AstNodeUtils.getFullyQualifiedName(parameterType, false);
+        String parameterName = parameters.get(i).getName().getIdentifier();
+        if (i != 0) {
+          sb.append(", ");
+        }
+        sb.append(parameterTypeName);
+        sb.append(" ");
+        sb.append(parameterName);
+      }
+    }
+    // done
+    sb.append(")");
+    return sb.toString();
+  }
+
+  /**
+   * @return the source for list of type arguments.
+   */
+  public String getTypeArgumentsSource(ITypeBinding[] typeArguments) {
+    if (typeArguments.length == 0) {
+      return "";
+    }
+    // prepare type arguments source
+    StringBuilder typeArgumentsBuilder = new StringBuilder();
+    typeArgumentsBuilder.append("<");
+    for (ITypeBinding typeArgument : typeArguments) {
+      if (typeArgumentsBuilder.length() > 1) {
+        typeArgumentsBuilder.append(", ");
+      }
+      typeArgumentsBuilder.append(AstNodeUtils.getFullyQualifiedName(typeArgument, false));
+    }
+    typeArgumentsBuilder.append(">");
+    return typeArgumentsBuilder.toString();
+  }
+
+  /**
+   * @return the source for type arguments of {@link ClassInstanceCreation}, including support for
+   *         possible {@link AnonymousClassDeclaration}
+   */
+  public String getTypeArgumentsSource(ClassInstanceCreation creation) {
+    // prepare ITypeBinding with type arguments
+    ITypeBinding typeBinding;
+    AnonymousClassDeclaration anonymousDeclaration = creation.getAnonymousClassDeclaration();
+    if (anonymousDeclaration != null) {
+      typeBinding = AstNodeUtils.getTypeBinding(anonymousDeclaration).getSuperclass();
+    } else {
+      typeBinding = AstNodeUtils.getTypeBinding(creation);
+    }
+    // prepare type arguments
+    ITypeBinding[] typeArguments = typeBinding.getTypeArguments();
+    return getTypeArgumentsSource(typeArguments);
   }
 
   ////////////////////////////////////////////////////////////////////////////
