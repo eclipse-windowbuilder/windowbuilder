@@ -45,12 +45,22 @@ public class UserDefinedLafInfo extends AbstractCustomLafInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public LookAndFeel getLookAndFeelInstance() throws Exception {
-    // don't load class every time in different class-loader
     if (m_lafClass == null) {
-      ClassLoader classLoader =
-          new URLClassLoader(new URL[]{new File(getJarFile()).toURI().toURL()});
+      ClassLoader classLoader = getClassLoader();
       m_lafClass = classLoader.loadClass(getClassName());
     }
     return (LookAndFeel) m_lafClass.newInstance();
+  }
+
+  private ClassLoader getClassLoader() throws Exception {
+    File jarFile = new File(getJarFile());
+    URL jarURL = jarFile.toURI().toURL();
+    // special hack for Substance
+    if (jarFile.getName().equals("substance.jar")) {
+      URL secondaryJarURL = new File(jarFile.getParentFile(), "trident.jar").toURI().toURL();
+      return new URLClassLoader(new URL[]{jarURL, secondaryJarURL});
+    }
+    // single jar
+    return new URLClassLoader(new URL[]{jarURL});
   }
 }
