@@ -22,7 +22,7 @@ import org.osgi.framework.BundleContext;
 public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
 
   /** The plugin identifier. */
-  public static final String PLUGIN_ID = WBDiscoveryCorePlugin.class.getPackage().getName();
+  public static final String PLUGIN_ID = "org.eclipse.wb.discovery.core";
   
   // The shared instance
   private static WBDiscoveryCorePlugin plugin;

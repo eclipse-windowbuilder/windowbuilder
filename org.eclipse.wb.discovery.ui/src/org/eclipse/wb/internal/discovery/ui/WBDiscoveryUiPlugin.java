@@ -17,6 +17,10 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.equinox.p2.core.ProvisionException;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
 import org.eclipse.wb.internal.discovery.ui.wizard.DynamicRegistryHelper;
@@ -30,13 +34,15 @@ import java.util.List;
 public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 
 	/** The plugin identifier. */
-	public static final String PLUGIN_ID = WBDiscoveryUiPlugin.class.getPackage().getName();
+	public static final String PLUGIN_ID = "org.eclipse.wb.discovery.ui";
 	
 	/** The preference key to contribute new wizard entries. */
 	public static final String CONTRIBUTE_WIZARD_ENTRIES_PREF = "contributeWizardEntries";
 	
 	// The shared instance
 	private static WBDiscoveryUiPlugin plugin;
+	
+	private static LocalResourceManager resourceManager;
 	
 	/**
 	 * The constructor
@@ -95,6 +101,25 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
     getPlugin().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, t.toString(), t));
   }
   
+  public static Image getImage(ImageDescriptor imageDescriptor) {
+    if (resourceManager == null) {
+      resourceManager = new LocalResourceManager(JFaceResources.getResources());
+    }
+    
+    return resourceManager.createImage(imageDescriptor);
+  }
+
+  /**
+   * Returns an image descriptor for the image file at the given plug-in
+   * relative path.
+   * 
+   * @param path the path
+   * @return the image descriptor
+   */
+  public static ImageDescriptor getBundledImageDescriptor(String path) {
+    return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
+  }
+
   /**
    * Install the given toolkits.
    * 
@@ -137,6 +162,8 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
    */
   protected void checkForUpdates() {
     // TODO:
+    
+    // http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/trunk/org.eclipse.wb.discovery.core/resources/toolkits.xml
     
     // if the toolkits changed, then call
     // EclipseRegistryTools.getRegisitryTools().removeRegistrations();

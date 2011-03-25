@@ -40,6 +40,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.core.WBToolkitFeature;
 import org.osgi.framework.ServiceReference;
 
 /**
@@ -182,10 +183,10 @@ class P2Provisioner {
       IMetadataRepository metadataRepo = manager.loadRepository(
           updateSiteURI, monitor.newChild(50));
       
-      for (String featureId : toolkit.getFeatures()) {
+      for (WBToolkitFeature feature : toolkit.getFeatures()) {
         
         // ??? necessary magic
-        featureId += ".feature.group";
+        String featureId = feature.getFeatureId() + ".feature.group";
         
         Collection<IInstallableUnit> featureResults = metadataRepo.query(
             QueryUtil.createLatestQuery(QueryUtil.createIUQuery(featureId)),
@@ -206,9 +207,9 @@ class P2Provisioner {
     
     if (profile != null) {
       for (WBToolkit toolkit : toolkits) {
-        for (String featureId : toolkit.getFeatures()) {
+        for (WBToolkitFeature feature : toolkit.getFeatures()) {
           IQueryResult<IInstallableUnit> results = profile.available(
-              QueryUtil.createIUQuery(featureId + ".feature.group"),
+              QueryUtil.createIUQuery(feature.getFeatureId() + ".feature.group"),
               new NullProgressMonitor());
           
           units.addAll(results.toSet());

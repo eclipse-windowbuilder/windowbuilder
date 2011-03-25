@@ -37,6 +37,7 @@ public class WBToolkit {
   private static IProfile installedProfile;
   
   private String name;
+  private String title;
   private String id;
   private String description;
   private String wizardContributionTitle;
@@ -46,7 +47,7 @@ public class WBToolkit {
   private String iconPath;
   
   private String updateSite;
-  private List<String> features = new ArrayList<String>();
+  private List<WBToolkitFeature> features = new ArrayList<WBToolkitFeature>();
   
   private String providerName;
   private String licenseDescription;
@@ -76,6 +77,22 @@ public class WBToolkit {
     this.name = name;
   }
 
+  /**
+   * @return the title of the toolkit
+   */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * Set the name of the toolkit.
+   * 
+   * @param title the toolkit title
+   */
+  protected void setTitle(String title) {
+    this.title = title;
+  }
+  
   /**
    * @return the title to use in the wizard dialog
    */
@@ -217,7 +234,7 @@ public class WBToolkit {
   /**
    * @return the list of features necessary to install this toolkit
    */
-  public List<String> getFeatures() {
+  public List<WBToolkitFeature> getFeatures() {
     return Collections.unmodifiableList(features);
   }
   
@@ -226,9 +243,9 @@ public class WBToolkit {
    * 
    * @param featureId the feature identifier
    */
-  protected void addFeature(String featureId) {
+  protected void addFeature(String featureId, boolean optional) {
     if (featureId != null && featureId.length() > 0) {
-      features.add(featureId);
+      features.add(new WBToolkitFeature(featureId, optional));
     }
   }
   
@@ -299,16 +316,18 @@ public class WBToolkit {
       return false;
     }
     
-    for (String featureId : getFeatures()) {
-      if (!isFeatureInstalled(featureId)) {
-        return false;
+    for (WBToolkitFeature feature : getFeatures()) {
+      if (!feature.isOptional()) {
+        if (!isFeatureInstalled(feature)) {
+          return false;
+        }
       }
     }
     
     return true;
   }
   
-  private boolean isFeatureInstalled(String featureId) {
+  private boolean isFeatureInstalled(WBToolkitFeature feature) {
     IProfile profile = getCurrentProfile();
     
     if (profile == null) {
@@ -316,7 +335,7 @@ public class WBToolkit {
     }
     
     IQueryResult<IInstallableUnit> results = installedProfile.available(
-        QueryUtil.createIUQuery(featureId + ".feature.group"),
+        QueryUtil.createIUQuery(feature.getFeatureId() + ".feature.group"),
         new NullProgressMonitor());
 
     return !results.isEmpty();

@@ -59,7 +59,7 @@ public class InstallToolkitWizard extends Wizard implements INewWizard, IExecuta
   
   public void init(IWorkbench workbench, IStructuredSelection selection) {
     if (toolkit != null) {
-      setWindowTitle("Install " + toolkit.getName());
+      setWindowTitle("Install " + toolkit.getName() + " Window Builder Toolkit");
     }
   }
   

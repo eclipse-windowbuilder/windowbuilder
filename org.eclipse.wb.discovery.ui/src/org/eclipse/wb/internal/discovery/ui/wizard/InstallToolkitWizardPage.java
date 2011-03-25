@@ -12,16 +12,17 @@
 package org.eclipse.wb.internal.discovery.ui.wizard;
 
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
 import org.eclipse.wb.internal.discovery.ui.util.BrowserHelper;
 
 /**
@@ -39,27 +40,23 @@ class InstallToolkitWizardPage extends WizardPage {
     
     this.toolkit = toolkit;
     
-    setTitle(toolkit.getName());
+    setTitle("Install " + toolkit.getName() + " Toolkit");
     setMessage(toolkit.getWizardContributionDescription());
+    setImageDescriptor(WBDiscoveryUiPlugin.getBundledImageDescriptor("icons/new_wiz.png"));
   }
   
   public void createControl(Composite parent) {
     Composite composite = new Composite(parent, SWT.NONE);
-    
-    composite.setLayout(new GridLayout(2, false));
+    GridLayoutFactory.swtDefaults().numColumns(2).extendedMargins(0, 0, 30, 0).applyTo(composite);
     
     Label iconLabel = new Label(composite, SWT.NULL);
     GridDataFactory.swtDefaults().span(1, 2).align(SWT.CENTER, SWT.BEGINNING).applyTo(iconLabel);
     
     if (toolkit.getIconURL() != null) {
-      ImageDescriptor iconDescriptor = ImageDescriptor.createFromURL(toolkit.getIconURL());
+      ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(toolkit.getIconURL());
       
-//      ImageDescriptor iconDescriptor = WBDiscoveryCorePlugin.imageDescriptorFromPlugin(
-//          WBDiscoveryCorePlugin.PLUGIN_ID,
-//          "resources/" + toolkit.getIconPath());
-      
-      if (iconDescriptor != null) {
-        iconLabel.setImage(iconDescriptor.createImage());
+      if (imageDescriptor != null) {
+        iconLabel.setImage(WBDiscoveryUiPlugin.getImage(imageDescriptor));
       }
     }
     
@@ -84,9 +81,9 @@ class InstallToolkitWizardPage extends WizardPage {
     }
     
     Label separator = new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL);
-    GridDataFactory.fillDefaults().grab(true, false).span(2, 1).hint(100, SWT.DEFAULT).applyTo(separator);
+    GridDataFactory.fillDefaults().grab(true, false).span(2, 1).hint(100, 20).applyTo(separator);
     
-    Label label = new Label(composite, SWT.NONE);
+    Label label = new Label(composite, SWT.RIGHT);
     label.setText("Click finish to install this toolkit.");
     GridDataFactory.fillDefaults().grab(true, false).span(2, 1).hint(100, SWT.DEFAULT).applyTo(label);
     

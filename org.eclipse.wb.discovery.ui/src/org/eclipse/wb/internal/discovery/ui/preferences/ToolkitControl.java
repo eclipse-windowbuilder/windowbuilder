@@ -23,7 +23,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -32,6 +31,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
 import org.eclipse.wb.internal.discovery.ui.util.BrowserHelper;
 
 import java.util.ArrayList;
@@ -105,31 +105,24 @@ class ToolkitControl extends Composite {
   }
   
   private void initControl() {
-    GridLayoutFactory.fillDefaults().numColumns(3).spacing(3, 2).applyTo(this);
-    
-    GridLayout layout = (GridLayout)getLayout();
-    layout.marginLeft = 7;
-    layout.marginTop = 4;
-    layout.marginBottom = 2;
-    //layout.horizontalSpacing = 7;
+    GridLayoutFactory.fillDefaults().numColumns(3).spacing(3, 2).
+      extendedMargins(5, 0, 4, 2).spacing(5, 5).applyTo(this);
     
     listenTo(this);
     
     Label iconLabel = new Label(this, SWT.NULL);
     iconLabel.setBackground(getBackground());
-    GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.BEGINNING).span(1, 2).applyTo(iconLabel);
+    GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.BEGINNING).span(1, 2).indent(0, 2).applyTo(iconLabel);
     listenTo(iconLabel);
     
     if (wbToolkit.getIconURL() != null) {
-      ImageDescriptor iconDescriptor = ImageDescriptor.createFromURL(wbToolkit.getIconURL());
+      ImageDescriptor descriptor = ImageDescriptor.createFromURL(wbToolkit.getIconURL());
       
-      if (iconDescriptor != null) {
-        iconLabel.setImage(iconDescriptor.createImage());
-      }
+      iconLabel.setImage(WBDiscoveryUiPlugin.getImage(descriptor));
     }
     
     Label nameLabel = new Label(this, SWT.NONE);
-    nameLabel.setText(wbToolkit.getName());
+    nameLabel.setText(wbToolkit.getTitle());
     nameLabel.setBackground(getBackground());
     nameLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     nameLabel.setFont(getBoldFont(getFont()));
@@ -175,16 +168,15 @@ class ToolkitControl extends Composite {
     
     if (wbToolkit.isInstalled()) {
       nameLabel.setText(nameLabel.getText() + " (installed)");
-      nameLabel.setForeground(Display.getDefault().getSystemColor(SWT.COLOR_GRAY));
       
       summaryLabel.setForeground(Display.getDefault().getSystemColor(SWT.COLOR_GRAY));
       
 //      if (iconLabel.getImage() != null) {
-//        iconLabel.setImage(
-//            new Image(Display.getDefault(), iconLabel.getImage(), SWT.IMAGE_GRAY));
+//        ImageDescriptor descriptor = ImageDescriptor.createWithFlags(
+//            ImageDescriptor.createFromImage(iconLabel.getImage()), SWT.IMAGE_GRAY);
+//        
+//        iconLabel.setImage(WBDiscoveryUiPlugin.getImage(descriptor));
 //      }
-      
-      //setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
     }
   }
   

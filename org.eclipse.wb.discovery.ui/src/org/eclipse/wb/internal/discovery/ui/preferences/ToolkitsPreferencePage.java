@@ -18,8 +18,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ColorRegistry;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
@@ -28,12 +26,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.ui.IWorkbench;
@@ -56,8 +53,6 @@ public class ToolkitsPreferencePage extends PreferencePage implements
     IWorkbenchPreferencePage {
   
   static final String PREFERENCE_PAGE_ID = "org.eclipse.wb.internal.discovery.ui.preferences.ToolkitsPreferencePage";
-  
-  private static Color COLOR_WHITE;
   
   private List<ToolkitControl> controls = new ArrayList<ToolkitControl>();
   
@@ -95,35 +90,22 @@ public class ToolkitsPreferencePage extends PreferencePage implements
   @Override
   protected Control createContents(Composite parent) {
     final Composite body = new Composite(parent, SWT.NULL);
-    GridLayout layout = new GridLayout();
-    layout.numColumns = 1;
-    layout.marginHeight = 0;
-    layout.marginWidth = 0;
-    body.setLayout(layout);
+    GridLayoutFactory.fillDefaults().applyTo(body);
     body.setFont(parent.getFont());
     
-    ColorRegistry colorRegistry = JFaceResources.getColorRegistry();
-    if (!colorRegistry.hasValueFor("white")) {
-      colorRegistry.put("white", new RGB(255, 255, 255));
-    }
-    COLOR_WHITE = colorRegistry.get("white");
-    
-    GridLayoutFactory.fillDefaults().applyTo(body);
+    Color bkColor = Display.getDefault().getSystemColor(SWT.COLOR_LIST_BACKGROUND);
     
     Label label = new Label(body, SWT.NONE);
     label.setText("Install additional UI framework toolkits:");
     label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     
     final ScrolledComposite scrolledComposite = new ScrolledComposite(body, SWT.V_SCROLL | SWT.BORDER);
-    scrolledComposite.setBackground(COLOR_WHITE);
+    scrolledComposite.setBackground(bkColor);
     scrolledComposite.setAlwaysShowScrollBars(true);
     GridDataFactory.fillDefaults().grab(true, true).hint(100, 100).applyTo(scrolledComposite);
     
     Composite buttonPanel = new Composite(body, SWT.NONE);
-    layout = new GridLayout(2, false);
-    layout.marginHeight = 0;
-    layout.marginWidth = 0;
-    buttonPanel.setLayout(layout);
+    GridLayoutFactory.fillDefaults().numColumns(2).applyTo(buttonPanel);
     buttonPanel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
     
     installButton = new Button(buttonPanel, SWT.PUSH);
@@ -158,7 +140,7 @@ public class ToolkitsPreferencePage extends PreferencePage implements
     contributeWizardEntriesButton.setSelection(WBDiscoveryUiPlugin.getPlugin().getContributeToWizards());
     
     final Composite scrolledContents = new Composite(scrolledComposite, SWT.NONE);
-    scrolledContents.setBackground(COLOR_WHITE);
+    scrolledContents.setBackground(bkColor);
     scrolledContents.setRedraw(false);
     
     try {

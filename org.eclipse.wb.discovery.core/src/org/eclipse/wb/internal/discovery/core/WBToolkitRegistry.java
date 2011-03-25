@@ -141,6 +141,7 @@ public class WBToolkitRegistry {
         WBToolkit entry = new WBToolkit();
         
         entry.setName(getAttributeText(element, "name"));
+        entry.setTitle(getAttributeText(element, "title"));
         entry.setId(getAttributeText(element, "id"));
         entry.setDescription(getNodeText(element, "description"));
         
@@ -164,11 +165,9 @@ public class WBToolkitRegistry {
   }
   
   private void parseUpdateSiteInfo(NodeList nodes, WBToolkit entry) {
-/*
-    <updateSite version="[3.6,3.7)" url="http://dl.google.com/eclipse/plugin/3.6">
-      <feature id="com.google.gdt.eclipse.suite.e36.feature"/>
-    </updateSite>    
- */
+    //<updateSite version="[3.6,3.7)" url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
+    //  <feature id="org.eclipse.wb.xwt.feature"/>
+    //</updateSite>
     
     for (int i = 0; i < nodes.getLength(); i++) {
       Node node = nodes.item(i);
@@ -187,7 +186,10 @@ public class WBToolkitRegistry {
             if (featureNode.getNodeType() == Node.ELEMENT_NODE) {
               Element featureElement = (Element)featureNode;
               
-              entry.addFeature(getAttributeText(featureElement, "id"));
+              String featureId = getAttributeText(featureElement, "id");
+              boolean optional = "true".equals(getAttributeText(featureElement, "optional"));
+              
+              entry.addFeature(featureId, optional);
             }
           }
         }
