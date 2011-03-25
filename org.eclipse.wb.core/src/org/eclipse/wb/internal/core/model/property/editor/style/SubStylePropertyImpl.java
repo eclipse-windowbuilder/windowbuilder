@@ -22,7 +22,7 @@ import org.eclipse.jface.action.IMenuManager;
  * @coverage core.model.property.editor
  */
 public abstract class SubStylePropertyImpl {
-  private final StylePropertyEditor m_editor;
+  private final AbstractStylePropertyEditor m_editor;
   private final String m_title;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ public abstract class SubStylePropertyImpl {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public SubStylePropertyImpl(StylePropertyEditor editor, String title) {
+  public SubStylePropertyImpl(AbstractStylePropertyEditor editor, String title) {
     m_editor = editor;
     m_title = title;
   }
@@ -76,8 +76,8 @@ public abstract class SubStylePropertyImpl {
   /**
    * @return the current style value.
    */
-  protected final long getStyle(Property property) throws Exception {
-    return m_editor.getStyle(property);
+  protected final long getStyleValue(Property property) throws Exception {
+    return m_editor.getStyleValue(property);
   }
 
   /**

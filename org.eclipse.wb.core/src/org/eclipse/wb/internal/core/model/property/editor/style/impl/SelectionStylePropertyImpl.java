@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor.style.impl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StringComboPropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
+import org.eclipse.wb.internal.core.model.property.editor.style.AbstractStylePropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.SubStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.actions.RadioStyleAction;
 
@@ -39,7 +39,7 @@ public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public SelectionStylePropertyImpl(StylePropertyEditor editor,
+  public SelectionStylePropertyImpl(AbstractStylePropertyEditor editor,
       String title,
       long[] flags,
       String[] sFlags,
@@ -88,7 +88,7 @@ public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
 
   @Override
   public String getFlagValue(Property property) throws Exception {
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       if (i == m_defaultIndex) {
         continue;
@@ -107,7 +107,7 @@ public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public Object getValue(Property property) throws Exception {
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       if ((style & m_flags[i]) != 0) {
         return m_sFlags[i];
@@ -117,7 +117,7 @@ public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
   }
 
   private long getCurrentFlag(Property property) throws Exception {
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       if ((style & m_flags[i]) != 0) {
         return m_flags[i];
@@ -128,7 +128,7 @@ public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
 
   @Override
   public void setValue(Property property, Object value) throws Exception {
-    long style = getStyle(property) ^ getCurrentFlag(property);
+    long style = getStyleValue(property) ^ getCurrentFlag(property);
     if (value != Property.UNKNOWN_VALUE) {
       String sFlag = (String) value;
       int index = ArrayUtils.indexOf(m_sFlags, sFlag);
@@ -152,7 +152,7 @@ public final class SelectionStylePropertyImpl extends SubStylePropertyImpl {
     IAction defaultAction = null;
     boolean defineChecked = false;
     // add actions
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       // create
       IAction action = new RadioStyleAction(property, this, m_sFlags[i]);

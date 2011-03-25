@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StringComboPropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
+import org.eclipse.wb.internal.core.model.property.editor.style.AbstractStylePropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.SubStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.actions.RadioStyleAction;
 
@@ -41,7 +41,7 @@ public final class SelectionUsingEqualsStylePropertyImpl extends SubStylePropert
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public SelectionUsingEqualsStylePropertyImpl(StylePropertyEditor editor,
+  public SelectionUsingEqualsStylePropertyImpl(AbstractStylePropertyEditor editor,
       String title,
       long[] flags,
       String[] sFlags,
@@ -141,7 +141,7 @@ public final class SelectionUsingEqualsStylePropertyImpl extends SubStylePropert
     IAction defaultAction = null;
     boolean defineChecked = false;
     // add actions
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       // create
       IAction action = new RadioStyleAction(property, this, m_sFlags[i]);

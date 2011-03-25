@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor.style.impl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StringComboPropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
+import org.eclipse.wb.internal.core.model.property.editor.style.AbstractStylePropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.SubStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.actions.RadioStyleAction;
 
@@ -39,7 +39,7 @@ public final class EnumerationStylePropertyImpl extends SubStylePropertyImpl {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public EnumerationStylePropertyImpl(StylePropertyEditor editor,
+  public EnumerationStylePropertyImpl(AbstractStylePropertyEditor editor,
       String title,
       long[] values,
       String[] sValues,
@@ -73,7 +73,7 @@ public final class EnumerationStylePropertyImpl extends SubStylePropertyImpl {
 
   @Override
   public String getFlagValue(Property property) throws Exception {
-    long style = getStyle(property) & m_flagsClearMask;
+    long style = getStyleValue(property) & m_flagsClearMask;
     return m_sValues[ArrayUtils.indexOf(m_values, style)];
   }
 
@@ -89,7 +89,7 @@ public final class EnumerationStylePropertyImpl extends SubStylePropertyImpl {
 
   @Override
   public void setValue(Property property, Object value) throws Exception {
-    long style = getStyle(property) & m_enumClearMask;
+    long style = getStyleValue(property) & m_enumClearMask;
     if (value != Property.UNKNOWN_VALUE) {
       String sValue = (String) value;
       style |= m_values[ArrayUtils.indexOf(m_sValues, sValue)];
@@ -107,7 +107,7 @@ public final class EnumerationStylePropertyImpl extends SubStylePropertyImpl {
     // separate sub-properties
     manager.add(new org.eclipse.jface.action.Separator());
     // add actions
-    long style = getStyle(property) & m_flagsClearMask;
+    long style = getStyleValue(property) & m_flagsClearMask;
     for (int i = 0; i < m_values.length; i++) {
       // create
       IAction action = new RadioStyleAction(property, this, m_sValues[i]);

@@ -10,15 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.style;
 
-import com.google.common.collect.Lists;
-
-import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
-import org.eclipse.wb.internal.core.model.property.EmptyProperty;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;
@@ -26,8 +22,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.IValueSourcePropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.TextDisplayPropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.impl.BooleanStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.impl.BooleanUsingEqualsStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.impl.EnumerationStylePropertyImpl;
@@ -39,8 +33,6 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,35 +43,45 @@ import java.util.ListIterator;
 import java.util.Map;
 
 /**
- * The {@link PropertyEditor} for configure SWT styles.
+ * Java implementation for {@link AbstractStylePropertyEditor}.
+ * 
+ * This is configurable editor which supports the following property editor parameters usually
+ * defined in *.wbp-component.xml files:
+ * 
+ * <pre>
+ * 1. "set": as boolean (flag) values (BooleanStylePropertyImpl);
+ * 2. "setUsingEqual": (BooleanUsingEqualsStylePropertyImpl);
+ * 3. "select": as single-selected item (SelectionStylePropertyImpl);
+ * 4. "selectUsingEqual": (SelectionUsingEqualsStylePropertyImpl); 
+ * 5. "macro": (MacroStylePropertyImpl);
+ * 6. "enum": (EnumerationStylePropertyImpl);
+ * </pre>
  * 
  * @author lobas_av
+ * @author mitin_aa
  * @coverage core.model.property.editor
  */
-public class StylePropertyEditor extends TextDisplayPropertyEditor
+public final class StylePropertyEditor extends AbstractStylePropertyEditor
     implements
+      IClipboardSourceProvider,
       IConfigurablePropertyObject,
-      IComplexPropertyEditor,
-      IValueSourcePropertyEditor,
-      IClipboardSourceProvider {
+      IValueSourcePropertyEditor {
   private static final String STYLE_TITLE = "Style";
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields
   //
   ////////////////////////////////////////////////////////////////////////////
-  private String m_title = "Style";
   private String m_className;
   private Class<?> m_class;
-  private final List<SubStylePropertyImpl> m_macroProperties = Lists.newArrayList();
-  private final List<SubStylePropertyImpl> m_otherProperties = Lists.newArrayList();
-  private SubStylePropertyImpl[] m_properties;
+  private String m_title = "Style";
 
   ////////////////////////////////////////////////////////////////////////////
   //
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+
   @Override
   protected String getText(Property property) throws Exception {
     return "[" + getSource(property, false, ", ") + "]";
@@ -88,19 +90,21 @@ public class StylePropertyEditor extends TextDisplayPropertyEditor
   public String getPropertyTitle() {
     return m_title;
   }
-
-  private int getPriority() {
-    return STYLE_TITLE.equals(m_title) ? 1 : 2;
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IValueSourcePropertyEditor
+  // As string
   //
   ////////////////////////////////////////////////////////////////////////////
-  public String getValueSource(Object value) throws Exception {
-    Property property = getPropertyForValue(value);
-    return getSource(property);
+  /**
+   * @return the {@link String} presentation of this {@link StylePropertyEditor}, for tests.
+   */
+  @Override
+  public String getAsString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(m_className);
+    builder.append("\n");
+    builder.append(super.getAsString());
+    return builder.toString();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -110,114 +114,6 @@ public class StylePropertyEditor extends TextDisplayPropertyEditor
   ////////////////////////////////////////////////////////////////////////////
   public String getClipboardSource(GenericProperty property) throws Exception {
     return getSource(property);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Editing
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the current style value.
-   */
-  long getStyle(Property property) throws Exception {
-    Number value = (Number) property.getValue();
-    return value != null ? value.longValue() : 0;
-  }
-
-  /**
-   * Sets the new value of given {@link SubStyleProperty}.
-   */
-  void setStyleValue(Property property, long newValue) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) property;
-    String source = getSource(getPropertyForValue(newValue));
-    genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
-  }
-
-  /**
-   * @return the {@link Property} that has given value.
-   */
-  private static Property getPropertyForValue(final Object value) {
-    return new EmptyProperty() {
-      @Override
-      public Object getValue() throws Exception {
-        return value;
-      }
-    };
-  }
-
-  /**
-   * @return the source that represents updated value of style property.
-   */
-  private String getSource(Property property) throws Exception {
-    return getSource(property, true, " | ");
-  }
-
-  private String getSource(Property mainProperty, boolean addClassAndDefault, String separator)
-      throws Exception {
-    StringBuffer source = new StringBuffer();
-    long macroFlag = 0;
-    // handle macro properties
-    for (SubStylePropertyImpl property : m_macroProperties) {
-      String sFlag = property.getFlagValue(mainProperty);
-      if (sFlag != null) {
-        // add class prefix
-        if (addClassAndDefault) {
-          source.append(m_className);
-          source.append('.');
-        }
-        // add flag
-        source.append(sFlag);
-        macroFlag = property.getFlag(sFlag);
-        break;
-      }
-    }
-    // handle other (set, select) properties
-    for (SubStylePropertyImpl property : m_otherProperties) {
-      String sFlag = property.getFlagValue(mainProperty);
-      if (sFlag != null) {
-        // skip current flag if it part of macro flag
-        if (macroFlag != 0 && (macroFlag & property.getFlag(sFlag)) != 0) {
-          continue;
-        }
-        // add separator if need
-        if (source.length() != 0) {
-          source.append(separator);
-        }
-        // add class prefix
-        if (addClassAndDefault) {
-          source.append(m_className);
-          source.append('.');
-        }
-        // add flag
-        source.append(sFlag);
-      }
-    }
-    // use null (default), if no other flags
-    if (addClassAndDefault && source.length() == 0) {
-      return null;
-    }
-    return source.toString();
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // As string
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link String} presentation of this {@link StylePropertyEditor}, for tests.
-   */
-  public String getAsString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append(m_className);
-    builder.append("\n");
-    for (SubStylePropertyImpl property : m_properties) {
-      builder.append("\t");
-      property.getAsString(builder);
-      builder.append("\n");
-    }
-    return builder.toString();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -234,14 +130,12 @@ public class StylePropertyEditor extends TextDisplayPropertyEditor
       m_title = (String) parameters.get("title");
     }
     // prepare sub properties
-    List<SubStylePropertyImpl> properties = Lists.newArrayList();
-    configureSet(properties, state, parameters);
-    configureSetUsingEquals(properties, state, parameters);
-    configureMacro(properties, state, parameters);
-    configureSelections(properties, state, parameters);
-    configureSelectionUsingEquals(properties, state, parameters);
-    configureEnums(properties, state, parameters);
-    m_properties = properties.toArray(new SubStylePropertyImpl[properties.size()]);
+    configureSet(m_properties, state, parameters);
+    configureSetUsingEquals(m_properties, state, parameters);
+    configureMacro(m_properties, state, parameters);
+    configureSelections(m_properties, state, parameters);
+    configureSelectionUsingEquals(m_properties, state, parameters);
+    configureEnums(m_properties, state, parameters);
   }
 
   private void configureSet(List<SubStylePropertyImpl> properties,
@@ -421,9 +315,9 @@ public class StylePropertyEditor extends TextDisplayPropertyEditor
       //String defaultString = values[1];
       //long defaultFlag;
       //if (StringUtils.isNumeric(defaultString)) {
-      //	defaultFlag = Long.parseLong(defaultString);
+      //  defaultFlag = Long.parseLong(defaultString);
       //} else {
-      //	defaultFlag = m_class.getField(defaultString).getLong(null);
+      //  defaultFlag = m_class.getField(defaultString).getLong(null);
       //}
       //
       // prepare flag string values
@@ -517,22 +411,95 @@ public class StylePropertyEditor extends TextDisplayPropertyEditor
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Properties
+  // Source
   //
   ////////////////////////////////////////////////////////////////////////////
-  public Property[] getProperties(Property mainProperty) throws Exception {
-    GenericProperty genericProperty = (GenericProperty) mainProperty;
-    JavaInfo javaInfo = genericProperty.getJavaInfo();
-    Property[] properties = (Property[]) javaInfo.getArbitraryValue(this);
-    if (properties == null) {
-      int length = m_properties.length;
-      properties = new Property[length];
-      for (int i = 0; i < length; i++) {
-        properties[i] = new SubStyleProperty(mainProperty, m_properties[i]);
+  /**
+   * @return the source that represents updated value of style property.
+   */
+  private String getSource(Property property) throws Exception {
+    return getSource(property, true, " | ");
+  }
+
+  private String getSource(Property mainProperty, boolean addClassAndDefault, String separator)
+      throws Exception {
+    StringBuffer source = new StringBuffer();
+    long macroFlag = 0;
+    // handle macro properties
+    for (SubStylePropertyImpl property : m_macroProperties) {
+      String sFlag = property.getFlagValue(mainProperty);
+      if (sFlag != null) {
+        // add class prefix
+        if (addClassAndDefault) {
+          source.append(m_className);
+          source.append('.');
+        }
+        // add flag
+        source.append(sFlag);
+        macroFlag = property.getFlag(sFlag);
+        break;
       }
-      javaInfo.putArbitraryValue(this, properties);
     }
-    return properties;
+    // handle other (set, select) properties
+    for (SubStylePropertyImpl property : m_otherProperties) {
+      String sFlag = property.getFlagValue(mainProperty);
+      if (sFlag != null) {
+        // skip current flag if it part of macro flag
+        if (macroFlag != 0 && (macroFlag & property.getFlag(sFlag)) != 0) {
+          continue;
+        }
+        // add separator if need
+        if (source.length() != 0) {
+          source.append(separator);
+        }
+        // add class prefix
+        if (addClassAndDefault) {
+          source.append(m_className);
+          source.append('.');
+        }
+        // add flag
+        source.append(sFlag);
+      }
+    }
+    // use null (default), if no other flags
+    if (addClassAndDefault && source.length() == 0) {
+      return null;
+    }
+    return source.toString();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // IValueSourcePropertyEditor
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public String getValueSource(Object value) throws Exception {
+    Property property = getPropertyForValue(value);
+    return getSource(property);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Editing
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Sets the new value of given {@link SubStyleProperty}.
+   */
+  @Override
+  protected void setStyleValue(Property property, long newValue) throws Exception {
+    GenericProperty genericProperty = (GenericProperty) property;
+    String source = getSource(getPropertyForValue(newValue));
+    genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private int getPriority() {
+    return STYLE_TITLE.equals(m_title) ? 1 : 2;
   }
 
   /**
@@ -569,41 +536,11 @@ public class StylePropertyEditor extends TextDisplayPropertyEditor
     }
   }
 
-  /**
-   * Contributes actions into {@link Property} context menu.
-   */
-  public void contributeActions(Property mainProperty,
-      IMenuManager manager,
-      String implementTitle,
-      boolean isCascade) throws Exception {
-    // prepare "implement" menu
-    IMenuManager implementMenuManager = new MenuManager(implementTitle);
-    if (isCascade) {
-      // add all "boolean" properties
-      for (SubStylePropertyImpl property : m_properties) {
-        if (property instanceof BooleanStylePropertyImpl) {
-          property.contributeActions(mainProperty, implementMenuManager);
-        }
-      }
-      //
-      implementMenuManager.add(new Separator());
-      // add other properties
-      for (SubStylePropertyImpl property : m_properties) {
-        if (!(property instanceof BooleanStylePropertyImpl)) {
-          IMenuManager subMenu = new MenuManager(property.getTitle());
-          property.contributeActions(mainProperty, subMenu);
-          implementMenuManager.add(subMenu);
-        }
-      }
-    } else {
-      for (SubStylePropertyImpl property : m_properties) {
-        property.contributeActions(mainProperty, implementMenuManager);
-      }
-    }
-    // add "implement" menu
-    manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, implementMenuManager);
-  }
-
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Popup Menu
+  //
+  ////////////////////////////////////////////////////////////////////////////
   public static void configureContributeActions(final JavaInfo hostInfo) {
     hostInfo.addBroadcastListener(new ObjectEventListener() {
       @Override

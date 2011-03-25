@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.style.actions;
 
-import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.internal.core.model.property.GenericProperty;
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.style.SubStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -60,8 +59,7 @@ public abstract class SubStyleAction extends ObjectInfoAction {
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static JavaInfo getHostInfo(Property property) {
-    GenericProperty genericProperty = (GenericProperty) property;
-    return genericProperty.getJavaInfo();
+  private static ObjectInfo getHostInfo(Property property) {
+    return property.getAdapter(ObjectInfo.class);
   }
 }

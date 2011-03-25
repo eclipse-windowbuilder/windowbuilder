@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor.style.impl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
+import org.eclipse.wb.internal.core.model.property.editor.style.AbstractStylePropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.SubStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.actions.BooleanStyleAction;
 
@@ -35,7 +35,10 @@ public final class BooleanStylePropertyImpl extends SubStylePropertyImpl {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public BooleanStylePropertyImpl(StylePropertyEditor editor, String title, String sFlag, long flag) {
+  public BooleanStylePropertyImpl(AbstractStylePropertyEditor editor,
+      String title,
+      String sFlag,
+      long flag) {
     super(editor, title);
     m_sFlag = sFlag;
     m_flag = flag;
@@ -79,7 +82,7 @@ public final class BooleanStylePropertyImpl extends SubStylePropertyImpl {
   }
 
   private boolean isSet(Property property) throws Exception {
-    return (getStyle(property) & m_flag) != 0;
+    return (getStyleValue(property) & m_flag) != 0;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -95,7 +98,7 @@ public final class BooleanStylePropertyImpl extends SubStylePropertyImpl {
   @Override
   public void setValue(Property property, Object value) throws Exception {
     boolean setValue = value != Property.UNKNOWN_VALUE && (Boolean) value;
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     if (setValue) {
       style |= m_flag;
     } else {

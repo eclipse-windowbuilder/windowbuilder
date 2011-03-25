@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor.style.impl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StringComboPropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
+import org.eclipse.wb.internal.core.model.property.editor.style.AbstractStylePropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.SubStylePropertyImpl;
 import org.eclipse.wb.internal.core.model.property.editor.style.actions.RadioStyleAction;
 
@@ -39,7 +39,7 @@ public final class MacroStylePropertyImpl extends SubStylePropertyImpl {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public MacroStylePropertyImpl(StylePropertyEditor editor,
+  public MacroStylePropertyImpl(AbstractStylePropertyEditor editor,
       String title,
       long[] flags,
       String[] sFlags) {
@@ -70,7 +70,7 @@ public final class MacroStylePropertyImpl extends SubStylePropertyImpl {
 
   @Override
   public String getFlagValue(Property property) throws Exception {
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       long flag = m_flags[i];
       if ((style & flag) == flag) {
@@ -112,7 +112,7 @@ public final class MacroStylePropertyImpl extends SubStylePropertyImpl {
     // separate sub-properties
     manager.add(new Separator());
     // add actions
-    long style = getStyle(property);
+    long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
       // create
       IAction action = new RadioStyleAction(property, this, m_sFlags[i]);

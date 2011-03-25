@@ -24,6 +24,8 @@ import org.eclipse.jface.action.IMenuManager;
 /**
  * This class represent "setUsingEqual" property implementation.
  * 
+ * Note: Java only.
+ * 
  * @author Jaime Wren
  * @author lobas_av
  * @coverage core.model.property.editor
