@@ -16,13 +16,13 @@
 		<updateSite 
 			version="[3.6,3.7)"
 			url="http://download.eclipse.org/windowbuilder/WB/integration/3.6">
-			<feature id="org.eclipse.wb.swt.feature"/>
+            <feature id="org.eclipse.wb.rcp.feature"/>
 		</updateSite>
 		
         <updateSite 
             version="[3.7,5.0)"
             url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
-            <feature id="org.eclipse.wb.swt.feature"/>
+            <feature id="org.eclipse.wb.rcp.feature"/>
         </updateSite>
 	</toolkit>
 	
