@@ -31,7 +31,7 @@ public class JListTest extends SwingModelTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_JList_parsing() throws Exception {
+  public void test_parsing() throws Exception {
     parseContainer(
         "public class Test extends JPanel {",
         "  public Test() {",
@@ -69,9 +69,40 @@ public class JListTest extends SwingModelTest {
   }
 
   /**
+   * Field "values" exists in model, but we can not evaluate it.
+   */
+  public void test_nullModelValues() throws Exception {
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JList list = new JList();",
+        "    add(list);",
+        "    list.setModel(new AbstractListModel() {",
+        "      String[] values = null;",
+        "      public int getSize() {",
+        "        return values.length;",
+        "      }",
+        "      public Object getElementAt(int i) {",
+        "        return values[i];",
+        "      }",
+        "    });",
+        "  }",
+        "}");
+    refresh();
+    ComponentInfo listInfo = getJavaInfoByName("list");
+    JList listObject = (JList) listInfo.getObject();
+    // no items in model
+    {
+      ListModel model = listObject.getModel();
+      assertNotNull(model);
+      assertEquals(0, model.getSize());
+    }
+  }
+
+  /**
    * {@link JList#setSelectedIndex(int)} should be after {@link JList#setModel(ListModel)}.
    */
-  public void test_JList_setSelectedIndex() throws Exception {
+  public void test_setSelectedIndex() throws Exception {
     parseContainer(
         "public class Test extends JPanel {",
         "  public Test() {",
@@ -111,7 +142,7 @@ public class JListTest extends SwingModelTest {
         "}");
   }
 
-  public void test_JList_editor() throws Exception {
+  public void test_modelEditor() throws Exception {
     parseContainer(
         "public class Test extends JPanel {",
         "  public Test() {",

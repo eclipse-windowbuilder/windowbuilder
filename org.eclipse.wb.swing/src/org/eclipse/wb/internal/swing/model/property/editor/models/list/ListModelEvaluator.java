@@ -64,17 +64,19 @@ public final class ListModelEvaluator implements IExpressionEvaluator {
             if (fieldTypeName.equals("java.lang.String[]")) {
               final String[] values =
                   (String[]) AstEvaluationEngine.evaluate(context, fragment.getInitializer());
-              return new AbstractListModel() {
-                private static final long serialVersionUID = 0L;
+              if (values != null) {
+                return new AbstractListModel() {
+                  private static final long serialVersionUID = 0L;
 
-                public int getSize() {
-                  return values.length;
-                }
+                  public int getSize() {
+                    return values.length;
+                  }
 
-                public Object getElementAt(int index) {
-                  return values[index];
-                }
-              };
+                  public Object getElementAt(int index) {
+                    return values[index];
+                  }
+                };
+              }
             }
           }
         }
