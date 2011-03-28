@@ -264,6 +264,9 @@ public final class FieldInitializerVariableSupport extends FieldVariableSupport 
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void deleteAfter() throws Exception {
+    if (m_javaInfo.isRoot()) {
+      return;
+    }
     delete_removeDeclarationField();
   }
 

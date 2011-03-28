@@ -775,6 +775,31 @@ public class FieldInitializerTest extends AbstractVariableTest {
     }
   }
 
+  /**
+   * Component is root, so its variable should not be removed.
+   */
+  public void test_delete_3() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class Test {",
+            "  private static JPanel rootPanel = new JPanel();",
+            "  public static void main(String[] args) {",
+            "  }",
+            "}");
+    assertTrue(panel.canDelete());
+    panel.delete();
+    assertEditor(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public class Test {",
+        "  private static JPanel rootPanel = new JPanel();",
+        "  public static void main(String[] args) {",
+        "  }",
+        "}");
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Move
