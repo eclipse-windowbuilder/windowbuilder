@@ -2736,18 +2736,17 @@ public final class AstEditor {
       @Override
       public void endVisitEx(TypeDeclaration node) throws Exception {
         int typeEnd = AstNodeUtils.getSourceEnd(node) - 1;
-        int trailingJavadocEnd = skipWhitespaceToLeft(typeEnd, true);
+        int trailingJavadocEnd = skipWhitespaceAndPureEOLCToLeft(typeEnd);
+        trailingJavadocEnd = skipWhitespaceToLeft(trailingJavadocEnd, true);
         // prepare begin/end of last JavaDoc at end of type
         String source = getSource().substring(0, typeEnd);
         int javadocBegin = source.lastIndexOf("/**");
         if (javadocBegin != -1) {
-          int javadocEnd =
-              javadocBegin + source.substring(javadocBegin).indexOf("*/") + "*/".length();
-          // if end of last JavaDoc is at end of TypeDeclaration, i.e. no BodyDeclaration, remove it 
+          int javadocEnd = source.indexOf("*/", javadocBegin) + "*/".length();
+          // if end of last JavaDoc is end of TypeDeclaration, i.e. no BodyDeclaration, remove it 
           if (javadocEnd == trailingJavadocEnd) {
             javadocBegin = skipWhitespaceToLeft(javadocBegin, false);
-            javadocBegin = skipSingleEOLToLeft(javadocBegin);
-            replaceSubstring(javadocBegin, javadocEnd - javadocBegin, "");
+            replaceSubstring(javadocBegin, typeEnd - javadocBegin, "");
           }
         }
       }

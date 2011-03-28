@@ -4847,12 +4847,40 @@ public class AstEditorTest extends AbstractJavaTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Test for {@link AstEditor#removeDanglingJavadoc()}.
+   * <p>
+   * No anything other than spaces until end of {@link TypeDeclaration}.
    */
-  public void test_removeDanglingJavadoc() throws Exception {
+  public void test_removeDanglingJavadoc_attachedJavaDoc() throws Exception {
     createTypeDeclaration_Test(
-        "// filler filler filler",
-        "// filler filler filler",
-        "// filler filler filler",
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "class Test {",
+        "  /** not dangling */",
+        "  private int javaDocTarget;",
+        "}");
+    //
+    m_lastEditor.removeDanglingJavadoc();
+    assertEditor(
+        getSource(
+            "package test;",
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "class Test {",
+            "  /** not dangling */",
+            "  private int javaDocTarget;",
+            "}"),
+        m_lastEditor);
+  }
+
+  /**
+   * Test for {@link AstEditor#removeDanglingJavadoc()}.
+   * <p>
+   * No anything other than spaces until end of {@link TypeDeclaration}.
+   */
+  public void test_removeDanglingJavadoc_onlyWhitespaces() throws Exception {
+    createTypeDeclaration_Test(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
         "class Test {",
         "  /** dangling */",
         "}");
@@ -4861,9 +4889,34 @@ public class AstEditorTest extends AbstractJavaTest {
     assertEditor(
         getSource(
             "package test;",
-            "// filler filler filler",
-            "// filler filler filler",
-            "// filler filler filler",
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "class Test {",
+            "}"),
+        m_lastEditor);
+  }
+
+  /**
+   * Test for {@link AstEditor#removeDanglingJavadoc()}.
+   * <p>
+   * Has line comments between end of {@link Javadoc} and end of {@link TypeDeclaration}.
+   */
+  public void test_removeDanglingJavadoc_lineComments() throws Exception {
+    createTypeDeclaration_Test(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "class Test {",
+        "  /** dangling */",
+        "  // line comment A",
+        "  // line comment B",
+        "}");
+    //
+    m_lastEditor.removeDanglingJavadoc();
+    assertEditor(
+        getSource(
+            "package test;",
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
             "class Test {",
             "}"),
         m_lastEditor);
