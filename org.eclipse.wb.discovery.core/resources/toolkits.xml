@@ -5,11 +5,8 @@
 	<!-- SWT -->
 	<toolkit
         name="SWT"
-        title="SWT"
 		id="org.eclipse.swt"
 		icon="toolkit_swt.png"
-		wizardContributionTitle="SWT User Interface"
-		wizardContributionDescription="Create a new SWT user interface. Requires loading additional WindowBuilder toolkits."
 		providerName="Eclipse.org"
 		licenseDescription="EPL"
 		moreInfoURL="http://www.eclipse.org/swt/">
@@ -32,11 +29,8 @@
 	<!-- Swing -->
 	<toolkit
         name="Swing"
-        title="Swing"
 		id="org.eclipse.swing"
 		icon="toolkit_swing.png"
-		wizardContributionTitle="Swing User Interface"
-		wizardContributionDescription="Create a new Swing user interface. Requires loading additional WindowBuilder toolkits."
 		providerName="Eclipse.org"
 		licenseDescription="EPL">
 		
@@ -58,11 +52,8 @@
     <!-- eRCP -->
     <toolkit
         name="eRCP"
-        title="eRCP"
         id="org.eclipse.ercp"
         icon="toolkit_ercp.png"
-        wizardContributionTitle="eRCP User Interface"
-        wizardContributionDescription="Create a new eRCP user interface. Requires loading additional WindowBuilder toolkits."
         providerName="Eclipse.org"
         licenseDescription="EPL"
         moreInfoURL="http://www.eclipse.org/ercp/">
@@ -85,11 +76,8 @@
     <!-- XWT -->
     <toolkit
         name="XWT"
-        title="XWT"
         id="org.eclipse.xwt"
         icon="toolkit_xwt.png"
-        wizardContributionTitle="XWT User Interface"
-        wizardContributionDescription="Create a new XWT user interface. Requires loading additional WindowBuilder toolkits."
         providerName="Eclipse.org"
         licenseDescription="EPL"
         moreInfoURL="http://wiki.eclipse.org/E4/XWT">
@@ -115,8 +103,6 @@
         title="GWT / Google Plugin for Eclipse"
 		id="com.google.gwt"
 		icon="toolkit_gwt.png"
-		wizardContributionTitle="GWT User Interface"
-		wizardContributionDescription="Create a new GWT user interface. Requires loading additional WindowBuilder toolkits."
 		providerName="Google, Inc."
 		moreInfoURL="http://code.google.com/eclipse/index.html">
 		

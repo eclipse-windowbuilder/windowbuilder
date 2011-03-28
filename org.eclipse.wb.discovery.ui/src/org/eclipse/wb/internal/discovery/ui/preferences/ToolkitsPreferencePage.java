@@ -139,6 +139,20 @@ public class ToolkitsPreferencePage extends PreferencePage implements
     contributeWizardEntriesButton.setText("Show uninstalled toolkits in the New wizard dialog");
     contributeWizardEntriesButton.setSelection(WBDiscoveryUiPlugin.getPlugin().getContributeToWizards());
     
+    if (WBDiscoveryUiPlugin.DEBUG) {
+      separator = new Label(body, SWT.SEPARATOR | SWT.HORIZONTAL);
+      separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+      
+      Button checkForUpdatesButton = new Button(body, SWT.PUSH);
+      checkForUpdatesButton.setText("Check for Toolkit Updates");
+      checkForUpdatesButton.addSelectionListener(new SelectionAdapter() {
+        @Override
+        public void widgetSelected(SelectionEvent e) {
+          WBToolkitRegistry.getRegistry().checkForUpdates();
+        }
+      });
+    }
+    
     final Composite scrolledContents = new Composite(scrolledComposite, SWT.NONE);
     scrolledContents.setBackground(bkColor);
     scrolledContents.setRedraw(false);

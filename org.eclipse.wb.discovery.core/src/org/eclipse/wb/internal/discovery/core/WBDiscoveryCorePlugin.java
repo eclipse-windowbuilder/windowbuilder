@@ -38,6 +38,11 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
     super.start(context);
     
     plugin = this;
+    
+    // TODO: start a job to check for updates to:
+    // http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/trunk/org.eclipse.wb.discovery.core/resources/toolkits.xml
+    
+    
   }
   
   public void stop(BundleContext context) throws Exception {

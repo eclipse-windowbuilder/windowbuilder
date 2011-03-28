@@ -91,6 +91,12 @@ public class WBToolkitRegistry {
     return Collections.unmodifiableList(toolkits);
   }
   
+  public void checkForUpdates() {
+    // TODO:
+    
+    
+  }
+  
   private void initRegistry() {
     // TODO: read from some some cached location
     
@@ -140,13 +146,10 @@ public class WBToolkitRegistry {
         
         WBToolkit entry = new WBToolkit();
         
+        entry.setId(getAttributeText(element, "id"));
         entry.setName(getAttributeText(element, "name"));
         entry.setTitle(getAttributeText(element, "title"));
-        entry.setId(getAttributeText(element, "id"));
         entry.setDescription(getNodeText(element, "description"));
-        
-        entry.setWizardContributionTitle(getAttributeText(element, "wizardContributionTitle"));
-        entry.setWizardContributionDescription(getAttributeText(element, "wizardContributionDescription"));
         
         entry.setLicenseDescription(getAttributeText(element, "licenseDescription"));
         

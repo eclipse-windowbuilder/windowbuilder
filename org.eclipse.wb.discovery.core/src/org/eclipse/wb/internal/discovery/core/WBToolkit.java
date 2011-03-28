@@ -40,8 +40,6 @@ public class WBToolkit {
   private String title;
   private String id;
   private String description;
-  private String wizardContributionTitle;
-  private String wizardContributionDescription;
   
   private URL parentPath;
   private String iconPath;
@@ -81,7 +79,11 @@ public class WBToolkit {
    * @return the title of the toolkit
    */
   public String getTitle() {
-    return title;
+    if (title != null) {
+      return title;
+    } else {
+      return getName();
+    }
   }
 
   /**
@@ -93,38 +95,6 @@ public class WBToolkit {
     this.title = title;
   }
   
-  /**
-   * @return the title to use in the wizard dialog
-   */
-  public String getWizardContributionTitle() {
-    return wizardContributionTitle;
-  }
-
-  /**
-   * Set the title to use in the wizard dialog.
-   * 
-   * @param wizardContributionTitle the wizard entry title
-   */
-  protected void setWizardContributionTitle(String wizardContributionTitle) {
-    this.wizardContributionTitle = wizardContributionTitle;
-  }
-
-  /**
-   * @return the description to use in the wizard dialog
-   */
-  public String getWizardContributionDescription() {
-    return wizardContributionDescription;
-  }
-
-  /**
-   * Set the description to use in the wizard dialog.
-   * 
-   * @param wizardContributionDescription the toolkit description
-   */
-  protected void setWizardContributionDescription(String wizardContributionDescription) {
-    this.wizardContributionDescription = wizardContributionDescription;
-  }
-
   /**
    * @return the toolkit's unique ID
    */

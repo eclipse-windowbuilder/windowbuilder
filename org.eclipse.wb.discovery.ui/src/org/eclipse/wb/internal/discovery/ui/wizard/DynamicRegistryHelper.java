@@ -125,7 +125,7 @@ public class DynamicRegistryHelper {
     builder.append("<plugin>\n");
     
     for (WBToolkit toolkit : WBToolkitRegistry.getRegistry().getToolkits()) {
-      if (toolkit.isInstalled() || toolkit.getWizardContributionTitle() == null) {
+      if (toolkit.isInstalled()) {
         continue;
       }
       
@@ -135,8 +135,8 @@ public class DynamicRegistryHelper {
       builder.append("class=\"org.eclipse.wb.internal.discovery.ui.wizard.InstallToolkitWizard:" + toolkit.getId() + "\"\n");
       builder.append("icon=\"icons/wizard.gif\"\n");
       builder.append("id=\"org.eclipse.wb.internal.discovery.ui.wizard.InstallToolkitWizard\"\n");
-      builder.append("name=\"" + toolkit.getWizardContributionTitle() + "\">\n");
-      builder.append("<description>" + toolkit.getWizardContributionDescription() + "</description>\n");
+      builder.append("name=\"" + WizardToolkitUtils.getTitle(toolkit) + "\">\n");
+      builder.append("<description>" + WizardToolkitUtils.getDescription(toolkit) + "</description>\n");
       builder.append("</wizard>\n");
       builder.append("</extension>\n");
     }

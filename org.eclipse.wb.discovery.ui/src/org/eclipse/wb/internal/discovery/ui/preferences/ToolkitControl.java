@@ -106,7 +106,7 @@ class ToolkitControl extends Composite {
   
   private void initControl() {
     GridLayoutFactory.fillDefaults().numColumns(3).spacing(3, 2).
-      extendedMargins(5, 0, 4, 2).spacing(5, 5).applyTo(this);
+      extendedMargins(5, 0, 4, 2).spacing(5, 0).applyTo(this);
     
     listenTo(this);
     
@@ -144,10 +144,7 @@ class ToolkitControl extends Composite {
     listenTo(summaryLabel);
     
     if (wbToolkit.getMoreInfoURL() != null) {
-      // spacer
-      Label label = new Label(this, SWT.NONE);
-      label.setBackground(getBackground());
-      listenTo(label);
+      ((GridData)iconLabel.getLayoutData()).verticalSpan++;
       
       // hyperlink
       Link moreInfoLink = new Link(this, SWT.NONE);
@@ -161,7 +158,7 @@ class ToolkitControl extends Composite {
       GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(moreInfoLink);
       
       // spacer      
-      label = new Label(this, SWT.NONE);
+      Label label = new Label(this, SWT.NONE);
       label.setBackground(getBackground());
       listenTo(label);
     }

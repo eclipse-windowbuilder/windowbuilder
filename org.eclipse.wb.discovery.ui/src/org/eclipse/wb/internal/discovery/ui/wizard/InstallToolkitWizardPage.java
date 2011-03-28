@@ -41,7 +41,7 @@ class InstallToolkitWizardPage extends WizardPage {
     this.toolkit = toolkit;
     
     setTitle("Install " + toolkit.getName() + " Toolkit");
-    setMessage(toolkit.getWizardContributionDescription());
+    setMessage(WizardToolkitUtils.getDescription(toolkit));
     setImageDescriptor(WBDiscoveryUiPlugin.getBundledImageDescriptor("icons/new_wiz.png"));
   }
   
@@ -50,7 +50,7 @@ class InstallToolkitWizardPage extends WizardPage {
     GridLayoutFactory.swtDefaults().numColumns(2).extendedMargins(0, 0, 30, 0).applyTo(composite);
     
     Label iconLabel = new Label(composite, SWT.NULL);
-    GridDataFactory.swtDefaults().span(1, 2).align(SWT.CENTER, SWT.BEGINNING).applyTo(iconLabel);
+    GridDataFactory.swtDefaults().span(1, 4).align(SWT.CENTER, SWT.BEGINNING).applyTo(iconLabel);
     
     if (toolkit.getIconURL() != null) {
       ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(toolkit.getIconURL());
@@ -81,11 +81,11 @@ class InstallToolkitWizardPage extends WizardPage {
     }
     
     Label separator = new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL);
-    GridDataFactory.fillDefaults().grab(true, false).span(2, 1).hint(100, 20).applyTo(separator);
+    GridDataFactory.fillDefaults().grab(true, false).hint(100, 20).applyTo(separator);
     
-    Label label = new Label(composite, SWT.RIGHT);
+    Label label = new Label(composite, SWT.CENTER);
     label.setText("Click finish to install this toolkit.");
-    GridDataFactory.fillDefaults().grab(true, false).span(2, 1).hint(100, SWT.DEFAULT).applyTo(label);
+    GridDataFactory.fillDefaults().grab(true, false).hint(100, SWT.DEFAULT).applyTo(label);
     
     setControl(composite);
   }

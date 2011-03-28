@@ -32,10 +32,12 @@ import java.util.List;
  * The activator class controls the plug-in life cycle.
  */
 public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
-
 	/** The plugin identifier. */
 	public static final String PLUGIN_ID = "org.eclipse.wb.discovery.ui";
 	
+  /** Set the system property "com.google.usageprofiler.debug" to "true" to enable debugging. */
+  public static final boolean DEBUG = Boolean.getBoolean("org.eclipse.wb.discovery.debug");
+  
 	/** The preference key to contribute new wizard entries. */
 	public static final String CONTRIBUTE_WIZARD_ENTRIES_PREF = "contributeWizardEntries";
 	
@@ -64,7 +66,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 		try {
       contributeWizardEntries();
       
-      checkForUpdates();
+      listenForToolkitUpdates();
 		} catch (Throwable t) {
 		  logError(t);
 		}
@@ -160,8 +162,8 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
   /**
    * Initiate a check for updates to the registered toolkits.
    */
-  protected void checkForUpdates() {
-    // TODO:
+  protected void listenForToolkitUpdates() {
+    // TODO: add a listener to the WBToolkitRegistry
     
     // http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/trunk/org.eclipse.wb.discovery.core/resources/toolkits.xml
     
