@@ -693,9 +693,8 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
       // check 'java project' or 'plugin project'
       if (project.hasNature("org.eclipse.pde.PluginNature")) {
         // add to plugin imports
-        PdeUtils utilities = PdeUtils.get(project);
         if (addLibrary) {
-          utilities.addPluginImport(pluginName);
+          PdeUtils.get(project).addPluginImport(pluginName);
         }
       } else {
         // add to project .classpath

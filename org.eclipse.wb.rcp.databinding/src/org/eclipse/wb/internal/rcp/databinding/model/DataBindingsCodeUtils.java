@@ -94,28 +94,32 @@ public final class DataBindingsCodeUtils {
       IProject project = javaProject.getProject();
       // check 'java project' or 'plugin project'
       if (project.hasNature("org.eclipse.pde.PluginNature")) {
-        // add to plugin imports
-        PdeUtils utilities = PdeUtils.get(project);
+        // collect plugin imports
+        List<String> pluginIds = Lists.newArrayList();
         if (addDatabindingCore) {
-          utilities.addPluginImport("org.eclipse.core.databinding");
+          pluginIds.add("org.eclipse.core.databinding");
         }
         if (addDatabindingBeans) {
-          utilities.addPluginImport("org.eclipse.core.databinding.beans");
+          pluginIds.add("org.eclipse.core.databinding.beans");
         }
         if (addDatabindingObservable) {
-          utilities.addPluginImport("org.eclipse.core.databinding.observable");
+          pluginIds.add("org.eclipse.core.databinding.observable");
         }
         if (addDatabindingProperty) {
-          utilities.addPluginImport("org.eclipse.core.databinding.property");
+          pluginIds.add("org.eclipse.core.databinding.property");
         }
         if (addDatabindingJFace) {
-          utilities.addPluginImport("org.eclipse.jface.databinding");
+          pluginIds.add("org.eclipse.jface.databinding");
         }
         if (addEquinoxCommon) {
-          utilities.addPluginImport("org.eclipse.equinox.common");
+          pluginIds.add("org.eclipse.equinox.common");
         }
         if (addComIbmIcu) {
-          utilities.addPluginImport("com.ibm.icu");
+          pluginIds.add("com.ibm.icu");
+        }
+        // add to plugin imports
+        if (!pluginIds.isEmpty()) {
+          PdeUtils.get(project).addPluginImport(pluginIds);
         }
       } else {
         // add to project .classpath

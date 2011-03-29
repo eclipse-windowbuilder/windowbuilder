@@ -164,26 +164,34 @@ public final class PdeUtils {
    * @param pluginId
    *          the id of plugin.
    */
-  public void addPluginImport(final String pluginId) throws Exception {
+  public void addPluginImport(final List<String> pluginIds) throws Exception {
+    final List<String> pluginIdsForAdding = Lists.newArrayList(pluginIds);
     // check exist imports
     for (IPluginImport pluginImport : getModel().getPluginBase().getImports()) {
-      if (pluginId.equals(pluginImport.getId())) {
-        return;
-      }
+      pluginIdsForAdding.remove(pluginImport.getId());
+    }
+    if (pluginIdsForAdding.isEmpty()) {
+      return;
     }
     // perform modification
     ModelModification modification = new ModelModification(m_project) {
       @Override
       protected void modifyModel(IBaseModel model, IProgressMonitor monitor) throws CoreException {
         IPluginModelBase plugin = (IPluginModelBase) model;
-        // create import
-        IPluginImport pluginImport = plugin.getPluginFactory().createImport();
-        pluginImport.setId(pluginId);
-        // add import
-        plugin.getPluginBase().add(pluginImport);
+        for (String pluginId : pluginIdsForAdding) {
+          // create import
+          IPluginImport pluginImport = plugin.getPluginFactory().createImport();
+          pluginImport.setId(pluginId);
+          // add import
+          plugin.getPluginBase().add(pluginImport);
+        }
       }
     };
     modifyModel(modification);
+  }
+
+  public void addPluginImport(String... pluginIds) throws Exception {
+    addPluginImport(Lists.newArrayList(pluginIds));
   }
 
   /**
