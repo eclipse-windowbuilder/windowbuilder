@@ -11,6 +11,8 @@
 package org.eclipse.wb.internal.os.linux;
 
 /**
+ * OSSupport for Linux.
+ * 
  * @author mitin_aa
  * 
  * @coverage os.linux
@@ -52,6 +54,9 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
+  static {
+    System.loadLibrary("wbp");
+  }
   // constants
   private static final Color TITLE_BORDER_COLOR_DARKEST = DrawUtils.getShiftedColor(
       IColorConstants.titleBackground,

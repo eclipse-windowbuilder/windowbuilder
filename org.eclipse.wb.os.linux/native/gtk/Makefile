@@ -4,6 +4,7 @@
 ARCH_BITS = $(shell getconf LONG_BIT)
 
 WBP_LIB = libwbp.so
+WBP_COMPIZ_LIB = libwbp-compiz.so
 
 OUTPUT_DIR = ../../os/linux/x86$(shell ./arch_dir.sh)
 
@@ -26,21 +27,26 @@ CFLAGS = -O2 \
 	
 LIBS = -shared -Wl,--as-needed
 	
-WBP_OBJECTS = utils.o core.o rcp.o gconf.o
+WBP_OBJECTS = utils.o core.o rcp.o
+WBP_COMPIZ_OBJECTS = utils.o gconf.o
 
 ifndef NO_STRIP
 	LIBS := $(LIBS) -s
 endif
 
-all: make_wbp
+all: make_wbp make_wbp_compiz
 
 #
 # WBP lib
 #
 make_wbp:$(WBP_LIB)
+make_wbp_compiz:$(WBP_COMPIZ_LIB)
 
 $(WBP_LIB): $(WBP_OBJECTS)
-	$(CC) -o $(WBP_LIB) $(GTKCFLAGS) $(CFLAGS) $(WBP_OBJECTS) $(GTKLIBS) $(GCONFLIBS) $(LIBS)
+	$(CC) -o $(WBP_LIB) $(GTKCFLAGS) $(CFLAGS) $(WBP_OBJECTS) $(GTKLIBS) $(LIBS)
+
+$(WBP_COMPIZ_LIB): $(WBP_COMPIZ_OBJECTS)
+	$(CC) -o $(WBP_COMPIZ_LIB) $(GTKCFLAGS) $(CFLAGS) $(WBP_COMPIZ_OBJECTS) $(GTKLIBS) $(GCONFLIBS) $(LIBS)
 
 utils.o: utils.c
 	$(CC) $(GTKCFLAGS) $(CFLAGS) $(DEFINES) -c utils.c

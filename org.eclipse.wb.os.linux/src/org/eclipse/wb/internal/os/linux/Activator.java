@@ -40,8 +40,16 @@ import java.util.Map;
  * @coverage os.linux
  */
 public class Activator extends AbstractUIPlugin implements IStartup {
+  private static boolean gconfAvailable = false;
   static {
-    System.loadLibrary("wbp");
+    try {
+      System.loadLibrary("wbp-compiz");
+      // try to invoke
+      _isCompizSet();
+      gconfAvailable = true;
+    } catch (Throwable e) {
+      // can't load gconf-related lib, skipping all compiz checks.
+    }
   }
   private static final String PK_ASK_FOR_WORKAROUND =
       "org.eclipse.wb.os.linux.compizDontAskForWorkaround";
@@ -178,6 +186,10 @@ public class Activator extends AbstractUIPlugin implements IStartup {
   }
 
   public void earlyStartup() {
+    if (!gconfAvailable) {
+      // no necessary gconf libs installed, skip checks.
+      return;
+    }
     getStandardDisplay().syncExec(new Runnable() {
       public void run() {
         if (isRunningCompiz() && !isCompizSet() && askAgain()) {
