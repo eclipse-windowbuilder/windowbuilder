@@ -120,7 +120,8 @@ public class EditorPartInfo extends WorkbenchPartLikeInfo {
             new Class<?>[]{editorInputClass},
             new InvocationHandler() {
               public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                throw new NotImplementedException(method.toString());
+                Class<?> returnType = method.getReturnType();
+                return ReflectionUtils.getDefaultValue(returnType);
               }
             });
     // call init(IEditorSite,IEditorInput)

@@ -15,12 +15,13 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.EditorPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.ExtensionElementProperty;
-import org.eclipse.wb.internal.rcp.model.rcp.ViewPartInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.menus.IMenuService;
 import org.eclipse.ui.part.EditorPart;
@@ -51,7 +52,7 @@ public class EditorPartTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * Test for many elements of {@link ViewPartInfo}.
+   * Test for many elements of {@link EditorPartInfo}.
    */
   public void test_0() throws Exception {
     EditorPartInfo part =
@@ -85,6 +86,37 @@ public class EditorPartTest extends RcpModelTest {
     assertThat(parentComposite.getBounds().height).isGreaterThan(30);
     assertThat(container.getBounds().width).isGreaterThan(300);
     assertThat(container.getBounds().height).isGreaterThan(300);
+  }
+
+  /**
+   * Test for {@link IEditorInput} implementation.
+   */
+  public void test_IEditorInput() throws Exception {
+    EditorPartInfo part =
+        parseJavaInfo(
+            "import org.eclipse.jface.action.*;",
+            "import org.eclipse.ui.*;",
+            "import org.eclipse.ui.part.*;",
+            "public abstract class Test extends EditorPart {",
+            "  public Test() {",
+            "  }",
+            "  public void init(IEditorSite site, IEditorInput input) throws PartInitException {",
+            "    setSite(site);",
+            "    setInput(input);",
+            "  }",
+            "  public void createPartControl(Composite parent) {",
+            "    Composite container = new Composite(parent, SWT.NULL);",
+            "  }",
+            "}");
+    part.refresh();
+    assertNoErrors(part);
+    // IEditorInput
+    {
+      IEditorPart editorPart = (IEditorPart) part.getObject();
+      IEditorInput editorInput = editorPart.getEditorInput();
+      assertNotNull(editorInput);
+      assertEquals(0, editorInput.hashCode());
+    }
   }
 
   /**
