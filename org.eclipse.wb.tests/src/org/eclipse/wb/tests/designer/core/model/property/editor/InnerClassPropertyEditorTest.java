@@ -36,6 +36,15 @@ import org.easymock.IMocksControl;
 public class InnerClassPropertyEditorTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Exit zone :-) XXX
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void _test_exit() throws Exception {
+    System.exit(0);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
@@ -159,6 +168,77 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
           "  }",
           "}");
       assertEquals("test.ExternalLabelProvider", getPropertyText(property));
+    }
+  }
+
+  /**
+   * We can not generate "new AbstractClass()" instance creation, so should not allow user to choose
+   * abstract type.
+   */
+  public void test_openExternalClass_abstract() throws Exception {
+    declareButtonAndProvider();
+    declareProviderProperty_inner();
+    setFileContentSrc(
+        "test/AbstractLabelProvider.java",
+        getTestSource(
+            "public abstract class AbstractLabelProvider implements ILabelProvider {",
+            "  public AbstractLabelProvider(long level) {",
+            "  }",
+            "  public String getText(Object o) {",
+            "    return null;",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyButton button = new MyButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
+    //
+    final Property property = button.getPropertyByTitle("labelProvider");
+    // no provider
+    assertEquals("<double click>", getPropertyText(property));
+    // use GUI to set "ExternalLabelProvider"
+    {
+      // open dialog and animate it
+      new UiContext().executeAndCheck(new UIRunnable() {
+        public void run(UiContext context) throws Exception {
+          openPropertyDialog(property);
+        }
+      }, new UIRunnable() {
+        public void run(final UiContext context) throws Exception {
+          // set filter
+          {
+            context.useShell("Open type");
+            Text filterText = context.findFirstWidget(Text.class);
+            filterText.setText("AbstractLabelPro");
+          }
+          // wait for types
+          {
+            final Table typesTable = context.findFirstWidget(Table.class);
+            context.waitFor(new UIPredicate() {
+              public boolean check() {
+                return typesTable.getItems().length != 0;
+              }
+            });
+          }
+          // click OK, shows Error, close it
+          new UiContext().executeAndCheck(new UIRunnable() {
+            public void run(UiContext context2) throws Exception {
+              context.clickButton("OK");
+            }
+          }, new UIRunnable() {
+            public void run(UiContext context2) throws Exception {
+              context2.useShell("Error");
+              context2.clickButton("OK");
+            }
+          });
+        }
+      });
     }
   }
 

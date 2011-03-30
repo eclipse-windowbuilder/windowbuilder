@@ -27,23 +27,19 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
+import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.core.search.SearchEngine;
-import org.eclipse.jdt.ui.IJavaElementSearchConstants;
-import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.SelectionDialog;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -132,30 +128,15 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
     GenericProperty genericProperty = (GenericProperty) property;
     JavaInfo javaInfo = genericProperty.getJavaInfo();
     // prepare scope
-    IJavaSearchScope scope;
-    {
-      IJavaProject project = javaInfo.getEditor().getJavaProject();
-      IType classType = project.findType(m_className);
-      scope = SearchEngine.createHierarchyScope(classType);
-    }
-    // prepare dialog
-    SelectionDialog dialog;
-    {
-      Shell shell = DesignerPlugin.getShell();
-      ProgressMonitorDialog context = new ProgressMonitorDialog(shell);
-      dialog =
-          JavaUI.createTypeDialog(
-              shell,
-              context,
-              scope,
-              IJavaElementSearchConstants.CONSIDER_CLASSES,
-              false);
-      dialog.setTitle("Open type");
-      dialog.setMessage("Select a type (? = any character, * - any String):");
-    }
+    Shell shell = DesignerPlugin.getShell();
+    IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
     // open dialog
-    if (dialog.open() == Window.OK) {
-      IType type = (IType) dialog.getResult()[0];
+    IType type = JdtUiUtils.selectType(shell, javaProject);
+    if (type != null) {
+      if (Flags.isAbstract(type.getFlags())) {
+        UiUtils.openError(shell, "Error", "You can not use abstract type.");
+        return;
+      }
       String source = getCreationSource(javaInfo, type);
       genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
     }
