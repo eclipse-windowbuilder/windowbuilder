@@ -12,6 +12,7 @@ package org.eclipse.wb.tests.designer.databinding.swing;
 
 import org.eclipse.wb.internal.swing.databinding.DesignPageFactory;
 import org.eclipse.wb.internal.swing.databinding.SwingDatabindingFactory;
+import org.eclipse.wb.internal.swing.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
@@ -55,10 +56,17 @@ public class SwingDatabindingsFactoryTest extends SwingModelTest {
             "}");
     assertNotNull(panel);
     //
-    assertFalse(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
-    SwingDatabindingFactory factory = new SwingDatabindingFactory();
-    assertNotNull(factory.createProvider(panel.getRootJava()));
-    assertNull(panel.getPropertyByTitle("bindings"));
+    if (DataBindingsCodeUtils.getExtrasBundle() == null) {
+      assertFalse(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
+      SwingDatabindingFactory factory = new SwingDatabindingFactory();
+      assertNotNull(factory.createProvider(panel.getRootJava()));
+      assertNull(panel.getPropertyByTitle("bindings"));
+    } else {
+      assertTrue(DesignPageFactory.isSwingDB(panel.getEditor().getModelUnit()));
+      SwingDatabindingFactory factory = new SwingDatabindingFactory();
+      assertNotNull(factory.createProvider(panel.getRootJava()));
+      assertNotNull(panel.getPropertyByTitle("bindings"));
+    }
   }
 
   public void test_Provider() throws Exception {

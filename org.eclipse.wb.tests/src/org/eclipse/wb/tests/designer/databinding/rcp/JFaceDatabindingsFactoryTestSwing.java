@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.databinding.rcp;
 
 import org.eclipse.wb.internal.rcp.databinding.JFaceDatabindingsFactory;
+import org.eclipse.wb.internal.swing.databinding.model.DataBindingsCodeUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
@@ -45,6 +46,8 @@ public class JFaceDatabindingsFactoryTestSwing extends SwingModelTest {
     //
     JFaceDatabindingsFactory factory = new JFaceDatabindingsFactory();
     assertNull(factory.createProvider(panel.getRootJava()));
-    assertNull(panel.getPropertyByTitle("bindings"));
+    if (DataBindingsCodeUtils.getExtrasBundle() == null) {
+      assertNull(panel.getPropertyByTitle("bindings"));
+    }
   }
 }
