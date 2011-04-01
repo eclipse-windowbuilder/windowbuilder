@@ -34,6 +34,8 @@ import org.apache.commons.lang.StringUtils;
 public final class MacroUsingEqualsStylePropertyImpl extends SubStylePropertyImpl {
   private final long[] m_flags;
   private final String[] m_sFlags;
+  private final long m_flagsClearMask;
+  private final long m_setClearMask;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -43,10 +45,13 @@ public final class MacroUsingEqualsStylePropertyImpl extends SubStylePropertyImp
   public MacroUsingEqualsStylePropertyImpl(AbstractStylePropertyEditor editor,
       String title,
       long[] flags,
-      String[] sFlags) {
+      String[] sFlags,
+      long clearMask) {
     super(editor, title);
     m_flags = flags;
     m_sFlags = sFlags;
+    m_flagsClearMask = clearMask;
+    m_setClearMask = ~clearMask;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -71,7 +76,7 @@ public final class MacroUsingEqualsStylePropertyImpl extends SubStylePropertyImp
 
   @Override
   public String getFlagValue(Property property) throws Exception {
-    long style = getStyleValue(property);
+    long style = getStyleValue(property) & m_flagsClearMask;
     for (int i = 0; i < m_flags.length; i++) {
       long flag = m_flags[i];
       if (style == flag) {
@@ -93,11 +98,11 @@ public final class MacroUsingEqualsStylePropertyImpl extends SubStylePropertyImp
 
   @Override
   public void setValue(Property property, Object value) throws Exception {
-    long style = 0;
+    long style = getStyleValue(property) & m_setClearMask;
     if (value != Property.UNKNOWN_VALUE) {
-      String sFlag = (String) value;
-      if (!StringUtils.isEmpty(sFlag)) {
-        style = getFlag(sFlag);
+      String sValue = (String) value;
+      if (!StringUtils.isEmpty(sValue)) {
+        style |= getFlag(sValue);
       }
     }
     setStyleValue(property, style);
