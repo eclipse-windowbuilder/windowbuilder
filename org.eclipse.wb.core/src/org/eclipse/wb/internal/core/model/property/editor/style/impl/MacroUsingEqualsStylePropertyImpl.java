@@ -25,7 +25,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * This class represent "macroUsingEquals" property implementation.
+ * This class represents "macroUsingEquals" property implementation.
  * 
  * @author lobas_av
  * @author mitin_aa
