@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.rcp.model.jface.DialogPageInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.swt.layout.FillLayout;
 
 /**
  * Test for {@link DialogPageInfo}.
@@ -85,5 +86,27 @@ public class DialogPageTest extends RcpModelTest {
     assertNotNull(dialog.getImage());
     assertEquals(600, dialog.getBounds().width);
     assertEquals(500, dialog.getBounds().height);
+  }
+
+  /**
+   * We can not know what set of "Layout" and "LayoutData" user wants to use for this
+   * {@link DialogPage} and its parent. We use {@link FillLayout} for "parent", so we should ensure
+   * that "container" does not have incompatible "LayoutData". Easiest way - just clear
+   * "LayoutData".
+   */
+  public void test_containerLayoutData() throws Exception {
+    parseJavaInfo(
+        "import org.eclipse.jface.dialogs.*;",
+        "public class Test extends org.eclipse.jface.dialogs.DialogPage {",
+        "  public Test() {",
+        "    setTitle('My title');",
+        "  }",
+        "  public void createControl(Composite parent) {",
+        "    Composite container = new Composite(parent, SWT.NONE);",
+        "    container.setLayoutData(new GridData());",
+        "    setControl(container);",
+        "  }",
+        "}");
+    refresh();
   }
 }

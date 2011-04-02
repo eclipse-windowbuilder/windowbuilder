@@ -167,6 +167,13 @@ public class ControlSupport extends AbstractSupport {
     return ReflectionUtils.invokeMethodEx(control, "getLayoutData()");
   }
 
+  /**
+   * Invoke method <code>Control.setLayoutData()</code> for control.
+   */
+  public static void setLayoutData(Object control, Object layoutData) {
+    ReflectionUtils.invokeMethodEx(control, "setLayoutData(java.lang.Object)", layoutData);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Data

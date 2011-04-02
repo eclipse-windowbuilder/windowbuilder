@@ -63,6 +63,19 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
+  protected void refresh_afterCreate() throws Exception {
+    // clear LayoutData, because FillLayout does not want any
+    {
+      Object[] childControls = ContainerSupport.getChildren(m_shell);
+      if (childControls.length == 1) {
+        ControlSupport.setLayoutData(childControls[0], null);
+      }
+    }
+    // continue
+    super.refresh_afterCreate();
+  }
+
+  @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
       public void run() throws Exception {
