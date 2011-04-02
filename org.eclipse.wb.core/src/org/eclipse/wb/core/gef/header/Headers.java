@@ -29,7 +29,7 @@ public final class Headers {
   public static final Color COLOR_HEADER = getColorHeader();
 
   private static Color getColorHeader() {
-    if (EnvironmentUtils.IS_WINDOWS_VISTA) {
+    if (EnvironmentUtils.IS_WINDOWS_VISTA || EnvironmentUtils.IS_WINDOWS_7) {
       return DrawUtils.getShiftedColor(IColorConstants.white, 0);
     } else {
       return DrawUtils.getShiftedColor(IColorConstants.white, -16);
