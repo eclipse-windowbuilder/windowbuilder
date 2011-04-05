@@ -462,6 +462,7 @@ public class SwingImageUtils {
         setVisible(popupMenu, false);
         if (parent != null) {
           parent.setLocation(parentLocation);
+          setVisible(parent, false);
         }
       }
     }
