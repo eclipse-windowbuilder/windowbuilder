@@ -17,6 +17,8 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.preference.IPreferencePageContainer;
+import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -349,6 +351,15 @@ public class ToolkitsPreferencePage extends PreferencePage implements
     } catch (OperationCanceledException e) {
       // ignore
       
+    }
+  }
+  
+  // TODO: call this when the progress bar is closed?
+  private void closePreferencesDialog() {
+    if (getContainer() instanceof PreferenceDialog) {
+      PreferenceDialog dialog = (PreferenceDialog)getContainer();
+      
+      dialog.close();
     }
     
   }

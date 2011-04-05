@@ -149,7 +149,7 @@ class P2Provisioner {
   }
 
   private Collection<IInstallableUnit> collectInstallableUnits(IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
-    String statusText = "Installing toolkits";
+    String statusText = "Installing toolkits...";
     
     if (toolkits.size() > 1) {
       statusText += "s";

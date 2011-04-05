@@ -21,7 +21,7 @@ class WizardToolkitUtils {
 
   
   public static String getTitle(WBToolkit toolkit) {
-    return toolkit.getName() + "  User Interface";
+    return toolkit.getName() + " User Interface";
   }
 
 
