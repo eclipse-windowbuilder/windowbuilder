@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -40,17 +41,17 @@ public final class ColumnsDialog extends DimensionsDialog<MigColumnInfo> {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected String getDialogTitle() {
-    return "Edit Columns";
+    return ModelMessages.ColumnsDialog_dialogTitle;
   }
 
   @Override
   protected String getDialogMessage() {
-    return "Adding, removing or rearranging columns applies immediately.";
+    return ModelMessages.ColumnsDialog_dialogMessage;
   }
 
   @Override
   protected String getViewerTitle() {
-    return "Column &Specifications:";
+    return ModelMessages.ColumnsDialog_viewerTitle;
   }
 
   ////////////////////////////////////////////////////////////////////////////

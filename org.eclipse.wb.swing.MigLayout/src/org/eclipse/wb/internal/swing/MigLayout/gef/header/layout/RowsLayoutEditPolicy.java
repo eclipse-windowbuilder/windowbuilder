@@ -29,6 +29,7 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.MigLayout.gef.MigLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.edit.RowHeaderEditPart;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.selection.RowSelectionEditPolicy;
@@ -158,7 +159,7 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
         m_feedback.setLocation(feedbackLocation);
       }
       // set text
-      m_feedback.setText("row: " + targetIndex);
+      m_feedback.setText(GefMessages.RowsLayoutEditPolicy_rowPrefix + targetIndex);
     }
     // prepare command
     {

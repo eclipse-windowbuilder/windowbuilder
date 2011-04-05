@@ -101,7 +101,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
   // Selection
   //
   ////////////////////////////////////////////////////////////////////////////
-  public static final String SECONDARY_SELECTION_FEEDBACK_ROLE = "Secondary Selection Feedback";
+  public static final String SECONDARY_SELECTION_FEEDBACK_ROLE = "Secondary Selection Feedback"; //$NON-NLS-1$
 
   /**
    * Decorates (with {@link SelectionEditPolicy}) all components children.
@@ -497,7 +497,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 
   public void buildContextMenu(IMenuManager manager, boolean horizontal) {
     if (horizontal) {
-      manager.add(new ObjectInfoAction(m_layout, "Append Column") {
+      manager.add(new ObjectInfoAction(m_layout, GefMessages.MigLayoutEditPolicy_appendColumn) {
         @Override
         protected void runEx() throws Exception {
           int index = m_layout.getColumns().size();
@@ -505,7 +505,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
         }
       });
     } else {
-      manager.add(new ObjectInfoAction(m_layout, "Append Row") {
+      manager.add(new ObjectInfoAction(m_layout, GefMessages.MigLayoutEditPolicy_appendRow) {
         @Override
         protected void runEx() throws Exception {
           int index = m_layout.getRows().size();

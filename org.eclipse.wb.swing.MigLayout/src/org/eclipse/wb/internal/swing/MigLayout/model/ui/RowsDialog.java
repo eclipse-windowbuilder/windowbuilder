@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -40,17 +41,17 @@ public final class RowsDialog extends DimensionsDialog<MigRowInfo> {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected String getDialogTitle() {
-    return "Edit Rows";
+    return ModelMessages.RowsDialog_dialogTitle;
   }
 
   @Override
   protected String getDialogMessage() {
-    return "Adding, removing or rearranging rows applies immediately.";
+    return ModelMessages.RowsDialog_dialogMessage;
   }
 
   @Override
   protected String getViewerTitle() {
-    return "Row &Specifications:";
+    return ModelMessages.RowsDialog_viewerTitle;
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -23,10 +23,10 @@ public interface IPreferenceConstants {
    * When <code>true</code>, {@link MigLayoutInfo} can use
    * {@link GridAlignmentHelper#V_GRAB_HORIZONTAL} and {@link #V_GRAB_VERTICAL}.
    */
-  String P_ENABLE_GRAB = "MigLayout.enableGrab";
+  String P_ENABLE_GRAB = "MigLayout.enableGrab"; //$NON-NLS-1$
   /**
    * When <code>true</code>, {@link MigLayoutInfo} can use {@link GridAlignmentHelper#V_RIGHT_LABEL}
    * and {@link GridAlignmentHelper#V_RIGHT_TARGET}.
    */
-  String P_ENABLE_RIGHT_ALIGNMENT = "MigLayout.enableRightAlignment";
+  String P_ENABLE_RIGHT_ALIGNMENT = "MigLayout.enableRightAlignment"; //$NON-NLS-1$
 }

@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.swt.widgets.Composite;
@@ -48,36 +49,68 @@ public class CellConstraintsAssistantPage extends AbstractAssistantPage {
     // horizontal alignments
     {
       Group horizontalGroup =
-          addChoiceProperty(this, "h alignment", "Horizontal", new Object[][]{
-              new Object[]{"Default", MigColumnInfo.Alignment.DEFAULT},
-              new Object[]{"Left", MigColumnInfo.Alignment.LEFT},
-              new Object[]{"Center", MigColumnInfo.Alignment.CENTER},
-              new Object[]{"Right", MigColumnInfo.Alignment.RIGHT},
-              new Object[]{"Fill", MigColumnInfo.Alignment.FILL},
-              new Object[]{"Leading", MigColumnInfo.Alignment.LEADING},
-              new Object[]{"Trailing", MigColumnInfo.Alignment.TRAILING},});
+          addChoiceProperty(
+              this,
+              "h alignment", ModelMessages.CellConstraintsAssistantPage_hAlignmentGroup, new Object[][]{ //$NON-NLS-1$
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_default,
+                      MigColumnInfo.Alignment.DEFAULT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_left,
+                      MigColumnInfo.Alignment.LEFT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_center,
+                      MigColumnInfo.Alignment.CENTER},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_right,
+                      MigColumnInfo.Alignment.RIGHT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_fill,
+                      MigColumnInfo.Alignment.FILL},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_leading,
+                      MigColumnInfo.Alignment.LEADING},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_hAlignment_trailing,
+                      MigColumnInfo.Alignment.TRAILING},});
       GridDataFactory.modify(horizontalGroup).fill();
     }
     // vertical alignments
     {
       Group verticalGroup =
-          addChoiceProperty(this, "v alignment", "Vertical", new Object[][]{
-              new Object[]{"Default", MigRowInfo.Alignment.DEFAULT},
-              new Object[]{"Top", MigRowInfo.Alignment.TOP},
-              new Object[]{"Center", MigRowInfo.Alignment.CENTER},
-              new Object[]{"Bottom", MigRowInfo.Alignment.BOTTOM},
-              new Object[]{"Fill", MigRowInfo.Alignment.FILL},
-              new Object[]{"Baseline", MigRowInfo.Alignment.BASELINE},});
+          addChoiceProperty(
+              this,
+              "v alignment", ModelMessages.CellConstraintsAssistantPage_vAlignmentGroup, new Object[][]{ //$NON-NLS-1$
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vAlignment_default,
+                      MigRowInfo.Alignment.DEFAULT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vAlignment_top,
+                      MigRowInfo.Alignment.TOP},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vAlignment_center,
+                      MigRowInfo.Alignment.CENTER},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vAlignment_bottom,
+                      MigRowInfo.Alignment.BOTTOM},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vAlignment_fill,
+                      MigRowInfo.Alignment.FILL},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vAlignment_baseline,
+                      MigRowInfo.Alignment.BASELINE},});
       GridDataFactory.modify(verticalGroup).fill();
     }
     // grid
     {
       Group gridGroup =
-          addIntegerProperties(this, "Grid", new String[][]{
-              {"grid x", "X:"},
-              {"grid y", "Y:"},
-              {"grid width", "Width:"},
-              {"grid height", "Height:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.CellConstraintsAssistantPage_gridGroup,
+              new String[][]{{"grid x", ModelMessages.CellConstraintsAssistantPage_gridX}, //$NON-NLS-1$
+                  {"grid y", ModelMessages.CellConstraintsAssistantPage_gridY}, //$NON-NLS-1$
+                  {"grid width", ModelMessages.CellConstraintsAssistantPage_gridWidth}, //$NON-NLS-1$
+                  {"grid height", ModelMessages.CellConstraintsAssistantPage_gridHeight}}); //$NON-NLS-1$
       GridDataFactory.modify(gridGroup).fill();
     }
   }

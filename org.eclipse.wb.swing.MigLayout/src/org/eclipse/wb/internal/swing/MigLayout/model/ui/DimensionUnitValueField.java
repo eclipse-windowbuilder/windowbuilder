@@ -25,6 +25,8 @@ import net.miginfocom.layout.UnitValue;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
+
 /**
  * Field for editing {@link UnitValue} property of {@link MigDimensionInfo}.
  * 
@@ -65,11 +67,11 @@ public final class DimensionUnitValueField {
         public void handleEvent(Event event) {
           if (m_checkButton.getSelection()) {
             m_textWidget.setEnabled(true);
-            setText("100px");
+            setText("100px"); //$NON-NLS-1$
             toDimension(m_textWidget.getText());
           } else {
             m_textWidget.setEnabled(false);
-            setText("");
+            setText(""); //$NON-NLS-1$
             toDimension(null);
           }
         }
@@ -95,12 +97,12 @@ public final class DimensionUnitValueField {
     if (!m_updatingDimension) {
       m_dimension = dimension;
       try {
-        UnitValue value =
-            (UnitValue) ReflectionUtils.invokeMethod2(m_dimension, "get" + m_propertyName);
+        String methodName = MessageFormat.format("get{0}", m_propertyName); //$NON-NLS-1$
+        UnitValue value = (UnitValue) ReflectionUtils.invokeMethod2(m_dimension, methodName);
         if (value == null) {
           m_checkButton.setSelection(false);
           m_textWidget.setEnabled(false);
-          setText("");
+          setText(""); //$NON-NLS-1$
         } else {
           m_checkButton.setSelection(true);
           m_textWidget.setEnabled(true);
@@ -121,7 +123,8 @@ public final class DimensionUnitValueField {
   private void toDimension(String s) {
     m_updatingDimension = true;
     try {
-      ReflectionUtils.invokeMethod2(m_dimension, "set" + m_propertyName, String.class, s);
+      String methodName = MessageFormat.format("set{0}", m_propertyName); //$NON-NLS-1$
+      ReflectionUtils.invokeMethod2(m_dimension, methodName, String.class, s);
       notifyModified(true);
       m_field.setErrorMessage(null);
     } catch (Throwable e) {

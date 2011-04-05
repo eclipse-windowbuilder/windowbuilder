@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -23,6 +24,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import org.apache.commons.lang.StringUtils;
+
+import java.text.MessageFormat;
 
 /**
  * {@link Composite} for editing grow/shrink behavior.
@@ -112,7 +115,7 @@ public final class DimensionResizeComposite extends Composite {
       {
         m_defaultPriorityButton = new Button(priorityComposite, SWT.RADIO);
         GridDataFactory.create(m_defaultPriorityButton).spanH(2);
-        m_defaultPriorityButton.setText("default priority");
+        m_defaultPriorityButton.setText(ModelMessages.DimensionResizeComposite_defaultPriority);
         m_defaultPriorityButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             m_prioritySpinner.setEnabled(false);
@@ -124,7 +127,7 @@ public final class DimensionResizeComposite extends Composite {
       // priority
       {
         m_customPriorityButton = new Button(priorityComposite, SWT.RADIO);
-        m_customPriorityButton.setText("priority");
+        m_customPriorityButton.setText(ModelMessages.DimensionResizeComposite_customPriority);
         m_customPriorityButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             m_prioritySpinner.setEnabled(true);
@@ -159,7 +162,8 @@ public final class DimensionResizeComposite extends Composite {
       try {
         // weight
         {
-          Float weight = (Float) ReflectionUtils.invokeMethod2(m_dimension, "get" + m_propertyName);
+          String methodName = MessageFormat.format("get{0}", m_propertyName); //$NON-NLS-1$
+          Float weight = (Float) ReflectionUtils.invokeMethod2(m_dimension, methodName);
           if (weight == null || weight.intValue() == m_defaultWeight) {
             m_defaultWeightButton.setSelection(true);
             m_customWeightButton.setSelection(false);
@@ -174,10 +178,8 @@ public final class DimensionResizeComposite extends Composite {
         }
         // priority
         {
-          int priority =
-              (Integer) ReflectionUtils.invokeMethod2(m_dimension, "get"
-                  + m_propertyName
-                  + "Priority");
+          String methodName = MessageFormat.format("get{0}Priority", m_propertyName); //$NON-NLS-1$
+          int priority = (Integer) ReflectionUtils.invokeMethod2(m_dimension, methodName);
           if (priority == 100) {
             m_defaultPriorityButton.setSelection(true);
             m_customPriorityButton.setSelection(false);
@@ -208,7 +210,8 @@ public final class DimensionResizeComposite extends Composite {
         } else {
           weight = new Float(m_weightSpinner.getSelection());
         }
-        ReflectionUtils.invokeMethod2(m_dimension, "set" + m_propertyName, Float.class, weight);
+        String methodName = MessageFormat.format("set{0}", m_propertyName); //$NON-NLS-1$
+        ReflectionUtils.invokeMethod2(m_dimension, methodName, Float.class, weight);
       }
       // priority
       {
@@ -218,11 +221,8 @@ public final class DimensionResizeComposite extends Composite {
         } else {
           priority = m_prioritySpinner.getSelection();
         }
-        ReflectionUtils.invokeMethod2(
-            m_dimension,
-            "set" + m_propertyName + "Priority",
-            int.class,
-            priority);
+        String methodName = MessageFormat.format("set{0}Priority", m_propertyName); //$NON-NLS-1$
+        ReflectionUtils.invokeMethod2(m_dimension, methodName, int.class, priority);
       }
       notifyModified();
     } catch (Throwable e) {

@@ -62,11 +62,11 @@ public final class MigLayoutPreferencePage extends AbstractBindingPreferencesPag
       // boolean preferences
       checkButton(
           this,
-          "Use automatic horizontal/vertical grab",
+          PreferencesMessages.MigLayoutPreferencePage_autoGrab,
           IPreferenceConstants.P_ENABLE_GRAB);
       checkButton(
           this,
-          "Automatically align right Label-like components before Text-like components",
+          PreferencesMessages.MigLayoutPreferencePage_autoAlign,
           IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
     }
   }

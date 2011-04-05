@@ -26,7 +26,7 @@ import java.util.List;
  * @coverage swing.MigLayout.model
  */
 public final class MigLayoutSurroundSupport extends LayoutSurroundSupport {
-  static final String CELLS_KEY = "SurroundSupport_CELLS";
+  static final String CELLS_KEY = "SurroundSupport_CELLS"; //$NON-NLS-1$
   private final MigLayoutInfo m_layout;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -71,8 +71,8 @@ public final class MigLayoutSurroundSupport extends LayoutSurroundSupport {
     container.putArbitraryValue(CELLS_KEY, m_enclosingCells);
     // don't grab
     {
-      JavaInfoUtils.setParameter(container, GridAlignmentHelper.V_GRAB_HORIZONTAL, "false");
-      JavaInfoUtils.setParameter(container, GridAlignmentHelper.V_GRAB_VERTICAL, "false");
+      JavaInfoUtils.setParameter(container, GridAlignmentHelper.V_GRAB_HORIZONTAL, "false"); //$NON-NLS-1$
+      JavaInfoUtils.setParameter(container, GridAlignmentHelper.V_GRAB_VERTICAL, "false"); //$NON-NLS-1$
     }
     // add container
     m_layout.command_CREATE(container, m_enclosingCells.x, false, m_enclosingCells.y, false);

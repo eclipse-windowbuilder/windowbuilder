@@ -26,6 +26,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -41,14 +42,18 @@ public final class MigColumnInfo extends MigDimensionInfo {
      * @return the small image (5x9) to display current alignment to user.
      */
     public Image getSmallImage() {
-      return Activator.getImage("alignment/h/small/" + name().toLowerCase() + ".gif");
+      String pattern = "alignment/h/small/{0}.gif"; //$NON-NLS-1$
+      String path = MessageFormat.format(pattern, name().toLowerCase());
+      return Activator.getImage(path);
     }
 
     /**
      * @return the big image (16x16) to display for user in menu.
      */
     public ImageDescriptor getMenuImage() {
-      return Activator.getImageDescriptor("alignment/h/menu/" + name().toLowerCase() + ".gif");
+      String pattern = "alignment/h/menu/{0}.gif"; //$NON-NLS-1$
+      String path = MessageFormat.format(pattern, name().toLowerCase());
+      return Activator.getImageDescriptor(path);
     }
 
     /**
@@ -95,7 +100,7 @@ public final class MigColumnInfo extends MigDimensionInfo {
   @Override
   protected DimConstraint fetchConstraint() {
     int index = getIndex();
-    AC colSpecs = (AC) ReflectionUtils.getFieldObject(m_layout.getObject(), "colSpecs");
+    AC colSpecs = (AC) ReflectionUtils.getFieldObject(m_layout.getObject(), "colSpecs"); //$NON-NLS-1$
     if (index < colSpecs.getCount()) {
       return colSpecs.getConstaints()[index];
     } else {
@@ -105,7 +110,7 @@ public final class MigColumnInfo extends MigDimensionInfo {
 
   @Override
   protected DimConstraint createDefaultConstraint() {
-    return ConstraintParser.parseColumnConstraints("[]").getConstaints()[0];
+    return ConstraintParser.parseColumnConstraints("[]").getConstaints()[0]; //$NON-NLS-1$
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -201,7 +206,9 @@ public final class MigColumnInfo extends MigDimensionInfo {
         alignmentValue = IDEUtil.TRAILING;
         break;
       default :
-        throw new IllegalArgumentException("Can not set UNKNOWN alignment.");
+        throw new IllegalArgumentException(MessageFormat.format(
+            ModelMessages.MigColumnInfo_canNotSetAlignment,
+            alignment));
     }
     // parse alignment, update constraint
     constraint.setAlign(alignmentValue);

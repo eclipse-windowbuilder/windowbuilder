@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
+import org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.SetAlignmentRowAction;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.SetGrowAction;
@@ -71,7 +72,8 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
         int titleTop;
         int titleBottom;
         {
-          String title = "" + getIndex();
+          int index = getIndex();
+          String title = Integer.toString(index);
           Dimension textExtents = graphics.getTextExtent(title);
           if (r.height < textExtents.height) {
             return;
@@ -92,7 +94,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
         // draw grow indicator
         if (m_dimension.hasGrow()) {
           if (titleBottom + 3 + 7 + 3 < r.bottom()) {
-            Image image = getImage("alignment/v/small/grow.gif");
+            Image image = getImage("alignment/v/small/grow.gif"); //$NON-NLS-1$
             drawCentered(graphics, image, r.bottom() - 3 - image.getBounds().height);
           }
         }
@@ -145,31 +147,36 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
     }
     // operations
     {
-      manager.add(new DimensionHeaderAction<MigRowInfo>(this, "Insert Row") {
+      manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+          GefMessages.RowHeaderEditPart_insertRow) {
         @Override
         protected void run(MigRowInfo dimension, int index) throws Exception {
           m_layout.insertRow(index);
         }
       });
-      manager.add(new DimensionHeaderAction<MigRowInfo>(this, "Append Row") {
+      manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+          GefMessages.RowHeaderEditPart_appendRow) {
         @Override
         protected void run(MigRowInfo dimension, int index) throws Exception {
           m_layout.insertRow(index + 1);
         }
       });
-      manager.add(new DimensionHeaderAction<MigRowInfo>(this, "Delete Row") {
+      manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+          GefMessages.RowHeaderEditPart_deleteRow) {
         @Override
         protected void run(MigRowInfo dimension, int index) throws Exception {
           m_layout.deleteRow(index);
         }
       });
-      manager.add(new DimensionHeaderAction<MigRowInfo>(this, "Clear Row") {
+      manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+          GefMessages.RowHeaderEditPart_clearRow) {
         @Override
         protected void run(MigRowInfo dimension, int index) throws Exception {
           m_layout.clearRow(index);
         }
       });
-      manager.add(new DimensionHeaderAction<MigRowInfo>(this, "Split Row") {
+      manager.add(new DimensionHeaderAction<MigRowInfo>(this,
+          GefMessages.RowHeaderEditPart_splitRow) {
         @Override
         protected void run(MigRowInfo dimension, int index) throws Exception {
           m_layout.splitRow(index);
@@ -190,19 +197,21 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
     {
       manager.add(new Separator());
       manager.add(new SetGrowAction<MigRowInfo>(this,
-          "Grow",
-          Activator.getImageDescriptor("alignment/v/menu/grow.gif")));
+          GefMessages.RowHeaderEditPart_grow,
+          Activator.getImageDescriptor("alignment/v/menu/grow.gif"))); //$NON-NLS-1$
     }
     // size
     {
       manager.add(new Separator());
-      manager.add(new SetSizeAction<MigRowInfo>(this, "(default size)", null));
-      manager.add(new SetSizeAction<MigRowInfo>(this, "[pref!]", "pref!"));
+      manager.add(new SetSizeAction<MigRowInfo>(this,
+          GefMessages.RowHeaderEditPart_defaultSize,
+          null));
+      manager.add(new SetSizeAction<MigRowInfo>(this, "[pref!]", "pref!")); //$NON-NLS-1$ //$NON-NLS-2$
     }
     // properties
     {
       manager.add(new Separator());
-      manager.add(new Action("Properties...") {
+      manager.add(new Action(GefMessages.RowHeaderEditPart_properties) {
         @Override
         public void run() {
           editDimension();

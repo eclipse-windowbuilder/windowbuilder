@@ -26,6 +26,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -41,14 +42,18 @@ public final class MigRowInfo extends MigDimensionInfo {
      * @return the small image (5x9) to display current alignment to user.
      */
     public Image getSmallImage() {
-      return Activator.getImage("alignment/v/small/" + name().toLowerCase() + ".gif");
+      String pattern = "alignment/v/small/{0}.gif"; //$NON-NLS-1$
+      String path = MessageFormat.format(pattern, name().toLowerCase());
+      return Activator.getImage(path);
     }
 
     /**
      * @return the big image (16x16) to display for user in menu.
      */
     public ImageDescriptor getMenuImage() {
-      return Activator.getImageDescriptor("alignment/v/menu/" + name().toLowerCase() + ".gif");
+      String pattern = "alignment/v/menu/{0}.gif"; //$NON-NLS-1$
+      String path = MessageFormat.format(pattern, name().toLowerCase());
+      return Activator.getImageDescriptor(path);
     }
 
     /**
@@ -94,7 +99,7 @@ public final class MigRowInfo extends MigDimensionInfo {
   @Override
   protected DimConstraint fetchConstraint() {
     int index = getIndex();
-    AC colSpecs = (AC) ReflectionUtils.getFieldObject(m_layout.getObject(), "rowSpecs");
+    AC colSpecs = (AC) ReflectionUtils.getFieldObject(m_layout.getObject(), "rowSpecs"); //$NON-NLS-1$
     if (index >= 0 && index < colSpecs.getCount()) {
       return colSpecs.getConstaints()[index];
     } else {
@@ -104,7 +109,7 @@ public final class MigRowInfo extends MigDimensionInfo {
 
   @Override
   protected DimConstraint createDefaultConstraint() {
-    return ConstraintParser.parseRowConstraints("[]").getConstaints()[0];
+    return ConstraintParser.parseRowConstraints("[]").getConstaints()[0]; //$NON-NLS-1$
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -195,7 +200,9 @@ public final class MigRowInfo extends MigDimensionInfo {
         alignmentValue = IDEUtil.BASELINE_IDENTITY;
         break;
       default :
-        throw new IllegalArgumentException("Can not set " + alignment + " alignment.");
+        throw new IllegalArgumentException(MessageFormat.format(
+            ModelMessages.MigRowInfo_canNotSetAlignment,
+            alignment));
     }
     // parse alignment, update constraint
     constraint.setAlign(alignmentValue);

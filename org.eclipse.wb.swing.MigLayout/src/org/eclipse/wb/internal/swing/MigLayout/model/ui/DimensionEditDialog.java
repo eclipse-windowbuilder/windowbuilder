@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -35,6 +36,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -126,7 +128,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(m_dimensionName + " Properties");
+    newShell.setText(MessageFormat.format(ModelMessages.DimensionEditDialog_title, m_dimensionName));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -140,7 +142,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
   protected void createButtonsForButtonBar(Composite parent) {
     super.createButtonsForButtonBar(parent);
     if (m_layout != null) {
-      createButton(parent, APPLY_ID, "&Apply", false);
+      createButton(parent, APPLY_ID, ModelMessages.DimensionEditDialog_applyButton, false);
     }
   }
 
@@ -225,7 +227,9 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
     GridLayoutFactory.create(composite).noMargins().columns(4);
     // index
     {
-      new Label(composite, SWT.NONE).setText(m_dimensionName + ":");
+      new Label(composite, SWT.NONE).setText(MessageFormat.format(
+          ModelMessages.DimensionEditDialog_index,
+          m_dimensionName));
       // index
       {
         m_indexText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
@@ -234,10 +238,11 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
       // prev button
       {
         m_prevButton = new Button(composite, SWT.NONE);
-        m_prevButton.setToolTipText("Previous " + m_dimensionName);
-        m_prevButton.setImage(m_horizontal
-            ? Activator.getImage("navigation/left.gif")
-            : Activator.getImage("navigation/up.gif"));
+        m_prevButton.setToolTipText(MessageFormat.format(
+            ModelMessages.DimensionEditDialog_previousButton,
+            m_dimensionName));
+        m_prevButton.setImage(m_horizontal ? Activator.getImage("navigation/left.gif") //$NON-NLS-1$
+            : Activator.getImage("navigation/up.gif")); //$NON-NLS-1$
         m_prevButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex - 1));
@@ -248,10 +253,11 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
       // next button
       {
         m_nextButton = new Button(composite, SWT.NONE);
-        m_nextButton.setToolTipText("Next " + m_dimensionName);
-        m_nextButton.setImage(m_horizontal
-            ? Activator.getImage("navigation/right.gif")
-            : Activator.getImage("navigation/down.gif"));
+        m_nextButton.setToolTipText(MessageFormat.format(
+            ModelMessages.DimensionEditDialog_nextButton,
+            m_dimensionName));
+        m_nextButton.setImage(m_horizontal ? Activator.getImage("navigation/right.gif") //$NON-NLS-1$
+            : Activator.getImage("navigation/down.gif")); //$NON-NLS-1$
         m_nextButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex + 1));
@@ -262,7 +268,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
     }
     // specification
     {
-      new Label(composite, SWT.NONE).setText("Specification:");
+      new Label(composite, SWT.NONE).setText(ModelMessages.DimensionEditDialog_specification);
       {
         m_specificationComposite = new DimensionSpecificationComposite(composite);
         GridDataFactory.create(m_specificationComposite).spanH(3).grabH().fillH().indentHC(3);
@@ -280,7 +286,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
    * Creates the alignment editing {@link Composite}.
    */
   private void createAlignmentComposite(Composite parent) {
-    createSeparator(parent, "Default alignment");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_defaultAlignment);
     Composite composite = new Composite(parent, SWT.NONE);
     //
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
@@ -307,7 +313,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
    * Creates the size editing {@link Composite}.
    */
   private void createSizeComposite(Composite parent) {
-    createSeparator(parent, "Size");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_size);
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
     GridLayoutFactory.create(composite).noMargins().columns(2);
@@ -319,9 +325,21 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
           showDimension();
         }
       };
-      m_minField = new DimensionUnitValueField(composite, "minimum", "minimumSize", listener);
-      m_prefField = new DimensionUnitValueField(composite, "preferred", "preferredSize", listener);
-      m_maxField = new DimensionUnitValueField(composite, "maximum", "maximumSize", listener);
+      m_minField =
+          new DimensionUnitValueField(composite,
+              ModelMessages.DimensionEditDialog_minimumSize,
+              "minimumSize", //$NON-NLS-1$
+              listener);
+      m_prefField =
+          new DimensionUnitValueField(composite,
+              ModelMessages.DimensionEditDialog_preferredSize,
+              "preferredSize", //$NON-NLS-1$
+              listener);
+      m_maxField =
+          new DimensionUnitValueField(composite,
+              ModelMessages.DimensionEditDialog_maximumSize,
+              "maximumSize", //$NON-NLS-1$
+              listener);
     }
   }
 
@@ -335,29 +353,23 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
       }
     };
     {
-      createSeparator(parent, "Grow behavior");
-      m_growComposite =
-          new DimensionResizeComposite(parent,
-              SWT.NONE,
-              "no grow",
-              "grow",
-              0,
-              100,
-              "grow",
-              listener);
+      createSeparator(parent, ModelMessages.DimensionEditDialog_growTitle);
+      m_growComposite = new DimensionResizeComposite(parent, SWT.NONE, "no grow", //$NON-NLS-1$
+          "grow", //$NON-NLS-1$
+          0,
+          100,
+          "grow", //$NON-NLS-1$
+          listener);
       GridDataFactory.create(m_growComposite).grabH().fill().indentHC(2);
     }
     {
-      createSeparator(parent, "Shrink behavior");
-      m_shrinkComposite =
-          new DimensionResizeComposite(parent,
-              SWT.NONE,
-              "default shrink",
-              "shrink",
-              100,
-              100,
-              "shrink",
-              listener);
+      createSeparator(parent, ModelMessages.DimensionEditDialog_shrinkTitle);
+      m_shrinkComposite = new DimensionResizeComposite(parent, SWT.NONE, "default shrink", //$NON-NLS-1$
+          "shrink", //$NON-NLS-1$
+          100,
+          100,
+          "shrink", //$NON-NLS-1$
+          listener);
       GridDataFactory.create(m_shrinkComposite).grabH().fill().indentHC(2);
     }
   }
@@ -373,7 +385,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
   private void showDimension() {
     // index
     {
-      m_indexText.setText("" + m_currentIndex);
+      m_indexText.setText(Integer.toString(m_currentIndex));
       m_prevButton.setEnabled(m_currentIndex != 0);
       m_nextButton.setEnabled(m_currentIndex < m_dimensions.size() - 1);
     }

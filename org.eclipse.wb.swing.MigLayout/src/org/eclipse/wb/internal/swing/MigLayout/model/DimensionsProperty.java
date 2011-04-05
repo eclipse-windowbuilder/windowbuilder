@@ -50,7 +50,7 @@ public final class DimensionsProperty extends Property {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public String getTitle() {
-    return m_horizontal ? "columnSpecs" : "rowSpecs";
+    return m_horizontal ? "columnSpecs" : "rowSpecs"; //$NON-NLS-1$ //$NON-NLS-2$
   }
 
   @Override
@@ -99,7 +99,7 @@ public final class DimensionsProperty extends Property {
       for (MigDimensionInfo dimension : dimensions) {
         titles.add(dimension.getString(true));
       }
-      return StringUtils.join(titles.iterator(), "");
+      return StringUtils.join(titles.iterator(), ""); //$NON-NLS-1$
     }
 
     ////////////////////////////////////////////////////////////////////////////

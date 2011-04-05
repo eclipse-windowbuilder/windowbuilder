@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo.Alignment;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -29,13 +30,20 @@ import java.util.List;
 public final class ColumnEditDialog extends DimensionEditDialog<MigColumnInfo, Alignment> {
   private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
   static {
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT, "&default"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEFT, "&left"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER, "&center"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.RIGHT, "&right"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL, "&fill"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEADING, "l&eading"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TRAILING, "&trailing"));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
+        ModelMessages.ColumnEditDialog_alignmentDefault));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEFT,
+        ModelMessages.ColumnEditDialog_alignmentLeft));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
+        ModelMessages.ColumnEditDialog_alignmentCenter));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.RIGHT,
+        ModelMessages.ColumnEditDialog_alignmentRight));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
+        ModelMessages.ColumnEditDialog_alignmentFill));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.LEADING,
+        ModelMessages.ColumnEditDialog_alignmentLeading));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TRAILING,
+        ModelMessages.ColumnEditDialog_alignmentTrailing));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -44,7 +52,12 @@ public final class ColumnEditDialog extends DimensionEditDialog<MigColumnInfo, A
   //
   ////////////////////////////////////////////////////////////////////////////
   public ColumnEditDialog(Shell parentShell, MigLayoutInfo layout, MigColumnInfo column) {
-    super(parentShell, layout, layout.getColumns(), column, "Column", ALIGNMENTS);
+    super(parentShell,
+        layout,
+        layout.getColumns(),
+        column,
+        ModelMessages.ColumnEditDialog_title,
+        ALIGNMENTS);
   }
 
   ////////////////////////////////////////////////////////////////////////////

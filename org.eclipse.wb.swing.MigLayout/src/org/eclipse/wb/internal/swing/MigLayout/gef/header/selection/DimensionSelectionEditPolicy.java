@@ -53,7 +53,7 @@ import java.util.List;
 abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
     extends
       AbstractHeaderSelectionEditPolicy {
-  protected static final String REQ_RESIZE = "resize";
+  protected static final String REQ_RESIZE = "resize"; //$NON-NLS-1$
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -205,7 +205,7 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
    */
   private void prepareDefaultResizeElements() {
     m_resizeSizeElement = SizeElement.PREF;
-    m_resizeSizeUnit = "";
+    m_resizeSizeUnit = ""; //$NON-NLS-1$
     // prepare default size element to resize
     UnitValue resizeValue;
     {
@@ -248,16 +248,16 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
       String text;
       switch (m_resizeSizeElement) {
         case MIN :
-          text = "min := ";
+          text = "min := "; //$NON-NLS-1$
           break;
         case PREF :
-          text = "pref := ";
+          text = "pref := "; //$NON-NLS-1$
           break;
         case MAX :
-          text = "max := ";
+          text = "max := "; //$NON-NLS-1$
           break;
         default :
-          text = "";
+          text = ""; //$NON-NLS-1$
       }
       m_feedback.setText(text + sizeString);
     }

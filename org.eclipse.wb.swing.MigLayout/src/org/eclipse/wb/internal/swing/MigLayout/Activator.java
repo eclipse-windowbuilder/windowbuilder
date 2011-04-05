@@ -30,7 +30,7 @@ import java.io.InputStream;
  * @coverage swing.MigLayout.model
  */
 public final class Activator extends AbstractUIPlugin {
-  public static final String PLUGIN_ID = "org.eclipse.wb.swing.MigLayout";
+  public static final String PLUGIN_ID = "org.eclipse.wb.swing.MigLayout"; //$NON-NLS-1$
   private static Activator m_plugin;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -89,13 +89,13 @@ public final class Activator extends AbstractUIPlugin {
    * @return the {@link Image} from "icons" directory, with caching.
    */
   public static Image getImage(String path) {
-    return m_resourceProvider.getImage("icons/" + path);
+    return m_resourceProvider.getImage("icons/" + path); //$NON-NLS-1$
   }
 
   /**
    * @return the {@link ImageDescriptor} from "icons" directory.
    */
   public static ImageDescriptor getImageDescriptor(String path) {
-    return m_resourceProvider.getImageDescriptor("icons/" + path);
+    return m_resourceProvider.getImageDescriptor("icons/" + path); //$NON-NLS-1$
   }
 }

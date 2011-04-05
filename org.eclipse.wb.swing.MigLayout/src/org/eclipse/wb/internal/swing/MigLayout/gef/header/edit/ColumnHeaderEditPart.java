@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
+import org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.SetAlignmentColumnAction;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.actions.SetGrowAction;
@@ -71,7 +72,8 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
         int titleLeft;
         int titleRight;
         {
-          String title = "" + getIndex();
+          int index = getIndex();
+          String title = Integer.toString(index);
           Dimension textExtents = graphics.getTextExtent(title);
           if (r.width < 3 + textExtents.width + 3) {
             return;
@@ -92,7 +94,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
         // draw grow indicator
         if (m_column.hasGrow()) {
           if (titleRight + 3 + 7 + 3 < r.right()) {
-            Image image = getImage("alignment/h/small/grow.gif");
+            Image image = getImage("alignment/h/small/grow.gif"); //$NON-NLS-1$
             drawCentered(graphics, image, r.right() - 3 - image.getBounds().width);
           }
         }
@@ -145,31 +147,36 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
     }
     // operations
     {
-      manager.add(new DimensionHeaderAction<MigColumnInfo>(this, "Insert Column") {
+      manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_insertColumn) {
         @Override
         protected void run(MigColumnInfo dimension, int index) throws Exception {
           m_layout.insertColumn(index);
         }
       });
-      manager.add(new DimensionHeaderAction<MigColumnInfo>(this, "Append Column") {
+      manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_appendColumn) {
         @Override
         protected void run(MigColumnInfo dimension, int index) throws Exception {
           m_layout.insertColumn(index + 1);
         }
       });
-      manager.add(new DimensionHeaderAction<MigColumnInfo>(this, "Delete Column") {
+      manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_deleteColumn) {
         @Override
         protected void run(MigColumnInfo dimension, int index) throws Exception {
           m_layout.deleteColumn(index);
         }
       });
-      manager.add(new DimensionHeaderAction<MigColumnInfo>(this, "Clear Column") {
+      manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_clearColumn) {
         @Override
         protected void run(MigColumnInfo dimension, int index) throws Exception {
           m_layout.clearColumn(index);
         }
       });
-      manager.add(new DimensionHeaderAction<MigColumnInfo>(this, "Split Column") {
+      manager.add(new DimensionHeaderAction<MigColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_splitColumn) {
         @Override
         protected void run(MigColumnInfo dimension, int index) throws Exception {
           m_layout.splitColumn(index);
@@ -191,19 +198,21 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
     {
       manager.add(new Separator());
       manager.add(new SetGrowAction<MigColumnInfo>(this,
-          "Grow",
-          Activator.getImageDescriptor("alignment/h/menu/grow.gif")));
+          GefMessages.ColumnHeaderEditPart_grow,
+          Activator.getImageDescriptor("alignment/h/menu/grow.gif"))); //$NON-NLS-1$
     }
     // size
     {
       manager.add(new Separator());
-      manager.add(new SetSizeAction<MigColumnInfo>(this, "(default size)", null));
-      manager.add(new SetSizeAction<MigColumnInfo>(this, "[pref!]", "pref!"));
+      manager.add(new SetSizeAction<MigColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_defaultSize,
+          null));
+      manager.add(new SetSizeAction<MigColumnInfo>(this, "[pref!]", "pref!")); //$NON-NLS-1$ //$NON-NLS-2$
     }
     // properties
     {
       manager.add(new Separator());
-      manager.add(new Action("Properties...") {
+      manager.add(new Action(GefMessages.ColumnHeaderEditPart_properties) {
         @Override
         public void run() {
           editDimension();

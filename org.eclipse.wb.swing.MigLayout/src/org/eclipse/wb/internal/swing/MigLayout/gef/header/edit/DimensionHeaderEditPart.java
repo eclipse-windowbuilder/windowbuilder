@@ -40,7 +40,7 @@ public abstract class DimensionHeaderEditPart<T extends MigDimensionInfo> extend
     implements
       IHeaderMenuProvider {
   protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
-  protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);
+  protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE); //$NON-NLS-1$
   protected static final Color GROUP_COLORS[] = new Color[]{
       new Color(null, 200, 255, 200),
       new Color(null, 255, 210, 170),

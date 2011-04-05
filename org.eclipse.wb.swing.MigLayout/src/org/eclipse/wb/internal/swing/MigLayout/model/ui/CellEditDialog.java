@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -82,7 +83,7 @@ public final class CellEditDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Cell properties");
+    newShell.setText(ModelMessages.CellEditDialog_cellProperties);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -144,7 +145,7 @@ public final class CellEditDialog extends ResizableDialog {
     GridLayoutFactory.create(composite).noMargins().columns(4);
     // specification
     {
-      new Label(composite, SWT.NONE).setText("Specification:");
+      new Label(composite, SWT.NONE).setText(ModelMessages.CellEditDialog_specification);
       {
         m_specificationComposite = new CellSpecificationComposite(composite);
         GridDataFactory.create(m_specificationComposite).spanH(3).indentHC(3).hintHC(30);

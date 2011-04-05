@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableTitleAreaDialog;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -132,8 +133,8 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
     GridDataFactory.create(table).hintC(60, 15).grab().fill();
     table.setHeaderVisible(true);
     table.setLinesVisible(true);
-    createColumn("#", 5);
-    createColumn("Specification", 65);
+    createColumn(ModelMessages.DimensionsDialog_columnNumber, 5);
+    createColumn(ModelMessages.DimensionsDialog_columnSpecification, 65);
     // configure viewer
     m_viewer.setContentProvider(new ArrayContentProvider());
     m_viewer.setLabelProvider(new DimensionsLabelProvider());
@@ -182,65 +183,69 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
     GridDataFactory.create(composite).fill();
     GridLayoutFactory.create(composite).marginsV(0);
     //
-    createButton(composite, "&Insert...", new Listener() {
+    createButton(composite, ModelMessages.DimensionsDialog_insertButton, new Listener() {
       public void handleEvent(Event event) {
         addNewDimension(0);
       }
     });
-    createButton(composite, "&Append...", new Listener() {
+    createButton(composite, ModelMessages.DimensionsDialog_appendButton, new Listener() {
       public void handleEvent(Event event) {
         addNewDimension(1);
       }
     });
-    m_editButton = createButton(composite, "&Edit...", new Listener() {
-      public void handleEvent(Event event) {
-        editSelectedDimension();
-      }
-    });
-    m_removeButton = createButton(composite, "&Remove", new Listener() {
-      public void handleEvent(Event event) {
-        final AtomicInteger lastIndex = new AtomicInteger();
-        applyChanges(new RunnableEx() {
-          public void run() throws Exception {
-            Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-            for (T dimension : selectedDimensions) {
-              lastIndex.set(dimension.getIndex());
-              dimension.delete();
-            }
+    m_editButton =
+        createButton(composite, ModelMessages.DimensionsDialog_editButton, new Listener() {
+          public void handleEvent(Event event) {
+            editSelectedDimension();
           }
         });
-        // set selection
-        int index = lastIndex.get();
-        index = Math.min(index, m_dimensions2.size() - 1);
-        m_viewer.getTable().select(index);
-        // validate
-        updateButtons();
-      }
-    });
+    m_removeButton =
+        createButton(composite, ModelMessages.DimensionsDialog_removeButton, new Listener() {
+          public void handleEvent(Event event) {
+            final AtomicInteger lastIndex = new AtomicInteger();
+            applyChanges(new RunnableEx() {
+              public void run() throws Exception {
+                Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+                for (T dimension : selectedDimensions) {
+                  lastIndex.set(dimension.getIndex());
+                  dimension.delete();
+                }
+              }
+            });
+            // set selection
+            int index = lastIndex.get();
+            index = Math.min(index, m_dimensions2.size() - 1);
+            m_viewer.getTable().select(index);
+            // validate
+            updateButtons();
+          }
+        });
     //
     new Label(composite, SWT.NONE);
-    m_moveUpButton = createButton(composite, "Move &Up", new Listener() {
-      public void handleEvent(Event event) {
-        applyChanges(new RunnableEx() {
-          public void run() throws Exception {
-            Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-            moveDimensionsUp(selectedDimensions);
+    m_moveUpButton =
+        createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
+          public void handleEvent(Event event) {
+            applyChanges(new RunnableEx() {
+              public void run() throws Exception {
+                Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+                moveDimensionsUp(selectedDimensions);
+              }
+            });
+            updateButtons();
           }
         });
-        updateButtons();
-      }
-    });
-    m_moveDownButton = createButton(composite, "Move &Down", new Listener() {
-      public void handleEvent(Event event) {
-        applyChanges(new RunnableEx() {
-          public void run() throws Exception {
-            Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-            moveDimensionsDown(selectedDimensions);
+    m_moveDownButton =
+        createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
+          public void handleEvent(Event event) {
+            applyChanges(new RunnableEx() {
+              public void run() throws Exception {
+                Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+                moveDimensionsDown(selectedDimensions);
+              }
+            });
+            updateButtons();
           }
         });
-        updateButtons();
-      }
-    });
   }
 
   /**
@@ -386,7 +391,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
     public String getColumnText(Object element, int columnIndex) {
       MigDimensionInfo dimension = (MigDimensionInfo) element;
       if (columnIndex == 0) {
-        return "" + dimension.getIndex();
+        return "" + dimension.getIndex(); //$NON-NLS-1$
       }
       if (columnIndex == 1) {
         return dimension.getString(false);

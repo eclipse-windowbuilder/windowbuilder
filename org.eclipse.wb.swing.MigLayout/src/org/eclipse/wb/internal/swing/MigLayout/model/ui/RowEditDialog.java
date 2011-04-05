@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment;
+import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -29,12 +30,18 @@ import java.util.List;
 public final class RowEditDialog extends DimensionEditDialog<MigRowInfo, Alignment> {
   private static final List<AlignmentDescription<Alignment>> ALIGNMENTS = Lists.newArrayList();
   static {
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT, "&default"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TOP, "&top"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER, "&center"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BOTTOM, "&bottom"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL, "&fill"));
-    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BASELINE, "b&aseline"));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.DEFAULT,
+        ModelMessages.RowEditDialog_alignmentDefault));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.TOP,
+        ModelMessages.RowEditDialog_alignmentTop));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.CENTER,
+        ModelMessages.RowEditDialog_alignmentCenter));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BOTTOM,
+        ModelMessages.RowEditDialog_alignmentBottom));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.FILL,
+        ModelMessages.RowEditDialog_alignmentFill));
+    ALIGNMENTS.add(new AlignmentDescription<Alignment>(Alignment.BASELINE,
+        ModelMessages.RowEditDialog_alignmentBaseline));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -43,7 +50,7 @@ public final class RowEditDialog extends DimensionEditDialog<MigRowInfo, Alignme
   //
   ////////////////////////////////////////////////////////////////////////////
   public RowEditDialog(Shell parentShell, MigLayoutInfo layout, MigRowInfo row) {
-    super(parentShell, layout, layout.getRows(), row, "Row", ALIGNMENTS);
+    super(parentShell, layout, layout.getRows(), row, ModelMessages.RowEditDialog_title, ALIGNMENTS);
   }
 
   ////////////////////////////////////////////////////////////////////////////

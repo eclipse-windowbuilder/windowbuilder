@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
+import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 import org.eclipse.wb.internal.core.model.property.editor.EnumCustomPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
@@ -47,6 +48,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.text.MessageFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -446,20 +448,20 @@ public final class CellConstraintsSupport {
    * Implementation of {@link #write()}.
    */
   public void write0() throws Exception {
-    // prepare constraints source
-    String source = IDEUtil.getConstraintString(cc, false);
-    source = cleanUpSource(source);
+    String constraintsString = IDEUtil.getConstraintString(cc, false);
+    constraintsString = cleanUpSource(constraintsString);
     // update association constraints
     if (m_component.getAssociation() instanceof InvocationChildAssociation) {
       InvocationChildAssociation association =
           (InvocationChildAssociation) m_component.getAssociation();
       MethodInvocation invocation = association.getInvocation();
       String signature = AstNodeUtils.getMethodSignature(invocation);
-      if (signature.equals("add(java.awt.Component,java.lang.Object)")) {
+      String constraintsSource = StringConverter.INSTANCE.toJavaSource(null, constraintsString);
+      if (signature.equals("add(java.awt.Component,java.lang.Object)")) { //$NON-NLS-1$
         Expression constraintsExpression = (Expression) invocation.arguments().get(1);
-        m_layout.getEditor().replaceExpression(constraintsExpression, "\"" + source + "\"");
-      } else if (signature.equals("add(java.awt.Component)")) {
-        m_layout.getEditor().addInvocationArgument(invocation, 1, "\"" + source + "\"");
+        m_layout.getEditor().replaceExpression(constraintsExpression, constraintsSource);
+      } else if (signature.equals("add(java.awt.Component)")) { //$NON-NLS-1$
+        m_layout.getEditor().addInvocationArgument(invocation, 1, constraintsSource);
       }
     }
   }
@@ -469,11 +471,11 @@ public final class CellConstraintsSupport {
    * but right we clean up several cases manually.
    */
   private static String cleanUpSource(String source) {
-    source = cleanUpSource_secondGap(source, "gapx", "gapright ");
-    source = cleanUpSource_secondGap(source, "gapy", "gapbottom ");
+    source = cleanUpSource_secondGap(source, "gapx", "gapright "); //$NON-NLS-1$ //$NON-NLS-2$
+    source = cleanUpSource_secondGap(source, "gapy", "gapbottom "); //$NON-NLS-1$ //$NON-NLS-2$
     // bug in 3.7.4
-    if (source.contains("hideMode")) {
-      source = StringUtils.replace(source, "hideMode", "hidemode");
+    if (source.contains("hideMode")) { //$NON-NLS-1$
+      source = StringUtils.replace(source, "hideMode", "hidemode"); //$NON-NLS-1$ //$NON-NLS-2$
     }
     // done
     return source;
@@ -483,11 +485,11 @@ public final class CellConstraintsSupport {
    * "gapx null value" -> "gapright value"
    */
   private static String cleanUpSource_secondGap(String source, String sourceName, String targetName) {
-    Pattern pattern = Pattern.compile(sourceName + " null (\\w+)(\\,|\\z)");
+    Pattern pattern = Pattern.compile(sourceName + " null (\\w+)(\\,|\\z)"); //$NON-NLS-1$
     Matcher matcher = pattern.matcher(source);
     if (matcher.find()) {
       String actualGap = matcher.group(1);
-      String optionalComma = matcher.group().endsWith(",") ? "," : "";
+      String optionalComma = matcher.group().endsWith(",") ? "," : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
       source =
           source.substring(0, matcher.start())
               + targetName
@@ -522,7 +524,7 @@ public final class CellConstraintsSupport {
    */
   public ComplexProperty getCellProperty() throws Exception {
     if (m_complexProperty == null) {
-      m_complexProperty = new ComplexProperty("Constraints", null);
+      m_complexProperty = new ComplexProperty("Constraints", null); //$NON-NLS-1$
       m_complexProperty.setCategory(PropertyCategory.system(6));
       m_complexProperty.setEditorPresentation(new ButtonPropertyEditorPresentation() {
         @Override
@@ -531,7 +533,10 @@ public final class CellConstraintsSupport {
         }
       });
       // grid properties
-      Property xProperty = new IntegerCellProperty("grid x", "getX()", "setX(int)") {
+      Property xProperty = new IntegerCellProperty("grid x", //$NON-NLS-1$
+          "getX()", //$NON-NLS-1$
+          "setX(int)" //$NON-NLS-1$
+      ) {
         @Override
         public boolean isModified() throws Exception {
           return true;
@@ -543,10 +548,16 @@ public final class CellConstraintsSupport {
           if (0 <= value && value + width <= columns) {
             return null;
           }
-          return value + " is out of range.\nMust be between 0 and " + (columns - width) + ".";
+          return MessageFormat.format(
+              ModelMessages.CellConstraintsSupport_gridX_outOfRange,
+              value,
+              (columns - width));
         }
       };
-      Property wProperty = new IntegerCellProperty("grid width", "getWidth()", "setWidth(int)") {
+      Property wProperty = new IntegerCellProperty("grid width", //$NON-NLS-1$
+          "getWidth()", //$NON-NLS-1$
+          "setWidth(int)" //$NON-NLS-1$
+      ) {
         @Override
         public boolean isModified() throws Exception {
           return width != 1;
@@ -563,10 +574,16 @@ public final class CellConstraintsSupport {
           if (1 <= value && x + value <= columns) {
             return null;
           }
-          return value + " is out of range.\nMust be between 1 and " + (columns - x) + ".";
+          return MessageFormat.format(
+              ModelMessages.CellConstraintsSupport_gridWidth_outOfRange,
+              value,
+              (columns - x));
         }
       };
-      Property yProperty = new IntegerCellProperty("grid y", "getY()", "setY(int)") {
+      Property yProperty = new IntegerCellProperty("grid y", //$NON-NLS-1$ 
+          "getY()", //$NON-NLS-1$ 
+          "setY(int)" //$NON-NLS-1$ 
+      ) {
         @Override
         public boolean isModified() throws Exception {
           return true;
@@ -578,10 +595,16 @@ public final class CellConstraintsSupport {
           if (0 <= value && value + height <= rows) {
             return null;
           }
-          return value + " is out of range.\nMust be between 0 and " + (rows - y - 1) + ".";
+          return MessageFormat.format(
+              ModelMessages.CellConstraintsSupport_gridY_outOfRange,
+              value,
+              (rows - y - 1));
         }
       };
-      Property hProperty = new IntegerCellProperty("grid height", "getHeight()", "setHeight(int)") {
+      Property hProperty = new IntegerCellProperty("grid height", //$NON-NLS-1$ 
+          "getHeight()", //$NON-NLS-1$ 
+          "setHeight(int)" //$NON-NLS-1$ 
+      ) {
         @Override
         public boolean isModified() throws Exception {
           return height != 1;
@@ -598,7 +621,10 @@ public final class CellConstraintsSupport {
           if (1 <= value && y + value <= rows) {
             return null;
           }
-          return value + " is out of range.\nMust be between 1 and " + (rows - y) + ".";
+          return MessageFormat.format(
+              ModelMessages.CellConstraintsSupport_gridHeight_outOfRange,
+              value,
+              (rows - y));
         }
       };
       // set sub-properties
@@ -616,17 +642,17 @@ public final class CellConstraintsSupport {
   }
 
   private Property getHorizontalAlignmentProperty() throws Exception {
-    return new AlignmentCellProperty<MigColumnInfo.Alignment>("h alignment",
-        "getHorizontalAlignment()",
-        "setHorizontalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo.Alignment)",
+    return new AlignmentCellProperty<MigColumnInfo.Alignment>("h alignment", //$NON-NLS-1$
+        "getHorizontalAlignment()", //$NON-NLS-1$
+        "setHorizontalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo.Alignment)", //$NON-NLS-1$
         MigColumnInfo.ALIGNMENTS_TO_SET,
         MigColumnInfo.Alignment.DEFAULT);
   }
 
   private Property getVerticalAlignmentProperty() throws Exception {
-    return new AlignmentCellProperty<MigRowInfo.Alignment>("v alignment",
-        "getVerticalAlignment()",
-        "setVerticalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment)",
+    return new AlignmentCellProperty<MigRowInfo.Alignment>("v alignment", //$NON-NLS-1$
+        "getVerticalAlignment()", //$NON-NLS-1$
+        "setVerticalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment)", //$NON-NLS-1$
         MigRowInfo.ALIGNMENTS_TO_SET,
         MigRowInfo.Alignment.DEFAULT);
   }
@@ -753,7 +779,7 @@ public final class CellConstraintsSupport {
     @Override
     protected final String validate(Object value) throws Exception {
       if (!(value instanceof Integer)) {
-        return "Integer value expected.";
+        return ModelMessages.CellConstraintsSupport_integerValueExpected;
       }
       int intValue = ((Integer) value).intValue();
       return validate(intValue);
@@ -840,21 +866,23 @@ public final class CellConstraintsSupport {
    * Adds items to the context {@link IMenuManager}.
    */
   public void addContextMenu(IMenuManager manager) throws Exception {
-    manager.appendToGroup(IContextMenuConstants.GROUP_TOP, new Action("Constraints...") {
-      @Override
-      public void run() {
-        new CellEditDialog(DesignerPlugin.getShell(), m_layout, m_this).open();
-      }
-    });
+    manager.appendToGroup(IContextMenuConstants.GROUP_TOP, new Action("Constraints...") { //$NON-NLS-1$
+          @Override
+          public void run() {
+            new CellEditDialog(DesignerPlugin.getShell(), m_layout, m_this).open();
+          }
+        });
     // horizontal
     {
-      IMenuManager manager2 = new MenuManager("Horizontal alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.CellConstraintsSupport_horizontalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       fillHorizontalAlignmentMenu(manager2);
     }
     // vertical
     {
-      IMenuManager manager2 = new MenuManager("Vertical alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.CellConstraintsSupport_verticalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       fillVerticalAlignmentMenu(manager2);
     }
@@ -864,25 +892,38 @@ public final class CellConstraintsSupport {
    * Adds the horizontal alignment {@link Action}'s.
    */
   public void fillHorizontalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetHorizontalAlignmentAction("&Default\tD", MigColumnInfo.Alignment.DEFAULT));
-    manager.add(new SetHorizontalAlignmentAction("&Left\tL", MigColumnInfo.Alignment.LEFT));
-    manager.add(new SetHorizontalAlignmentAction("&Center\tC", MigColumnInfo.Alignment.CENTER));
-    manager.add(new SetHorizontalAlignmentAction("&Right\tR", MigColumnInfo.Alignment.RIGHT));
-    manager.add(new SetHorizontalAlignmentAction("&Fill\tF", MigColumnInfo.Alignment.FILL));
-    manager.add(new SetHorizontalAlignmentAction("L&eading\tq", MigColumnInfo.Alignment.LEADING));
-    manager.add(new SetHorizontalAlignmentAction("&Trailing\tw", MigColumnInfo.Alignment.TRAILING));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_default,
+        MigColumnInfo.Alignment.DEFAULT));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_left,
+        MigColumnInfo.Alignment.LEFT));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_center,
+        MigColumnInfo.Alignment.CENTER));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_right,
+        MigColumnInfo.Alignment.RIGHT));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_fill,
+        MigColumnInfo.Alignment.FILL));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_leading,
+        MigColumnInfo.Alignment.LEADING));
+    manager.add(new SetHorizontalAlignmentAction(ModelMessages.CellConstraintsSupport_horizontalAlignment_trailing,
+        MigColumnInfo.Alignment.TRAILING));
   }
 
   /**
    * Adds the vertical alignment {@link Action}'s.
    */
   public void fillVerticalAlignmentMenu(IMenuManager manager2) {
-    manager2.add(new SetVerticalAlignmentAction("&Default\tShift+D", MigRowInfo.Alignment.DEFAULT));
-    manager2.add(new SetVerticalAlignmentAction("&Top\tT", MigRowInfo.Alignment.TOP));
-    manager2.add(new SetVerticalAlignmentAction("&Center\tM", MigRowInfo.Alignment.CENTER));
-    manager2.add(new SetVerticalAlignmentAction("&Bottom\tB", MigRowInfo.Alignment.BOTTOM));
-    manager2.add(new SetVerticalAlignmentAction("&Fill\tShift+F", MigRowInfo.Alignment.FILL));
-    manager2.add(new SetVerticalAlignmentAction("&Baseline\tA", MigRowInfo.Alignment.BASELINE));
+    manager2.add(new SetVerticalAlignmentAction(ModelMessages.CellConstraintsSupport_verticalAlignment_default,
+        MigRowInfo.Alignment.DEFAULT));
+    manager2.add(new SetVerticalAlignmentAction(ModelMessages.CellConstraintsSupport_verticalAlignment_top,
+        MigRowInfo.Alignment.TOP));
+    manager2.add(new SetVerticalAlignmentAction(ModelMessages.CellConstraintsSupport_verticalAlignment_center,
+        MigRowInfo.Alignment.CENTER));
+    manager2.add(new SetVerticalAlignmentAction(ModelMessages.CellConstraintsSupport_verticalAlignment_bottom,
+        MigRowInfo.Alignment.BOTTOM));
+    manager2.add(new SetVerticalAlignmentAction(ModelMessages.CellConstraintsSupport_verticalAlignment_fill,
+        MigRowInfo.Alignment.FILL));
+    manager2.add(new SetVerticalAlignmentAction(ModelMessages.CellConstraintsSupport_verticalAlignment_baseline,
+        MigRowInfo.Alignment.BASELINE));
   }
 
   ////////////////////////////////////////////////////////////////////////////
