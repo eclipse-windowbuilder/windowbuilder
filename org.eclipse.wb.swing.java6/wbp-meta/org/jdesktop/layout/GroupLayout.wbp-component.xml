@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns="http://www.eclipse.org/wb/WBPComponent">
-	<model class="org.eclipse.wb.internal.swing.model.layout.group.GroupLayoutInfo2"/>
+	<model class="org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo2"/>
 	<order>last</order>
 	<description>Swing Stand-alone lib GroupLayout.</description>
 	<!-- CREATION -->
