@@ -25,6 +25,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -169,8 +170,13 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     m_sourcesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
       public void selectionChanged(SelectionChangedEvent event) {
         IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-        m_selectedSource = (IEditableSource) selection.getFirstElement();
-        m_valuesViewer.setInput(m_selectedSource.getKeys());
+        if (!selection.isEmpty()) {
+          m_selectedSource = (IEditableSource) selection.getFirstElement();
+          m_valuesViewer.setInput(m_selectedSource.getKeys());
+        } else {
+          m_valuesViewer.setInput(null);
+        }
+        updateOkButton();
       }
     });
   }
@@ -308,7 +314,15 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     }
     // do refresh
     m_valuesViewer.refresh();
-    getButton(IDialogConstants.OK_ID).setEnabled(!m_valuesViewer.getSelection().isEmpty());
+    updateOkButton();
+  }
+
+  private void updateOkButton() {
+    ISelection keySelection = m_valuesViewer.getSelection();
+    Button okButton = getButton(IDialogConstants.OK_ID);
+    if (okButton != null) {
+      okButton.setEnabled(!keySelection.isEmpty());
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
