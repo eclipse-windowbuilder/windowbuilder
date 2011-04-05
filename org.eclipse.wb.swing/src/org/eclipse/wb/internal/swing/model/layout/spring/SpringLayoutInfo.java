@@ -255,7 +255,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
     SpringAttachmentInfo attachment = getAttachment(widget, side);
     if (attachment != null && !attachment.isVirtual()) {
       ComponentInfo anchorComponent = attachment.getAnchorComponent();
-      if (anchorComponent != null) {
+      if (anchorComponent != null && anchorComponent != getContainer()) {
         int anchorSide = attachment.getAnchorSide();
         return new ComponentAttachmentInfo(widget, anchorComponent, anchorSide);
       }
