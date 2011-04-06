@@ -52,6 +52,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 /**
  * Utilities for Swing images/shots.
@@ -401,7 +402,11 @@ public class SwingImageUtils {
       Container menuObject,
       Container parent) throws Exception {
     if (parent != null) {
-      menuData.m_menuBounds = CoordinateUtils.get(menuObject.getBounds());
+      menuData.m_menuBounds =
+          CoordinateUtils.get(SwingUtilities.convertRectangle(
+              menuObject,
+              menuObject.getBounds(),
+              parent));
     } else {
       // image
       {
@@ -462,7 +467,9 @@ public class SwingImageUtils {
         setVisible(popupMenu, false);
         if (parent != null) {
           parent.setLocation(parentLocation);
-          setVisible(parent, false);
+          if (parent instanceof JPopupMenu) {
+            setVisible(parent, false);
+          }
         }
       }
     }
