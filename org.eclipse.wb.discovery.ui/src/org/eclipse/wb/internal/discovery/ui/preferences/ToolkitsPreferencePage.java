@@ -17,7 +17,6 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.preference.IPreferencePageContainer;
 import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -323,6 +322,8 @@ public class ToolkitsPreferencePage extends PreferencePage implements
       WBDiscoveryUiPlugin.getPlugin().installToolkits(
           toolkits, 
           new ProgressBarMonitor(progressBar));
+      
+      closePreferencesDialog();
     } catch (ProvisionException e) {
       MessageDialog.openError(getShell(), "Error Installing Toolkit", e.getCause().getMessage());
     } catch (OperationCanceledException e) {
@@ -346,6 +347,8 @@ public class ToolkitsPreferencePage extends PreferencePage implements
       WBDiscoveryUiPlugin.getPlugin().uninstallToolkits(
           toolkits, 
           new ProgressBarMonitor(progressBar));
+      
+      closePreferencesDialog();
     } catch (ProvisionException e) {
       MessageDialog.openError(getShell(), "Error Uninstalling Toolkit", e.getCause().getMessage());
     } catch (OperationCanceledException e) {
@@ -354,7 +357,6 @@ public class ToolkitsPreferencePage extends PreferencePage implements
     }
   }
   
-  // TODO: call this when the progress bar is closed?
   private void closePreferencesDialog() {
     if (getContainer() instanceof PreferenceDialog) {
       PreferenceDialog dialog = (PreferenceDialog)getContainer();

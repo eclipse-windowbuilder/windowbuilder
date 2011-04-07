@@ -67,7 +67,7 @@ class P2Provisioner {
    * 
    * @param progressMonitor a progress monitor
    * @throws ProvisionException a P2 exception
-   * @throws OperationCanceledException thrown if the user cancelled
+   * @throws OperationCanceledException thrown if the user canceled
    */
   public void installToolkits(final IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
     provisioningUI = ProvisioningUI.getDefaultUI();
@@ -110,7 +110,7 @@ class P2Provisioner {
    * 
    * @param progressMonitor a progress monitor
    * @throws ProvisionException a P2 exception
-   * @throws OperationCanceledException thrown if the user cancelled
+   * @throws OperationCanceledException thrown if the user canceled
    */
   public void uninstallToolkits(final IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
     provisioningUI = ProvisioningUI.getDefaultUI();

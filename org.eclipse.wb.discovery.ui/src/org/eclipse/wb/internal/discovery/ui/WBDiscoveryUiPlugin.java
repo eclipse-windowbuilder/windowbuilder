@@ -23,6 +23,7 @@ import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.ui.util.ToolkitPingJob;
 import org.eclipse.wb.internal.discovery.ui.wizard.DynamicRegistryHelper;
 import org.osgi.framework.BundleContext;
 
@@ -134,6 +135,8 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
     throws ProvisionException, OperationCanceledException {
     P2Provisioner provisioner = new P2Provisioner(toolkits);
     
+    ping(toolkits);
+    
     provisioner.installToolkits(monitor);
   }
   
@@ -179,6 +182,12 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
     if (getContributeToWizards()) {
       DynamicRegistryHelper.getRegistryHelper().registerWizards();
     }
+  }
+
+  private void ping(List<WBToolkit> toolkits) {
+    ToolkitPingJob job = new ToolkitPingJob(toolkits);
+    
+    job.schedule();
   }
 
 }

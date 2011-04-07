@@ -108,8 +108,6 @@
 		
 		<description>The Google Plugin for Eclipse provides support for building projects with the Google Web Toolkit and Google APIs, as well as integration with Google Project Hosting and App Engine.</description>
     
-        <!-- http://dl.google.com/eclipse/plugin/3.6?source=wbdiscovery -->
-        
 		<updateSite version="[3.6,5.0)" url="http://dl.google.com/eclipse/plugin/3.6">
             <feature id="com.google.gdt.eclipse.suite.e36.feature"/>
             <feature id="com.google.gwt.eclipse.sdkbundle.e36.feature" optional="true"/>
