@@ -68,6 +68,7 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.Container;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -419,7 +420,10 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       ClassInstanceCreation creation = creationSupport.getCreation();
       getEditor().replaceCreationArguments(
           creation,
-          ImmutableList.of(layoutConstraintsSource + ", " + columnsSource + ", " + rowsSource)); //$NON-NLS-1$ //$NON-NLS-2$
+          ImmutableList.of(MessageFormat.format("{0}, {1}, {2}",//$NON-NLS-1$
+              layoutConstraintsSource,
+              columnsSource,
+              rowsSource)));
       setCreationSupport(new ConstructorCreationSupport(creation));
     }
   }

@@ -41,6 +41,15 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.MigLayout.header
  */
 public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
+  private static final String GROW_SMALL_PATH = "alignment/v/small/grow.gif"; //$NON-NLS-1$
+  private static final String GROW_MENU_PATH = "alignment/v/menu/grow.gif"; //$NON-NLS-1$
+  private static final String PREF_TITLE = "[pref!]"; //$NON-NLS-1$
+  private static final String PREF_CODE = "pref!"; //$NON-NLS-1$
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Instance fields
+  //
+  ////////////////////////////////////////////////////////////////////////////
   private final MigRowInfo m_row;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -94,7 +103,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
         // draw grow indicator
         if (m_dimension.hasGrow()) {
           if (titleBottom + 3 + 7 + 3 < r.bottom()) {
-            Image image = getImage("alignment/v/small/grow.gif"); //$NON-NLS-1$
+            Image image = getImage(GROW_SMALL_PATH);
             drawCentered(graphics, image, r.bottom() - 3 - image.getBounds().height);
           }
         }
@@ -198,7 +207,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
       manager.add(new Separator());
       manager.add(new SetGrowAction<MigRowInfo>(this,
           GefMessages.RowHeaderEditPart_grow,
-          Activator.getImageDescriptor("alignment/v/menu/grow.gif"))); //$NON-NLS-1$
+          Activator.getImageDescriptor(GROW_MENU_PATH)));
     }
     // size
     {
@@ -206,7 +215,7 @@ public class RowHeaderEditPart extends DimensionHeaderEditPart<MigRowInfo> {
       manager.add(new SetSizeAction<MigRowInfo>(this,
           GefMessages.RowHeaderEditPart_defaultSize,
           null));
-      manager.add(new SetSizeAction<MigRowInfo>(this, "[pref!]", "pref!")); //$NON-NLS-1$ //$NON-NLS-2$
+      manager.add(new SetSizeAction<MigRowInfo>(this, PREF_TITLE, PREF_CODE));
     }
     // properties
     {

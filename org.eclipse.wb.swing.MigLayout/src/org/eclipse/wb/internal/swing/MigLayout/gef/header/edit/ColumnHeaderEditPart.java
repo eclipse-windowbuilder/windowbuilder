@@ -41,6 +41,15 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.MigLayout.header
  */
 public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo> {
+  private static final String GROW_SMALL_PATH = "alignment/h/small/grow.gif"; //$NON-NLS-1$
+  private static final String GROW_MENU_PATH = "alignment/h/menu/grow.gif"; //$NON-NLS-1$
+  private static final String PREF_TITLE = "[pref!]"; //$NON-NLS-1$
+  private static final String PREF_CODE = "pref!"; //$NON-NLS-1$
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Instance fields
+  //
+  ////////////////////////////////////////////////////////////////////////////
   private final MigColumnInfo m_column;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -94,7 +103,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
         // draw grow indicator
         if (m_column.hasGrow()) {
           if (titleRight + 3 + 7 + 3 < r.right()) {
-            Image image = getImage("alignment/h/small/grow.gif"); //$NON-NLS-1$
+            Image image = getImage(GROW_SMALL_PATH);
             drawCentered(graphics, image, r.right() - 3 - image.getBounds().width);
           }
         }
@@ -199,7 +208,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
       manager.add(new Separator());
       manager.add(new SetGrowAction<MigColumnInfo>(this,
           GefMessages.ColumnHeaderEditPart_grow,
-          Activator.getImageDescriptor("alignment/h/menu/grow.gif"))); //$NON-NLS-1$
+          Activator.getImageDescriptor(GROW_MENU_PATH)));
     }
     // size
     {
@@ -207,7 +216,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo>
       manager.add(new SetSizeAction<MigColumnInfo>(this,
           GefMessages.ColumnHeaderEditPart_defaultSize,
           null));
-      manager.add(new SetSizeAction<MigColumnInfo>(this, "[pref!]", "pref!")); //$NON-NLS-1$ //$NON-NLS-2$
+      manager.add(new SetSizeAction<MigColumnInfo>(this, PREF_TITLE, PREF_CODE));
     }
     // properties
     {

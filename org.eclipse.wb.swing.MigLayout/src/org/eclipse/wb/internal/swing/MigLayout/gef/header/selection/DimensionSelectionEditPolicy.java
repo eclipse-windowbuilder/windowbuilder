@@ -42,6 +42,8 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
 import net.miginfocom.layout.UnitValue;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.List;
 
 /**
@@ -205,7 +207,7 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
    */
   private void prepareDefaultResizeElements() {
     m_resizeSizeElement = SizeElement.PREF;
-    m_resizeSizeUnit = ""; //$NON-NLS-1$
+    m_resizeSizeUnit = StringUtils.EMPTY;
     // prepare default size element to resize
     UnitValue resizeValue;
     {
