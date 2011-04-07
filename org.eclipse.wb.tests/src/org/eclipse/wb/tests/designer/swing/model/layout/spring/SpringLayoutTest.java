@@ -262,7 +262,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
   /**
    * Tests for {@link SpringLayoutInfo#getComponentAttachmentInfo(AbstractComponentInfo, int)}.
    */
-  public void test_getComponentAttachmentInfo() throws Exception {
+  public void test_getComponentAttachmentInfo_parent() throws Exception {
     ContainerInfo panel =
         parseContainer(
             "public class Test extends JPanel {",
@@ -284,8 +284,46 @@ public class SpringLayoutTest extends AbstractLayoutTest {
     {
       ComponentAttachmentInfo attachment =
           layout.getComponentAttachmentInfo(button, IPositionConstants.LEFT);
+      assertNull(attachment);
+    }
+    // TOP
+    {
+      ComponentAttachmentInfo attachment =
+          layout.getComponentAttachmentInfo(button, IPositionConstants.TOP);
+      assertNull(attachment);
+    }
+  }
+
+  /**
+   * Tests for {@link SpringLayoutInfo#getComponentAttachmentInfo(AbstractComponentInfo, int)}.
+   */
+  public void test_getComponentAttachmentInfo() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    SpringLayout layout = new SpringLayout();",
+            "    setLayout(layout);",
+            "    JButton targetButton = new JButton();",
+            "    add(targetButton);",
+            "    {",
+            "      JButton button = new JButton();",
+            "      add(button);",
+            "      layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.EAST, targetButton);",
+            "      layout.putConstraint(SpringLayout.NORTH, button, 10, SpringLayout.NORTH, targetButton);",
+            "    }",
+            "  }",
+            "}");
+    panel.refresh();
+    SpringLayoutInfo layout = (SpringLayoutInfo) panel.getLayout();
+    ComponentInfo targetButton = panel.getChildrenComponents().get(0);
+    ComponentInfo button = panel.getChildrenComponents().get(1);
+    // LEFT
+    {
+      ComponentAttachmentInfo attachment =
+          layout.getComponentAttachmentInfo(button, IPositionConstants.LEFT);
       assertNotNull(attachment);
-      assertSame(panel, attachment.getTarget());
+      assertSame(targetButton, attachment.getTarget());
       assertEquals(IPositionConstants.RIGHT, attachment.getAlignment());
     }
     // TOP
@@ -293,7 +331,7 @@ public class SpringLayoutTest extends AbstractLayoutTest {
       ComponentAttachmentInfo attachment =
           layout.getComponentAttachmentInfo(button, IPositionConstants.TOP);
       assertNotNull(attachment);
-      assertSame(panel, attachment.getTarget());
+      assertSame(targetButton, attachment.getTarget());
       assertEquals(IPositionConstants.TOP, attachment.getAlignment());
     }
     // RIGHT
