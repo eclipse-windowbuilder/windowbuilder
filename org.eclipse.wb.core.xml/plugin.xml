@@ -70,6 +70,8 @@
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.BooleanConverter"/>
 		<converter type="int"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter"/>
+		<converter type="float"
+			class="org.eclipse.wb.internal.core.xml.model.property.converter.FloatConverter"/>
 		<!--<converter type="java.lang.Boolean"
 			class="org.eclipse.wb.internal.core.model.property.converter.BooleanObjectConverter"/>
 		<converter type="char"
@@ -80,8 +82,6 @@
 		<converter type="java.lang.Integer"
 			class="org.eclipse.wb.internal.core.model.property.converter.IntegerObjectConverter"/>
 		<converter type="long" class="org.eclipse.wb.internal.core.model.property.converter.LongConverter"/>
-		<converter type="float"
-			class="org.eclipse.wb.internal.core.model.property.converter.FloatConverter"/>
 		<converter type="double"
 			class="org.eclipse.wb.internal.core.model.property.converter.DoubleConverter"/>-->
 		<converter type="java.lang.String"
