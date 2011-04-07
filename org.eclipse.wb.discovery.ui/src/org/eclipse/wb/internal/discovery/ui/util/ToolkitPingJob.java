@@ -25,6 +25,8 @@ public class ToolkitPingJob extends Job {
     super("WindowBuilder Discovery toolkit ping");
     
     this.toolkits = new ArrayList<WBToolkit>(toolkits);
+    
+    setSystem(true);
   }
 
   @Override
