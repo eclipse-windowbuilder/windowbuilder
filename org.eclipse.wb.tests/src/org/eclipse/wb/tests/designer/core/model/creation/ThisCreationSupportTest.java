@@ -609,13 +609,47 @@ public class ThisCreationSupportTest extends SwingModelTest {
     // parse
     ContainerInfo panel =
         parseContainer(
+            "// filler filler filler filler filler",
             "public class Test extends MyPanel {",
             "  public Test() {",
             "  }",
-            "  // filler filler filler",
             "}");
     panel.refresh();
     //
     ReflectionUtils.invokeMethod(panel.getObject(), "foo()");
+  }
+
+  /**
+   * It is possible that user code call abstract method outside of create operation, i.e. what we
+   * are considering as "execution". We still should try our best to prevent
+   * {@link AbstractMethodError}
+   */
+  public void test_abstractMethod_inNonExecution() throws Exception {
+    setFileContentSrc(
+        "test/MyPanel.java",
+        getTestSource(
+            "public abstract class MyPanel extends JPanel {",
+            "  public MyPanel() {",
+            "  }",
+            "  public void setVisible(boolean visible) {",
+            "    super.setVisible(visible);",
+            "    foo();",
+            "  }",
+            "  public abstract void foo();",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "public class Test extends MyPanel {",
+            "  public Test() {",
+            "  }",
+            "  public void foo() {",
+            "  }",
+            "}");
+    panel.refresh();
+    // call setVisible() which will call abstract method
+    panel.getComponent().setVisible(false);
   }
 }

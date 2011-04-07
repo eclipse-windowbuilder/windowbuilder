@@ -360,12 +360,13 @@ public final class ThisCreationSupport extends CreationSupport {
     m_enhancer.setClassLoader(getClassLoader());
     m_enhancer.setSuperclass(componentClass);
     Callback interceptor = new MethodInterceptor() {
-      public Object intercept(Object obj,
-          java.lang.reflect.Method method,
-          Object[] args,
-          MethodProxy proxy) throws Throwable {
+      public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
+          throws Throwable {
         // if not in AST execution, then ignore
         if (m_interceptOnlyDuringExecution && !m_editorState.isExecuting()) {
+          if (ReflectionUtils.isAbstract(method)) {
+            return returnDefaultValue(method);
+          }
           return proxy.invokeSuper(obj, args);
         }
         // try to find implementation of this method in AST
@@ -403,10 +404,15 @@ public final class ThisCreationSupport extends CreationSupport {
         }
         // handle abstract
         if (ReflectionUtils.isAbstract(method)) {
-          return ReflectionUtils.getDefaultValue(method.getReturnType());
+          return returnDefaultValue(method);
         }
         // invoke super
         return proxy.invokeSuper(obj, args);
+      }
+
+      private Object returnDefaultValue(Method method) {
+        Class<?> returnType = method.getReturnType();
+        return ReflectionUtils.getDefaultValue(returnType);
       }
     };
     m_enhancer.setCallbacks(new Callback[]{interceptor, NoOp.INSTANCE});
