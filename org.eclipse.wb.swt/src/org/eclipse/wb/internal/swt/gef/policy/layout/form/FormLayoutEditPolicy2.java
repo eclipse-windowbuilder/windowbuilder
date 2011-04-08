@@ -52,6 +52,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -341,7 +342,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
    * @return string representing current size of component
    */
   private String getSizeHintString(EditPart editPart, int width, int height) {
-    return Integer.toString(width) + " x " + Integer.toString(height);
+    return MessageFormat.format("{0} x {1}", width, height);
   }
 
   /**
@@ -356,7 +357,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
    * @return string representing the current component location during moving
    */
   private String getLocationHintText(EditPart editPart, int x, int y) {
-    return Integer.toString(x) + " x " + Integer.toString(y);
+    return MessageFormat.format("{0} x {1}", x, y);
   }
 
   ////////////////////////////////////////////////////////////////////////////

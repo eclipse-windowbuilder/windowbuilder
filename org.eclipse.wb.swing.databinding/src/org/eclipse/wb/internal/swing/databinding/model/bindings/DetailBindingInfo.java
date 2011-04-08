@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Separ
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
@@ -131,13 +132,14 @@ public final class DetailBindingInfo extends BindingInfo {
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Choose a properties for the target and the model.");
+    listener.setTitle(Messages.DetailBindingInfo_listenerTitle);
+    listener.setMessage(Messages.DetailBindingInfo_listenerMessage);
     // add target
-    providers.add(new LabelUiContentProvider("Component:",
+    providers.add(new LabelUiContentProvider(Messages.DetailBindingInfo_component,
         m_target.getPresentation().getTextForBinding()));
     // add model
-    providers.add(new LabelUiContentProvider("Model:", getModelPresentationText(false)));
+    providers.add(new LabelUiContentProvider(Messages.DetailBindingInfo_model,
+        getModelPresentationText(false)));
     providers.add(new DetailBindingUiContentProvider(createConfiguration(), this));
     // binding self properties
     providers.add(new SeparatorUiContentProvider());
@@ -150,13 +152,13 @@ public final class DetailBindingInfo extends BindingInfo {
   private static ChooseClassAndPropertiesConfiguration createConfiguration() {
     ChooseClassAndPropertiesConfiguration configuration =
         new ChooseClassAndPropertiesConfiguration();
-    configuration.setDialogFieldLabel("Element bean class:");
+    configuration.setDialogFieldLabel(Messages.DetailBindingInfo_chooseLabel);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage("Choose a element bean class that contains properties.");
-    configuration.setErrorMessagePrefix("Element bean class");
-    configuration.setPropertiesLabel("Properties (for detail):");
-    configuration.setPropertiesErrorMessage("Choose a detail property.");
+    configuration.setEmptyClassErrorMessage(Messages.DetailBindingInfo_chooseError);
+    configuration.setErrorMessagePrefix(Messages.DetailBindingInfo_chooseErrorPrefix);
+    configuration.setPropertiesLabel(Messages.DetailBindingInfo_choosePropertiesLabel);
+    configuration.setPropertiesErrorMessage(Messages.DetailBindingInfo_choosePropertiesError);
     return configuration;
   }
 

@@ -36,8 +36,8 @@ public final class ActionNewEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ActionNewEntryInfo() {
-    setName("New");
-    setDescription("Adds new subclass of AbstractAction to this form and allows to drop it on design canvas.");
+    setName(PaletteMessages.ActionNewEntryInfo_name);
+    setDescription(PaletteMessages.ActionNewEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

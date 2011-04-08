@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.layout;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -36,14 +37,18 @@ public final class RowLayoutDataAssistantPage extends AbstractAssistantPage {
     // Width & Height
     {
       Group group =
-          addIntegerProperties(this, "Size", new String[][]{
-              {"width", "Width:"},
-              {"height", "Height:"}}, new int[]{SWT.DEFAULT, SWT.DEFAULT});
+          addIntegerProperties(
+              this,
+              ModelMessages.RowLayoutDataAssistantPage_sizeGroup,
+              new String[][]{
+                  {"width", ModelMessages.RowLayoutDataAssistantPage_sizeWidth},
+                  {"height", ModelMessages.RowLayoutDataAssistantPage_sizeHeight}},
+              new int[]{SWT.DEFAULT, SWT.DEFAULT});
       GridDataFactory.create(group).fillV();
     }
     // Exclude
     {
-      addBooleanProperty(this, "exclude", "Exclude");
+      addBooleanProperty(this, "exclude", ModelMessages.RowLayoutDataAssistantPage_excludeFlag);
     }
   }
 }

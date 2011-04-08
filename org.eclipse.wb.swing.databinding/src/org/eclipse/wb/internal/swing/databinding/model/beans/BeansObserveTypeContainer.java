@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.DataBindingsRootInfo;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.components.JavaInfoReferenceProvider;
@@ -47,6 +48,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -291,10 +293,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
       PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
       if (baseProperty == null) {
-        AbstractParser.addError(
-            editor,
-            "Argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.BeansObserveTypeContainer_errArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);
@@ -312,10 +313,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
       PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
       if (baseProperty == null) {
-        AbstractParser.addError(
-            editor,
-            "Argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.BeansObserveTypeContainer_errArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);

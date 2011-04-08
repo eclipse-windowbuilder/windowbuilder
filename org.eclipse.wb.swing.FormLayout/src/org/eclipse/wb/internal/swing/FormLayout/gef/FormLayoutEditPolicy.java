@@ -404,14 +404,15 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 
   public void buildContextMenu(IMenuManager manager, boolean horizontal) {
     if (horizontal) {
-      manager.add(new ObjectInfoAction(m_layout, "Append Column") {
+      manager.add(new ObjectInfoAction(m_layout,
+          GefMessages.FormLayoutEditPolicy_appendColumnAction) {
         @Override
         protected void runEx() throws Exception {
           m_layout.insertColumn(m_layout.getColumns().size());
         }
       });
     } else {
-      manager.add(new ObjectInfoAction(m_layout, "Append Row") {
+      manager.add(new ObjectInfoAction(m_layout, GefMessages.FormLayoutEditPolicy_appendRowAction) {
         @Override
         protected void runEx() throws Exception {
           m_layout.insertRow(m_layout.getRows().size());

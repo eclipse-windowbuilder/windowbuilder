@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BorderField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
@@ -45,30 +46,35 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
   public TitledBorderComposite(Composite parent) {
     super(parent, "TitledBorder");
     GridLayoutFactory.create(this);
-    m_titleField = createTextField("&Title:");
+    m_titleField = createTextField(ModelMessages.TitledBorderComposite_title);
     m_titleJustificationField =
-        createComboField("Title &justification:", TitledBorder.class, new String[]{
-            "LEFT",
-            "CENTER",
-            "RIGHT",
-            "LEADING",
-            "TRAILING"}, new String[]{"Left", "Center", "Right", "Leading", "Trailing"});
+        createComboField(
+            ModelMessages.TitledBorderComposite_titleJustification,
+            TitledBorder.class,
+            new String[]{"LEFT", "CENTER", "RIGHT", "LEADING", "TRAILING"},
+            new String[]{
+                ModelMessages.TitledBorderComposite_justLeft,
+                ModelMessages.TitledBorderComposite_justCenter,
+                ModelMessages.TitledBorderComposite_justRight,
+                ModelMessages.TitledBorderComposite_justLeading,
+                ModelMessages.TitledBorderComposite_justTrailing});
     m_titlePositionField =
-        createComboField("Title &position:", TitledBorder.class, new String[]{
-            "ABOVE_TOP",
-            "TOP",
-            "BELOW_TOP",
-            "ABOVE_BOTTOM",
-            "BOTTOM",
-            "BELOW_BOTTOM"}, new String[]{
-            "Above Top",
-            "Top",
-            "Below Top",
-            "Above Bottom",
-            "Bottom",
-            "Below Bottom"});
-    m_titleColorField = createColorField("Title &color:");
-    m_borderField = createBorderField("&Border:", "&Edit...");
+        createComboField(
+            ModelMessages.TitledBorderComposite_titlePosition,
+            TitledBorder.class,
+            new String[]{"ABOVE_TOP", "TOP", "BELOW_TOP", "ABOVE_BOTTOM", "BOTTOM", "BELOW_BOTTOM"},
+            new String[]{
+                ModelMessages.TitledBorderComposite_posAboveTop,
+                ModelMessages.TitledBorderComposite_posTop,
+                ModelMessages.TitledBorderComposite_posBelowTop,
+                ModelMessages.TitledBorderComposite_posAboveBottom,
+                ModelMessages.TitledBorderComposite_posBottom,
+                ModelMessages.TitledBorderComposite_posBelowBottom});
+    m_titleColorField = createColorField(ModelMessages.TitledBorderComposite_titleColor);
+    m_borderField =
+        createBorderField(
+            ModelMessages.TitledBorderComposite_border,
+            ModelMessages.TitledBorderComposite_borderEdit);
     // configure layout
     GridDataFactory.create(m_titleField).fillH();
     GridDataFactory.create(m_titleJustificationField).fillH();

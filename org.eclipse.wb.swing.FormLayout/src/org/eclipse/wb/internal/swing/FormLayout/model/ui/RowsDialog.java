@@ -16,11 +16,13 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
+import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
 import com.jgoodies.forms.factories.FormFactory;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -71,22 +73,22 @@ public final class RowsDialog extends DimensionsDialog<FormRowInfo> {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected String getDialogTitle() {
-    return "Edit Rows";
+    return ModelMessages.RowsDialog_dialogTitle;
   }
 
   @Override
   protected String getDialogMessage() {
-    return "Adding, removing or rearranging rows does not affect the components contained in those rows.";
+    return ModelMessages.RowsDialog_dialogMessage;
   }
 
   @Override
   protected String getViewerTitle() {
-    return "Row &Specifications:";
+    return ModelMessages.RowsDialog_viewerTitle;
   }
 
   @Override
   protected String getMinimalErrorMessage(int minimumDimensions) {
-    return "At least " + minimumDimensions + " rows required.";
+    return MessageFormat.format(ModelMessages.RowsDialog_minimalErrorMesssage, minimumDimensions);
   }
 
   @Override

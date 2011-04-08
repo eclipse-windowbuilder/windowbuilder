@@ -30,6 +30,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
+import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences.PercentsInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
@@ -44,6 +45,7 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -232,13 +234,16 @@ final class FormHeaderLayoutEditPolicy<C extends IControlInfo>
     final int percent = calcPercent(location);
     // add actions
     if (percent > 0) {
-      IAction action = new Action("Add " + percent + "% snap point") {
-        @Override
-        public void run() {
-          layout.getPreferences().addPercent(percent, isHorizontal);
-          getHost().refresh();
-        }
-      };
+      IAction action =
+          new Action(MessageFormat.format(
+              GefMessages.FormHeaderLayoutEditPolicy_addSnapPoint,
+              percent)) {
+            @Override
+            public void run() {
+              layout.getPreferences().addPercent(percent, isHorizontal);
+              getHost().refresh();
+            }
+          };
       manager.add(action);
       manager.add(new Separator());
     }
@@ -248,19 +253,22 @@ final class FormHeaderLayoutEditPolicy<C extends IControlInfo>
             ? layout.getPreferences().getHorizontalPercents()
             : layout.getPreferences().getVerticalPercents();
     for (final Integer integer : percents) {
-      IAction action = new Action("Remove " + integer + "%") {
-        @Override
-        public void run() {
-          layout.getPreferences().removePercent(integer, isHorizontal);
-          getHost().refresh();
-        }
-      };
+      IAction action =
+          new Action(MessageFormat.format(
+              GefMessages.FormHeaderLayoutEditPolicy_removePercent,
+              integer)) {
+            @Override
+            public void run() {
+              layout.getPreferences().removePercent(integer, isHorizontal);
+              getHost().refresh();
+            }
+          };
       manager.add(action);
     }
     manager.add(new Separator());
     {
       // restore defaults
-      IAction action = new Action("Restore defaults") {
+      IAction action = new Action(GefMessages.FormHeaderLayoutEditPolicy_restoreDefaults) {
         @Override
         public void run() {
           layout.getPreferences().defaultPercents(isHorizontal);
@@ -271,13 +279,13 @@ final class FormHeaderLayoutEditPolicy<C extends IControlInfo>
     }
     {
       // configure defaults
-      IAction action = new Action("Use this as defaults...") {
+      IAction action = new Action(GefMessages.FormHeaderLayoutEditPolicy_useAsDefaults) {
         @Override
         public void run() {
           if (MessageDialog.openQuestion(
               DesignerPlugin.getShell(),
-              "Confirm",
-              "Are you sure you want to use these values as default?")) {
+              GefMessages.FormHeaderLayoutEditPolicy_confirmDefaultsTitle,
+              GefMessages.FormHeaderLayoutEditPolicy_confirmDefaultsMessage)) {
             layout.getPreferences().setAsDefaultPercents(isHorizontal);
           }
         }
@@ -286,7 +294,7 @@ final class FormHeaderLayoutEditPolicy<C extends IControlInfo>
     }
     {
       // configure defaults
-      IAction action = new Action("Configure defaults...") {
+      IAction action = new Action(GefMessages.FormHeaderLayoutEditPolicy_configureDefaults) {
         @Override
         public void run() {
           ToolkitDescription toolkit = GlobalState.getToolkit();

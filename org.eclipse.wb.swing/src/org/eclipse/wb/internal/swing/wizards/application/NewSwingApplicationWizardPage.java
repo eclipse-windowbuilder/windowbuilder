@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.wizards.application;
 
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -34,9 +35,9 @@ public final class NewSwingApplicationWizardPage extends SwingWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewSwingApplicationWizardPage() {
-    setTitle("Create Application");
+    setTitle(Messages.NewSwingApplicationWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/SwingApplication/banner.gif"));
-    setDescription("Create a Swing application window.");
+    setDescription(Messages.NewSwingApplicationWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

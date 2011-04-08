@@ -36,6 +36,7 @@ import org.eclipse.wb.internal.swing.laf.model.LafInfo;
 import org.eclipse.wb.internal.swing.laf.model.SeparatorLafInfo;
 import org.eclipse.wb.internal.swing.laf.ui.AddCustomLookAndFeelDialog;
 import org.eclipse.wb.internal.swing.laf.ui.EditCustomLookAndFeelDialog;
+import org.eclipse.wb.internal.swing.preferences.Messages;
 
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -87,6 +88,7 @@ import org.apache.commons.lang.ArrayUtils;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -160,14 +162,14 @@ public class LafPreferencePage extends PreferencePage
     GridLayoutFactory.create(container).margins(0);
     {
       m_applyInMainButton = new Button(container, SWT.CHECK);
-      m_applyInMainButton.setText("Apply choosen LookAndFeel in main() method");
+      m_applyInMainButton.setText(Messages.LafPreferencePage_applyInMain);
       m_applyInMainButton.setSelection(getPreferenceStore().getBoolean(P_APPLY_IN_MAIN));
     }
     {
       Group lafGroup = new Group(container, SWT.NONE);
       GridDataFactory.create(lafGroup).grab().fill();
       GridLayoutFactory.create(lafGroup).columns(2);
-      lafGroup.setText("Available LookAndFeels");
+      lafGroup.setText(Messages.LafPreferencePage_available);
       // LAF tree
       {
         m_lafTree =
@@ -203,7 +205,7 @@ public class LafPreferencePage extends PreferencePage
     {
       m_previewGroup = new Group(container, SWT.NONE);
       GridDataFactory.create(m_previewGroup).grabH().fill();
-      m_previewGroup.setText("Preview:");
+      m_previewGroup.setText(Messages.LafPreferencePage_preview);
       m_previewGroup.setLayout(new FillLayout());
     }
     // return back LAF
@@ -226,54 +228,59 @@ public class LafPreferencePage extends PreferencePage
     GridDataFactory.create(buttonsComposite).grabV().fill();
     GridLayoutFactory.create(buttonsComposite).noMargins();
     //
-    createButton(buttonsComposite, "Add...", new Listener() {
+    createButton(buttonsComposite, Messages.LafPreferencePage_addButton, new Listener() {
       public void handleEvent(Event event) {
         handleAddUserDefinedLAF();
       }
     });
-    createButton(buttonsComposite, "Add Category...", new Listener() {
+    createButton(buttonsComposite, Messages.LafPreferencePage_addCategoryButton, new Listener() {
       public void handleEvent(Event event) {
         handleAddCategory();
       }
     });
     //
     createButtonSeparator(buttonsComposite);
-    m_setDefaultButton = createButton(buttonsComposite, "Set Default", new Listener() {
-      public void handleEvent(Event event) {
-        handleSetDefaultLAF();
-      }
-    });
+    m_setDefaultButton =
+        createButton(buttonsComposite, Messages.LafPreferencePage_setDefaultButton, new Listener() {
+          public void handleEvent(Event event) {
+            handleSetDefaultLAF();
+          }
+        });
     createButtonSeparator(buttonsComposite);
-    m_editButton = createButton(buttonsComposite, "Edit...", new Listener() {
-      public void handleEvent(Event event) {
-        handleEdit();
-      }
-    });
-    m_deleteButton = createButton(buttonsComposite, "Remove...", new Listener() {
-      public void handleEvent(Event event) {
-        handleDelete();
-      }
-    });
+    m_editButton =
+        createButton(buttonsComposite, Messages.LafPreferencePage_editButton, new Listener() {
+          public void handleEvent(Event event) {
+            handleEdit();
+          }
+        });
+    m_deleteButton =
+        createButton(buttonsComposite, Messages.LafPreferencePage_removeButton, new Listener() {
+          public void handleEvent(Event event) {
+            handleDelete();
+          }
+        });
     //
     createButtonSeparator(buttonsComposite);
-    m_moveUpButton = createButton(buttonsComposite, "Up", new Listener() {
-      public void handleEvent(Event event) {
-        handleMove(-1);
-      }
-    });
-    m_moveDownButton = createButton(buttonsComposite, "Down", new Listener() {
-      public void handleEvent(Event event) {
-        handleMove(+2);
-      }
-    });
+    m_moveUpButton =
+        createButton(buttonsComposite, Messages.LafPreferencePage_upButton, new Listener() {
+          public void handleEvent(Event event) {
+            handleMove(-1);
+          }
+        });
+    m_moveDownButton =
+        createButton(buttonsComposite, Messages.LafPreferencePage_downButton, new Listener() {
+          public void handleEvent(Event event) {
+            handleMove(+2);
+          }
+        });
     //
     createButtonSeparator(buttonsComposite);
-    createButton(buttonsComposite, "Collapse All", new Listener() {
+    createButton(buttonsComposite, Messages.LafPreferencePage_collapseAllButton, new Listener() {
       public void handleEvent(Event event) {
         m_lafTree.collapseAll();
       }
     });
-    createButton(buttonsComposite, "Expand All", new Listener() {
+    createButton(buttonsComposite, Messages.LafPreferencePage_expandAllButton, new Listener() {
       public void handleEvent(Event event) {
         m_lafTree.expandAll();
       }
@@ -337,8 +344,8 @@ public class LafPreferencePage extends PreferencePage
     m_defaultLAF = LafSupport.getSettingsDefaultLAF();
     if (MessageDialog.openConfirm(
         getShell(),
-        "Confirm",
-        "Are you sure to remove all custom LookAndFeel classes defined and reset the LookAndFeel list to default state?")) {
+        Messages.LafPreferencePage_removeConfirmTitle,
+        Messages.LafPreferencePage_removeConfirmMessage)) {
       LafSupport.resetToDefaults();
       refreshViewer();
       fireLookAndFeelsChanged();
@@ -368,7 +375,11 @@ public class LafPreferencePage extends PreferencePage
   ////////////////////////////////////////////////////////////////////////////
   private void handleAddCategory() {
     InputDialog inputDialog =
-        new InputDialog(getShell(), "New category", "Enter new category name:", "", null);
+        new InputDialog(getShell(),
+            Messages.LafPreferencePage_addCategoryTitle,
+            Messages.LafPreferencePage_addCategoryMessage,
+            "",
+            null);
     if (inputDialog.open() == Window.OK) {
       commands_add(new AddCategoryCommand("category_" + System.currentTimeMillis(),
           inputDialog.getValue()));
@@ -448,8 +459,8 @@ public class LafPreferencePage extends PreferencePage
     if (selection.contains(m_defaultLAF)) {
       MessageDialog.openWarning(
           getShell(),
-          "Warning",
-          "Default LookAndFeel can't be removed.\nPlease mark another LookAndFeel as default and then remove this one.");
+          Messages.LafPreferencePage_deleteWarningTitle,
+          Messages.LafPreferencePage_deleteWarningMessage);
       // filter out default LAF
       selection = (List<Object>) CollectionUtils.select(selection, new Predicate() {
         public boolean evaluate(Object object) {
@@ -458,9 +469,10 @@ public class LafPreferencePage extends PreferencePage
       });
     }
     if (!selection.isEmpty()) {
-      if (MessageDialog.openConfirm(getShell(), "Confirm", "Are you sure you want to remove "
-          + selection.size()
-          + " selected element(s)?")) {
+      if (MessageDialog.openConfirm(
+          getShell(),
+          Messages.LafPreferencePage_deleteConfirmTitle,
+          MessageFormat.format(Messages.LafPreferencePage_deleteConfirmMessage, selection.size()))) {
         for (Object entry : selection) {
           if (entry instanceof CategoryInfo) {
             commands_add(new RemoveCategoryCommand((CategoryInfo) entry));
@@ -509,8 +521,8 @@ public class LafPreferencePage extends PreferencePage
       CategoryInfo category = (CategoryInfo) entry;
       InputDialog inputDialog =
           new InputDialog(getShell(),
-              "Category",
-              "Enter new category name:",
+              Messages.LafPreferencePage_editCategoryTitle,
+              Messages.LafPreferencePage_editCategoryMessage,
               category.getName(),
               null);
       // execute dialog
@@ -689,22 +701,22 @@ public class LafPreferencePage extends PreferencePage
             JMenuBar menuBar = new JMenuBar();
             rootPane.setJMenuBar(menuBar);
             {
-              JMenu mnFile = new JMenu("File");
+              JMenu mnFile = new JMenu(Messages.LafPreferencePage_previewFile);
               menuBar.add(mnFile);
               {
-                JMenuItem mntmNew = new JMenuItem("New");
+                JMenuItem mntmNew = new JMenuItem(Messages.LafPreferencePage_previewNew);
                 mnFile.add(mntmNew);
               }
               {
-                JMenuItem mntmExit = new JMenuItem("Exit");
+                JMenuItem mntmExit = new JMenuItem(Messages.LafPreferencePage_previewExit);
                 mnFile.add(mntmExit);
               }
             }
             {
-              JMenu mnView = new JMenu("View");
+              JMenu mnView = new JMenu(Messages.LafPreferencePage_previewView);
               menuBar.add(mnView);
               {
-                JMenuItem mntmCommon = new JMenuItem("Common");
+                JMenuItem mntmCommon = new JMenuItem(Messages.LafPreferencePage_previewCommon);
                 mnView.add(mntmCommon);
               }
             }
@@ -716,7 +728,7 @@ public class LafPreferencePage extends PreferencePage
           gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0E-4};
           rootPane.getContentPane().setLayout(gridBagLayout);
           {
-            JLabel lblLabel = new JLabel("Label");
+            JLabel lblLabel = new JLabel(Messages.LafPreferencePage_previewLabel);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(0, 0, 5, 5);
             gbc.gridx = 0;
@@ -724,7 +736,7 @@ public class LafPreferencePage extends PreferencePage
             rootPane.getContentPane().add(lblLabel, gbc);
           }
           {
-            JButton btnPushButton = new JButton("Push Button");
+            JButton btnPushButton = new JButton(Messages.LafPreferencePage_previewButton);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(0, 0, 5, 0);
             gbc.gridx = 1;
@@ -734,7 +746,7 @@ public class LafPreferencePage extends PreferencePage
           {
             JComboBox comboBox = new JComboBox();
             comboBox.setModel(new DefaultComboBoxModel(new String[]{
-                "ComboBox",
+                Messages.LafPreferencePage_previewCombo,
                 "ComboBox Item 1",
                 "ComboBox Item 2"}));
             GridBagConstraints gbc = new GridBagConstraints();
@@ -745,7 +757,8 @@ public class LafPreferencePage extends PreferencePage
             rootPane.getContentPane().add(comboBox, gbc);
           }
           {
-            JRadioButton rdbtnRadioButton = new JRadioButton("Radio Button");
+            JRadioButton rdbtnRadioButton =
+                new JRadioButton(Messages.LafPreferencePage_previewRadio);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(0, 0, 5, 0);
             gbc.gridx = 1;
@@ -753,7 +766,7 @@ public class LafPreferencePage extends PreferencePage
             rootPane.getContentPane().add(rdbtnRadioButton, gbc);
           }
           {
-            JCheckBox chckbxCheckbox = new JCheckBox("CheckBox");
+            JCheckBox chckbxCheckbox = new JCheckBox(Messages.LafPreferencePage_previewCheck);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(0, 0, 0, 5);
             gbc.gridx = 0;
@@ -762,7 +775,7 @@ public class LafPreferencePage extends PreferencePage
           }
           {
             JTextField textField = new JTextField();
-            textField.setText("Text Field");
+            textField.setText(Messages.LafPreferencePage_previewTextField);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.gridx = 1;

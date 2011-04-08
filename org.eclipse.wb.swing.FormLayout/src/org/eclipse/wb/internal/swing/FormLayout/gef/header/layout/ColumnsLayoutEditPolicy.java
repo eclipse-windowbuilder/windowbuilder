@@ -30,10 +30,13 @@ import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.gef.FormLayoutEditPolicy;
+import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.selection.ColumnSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
+
+import java.text.MessageFormat;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ColumnHeaderEditPart}.
@@ -172,7 +175,9 @@ public final class ColumnsLayoutEditPolicy extends AbstractHeaderLayoutEditPolic
         m_feedback.setLocation(feedbackLocation);
       }
       // set text
-      m_feedback.setText("column: " + (1 + index));
+      m_feedback.setText(MessageFormat.format(
+          GefMessages.ColumnsLayoutEditPolicy_feedbackPattern,
+          1 + index));
     }
     // prepare command
     {

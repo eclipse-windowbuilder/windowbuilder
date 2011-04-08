@@ -29,6 +29,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.RowHeaderEditPart;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.layout.ColumnsLayoutEditPolicy;
@@ -398,14 +399,14 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
 
   public void buildContextMenu(IMenuManager manager, boolean horizontal) {
     if (horizontal) {
-      manager.add(new ObjectInfoAction(m_layout, "Append Column") {
+      manager.add(new ObjectInfoAction(m_layout, GefMessages.GridBagLayoutEditPolicy_appendColumn) {
         @Override
         protected void runEx() throws Exception {
           m_layout.getColumnOperations().insert(m_layout.getColumns().size());
         }
       });
     } else {
-      manager.add(new ObjectInfoAction(m_layout, "Append Row") {
+      manager.add(new ObjectInfoAction(m_layout, GefMessages.GridBagLayoutEditPolicy_appendRow) {
         @Override
         protected void runEx() throws Exception {
           m_layout.getRowOperations().insert(m_layout.getRows().size());

@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAr
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -55,9 +56,9 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
     super(parentShell,
         Activator.getDefault(),
         shellText,
-        "SpinnerModel editor",
+        ModelMessages.SpinnerModelDialog_title,
         null,
-        "Select type of SpinnerModel and configure it.");
+        ModelMessages.SpinnerModelDialog_message);
     m_model = model;
   }
 
@@ -116,17 +117,17 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
     Group previewGroup = new Group(parent, SWT.NONE);
     GridDataFactory.create(previewGroup).fill();
     GridLayoutFactory.create(previewGroup).columns(2);
-    previewGroup.setText("Preview (embedded JSpinner)");
+    previewGroup.setText(ModelMessages.SpinnerModelDialog_preview);
     // hint
     {
       Label label = new Label(previewGroup, SWT.NONE);
       GridDataFactory.create(label).spanH(2);
-      label.setText("Here you can test the above settings.");
+      label.setText(ModelMessages.SpinnerModelDialog_hint);
     }
     {
       Label label = new Label(previewGroup, SWT.NONE);
       configureColumn_1(label);
-      label.setText("Test s&pinner:");
+      label.setText(ModelMessages.SpinnerModelDialog_test);
     }
     {
       // two clicks needed to focus AWT component, see:

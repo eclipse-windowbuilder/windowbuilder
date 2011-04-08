@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 
 /**
  * Loader for native libs, based on SWT.Library class.
@@ -126,7 +127,7 @@ public class Library {
         return;
       }
     }
-    throw new UnsatisfiedLinkError("Library " + name + " can't be loaded");
+    throw new UnsatisfiedLinkError(MessageFormat.format(BaselineMessages.Library_canNotLoad, name));
   }
 
   private static String mapLibraryName(String libName) {

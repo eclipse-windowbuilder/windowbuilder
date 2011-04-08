@@ -19,6 +19,7 @@ import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetAlignmentAction;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetGrabAction;
@@ -162,33 +163,33 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
     // grab
     {
       manager.add(new SetGrabAction<C>(this,
-          "&Grab excess space",
+          GefMessages.RowHeaderEditPart_grabExcessSpace,
           GridImages.getImageDescriptor("v/menu/grow.gif")));
     }
     // alignment
     {
       manager.add(new Separator());
       manager.add(new SetAlignmentAction<C>(this,
-          "&Top",
+          GefMessages.RowHeaderEditPart_top,
           GridImages.getImageDescriptor("v/menu/top.gif"),
           SWT.TOP));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Center",
+          GefMessages.RowHeaderEditPart_center,
           GridImages.getImageDescriptor("v/menu/center.gif"),
           SWT.CENTER));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Bottom",
+          GefMessages.RowHeaderEditPart_bottom,
           GridImages.getImageDescriptor("v/menu/bottom.gif"),
           SWT.BOTTOM));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Fill",
+          GefMessages.RowHeaderEditPart_fill,
           GridImages.getImageDescriptor("h/menu/fill.gif"),
           SWT.FILL));
     }
     // operations
     {
       manager.add(new Separator());
-      manager.add(new DimensionHeaderAction<C>(this, "&Delete Row",
+      manager.add(new DimensionHeaderAction<C>(this, GefMessages.RowHeaderEditPart_delete,
           GridImages.getImageDescriptor("v/menu/delete.gif")) {
         @Override
         protected void run(GridDimensionInfo<C> dimension) throws Exception {

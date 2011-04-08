@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormUtils;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormAttachmentInfo.FormAttachmentClipboardInfo;
@@ -120,7 +121,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
     // auto-size
     {
       IAction action =
-          new ObjectInfoAction(control, "Autosize control",
+          new ObjectInfoAction(control, ModelMessages.FormLayoutInfo_autoSize,
               Activator.getImage("info/layout/FormLayout/fit_to_size.png")) {
             @Override
             protected void runEx() throws Exception {
@@ -131,7 +132,8 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
     }
     // pre-defined anchors
     {
-      IMenuManager predefinedMenuManager = new MenuManager("Quick constraints");
+      IMenuManager predefinedMenuManager =
+          new MenuManager(ModelMessages.FormLayoutInfo_quickConstraints);
       manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, predefinedMenuManager);
       new PredefinedAnchorsActions<ControlInfo>(this).contributeActions(
           control,

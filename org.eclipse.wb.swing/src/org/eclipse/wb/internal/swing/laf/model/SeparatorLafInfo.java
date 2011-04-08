@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf.model;
 
+import org.eclipse.wb.internal.swing.model.ModelMessages;
+
 import javax.swing.LookAndFeel;
 
 /**
@@ -39,6 +41,6 @@ public class SeparatorLafInfo extends LafInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public LookAndFeel getLookAndFeelInstance() throws Exception {
-    throw new RuntimeException("Separator items can't be instanced.");
+    throw new RuntimeException(ModelMessages.SeparatorLafInfo_canNotInstantiate);
   }
 }

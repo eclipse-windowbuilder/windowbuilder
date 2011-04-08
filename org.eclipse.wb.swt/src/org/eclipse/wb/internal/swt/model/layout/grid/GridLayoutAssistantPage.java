@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.layout.grid;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -40,9 +41,16 @@ public final class GridLayoutAssistantPage extends AbstractAssistantPage {
       GridDataFactory.create(topComposite).fillH().grabH();
       // columns properties
       {
-        addIntegerProperty(topComposite, "numColumns", "Number of columns:", 1);
+        addIntegerProperty(
+            topComposite,
+            "numColumns",
+            ModelMessages.GridLayoutAssistantPage_numColumns,
+            1);
         new Label(topComposite, SWT.NONE).setText(" ");
-        addBooleanProperty(topComposite, "makeColumnsEqualWidth", "Make columns equal width");
+        addBooleanProperty(
+            topComposite,
+            "makeColumnsEqualWidth",
+            ModelMessages.GridLayoutAssistantPage_makeColumnsEqual);
       }
     }
     {
@@ -52,27 +60,40 @@ public final class GridLayoutAssistantPage extends AbstractAssistantPage {
       // margin for sides
       {
         Group group =
-            addIntegerProperties(groupComposite, "Margins for sides", new String[][]{
-                new String[]{"marginLeft", "Left:"},
-                new String[]{"marginTop", "Top:"},
-                new String[]{"marginRight", "Right:"},
-                new String[]{"marginBottom", "Bottom:"}});
+            addIntegerProperties(
+                groupComposite,
+                ModelMessages.GridLayoutAssistantPage_sideMarginsGroup,
+                new String[][]{
+                    new String[]{"marginLeft", ModelMessages.GridLayoutAssistantPage_marginLeft},
+                    new String[]{"marginTop", ModelMessages.GridLayoutAssistantPage_marginTop},
+                    new String[]{"marginRight", ModelMessages.GridLayoutAssistantPage_marginRight},
+                    new String[]{"marginBottom", ModelMessages.GridLayoutAssistantPage_marginBottom}});
         GridDataFactory.create(group).fillV().spanV(2);
       }
       // margins
       {
         Group group =
-            addIntegerProperties(groupComposite, "Margins", new String[][]{
-                new String[]{"marginWidth", "Margin Width:"},
-                new String[]{"marginHeight", "Margin Height:"}});
+            addIntegerProperties(
+                groupComposite,
+                ModelMessages.GridLayoutAssistantPage_marginsGroup,
+                new String[][]{
+                    new String[]{"marginWidth", ModelMessages.GridLayoutAssistantPage_marginWidth},
+                    new String[]{"marginHeight", ModelMessages.GridLayoutAssistantPage_marginHeight}});
         GridDataFactory.create(group).fillH().grabH();
       }
       // spacing
       {
         Group group =
-            addIntegerProperties(groupComposite, "Spacing", new String[][]{
-                new String[]{"horizontalSpacing", "Horizontal spacing:"},
-                new String[]{"verticalSpacing", "Vertical spacing:"}});
+            addIntegerProperties(
+                groupComposite,
+                ModelMessages.GridLayoutAssistantPage_spacingGroup,
+                new String[][]{
+                    new String[]{
+                        "horizontalSpacing",
+                        ModelMessages.GridLayoutAssistantPage_spacingHorizontal},
+                    new String[]{
+                        "verticalSpacing",
+                        ModelMessages.GridLayoutAssistantPage_spacingVertical}});
         GridDataFactory.create(group).fillH().grabH();
       }
     }

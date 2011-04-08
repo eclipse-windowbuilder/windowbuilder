@@ -34,8 +34,8 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public AbsoluteLayoutEntryInfo() {
-    setName("Absolute layout");
-    setDescription("Layout with absolute positioning components.");
+    setName(PaletteMessages.AbsoluteLayoutEntryInfo_name);
+    setDescription(PaletteMessages.AbsoluteLayoutEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

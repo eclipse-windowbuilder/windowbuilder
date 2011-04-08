@@ -16,6 +16,7 @@ import org.eclipse.wb.core.eval.InvocationEvaluatorInterceptor;
 import org.eclipse.wb.internal.core.model.util.PlaceholderUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.IMethodBinding;
@@ -184,7 +185,10 @@ public final class SwingInvocationEvaluatorInterceptor extends InvocationEvaluat
    *         created because of some exception.
    */
   private static Component createPlaceholder(Class<?> clazz) {
-    String message = MessageFormat.format("Exception during creation of: {0}", clazz.getName());
+    String message =
+        MessageFormat.format(
+            ModelMessages.SwingInvocationEvaluatorInterceptor_placeholderMessage,
+            clazz.getName());
     JPanel panel = new JPanel();
     panel.setLayout(new BorderLayout(5, 5));
     panel.setBackground(new Color(0xFF, 0xCC, 0xCC));

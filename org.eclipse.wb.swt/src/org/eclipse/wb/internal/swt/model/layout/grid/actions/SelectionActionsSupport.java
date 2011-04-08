@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
@@ -71,20 +72,78 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
     }
     // create horizontal actions
     actions.add(new Separator());
-    addAlignmentAction(actions, dataInfos, true, "left.gif", "Left", SWT.LEFT);
-    addAlignmentAction(actions, dataInfos, true, "center.gif", "Center", SWT.CENTER);
-    addAlignmentAction(actions, dataInfos, true, "right.gif", "Right", SWT.RIGHT);
-    addAlignmentAction(actions, dataInfos, true, "fill.gif", "Fill", SWT.FILL);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "left.gif",
+        ModelMessages.SelectionActionsSupport_horLeft,
+        SWT.LEFT);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "center.gif",
+        ModelMessages.SelectionActionsSupport_horCenter,
+        SWT.CENTER);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "right.gif",
+        ModelMessages.SelectionActionsSupport_horRight,
+        SWT.RIGHT);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_horFill,
+        SWT.FILL);
     // create vertical actions
     actions.add(new Separator());
-    addAlignmentAction(actions, dataInfos, false, "top.gif", "Top", SWT.TOP);
-    addAlignmentAction(actions, dataInfos, false, "center.gif", "Center", SWT.CENTER);
-    addAlignmentAction(actions, dataInfos, false, "bottom.gif", "Bottom", SWT.BOTTOM);
-    addAlignmentAction(actions, dataInfos, false, "fill.gif", "Fill", SWT.FILL);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "top.gif",
+        ModelMessages.SelectionActionsSupport_verTop,
+        SWT.TOP);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "center.gif",
+        ModelMessages.SelectionActionsSupport_verCenter,
+        SWT.CENTER);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "bottom.gif",
+        ModelMessages.SelectionActionsSupport_verBottom,
+        SWT.BOTTOM);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_verFill,
+        SWT.FILL);
     // create grab actions
     actions.add(new Separator());
-    addGrabAction(actions, dataInfos, true, "grow.gif", "Horizontal grab");
-    addGrabAction(actions, dataInfos, false, "grow.gif", "Vertical grab");
+    addGrabAction(
+        actions,
+        dataInfos,
+        true,
+        "grow.gif",
+        ModelMessages.SelectionActionsSupport_horGrab);
+    addGrabAction(
+        actions,
+        dataInfos,
+        false,
+        "grow.gif",
+        ModelMessages.SelectionActionsSupport_verGrab);
   }
 
   private void addAlignmentAction(List<Object> actions,

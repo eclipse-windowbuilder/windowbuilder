@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IPreferenceConstants;
+import org.eclipse.wb.internal.swt.preferences.PreferencesMessages;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
@@ -63,12 +64,12 @@ public abstract class GridLayoutPreferencePage extends AbstractBindingPreference
       checkButton(
           this,
           2,
-          "Use automatic horizontal/vertical grab",
+          PreferencesMessages.GridLayoutPreferencePage_useGrab,
           IPreferenceConstants.P_ENABLE_GRAB);
       checkButton(
           this,
           2,
-          "Automatically align right Label-like components before Text-like components",
+          PreferencesMessages.GridLayoutPreferencePage_doAlignRight,
           IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
     }
   }

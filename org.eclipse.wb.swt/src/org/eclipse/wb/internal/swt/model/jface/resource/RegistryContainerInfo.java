@@ -16,10 +16,12 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.swt.graphics.Image;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -75,7 +77,10 @@ public final class RegistryContainerInfo extends ObjectInfo {
       }
     }
     //
-    Assert.fail("Unknown registry: " + root + " - " + node);
+    Assert.fail(MessageFormat.format(
+        ModelMessages.RegistryContainerInfo_unknownRegistry,
+        root,
+        node));
     return null;
   }
 
@@ -107,7 +112,7 @@ public final class RegistryContainerInfo extends ObjectInfo {
   public IObjectPresentation getPresentation() {
     return new DefaultObjectPresentation(this) {
       public String getText() throws Exception {
-        return "(JFace registries)";
+        return ModelMessages.RegistryContainerInfo_jfaceRegistries;
       }
 
       @Override

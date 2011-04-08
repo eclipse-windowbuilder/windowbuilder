@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 import org.eclipse.wb.internal.core.databinding.ui.editor.DialogFieldUiContentProvider;
 import org.eclipse.wb.internal.core.utils.dialogfields.ComboDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.UpdateStrategyInfo;
 
 import org.eclipse.swt.SWT;
@@ -35,7 +36,7 @@ public final class UpdateStrategyUiContentProvider extends DialogFieldUiContentP
   public UpdateStrategyUiContentProvider(UpdateStrategyInfo strategyInfo) {
     m_strategyInfo = strategyInfo;
     m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
-    m_dialogField.setLabelText("UpdateStrategy:");
+    m_dialogField.setLabelText(Messages.UpdateStrategyUiContentProvider_label);
     m_dialogField.setItems(UpdateStrategyInfo.VALUES);
   }
 

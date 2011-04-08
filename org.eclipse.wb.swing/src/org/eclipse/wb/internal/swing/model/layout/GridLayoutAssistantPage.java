@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.model.layout;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -32,9 +33,9 @@ public final class GridLayoutAssistantPage extends AbstractAssistantPage {
   public GridLayoutAssistantPage(Composite parent, Object selection) {
     super(parent, selection);
     GridLayoutFactory.create(this).columns(2);
-    addIntegerProperty(this, "rows", "Row count:");
-    addIntegerProperty(this, "columns", "Column count:");
-    addIntegerProperty(this, "hgap", "Horizontal gap:");
-    addIntegerProperty(this, "vgap", "Vertical gap:");
+    addIntegerProperty(this, "rows", ModelMessages.GridLayoutAssistantPage_rowCount);
+    addIntegerProperty(this, "columns", ModelMessages.GridLayoutAssistantPage_columnCount);
+    addIntegerProperty(this, "hgap", ModelMessages.GridLayoutAssistantPage_horizontalGap);
+    addIntegerProperty(this, "vgap", ModelMessages.GridLayoutAssistantPage_verticalGap);
   }
 }

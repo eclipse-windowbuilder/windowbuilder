@@ -164,17 +164,17 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     bindingColumn.setResizable(false);
     // target column
     TableColumn targetColumn = UiUtils.createSmartColumn(table, settings, "TargetColumn", 250);
-    targetColumn.setText("Target");
+    targetColumn.setText(Messages.DatabindingsProvider_targetColumnText);
     // model column
     TableColumn modelColumn = UiUtils.createSmartColumn(table, settings, "ModelColumn", 250);
-    modelColumn.setText("Model");
+    modelColumn.setText(Messages.DatabindingsProvider_modelColumnText);
     // strategy column
     TableColumn strategyColumn = UiUtils.createSmartColumn(table, settings, "StrategyColumn", 170);
-    strategyColumn.setText("Strategy");
+    strategyColumn.setText(Messages.DatabindingsProvider_strategyColumnText);
     // binding variable column
     TableColumn variableBindingColumn =
         UiUtils.createSmartColumn(table, settings, "VariableBindingColumn", 250);
-    variableBindingColumn.setText("Binding");
+    variableBindingColumn.setText(Messages.DatabindingsProvider_bindingColumnText);
     // label provider
     viewer.setLabelProvider(new BindingLabelProvider());
   }
@@ -244,7 +244,8 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
       m_filters.add(new HideAdvancedPropertyFilter());
       m_filters.add(new ShowAdvancedPropertyFilter());
       // any type
-      m_filters.add(new AllPropertiesFilter("All types", TypeImageProvider.OBJECT_IMAGE));
+      m_filters.add(new AllPropertiesFilter(Messages.DatabindingsProvider_allTypes,
+          TypeImageProvider.OBJECT_IMAGE));
       // String, byte, char
       m_filters.add(new TypesPropertyFilter("String",
           TypeImageProvider.STRING_IMAGE,

@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.generic.GenericUtils;
@@ -179,13 +180,14 @@ public class ColumnBindingInfo extends BindingInfo implements IEditableProvider 
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Choose a properties for the target and the model.");
+    listener.setTitle(Messages.ColumnBindingInfo_listenerTitle);
+    listener.setMessage(Messages.ColumnBindingInfo_listenerMessage);
     // add target
-    providers.add(new LabelUiContentProvider("Component:",
+    providers.add(new LabelUiContentProvider(Messages.ColumnBindingInfo_componentLabel,
         m_target.getPresentation().getTextForBinding()));
     // add model
-    providers.add(new LabelUiContentProvider("Model:", getModelPresentationText(false)));
+    providers.add(new LabelUiContentProvider(Messages.ColumnBindingInfo_modelLabel,
+        getModelPresentationText(false)));
     providers.add(new ColumnBindingUiContentProvider(this));
     // binding self properties
     providers.add(new SeparatorUiContentProvider());
@@ -201,12 +203,12 @@ public class ColumnBindingInfo extends BindingInfo implements IEditableProvider 
   private static ChooseClassConfiguration createColumnConfiguration() {
     if (m_columnClassConfiguration == null) {
       m_columnClassConfiguration = new ChooseClassConfiguration();
-      m_columnClassConfiguration.setDialogFieldLabel("Column class:");
+      m_columnClassConfiguration.setDialogFieldLabel(Messages.ColumnBindingInfo_chooseTitle);
       m_columnClassConfiguration.setValueScope("beans");
       m_columnClassConfiguration.setClearValue("N/S");
       m_columnClassConfiguration.setChooseInterfaces(true);
-      m_columnClassConfiguration.setEmptyClassErrorMessage("Column class is empty.");
-      m_columnClassConfiguration.setErrorMessagePrefix("Column class");
+      m_columnClassConfiguration.setEmptyClassErrorMessage(Messages.ColumnBindingInfo_chooseError);
+      m_columnClassConfiguration.setErrorMessagePrefix(Messages.ColumnBindingInfo_chooseErrorPrefix);
     }
     return m_columnClassConfiguration;
   }

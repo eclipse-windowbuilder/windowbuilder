@@ -56,6 +56,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.ImplicitLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.ImplicitLayoutVariableSupport;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
@@ -197,7 +198,7 @@ public class CompositeInfo extends ScrollableInfo
       return;
     }
     // OK, add "Set layout"
-    IMenuManager layoutsManager = new MenuManager("Set layout");
+    IMenuManager layoutsManager = new MenuManager(ModelMessages.CompositeInfo_setLayoutManager);
     manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, layoutsManager);
     fillLayoutsManager(layoutsManager);
   }
@@ -216,7 +217,7 @@ public class CompositeInfo extends ScrollableInfo
           setLayout(layout);
         }
       };
-      action.setText("Absolute layout");
+      action.setText(ModelMessages.CompositeInfo_setLayoutAbsolute);
       action.setImageDescriptor(Activator.getImageDescriptor("info/layout/absolute/layout.gif"));
       layoutsManager.add(action);
     }
@@ -260,7 +261,7 @@ public class CompositeInfo extends ScrollableInfo
           getTopBoundsSupport().setSize(preferredSize.width, preferredSize.height);
         }
       };
-      action.setText("Set minimal size, as after pack()");
+      action.setText(ModelMessages.CompositeInfo_setMinimalSize);
       manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
     }
   }
@@ -494,7 +495,7 @@ public class CompositeInfo extends ScrollableInfo
       }
     }
     // composite that has layout, should always have some layout model
-    throw new IllegalStateException("Composite should always have layout");
+    throw new IllegalStateException(ModelMessages.CompositeInfo_shouldAlwaysHaveLayout);
   }
 
   /**

@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
@@ -176,7 +177,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
           component.setPreferredSize(component.getSize());
           frame.getContentPane().add(component, BorderLayout.CENTER);
           // configure frame
-          frame.setTitle("Wrapper JFrame");
+          frame.setTitle(ModelMessages.SwingTopBoundsSupport_wrapperTitle);
           frame.pack();
         }
         // set window location

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 
@@ -40,12 +41,14 @@ public final class EtchedBorderComposite extends AbstractBorderComposite {
     GridLayoutFactory.create(this);
     m_typeField =
         createRadioField(
-            "&Etch type:",
+            ModelMessages.EtchedBorderComposite_etchType,
             EtchedBorder.class,
             new String[]{"LOWERED", "RAISED"},
-            new String[]{"&lowered", "&raised"});
-    m_highlightField = createColorField("&Highlight color:");
-    m_shadowField = createColorField("&Shadow color:");
+            new String[]{
+                ModelMessages.EtchedBorderComposite_etchLowered,
+                ModelMessages.EtchedBorderComposite_etchRaised});
+    m_highlightField = createColorField(ModelMessages.EtchedBorderComposite_highlightColor);
+    m_shadowField = createColorField(ModelMessages.EtchedBorderComposite_shadowColor);
   }
 
   ////////////////////////////////////////////////////////////////////////////

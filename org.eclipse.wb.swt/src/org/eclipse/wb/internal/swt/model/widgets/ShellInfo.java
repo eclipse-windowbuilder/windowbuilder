@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
@@ -99,7 +100,7 @@ public final class ShellInfo extends CompositeInfo {
           removeMethodInvocations("setSize(int,int)");
         }
       };
-      action.setText("Remove setSize()");
+      action.setText(ModelMessages.ShellInfo_removeSetSize);
       manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
     }
   }

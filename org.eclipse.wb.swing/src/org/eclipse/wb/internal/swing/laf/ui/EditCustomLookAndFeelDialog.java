@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.laf.LafMessages;
 import org.eclipse.wb.internal.swing.laf.command.EditCommand;
 import org.eclipse.wb.internal.swing.laf.command.EditNameCommand;
 import org.eclipse.wb.internal.swing.laf.command.MoveCommand;
@@ -54,10 +55,10 @@ public class EditCustomLookAndFeelDialog extends AbstractCustomLookAndFeelDialog
   public EditCustomLookAndFeelDialog(Shell parentShell, LafInfo lafInfo) {
     super(parentShell,
         lafInfo.getCategory(),
-        "Edit LookAndFeel",
-        "Edit LookAndFeel",
+        LafMessages.EditCustomLookAndFeelDialog_edit,
+        LafMessages.EditCustomLookAndFeelDialog_edit,
         null,
-        "Edit the LookAndFeel properties.");
+        LafMessages.EditCustomLookAndFeelDialog_editProperties);
     m_lafInfo = lafInfo;
   }
 
@@ -76,7 +77,7 @@ public class EditCustomLookAndFeelDialog extends AbstractCustomLookAndFeelDialog
     // name
     {
       m_nameField = new StringDialogField();
-      m_nameField.setLabelText("&Name:");
+      m_nameField.setLabelText(LafMessages.EditCustomLookAndFeelDialog_name);
       DialogFieldUtils.fillControls(container, m_nameField, 2, 40);
       m_nameField.setText(m_lafInfo.getName());
       {
@@ -96,7 +97,7 @@ public class EditCustomLookAndFeelDialog extends AbstractCustomLookAndFeelDialog
     {
       {
         Label label = new Label(container, SWT.NONE);
-        label.setText("&Class name:");
+        label.setText(LafMessages.EditCustomLookAndFeelDialog_className);
         label.setEnabled(m_lafInfo instanceof UserDefinedLafInfo);
       }
       {
@@ -191,11 +192,11 @@ public class EditCustomLookAndFeelDialog extends AbstractCustomLookAndFeelDialog
   protected String validate() throws Exception {
     String name = m_nameField.getText();
     if (StringUtils.isEmpty(name)) {
-      return "Please enter the valid LookAndFeel name.";
+      return LafMessages.EditCustomLookAndFeelDialog_msgEnterName;
     }
     IStructuredSelection selection = (IStructuredSelection) m_classNameViewer.getSelection();
     if (m_lafInfo instanceof UserDefinedLafInfo && (selection == null || selection.isEmpty())) {
-      return "Please select the LookAndFeel class.";
+      return LafMessages.EditCustomLookAndFeelDialog_msgEnterClass;
     }
     return super.validate();
   }

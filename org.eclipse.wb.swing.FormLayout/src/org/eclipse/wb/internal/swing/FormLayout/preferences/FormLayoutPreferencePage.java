@@ -63,12 +63,12 @@ public final class FormLayoutPreferencePage extends AbstractBindingPreferencesPa
       checkButton(
           this,
           2,
-          "Use automatic horizontal/vertical grab",
+          PreferencesMessages.FormLayoutPreferencePage_useGrab,
           IPreferenceConstants.P_ENABLE_GRAB);
       checkButton(
           this,
           2,
-          "Automatically align right Label-like components before Text-like components",
+          PreferencesMessages.FormLayoutPreferencePage_rightAlignment,
           IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
     }
   }

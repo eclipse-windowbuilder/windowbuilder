@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.wizards.panel;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -38,9 +39,9 @@ public final class NewJPanelWizardPage extends SwingWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJPanelWizardPage() {
-    setTitle("Create JPanel");
+    setTitle(Messages.NewJPanelWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JPanel/banner.gif"));
-    setDescription("Create an empty JPanel.");
+    setDescription(Messages.NewJPanelWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 
 import org.eclipse.swt.graphics.Image;
@@ -50,7 +51,7 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
     m_action = action;
     setId(ObjectUtils.identityToString(action));
     setName(action.getVariableSupport().getName());
-    setDescription("Allows to use already existing Action instance to drop it on one more AbstractButton or add it to JMenu, JToolBar.");
+    setDescription(ModelMessages.ActionUseEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

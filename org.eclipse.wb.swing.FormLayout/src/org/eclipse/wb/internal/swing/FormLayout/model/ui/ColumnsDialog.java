@@ -16,11 +16,13 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
+import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
 import com.jgoodies.forms.factories.FormFactory;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -71,22 +73,22 @@ public final class ColumnsDialog extends DimensionsDialog<FormColumnInfo> {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected String getDialogTitle() {
-    return "Edit Columns";
+    return ModelMessages.ColumnsDialog_dialogTitle;
   }
 
   @Override
   protected String getDialogMessage() {
-    return "Adding, removing or rearranging columns does not affect the components contained in those columns.";
+    return ModelMessages.ColumnsDialog_dialogMessage;
   }
 
   @Override
   protected String getViewerTitle() {
-    return "Column &Specifications:";
+    return ModelMessages.ColumnsDialog_viewerTitle;
   }
 
   @Override
   protected String getMinimalErrorMessage(int minimumDimensions) {
-    return "At least " + minimumDimensions + " columns required.";
+    return MessageFormat.format(ModelMessages.ColumnsDialog_minimalErrorMessage, minimumDimensions);
   }
 
   @Override

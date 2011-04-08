@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentHorizontalAction;
@@ -547,13 +548,15 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
   public void addContextMenu(IMenuManager manager) throws Exception {
     // horizontal
     {
-      IMenuManager manager2 = new MenuManager("Horizontal alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.AbstractGridBagConstraintsInfo_horizontalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       fillHorizontalAlignmentMenu(manager2);
     }
     // vertical
     {
-      IMenuManager manager2 = new MenuManager("Vertical alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.AbstractGridBagConstraintsInfo_verticalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       fillVerticalAlignmentMenu(manager2);
     }
@@ -564,58 +567,67 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
    */
   public void fillHorizontalAlignmentMenu(IMenuManager manager) {
     manager.add(new SetAlignmentHorizontalAction(this,
-        "&Left\tL",
+        ModelMessages.AbstractGridBagConstraintsInfo_haLeft,
         "left.gif",
         ColumnInfo.Alignment.LEFT));
     manager.add(new SetAlignmentHorizontalAction(this,
-        "&Center\tC",
+        ModelMessages.AbstractGridBagConstraintsInfo_haCenter,
         "center.gif",
         ColumnInfo.Alignment.CENTER));
     manager.add(new SetAlignmentHorizontalAction(this,
-        "&Right\tR",
+        ModelMessages.AbstractGridBagConstraintsInfo_haRight,
         "right.gif",
         ColumnInfo.Alignment.RIGHT));
     manager.add(new SetAlignmentHorizontalAction(this,
-        "&Fill\tF",
+        ModelMessages.AbstractGridBagConstraintsInfo_haFill,
         "fill.gif",
         ColumnInfo.Alignment.FILL));
     manager.add(new Separator());
-    manager.add(new SetGrowAction(this, "&Grow\tH", "grow.gif", true));
+    manager.add(new SetGrowAction(this,
+        ModelMessages.AbstractGridBagConstraintsInfo_haGrow,
+        "grow.gif",
+        true));
   }
 
   /**
    * Adds the vertical alignment {@link Action}'s.
    */
   public void fillVerticalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetAlignmentVerticalAction(this, "&Top\tT", "top.gif", RowInfo.Alignment.TOP));
     manager.add(new SetAlignmentVerticalAction(this,
-        "&Center\tM",
+        ModelMessages.AbstractGridBagConstraintsInfo_vaTop,
+        "top.gif",
+        RowInfo.Alignment.TOP));
+    manager.add(new SetAlignmentVerticalAction(this,
+        ModelMessages.AbstractGridBagConstraintsInfo_vaCenter,
         "center.gif",
         RowInfo.Alignment.CENTER));
     manager.add(new SetAlignmentVerticalAction(this,
-        "&Bottom\tB",
+        ModelMessages.AbstractGridBagConstraintsInfo_vaBottom,
         "bottom.gif",
         RowInfo.Alignment.BOTTOM));
     manager.add(new SetAlignmentVerticalAction(this,
-        "&Fill\tShift+F",
+        ModelMessages.AbstractGridBagConstraintsInfo_vaFill,
         "fill.gif",
         RowInfo.Alignment.FILL));
     if (SystemUtils.IS_JAVA_1_6) {
       manager.add(new SetAlignmentVerticalAction(this,
-          "Baseline\tShift+L",
+          ModelMessages.AbstractGridBagConstraintsInfo_vaBaseline,
           "baseline.gif",
           RowInfo.Alignment.BASELINE));
       manager.add(new SetAlignmentVerticalAction(this,
-          "Above baseline\tShift+A",
+          ModelMessages.AbstractGridBagConstraintsInfo_vaAboveBaseline,
           "baseline_above.gif",
           RowInfo.Alignment.BASELINE_ABOVE));
       manager.add(new SetAlignmentVerticalAction(this,
-          "Below baseline\tShift+B",
+          ModelMessages.AbstractGridBagConstraintsInfo_vaBelowBaseline,
           "baseline_below.gif",
           RowInfo.Alignment.BASELINE_BELOW));
     }
     manager.add(new Separator());
-    manager.add(new SetGrowAction(this, "&Grow\tV", "grow.gif", false));
+    manager.add(new SetGrowAction(this,
+        ModelMessages.AbstractGridBagConstraintsInfo_vaGrow,
+        "grow.gif",
+        false));
   }
 
   ////////////////////////////////////////////////////////////////////////////

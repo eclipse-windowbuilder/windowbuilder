@@ -71,12 +71,36 @@ public class SelectionActionsSupport extends ObjectEventListener {
         constraints,
         true,
         "default.gif",
-        "Default",
+        ModelMessages.SelectionActionsSupport_haDefault,
         CellConstraints.DEFAULT);
-    addAlignmentAction(actions, constraints, true, "left.gif", "Left", CellConstraints.LEFT);
-    addAlignmentAction(actions, constraints, true, "center.gif", "Center", CellConstraints.CENTER);
-    addAlignmentAction(actions, constraints, true, "right.gif", "Right", CellConstraints.RIGHT);
-    addAlignmentAction(actions, constraints, true, "fill.gif", "Fill", CellConstraints.FILL);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "left.gif",
+        ModelMessages.SelectionActionsSupport_haLeft,
+        CellConstraints.LEFT);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "center.gif",
+        ModelMessages.SelectionActionsSupport_haCenter,
+        CellConstraints.CENTER);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "right.gif",
+        ModelMessages.SelectionActionsSupport_haRight,
+        CellConstraints.RIGHT);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_haFill,
+        CellConstraints.FILL);
     // create vertical actions
     actions.add(new Separator());
     addAlignmentAction(
@@ -84,12 +108,36 @@ public class SelectionActionsSupport extends ObjectEventListener {
         constraints,
         false,
         "default.gif",
-        "Default",
+        ModelMessages.SelectionActionsSupport_vaDefault,
         CellConstraints.DEFAULT);
-    addAlignmentAction(actions, constraints, false, "top.gif", "Top", CellConstraints.TOP);
-    addAlignmentAction(actions, constraints, false, "center.gif", "Center", CellConstraints.CENTER);
-    addAlignmentAction(actions, constraints, false, "bottom.gif", "Bottom", CellConstraints.BOTTOM);
-    addAlignmentAction(actions, constraints, false, "fill.gif", "Fill", CellConstraints.FILL);
+    addAlignmentAction(
+        actions,
+        constraints,
+        false,
+        "top.gif",
+        ModelMessages.SelectionActionsSupport_haTop,
+        CellConstraints.TOP);
+    addAlignmentAction(
+        actions,
+        constraints,
+        false,
+        "center.gif",
+        ModelMessages.SelectionActionsSupport_vaCenter,
+        CellConstraints.CENTER);
+    addAlignmentAction(
+        actions,
+        constraints,
+        false,
+        "bottom.gif",
+        ModelMessages.SelectionActionsSupport_vaBottom,
+        CellConstraints.BOTTOM);
+    addAlignmentAction(
+        actions,
+        constraints,
+        false,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_vaFill,
+        CellConstraints.FILL);
   }
 
   private void addAlignmentAction(List<Object> actions,

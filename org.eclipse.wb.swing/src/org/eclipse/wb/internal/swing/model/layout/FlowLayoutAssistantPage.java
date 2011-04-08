@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.model.layout;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -37,20 +38,35 @@ public final class FlowLayoutAssistantPage extends AbstractAssistantPage {
     // orientation
     {
       Group orientationGroup =
-          addChoiceProperty(this, "alignment", "Alignment", new Object[][]{
-              new Object[]{"Left", FlowLayout.LEFT},
-              new Object[]{"Center", FlowLayout.CENTER},
-              new Object[]{"Right", FlowLayout.RIGHT},
-              new Object[]{"Leading", FlowLayout.LEADING},
-              new Object[]{"Trailing", FlowLayout.TRAILING}});
+          addChoiceProperty(
+              this,
+              "alignment",
+              ModelMessages.FlowLayoutAssistantPage_alignmentGroup,
+              new Object[][]{
+                  new Object[]{ModelMessages.FlowLayoutAssistantPage_alignmentLeft, FlowLayout.LEFT},
+                  new Object[]{
+                      ModelMessages.FlowLayoutAssistantPage_alignmentCenter,
+                      FlowLayout.CENTER},
+                  new Object[]{
+                      ModelMessages.FlowLayoutAssistantPage_alignmentRight,
+                      FlowLayout.RIGHT},
+                  new Object[]{
+                      ModelMessages.FlowLayoutAssistantPage_alignmentLeading,
+                      FlowLayout.LEADING},
+                  new Object[]{
+                      ModelMessages.FlowLayoutAssistantPage_alignmentTrailing,
+                      FlowLayout.TRAILING}});
       GridDataFactory.create(orientationGroup).fillV();
     }
     //
     {
       Group gapGroup =
-          addIntegerProperties(this, "Gaps", new String[][]{
-              {"hgap", "Horizontal gap:"},
-              {"vgap", "Vertical gap:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.FlowLayoutAssistantPage_gapsGroup,
+              new String[][]{
+                  {"hgap", ModelMessages.FlowLayoutAssistantPage_gapHorizontal},
+                  {"vgap", ModelMessages.FlowLayoutAssistantPage_gapVertical}});
       GridDataFactory.create(gapGroup).fillV();
     }
   }

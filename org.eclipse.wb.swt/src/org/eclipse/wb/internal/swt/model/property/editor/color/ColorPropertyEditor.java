@@ -34,6 +34,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorsGridComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.jface.resource.ColorRegistryInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.KeyFieldInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
@@ -56,6 +57,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
 import java.lang.reflect.Field;
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -215,10 +217,10 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
       }
     }
     // no field, unexpected
-    throw new IllegalArgumentException("Can not find COLOR_XXX field in SWT for expression "
-        + idExpression
-        + " with value "
-        + id);
+    throw new IllegalArgumentException(MessageFormat.format(
+        ModelMessages.ColorPropertyEditor_wrongSwtColor,
+        idExpression,
+        id));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -356,9 +358,16 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void addPages(Composite parent) {
-      addPage("System colors", new SystemColorsPage(parent, SWT.NONE, this, m_javaInfo));
-      addPage("Named colors", new NamedColorsComposite(parent, SWT.NONE, this));
-      addPage("Web safe colors", new WebSafeColorsComposite(parent, SWT.NONE, this));
+      addPage(ModelMessages.ColorPropertyEditor_systemColorsPage, new SystemColorsPage(parent,
+          SWT.NONE,
+          this,
+          m_javaInfo));
+      addPage(ModelMessages.ColorPropertyEditor_namedColorsPage, new NamedColorsComposite(parent,
+          SWT.NONE,
+          this));
+      addPage(ModelMessages.ColorPropertyEditor_webSafePage, new WebSafeColorsComposite(parent,
+          SWT.NONE,
+          this));
       try {
         List<ColorRegistryInfo> registries =
             RegistryContainerInfo.getRegistries(m_javaInfo.getRootJava(), ColorRegistryInfo.class);

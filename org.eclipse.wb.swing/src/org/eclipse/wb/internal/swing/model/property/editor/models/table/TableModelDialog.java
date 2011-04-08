@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -150,7 +151,7 @@ public final class TableModelDialog extends ResizableDialog {
   private void createJTableComposite(Composite parent) {
     m_tableComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(m_tableComposite).noMargins();
-    new Label(m_tableComposite, SWT.NONE).setText("T&able model items:");
+    new Label(m_tableComposite, SWT.NONE).setText(ModelMessages.TableModelDialog_itemsLabel);
     {
       m_swingComposite = new EmbeddedSwingComposite2(m_tableComposite, SWT.NONE) {
         @Override
@@ -169,20 +170,19 @@ public final class TableModelDialog extends ResizableDialog {
     {
       Label label = new Label(m_tableComposite, SWT.WRAP);
       GridDataFactory.create(label).grabH().fill();
-      label.setText("Note that table above is editable."
-          + " Select a cell and start typing."
-          + " Use Return to commit, Esc to cancel and arrow keys to move between cells.");
+      label.setText(ModelMessages.TableModelDialog_hint);
     }
   }
 
   private void createColumnsComposite(Composite parent) {
-    m_columnsComposite = new TitledComposite(parent, SWT.NONE, "Columns");
+    m_columnsComposite =
+        new TitledComposite(parent, SWT.NONE, ModelMessages.TableModelDialog_columnsTitle);
     // content container
     Composite container = m_columnsComposite.getContent();
     GridLayoutFactory.create(container).columns(2).noMargins();
     // Count
     {
-      new Label(container, SWT.NONE).setText("&Count:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnsCount);
       m_columnCountSpinner = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnCountSpinner).grabH().fillH().hintHC(5);
       addJTableOperationSelectionListener(m_columnCountSpinner, new TableOperationRunnable() {
@@ -195,7 +195,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_insertColumnButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_insertColumnButton).spanH(2).hintHC(13).alignHC();
-      m_insertColumnButton.setText("&Insert");
+      m_insertColumnButton.setText(ModelMessages.TableModelDialog_columnInsertButton);
       addJTableOperationSelectionListener(m_insertColumnButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.insertColumn(getInsertColumnIndex(column));
@@ -210,7 +210,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_deleteColumnButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_deleteColumnButton).spanH(2).hintHC(13).alignHC();
-      m_deleteColumnButton.setText("&Delete");
+      m_deleteColumnButton.setText(ModelMessages.TableModelDialog_columnDeleteButton);
       addJTableOperationSelectionListener(m_deleteColumnButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.removeColumn(column);
@@ -229,7 +229,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_moveColumnLeftButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_moveColumnLeftButton).spanH(2).hintHC(13).alignHC();
-      m_moveColumnLeftButton.setText("Move &Left");
+      m_moveColumnLeftButton.setText(ModelMessages.TableModelDialog_columnMoveLeftButton);
       addJTableOperationSelectionListener(m_moveColumnLeftButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.moveColumn(column, column - 1);
@@ -244,7 +244,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_moveColumnRightButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_moveColumnRightButton).spanH(2).hintHC(13).alignHC();
-      m_moveColumnRightButton.setText("Move &Right");
+      m_moveColumnRightButton.setText(ModelMessages.TableModelDialog_columnMoveRightButton);
       addJTableOperationSelectionListener(m_moveColumnRightButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.moveColumn(column, column + 1);
@@ -258,13 +258,14 @@ public final class TableModelDialog extends ResizableDialog {
   }
 
   private void createRowsComposite(Composite parent) {
-    m_rowsComposite = new TitledComposite(parent, SWT.NONE, "Rows");
+    m_rowsComposite =
+        new TitledComposite(parent, SWT.NONE, ModelMessages.TableModelDialog_rowsTitle);
     // content container
     Composite container = m_rowsComposite.getContent();
     GridLayoutFactory.create(container).columns(2).noMargins();
     // Count
     {
-      new Label(container, SWT.NONE).setText("C&ount:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_rowsCount);
       m_rowCountSpinner = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_rowCountSpinner).grabH().fillH().hintHC(5);
       addJTableOperationSelectionListener(m_rowCountSpinner, new TableOperationRunnable() {
@@ -277,7 +278,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_insertRowButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_insertRowButton).spanH(2).hintHC(13).alignHC();
-      m_insertRowButton.setText("I&nsert");
+      m_insertRowButton.setText(ModelMessages.TableModelDialog_rowInsertButton);
       addJTableOperationSelectionListener(m_insertRowButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.insertRow(getInsertRowIndex(row));
@@ -292,7 +293,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_deleteRowButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_deleteRowButton).spanH(2).hintHC(13).alignHC();
-      m_deleteRowButton.setText("D&elete");
+      m_deleteRowButton.setText(ModelMessages.TableModelDialog_rowDeleteButton);
       addJTableOperationSelectionListener(m_deleteRowButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.removeRow(row);
@@ -311,7 +312,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_moveRowUpButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_moveRowUpButton).spanH(2).hintHC(13).alignHC();
-      m_moveRowUpButton.setText("Move &Up");
+      m_moveRowUpButton.setText(ModelMessages.TableModelDialog_rowMoveUpButton);
       addJTableOperationSelectionListener(m_moveRowUpButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.moveRow(row, row - 1);
@@ -326,7 +327,7 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_moveRowDownButton = new Button(container, SWT.NONE);
       GridDataFactory.create(m_moveRowDownButton).spanH(2).hintHC(13).alignHC();
-      m_moveRowDownButton.setText("Move Do&wn");
+      m_moveRowDownButton.setText(ModelMessages.TableModelDialog_rowMoveDownButton);
       addJTableOperationSelectionListener(m_moveRowDownButton, new TableOperationRunnable() {
         public void run(int row, int column) {
           m_model.moveRow(row, row + 1);
@@ -340,7 +341,8 @@ public final class TableModelDialog extends ResizableDialog {
   }
 
   private void createColumnPropertiesComposite(Composite parent) {
-    m_columnPropertiesComposite = new TitledComposite(parent, SWT.NONE, "Column properties");
+    m_columnPropertiesComposite =
+        new TitledComposite(parent, SWT.NONE, ModelMessages.TableModelDialog_columnProperties);
     // content container
     Composite container = m_columnPropertiesComposite.getContent();
     GridLayoutFactory.create(container).columns(8).noMargins();
@@ -348,16 +350,16 @@ public final class TableModelDialog extends ResizableDialog {
     {
       Label label = new Label(container, SWT.NONE);
       GridDataFactory.create(label).spanH(8);
-      label.setText("Here you can edit the properties of the column selected on the above table.");
+      label.setText(ModelMessages.TableModelDialog_columnPropertiesHint);
     }
     // first row
     {
-      new Label(container, SWT.NONE).setText("No.:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesNo);
       m_columnPropertyNo = new Text(container, SWT.BORDER | SWT.READ_ONLY);
       GridDataFactory.create(m_columnPropertyNo).hintHC(6).fillH();
     }
     {
-      new Label(container, SWT.NONE).setText("&Title:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesTitle);
       m_columnPropertyTitle = new Text(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyTitle).spanH(2).hintHC(40).fillH();
       addJTableOperationListener(m_columnPropertyTitle, SWT.Modify, new TableOperationRunnable() {
@@ -367,7 +369,7 @@ public final class TableModelDialog extends ResizableDialog {
       });
     }
     {
-      new Label(container, SWT.NONE).setText("&Pref.width:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesPrefWidth);
       m_columnPropertyPrefWidth = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyPrefWidth).hintHC(15);
       m_columnPropertyPrefWidth.setRange(0, Integer.MAX_VALUE);
@@ -388,7 +390,7 @@ public final class TableModelDialog extends ResizableDialog {
     }
     // second row
     {
-      new Label(container, SWT.NONE).setText("Type:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesType);
       m_columnPropertyType = new Combo(container, SWT.BORDER | SWT.READ_ONLY);
       GridDataFactory.create(m_columnPropertyType).hintHC(10).fillH();
       // items
@@ -407,7 +409,7 @@ public final class TableModelDialog extends ResizableDialog {
     }
     {
       m_columnPropertyValuesLabel = new Label(container, SWT.NONE);
-      m_columnPropertyValuesLabel.setText("&Values:");
+      m_columnPropertyValuesLabel.setText(ModelMessages.TableModelDialog_columnPropertiesValues);
       m_columnPropertyValuesLabel.setEnabled(false);
       m_columnPropertyValuesLabel.setData(UiUtils.KEY_IGNORE_HIERARCHY_ENABLED, true);
       //
@@ -419,12 +421,12 @@ public final class TableModelDialog extends ResizableDialog {
     {
       m_columnPropertyValuesEdit = new Button(container, SWT.NONE);
       GridDataFactory.create(m_columnPropertyValuesEdit).hintHC(10);
-      m_columnPropertyValuesEdit.setText("Edit...");
+      m_columnPropertyValuesEdit.setText(ModelMessages.TableModelDialog_columnPropertiesValuesEdit);
       m_columnPropertyValuesEdit.setEnabled(false);
       m_columnPropertyValuesEdit.setData(UiUtils.KEY_IGNORE_HIERARCHY_ENABLED, true);
     }
     {
-      new Label(container, SWT.NONE).setText("Mi&n.width:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesMinWidth);
       m_columnPropertyMinWidth = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyMinWidth).hintHC(15);
       m_columnPropertyMinWidth.setRange(0, Integer.MAX_VALUE);
@@ -449,7 +451,7 @@ public final class TableModelDialog extends ResizableDialog {
       GridLayoutFactory.create(booleanContainer).columns(2).noMargins();
       {
         m_columnPropertyEditable = new Button(booleanContainer, SWT.CHECK);
-        m_columnPropertyEditable.setText("edita&ble");
+        m_columnPropertyEditable.setText(ModelMessages.TableModelDialog_columnPropertiesEditable);
         addJTableOperationSelectionListener(m_columnPropertyEditable, new TableOperationRunnable() {
           public void run(int row, int column) {
             m_model.getColumn(column).m_editable = m_columnPropertyEditable.getSelection();
@@ -458,7 +460,7 @@ public final class TableModelDialog extends ResizableDialog {
       }
       {
         m_columnPropertyResizable = new Button(booleanContainer, SWT.CHECK);
-        m_columnPropertyResizable.setText("re&sizable");
+        m_columnPropertyResizable.setText(ModelMessages.TableModelDialog_columnPropertiesResizable);
         addJTableOperationSelectionListener(
             m_columnPropertyResizable,
             new TableOperationRunnable() {
@@ -469,7 +471,7 @@ public final class TableModelDialog extends ResizableDialog {
       }
     }
     {
-      new Label(container, SWT.NONE).setText("Ma&x.width:");
+      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesMaxWidth);
       m_columnPropertyMaxWidth = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyMaxWidth).hintHC(15);
       m_columnPropertyMaxWidth.setRange(0, Integer.MAX_VALUE);
@@ -493,7 +495,7 @@ public final class TableModelDialog extends ResizableDialog {
     ToolBar toolBar = new ToolBar(container, SWT.FLAT);
     ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
     toolItem.setImage(DesignerPlugin.getImage("clear.gif"));
-    toolItem.setToolTipText("Reset value");
+    toolItem.setToolTipText(ModelMessages.TableModelDialog_resetValue);
     return toolItem;
   }
 

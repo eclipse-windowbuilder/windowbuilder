@@ -16,6 +16,7 @@ import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 
@@ -36,8 +37,8 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public AbsoluteLayoutEntryInfo() {
-    setName("Absolute layout");
-    setDescription("Layout with absolute positioning components.");
+    setName(ModelMessages.AbsoluteLayoutEntryInfo_name);
+    setDescription(ModelMessages.AbsoluteLayoutEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

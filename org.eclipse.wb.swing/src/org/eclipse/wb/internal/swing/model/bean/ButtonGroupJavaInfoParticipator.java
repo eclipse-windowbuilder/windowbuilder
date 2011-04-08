@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -88,7 +89,8 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
       return;
     }
     // append sub-menu with ButtonGroup's
-    MenuManagerEx groupsManager = new MenuManagerEx("Set ButtonGroup");
+    MenuManagerEx groupsManager =
+        new MenuManagerEx(ModelMessages.ButtonGroupJavaInfoParticipator_setGroupManager);
     groupsManager.setImage(Activator.getImage("info/ButtonGroup/ButtonGroup.gif"));
     manager.appendToGroup(IContextMenuConstants.GROUP_ADDITIONAL, groupsManager);
     // append actions
@@ -116,7 +118,12 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
       }
     };
     IAction action =
-        contextMenu_createAction(root, isFirst, "None", IAction.AS_PUSH_BUTTON, runnable);
+        contextMenu_createAction(
+            root,
+            isFirst,
+            ModelMessages.ButtonGroupJavaInfoParticipator_none,
+            IAction.AS_PUSH_BUTTON,
+            runnable);
     groupsManager.add(action);
   }
 
@@ -137,7 +144,12 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
       }
     };
     IAction action =
-        contextMenu_createAction(root, isFirst, "New standard", IAction.AS_PUSH_BUTTON, runnable);
+        contextMenu_createAction(
+            root,
+            isFirst,
+            ModelMessages.ButtonGroupJavaInfoParticipator_newStandard,
+            IAction.AS_PUSH_BUTTON,
+            runnable);
     groupsManager.add(action);
   }
 
@@ -174,7 +186,12 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
       }
     };
     IAction action =
-        contextMenu_createAction(root, isFirst, "New custom...", IAction.AS_PUSH_BUTTON, runnable);
+        contextMenu_createAction(
+            root,
+            isFirst,
+            ModelMessages.ButtonGroupJavaInfoParticipator_newCustom,
+            IAction.AS_PUSH_BUTTON,
+            runnable);
     groupsManager.add(action);
   }
 

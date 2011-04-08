@@ -69,6 +69,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.DefaultUnitConverter;
 
 import java.awt.Container;
+import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -185,10 +186,10 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     if (object == getContainer()) {
       manager.appendToGroup(
           IContextMenuConstants.GROUP_TOP,
-          new EditDimensionsAction("Edit c&olumns...", true));
+          new EditDimensionsAction(ModelMessages.FormLayoutInfo_editColumns, true));
       manager.appendToGroup(
           IContextMenuConstants.GROUP_TOP,
-          new EditDimensionsAction("Edit &rows...", false));
+          new EditDimensionsAction(ModelMessages.FormLayoutInfo_editRows, false));
     }
     if (object instanceof ComponentInfo && object.getParent() == getContainer()) {
       ComponentInfo component = (ComponentInfo) object;
@@ -1232,7 +1233,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       if (addColumns > 0) {
         Assert.isTrue(
             addColumns % 2 == 0,
-            "Gap and column are added, so even difference expected: " + addColumns);
+            MessageFormat.format(ModelMessages.FormLayoutInfo_evenDiffNumColumns, addColumns));
         for (int i = 0; i < addColumns / 2; i++) {
           m_columns.add(new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
           m_columns.add(new FormColumnInfo(FormFactory.DEFAULT_COLSPEC));
@@ -1244,8 +1245,9 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     {
       int addRows = row - m_rows.size();
       if (addRows > 0) {
-        Assert.isTrue(addRows % 2 == 0, "Gap and row are added, so even difference expected: "
-            + addRows);
+        Assert.isTrue(
+            addRows % 2 == 0,
+            MessageFormat.format(ModelMessages.FormLayoutInfo_evenDiffNumRows, addRows));
         for (int i = 0; i < addRows / 2; i++) {
           m_rows.add(new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
           m_rows.add(new FormRowInfo(FormFactory.DEFAULT_ROWSPEC));

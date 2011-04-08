@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -95,7 +96,7 @@ public class ComboBoxModelDialog extends ResizableDialog {
     {
       enumRadio = new Button(area, SWT.RADIO);
       GridDataFactory.create(enumRadio).spanH(COLUMNS);
-      enumRadio.setText("&ComboBox model enum type:");
+      enumRadio.setText(ModelMessages.ComboBoxModelDialog_enumRadio);
       new Label(area, SWT.NONE).setText("   "); // filler
       enumText = new Text(area, SWT.BORDER);
       GridDataFactory.create(enumText).grabH().fillH().hintHC(60);
@@ -110,7 +111,7 @@ public class ComboBoxModelDialog extends ResizableDialog {
         }
       });
       enumButton = new Button(area, SWT.NONE);
-      enumButton.setText("&Browse...");
+      enumButton.setText(ModelMessages.ComboBoxModelDialog_enumBrowse);
       enumButton.addSelectionListener(new SelectionListener() {
         public void widgetSelected(SelectionEvent event) {
           setEnumSelected(true);
@@ -124,7 +125,7 @@ public class ComboBoxModelDialog extends ResizableDialog {
     // direct text items
     {
       itemsRadio = new Button(area, SWT.RADIO);
-      itemsRadio.setText("ComboBox model items:");
+      itemsRadio.setText(ModelMessages.ComboBoxModelDialog_itemsRadio);
       GridDataFactory.create(itemsRadio).spanH(COLUMNS);
       new Label(area, SWT.NONE).setText("   "); // filler
       itemsText = new Text(area, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -143,7 +144,7 @@ public class ComboBoxModelDialog extends ResizableDialog {
     // footer
     Label footerLabel = new Label(area, SWT.NONE);
     GridDataFactory.create(footerLabel).spanH(COLUMNS).alignH(SWT.RIGHT);
-    footerLabel.setText("Each line in the above text field represents a value in the model.");
+    footerLabel.setText(ModelMessages.ComboBoxModelDialog_footerLabel);
     // initialize
     if (StringUtils.isEmpty(enumTypeName)) {
       setEnumTypeName("");
@@ -182,8 +183,8 @@ public class ComboBoxModelDialog extends ResizableDialog {
               IJavaElementSearchConstants.CONSIDER_ENUMS,
               false,
               enumText.getText());
-      dialog.setTitle("Enum selection");
-      dialog.setMessage("Choose a enum (? = any character, * - any String):");
+      dialog.setTitle(ModelMessages.ComboBoxModelDialog_typeDialogTitle);
+      dialog.setMessage(ModelMessages.ComboBoxModelDialog_typeDialogMessage);
       // open dialog
       if (dialog.open() == Window.OK) {
         IType selectedEnumType = (IType) dialog.getResult()[0];

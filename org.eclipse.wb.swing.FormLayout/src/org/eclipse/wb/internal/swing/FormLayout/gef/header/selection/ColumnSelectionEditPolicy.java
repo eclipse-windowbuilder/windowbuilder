@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
+import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
@@ -28,6 +29,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.ConstantSize.Unit;
 import com.jgoodies.forms.layout.Sizes;
+
+import java.text.MessageFormat;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link ColumnHeaderEditPart}.
@@ -95,7 +98,9 @@ public final class ColumnSelectionEditPolicy extends DimensionSelectionEditPolic
           }
         };
         // return text
-        return "width " + constantSize.getSource(true, true);
+        return MessageFormat.format(
+            GefMessages.ColumnSelectionEditPolicy_widthPattern,
+            constantSize.getSource(true, true));
       } else {
         // set current size if "null"
         if (sizeCopy.getLowerSize() == null) {
@@ -128,10 +133,12 @@ public final class ColumnSelectionEditPolicy extends DimensionSelectionEditPolic
           }
         };
         // return text
-        return "minimum width " + lowerSize.getSource(true, true);
+        return MessageFormat.format(
+            GefMessages.ColumnSelectionEditPolicy_minimumWidthPattern,
+            lowerSize.getSource(true, true));
       }
     } catch (Throwable e) {
-      return "Exception...";
+      return GefMessages.ColumnSelectionEditPolicy_exception;
     }
   }
 }

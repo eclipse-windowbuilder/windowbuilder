@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 
@@ -30,13 +31,13 @@ public final class ColumnEditDialog extends DimensionEditDialog<ColumnInfo, Colu
       Lists.newArrayList();
   static {
     ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.LEFT,
-        "&left"));
+        ModelMessages.ColumnEditDialog_aLeft));
     ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.CENTER,
-        "&center"));
+        ModelMessages.ColumnEditDialog_aCenter));
     ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.RIGHT,
-        "&right"));
+        ModelMessages.ColumnEditDialog_aRight));
     ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.FILL,
-        "&fill"));
+        ModelMessages.ColumnEditDialog_aFill));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -45,7 +46,12 @@ public final class ColumnEditDialog extends DimensionEditDialog<ColumnInfo, Colu
   //
   ////////////////////////////////////////////////////////////////////////////
   public ColumnEditDialog(Shell parentShell, AbstractGridBagLayoutInfo layout, ColumnInfo column) {
-    super(parentShell, layout, layout.getColumns(), column, "Column", ALIGNMENTS);
+    super(parentShell,
+        layout,
+        layout.getColumns(),
+        column,
+        ModelMessages.ColumnEditDialog_title,
+        ALIGNMENTS);
   }
 
   ////////////////////////////////////////////////////////////////////////////

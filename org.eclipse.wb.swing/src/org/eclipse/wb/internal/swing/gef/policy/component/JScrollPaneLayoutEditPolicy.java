@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.gef.policy.component;
 
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentPositionLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
@@ -49,14 +50,28 @@ public final class JScrollPaneLayoutEditPolicy extends ComponentPositionLayoutEd
           1.0,
           0.2,
           new Insets(0, 0, 2, 0),
-          "Column header",
+          GefMessages.JScrollPaneLayoutEditPolicy_columnHeader,
           "setColumnHeaderView");
     }
     if (m_component.isEmptyPosition("getRowHeader")) {
-      addFeedback(0.0, 0.2, 0.2, 1.0, new Insets(0, 0, 0, 2), "Row header", "setRowHeaderView");
+      addFeedback(
+          0.0,
+          0.2,
+          0.2,
+          1.0,
+          new Insets(0, 0, 0, 2),
+          GefMessages.JScrollPaneLayoutEditPolicy_rowHeader,
+          "setRowHeaderView");
     }
     if (m_component.isEmptyPosition("getViewport")) {
-      addFeedback(0.2, 0.2, 1.0, 1.0, new Insets(0, 0, 0, 0), "Viewport", "setViewportView");
+      addFeedback(
+          0.2,
+          0.2,
+          1.0,
+          1.0,
+          new Insets(0, 0, 0, 0),
+          GefMessages.JScrollPaneLayoutEditPolicy_viewport,
+          "setViewportView");
     }
   }
 

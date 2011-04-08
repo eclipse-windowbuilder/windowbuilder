@@ -43,6 +43,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -193,15 +194,17 @@ public final class AbsoluteLayoutInfo extends LayoutInfo
       private int openQuestion() {
         MessageDialog dialog =
             new MessageDialog(DesignerPlugin.getShell(),
-                "Confirm",
+                ModelMessages.AbsoluteLayoutInfo_layoutConfirmTitle,
                 null,
-                "You are attempting to use a normal layout with a container that is within a parent container using 'null' layout. "
-                    + "Using 'null' layout in the parent will prevent the child layouts from working due to a bug in SWT "
-                    + "(in Designer you will see the correct layout, but at runtime you will see empty containers). "
-                    + "You can use FormLayout in the parent, if you need a free form layout and want to keep the child layouts working. "
-                    + "Do you want to use FormLayout in the parent container?",
+                ModelMessages.AbsoluteLayoutInfo_layoutConfirmMessage1
+                    + ModelMessages.AbsoluteLayoutInfo_layoutConfirmMessage2
+                    + ModelMessages.AbsoluteLayoutInfo_layoutConfirmMessage3
+                    + ModelMessages.AbsoluteLayoutInfo_layoutConfirmMessage4
+                    + ModelMessages.AbsoluteLayoutInfo_layoutConfirmMessage5,
                 MessageDialog.WARNING,
-                new String[]{"Yes, use FormLayout", "No, keep 'null' layout"},
+                new String[]{
+                    ModelMessages.AbsoluteLayoutInfo_layoutConfirmButtonYes,
+                    ModelMessages.AbsoluteLayoutInfo_layoutConfirmButtonNo},
                 0);
         return dialog.open();
       }
@@ -225,7 +228,7 @@ public final class AbsoluteLayoutInfo extends LayoutInfo
     // auto-size
     {
       IAction action =
-          new ObjectInfoAction(control, "Autosize control",
+          new ObjectInfoAction(control, ModelMessages.AbsoluteLayoutInfo_autoSize,
               DesignerPlugin.getImageDescriptor("info/layout/absolute/fit_to_size.png")) {
             @Override
             protected void runEx() throws Exception {
@@ -361,7 +364,9 @@ public final class AbsoluteLayoutInfo extends LayoutInfo
 
   private void commandChangeBounds0(ControlInfo widget, Point location, Dimension size)
       throws Exception {
-    Assert.isLegal(location != null || size != null, "Either location or size may not be null.");
+    Assert.isLegal(
+        location != null || size != null,
+        ModelMessages.AbsoluteLayoutInfo_notNullLocationSize);
     AstEditor editor = widget.getEditor();
     // setBounds(int,int,int,int)
     {

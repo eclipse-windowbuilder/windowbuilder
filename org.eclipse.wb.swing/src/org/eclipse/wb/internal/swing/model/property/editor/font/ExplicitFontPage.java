@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.font;
 
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -37,10 +38,10 @@ public final class ExplicitFontPage extends AbstractFontPage {
   private final List m_familyList;
   //
   private static final String[] m_styleTitles = new String[]{
-      "Plain",
-      "Bold",
-      "Italic",
-      "Bold Italic"};
+      ModelMessages.ExplicitFontPage_stylePlain,
+      ModelMessages.ExplicitFontPage_styleBold,
+      ModelMessages.ExplicitFontPage_styleItalic,
+      ModelMessages.ExplicitFontPage_styleBoldItalic};
   private static final int[] m_styleValues = new int[]{
       Font.PLAIN,
       Font.BOLD,
@@ -62,9 +63,9 @@ public final class ExplicitFontPage extends AbstractFontPage {
     GridLayoutFactory.create(this).columns(3);
     // labels
     {
-      new Label(this, SWT.NONE).setText("Family:");
-      new Label(this, SWT.NONE).setText("Style:");
-      new Label(this, SWT.NONE).setText("Size:");
+      new Label(this, SWT.NONE).setText(ModelMessages.ExplicitFontPage_family);
+      new Label(this, SWT.NONE).setText(ModelMessages.ExplicitFontPage_atyle);
+      new Label(this, SWT.NONE).setText(ModelMessages.ExplicitFontPage_size);
     }
     // text's
     {

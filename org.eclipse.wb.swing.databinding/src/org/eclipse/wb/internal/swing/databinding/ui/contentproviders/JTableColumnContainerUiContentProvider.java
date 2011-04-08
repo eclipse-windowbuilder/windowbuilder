@@ -16,12 +16,14 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerUiContentProvider;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.ColumnBindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.JTableBindingInfo;
 
 import org.eclipse.swt.custom.CTabItem;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -59,13 +61,15 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
   protected IUiContentProvider createNewPageContentProvider() throws Exception {
     return new UIContentContainer<ColumnBindingInfo>(m_binding.createNewColumnBinding(-1),
         m_bindings,
-        "Column: ",
+        Messages.JTableColumnContainerUiContentProvider_column,
         m_provider);
   }
 
   @Override
   protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
-    tabItem.setText("Column " + index);
+    tabItem.setText(MessageFormat.format(
+        Messages.JTableColumnContainerUiContentProvider_columnIndex,
+        index));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -78,7 +82,7 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
     for (ColumnBindingInfo binding : m_binding.getColumns()) {
       providers.add(new UIContentContainer<ColumnBindingInfo>(binding,
           m_bindings,
-          "Column: ",
+          Messages.JTableColumnContainerUiContentProvider_column,
           m_provider));
     }
     updateFromObject(providers);

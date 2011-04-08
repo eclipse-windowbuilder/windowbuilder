@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -66,14 +67,14 @@ public final class DerivedFontPage extends AbstractFontPage {
     };
     // family
     {
-      createSeparator(this, "Family");
+      createSeparator(this, ModelMessages.DerivedFontPage_familySeparator);
       Composite composite = new Composite(this, SWT.NONE);
       GridDataFactory.create(composite).grabH().fill();
       GridLayoutFactory.create(composite).columns(2).noMargins();
       {
         Label label = new Label(composite, SWT.NONE);
         GridDataFactory.create(label).indentHC(2).hintHC(15);
-        label.setText("&Family:");
+        label.setText(ModelMessages.DerivedFontPage_familyLabel);
       }
       {
         m_familyCombo = new Combo(composite, SWT.READ_ONLY);
@@ -82,7 +83,7 @@ public final class DerivedFontPage extends AbstractFontPage {
         m_familyCombo.setVisibleItemCount(15);
         // add items
         {
-          m_familyCombo.add("(unchanged)");
+          m_familyCombo.add(ModelMessages.DerivedFontPage_unchanged);
           GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
           for (String family : ge.getAvailableFontFamilyNames()) {
             m_familyCombo.add(family);
@@ -92,7 +93,7 @@ public final class DerivedFontPage extends AbstractFontPage {
     }
     // style
     {
-      createSeparator(this, "Style");
+      createSeparator(this, ModelMessages.DerivedFontPage_styleSeparator);
       Composite composite = new Composite(this, SWT.NONE);
       GridDataFactory.create(composite).grabH().fill();
       GridLayoutFactory.create(composite).columns(2).noMargins();
@@ -101,14 +102,20 @@ public final class DerivedFontPage extends AbstractFontPage {
         {
           Label label = new Label(composite, SWT.NONE);
           GridDataFactory.create(label).indentHC(2).hintHC(15);
-          label.setText("Bold:");
+          label.setText(ModelMessages.DerivedFontPage_styleBold);
         }
         {
           Composite composite2 = new Composite(composite, SWT.NONE);
           GridLayoutFactory.create(composite2).columns(3).noMargins();
-          m_boldSame = createRadioButton(composite2, "&unchanged", listener);
-          m_boldSet = createRadioButton(composite2, "&set", listener);
-          m_boldClear = createRadioButton(composite2, "&clear", listener);
+          m_boldSame =
+              createRadioButton(
+                  composite2,
+                  ModelMessages.DerivedFontPage_styleBoldUnchanged,
+                  listener);
+          m_boldSet =
+              createRadioButton(composite2, ModelMessages.DerivedFontPage_styleBoldSet, listener);
+          m_boldClear =
+              createRadioButton(composite2, ModelMessages.DerivedFontPage_styleBoldClear, listener);
         }
       }
       // ITALIC
@@ -116,27 +123,37 @@ public final class DerivedFontPage extends AbstractFontPage {
         {
           Label label = new Label(composite, SWT.NONE);
           GridDataFactory.create(label).indentHC(2).hintHC(15);
-          label.setText("Italic:");
+          label.setText(ModelMessages.DerivedFontPage_styleItalic);
         }
         {
           Composite composite2 = new Composite(composite, SWT.NONE);
           GridLayoutFactory.create(composite2).columns(3).noMargins();
-          m_italicSame = createRadioButton(composite2, "u&nchanged", listener);
-          m_italicSet = createRadioButton(composite2, "s&et", listener);
-          m_italicClear = createRadioButton(composite2, "c&lear", listener);
+          m_italicSame =
+              createRadioButton(
+                  composite2,
+                  ModelMessages.DerivedFontPage_styleItalicUnchanged,
+                  listener);
+          m_italicSet =
+              createRadioButton(composite2, ModelMessages.DerivedFontPage_styleItalicSet, listener);
+          m_italicClear =
+              createRadioButton(
+                  composite2,
+                  ModelMessages.DerivedFontPage_styleItalicClear,
+                  listener);
         }
       }
     }
     // size
     {
-      createSeparator(this, "Size");
+      createSeparator(this, ModelMessages.DerivedFontPage_size);
       Composite composite = new Composite(this, SWT.NONE);
       GridDataFactory.create(composite).grabH().fill();
       GridLayoutFactory.create(composite).columns(2).noMargins();
       // relative
       {
         {
-          m_relativeButton = createRadioButton(composite, "&relative", listener);
+          m_relativeButton =
+              createRadioButton(composite, ModelMessages.DerivedFontPage_sizeRelative, listener);
           GridDataFactory.create(m_relativeButton).indentHC(2).hintHC(15);
         }
         {
@@ -149,7 +166,8 @@ public final class DerivedFontPage extends AbstractFontPage {
       // absolute
       {
         {
-          m_absoluteButton = createRadioButton(composite, "&absolute", listener);
+          m_absoluteButton =
+              createRadioButton(composite, ModelMessages.DerivedFontPage_sizeAbsolute, listener);
           GridDataFactory.create(m_absoluteButton).indentHC(2).hintHC(15);
         }
         {

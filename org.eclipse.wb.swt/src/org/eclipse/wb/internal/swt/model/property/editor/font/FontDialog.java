@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ReusableDialog;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.jface.resource.FontRegistryInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.RegistryContainerInfo;
 import org.eclipse.wb.internal.swt.support.JFaceSupport;
@@ -99,7 +100,7 @@ public final class FontDialog extends ReusableDialog {
       Group previewGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(previewGroup).grabH().fillH();
       GridLayoutFactory.create(previewGroup);
-      previewGroup.setText("Selected Font");
+      previewGroup.setText(ModelMessages.FontDialog_previewGroup);
       //
       m_previewCanvas = new FontPreviewCanvas(previewGroup, SWT.NONE);
       GridDataFactory.create(m_previewCanvas).grab().fill();
@@ -123,7 +124,7 @@ public final class FontDialog extends ReusableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Font chooser");
+    newShell.setText(ModelMessages.FontDialog_dialogTitle);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -164,7 +165,10 @@ public final class FontDialog extends ReusableDialog {
    * Adds pages with {@link AbstractFontPage}'s.
    */
   protected void addPages(Composite parent) {
-    addPage("Construction", new ConstructionFontPage(m_javaInfo, parent, SWT.NONE, this));
+    addPage(ModelMessages.FontDialog_constructorPage, new ConstructionFontPage(m_javaInfo,
+        parent,
+        SWT.NONE,
+        this));
     if (JFaceSupport.isAvialable()) {
       // FIXME removed to avoid JVM crash in eswt-converged.dll
       // https://bugs.eclipse.org/bugs/show_bug.cgi?id=201442

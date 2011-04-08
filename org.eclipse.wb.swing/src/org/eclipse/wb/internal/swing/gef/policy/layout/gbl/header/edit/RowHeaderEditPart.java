@@ -19,6 +19,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.SetAlignmentRowAction;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.SetGrowAction;
@@ -163,32 +164,33 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
   public void buildContextMenu(IMenuManager manager) {
     // operations
     {
-      manager.add(new DimensionHeaderAction<RowInfo>(this, "Insert Row") {
+      manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_insertRow) {
         @Override
         protected void run(RowInfo row) throws Exception {
           m_layout.getRowOperations().insert(row.getIndex());
         }
       });
-      manager.add(new DimensionHeaderAction<RowInfo>(this, "Append Row") {
+      manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_appendRow) {
         @Override
         protected void run(RowInfo row) throws Exception {
           m_layout.getRowOperations().insert(row.getIndex() + 1);
         }
       });
-      manager.add(new DimensionHeaderAction<RowInfo>(this, "Delete Row",
+      manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_deleteRow,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/delete.gif")) {
         @Override
         protected void run(RowInfo row) throws Exception {
           m_layout.getRowOperations().delete(row.getIndex());
         }
       });
-      manager.add(new DimensionHeaderAction<RowInfo>(this, "Delete Contents") {
+      manager.add(new DimensionHeaderAction<RowInfo>(this,
+          GefMessages.RowHeaderEditPart_deleteContents) {
         @Override
         protected void run(RowInfo row) throws Exception {
           m_layout.getRowOperations().clear(row.getIndex());
         }
       });
-      manager.add(new DimensionHeaderAction<RowInfo>(this, "Split Row") {
+      manager.add(new DimensionHeaderAction<RowInfo>(this, GefMessages.RowHeaderEditPart_splitRow) {
         @Override
         protected void run(RowInfo row) throws Exception {
           m_layout.getRowOperations().split(row.getIndex());
@@ -199,32 +201,32 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
     {
       manager.add(new Separator());
       manager.add(new SetAlignmentRowAction(this,
-          "Top",
+          GefMessages.RowHeaderEditPart_vaTop,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/top.gif"),
           RowInfo.Alignment.TOP));
       manager.add(new SetAlignmentRowAction(this,
-          "Center",
+          GefMessages.RowHeaderEditPart_vaCenter,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/center.gif"),
           RowInfo.Alignment.CENTER));
       manager.add(new SetAlignmentRowAction(this,
-          "Bottom",
+          GefMessages.RowHeaderEditPart_vaBottom,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/bottom.gif"),
           RowInfo.Alignment.BOTTOM));
       manager.add(new SetAlignmentRowAction(this,
-          "Fill",
+          GefMessages.RowHeaderEditPart_vaFill,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/fill.gif"),
           RowInfo.Alignment.FILL));
       if (SystemUtils.IS_JAVA_1_6) {
         manager.add(new SetAlignmentRowAction(this,
-            "Baseline",
+            GefMessages.RowHeaderEditPart_vaBaseline,
             AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline.gif"),
             RowInfo.Alignment.BASELINE));
         manager.add(new SetAlignmentRowAction(this,
-            "Above baseline",
+            GefMessages.RowHeaderEditPart_vaAboveBaseline,
             AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline_above.gif"),
             RowInfo.Alignment.BASELINE_ABOVE));
         manager.add(new SetAlignmentRowAction(this,
-            "Below baseline",
+            GefMessages.RowHeaderEditPart_vaBelowBaseline,
             AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline_below.gif"),
             RowInfo.Alignment.BASELINE_BELOW));
       }
@@ -233,13 +235,13 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
     {
       manager.add(new Separator());
       manager.add(new SetGrowAction<RowInfo>(this,
-          "Grow",
+          GefMessages.RowHeaderEditPart_grow,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/grow.gif")));
     }
     // properties
     {
       manager.add(new Separator());
-      manager.add(new Action("Properties...") {
+      manager.add(new Action(GefMessages.RowHeaderEditPart_properties) {
         @Override
         public void run() {
           editDimension();

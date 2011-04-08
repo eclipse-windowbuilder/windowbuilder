@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.AbstractBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.BevelBorderComposite;
 import org.eclipse.wb.internal.swing.model.property.editor.border.pages.CompoundBorderComposite;
@@ -136,7 +137,7 @@ public final class BorderDialog extends ResizableDialog {
       Group typeGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(typeGroup).grabH().fillH();
       GridLayoutFactory.create(typeGroup);
-      typeGroup.setText("Border type");
+      typeGroup.setText(ModelMessages.BorderDialog_type);
       {
         m_typeCombo = new Combo(typeGroup, SWT.READ_ONLY);
         GridDataFactory.create(m_typeCombo).grab().fill();
@@ -155,7 +156,7 @@ public final class BorderDialog extends ResizableDialog {
     {
       m_pagesComposite = new Group(area, SWT.NONE);
       GridDataFactory.create(m_pagesComposite).spanH(2).grab().fill();
-      m_pagesComposite.setText("Border properties");
+      m_pagesComposite.setText(ModelMessages.BorderDialog_properties);
       // create pages
       addPages(m_pagesComposite);
       m_typeCombo.setVisibleItemCount(m_typeCombo.getItemCount());
@@ -169,7 +170,7 @@ public final class BorderDialog extends ResizableDialog {
       Group previewGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(previewGroup).spanH(2).grabH().fillH();
       GridLayoutFactory.create(previewGroup);
-      previewGroup.setText("Preview");
+      previewGroup.setText(ModelMessages.BorderDialog_preview);
       //
       m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
       GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
@@ -182,7 +183,7 @@ public final class BorderDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Border editor");
+    newShell.setText(ModelMessages.BorderDialog_title);
   }
 
   @Override

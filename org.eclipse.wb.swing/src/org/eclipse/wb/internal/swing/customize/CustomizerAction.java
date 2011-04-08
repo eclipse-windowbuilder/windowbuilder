@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
@@ -28,6 +29,7 @@ import java.beans.BeanInfo;
 import java.beans.Customizer;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.MessageFormat;
 
 /**
  * {@link Action} for performing customization.
@@ -48,7 +50,7 @@ class CustomizerAction extends Action {
     m_javaInfo = javaInfo;
     m_customizerClass = customizerClass;
     setImageDescriptor(Activator.getImageDescriptor("actions/customize.gif"));
-    setText("&Customize...");
+    setText(ModelMessages.CustomizerAction_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -100,8 +102,10 @@ class CustomizerAction extends Action {
       AwtComponentDialog dialog =
           new AwtComponentDialog(DesignerPlugin.getDefault(),
               (Component) customizer,
-              "Customize",
-              "Customizer: " + m_customizerClass.getName());
+              ModelMessages.CustomizerAction_dialogTitle,
+              MessageFormat.format(
+                  ModelMessages.CustomizerAction_dialogMessage,
+                  m_customizerClass.getName()));
       // handle update properties
       if (dialog.open() == Window.OK) {
         RunnableEx runnable = null;

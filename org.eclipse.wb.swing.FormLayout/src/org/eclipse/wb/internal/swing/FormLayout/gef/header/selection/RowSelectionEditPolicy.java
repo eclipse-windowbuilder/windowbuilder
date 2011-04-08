@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
+import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.RowHeaderEditPart;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
@@ -28,6 +29,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.ConstantSize.Unit;
 import com.jgoodies.forms.layout.Sizes;
+
+import java.text.MessageFormat;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link RowHeaderEditPart}.
@@ -95,7 +98,9 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<F
           }
         };
         // return text
-        return "height " + constantSize.getSource(true, true);
+        return MessageFormat.format(
+            GefMessages.RowSelectionEditPolicy_heightPattern,
+            constantSize.getSource(true, true));
       } else {
         // set current size if "null"
         if (sizeCopy.getLowerSize() == null) {
@@ -128,10 +133,12 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<F
           }
         };
         // return text
-        return "minimum height " + lowerSize.getSource(true, true);
+        return MessageFormat.format(
+            GefMessages.RowSelectionEditPolicy_minimumHeightPattern,
+            lowerSize.getSource(true, true));
       }
     } catch (Throwable e) {
-      return "Exception...";
+      return GefMessages.RowSelectionEditPolicy_exception;
     }
   }
 }

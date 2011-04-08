@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.databinding.ui.providers.ObserveDecoratingLa
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanSupport;
@@ -117,7 +118,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
   public void createContent(Composite parent, int columns) {
     // create properties title
     propertiesLabel = new Label(parent, SWT.NONE);
-    propertiesLabel.setText("Properties (for column):");
+    propertiesLabel.setText(Messages.ColumnBindingUiContentProvider_properties);
     // create properties viewer
     treeViewer =
         new CheckboxTreeViewer(parent, SWT.BORDER
@@ -137,7 +138,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
     GridDataFactory.create(treeViewer.getTree()).fill().grab().spanH(columns - 1).minVC(5);
     // create EL property
     ElPropertyUiConfiguration configuration = new ElPropertyUiConfiguration();
-    configuration.setTitle("EL Expression:");
+    configuration.setTitle(Messages.ColumnBindingUiContentProvider_elExpression);
     elPropertyUIContentProvider = new ElPropertyUiContentProvider(configuration, null);
     elPropertyUIContentProvider.setCompleteListener(new ICompleteListener() {
       public void calculateFinish() {
@@ -163,7 +164,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
     Object[] checkedElements = treeViewer.getCheckedElements();
     // check properties state
     if (checkedElements.length == 0) {
-      setErrorMessage("Choose column property.");
+      setErrorMessage(Messages.ColumnBindingUiContentProvider_erorrMessage);
     } else {
       if (elProperty) {
         setErrorMessage(elPropertyUIContentProvider.getErrorMessage());

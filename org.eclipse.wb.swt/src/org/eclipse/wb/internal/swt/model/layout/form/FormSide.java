@@ -11,9 +11,12 @@
 package org.eclipse.wb.internal.swt.model.layout.form;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
+
+import java.text.MessageFormat;
 
 /**
  * Information about side in {@link FormLayout}.
@@ -149,6 +152,6 @@ public enum FormSide {
     if (side == IPositionConstants.BOTTOM) {
       return BOTTOM;
     }
-    throw new Error("Unknown side: " + side);
+    throw new Error(MessageFormat.format(ModelMessages.FormSide_unknownSize, side));
   }
 }

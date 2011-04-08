@@ -14,6 +14,7 @@ import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.actions.PredefinedAnchorsActions;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
@@ -62,7 +63,7 @@ public final class LayoutAssistantPageClassic<C extends IControlInfo> extends Co
     {
       Group group = new Group(this, SWT.NONE);
       GridDataFactory.create(group).fill().grab();
-      group.setText("Anchors");
+      group.setText(ModelMessages.LayoutAssistantPageClassic_anchorsGroup);
       GridLayoutFactory.create(group);
       {
         ToolBarManager manager = new ToolBarManager();
@@ -74,7 +75,7 @@ public final class LayoutAssistantPageClassic<C extends IControlInfo> extends Co
     {
       Group group = new Group(this, SWT.NONE);
       GridDataFactory.create(group).fill().grab();
-      group.setText("Alignment");
+      group.setText(ModelMessages.LayoutAssistantPageClassic_alignmentGroup);
       GridLayoutFactory.create(group);
       ToolBarManager manager = new ToolBarManager();
       GridDataFactory.create(manager.createControl(group)).fill().grab();

@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.databinding.wizards.autobindings;
 
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingSecondPage;
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.IAutomaticDatabindingProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 
 /**
  * Swing Automatic bindings wizard.
@@ -28,7 +29,7 @@ public final class AutomaticDatabindingWizard
   //
   ////////////////////////////////////////////////////////////////////////////
   public AutomaticDatabindingWizard() {
-    setWindowTitle("New Swing Automatic Databinding");
+    setWindowTitle(Messages.AutomaticDatabindingWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -44,16 +45,16 @@ public final class AutomaticDatabindingWizard
     // create first page: via standard "New Java Wizard"
     AutomaticDatabindingFirstPage firstPage =
         new AutomaticDatabindingFirstPage(databindingProvider, beanClassName);
-    firstPage.setTitle("Java Class");
-    firstPage.setDescription("Create a new Java class.");
+    firstPage.setTitle(Messages.AutomaticDatabindingWizard_javaPageTitle);
+    firstPage.setDescription(Messages.AutomaticDatabindingWizard_javaPageMessage);
     m_mainPage = firstPage;
     addPage(firstPage);
     firstPage.setInitialSelection(getSelection());
     // create second page: bindings
     AutomaticDatabindingSecondPage secondPage =
         new AutomaticDatabindingSecondPage(firstPage, databindingProvider, beanClassName);
-    secondPage.setTitle("Databindings");
-    secondPage.setDescription("Bind Java Bean to Swing componentss.");
+    secondPage.setTitle(Messages.AutomaticDatabindingWizard_bindPageTitle);
+    secondPage.setDescription(Messages.AutomaticDatabindingWizard_bindPageMessage);
     addPage(secondPage);
   }
 }

@@ -52,6 +52,7 @@ import org.eclipse.wb.internal.swing.laf.model.PluginLafInfo;
 import org.eclipse.wb.internal.swing.laf.model.SeparatorLafInfo;
 import org.eclipse.wb.internal.swing.laf.model.SystemLafInfo;
 import org.eclipse.wb.internal.swing.laf.model.UndefinedLafInfo;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.preferences.laf.IPreferenceConstants;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
@@ -488,8 +489,7 @@ public final class LafSupport {
       }
     } catch (Throwable e) {
       EditorState.get(editor).addWarning(
-          new EditorWarning("Can't determine LookAndFeel class in UIManager.setLookAndFeel() invocation.",
-              e));
+          new EditorWarning(ModelMessages.LafSupport_errCanParse_setLookAndFeel, e));
     }
     return null;
   }

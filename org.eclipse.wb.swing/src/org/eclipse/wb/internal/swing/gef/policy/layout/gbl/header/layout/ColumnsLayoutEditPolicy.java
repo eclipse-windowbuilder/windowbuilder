@@ -29,12 +29,14 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.GridBagLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection.ColumnSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -174,7 +176,9 @@ public final class ColumnsLayoutEditPolicy extends AbstractHeaderLayoutEditPolic
         m_feedback.setLocation(feedbackLocation);
       }
       // set text
-      m_feedback.setText("column: " + index);
+      m_feedback.setText(MessageFormat.format(
+          GefMessages.ColumnsLayoutEditPolicy_feedbackPattern,
+          index));
     }
     // prepare command
     {

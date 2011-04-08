@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.nebula.widgets.cdatetime.CDT;
 import org.eclipse.nebula.widgets.cdatetime.CDateTime;
@@ -77,24 +78,24 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
     GridLayoutFactory.create(this).columns(2);
     // value
     {
-      createLabel("Initial &value:");
+      createLabel(ModelMessages.DateSpinnerComposite_initialValue);
       m_valueField = createDateTime();
     }
     // minimum
     {
-      m_minButton = createCheck("&Start:");
+      m_minButton = createCheck(ModelMessages.DateSpinnerComposite_start);
       m_minField = createDateTime();
       trackCheckField(m_minButton, m_minField);
     }
     // maximum
     {
-      m_maxButton = createCheck("&End:");
+      m_maxButton = createCheck(ModelMessages.DateSpinnerComposite_end);
       m_maxField = createDateTime();
       trackCheckField(m_maxButton, m_maxField);
     }
     // step
     {
-      createLabel("Number &type:");
+      createLabel(ModelMessages.DateSpinnerComposite_numberType);
       m_stepCombo = new Combo(this, SWT.READ_ONLY);
       GridDataFactory.create(m_stepCombo).grabH().fillH();
       // add items
@@ -190,7 +191,7 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public String getTitle() {
-    return "Date";
+    return ModelMessages.DateSpinnerComposite_title;
   }
 
   @Override
@@ -233,10 +234,10 @@ final class DateSpinnerComposite extends AbstractSpinnerComposite {
     Date minimum = m_minField.getSelection();
     Date maximum = m_maxField.getSelection();
     if (m_minButton.getSelection() && minimum.compareTo(value) > 0) {
-      return "(minimum <= value) is false.";
+      return ModelMessages.DateSpinnerComposite_errMinValue;
     }
     if (m_maxButton.getSelection() && maximum.compareTo(value) < 0) {
-      return "(value <= minimum) is false.";
+      return ModelMessages.DateSpinnerComposite_errMaxValue;
     }
     // OK
     return null;

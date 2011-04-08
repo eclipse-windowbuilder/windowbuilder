@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeansObserveTypeContainer;
 import org.eclipse.wb.internal.swing.databinding.model.beans.ElPropertyObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.AutoBindingInfo;
@@ -58,6 +59,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import java.lang.reflect.Constructor;
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -291,7 +293,7 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          "Model argument '" + arguments[1] + "' not found",
+          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
           new Throwable());
       return null;
     }
@@ -304,29 +306,26 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target object
     ObserveInfo target = getObserveInfo(arguments[2]);
     if (target == null) {
-      AbstractParser.addError(
-          editor,
-          "Target argument '" + arguments[2] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+          arguments[2]), new Throwable());
       return null;
     }
     // target AST property
     PropertyInfo targetAstProperty = (PropertyInfo) resolver.getModel(arguments[3]);
     if (targetAstProperty == null) {
-      AbstractParser.addError(
-          editor,
-          "Target property argument '" + arguments[3] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetPropertyArgumentNotFound,
+          arguments[3]), new Throwable());
       return null;
     }
     // target property
     ObserveInfo targetProperty = targetAstProperty.getObserveProperty(target);
     if (targetProperty == null) {
-      AbstractParser.addError(editor, "Target property for '"
-          + arguments[2]
-          + "' -> '"
-          + arguments[3]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetProperty2NotFound,
+          arguments[2],
+          arguments[3]), new Throwable());
       targetProperty = createDefaultProperty(targetAstProperty);
     } else {
       assertObserves(types, 1, target, targetAstProperty, targetProperty);
@@ -357,28 +356,26 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          "Model argument '" + arguments[1] + "' not found",
+          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
           new Throwable());
       return null;
     }
     // model AST property
     PropertyInfo modelAstProperty = (PropertyInfo) resolver.getModel(arguments[2]);
     if (modelAstProperty == null) {
-      AbstractParser.addError(
-          editor,
-          "Model property argument '" + arguments[2] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errModelPropertyArgumentNotFound,
+          arguments[2]), new Throwable());
       return null;
     }
     // model property
     ObserveInfo modelProperty = modelAstProperty.getObserveProperty(model);
     IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 4);
     if (modelProperty == null) {
-      AbstractParser.addError(editor, "Model property for '"
-          + arguments[1]
-          + "' -> '"
-          + arguments[2]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errModelProperty2NotFound,
+          arguments[1],
+          arguments[2]), new Throwable());
       modelProperty = createDefaultProperty(modelAstProperty);
     } else {
       assertObserves(types, 0, model, modelAstProperty, modelProperty);
@@ -386,26 +383,27 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target object
     ObserveInfo target = getObserveInfo(arguments[3]);
     if (target == null) {
-      AbstractParser.addError(
-          editor,
-          "Target argument '" + arguments[3] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+          arguments[3]), new Throwable());
       return null;
     }
     // target AST property
     PropertyInfo targetAstProperty = (PropertyInfo) resolver.getModel(arguments[4]);
     if (targetAstProperty == null) {
-      AbstractParser.addError(editor, "Argument '" + arguments[4] + "' not found", new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(Messages.DataBindingsRootInfo_errArgumentNotFound, arguments[4]),
+          new Throwable());
       return null;
     }
     // target property
     ObserveInfo targetProperty = targetAstProperty.getObserveProperty(target);
     if (targetProperty == null) {
-      AbstractParser.addError(editor, "Target property for '"
-          + arguments[3]
-          + "' -> '"
-          + arguments[4]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetProperty2NotFound,
+          arguments[3],
+          arguments[4]), new Throwable());
       targetProperty = createDefaultProperty(targetAstProperty);
     } else {
       assertObserves(types, 2, target, targetAstProperty, targetProperty);
@@ -438,7 +436,7 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          "Model argument '" + arguments[1] + "' not found",
+          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
           new Throwable());
       return null;
     }
@@ -450,10 +448,9 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target object
     ObserveInfo target = getComponentObserveInfo(arguments[2]);
     if (target == null) {
-      AbstractParser.addError(
-          editor,
-          "Target argument '" + arguments[2] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+          arguments[2]), new Throwable());
       return null;
     }
     // target properties
@@ -491,7 +488,7 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          "Model argument '" + arguments[1] + "' not found",
+          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
           new Throwable());
       return null;
     }
@@ -500,29 +497,26 @@ public final class DataBindingsRootInfo implements ISubParser {
     GenericUtils.assertEquals(model.getObjectType(), types[1]);
     PropertyInfo modelAstProperty = (PropertyInfo) resolver.getModel(arguments[2]);
     if (modelAstProperty == null) {
-      AbstractParser.addError(
-          editor,
-          "Model property argument '" + arguments[2] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errModelPropertyArgumentNotFound,
+          arguments[2]), new Throwable());
       return null;
     }
     // model property
     ObserveInfo modelProperty = modelAstProperty.getObserveProperty(model);
     if (modelProperty == null) {
-      AbstractParser.addError(editor, "Model property for '"
-          + arguments[1]
-          + "' -> '"
-          + arguments[2]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errModelProperty2NotFound,
+          arguments[1],
+          arguments[2]), new Throwable());
       modelProperty = createDefaultProperty(modelAstProperty);
     }
     // target object
     ObserveInfo target = getComponentObserveInfo(arguments[3]);
     if (target == null) {
-      AbstractParser.addError(
-          editor,
-          "Target argument '" + arguments[3] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+          arguments[3]), new Throwable());
       return null;
     }
     // target properties

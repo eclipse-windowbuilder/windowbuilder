@@ -21,6 +21,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
+import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.SetAlignmentAction;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.SetGrowAction;
@@ -157,35 +158,40 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
     }
     // operations
     {
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this, "Insert Column") {
+      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_insertColumn) {
         @Override
         protected void run(FormColumnInfo dimension) throws Exception {
           int index = m_layout.getColumns().indexOf(dimension);
           m_layout.insertColumn(index);
         }
       });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this, "Append Column") {
+      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_appendColumn) {
         @Override
         protected void run(FormColumnInfo dimension) throws Exception {
           int index = m_layout.getColumns().indexOf(dimension);
           m_layout.insertColumn(index + 1);
         }
       });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this, "Delete Column") {
+      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_deleteColumn) {
         @Override
         protected void run(FormColumnInfo dimension) throws Exception {
           int index = m_layout.getColumns().indexOf(dimension);
           m_layout.deleteColumn(index);
         }
       });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this, "Delete Contents") {
+      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_DeleteContents) {
         @Override
         protected void run(FormColumnInfo dimension) throws Exception {
           int index = m_layout.getColumns().indexOf(dimension);
           m_layout.deleteColumnContents(index);
         }
       });
-      manager.add(new DimensionHeaderAction<FormColumnInfo>(this, "Split Column") {
+      manager.add(new DimensionHeaderAction<FormColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_splitColumn) {
         @Override
         protected void run(FormColumnInfo dimension) throws Exception {
           int index = m_layout.getColumns().indexOf(dimension);
@@ -197,19 +203,19 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
     {
       manager.add(new Separator());
       manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          "Left",
+          GefMessages.ColumnHeaderEditPart_haLeft,
           Activator.getImageDescriptor("alignment/h/menu/left.gif"),
           ColumnSpec.LEFT));
       manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          "Fill",
+          GefMessages.ColumnHeaderEditPart_haFill,
           Activator.getImageDescriptor("alignment/h/menu/fill.gif"),
           ColumnSpec.FILL));
       manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          "Center",
+          GefMessages.ColumnHeaderEditPart_haCenter,
           Activator.getImageDescriptor("alignment/h/menu/center.gif"),
           ColumnSpec.CENTER));
       manager.add(new SetAlignmentAction<FormColumnInfo>(this,
-          "Right",
+          GefMessages.ColumnHeaderEditPart_haRight,
           Activator.getImageDescriptor("alignment/h/menu/right.gif"),
           ColumnSpec.RIGHT));
     }
@@ -217,7 +223,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
     {
       manager.add(new Separator());
       manager.add(new SetGrowAction<FormColumnInfo>(this,
-          "Grow",
+          GefMessages.ColumnHeaderEditPart_grow,
           Activator.getImageDescriptor("alignment/h/menu/grow.gif")));
     }
     // templates
@@ -225,7 +231,8 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
       manager.add(new Separator());
       addTemplateActions(manager, m_dimension.getTemplates(true));
       {
-        IMenuManager otherManager = new MenuManager("Other Templates");
+        IMenuManager otherManager =
+            new MenuManager(GefMessages.ColumnHeaderEditPart_otherTemplates);
         manager.add(otherManager);
         addTemplateActions(otherManager, m_dimension.getTemplates(false));
       }
@@ -235,7 +242,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
       manager.add(new Separator());
       {
         DimensionHeaderAction<FormColumnInfo> action =
-            new DimensionHeaderAction<FormColumnInfo>(this, "Group") {
+            new DimensionHeaderAction<FormColumnInfo>(this, GefMessages.ColumnHeaderEditPart_group) {
               @Override
               protected void run(List<FormColumnInfo> dimensions) throws Exception {
                 m_layout.groupColumns(dimensions);
@@ -246,7 +253,8 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
       }
       {
         DimensionHeaderAction<FormColumnInfo> action =
-            new DimensionHeaderAction<FormColumnInfo>(this, "UnGroup") {
+            new DimensionHeaderAction<FormColumnInfo>(this,
+                GefMessages.ColumnHeaderEditPart_unGroup) {
               @Override
               protected void run(List<FormColumnInfo> dimensions) throws Exception {
                 m_layout.unGroupColumns(dimensions);
@@ -269,7 +277,7 @@ public class ColumnHeaderEditPart extends DimensionHeaderEditPart<FormColumnInfo
     // properties
     {
       manager.add(new Separator());
-      manager.add(new ObjectInfoAction(m_layout, "Properties...") {
+      manager.add(new ObjectInfoAction(m_layout, GefMessages.ColumnHeaderEditPart_properties) {
         @Override
         protected void runEx() throws Exception {
           editDimension();

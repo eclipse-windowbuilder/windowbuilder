@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.parser.JavaInfoResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swing.java6.Messages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
@@ -75,7 +76,7 @@ final class GroupLayoutParserVisitor extends ASTVisitor {
           || identifier.equals(GroupLayoutInfo.IDENTIFIER_ADD_COMPONENT)
           || identifier.equals(GroupLayoutInfo.IDENTIFIER_ADD_GAP)) {
         if (argumentsSize == 0) {
-          throw new IllegalArgumentException("add*() methods with no arguments are not supported.");
+          throw new IllegalArgumentException(Messages.GroupLayoutParserVisitor_addWithoutArguments);
         }
         final Expression arg0 = (Expression) node.arguments().get(0);
         final GroupInfo parentGroup =

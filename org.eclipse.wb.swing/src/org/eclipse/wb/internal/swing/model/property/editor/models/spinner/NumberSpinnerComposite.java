@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -52,7 +53,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
     GridLayoutFactory.create(this).columns(2);
     // type
     {
-      createLabel("Number &type:");
+      createLabel(ModelMessages.NumberSpinnerComposite_numberType);
       m_typeCombo = new Combo(this, SWT.READ_ONLY);
       GridDataFactory.create(m_typeCombo).grabH().fillH();
       for (NumberTypeDescription typeDescription : NumberTypeDescription.values()) {
@@ -63,24 +64,24 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
     }
     // value
     {
-      createLabel("Initial &value:");
+      createLabel(ModelMessages.NumberSpinnerComposite_initialValue);
       m_valueField = createSpinner();
     }
     // minimum
     {
-      m_minButton = createCheck("Mi&nimum:");
+      m_minButton = createCheck(ModelMessages.NumberSpinnerComposite_minimum);
       m_minField = createSpinner();
       trackCheckSpinner(m_minButton, m_minField);
     }
     // maximum
     {
-      m_maxButton = createCheck("Ma&ximum:");
+      m_maxButton = createCheck(ModelMessages.NumberSpinnerComposite_maximum);
       m_maxField = createSpinner();
       trackCheckSpinner(m_maxButton, m_maxField);
     }
     // step
     {
-      createLabel("&Step size:");
+      createLabel(ModelMessages.NumberSpinnerComposite_stepSize);
       m_stepField = createSpinner();
     }
   }
@@ -158,7 +159,7 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public String getTitle() {
-    return "Number";
+    return ModelMessages.NumberSpinnerComposite_title;
   }
 
   @Override
@@ -190,10 +191,10 @@ final class NumberSpinnerComposite extends AbstractSpinnerComposite {
   @Override
   public String validate() {
     if (m_minButton.getSelection() && m_minField.getSelection() > m_valueField.getSelection()) {
-      return "(minimum <= value) is false.";
+      return ModelMessages.NumberSpinnerComposite_minValue;
     }
     if (m_maxButton.getSelection() && m_maxField.getSelection() < m_valueField.getSelection()) {
-      return "(value <= minimum) is false.";
+      return ModelMessages.NumberSpinnerComposite_maxValue;
     }
     return null;
   }

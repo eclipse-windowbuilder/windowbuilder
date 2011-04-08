@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.jdt.core.dom.ArrayCreation;
@@ -36,8 +37,7 @@ public class TabOrderProperty
       org.eclipse.wb.internal.core.model.property.order.TabOrderProperty {
   private static final String TAB_METHOD_SIGNATURE =
       "setTabList(org.eclipse.swt.widgets.Control[])";
-  private static final String TITLE_TOOLTIP =
-      "Sets the tabbing order for the specified controls to match the order that they occur in the argument list.";
+  private static final String TITLE_TOOLTIP = ModelMessages.TabOrderProperty_tooltip;
 
   ////////////////////////////////////////////////////////////////////////////
   //

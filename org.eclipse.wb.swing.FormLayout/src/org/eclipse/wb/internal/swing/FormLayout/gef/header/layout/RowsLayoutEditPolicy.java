@@ -30,10 +30,13 @@ import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.gef.FormLayoutEditPolicy;
+import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.RowHeaderEditPart;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.selection.RowSelectionEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
+
+import java.text.MessageFormat;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link RowHeaderEditPart}.
@@ -172,7 +175,9 @@ public final class RowsLayoutEditPolicy extends AbstractHeaderLayoutEditPolicy {
         m_feedback.setLocation(feedbackLocation);
       }
       // set text
-      m_feedback.setText("row: " + (1 + index));
+      m_feedback.setText(MessageFormat.format(
+          GefMessages.RowsLayoutEditPolicy_feedbackPattern,
+          1 + index));
     }
     // prepare command
     {

@@ -87,8 +87,7 @@ public class SwingVisualMapper implements VisualMapper {
 
   @Override
   public java.awt.Rectangle getContainerInterior(String componentId) {
-    org.eclipse.wb.draw2d.geometry.Rectangle bounds =
-        getContainer().getModelBounds().getCopy();
+    org.eclipse.wb.draw2d.geometry.Rectangle bounds = getContainer().getModelBounds().getCopy();
     bounds.crop(getContainer().getInsets());
     return new java.awt.Rectangle(0, 0, bounds.width, bounds.height);
   }

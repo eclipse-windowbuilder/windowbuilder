@@ -40,6 +40,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.lang.reflect.Field;
+import java.text.MessageFormat;
 
 /**
  * The object that provides access for the JGoodies CellConstraints.<br>
@@ -237,7 +238,10 @@ public final class CellConstraintsSupport {
           if (1 <= value && value + width - 1 <= columns) {
             return null;
           }
-          return value + " is out of range.\nMust be between 1 and " + (columns - width + 1) + ".";
+          return MessageFormat.format(
+              ModelMessages.CellConstraintsSupport_outOfRange,
+              value,
+              (columns - width + 1));
         }
       };
       Property wProperty = new IntegerCellProperty("grid width", "width") {
@@ -257,7 +261,10 @@ public final class CellConstraintsSupport {
           if (1 <= value && x + value - 1 <= columns) {
             return null;
           }
-          return value + " is out of range.\nMust be between 1 and " + (columns - x + 1) + ".";
+          return MessageFormat.format(
+              ModelMessages.CellConstraintsSupport_outOfRange,
+              value,
+              (columns - x + 1));
         }
       };
       Property yProperty = new IntegerCellProperty("grid y", "y") {
@@ -272,7 +279,8 @@ public final class CellConstraintsSupport {
           if (1 <= value && value + height - 1 <= rows) {
             return null;
           }
-          return value + " is out of range.\nMust be between 1 and " + (rows - y + 1) + ".";
+          return MessageFormat.format(ModelMessages.CellConstraintsSupport_outOfRange, value, (rows
+              - y + 1));
         }
       };
       Property hProperty = new IntegerCellProperty("grid height", "height") {
@@ -292,7 +300,8 @@ public final class CellConstraintsSupport {
           if (1 <= value && y + value - 1 <= rows) {
             return null;
           }
-          return value + " is out of range.\nMust be between 1 and " + (rows - y + 1) + ".";
+          return MessageFormat.format(ModelMessages.CellConstraintsSupport_outOfRange, value, (rows
+              - y + 1));
         }
       };
       // alignment properties
@@ -320,17 +329,14 @@ public final class CellConstraintsSupport {
           vAlignmentProperty});
     }
     //
-    m_complexProperty.setText(x
-        + ", "
-        + y
-        + ", "
-        + width
-        + ", "
-        + height
-        + ", "
-        + alignH
-        + ", "
-        + alignV);
+    m_complexProperty.setText(MessageFormat.format(
+        "{0}, {1}, {2}, {3}, {4}, {5}",
+        x,
+        y,
+        width,
+        height,
+        alignH,
+        alignV));
     return m_complexProperty;
   }
 
@@ -451,7 +457,7 @@ public final class CellConstraintsSupport {
     @Override
     protected final String validate(Object value) throws Exception {
       if (!(value instanceof Integer)) {
-        return "Integer value expected.";
+        return ModelMessages.CellConstraintsSupport_integerExpected;
       }
       int intValue = ((Integer) value).intValue();
       return validate(intValue);
@@ -506,7 +512,7 @@ public final class CellConstraintsSupport {
     protected String validate(Object value) throws Exception {
       return value instanceof CellConstraints.Alignment
           ? null
-          : "CellConstraints.Alignment expected.";
+          : ModelMessages.CellConstraintsSupport_alignmentExpected;
     }
   }
 
@@ -557,13 +563,15 @@ public final class CellConstraintsSupport {
   public void addContextMenu(IMenuManager manager) throws Exception {
     // horizontal
     {
-      IMenuManager manager2 = new MenuManager("Horizontal alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.CellConstraintsSupport_horizontalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       fillHorizontalAlignmentMenu(manager2);
     }
     // vertical
     {
-      IMenuManager manager2 = new MenuManager("Vertical alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.CellConstraintsSupport_verticalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       fillVerticalAlignmentMenu(manager2);
     }
@@ -573,25 +581,52 @@ public final class CellConstraintsSupport {
    * Adds the horizontal alignment {@link Action}'s.
    */
   public void fillHorizontalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetAlignmentAction("&Default\tD", "default.gif", true, CellConstraints.DEFAULT));
-    manager.add(new SetAlignmentAction("&Left\tL", "left.gif", true, CellConstraints.LEFT));
-    manager.add(new SetAlignmentAction("&Center\tC", "center.gif", true, CellConstraints.CENTER));
-    manager.add(new SetAlignmentAction("&Right\tR", "right.gif", true, CellConstraints.RIGHT));
-    manager.add(new SetAlignmentAction("&Fill\tF", "fill.gif", true, CellConstraints.FILL));
+    manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haDefault,
+        "default.gif",
+        true,
+        CellConstraints.DEFAULT));
+    manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haLeft,
+        "left.gif",
+        true,
+        CellConstraints.LEFT));
+    manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haCenter,
+        "center.gif",
+        true,
+        CellConstraints.CENTER));
+    manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haRight,
+        "right.gif",
+        true,
+        CellConstraints.RIGHT));
+    manager.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_haFill,
+        "fill.gif",
+        true,
+        CellConstraints.FILL));
   }
 
   /**
    * Adds the vertical alignment {@link Action}'s.
    */
   public void fillVerticalAlignmentMenu(IMenuManager manager2) {
-    manager2.add(new SetAlignmentAction("&Default\tShift+D",
+    manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaDefault,
         "default.gif",
         false,
         CellConstraints.DEFAULT));
-    manager2.add(new SetAlignmentAction("&Top\tT", "top.gif", false, CellConstraints.TOP));
-    manager2.add(new SetAlignmentAction("&Center\tM", "center.gif", false, CellConstraints.CENTER));
-    manager2.add(new SetAlignmentAction("&Bottom\tB", "bottom.gif", false, CellConstraints.BOTTOM));
-    manager2.add(new SetAlignmentAction("&Fill\tShift+F", "fill.gif", false, CellConstraints.FILL));
+    manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaTop,
+        "top.gif",
+        false,
+        CellConstraints.TOP));
+    manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaCenter,
+        "center.gif",
+        false,
+        CellConstraints.CENTER));
+    manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaBottom,
+        "bottom.gif",
+        false,
+        CellConstraints.BOTTOM));
+    manager2.add(new SetAlignmentAction(ModelMessages.CellConstraintsSupport_vaFill,
+        "fill.gif",
+        false,
+        CellConstraints.FILL));
   }
 
   ////////////////////////////////////////////////////////////////////////////

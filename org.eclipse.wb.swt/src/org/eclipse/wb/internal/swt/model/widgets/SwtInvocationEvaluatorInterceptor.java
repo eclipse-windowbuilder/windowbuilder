@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
@@ -157,7 +158,7 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
       throws Exception {
     String message =
         MessageFormat.format(
-            "Exception during creation of: {0}. See \"Open error log\" for details.",
+            ModelMessages.SwtInvocationEvaluatorInterceptor_placeholderText,
             CodeUtils.getShortClass(clazz.getName()));
     ClassLoader classLoader = parent.getClass().getClassLoader();
     String script =

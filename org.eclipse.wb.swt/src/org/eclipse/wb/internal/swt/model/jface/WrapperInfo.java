@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEdi
 import org.eclipse.wb.internal.core.model.util.ExposeComponentSupport;
 import org.eclipse.wb.internal.core.model.util.RenameConvertSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.jface.action.IMenuManager;
 
@@ -60,7 +61,7 @@ public class WrapperInfo extends WrapperMethodInfo {
           ObjectInfo object,
           IMenuManager manager) throws Exception {
         if (object == m_this) {
-          ExposeComponentSupport.contribute(m_this, manager, "Expose viewer...");
+          ExposeComponentSupport.contribute(m_this, manager, ModelMessages.WrapperInfo_exposeViewer);
           RenameConvertSupport.contribute(objects, manager);
         }
       }

@@ -162,7 +162,7 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
     // update selection feedback
     m_resizeFeedback.setBounds(bounds);
     // update text feedback
-    m_textFeedback.setText(Integer.toString(bounds.width) + " x " + Integer.toString(bounds.height));
+    m_textFeedback.setText(bounds.width + " x " + bounds.height);
     m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
   }
 

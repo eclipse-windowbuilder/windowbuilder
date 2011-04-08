@@ -48,6 +48,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.ImplicitLayoutCreationSupport;
 import org.eclipse.wb.internal.swing.model.layout.ImplicitLayoutVariableSupport;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
@@ -152,7 +153,7 @@ public class ContainerInfo extends ComponentInfo {
       return;
     }
     // OK, add "Set layout"
-    IMenuManager layoutsManager = new MenuManager("Set layout");
+    IMenuManager layoutsManager = new MenuManager(ModelMessages.ContainerInfo_setLayout);
     manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, layoutsManager);
     fillLayoutsManager(layoutsManager);
   }
@@ -172,7 +173,7 @@ public class ContainerInfo extends ComponentInfo {
           setLayout(layout);
         }
       };
-      action.setText("Absolute layout");
+      action.setText(ModelMessages.ContainerInfo_setLayoutAbsolute);
       action.setImageDescriptor(Activator.getImageDescriptor("info/layout/absolute/layout.gif"));
       layoutsManager.add(action);
     }
@@ -392,7 +393,7 @@ public class ContainerInfo extends ComponentInfo {
       }
     }
     // container that has layout, should always have some layout model
-    throw new IllegalStateException("Container should always have layout");
+    throw new IllegalStateException(ModelMessages.ContainerInfo_containerShouldHaveLayout);
   }
 
   /**

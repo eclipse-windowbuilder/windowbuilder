@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Choos
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.LabelUiContentProvider;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanPropertyObserveInfo;
@@ -89,20 +90,22 @@ public final class VirtualBindingInfo extends BindingInfo {
       List<IUiContentProvider> providers,
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
-    listener.setTitle("Properties");
-    listener.setMessage("Choose properties for the target and the model.");
+    listener.setTitle(Messages.VirtualBindingInfo_listenerTitle);
+    listener.setMessage(Messages.VirtualBindingInfo_listenerMessage);
     // add target editors
-    providers.add(new LabelUiContentProvider("Target:", getTargetPresentationText(false)));
+    providers.add(new LabelUiContentProvider(Messages.VirtualBindingInfo_target,
+        getTargetPresentationText(false)));
     // add model editors
-    providers.add(new LabelUiContentProvider("Model:", getModelPresentationText(false)));
+    providers.add(new LabelUiContentProvider(Messages.VirtualBindingInfo_model,
+        getModelPresentationText(false)));
     //
     if (m_configuration == null) {
       m_configuration = new ChooseClassConfiguration();
-      m_configuration.setDialogFieldLabel("Element bean class:");
+      m_configuration.setDialogFieldLabel(Messages.VirtualBindingInfo_chooseTitle);
       m_configuration.setValueScope("beans");
       m_configuration.setChooseInterfaces(true);
-      m_configuration.setEmptyClassErrorMessage("Element bean class is empty.");
-      m_configuration.setErrorMessagePrefix("Element bean class");
+      m_configuration.setEmptyClassErrorMessage(Messages.VirtualBindingInfo_chooseError);
+      m_configuration.setErrorMessagePrefix(Messages.VirtualBindingInfo_chooseErrorPrefix);
     }
     //
     providers.add(new ElementTypeUiContentProvider(m_configuration, this));

@@ -19,8 +19,11 @@ import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
+
+import java.text.MessageFormat;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link ColumnHeaderEditPart}.
@@ -69,6 +72,10 @@ public final class ColumnSelectionEditPolicy extends DimensionSelectionEditPolic
     };
     // return text
     String deltaText = pixelsDelta > 0 ? "+" + pixelsDelta : "" + pixelsDelta;
-    return "minimum width " + newPixels + " (" + deltaText + ", oldSize = " + pixels + ") ";
+    return MessageFormat.format(
+        GefMessages.ColumnSelectionEditPolicy_feedbackPattern,
+        newPixels,
+        deltaText,
+        pixels);
   }
 }

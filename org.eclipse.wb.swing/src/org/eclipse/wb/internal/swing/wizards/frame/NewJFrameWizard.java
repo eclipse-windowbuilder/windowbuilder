@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.wizards.frame;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizard;
 
 import org.eclipse.jface.wizard.Wizard;
@@ -30,7 +31,7 @@ public final class NewJFrameWizard extends SwingWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJFrameWizard() {
-    setWindowTitle("New JFrame");
+    setWindowTitle(Messages.NewJFrameWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

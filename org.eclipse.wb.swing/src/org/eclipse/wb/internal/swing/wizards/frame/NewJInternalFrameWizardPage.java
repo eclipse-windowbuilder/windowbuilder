@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.wizards.frame;
 
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -36,9 +37,9 @@ public final class NewJInternalFrameWizardPage extends SwingWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJInternalFrameWizardPage() {
-    setTitle("Create JInternalFrame");
+    setTitle(Messages.NewJInternalFrameWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JInternalFrame/banner.gif"));
-    setDescription("Create an empty JInternalFrame.");
+    setDescription(Messages.NewJInternalFrameWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

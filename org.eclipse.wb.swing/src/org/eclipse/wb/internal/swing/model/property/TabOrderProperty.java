@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
@@ -41,8 +42,7 @@ public class TabOrderProperty
   private static final String FOCUS_TRAVERSAL_CLASS = "org.eclipse.wb.swing.FocusTraversalOnArray";
   private static final String FOCUS_TRAVERSAL_METHOD_SIGNATURE =
       "setFocusTraversalPolicy(java.awt.FocusTraversalPolicy)";
-  private static final String TITLE_TOOLTIP =
-      "Sets the tabbing order for the specified components to match the order that they occur in the argument list.";
+  private static final String TITLE_TOOLTIP = ModelMessages.TabOrderProperty_tooltip;
 
   ////////////////////////////////////////////////////////////////////////////
   //

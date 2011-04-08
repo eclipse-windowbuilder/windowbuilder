@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 import org.eclipse.wb.internal.core.databinding.ui.editor.DialogFieldUiContentProvider;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.ColumnBindingInfo;
 
 /**
@@ -33,7 +34,7 @@ public class ColumnNameUiContentProvider extends DialogFieldUiContentProvider {
   public ColumnNameUiContentProvider(ColumnBindingInfo binding) {
     m_binding = binding;
     m_dialogField = new StringDialogField();
-    m_dialogField.setLabelText("Column name:");
+    m_dialogField.setLabelText(Messages.ColumnNameUiContentProvider_label);
   }
 
   ////////////////////////////////////////////////////////////////////////////

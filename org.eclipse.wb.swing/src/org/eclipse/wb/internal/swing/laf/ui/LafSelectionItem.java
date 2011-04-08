@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.swing.laf.command.Command;
 import org.eclipse.wb.internal.swing.laf.model.CategoryInfo;
 import org.eclipse.wb.internal.swing.laf.model.LafInfo;
 import org.eclipse.wb.internal.swing.laf.model.SeparatorLafInfo;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.jface.action.ContributionItem;
@@ -38,6 +39,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import org.apache.commons.lang.exception.NestableError;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -77,7 +79,7 @@ public final class LafSelectionItem extends ContributionItem
     m_toolItem = new ToolItem(parent, SWT.DROP_DOWN);
     m_toolItem.setImage(Activator.getImage("info/laf/laf.png"));
     m_toolItem.setText(LafSupport.getSelectedLAF(m_componentInfo).getName());
-    m_toolItem.setToolTipText("Select Look-n-Feel");
+    m_toolItem.setToolTipText(ModelMessages.LafSelectionItem_select);
     // setup drop-down menu 
     m_toolItem.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
@@ -143,7 +145,7 @@ public final class LafSelectionItem extends ContributionItem
     // add "add LAF" item
     new MenuItem(m_menu, SWT.SEPARATOR);
     MenuItem addLafItem = new MenuItem(m_menu, SWT.PUSH);
-    addLafItem.setText("Add more...");
+    addLafItem.setText(ModelMessages.LafSelectionItem_addMore);
     addLafItem.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -280,7 +282,9 @@ public final class LafSelectionItem extends ContributionItem
     if (site != null) {
       site.handleException(ex);
     } else {
-      throw new NestableError("No design page site for " + m_componentInfo, ex);
+      throw new NestableError(MessageFormat.format(
+          ModelMessages.LafSelectionItem_noDesignPage,
+          m_componentInfo), ex);
     }
   }
 }

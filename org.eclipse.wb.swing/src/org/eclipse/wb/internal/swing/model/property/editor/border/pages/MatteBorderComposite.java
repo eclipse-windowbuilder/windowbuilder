@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
 
@@ -43,11 +44,11 @@ public final class MatteBorderComposite extends AbstractBorderComposite {
   public MatteBorderComposite(Composite parent) {
     super(parent, "MatteBorder");
     GridLayoutFactory.create(this);
-    m_colorField = createColorField("&Color:");
-    m_topField = createIntegerField("&Top:");
-    m_leftField = createIntegerField("&Left:");
-    m_bottomField = createIntegerField("&Bottom:");
-    m_rightField = createIntegerField("&Right:");
+    m_colorField = createColorField(ModelMessages.MatteBorderComposite_color);
+    m_topField = createIntegerField(ModelMessages.MatteBorderComposite_top);
+    m_leftField = createIntegerField(ModelMessages.MatteBorderComposite_left);
+    m_bottomField = createIntegerField(ModelMessages.MatteBorderComposite_bottom);
+    m_rightField = createIntegerField(ModelMessages.MatteBorderComposite_right);
   }
 
   ////////////////////////////////////////////////////////////////////////////

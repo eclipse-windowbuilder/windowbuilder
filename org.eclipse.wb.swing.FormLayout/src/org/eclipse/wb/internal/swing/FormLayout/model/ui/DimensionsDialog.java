@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
+import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -153,11 +154,11 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
     GridDataFactory.create(table).hintC(120, 15).grab().fill();
     table.setHeaderVisible(true);
     table.setLinesVisible(true);
-    createColumn("#", 5);
-    createColumn("Template", 35);
-    createColumn("Alignment", 15);
-    createColumn("Size", 35);
-    createColumn("Resizing", 15);
+    createColumn(ModelMessages.DimensionsDialog_numberColumn, 5);
+    createColumn(ModelMessages.DimensionsDialog_templateColumn, 35);
+    createColumn(ModelMessages.DimensionsDialog_alignmentColumn, 15);
+    createColumn(ModelMessages.DimensionsDialog_sizeColumn, 35);
+    createColumn(ModelMessages.DimensionsDialog_resizingColumn, 15);
     // configure viewer
     m_viewer.setContentProvider(new ArrayContentProvider());
     m_viewer.setLabelProvider(new DimensionsLabelProvider());
@@ -202,61 +203,65 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
     GridDataFactory.create(composite).fill();
     GridLayoutFactory.create(composite).marginsV(0);
     //
-    createButton(composite, "&Insert...", new Listener() {
+    createButton(composite, ModelMessages.DimensionsDialog_insertButton, new Listener() {
       public void handleEvent(Event event) {
         addNewDimension(0);
       }
     });
-    createButton(composite, "&Append...", new Listener() {
+    createButton(composite, ModelMessages.DimensionsDialog_appendButton, new Listener() {
       public void handleEvent(Event event) {
         addNewDimension(1);
       }
     });
-    m_editButton = createButton(composite, "&Edit...", new Listener() {
-      public void handleEvent(Event event) {
-        editSelectedDimension();
-      }
-    });
-    m_removeButton = createButton(composite, "&Remove", new Listener() {
-      public void handleEvent(Event event) {
-        int index = 0;
-        for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
-          index = m_dimensions.indexOf(dimension);
-          m_dimensions.remove(dimension);
-        }
-        // set selection
-        m_viewer.refresh();
-        index = Math.min(index, m_dimensions.size() - 1);
-        m_viewer.getTable().select(index);
-        // validate
-        updateButtons();
-        validateMinimumDimensions();
-      }
-    });
+    m_editButton =
+        createButton(composite, ModelMessages.DimensionsDialog_editButton, new Listener() {
+          public void handleEvent(Event event) {
+            editSelectedDimension();
+          }
+        });
+    m_removeButton =
+        createButton(composite, ModelMessages.DimensionsDialog_removeButton, new Listener() {
+          public void handleEvent(Event event) {
+            int index = 0;
+            for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
+              index = m_dimensions.indexOf(dimension);
+              m_dimensions.remove(dimension);
+            }
+            // set selection
+            m_viewer.refresh();
+            index = Math.min(index, m_dimensions.size() - 1);
+            m_viewer.getTable().select(index);
+            // validate
+            updateButtons();
+            validateMinimumDimensions();
+          }
+        });
     //
     new Label(composite, SWT.NONE);
-    m_moveUpButton = createButton(composite, "Move &Up", new Listener() {
-      public void handleEvent(Event event) {
-        for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
-          int index = m_dimensions.indexOf(dimension);
-          m_dimensions.remove(dimension);
-          m_dimensions.add(index - 1, dimension);
-        }
-        m_viewer.refresh();
-        updateButtons();
-      }
-    });
-    m_moveDownButton = createButton(composite, "Move &Down", new Listener() {
-      public void handleEvent(Event event) {
-        for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
-          int index = m_dimensions.indexOf(dimension);
-          m_dimensions.remove(dimension);
-          m_dimensions.add(index + 1, dimension);
-        }
-        m_viewer.refresh();
-        updateButtons();
-      }
-    });
+    m_moveUpButton =
+        createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
+          public void handleEvent(Event event) {
+            for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
+              int index = m_dimensions.indexOf(dimension);
+              m_dimensions.remove(dimension);
+              m_dimensions.add(index - 1, dimension);
+            }
+            m_viewer.refresh();
+            updateButtons();
+          }
+        });
+    m_moveDownButton =
+        createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
+          public void handleEvent(Event event) {
+            for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
+              int index = m_dimensions.indexOf(dimension);
+              m_dimensions.remove(dimension);
+              m_dimensions.add(index + 1, dimension);
+            }
+            m_viewer.refresh();
+            updateButtons();
+          }
+        });
   }
 
   /**

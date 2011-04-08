@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.property.AbstractBindingProperty;
 import org.eclipse.wb.internal.core.databinding.ui.property.Context;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.JListBindingInfo;
 
 /**
@@ -46,7 +47,7 @@ public class JListSelfObserveProperty extends ObserveProperty {
           return;
         }
       }
-      Assert.fail("Not found JListBindingInfo");
+      Assert.fail(Messages.JListSelfObserveProperty_errNotFound);
     } else {
       super.createBinding();
     }

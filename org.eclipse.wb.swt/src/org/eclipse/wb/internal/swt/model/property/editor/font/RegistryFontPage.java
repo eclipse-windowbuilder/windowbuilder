@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.jface.resource.FontRegistryInfo;
 import org.eclipse.wb.internal.swt.model.jface.resource.KeyFieldInfo;
 
@@ -54,7 +55,7 @@ public final class RegistryFontPage extends AbstractFontPage {
   private static final RegistryLabelProvider REGISTRY_LABEL_PROVIDER = new RegistryLabelProvider();
   private static final KeyLabelProvider KEY_LABEL_PROVIDER = new KeyLabelProvider();
   private static final KeyFieldInfo NO_VALUE_KEY = new KeyFieldInfo(Object.class,
-      "<select registry>",
+      ModelMessages.RegistryFontPage_selectRegistry,
       null);
   private static final KeyFieldInfo[] NO_VALUE_KEY_INPUT = {NO_VALUE_KEY};
   //
@@ -80,9 +81,9 @@ public final class RegistryFontPage extends AbstractFontPage {
     GridLayoutFactory.create(this).columns(3);
     // labels
     {
-      new Label(this, SWT.NONE).setText("Registry:");
-      new Label(this, SWT.NONE).setText("Key:");
-      new Label(this, SWT.NONE).setText("Method:");
+      new Label(this, SWT.NONE).setText(ModelMessages.RegistryFontPage_registry);
+      new Label(this, SWT.NONE).setText(ModelMessages.RegistryFontPage_key);
+      new Label(this, SWT.NONE).setText(ModelMessages.RegistryFontPage_method);
     }
     // text's
     {

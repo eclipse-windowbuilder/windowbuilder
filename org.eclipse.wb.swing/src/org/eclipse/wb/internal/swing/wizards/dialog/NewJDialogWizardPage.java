@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.CheckDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -43,9 +44,9 @@ public final class NewJDialogWizardPage extends SwingWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJDialogWizardPage() {
-    setTitle("Create JDialog");
+    setTitle(Messages.NewJDialogWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JDialog/banner.gif"));
-    setDescription("Create an empty JDialog.");
+    setDescription(Messages.NewJDialogWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -81,7 +82,7 @@ public final class NewJDialogWizardPage extends SwingWizardPage {
     GridDataFactory.create(composite).fillH().grabH().spanH(columns);
     //
     m_buttonsField = new CheckDialogField();
-    m_buttonsField.setLabelText("Generate JDialog with OK and Cancel buttons");
+    m_buttonsField.setLabelText(Messages.NewJDialogWizardPage_generateButtons);
     m_buttonsField.setSelection(true);
     m_buttonsField.doFillIntoGrid(composite, 1);
   }

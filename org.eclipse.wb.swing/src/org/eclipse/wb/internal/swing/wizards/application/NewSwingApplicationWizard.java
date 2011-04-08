@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.wizards.application;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizard;
 
 import org.eclipse.jface.wizard.Wizard;
@@ -28,7 +29,7 @@ public final class NewSwingApplicationWizard extends SwingWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewSwingApplicationWizard() {
-    setWindowTitle("New Swing Application");
+    setWindowTitle(Messages.NewSwingApplicationWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

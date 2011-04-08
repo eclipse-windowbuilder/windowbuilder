@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.BooleanField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
@@ -41,9 +42,12 @@ public final class LineBorderComposite extends AbstractBorderComposite {
   public LineBorderComposite(Composite parent) {
     super(parent, "LineBorder");
     GridLayoutFactory.create(this);
-    m_colorField = createColorField("&Color:");
-    m_thicknessField = createIntegerField("&Thickness:");
-    m_typeField = createBooleanField("C&orners:", new String[]{"&square", "&rounded"});
+    m_colorField = createColorField(ModelMessages.LineBorderComposite_color);
+    m_thicknessField = createIntegerField(ModelMessages.LineBorderComposite_thinkness);
+    m_typeField =
+        createBooleanField(ModelMessages.LineBorderComposite_corners, new String[]{
+            ModelMessages.LineBorderComposite_cornersSquare,
+            ModelMessages.LineBorderComposite_cornersRounded});
   }
 
   ////////////////////////////////////////////////////////////////////////////

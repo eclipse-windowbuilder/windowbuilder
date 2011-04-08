@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.core.model.util.RenameConvertSupport;
 import org.eclipse.wb.internal.core.model.util.factory.FactoryActionsSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
@@ -71,7 +72,10 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
           ObjectInfo object,
           IMenuManager manager) throws Exception {
         if (object == ControlInfo.this) {
-          ExposeComponentSupport.contribute(ControlInfo.this, manager, "Expose component...");
+          ExposeComponentSupport.contribute(
+              ControlInfo.this,
+              manager,
+              ModelMessages.ControlInfo_exposeText);
           MorphingSupport.contribute("org.eclipse.swt.widgets.Control", ControlInfo.this, manager);
           FactoryActionsSupport.contribute(ControlInfo.this, manager);
           RenameConvertSupport.contribute(objects, manager);

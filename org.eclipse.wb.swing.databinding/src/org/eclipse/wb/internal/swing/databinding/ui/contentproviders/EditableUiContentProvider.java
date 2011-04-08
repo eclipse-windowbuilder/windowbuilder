@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 import org.eclipse.wb.internal.core.databinding.ui.editor.DialogFieldUiContentProvider;
 import org.eclipse.wb.internal.core.utils.dialogfields.BooleanDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 
 /**
  * Editor for {@link IEditableProvider}.
@@ -32,7 +33,7 @@ public class EditableUiContentProvider extends DialogFieldUiContentProvider {
   public EditableUiContentProvider(IEditableProvider provider) {
     m_provider = provider;
     m_dialogField = new BooleanDialogField();
-    m_dialogField.setLabelText("Editable:");
+    m_dialogField.setLabelText(Messages.EditableUiContentProvider_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

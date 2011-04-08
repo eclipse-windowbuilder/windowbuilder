@@ -14,6 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.FontSupport;
 import org.eclipse.wb.internal.swt.support.JFaceSupport;
 
@@ -52,7 +53,7 @@ public final class JFaceFontPage extends AbstractFontPage {
     GridLayoutFactory.create(this);
     //
     {
-      new Label(this, SWT.NONE).setText("Select font from the list:");
+      new Label(this, SWT.NONE).setText(ModelMessages.JFaceFontPage_selectFont);
     }
     {
       m_fontTable = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
@@ -61,8 +62,8 @@ public final class JFaceFontPage extends AbstractFontPage {
       m_fontTable.setLinesVisible(true);
       // create columns
       {
-        new TableColumn(m_fontTable, SWT.NONE).setText("Name");
-        new TableColumn(m_fontTable, SWT.NONE).setText("Value");
+        new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.JFaceFontPage_nameColumn);
+        new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.JFaceFontPage_valueColumn);
       }
       // add items
       List<FontInfo> fonts;

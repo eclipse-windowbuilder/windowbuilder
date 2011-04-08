@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImageDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Composite;
@@ -50,6 +51,6 @@ public class SinglePluginFileImagePage extends AbstractBrowseImagePage {
 
   @Override
   public String getTitle() {
-    return "Plugin resource (don't forget to refresh project before)";
+    return ModelMessages.SinglePluginFileImagePage_title;
   }
 }

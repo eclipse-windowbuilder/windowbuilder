@@ -25,6 +25,7 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator.LayoutRequestVal
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JMenuBarInfo;
 
@@ -78,7 +79,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
           // draw placeholder text
           Rectangle bounds = getBounds();
           graphics.setForegroundColor(IColorConstants.darkGreen);
-          String menuBarText = "Menu bar would be placed here";
+          String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_feedbackText;
           Dimension textExtent = graphics.getTextExtent(menuBarText);
           //
           int x = bounds.width / 2 - textExtent.width / 2;

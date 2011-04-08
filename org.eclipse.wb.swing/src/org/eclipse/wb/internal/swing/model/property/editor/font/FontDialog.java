@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -84,7 +85,7 @@ public final class FontDialog extends ResizableDialog {
       Group previewGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(previewGroup).grabH().fillH();
       GridLayoutFactory.create(previewGroup);
-      previewGroup.setText("Selected Font");
+      previewGroup.setText(ModelMessages.FontDialog_previewText);
       //
       m_previewCanvas = new FontPreviewCanvas(previewGroup, SWT.NONE);
       GridDataFactory.create(m_previewCanvas).grab().fill();
@@ -108,7 +109,7 @@ public final class FontDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Font chooser");
+    newShell.setText(ModelMessages.FontDialog_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -152,9 +153,9 @@ public final class FontDialog extends ResizableDialog {
    * Adds pages with {@link AbstractFontPage}'s.
    */
   protected void addPages(Composite parent) {
-    addPage("Construction", new ExplicitFontPage(parent, SWT.NONE, this));
-    addPage("Derived", new DerivedFontPage(parent, SWT.NONE, this));
-    addPage("Swing fonts", new UiManagerFontPage(parent, SWT.NONE, this));
+    addPage(ModelMessages.FontDialog_pageConstruction, new ExplicitFontPage(parent, SWT.NONE, this));
+    addPage(ModelMessages.FontDialog_pageDerived, new DerivedFontPage(parent, SWT.NONE, this));
+    addPage(ModelMessages.FontDialog_pageSwing, new UiManagerFontPage(parent, SWT.NONE, this));
   }
 
   /**

@@ -32,6 +32,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.text.MessageFormat;
 import java.util.Arrays;
 
 /**
@@ -195,7 +196,7 @@ public class GenericUtils {
       genericType.getSubTypes().add(resolveType(elementType));
       return genericType;
     }
-    Assert.fail("Undefine type: " + readMethod + " " + rawType);
+    Assert.fail(MessageFormat.format("Undefine type: {0} {1}", readMethod, rawType));
     return null;
   }
 
@@ -218,7 +219,7 @@ public class GenericUtils {
     if (type instanceof TypeVariable<?>) {
       return ClassGenericType.WILDCARD;
     }
-    Assert.fail("Undefine type: " + type);
+    Assert.fail(MessageFormat.format("Undefine type: {0}", type));
     return null;
   }
 
@@ -338,11 +339,10 @@ public class GenericUtils {
         return;
       }
       //
-      Assert.fail("Generic: "
-          + expected.getFullTypeName()
-          + " expected, but "
-          + actual.getFullTypeName()
-          + " found");
+      Assert.fail(MessageFormat.format(
+          "Generic: {0} expected, but {1} found",
+          expected.getFullTypeName(),
+          actual.getFullTypeName()));
     }
   }
 }

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
 
+import org.eclipse.wb.internal.swing.databinding.Messages;
+
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.TextAttribute;
@@ -139,7 +141,7 @@ public final class EvalutionLanguageConfiguration extends SourceViewerConfigurat
     contentAssistant.enableAutoInsert(true);
     contentAssistant.setAutoActivationDelay(200);
     contentAssistant.setStatusLineVisible(true);
-    contentAssistant.setStatusMessage("Select bean property");
+    contentAssistant.setStatusMessage(Messages.EvalutionLanguageConfiguration_contentAssistMessage);
     // CTRL + SPACE completion
     sourceViewer.getTextWidget().addKeyListener(new KeyAdapter() {
       @Override

@@ -52,8 +52,8 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
   ////////////////////////////////////////////////////////////////////////////
   public SwingPaletteEntryInfo() {
     setId(getClass().getName());
-    setName("Choose Swing Component");
-    setDescription("Allows to drop AWT/Swing component.");
+    setName(PaletteMessages.SwingPaletteEntryInfo_name);
+    setDescription(PaletteMessages.SwingPaletteEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

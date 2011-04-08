@@ -35,6 +35,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.TypeObjectInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
@@ -52,6 +53,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -196,13 +198,15 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Choose properties for the target and the model.");
+    listener.setTitle(Messages.BindingInfo_listenerTitle);
+    listener.setMessage(Messages.BindingInfo_listenerMessage);
     // add target editors
-    providers.add(new LabelUiContentProvider("Target:", getTargetPresentationText(false)));
+    providers.add(new LabelUiContentProvider(Messages.BindingInfo_target,
+        getTargetPresentationText(false)));
     m_targetProperty.createContentProviders(providers, m_target, m_targetAstProperty);
     // add model editors
-    providers.add(new LabelUiContentProvider("Model:", getModelPresentationText(false)));
+    providers.add(new LabelUiContentProvider(Messages.BindingInfo_model,
+        getModelPresentationText(false)));
     m_modelProperty.createContentProviders(providers, m_model, m_modelAstProperty);
     // binding self properties
     providers.add(new ConverterUiContentProvider(createConverterConfiguration(), this));
@@ -214,13 +218,13 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
   protected final ChooseClassConfiguration createConverterConfiguration() {
     if (m_converterConfiguration == null) {
       m_converterConfiguration = new ChooseClassConfiguration();
-      m_converterConfiguration.setDialogFieldLabel("Converter:");
+      m_converterConfiguration.setDialogFieldLabel(Messages.BindingInfo_converterLabel);
       m_converterConfiguration.setValueScope("org.jdesktop.beansbinding.Converter");
       m_converterConfiguration.setClearValue("N/S");
       m_converterConfiguration.setBaseClassName("org.jdesktop.beansbinding.Converter");
       m_converterConfiguration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-      m_converterConfiguration.setEmptyClassErrorMessage("Converter class is empty.");
-      m_converterConfiguration.setErrorMessagePrefix("Converter");
+      m_converterConfiguration.setEmptyClassErrorMessage(Messages.BindingInfo_converterError);
+      m_converterConfiguration.setErrorMessagePrefix(Messages.BindingInfo_converterErrorPrefix);
     }
     m_converterConfiguration.clearDefaultStrings();
     if (m_converter != null && !StringUtils.isEmpty(m_converter.getParameters())) {
@@ -232,13 +236,13 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
   protected final ChooseClassConfiguration createValidatorConfiguration() {
     if (m_validatorConfiguration == null) {
       m_validatorConfiguration = new ChooseClassConfiguration();
-      m_validatorConfiguration.setDialogFieldLabel("Validator:");
+      m_validatorConfiguration.setDialogFieldLabel(Messages.BindingInfo_validatorLabel);
       m_validatorConfiguration.setValueScope("org.jdesktop.beansbinding.Validator");
       m_validatorConfiguration.setClearValue("N/S");
       m_validatorConfiguration.setBaseClassName("org.jdesktop.beansbinding.Validator");
       m_validatorConfiguration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-      m_validatorConfiguration.setEmptyClassErrorMessage("Validator class is empty.");
-      m_validatorConfiguration.setErrorMessagePrefix("Validator");
+      m_validatorConfiguration.setEmptyClassErrorMessage(Messages.BindingInfo_validatorError);
+      m_validatorConfiguration.setErrorMessagePrefix(Messages.BindingInfo_validatorErrorPrefix);
     }
     m_validatorConfiguration.clearDefaultStrings();
     if (m_validator != null && !StringUtils.isEmpty(m_validator.getParameters())) {
@@ -291,7 +295,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
                 return;
               }
             }
-            Assert.fail("Undefine binding field: " + oldVariable);
+            Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
           }
         });
       } else if (oldFieldState && newFieldState) {
@@ -304,7 +308,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
                 return;
               }
             }
-            Assert.fail("Undefine binding field: " + oldVariable);
+            Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
           }
         });
       }
@@ -374,7 +378,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
       if (converter == null) {
         AbstractParser.addError(
             editor,
-            "Converter argument '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.BindingInfo_converterNotFound, arguments[0]),
             new Throwable());
         return null;
       }
@@ -388,7 +392,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
       if (validator == null) {
         AbstractParser.addError(
             editor,
-            "Validator argument '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.BindingInfo_validatorNotFound, arguments[0]),
             new Throwable());
         return null;
       }

@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.components.ComponentsObserveTypeContainer;
 import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
@@ -32,6 +33,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import org.apache.commons.lang.math.NumberUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -76,9 +78,10 @@ public final class VirtualParser {
             String reference = tokenizer.nextToken();
             ObserveInfo swingObserve = componentsContainer.resolve(reference);
             if (swingObserve == null) {
-              AbstractParser.addError(editor, "Undefined swing object '"
-                  + reference
-                  + "' for virtual binding", new Throwable());
+              AbstractParser.addError(
+                  editor,
+                  MessageFormat.format(Messages.VirtualParser_errUndefinedSwingObject, reference),
+                  new Throwable());
               continue;
             }
             // prepare component observes
@@ -91,9 +94,9 @@ public final class VirtualParser {
               elementType =
                   new ClassGenericType(CoreUtils.load(classLoader, elementClassName), null, null);
             } catch (ClassNotFoundException e) {
-              AbstractParser.addError(editor, "Virtual element class '"
-                  + elementClassName
-                  + "' not found", new Throwable());
+              AbstractParser.addError(editor, MessageFormat.format(
+                  Messages.VirtualParser_errUnknownElementClass,
+                  elementClassName), new Throwable());
               continue;
             }
             // create binding

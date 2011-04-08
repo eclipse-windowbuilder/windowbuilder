@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Prope
 import org.eclipse.wb.internal.core.databinding.ui.providers.ObserveDecoratingLabelProvider;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanSupport;
@@ -87,7 +88,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
     //
     if (m_configuration.isWorkWithELProperty()) {
       ElPropertyUiConfiguration configuration = new ElPropertyUiConfiguration();
-      configuration.setTitle("EL Expression:");
+      configuration.setTitle(Messages.ChooseClassAndPropertiesUiContentProvider_title);
       m_elPropertyUIContentProvider = new ElPropertyUiContentProvider(configuration, null);
       m_elPropertyUIContentProvider.setCompleteListener(new ICompleteListener() {
         public void calculateFinish() {

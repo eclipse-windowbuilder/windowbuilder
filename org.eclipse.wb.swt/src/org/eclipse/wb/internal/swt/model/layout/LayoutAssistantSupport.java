@@ -14,6 +14,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public abstract class LayoutAssistantSupport
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected final String getConstraintsPageTitle() {
-    return "Layout Data";
+    return ModelMessages.LayoutAssistantSupport_layoutDataPage;
   }
 
   @Override

@@ -11,8 +11,11 @@
 package org.eclipse.wb.internal.swt.model.layout.form;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
+
+import java.text.MessageFormat;
 
 /**
  * Utility class for working with SWT FormLayout.
@@ -36,7 +39,9 @@ public final class FormLayoutUtils {
       case SWT.BOTTOM :
         return SWT.TOP;
       default :
-        throw new IllegalArgumentException("Invalid side requested: " + side);
+        throw new IllegalArgumentException(MessageFormat.format(
+            ModelMessages.FormLayoutUtils_invalidSide,
+            side));
     }
   }
 
@@ -57,7 +62,9 @@ public final class FormLayoutUtils {
       case SWT.CENTER :
         return IPositionConstants.CENTER;
       default :
-        throw new IllegalArgumentException("Invalid SWT alignment requested: " + alignment);
+        throw new IllegalArgumentException(MessageFormat.format(
+            ModelMessages.FormLayoutUtils_invalidAlignment,
+            alignment));
     }
   }
 
@@ -76,7 +83,9 @@ public final class FormLayoutUtils {
       case IPositionConstants.BOTTOM :
         return SWT.BOTTOM;
       default :
-        throw new IllegalArgumentException("Invalid side requested: " + side);
+        throw new IllegalArgumentException(MessageFormat.format(
+            ModelMessages.FormLayoutUtils_invalidSide,
+            side));
     }
   }
 

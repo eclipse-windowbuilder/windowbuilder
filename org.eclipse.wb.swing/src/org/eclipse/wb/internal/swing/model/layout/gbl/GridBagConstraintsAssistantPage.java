@@ -14,6 +14,7 @@ import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -49,14 +50,32 @@ public class GridBagConstraintsAssistantPage extends AbstractAssistantPage {
       // vertical alignments
       {
         Group verticalGroup =
-            addChoiceProperty(this, "verticalAlignment", "Vertical", new Object[][]{
-                new Object[]{"Top", RowInfo.Alignment.TOP},
-                new Object[]{"Center", RowInfo.Alignment.CENTER},
-                new Object[]{"Bottom", RowInfo.Alignment.BOTTOM},
-                new Object[]{"Fill", RowInfo.Alignment.FILL},
-                new Object[]{"Baseline", RowInfo.Alignment.BASELINE},
-                new Object[]{"Above baseline", RowInfo.Alignment.BASELINE_ABOVE},
-                new Object[]{"Below baseline", RowInfo.Alignment.BASELINE_BELOW}});
+            addChoiceProperty(
+                this,
+                "verticalAlignment",
+                ModelMessages.GridBagConstraintsAssistantPage_verticalAlignmentGroup,
+                new Object[][]{
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaTop,
+                        RowInfo.Alignment.TOP},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaCenter,
+                        RowInfo.Alignment.CENTER},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaBottom,
+                        RowInfo.Alignment.BOTTOM},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaFill,
+                        RowInfo.Alignment.FILL},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaBaseline,
+                        RowInfo.Alignment.BASELINE},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaAboveBaseline,
+                        RowInfo.Alignment.BASELINE_ABOVE},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaBelowBaseline,
+                        RowInfo.Alignment.BASELINE_BELOW}});
         GridDataFactory.modify(verticalGroup).fillV();
       }
       // insets
@@ -87,11 +106,23 @@ public class GridBagConstraintsAssistantPage extends AbstractAssistantPage {
       // vertical alignments
       {
         Group verticalGroup =
-            addChoiceProperty(this, "verticalAlignment", "Vertical", new Object[][]{
-                new Object[]{"Top", RowInfo.Alignment.TOP},
-                new Object[]{"Center", RowInfo.Alignment.CENTER},
-                new Object[]{"Bottom", RowInfo.Alignment.BOTTOM},
-                new Object[]{"Fill", RowInfo.Alignment.FILL}});
+            addChoiceProperty(
+                this,
+                "verticalAlignment",
+                ModelMessages.GridBagConstraintsAssistantPage_verticalAlignmentGroup,
+                new Object[][]{
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaTop,
+                        RowInfo.Alignment.TOP},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaCenter,
+                        RowInfo.Alignment.CENTER},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaBottom,
+                        RowInfo.Alignment.BOTTOM},
+                    new Object[]{
+                        ModelMessages.GridBagConstraintsAssistantPage_vaFill,
+                        RowInfo.Alignment.FILL}});
         GridDataFactory.modify(verticalGroup).fillV();
       }
       // insets
@@ -116,41 +147,70 @@ public class GridBagConstraintsAssistantPage extends AbstractAssistantPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   private Group createInsetsGroup() {
-    return addIntegerProperties(this, "Insets", new String[][]{
-        new String[]{"insets.top", "Top:"},
-        new String[]{"insets.left", "Left:"},
-        new String[]{"insets.bottom", "Bottom:"},
-        new String[]{"insets.right", "Right:"}});
+    return addIntegerProperties(
+        this,
+        ModelMessages.GridBagConstraintsAssistantPage_insetsGroup,
+        new String[][]{
+            new String[]{"insets.top", ModelMessages.GridBagConstraintsAssistantPage_insetsTop},
+            new String[]{"insets.left", ModelMessages.GridBagConstraintsAssistantPage_insetsLeft},
+            new String[]{
+                "insets.bottom",
+                ModelMessages.GridBagConstraintsAssistantPage_insetsBottom},
+            new String[]{"insets.right", ModelMessages.GridBagConstraintsAssistantPage_insetsRight}});
   }
 
   private Group createWeightGroup() {
-    return addDoubleProperties(this, "Weight", new String[][]{
-        new String[]{"weightx", "X:"},
-        new String[]{"weighty", "Y:"}});
+    return addDoubleProperties(
+        this,
+        ModelMessages.GridBagConstraintsAssistantPage_weightGroup,
+        new String[][]{
+            new String[]{"weightx", ModelMessages.GridBagConstraintsAssistantPage_weightX},
+            new String[]{"weighty", ModelMessages.GridBagConstraintsAssistantPage_weightY}});
   }
 
   private Group createPaddingGroup() {
-    return addIntegerProperties(this, "Padding", new String[][]{
-        new String[]{"ipadx", "Width:"},
-        new String[]{"ipady", "Height:"}});
+    return addIntegerProperties(
+        this,
+        ModelMessages.GridBagConstraintsAssistantPage_paddingGroup,
+        new String[][]{
+            new String[]{"ipadx", ModelMessages.GridBagConstraintsAssistantPage_paddingWidth},
+            new String[]{"ipady", ModelMessages.GridBagConstraintsAssistantPage_paddingHeight}});
   }
 
   private Group createHorizontalAlignmentGroup() {
-    return addChoiceProperty(this, "horizontalAlignment", "Horizontal", new Object[][]{
-        new Object[]{"Left", ColumnInfo.Alignment.LEFT},
-        new Object[]{"Center", ColumnInfo.Alignment.CENTER},
-        new Object[]{"Right", ColumnInfo.Alignment.RIGHT},
-        new Object[]{"Fill", ColumnInfo.Alignment.FILL}});
+    return addChoiceProperty(
+        this,
+        "horizontalAlignment",
+        ModelMessages.GridBagConstraintsAssistantPage_horizontalAlignmentGroup,
+        new Object[][]{
+            new Object[]{
+                ModelMessages.GridBagConstraintsAssistantPage_haLeft,
+                ColumnInfo.Alignment.LEFT},
+            new Object[]{
+                ModelMessages.GridBagConstraintsAssistantPage_haCenter,
+                ColumnInfo.Alignment.CENTER},
+            new Object[]{
+                ModelMessages.GridBagConstraintsAssistantPage_haRight,
+                ColumnInfo.Alignment.RIGHT},
+            new Object[]{
+                ModelMessages.GridBagConstraintsAssistantPage_haFill,
+                ColumnInfo.Alignment.FILL}});
   }
 
   private void createGrowGroup() {
     Group growGroup = new Group(this, SWT.NONE);
     GridLayoutFactory.create(growGroup);
     GridDataFactory.create(growGroup).fill();
-    growGroup.setText("Grow");
+    growGroup.setText(ModelMessages.GridBagConstraintsAssistantPage_growGroup);
     //
-    addBooleanProperty(growGroup, GROW_H, "Horizontal");
-    addBooleanProperty(growGroup, GROW_V, "Vetical");
+    addBooleanProperty(
+        growGroup,
+        GROW_H,
+        ModelMessages.GridBagConstraintsAssistantPage_growHorizontal);
+    addBooleanProperty(
+        growGroup,
+        GROW_V,
+        ModelMessages.GridBagConstraintsAssistantPage_growVertical);
   }
 
   ////////////////////////////////////////////////////////////////////////////

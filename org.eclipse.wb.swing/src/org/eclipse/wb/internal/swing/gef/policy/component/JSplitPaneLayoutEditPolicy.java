@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.gef.policy.component;
 
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.ComponentPositionLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.JSplitPaneInfo;
@@ -42,10 +43,16 @@ public final class JSplitPaneLayoutEditPolicy extends ComponentPositionLayoutEdi
   @Override
   protected void addFeedbacks() throws Exception {
     if (m_component.isEmptyPosition(true)) {
-      addFeedback(m_component.getPositionRectangle(true), "Left/Top", Boolean.TRUE);
+      addFeedback(
+          m_component.getPositionRectangle(true),
+          GefMessages.JSplitPaneLayoutEditPolicy_leftTop,
+          Boolean.TRUE);
     }
     if (m_component.isEmptyPosition(false)) {
-      addFeedback(m_component.getPositionRectangle(false), "Right/Bottom", Boolean.FALSE);
+      addFeedback(
+          m_component.getPositionRectangle(false),
+          GefMessages.JSplitPaneLayoutEditPolicy_rightBottom,
+          Boolean.FALSE);
     }
   }
 

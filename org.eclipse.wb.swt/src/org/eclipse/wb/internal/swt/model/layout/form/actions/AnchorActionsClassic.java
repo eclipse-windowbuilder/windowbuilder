@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutUtils;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
@@ -51,72 +52,82 @@ public class AnchorActionsClassic<C extends IControlInfo> {
   public void fillMenuHorizontal(final C widget, final int side, IMenuManager manager) {
     ObjectInfo widgetModel = widget.getUnderlyingModel();
     if (side == IPositionConstants.LEFT) {
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to left as offset",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/left_parent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/left_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.LEFT);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to right as offset",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/right_parent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/right_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.RIGHT);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to left as percentage offset",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/left_percent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToLeftAsPercent, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/left_percent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParentAsPercent(widget, side);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to right of the control",
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToRightOfControl,
           Activator.getImage(IMAGE_PREFIX + "h/menu/left_control.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.RIGHT);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Delete attachment",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/left_free.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/left_free.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_delete(widget, side);
         }
       });
     } else if (side == IPositionConstants.RIGHT) {
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to right as offset",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/right_parent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToRightAsOffset, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/right_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.RIGHT);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to left as offset",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/left_parent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToLeftAsOffset, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/left_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.LEFT);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to left as percentage offset",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/left_percent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToLeftAsPercent, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/left_percent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParentAsPercent(widget, side);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to left of the control",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/right_control.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToLeftOfControl, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/right_control.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.LEFT);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Delete attachment",
-          Activator.getImage(IMAGE_PREFIX + "h/menu/right_free.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+              + "h/menu/right_free.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_delete(widget, side);
@@ -128,72 +139,82 @@ public class AnchorActionsClassic<C extends IControlInfo> {
   public void fillMenuVertical(final C widget, final int side, IMenuManager manager) {
     ObjectInfo widgetModel = widget.getUnderlyingModel();
     if (side == IPositionConstants.TOP) {
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to top as offset",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/top_parent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/top_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.TOP);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to bottom as offset",
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToBottomAsOffset,
           Activator.getImage(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.BOTTOM);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to top as percentage offset",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/top_percent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToTopAsPercent, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/top_percent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParentAsPercent(widget, side);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to bottom of the control",
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToBottomOfControl,
           Activator.getImage(IMAGE_PREFIX + "v/menu/top_control.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.BOTTOM);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Delete attachment",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/top_free.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/top_free.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_delete(widget, side);
         }
       });
     } else if (side == IPositionConstants.BOTTOM) {
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to bottom as offset",
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToBottomAsOffset,
           Activator.getImage(IMAGE_PREFIX + "v/menu/bottom_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.BOTTOM);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to top as offset",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/top_parent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToTopAsOffset, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/top_parent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParent(widget, side, IPositionConstants.TOP);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to top as percentage offset",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/top_percent.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToTopAsPercent, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/top_percent.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToParentAsPercent(widget, side);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Attach to top of the control",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/bottom_control.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_attachToTopOfControl, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/bottom_control.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_bindToControl(widget, side, IPositionConstants.TOP);
         }
       });
-      manager.add(new ObjectInfoAction(widgetModel, "Delete attachment",
-          Activator.getImage(IMAGE_PREFIX + "v/menu/bottom_free.png")) {
+      manager.add(new ObjectInfoAction(widgetModel,
+          ModelMessages.AnchorActionsClassic_deleteAttachment, Activator.getImage(IMAGE_PREFIX
+              + "v/menu/bottom_free.png")) {
         @Override
         protected void runEx() throws Exception {
           m_layoutImpl.anchor_delete(widget, side);

@@ -15,6 +15,7 @@ import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -52,7 +53,7 @@ public final class UiManagerFontPage extends AbstractFontPage {
     GridLayoutFactory.create(this);
     //
     {
-      new Label(this, SWT.NONE).setText("Select font from the list:");
+      new Label(this, SWT.NONE).setText(ModelMessages.UiManagerFontPage_listLabel);
     }
     //
     {
@@ -62,8 +63,8 @@ public final class UiManagerFontPage extends AbstractFontPage {
       m_fontTable.setLinesVisible(true);
       // create columns
       {
-        new TableColumn(m_fontTable, SWT.NONE).setText("Name");
-        new TableColumn(m_fontTable, SWT.NONE).setText("Value");
+        new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.UiManagerFontPage_nameColumn);
+        new TableColumn(m_fontTable, SWT.NONE).setText(ModelMessages.UiManagerFontPage_valueColumn);
       }
       // add items
       prepareFonts();

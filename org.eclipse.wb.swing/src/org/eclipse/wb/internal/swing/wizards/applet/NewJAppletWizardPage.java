@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.wizards.applet;
 
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -36,9 +37,9 @@ public final class NewJAppletWizardPage extends SwingWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJAppletWizardPage() {
-    setTitle("Create JApplet");
+    setTitle(Messages.NewJAppletWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JApplet/banner.gif"));
-    setDescription("Create an empty JApplet.");
+    setDescription(Messages.NewJAppletWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

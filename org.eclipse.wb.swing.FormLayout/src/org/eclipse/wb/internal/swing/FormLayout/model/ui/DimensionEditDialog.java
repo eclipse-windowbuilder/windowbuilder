@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeConstantInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
+import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -43,6 +44,7 @@ import org.eclipse.swt.widgets.Text;
 import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -133,7 +135,9 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(m_dimensionName + " Properties");
+    newShell.setText(MessageFormat.format(
+        ModelMessages.DimensionEditDialog_dialogTitle,
+        m_dimensionName));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -147,7 +151,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
   protected void createButtonsForButtonBar(Composite parent) {
     super.createButtonsForButtonBar(parent);
     if (m_layout != null) {
-      createButton(parent, APPLY_ID, "&Apply", false);
+      createButton(parent, APPLY_ID, ModelMessages.DimensionEditDialog_applyButton, false);
     }
   }
 
@@ -188,8 +192,11 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
         // open dialog
         int dialogResult;
         {
-          String title = "Apply Changes";
-          String message = m_dimensionName + " has been modified. Apply changes?";
+          String title = ModelMessages.DimensionEditDialog_applyConfirmTitle;
+          String message =
+              MessageFormat.format(
+                  ModelMessages.DimensionEditDialog_applyConfirmMessage,
+                  m_dimensionName);
           MessageDialog dialog =
               new MessageDialog(getShell(),
                   title,
@@ -249,7 +256,9 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       // prev button
       {
         m_prevButton = new Button(composite, SWT.NONE);
-        m_prevButton.setToolTipText("Previous " + m_dimensionName);
+        m_prevButton.setToolTipText(MessageFormat.format(
+            ModelMessages.DimensionEditDialog_previousButton,
+            m_dimensionName));
         m_prevButton.setImage(m_horizontal
             ? Activator.getImage("navigation/left.gif")
             : Activator.getImage("navigation/up.gif"));
@@ -264,7 +273,9 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       // next button
       {
         m_nextButton = new Button(composite, SWT.NONE);
-        m_nextButton.setToolTipText("Next " + m_dimensionName);
+        m_nextButton.setToolTipText(MessageFormat.format(
+            ModelMessages.DimensionEditDialog_nextButton,
+            m_dimensionName));
         m_nextButton.setImage(m_horizontal
             ? Activator.getImage("navigation/right.gif")
             : Activator.getImage("navigation/down.gif"));
@@ -279,7 +290,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
     }
     // template
     {
-      new Label(composite, SWT.NONE).setText("&Template:");
+      new Label(composite, SWT.NONE).setText(ModelMessages.DimensionEditDialog_template);
       //
       m_templateCombo = new Combo(composite, SWT.READ_ONLY);
       GridDataFactory.create(m_templateCombo).spanH(3).hintHC(40).grabH().fillH().indentHC(3);
@@ -306,7 +317,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
     }
     // specification
     {
-      new Label(composite, SWT.NONE).setText("Specification:");
+      new Label(composite, SWT.NONE).setText(ModelMessages.DimensionEditDialog_specification);
       //
       m_specificationText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
       GridDataFactory.create(m_specificationText).spanH(3).grabH().fillH().indentHC(3);
@@ -317,7 +328,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
    * Creates the alignment editing {@link Composite}.
    */
   private void createAlignmentComposite(Composite parent) {
-    createSeparator(parent, "Default alignment");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_defaultAlignment);
     //
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
@@ -344,7 +355,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
    * Creates the size editing {@link Composite}.
    */
   private void createSizeComposite(Composite parent) {
-    createSeparator(parent, "Size");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_size);
     //
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
@@ -367,7 +378,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       {
         {
           m_constantSizeButton = new Button(constantsComposite, SWT.RADIO);
-          m_constantSizeButton.setText("c&onstant");
+          m_constantSizeButton.setText(ModelMessages.DimensionEditDialog_18);
           GridDataFactory.create(m_constantSizeButton).hintHC(15);
           m_constantSizeButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
@@ -394,7 +405,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       {
         {
           m_lowerSizeButton = new Button(constantsComposite, SWT.CHECK);
-          m_lowerSizeButton.setText("&minimum");
+          m_lowerSizeButton.setText(ModelMessages.DimensionEditDialog_19);
           m_lowerSizeButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
               FormSizeInfo size = m_dimension.getSize();
@@ -420,7 +431,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       {
         {
           m_upperSizeButton = new Button(constantsComposite, SWT.CHECK);
-          m_upperSizeButton.setText("ma&ximum");
+          m_upperSizeButton.setText(ModelMessages.DimensionEditDialog_20);
           m_upperSizeButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
               FormSizeInfo size = m_dimension.getSize();
@@ -464,7 +475,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
    * Creates the resize behavior editing {@link Composite}.
    */
   private void createResizeComposite(Composite parent) {
-    createSeparator(parent, "Resize behavior");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_resizeBehavior);
     //
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2);

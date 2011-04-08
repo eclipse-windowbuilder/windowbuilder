@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.CheckDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -45,9 +46,9 @@ public final class NewJFrameWizardPage extends SwingWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJFrameWizardPage() {
-    setTitle("Create JFrame");
+    setTitle(Messages.NewJFrameWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JFrame/banner.gif"));
-    setDescription("Create an empty JFrame.");
+    setDescription(Messages.NewJFrameWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -83,7 +84,7 @@ public final class NewJFrameWizardPage extends SwingWizardPage {
     GridDataFactory.create(composite).fillH().grabH().spanH(columns);
     //
     m_advancedField = new CheckDialogField();
-    m_advancedField.setLabelText("Use advanced template for generate JFrame");
+    m_advancedField.setLabelText(Messages.NewJFrameWizardPage_useAdvancedTemplate);
     m_advancedField.setSelection(true);
     m_advancedField.doFillIntoGrid(composite, 1);
     // I always use same names during tests

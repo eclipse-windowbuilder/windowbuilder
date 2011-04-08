@@ -40,6 +40,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.swing.SpringLayout;
@@ -172,7 +173,7 @@ public final class SpringAttachmentInfo {
       case IPositionConstants.BOTTOM :
         return SpringLayout.SOUTH;
     }
-    throw new IllegalArgumentException("Invalid side: " + side);
+    throw new IllegalArgumentException(MessageFormat.format("Invalid side: {0}", side));
   }
 
   /**
@@ -194,7 +195,7 @@ public final class SpringAttachmentInfo {
         springSideName = "SOUTH";
         break;
       default :
-        throw new IllegalArgumentException("Invalid side: " + side);
+        throw new IllegalArgumentException(MessageFormat.format("Invalid side: {0}", side));
     }
     return "javax.swing.SpringLayout." + springSideName;
   }
@@ -220,7 +221,7 @@ public final class SpringAttachmentInfo {
     if (SpringLayout.SOUTH.equals(side)) {
       return IPositionConstants.BOTTOM;
     }
-    throw new IllegalArgumentException("Invalid side: " + side);
+    throw new IllegalArgumentException(MessageFormat.format("Invalid side: {0}", side));
   }
 
   ////////////////////////////////////////////////////////////////////////////

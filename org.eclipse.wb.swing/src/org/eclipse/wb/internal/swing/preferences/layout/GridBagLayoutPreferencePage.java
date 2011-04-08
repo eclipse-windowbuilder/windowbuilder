@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagConstraintsNameSupport;
 import org.eclipse.wb.internal.swing.model.layout.gbl.IPreferenceConstants;
+import org.eclipse.wb.internal.swing.preferences.Messages;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
@@ -68,28 +69,36 @@ public final class GridBagLayoutPreferencePage extends AbstractBindingPreference
       checkButton(
           this,
           2,
-          "Use long constructor for GridBagConstraints",
+          Messages.GridBagLayoutPreferencePage_useLong,
           IPreferenceConstants.P_GBC_LONG);
       checkButton(
           this,
           2,
-          "Use automatic horizontal/vertical grab",
+          Messages.GridBagLayoutPreferencePage_autoGrab,
           IPreferenceConstants.P_ENABLE_GRAB);
       checkButton(
           this,
           2,
-          "Automatically align right Label-like components before Text-like components",
+          Messages.GridBagLayoutPreferencePage_rightAlign,
           IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT);
       checkButton(
           this,
           2,
-          "Automatically change insets to generate column/row gaps",
+          Messages.GridBagLayoutPreferencePage_changeInsets,
           IPreferenceConstants.P_CHANGE_INSETS_FOR_GAPS);
-      integerField(this, 2, "Column gap:", IPreferenceConstants.P_GAP_COLUMN);
-      integerField(this, 2, "Row gap:", IPreferenceConstants.P_GAP_ROW);
+      integerField(
+          this,
+          2,
+          Messages.GridBagLayoutPreferencePage_columnGap,
+          IPreferenceConstants.P_GAP_COLUMN);
+      integerField(
+          this,
+          2,
+          Messages.GridBagLayoutPreferencePage_rowGap,
+          IPreferenceConstants.P_GAP_ROW);
       // gbl-constraints variable name template
       {
-        new Label(this, SWT.NONE).setText("Create variable for GridBagConstraints using pattern:");
+        new Label(this, SWT.NONE).setText(Messages.GridBagLayoutPreferencePage_constraintsNamePattern);
         // control
         Combo templateCombo = new Combo(this, SWT.READ_ONLY);
         GridDataFactory.create(templateCombo).grabH().fillH();

@@ -65,13 +65,13 @@ public final class MainPreferencePage extends AbstractBindingPreferencesPage {
       // default size
       {
         {
-          new Label(this, SWT.NONE).setText("Default form width:");
+          new Label(this, SWT.NONE).setText(Messages.MainPreferencePage_defaultWidth);
           Text text = new Text(this, SWT.BORDER | SWT.RIGHT);
           GridDataFactory.create(text).grabH().fillH();
           bindInteger(text, IPreferenceConstants.P_GENERAL_DEFAULT_TOP_WIDTH);
         }
         {
-          new Label(this, SWT.NONE).setText("Default form height:");
+          new Label(this, SWT.NONE).setText(Messages.MainPreferencePage_defaultHeight);
           Text text = new Text(this, SWT.BORDER | SWT.RIGHT);
           GridDataFactory.create(text).grabH().fillH();
           bindInteger(text, IPreferenceConstants.P_GENERAL_DEFAULT_TOP_HEIGHT);
@@ -81,22 +81,22 @@ public final class MainPreferencePage extends AbstractBindingPreferencesPage {
       checkButton(
           this,
           2,
-          "Highlight containers without borders",
+          Messages.MainPreferencePage_highlightBorders,
           IPreferenceConstants.P_GENERAL_HIGHLIGHT_CONTAINERS);
       checkButton(
           this,
           2,
-          "Show text in components tree",
+          Messages.MainPreferencePage_showTextInTree,
           IPreferenceConstants.P_GENERAL_TEXT_SUFFIX);
       checkButton(
           this,
           2,
-          "Show important properties dialog on component adding",
+          Messages.MainPreferencePage_showImportProperties,
           IPreferenceConstants.P_GENERAL_IMPORTANT_PROPERTIES_AFTER_ADD);
       checkButton(
           this,
           2,
-          "Automatically activate direct edit on component adding",
+          Messages.MainPreferencePage_autoDirectEdit,
           IPreferenceConstants.P_GENERAL_DIRECT_EDIT_AFTER_ADD);
     }
   }

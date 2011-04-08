@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.customize.AwtComponentDialog;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
@@ -207,7 +208,7 @@ public final class PropertyEditorWrapper {
       AwtComponentDialog dialog =
           new AwtComponentDialog(Activator.getDefault(),
               m_dialogPropertyEditor.getCustomEditor(),
-              "Property editor dialog",
+              ModelMessages.PropertyEditorWrapper_awtComponentDialogTitle,
               "DialogPropertyEditor: " + m_dialogPropertyEditor.getClass().getName());
       if (dialog.open() == Window.OK) {
         updatePropertyValue(property, m_dialogPropertyEditor);

@@ -41,8 +41,8 @@ public final class ActionExternalEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ActionExternalEntryInfo() {
-    setName("External...");
-    setDescription("Allows to select some existing Action type (in separate external class) and drop it on design canvas.");
+    setName(PaletteMessages.ActionExternalEntryInfo_name);
+    setDescription(PaletteMessages.ActionExternalEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.fields;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.color.ColorPropertyEditor;
 
 import org.eclipse.swt.SWT;
@@ -57,7 +58,7 @@ public final class ColorField extends AbstractBorderField {
       {
         ToolItem selectItem = new ToolItem(toolBar, SWT.NONE);
         selectItem.setImage(Activator.getImage("borderEditor/selectColor.gif"));
-        selectItem.setToolTipText("Select color");
+        selectItem.setToolTipText(ModelMessages.ColorField_select);
         selectItem.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             ColorInfo newColorInfo = ColorPropertyEditor.external_editColor(m_colorInfo);
@@ -71,7 +72,7 @@ public final class ColorField extends AbstractBorderField {
       {
         ToolItem defaultItem = new ToolItem(toolBar, SWT.NONE);
         defaultItem.setImage(Activator.getImage("borderEditor/clear.gif"));
-        defaultItem.setToolTipText("Reset color to default");
+        defaultItem.setToolTipText(ModelMessages.ColorField_reset);
         defaultItem.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             onColorSelected(null);

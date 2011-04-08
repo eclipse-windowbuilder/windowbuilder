@@ -20,6 +20,7 @@ import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetAlignmentAction;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetGrabAction;
@@ -173,33 +174,33 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
     // grab
     {
       manager.add(new SetGrabAction<C>(this,
-          "&Grab excess space",
+          GefMessages.ColumnHeaderEditPart_grabExcessSpace,
           GridImages.getImageDescriptor("h/menu/grow.gif")));
     }
     // alignment
     {
       manager.add(new Separator());
       manager.add(new SetAlignmentAction<C>(this,
-          "&Left",
+          GefMessages.ColumnHeaderEditPart_left,
           GridImages.getImageDescriptor("h/menu/left.gif"),
           SWT.LEFT));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Center",
+          GefMessages.ColumnHeaderEditPart_center,
           GridImages.getImageDescriptor("h/menu/center.gif"),
           SWT.CENTER));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Right",
+          GefMessages.ColumnHeaderEditPart_right,
           GridImages.getImageDescriptor("h/menu/right.gif"),
           SWT.RIGHT));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Fill",
+          GefMessages.ColumnHeaderEditPart_fill,
           GridImages.getImageDescriptor("h/menu/fill.gif"),
           SWT.FILL));
     }
     // operations
     {
       manager.add(new Separator());
-      manager.add(new DimensionHeaderAction<C>(this, "&Delete Column",
+      manager.add(new DimensionHeaderAction<C>(this, GefMessages.ColumnHeaderEditPart_delete,
           GridImages.getImageDescriptor("h/menu/delete.gif")) {
         @Override
         protected void run(GridDimensionInfo<C> dimension) throws Exception {

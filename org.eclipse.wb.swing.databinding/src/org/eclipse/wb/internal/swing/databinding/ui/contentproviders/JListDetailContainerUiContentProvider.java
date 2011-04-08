@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerUiContentProvider;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.DetailBindingInfo;
 import org.eclipse.wb.internal.swing.databinding.model.bindings.JListBindingInfo;
@@ -59,13 +60,13 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
   protected IUiContentProvider createNewPageContentProvider() throws Exception {
     return new UIContentContainer<DetailBindingInfo>(m_binding.createDefaultDetailBinding(),
         m_bindings,
-        "Detail: ",
+        Messages.JListDetailContainerUiContentProvider_detail1,
         m_provider);
   }
 
   @Override
   protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
-    tabItem.setText("Detail");
+    tabItem.setText(Messages.JListDetailContainerUiContentProvider_detail);
   }
 
   @Override
@@ -84,7 +85,7 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
     List<IUiContentProvider> providers = Lists.newArrayList();
     providers.add(new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),
         m_bindings,
-        "Detail: ",
+        Messages.JListDetailContainerUiContentProvider_detail2,
         m_provider));
     updateFromObject(providers);
   }

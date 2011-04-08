@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentati
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 import org.eclipse.wb.internal.core.utils.ui.ImageDisposer;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 import org.eclipse.swt.graphics.Image;
@@ -25,6 +26,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.osgi.framework.Bundle;
 
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.Map;
 
 /**
@@ -104,7 +106,10 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
       URL imageURL = bundle.getEntry(imagePath);
       Assert.isNotNull(
           imageURL,
-          "Can't find image: " + imagePath + " in " + bundle.getSymbolicName());
+          MessageFormat.format(
+              ModelMessages.StylePresentation_canNotFindImage,
+              imagePath,
+              bundle.getSymbolicName()));
       image = new Image(Display.getDefault(), imageURL.openStream());
     }
     // remember image

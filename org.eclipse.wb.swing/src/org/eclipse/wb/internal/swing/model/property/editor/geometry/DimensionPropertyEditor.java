@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.geometry.AbstractGeometryDialog;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 
@@ -102,8 +103,8 @@ public final class DimensionPropertyEditor extends TextDialogPropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void createEditors() {
-      createEditor("&Width:", "width");
-      createEditor("&Height:", "height");
+      createEditor(ModelMessages.DimensionPropertyEditor_width, "width");
+      createEditor(ModelMessages.DimensionPropertyEditor_height, "height");
     }
   }
 }

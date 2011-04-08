@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.TabFactory;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormUtils;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.form.actions.AnchorActionsClassic;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
@@ -467,17 +468,18 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
   public void anchor_bindToControl(C control, int controlSide, int targetSide) throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment0(control, controlSide);
     WidgetSelectDialog<C> dialog =
-        new WidgetSelectDialog<C>(DesignerPlugin.getShell(), getAlignControlInfos(
-            control,
-            controlSide), "Choose control", "Control list:", "Control");
+        new WidgetSelectDialog<C>(DesignerPlugin.getShell(),
+            getAlignControlInfos(control, controlSide),
+            ModelMessages.FormLayoutInfoImplClassic_widgetSelect_dialogTitle,
+            ModelMessages.FormLayoutInfoImplClassic_widgetSelect_listTitle,
+            ModelMessages.FormLayoutInfoImplClassic_widgetSelect_name);
     if (dialog.open() != Window.OK) {
       return;
     }
     C targetControl = dialog.getSelectedWidget();
     Transposer t = new Transposer(!PlacementUtils.isHorizontalSide(controlSide));
     org.eclipse.wb.draw2d.geometry.Rectangle controlBounds = t.t(control.getModelBounds());
-    org.eclipse.wb.draw2d.geometry.Rectangle targetBounds =
-        t.t(targetControl.getModelBounds());
+    org.eclipse.wb.draw2d.geometry.Rectangle targetBounds = t.t(targetControl.getModelBounds());
     int offset = 0;
     if (!PlacementUtils.isTrailingSide(controlSide)) {
       if (PlacementUtils.isTrailingSide(targetSide)) {

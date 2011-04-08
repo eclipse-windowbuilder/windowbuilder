@@ -23,6 +23,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
+import java.text.MessageFormat;
 
 /**
  * Model for {@link GridBagConstraints}.
@@ -124,7 +125,10 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
         return alignment.hAlignment;
       }
     }
-    throw new IllegalArgumentException("Unknown combination of fill/anchor: " + fill + " " + anchor);
+    throw new IllegalArgumentException(MessageFormat.format(
+        "Unknown combination of fill/anchor: {0} {1}",
+        fill,
+        anchor));
   }
 
   @Override
@@ -141,7 +145,10 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
         return alignment.vAlignment;
       }
     }
-    throw new IllegalArgumentException("Unknown combination of fill/anchor: " + fill + " " + anchor);
+    throw new IllegalArgumentException(MessageFormat.format(
+        "Unknown combination of fill/anchor: {0} {1}",
+        fill,
+        anchor));
   }
 
   ////////////////////////////////////////////////////////////////////////////

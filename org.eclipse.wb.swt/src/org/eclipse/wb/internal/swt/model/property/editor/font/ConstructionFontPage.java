@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.FontSupport;
 import org.eclipse.wb.internal.swt.support.SwtSupport;
 
@@ -66,9 +67,9 @@ public final class ConstructionFontPage extends AbstractFontPage {
     GridLayoutFactory.create(this).columns(3);
     // labels
     {
-      new Label(this, SWT.NONE).setText("Family:");
-      new Label(this, SWT.NONE).setText("Style:");
-      new Label(this, SWT.NONE).setText("Size:");
+      new Label(this, SWT.NONE).setText(ModelMessages.ConstructionFontPage_family);
+      new Label(this, SWT.NONE).setText(ModelMessages.ConstructionFontPage_style);
+      new Label(this, SWT.NONE).setText(ModelMessages.ConstructionFontPage_size);
     }
     // text's
     {

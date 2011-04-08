@@ -30,6 +30,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
@@ -81,7 +82,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
           // draw placeholder text
           Rectangle bounds = getBounds();
           graphics.setForegroundColor(IColorConstants.darkGreen);
-          String menuBarText = "Menu bar would be placed here";
+          String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_dropMenuHint;
           Dimension textExtent = graphics.getTextExtent(menuBarText);
           FontMetrics fontMetrics = graphics.getFontMetrics();
           {

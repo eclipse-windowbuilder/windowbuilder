@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.geometry.AbstractGeometryDialog;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.PointSupport;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -101,8 +102,8 @@ public final class PointPropertyEditor extends TextDialogPropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void createEditors() {
-      createEditor("&X:", "x");
-      createEditor("&Y:", "y");
+      createEditor(ModelMessages.PointPropertyEditor_xLabel, "x");
+      createEditor(ModelMessages.PointPropertyEditor_yLabel, "y");
     }
   }
 }

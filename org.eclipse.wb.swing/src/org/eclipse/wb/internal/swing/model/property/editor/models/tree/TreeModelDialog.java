@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -84,8 +85,8 @@ public final class TreeModelDialog extends ResizableDialog {
     GridLayoutFactory.create(area).columns(2).equalColumns();
     // headers
     {
-      new Label(area, SWT.NONE).setText("&Tree model items:");
-      new Label(area, SWT.NONE).setText("&Preview:");
+      new Label(area, SWT.NONE).setText(ModelMessages.TreeModelDialog_itemsLabel);
+      new Label(area, SWT.NONE).setText(ModelMessages.TreeModelDialog_previewLabel);
     }
     // Text widget
     {
@@ -115,9 +116,7 @@ public final class TreeModelDialog extends ResizableDialog {
     {
       Label footerLabel = new Label(area, SWT.NONE);
       GridDataFactory.create(footerLabel).spanH(2);
-      footerLabel.setText("Each line in the above field represents a node in the model.\n"
-          + "Use tabs to indent a line to deeper levels.\n"
-          + "Note, that only one root item is possible.");
+      footerLabel.setText(ModelMessages.TreeModelDialog_hint);
     }
     //
     refreshTree();

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.wizards.applet;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
+import org.eclipse.wb.internal.swing.wizards.Messages;
 import org.eclipse.wb.internal.swing.wizards.SwingWizard;
 
 import org.eclipse.jface.wizard.Wizard;
@@ -30,7 +31,7 @@ public final class NewJAppletWizard extends SwingWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewJAppletWizard() {
-    setWindowTitle("New Swing JApplet");
+    setWindowTitle(Messages.NewJAppletWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

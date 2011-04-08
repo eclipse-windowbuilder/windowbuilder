@@ -29,6 +29,7 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.GridLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.edit.DimensionHeaderEditPart;
@@ -190,7 +191,7 @@ public final class ColumnsLayoutEditPolicy<C extends IControlInfo>
         m_feedback.setLocation(feedbackLocation);
       }
       // set text
-      m_feedback.setText("column: " + index);
+      m_feedback.setText(GefMessages.ColumnsLayoutEditPolicy_feedbackTextPrefix + index);
     }
     // prepare command
     {

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.layout;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -36,18 +37,29 @@ public final class FillLayoutAssistantPage extends AbstractAssistantPage {
     // orientation
     {
       Group orientationGroup =
-          addChoiceProperty(this, "type", "Orientation", new Object[][]{
-              new Object[]{"Horizontal", SWT.HORIZONTAL},
-              new Object[]{"Vertical", SWT.VERTICAL}});
+          addChoiceProperty(
+              this,
+              "type",
+              ModelMessages.FillLayoutAssistantPage_orientationGroup,
+              new Object[][]{
+                  new Object[]{
+                      ModelMessages.FillLayoutAssistantPage_orientationHorizontal,
+                      SWT.HORIZONTAL},
+                  new Object[]{
+                      ModelMessages.FillLayoutAssistantPage_orientationVertical,
+                      SWT.VERTICAL}});
       GridDataFactory.create(orientationGroup).fillV();
     }
     // spacing
     {
       Group spacingGroup =
-          addIntegerProperties(this, "Margin && Spacing", new String[][]{
-              new String[]{"marginWidth", "Margin width:"},
-              new String[]{"marginHeight", "Margin height:"},
-              new String[]{"spacing", "Spacing:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.FillLayoutAssistantPage_spacingGroup,
+              new String[][]{
+                  new String[]{"marginWidth", ModelMessages.FillLayoutAssistantPage_marginWidth},
+                  new String[]{"marginHeight", ModelMessages.FillLayoutAssistantPage_marginHeight},
+                  new String[]{"spacing", ModelMessages.FillLayoutAssistantPage_spacingValue}});
       GridDataFactory.create(spacingGroup).fillV();
     }
   }

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 import org.eclipse.wb.internal.core.model.property.converter.StringArrayConverter;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -45,7 +46,7 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
     GridLayoutFactory.create(this);
     // Text with items
     {
-      new Label(this, SWT.NONE).setText("&List mode items:");
+      new Label(this, SWT.NONE).setText(ModelMessages.ListSpinnerComposite_itemsLabel);
       {
         m_textWidget = new Text(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
         GridDataFactory.create(m_textWidget).spanH(2).grab().fill().hintC(50, 8);
@@ -56,7 +57,7 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
           }
         });
       }
-      new Label(this, SWT.NONE).setText("Each line in the above text field represents a value in model.");
+      new Label(this, SWT.NONE).setText(ModelMessages.ListSpinnerComposite_hint);
     }
   }
 
@@ -67,7 +68,7 @@ final class ListSpinnerComposite extends AbstractSpinnerComposite {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public String getTitle() {
-    return "List";
+    return ModelMessages.ListSpinnerComposite_title;
   }
 
   @Override

@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
@@ -36,6 +37,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -121,7 +123,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(m_dimensionName + " Properties");
+    newShell.setText(MessageFormat.format(ModelMessages.DimensionEditDialog_title, m_dimensionName));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -135,7 +137,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
   protected void createButtonsForButtonBar(Composite parent) {
     super.createButtonsForButtonBar(parent);
     if (m_layout != null) {
-      createButton(parent, APPLY_ID, "&Apply", false);
+      createButton(parent, APPLY_ID, ModelMessages.DimensionEditDialog_applyButton, false);
     }
   }
 
@@ -222,7 +224,9 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
       // prev button
       {
         m_prevButton = new Button(composite, SWT.NONE);
-        m_prevButton.setToolTipText("Previous " + m_dimensionName);
+        m_prevButton.setToolTipText(MessageFormat.format(
+            ModelMessages.DimensionEditDialog_previousButton,
+            m_dimensionName));
         m_prevButton.setImage(m_horizontal
             ? AbstractGridBagLayoutInfo.getImage("navigation/left.gif")
             : AbstractGridBagLayoutInfo.getImage("navigation/up.gif"));
@@ -236,7 +240,9 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
       // next button
       {
         m_nextButton = new Button(composite, SWT.NONE);
-        m_nextButton.setToolTipText("Next " + m_dimensionName);
+        m_nextButton.setToolTipText(MessageFormat.format(
+            ModelMessages.DimensionEditDialog_nextButton,
+            m_dimensionName));
         m_nextButton.setImage(m_horizontal
             ? AbstractGridBagLayoutInfo.getImage("navigation/right.gif")
             : AbstractGridBagLayoutInfo.getImage("navigation/down.gif"));
@@ -254,7 +260,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
    * Creates the alignment editing {@link Composite}.
    */
   private void createAlignmentComposite(Composite parent) {
-    createSeparator(parent, "Default alignment");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_defaultAlignment);
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2).hintHC(50);
     GridLayoutFactory.create(composite).noMargins().columns(1);
@@ -280,7 +286,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
    * Creates the size editing {@link Composite}.
    */
   private void createSizeComposite(Composite parent) {
-    createSeparator(parent, "Size");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_size);
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
     GridLayoutFactory.create(composite).noMargins().columns(2);
@@ -289,7 +295,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
       {
         Label label = new Label(composite, SWT.NONE);
         GridDataFactory.create(label).hintHC(10);
-        label.setText("&Minimum:");
+        label.setText(ModelMessages.DimensionEditDialog_minimum);
       }
       {
         m_sizeSpinner = new CSpinner(composite, SWT.BORDER);
@@ -309,7 +315,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
    * Creates the weight editing {@link Composite}.
    */
   private void createWeightComposite(Composite parent) {
-    createSeparator(parent, "Resize behavior");
+    createSeparator(parent, ModelMessages.DimensionEditDialog_resizeBehavior);
     Composite composite = new Composite(parent, SWT.NONE);
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
     GridLayoutFactory.create(composite).noMargins().columns(2);

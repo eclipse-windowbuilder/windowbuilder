@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.StaticFieldPropertyEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.actions.ClearHintAction;
 import org.eclipse.wb.internal.swt.model.layout.grid.actions.SetAlignmentAction;
@@ -499,12 +500,15 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
   public void addContextMenu(IMenuManager manager) {
     // horizontal
     {
-      IMenuManager manager2 = new MenuManager("Horizontal alignment");
+      IMenuManager manager2 = new MenuManager(ModelMessages.GridDataInfo_horizontalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       //
-      manager2.add(new SetGrabAction(this, "&Grab excess space", "grow.gif", true));
+      manager2.add(new SetGrabAction(this,
+          ModelMessages.GridDataInfo_grabExcessSpace,
+          "grow.gif",
+          true));
       if (getWidthHint() != SWT.DEFAULT) {
-        manager2.add(new ClearHintAction(this, "Clear hint", true));
+        manager2.add(new ClearHintAction(this, ModelMessages.GridDataInfo_clearHint, true));
       }
       manager2.add(new Separator());
       //
@@ -512,12 +516,15 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
     }
     // vertical
     {
-      IMenuManager manager2 = new MenuManager("Vertical alignment");
+      IMenuManager manager2 = new MenuManager(ModelMessages.GridDataInfo_verticalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       //
-      manager2.add(new SetGrabAction(this, "&Grab excess space", "grow.gif", false));
+      manager2.add(new SetGrabAction(this,
+          ModelMessages.GridDataInfo_grabExcessSpace,
+          "grow.gif",
+          false));
       if (getHeightHint() != SWT.DEFAULT) {
-        manager2.add(new ClearHintAction(this, "Clear hint", false));
+        manager2.add(new ClearHintAction(this, ModelMessages.GridDataInfo_clearHint, false));
       }
       manager2.add(new Separator());
       //
@@ -526,16 +533,48 @@ public final class GridDataInfo extends LayoutDataInfo implements IGridDataInfo 
   }
 
   public void fillHorizontalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetAlignmentAction(this, "&Left", "left.gif", true, SWT.LEFT));
-    manager.add(new SetAlignmentAction(this, "&Center", "center.gif", true, SWT.CENTER));
-    manager.add(new SetAlignmentAction(this, "&Right", "right.gif", true, SWT.RIGHT));
-    manager.add(new SetAlignmentAction(this, "&Fill", "fill.gif", true, SWT.FILL));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_horLeft,
+        "left.gif",
+        true,
+        SWT.LEFT));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_horCenter,
+        "center.gif",
+        true,
+        SWT.CENTER));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_horRight,
+        "right.gif",
+        true,
+        SWT.RIGHT));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_horFill,
+        "fill.gif",
+        true,
+        SWT.FILL));
   }
 
   public void fillVerticalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetAlignmentAction(this, "&Top", "top.gif", false, SWT.TOP));
-    manager.add(new SetAlignmentAction(this, "&Center", "center.gif", false, SWT.CENTER));
-    manager.add(new SetAlignmentAction(this, "&Bottom", "bottom.gif", false, SWT.BOTTOM));
-    manager.add(new SetAlignmentAction(this, "&Fill", "fill.gif", false, SWT.FILL));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_verTop,
+        "top.gif",
+        false,
+        SWT.TOP));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_verCenter,
+        "center.gif",
+        false,
+        SWT.CENTER));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_verBottom,
+        "bottom.gif",
+        false,
+        SWT.BOTTOM));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.GridDataInfo_verFill,
+        "fill.gif",
+        false,
+        SWT.FILL));
   }
 }

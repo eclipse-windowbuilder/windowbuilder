@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.ui.filter.PropertyFilter;
 import org.eclipse.wb.internal.swing.databinding.Activator;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 
 import org.eclipse.jface.viewers.Viewer;
 
@@ -31,7 +32,7 @@ public final class HideAdvancedPropertyFilter extends PropertyFilter {
   //
   ////////////////////////////////////////////////////////////////////////////
   public HideAdvancedPropertyFilter() {
-    super("Hide advanced properties", Activator.getImage("hide_advanced.png"));
+    super(Messages.HideAdvancedPropertyFilter_title, Activator.getImage("hide_advanced.png"));
   }
 
   ////////////////////////////////////////////////////////////////////////////

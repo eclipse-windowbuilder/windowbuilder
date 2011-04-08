@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.properties.ElPropertyInfo;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
 import org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el.ElPropertyUiConfiguration;
@@ -54,7 +55,7 @@ public final class ElPropertyUiContentProvider
     m_property = property;
     setEnabled(m_property != null);
     if (m_property == null) {
-      setText("");
+      setText(Messages.ElPropertyUiContentProvider_0);
     } else {
       updateFromObject();
     }
@@ -91,7 +92,7 @@ public final class ElPropertyUiContentProvider
 
   public void calculateFinish() {
     if (getText().length() == 0) {
-      setErrorMessage("ELProperty: expression is empty.");
+      setErrorMessage(Messages.ElPropertyUiContentProvider_errEmpty);
     } else {
       setErrorMessage(null);
     }

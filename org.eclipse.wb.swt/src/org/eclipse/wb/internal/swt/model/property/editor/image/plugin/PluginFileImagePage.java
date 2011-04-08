@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.Abstract
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 import org.eclipse.wb.internal.swt.Activator;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -117,7 +118,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     // filter text
     m_filterText = new Text(filterBarComposite, SWT.SINGLE | SWT.BORDER | SWT.SEARCH);
     GridDataFactory.create(m_filterText).fillH().grabH();
-    m_filterText.setText("type filter text");
+    m_filterText.setText(ModelMessages.PluginFileImagePage_emptyFilterText);
     m_filterText.addFocusListener(new FocusAdapter() {
       @Override
       public void focusGained(FocusEvent e) {
@@ -146,7 +147,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     // clear button
     m_clearButton = new ToolItem(filterTextToolBar, SWT.PUSH);
     m_clearButton.setImage(Activator.getImage("clear_new.gif"));
-    m_clearButton.setToolTipText("Clear");
+    m_clearButton.setToolTipText(ModelMessages.PluginFileImagePage_clearButton);
     m_clearButton.setEnabled(false);
     m_clearButton.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -160,7 +161,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     // workspace button
     m_wButton = new ToolItem(filterToolBar, SWT.CHECK);
     m_wButton.setImage(Activator.getImage("workspace_projects.png"));
-    m_wButton.setToolTipText("Show/Hide workspace plugins");
+    m_wButton.setToolTipText(ModelMessages.PluginFileImagePage_showWorkspacePluginsButton);
     m_wButton.setSelection(true);
     m_wButton.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -174,7 +175,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     // required button
     m_rButton = new ToolItem(filterToolBar, SWT.CHECK);
     m_rButton.setImage(Activator.getImage("required_projects.png"));
-    m_rButton.setToolTipText("Show/Hide required plugins");
+    m_rButton.setToolTipText(ModelMessages.PluginFileImagePage_showRequiredPluginsButton);
     m_rButton.setSelection(true);
     m_rButton.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -190,7 +191,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     // UI button
     m_uiButton = new ToolItem(filterToolBar, SWT.RADIO);
     m_uiButton.setImage(Activator.getImage("ui_projects.png"));
-    m_uiButton.setToolTipText("Show UI plugins");
+    m_uiButton.setToolTipText(ModelMessages.PluginFileImagePage_showUiPluginsButton);
     m_uiButton.setSelection(true);
     m_uiButton.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -204,7 +205,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     // "all" button
     m_allButton = new ToolItem(filterToolBar, SWT.RADIO);
     m_allButton.setImage(Activator.getImage("all_projects.png"));
-    m_allButton.setToolTipText("Show all plugins");
+    m_allButton.setToolTipText(ModelMessages.PluginFileImagePage_showAllPluginsButton);
     m_allButton.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -285,7 +286,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
 
   @Override
   public String getTitle() {
-    return "Plugin resource (don't forget to refresh project before)";
+    return ModelMessages.PluginFileImagePage_title;
   }
 
   @Override

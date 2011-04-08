@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing.laf.ui;
 
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.laf.LafMessages;
 import org.eclipse.wb.internal.swing.laf.command.AddCommand;
 import org.eclipse.wb.internal.swing.laf.model.CategoryInfo;
 import org.eclipse.wb.internal.swing.laf.model.LafEntryInfo;
@@ -49,10 +50,10 @@ public final class AddCustomLookAndFeelDialog extends AbstractCustomLookAndFeelD
   public AddCustomLookAndFeelDialog(Shell parentShell, CategoryInfo targetCategory) {
     super(parentShell,
         targetCategory,
-        "Add LookAndFeel",
-        "Add LookAndFeel",
+        LafMessages.AddCustomLookAndFeelDialog_add,
+        LafMessages.AddCustomLookAndFeelDialog_add,
         null,
-        "Please select JAR containing LookAndFeel class(es) and then select LookAndFeel class(es) to add.");
+        LafMessages.AddCustomLookAndFeelDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -81,7 +82,7 @@ public final class AddCustomLookAndFeelDialog extends AbstractCustomLookAndFeelD
       {
         Label label = new Label(container, SWT.NONE);
         GridDataFactory.create(label).spanH(3).fillH();
-        label.setText("Select LookAndFeel class(es) to add:");
+        label.setText(LafMessages.AddCustomLookAndFeelDialog_classesLabel);
       }
       {
         m_classTable =
@@ -98,7 +99,7 @@ public final class AddCustomLookAndFeelDialog extends AbstractCustomLookAndFeelD
         {
           Button button = new Button(composite, SWT.NONE);
           GridDataFactory.create(button).grabH().alignHF();
-          button.setText("Select All");
+          button.setText(LafMessages.AddCustomLookAndFeelDialog_selectAll);
           button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -111,7 +112,7 @@ public final class AddCustomLookAndFeelDialog extends AbstractCustomLookAndFeelD
         {
           Button button = new Button(composite, SWT.NONE);
           GridDataFactory.create(button).grabH().alignHF();
-          button.setText("Deselect All");
+          button.setText(LafMessages.AddCustomLookAndFeelDialog_deselectAll);
           button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {

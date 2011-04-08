@@ -47,33 +47,64 @@ public class CellConstraintsAssistantPage extends AbstractAssistantPage {
     // horizontal alignments
     {
       Group horizontalGroup =
-          addChoiceProperty(this, "h alignment", "Horizontal", new Object[][]{
-              new Object[]{"Default", CellConstraints.DEFAULT},
-              new Object[]{"Left", CellConstraints.LEFT},
-              new Object[]{"Center", CellConstraints.CENTER},
-              new Object[]{"Right", CellConstraints.RIGHT},
-              new Object[]{"Fill", CellConstraints.FILL}});
+          addChoiceProperty(
+              this,
+              "h alignment",
+              ModelMessages.CellConstraintsAssistantPage_horizontalGroup,
+              new Object[][]{
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_haDefault,
+                      CellConstraints.DEFAULT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_haLeft,
+                      CellConstraints.LEFT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_haCenter,
+                      CellConstraints.CENTER},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_haRight,
+                      CellConstraints.RIGHT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_haFill,
+                      CellConstraints.FILL}});
       GridDataFactory.modify(horizontalGroup).fill();
     }
     // vertical alignments
     {
       Group verticalGroup =
-          addChoiceProperty(this, "v alignment", "Vertical", new Object[][]{
-              new Object[]{"Default", CellConstraints.DEFAULT},
-              new Object[]{"Top", CellConstraints.TOP},
-              new Object[]{"Center", CellConstraints.CENTER},
-              new Object[]{"Bottom", CellConstraints.BOTTOM},
-              new Object[]{"Fill", CellConstraints.FILL}});
+          addChoiceProperty(
+              this,
+              "v alignment",
+              ModelMessages.CellConstraintsAssistantPage_verticalGroup,
+              new Object[][]{
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vaDefault,
+                      CellConstraints.DEFAULT},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vaTop,
+                      CellConstraints.TOP},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vaCenter,
+                      CellConstraints.CENTER},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vaBottom,
+                      CellConstraints.BOTTOM},
+                  new Object[]{
+                      ModelMessages.CellConstraintsAssistantPage_vaFill,
+                      CellConstraints.FILL}});
       GridDataFactory.modify(verticalGroup).fill();
     }
     // grid
     {
       Group gridGroup =
-          addIntegerProperties(this, "Grid", new String[][]{
-              {"grid x", "X:"},
-              {"grid y", "Y:"},
-              {"grid width", "Width:"},
-              {"grid height", "Height:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.CellConstraintsAssistantPage_gridGroup,
+              new String[][]{
+                  {"grid x", ModelMessages.CellConstraintsAssistantPage_gridX},
+                  {"grid y", ModelMessages.CellConstraintsAssistantPage_gridY},
+                  {"grid width", ModelMessages.CellConstraintsAssistantPage_gridWidth},
+                  {"grid height", ModelMessages.CellConstraintsAssistantPage_gridHeight}});
       GridDataFactory.modify(gridGroup).fill();
     }
   }

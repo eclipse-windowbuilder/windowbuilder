@@ -11,6 +11,9 @@
 package org.eclipse.wb.internal.swing.databinding.model.bindings;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.swing.databinding.Messages;
+
+import java.text.MessageFormat;
 
 /**
  * Model for {@link org.jdesktop.beansbinding.AutoBinding.UpdateStrategy}.
@@ -53,7 +56,7 @@ public final class UpdateStrategyInfo {
       case READ_WRITE :
         return "org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE";
     }
-    Assert.fail("Undefine value strategy value: " + m_strategyValue);
+    Assert.fail(MessageFormat.format(Messages.UpdateStrategyInfo_errUndefined, m_strategyValue));
     return null;
   }
 
@@ -69,7 +72,7 @@ public final class UpdateStrategyInfo {
       case READ_WRITE :
         return "READ_WRITE";
     }
-    Assert.fail("Undefine value strategy value: " + m_strategyValue);
+    Assert.fail(MessageFormat.format(Messages.UpdateStrategyInfo_errUndefined, m_strategyValue));
     return null;
   }
 

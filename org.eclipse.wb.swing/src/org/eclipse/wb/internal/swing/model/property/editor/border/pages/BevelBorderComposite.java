@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.ColorField;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.RadioField;
 
@@ -42,14 +43,18 @@ public final class BevelBorderComposite extends AbstractBorderComposite {
     GridLayoutFactory.create(this);
     m_typeField =
         createRadioField(
-            "&Bevel type:",
+            ModelMessages.BevelBorderComposite_bevelType,
             BevelBorder.class,
             new String[]{"LOWERED", "RAISED"},
-            new String[]{"&lowered", "&raised"});
-    m_highlightOuterField = createColorField("&Highlight outer color:");
-    m_highlightInnerField = createColorField("&Highlight inner color:");
-    m_shadowOuterField = createColorField("&Shadow outer color:");
-    m_shadowInnerField = createColorField("&Shadow inner color:");
+            new String[]{
+                ModelMessages.BevelBorderComposite_typeLowered,
+                ModelMessages.BevelBorderComposite_typeRaised});
+    m_highlightOuterField =
+        createColorField(ModelMessages.BevelBorderComposite_highlightOuterColor);
+    m_highlightInnerField =
+        createColorField(ModelMessages.BevelBorderComposite_highlightInnerColor);
+    m_shadowOuterField = createColorField(ModelMessages.BevelBorderComposite_shadowOuterColor);
+    m_shadowInnerField = createColorField(ModelMessages.BevelBorderComposite_shadowInnerColor);
   }
 
   ////////////////////////////////////////////////////////////////////////////

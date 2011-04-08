@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.live.SwingLiveManager;
 import org.eclipse.wb.internal.swing.model.component.top.SwingTopBoundsSupport;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
@@ -80,7 +81,10 @@ public class ComponentInfo extends AbstractComponentInfo {
           ObjectInfo object,
           IMenuManager manager) throws Exception {
         if (object == ComponentInfo.this) {
-          ExposeComponentSupport.contribute(ComponentInfo.this, manager, "Expose component...");
+          ExposeComponentSupport.contribute(
+              ComponentInfo.this,
+              manager,
+              ModelMessages.ComponentInfo_exposeComponent);
           MorphingSupport.contribute("java.awt.Component", ComponentInfo.this, manager);
           FactoryActionsSupport.contribute(ComponentInfo.this, manager);
           RenameConvertSupport.contribute(objects, manager);

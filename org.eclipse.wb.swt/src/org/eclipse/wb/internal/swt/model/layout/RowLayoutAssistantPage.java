@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swt.model.layout;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -36,38 +37,55 @@ public final class RowLayoutAssistantPage extends AbstractAssistantPage {
     // orientation
     {
       Group orientationGroup =
-          addChoiceProperty(this, "type", "Orientation", new Object[][]{
-              new Object[]{"Horizontal", SWT.HORIZONTAL},
-              new Object[]{"Vertical", SWT.VERTICAL}});
+          addChoiceProperty(
+              this,
+              "type",
+              ModelMessages.RowLayoutAssistantPage_orientationGroup,
+              new Object[][]{
+                  new Object[]{
+                      ModelMessages.RowLayoutAssistantPage_orientationHorizontal,
+                      SWT.HORIZONTAL},
+                  new Object[]{
+                      ModelMessages.RowLayoutAssistantPage_orientationVertical,
+                      SWT.VERTICAL}});
       GridDataFactory.create(orientationGroup).fillV();
     }
     // margins
     {
       Group spacingGroup =
-          addIntegerProperties(this, "Margin && Spacing", new String[][]{
-              new String[]{"marginWidth", "Margin width:"},
-              new String[]{"marginHeight", "Margin height:"},
-              new String[]{"spacing", "Spacing:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.RowLayoutAssistantPage_marginGroup,
+              new String[][]{
+                  new String[]{"marginWidth", ModelMessages.RowLayoutAssistantPage_marginWidth},
+                  new String[]{"marginHeight", ModelMessages.RowLayoutAssistantPage_marginHeight},
+                  new String[]{"spacing", ModelMessages.RowLayoutAssistantPage_spacingValue}});
       GridDataFactory.create(spacingGroup).fillV();
     }
     // options
     {
       Group optionsGroup =
-          addBooleanProperties(this, "Options", new String[][]{
-              new String[]{"wrap", "wrap"},
-              new String[]{"pack", "pack"},
-              new String[]{"fill", "fill"},
-              new String[]{"justify", "justify"}});
+          addBooleanProperties(
+              this,
+              ModelMessages.RowLayoutAssistantPage_optionsGroup,
+              new String[][]{
+                  new String[]{"wrap", "wrap"},
+                  new String[]{"pack", "pack"},
+                  new String[]{"fill", "fill"},
+                  new String[]{"justify", "justify"}});
       GridDataFactory.create(optionsGroup).fill();
     }
     // margins for sides
     {
       Group spacingGroup =
-          addIntegerProperties(this, "Margins for sides", new String[][]{
-              new String[]{"marginLeft", "Margin left:"},
-              new String[]{"marginRight", "Margin right:"},
-              new String[]{"marginTop", "Margin top:"},
-              new String[]{"marginBottom", "Margin bottom:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.RowLayoutAssistantPage_sideMarginsGroup,
+              new String[][]{
+                  new String[]{"marginLeft", ModelMessages.RowLayoutAssistantPage_marginLeft},
+                  new String[]{"marginRight", ModelMessages.RowLayoutAssistantPage_marginRight},
+                  new String[]{"marginTop", ModelMessages.RowLayoutAssistantPage_marginTop},
+                  new String[]{"marginBottom", ModelMessages.RowLayoutAssistantPage_marginBottom}});
       GridDataFactory.create(spacingGroup).fillV();
     }
   }

@@ -20,9 +20,12 @@ import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
+import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.swt.graphics.Font;
+
+import java.text.MessageFormat;
 
 /**
  * {@link Figure} for displaying {@link FormLayoutInfo} header resize.
@@ -83,7 +86,7 @@ public final class ResizeHintFigure extends Figure {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * @return the desireable size for this {@link ResizeHintFigure}.
+   * @return the desirable size for this {@link ResizeHintFigure}.
    */
   private Dimension getPreferredSize() {
     Font font = getFont();
@@ -100,10 +103,14 @@ public final class ResizeHintFigure extends Figure {
       int hintWidth = 0;
       Font boldFont = DrawUtils.getBoldFont(font);
       try {
-        hintWidth += FigureUtils.calculateTextSize("Hint", boldFont).width;
-        hintWidth += FigureUtils.calculateTextSize(": Press ", font).width;
+        hintWidth +=
+            FigureUtils.calculateTextSize(GefMessages.ResizeHintFigure_hint, boldFont).width;
+        hintWidth += FigureUtils.calculateTextSize(GefMessages.ResizeHintFigure_press, font).width;
         hintWidth += FigureUtils.calculateTextSize("Ctrl", boldFont).width;
-        hintWidth += FigureUtils.calculateTextSize(" to set " + m_sizeHint + " size", font).width;
+        hintWidth +=
+            FigureUtils.calculateTextSize(
+                MessageFormat.format(GefMessages.ResizeHintFigure_toSetSize, m_sizeHint),
+                font).width;
       } finally {
         boldFont.dispose();
       }
@@ -140,15 +147,21 @@ public final class ResizeHintFigure extends Figure {
       Font boldFont = DrawUtils.getBoldFont(font);
       try {
         int x = 0;
-        x = drawText(graphics, x, y + 1, "Hint", boldFont);
-        x = drawText(graphics, x, y, ": Press ", font);
+        x = drawText(graphics, x, y + 1, GefMessages.ResizeHintFigure_hint, boldFont);
+        x = drawText(graphics, x, y, GefMessages.ResizeHintFigure_press, font);
         //
         graphics.pushState();
         graphics.setForegroundColor(IColorConstants.lightBlue);
         x = drawText(graphics, x, y + 1, "Ctrl", boldFont);
         graphics.popState();
         //
-        x = drawText(graphics, x, y, " to set " + m_sizeHint + " size", font);
+        x =
+            drawText(
+                graphics,
+                x,
+                y,
+                MessageFormat.format(GefMessages.ResizeHintFigure_toSetSize, m_sizeHint),
+                font);
       } finally {
         boldFont.dispose();
       }

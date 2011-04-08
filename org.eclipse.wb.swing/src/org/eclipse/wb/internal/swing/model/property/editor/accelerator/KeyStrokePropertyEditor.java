@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.jface.window.Window;
@@ -174,7 +175,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
       {
         {
           Label label = new Label(area, SWT.NONE);
-          label.setText("&Press key stroke combination:");
+          label.setText(ModelMessages.KeyStrokePropertyEditor_pressCombination);
         }
         {
           m_keyStrokeText = new Text(area, SWT.BORDER | SWT.READ_ONLY);
@@ -207,13 +208,13 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
         Group propertiesGroup = new Group(area, SWT.NONE);
         GridDataFactory.create(propertiesGroup).grab().fill();
         GridLayoutFactory.create(propertiesGroup);
-        propertiesGroup.setText("Key stroke properties");
+        propertiesGroup.setText(ModelMessages.KeyStrokePropertyEditor_keyStrokeProperties);
         // modifiers
         {
           Group modifiersGroup = new Group(propertiesGroup, SWT.NONE);
           GridDataFactory.create(modifiersGroup).grabH().fillH();
           GridLayoutFactory.create(modifiersGroup).columns(5);
-          modifiersGroup.setText("Modifiers");
+          modifiersGroup.setText(ModelMessages.KeyStrokePropertyEditor_modifiers);
           addModifierButton(modifiersGroup, CTRL_MASK, "&Ctrl");
           addModifierButton(modifiersGroup, ALT_MASK, "&Alt");
           addModifierButton(modifiersGroup, SHIFT_MASK, "&Shift");
@@ -225,7 +226,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
           Group keyGroup = new Group(propertiesGroup, SWT.NONE);
           GridDataFactory.create(keyGroup).grab().fill();
           GridLayoutFactory.create(keyGroup);
-          keyGroup.setText("Key code");
+          keyGroup.setText(ModelMessages.KeyStrokePropertyEditor_keyCode);
           //
           m_keyCodeList = new List(keyGroup, SWT.BORDER | SWT.V_SCROLL);
           GridDataFactory.create(m_keyCodeList).hintC(50, 15).grab().fill();

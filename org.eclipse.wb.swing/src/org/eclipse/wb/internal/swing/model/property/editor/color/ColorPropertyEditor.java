@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorsGridComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -273,11 +274,21 @@ public final class ColorPropertyEditor extends PropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void addPages(Composite parent) {
-      addPage("AWT colors", new AwtColorsPage(parent, SWT.NONE, this));
-      addPage("System colors", new SystemColorsPage(parent, SWT.NONE, this));
-      addPage("Swing colors", new SwingColorsPage(parent, SWT.NONE, this));
-      addPage("Named colors", new NamedColorsComposite(parent, SWT.NONE, this));
-      addPage("Web safe colors", new WebSafeColorsComposite(parent, SWT.NONE, this));
+      addPage(ModelMessages.ColorPropertyEditor_pageAwtColors, new AwtColorsPage(parent,
+          SWT.NONE,
+          this));
+      addPage(ModelMessages.ColorPropertyEditor_pageSystemColors, new SystemColorsPage(parent,
+          SWT.NONE,
+          this));
+      addPage(ModelMessages.ColorPropertyEditor_pageSwingColors, new SwingColorsPage(parent,
+          SWT.NONE,
+          this));
+      addPage(ModelMessages.ColorPropertyEditor_pageNamedColors, new NamedColorsComposite(parent,
+          SWT.NONE,
+          this));
+      addPage(ModelMessages.ColorPropertyEditor_pageWebColors, new WebSafeColorsComposite(parent,
+          SWT.NONE,
+          this));
     }
   }
   ////////////////////////////////////////////////////////////////////////////

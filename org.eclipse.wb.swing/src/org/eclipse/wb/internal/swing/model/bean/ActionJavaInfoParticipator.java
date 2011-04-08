@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.jface.action.Action;
@@ -83,7 +84,8 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
       return;
     }
     // append sub-menu with Actions's
-    MenuManagerEx groupsManager = new MenuManagerEx("Set Action");
+    MenuManagerEx groupsManager =
+        new MenuManagerEx(ModelMessages.ActionJavaInfoParticipator_setActionManager);
     groupsManager.setImage(Activator.getImage("info/Action/action.gif"));
     manager.appendToGroup(IContextMenuConstants.GROUP_ADDITIONAL, groupsManager);
     // append actions
@@ -111,7 +113,12 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
       }
     };
     IAction action =
-        contextMenu_createAction(root, isFirst, "None", IAction.AS_PUSH_BUTTON, runnable);
+        contextMenu_createAction(
+            root,
+            isFirst,
+            ModelMessages.ActionJavaInfoParticipator_none,
+            IAction.AS_PUSH_BUTTON,
+            runnable);
     groupsManager.add(action);
   }
 
@@ -133,7 +140,12 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
       }
     };
     IAction action =
-        contextMenu_createAction(root, isFirst, "New...", IAction.AS_PUSH_BUTTON, runnable);
+        contextMenu_createAction(
+            root,
+            isFirst,
+            ModelMessages.ActionJavaInfoParticipator_new,
+            IAction.AS_PUSH_BUTTON,
+            runnable);
     groupsManager.add(action);
   }
 

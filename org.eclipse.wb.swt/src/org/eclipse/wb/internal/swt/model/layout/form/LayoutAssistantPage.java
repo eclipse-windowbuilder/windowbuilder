@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormLayoutEditPolicy;
+import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.jface.action.IAction;
@@ -79,7 +80,7 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
     {
       Group group = new Group(this, SWT.NONE);
       GridDataFactory.create(group).fill().grab();
-      group.setText("Anchors");
+      group.setText(ModelMessages.LayoutAssistantPage_anchorsGroup);
       GridLayoutFactory.create(group);
       {
         ToolBarManager manager = new ToolBarManager();
@@ -97,7 +98,7 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
     {
       Group group = new Group(this, SWT.NONE);
       GridDataFactory.create(group).fill().grab();
-      group.setText("Alignment");
+      group.setText(ModelMessages.LayoutAssistantPage_alignmentGroup);
       GridLayoutFactory.create(group);
       ToolBarManager manager = new ToolBarManager();
       GridDataFactory.create(manager.createControl(group)).fill().grab();
@@ -157,40 +158,40 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
 
   private void fillComplexAnchorsActions(IContributionManager manager) {
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Top-Left",
+        ModelMessages.LayoutAssistantPage_alignmentTopLeft,
         "assistant/top_left.gif",
         IPositionConstants.LEFT | IPositionConstants.TOP));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Top-Right",
+        ModelMessages.LayoutAssistantPage_alignmentTopRight,
         "assistant/top_right.gif",
         IPositionConstants.TOP | IPositionConstants.RIGHT));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Bottom-Left",
+        ModelMessages.LayoutAssistantPage_alignmentBottomLeft,
         "assistant/bottom_left.gif",
         IPositionConstants.LEFT | IPositionConstants.BOTTOM));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Bottom-Right",
+        ModelMessages.LayoutAssistantPage_alignmentBottomRight,
         "assistant/bottom_right.gif",
         IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
     manager.add(new Separator());
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Left-Right-Top",
+        ModelMessages.LayoutAssistantPage_alignmentLeftRightTop,
         "assistant/top_left_right.gif",
         IPositionConstants.LEFT | IPositionConstants.TOP | IPositionConstants.RIGHT));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Left-Right-Bottom",
+        ModelMessages.LayoutAssistantPage_alignmentLeftRightBottom,
         "assistant/bottom_left_right.gif",
         IPositionConstants.LEFT | IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Top-Bottom-Left",
+        ModelMessages.LayoutAssistantPage_alignmentTopBottomLeft,
         "assistant/top_bottom_left.gif",
         IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.BOTTOM));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set Top-Bottom-Right",
+        ModelMessages.LayoutAssistantPage_alignmentTopLBottomRight,
         "assistant/top_bottom_right.gif",
         IPositionConstants.BOTTOM | IPositionConstants.RIGHT | IPositionConstants.TOP));
     manager.add(new SetCornerAnchorsAction(m_selection,
-        "Set All",
+        ModelMessages.LayoutAssistantPage_alignmentAll,
         "assistant/top_bottom_left_right.gif",
         IPositionConstants.BOTTOM
             | IPositionConstants.RIGHT

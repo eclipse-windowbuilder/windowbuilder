@@ -19,6 +19,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.SetAlignmentColumnAction;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.SetGrowAction;
@@ -158,32 +159,37 @@ public final class ColumnHeaderEditPart extends DimensionHeaderEditPart<ColumnIn
   public void buildContextMenu(IMenuManager manager) {
     // operations
     {
-      manager.add(new DimensionHeaderAction<ColumnInfo>(this, "Insert Column") {
+      manager.add(new DimensionHeaderAction<ColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_insertColumn) {
         @Override
         protected void run(ColumnInfo column) throws Exception {
           m_layout.getColumnOperations().insert(column.getIndex());
         }
       });
-      manager.add(new DimensionHeaderAction<ColumnInfo>(this, "Append Column") {
+      manager.add(new DimensionHeaderAction<ColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_appendColumn) {
         @Override
         protected void run(ColumnInfo column) throws Exception {
           m_layout.getColumnOperations().insert(column.getIndex() + 1);
         }
       });
-      manager.add(new DimensionHeaderAction<ColumnInfo>(this, "Delete Column",
+      manager.add(new DimensionHeaderAction<ColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_deleteColumn,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/delete.gif")) {
         @Override
         protected void run(ColumnInfo column) throws Exception {
           m_layout.getColumnOperations().delete(column.getIndex());
         }
       });
-      manager.add(new DimensionHeaderAction<ColumnInfo>(this, "Delete Contents") {
+      manager.add(new DimensionHeaderAction<ColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_deleteContents) {
         @Override
         protected void run(ColumnInfo column) throws Exception {
           m_layout.getColumnOperations().clear(column.getIndex());
         }
       });
-      manager.add(new DimensionHeaderAction<ColumnInfo>(this, "Split Column") {
+      manager.add(new DimensionHeaderAction<ColumnInfo>(this,
+          GefMessages.ColumnHeaderEditPart_splitColumn) {
         @Override
         protected void run(ColumnInfo column) throws Exception {
           m_layout.getColumnOperations().split(column.getIndex());
@@ -194,19 +200,19 @@ public final class ColumnHeaderEditPart extends DimensionHeaderEditPart<ColumnIn
     {
       manager.add(new Separator());
       manager.add(new SetAlignmentColumnAction(this,
-          "Left",
+          GefMessages.ColumnHeaderEditPart_haLeft,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/left.gif"),
           ColumnInfo.Alignment.LEFT));
       manager.add(new SetAlignmentColumnAction(this,
-          "Center",
+          GefMessages.ColumnHeaderEditPart_haCenter,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/center.gif"),
           ColumnInfo.Alignment.CENTER));
       manager.add(new SetAlignmentColumnAction(this,
-          "Right",
+          GefMessages.ColumnHeaderEditPart_haRight,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/right.gif"),
           ColumnInfo.Alignment.RIGHT));
       manager.add(new SetAlignmentColumnAction(this,
-          "Fill",
+          GefMessages.ColumnHeaderEditPart_haFill,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/fill.gif"),
           ColumnInfo.Alignment.FILL));
     }
@@ -214,13 +220,13 @@ public final class ColumnHeaderEditPart extends DimensionHeaderEditPart<ColumnIn
     {
       manager.add(new Separator());
       manager.add(new SetGrowAction<ColumnInfo>(this,
-          "Grow",
+          GefMessages.ColumnHeaderEditPart_grow,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/h/menu/grow.gif")));
     }
     // properties
     {
       manager.add(new Separator());
-      manager.add(new Action("Properties...") {
+      manager.add(new Action(GefMessages.ColumnHeaderEditPart_properties) {
         @Override
         public void run() {
           editDimension();

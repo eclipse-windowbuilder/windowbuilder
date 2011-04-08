@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagConstraintsInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
@@ -69,61 +70,101 @@ public class SelectionActionsSupport extends ObjectEventListener {
     }
     // create horizontal actions
     actions.add(new Separator());
-    addAlignmentAction(actions, constraints, true, "left.gif", "Left", ColumnInfo.Alignment.LEFT);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "left.gif",
+        ModelMessages.SelectionActionsSupport_haLeft,
+        ColumnInfo.Alignment.LEFT);
     addAlignmentAction(
         actions,
         constraints,
         true,
         "center.gif",
-        "Center",
+        ModelMessages.SelectionActionsSupport_haCenter,
         ColumnInfo.Alignment.CENTER);
-    addAlignmentAction(actions, constraints, true, "right.gif", "Right", ColumnInfo.Alignment.RIGHT);
-    addAlignmentAction(actions, constraints, true, "fill.gif", "Fill", ColumnInfo.Alignment.FILL);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "right.gif",
+        ModelMessages.SelectionActionsSupport_haRight,
+        ColumnInfo.Alignment.RIGHT);
+    addAlignmentAction(
+        actions,
+        constraints,
+        true,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_haFill,
+        ColumnInfo.Alignment.FILL);
     // create vertical actions
     actions.add(new Separator());
-    addAlignmentAction(actions, constraints, false, "top.gif", "Top", RowInfo.Alignment.TOP);
+    addAlignmentAction(
+        actions,
+        constraints,
+        false,
+        "top.gif",
+        ModelMessages.SelectionActionsSupport_vaTop,
+        RowInfo.Alignment.TOP);
     addAlignmentAction(
         actions,
         constraints,
         false,
         "center.gif",
-        "Center",
+        ModelMessages.SelectionActionsSupport_vaCenter,
         RowInfo.Alignment.CENTER);
     addAlignmentAction(
         actions,
         constraints,
         false,
         "bottom.gif",
-        "Bottom",
+        ModelMessages.SelectionActionsSupport_vaBottom,
         RowInfo.Alignment.BOTTOM);
-    addAlignmentAction(actions, constraints, false, "fill.gif", "Fill", RowInfo.Alignment.FILL);
+    addAlignmentAction(
+        actions,
+        constraints,
+        false,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_vaFill,
+        RowInfo.Alignment.FILL);
     if (SystemUtils.IS_JAVA_1_6) {
       addAlignmentAction(
           actions,
           constraints,
           false,
           "baseline.gif",
-          "Baseline",
+          ModelMessages.SelectionActionsSupport_vaBaseline,
           RowInfo.Alignment.BASELINE);
       addAlignmentAction(
           actions,
           constraints,
           false,
           "baseline_above.gif",
-          "Above baseline",
+          ModelMessages.SelectionActionsSupport_vaAboveBaseline,
           RowInfo.Alignment.BASELINE_ABOVE);
       addAlignmentAction(
           actions,
           constraints,
           false,
           "baseline_below.gif",
-          "Below baseline",
+          ModelMessages.SelectionActionsSupport_vaBelowBaseline,
           RowInfo.Alignment.BASELINE_BELOW);
     }
     // create grow actions
     actions.add(new Separator());
-    addGrowAction(actions, constraints, true, "grow.gif", "Horizontal grow");
-    addGrowAction(actions, constraints, false, "grow.gif", "Vertical grow");
+    addGrowAction(
+        actions,
+        constraints,
+        true,
+        "grow.gif",
+        ModelMessages.SelectionActionsSupport_haGrow);
+    addGrowAction(
+        actions,
+        constraints,
+        false,
+        "grow.gif",
+        ModelMessages.SelectionActionsSupport_vaGrow);
   }
 
   private void addAlignmentAction(List<Object> actions,

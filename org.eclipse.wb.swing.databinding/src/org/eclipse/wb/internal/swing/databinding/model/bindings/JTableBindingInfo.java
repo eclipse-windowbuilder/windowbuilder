@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabCo
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.beans.BeanPropertyObserveInfo;
@@ -242,7 +243,7 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
   public ColumnBindingInfo createNewColumnBinding(int column) {
     ColumnBindingInfo binding = createColumnBinding(column);
     binding.setDetailProperty(new ObjectPropertyInfo(getInputElementType()));
-    binding.setColumnName("New Column");
+    binding.setColumnName(Messages.JTableBindingInfo_newColumn);
     return binding;
   }
 
@@ -317,7 +318,9 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
     configuration.setUseAddButton(true);
     configuration.setUseRemoveButton(true);
     configuration.setUseUpDownButtons(true);
-    configuration.setCreateEmptyPage("Columns", "Add bindings for JTable columns.");
+    configuration.setCreateEmptyPage(
+        Messages.JTableBindingInfo_tabTitle,
+        Messages.JTableBindingInfo_tabMessage);
     return configuration;
   }
 

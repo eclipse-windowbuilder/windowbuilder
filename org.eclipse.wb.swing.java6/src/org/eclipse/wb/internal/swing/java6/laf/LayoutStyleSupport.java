@@ -12,9 +12,11 @@ package org.eclipse.wb.internal.swing.java6.laf;
 
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.swing.java6.Messages;
 import org.eclipse.wb.internal.swing.laf.ILayoutStyleSupport;
 
 import java.awt.Container;
+import java.text.MessageFormat;
 
 import javax.swing.JComponent;
 import javax.swing.LayoutStyle;
@@ -80,7 +82,9 @@ public final class LayoutStyleSupport implements ILayoutStyleSupport {
       case IPositionConstants.RIGHT :
         return SwingConstants.EAST;
       default :
-        throw new IllegalArgumentException("Unsupported position constant: " + positionConstant);
+        throw new IllegalArgumentException(MessageFormat.format(
+            Messages.LayoutStyleSupport_unsupportedPosition,
+            positionConstant));
     }
   }
 
@@ -94,6 +98,8 @@ public final class LayoutStyleSupport implements ILayoutStyleSupport {
         return placement;
       }
     }
-    throw new IllegalArgumentException("Unsupported component placement: " + componentPlacement);
+    throw new IllegalArgumentException(MessageFormat.format(
+        Messages.LayoutStyleSupport_unsupportedPlacement,
+        componentPlacement));
   }
 }

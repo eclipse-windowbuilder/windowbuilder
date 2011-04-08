@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.property.editor.border.fields.IntegerField;
 
 import org.eclipse.swt.widgets.Composite;
@@ -40,10 +41,10 @@ public final class EmptyBorderComposite extends AbstractBorderComposite {
   public EmptyBorderComposite(Composite parent) {
     super(parent, "EmptyBorder");
     GridLayoutFactory.create(this);
-    m_topField = createIntegerField("&Top:");
-    m_leftField = createIntegerField("&Left:");
-    m_bottomField = createIntegerField("&Bottom:");
-    m_rightField = createIntegerField("&Right:");
+    m_topField = createIntegerField(ModelMessages.EmptyBorderComposite_top);
+    m_leftField = createIntegerField(ModelMessages.EmptyBorderComposite_left);
+    m_bottomField = createIntegerField(ModelMessages.EmptyBorderComposite_bottom);
+    m_rightField = createIntegerField(ModelMessages.EmptyBorderComposite_right);
   }
 
   ////////////////////////////////////////////////////////////////////////////

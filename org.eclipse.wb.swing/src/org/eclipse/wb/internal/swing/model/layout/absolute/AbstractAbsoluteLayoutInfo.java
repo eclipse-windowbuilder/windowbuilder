@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
@@ -117,7 +118,7 @@ public abstract class AbstractAbsoluteLayoutInfo extends LayoutInfo {
     // auto-size
     {
       IAction action =
-          new ObjectInfoAction(component, "Autosize component",
+          new ObjectInfoAction(component, ModelMessages.AbstractAbsoluteLayoutInfo_autosize,
               DesignerPlugin.getImageDescriptor("info/layout/absolute/fit_to_size.png")) {
             @Override
             protected void runEx() throws Exception {

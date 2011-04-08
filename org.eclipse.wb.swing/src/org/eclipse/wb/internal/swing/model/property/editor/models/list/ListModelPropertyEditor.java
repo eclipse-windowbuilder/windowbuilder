@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.StringsDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.model.ModelMessages;
 
 import org.eclipse.jface.window.Window;
 
@@ -70,8 +71,8 @@ public final class ListModelPropertyEditor extends TextDialogPropertyEditor {
         new StringsDialog(DesignerPlugin.getShell(),
             Activator.getDefault(),
             property.getTitle(),
-            "&List model items:",
-            "Each line in the above text field represents a value in the model.");
+            ModelMessages.ListModelPropertyEditor_itemsDialogTitle,
+            ModelMessages.ListModelPropertyEditor_itemsDialogMessage);
     itemsDialog.setItems(getItems(property));
     // open dialog
     if (itemsDialog.open() == Window.OK) {
