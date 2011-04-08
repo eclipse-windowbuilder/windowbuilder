@@ -4,7 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class GefMessages extends NLS {
   private static final String BUNDLE_NAME =
-      "org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages"; //$NON-NLS-1$
+      "org.eclipse.wb.internal.swing.MigLayout.gef.GefMessages";
   public static String ColumnHeaderEditPart_appendColumn;
   public static String ColumnHeaderEditPart_clearColumn;
   public static String ColumnHeaderEditPart_defaultSize;

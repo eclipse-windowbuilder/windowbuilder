@@ -39,7 +39,7 @@ import org.eclipse.swt.graphics.Image;
 public abstract class DimensionHeaderEditPart<T extends MigDimensionInfo> extends GraphicalEditPart
     implements
       IHeaderMenuProvider {
-  private static final String DEFAULT_FONT_NAME = "Arial"; //$NON-NLS-1$
+  private static final String DEFAULT_FONT_NAME = "Arial";
   protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
   protected static final Font DEFAULT_FONT = new Font(null, DEFAULT_FONT_NAME, 7, SWT.NONE);
   protected static final Color GROUP_COLORS[] = new Color[]{

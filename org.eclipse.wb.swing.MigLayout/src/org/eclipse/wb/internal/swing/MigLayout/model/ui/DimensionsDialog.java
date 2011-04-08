@@ -391,7 +391,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
     public String getColumnText(Object element, int columnIndex) {
       MigDimensionInfo dimension = (MigDimensionInfo) element;
       if (columnIndex == 0) {
-        return "" + dimension.getIndex(); //$NON-NLS-1$
+        return "" + dimension.getIndex();
       }
       if (columnIndex == 1) {
         return dimension.getString(false);

@@ -41,10 +41,10 @@ import org.eclipse.swt.graphics.Image;
  * @coverage swing.MigLayout.header
  */
 public class ColumnHeaderEditPart extends DimensionHeaderEditPart<MigColumnInfo> {
-  private static final String GROW_SMALL_PATH = "alignment/h/small/grow.gif"; //$NON-NLS-1$
-  private static final String GROW_MENU_PATH = "alignment/h/menu/grow.gif"; //$NON-NLS-1$
-  private static final String PREF_TITLE = "[pref!]"; //$NON-NLS-1$
-  private static final String PREF_CODE = "pref!"; //$NON-NLS-1$
+  private static final String GROW_SMALL_PATH = "alignment/h/small/grow.gif";
+  private static final String GROW_MENU_PATH = "alignment/h/menu/grow.gif";
+  private static final String PREF_TITLE = "[pref!]";
+  private static final String PREF_CODE = "pref!";
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields

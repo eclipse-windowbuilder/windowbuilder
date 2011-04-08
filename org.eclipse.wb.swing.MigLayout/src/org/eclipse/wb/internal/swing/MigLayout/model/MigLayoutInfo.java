@@ -420,7 +420,8 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       ClassInstanceCreation creation = creationSupport.getCreation();
       getEditor().replaceCreationArguments(
           creation,
-          ImmutableList.of(MessageFormat.format("{0}, {1}, {2}",//$NON-NLS-1$
+          ImmutableList.of(MessageFormat.format(
+              "{0}, {1}, {2}",
               layoutConstraintsSource,
               columnsSource,
               rowsSource)));
@@ -793,7 +794,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
     Point cell = prepareCell(column, insertColumn, row, insertRow);
     // do add
     ComponentInfo nextComponent = getReference(column, row, null);
-    add(newComponent, "\"\"", nextComponent); //$NON-NLS-1$
+    add(newComponent, "\"\"", nextComponent);
     // set bounds
     {
       CellConstraintsSupport constraints = getConstraints(newComponent);
@@ -819,7 +820,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
     // move in components
     {
       ComponentInfo nextComponent = getReference(column, row, component);
-      move(component, "\"\"", nextComponent); //$NON-NLS-1$
+      move(component, "\"\"", nextComponent);
     }
     // move in grid
     {
@@ -1029,7 +1030,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       ComponentInfo nextComponent) throws Exception {
     horizontalFlow = getUpdatedSplitFlow(column, row, horizontalFlow);
     // add new component
-    add(newComponent, "\"\"", nextComponent); //$NON-NLS-1$
+    add(newComponent, "\"\"", nextComponent);
     split_updateCellFlow(column, row, horizontalFlow, newComponent);
   }
 
@@ -1051,7 +1052,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       ComponentInfo movedComponent,
       ComponentInfo nextComponent) throws Exception {
     horizontalFlow = getUpdatedSplitFlow(column, row, horizontalFlow);
-    move(movedComponent, "\"\"", nextComponent); //$NON-NLS-1$
+    move(movedComponent, "\"\"", nextComponent);
     split_updateCellFlow(column, row, horizontalFlow, movedComponent);
   }
 
@@ -1237,7 +1238,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       for (int i = 0; i < columnIntervals.length; i++) {
         Interval interval = columnIntervals[i];
         if (interval.length() == 0) {
-          String cons = "cell " + i + " 0,width " + m_defaultColumnSize + "px"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          String cons = "cell " + i + " 0,width " + m_defaultColumnSize + "px";
           container.add(new JLabel(), cons);
         }
       }
@@ -1245,7 +1246,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       for (int i = 0; i < rowIntervals.length; i++) {
         Interval interval = rowIntervals[i];
         if (interval.length() == 0) {
-          String cons = "cell 0 " + i + ",height " + m_defaultRowSize + "px"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          String cons = "cell 0 " + i + ",height " + m_defaultRowSize + "px";
           container.add(new JLabel(), cons);
         }
       }

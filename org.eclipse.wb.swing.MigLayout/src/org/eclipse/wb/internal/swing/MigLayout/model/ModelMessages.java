@@ -4,7 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class ModelMessages extends NLS {
   private static final String BUNDLE_NAME =
-      "org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages"; //$NON-NLS-1$
+      "org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages";
   public static String CellConstraintsAssistantPage_gridGroup;
   public static String CellConstraintsAssistantPage_gridHeight;
   public static String CellConstraintsAssistantPage_gridWidth;

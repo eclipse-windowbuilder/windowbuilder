@@ -162,7 +162,7 @@ public final class DimensionResizeComposite extends Composite {
       try {
         // weight
         {
-          String methodName = MessageFormat.format("get{0}", m_propertyName); //$NON-NLS-1$
+          String methodName = MessageFormat.format("get{0}", m_propertyName);
           Float weight = (Float) ReflectionUtils.invokeMethod2(m_dimension, methodName);
           if (weight == null || weight.intValue() == m_defaultWeight) {
             m_defaultWeightButton.setSelection(true);
@@ -178,7 +178,7 @@ public final class DimensionResizeComposite extends Composite {
         }
         // priority
         {
-          String methodName = MessageFormat.format("get{0}Priority", m_propertyName); //$NON-NLS-1$
+          String methodName = MessageFormat.format("get{0}Priority", m_propertyName);
           int priority = (Integer) ReflectionUtils.invokeMethod2(m_dimension, methodName);
           if (priority == 100) {
             m_defaultPriorityButton.setSelection(true);
@@ -210,7 +210,7 @@ public final class DimensionResizeComposite extends Composite {
         } else {
           weight = new Float(m_weightSpinner.getSelection());
         }
-        String methodName = MessageFormat.format("set{0}", m_propertyName); //$NON-NLS-1$
+        String methodName = MessageFormat.format("set{0}", m_propertyName);
         ReflectionUtils.invokeMethod2(m_dimension, methodName, Float.class, weight);
       }
       // priority
@@ -221,7 +221,7 @@ public final class DimensionResizeComposite extends Composite {
         } else {
           priority = m_prioritySpinner.getSelection();
         }
-        String methodName = MessageFormat.format("set{0}Priority", m_propertyName); //$NON-NLS-1$
+        String methodName = MessageFormat.format("set{0}Priority", m_propertyName);
         ReflectionUtils.invokeMethod2(m_dimension, methodName, int.class, priority);
       }
       notifyModified();

@@ -84,7 +84,7 @@ public abstract class MigDimensionInfo {
     ac.setConstaints(new DimConstraint[]{m_constraint});
     String constraintString = IDEUtil.getConstraintString(ac, false, m_horizontal);
     if (!withBraces) {
-      constraintString = StringUtils.strip(constraintString, "[]"); //$NON-NLS-1$
+      constraintString = StringUtils.strip(constraintString, "[]");
     }
     return constraintString;
   }
@@ -369,7 +369,7 @@ public abstract class MigDimensionInfo {
       dimConstraint.setSize(boundSize);
       ac.setConstaints(new DimConstraint[]{dimConstraint});
       String constraintString = IDEUtil.getConstraintString(ac, false, m_horizontal);
-      return StringUtils.strip(constraintString, "[]"); //$NON-NLS-1$
+      return StringUtils.strip(constraintString, "[]");
     } else {
       return null;
     }
@@ -413,7 +413,7 @@ public abstract class MigDimensionInfo {
    * @return the size string that uses given unit and has required size in pixels.
    */
   public String toUnitString(int pixels, String unit) {
-    return String.format(Locale.ENGLISH, "%.2f%s", toUnit(pixels, unit), unit); //$NON-NLS-1$
+    return String.format(Locale.ENGLISH, "%.2f%s", toUnit(pixels, unit), unit);
   }
 
   /**
@@ -428,7 +428,7 @@ public abstract class MigDimensionInfo {
    * @return the size of single unit in pixels.
    */
   public float getPixelsInOneUnit(String unit) {
-    UnitValue unitValue = ConstraintParser.parseUnitValue("1" + unit, m_horizontal); //$NON-NLS-1$
+    UnitValue unitValue = ConstraintParser.parseUnitValue("1" + unit, m_horizontal);
     Container container = m_layout.getContainer().getContainer();
     SwingContainerWrapper parentWrapper = new SwingContainerWrapper(container);
     int refValue = m_horizontal ? container.getBounds().width : container.getBounds().height;

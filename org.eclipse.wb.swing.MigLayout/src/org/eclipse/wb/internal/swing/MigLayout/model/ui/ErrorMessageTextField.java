@@ -40,7 +40,7 @@ public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.Decorat
     {
       FieldDecoration standardDecoration =
           FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
-      m_fieldDecoration = new FieldDecoration(standardDecoration.getImage(), ""); //$NON-NLS-1$
+      m_fieldDecoration = new FieldDecoration(standardDecoration.getImage(), "");
     }
   }
 

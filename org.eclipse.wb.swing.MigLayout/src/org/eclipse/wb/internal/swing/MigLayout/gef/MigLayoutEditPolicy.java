@@ -101,7 +101,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
   // Selection
   //
   ////////////////////////////////////////////////////////////////////////////
-  public static final String SECONDARY_SELECTION_FEEDBACK_ROLE = "Secondary Selection Feedback"; //$NON-NLS-1$
+  public static final String SECONDARY_SELECTION_FEEDBACK_ROLE = "Secondary Selection Feedback";
 
   /**
    * Decorates (with {@link SelectionEditPolicy}) all components children.

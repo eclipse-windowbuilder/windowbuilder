@@ -42,7 +42,7 @@ public final class MigRowInfo extends MigDimensionInfo {
      * @return the small image (5x9) to display current alignment to user.
      */
     public Image getSmallImage() {
-      String pattern = "alignment/v/small/{0}.gif"; //$NON-NLS-1$
+      String pattern = "alignment/v/small/{0}.gif";
       String path = MessageFormat.format(pattern, name().toLowerCase());
       return Activator.getImage(path);
     }
@@ -51,7 +51,7 @@ public final class MigRowInfo extends MigDimensionInfo {
      * @return the big image (16x16) to display for user in menu.
      */
     public ImageDescriptor getMenuImage() {
-      String pattern = "alignment/v/menu/{0}.gif"; //$NON-NLS-1$
+      String pattern = "alignment/v/menu/{0}.gif";
       String path = MessageFormat.format(pattern, name().toLowerCase());
       return Activator.getImageDescriptor(path);
     }
@@ -99,7 +99,7 @@ public final class MigRowInfo extends MigDimensionInfo {
   @Override
   protected DimConstraint fetchConstraint() {
     int index = getIndex();
-    AC colSpecs = (AC) ReflectionUtils.getFieldObject(m_layout.getObject(), "rowSpecs"); //$NON-NLS-1$
+    AC colSpecs = (AC) ReflectionUtils.getFieldObject(m_layout.getObject(), "rowSpecs");
     if (index >= 0 && index < colSpecs.getCount()) {
       return colSpecs.getConstaints()[index];
     } else {
@@ -109,7 +109,7 @@ public final class MigRowInfo extends MigDimensionInfo {
 
   @Override
   protected DimConstraint createDefaultConstraint() {
-    return ConstraintParser.parseRowConstraints("[]").getConstaints()[0]; //$NON-NLS-1$
+    return ConstraintParser.parseRowConstraints("[]").getConstaints()[0];
   }
 
   ////////////////////////////////////////////////////////////////////////////

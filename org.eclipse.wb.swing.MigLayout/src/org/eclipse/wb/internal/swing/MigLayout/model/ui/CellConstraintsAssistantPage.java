@@ -51,7 +51,9 @@ public class CellConstraintsAssistantPage extends AbstractAssistantPage {
       Group horizontalGroup =
           addChoiceProperty(
               this,
-              "h alignment", ModelMessages.CellConstraintsAssistantPage_hAlignmentGroup, new Object[][]{ //$NON-NLS-1$
+              "h alignment",
+              ModelMessages.CellConstraintsAssistantPage_hAlignmentGroup,
+              new Object[][]{
                   new Object[]{
                       ModelMessages.CellConstraintsAssistantPage_hAlignment_default,
                       MigColumnInfo.Alignment.DEFAULT},
@@ -80,7 +82,9 @@ public class CellConstraintsAssistantPage extends AbstractAssistantPage {
       Group verticalGroup =
           addChoiceProperty(
               this,
-              "v alignment", ModelMessages.CellConstraintsAssistantPage_vAlignmentGroup, new Object[][]{ //$NON-NLS-1$
+              "v alignment",
+              ModelMessages.CellConstraintsAssistantPage_vAlignmentGroup,
+              new Object[][]{
                   new Object[]{
                       ModelMessages.CellConstraintsAssistantPage_vAlignment_default,
                       MigRowInfo.Alignment.DEFAULT},
@@ -107,10 +111,11 @@ public class CellConstraintsAssistantPage extends AbstractAssistantPage {
           addIntegerProperties(
               this,
               ModelMessages.CellConstraintsAssistantPage_gridGroup,
-              new String[][]{{"grid x", ModelMessages.CellConstraintsAssistantPage_gridX}, //$NON-NLS-1$
-                  {"grid y", ModelMessages.CellConstraintsAssistantPage_gridY}, //$NON-NLS-1$
-                  {"grid width", ModelMessages.CellConstraintsAssistantPage_gridWidth}, //$NON-NLS-1$
-                  {"grid height", ModelMessages.CellConstraintsAssistantPage_gridHeight}}); //$NON-NLS-1$
+              new String[][]{
+                  {"grid x", ModelMessages.CellConstraintsAssistantPage_gridX},
+                  {"grid y", ModelMessages.CellConstraintsAssistantPage_gridY},
+                  {"grid width", ModelMessages.CellConstraintsAssistantPage_gridWidth},
+                  {"grid height", ModelMessages.CellConstraintsAssistantPage_gridHeight}});
       GridDataFactory.modify(gridGroup).fill();
     }
   }

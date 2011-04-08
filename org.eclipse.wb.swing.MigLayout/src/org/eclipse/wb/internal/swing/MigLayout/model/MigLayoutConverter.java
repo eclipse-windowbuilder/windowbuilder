@@ -149,7 +149,7 @@ public final class MigLayoutConverter {
         dimension = row;
       }
       // set constant size
-      dimension.setSize(group.getSize() + "px"); //$NON-NLS-1$
+      dimension.setSize(group.getSize() + "px");
     }
   }
 

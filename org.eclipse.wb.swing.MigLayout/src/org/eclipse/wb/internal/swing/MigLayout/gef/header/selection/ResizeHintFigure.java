@@ -126,23 +126,23 @@ public final class ResizeHintFigure extends Figure {
   static String getNewSizeUnit(char c) {
     c = Character.toUpperCase(c);
     if (c == '0') {
-      return ""; //$NON-NLS-1$
+      return "";
     } else if (c == '1') {
-      return "px"; //$NON-NLS-1$
+      return "px";
     } else if (c == '2') {
-      return "%"; //$NON-NLS-1$
+      return "%";
     } else if (c == '3') {
-      return "lp"; //$NON-NLS-1$
+      return "lp";
     } else if (c == '4') {
-      return "pt"; //$NON-NLS-1$
+      return "pt";
     } else if (c == '5') {
-      return "mm"; //$NON-NLS-1$
+      return "mm";
     } else if (c == '6') {
-      return "cm"; //$NON-NLS-1$
+      return "cm";
     } else if (c == '7') {
-      return "in"; //$NON-NLS-1$
+      return "in";
     } else if (c == '8') {
-      return "sp"; //$NON-NLS-1$
+      return "sp";
     }
     // no change
     return null;
@@ -181,31 +181,38 @@ public final class ResizeHintFigure extends Figure {
         int x = 10;
         Dimension size;
         size =
-            drawHintColumn(graphics, x, y, boldFont, font, new String[]{"N", "P", "X"}, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            drawHintColumn(
+                graphics,
+                x,
+                y,
+                boldFont,
+                font,
+                new String[]{"N", "P", "X"},
                 new String[]{
                     GefMessages.ResizeHintFigure_minimumSize,
                     GefMessages.ResizeHintFigure_preferredSize,
                     GefMessages.ResizeHintFigure_maximumSize});
         x += size.width + 10;
         size =
-            drawHintColumn(graphics, x, y, boldFont, font, new String[]{"0", //$NON-NLS-1$
-                "1", //$NON-NLS-1$
-                "2", //$NON-NLS-1$
-                "3", //$NON-NLS-1$
-                "4", //$NON-NLS-1$
-                "5", //$NON-NLS-1$
-                "6", //$NON-NLS-1$
-                "7", //$NON-NLS-1$
-                "8",}, new String[]{ //$NON-NLS-1$
-                    GefMessages.ResizeHintFigure_unit_default,
-                    GefMessages.ResizeHintFigure_unit_pixels,
-                    GefMessages.ResizeHintFigure_unit_percents,
-                    GefMessages.ResizeHintFigure_unit_logicalPixels,
-                    GefMessages.ResizeHintFigure_unit_points,
-                    GefMessages.ResizeHintFigure_unit_millimeters,
-                    GefMessages.ResizeHintFigure_unit_centimeters,
-                    GefMessages.ResizeHintFigure_unit_inches,
-                    GefMessages.ResizeHintFigure_unit_screenPercents});
+            drawHintColumn(graphics, x, y, boldFont, font, new String[]{
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",}, new String[]{
+                GefMessages.ResizeHintFigure_unit_default,
+                GefMessages.ResizeHintFigure_unit_pixels,
+                GefMessages.ResizeHintFigure_unit_percents,
+                GefMessages.ResizeHintFigure_unit_logicalPixels,
+                GefMessages.ResizeHintFigure_unit_points,
+                GefMessages.ResizeHintFigure_unit_millimeters,
+                GefMessages.ResizeHintFigure_unit_centimeters,
+                GefMessages.ResizeHintFigure_unit_inches,
+                GefMessages.ResizeHintFigure_unit_screenPercents});
         return new Dimension(x + size.width, y + size.height);
       }
     } finally {
@@ -258,7 +265,7 @@ public final class ResizeHintFigure extends Figure {
         }
         // dash
         {
-          String text = " - "; //$NON-NLS-1$
+          String text = " - ";
           graphics.setForegroundColor(IColorConstants.black);
           x += drawText(graphics, text, x, y, textFont).width;
         }

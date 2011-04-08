@@ -51,7 +51,7 @@ public final class MigLayoutSurroundProcessor
   public boolean filter(ContainerInfo sourceContainer, ContainerInfo targetContainer)
       throws Exception {
     String targetClassName = targetContainer.getDescription().getComponentClass().getName();
-    boolean isJPanel = targetClassName.equals("javax.swing.JPanel"); //$NON-NLS-1$
+    boolean isJPanel = targetClassName.equals("javax.swing.JPanel");
     return sourceContainer.hasLayout()
         && sourceContainer.getLayout() instanceof MigLayoutInfo
         && isJPanel;
@@ -66,7 +66,7 @@ public final class MigLayoutSurroundProcessor
       targetLayout =
           (MigLayoutInfo) JavaInfoUtils.createJavaInfo(
               targetContainer.getEditor(),
-              "net.miginfocom.swing.MigLayout", //$NON-NLS-1$
+              "net.miginfocom.swing.MigLayout",
               new ConstructorCreationSupport());
       targetContainer.setLayout(targetLayout);
     }

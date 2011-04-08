@@ -241,8 +241,9 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
         m_prevButton.setToolTipText(MessageFormat.format(
             ModelMessages.DimensionEditDialog_previousButton,
             m_dimensionName));
-        m_prevButton.setImage(m_horizontal ? Activator.getImage("navigation/left.gif") //$NON-NLS-1$
-            : Activator.getImage("navigation/up.gif")); //$NON-NLS-1$
+        m_prevButton.setImage(m_horizontal
+            ? Activator.getImage("navigation/left.gif")
+            : Activator.getImage("navigation/up.gif"));
         m_prevButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex - 1));
@@ -256,8 +257,9 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
         m_nextButton.setToolTipText(MessageFormat.format(
             ModelMessages.DimensionEditDialog_nextButton,
             m_dimensionName));
-        m_nextButton.setImage(m_horizontal ? Activator.getImage("navigation/right.gif") //$NON-NLS-1$
-            : Activator.getImage("navigation/down.gif")); //$NON-NLS-1$
+        m_nextButton.setImage(m_horizontal
+            ? Activator.getImage("navigation/right.gif")
+            : Activator.getImage("navigation/down.gif"));
         m_nextButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex + 1));
@@ -328,17 +330,17 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
       m_minField =
           new DimensionUnitValueField(composite,
               ModelMessages.DimensionEditDialog_minimumSize,
-              "minimumSize", //$NON-NLS-1$
+              "minimumSize",
               listener);
       m_prefField =
           new DimensionUnitValueField(composite,
               ModelMessages.DimensionEditDialog_preferredSize,
-              "preferredSize", //$NON-NLS-1$
+              "preferredSize",
               listener);
       m_maxField =
           new DimensionUnitValueField(composite,
               ModelMessages.DimensionEditDialog_maximumSize,
-              "maximumSize", //$NON-NLS-1$
+              "maximumSize",
               listener);
     }
   }
@@ -354,22 +356,28 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
     };
     {
       createSeparator(parent, ModelMessages.DimensionEditDialog_growTitle);
-      m_growComposite = new DimensionResizeComposite(parent, SWT.NONE, "no grow", //$NON-NLS-1$
-          "grow", //$NON-NLS-1$
-          0,
-          100,
-          "grow", //$NON-NLS-1$
-          listener);
+      m_growComposite =
+          new DimensionResizeComposite(parent,
+              SWT.NONE,
+              "no grow",
+              "grow",
+              0,
+              100,
+              "grow",
+              listener);
       GridDataFactory.create(m_growComposite).grabH().fill().indentHC(2);
     }
     {
       createSeparator(parent, ModelMessages.DimensionEditDialog_shrinkTitle);
-      m_shrinkComposite = new DimensionResizeComposite(parent, SWT.NONE, "default shrink", //$NON-NLS-1$
-          "shrink", //$NON-NLS-1$
-          100,
-          100,
-          "shrink", //$NON-NLS-1$
-          listener);
+      m_shrinkComposite =
+          new DimensionResizeComposite(parent,
+              SWT.NONE,
+              "default shrink",
+              "shrink",
+              100,
+              100,
+              "shrink",
+              listener);
       GridDataFactory.create(m_shrinkComposite).grabH().fill().indentHC(2);
     }
   }

@@ -457,10 +457,10 @@ public final class CellConstraintsSupport {
       MethodInvocation invocation = association.getInvocation();
       String signature = AstNodeUtils.getMethodSignature(invocation);
       String constraintsSource = StringConverter.INSTANCE.toJavaSource(null, constraintsString);
-      if (signature.equals("add(java.awt.Component,java.lang.Object)")) { //$NON-NLS-1$
+      if (signature.equals("add(java.awt.Component,java.lang.Object)")) {
         Expression constraintsExpression = (Expression) invocation.arguments().get(1);
         m_layout.getEditor().replaceExpression(constraintsExpression, constraintsSource);
-      } else if (signature.equals("add(java.awt.Component)")) { //$NON-NLS-1$
+      } else if (signature.equals("add(java.awt.Component)")) {
         m_layout.getEditor().addInvocationArgument(invocation, 1, constraintsSource);
       }
     }
@@ -471,11 +471,11 @@ public final class CellConstraintsSupport {
    * but right we clean up several cases manually.
    */
   private static String cleanUpSource(String source) {
-    source = cleanUpSource_secondGap(source, "gapx", "gapright "); //$NON-NLS-1$ //$NON-NLS-2$
-    source = cleanUpSource_secondGap(source, "gapy", "gapbottom "); //$NON-NLS-1$ //$NON-NLS-2$
+    source = cleanUpSource_secondGap(source, "gapx", "gapright ");
+    source = cleanUpSource_secondGap(source, "gapy", "gapbottom ");
     // bug in 3.7.4
-    if (source.contains("hideMode")) { //$NON-NLS-1$
-      source = StringUtils.replace(source, "hideMode", "hidemode"); //$NON-NLS-1$ //$NON-NLS-2$
+    if (source.contains("hideMode")) {
+      source = StringUtils.replace(source, "hideMode", "hidemode");
     }
     // done
     return source;
@@ -485,11 +485,11 @@ public final class CellConstraintsSupport {
    * "gapx null value" -> "gapright value"
    */
   private static String cleanUpSource_secondGap(String source, String sourceName, String targetName) {
-    Pattern pattern = Pattern.compile(sourceName + " null (\\w+)(\\,|\\z)"); //$NON-NLS-1$
+    Pattern pattern = Pattern.compile(sourceName + " null (\\w+)(\\,|\\z)");
     Matcher matcher = pattern.matcher(source);
     if (matcher.find()) {
       String actualGap = matcher.group(1);
-      String optionalComma = matcher.group().endsWith(",") ? "," : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+      String optionalComma = matcher.group().endsWith(",") ? "," : "";
       source =
           source.substring(0, matcher.start())
               + targetName
@@ -524,7 +524,7 @@ public final class CellConstraintsSupport {
    */
   public ComplexProperty getCellProperty() throws Exception {
     if (m_complexProperty == null) {
-      m_complexProperty = new ComplexProperty("Constraints", null); //$NON-NLS-1$
+      m_complexProperty = new ComplexProperty("Constraints", null);
       m_complexProperty.setCategory(PropertyCategory.system(6));
       m_complexProperty.setEditorPresentation(new ButtonPropertyEditorPresentation() {
         @Override
@@ -533,10 +533,7 @@ public final class CellConstraintsSupport {
         }
       });
       // grid properties
-      Property xProperty = new IntegerCellProperty("grid x", //$NON-NLS-1$
-          "getX()", //$NON-NLS-1$
-          "setX(int)" //$NON-NLS-1$
-      ) {
+      Property xProperty = new IntegerCellProperty("grid x", "getX()", "setX(int)") {
         @Override
         public boolean isModified() throws Exception {
           return true;
@@ -554,10 +551,7 @@ public final class CellConstraintsSupport {
               (columns - width));
         }
       };
-      Property wProperty = new IntegerCellProperty("grid width", //$NON-NLS-1$
-          "getWidth()", //$NON-NLS-1$
-          "setWidth(int)" //$NON-NLS-1$
-      ) {
+      Property wProperty = new IntegerCellProperty("grid width", "getWidth()", "setWidth(int)") {
         @Override
         public boolean isModified() throws Exception {
           return width != 1;
@@ -580,10 +574,7 @@ public final class CellConstraintsSupport {
               (columns - x));
         }
       };
-      Property yProperty = new IntegerCellProperty("grid y", //$NON-NLS-1$ 
-          "getY()", //$NON-NLS-1$ 
-          "setY(int)" //$NON-NLS-1$ 
-      ) {
+      Property yProperty = new IntegerCellProperty("grid y", "getY()", "setY(int)") {
         @Override
         public boolean isModified() throws Exception {
           return true;
@@ -601,10 +592,7 @@ public final class CellConstraintsSupport {
               (rows - y - 1));
         }
       };
-      Property hProperty = new IntegerCellProperty("grid height", //$NON-NLS-1$ 
-          "getHeight()", //$NON-NLS-1$ 
-          "setHeight(int)" //$NON-NLS-1$ 
-      ) {
+      Property hProperty = new IntegerCellProperty("grid height", "getHeight()", "setHeight(int)") {
         @Override
         public boolean isModified() throws Exception {
           return height != 1;
@@ -642,17 +630,17 @@ public final class CellConstraintsSupport {
   }
 
   private Property getHorizontalAlignmentProperty() throws Exception {
-    return new AlignmentCellProperty<MigColumnInfo.Alignment>("h alignment", //$NON-NLS-1$
-        "getHorizontalAlignment()", //$NON-NLS-1$
-        "setHorizontalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo.Alignment)", //$NON-NLS-1$
+    return new AlignmentCellProperty<MigColumnInfo.Alignment>("h alignment",
+        "getHorizontalAlignment()",
+        "setHorizontalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo.Alignment)",
         MigColumnInfo.ALIGNMENTS_TO_SET,
         MigColumnInfo.Alignment.DEFAULT);
   }
 
   private Property getVerticalAlignmentProperty() throws Exception {
-    return new AlignmentCellProperty<MigRowInfo.Alignment>("v alignment", //$NON-NLS-1$
-        "getVerticalAlignment()", //$NON-NLS-1$
-        "setVerticalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment)", //$NON-NLS-1$
+    return new AlignmentCellProperty<MigRowInfo.Alignment>("v alignment",
+        "getVerticalAlignment()",
+        "setVerticalAlignment(org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo.Alignment)",
         MigRowInfo.ALIGNMENTS_TO_SET,
         MigRowInfo.Alignment.DEFAULT);
   }
@@ -866,12 +854,12 @@ public final class CellConstraintsSupport {
    * Adds items to the context {@link IMenuManager}.
    */
   public void addContextMenu(IMenuManager manager) throws Exception {
-    manager.appendToGroup(IContextMenuConstants.GROUP_TOP, new Action("Constraints...") { //$NON-NLS-1$
-          @Override
-          public void run() {
-            new CellEditDialog(DesignerPlugin.getShell(), m_layout, m_this).open();
-          }
-        });
+    manager.appendToGroup(IContextMenuConstants.GROUP_TOP, new Action("Constraints...") {
+      @Override
+      public void run() {
+        new CellEditDialog(DesignerPlugin.getShell(), m_layout, m_this).open();
+      }
+    });
     // horizontal
     {
       IMenuManager manager2 =
