@@ -19,11 +19,13 @@ import org.eclipse.wb.internal.core.utils.xml.AbstractDocumentObject;
 import org.eclipse.wb.internal.core.utils.xml.DocumentAttribute;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.ui.contentproviders.ValidationUiContentProvider;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -103,7 +105,9 @@ public class ValidationInfo {
     String packageValue = m_namespaceToPackage.get(namespace);
     //
     if (packageValue == null) {
-      provider.addWarning("Validator [" + value + "] not found", new Throwable());
+      provider.addWarning(
+          MessageFormat.format(Messages.ValidationInfo_validatorNotFound, value),
+          new Throwable());
     } else {
       String className = packageValue + "." + StringUtils.substringAfter(value, ":");
       //
@@ -112,7 +116,9 @@ public class ValidationInfo {
         classLoader.loadClass(className);
         m_classNames.add(className);
       } catch (ClassNotFoundException e) {
-        provider.addWarning("Validator class [" + className + "] not found", new Throwable());
+        provider.addWarning(
+            MessageFormat.format(Messages.ValidationInfo_validatorClassNotFound, className),
+            new Throwable());
       }
     }
   }

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.databinding.xwt.ui.contentproviders;
 import org.eclipse.wb.internal.core.databinding.ui.editor.DialogFieldUiContentProvider;
 import org.eclipse.wb.internal.core.utils.dialogfields.ComboDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.BindingInfo;
 
 import org.eclipse.swt.SWT;
@@ -34,7 +35,7 @@ public class TriggerContentProvider extends DialogFieldUiContentProvider {
   public TriggerContentProvider(BindingInfo binding) {
     m_binding = binding;
     m_dialogField = new ComboDialogField(SWT.BORDER | SWT.READ_ONLY);
-    m_dialogField.setLabelText("UpdateSourceTrigger:");
+    m_dialogField.setLabelText(Messages.TriggerContentProvider_title);
     m_dialogField.setItems(BindingInfo.TRIGGERS);
   }
 

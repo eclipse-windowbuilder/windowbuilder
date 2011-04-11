@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescr
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
 import org.eclipse.wb.internal.rcp.swtawt.Activator;
+import org.eclipse.wb.internal.rcp.swtawt.Messages;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
 
@@ -54,9 +55,8 @@ public final class SwingCompositeEntryInfo extends ToolEntryInfo {
   ////////////////////////////////////////////////////////////////////////////
   public SwingCompositeEntryInfo() {
     setId(getClass().getName());
-    setName("SWT_AWT Composite");
-    setDescription("Drop Composite with SWT_AWT.new_frame(). "
-        + "This allows you embed AWT/Swing components into RCP application.");
+    setName(Messages.SwingCompositeEntryInfo_name);
+    setDescription(Messages.SwingCompositeEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

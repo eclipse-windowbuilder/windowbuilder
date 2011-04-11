@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.swing2swt.layout;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.rcp.swing2swt.Messages;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -30,7 +31,7 @@ public final class BorderLayoutAssistantPage extends AbstractAssistantPage {
   public BorderLayoutAssistantPage(Composite parent, Object selection) {
     super(parent, selection);
     GridLayoutFactory.create(this).columns(2);
-    addIntegerProperty(this, "hgap", "Horizontal gap:");
-    addIntegerProperty(this, "vgap", "Vertical gap:");
+    addIntegerProperty(this, "hgap", Messages.BorderLayoutAssistantPage_horizontalGap);
+    addIntegerProperty(this, "vgap", Messages.BorderLayoutAssistantPage_verticalGap);
   }
 }

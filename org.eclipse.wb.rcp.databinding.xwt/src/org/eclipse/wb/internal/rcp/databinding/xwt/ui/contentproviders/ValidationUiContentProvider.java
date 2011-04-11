@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IListAdapter;
 import org.eclipse.wb.internal.core.utils.dialogfields.ListDialogField;
 import org.eclipse.wb.internal.rcp.databinding.xwt.Activator;
 import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.ValidationInfo;
 
 import org.eclipse.jdt.core.IJavaProject;
@@ -60,9 +61,11 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
     m_provider = provider;
     m_validator = validator;
     m_dialogField =
-        new ListDialogField(m_listAdapter, new String[]{"Add...", "Remove"}, new LabelProvider());
+        new ListDialogField(m_listAdapter, new String[]{
+            Messages.ValidationUiContentProvider_addButton,
+            Messages.ValidationUiContentProvider_removeButton}, new LabelProvider());
     m_dialogField.setRemoveButtonIndex(1);
-    m_dialogField.setLabelText("ValidationRules:");
+    m_dialogField.setLabelText(Messages.ValidationUiContentProvider_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -143,7 +146,7 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
     info.className = className;
     //
     if (className.length() == 0) {
-      info.message = "ValidationRule class is empty.";
+      info.message = Messages.ValidationUiContentProvider_noClass;
     } else {
       if (className.startsWith("{") && className.endsWith("}")) {
         return info;
@@ -155,11 +158,11 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
         // check permissions
         int modifiers = testClass.getModifiers();
         if (!Modifier.isPublic(modifiers)) {
-          info.message = "ValidationRule class is not public.";
+          info.message = Messages.ValidationUiContentProvider_notPublicClass;
           return info;
         }
         if (Modifier.isAbstract(modifiers)) {
-          info.message = "ValidationRule class is abstract.";
+          info.message = Messages.ValidationUiContentProvider_abstractClass;
           return info;
         }
         // check constructor
@@ -173,12 +176,12 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
         // prepare error message for constructor
         if (noConstructor) {
           info.message =
-              "ValidationRule class does not contains public constructor: "
+              Messages.ValidationUiContentProvider_noPublicConstructor
                   + ClassUtils.getShortClassName(className)
                   + "().";
         }
       } catch (ClassNotFoundException e) {
-        info.message = "ValidationRule class does not exist.";
+        info.message = Messages.ValidationUiContentProvider_notExistClass;
       }
     }
     return info;

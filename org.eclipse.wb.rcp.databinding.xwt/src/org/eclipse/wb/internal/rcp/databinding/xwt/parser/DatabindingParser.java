@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindabl
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.PropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.AttributeDocumentEditor;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.BindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.ElementDocumentEditor;
@@ -34,6 +35,7 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetsObserveT
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -151,14 +153,16 @@ public final class DatabindingParser {
       Map<String, String> attributes) throws Exception {
     WidgetBindableInfo target = m_widgetContainer.resolve(element);
     if (target == null) {
-      m_provider.addWarning("Widget [" + element + "] not found", new Throwable());
+      m_provider.addWarning(
+          MessageFormat.format(Messages.DatabindingParser_widgetNotFound, element),
+          new Throwable());
       return null;
     }
     //
     WidgetPropertyBindableInfo targetProperty = target.resolvePropertyByText(property);
     if (targetProperty == null) {
       m_provider.addWarning(
-          "Widget [" + element + "] property '" + property + "' not found",
+          MessageFormat.format(Messages.DatabindingParser_widgetPropertyNotFound, element, property),
           new Throwable());
       return null;
     }
@@ -169,7 +173,9 @@ public final class DatabindingParser {
     if (elementName != null) {
       WidgetBindableInfo model = m_widgetContainer.resolve(elementName);
       if (model == null) {
-        m_provider.addWarning("Widget [" + elementName + "] not found", new Throwable());
+        m_provider.addWarning(
+            MessageFormat.format(Messages.DatabindingParser_widgetNotFound, elementName),
+            new Throwable());
         return null;
       }
       //
@@ -184,7 +190,7 @@ public final class DatabindingParser {
       WidgetPropertyBindableInfo modelProperty = model.resolvePropertyByText(path.toLowerCase());
       if (modelProperty == null) {
         m_provider.addWarning(
-            "Widget [" + element + "] property '" + path + "' not found",
+            MessageFormat.format(Messages.DatabindingParser_widgetPropertyNotFound, element, path),
             new Throwable());
         return null;
       }
@@ -203,14 +209,16 @@ public final class DatabindingParser {
     }
     //
     if (model == null) {
-      m_provider.addWarning("Not found bean for binding", new Throwable());
+      m_provider.addWarning(Messages.DatabindingParser_beanNotFound, new Throwable());
       return null;
     }
     //
     PropertyBindableInfo modelProperty =
         model.resolvePropertyReference("\"" + path.toLowerCase() + "\"");
     if (modelProperty == null) {
-      m_provider.addWarning("Bean property '" + path + "' not found", new Throwable());
+      m_provider.addWarning(
+          MessageFormat.format(Messages.DatabindingParser_beanPropertyNotFound, path),
+          new Throwable());
       return null;
     }
     //

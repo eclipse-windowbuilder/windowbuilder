@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.swing2swt.gef;
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.ControlPositionLayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.swing2swt.Messages;
 import org.eclipse.wb.internal.rcp.swing2swt.layout.BorderLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
@@ -42,11 +43,18 @@ public final class BorderLayoutEditPolicy extends ControlPositionLayoutEditPolic
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void addFeedbacks() throws Exception {
-    addFeedback(0, 0, 1, 0.25, new Insets(0, 0, 1, 0), "North", "NORTH");
-    addFeedback(0, 0.75, 1, 1, new Insets(1, 0, 0, 0), "South", "SOUTH");
-    addFeedback(0, 0.25, 0.25, 0.75, new Insets(1, 0, 1, 1), "West", "WEST");
-    addFeedback(0.75, 0.25, 1, 0.75, new Insets(1, 1, 1, 0), "East", "EAST");
-    addFeedback(0.25, 0.25, 0.75, 0.75, new Insets(1, 1, 1, 1), "Center", "CENTER");
+    addFeedback(0, 0, 1, 0.25, new Insets(0, 0, 1, 0), Messages.BorderLayout_north, "NORTH");
+    addFeedback(0, 0.75, 1, 1, new Insets(1, 0, 0, 0), Messages.BorderLayout_south, "SOUTH");
+    addFeedback(0, 0.25, 0.25, 0.75, new Insets(1, 0, 1, 1), Messages.BorderLayout_west, "WEST");
+    addFeedback(0.75, 0.25, 1, 0.75, new Insets(1, 1, 1, 0), Messages.BorderLayout_east, "EAST");
+    addFeedback(
+        0.25,
+        0.25,
+        0.75,
+        0.75,
+        new Insets(1, 1, 1, 1),
+        Messages.BorderLayout_center,
+        "CENTER");
   }
 
   private void addFeedback(double px1,

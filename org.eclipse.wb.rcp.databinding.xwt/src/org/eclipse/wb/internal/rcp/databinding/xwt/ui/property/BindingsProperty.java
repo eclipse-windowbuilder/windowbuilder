@@ -21,10 +21,12 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetsObserveTypeContainer;
 
 import org.eclipse.jface.action.IMenuManager;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -54,10 +56,12 @@ public class BindingsProperty extends AbstractBindingsProperty {
         (WidgetsObserveTypeContainer) provider.getContainer(ObserveType.WIDGETS);
     m_context.observeObject = container.resolve((XmlObjectInfo) m_context.objectInfo);
     //
-    Assert.isNotNull(m_context.observeObject, SynchronizeManager.class.getName()
-        + " isn't work ("
-        + m_context.objectInfo
-        + ")");
+    Assert.isNotNull(
+        m_context.observeObject,
+        MessageFormat.format(
+            Messages.BindingsProperty_syncDoesNotWork,
+            SynchronizeManager.class.getName(),
+            m_context.objectInfo));
     List<IObserveInfo> observes =
         m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable);
     //

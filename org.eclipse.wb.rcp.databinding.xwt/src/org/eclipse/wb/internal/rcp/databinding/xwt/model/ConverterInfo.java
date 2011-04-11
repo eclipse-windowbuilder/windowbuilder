@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentAttribute;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.beans.BeansObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.xwt.ui.contentproviders.ConverterUiContentProvider;
 
@@ -29,6 +30,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +58,9 @@ public class ConverterInfo {
       if (children.size() == 1) {
         parseClass(provider, element.getRoot(), children.get(0).getTag());
       } else {
-        provider.addWarning("Converter [" + element + "] not found", new Throwable());
+        provider.addWarning(
+            MessageFormat.format(Messages.ConverterInfo_converterNotFound, element),
+            new Throwable());
       }
       m_element = true;
     }
@@ -74,7 +78,9 @@ public class ConverterInfo {
       if (beanContainer.resolve(m_resourceReference) == null) {
         m_staticResurce = false;
         m_resourceReference = null;
-        provider.addWarning("Converter [" + attribute + "] not found", new Throwable());
+        provider.addWarning(
+            MessageFormat.format(Messages.ConverterInfo_converterNotFound, attribute),
+            new Throwable());
       }
     } else {
       parseClass(provider, root, attribute);
@@ -88,7 +94,9 @@ public class ConverterInfo {
     //
     if (packageValue == null) {
       m_namespace = null;
-      provider.addWarning("Converter [" + value + "] not found", new Throwable());
+      provider.addWarning(
+          MessageFormat.format(Messages.ConverterInfo_converterNotFound, value),
+          new Throwable());
     } else {
       m_className =
           StringUtils.substringAfter(packageValue, "clr-namespace:")
@@ -100,7 +108,9 @@ public class ConverterInfo {
       } catch (ClassNotFoundException e) {
         m_className = null;
         m_namespace = null;
-        provider.addWarning("Converter class [" + m_className + "] not found", new Throwable());
+        provider.addWarning(
+            MessageFormat.format(Messages.ConverterInfo_converterClassNotFound, m_className),
+            new Throwable());
       }
     }
   }
@@ -253,13 +263,13 @@ public class ConverterInfo {
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("Converter:");
+    configuration.setDialogFieldLabel(Messages.ConverterInfo_providerTitle);
     configuration.setValueScope("org.eclipse.e4.xwt.IValueConverter");
     configuration.setClearValue("N/S");
     configuration.setBaseClassName("org.eclipse.e4.xwt.IValueConverter");
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage("Converter class is empty.");
-    configuration.setErrorMessagePrefix("Converter");
+    configuration.setEmptyClassErrorMessage(Messages.ConverterInfo_errorMessage);
+    configuration.setErrorMessagePrefix(Messages.ConverterInfo_errorMessagePrefix);
     //
     if (!m_element) {
       ClassLoader classLoader = provider.getXmlObjectRoot().getContext().getClassLoader();

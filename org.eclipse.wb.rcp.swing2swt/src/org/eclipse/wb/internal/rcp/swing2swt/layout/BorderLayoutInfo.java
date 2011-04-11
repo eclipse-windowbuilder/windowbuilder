@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.rcp.swing2swt.Messages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutAssistantSupport;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -123,7 +124,12 @@ public final class BorderLayoutInfo extends LayoutInfo {
   // "Region" property
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final String[] REGION_TITLES = {"North", "South", "West", "East", "Center"};
+  private static final String[] REGION_TITLES = {
+      Messages.BorderLayout_north,
+      Messages.BorderLayout_south,
+      Messages.BorderLayout_west,
+      Messages.BorderLayout_east,
+      Messages.BorderLayout_center};
   private static final String[] REGION_FIELDS = {"NORTH", "SOUTH", "WEST", "EAST", "CENTER"};
   private static final PropertyEditor m_regionPropertyEditor =
       new StringComboPropertyEditor(REGION_TITLES);

@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.AbstractBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.DataBindingContextInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.xwt.Messages;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.xwt.ui.contentproviders.ModeContentProvider;
 import org.eclipse.wb.internal.rcp.databinding.xwt.ui.contentproviders.TriggerContentProvider;
@@ -218,12 +219,14 @@ public class BindingInfo extends AbstractBindingInfo {
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Choose properties and update strategies for the target and the model.");
+    listener.setTitle(Messages.BindingInfo_listenerTitle);
+    listener.setMessage(Messages.BindingInfo_listenerMessage);
     // add target editors
-    providers.add(new LabelUiContentProvider("Target:", getTargetPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.BindingInfo_targetTitle,
+        getTargetPresentationText()));
     // add model editors
-    providers.add(new LabelUiContentProvider("Model:", getModelPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.BindingInfo_modelTitle,
+        getModelPresentationText()));
     // separator
     providers.add(new SeparatorUiContentProvider());
     // add binding editors

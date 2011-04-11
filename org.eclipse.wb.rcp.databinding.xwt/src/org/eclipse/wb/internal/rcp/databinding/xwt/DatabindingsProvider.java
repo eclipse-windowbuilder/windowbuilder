@@ -138,13 +138,13 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     bindingColumn.setResizable(false);
     // target column
     TableColumn targetColumn = UiUtils.createSmartColumn(table, settings, "TargetColumn", 250);
-    targetColumn.setText("Target");
+    targetColumn.setText(Messages.DatabindingsProvider_targetColumn);
     // model column
     TableColumn modelColumn = UiUtils.createSmartColumn(table, settings, "ModelColumn", 250);
-    modelColumn.setText("Model");
+    modelColumn.setText(Messages.DatabindingsProvider_modelColumn);
     // mode column
     TableColumn modeColumn = new TableColumn(table, SWT.NONE);
-    modeColumn.setText("Mode");
+    modeColumn.setText(Messages.DatabindingsProvider_modeColumn);
     modeColumn.setWidth(100);
     // label provider
     viewer.setLabelProvider(new BindingLabelProvider());

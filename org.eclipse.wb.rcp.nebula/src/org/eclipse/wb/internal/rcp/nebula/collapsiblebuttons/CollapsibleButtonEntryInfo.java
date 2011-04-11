@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.nebula.Activator;
+import org.eclipse.wb.internal.rcp.nebula.Messages;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -37,8 +38,8 @@ public final class CollapsibleButtonEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CollapsibleButtonEntryInfo() throws Exception {
-    setName("CollapsibleButton");
-    setDescription("Drop new collapsible button on CollapsibleButtons widget.");
+    setName(Messages.CollapsibleButtonEntryInfo_name);
+    setDescription(Messages.CollapsibleButtonEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
