@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.SimpleClassObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.SimpleClassUiContentProvider;
 
@@ -48,10 +49,10 @@ public class TreeStructureAdvisorInfo extends SimpleClassObjectInfo {
   public final void createContentProviders(List<IUiContentProvider> providers,
       DatabindingsProvider provider) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("TreeStructureAdvisor:");
+    configuration.setDialogFieldLabel(Messages.TreeStructureAdvisorInfo_label);
     configure(configuration);
-    configuration.setEmptyClassErrorMessage("Choose TreeStructureAdvisor class.");
-    configuration.setErrorMessagePrefix("Choosen TreeStructureAdvisor");
+    configuration.setEmptyClassErrorMessage(Messages.TreeStructureAdvisorInfo_errorMessage);
+    configuration.setErrorMessagePrefix(Messages.TreeStructureAdvisorInfo_errorMessagePrefix);
     providers.add(new SimpleClassUiContentProvider(configuration, this));
   }
 

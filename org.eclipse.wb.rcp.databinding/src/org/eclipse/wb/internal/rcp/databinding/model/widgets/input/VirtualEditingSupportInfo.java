@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Separ
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.PropertyBindableInfo;
@@ -137,17 +138,18 @@ public final class VirtualEditingSupportInfo {
   ////////////////////////////////////////////////////////////////////////////
   public void createContentProviders(List<IUiContentProvider> providers) throws Exception {
     // CellEditor
-    providers.add(new LabelUiContentProvider("CellEditor:", getCellEditorPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_cellEditorLabel,
+        getCellEditorPresentationText()));
     //
     ChooseClassAndPropertiesConfiguration cellEditorConfiguration =
         new ChooseClassAndPropertiesConfiguration();
     cellEditorConfiguration.setBaseClassName("org.eclipse.jface.viewers.CellEditor");
-    cellEditorConfiguration.setDialogFieldLabel("Class:");
-    cellEditorConfiguration.setEmptyClassErrorMessage("Choose CellEditor class.");
-    cellEditorConfiguration.setErrorMessagePrefix("CellEditor property");
-    cellEditorConfiguration.setPropertiesLabel("Property:");
+    cellEditorConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseLabel);
+    cellEditorConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseEmptyMessage);
+    cellEditorConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseErrorPrefix);
+    cellEditorConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_choosePropertiesLabel);
     cellEditorConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    cellEditorConfiguration.setPropertiesErrorMessage("Choose CellEditor property for bind to element");
+    cellEditorConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_choosePropertyMessage);
     cellEditorConfiguration.setDefaultValues(new String[]{
         "org.eclipse.jface.viewers.TextCellEditor",
         "org.eclipse.jface.viewers.ComboBoxCellEditor",
@@ -157,17 +159,17 @@ public final class VirtualEditingSupportInfo {
     //
     providers.add(new SeparatorUiContentProvider());
     // Element property
-    providers.add(new LabelUiContentProvider("Element property:",
+    providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_elementProperty,
         getElementPropertyPresentationText()));
     //
     ChooseClassAndPropertiesConfiguration elementConfiguration =
         new ChooseClassAndPropertiesConfiguration();
-    elementConfiguration.setDialogFieldLabel("Bean class:");
-    elementConfiguration.setEmptyClassErrorMessage("Element bean class for viewer isn't sets.");
-    elementConfiguration.setErrorMessagePrefix("Property");
-    elementConfiguration.setPropertiesLabel("Property:");
+    elementConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseBeanLabel);
+    elementConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanEmptyMessage);
+    elementConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseBeanErrorPrefix);
+    elementConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesLabel);
     elementConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    elementConfiguration.setPropertiesErrorMessage("Choose element property for bind to CellEditor");
+    elementConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesErrorMessage);
     //
     providers.add(new ElementPropertyUiContentProvider(elementConfiguration));
   }

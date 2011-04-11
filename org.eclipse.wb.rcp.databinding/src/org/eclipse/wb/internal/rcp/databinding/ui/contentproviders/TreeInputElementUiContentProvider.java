@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.TabFactory;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.GlobalFactoryHelper;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.SimpleClassObjectInfo;
@@ -176,8 +177,8 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
             createDesignerProviders(),
             m_tabFolder,
             SWT.NONE);
-    TabFactory.item(m_tabFolder).text("Designer support").image(CHECK_IMAGE).control(
-        m_designerComposite);
+    TabFactory.item(m_tabFolder).text(Messages.TreeInputElementUiContentProvider_designerSupport).image(
+        CHECK_IMAGE).control(m_designerComposite);
     // create jface page
     m_jfacePageListener = new PageListenerWrapper(m_pageListener, m_completeListener);
     //
@@ -186,8 +187,8 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
             createJFaceProviders(),
             m_tabFolder,
             SWT.NONE);
-    TabFactory.item(m_tabFolder).text("JFace support").image(UNCHECK_IMAGE).control(
-        m_jfaceComposite);
+    TabFactory.item(m_tabFolder).text(Messages.TreeInputElementUiContentProvider_jfaceSupport).image(
+        UNCHECK_IMAGE).control(m_jfaceComposite);
     //
     m_tabFolder.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -353,11 +354,11 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
 
   private ChooseClassUiContentProvider createDesignerElementTypeUIProvider() throws Exception {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("Element bean class:");
+    configuration.setDialogFieldLabel(Messages.TreeInputElementUiContentProvider_chooseDesigner);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage("Choose a element bean class that contains properties.");
-    configuration.setErrorMessagePrefix("Element bean class");
+    configuration.setEmptyClassErrorMessage(Messages.TreeInputElementUiContentProvider_chooseDesignerEmptyMessage);
+    configuration.setErrorMessagePrefix(Messages.TreeInputElementUiContentProvider_chooseDesignerErrorPrefix);
     //
     GlobalFactoryHelper.configureChooseElementForTreeViewerInput(
         m_binding.getInputObservable(),
@@ -412,13 +413,13 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
   private JFaceElementTypeUiProvider createJFaceElementTypeUIProvider() {
     ChooseClassAndPropertiesConfiguration configuration =
         new ChooseClassAndPropertiesConfiguration();
-    configuration.setDialogFieldLabel("Element bean class:");
+    configuration.setDialogFieldLabel(Messages.TreeInputElementUiContentProvider_chooseJFace);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage("Choose a element bean class that contains properties.");
-    configuration.setErrorMessagePrefix("Element bean class");
-    configuration.setPropertiesLabel("Property\n(for ObservableMapLabelProvider):");
-    configuration.setPropertiesErrorMessage("Choose a property for label provider.");
+    configuration.setEmptyClassErrorMessage(Messages.TreeInputElementUiContentProvider_chooseJFaceEmptyMessage);
+    configuration.setErrorMessagePrefix(Messages.TreeInputElementUiContentProvider_chooseJFaceMessagePrefix);
+    configuration.setPropertiesLabel(Messages.TreeInputElementUiContentProvider_chooseJFacePropertiesLabel);
+    configuration.setPropertiesErrorMessage(Messages.TreeInputElementUiContentProvider_choodJFacePropertiesErrorMessage);
     configuration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
     //
     return new JFaceElementTypeUiProvider(configuration);

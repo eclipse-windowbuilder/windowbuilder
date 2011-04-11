@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Choos
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.LabelUiContentProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.GlobalFactoryHelper;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.MapsBeanObservableInfo;
@@ -119,27 +120,28 @@ public final class ViewerInputBindingInfo extends AbstractViewerInputBindingInfo
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Bind viewer content, label providers and input.");
+    listener.setTitle(Messages.ViewerInputBindingInfo_title);
+    listener.setMessage(Messages.ViewerInputBindingInfo_message);
     //
-    providers.add(new LabelUiContentProvider("Viewer:",
+    providers.add(new LabelUiContentProvider(Messages.ViewerInputBindingInfo_viewerLabel,
         m_viewerBindable.getPresentation().getTextForBinding()));
-    providers.add(new LabelUiContentProvider("Input:", m_inputObservable.getPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.ViewerInputBindingInfo_inputLabel,
+        m_inputObservable.getPresentationText()));
     m_labelProvider.createContentProviders(providers, provider, true);
     // element type editor
     ChooseClassAndPropertiesConfiguration configuration =
         new ChooseClassAndPropertiesConfiguration();
-    configuration.setDialogFieldLabel("Element bean class:");
+    configuration.setDialogFieldLabel(Messages.ViewerInputBindingInfo_elementClassLabel);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage("Choose a element bean class that contains properties.");
-    configuration.setErrorMessagePrefix("Element bean class");
-    configuration.setPropertiesLabel("Properties\n(for label provider):");
+    configuration.setEmptyClassErrorMessage(Messages.ViewerInputBindingInfo_elementClassEmptyMessage);
+    configuration.setErrorMessagePrefix(Messages.ViewerInputBindingInfo_elementClassErrorPrefix);
+    configuration.setPropertiesLabel(Messages.ViewerInputBindingInfo_elementClassPropertiesLabel);
     configuration.setPropertiesMultiChecked(true);
     configuration.setReorderMode(true);
     configuration.setShowSelectionButtons(false);
     configuration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    configuration.setPropertiesErrorMessage("Choose a properties for label provider columns.");
+    configuration.setPropertiesErrorMessage(Messages.ViewerInputBindingInfo_elementClassPropertiesErrorMessage);
     //
     if (m_inputObservable instanceof DetailBeanObservableInfo) {
       configuration.setDialogFieldEnabled(false);

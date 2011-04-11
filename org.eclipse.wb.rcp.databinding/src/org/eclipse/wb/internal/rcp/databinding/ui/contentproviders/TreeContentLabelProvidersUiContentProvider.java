@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.GlobalFactoryHelper;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.ObservableCollectionTreeContentProviderInfo;
@@ -49,11 +50,16 @@ import java.util.List;
  * @coverage bindings.rcp.ui
  */
 public final class TreeContentLabelProvidersUiContentProvider implements IUiContentProvider {
-  private static final String PARENT_GROUP_NAME = "Parent (any Object)";
-  private static final String CHILDREN_GROUP_NAME = "Children (array or Collection)";
-  private static final String HAS_CHILDREN_GROUP_NAME = "HasChildren (boolean)";
-  private static final String TEXT_GROUP_NAME = "Text (String)";
-  private static final String IMAGE_GROUP_NAME = "Image (SWT Image)";
+  private static final String PARENT_GROUP_NAME =
+      Messages.TreeContentLabelProvidersUiContentProvider_parentGroup;
+  private static final String CHILDREN_GROUP_NAME =
+      Messages.TreeContentLabelProvidersUiContentProvider_childrenGroup;
+  private static final String HAS_CHILDREN_GROUP_NAME =
+      Messages.TreeContentLabelProvidersUiContentProvider_hasChildrenGroup;
+  private static final String TEXT_GROUP_NAME =
+      Messages.TreeContentLabelProvidersUiContentProvider_textGroup;
+  private static final String IMAGE_GROUP_NAME =
+      Messages.TreeContentLabelProvidersUiContentProvider_imageGroup;
   //
   private final TreeViewerInputBindingInfo m_binding;
   private CheckboxTreeViewer m_propertiesViewer;
@@ -99,7 +105,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
   public void createContent(Composite parent, int columns) {
     // properties title
     Label title = new Label(parent, SWT.NONE);
-    title.setText("Properties:");
+    title.setText(Messages.TreeContentLabelProvidersUiContentProvider_propertiesLabel);
     // properties viewer
     m_propertiesViewer = new CheckboxTreeViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
     GridDataFactory.create(m_propertiesViewer.getControl()).fill().grab().spanH(columns - 1);
@@ -115,9 +121,9 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
   ////////////////////////////////////////////////////////////////////////////
   private void calculateFinish() {
     if (!checkChoosenElement(CHILDREN_GROUP_NAME)) {
-      setErrorMessage("Choosen input bean \"children\" property for content provider.");
+      setErrorMessage(Messages.TreeContentLabelProvidersUiContentProvider_errorMessage1);
     } else if (!checkChoosenElement(TEXT_GROUP_NAME)) {
-      setErrorMessage("Choosen input bean \"text\" property for label provider.");
+      setErrorMessage(Messages.TreeContentLabelProvidersUiContentProvider_errorMessage2);
     } else {
       setErrorMessage(null);
     }

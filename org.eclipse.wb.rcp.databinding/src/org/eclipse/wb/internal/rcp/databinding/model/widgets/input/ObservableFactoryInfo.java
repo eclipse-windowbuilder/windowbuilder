@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.SimpleClassObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.SimpleClassUiContentProvider;
 
@@ -49,10 +50,10 @@ public class ObservableFactoryInfo extends SimpleClassObjectInfo {
   public final void createContentProviders(List<IUiContentProvider> providers,
       DatabindingsProvider provider) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("IObservableFactory:");
+    configuration.setDialogFieldLabel(Messages.ObservableFactoryInfo_label);
     configure(configuration);
-    configuration.setEmptyClassErrorMessage("Choose observable factory class.");
-    configuration.setErrorMessagePrefix("Choosen observable factory");
+    configuration.setEmptyClassErrorMessage(Messages.ObservableFactoryInfo_emptyMessage);
+    configuration.setErrorMessagePrefix(Messages.ObservableFactoryInfo_errorPrefix);
     providers.add(new SimpleClassUiContentProvider(configuration, this));
   }
 

@@ -13,12 +13,14 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.observables;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.CheckedElementsUiContentProvider;
 
 import org.apache.commons.lang.ClassUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -95,13 +97,15 @@ public final class CheckedElementsObservableInfo extends ViewerObservableInfo {
     super.createContentProviders(providers, context, provider);
     //
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("Checked bean class:");
+    configuration.setDialogFieldLabel(Messages.CheckedElementsObservableInfo_label);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage("Choose "
-        + context.getDirection()
-        + " checked bean class.");
-    configuration.setErrorMessagePrefix(context.getDirection() + " checked bean");
+    configuration.setEmptyClassErrorMessage(MessageFormat.format(
+        Messages.CheckedElementsObservableInfo_emptyMessage,
+        context.getDirection()));
+    configuration.setErrorMessagePrefix(MessageFormat.format(
+        Messages.CheckedElementsObservableInfo_errorPrefix,
+        context.getDirection()));
     //
     providers.add(new CheckedElementsUiContentProvider(configuration, this, provider));
   }

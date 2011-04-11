@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Choos
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
 import org.eclipse.wb.internal.rcp.databinding.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ConverterUiContentProvider;
@@ -37,6 +38,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -95,10 +97,9 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
       Assert.isNull(m_validators.get(methodName));
       ValidatorInfo validator = (ValidatorInfo) resolver.getModel(arguments[0]);
       if (validator == null) {
-        AbstractParser.addError(
-            editor,
-            "Validator argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.UpdateValueStrategyInfo_validatorArgumentNotFound,
+            arguments[0]), new Throwable());
       } else {
         m_validators.put(methodName, validator);
         //
@@ -141,7 +142,7 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
       return Value.POLICY_UPDATE;
     }
     //
-    Assert.fail("Undefine value strategy value: " + value);
+    Assert.fail(Messages.UpdateValueStrategyInfo_undefinedValueStrategy + value);
     return null;
   }
 
@@ -157,7 +158,7 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
       case POLICY_UPDATE :
         return "POLICY_UPDATE";
     }
-    Assert.fail("Undefine value strategy value: " + m_strategyValue);
+    Assert.fail(Messages.UpdateValueStrategyInfo_undefinedValueStrategy + m_strategyValue);
     return null;
   }
 
@@ -217,7 +218,7 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
   @Override
   protected ChooseClassConfiguration createConfiguration(BindingUiContentProviderContext context) {
     ChooseClassConfiguration configuration = super.createConfiguration(context);
-    configuration.setDialogFieldLabel("UpdateValueStrategy:");
+    configuration.setDialogFieldLabel(Messages.UpdateValueStrategyInfo_title);
     configuration.setDefaultValues(new String[]{
         "POLICY_UPDATE",
         "POLICY_NEVER",
@@ -238,11 +239,14 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
     configuration.setClearValue("N/S");
     configuration.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(context.getDirection()
-        + " \""
-        + name
-        + "\" class is empty.");
-    configuration.setErrorMessagePrefix(context.getDirection() + " \"" + name + "\"");
+    configuration.setEmptyClassErrorMessage(MessageFormat.format(
+        Messages.UpdateValueStrategyInfo_validatorErrorMessage,
+        context.getDirection(),
+        name));
+    configuration.setErrorMessagePrefix(MessageFormat.format(
+        Messages.UpdateValueStrategyInfo_validatorErrorMessagePrefix,
+        context.getDirection(),
+        name));
     //
     if (validator != null
         && (validator.isAnonymous() || validator.getClassName().indexOf('(') != -1)) {

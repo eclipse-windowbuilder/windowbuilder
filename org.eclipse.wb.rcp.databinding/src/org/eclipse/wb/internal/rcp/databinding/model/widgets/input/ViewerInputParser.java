@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
@@ -39,13 +40,13 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.Bean
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.BeansSetObservableFactoryInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.TreeBeanAdvisorInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.TreeObservableLabelProviderInfo;
-import org.eclipse.wb.internal.rcp.databinding.parser.DatabindingParser;
 
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -198,9 +199,9 @@ public final class ViewerInputParser implements ISubParser {
       ObservableFactoryInfo observableFactory =
           (ObservableFactoryInfo) resolver.getModel(arguments[0]);
       if (observableFactory == null) {
-        AbstractParser.addError(editor, "Observable factory argument '"
-            + arguments[0]
-            + "' not found", new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_objectFactoryArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare advisor
@@ -209,7 +210,7 @@ public final class ViewerInputParser implements ISubParser {
       if (advisorInfo == null) {
         AbstractParser.addError(
             editor,
-            "Advisor argument '" + arguments[1] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_advisorArgumentNotFound, arguments[1]),
             new Throwable());
         return null;
       }
@@ -225,9 +226,9 @@ public final class ViewerInputParser implements ISubParser {
       ObservableFactoryInfo observableFactory =
           (ObservableFactoryInfo) resolver.getModel(arguments[0]);
       if (observableFactory == null) {
-        AbstractParser.addError(editor, "Observable factory argument '"
-            + arguments[0]
-            + "' not found", new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_objectFactoryArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare advisor
@@ -236,7 +237,7 @@ public final class ViewerInputParser implements ISubParser {
       if (advisorInfo == null) {
         AbstractParser.addError(
             editor,
-            "Advisor argument '" + arguments[1] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_advisorArgumentNotFound, arguments[1]),
             new Throwable());
         return null;
       }
@@ -260,7 +261,7 @@ public final class ViewerInputParser implements ISubParser {
       if (mapsObservable == null) {
         AbstractParser.addError(
             editor,
-            "Argument '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_argumentNotFound, arguments[0]),
             new Throwable());
         return null;
       }
@@ -277,7 +278,7 @@ public final class ViewerInputParser implements ISubParser {
       if (allElementsObservable == null) {
         AbstractParser.addError(
             editor,
-            "Argument '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_argumentNotFound, arguments[0]),
             new Throwable());
         return null;
       }
@@ -320,13 +321,18 @@ public final class ViewerInputParser implements ISubParser {
       if (viewerBindable == null) {
         AbstractParser.addError(
             editor,
-            "Viewer '" + invocation.getExpression() + "' not found",
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerNotFound,
+                invocation.getExpression()),
             new Throwable());
         return null;
       }
       //
       if (m_viewers.get(viewerBindable) != null) {
-        AbstractParser.addError(editor, "Double invocation '" + invocation + "'", new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(Messages.ViewerInputParser_doubleInvocation, invocation),
+            new Throwable());
         return null;
       }
       //
@@ -337,9 +343,10 @@ public final class ViewerInputParser implements ISubParser {
         ObservableCollectionTreeContentProviderInfo contentProvider =
             (ObservableCollectionTreeContentProviderInfo) resolver.getModel(arguments[0]);
         if (contentProvider == null) {
-          AbstractParser.addError(editor, "Content provider argument '"
-              + arguments[0]
-              + "' not found", new Throwable());
+          AbstractParser.addError(
+              editor,
+              MessageFormat.format(Messages.ViewerInputParser_contentProviderNotFound, arguments[0]),
+              new Throwable());
           return null;
         }
         // create binding
@@ -353,9 +360,10 @@ public final class ViewerInputParser implements ISubParser {
         ObservableCollectionContentProviderInfo contentProvider =
             (ObservableCollectionContentProviderInfo) resolver.getModel(arguments[0]);
         if (contentProvider == null) {
-          AbstractParser.addError(editor, "Content provider argument '"
-              + arguments[0]
-              + "' not found", new Throwable());
+          AbstractParser.addError(
+              editor,
+              MessageFormat.format(Messages.ViewerInputParser_contentProviderNotFound, arguments[0]),
+              new Throwable());
           return null;
         }
         // create binding
@@ -372,16 +380,21 @@ public final class ViewerInputParser implements ISubParser {
       if (viewerBindable == null) {
         AbstractParser.addError(
             editor,
-            "Viewer '" + invocation.getExpression() + "' not found",
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerNotFound,
+                invocation.getExpression()),
             new Throwable());
         return null;
       }
       // prepare binding
       AbstractViewerInputBindingInfo viewerBinding = m_viewers.get(viewerBindable);
       if (viewerBinding == null) {
-        AbstractParser.addError(editor, "(LP) Model for viewer '"
-            + invocation.getExpression()
-            + "' not found", new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_modelViewerNotFound,
+                invocation.getExpression()),
+            new Throwable());
         return null;
       }
       //
@@ -390,9 +403,9 @@ public final class ViewerInputParser implements ISubParser {
         ObservableMapLabelProviderInfo labelProvider =
             (ObservableMapLabelProviderInfo) resolver.getModel(arguments[0]);
         if (labelProvider == null) {
-          AbstractParser.addError(editor, "Label provider argument '"
-              + arguments[0]
-              + "' not found", new Throwable());
+          AbstractParser.addError(editor, MessageFormat.format(
+              Messages.ViewerInputParser_labelProviderArgumentNotFound,
+              arguments[0]), new Throwable());
           //
           m_viewers.remove(viewerBindable);
           m_contextInfo.getBindings().remove(viewerBinding);
@@ -407,9 +420,9 @@ public final class ViewerInputParser implements ISubParser {
         AbstractLabelProviderInfo labelProvider =
             (AbstractLabelProviderInfo) resolver.getModel(arguments[0]);
         if (labelProvider == null) {
-          AbstractParser.addError(editor, "Label provider argument '"
-              + arguments[0]
-              + "' not found", new Throwable());
+          AbstractParser.addError(editor, MessageFormat.format(
+              Messages.ViewerInputParser_labelProviderArgumentNotFound,
+              arguments[0]), new Throwable());
           //
           m_viewers.remove(viewerBindable);
           m_contextInfo.getBindings().remove(viewerBinding);
@@ -425,18 +438,22 @@ public final class ViewerInputParser implements ISubParser {
       WidgetBindableInfo viewerBindable =
           m_widgetsContainer.getBindableWidget(invocation.getExpression());
       if (viewerBindable == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "Viewer '" + invocation.getExpression() + "' not found",
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerNotFound,
+                invocation.getExpression()),
             new Throwable());
         return null;
       }
       // prepare binding
       AbstractViewerInputBindingInfo viewerBinding = m_viewers.get(viewerBindable);
       if (viewerBinding == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "(Input) Model for viewer '" + invocation.getExpression() + "' not found",
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerInputModelNotFound,
+                invocation.getExpression()),
             new Throwable());
         return null;
       }
@@ -469,9 +486,9 @@ public final class ViewerInputParser implements ISubParser {
         }
         //
         if (inputObservable == null) {
-          DatabindingParser.addError(editor, "Viewer input argument '"
-              + arguments[0]
-              + "' not found", new Throwable());
+          AbstractParser.addError(editor, MessageFormat.format(
+              Messages.ViewerInputParser_viewerInputArgumentNotFound,
+              arguments[0]), new Throwable());
           //
           m_viewers.remove(viewerBindable);
           m_contextInfo.getBindings().remove(viewerBinding);
@@ -486,27 +503,25 @@ public final class ViewerInputParser implements ISubParser {
       // prepare viewer
       WidgetBindableInfo viewerBindable = m_widgetsContainer.getBindableWidget(arguments[0]);
       if (viewerBindable == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "Viewer '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_viewerNotFound, arguments[0]),
             new Throwable());
         return null;
       }
       if (m_viewers.get(viewerBindable) != null) {
-        DatabindingParser.addError(editor, "Double '"
-            + invocation
-            + "' invocation for viewer '"
-            + arguments[0]
-            + "'", new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_viewerDoubleInvocation,
+            invocation,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare input observable
       ObservableInfo inputObservable = (ObservableInfo) resolver.getModel(arguments[1]);
       if (inputObservable == null) {
-        DatabindingParser.addError(
-            editor,
-            "Viewer input argument '" + arguments[1] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_viewerInputArgumentNotFound,
+            arguments[1]), new Throwable());
         return null;
       }
       // prepare label provider properties
@@ -537,18 +552,18 @@ public final class ViewerInputParser implements ISubParser {
       // prepare viewer
       WidgetBindableInfo viewerBindable = m_widgetsContainer.getBindableWidget(arguments[0]);
       if (viewerBindable == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "Viewer '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_viewerNotFound, arguments[0]),
             new Throwable());
         return null;
       }
       //
       AbstractViewerInputBindingInfo viewerBinding = m_viewers.get(viewerBindable);
       if (viewerBinding == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "Viewer '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_viewerNotFound, arguments[0]),
             new Throwable());
         return null;
       }
@@ -556,18 +571,17 @@ public final class ViewerInputParser implements ISubParser {
       DataBindingContextInfo bindingContextInfo =
           (DataBindingContextInfo) resolver.getModel(arguments[1]);
       if (bindingContextInfo != m_contextInfo) {
-        DatabindingParser.addError(
-            editor,
-            "Undefined DataBindingContext '" + arguments[1] + "'",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_undefinedDataBindingContext,
+            arguments[1]), new Throwable());
         return null;
       }
       // prepare CellEditor
       CellEditorInfo cellEditorInfo = (CellEditorInfo) resolver.getModel(arguments[2]);
       if (cellEditorInfo == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "CellEditor '" + arguments[2] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_cellEditorNotFound, arguments[2]),
             new Throwable());
         return null;
       }
@@ -583,19 +597,18 @@ public final class ViewerInputParser implements ISubParser {
       }
       //
       if (cellEditorProperty == null) {
-        DatabindingParser.addError(
-            editor,
-            "CellEditor property '" + arguments[3] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_cellEditorPropertyNotFound,
+            arguments[3]), new Throwable());
         return null;
       }
       // prepare element property
       ValuePropertyCodeSupport elementProperty =
           (ValuePropertyCodeSupport) resolver.getModel(arguments[4]);
       if (elementProperty == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "Element property '" + arguments[4] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_elementPropertyNotFound, arguments[4]),
             new Throwable());
         return null;
       }
@@ -609,17 +622,20 @@ public final class ViewerInputParser implements ISubParser {
       WidgetBindableInfo viewerColumnBindable =
           m_widgetsContainer.getBindableWidget(invocation.getExpression());
       if (viewerColumnBindable == null) {
-        DatabindingParser.addError(editor, "Viewer column '"
-            + invocation.getExpression()
-            + "' not found", new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerColumnNotFound,
+                invocation.getExpression()),
+            new Throwable());
         return null;
       }
       // prepare support
       EditingSupportInfo editingSupportInfo = (EditingSupportInfo) resolver.getModel(arguments[0]);
       if (editingSupportInfo == null) {
-        DatabindingParser.addError(
+        AbstractParser.addError(
             editor,
-            "EditingSupport '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.ViewerInputParser_editingSupportNotFound, arguments[0]),
             new Throwable());
         return null;
       }

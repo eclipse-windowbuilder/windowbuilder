@@ -36,6 +36,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.DataBindingsRootInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
@@ -91,6 +92,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -503,10 +505,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -527,10 +528,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -551,10 +551,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -651,9 +650,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[masterIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, "Master observable argument '"
-          + arguments[masterIndex]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
+          arguments[masterIndex]), new Throwable());
       return null;
     }
     // prepare bean type
@@ -685,9 +684,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, "Master observable argument '"
-          + arguments[startIndex]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare detail property
@@ -717,9 +716,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, "Master observable argument '"
-          + arguments[startIndex]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare detail property
@@ -746,10 +745,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare domain
     ObservableInfo domainObservable = (ObservableInfo) resolver.getModel(arguments[0]);
     if (domainObservable == null) {
-      AbstractParser.addError(
-          editor,
-          "Domain observable argument '" + arguments[0] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_domainObservableArgumentNotFound,
+          arguments[0]), new Throwable());
       return null;
     }
     // prepare element type
@@ -768,10 +766,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare domain
     ObservableInfo domainObservable = (ObservableInfo) resolver.getModel(arguments[0]);
     if (domainObservable == null) {
-      AbstractParser.addError(
-          editor,
-          "Domain observable argument '" + arguments[0] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_domainObservableArgumentNotFound,
+          arguments[0]), new Throwable());
       return null;
     }
     // prepare element type
@@ -792,10 +789,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -821,10 +817,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -992,11 +987,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     BeanPropertyBindableInfo bindableProperty =
         (BeanPropertyBindableInfo) bindableObject.resolvePropertyReference(propertyReference);
     if (bindableProperty == null) {
-      AbstractParser.addError(editor, "Property '"
-          + expression
-          + "' for bean object '"
-          + bindableObject.getReference()
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_beanPropertyNotFound,
+          expression,
+          bindableObject.getReference()), new Throwable());
       bindableProperty =
           new BeanPropertyBindableInfo(bindableObject.getBeanSupport(),
               null,
@@ -1016,10 +1010,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master detail observable
     ObservableInfo masterDetailObservable = (ObservableInfo) resolver.getModel(expression);
     if (masterDetailObservable == null) {
-      AbstractParser.addError(
-          editor,
-          "Master observable '" + expression + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeansObserveTypeContainer_masterObservableNotFound,
+          expression), new Throwable());
       return null;
     }
     Assert.instanceOf(IMasterDetailProvider.class, masterDetailObservable);

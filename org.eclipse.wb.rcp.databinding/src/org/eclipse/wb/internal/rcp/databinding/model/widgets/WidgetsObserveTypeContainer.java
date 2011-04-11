@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.ControllerSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.SwtProperties;
@@ -61,6 +62,7 @@ import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -250,10 +252,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       // prepare widget
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(
-            editor,
-            "Widget argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.WidgetsObserveTypeContainer_widgetArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare property
@@ -302,10 +303,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       // prepare observable
       ObservableInfo observableInfo = (ObservableInfo) resolver.getModel(arguments[1]);
       if (observableInfo == null) {
-        AbstractParser.addError(
-            editor,
-            "Observable argument '" + arguments[1] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.WidgetsObserveTypeContainer_observableArgumentNotFound,
+            arguments[1]), new Throwable());
         return null;
       }
       Assert.isNull(observableInfo.getVariableIdentifier());
@@ -323,10 +323,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       //
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(
-            editor,
-            "Viewer argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       SingleSelectionObservableInfo observable = new SingleSelectionObservableInfo(bindableWidget);
@@ -338,10 +337,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       //
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(
-            editor,
-            "Viewer argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       MultiSelectionObservableInfo observable = new MultiSelectionObservableInfo(bindableWidget);
@@ -355,10 +353,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       // prepare viewer
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(
-            editor,
-            "Viewer argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare element type
@@ -373,10 +370,9 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       //
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(
-            editor,
-            "Viewer argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       FiltersObservableInfo observable = new FiltersObservableInfo(bindableWidget);

@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.TableFactory;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.VirtualEditingSupportInfo;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -86,15 +87,15 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setText("ViewerColumns...");
+    m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumnsDots);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
       public void expansionStateChanging(ExpansionEvent e) {
         m_settings.put(SETTING_KEY, !m_expandableComposite.isExpanded());
         if (m_expandableComposite.isExpanded()) {
-          m_expandableComposite.setText("ViewerColumns...");
+          m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumnsDots);
         } else {
-          m_expandableComposite.setText("ViewerColumns");
+          m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumns);
         }
       }
 
@@ -112,7 +113,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     // edit
     m_editButton = new Button(toolbar, SWT.NONE);
     GridDataFactory.create(m_editButton).fillH().grabH();
-    m_editButton.setText("Edit...");
+    m_editButton.setText(Messages.ViewerColumnsUiContentProvider_editButton);
     m_editButton.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -122,7 +123,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     // delete
     m_deleteButton = new Button(toolbar, SWT.NONE);
     GridDataFactory.create(m_deleteButton).fillH().grabH();
-    m_deleteButton.setText("Delete");
+    m_deleteButton.setText(Messages.ViewerColumnsUiContentProvider_deleteButton);
     m_deleteButton.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -153,13 +154,14 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     //
     TableFactory factory =
         TableFactory.modify(m_tableViewer).headerVisible(true).linesVisible(true);
-    factory.newColumn().text("Viewer column").width(250);
-    factory.newColumn().text("CellEditor").width(300);
-    factory.newColumn().text("Element property").width(300);
+    factory.newColumn().text(Messages.ViewerColumnsUiContentProvider_viewerColumn).width(250);
+    factory.newColumn().text(Messages.ViewerColumnsUiContentProvider_cellEditorColumn).width(300);
+    factory.newColumn().text(Messages.ViewerColumnsUiContentProvider_elementPropertyColumn).width(
+        300);
     // initial state
     if (m_settings.getBoolean(SETTING_KEY)) {
       m_expandableComposite.setExpanded(true);
-      m_expandableComposite.setText("ViewerColumns");
+      m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumns);
       parent.layout();
     }
   }
@@ -196,9 +198,9 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
           new SimpleBindDialog(m_editButton.getShell(),
               Activator.getDefault(),
               providers,
-              "Configure CellEditor",
-              "Properties",
-              "Choose CellEditor and element property for binding.");
+              Messages.ViewerColumnsUiContentProvider_configureEditingSupportLabel,
+              Messages.ViewerColumnsUiContentProvider_configureEditingSupportProperties,
+              Messages.ViewerColumnsUiContentProvider_configureEditingSupportMessage);
       if (dialog.open() == Window.OK) {
         m_tableViewer.refresh();
       }

@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.wizards.autobindings;
 
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingSecondPage;
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.IAutomaticDatabindingProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 
 /**
  * RCP Automatic bindings wizard.
@@ -28,7 +29,7 @@ public final class AutomaticDatabindingWizard
   //
   ////////////////////////////////////////////////////////////////////////////
   public AutomaticDatabindingWizard() {
-    setWindowTitle("New JFace Automatic Databinding");
+    setWindowTitle(Messages.AutomaticDatabindingWizard_windowTitle);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -44,16 +45,16 @@ public final class AutomaticDatabindingWizard
     // create first page: via standard "New Java Wizard"
     AutomaticDatabindingFirstPage firstPage =
         new AutomaticDatabindingFirstPage(databindingProvider, beanClassName);
-    firstPage.setTitle("Java Class");
-    firstPage.setDescription("Create a new Java class.");
+    firstPage.setTitle(Messages.AutomaticDatabindingWizard_firstPageTitle);
+    firstPage.setDescription(Messages.AutomaticDatabindingWizard_firstPageDescription);
     m_mainPage = firstPage;
     addPage(firstPage);
     firstPage.setInitialSelection(getSelection());
     // create second page: databindings
     AutomaticDatabindingSecondPage secondPage =
         new AutomaticDatabindingSecondPage(firstPage, databindingProvider, beanClassName);
-    secondPage.setTitle("Databindings");
-    secondPage.setDescription("Bind Java Bean to SWT widgets.");
+    secondPage.setTitle(Messages.AutomaticDatabindingWizard_secondPageTitle);
+    secondPage.setDescription(Messages.AutomaticDatabindingWizard_secondPageDescription);
     addPage(secondPage);
   }
 }

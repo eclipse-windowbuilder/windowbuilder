@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.SimpleClassUiContentProvider;
 
 import java.util.List;
@@ -47,10 +48,10 @@ public class LabelProviderInfo extends AbstractLabelProviderInfo {
       DatabindingsProvider provider,
       boolean useClear) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("LabelProvider:");
+    configuration.setDialogFieldLabel(Messages.LabelProviderInfo_label);
     configure(configuration, useClear);
-    configuration.setEmptyClassErrorMessage("Choose label provider class.");
-    configuration.setErrorMessagePrefix("Choosen label provider");
+    configuration.setEmptyClassErrorMessage(Messages.LabelProviderInfo_errorMessage);
+    configuration.setErrorMessagePrefix(Messages.LabelProviderInfo_errorMessagePrefix);
     providers.add(new SimpleClassUiContentProvider(configuration, this));
   }
 

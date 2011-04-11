@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.CheckedListDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.TextSwtObservableInfo;
 
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -64,7 +65,7 @@ public final class SwtTextEventsUiContentProvider extends DialogFieldUiContentPr
         return new Control[]{label, list};
       }
     };
-    m_dialogField.setLabelText("Events:");
+    m_dialogField.setLabelText(Messages.SwtTextEventsUiContentProvider_eventsLabel);
     m_dialogField.addElements(Arrays.asList(TextSwtObservableInfo.TEXT_EVENTS));
   }
 

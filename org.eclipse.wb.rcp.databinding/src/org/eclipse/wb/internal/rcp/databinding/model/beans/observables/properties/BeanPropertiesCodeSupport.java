@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
@@ -33,6 +34,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
 
 import java.beans.PropertyDescriptor;
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -143,7 +145,7 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
     if (bindableObject == null) {
       AbstractParser.addError(
           editor,
-          "Argument '" + beanExpression + "' not found",
+          MessageFormat.format(Messages.BeanPropertiesCodeSupport_argumentNotFound, beanExpression),
           new Throwable());
       return null;
     }
@@ -164,11 +166,10 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
     BeanPropertyBindableInfo bindableProperty =
         (BeanPropertyBindableInfo) bindableObject.resolvePropertyReference(m_parserPropertyReference);
     if (bindableProperty == null) {
-      AbstractParser.addError(editor, "Property '"
-          + m_parserPropertyReference
-          + "' for bean object '"
-          + bindableObject.getReference()
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.BeanPropertiesCodeSupport_propertyNotFound,
+          m_parserPropertyReference,
+          bindableObject.getReference()), new Throwable());
       bindableProperty =
           new BeanPropertyBindableInfo(bindableObject.getBeanSupport(),
               null,

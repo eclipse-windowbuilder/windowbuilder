@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.designer.TreeBeanAdvisorInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.SimpleClassUiContentProvider;
 
@@ -81,13 +82,13 @@ public abstract class ObservableCollectionTreeContentProviderInfo
       DatabindingsProvider provider,
       boolean useClear) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("ContentProvider:");
+    configuration.setDialogFieldLabel(Messages.ObservableCollectionTreeContentProviderInfo_chooseLabel);
     configure(configuration, useClear);
     configuration.setConstructorParameters(new Class[]{
         IObservableFactory.class,
         TreeStructureAdvisor.class});
-    configuration.setEmptyClassErrorMessage("Choose content provider class.");
-    configuration.setErrorMessagePrefix("Choosen content provider");
+    configuration.setEmptyClassErrorMessage(Messages.ObservableCollectionTreeContentProviderInfo_chooseEmptyMessage);
+    configuration.setErrorMessagePrefix(Messages.ObservableCollectionTreeContentProviderInfo_chooseMessagePrefix);
     providers.add(new SimpleClassUiContentProvider(configuration, this));
   }
 

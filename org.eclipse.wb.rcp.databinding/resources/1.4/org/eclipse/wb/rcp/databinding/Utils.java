@@ -15,6 +15,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
 
 import org.eclipse.core.databinding.BindingException;
 
@@ -66,9 +67,6 @@ import org.eclipse.core.databinding.BindingException;
 				return descriptor;
 			}
 		}
-		throw new BindingException("Could not find property with name "
-			+ propertyName
-			+ " in class "
-			+ beanClass);
+		throw new BindingException(MessageFormat.format("Could not find property with name {0} in class {1}", propertyName, beanClass));
 	}
 }

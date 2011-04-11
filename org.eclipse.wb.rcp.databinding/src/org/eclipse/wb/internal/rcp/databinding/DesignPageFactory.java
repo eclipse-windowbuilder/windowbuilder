@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding;
 
+import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.core.editor.IEditorPageFactory;
-import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.internal.core.databinding.ui.BindingDesignPage;
 
 import org.eclipse.jdt.core.ICompilationUnit;

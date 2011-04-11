@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.observables;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
@@ -82,6 +83,6 @@ public class SwtObservableInfo extends ObservableInfo implements IDelayValueProv
   public void createContentProviders(List<IUiContentProvider> providers,
       BindingUiContentProviderContext context,
       DatabindingsProvider provider) throws Exception {
-    providers.add(new SwtDelayUiContentProvider(this, "SWT delay (ms):"));
+    providers.add(new SwtDelayUiContentProvider(this, Messages.SwtObservableInfo_swtDelay));
   }
 }

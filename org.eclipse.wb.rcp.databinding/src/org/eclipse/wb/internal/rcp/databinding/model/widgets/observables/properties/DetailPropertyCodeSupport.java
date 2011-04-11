@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
@@ -31,6 +32,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.SingleS
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -97,10 +99,9 @@ public abstract class DetailPropertyCodeSupport extends ObservableCodeSupport {
     // prepare widget
     WidgetBindableInfo bindableWidget = container.getBindableWidget(widgetExpression);
     if (bindableWidget == null) {
-      AbstractParser.addError(
-          editor,
-          "Widget argument '" + widgetExpression + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.DetailPropertyCodeSupport_widgetArgumentNotFound,
+          widgetExpression), new Throwable());
       return null;
     }
     // prepare property

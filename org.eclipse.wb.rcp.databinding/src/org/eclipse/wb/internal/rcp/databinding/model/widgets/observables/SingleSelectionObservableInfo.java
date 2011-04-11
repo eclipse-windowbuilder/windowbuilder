@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenConte
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider;
@@ -120,7 +121,8 @@ public final class SingleSelectionObservableInfo extends ViewerObservableInfo
       DatabindingsProvider provider) throws Exception {
     super.createContentProviders(providers, context, provider);
     if (m_isViewer) {
-      providers.add(new SwtDelayUiContentProvider(this, "Viewer delay (ms):"));
+      providers.add(new SwtDelayUiContentProvider(this,
+          Messages.SingleSelectionObservableInfo_viewerDelay));
     }
   }
 

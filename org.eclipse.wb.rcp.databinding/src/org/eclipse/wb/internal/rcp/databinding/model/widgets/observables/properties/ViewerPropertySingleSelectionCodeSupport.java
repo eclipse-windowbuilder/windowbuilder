@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.parser.IModelResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.properties.ListPropertyCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.properties.SetPropertyCodeSupport;
@@ -27,6 +28,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.SingleS
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -70,21 +72,27 @@ public class ViewerPropertySingleSelectionCodeSupport extends ViewerObservableCo
     if (VALUE_DETAIL.equals(signature)) {
       ValuePropertyCodeSupport detailProperty =
           (ValuePropertyCodeSupport) resolver.getModel(arguments[0]);
-      Assert.isNotNull(detailProperty, "Argument '" + arguments[0] + "' not found");
+      Assert.isNotNull(detailProperty, MessageFormat.format(
+          Messages.ViewerPropertySingleSelectionCodeSupport_argumentNotFound,
+          arguments[0]));
       return new ValueValuePropertyCodeSupport(this, detailProperty);
     }
     // IValueProperty.list(IListProperty)
     if (LIST_DETAIL.equals(signature)) {
       ListPropertyCodeSupport detailProperty =
           (ListPropertyCodeSupport) resolver.getModel(arguments[0]);
-      Assert.isNotNull(detailProperty, "Argument '" + arguments[0] + "' not found");
+      Assert.isNotNull(detailProperty, MessageFormat.format(
+          Messages.ViewerPropertySingleSelectionCodeSupport_argumentNotFound,
+          arguments[0]));
       return new ValueListPropertyCodeSupport(this, detailProperty);
     }
     // IValueProperty.set(ISetProperty)
     if (SET_DETAIL.equals(signature)) {
       SetPropertyCodeSupport detailProperty =
           (SetPropertyCodeSupport) resolver.getModel(arguments[0]);
-      Assert.isNotNull(detailProperty, "Argument '" + arguments[0] + "' not found");
+      Assert.isNotNull(detailProperty, MessageFormat.format(
+          Messages.ViewerPropertySingleSelectionCodeSupport_argumentNotFound,
+          arguments[0]));
       return new ValueSetPropertyCodeSupport(this, detailProperty);
     }
     return super.parseExpression(editor, signature, invocation, arguments, resolver, provider);

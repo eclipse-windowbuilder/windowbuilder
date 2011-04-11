@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.databinding.parser.IModelResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.emf.Messages;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.EmfObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.EObjectBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.EPropertyBindableInfo;
@@ -26,6 +27,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+
+import java.text.MessageFormat;
 
 /**
  * 
@@ -97,7 +100,7 @@ public abstract class EmfPropertiesCodeSupport extends ObservableCodeSupport {
     if (eObject == null) {
       AbstractParser.addError(
           editor,
-          "Argument '" + beanExpression + "' not found",
+          MessageFormat.format(Messages.EmfPropertiesCodeSupport_argumentNotFound, beanExpression),
           new Throwable());
       return null;
     }
@@ -109,11 +112,10 @@ public abstract class EmfPropertiesCodeSupport extends ObservableCodeSupport {
       throws Exception {
     EPropertyBindableInfo eProperty = eObject.resolvePropertyReference(m_parserPropertyReference);
     if (eProperty == null) {
-      AbstractParser.addError(editor, "Property '"
-          + m_parserPropertyReference
-          + "' for bean object '"
-          + eObject.getReference()
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfPropertiesCodeSupport_beanPropertyNotFound,
+          m_parserPropertyReference,
+          eObject.getReference()), new Throwable());
       eProperty = new EPropertyBindableInfo(null, null, null, "", "");
     }
     //

@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.binding.editors.controls.CheckButtonEd
 import org.eclipse.wb.internal.core.utils.binding.providers.BooleanPreferenceProvider;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.rcp.databinding.emf.Activator;
+import org.eclipse.wb.internal.rcp.databinding.emf.Messages;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.EObjectBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.EPropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport;
@@ -338,7 +339,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
       throws Exception {
     Button generateCodeFor25Button = new Button(parent, SWT.CHECK);
     GridDataFactory.create(generateCodeFor25Button).fillH().grabH();
-    generateCodeFor25Button.setText("Generate observables code for EMF 2.5 (over properties)");
+    generateCodeFor25Button.setText(Messages.GlobalObservableFactory_for25Button);
     //
     bindManager.bind(
         new CheckButtonEditor(generateCodeFor25Button),

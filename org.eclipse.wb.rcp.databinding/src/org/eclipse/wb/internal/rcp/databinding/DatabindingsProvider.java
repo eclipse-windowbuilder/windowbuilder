@@ -234,22 +234,22 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     bindingColumn.setResizable(false);
     // target column
     TableColumn targetColumn = UiUtils.createSmartColumn(table, settings, "TargetColumn", 250);
-    targetColumn.setText("Target");
+    targetColumn.setText(Messages.DatabindingsProvider_targetColumn);
     // model column
     TableColumn modelColumn = UiUtils.createSmartColumn(table, settings, "ModelColumn", 250);
-    modelColumn.setText("Model");
+    modelColumn.setText(Messages.DatabindingsProvider_modelColumn);
     // target strategy column
     TableColumn targetStrategyColumn =
         UiUtils.createSmartColumn(table, settings, "TargetStrategyColumn", 170);
-    targetStrategyColumn.setText("Target Strategy");
+    targetStrategyColumn.setText(Messages.DatabindingsProvider_targetStrategyColumn);
     // model strategy column
     TableColumn modelStrategyColumn =
         UiUtils.createSmartColumn(table, settings, "ModelStrategyColumn", 170);
-    modelStrategyColumn.setText("Model Strategy");
+    modelStrategyColumn.setText(Messages.DatabindingsProvider_modelStrategyColumn);
     // binding variable column
     TableColumn variableBindingColumn =
         UiUtils.createSmartColumn(table, settings, "VariableBindingColumn", 250);
-    variableBindingColumn.setText("Binding");
+    variableBindingColumn.setText(Messages.DatabindingsProvider_bindingColumn);
     // label provider
     viewer.setLabelProvider(new BindingLabelProvider());
   }
@@ -316,7 +316,8 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
       // advanced
       m_filters.add(new AdvancedPropertyFilter());
       // any type
-      m_filters.add(new AllPropertiesFilter("All types", TypeImageProvider.OBJECT_IMAGE));
+      m_filters.add(new AllPropertiesFilter(Messages.DatabindingsProvider_filterAllTypes,
+          TypeImageProvider.OBJECT_IMAGE));
       // String, byte, char
       m_filters.add(new TypesPropertyFilter("String",
           TypeImageProvider.STRING_IMAGE,
@@ -387,14 +388,14 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
       new ToolItem(toolBar, SWT.SEPARATOR);
       // convert to controller
       ToolItem convertToControllerToolItem = new ToolItem(toolBar, SWT.NONE);
-      convertToControllerToolItem.setToolTipText("Convert to Controller");
+      convertToControllerToolItem.setToolTipText(Messages.DatabindingsProvider_convertToController);
       convertToControllerToolItem.setImage(Activator.getImage("newjprj_wiz.gif"));
       convertToControllerToolItem.addSelectionListener(listener);
       // separator
       new MenuItem(contextMenu, SWT.SEPARATOR);
       // convert to controller
       MenuItem convertToControllerMenuItem = new MenuItem(contextMenu, SWT.NONE);
-      convertToControllerMenuItem.setText("Convert to Controller");
+      convertToControllerMenuItem.setText(Messages.DatabindingsProvider_convertToController);
       convertToControllerMenuItem.setImage(Activator.getImage("newjprj_wiz.gif"));
       convertToControllerMenuItem.addSelectionListener(listener);
     }

@@ -33,6 +33,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.databinding.emf.Activator;
+import org.eclipse.wb.internal.rcp.databinding.emf.Messages;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.EObjectBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.EPropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport;
@@ -69,6 +70,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -297,7 +299,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
       if (allElementsObservable == null) {
         AbstractParser.addError(
             editor,
-            "Argument '" + arguments[0] + "' not found",
+            MessageFormat.format(Messages.EmfObserveTypeContainer_argumentNotFound, arguments[0]),
             new Throwable());
         return null;
       }
@@ -428,10 +430,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     EObjectBindableInfo eObject = getEObject(arguments[startIndex]);
     if (eObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -454,10 +455,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     EObjectBindableInfo eObject = getEObject(arguments[startIndex]);
     if (eObject == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare property
@@ -490,10 +490,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
           }
         });
     if (masterDetailObservable == null) {
-      AbstractParser.addError(
-          editor,
-          "Master observable '" + expression + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfObserveTypeContainer_masterObservableNotFound,
+          expression), new Throwable());
       return null;
     }
     Assert.instanceOf(IMasterDetailProvider.class, masterDetailObservable);
@@ -520,9 +519,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, "Master observable argument '"
-          + arguments[startIndex]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfObserveTypeContainer_masterObservableArgumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare detail property
@@ -552,9 +551,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, "Master observable argument '"
-          + arguments[startIndex]
-          + "' not found", new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfObserveTypeContainer_masterObservableArgumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare detail property
@@ -584,10 +583,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare domain
     ObservableInfo domainObservable = (ObservableInfo) resolver.getModel(arguments[startIndex]);
     if (domainObservable == null) {
-      AbstractParser.addError(
-          editor,
-          "Argument '" + arguments[startIndex] + "' not found",
-          new Throwable());
+      AbstractParser.addError(editor, MessageFormat.format(
+          Messages.EmfObserveTypeContainer_argumentNotFound,
+          arguments[startIndex]), new Throwable());
       return null;
     }
     // prepare reference properties

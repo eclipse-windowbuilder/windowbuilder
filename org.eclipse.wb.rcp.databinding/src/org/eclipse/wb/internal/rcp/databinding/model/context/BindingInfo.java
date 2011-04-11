@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.AbstractBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateStrategyInfo;
@@ -125,20 +126,22 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Choose properties and update strategies for the target and the model.");
+    listener.setTitle(Messages.BindingInfo_listenerTitle);
+    listener.setMessage(Messages.BindingInfo_listenerMessage);
     //
     BindingUiContentProviderContext context = new BindingUiContentProviderContext();
     // add target editors
     context.setDirection("Target");
-    providers.add(new LabelUiContentProvider("Target:", m_target.getPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.BindingInfo_targetLabel,
+        m_target.getPresentationText()));
     m_target.createContentProviders(providers, context, provider);
     m_targetStrategy.createContentProviders(providers, context);
     //
     providers.add(new SeparatorUiContentProvider());
     // add model editors
     context.setDirection("Model");
-    providers.add(new LabelUiContentProvider("Model:", m_model.getPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.BindingInfo_modelLabel,
+        m_model.getPresentationText()));
     m_model.createContentProviders(providers, context, provider);
     m_modelStrategy.createContentProviders(providers, context);
     //
@@ -190,7 +193,7 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
                 return;
               }
             }
-            Assert.fail("Undefine binding field: " + oldVariable);
+            Assert.fail(Messages.BindingInfo_undefinedBindingField + oldVariable);
           }
         });
       } else if (oldVariable != null && newVariable != null && !oldVariable.equals(newVariable)) {
@@ -203,7 +206,7 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
                 return;
               }
             }
-            Assert.fail("Undefine binding field: " + oldVariable);
+            Assert.fail(Messages.BindingInfo_undefinedBindingField + oldVariable);
           }
         });
       }

@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.dialogfields.CheckDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.Separator;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
 
 import org.eclipse.swt.SWT;
@@ -50,7 +51,7 @@ public final class AutomaticDatabindingFirstPage
   protected void createLocalControls(Composite parent, int columns) {
     super.createLocalControls(parent, columns);
     new Separator(SWT.SEPARATOR | SWT.HORIZONTAL).doFillIntoGrid(parent, columns);
-    m_controlField.setLabelText("Create controller class");
+    m_controlField.setLabelText(Messages.AutomaticDatabindingFirstPage_controllerFieldLabel);
     m_controlField.doFillIntoGrid(parent, columns);
   }
 

@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.DataBindingsRootInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.GlobalFactoryHelper;
 
@@ -79,31 +80,31 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     //
     m_addInvokeButton = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_addInvokeButton).fillH().grabH();
-    m_addInvokeButton.setText("Add initDataBindings() invocation to GUI creation method");
+    m_addInvokeButton.setText(Messages.DbCodeGenerationPreferencePage_addDbInvocation);
     //
     m_assignToFieldButton = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_assignToFieldButton).fillH().grabH();
-    m_assignToFieldButton.setText("Assign return value of initDataBindings() invocation to field");
+    m_assignToFieldButton.setText(Messages.DbCodeGenerationPreferencePage_assignDbReturnValue);
     //
     m_addToCompositeConstructorButton = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_addToCompositeConstructorButton).fillH().grabH();
-    m_addToCompositeConstructorButton.setText("Add initDataBindings() invocation to Composite constructor");
+    m_addToCompositeConstructorButton.setText(Messages.DbCodeGenerationPreferencePage_addDbIntoComposite);
     //
     m_dontUseDeprecatedMethodsButton = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_dontUseDeprecatedMethodsButton).fillH().grabH();
-    m_dontUseDeprecatedMethodsButton.setText("Don't use deprecated methods of BeansObservables");
+    m_dontUseDeprecatedMethodsButton.setText(Messages.DbCodeGenerationPreferencePage_dontUseDeprecatedBeansObservables);
     //
     m_addTryCatch = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_addTryCatch).fillH().grabH();
-    m_addTryCatch.setText("Enclosing databinding code in a try-catch block");
+    m_addTryCatch.setText(Messages.DbCodeGenerationPreferencePage_encloseIntoTryCatch);
     //
     m_generateCodeForVersion13Button = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_generateCodeForVersion13Button).fillH().grabH();
-    m_generateCodeForVersion13Button.setText("Generate observables code for version 1.3 (over properties)");
+    m_generateCodeForVersion13Button.setText(Messages.DbCodeGenerationPreferencePage_generate13Observables);
     //
     m_useViewerSupportButton = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_useViewerSupportButton).fillH().grabH();
-    m_useViewerSupportButton.setText("Use ViewerSupport for generate JFace Viewer bindings");
+    m_useViewerSupportButton.setText(Messages.DbCodeGenerationPreferencePage_useViewerSupport);
     //
     try {
       GlobalFactoryHelper.confgureCodeGenerationPreferencePage(container, m_bindManager);
@@ -114,9 +115,9 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     Group strategiesComposite = new Group(container, SWT.NONE);
     GridLayoutFactory.create(strategiesComposite).columns(2);
     GridDataFactory.create(strategiesComposite).fillH().grabH();
-    strategiesComposite.setText("Default value for new strategy object");
+    strategiesComposite.setText(Messages.DbCodeGenerationPreferencePage_defaultValueStrategyGroup);
     //
-    new Label(strategiesComposite, SWT.NONE).setText("UpdateValuesStrategy:");
+    new Label(strategiesComposite, SWT.NONE).setText(Messages.DbCodeGenerationPreferencePage_defaultValueStrategyLabel);
     m_updateValueStrategyCombo = new Combo(strategiesComposite, SWT.BORDER | SWT.READ_ONLY);
     GridDataFactory.create(m_updateValueStrategyCombo).fillH().grabH();
     m_updateValueStrategyCombo.setItems(new String[]{
@@ -125,7 +126,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
         "POLICY_ON_REQUEST",
         "POLICY_CONVERT"});
     //
-    new Label(strategiesComposite, SWT.NONE).setText("UpdateListStrategy:");
+    new Label(strategiesComposite, SWT.NONE).setText(Messages.DbCodeGenerationPreferencePage_updateListStrategy);
     m_updateListStrategyCombo = new Combo(strategiesComposite, SWT.BORDER | SWT.READ_ONLY);
     GridDataFactory.create(m_updateListStrategyCombo).fillH().grabH();
     m_updateListStrategyCombo.setItems(new String[]{
@@ -133,7 +134,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
         "POLICY_NEVER",
         "POLICY_ON_REQUEST"});
     //
-    new Label(strategiesComposite, SWT.NONE).setText("UpdateSetStrategy:");
+    new Label(strategiesComposite, SWT.NONE).setText(Messages.DbCodeGenerationPreferencePage_updateSetStrategy);
     m_updateSetStrategyCombo = new Combo(strategiesComposite, SWT.BORDER | SWT.READ_ONLY);
     GridDataFactory.create(m_updateSetStrategyCombo).fillH().grabH();
     m_updateSetStrategyCombo.setItems(new String[]{
@@ -143,7 +144,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     // access block
     Label accessLabel = new Label(container, SWT.NONE);
     GridDataFactory.create(accessLabel).fillH().grabH();
-    accessLabel.setText("Generate initDataBindings() with access:");
+    accessLabel.setText(Messages.DbCodeGenerationPreferencePage_dbMethodAccess);
     //
     m_accessButtons = new Button[TITLES.length];
     for (int i = 0; i < TITLES.length; i++) {
@@ -155,7 +156,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     // preview block
     Label previewLabel = new Label(container, SWT.NONE);
     GridDataFactory.create(previewLabel).fillH().grabH();
-    previewLabel.setText("Preview:");
+    previewLabel.setText(Messages.DbCodeGenerationPreferencePage_preview);
     //
     ExecutionUtils.runRethrow(new RunnableEx() {
       public void run() throws Exception {
@@ -235,19 +236,19 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     boolean addState = m_addInvokeButton.getSelection();
     boolean fieldState = m_assignToFieldButton.getSelection();
     // prepare source
-    final StringBuffer source = new StringBuffer("public class Foo extends ... {\n");
+    final StringBuffer source = new StringBuffer(Messages.DbCodeGenerationPreferencePage_27);
     // field code
     if (addState && fieldState) {
-      source.append("\n  private DataBindingContext m_bindingContext;\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_28);
     }
     // create GUI method
-    source.append("\n  CreateGUI() {\n    ...\n");
+    source.append(Messages.DbCodeGenerationPreferencePage_29);
     if (addState && fieldState) {
-      source.append("    m_bindingContext = initDataBindings();\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_30);
     } else if (addState && !fieldState) {
-      source.append("    initDataBindings();\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_31);
     }
-    source.append("  }\n\n  ");
+    source.append(Messages.DbCodeGenerationPreferencePage_32);
     // access code
     int access = 1;
     for (int i = 0; i < m_accessButtons.length; i++) {
@@ -258,22 +259,22 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     }
     source.append(DataBindingsRootInfo.ACCESS_VALUES[access]);
     // initDB method
-    source.append("DataBindingContext initDataBindings() {\n");
+    source.append(Messages.DbCodeGenerationPreferencePage_33);
     boolean addTryCatch = m_addTryCatch.getSelection();
     if (addTryCatch) {
-      source.append("   try {\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_34);
     }
-    source.append("    ...\n");
+    source.append(Messages.DbCodeGenerationPreferencePage_35);
     if (m_generateCodeForVersion13Button.getSelection()) {
-      source.append("    WidgetProperties.text(SWT.Modify).observe(m_text);\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_36);
     } else {
-      source.append("    SWTObservables.observeText(m_text, SWT.Modify);\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_37);
     }
-    source.append("    ...\n");
+    source.append(Messages.DbCodeGenerationPreferencePage_38);
     if (addTryCatch) {
-      source.append("   } catch(Throwable e) {}\n");
+      source.append(Messages.DbCodeGenerationPreferencePage_39);
     }
-    source.append("  }\n\n}");
+    source.append(Messages.DbCodeGenerationPreferencePage_40);
     // set preview source
     ExecutionUtils.runRethrow(new RunnableEx() {
       public void run() throws Exception {

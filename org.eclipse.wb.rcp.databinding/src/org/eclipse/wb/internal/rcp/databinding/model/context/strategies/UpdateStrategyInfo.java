@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
 
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -31,6 +32,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -113,10 +115,9 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
       Assert.isNull(m_converter);
       m_converter = (ConverterInfo) resolver.getModel(arguments[0]);
       if (m_converter == null) {
-        AbstractParser.addError(
-            editor,
-            "Converter argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.UpdateStrategyInfo_converterArgumentNotFound,
+            arguments[0]), new Throwable());
       } else {
         IModelSupport modelSupport = resolver.getModelSupport(invocation.getExpression());
         if (modelSupport instanceof StrategyModelSupport) {
@@ -212,8 +213,12 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
     configuration.setRetargetClassName(getStrategyClass(), "POLICY_UPDATE");
     configuration.setBaseClassName(getStrategyClass());
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(context.getDirection() + " strategy class is empty.");
-    configuration.setErrorMessagePrefix(context.getDirection() + " strategy");
+    configuration.setEmptyClassErrorMessage(MessageFormat.format(
+        Messages.UpdateStrategyInfo_errorMessage,
+        context.getDirection()));
+    configuration.setErrorMessagePrefix(MessageFormat.format(
+        Messages.UpdateStrategyInfo_errorMessagePrefix,
+        context.getDirection()));
     //
     if (m_strategyType == StrategyType.ExtendetClass
         && m_strategyValue.toString().indexOf('(') != -1) {
@@ -228,13 +233,17 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
    */
   protected final ChooseClassConfiguration createConverterConfiguration(BindingUiContentProviderContext context) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("Converter:");
+    configuration.setDialogFieldLabel(Messages.UpdateStrategyInfo_chooseLabel);
     configuration.setValueScope("org.eclipse.core.databinding.conversion.IConverter");
     configuration.setClearValue("N/S");
     configuration.setBaseClassName("org.eclipse.core.databinding.conversion.IConverter");
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(context.getDirection() + " converter class is empty.");
-    configuration.setErrorMessagePrefix(context.getDirection() + " converter");
+    configuration.setEmptyClassErrorMessage(MessageFormat.format(
+        Messages.UpdateStrategyInfo_chooseErrorMessage,
+        context.getDirection()));
+    configuration.setErrorMessagePrefix(MessageFormat.format(
+        Messages.UpdateStrategyInfo_chooseErrorMessagePrefix,
+        context.getDirection()));
     //
     if (m_converter != null
         && (m_converter.isAnonymous() || m_converter.getClassName().indexOf('(') != -1)) {

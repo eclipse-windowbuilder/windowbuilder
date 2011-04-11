@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
@@ -97,15 +98,15 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setText("Strategy Properties...");
+    m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
       public void expansionStateChanging(ExpansionEvent e) {
         m_settings.put(m_settingKey, !m_expandableComposite.isExpanded());
         if (m_expandableComposite.isExpanded()) {
-          m_expandableComposite.setText("Strategy Properties...");
+          m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
         } else {
-          m_expandableComposite.setText("Strategy Properties");
+          m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
         }
       }
 
@@ -129,7 +130,7 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
     //
     if (m_settings.getBoolean(m_settingKey)) {
       m_expandableComposite.setExpanded(true);
-      m_expandableComposite.setText("Strategy Properties");
+      m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
       parent.layout();
     }
   }

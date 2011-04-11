@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
@@ -149,13 +150,13 @@ public abstract class DetailBeanObservableInfo extends ObservableInfo {
   protected ChooseClassAndPropertiesConfiguration getConfiguration() {
     if (m_configuration == null) {
       m_configuration = new ChooseClassAndPropertiesConfiguration();
-      m_configuration.setDialogFieldLabel("Master bean class:");
+      m_configuration.setDialogFieldLabel(Messages.DetailBeanObservableInfo_objectLabel);
       m_configuration.setValueScope("beans");
       m_configuration.setChooseInterfaces(true);
-      m_configuration.setEmptyClassErrorMessage("Choose a master bean class that contains properties.");
-      m_configuration.setErrorMessagePrefix("Master bean class");
-      m_configuration.setPropertiesLabel("Properties (for detail):");
-      m_configuration.setPropertiesErrorMessage("Choose a detail property.");
+      m_configuration.setEmptyClassErrorMessage(Messages.DetailBeanObservableInfo_errorMessage);
+      m_configuration.setErrorMessagePrefix(Messages.DetailBeanObservableInfo_errorMessagePrefix);
+      m_configuration.setPropertiesLabel(Messages.DetailBeanObservableInfo_propertiesLabel);
+      m_configuration.setPropertiesErrorMessage(Messages.DetailBeanObservableInfo_propertiesErrorMessage);
     }
     return m_configuration;
   }

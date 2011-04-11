@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.MapsBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.SimpleClassUiContentProvider;
 
@@ -76,7 +77,7 @@ public final class ObservableMapLabelProviderInfo extends AbstractLabelProviderI
       DatabindingsProvider provider,
       boolean useClear) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-    configuration.setDialogFieldLabel("LabelProvider:");
+    configuration.setDialogFieldLabel(Messages.ObservableMapLabelProviderInfo_title);
     configuration.setValueScope(MAP_PROVIDER_CLASS);
     if (useClear) {
       configuration.setClearValue(MAP_PROVIDER_CLASS);
@@ -89,8 +90,8 @@ public final class ObservableMapLabelProviderInfo extends AbstractLabelProviderI
     } else {
       configuration.setBaseClassName("org.eclipse.jface.viewers.IBaseLabelProvider");
     }
-    configuration.setEmptyClassErrorMessage("Label provider class is empty.");
-    configuration.setErrorMessagePrefix("Label provider");
+    configuration.setEmptyClassErrorMessage(Messages.ObservableMapLabelProviderInfo_emptyMessage);
+    configuration.setErrorMessagePrefix(Messages.ObservableMapLabelProviderInfo_errorPrefix);
     //
     SimpleClassUiContentProvider contentProvider =
         new SimpleClassUiContentProvider(configuration, this);

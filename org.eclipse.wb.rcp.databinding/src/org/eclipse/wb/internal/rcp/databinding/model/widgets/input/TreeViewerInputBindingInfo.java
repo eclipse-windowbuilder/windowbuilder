@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Label
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.MultiTargetRunnable;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.GlobalFactoryHelper;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.DataBindingContextInfo;
@@ -149,12 +150,13 @@ public final class TreeViewerInputBindingInfo extends AbstractViewerInputBinding
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     // configure page
-    listener.setTitle("Properties");
-    listener.setMessage("Bind viewer content, label providers and input.");
+    listener.setTitle(Messages.TreeViewerInputBindingInfo_title);
+    listener.setMessage(Messages.TreeViewerInputBindingInfo_errorMessage);
     //
-    providers.add(new LabelUiContentProvider("Viewer:",
+    providers.add(new LabelUiContentProvider(Messages.TreeViewerInputBindingInfo_viewerLabel,
         m_viewerBindable.getPresentation().getTextForBinding()));
-    providers.add(new LabelUiContentProvider("Input:", m_inputObservable.getPresentationText()));
+    providers.add(new LabelUiContentProvider(Messages.TreeViewerInputBindingInfo_inputLabel,
+        m_inputObservable.getPresentationText()));
     //
     TreeInputElementUiContentProvider inputEditor =
         new TreeInputElementUiContentProvider(this, listener, provider);
@@ -166,11 +168,11 @@ public final class TreeViewerInputBindingInfo extends AbstractViewerInputBinding
           (ChooseClassAndPropertiesUiContentProvider) providers.get(providers.size() - 1);
       //
       ChooseClassConfiguration configuration = new ChooseClassConfiguration();
-      configuration.setDialogFieldLabel("Detail bean class:");
+      configuration.setDialogFieldLabel(Messages.TreeViewerInputBindingInfo_chooseLabel);
       configuration.setValueScope("beans1");
       configuration.setChooseInterfaces(true);
-      configuration.setEmptyClassErrorMessage("Choose a detail bean class that contains properties.");
-      configuration.setErrorMessagePrefix("Detail bean class");
+      configuration.setEmptyClassErrorMessage(Messages.TreeViewerInputBindingInfo_chooseEmptyMessage);
+      configuration.setErrorMessagePrefix(Messages.TreeViewerInputBindingInfo_chooseErrorPrefix);
       //
       TreeDetailUiContentProvider detailUIContentProvider =
           new TreeDetailUiContentProvider(configuration,

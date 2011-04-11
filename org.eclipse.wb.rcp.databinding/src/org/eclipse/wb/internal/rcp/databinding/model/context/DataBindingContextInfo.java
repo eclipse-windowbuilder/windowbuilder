@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.databinding.parser.AbstractParser;
 import org.eclipse.wb.internal.core.databinding.parser.IModelResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.AbstractBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateListStrategyInfo;
@@ -31,6 +32,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -103,19 +105,17 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       // prepare target
       ObservableInfo target = (ObservableInfo) resolver.getModel(arguments[0]);
       if (target == null) {
-        AbstractParser.addError(
-            editor,
-            "Target argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.DataBindingContextInfo_targetArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare model
       ObservableInfo model = (ObservableInfo) resolver.getModel(arguments[1]);
       if (model == null) {
-        AbstractParser.addError(
-            editor,
-            "Model argument '" + arguments[1] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.DataBindingContextInfo_modelArgumentNotFound,
+            arguments[1]), new Throwable());
         return null;
       }
       // prepare target strategy
@@ -144,19 +144,17 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       // prepare target
       ObservableInfo target = (ObservableInfo) resolver.getModel(arguments[0]);
       if (target == null) {
-        AbstractParser.addError(
-            editor,
-            "Target argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.DataBindingContextInfo_targetArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare model
       ObservableInfo model = (ObservableInfo) resolver.getModel(arguments[1]);
       if (model == null) {
-        AbstractParser.addError(
-            editor,
-            "Model argument '" + arguments[1] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.DataBindingContextInfo_modelArgumentNotFound,
+            arguments[1]), new Throwable());
         return null;
       }
       // prepare target strategy
@@ -185,19 +183,17 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       // prepare target
       ObservableInfo target = (ObservableInfo) resolver.getModel(arguments[0]);
       if (target == null) {
-        AbstractParser.addError(
-            editor,
-            "Target argument '" + arguments[0] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.DataBindingContextInfo_targetArgumentNotFound,
+            arguments[0]), new Throwable());
         return null;
       }
       // prepare model
       ObservableInfo model = (ObservableInfo) resolver.getModel(arguments[1]);
       if (model == null) {
-        AbstractParser.addError(
-            editor,
-            "Model argument '" + arguments[1] + "' not found",
-            new Throwable());
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.DataBindingContextInfo_modelArgumentNotFound,
+            arguments[1]), new Throwable());
         return null;
       }
       // prepare target strategy
@@ -225,7 +221,10 @@ public final class DataBindingContextInfo extends AstObjectInfo {
     if (strategy == null) {
       if (expression instanceof NullLiteral) {
       } else {
-        AbstractParser.addError(editor, "Undefined strategy '" + expression + "'", new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(Messages.DataBindingContextInfo_undefinedStrategy, expression),
+            new Throwable());
       }
     }
   }

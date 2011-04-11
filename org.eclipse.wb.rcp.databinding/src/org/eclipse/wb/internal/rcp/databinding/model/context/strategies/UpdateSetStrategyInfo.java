@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassConfiguration;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.wb.internal.rcp.databinding.model.context.BindingUiContentProviderContext;
 import org.eclipse.wb.internal.rcp.databinding.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ConverterUiContentProvider;
@@ -79,7 +80,7 @@ public final class UpdateSetStrategyInfo extends UpdateStrategyInfo {
       return Value.POLICY_UPDATE;
     }
     //
-    Assert.fail("Undefine set strategy value: " + value);
+    Assert.fail(Messages.UpdateSetStrategyInfo_errUndefinedStratery + value);
     return null;
   }
 
@@ -93,7 +94,7 @@ public final class UpdateSetStrategyInfo extends UpdateStrategyInfo {
       case POLICY_UPDATE :
         return "POLICY_UPDATE";
     }
-    Assert.fail("Undefine set strategy value: " + m_strategyValue);
+    Assert.fail(Messages.UpdateSetStrategyInfo_errUndefinedStratery + m_strategyValue);
     return null;
   }
 
@@ -122,7 +123,7 @@ public final class UpdateSetStrategyInfo extends UpdateStrategyInfo {
   @Override
   protected ChooseClassConfiguration createConfiguration(BindingUiContentProviderContext context) {
     ChooseClassConfiguration configuration = super.createConfiguration(context);
-    configuration.setDialogFieldLabel("UpdateSetStrategy:");
+    configuration.setDialogFieldLabel(Messages.UpdateSetStrategyInfo_strategyLabel);
     configuration.setDefaultValues(new String[]{
         "POLICY_UPDATE",
         "POLICY_NEVER",

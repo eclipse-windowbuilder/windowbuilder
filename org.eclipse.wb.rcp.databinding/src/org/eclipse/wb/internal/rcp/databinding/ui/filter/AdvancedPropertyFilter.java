@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.ui.filter.PropertyFilter;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
+import org.eclipse.wb.internal.rcp.databinding.Messages;
 
 import org.eclipse.jface.viewers.Viewer;
 
@@ -31,7 +32,7 @@ public final class AdvancedPropertyFilter extends PropertyFilter {
   //
   ////////////////////////////////////////////////////////////////////////////
   public AdvancedPropertyFilter() {
-    super("Advanced", Activator.getImage("advanced.png"));
+    super(Messages.AdvancedPropertyFilter_title, Activator.getImage("advanced.png"));
   }
 
   ////////////////////////////////////////////////////////////////////////////
