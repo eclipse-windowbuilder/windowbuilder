@@ -64,9 +64,9 @@ public class Activator extends AbstractUIPlugin {
       BundleResourceProvider.get(PLUGIN_ID);
 
   /**
-   * @return the {@link Image} from "icons" directory, with caching.
+   * @return the {@link Image} from "/" directory, with caching.
    */
   public static Image getImage(String path) {
-    return m_resourceProvider.getImage("icons/" + path);
+    return m_resourceProvider.getImage(path);
   }
 }
