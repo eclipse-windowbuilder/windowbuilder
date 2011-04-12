@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.widgets;
 
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.AbstractPositionCompositeLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.widgets.CBannerInfo;
 
@@ -38,8 +39,29 @@ public final class CBannerLayoutEditPolicy extends AbstractPositionCompositeLayo
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void addFeedbacks() throws Exception {
-    addFeedback2(0.0, 0.0, 0.5, 0.4, new Insets(0, 0, 1, 1), "Left", "setLeft");
-    addFeedback2(0.5, 0.0, 1.0, 0.4, new Insets(0, 0, 1, 0), "Right", "setRight");
-    addFeedback2(0.0, 0.6, 1.0, 1.0, new Insets(0, 0, 0, 0), "Bottom", "setBottom");
+    addFeedback2(
+        0.0,
+        0.0,
+        0.5,
+        0.4,
+        new Insets(0, 0, 1, 1),
+        GefMessages.CBannerLayoutEditPolicy_posLeft,
+        "setLeft");
+    addFeedback2(
+        0.5,
+        0.0,
+        1.0,
+        0.4,
+        new Insets(0, 0, 1, 0),
+        GefMessages.CBannerLayoutEditPolicy_posRight,
+        "setRight");
+    addFeedback2(
+        0.0,
+        0.6,
+        1.0,
+        1.0,
+        new Insets(0, 0, 0, 0),
+        GefMessages.CBannerLayoutEditPolicy_posBottom,
+        "setBottom");
   }
 }

@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IListAdapter;
 import org.eclipse.wb.internal.core.utils.dialogfields.ListDialogField;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 import org.eclipse.wb.internal.rcp.wizards.rcp.RcpPartWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -48,9 +49,9 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public MultiPageEditorPartWizardPage() {
-    setTitle("Create Wizard");
+    setTitle(WizardsMessages.MultiPageEditorPartWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/MultiPageEditorPart/banner.gif"));
-    setDescription("Create MultiPageEditorPart with IEditorPart's as pages.");
+    setDescription(WizardsMessages.MultiPageEditorPartWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -112,7 +113,7 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
         throw new CoreException(new Status(IStatus.ERROR,
             Activator.PLUGIN_ID,
             IStatus.OK,
-            "Error configure (add new editor) plugin.xml",
+            WizardsMessages.MultiPageEditorPartWizardPage_errorPluginXml,
             e));
       }
     }
@@ -138,12 +139,21 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
 
   @Override
   protected void createLocalControls(Composite parent, int columns) {
-    createLocalControls(parent, columns, "Editor name (&title):", "New MultiPageEditorPart");
+    createLocalControls(
+        parent,
+        columns,
+        WizardsMessages.MultiPageEditorPartWizardPage_editorName,
+        WizardsMessages.MultiPageEditorPartWizardPage_newEditorPart);
     createPagesField(parent, columns);
   }
 
   private void createPagesField(Composite parent, int columns) {
-    String[] buttonLabels = new String[]{"&Add...", "&Remove", "&Up", "&Down"};
+    String[] buttonLabels =
+        new String[]{
+            WizardsMessages.MultiPageEditorPartWizardPage_addButton,
+            WizardsMessages.MultiPageEditorPartWizardPage_removeButton,
+            WizardsMessages.MultiPageEditorPartWizardPage_upButton,
+            WizardsMessages.MultiPageEditorPartWizardPage_downButton};
     IListAdapter adapter = new IListAdapter() {
       public void customButtonPressed(ListDialogField field, int index) {
         if (index == 0) {
@@ -170,7 +180,7 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
       }
     };
     m_pagesField = new ListDialogField(adapter, buttonLabels, labelProvider);
-    m_pagesField.setLabelText("Pages:");
+    m_pagesField.setLabelText(WizardsMessages.MultiPageEditorPartWizardPage_pagesList);
     m_pagesField.setTableColumns(new ListDialogField.ColumnsDescription(1, false));
     m_pagesField.setRemoveButtonIndex(1);
     m_pagesField.setUpButtonIndex(2);

@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.jface.dialog;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class TitleAreaDialogWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public TitleAreaDialogWizardPage() {
-    setTitle("Create JTitleAreaDialog");
+    setTitle(WizardsMessages.TitleAreaDialogWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/TitleAreaDialog/banner.gif"));
-    setDescription("Create empty JFace TitleAreaDialog.");
+    setDescription(WizardsMessages.TitleAreaDialogWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

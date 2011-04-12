@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.jface.application;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 
@@ -28,7 +29,7 @@ public final class JFaceApplicationWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public JFaceApplicationWizard() {
-    setWindowTitle("New JFace ApplicationWindow");
+    setWindowTitle(WizardsMessages.JFaceApplicationWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

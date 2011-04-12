@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.column;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -37,19 +38,35 @@ public final class ColumnLayoutDataAssistantPage extends AbstractAssistantPage {
     // width/height hints
     {
       Group group =
-          addIntegerProperties(this, "Size", new String[][]{
-              {"widthHint", "Width hint:"},
-              {"heightHint", "Height hint:"}}, new int[]{SWT.DEFAULT, SWT.DEFAULT});
+          addIntegerProperties(
+              this,
+              ModelMessages.ColumnLayoutDataAssistantPage_sizeGroup,
+              new String[][]{
+                  {"widthHint", ModelMessages.ColumnLayoutDataAssistantPage_widthHint},
+                  {"heightHint", ModelMessages.ColumnLayoutDataAssistantPage_heightHint}},
+              new int[]{SWT.DEFAULT, SWT.DEFAULT});
       GridDataFactory.create(group).fillV();
     }
     // horizontal alignment
     {
       Group orientationGroup =
-          addChoiceProperty(this, "horizontalAlignment", "Horizontal alignment", new Object[][]{
-              new Object[]{"Left", ColumnLayoutData.LEFT},
-              new Object[]{"Center", ColumnLayoutData.CENTER},
-              new Object[]{"Right", ColumnLayoutData.RIGHT},
-              new Object[]{"Fill", ColumnLayoutData.FILL},});
+          addChoiceProperty(
+              this,
+              "horizontalAlignment",
+              ModelMessages.ColumnLayoutDataAssistantPage_alignmentGroup,
+              new Object[][]{
+                  new Object[]{
+                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentLeft,
+                      ColumnLayoutData.LEFT},
+                  new Object[]{
+                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentCenter,
+                      ColumnLayoutData.CENTER},
+                  new Object[]{
+                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentRight,
+                      ColumnLayoutData.RIGHT},
+                  new Object[]{
+                      ModelMessages.ColumnLayoutDataAssistantPage_alignmentFill,
+                      ColumnLayoutData.FILL},});
       GridDataFactory.create(orientationGroup).fillV();
     }
   }

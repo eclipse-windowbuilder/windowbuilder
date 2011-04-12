@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.section;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class SectionPartWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public SectionPartWizardPage() {
-    setTitle("Create SectionPart");
+    setTitle(WizardsMessages.SectionPartWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/SectionPart/banner.gif"));
-    setDescription("Create empty Forms SectionPart.");
+    setDescription(WizardsMessages.SectionPartWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

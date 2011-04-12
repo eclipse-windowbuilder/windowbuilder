@@ -52,8 +52,8 @@ public final class TableViewerCompositeEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public TableViewerCompositeEntryInfo() {
-    setName("TableViewer Composite");
-    setDescription("Composite with TableViewer that lays out columns using TableColumnLayout.");
+    setName(PaletteMessages.TableViewerCompositeEntryInfo_name);
+    setDescription(PaletteMessages.TableViewerCompositeEntryInfo_description);
     m_compositeEntry = new ComponentEntryInfo();
     m_compositeEntry.setComponentClassName("org.eclipse.swt.widgets.Composite");
   }

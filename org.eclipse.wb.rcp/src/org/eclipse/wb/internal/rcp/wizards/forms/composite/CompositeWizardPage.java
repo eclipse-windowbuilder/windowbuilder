@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.composite;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class CompositeWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CompositeWizardPage() {
-    setTitle("Create Forms Composite");
+    setTitle(WizardsMessages.CompositeWizardPage_title2);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/Composite/banner.gif"));
-    setDescription("Create empty Forms Composite.");
+    setDescription(WizardsMessages.CompositeWizardPage_description2);
   }
 
   ////////////////////////////////////////////////////////////////////////////

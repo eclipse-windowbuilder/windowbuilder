@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -93,7 +94,7 @@ public final class FormToolkitVariableSupport extends AbstractNoNameVariableSupp
           JavaInfoUtils.getParameter(m_hostJavaInfo, "FormToolkit.configureMethod");
       Assert.isNotNull(
           configureMethodSignature,
-          "No \"FormToolkit.configureMethod\" parameter for %s.",
+          ModelMessages.FormToolkitVariableSupport_noFormToolkit_configureMethod,
           m_hostJavaInfo);
       configureMethod =
           AstNodeUtils.getMethodBySignature(

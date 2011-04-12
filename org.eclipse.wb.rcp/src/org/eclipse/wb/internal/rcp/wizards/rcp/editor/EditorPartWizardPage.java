@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.wizards.rcp.editor;
 
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 import org.eclipse.wb.internal.rcp.wizards.rcp.RcpPartWizardPage;
 
 import org.eclipse.core.runtime.CoreException;
@@ -40,9 +41,9 @@ public final class EditorPartWizardPage extends RcpPartWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public EditorPartWizardPage() {
-    setTitle("Create EditorPart");
+    setTitle(WizardsMessages.EditorPartWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/EditorPart/banner.gif"));
-    setDescription("Create empty Eclipse RCP EditorPart.");
+    setDescription(WizardsMessages.EditorPartWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -63,7 +64,7 @@ public final class EditorPartWizardPage extends RcpPartWizardPage {
         throw new CoreException(new Status(IStatus.ERROR,
             Activator.PLUGIN_ID,
             IStatus.OK,
-            "Error configure (add new editor) plugin.xml",
+            WizardsMessages.EditorPartWizardPage_errorPluginXml,
             e));
       }
     }
@@ -89,6 +90,10 @@ public final class EditorPartWizardPage extends RcpPartWizardPage {
 
   @Override
   protected void createLocalControls(Composite parent, int columns) {
-    createLocalControls(parent, columns, "Editor name (&title):", "New EditorPart");
+    createLocalControls(
+        parent,
+        columns,
+        WizardsMessages.EditorPartWizardPage_editorName,
+        WizardsMessages.EditorPartWizardPage_newEditorPart);
   }
 }

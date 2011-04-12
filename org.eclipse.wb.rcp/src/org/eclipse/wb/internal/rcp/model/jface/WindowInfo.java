@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.SwtMethodParameterEvaluator;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
@@ -100,7 +101,7 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
         getTopBoundsSupport().setSize(preferredSize.width, preferredSize.height);
       }
     };
-    action.setText("Set minimal size, as after pack()");
+    action.setText(ModelMessages.WindowInfo_minSizeActionText);
     manager.appendToGroup(IContextMenuConstants.GROUP_LAYOUT, action);
   }
 

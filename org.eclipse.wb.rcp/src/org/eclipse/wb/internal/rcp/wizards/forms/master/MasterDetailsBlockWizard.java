@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.master;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.forms.MasterDetailsBlock;
@@ -29,7 +30,7 @@ public final class MasterDetailsBlockWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public MasterDetailsBlockWizard() {
-    setWindowTitle("New Forms MasterDetailsBlock");
+    setWindowTitle(WizardsMessages.MasterDetailsBlockWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

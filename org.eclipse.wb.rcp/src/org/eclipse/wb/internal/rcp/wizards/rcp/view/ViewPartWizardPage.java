@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.wizards.rcp.view;
 
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 import org.eclipse.wb.internal.rcp.wizards.rcp.AbstractViewPartWizardPage;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -29,9 +30,9 @@ public final class ViewPartWizardPage extends AbstractViewPartWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ViewPartWizardPage() {
-    setTitle("Create ViewPart");
+    setTitle(WizardsMessages.ViewPartWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/ViewPart/banner.gif"));
-    setDescription("Create empty Eclipse RCP ViewPart.");
+    setDescription(WizardsMessages.ViewPartWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.wizards.rcp;
 
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -51,7 +52,7 @@ public abstract class AbstractViewPartWizardPage extends RcpPartWizardPage {
         throw new CoreException(new Status(IStatus.ERROR,
             Activator.PLUGIN_ID,
             IStatus.OK,
-            "Error configure (add new view) plugin.xml",
+            WizardsMessages.AbstractViewPartWizardPage_errorPluginXml,
             e));
       }
     }
@@ -82,6 +83,10 @@ public abstract class AbstractViewPartWizardPage extends RcpPartWizardPage {
 
   @Override
   protected void createLocalControls(Composite parent, int columns) {
-    createLocalControls(parent, columns, "View name (&title):", "New ViewPart");
+    createLocalControls(
+        parent,
+        columns,
+        WizardsMessages.AbstractViewPartWizardPage_viewName,
+        WizardsMessages.AbstractViewPartWizardPage_newViewPart);
   }
 }

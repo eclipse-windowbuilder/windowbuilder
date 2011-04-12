@@ -16,6 +16,7 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.TerminatorLayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.widgets.ScrolledCompositeLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.widgets.ScrolledCompositeInfo;
 import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
@@ -48,7 +49,7 @@ public final class ScrolledCompositeEditPart extends CompositeEditPart {
   protected void drawCustomBorder(Figure figure, Graphics graphics) {
     super.drawCustomBorder(figure, graphics);
     if (!m_composite.hasRequired_setContent()) {
-      String message = "Warning: setContent() missing.";
+      String message = GefMessages.ScrolledCompositeEditPart_setContentWarning;
       Dimension extent = graphics.getTextExtent(message);
       graphics.setForegroundColor(IColorConstants.red);
       graphics.drawText(

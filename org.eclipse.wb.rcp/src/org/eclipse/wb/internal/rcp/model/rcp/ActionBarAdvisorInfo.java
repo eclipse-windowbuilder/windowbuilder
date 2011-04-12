@@ -35,6 +35,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionRootProcessor;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
@@ -137,8 +138,8 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
         // create "System" category
         {
           CategoryInfo category = new CategoryInfo("system");
-          category.setName("System");
-          category.setDescription("System tools");
+          category.setName(ModelMessages.ActionBarAdvisorInfo_systemCategoryName);
+          category.setDescription(ModelMessages.ActionBarAdvisorInfo_systemCategoryDescription);
           category.setOpen(true);
           categories.add(0, category);
           // add entries
@@ -151,8 +152,8 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
         // create "ActionFactory" category
         {
           CategoryInfo category = new CategoryInfo("ActionFactory");
-          category.setName("ActionFactory");
-          category.setDescription("Actions from ActionFactory");
+          category.setName(ModelMessages.ActionBarAdvisorInfo_factoryCategoryName);
+          category.setDescription(ModelMessages.ActionBarAdvisorInfo_factoryCategoryDescription);
           category.setOpen(true);
           categories.add(category);
           // add entries

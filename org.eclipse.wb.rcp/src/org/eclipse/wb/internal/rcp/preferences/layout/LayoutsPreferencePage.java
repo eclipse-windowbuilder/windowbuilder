@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
+import org.eclipse.wb.internal.rcp.preferences.PreferencesMessages;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataNameSupport;
 import org.eclipse.wb.internal.swt.model.layout.LayoutNameSupport;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
@@ -65,7 +66,7 @@ public final class LayoutsPreferencePage
       super(parent, bindManager, preferences);
       // layout template
       {
-        new Label(this, SWT.NONE).setText("Create variable for Layout using pattern:");
+        new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_layoutVariablePattern);
         // control
         Combo templateCombo = new Combo(this, SWT.READ_ONLY);
         GridDataFactory.create(templateCombo).grabH().fillH();
@@ -75,7 +76,7 @@ public final class LayoutsPreferencePage
       }
       // layout data template
       {
-        new Label(this, SWT.NONE).setText("Create variable for LayoutData using pattern:");
+        new Label(this, SWT.NONE).setText(PreferencesMessages.LayoutsPreferencePage_dataVariablePattern);
         // control
         Combo templateCombo = new Combo(this, SWT.READ_ONLY);
         GridDataFactory.create(templateCombo).grabH().fillH();

@@ -65,13 +65,13 @@ public final class MainPreferencePage extends AbstractBindingPreferencesPage {
       // default size
       {
         {
-          new Label(this, SWT.NONE).setText("Default form width:");
+          new Label(this, SWT.NONE).setText(PreferencesMessages.MainPreferencePage_defaultFormWidth);
           Text text = new Text(this, SWT.BORDER | SWT.RIGHT);
           GridDataFactory.create(text).grabH().fillH();
           bindInteger(text, IPreferenceConstants.P_GENERAL_DEFAULT_TOP_WIDTH);
         }
         {
-          new Label(this, SWT.NONE).setText("Default form height:");
+          new Label(this, SWT.NONE).setText(PreferencesMessages.MainPreferencePage_defaultFormHeight);
           Text text = new Text(this, SWT.BORDER | SWT.RIGHT);
           GridDataFactory.create(text).grabH().fillH();
           bindInteger(text, IPreferenceConstants.P_GENERAL_DEFAULT_TOP_HEIGHT);
@@ -81,33 +81,33 @@ public final class MainPreferencePage extends AbstractBindingPreferencesPage {
       checkButton(
           this,
           2,
-          "Highlight containers without borders",
+          PreferencesMessages.MainPreferencePage_highlightBorders,
           IPreferenceConstants.P_GENERAL_HIGHLIGHT_CONTAINERS);
       checkButton(
           this,
           2,
-          "Show text in components tree",
+          PreferencesMessages.MainPreferencePage_showTextInComponentsTree,
           IPreferenceConstants.P_GENERAL_TEXT_SUFFIX);
       checkButton(
           this,
           2,
-          "Show important properties dialog on component adding",
+          PreferencesMessages.MainPreferencePage_showImportantProperties,
           IPreferenceConstants.P_GENERAL_IMPORTANT_PROPERTIES_AFTER_ADD);
       checkButton(
           this,
           2,
-          "Automatically activate direct edit on component adding",
+          PreferencesMessages.MainPreferencePage_autoDirectEdit,
           IPreferenceConstants.P_GENERAL_DIRECT_EDIT_AFTER_ADD);
       // SWT specific preferences
       checkButton(
           this,
           2,
-          "Use ResourceManager for color/font/image access",
+          PreferencesMessages.MainPreferencePage_useResourceManager,
           org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_USE_RESOURCE_MANAGER);
       checkButton(
           this,
           2,
-          "Show style property popup menu cascaded",
+          PreferencesMessages.MainPreferencePage_useCascadedStyleMenu,
           IPreferenceConstants.P_STYLE_PROPERTY_CASCADE_POPUP);
     }
   }

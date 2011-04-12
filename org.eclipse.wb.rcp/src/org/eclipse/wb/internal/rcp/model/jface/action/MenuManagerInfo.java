@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
@@ -83,7 +84,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
       Menu menu = (Menu) ReflectionUtils.invokeMethod2(getObject(), "getMenu");
       // if no any items, create one
       if (menu.getItemCount() == 0) {
-        new MenuItem(menu, SWT.NONE).setText("(Empty MenuManager)");
+        new MenuItem(menu, SWT.NONE).setText(ModelMessages.MenuManagerInfo_emptyMessage);
       }
       // OK, remember as component
       setComponentObject(menu);

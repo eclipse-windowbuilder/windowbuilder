@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.rcp.property;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.dialogs.PropertyPage;
@@ -29,7 +30,7 @@ public final class PropertyPageWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PropertyPageWizard() {
-    setWindowTitle("New Eclipse RCP PropertyPage");
+    setWindowTitle(WizardsMessages.PropertyPageWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.ListDialogField;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -45,9 +46,9 @@ public final class WizardWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public WizardWizardPage() {
-    setTitle("Create Wizard");
+    setTitle(WizardsMessages.WizardWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/Wizard/banner.gif"));
-    setDescription("Create JFace Wizard with pages.");
+    setDescription(WizardsMessages.WizardWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -110,7 +111,12 @@ public final class WizardWizardPage extends RcpWizardPage {
 
   @Override
   protected void createLocalControls(Composite parent, int columns) {
-    String[] buttonLabels = new String[]{"&Add...", "&Remove", "&Up", "&Down"};
+    String[] buttonLabels =
+        new String[]{
+            WizardsMessages.WizardWizardPage_addButton,
+            WizardsMessages.WizardWizardPage_removeButton,
+            WizardsMessages.WizardWizardPage_upButton,
+            WizardsMessages.WizardWizardPage_downButton};
     IListAdapter adapter = new IListAdapter() {
       public void customButtonPressed(ListDialogField field, int index) {
         if (index == 0) {
@@ -140,7 +146,7 @@ public final class WizardWizardPage extends RcpWizardPage {
       }
     };
     m_pagesField = new ListDialogField(adapter, buttonLabels, labelProvider);
-    m_pagesField.setLabelText("Pages:");
+    m_pagesField.setLabelText(WizardsMessages.WizardWizardPage_pagesList);
     m_pagesField.setTableColumns(new ListDialogField.ColumnsDescription(1, false));
     m_pagesField.setRemoveButtonIndex(1);
     m_pagesField.setUpButtonIndex(2);

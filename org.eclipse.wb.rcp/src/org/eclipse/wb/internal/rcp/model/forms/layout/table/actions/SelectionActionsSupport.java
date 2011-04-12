@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapDataInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
@@ -71,20 +72,78 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
     }
     // create horizontal actions
     actions.add(new Separator());
-    addAlignmentAction(actions, dataInfos, true, "left.gif", "Left", TableWrapData.LEFT);
-    addAlignmentAction(actions, dataInfos, true, "center.gif", "Center", TableWrapData.CENTER);
-    addAlignmentAction(actions, dataInfos, true, "right.gif", "Right", TableWrapData.RIGHT);
-    addAlignmentAction(actions, dataInfos, true, "fill.gif", "Fill horizontal", TableWrapData.FILL);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "left.gif",
+        ModelMessages.SelectionActionsSupport_haLeft,
+        TableWrapData.LEFT);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "center.gif",
+        ModelMessages.SelectionActionsSupport_haCenter,
+        TableWrapData.CENTER);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "right.gif",
+        ModelMessages.SelectionActionsSupport_haRight,
+        TableWrapData.RIGHT);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        true,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_haFill,
+        TableWrapData.FILL);
     // create vertical actions
     actions.add(new Separator());
-    addAlignmentAction(actions, dataInfos, false, "top.gif", "Top", TableWrapData.TOP);
-    addAlignmentAction(actions, dataInfos, false, "middle.gif", "Middle", TableWrapData.MIDDLE);
-    addAlignmentAction(actions, dataInfos, false, "bottom.gif", "Bottom", TableWrapData.BOTTOM);
-    addAlignmentAction(actions, dataInfos, false, "fill.gif", "Fill vertical", TableWrapData.FILL);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "top.gif",
+        ModelMessages.SelectionActionsSupport_vaTop,
+        TableWrapData.TOP);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "middle.gif",
+        ModelMessages.SelectionActionsSupport_vaMiddle,
+        TableWrapData.MIDDLE);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "bottom.gif",
+        ModelMessages.SelectionActionsSupport_vaBottom,
+        TableWrapData.BOTTOM);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        false,
+        "fill.gif",
+        ModelMessages.SelectionActionsSupport_vaFill,
+        TableWrapData.FILL);
     // create grab actions
     actions.add(new Separator());
-    addGrabAction(actions, dataInfos, true, "grow.gif", "Horizontal grab");
-    addGrabAction(actions, dataInfos, false, "grow.gif", "Vertical grab");
+    addGrabAction(
+        actions,
+        dataInfos,
+        true,
+        "grow.gif",
+        ModelMessages.SelectionActionsSupport_haGrab);
+    addGrabAction(
+        actions,
+        dataInfos,
+        false,
+        "grow.gif",
+        ModelMessages.SelectionActionsSupport_vaGrab);
   }
 
   private void addAlignmentAction(List<Object> actions,

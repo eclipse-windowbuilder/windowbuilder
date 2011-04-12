@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.model.layout;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Composite;
 
@@ -30,7 +31,7 @@ public final class StackLayoutAssistantPage extends AbstractAssistantPage {
   public StackLayoutAssistantPage(Composite parent, Object selection) {
     super(parent, selection);
     GridLayoutFactory.create(this).columns(1);
-    addIntegerProperty(this, "marginWidth", "Margin width:");
-    addIntegerProperty(this, "marginHeight", "Margin height:");
+    addIntegerProperty(this, "marginWidth", ModelMessages.StackLayoutAssistantPage_marginWidth);
+    addIntegerProperty(this, "marginHeight", ModelMessages.StackLayoutAssistantPage_marginHeight);
   }
 }

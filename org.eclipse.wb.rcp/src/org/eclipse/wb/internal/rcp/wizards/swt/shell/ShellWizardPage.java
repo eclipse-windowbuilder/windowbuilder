@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.swt.shell;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class ShellWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ShellWizardPage() {
-    setTitle("Create SWT Shell");
+    setTitle(WizardsMessages.ShellWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Shell/banner.gif"));
-    setDescription("Create empty SWT Shell.");
+    setDescription(WizardsMessages.ShellWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

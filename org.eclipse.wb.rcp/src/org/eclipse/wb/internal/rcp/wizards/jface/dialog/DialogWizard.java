@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.jface.dialog;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.Wizard;
@@ -29,7 +30,7 @@ public final class DialogWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public DialogWizard() {
-    setWindowTitle("New JFace Dialog");
+    setWindowTitle(WizardsMessages.DialogWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.master;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class MasterDetailsBlockWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public MasterDetailsBlockWizardPage() {
-    setTitle("Create MasterDetailsBlock");
+    setTitle(WizardsMessages.MasterDetailsBlockWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/MasterDetailsBlock/banner.gif"));
-    setDescription("Create empty Forms MasterDetailsBlock.");
+    setDescription(WizardsMessages.MasterDetailsBlockWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

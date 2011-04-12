@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.AbstractPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.FolderViewInfo;
@@ -90,14 +91,26 @@ public final class PageLayoutSidesLayoutEditPolicy extends AbstractPositionLayou
     int rightX = clientArea.right() - SIZE;
     int bottomY = clientArea.bottom() - SIZE;
     // add feedbacks
-    addFeedback(new Rectangle(0, 0, clientArea.width, SIZE), "Top", IPageLayout.TOP);
-    addFeedback(new Rectangle(0, bottomY, clientArea.width, SIZE), "Bottom", IPageLayout.BOTTOM);
-    addFeedback(new Rectangle(0, SIZE + 1, SIZE, innerHeight), "Left", IPageLayout.LEFT);
-    addFeedback(new Rectangle(rightX, SIZE + 1, SIZE, innerHeight), "Right", IPageLayout.RIGHT);
+    addFeedback(
+        new Rectangle(0, 0, clientArea.width, SIZE),
+        GefMessages.PageLayoutSidesLayoutEditPolicy_sideTop,
+        IPageLayout.TOP);
+    addFeedback(
+        new Rectangle(0, bottomY, clientArea.width, SIZE),
+        GefMessages.PageLayoutSidesLayoutEditPolicy_sideBottom,
+        IPageLayout.BOTTOM);
+    addFeedback(
+        new Rectangle(0, SIZE + 1, SIZE, innerHeight),
+        GefMessages.PageLayoutSidesLayoutEditPolicy_sideLeft,
+        IPageLayout.LEFT);
+    addFeedback(
+        new Rectangle(rightX, SIZE + 1, SIZE, innerHeight),
+        GefMessages.PageLayoutSidesLayoutEditPolicy_sideRight,
+        IPageLayout.RIGHT);
     if (m_withOnFolder) {
       addFeedback(
           new Rectangle(SIZE + 1, SIZE + 1, innerWidth, innerHeight),
-          "On same folder",
+          GefMessages.PageLayoutSidesLayoutEditPolicy_sameFolder,
           FOLDER_RELATIONSHIP);
     }
   }

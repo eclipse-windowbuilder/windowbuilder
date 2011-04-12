@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.model.jface.layout;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.swt.SWT;
@@ -59,11 +60,11 @@ public final class TableColumnLayoutInfo extends AbstractColumnLayoutInfo {
       Table table = new Table(composite, SWT.BORDER);
       {
         TableItem item = new TableItem(table, SWT.NONE);
-        item.setText("Don't drop TableColumnLayout on Composite.");
+        item.setText(ModelMessages.TableColumnLayoutInfo_errLine1);
       }
       {
         TableItem item = new TableItem(table, SWT.NONE);
-        item.setText("Drop \"Table[Viewer] Composite\" from palette.");
+        item.setText(ModelMessages.TableColumnLayoutInfo_errLine2);
       }
     }
   }

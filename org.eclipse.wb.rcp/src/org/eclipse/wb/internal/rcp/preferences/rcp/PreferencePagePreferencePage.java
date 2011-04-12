@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
+import org.eclipse.wb.internal.rcp.preferences.PreferencesMessages;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
@@ -61,7 +62,7 @@ public class PreferencePagePreferencePage extends AbstractBindingPreferencesPage
       // boolean preferences
       checkButton(
           this,
-          "FieldEditor use same code generation settings as Control",
+          PreferencesMessages.PreferencePagePreferencePage_useControlCodeGen,
           IPreferenceConstants.PREF_FIELD_USUAL_CODE);
     }
   }

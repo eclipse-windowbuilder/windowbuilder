@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.model.jface.layout;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.swt.SWT;
@@ -59,11 +60,11 @@ public final class TreeColumnLayoutInfo extends AbstractColumnLayoutInfo {
       Tree tree = new Tree(composite, SWT.BORDER);
       {
         TreeItem item = new TreeItem(tree, SWT.NONE);
-        item.setText("Don't drop TreeColumnLayout on Composite.");
+        item.setText(ModelMessages.TreeColumnLayoutInfo_errLine1);
       }
       {
         TreeItem item = new TreeItem(tree, SWT.NONE);
-        item.setText("Drop \"Tree[Viewer] Composite\" from palette.");
+        item.setText(ModelMessages.TreeColumnLayoutInfo_errLine2);
       }
     }
   }

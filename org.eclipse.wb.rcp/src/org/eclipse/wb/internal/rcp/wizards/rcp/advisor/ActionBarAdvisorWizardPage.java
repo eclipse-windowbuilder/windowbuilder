@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.rcp.advisor;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class ActionBarAdvisorWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ActionBarAdvisorWizardPage() {
-    setTitle("Create ActionBarAdvisor");
+    setTitle(WizardsMessages.ActionBarAdvisorWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/ActionBarAdvisor/banner.gif"));
-    setDescription("Create empty Eclipse RCP ActionBarAdvisor.");
+    setDescription(WizardsMessages.ActionBarAdvisorWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

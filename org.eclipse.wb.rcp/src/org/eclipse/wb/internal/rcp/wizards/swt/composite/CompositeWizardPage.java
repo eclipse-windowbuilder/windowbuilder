@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -42,9 +43,9 @@ public final class CompositeWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CompositeWizardPage() {
-    setTitle("Create SWT Composite");
+    setTitle(WizardsMessages.CompositeWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Composite/banner.gif"));
-    setDescription("Create empty SWT Composite. Composites can be reused later in complex forms.");
+    setDescription(WizardsMessages.CompositeWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -77,7 +78,7 @@ public final class CompositeWizardPage extends RcpWizardPage {
     GridDataFactory.create(superClassComposite).fillH().spanH(columns);
     //
     Label label = new Label(superClassComposite, SWT.NONE);
-    label.setText("Select superclass:");
+    label.setText(WizardsMessages.CompositeWizardPage_superClass);
     //
     final Button compositeButton = new Button(superClassComposite, SWT.RADIO);
     compositeButton.setText("org.eclipse.swt.widgets.&Composite");

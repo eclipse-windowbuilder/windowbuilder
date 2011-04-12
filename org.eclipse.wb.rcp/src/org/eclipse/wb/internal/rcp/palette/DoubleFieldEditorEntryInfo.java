@@ -54,8 +54,8 @@ public final class DoubleFieldEditorEntryInfo extends ToolEntryInfo {
   ////////////////////////////////////////////////////////////////////////////
   public DoubleFieldEditorEntryInfo() throws Exception {
     setId(getClass().getName());
-    setName("DoubleFieldEditor");
-    setDescription("A field editor for an double type preference.");
+    setName(PaletteMessages.DoubleFieldEditorEntryInfo_name);
+    setDescription(PaletteMessages.DoubleFieldEditorEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

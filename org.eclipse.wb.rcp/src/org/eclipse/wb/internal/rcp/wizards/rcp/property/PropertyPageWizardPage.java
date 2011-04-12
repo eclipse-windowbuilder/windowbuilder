@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.rcp.property;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class PropertyPageWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PropertyPageWizardPage() {
-    setTitle("Create PropertyPage");
+    setTitle(WizardsMessages.PropertyPageWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/PropertyPage/banner.gif"));
-    setDescription("Create empty Eclipse RCP PropertyPage.");
+    setDescription(WizardsMessages.PropertyPageWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

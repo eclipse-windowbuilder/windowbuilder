@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -44,9 +45,9 @@ public final class SwtApplicationWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public SwtApplicationWizardPage() {
-    setTitle("Create SWT Application");
+    setTitle(WizardsMessages.SwtApplicationWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/ApplicationWindow/banner.gif"));
-    setDescription("Create a simple SWT application with Shell and event loop.");
+    setDescription(WizardsMessages.SwtApplicationWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -94,7 +95,7 @@ public final class SwtApplicationWizardPage extends RcpWizardPage {
     GridDataFactory.create(methodsComposite).fillH().spanH(columns);
     //
     Label label = new Label(methodsComposite, SWT.NONE);
-    label.setText("Create contents in:");
+    label.setText(WizardsMessages.SwtApplicationWizardPage_createContentsIn);
     //
     m_createContentsButton = new Button(methodsComposite, SWT.RADIO);
     m_createContentsButton.setText("protected " + getCreateMethod("createContents") + "() method");

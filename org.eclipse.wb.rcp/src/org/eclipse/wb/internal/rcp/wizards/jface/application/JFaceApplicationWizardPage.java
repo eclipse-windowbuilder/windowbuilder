@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -42,9 +43,9 @@ public final class JFaceApplicationWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public JFaceApplicationWizardPage() {
-    setTitle("Create ApplicationWindow");
+    setTitle(WizardsMessages.JFaceApplicationWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/ApplicationWindow/banner.gif"));
-    setDescription("Create empty JFace ApplicationWindow.");
+    setDescription(WizardsMessages.JFaceApplicationWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -90,15 +91,15 @@ public final class JFaceApplicationWizardPage extends RcpWizardPage {
     GridDataFactory.create(superClassComposite).fillH().spanH(columns);
     //
     Label label = new Label(superClassComposite, SWT.NONE);
-    label.setText("Select the type of ApplicationWindow template:");
+    label.setText(WizardsMessages.JFaceApplicationWizardPage_typeSelect);
     //
     m_toolBarButton = new Button(superClassComposite, SWT.RADIO);
-    m_toolBarButton.setText("Template with &ToolBar");
+    m_toolBarButton.setText(WizardsMessages.JFaceApplicationWizardPage_typeWithToolBar);
     m_toolBarButton.setSelection(true);
     GridDataFactory.create(m_toolBarButton).indentH(24);
     //
     Button coolBarButton = new Button(superClassComposite, SWT.RADIO);
-    coolBarButton.setText("Template with &CoolBar");
+    coolBarButton.setText(WizardsMessages.JFaceApplicationWizardPage_typeWithCoolBar);
     GridDataFactory.create(coolBarButton).indentH(24);
     //
     createSeparator(parent, columns);

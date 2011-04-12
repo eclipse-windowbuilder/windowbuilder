@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -41,9 +42,16 @@ public final class TableWrapLayoutAssistantPage extends AbstractAssistantPage {
       GridDataFactory.create(topComposite).fillH().grabH();
       // columns properties
       {
-        addIntegerProperty(topComposite, "numColumns", "Number of columns:", 1);
+        addIntegerProperty(
+            topComposite,
+            "numColumns",
+            ModelMessages.TableWrapLayoutAssistantPage_numColumns,
+            1);
         new Label(topComposite, SWT.NONE).setText(" ");
-        addBooleanProperty(topComposite, "makeColumnsEqualWidth", "Make columns equal width");
+        addBooleanProperty(
+            topComposite,
+            "makeColumnsEqualWidth",
+            ModelMessages.TableWrapLayoutAssistantPage_makeEqualColumns);
       }
     }
     {
@@ -53,19 +61,35 @@ public final class TableWrapLayoutAssistantPage extends AbstractAssistantPage {
       // margin for sides
       {
         Group group =
-            addIntegerProperties(groupComposite, "Margins for sides", new String[][]{
-                new String[]{"marginLeft", "Left:"},
-                new String[]{"marginTop", "Top:"},
-                new String[]{"marginRight", "Right:"},
-                new String[]{"marginBottom", "Bottom:"}});
+            addIntegerProperties(
+                groupComposite,
+                ModelMessages.TableWrapLayoutAssistantPage_marginsGroup,
+                new String[][]{
+                    new String[]{
+                        "marginLeft",
+                        ModelMessages.TableWrapLayoutAssistantPage_marginLeft},
+                    new String[]{"marginTop", ModelMessages.TableWrapLayoutAssistantPage_marginTop},
+                    new String[]{
+                        "marginRight",
+                        ModelMessages.TableWrapLayoutAssistantPage_marginRight},
+                    new String[]{
+                        "marginBottom",
+                        ModelMessages.TableWrapLayoutAssistantPage_marginBottom}});
         GridDataFactory.create(group).fillV().spanV(2);
       }
       // spacing
       {
         Group group =
-            addIntegerProperties(groupComposite, "Spacing", new String[][]{
-                new String[]{"horizontalSpacing", "Horizontal spacing:"},
-                new String[]{"verticalSpacing", "Vertical spacing:"}});
+            addIntegerProperties(
+                groupComposite,
+                ModelMessages.TableWrapLayoutAssistantPage_spacingGroup,
+                new String[][]{
+                    new String[]{
+                        "horizontalSpacing",
+                        ModelMessages.TableWrapLayoutAssistantPage_spacingHorizontal},
+                    new String[]{
+                        "verticalSpacing",
+                        ModelMessages.TableWrapLayoutAssistantPage_spacingVertical}});
         GridDataFactory.create(group).fillH().grabH();
       }
     }

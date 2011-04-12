@@ -29,6 +29,7 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.IDropRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.TableWrapLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit.ColumnHeaderEditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit.DimensionHeaderEditPart;
@@ -37,6 +38,7 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapLayoutInfo
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapColumnInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -180,7 +182,9 @@ public final class ColumnsLayoutEditPolicy<C extends IControlInfo>
         m_feedback.setLocation(feedbackLocation);
       }
       // set text
-      m_feedback.setText("column: " + index);
+      m_feedback.setText(MessageFormat.format(
+          GefMessages.ColumnsLayoutEditPolicy_feedbackText,
+          index));
     }
     // prepare command
     {

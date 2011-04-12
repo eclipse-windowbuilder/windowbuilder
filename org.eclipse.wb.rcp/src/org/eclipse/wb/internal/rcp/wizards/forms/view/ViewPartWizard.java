@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.view;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.part.ViewPart;
@@ -29,7 +30,7 @@ public final class ViewPartWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ViewPartWizard() {
-    setWindowTitle("New Forms ViewPart");
+    setWindowTitle(WizardsMessages.ViewPartWizard_title2);
   }
 
   ////////////////////////////////////////////////////////////////////////////

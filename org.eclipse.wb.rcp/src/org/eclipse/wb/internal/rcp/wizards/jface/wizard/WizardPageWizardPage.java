@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.jface.wizard;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -34,9 +35,9 @@ public final class WizardPageWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public WizardPageWizardPage() {
-    setTitle("Create WizardPage");
+    setTitle(WizardsMessages.WizardPageWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/JFace/WizardPage/banner.gif"));
-    setDescription("Create empty JFace WizardPage.");
+    setDescription(WizardsMessages.WizardPageWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

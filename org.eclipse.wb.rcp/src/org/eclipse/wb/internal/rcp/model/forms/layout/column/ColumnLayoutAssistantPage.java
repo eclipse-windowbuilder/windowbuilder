@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.column;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -36,27 +37,40 @@ public final class ColumnLayoutAssistantPage extends AbstractAssistantPage {
     // columns
     {
       Group columnsGroup =
-          addIntegerProperties(this, "Number of columns", new String[][]{
-              new String[]{"minNumColumns", "Minimum:"},
-              new String[]{"maxNumColumns", "Maximum:"},});
+          addIntegerProperties(
+              this,
+              ModelMessages.ColumnLayoutAssistantPage_columnsGroup,
+              new String[][]{
+                  new String[]{"minNumColumns", ModelMessages.ColumnLayoutAssistantPage_minColumns},
+                  new String[]{"maxNumColumns", ModelMessages.ColumnLayoutAssistantPage_maxColumns},});
       GridDataFactory.create(columnsGroup).fill();
     }
     // spacing
     {
       Group spacingGroup =
-          addIntegerProperties(this, "Spacing", new String[][]{
-              new String[]{"horizontalSpacing", "Horizontal:"},
-              new String[]{"verticalSpacing", "Vertical:"},});
+          addIntegerProperties(
+              this,
+              ModelMessages.ColumnLayoutAssistantPage_spacingGroup,
+              new String[][]{
+                  new String[]{
+                      "horizontalSpacing",
+                      ModelMessages.ColumnLayoutAssistantPage_spacingHorizontal},
+                  new String[]{
+                      "verticalSpacing",
+                      ModelMessages.ColumnLayoutAssistantPage_spacingVertical},});
       GridDataFactory.create(spacingGroup).fillV();
     }
     // margins for sides
     {
       Group marginsGroup =
-          addIntegerProperties(this, "Margins for sides", new String[][]{
-              new String[]{"leftMargin", "Margin left:"},
-              new String[]{"rightMargin", "Margin right:"},
-              new String[]{"topMargin", "Margin top:"},
-              new String[]{"bottomMargin", "Margin bottom:"}});
+          addIntegerProperties(
+              this,
+              ModelMessages.ColumnLayoutAssistantPage_marginsGroup,
+              new String[][]{
+                  new String[]{"leftMargin", ModelMessages.ColumnLayoutAssistantPage_marginLeft},
+                  new String[]{"rightMargin", ModelMessages.ColumnLayoutAssistantPage_marginRight},
+                  new String[]{"topMargin", ModelMessages.ColumnLayoutAssistantPage_marginTop},
+                  new String[]{"bottomMargin", ModelMessages.ColumnLayoutAssistantPage_marginBottom}});
       GridDataFactory.create(marginsGroup).fillV();
     }
   }

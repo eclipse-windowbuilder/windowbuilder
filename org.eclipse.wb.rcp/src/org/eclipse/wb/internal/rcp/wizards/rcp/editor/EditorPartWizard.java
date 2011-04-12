@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.rcp.editor;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.part.EditorPart;
@@ -29,7 +30,7 @@ public final class EditorPartWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public EditorPartWizard() {
-    setWindowTitle("New Eclipse RCP EditorPart");
+    setWindowTitle(WizardsMessages.EditorPartWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

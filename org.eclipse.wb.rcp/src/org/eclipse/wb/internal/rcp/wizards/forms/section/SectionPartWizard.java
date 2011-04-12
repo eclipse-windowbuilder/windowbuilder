@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.section;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.forms.SectionPart;
@@ -29,7 +30,7 @@ public final class SectionPartWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public SectionPartWizard() {
-    setWindowTitle("New Forms SectionPart");
+    setWindowTitle(WizardsMessages.SectionPartWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

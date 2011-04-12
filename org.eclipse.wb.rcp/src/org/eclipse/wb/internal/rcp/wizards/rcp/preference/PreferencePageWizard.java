@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.rcp.preference;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.wizard.Wizard;
@@ -29,7 +30,7 @@ public final class PreferencePageWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PreferencePageWizard() {
-    setWindowTitle("New Eclipse RCP PreferencePage");
+    setWindowTitle(WizardsMessages.PreferencePageWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

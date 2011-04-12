@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.swt.shell;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Shell;
@@ -29,7 +30,7 @@ public final class ShellWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ShellWizard() {
-    setWindowTitle("New SWT Shell");
+    setWindowTitle(WizardsMessages.ShellWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

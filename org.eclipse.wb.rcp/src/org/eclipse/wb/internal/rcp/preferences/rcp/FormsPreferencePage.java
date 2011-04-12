@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
+import org.eclipse.wb.internal.rcp.preferences.PreferencesMessages;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
@@ -61,11 +62,11 @@ public class FormsPreferencePage extends AbstractBindingPreferencesPage {
       // boolean preferences
       checkButton(
           this,
-          "&Generate paintBordersFor() for new Composites",
+          PreferencesMessages.FormsPreferencePage_generatePaintBorders,
           IPreferenceConstants.FORMS_PAINT_BORDERS);
       checkButton(
           this,
-          "Automatically &adapt() new non-form Controls",
+          PreferencesMessages.FormsPreferencePage_generateAdapt,
           IPreferenceConstants.FORMS_ADAPT_CONTROL);
     }
   }

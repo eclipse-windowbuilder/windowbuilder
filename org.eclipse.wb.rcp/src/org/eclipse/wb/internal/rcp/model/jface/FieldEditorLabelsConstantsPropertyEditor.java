@@ -33,6 +33,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaProject;
@@ -55,6 +56,7 @@ import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -83,7 +85,7 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected String getText(Property property) throws Exception {
-    return "(labels and values)";
+    return ModelMessages.FieldEditorLabelsConstantsPropertyEditor_text;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -171,10 +173,9 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
       line = line.trim();
       String[] words = StringUtils.split(line);
       if (words.length < 2) {
-        return "At least one word for label and one word for field are required\n"
-            + "in line |"
-            + line
-            + "|.";
+        return MessageFormat.format(
+            ModelMessages.FieldEditorLabelsConstantsPropertyEditor_errLabelField,
+            line);
       }
       // prepare "label" and "field" code
       int lastSpaceIndex = StringUtils.lastIndexOf(line, " ");
@@ -191,7 +192,9 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
       }
       // we should have IField
       if (field == null) {
-        return "Invalid field name in line |" + line + "|.";
+        return MessageFormat.format(
+            ModelMessages.FieldEditorLabelsConstantsPropertyEditor_errInvalidFieldName,
+            line);
       }
       // add label/field
       tmpLabels.add(label);
@@ -252,9 +255,9 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
       super(parentShell,
           Activator.getDefault(),
           property.getTitle(),
-          "Labels and values",
+          ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogTitle,
           null,
-          "Enter label and value for each item.");
+          ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogMessage);
       m_property = property;
       m_javaInfo = m_property.getJavaInfo();
       m_text = getTextForEditing(property);
@@ -271,7 +274,7 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
     protected void createControls(Composite container) {
       GridLayoutFactory.create(container);
       // header
-      new Label(container, SWT.NONE).setText("&Labels and values:");
+      new Label(container, SWT.NONE).setText(ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogTextLabel);
       // Text widget
       {
         m_textWidget = new Text(container, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -297,10 +300,7 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
         });
       }
       // footer
-      new Label(container, SWT.NONE).setText("Each line in the above text field represents a label/value pair in the array.\n"
-          + "Last word (space separated) is the fully qualified name of field.\n"
-          + "Press Ctrl+F to open field/value selection dialog.\n"
-          + "You can freely move/copy/paste parts of text, write fields manually or use dialog.");
+      new Label(container, SWT.NONE).setText(ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogFooter);
     }
 
     /**

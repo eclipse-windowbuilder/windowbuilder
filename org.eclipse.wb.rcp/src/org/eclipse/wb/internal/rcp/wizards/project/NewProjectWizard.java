@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.wizards.DesignerJavaProjectWizard;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jdt.core.IJavaProject;
 
@@ -32,7 +33,7 @@ public class NewProjectWizard extends DesignerJavaProjectWizard {
   ////////////////////////////////////////////////////////////////////////////
   public NewProjectWizard() {
     setDefaultPageImageDescriptor(Activator.getImageDescriptor("wizard/Project/banner.gif"));
-    setWindowTitle("New SWT/JFace Java Project");
+    setWindowTitle(WizardsMessages.NewProjectWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

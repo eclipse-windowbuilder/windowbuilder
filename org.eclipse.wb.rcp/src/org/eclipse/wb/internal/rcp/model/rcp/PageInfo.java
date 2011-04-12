@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.ui.part.Page;
@@ -56,7 +57,7 @@ public final class PageInfo extends ViewPartLikeInfo {
   @Override
   protected void configureTabItem(CTabItem tabItem) throws Exception {
     tabItem.setImage(getDescription().getIcon());
-    tabItem.setText("Page in PageBookView");
+    tabItem.setText(ModelMessages.PageInfo_title);
   }
 
   @Override

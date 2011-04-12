@@ -50,8 +50,8 @@ public final class TreeCompositeEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public TreeCompositeEntryInfo() {
-    setName("Tree Composite");
-    setDescription("Composite with Tree that lays out columns using TreeColumnLayout.");
+    setName(PaletteMessages.TreeCompositeEntryInfo_name);
+    setDescription(PaletteMessages.TreeCompositeEntryInfo_description);
     m_compositeEntry = new ComponentEntryInfo();
     m_compositeEntry.setComponentClassName("org.eclipse.swt.widgets.Composite");
   }

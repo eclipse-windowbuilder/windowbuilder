@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms;
 
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.AbstractPositionCompositeLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.forms.ExpandableCompositeInfo;
 
@@ -40,7 +41,21 @@ public final class ExpandableCompositeLayoutEditPolicy
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void addFeedbacks() throws Exception {
-    addFeedback2(0.8, 0.0, 1.0, 0.2, new Insets(0, 0, 1, 0), "Text client", "setTextClient");
-    addFeedback2(0.0, 0.2, 1.0, 1.0, new Insets(0, 0, 0, 0), "Client", "setClient");
+    addFeedback2(
+        0.8,
+        0.0,
+        1.0,
+        0.2,
+        new Insets(0, 0, 1, 0),
+        GefMessages.ExpandableCompositeLayoutEditPolicy_textClientHint,
+        "setTextClient");
+    addFeedback2(
+        0.0,
+        0.2,
+        1.0,
+        1.0,
+        new Insets(0, 0, 0, 0),
+        GefMessages.ExpandableCompositeLayoutEditPolicy_clientHint,
+        "setClient");
   }
 }

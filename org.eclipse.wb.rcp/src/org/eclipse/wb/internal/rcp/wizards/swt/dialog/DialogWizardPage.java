@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.swt.dialog;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class DialogWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public DialogWizardPage() {
-    setTitle("Create SWT Dialog");
+    setTitle(WizardsMessages.DialogWizardPage_title2);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Dialog/banner.gif"));
-    setDescription("Create empty SWT Dialog.");
+    setDescription(WizardsMessages.DialogWizardPage_description2);
   }
 
   ////////////////////////////////////////////////////////////////////////////

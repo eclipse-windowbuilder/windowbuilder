@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.widgets;
 
 import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.AbstractPositionCompositeLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 
@@ -38,9 +39,37 @@ public final class ViewFormLayoutEditPolicy extends AbstractPositionCompositeLay
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void addFeedbacks() throws Exception {
-    addFeedback2(0.0, 0.0, 0.5, 0.2, new Insets(0, 0, 1, 1), "Top left", "setTopLeft");
-    addFeedback2(0.5, 0.0, 0.75, 0.2, new Insets(0, 0, 1, 1), "Top center", "setTopCenter");
-    addFeedback2(0.75, 0.0, 1.0, 0.2, new Insets(0, 0, 1, 0), "Top right", "setTopRight");
-    addFeedback2(0.0, 0.2, 1.0, 1.0, new Insets(0, 0, 0, 0), "Content", "setContent");
+    addFeedback2(
+        0.0,
+        0.0,
+        0.5,
+        0.2,
+        new Insets(0, 0, 1, 1),
+        GefMessages.ViewFormLayoutEditPolicy_posTopLeft,
+        "setTopLeft");
+    addFeedback2(
+        0.5,
+        0.0,
+        0.75,
+        0.2,
+        new Insets(0, 0, 1, 1),
+        GefMessages.ViewFormLayoutEditPolicy_posTopCenter,
+        "setTopCenter");
+    addFeedback2(
+        0.75,
+        0.0,
+        1.0,
+        0.2,
+        new Insets(0, 0, 1, 0),
+        GefMessages.ViewFormLayoutEditPolicy_posTopRight,
+        "setTopRight");
+    addFeedback2(
+        0.0,
+        0.2,
+        1.0,
+        1.0,
+        new Insets(0, 0, 0, 0),
+        GefMessages.ViewFormLayoutEditPolicy_posContent,
+        "setContent");
   }
 }

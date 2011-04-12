@@ -68,7 +68,7 @@ public abstract class DimensionHeaderAction<C extends IControlInfo> extends Obje
 
   @Override
   public boolean equals(Object obj) {
-    return getClass() == obj.getClass();
+    return obj != null && getClass() == obj.getClass();
   }
 
   ////////////////////////////////////////////////////////////////////////////

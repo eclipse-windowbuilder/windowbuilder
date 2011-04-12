@@ -46,7 +46,7 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
     m_action = action;
     setId(ObjectUtils.identityToString(action));
     setName(action.getVariableSupport().getComponentName());
-    setDescription("Allows to use already existing Action instance to drop it on IContributionManager.");
+    setDescription(PaletteMessages.ActionUseEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

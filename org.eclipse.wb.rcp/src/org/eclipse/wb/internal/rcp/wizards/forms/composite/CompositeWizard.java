@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.composite;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
@@ -29,7 +30,7 @@ public final class CompositeWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CompositeWizard() {
-    setWindowTitle("New Forms Composite");
+    setWindowTitle(WizardsMessages.CompositeWizard_title2);
   }
 
   ////////////////////////////////////////////////////////////////////////////

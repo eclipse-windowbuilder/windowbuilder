@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.rcp.pagebook;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.part.PageBook;
@@ -29,7 +30,7 @@ public final class PageBookWizard extends RcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PageBookWizard() {
-    setWindowTitle("New Eclipse RCP PageBook");
+    setWindowTitle(WizardsMessages.PageBookWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

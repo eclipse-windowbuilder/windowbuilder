@@ -34,6 +34,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.TableFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.JavaConventions;
@@ -72,6 +73,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -278,10 +280,10 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
         GridDataFactory.create(m_categoriesTree).hintHC(20).alignHF().grabV().fillV();
         //
         m_customItem = new TreeItem(m_categoriesTree, SWT.NONE);
-        m_customItem.setText("Custom ID's");
+        m_customItem.setText(ModelMessages.DialogButtonIdPropertyEditor_categoryCustom);
         //
         m_standardItem = new TreeItem(m_categoriesTree, SWT.NONE);
-        m_standardItem.setText("Standard ID's");
+        m_standardItem.setText(ModelMessages.DialogButtonIdPropertyEditor_categoryStandard);
         //
         m_categoriesTree.addSelectionListener(new SelectionAdapter() {
           @Override
@@ -297,7 +299,8 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
         {
           Table table = m_viewer.getTable();
           GridDataFactory.create(table).hintC(50, 13).grab().fill();
-          TableFactory.modify(table).newColumn().widthC(47).text("Button ID");
+          TableFactory.modify(table).newColumn().widthC(47).text(
+              ModelMessages.DialogButtonIdPropertyEditor_columnId);
         }
         m_viewer.setSorter(new IdSorter());
         m_viewer.setLabelProvider(new IdLabelProvider());
@@ -329,7 +332,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
     @Override
     protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
-      newShell.setText("Dialog button ID selection");
+      newShell.setText(ModelMessages.DialogButtonIdPropertyEditor_dialogTitle);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -339,7 +342,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-      createButton(parent, NEW, "&New...", false);
+      createButton(parent, NEW, ModelMessages.DialogButtonIdPropertyEditor_newButton, false);
       createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
       createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
@@ -463,10 +466,10 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
     public NewIdDialog(Shell parentShell, GenericProperty property) {
       super(parentShell,
           Activator.getDefault(),
-          "New dialog button ID",
-          "New dialog button ID",
+          ModelMessages.DialogButtonIdPropertyEditor_newDialogTitle,
+          ModelMessages.DialogButtonIdPropertyEditor_newDialogTitle,
           Activator.getImage("info/Dialog/newfield_wiz.gif"),
-          "Enter name and value for new dialog button constant.");
+          ModelMessages.DialogButtonIdPropertyEditor_newDialogMessage);
       m_property = property;
       setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM | SWT.SHELL_TRIM);
     }
@@ -486,7 +489,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
       // name
       {
         m_nameField = new StringDialogField();
-        doCreateField(m_nameField, "Name:");
+        doCreateField(m_nameField, ModelMessages.DialogButtonIdPropertyEditor_newDialogName);
         // initial value
         m_nameField.setText("NEW_ID");
         m_nameField.selectAll();
@@ -539,7 +542,9 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
             });
           }
           if (hasSuchField[0]) {
-            return "Field \"" + name + "\" already exists.";
+            return MessageFormat.format(
+                ModelMessages.DialogButtonIdPropertyEditor_errFieldAlreadyExists,
+                name);
           }
         }
       }
@@ -551,7 +556,9 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
         try {
           newValue = Integer.parseInt(text);
         } catch (Throwable e) {
-          return "\"" + text + "\" is not valid integer value.";
+          return MessageFormat.format(
+              ModelMessages.DialogButtonIdPropertyEditor_errInvalidFieldValue,
+              text);
         }
         // check that this value is unique
         List<FieldDeclaration> idList = getCustomIDs(m_property);
@@ -559,7 +566,10 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
           Integer value = (Integer) fieldDeclaration.getProperty(BUTTON_OFFSET_PROPERTY);
           if (newValue == value.intValue()) {
             String fieldName = (String) fieldDeclaration.getProperty(BUTTON_NAME_PROPERTY);
-            return "Value \"" + text + "\" already used for button ID \"" + fieldName + "\".";
+            return MessageFormat.format(
+                ModelMessages.DialogButtonIdPropertyEditor_errUsedFieldValue,
+                text,
+                fieldName);
           }
         }
       }

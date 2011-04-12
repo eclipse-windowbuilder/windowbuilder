@@ -19,6 +19,7 @@ import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.actions.SetAlignmentAction;
 import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.actions.SetGrabAction;
@@ -164,33 +165,33 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
     // grab
     {
       manager.add(new SetGrabAction<C>(this,
-          "&Grab excess space",
+          GefMessages.ColumnHeaderEditPart_actionGrab,
           TableWrapLayoutImages.getImageDescriptor("h/menu/grow.gif")));
     }
     // alignment
     {
       manager.add(new Separator());
       manager.add(new SetAlignmentAction<C>(this,
-          "&Left",
+          GefMessages.ColumnHeaderEditPart_alignmentLeft,
           TableWrapLayoutImages.getImageDescriptor("h/menu/left.gif"),
           TableWrapData.LEFT));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Center",
+          GefMessages.ColumnHeaderEditPart_alignmentCenter,
           TableWrapLayoutImages.getImageDescriptor("h/menu/center.gif"),
           TableWrapData.CENTER));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Right",
+          GefMessages.ColumnHeaderEditPart_alignmentRight,
           TableWrapLayoutImages.getImageDescriptor("h/menu/right.gif"),
           TableWrapData.RIGHT));
       manager.add(new SetAlignmentAction<C>(this,
-          "&Fill",
+          GefMessages.ColumnHeaderEditPart_alignmentFill,
           TableWrapLayoutImages.getImageDescriptor("h/menu/fill.gif"),
           TableWrapData.FILL));
     }
     // operations
     {
       manager.add(new Separator());
-      manager.add(new DimensionHeaderAction<C>(this, "&Delete Column",
+      manager.add(new DimensionHeaderAction<C>(this, GefMessages.ColumnHeaderEditPart_actionDelete,
           TableWrapLayoutImages.getImageDescriptor("h/menu/delete.gif")) {
         @Override
         protected void run(TableWrapDimensionInfo<C> dimension) throws Exception {

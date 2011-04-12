@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -51,9 +52,9 @@ public final class PreferencePageWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PreferencePageWizardPage() {
-    setTitle("Create PreferencePage");
+    setTitle(WizardsMessages.PreferencePageWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/PreferencePage/banner.gif"));
-    setDescription("Create empty Eclipse RCP PreferencePage.");
+    setDescription(WizardsMessages.PreferencePageWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -124,29 +125,29 @@ public final class PreferencePageWizardPage extends RcpWizardPage {
     new Label(baseComposite, SWT.NONE);
     // create message label
     Label label = new Label(baseComposite, SWT.NONE);
-    label.setText("Select the type of Preference Page:");
+    label.setText(WizardsMessages.PreferencePageWizardPage_typeSelection);
     // create all buttons
     createButton(
         m_buttons,
         baseComposite,
-        "Standard Preference Page",
-        "Create a standard Eclipse PreferencePage (use standard SWT widgets only)",
+        WizardsMessages.PreferencePageWizardPage_typeStandardLabel,
+        WizardsMessages.PreferencePageWizardPage_typeStandardDescription,
         true,
         "org.eclipse.jface.preference.PreferencePage",
         "PreferencePage.jvt");
     createButton(
         m_buttons,
         baseComposite,
-        "Field Editor Preference Page",
-        "Create an Eclipse FieldEditorPreferencePage (use FieldEditors only)",
+        WizardsMessages.PreferencePageWizardPage_typeFieldEditorLabel,
+        WizardsMessages.PreferencePageWizardPage_typeFieldEditorDescription,
         false,
         "org.eclipse.jface.preference.FieldEditorPreferencePage",
         "FieldEditorPreferencePage.jvt");
     createButton(
         m_buttons,
         baseComposite,
-        "Field Layout Preference Page",
-        "Create an Designer FieldLayoutPreferencePage (combine standard SWT widgets and FieldEditors)",
+        WizardsMessages.PreferencePageWizardPage_typeFieldLayoutLabel,
+        WizardsMessages.PreferencePageWizardPage_typeFieldLayoutDescription,
         false,
         "org.eclipse.wb.swt.FieldLayoutPreferencePage",
         "FieldLayoutPreferencePage.jvt");

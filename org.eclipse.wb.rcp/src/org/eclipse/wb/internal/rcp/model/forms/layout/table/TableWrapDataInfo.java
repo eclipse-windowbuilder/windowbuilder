@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexProper
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.actions.SetAlignmentAction;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.actions.SetGrabAction;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
@@ -466,20 +467,25 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   public void addContextMenu(IMenuManager manager) {
     // horizontal
     {
-      IMenuManager manager2 = new MenuManager("Horizontal alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.TableWrapDataInfo_managerHorizontalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       //
-      manager2.add(new SetGrabAction(this, "&Grab excess space", "grow.gif", true));
+      manager2.add(new SetGrabAction(this, ModelMessages.TableWrapDataInfo_haGrab, "grow.gif", true));
       manager2.add(new Separator());
       //
       fillHorizontalAlignmentMenu(manager2);
     }
     // vertical
     {
-      IMenuManager manager2 = new MenuManager("Vertical alignment");
+      IMenuManager manager2 =
+          new MenuManager(ModelMessages.TableWrapDataInfo_managerVerticalAlignment);
       manager.appendToGroup(IContextMenuConstants.GROUP_TOP, manager2);
       //
-      manager2.add(new SetGrabAction(this, "&Grab excess space", "grow.gif", false));
+      manager2.add(new SetGrabAction(this,
+          ModelMessages.TableWrapDataInfo_vaGrab,
+          "grow.gif",
+          false));
       manager2.add(new Separator());
       //
       fillVerticalAlignmentMenu(manager2);
@@ -487,16 +493,48 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   }
 
   public void fillHorizontalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetAlignmentAction(this, "&Left", "left.gif", true, TableWrapData.LEFT));
-    manager.add(new SetAlignmentAction(this, "&Center", "center.gif", true, TableWrapData.CENTER));
-    manager.add(new SetAlignmentAction(this, "&Right", "right.gif", true, TableWrapData.RIGHT));
-    manager.add(new SetAlignmentAction(this, "&Fill", "fill.gif", true, TableWrapData.FILL));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_haLeft,
+        "left.gif",
+        true,
+        TableWrapData.LEFT));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_haCenter,
+        "center.gif",
+        true,
+        TableWrapData.CENTER));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_haRight,
+        "right.gif",
+        true,
+        TableWrapData.RIGHT));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_haFill,
+        "fill.gif",
+        true,
+        TableWrapData.FILL));
   }
 
   public void fillVerticalAlignmentMenu(IMenuManager manager) {
-    manager.add(new SetAlignmentAction(this, "&Top", "top.gif", false, TableWrapData.TOP));
-    manager.add(new SetAlignmentAction(this, "&Middle", "middle.gif", false, TableWrapData.MIDDLE));
-    manager.add(new SetAlignmentAction(this, "&Bottom", "bottom.gif", false, TableWrapData.BOTTOM));
-    manager.add(new SetAlignmentAction(this, "&Fill", "fill.gif", false, TableWrapData.FILL));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_vaTop,
+        "top.gif",
+        false,
+        TableWrapData.TOP));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_vaMiddle,
+        "middle.gif",
+        false,
+        TableWrapData.MIDDLE));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_vaBottom,
+        "bottom.gif",
+        false,
+        TableWrapData.BOTTOM));
+    manager.add(new SetAlignmentAction(this,
+        ModelMessages.TableWrapDataInfo_vaGill,
+        "fill.gif",
+        false,
+        TableWrapData.FILL));
   }
 }

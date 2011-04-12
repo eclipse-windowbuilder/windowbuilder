@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -108,7 +109,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     {
       Label label = new Label(container, SWT.NONE);
       GridDataFactory.create(label).spanH(2);
-      label.setText("Categories and views:");
+      label.setText(ModelMessages.CategoriesAndViewsDialog_viewerTitle);
     }
     // viewer with categories/views
     {
@@ -145,7 +146,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       {
         m_newCategoryButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_newCategoryButton).grabH().fillH();
-        m_newCategoryButton.setText("New category...");
+        m_newCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_newCategoryButton);
         m_newCategoryButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             newCategory();
@@ -155,7 +156,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       {
         m_editCategoryButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_editCategoryButton).grabH().fillH();
-        m_editCategoryButton.setText("Edit category...");
+        m_editCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_editCategoryButton);
         m_editCategoryButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             editCategory();
@@ -165,7 +166,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       {
         m_removeCategoryButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_removeCategoryButton).grabH().fillH();
-        m_removeCategoryButton.setText("Remove...");
+        m_removeCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_removeCategoryButton);
         m_removeCategoryButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             removeCategory();
@@ -177,9 +178,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     {
       Label label = new Label(container, SWT.WRAP);
       GridDataFactory.create(label).grabH().fillH().spanH(2).hintHC(60);
-      label.setText("Views above can be dragged from one category to other, "
-          + "so they will appear in different category at runtime in Eclipse dialogs."
-          + " Note, that changes are applied directly after performing them, event without closing this dialog.");
+      label.setText(ModelMessages.CategoriesAndViewsDialog_hintText);
     }
     // done
     return container;
@@ -188,7 +187,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Categories and views");
+    newShell.setText(ModelMessages.CategoriesAndViewsDialog_title);
   }
 
   @Override
@@ -325,7 +324,11 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
 
   private void newCategory() {
     InputDialog inputDialog =
-        new InputDialog(getShell(), "New category", "New category name", "", null);
+        new InputDialog(getShell(),
+            ModelMessages.CategoriesAndViewsDialog_newCategoryTitle,
+            ModelMessages.CategoriesAndViewsDialog_newCategoryMessage,
+            "",
+            null);
     if (inputDialog.open() != OK) {
       return;
     }
@@ -349,7 +352,11 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     {
       String oldName = PdeUtils.getAttribute(category, "name");
       InputDialog inputDialog =
-          new InputDialog(getShell(), "Edit category", "Edit category name", oldName, null);
+          new InputDialog(getShell(),
+              ModelMessages.CategoriesAndViewsDialog_editCategoryTitle,
+              ModelMessages.CategoriesAndViewsDialog_editCategoryMessage,
+              oldName,
+              null);
       if (inputDialog.open() != OK) {
         return;
       }
@@ -372,9 +379,12 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     {
       String messages =
           MessageFormat.format(
-              "Do you really want remove category ''{0}''?",
+              ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationMessage,
               PdeUtils.getAttribute(element, "name"));
-      if (!MessageDialog.openConfirm(getShell(), "Confirm", messages)) {
+      if (!MessageDialog.openConfirm(
+          getShell(),
+          ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationText,
+          messages)) {
         return;
       }
     }

@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.rcp.Activator;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.jface.action.Separator;
@@ -68,10 +69,30 @@ public final class ColumnLayoutSelectionActionsSupport<C extends IControlInfo>
     }
     // create horizontal actions
     actions.add(new Separator());
-    addAlignmentAction(actions, dataInfos, "left.gif", "Left", ColumnLayoutData.LEFT);
-    addAlignmentAction(actions, dataInfos, "center.gif", "Center", ColumnLayoutData.CENTER);
-    addAlignmentAction(actions, dataInfos, "right.gif", "Right", ColumnLayoutData.RIGHT);
-    addAlignmentAction(actions, dataInfos, "fill.gif", "Fill", ColumnLayoutData.FILL);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        "left.gif",
+        ModelMessages.ColumnLayoutSelectionActionsSupport_alignmentLeft,
+        ColumnLayoutData.LEFT);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        "center.gif",
+        ModelMessages.ColumnLayoutSelectionActionsSupport_alignmentCenter,
+        ColumnLayoutData.CENTER);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        "right.gif",
+        ModelMessages.ColumnLayoutSelectionActionsSupport_alignmentRight,
+        ColumnLayoutData.RIGHT);
+    addAlignmentAction(
+        actions,
+        dataInfos,
+        "fill.gif",
+        ModelMessages.ColumnLayoutSelectionActionsSupport_alignmentFill,
+        ColumnLayoutData.FILL);
   }
 
   private void addAlignmentAction(List<Object> actions,

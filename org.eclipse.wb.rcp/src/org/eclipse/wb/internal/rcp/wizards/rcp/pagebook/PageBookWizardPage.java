@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -48,9 +49,9 @@ public final class PageBookWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PageBookWizardPage() {
-    setTitle("Create Page for PageBookView");
+    setTitle(WizardsMessages.PageBookWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/PageBook/banner.gif"));
-    setDescription("Create empty Page.");
+    setDescription(WizardsMessages.PageBookWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -89,7 +90,7 @@ public final class PageBookWizardPage extends RcpWizardPage {
     GridDataFactory.create(baseComposite).fillH().grabH().spanH(columns);
     // create message label
     Label label = new Label(baseComposite, SWT.NONE);
-    label.setText("Select the base of Page:");
+    label.setText(WizardsMessages.PageBookWizardPage_basePageSelection);
     // create all buttons
     createButton(
         m_buttons,

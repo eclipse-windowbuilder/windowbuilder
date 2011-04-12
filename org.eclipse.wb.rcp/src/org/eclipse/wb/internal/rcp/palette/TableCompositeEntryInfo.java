@@ -50,8 +50,8 @@ public final class TableCompositeEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public TableCompositeEntryInfo() {
-    setName("Table Composite");
-    setDescription("Composite with Table that lays out columns using TableColumnLayout.");
+    setName(PaletteMessages.TableCompositeEntryInfo_name);
+    setDescription(PaletteMessages.TableCompositeEntryInfo_description);
     m_compositeEntry = new ComponentEntryInfo();
     m_compositeEntry.setComponentClassName("org.eclipse.swt.widgets.Composite");
   }

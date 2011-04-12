@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.wizards.forms.details;
 
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizardPage;
+import org.eclipse.wb.internal.rcp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -38,9 +39,9 @@ public final class DetailsPageWizardPage extends RcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public DetailsPageWizardPage() {
-    setTitle("Create IDetailsPage");
+    setTitle(WizardsMessages.DetailsPageWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Forms/IDetailsPage/banner.gif"));
-    setDescription("Create empty Forms IDetailsPage.");
+    setDescription(WizardsMessages.DetailsPageWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

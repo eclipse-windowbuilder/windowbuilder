@@ -41,8 +41,8 @@ public final class DialogButtonEntryInfo extends ToolEntryInfo {
   ////////////////////////////////////////////////////////////////////////////
   public DialogButtonEntryInfo() throws Exception {
     setId(getClass().getName());
-    setName("New dialog button");
-    setDescription("Drop new button on button bar.");
+    setName(PaletteMessages.DialogButtonEntryInfo_name);
+    setDescription(PaletteMessages.DialogButtonEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
