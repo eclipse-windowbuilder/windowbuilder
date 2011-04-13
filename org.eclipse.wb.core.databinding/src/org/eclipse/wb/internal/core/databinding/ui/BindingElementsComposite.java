@@ -14,6 +14,7 @@ import org.eclipse.wb.core.editor.IDesignPage;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.Activator;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -56,6 +57,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IEditorPart;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -128,7 +130,7 @@ public final class BindingElementsComposite extends Composite {
     GridLayoutFactory.create(this).columns(2);
     // title
     Label titleLabel = new Label(this, SWT.NONE);
-    titleLabel.setText("Bound Properties:");
+    titleLabel.setText(Messages.BindingElementsComposite_boundProperties);
     GridDataFactory.create(titleLabel).fillH().grabH();
     // buttons
     ToolBar toolBar = new ToolBar(this, SWT.FLAT);
@@ -168,20 +170,20 @@ public final class BindingElementsComposite extends Composite {
     bindingTable.setMenu(contextMenu);
     // edit
     m_editActionMenu = new MenuItem(contextMenu, SWT.NONE);
-    m_editActionMenu.setText("&Edit...");
+    m_editActionMenu.setText(Messages.BindingElementsComposite_editAction);
     m_editActionMenu.setImage(Activator.getImage("link_edit_action.png"));
     m_editActionMenu.setEnabled(false);
     // separator
     new MenuItem(contextMenu, SWT.SEPARATOR);
     // delete
     m_deleteActionMenu = new MenuItem(contextMenu, SWT.NONE);
-    m_deleteActionMenu.setText("&Delete");
+    m_deleteActionMenu.setText(Messages.BindingElementsComposite_deleteAction);
     m_deleteActionMenu.setImage(Activator.getImage("link_delete_action.png"));
     m_deleteActionMenu.setEnabled(false);
     m_deleteActionMenu.addSelectionListener(m_deleteBindingListener);
     // delete all
     m_deleteAllActionMenu = new MenuItem(contextMenu, SWT.NONE);
-    m_deleteAllActionMenu.setText("Delete &All");
+    m_deleteAllActionMenu.setText(Messages.BindingElementsComposite_deleteAllAction);
     m_deleteAllActionMenu.setImage(Activator.getImage("link_delete_all_action.png"));
     m_deleteAllActionMenu.setEnabled(false);
     m_deleteAllActionMenu.addSelectionListener(m_deleteAllBindingsListener);
@@ -189,13 +191,13 @@ public final class BindingElementsComposite extends Composite {
     new MenuItem(contextMenu, SWT.SEPARATOR);
     // move up
     m_upActionMenu = new MenuItem(contextMenu, SWT.NONE);
-    m_upActionMenu.setText("Move &up");
+    m_upActionMenu.setText(Messages.BindingElementsComposite_moveUpAction);
     m_upActionMenu.setImage(Activator.getImage("up.png"));
     m_upActionMenu.setEnabled(false);
     m_upActionMenu.addSelectionListener(m_moveUpListener);
     // move down
     m_downActionMenu = new MenuItem(contextMenu, SWT.NONE);
-    m_downActionMenu.setText("Move d&own");
+    m_downActionMenu.setText(Messages.BindingElementsComposite_moveDownAction);
     m_downActionMenu.setImage(Activator.getImage("down.png"));
     m_downActionMenu.setEnabled(false);
     m_downActionMenu.addSelectionListener(m_moveDownListener);
@@ -203,13 +205,13 @@ public final class BindingElementsComposite extends Composite {
     new MenuItem(contextMenu, SWT.SEPARATOR);
     // goto definition
     m_gotoDefinitionActionMenu = new MenuItem(contextMenu, SWT.NONE);
-    m_gotoDefinitionActionMenu.setText("&Goto definition");
+    m_gotoDefinitionActionMenu.setText(Messages.BindingElementsComposite_gotoDefinitionAction);
     m_gotoDefinitionActionMenu.setImage(Activator.getImage("goto_definition.gif"));
     m_gotoDefinitionActionMenu.setEnabled(false);
     m_gotoDefinitionActionMenu.addSelectionListener(m_gotoDefinitionListener);
     // refresh
     ToolItem refreshItem = new ToolItem(toolBar, SWT.NONE);
-    refreshItem.setToolTipText("Reparse the source and refresh the design page");
+    refreshItem.setToolTipText(Messages.BindingElementsComposite_reparseItem);
     refreshItem.setImage(DesignerPlugin.getImage("editor_refresh.png"));
     refreshItem.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -229,20 +231,20 @@ public final class BindingElementsComposite extends Composite {
     new ToolItem(toolBar, SWT.SEPARATOR);
     // edit
     m_editAction = new ToolItem(toolBar, SWT.NONE);
-    m_editAction.setToolTipText("Edit...");
+    m_editAction.setToolTipText(Messages.BindingElementsComposite_editItem);
     m_editAction.setImage(Activator.getImage("link_edit_action.png"));
     m_editAction.setEnabled(false);
     //
     new ToolItem(toolBar, SWT.SEPARATOR);
     // delete
     m_deleteAction = new ToolItem(toolBar, SWT.NONE);
-    m_deleteAction.setToolTipText("Delete");
+    m_deleteAction.setToolTipText(Messages.BindingElementsComposite_deleteItem);
     m_deleteAction.setImage(Activator.getImage("link_delete_action.png"));
     m_deleteAction.setEnabled(false);
     m_deleteAction.addSelectionListener(m_deleteBindingListener);
     // delete all
     m_deleteAllAction = new ToolItem(toolBar, SWT.NONE);
-    m_deleteAllAction.setToolTipText("Delete All");
+    m_deleteAllAction.setToolTipText(Messages.BindingElementsComposite_deleteAllItem);
     m_deleteAllAction.setImage(Activator.getImage("link_delete_all_action.png"));
     m_deleteAllAction.setEnabled(false);
     m_deleteAllAction.addSelectionListener(m_deleteAllBindingsListener);
@@ -250,13 +252,13 @@ public final class BindingElementsComposite extends Composite {
     new ToolItem(toolBar, SWT.SEPARATOR);
     // move up
     m_upAction = new ToolItem(toolBar, SWT.NONE);
-    m_upAction.setToolTipText("Move up");
+    m_upAction.setToolTipText(Messages.BindingElementsComposite_moveUpItem);
     m_upAction.setImage(Activator.getImage("up.png"));
     m_upAction.setEnabled(false);
     m_upAction.addSelectionListener(m_moveUpListener);
     // move down
     m_downAction = new ToolItem(toolBar, SWT.NONE);
-    m_downAction.setToolTipText("Move down");
+    m_downAction.setToolTipText(Messages.BindingElementsComposite_moveDownItem);
     m_downAction.setImage(Activator.getImage("down.png"));
     m_downAction.setEnabled(false);
     m_downAction.addSelectionListener(m_moveDownListener);
@@ -264,7 +266,7 @@ public final class BindingElementsComposite extends Composite {
     new ToolItem(toolBar, SWT.SEPARATOR);
     // goto definition
     m_gotoDefinitionAction = new ToolItem(toolBar, SWT.NONE);
-    m_gotoDefinitionAction.setToolTipText("Goto definition");
+    m_gotoDefinitionAction.setToolTipText(Messages.BindingElementsComposite_gotoDefinitionItem);
     m_gotoDefinitionAction.setImage(Activator.getImage("goto_definition.gif"));
     m_gotoDefinitionAction.setEnabled(false);
     m_gotoDefinitionAction.addSelectionListener(m_gotoDefinitionListener);
@@ -476,8 +478,8 @@ public final class BindingElementsComposite extends Composite {
     boolean canDelete =
         MessageDialog.openConfirm(
             shell,
-            "Confirm Delete",
-            "Are you sure you want to delete this binding '" + message + "'?");
+            Messages.BindingElementsComposite_deleteTitle,
+            MessageFormat.format(Messages.BindingElementsComposite_deleteMessage, message));
     return canDelete;
   }
 
@@ -486,8 +488,8 @@ public final class BindingElementsComposite extends Composite {
     boolean canDelete =
         MessageDialog.openConfirm(
             getShell(),
-            "Confirm Delete",
-            "Are you sure you want to delete all binding?");
+            Messages.BindingElementsComposite_deleteAllTitle,
+            Messages.BindingElementsComposite_deleteAllMessage);
     // handle delete
     if (canDelete) {
       // delete

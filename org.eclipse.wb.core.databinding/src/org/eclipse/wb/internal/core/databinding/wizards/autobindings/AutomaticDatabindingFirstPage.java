@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
@@ -84,7 +85,7 @@ public abstract class AutomaticDatabindingFirstPage extends TemplateDesignWizard
     // create dialog field
     final SelectionButtonDialogFieldGroup fieldsGroup =
         new SelectionButtonDialogFieldGroup(SWT.RADIO, superClasses, 1);
-    fieldsGroup.setLabelText("SuperClass:");
+    fieldsGroup.setLabelText(Messages.AutomaticDatabindingFirstPage_superClassLabel);
     fieldsGroup.setSelection(current, true);
     fieldsGroup.doFillIntoGrid(parent, columns);
     // handle change super class

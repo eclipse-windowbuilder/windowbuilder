@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.PropertyAdapter;
@@ -41,6 +42,7 @@ import org.eclipse.swt.widgets.Label;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -148,11 +150,11 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     GridLayoutFactory.create(widgetComposite).columns(m_strategyContainer == null ? 1 : 2).noMargins();
     // editor title
     m_editorLabel = new Label(widgetComposite, SWT.NONE);
-    m_editorLabel.setText("Property editor:");
+    m_editorLabel.setText(Messages.DefaultAutomaticDatabindingProvider_editorLabel);
     // strategy title
     if (m_strategyContainer != null) {
       m_strategyLabel = new Label(widgetComposite, SWT.NONE);
-      m_strategyLabel.setText("UpdateStrategy:");
+      m_strategyLabel.setText(Messages.DefaultAutomaticDatabindingProvider_strategyLabel);
     }
     // editor viewer
     m_editorsViewer =
@@ -162,8 +164,10 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
             | SWT.V_SCROLL);
     // create columns
     GridDataFactory.create(m_editorsViewer.getControl()).hintVC(20).fill().grabH();
-    TableFactory.modify(m_editorsViewer).standard().newColumn().width(170).text("Widget");
-    TableFactory.modify(m_editorsViewer).standard().newColumn().width(150).text("Property");
+    TableFactory.modify(m_editorsViewer).standard().newColumn().width(170).text(
+        Messages.DefaultAutomaticDatabindingProvider_widgetColumn);
+    TableFactory.modify(m_editorsViewer).standard().newColumn().width(150).text(
+        Messages.DefaultAutomaticDatabindingProvider_propertyColumn);
     // configure viewer
     m_editorsViewer.setContentProvider(new ArrayContentProvider());
     m_editorsViewer.setLabelProvider(new DescriptorTableLabelProvider());
@@ -253,10 +257,14 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
       Object[] editorData = m_propertyToEditor.get(property);
       //
       if (editorData[0] == null) {
-        return "For property \"" + property.getName() + "\" not set widget.";
+        return MessageFormat.format(
+            Messages.DefaultAutomaticDatabindingProvider_validateNoWidgetForProperty,
+            property.getName());
       }
       if (m_strategyContainer != null && editorData[1] == null) {
-        return "For property \"" + property.getName() + "\" not set strategy.";
+        return MessageFormat.format(
+            Messages.DefaultAutomaticDatabindingProvider_validateNoStrategyForProperty,
+            property.getName());
       }
     }
     return null;

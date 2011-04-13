@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.databinding.Activator;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType.ExpandedStrategy;
@@ -120,7 +121,7 @@ final class ObserveElementsComposite extends SashForm {
     //
     m_filterText = new Text(masterComposite, SWT.BORDER | SWT.SINGLE | SWT.SEARCH);
     GridDataFactory.create(m_filterText).fillH().grabH();
-    m_filterText.setText("type filter text");
+    m_filterText.setText(Messages.ObserveElementsComposite_filterText);
     m_filterText.addListener(SWT.FocusIn, new Listener() {
       public void handleEvent(Event event) {
         m_filterText.selectAll();
@@ -154,7 +155,7 @@ final class ObserveElementsComposite extends SashForm {
     // clear filter action
     m_clearFilterAction = new ToolItem(toolbar, SWT.NONE);
     m_clearFilterAction.setImage(Activator.getImage("clear_filter.gif"));
-    m_clearFilterAction.setToolTipText("Clear");
+    m_clearFilterAction.setToolTipText(Messages.ObserveElementsComposite_clearAction);
     m_clearFilterAction.setEnabled(false);
     m_clearFilterAction.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -195,14 +196,14 @@ final class ObserveElementsComposite extends SashForm {
     //
     Label propertiesLabel = new Label(propertiesComposite, SWT.NONE);
     GridDataFactory.create(propertiesLabel).fillH().grabH();
-    propertiesLabel.setText("Properties:");
+    propertiesLabel.setText(Messages.ObserveElementsComposite_propertiesLabel);
     //
     ToolBar propertiesToolbar = new ToolBar(propertiesComposite, SWT.FLAT);
     GridDataFactory.create(propertiesToolbar).alignHR().grabH();
     //
     m_propertiesFilterAction = new ToolItem(propertiesToolbar, SWT.DROP_DOWN);
     m_propertiesFilterAction.setImage(Activator.getImage("filter_action.gif"));
-    m_propertiesFilterAction.setToolTipText("Properties type filter");
+    m_propertiesFilterAction.setToolTipText(Messages.ObserveElementsComposite_propertiesFilterToolTip);
     //
     m_propertiesFilterMenu = new Menu(propertiesToolbar);
     m_propertiesFilterAction.addSelectionListener(new SelectionAdapter() {
@@ -224,7 +225,7 @@ final class ObserveElementsComposite extends SashForm {
       //
       m_bindAction = new ToolItem(propertiesToolbar, SWT.NONE);
       m_bindAction.setImage(Activator.getImage("link_add_action.png"));
-      m_bindAction.setToolTipText("Create data binding using this selection, use Ctrl for create binding without dialog (if this is possible)");
+      m_bindAction.setToolTipText(Messages.ObserveElementsComposite_bindToolTip);
       m_bindAction.setEnabled(false);
     } else {
       m_bindAction = null;

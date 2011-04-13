@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
@@ -100,9 +101,9 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
   protected void configureShell(Shell newShell) {
     // set title
     if (m_canCreate) {
-      newShell.setText("Create Data Binding");
+      newShell.setText(Messages.BindDialog_titleCreate);
     } else {
-      newShell.setText("Edit Data Binding");
+      newShell.setText(Messages.BindDialog_titleEdit);
     }
     super.configureShell(newShell);
   }

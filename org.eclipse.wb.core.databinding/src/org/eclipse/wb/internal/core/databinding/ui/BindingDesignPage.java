@@ -20,6 +20,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.databinding.Activator;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.parser.DatabindingRootProcessor;
 import org.eclipse.wb.internal.core.databinding.parser.ParseState;
@@ -113,7 +114,7 @@ public class BindingDesignPage implements IEditorPage {
       }
       //
       m_errorLabel = new CLabel(m_composite, SWT.NONE);
-      m_errorLabel.setText("Error state, see Design page for details.");
+      m_errorLabel.setText(Messages.BindingDesignPage_erorrMessage);
       m_errorLabel.setImage(Activator.getImage("errors.gif"));
       GridDataFactory.create(m_errorLabel).fillH().grabH();
       //
@@ -201,7 +202,7 @@ public class BindingDesignPage implements IEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getName() {
-    return "Bindings";
+    return Messages.BindingDesignPage_name;
   }
 
   public Image getImage() {

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.ui.CTabFactory;
@@ -127,7 +128,7 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
       // add
       if (m_configuration.isUseAddButton()) {
         ToolItem addButton = new ToolItem(buttonsBar, SWT.NONE);
-        addButton.setText("Add");
+        addButton.setText(Messages.TabContainerUiContentProvider_addButton);
         addButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent event) {
@@ -138,7 +139,7 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
       // multi add
       if (m_configuration.isUseMultiAddButton()) {
         final ToolItem addButton = new ToolItem(buttonsBar, SWT.DROP_DOWN);
-        addButton.setText("Add...");
+        addButton.setText(Messages.TabContainerUiContentProvider_addItem);
         //
         final MenuManager menuManager = new MenuManager();
         menuManager.createContextMenu(buttonsBar);
@@ -172,7 +173,7 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
       // remove
       if (m_configuration.isUseRemoveButton()) {
         m_removeButton = new ToolItem(buttonsBar, SWT.NONE);
-        m_removeButton.setText("Remove");
+        m_removeButton.setText(Messages.TabContainerUiContentProvider_removeButton);
         m_removeButton.setEnabled(false);
         m_removeButton.addSelectionListener(new SelectionAdapter() {
           @Override

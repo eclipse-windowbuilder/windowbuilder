@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.property.Context;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -37,7 +38,7 @@ public class BindWizard extends Wizard {
     m_context = context;
     m_firstPage = new ObserveElementsWizardPage(context, observeProperty);
     m_secondPage = new BindWizardPage(context, m_firstPage);
-    setWindowTitle("Create Data Binding");
+    setWindowTitle(Messages.BindWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IASTObjectInfo2;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
@@ -98,14 +99,14 @@ public final class BindingContentProvider implements IUiContentProvider {
   public void createContent(final Composite parent, int columns) {
     // expand composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setText("Binding...");
+    m_expandableComposite.setText(Messages.BindingContentProvider_bindingDots);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
       public void expansionStateChanging(ExpansionEvent e) {
         if (m_expandableComposite.isExpanded()) {
-          m_expandableComposite.setText("Binding...");
+          m_expandableComposite.setText(Messages.BindingContentProvider_bindingDots);
         } else {
-          m_expandableComposite.setText("Binding");
+          m_expandableComposite.setText(Messages.BindingContentProvider_binding);
         }
       }
 
@@ -119,7 +120,7 @@ public final class BindingContentProvider implements IUiContentProvider {
     m_expandableComposite.setClient(clientComposite);
     // field editor
     m_assignButton = new Button(clientComposite, SWT.CHECK);
-    m_assignButton.setText("Assign Binding to field");
+    m_assignButton.setText(Messages.BindingContentProvider_assignButton);
     //
     m_fieldNameText = new Text(clientComposite, SWT.SINGLE | SWT.BORDER);
     GridDataFactory.create(m_fieldNameText).fillH().grabH();
@@ -152,7 +153,7 @@ public final class BindingContentProvider implements IUiContentProvider {
       String fieldName = m_fieldNameText.getText();
       // check field
       if (fieldName.length() == 0) {
-        m_errorMessage = "Binding field name is empty.";
+        m_errorMessage = Messages.BindingContentProvider_validateEmptyFieldName;
       } else if (fieldName.equals(m_fieldName) || !m_fields.contains(fieldName)) {
         IStatus status = JavaConventions.validateIdentifier(fieldName, null, null);
         // check status
@@ -162,7 +163,7 @@ public final class BindingContentProvider implements IUiContentProvider {
           m_errorMessage = null;
         }
       } else {
-        m_errorMessage = "This binding field name already exist.";
+        m_errorMessage = Messages.BindingContentProvider_validateExistingFieldName;
       }
     } else {
       m_errorMessage = null;
@@ -179,7 +180,7 @@ public final class BindingContentProvider implements IUiContentProvider {
     m_fieldName = m_binding.getVariableIdentifier();
     if (m_binding.isField()) {
       m_expandableComposite.setExpanded(true);
-      m_expandableComposite.setText("Binding");
+      m_expandableComposite.setText(Messages.BindingContentProvider_binding);
       m_assignButton.setSelection(true);
       m_fieldNameText.setText(m_fieldName);
       m_fieldNameText.setEnabled(true);

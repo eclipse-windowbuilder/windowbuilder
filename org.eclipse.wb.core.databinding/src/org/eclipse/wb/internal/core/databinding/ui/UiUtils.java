@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
@@ -212,8 +213,8 @@ public final class UiUtils {
     // prepare dialog
     ProgressMonitorDialog context = new ProgressMonitorDialog(shell);
     SelectionDialog dialog = JavaUI.createTypeDialog(shell, context, scope, style, false);
-    dialog.setTitle("Open type");
-    dialog.setMessage("Select a type (? = any character, * - any String):");
+    dialog.setTitle(Messages.UiUtils_openTypeTitle);
+    dialog.setMessage(Messages.UiUtils_openTypeMessage);
     // open dialog
     if (dialog.open() == Window.OK) {
       IType type = (IType) dialog.getResult()[0];

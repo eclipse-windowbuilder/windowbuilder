@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.databinding.parser.ParseState;
 import org.eclipse.wb.internal.core.databinding.ui.EditComposite;
 import org.eclipse.wb.internal.core.databinding.ui.EditSelection;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
+import org.eclipse.wb.internal.core.databinding.xml.Messages;
 import org.eclipse.wb.internal.core.databinding.xml.parser.DatabindingRootProcessor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -100,7 +101,7 @@ public final class BindingXmlPage extends XmlEditorPage {
       }
       //
       m_errorLabel = new CLabel(m_composite, SWT.NONE);
-      m_errorLabel.setText("Error state, see Design page for details.");
+      m_errorLabel.setText(Messages.BindingXmlPage_errorMessage);
       m_errorLabel.setImage(org.eclipse.wb.internal.core.databinding.Activator.getImage("errors.gif"));
       GridDataFactory.create(m_errorLabel).fillH().grabH();
       //
@@ -161,7 +162,7 @@ public final class BindingXmlPage extends XmlEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getName() {
-    return "Bindings";
+    return Messages.BindingXmlPage_name;
   }
 
   public Image getImage() {

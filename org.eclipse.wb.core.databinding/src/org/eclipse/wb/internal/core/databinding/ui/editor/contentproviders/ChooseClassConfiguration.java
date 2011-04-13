@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.core.databinding.Messages;
+
 import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 
 import org.apache.commons.lang.StringUtils;
@@ -37,8 +39,8 @@ public class ChooseClassConfiguration {
   private boolean m_chooseInterfaces;
   private final List<String> m_defaultStarts = Lists.newArrayList();
   private Class<?>[][] m_constructorParameters;
-  private String m_emptyClassErrorMessage = "Undefine empty class error message";
-  private String m_errorMessagePrefix = "Undefine error message prefix";
+  private String m_emptyClassErrorMessage = Messages.ChooseClassConfiguration_validateEmptyClass;
+  private String m_errorMessagePrefix = Messages.ChooseClassConfiguration_validateMessagePrefix;
 
   ////////////////////////////////////////////////////////////////////////////
   //

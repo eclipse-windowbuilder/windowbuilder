@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
 import org.eclipse.wb.internal.core.databinding.Activator;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesSupportListener;
@@ -86,7 +87,7 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
             // properties filter
             m_propertiesFilterButton = new ToolItem(toolBar, SWT.CHECK);
             m_propertiesFilterButton.setImage(Activator.getImage("filter_action.gif"));
-            m_propertiesFilterButton.setToolTipText("Hide/Show the properties which can't be bound");
+            m_propertiesFilterButton.setToolTipText(Messages.AutomaticDatabindingSecondPage_filterToolTip);
             m_propertiesFilterButton.setSelection(m_databindingProvider.getPropertiesViewerFilterInitState());
             m_propertiesFilterButton.setEnabled(false);
             m_propertiesFilterButton.addSelectionListener(new SelectionAdapter() {
@@ -165,15 +166,15 @@ public final class AutomaticDatabindingSecondPage extends WizardPage implements 
   private ChooseClassAndPropertiesConfiguration createConfiguration() {
     ChooseClassAndPropertiesConfiguration configuration =
         new ChooseClassAndPropertiesConfiguration();
-    configuration.setDialogFieldLabel("Bean Class:");
+    configuration.setDialogFieldLabel(Messages.AutomaticDatabindingSecondPage_beanClassLabel);
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage("Choose a bean class that contains properties.");
-    configuration.setErrorMessagePrefix("Choose a bean class that contains properties: ");
-    configuration.setPropertiesLabel("Properties:");
+    configuration.setEmptyClassErrorMessage(Messages.AutomaticDatabindingSecondPage_beanClassMessage);
+    configuration.setErrorMessagePrefix(Messages.AutomaticDatabindingSecondPage_beanClassErrorPrefix);
+    configuration.setPropertiesLabel(Messages.AutomaticDatabindingSecondPage_propertiesLabel);
     configuration.setPropertiesMultiChecked(true);
     configuration.setReorderMode(true);
     configuration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.All);
-    configuration.setPropertiesErrorMessage("Add properties to bindings.");
+    configuration.setPropertiesErrorMessage(Messages.AutomaticDatabindingSecondPage_propertiesErrorMessage);
     m_databindingProvider.configure(configuration);
     return configuration;
   }

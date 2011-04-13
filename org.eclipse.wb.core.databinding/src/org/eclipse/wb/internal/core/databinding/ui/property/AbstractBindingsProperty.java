@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.databinding.ui.property;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -77,7 +78,7 @@ public abstract class AbstractBindingsProperty extends AbstractProperty {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public final String getTitle() {
-    return "bindings";
+    return Messages.AbstractBindingsProperty_title;
   }
 
   @Override
@@ -96,7 +97,7 @@ public abstract class AbstractBindingsProperty extends AbstractProperty {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void contributeActions(IMenuManager manager) throws Exception {
-    IMenuManager menu = new MenuManager("Bindings");
+    IMenuManager menu = new MenuManager(Messages.AbstractBindingsProperty_menuName);
     // fill bindings
     for (IBindingInfo binding : m_context.provider.getBindings()) {
       if (checkEquals(binding.getTarget())) {

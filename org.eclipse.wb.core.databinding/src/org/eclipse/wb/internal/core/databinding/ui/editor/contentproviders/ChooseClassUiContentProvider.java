@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.databinding.ui.editor.DialogFieldUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
@@ -195,11 +196,13 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
         // check permissions
         int modifiers = testClass.getModifiers();
         if (!Modifier.isPublic(modifiers)) {
-          setErrorMessage(errorMessagePrefix + " Class is not public.");
+          setErrorMessage(errorMessagePrefix
+              + Messages.ChooseClassUiContentProvider_validateNotPublic);
           return;
         }
         if (!m_configuration.isChooseInterfaces() && Modifier.isAbstract(modifiers)) {
-          setErrorMessage(errorMessagePrefix + " Class is abstract.");
+          setErrorMessage(errorMessagePrefix
+              + Messages.ChooseClassUiContentProvider_validateAbstract);
           return;
         }
         // check constructor
@@ -240,13 +243,13 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
           }
         }
       } catch (ClassNotFoundException e) {
-        setErrorMessage(errorMessagePrefix + " Class does not exist.");
+        setErrorMessage(errorMessagePrefix + Messages.ChooseClassUiContentProvider_validateNotExist);
         return;
       }
       // prepare error message for constructor
       if (noConstructor) {
         StringBuffer parameters = new StringBuffer(errorMessagePrefix);
-        parameters.append(" Class does not contains public constructor(s): ");
+        parameters.append(Messages.ChooseClassUiContentProvider_validatePublicConstructor);
         for (int i = 0; i < constructorsParameters.length; i++) {
           Class<?>[] constructorParameters = constructorsParameters[i];
           if (i > 0) {

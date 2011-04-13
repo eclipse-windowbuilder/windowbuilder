@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -156,7 +157,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
         // select all button
         m_selectAllButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_selectAllButton).fillH();
-        m_selectAllButton.setText("Select &All");
+        m_selectAllButton.setText(Messages.ChooseClassAndPropertiesUiContentProvider_selectAllButton);
         m_selectAllButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -166,7 +167,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
         // deselect all button
         m_deselectAllButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_deselectAllButton).fillH();
-        m_deselectAllButton.setText("&Deselect All");
+        m_deselectAllButton.setText(Messages.ChooseClassAndPropertiesUiContentProvider_deselectAllButton);
         m_deselectAllButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -177,7 +178,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       // move up button
       m_upButton = new Button(buttonsComposite, SWT.NONE);
       GridDataFactory.create(m_upButton).fillH();
-      m_upButton.setText("Up");
+      m_upButton.setText(Messages.ChooseClassAndPropertiesUiContentProvider_upButton);
       m_upButton.setEnabled(false);
       m_upButton.addSelectionListener(new SelectionAdapter() {
         @Override
@@ -188,7 +189,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       // move down button
       m_downButton = new Button(buttonsComposite, SWT.NONE);
       GridDataFactory.create(m_downButton).fillH();
-      m_downButton.setText("Down");
+      m_downButton.setText(Messages.ChooseClassAndPropertiesUiContentProvider_downButton);
       m_downButton.setEnabled(false);
       m_downButton.addSelectionListener(new SelectionAdapter() {
         @Override

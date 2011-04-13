@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.databinding.ui;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.property.Context;
@@ -48,8 +49,8 @@ public class ObserveElementsWizardPage extends WizardPage {
     super("first");
     m_context = context;
     m_observeProperty = observeProperty;
-    setTitle("Model");
-    setMessage("Choose the model and property to bind to.");
+    setTitle(Messages.ObserveElementsWizardPage_title);
+    setMessage(Messages.ObserveElementsWizardPage_message);
     setPageComplete(false);
   }
 
@@ -90,7 +91,7 @@ public class ObserveElementsWizardPage extends WizardPage {
     GridDataFactory.create(titleComposite).fillH().grabH();
     // create title label
     Label titleLable = new Label(titleComposite, SWT.NONE);
-    titleLable.setText("Target:");
+    titleLable.setText(Messages.ObserveElementsWizardPage_targetLabel);
     // create value bold label
     Label valueLabel = new Label(titleComposite, SWT.NONE);
     GridDataFactory.create(valueLabel).fillH().grabH();
@@ -113,7 +114,11 @@ public class ObserveElementsWizardPage extends WizardPage {
     };
     //
     m_composite =
-        new ObserveElementsComposite(container, SWT.NONE, "Model", m_context.provider, false);
+        new ObserveElementsComposite(container,
+            SWT.NONE,
+            Messages.ObserveElementsWizardPage_modelLabel,
+            m_context.provider,
+            false);
     GridDataFactory.create(m_composite).fill().grab();
     m_composite.showPage(m_context.provider.getModelStartType());
     m_composite.getMasterViewer().addPostSelectionChangedListener(listener);
