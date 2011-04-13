@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorsGridComposite;
+import org.eclipse.wb.internal.css.Messages;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
@@ -81,69 +82,119 @@ public class SystemColorsComposite extends AbstractColorsGridComposite {
   private static final int COLOR_3DHIGHLIGHT = COLOR_BTNHIGHLIGHT;
   private static final int COLOR_3DHILIGHT = COLOR_BTNHIGHLIGHT;
   //private static final int COLOR_BTNHILIGHT = COLOR_BTNHIGHLIGHT;
-  public static final ColorInfo[] SYSTEM_COLORS =
-      new ColorInfo[]{
-          createColorInfo("ActiveBorder", "Border color of the active windows.", COLOR_ACTIVEBORDER),
-          createColorInfo("ActiveCaption", "Active window caption background.", COLOR_ACTIVECAPTION),
-          createColorInfo(
-              "AppWorkspace",
-              "Background of the MDI frame windows.",
-              COLOR_APPWORKSPACE),
-          createColorInfo("Background", "Desktop background.", COLOR_BACKGROUND),
-          createColorInfo("ButtonFace", "Background color of the buttons.", COLOR_BTNFACE),
-          createColorInfo("ButtonHighlight", "Highlight color for the buttons.", COLOR_BTNHIGHLIGHT),
-          createColorInfo(
-              "ButtonShadow",
-              "Shadow color for three-dimensional display elements.",
-              COLOR_BTNSHADOW),
-          createColorInfo("ButtonText", "Text on push buttons.", COLOR_BTNTEXT),
-          createColorInfo(
-              "CaptionText",
-              "Text in caption, size box, and scrollbar arrow box.",
-              COLOR_CAPTIONTEXT),
-          createColorInfo("GrayText", "Text color for the disabled items.", COLOR_GRAYTEXT),
-          createColorInfo(
-              "Highlight",
-              "Highlight color - selected menu items, list box selections, etc.",
-              COLOR_HIGHLIGHT),
-          createColorInfo(
-              "HighlightText",
-              "Text color for the highlighted items.",
-              COLOR_HIGHLIGHTTEXT),
-          createColorInfo("InactiveBorder", "Inactive window border.", COLOR_INACTIVEBORDER),
-          createColorInfo("InactiveCaption", "Inactive window caption.", COLOR_INACTIVECAPTION),
-          createColorInfo(
-              "InactiveCaptionText",
-              "Color of text in an inactive caption.",
-              COLOR_INACTIVECAPTIONTEXT),
-          createColorInfo("InfoBackground", "Background color for tooltip controls.", COLOR_INFOBK),
-          createColorInfo("InfoText", "Text color for tooltip controls.", COLOR_INFOTEXT),
-          createColorInfo("Menu", "Menu background.", COLOR_MENU),
-          createColorInfo("MenuText", "Text in menus.", COLOR_MENUTEXT),
-          createColorInfo("Scrollbar", "Scroll bar gray area.", COLOR_SCROLLBAR),
-          createColorInfo(
-              "ThreeDDarkShadow",
-              "Dark shadow for three-dimensional display elements.",
-              COLOR_3DDKSHADOW),
-          createColorInfo(
-              "ThreeDFace",
-              "Face color for three-dimensional display elements.",
-              COLOR_3DFACE),
-          createColorInfo(
-              "ThreeDHighlight",
-              "Highlight color for three-dimensional display elements.",
-              COLOR_3DHIGHLIGHT),
-          createColorInfo(
-              "ThreeDLightShadow",
-              "Light color for three-dimensional display elements.",
-              COLOR_3DHILIGHT),
-          createColorInfo(
-              "ThreeDShadow",
-              "Dark shadow for three-dimensional display elements.",
-              COLOR_3DSHADOW),
-          createColorInfo("Window", "Window background.", COLOR_WINDOW),
-          createColorInfo("WindowFrame", "Window frame.", COLOR_WINDOWFRAME),
-          createColorInfo("WindowText", "Text in windows.", COLOR_WINDOWTEXT),};
+  public static final ColorInfo[] SYSTEM_COLORS = new ColorInfo[]{
+      createColorInfo(
+          Messages.SystemColorsComposite_activeBorder,
+          Messages.SystemColorsComposite_activeBorderDescription,
+          COLOR_ACTIVEBORDER),
+      createColorInfo(
+          Messages.SystemColorsComposite_activeCaption,
+          Messages.SystemColorsComposite_activeCaptionDescription,
+          COLOR_ACTIVECAPTION),
+      createColorInfo(
+          Messages.SystemColorsComposite_appWorkspace,
+          Messages.SystemColorsComposite_appWorkspaceDescription,
+          COLOR_APPWORKSPACE),
+      createColorInfo(
+          Messages.SystemColorsComposite_background,
+          Messages.SystemColorsComposite_backgroundDescription,
+          COLOR_BACKGROUND),
+      createColorInfo(
+          Messages.SystemColorsComposite_buttonFace,
+          Messages.SystemColorsComposite_buttonFaceDescription,
+          COLOR_BTNFACE),
+      createColorInfo(
+          Messages.SystemColorsComposite_buttonHighlight,
+          Messages.SystemColorsComposite_buttonHighlightDescription,
+          COLOR_BTNHIGHLIGHT),
+      createColorInfo(
+          Messages.SystemColorsComposite_buttonShadow,
+          Messages.SystemColorsComposite_buttonShadowDescription,
+          COLOR_BTNSHADOW),
+      createColorInfo(
+          Messages.SystemColorsComposite_buttonText,
+          Messages.SystemColorsComposite_buttonTextDescription,
+          COLOR_BTNTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_captionText,
+          Messages.SystemColorsComposite_captionTextDescription,
+          COLOR_CAPTIONTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_grayText,
+          Messages.SystemColorsComposite_grayTextDescription,
+          COLOR_GRAYTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_highlight,
+          Messages.SystemColorsComposite_highlightDescription,
+          COLOR_HIGHLIGHT),
+      createColorInfo(
+          Messages.SystemColorsComposite_highlightText,
+          Messages.SystemColorsComposite_highlightTextDescription,
+          COLOR_HIGHLIGHTTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_inactiveBorder,
+          Messages.SystemColorsComposite_inactiveBorderDescription,
+          COLOR_INACTIVEBORDER),
+      createColorInfo(
+          Messages.SystemColorsComposite_inactiveCaption,
+          Messages.SystemColorsComposite_inactiveCaptionDescription,
+          COLOR_INACTIVECAPTION),
+      createColorInfo(
+          Messages.SystemColorsComposite_inactiveText,
+          Messages.SystemColorsComposite_inactiveTextDescription,
+          COLOR_INACTIVECAPTIONTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_infoBackground,
+          Messages.SystemColorsComposite_infoBackgroundDescription,
+          COLOR_INFOBK),
+      createColorInfo(
+          Messages.SystemColorsComposite_infoText,
+          Messages.SystemColorsComposite_infoTextDescription,
+          COLOR_INFOTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_menu,
+          Messages.SystemColorsComposite_menuDescription,
+          COLOR_MENU),
+      createColorInfo(
+          Messages.SystemColorsComposite_menuText,
+          Messages.SystemColorsComposite_menuTextDescription,
+          COLOR_MENUTEXT),
+      createColorInfo(
+          Messages.SystemColorsComposite_scrollbar,
+          Messages.SystemColorsComposite_scrollbarDescription,
+          COLOR_SCROLLBAR),
+      createColorInfo(
+          Messages.SystemColorsComposite_shadowDark,
+          Messages.SystemColorsComposite_shadowDarkDescription,
+          COLOR_3DDKSHADOW),
+      createColorInfo(
+          Messages.SystemColorsComposite_face3d,
+          Messages.SystemColorsComposite_face3dDescription,
+          COLOR_3DFACE),
+      createColorInfo(
+          Messages.SystemColorsComposite_shadowHighlight,
+          Messages.SystemColorsComposite_shadowHighlightDescription,
+          COLOR_3DHIGHLIGHT),
+      createColorInfo(
+          Messages.SystemColorsComposite_shadowLight,
+          Messages.SystemColorsComposite_shadowLightDescription,
+          COLOR_3DHILIGHT),
+      createColorInfo(
+          Messages.SystemColorsComposite_shadow,
+          Messages.SystemColorsComposite_shadowDescription,
+          COLOR_3DSHADOW),
+      createColorInfo(
+          Messages.SystemColorsComposite_window,
+          Messages.SystemColorsComposite_windowDescription,
+          COLOR_WINDOW),
+      createColorInfo(
+          Messages.SystemColorsComposite_windowFrame,
+          Messages.SystemColorsComposite_windowFrameDescription,
+          COLOR_WINDOWFRAME),
+      createColorInfo(
+          Messages.SystemColorsComposite_windowText,
+          Messages.SystemColorsComposite_windowTextDescription,
+          COLOR_WINDOWTEXT),};
 
   /**
    * @return the {@link ColorInfo} for given system color id (Windows only).

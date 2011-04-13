@@ -25,6 +25,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import java.text.MessageFormat;
+
 /**
  * Abstract editor for {@link AbstractValue}.
  * 
@@ -75,10 +77,10 @@ public abstract class AbstractValueEditor {
    */
   protected final void requireColumns(int requiredColumns, int givenColumns) {
     if (requiredColumns > givenColumns) {
-      throw new IllegalArgumentException(requiredColumns
-          + " number of column required, but only "
-          + givenColumns
-          + " given.");
+      throw new IllegalArgumentException(MessageFormat.format(
+          "{0} number of column required, but only {1} given.",
+          requiredColumns,
+          givenColumns));
     }
   }
 

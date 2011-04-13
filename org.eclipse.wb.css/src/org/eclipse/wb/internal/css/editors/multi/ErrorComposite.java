@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.css.editors.multi;
 
+import org.eclipse.wb.internal.css.Messages;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
@@ -51,7 +53,7 @@ public class ErrorComposite extends Composite {
       titleComposite.setLayout(new GridLayout());
       {
         Label label = new Label(titleComposite, SWT.NONE);
-        label.setText("CSS Editor was not able to show GUI:");
+        label.setText(Messages.ErrorComposite_title);
         label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
       }
     }

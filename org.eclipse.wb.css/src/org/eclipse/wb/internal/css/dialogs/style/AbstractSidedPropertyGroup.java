@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.css.dialogs.style;
 
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.css.Messages;
 import org.eclipse.wb.internal.css.semantics.AbstractSidedProperty;
 import org.eclipse.wb.internal.css.semantics.AbstractValue;
 
@@ -28,7 +29,11 @@ import org.eclipse.swt.widgets.Group;
  * @coverage CSS.ui
  */
 public abstract class AbstractSidedPropertyGroup extends Group {
-  private static final String[] SIDE_TITLES = new String[]{"Top:", "Right:", "Bottom:", "Left:"};
+  private static final String[] SIDE_TITLES = new String[]{
+      Messages.AbstractSidedPropertyGroup_sideTop,
+      Messages.AbstractSidedPropertyGroup_sideRight,
+      Messages.AbstractSidedPropertyGroup_sideBottom,
+      Messages.AbstractSidedPropertyGroup_sideLeft};
   protected final StyleEditOptions m_options;
   private final int m_numColumns;
   private final AbstractSidedProperty m_property;
@@ -100,7 +105,7 @@ public abstract class AbstractSidedPropertyGroup extends Group {
         AbstractValueEditor.createButtonControl(
             this,
             "synced.gif",
-            "Copy 'top' value into all sides",
+            Messages.AbstractSidedPropertyGroup_copyButton,
             new SelectionAdapter() {
               @Override
               public void widgetSelected(SelectionEvent e) {
@@ -117,13 +122,17 @@ public abstract class AbstractSidedPropertyGroup extends Group {
    * Creates "Clear all" button.
    */
   private final void createClearAll() {
-    AbstractValueEditor.createButtonControl(this, "clear.gif", "Clear all", new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        for (int side = 0; side < 4; side++) {
-          m_property.getValue(side).set(null);
-        }
-      }
-    });
+    AbstractValueEditor.createButtonControl(
+        this,
+        "clear.gif",
+        Messages.AbstractSidedPropertyGroup_clearButton,
+        new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+            for (int side = 0; side < 4; side++) {
+              m_property.getValue(side).set(null);
+            }
+          }
+        });
   }
 }

@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.css.Activator;
+import org.eclipse.wb.internal.css.Messages;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -91,7 +92,7 @@ public class FontListDialog extends Dialog {
       Group selectedComposite = new Group(area, SWT.NONE);
       GridDataFactory.create(selectedComposite).spanV(3).fill();
       GridLayoutFactory.create(selectedComposite).noMargins();
-      selectedComposite.setText("Selected fonts");
+      selectedComposite.setText(Messages.FontListDialog_selectedGroup);
       {
         m_selectedList = new org.eclipse.swt.widgets.List(selectedComposite, SWT.BORDER);
         GridDataFactory.create(m_selectedList).grab().fill().hintC(50, 15);
@@ -156,7 +157,7 @@ public class FontListDialog extends Dialog {
     }
     // generic fonts
     {
-      createFontListGroup(area, "Generic fonts", 6, new String[]{
+      createFontListGroup(area, Messages.FontListDialog_genericGroup, 6, new String[]{
           "serif",
           "sans-serif",
           "cursive",
@@ -173,14 +174,14 @@ public class FontListDialog extends Dialog {
         Collections.sort(fontList);
         fonts = fontList.toArray(new String[fontList.size()]);
       }
-      createFontListGroup(area, "Installed fonts", 10, fonts);
+      createFontListGroup(area, Messages.FontListDialog_installedGroup, 10, fonts);
     }
     // custom font
     {
       Group customComposite = new Group(area, SWT.NONE);
       GridDataFactory.create(customComposite).fillH();
       GridLayoutFactory.create(customComposite).columns(2);
-      customComposite.setText("Custom font");
+      customComposite.setText(Messages.FontListDialog_customGroup);
       {
         ToolBar toolBar = new ToolBar(customComposite, SWT.FLAT | SWT.RIGHT);
         GridDataFactory.create(toolBar).grabV().alignVM();
@@ -265,7 +266,7 @@ public class FontListDialog extends Dialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Edit font list");
+    newShell.setText(Messages.FontListDialog_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ReusableDialog;
+import org.eclipse.wb.internal.css.Messages;
 import org.eclipse.wb.internal.css.model.CssRuleNode;
 import org.eclipse.wb.internal.css.semantics.AbstractValue;
 import org.eclipse.wb.internal.css.semantics.BackgroundProperty;
@@ -39,6 +40,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 /**
@@ -99,7 +101,8 @@ public class StyleEditDialog extends ReusableDialog {
    */
   public void setRule(CssRuleNode rule) {
     m_semantics.parse(rule);
-    getShell().setText("CSS Rule Editor: " + rule.getSelector().getValue());
+    getShell().setText(
+        MessageFormat.format(Messages.StyleEditDialog_titlePattern, rule.getSelector().getValue()));
   }
 
   /**
@@ -143,7 +146,7 @@ public class StyleEditDialog extends ReusableDialog {
     {
       Button clearButton = new Button(parent, SWT.NONE);
       GridDataFactory.create(clearButton).grabH().hintHC(20);
-      clearButton.setText("Clear");
+      clearButton.setText(Messages.StyleEditDialog_clearButton);
       clearButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
@@ -180,7 +183,7 @@ public class StyleEditDialog extends ReusableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("CSS style editing dialog");
+    newShell.setText(Messages.StyleEditDialog_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -214,7 +217,6 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private Control createFolder(Composite parent) {
     TabFolder tabFolder = new TabFolder(parent, SWT.NONE);
-    //long start = System.nanoTime();
     for (int i = 0; i < 1; i++) {
       createTabFont(tabFolder);
       createTabBackground(tabFolder);
@@ -223,7 +225,6 @@ public class StyleEditDialog extends ReusableDialog {
       createTabText(tabFolder);
       createTabOther(tabFolder);
     }
-    //System.out.println("tabs time: " + (System.nanoTime() - start) / 1000000.0);
     return tabFolder;
   }
 
@@ -234,7 +235,7 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createTabFont(TabFolder tabFolder) {
     TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-    tabItem.setText("Font");
+    tabItem.setText(Messages.StyleEditDialog_fontTab);
     //
     FontProperty font = m_semantics.m_font;
     //
@@ -242,92 +243,110 @@ public class StyleEditDialog extends ReusableDialog {
     tabItem.setControl(fontGroup);
     int numColumns = 4;
     GridLayoutFactory.create(fontGroup).columns(numColumns);
-    fontGroup.setText("Font");
+    fontGroup.setText(Messages.StyleEditDialog_fontGroup);
     // family
     {
       FontFamilyValueEditor editor =
-          new FontFamilyValueEditor(m_options, "Family:", font.getFamily());
+          new FontFamilyValueEditor(m_options,
+              Messages.StyleEditDialog_fontFamily,
+              font.getFamily());
       editor.doFillGrid(fontGroup, numColumns);
     }
     // size
     {
       LengthValueEditor editor =
-          new LengthValueEditor(m_options, font.getSize(), "Size:", new String[]{
-              "",
-              "8",
-              "9",
-              "10",
-              "14",
-              "16",
-              "18",
-              "24",
-              "36",
-              "smaller",
-              "larger",
-              "xx-small",
-              "x-small",
-              "small",
-              "medium",
-              "large",
-              "x-large",
-              "xx-large"});
+          new LengthValueEditor(m_options,
+              font.getSize(),
+              Messages.StyleEditDialog_fontSize,
+              new String[]{
+                  "",
+                  "8",
+                  "9",
+                  "10",
+                  "14",
+                  "16",
+                  "18",
+                  "24",
+                  "36",
+                  "smaller",
+                  "larger",
+                  "xx-small",
+                  "x-small",
+                  "small",
+                  "medium",
+                  "large",
+                  "x-large",
+                  "xx-large"});
       editor.doFillGrid(fontGroup, numColumns, true);
     }
     // style
     {
       String[] values = {"", "normal", "italic", "oblique"};
       SimpleValueEditor editor =
-          new SimpleValueEditor(m_options, font.getStyle(), "Style:", values);
+          new SimpleValueEditor(m_options,
+              font.getStyle(),
+              Messages.StyleEditDialog_fontStyle,
+              values);
       editor.doFillGrid(fontGroup, numColumns, true, false);
     }
     // variant
     {
       String[] values = {"", "normal", "small-caps"};
       SimpleValueEditor editor =
-          new SimpleValueEditor(m_options, font.getVariant(), "Variant:", values);
+          new SimpleValueEditor(m_options,
+              font.getVariant(),
+              Messages.StyleEditDialog_fontVariant,
+              values);
       editor.doFillGrid(fontGroup, numColumns, false, false);
     }
     // weight
     {
       SimpleValueEditor editor =
-          new SimpleValueEditor(m_options, font.getWeight(), "Weight:", new String[]{
-              "",
-              "normal",
-              "bold",
-              "bolder",
-              "lighter",
-              "100",
-              "200",
-              "300",
-              "400",
-              "500",
-              "600",
-              "700",
-              "800",
-              "900"});
+          new SimpleValueEditor(m_options,
+              font.getWeight(),
+              Messages.StyleEditDialog_fontWeight,
+              new String[]{
+                  "",
+                  "normal",
+                  "bold",
+                  "bolder",
+                  "lighter",
+                  "100",
+                  "200",
+                  "300",
+                  "400",
+                  "500",
+                  "600",
+                  "700",
+                  "800",
+                  "900"});
       editor.doFillGrid(fontGroup, numColumns, false, false);
     }
     // stretch
     {
       SimpleValueEditor editor =
-          new SimpleValueEditor(m_options, font.getStretch(), "Stretch:", new String[]{
-              "",
-              "normal",
-              "wider",
-              "narrower",
-              "ultra-condensed",
-              "extra-condensed",
-              "condensed",
-              "semi-condensed",
-              "semi-expanded",
-              "expanded",
-              "extra-expanded",
-              "ultra-expanded"});
+          new SimpleValueEditor(m_options,
+              font.getStretch(),
+              Messages.StyleEditDialog_fontStretch,
+              new String[]{
+                  "",
+                  "normal",
+                  "wider",
+                  "narrower",
+                  "ultra-condensed",
+                  "extra-condensed",
+                  "condensed",
+                  "semi-condensed",
+                  "semi-expanded",
+                  "expanded",
+                  "extra-expanded",
+                  "ultra-expanded"});
       editor.doFillGrid(fontGroup, numColumns, false, false);
     }
     // color
     {
-      ColorValueEditor editor = new ColorValueEditor(m_options, "Color:", m_semantics.m_color);
+      ColorValueEditor editor =
+          new ColorValueEditor(m_options, Messages.StyleEditDialog_fontColor, m_semantics.m_color);
       editor.doFillGrid(fontGroup, numColumns);
     }
     // decoration
@@ -335,7 +354,7 @@ public class StyleEditDialog extends ReusableDialog {
       SetsValueEditor editor =
           new SetsValueEditor(m_options,
               m_semantics.m_text.m_decoration,
-              "Decoration",
+              Messages.StyleEditDialog_fontDecoration,
               new String[][]{{"none"}, {"underline", "overline", "line-through", "blink"}});
       editor.doFillGrid(fontGroup, numColumns);
     }
@@ -348,7 +367,7 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createTabBox(TabFolder tabFolder) {
     TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-    tabItem.setText("Box");
+    tabItem.setText(Messages.StyleEditDialog_boxTab);
     //
     Composite composite = new Composite(tabFolder, SWT.NONE);
     GridLayoutFactory.create(composite);
@@ -359,7 +378,7 @@ public class StyleEditDialog extends ReusableDialog {
       new LengthSidedPropertyGroup(composite,
           SWT.NONE,
           m_options,
-          "Margin",
+          Messages.StyleEditDialog_margin,
           m_semantics.m_margin,
           values);
     }
@@ -369,7 +388,7 @@ public class StyleEditDialog extends ReusableDialog {
       new LengthSidedPropertyGroup(composite,
           SWT.NONE,
           m_options,
-          "Padding",
+          Messages.StyleEditDialog_padding,
           m_semantics.m_padding,
           values);
     }
@@ -382,7 +401,7 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createTabBorder(TabFolder tabFolder) {
     TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-    tabItem.setText("Border");
+    tabItem.setText(Messages.StyleEditDialog_borderTab);
     //
     Composite composite = new Composite(tabFolder, SWT.NONE);
     GridLayoutFactory.create(composite).columns(2);
@@ -390,14 +409,23 @@ public class StyleEditDialog extends ReusableDialog {
     //
     BorderProperty border = m_semantics.m_border;
     String[] values = {"thin", "medium", "thick", "1", "2", "3", "4", "5"};
-    new LengthSidedPropertyGroup(composite, SWT.NONE, m_options, "Width", border.getWidth(), values);
+    new LengthSidedPropertyGroup(composite,
+        SWT.NONE,
+        m_options,
+        Messages.StyleEditDialog_borderWidth,
+        border.getWidth(),
+        values);
     new SimpleSidedPropertyGroup(composite,
         SWT.NONE,
         m_options,
-        "Style",
+        Messages.StyleEditDialog_borderStyle,
         border.getStyle(),
         BorderProperty.STYLES);
-    new ColorSidedPropertyGroup(composite, SWT.NONE, m_options, "Color", border.getColor());
+    new ColorSidedPropertyGroup(composite,
+        SWT.NONE,
+        m_options,
+        Messages.StyleEditDialog_borderColor,
+        border.getColor());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -407,7 +435,7 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createTabText(TabFolder tabFolder) {
     TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-    tabItem.setText("Text");
+    tabItem.setText(Messages.StyleEditDialog_textTab);
     //
     int numColumns = 4;
     TextProperty text = m_semantics.m_text;
@@ -420,12 +448,15 @@ public class StyleEditDialog extends ReusableDialog {
       Group alignGroup = new Group(composite, SWT.NONE);
       GridDataFactory.create(alignGroup).grabH().fillH();
       GridLayoutFactory.create(alignGroup).columns(numColumns);
-      alignGroup.setText("Alignment");
+      alignGroup.setText(Messages.StyleEditDialog_textAlignment);
       // horizontal
       {
         String[] values = {"", "left", "right", "center", "justify"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, text.m_align, "Horizontal:", values);
+            new SimpleValueEditor(m_options,
+                text.m_align,
+                Messages.StyleEditDialog_textAlignmentHorizontal,
+                values);
         editor.doFillGrid(alignGroup, numColumns, true, false);
       }
       // vertical
@@ -433,7 +464,10 @@ public class StyleEditDialog extends ReusableDialog {
         String[] values =
             {"baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom"};
         LengthValueEditor editor =
-            new LengthValueEditor(m_options, text.m_verticalAlign, "Vertical:", values);
+            new LengthValueEditor(m_options,
+                text.m_verticalAlign,
+                Messages.StyleEditDialog_textAlignmentVertical,
+                values);
         editor.doFillGrid(alignGroup, numColumns, true);
       }
     }
@@ -442,20 +476,26 @@ public class StyleEditDialog extends ReusableDialog {
       Group spacingGroup = new Group(composite, SWT.NONE);
       GridDataFactory.create(spacingGroup).grabH().fillH();
       GridLayoutFactory.create(spacingGroup).columns(numColumns);
-      spacingGroup.setText("Spacing");
+      spacingGroup.setText(Messages.StyleEditDialog_textSpacing);
       //
       {
         String[] values = new String[]{"normal", "1", "2", "3", "4", "5"};
         // letter
         {
           LengthValueEditor editor =
-              new LengthValueEditor(m_options, text.m_letterSpacing, "Letter spacing:", values);
+              new LengthValueEditor(m_options,
+                  text.m_letterSpacing,
+                  Messages.StyleEditDialog_textSpacingLetter,
+                  values);
           editor.doFillGrid(spacingGroup, numColumns, true);
         }
         // word
         {
           LengthValueEditor editor =
-              new LengthValueEditor(m_options, text.m_wordSpacing, "Word spacing:", values);
+              new LengthValueEditor(m_options,
+                  text.m_wordSpacing,
+                  Messages.StyleEditDialog_textSpacingWord,
+                  values);
           editor.doFillGrid(spacingGroup, numColumns, true);
         }
       }
@@ -463,7 +503,10 @@ public class StyleEditDialog extends ReusableDialog {
       {
         String[] values = {"normal"};
         LengthValueEditor editor =
-            new LengthValueEditor(m_options, text.m_lineHeight, "Line height:", values);
+            new LengthValueEditor(m_options,
+                text.m_lineHeight,
+                Messages.StyleEditDialog_textLineHeight,
+                values);
         editor.doFillGrid(spacingGroup, numColumns, true);
       }
     }
@@ -472,33 +515,45 @@ public class StyleEditDialog extends ReusableDialog {
       Group flowGroup = new Group(composite, SWT.NONE);
       GridDataFactory.create(flowGroup).grabH().fillH();
       GridLayoutFactory.create(flowGroup).columns(numColumns);
-      flowGroup.setText("Flow");
+      flowGroup.setText(Messages.StyleEditDialog_textFlowGroup);
       // indent
       {
         String[] values = {"1", "2", "3", "4", "5"};
         LengthValueEditor editor =
-            new LengthValueEditor(m_options, text.m_indent, "Indent:", values);
+            new LengthValueEditor(m_options,
+                text.m_indent,
+                Messages.StyleEditDialog_textIndent,
+                values);
         editor.doFillGrid(flowGroup, numColumns, true);
       }
       // white-space
       {
         String[] values = {"", "normal", "pre", "nowrap"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, text.m_whiteSpace, "White space:", values);
+            new SimpleValueEditor(m_options,
+                text.m_whiteSpace,
+                Messages.StyleEditDialog_textWhiteSpace,
+                values);
         editor.doFillGrid(flowGroup, numColumns, true, false);
       }
       // direction
       {
         String[] values = {"", "ltr", "rtl"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, text.m_direction, "Direction:", values);
+            new SimpleValueEditor(m_options,
+                text.m_direction,
+                Messages.StyleEditDialog_textDirection,
+                values);
         editor.doFillGrid(flowGroup, numColumns, true, false);
       }
       // transform
       {
         String[] values = {"", "none", "capitalize", "uppercase", "lowercase"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, text.m_transform, "Transform:", values);
+            new SimpleValueEditor(m_options,
+                text.m_transform,
+                Messages.StyleEditDialog_textTransform,
+                values);
         editor.doFillGrid(flowGroup, numColumns, true, false);
       }
     }
@@ -511,7 +566,7 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createTabBackground(TabFolder tabFolder) {
     TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-    tabItem.setText("Background");
+    tabItem.setText(Messages.StyleEditDialog_backgroundTab);
     //
     BackgroundProperty background = m_semantics.m_background;
     //
@@ -524,9 +579,12 @@ public class StyleEditDialog extends ReusableDialog {
       Group colorGroup = new Group(composite, SWT.NONE);
       GridDataFactory.create(colorGroup).grabH().fillH();
       GridLayoutFactory.create(colorGroup).columns(numColumns);
-      colorGroup.setText("Background color");
+      colorGroup.setText(Messages.StyleEditDialog_backgroundColorGroup);
       //
-      ColorValueEditor editor = new ColorValueEditor(m_options, "Color:", background.m_color);
+      ColorValueEditor editor =
+          new ColorValueEditor(m_options,
+              Messages.StyleEditDialog_backgroundColor,
+              background.m_color);
       editor.doFillGrid(colorGroup, numColumns);
     }
     // image
@@ -535,7 +593,7 @@ public class StyleEditDialog extends ReusableDialog {
       Group imageGroup = new Group(composite, SWT.NONE);
       GridDataFactory.create(imageGroup).grabH().fillH();
       GridLayoutFactory.create(imageGroup).columns(numColumns);
-      imageGroup.setText("Background image");
+      imageGroup.setText(Messages.StyleEditDialog_backgroundImageGroup);
       // image
       {
         String[] values =
@@ -546,21 +604,30 @@ public class StyleEditDialog extends ReusableDialog {
                 "url(blue_gradient.gif)",
                 "url(grey_gradient.gif"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, background.m_image, "Image:", values);
+            new SimpleValueEditor(m_options,
+                background.m_image,
+                Messages.StyleEditDialog_backgroundImage,
+                values);
         editor.doFillGrid(imageGroup, numColumns, true, true);
       }
       // repeat
       {
         String[] values = {"", "repeat", "repeat-x", "repeat-y", "no-repeat"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, background.m_repeat, "Repeat:", values);
+            new SimpleValueEditor(m_options,
+                background.m_repeat,
+                Messages.StyleEditDialog_backgroundRepeat,
+                values);
         editor.doFillGrid(imageGroup, numColumns, true, false);
       }
       // attachment
       {
         String[] values = {"", "scroll", "fixed"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, background.m_attachment, "Attachment:", values);
+            new SimpleValueEditor(m_options,
+                background.m_attachment,
+                Messages.StyleEditDialog_backgroundAttachment,
+                values);
         editor.doFillGrid(imageGroup, numColumns, true, false);
       }
     }
@@ -573,7 +640,7 @@ public class StyleEditDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createTabOther(TabFolder tabFolder) {
     TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-    tabItem.setText("Other");
+    tabItem.setText(Messages.StyleEditDialog_otherTab);
     //
     OtherProperty other = m_semantics.m_other;
     //
@@ -586,19 +653,25 @@ public class StyleEditDialog extends ReusableDialog {
       Group group = new Group(composite, SWT.NONE);
       GridDataFactory.create(group).grabH().fillH();
       GridLayoutFactory.create(group).columns(numColumns);
-      group.setText("Tables");
+      group.setText(Messages.StyleEditDialog_otherTables);
       // border-collapse
       {
         String[] values = {"", "collapse", "separate"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, other.m_borderCollapse, "Border collapse:", values);
+            new SimpleValueEditor(m_options,
+                other.m_borderCollapse,
+                Messages.StyleEditDialog_otherTablesBorderCollapse,
+                values);
         editor.doFillGrid(group, numColumns, true, false);
       }
       // table-layout
       {
         String[] values = {"", "auto", "fixed"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, other.m_tableLayout, "Table layout:", values);
+            new SimpleValueEditor(m_options,
+                other.m_tableLayout,
+                Messages.StyleEditDialog_otherTablesLayout,
+                values);
         editor.doFillGrid(group, numColumns, true, false);
       }
     }
@@ -608,19 +681,25 @@ public class StyleEditDialog extends ReusableDialog {
       Group group = new Group(composite, SWT.NONE);
       GridDataFactory.create(group).grabH().fillH();
       GridLayoutFactory.create(group).columns(numColumns);
-      group.setText("Printing pages");
+      group.setText(Messages.StyleEditDialog_otherPrinting);
       //
       String[] values = {"", "auto", "always", "avoid", "left", "right"};
       // before
       {
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, other.m_pageBreakBefore, "Break before:", values);
+            new SimpleValueEditor(m_options,
+                other.m_pageBreakBefore,
+                Messages.StyleEditDialog_otherPrintingBreakBefore,
+                values);
         editor.doFillGrid(group, numColumns, true, false);
       }
       // after
       {
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, other.m_pageBreakAfter, "Break after:", values);
+            new SimpleValueEditor(m_options,
+                other.m_pageBreakAfter,
+                Messages.StyleEditDialog_otherPrintingBreakAfter,
+                values);
         editor.doFillGrid(group, numColumns, true, false);
       }
     }
@@ -630,7 +709,7 @@ public class StyleEditDialog extends ReusableDialog {
       Group group = new Group(composite, SWT.NONE);
       GridDataFactory.create(group).grabH().fillH();
       GridLayoutFactory.create(group).columns(numColumns);
-      group.setText("User interface");
+      group.setText(Messages.StyleEditDialog_otherInterface);
       // cursor
       {
         String[] values =
@@ -652,7 +731,10 @@ public class StyleEditDialog extends ReusableDialog {
                 "wait",
                 "help"};
         SimpleValueEditor editor =
-            new SimpleValueEditor(m_options, other.m_cursor, "Cursor:", values);
+            new SimpleValueEditor(m_options,
+                other.m_cursor,
+                Messages.StyleEditDialog_otherInterfaceCursor,
+                values);
         editor.doFillGrid(group, numColumns, true, true);
       }
     }

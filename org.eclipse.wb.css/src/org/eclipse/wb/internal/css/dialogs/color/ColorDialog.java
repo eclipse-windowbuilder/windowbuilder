@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.css.dialogs.color;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
+import org.eclipse.wb.internal.css.Messages;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -43,10 +44,10 @@ public final class ColorDialog extends AbstractColorDialog {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void addPages(Composite parent) {
-    addPage("Named colors", new NamedColorsComposite(parent, SWT.NONE, this));
-    addPage("Web safe colors", new WebSafeColorsComposite(parent, SWT.NONE, this));
+    addPage(Messages.ColorDialog_namedPage, new NamedColorsComposite(parent, SWT.NONE, this));
+    addPage(Messages.ColorDialog_webPage, new WebSafeColorsComposite(parent, SWT.NONE, this));
     if (SystemUtils.IS_OS_WINDOWS) {
-      addPage("System colors", new SystemColorsComposite(parent, SWT.NONE, this));
+      addPage(Messages.ColorDialog_systemPage, new SystemColorsComposite(parent, SWT.NONE, this));
     }
   }
 }

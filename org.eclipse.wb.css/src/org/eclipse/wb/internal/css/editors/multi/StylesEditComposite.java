@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.StringItemDialogField.ISt
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.css.Activator;
+import org.eclipse.wb.internal.css.Messages;
 import org.eclipse.wb.internal.css.dialogs.style.RulePreviewControl;
 import org.eclipse.wb.internal.css.dialogs.style.StyleEditDialog;
 import org.eclipse.wb.internal.css.editors.CssConfiguration;
@@ -69,6 +70,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.texteditor.IWorkbenchActionDefinitionIds;
 
 import java.io.StringReader;
+import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
@@ -207,7 +209,7 @@ public class StylesEditComposite extends Composite {
   protected void createRulesGroup(Composite parent) {
     final int columns = 3;
     Group rulesGroup = new Group(parent, SWT.NONE);
-    rulesGroup.setText("CSS rules in file");
+    rulesGroup.setText(Messages.StylesEditComposite_rulesGroup);
     GridLayoutFactory.create(rulesGroup).columns(columns);
     GridDataFactory.create(rulesGroup).grab().fill();
     // filter
@@ -222,9 +224,9 @@ public class StylesEditComposite extends Composite {
           m_rulesViewer.refresh();
         }
       });
-      m_filterField.setLabelText("&Selector filter:");
+      m_filterField.setLabelText(Messages.StylesEditComposite_selectorFilter);
       m_filterField.setItemImage(Activator.getImage("clear.gif"));
-      m_filterField.setItemToolTip("Clear");
+      m_filterField.setItemToolTip(Messages.StylesEditComposite_clearFilterToolTip);
       m_filterField.doFillIntoGrid(rulesGroup, columns);
     }
     // viewer
@@ -315,40 +317,55 @@ public class StylesEditComposite extends Composite {
     GridLayoutFactory.create(buttonsComposite).noMargins().columns(5);
     // TODO enable/disable buttons instead of check for "null" 
     // add
-    createRulesButton(buttonsComposite, "Add...", new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        addNewRule();
-      }
-    });
+    createRulesButton(
+        buttonsComposite,
+        Messages.StylesEditComposite_addButton,
+        new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+            addNewRule();
+          }
+        });
     // rename
-    createRulesButton(buttonsComposite, "Rename...", new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        renameSelectedRule();
-      }
-    });
+    createRulesButton(
+        buttonsComposite,
+        Messages.StylesEditComposite_renameButton,
+        new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+            renameSelectedRule();
+          }
+        });
     // edit
-    createRulesButton(buttonsComposite, "Edit...", new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        editSelectedRule();
-      }
-    });
+    createRulesButton(
+        buttonsComposite,
+        Messages.StylesEditComposite_editButton,
+        new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+            editSelectedRule();
+          }
+        });
     // remove
-    createRulesButton(buttonsComposite, "Remove...", new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        removeSelectedRule();
-      }
-    });
+    createRulesButton(
+        buttonsComposite,
+        Messages.StylesEditComposite_removeButton,
+        new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+            removeSelectedRule();
+          }
+        });
     // sort
-    createRulesButton(buttonsComposite, "Sort", new SelectionAdapter() {
-      @Override
-      public void widgetSelected(SelectionEvent e) {
-        sortRules();
-      }
-    });
+    createRulesButton(
+        buttonsComposite,
+        Messages.StylesEditComposite_sortButton,
+        new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent e) {
+            sortRules();
+          }
+        });
     //
     return buttonsComposite;
   }
@@ -384,7 +401,7 @@ public class StylesEditComposite extends Composite {
    */
   protected void createRuleGroup(Composite parent) {
     Group ruleGroup = new Group(parent, SWT.NONE);
-    ruleGroup.setText("CSS rule");
+    ruleGroup.setText(Messages.StylesEditComposite_ruleGroup);
     GridLayoutFactory.create(ruleGroup);
     GridDataFactory.create(ruleGroup).spanV(2).grab().fill();
     // editor
@@ -410,30 +427,30 @@ public class StylesEditComposite extends Composite {
         ISharedImages sharedImages = Activator.getDefault().getWorkbench().getSharedImages();
         {
           MenuItem copyItem = new MenuItem(popupMenu, SWT.NONE);
-          copyItem.setText("Copy");
+          copyItem.setText(Messages.StylesEditComposite_copyItem);
           copyItem.setImage(sharedImages.getImage(ISharedImages.IMG_TOOL_COPY));
           copyItem.addSelectionListener(new PopupMenuItemSelectionAdapter(IWorkbenchActionDefinitionIds.COPY));
         }
         {
           MenuItem cutItem = new MenuItem(popupMenu, SWT.NONE);
-          cutItem.setText("Cut");
+          cutItem.setText(Messages.StylesEditComposite_cutItem);
           cutItem.setImage(sharedImages.getImage(ISharedImages.IMG_TOOL_CUT));
           cutItem.addSelectionListener(new PopupMenuItemSelectionAdapter(IWorkbenchActionDefinitionIds.CUT));
         }
         {
           MenuItem pasteItem = new MenuItem(popupMenu, SWT.NONE);
-          pasteItem.setText("Paste");
+          pasteItem.setText(Messages.StylesEditComposite_pasteItem);
           pasteItem.setImage(sharedImages.getImage(ISharedImages.IMG_TOOL_PASTE));
           pasteItem.addSelectionListener(new PopupMenuItemSelectionAdapter(IWorkbenchActionDefinitionIds.PASTE));
         }
         {
           MenuItem selectItem = new MenuItem(popupMenu, SWT.NONE);
-          selectItem.setText("SelectAll");
+          selectItem.setText(Messages.StylesEditComposite_selectAllItem);
           selectItem.addSelectionListener(new PopupMenuItemSelectionAdapter(IWorkbenchActionDefinitionIds.SELECT_ALL));
         }
         {
           MenuItem revertItem = new MenuItem(popupMenu, SWT.NONE);
-          revertItem.setText("Revert");
+          revertItem.setText(Messages.StylesEditComposite_revertItem);
           revertItem.setImage(sharedImages.getImage(ISharedImages.IMG_TOOL_UNDO));
           revertItem.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -447,7 +464,7 @@ public class StylesEditComposite extends Composite {
       {
         Label label = new Label(ruleGroup, SWT.WRAP);
         GridDataFactory.create(label).grabH().hintHC(60).fillH();
-        label.setText("Note: you can edit selected rule using this source viewer. However you should not try to add/remove rules, this will not work.");
+        label.setText(Messages.StylesEditComposite_warningEdit);
       }
     }
     // preview
@@ -532,7 +549,11 @@ public class StylesEditComposite extends Composite {
    * Adds new rule with given style name as selector.
    */
   public void addNewRule() {
-    String selector = editSelector("New rule", "Selector for new rule:", getDefaultNewSelector());
+    String selector =
+        editSelector(
+            Messages.StylesEditComposite_newRuleTitle,
+            Messages.StylesEditComposite_newRuleMessage,
+            getDefaultNewSelector());
     if (selector != null) {
       addNewRule(selector);
     }
@@ -574,7 +595,10 @@ public class StylesEditComposite extends Composite {
     if (wrapper != null) {
       final CssRuleNode rule = wrapper.m_rule;
       final String selector =
-          editSelector("Change selector", "New selector:", rule.getSelector().getValue());
+          editSelector(
+              Messages.StylesEditComposite_changeSelectorTitle,
+              Messages.StylesEditComposite_changeSelectorMessage,
+              rule.getSelector().getValue());
       if (selector != null) {
         try {
           // apply modifications
@@ -639,10 +663,10 @@ public class StylesEditComposite extends Composite {
       final CssRuleNode rule = wrapper.getRule();
       if (MessageDialog.openConfirm(
           getShell(),
-          "Confirm",
-          "Do you really want to remove rule with selector '"
-              + rule.getSelector().getValue()
-              + "'?")) {
+          Messages.StylesEditComposite_removeRuleTitle,
+          MessageFormat.format(
+              Messages.StylesEditComposite_removeRuleMessage,
+              rule.getSelector().getValue()))) {
         try {
           // apply modifications
           ModificationProcessor processor = new ModificationProcessor() {
@@ -696,14 +720,16 @@ public class StylesEditComposite extends Composite {
               public String isValid(String newText) {
                 // check for empty selector
                 if (newText.length() == 0) {
-                  return "Selector can not be empty.";
+                  return Messages.StylesEditComposite_validateEmptySelector;
                 }
                 // check for unique selector
                 CssEditContext context = getContext();
                 List<CssRuleNode> rules = context.getCssDocument().getRules();
                 for (CssRuleNode rule : rules) {
                   if (rule.getSelector().getValue().equals(newText)) {
-                    return "Selector '" + newText + "' already exists.";
+                    return MessageFormat.format(
+                        Messages.StylesEditComposite_validateSelectorExists,
+                        newText);
                   }
                 }
                 // valid
