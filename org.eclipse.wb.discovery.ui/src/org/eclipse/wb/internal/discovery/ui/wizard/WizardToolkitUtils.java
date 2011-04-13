@@ -8,26 +8,22 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.ui.wizard;
 
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.ui.Messages;
+
+import java.text.MessageFormat;
 
 class WizardToolkitUtils {
-
   private WizardToolkitUtils() {
-    
   }
 
-  
   public static String getTitle(WBToolkit toolkit) {
-    return toolkit.getName() + " User Interface";
+    return MessageFormat.format(Messages.WizardToolkitUtils_titlePattern, toolkit.getName());
   }
-
 
   public static String getDescription(WBToolkit toolkit) {
-    return "Create a new " + toolkit.getName()
-      + " user interface. Requires loading additional WindowBuilder toolkits.";
+    return MessageFormat.format(Messages.WizardToolkitUtils_descriptionPattern, toolkit.getName());
   }
-
 }

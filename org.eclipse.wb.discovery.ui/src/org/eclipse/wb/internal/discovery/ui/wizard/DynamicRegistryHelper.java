@@ -8,8 +8,11 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.ui.wizard;
+
+import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.core.WBToolkitRegistry;
+import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
 
 import org.eclipse.core.internal.registry.ExtensionRegistry;
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
@@ -17,22 +20,19 @@ import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.spi.IDynamicExtensionRegistry;
-import org.eclipse.wb.internal.discovery.core.WBToolkit;
-import org.eclipse.wb.internal.discovery.core.WBToolkitRegistry;
-import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
+
 import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
- * A helper class to dynamically register and unregister new Eclipse
- * registry entries.
+ * A helper class to dynamically register and unregister new Eclipse registry entries.
  */
 @SuppressWarnings("restriction")
 public class DynamicRegistryHelper {
   private static DynamicRegistryHelper registryHelper;
-  
+
   /**
    * @return the singleton instance of the DynamicRegistryHelper
    */
@@ -40,64 +40,55 @@ public class DynamicRegistryHelper {
     if (registryHelper == null) {
       registryHelper = new DynamicRegistryHelper();
     }
-    
     return registryHelper;
   }
-  
+
   private IContributor contributor;
   private Object userToken;
-  
+
   /**
-   * Dynamically register new wizard entries for any WindowBuilder toolkits
-   * which are not installed.
+   * Dynamically register new wizard entries for any WindowBuilder toolkits which are not installed.
    */
   public void registerWizards() {
     if (contributor == null) {
       Bundle bundle = WBDiscoveryUiPlugin.getPlugin().getBundle();
       contributor = ContributorFactoryOSGi.createContributor(bundle);
-      
       IExtensionRegistry registry = Platform.getExtensionRegistry();
       userToken = ((ExtensionRegistry) registry).getTemporaryUserToken();
-      
       boolean success = false;
-      
       byte[] xmlData = createContributionXML();
-      
       if (xmlData != null && xmlData.length > 0) {
-        success = registry.addContribution(
-          new ByteArrayInputStream(xmlData),
-          contributor,
-          false,
-          "WindowBuilder dynamic contributions",
-          null,
-          userToken);
+        success =
+            registry.addContribution(
+                new ByteArrayInputStream(xmlData),
+                contributor,
+                false,
+                "WindowBuilder dynamic contributions",
+                null,
+                userToken);
       }
-      
       if (!success) {
         contributor = null;
         userToken = null;
       }
     }
   }
-  
+
   /**
    * Remove our previous dynamic registry entries.
    */
   public void removeRegistrations() {
     if (contributor != null) {
       IExtensionRegistry registry = Platform.getExtensionRegistry();
-      
       if (contributor != null && registry instanceof IDynamicExtensionRegistry) {
-        IDynamicExtensionRegistry dRegistry = (IDynamicExtensionRegistry)registry;
-        
+        IDynamicExtensionRegistry dRegistry = (IDynamicExtensionRegistry) registry;
         dRegistry.removeContributor(contributor, userToken);
-        
         contributor = null;
         userToken = null;
       }
     }
   }
-  
+
 /*
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
@@ -116,38 +107,35 @@ public class DynamicRegistryHelper {
 
 </plugin>
 */
-  
   private byte[] createContributionXML() {
     StringBuilder builder = new StringBuilder();
-    
     builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     builder.append("<?eclipse version=\"3.4\"?>\n");
     builder.append("<plugin>\n");
-    
     for (WBToolkit toolkit : WBToolkitRegistry.getRegistry().getToolkits()) {
       if (toolkit.isInstalled()) {
         continue;
       }
-      
       builder.append("<extension point=\"org.eclipse.ui.newWizards\">\n");
       builder.append("<wizard\n");
       builder.append("category=\"org.eclipse.wb\"\n");
-      builder.append("class=\"org.eclipse.wb.internal.discovery.ui.wizard.InstallToolkitWizard:" + toolkit.getId() + "\"\n");
+      builder.append("class=\"org.eclipse.wb.internal.discovery.ui.wizard.InstallToolkitWizard:"
+          + toolkit.getId()
+          + "\"\n");
       builder.append("icon=\"icons/wizard.gif\"\n");
       builder.append("id=\"org.eclipse.wb.internal.discovery.ui.wizard.InstallToolkitWizard\"\n");
       builder.append("name=\"" + WizardToolkitUtils.getTitle(toolkit) + "\">\n");
-      builder.append("<description>" + WizardToolkitUtils.getDescription(toolkit) + "</description>\n");
+      builder.append("<description>"
+          + WizardToolkitUtils.getDescription(toolkit)
+          + "</description>\n");
       builder.append("</wizard>\n");
       builder.append("</extension>\n");
     }
-    
     builder.append("</plugin>\n");
-    
     try {
       return builder.toString().getBytes("UTF-8");
     } catch (UnsupportedEncodingException e) {
       return builder.toString().getBytes();
     }
   }
-
 }

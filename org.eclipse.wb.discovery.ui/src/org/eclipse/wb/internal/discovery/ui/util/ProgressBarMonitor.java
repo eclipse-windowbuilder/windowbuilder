@@ -8,7 +8,6 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.ui.util;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,24 +19,23 @@ import org.eclipse.swt.widgets.ProgressBar;
 public class ProgressBarMonitor implements IProgressMonitor {
   private ProgressBar progressBar;
   private boolean cancelled;
-  
+
   /**
    * Create a new ProgressBarMonitor.
    * 
-   * @param progressBar the ProgressBar control
+   * @param progressBar
+   *          the ProgressBar control
    */
   public ProgressBarMonitor(ProgressBar progressBar) {
     this.progressBar = progressBar;
   }
-  
+
   public void beginTask(String name, int totalWork) {
     cancelled = false;
-    
     if (!progressBar.isDisposed()) {
       progressBar.setSelection(0);
       progressBar.setMinimum(0);
       progressBar.setMaximum(totalWork);
-      
       progressBar.setVisible(true);
     }
   }
@@ -49,9 +47,8 @@ public class ProgressBarMonitor implements IProgressMonitor {
   public void subTask(String name) {
     // nothing to do
   }
-  
+
   public void internalWorked(double work) {
-    
   }
 
   public void worked(int work) {
@@ -59,7 +56,7 @@ public class ProgressBarMonitor implements IProgressMonitor {
       progressBar.setSelection(progressBar.getSelection() + work);
     }
   }
-  
+
   public boolean isCanceled() {
     return cancelled;
   }
@@ -67,11 +64,10 @@ public class ProgressBarMonitor implements IProgressMonitor {
   public void setCanceled(boolean value) {
     cancelled = value;
   }
-  
+
   public void done() {
     if (!progressBar.isDisposed()) {
       progressBar.setVisible(false);
     }
   }
-
 }

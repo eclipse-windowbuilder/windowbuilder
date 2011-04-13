@@ -8,7 +8,6 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.ui.util;
 
 import org.eclipse.swt.SWT;
@@ -22,7 +21,6 @@ import org.eclipse.swt.widgets.Composite;
  * Acts as a visual separator between two components.
  */
 public class BorderPainter implements PaintListener {
-  
   public void paintControl(PaintEvent e) {
     Composite composite = (Composite) e.widget;
     Rectangle bounds = composite.getBounds();
@@ -30,5 +28,4 @@ public class BorderPainter implements PaintListener {
     gc.setLineStyle(SWT.LINE_DOT);
     gc.drawLine(bounds.x, bounds.y, bounds.x + bounds.width, bounds.y);
   }
-  
 }

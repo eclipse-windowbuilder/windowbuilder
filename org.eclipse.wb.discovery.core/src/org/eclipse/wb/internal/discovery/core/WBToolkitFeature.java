@@ -8,7 +8,6 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.core;
 
 /**
@@ -17,7 +16,7 @@ package org.eclipse.wb.internal.discovery.core;
 public class WBToolkitFeature {
   private String featureId;
   private boolean optional;
-  
+
   public WBToolkitFeature(String featureId) {
     this(featureId, false);
   }
@@ -34,7 +33,7 @@ public class WBToolkitFeature {
   public boolean isOptional() {
     return optional;
   }
-  
+
   @Override
   public int hashCode() {
     return featureId.hashCode();
@@ -45,22 +44,17 @@ public class WBToolkitFeature {
     if (this == obj) {
       return true;
     }
-    
     if (obj == null) {
       return false;
     }
-    
     if (!(obj instanceof WBToolkitFeature)) {
       return false;
     }
-    
     WBToolkitFeature other = (WBToolkitFeature) obj;
-    
     return getFeatureId().equals(other.getFeatureId());
   }
 
   public String toString() {
     return featureId;
   }
-  
 }

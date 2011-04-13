@@ -8,7 +8,6 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.core;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -20,12 +19,14 @@ import org.eclipse.equinox.p2.engine.IProfileRegistry;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
 import org.eclipse.equinox.p2.query.IQueryResult;
 import org.eclipse.equinox.p2.query.QueryUtil;
+
 import org.osgi.framework.ServiceReference;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,30 +36,24 @@ import java.util.List;
  */
 public class WBToolkit {
   private static IProfile installedProfile;
-  
   private String name;
   private String title;
   private String id;
   private String description;
-  
   private URL parentPath;
   private String iconPath;
-  
   private String updateSite;
   private List<WBToolkitFeature> features = new ArrayList<WBToolkitFeature>();
-  
   private String providerName;
   private String licenseDescription;
-  
   private String moreInfoURL;
-  
+
   /**
    * Create a new WindowBuilder toolkit.
    */
   protected WBToolkit() {
-    
   }
-  
+
   /**
    * @return the name of the toolkit
    */
@@ -69,7 +64,8 @@ public class WBToolkit {
   /**
    * Set the name of the toolkit.
    * 
-   * @param name the toolkit name
+   * @param name
+   *          the toolkit name
    */
   protected void setName(String name) {
     this.name = name;
@@ -89,12 +85,13 @@ public class WBToolkit {
   /**
    * Set the name of the toolkit.
    * 
-   * @param title the toolkit title
+   * @param title
+   *          the toolkit title
    */
   protected void setTitle(String title) {
     this.title = title;
   }
-  
+
   /**
    * @return the toolkit's unique ID
    */
@@ -105,7 +102,8 @@ public class WBToolkit {
   /**
    * Set the toolkit's unique ID.
    * 
-   * @param id the unique ID
+   * @param id
+   *          the unique ID
    */
   protected void setId(String id) {
     this.id = id;
@@ -117,7 +115,7 @@ public class WBToolkit {
   protected String getIconPath() {
     return iconPath;
   }
-  
+
   /**
    * @return the URL for the toolkit's icon; can be <code>null</code>
    */
@@ -127,13 +125,10 @@ public class WBToolkit {
     } else {
       try {
         URI parentURI = parentPath.toURI();
-        
         URI uri = parentURI.resolve(iconPath);
-        
         if (uri == null) {
           return null;
         }
-        
         return uri.toURL();
       } catch (URISyntaxException e) {
         return null;
@@ -142,34 +137,37 @@ public class WBToolkit {
       }
     }
   }
-  
+
   /**
    * Set the toolkit's icon path.
    * 
-   * @param parentPath the parent path
-   * @param iconPath the icon's path
+   * @param parentPath
+   *          the parent path
+   * @param iconPath
+   *          the icon's path
    */
   protected void setIconPath(URL parentPath, String iconPath) {
     this.parentPath = parentPath;
     this.iconPath = iconPath;
   }
-  
+
   /**
    * @return the toolkit's license description, if any
    */
   public String getLicenseDescription() {
     return licenseDescription;
   }
-  
+
   /**
    * Set the toolkit's license description.
    * 
-   * @param licenseDescription the license description
+   * @param licenseDescription
+   *          the license description
    */
   protected void setLicenseDescription(String licenseDescription) {
     this.licenseDescription = licenseDescription;
   }
-  
+
   /**
    * @return get the update site URL
    */
@@ -180,12 +178,13 @@ public class WBToolkit {
   /**
    * Set the update set URL.
    * 
-   * @param updateSite the update site
+   * @param updateSite
+   *          the update site
    */
   protected void setUpdateSite(String updateSite) {
     this.updateSite = updateSite;
   }
-  
+
   /**
    * @return the update site URI
    */
@@ -194,58 +193,62 @@ public class WBToolkit {
       if (getUpdateSite() == null) {
         return null;
       }
-      
       return new URI(getUpdateSite());
     } catch (URISyntaxException e) {
       return null;
     }
   }
-  
+
   /**
    * @return the list of features necessary to install this toolkit
    */
   public List<WBToolkitFeature> getFeatures() {
     return Collections.unmodifiableList(features);
   }
-  
+
   /**
    * Add a feature identifier to the toolkit.
    * 
-   * @param featureId the feature identifier
+   * @param featureId
+   *          the feature identifier
    */
   protected void addFeature(String featureId, boolean optional) {
     if (featureId != null && featureId.length() > 0) {
       features.add(new WBToolkitFeature(featureId, optional));
     }
   }
-  
+
   /**
    * @return the provider name (source company) for this toolkit
    */
   public String getProviderName() {
     return providerName;
   }
-  
+
   /**
    * Set the provider name for this toolkit.
    * 
-   * @param providerName the provider name
+   * @param providerName
+   *          the provider name
    */
   protected void setProviderName(String providerName) {
     this.providerName = providerName;
   }
-  
+
   /**
    * @return a concatenation of the provider name and license description
    */
   public String getProviderDescription() {
     if (licenseDescription != null) {
-      return "from " + getProviderName() + " (" + getLicenseDescription() + ")";
+      return MessageFormat.format(
+          Messages.WBToolkit_fromProviderLicense,
+          getProviderName(),
+          getLicenseDescription());
     } else {
-      return "from " + getProviderName();
+      return MessageFormat.format(Messages.WBToolkit_fromProvider, getProviderName());
     }
   }
-  
+
   /**
    * @return the URL to visit for more info about this toolkit, if any
    */
@@ -256,7 +259,8 @@ public class WBToolkit {
   /**
    * Set the info URL.
    * 
-   * @param moreInfoURL the info URL
+   * @param moreInfoURL
+   *          the info URL
    */
   protected void setMoreInfoURL(String moreInfoURL) {
     this.moreInfoURL = moreInfoURL;
@@ -272,12 +276,13 @@ public class WBToolkit {
   /**
    * Set the toolkit's description.
    * 
-   * @param description the description
+   * @param description
+   *          the description
    */
   protected void setDescription(String description) {
     this.description = description;
   }
-  
+
   /**
    * @return whether this toolkit is installed or not
    */
@@ -285,7 +290,6 @@ public class WBToolkit {
     if (getFeatures().size() == 0) {
       return false;
     }
-    
     for (WBToolkitFeature feature : getFeatures()) {
       if (!feature.isOptional()) {
         if (!isFeatureInstalled(feature)) {
@@ -293,71 +297,62 @@ public class WBToolkit {
         }
       }
     }
-    
     return true;
   }
-  
+
   private boolean isFeatureInstalled(WBToolkitFeature feature) {
     IProfile profile = getCurrentProfile();
-    
     if (profile == null) {
       return false;
     }
-    
-    IQueryResult<IInstallableUnit> results = installedProfile.available(
-        QueryUtil.createIUQuery(feature.getFeatureId() + ".feature.group"),
-        new NullProgressMonitor());
-
+    IQueryResult<IInstallableUnit> results =
+        installedProfile.available(
+            QueryUtil.createIUQuery(feature.getFeatureId() + ".feature.group"),
+            new NullProgressMonitor());
     return !results.isEmpty();
   }
-  
+
   private IProfile getCurrentProfile() {
     if (installedProfile == null) {
       // get the agent
-      ServiceReference sr = WBDiscoveryCorePlugin.getBundleContext().getServiceReference(
-          IProvisioningAgentProvider.SERVICE_NAME);
-      
+      ServiceReference sr =
+          WBDiscoveryCorePlugin.getBundleContext().getServiceReference(
+              IProvisioningAgentProvider.SERVICE_NAME);
       if (sr == null) {
-         return null;
+        return null;
       }
-      
-      IProvisioningAgentProvider agentProvider = (IProvisioningAgentProvider)
-        WBDiscoveryCorePlugin.getBundleContext().getService(sr);
-      
+      IProvisioningAgentProvider agentProvider =
+          (IProvisioningAgentProvider) WBDiscoveryCorePlugin.getBundleContext().getService(sr);
       try {
         // null == the current Eclipse installation
         IProvisioningAgent agent = agentProvider.createAgent(null);
-        
-        IProfileRegistry profileRegistry = (IProfileRegistry)agent.getService(IProfileRegistry.SERVICE_NAME);
-        
+        IProfileRegistry profileRegistry =
+            (IProfileRegistry) agent.getService(IProfileRegistry.SERVICE_NAME);
         installedProfile = profileRegistry.getProfile(IProfileRegistry.SELF);
       } catch (ProvisionException e) {
         return null;
       }
     }
-    
-    return installedProfile;    
+    return installedProfile;
   }
 
   @Override
   public boolean equals(Object object) {
     if (object instanceof WBToolkit) {
-      WBToolkit other = (WBToolkit)object;
-      
+      WBToolkit other = (WBToolkit) object;
       return getName().equals(other.getName());
     } else {
       return false;
     }
   }
-  
+
   @Override
   public int hashCode() {
     return getName().hashCode();
   }
-  
+
   @Override
   public String toString() {
     return getName();
   }
-  
 }

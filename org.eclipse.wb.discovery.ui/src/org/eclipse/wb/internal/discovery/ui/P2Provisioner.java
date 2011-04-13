@@ -8,13 +8,11 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.ui;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
+import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.core.WBToolkitFeature;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -38,47 +36,50 @@ import org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob;
 import org.eclipse.equinox.p2.ui.ProvisioningUI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
-import org.eclipse.wb.internal.discovery.core.WBToolkit;
-import org.eclipse.wb.internal.discovery.core.WBToolkitFeature;
+
 import org.osgi.framework.ServiceReference;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A utility class to help manage P2.
  */
 class P2Provisioner {
   private List<WBToolkit> toolkits;
-  
   private ProvisioningUI provisioningUI;
   private LoadMetadataRepositoryJob repositoryLoadingJob;
-  
+
   /**
-   * Create a new instance of the P2Provisioner class to act on the given list
-   * of toolkits.
+   * Create a new instance of the P2Provisioner class to act on the given list of toolkits.
    * 
-   * @param toolkits the toolkits to act on
+   * @param toolkits
+   *          the toolkits to act on
    */
   public P2Provisioner(List<WBToolkit> toolkits) {
     this.toolkits = toolkits;
   }
-  
+
   /**
    * Install a set of toolkits.
    * 
-   * @param progressMonitor a progress monitor
-   * @throws ProvisionException a P2 exception
-   * @throws OperationCanceledException thrown if the user canceled
+   * @param progressMonitor
+   *          a progress monitor
+   * @throws ProvisionException
+   *           a P2 exception
+   * @throws OperationCanceledException
+   *           thrown if the user canceled
    */
-  public void installToolkits(final IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
+  public void installToolkits(final IProgressMonitor progressMonitor) throws ProvisionException,
+      OperationCanceledException {
     provisioningUI = ProvisioningUI.getDefaultUI();
     repositoryLoadingJob = new LoadMetadataRepositoryJob(provisioningUI);
-    
     final Collection<IInstallableUnit> installableUnits = collectInstallableUnits(progressMonitor);
-    
     if (installableUnits.size() > 0) {
-      final InstallOperation installOperation = provisioningUI.getInstallOperation(
-          installableUnits, getRepositories());
-      
+      final InstallOperation installOperation =
+          provisioningUI.getInstallOperation(installableUnits, getRepositories());
       Display.getDefault().asyncExec(new Runnable() {
         public void run() {
           try {
@@ -95,153 +96,126 @@ class P2Provisioner {
       Display.getDefault().asyncExec(new Runnable() {
         public void run() {
           progressMonitor.done();
-          
           MessageDialog.openError(
               Display.getDefault().getActiveShell(),
-              "Unable to Install Toolkit",
-              "Unable to access the update site for the selected toolkit. The update site may be configured incorrectly or may be temporarily down.");
+              Messages.P2Provisioner_unableInstallTitle,
+              Messages.P2Provisioner_unableInstallMessage);
         }
       });
     }
   }
-  
+
   /**
    * Uninstall a set of toolkits.
    * 
-   * @param progressMonitor a progress monitor
-   * @throws ProvisionException a P2 exception
-   * @throws OperationCanceledException thrown if the user canceled
+   * @param progressMonitor
+   *          a progress monitor
+   * @throws ProvisionException
+   *           a P2 exception
+   * @throws OperationCanceledException
+   *           thrown if the user canceled
    */
-  public void uninstallToolkits(final IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
+  public void uninstallToolkits(final IProgressMonitor progressMonitor) throws ProvisionException,
+      OperationCanceledException {
     provisioningUI = ProvisioningUI.getDefaultUI();
     repositoryLoadingJob = new LoadMetadataRepositoryJob(provisioningUI);
-    
     final Collection<IInstallableUnit> units = collectUninstallableUnits(progressMonitor);
-    
     if (units.size() > 0) {
-      final UninstallOperation installOperation = provisioningUI.getUninstallOperation(
-          units,
-          getRepositories());
-      
+      final UninstallOperation installOperation =
+          provisioningUI.getUninstallOperation(units, getRepositories());
       Display.getDefault().asyncExec(new Runnable() {
         public void run() {
           try {
-            provisioningUI.openUninstallWizard(
-                units,
-                installOperation,
-                repositoryLoadingJob);
-          } finally {            
+            provisioningUI.openUninstallWizard(units, installOperation, repositoryLoadingJob);
+          } finally {
             progressMonitor.done();
           }
         }
       });
     }
   }
-  
+
   private URI[] getRepositories() {
     List<URI> uris = new ArrayList<URI>();
-    
     for (WBToolkit toolkit : toolkits) {
       uris.add(toolkit.getUpdateSiteURI());
     }
-    
     return uris.toArray(new URI[uris.size()]);
   }
 
-  private Collection<IInstallableUnit> collectInstallableUnits(IProgressMonitor progressMonitor) throws ProvisionException, OperationCanceledException {
-    String statusText = "Installing toolkits...";
-    
+  private Collection<IInstallableUnit> collectInstallableUnits(IProgressMonitor progressMonitor)
+      throws ProvisionException, OperationCanceledException {
+    String statusText = Messages.P2Provisioner_statusInstalling;
     if (toolkits.size() > 1) {
       statusText += "s";
     }
-    
     SubMonitor monitor = SubMonitor.convert(progressMonitor, statusText, 100 * toolkits.size());
-    
-    Collection<IInstallableUnit> units = new ArrayList<IInstallableUnit>(); 
-    
+    Collection<IInstallableUnit> units = new ArrayList<IInstallableUnit>();
     for (WBToolkit toolkit : toolkits) {
       ProvisioningSession session = provisioningUI.getSession();
-      
       URI updateSiteURI = toolkit.getUpdateSiteURI();
-      
       if (updateSiteURI == null) {
         continue;
       }
-      
       IProvisioningAgent agent = session.getProvisioningAgent();
-      
       // Get the repository managers and define our repositories.
-      IMetadataRepositoryManager manager = (IMetadataRepositoryManager) agent.getService(
-          IMetadataRepositoryManager.SERVICE_NAME);
-      IArtifactRepositoryManager artifactManager = (IArtifactRepositoryManager) agent.getService(
-          IArtifactRepositoryManager.SERVICE_NAME);
-      
+      IMetadataRepositoryManager manager =
+          (IMetadataRepositoryManager) agent.getService(IMetadataRepositoryManager.SERVICE_NAME);
+      IArtifactRepositoryManager artifactManager =
+          (IArtifactRepositoryManager) agent.getService(IArtifactRepositoryManager.SERVICE_NAME);
       manager.addRepository(updateSiteURI);
       artifactManager.addRepository(updateSiteURI);
-      
       // Load and query the metadata.
-      IMetadataRepository metadataRepo = manager.loadRepository(
-          updateSiteURI, monitor.newChild(50));
-      
+      IMetadataRepository metadataRepo =
+          manager.loadRepository(updateSiteURI, monitor.newChild(50));
       for (WBToolkitFeature feature : toolkit.getFeatures()) {
-        
         // ??? necessary magic
         String featureId = feature.getFeatureId() + ".feature.group";
-        
-        Collection<IInstallableUnit> featureResults = metadataRepo.query(
-            QueryUtil.createLatestQuery(QueryUtil.createIUQuery(featureId)),
-            monitor.newChild(50)).toUnmodifiableSet();
-        
+        Collection<IInstallableUnit> featureResults =
+            metadataRepo.query(
+                QueryUtil.createLatestQuery(QueryUtil.createIUQuery(featureId)),
+                monitor.newChild(50)).toUnmodifiableSet();
         units.addAll(featureResults);
       }
     }
-    
     return units;
   }
-        
-  private Collection<IInstallableUnit> collectUninstallableUnits(
-      IProgressMonitor progressMonitor) {
+
+  private Collection<IInstallableUnit> collectUninstallableUnits(IProgressMonitor progressMonitor) {
     List<IInstallableUnit> units = new ArrayList<IInstallableUnit>();
-    
     IProfile profile = getCurrentProfile();
-    
     if (profile != null) {
       for (WBToolkit toolkit : toolkits) {
         for (WBToolkitFeature feature : toolkit.getFeatures()) {
-          IQueryResult<IInstallableUnit> results = profile.available(
-              QueryUtil.createIUQuery(feature.getFeatureId() + ".feature.group"),
-              new NullProgressMonitor());
-          
+          IQueryResult<IInstallableUnit> results =
+              profile.available(
+                  QueryUtil.createIUQuery(feature.getFeatureId() + ".feature.group"),
+                  new NullProgressMonitor());
           units.addAll(results.toSet());
         }
       }
     }
-    
     return units;
   }
-  
+
   private IProfile getCurrentProfile() {
     // get the agent
-    ServiceReference sr = WBDiscoveryCorePlugin.getBundleContext().getServiceReference(
-        IProvisioningAgentProvider.SERVICE_NAME);
-
+    ServiceReference sr =
+        WBDiscoveryCorePlugin.getBundleContext().getServiceReference(
+            IProvisioningAgentProvider.SERVICE_NAME);
     if (sr == null) {
       return null;
     }
-
-    IProvisioningAgentProvider agentProvider = (IProvisioningAgentProvider) WBDiscoveryCorePlugin.getBundleContext().getService(
-        sr);
-
+    IProvisioningAgentProvider agentProvider =
+        (IProvisioningAgentProvider) WBDiscoveryCorePlugin.getBundleContext().getService(sr);
     try {
       // null == the current Eclipse installation
       IProvisioningAgent agent = agentProvider.createAgent(null);
-
-      IProfileRegistry profileRegistry = (IProfileRegistry) agent.getService(IProfileRegistry.SERVICE_NAME);
-
+      IProfileRegistry profileRegistry =
+          (IProfileRegistry) agent.getService(IProfileRegistry.SERVICE_NAME);
       return profileRegistry.getProfile(IProfileRegistry.SELF);
     } catch (ProvisionException e) {
       return null;
     }
   }
-  
 }

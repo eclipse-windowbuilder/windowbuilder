@@ -8,14 +8,15 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.wb.internal.discovery.ui.util;
+
+import org.eclipse.wb.internal.discovery.ui.Messages;
+import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
-import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
 
 import java.net.URL;
 
@@ -23,12 +24,13 @@ import java.net.URL;
  * A utility class for opening URLs in an external browser.
  */
 public class BrowserHelper {
-
   /**
    * Given a URL and a shell, open the URL in an external browser.
    * 
-   * @param shell the current shell
-   * @param url the URL to open
+   * @param shell
+   *          the current shell
+   * @param url
+   *          the URL to open
    */
   public static void openUrl(Shell shell, String url) {
     try {
@@ -36,11 +38,7 @@ public class BrowserHelper {
       support.getExternalBrowser().openURL(new URL(url));
     } catch (Exception e) {
       WBDiscoveryUiPlugin.logError(e);
-      
-      MessageDialog.openError(shell,
-          "Error Opening Browser",
-          e.getMessage());
+      MessageDialog.openError(shell, Messages.BrowserHelper_errorOpenBrowserTitle, e.getMessage());
     }
   }
-
 }
