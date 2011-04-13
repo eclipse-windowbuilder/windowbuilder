@@ -16,6 +16,7 @@ import org.eclipse.wb.gef.core.ICommandExceptionHandler;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.DesignComposite;
 import org.eclipse.wb.internal.core.editor.actions.SelectSupport;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.xml.editor.palette.DesignerPalette;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -110,19 +111,19 @@ public class XmlDesignComposite extends DesignComposite {
     m_rootObject = (XmlObjectInfo) rootObject;
     // refresh viewer's
     {
-      monitor.subTask("Updating GEF viewer...");
+      monitor.subTask(Messages.XmlDesignComposite_statusGef);
       monitor.worked(1);
       m_viewer.setInput(m_rootObject);
       m_viewer.getControl().setDrawCached(false);
     }
     {
-      monitor.subTask("Updating Property Composite...");
+      monitor.subTask(Messages.XmlDesignComposite_statusProperties);
       monitor.worked(1);
       m_componentsComposite.setInput(m_viewer, m_rootObject);
     }
     {
       long start = System.currentTimeMillis();
-      monitor.subTask("Loading palette...");
+      monitor.subTask(Messages.XmlDesignComposite_statucPalette);
       monitor.worked(1);
       {
         String toolkitId = m_rootObject.getDescription().getToolkit().getId();

@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -158,7 +159,7 @@ public abstract class AbstractLiveManager {
     try {
       gc.setBackground(SwtResourceManager.getColor(255, 220, 220));
       gc.fillRectangle(0, 0, width, height);
-      String text = "Exception during live image creation. See error log for details.";
+      String text = Messages.AbstractLiveManager_errorMessage;
       DrawUtils.drawTextWrap(gc, text, 0, 0, width, height);
     } finally {
       gc.dispose();

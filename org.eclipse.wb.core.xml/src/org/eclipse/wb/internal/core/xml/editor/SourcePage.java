@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.xml.editor;
 
 import org.eclipse.wb.internal.core.xml.Activator;
+import org.eclipse.wb.internal.core.xml.Messages;
 
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -42,7 +43,7 @@ public final class SourcePage extends XmlEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getName() {
-    return "XML Source";
+    return Messages.SourcePage_name;
   }
 
   public Image getImage() {

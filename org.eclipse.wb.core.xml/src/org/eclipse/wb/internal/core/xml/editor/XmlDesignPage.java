@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.Activator;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.utils.GlobalStateXml;
@@ -298,7 +299,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getName() {
-    return "Design";
+    return Messages.XmlDesignPage_name;
   }
 
   public Image getImage() {
@@ -364,7 +365,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     final Display display = Display.getCurrent();
     IRunnableWithProgress runnable = new IRunnableWithProgress() {
       public void run(final IProgressMonitor monitor) {
-        monitor.beginTask("Opening Design page.", 6);
+        monitor.beginTask(Messages.XmlDesignPage_progressTitle, 6);
         //
         try {
           DesignPageSite.setProgressMonitor(monitor);
@@ -398,12 +399,12 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   }
 
   private void internal_refreshGEF(IProgressMonitor monitor) throws Exception {
-    monitor.subTask("Initializing...");
+    monitor.subTask(Messages.XmlDesignPage_progressInitialing);
     monitor.worked(1);
     // do parse
     {
       long start = System.currentTimeMillis();
-      monitor.subTask("Parsing...");
+      monitor.subTask(Messages.XmlDesignPage_progressParsing);
       System.out.print("Parsing...");
       parse();
       monitor.worked(1);
@@ -412,7 +413,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     // refresh model (create GUI)
     {
       long start = System.currentTimeMillis();
-      monitor.subTask("Refreshing...");
+      monitor.subTask(Messages.XmlDesignPage_progressRefreshing);
       m_rootObject.refresh();
       monitor.worked(1);
       System.out.println("refresh: " + (System.currentTimeMillis() - start));

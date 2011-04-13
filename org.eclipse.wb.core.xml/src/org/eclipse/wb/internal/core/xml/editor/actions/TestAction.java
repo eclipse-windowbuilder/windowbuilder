@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.xml.model.TopBoundsSupport;
 
@@ -35,8 +36,8 @@ public final class TestAction extends Action {
   //
   ////////////////////////////////////////////////////////////////////////////
   public TestAction() {
-    setText("Test/Preview...");
-    setToolTipText("Quickly test/preview the window without compiling or running it");
+    setText(Messages.TestAction_text);
+    setToolTipText(Messages.TestAction_toolTip);
     setImageDescriptor(DesignerPlugin.getImageDescriptor("test.png"));
   }
 

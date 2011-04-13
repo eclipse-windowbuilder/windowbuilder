@@ -14,6 +14,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.IDefaultEntryInfo;
+import org.eclipse.wb.internal.core.xml.Messages;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -33,7 +34,7 @@ public class SelectionToolEntryInfo extends ToolEntryInfo implements IDefaultEnt
   //
   ////////////////////////////////////////////////////////////////////////////
   public SelectionToolEntryInfo() {
-    setName("Selection");
+    setName(Messages.SelectionToolEntryInfo_name);
   }
 
   ////////////////////////////////////////////////////////////////////////////

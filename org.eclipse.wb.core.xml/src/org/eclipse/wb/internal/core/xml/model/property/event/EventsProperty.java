@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.event.IPreferenceConstants;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 import org.eclipse.jface.action.IMenuManager;
@@ -87,7 +88,7 @@ public final class EventsProperty extends AbstractEventProperty {
           ObjectInfo object,
           IMenuManager manager) throws Exception {
         if (object == m_object) {
-          contributeActions(manager, "Add event handler");
+          contributeActions(manager, Messages.EventsProperty_addEventHandlerManager);
         }
       }
     });

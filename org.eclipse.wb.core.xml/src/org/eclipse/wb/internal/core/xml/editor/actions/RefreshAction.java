@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.xml.editor.actions;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.actions.ActionUtils;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
 
 import org.eclipse.ui.actions.ActionFactory;
@@ -32,7 +33,7 @@ public final class RefreshAction extends DesignPageAction {
     // copy presentation
     ActionUtils.copyPresentation(this, ActionFactory.REFRESH);
     // override presentation
-    setToolTipText("Reparse the source and refresh the design page");
+    setToolTipText(Messages.RefreshAction_toolTip);
     setImageDescriptor(DesignerPlugin.getImageDescriptor("editor_refresh.png"));
   }
 

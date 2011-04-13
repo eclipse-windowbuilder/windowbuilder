@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.property.IConfigurablePropertyObject;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -38,9 +39,9 @@ public abstract class AbstractConfigurableDescription {
    * Adds new parameter.
    */
   public final void addParameter(String name, String value) {
-    Assert.isTrue(!m_parameters.containsKey(name), "Duplicate declaration of parameter '"
-        + name
-        + "'.");
+    Assert.isTrue(
+        !m_parameters.containsKey(name),
+        MessageFormat.format("Duplicate declaration of parameter ''{0}''.", name));
     m_parameters.put(name, value);
   }
 

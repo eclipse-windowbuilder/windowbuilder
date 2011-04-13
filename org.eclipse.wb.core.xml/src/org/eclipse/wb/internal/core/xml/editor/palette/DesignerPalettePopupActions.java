@@ -14,6 +14,7 @@ import org.eclipse.wb.core.controls.palette.IPalette;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.editor.palette.DesignerPalette.DesignerPaletteOperations;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.ComponentEntryInfo;
@@ -28,6 +29,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
+
+import java.text.MessageFormat;
 
 /**
  * Helper class adding popup actions into palette.
@@ -84,41 +87,43 @@ final class DesignerPalettePopupActions {
     final CategoryInfo targetCategory = getCategory(target);
     // add category
     {
-      Action addCategoryAction = new Action("Add category...", ID_ADD_CATEGORY) {
-        @Override
-        public void run() {
-          // prepare initial "next category"
-          CategoryInfo nextCategory = null;
-          if (targetCategory != null) {
-            nextCategory = targetCategory;
-          } else if (targetEntry != null) {
-            nextCategory = targetEntry.getCategory();
-          }
-          m_operations.addCategory(nextCategory);
-        }
-      };
+      Action addCategoryAction =
+          new Action(Messages.DesignerPalettePopupActions_addCategory, ID_ADD_CATEGORY) {
+            @Override
+            public void run() {
+              // prepare initial "next category"
+              CategoryInfo nextCategory = null;
+              if (targetCategory != null) {
+                nextCategory = targetCategory;
+              } else if (targetEntry != null) {
+                nextCategory = targetEntry.getCategory();
+              }
+              m_operations.addCategory(nextCategory);
+            }
+          };
       menuManager.add(addCategoryAction);
     }
     // add component
     {
-      Action addComponentAction = new Action("Add component...", ID_ADD_COMPONENT) {
-        @Override
-        public void run() {
-          // prepare category for new component
-          CategoryInfo category = targetCategory;
-          if (targetEntry != null) {
-            category = targetEntry.getCategory();
-          }
-          m_operations.addComponent(category);
-        }
-      };
+      Action addComponentAction =
+          new Action(Messages.DesignerPalettePopupActions_addComponent, ID_ADD_COMPONENT) {
+            @Override
+            public void run() {
+              // prepare category for new component
+              CategoryInfo category = targetCategory;
+              if (targetEntry != null) {
+                category = targetEntry.getCategory();
+              }
+              m_operations.addComponent(category);
+            }
+          };
       menuManager.add(addComponentAction);
     }
     // separator
     menuManager.add(new Separator());
     // edit
     {
-      Action editAction = new Action("Edit...") {
+      Action editAction = new Action(Messages.DesignerPalettePopupActions_edit) {
         @Override
         public void run() {
           if (targetCategory != null) {
@@ -133,21 +138,25 @@ final class DesignerPalettePopupActions {
     }
     // remove
     {
-      Action removeAction = new Action("Remove", ID_REMOVE) {
+      Action removeAction = new Action(Messages.DesignerPalettePopupActions_remove, ID_REMOVE) {
         @Override
         public void run() {
           if (targetEntry != null) {
             if (MessageDialog.openConfirm(
                 getShell(),
-                "Confirm",
-                "Are you sure you want to remove entry '" + targetEntry.getName() + "'?")) {
+                Messages.DesignerPalettePopupActions_removeEntryText,
+                MessageFormat.format(
+                    Messages.DesignerPalettePopupActions_removeEntryMessage,
+                    targetEntry.getName()))) {
               m_operations.removeEntry(targetEntry);
             }
           } else if (targetCategory != null) {
             if (MessageDialog.openConfirm(
                 getShell(),
-                "Confirm",
-                "Are you sure you want to remove category '" + targetCategory.getName() + "'?")) {
+                Messages.DesignerPalettePopupActions_removeCategoryText,
+                MessageFormat.format(
+                    Messages.DesignerPalettePopupActions_removeCategoryMessage,
+                    targetCategory.getName()))) {
               m_operations.removeCategory(targetCategory);
             }
           }
@@ -160,13 +169,13 @@ final class DesignerPalettePopupActions {
     menuManager.add(new Separator());
     // default
     {
-      Action defaultAction = new Action("Restore default palette...") {
+      Action defaultAction = new Action(Messages.DesignerPalettePopupActions_restoreDefault) {
         @Override
         public void run() {
           if (MessageDialog.openConfirm(
               getShell(),
-              "Confirm",
-              "Are you sure you want to set the default palette?")) {
+              Messages.DesignerPalettePopupActions_restoreText,
+              Messages.DesignerPalettePopupActions_restoreMessage)) {
             m_operations.defaultPalette();
           }
         }
@@ -175,12 +184,13 @@ final class DesignerPalettePopupActions {
     }
     // palette manager
     {
-      Action managerAction = new Action("Palette manager...", ID_MANAGER) {
-        @Override
-        public void run() {
-          m_operations.editPalette();
-        }
-      };
+      Action managerAction =
+          new Action(Messages.DesignerPalettePopupActions_managerAction, ID_MANAGER) {
+            @Override
+            public void run() {
+              m_operations.editPalette();
+            }
+          };
       menuManager.add(managerAction);
     }
     // import/export
@@ -189,12 +199,13 @@ final class DesignerPalettePopupActions {
     menuManager.add(new Separator());
     // settings
     {
-      Action settingsAction = new Action("Settings...", ID_SETTINGS) {
-        @Override
-        public void run() {
-          m_operations.editPreferences();
-        }
-      };
+      Action settingsAction =
+          new Action(Messages.DesignerPalettePopupActions_settingsAction, ID_SETTINGS) {
+            @Override
+            public void run() {
+              m_operations.editPreferences();
+            }
+          };
       menuManager.add(settingsAction);
     }
   }
@@ -205,13 +216,13 @@ final class DesignerPalettePopupActions {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void addImportExport(IMenuManager menuManager) {
-    Action importAction = new Action("Import palette...", ID_IMPORT) {
+    Action importAction = new Action(Messages.DesignerPalettePopupActions_importAction, ID_IMPORT) {
       @Override
       public void run() {
         importPalette();
       }
     };
-    Action exportAction = new Action("Export palette...", ID_EXPORT) {
+    Action exportAction = new Action(Messages.DesignerPalettePopupActions_exportAction, ID_EXPORT) {
       @Override
       public void run() {
         exportPalette();
@@ -246,7 +257,7 @@ final class DesignerPalettePopupActions {
   private String getImportExportPath(int style) {
     FileDialog fileDialog = new FileDialog(getShell(), style);
     fileDialog.setFilterExtensions(new String[]{"*.xml"});
-    fileDialog.setFilterNames(new String[]{"XML file with palette commands"});
+    fileDialog.setFilterNames(new String[]{Messages.DesignerPalettePopupActions_filterCommandsName});
     fileDialog.setFileName(m_operations.getToolkitId() + ".xml");
     return fileDialog.open();
   }

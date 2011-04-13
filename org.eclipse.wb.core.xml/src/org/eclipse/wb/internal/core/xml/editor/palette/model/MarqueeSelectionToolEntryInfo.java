@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.xml.editor.palette.model;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.xml.Messages;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -32,7 +33,7 @@ public final class MarqueeSelectionToolEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public MarqueeSelectionToolEntryInfo() {
-    setName("Marquee");
+    setName(Messages.MarqueeSelectionToolEntryInfo_name);
   }
 
   ////////////////////////////////////////////////////////////////////////////

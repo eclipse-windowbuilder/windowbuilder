@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.xml.editor.palette.dialogs;
 
 import org.eclipse.wb.internal.core.utils.dialogfields.ComboDialogField;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.ComponentAddCommand;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.CategoryInfo;
@@ -40,7 +41,10 @@ public final class ComponentAddDialog extends ComponentAbstractDialog {
       EditorContext context,
       PaletteInfo palette,
       CategoryInfo initialCategory) {
-    super(parentShell, context, "Add component", "Add component to the palette.");
+    super(parentShell,
+        context,
+        Messages.ComponentAddDialog_title,
+        Messages.ComponentAddDialog_message);
     m_palette = palette;
     m_initialCategory = initialCategory;
   }
@@ -59,7 +63,7 @@ public final class ComponentAddDialog extends ComponentAbstractDialog {
     // category
     {
       m_categoryField = createCategoryField(m_palette, m_initialCategory);
-      doCreateField(m_categoryField, "&Add to palette category:");
+      doCreateField(m_categoryField, Messages.ComponentAddDialog_categoryLabel);
     }
   }
 

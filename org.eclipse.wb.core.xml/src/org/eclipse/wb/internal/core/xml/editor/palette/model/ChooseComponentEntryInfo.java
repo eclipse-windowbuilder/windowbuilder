@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.CategoryAddCommand;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.ComponentAddCommand;
@@ -22,6 +23,7 @@ import org.eclipse.wb.internal.core.xml.editor.palette.command.ComponentAddComma
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -40,8 +42,8 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ChooseComponentEntryInfo() {
-    setName("Choose component");
-    setDescription("Allows to select type of component and drop it on design canvas.");
+    setName(Messages.ChooseComponentEntryInfo_name);
+    setDescription(Messages.ChooseComponentEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -64,7 +66,9 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
       {
         componentEntry.setId("custom_" + System.currentTimeMillis());
         componentEntry.setName(CodeUtils.getShortClass(componentClassName));
-        componentEntry.setDescription("Creates " + componentClassName + " component.");
+        componentEntry.setDescription(MessageFormat.format(
+            Messages.ChooseComponentEntryInfo_newDescription,
+            componentClassName));
         componentEntry.setComponentClassName(componentClassName);
       }
       // try to initialize
@@ -115,7 +119,7 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
       getSite().addCommand(
           new CategoryAddCommand("category_" + System.currentTimeMillis(),
               "Custom",
-              "Container for custom components",
+              Messages.ChooseComponentEntryInfo_customCategoryDescription,
               true,
               true,
               null));

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.editor.palette.dialogs;
 
+import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.xml.editor.palette.command.ComponentEditCommand;
 import org.eclipse.wb.internal.core.xml.editor.palette.model.ComponentEntryInfo;
@@ -33,7 +34,10 @@ public final class ComponentEditDialog extends ComponentAbstractDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ComponentEditDialog(Shell parentShell, EditorContext context, ComponentEntryInfo component) {
-    super(parentShell, context, "Edit component", "Edit the component.");
+    super(parentShell,
+        context,
+        Messages.ComponentEditDialog_title,
+        Messages.ComponentEditDialog_message);
     m_component = component;
   }
 
