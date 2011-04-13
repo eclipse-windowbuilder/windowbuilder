@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.ercp.wizards.project.swt;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -34,7 +35,7 @@ public final class NewProjectWizard extends Wizard implements INewWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewProjectWizard() {
-    setWindowTitle("New eSWT Project");
+    setWindowTitle(WizardsMessages.NewSwtProjectWizard_title);
     setNeedsProgressMonitor(true);
   }
 
@@ -47,8 +48,8 @@ public final class NewProjectWizard extends Wizard implements INewWizard {
   public void addPages() {
     {
       m_mainPage = new NewProjectCreationPage("main");
-      m_mainPage.setTitle("eSWT project");
-      m_mainPage.setDescription("Create a new eSWT project.");
+      m_mainPage.setTitle(WizardsMessages.NewSwtProjectWizard_mainPageTitle);
+      m_mainPage.setDescription(WizardsMessages.NewSwtProjectWizard_mainPageDescription);
       addPage(m_mainPage);
     }
   }

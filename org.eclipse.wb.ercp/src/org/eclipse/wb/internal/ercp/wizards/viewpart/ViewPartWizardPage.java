@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.wizards.ERcpWizardPage;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -43,9 +44,9 @@ public final class ViewPartWizardPage extends ERcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ViewPartWizardPage() {
-    setTitle("Create ViewPart");
+    setTitle(WizardsMessages.ViewPartWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/ViewPart/banner.gif"));
-    setDescription("Create empty Eclipse RCP ViewPart.");
+    setDescription(WizardsMessages.ViewPartWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -83,8 +84,8 @@ public final class ViewPartWizardPage extends ERcpWizardPage {
   @Override
   protected void createLocalControls(Composite parent, int columns) {
     m_perspectiveNameField = new StringDialogField();
-    m_perspectiveNameField.setLabelText("View name (&title):");
-    m_perspectiveNameField.setText("New ViewPart");
+    m_perspectiveNameField.setLabelText(WizardsMessages.ViewPartWizardPage_nameLabel);
+    m_perspectiveNameField.setText(WizardsMessages.ViewPartWizardPage_nameDefault);
     m_perspectiveNameField.doFillIntoGrid(parent, columns);
     GridDataFactory.modify(m_perspectiveNameField.getTextControl(null)).hintH(getMaxFieldWidth());
   }

@@ -266,7 +266,7 @@ public final class DeviceSelectionJavaInfoParticipator
             + "x"
             + device.getDisplayBounds().height;
       } else {
-        return "No device";
+        return DeviceMessages.DeviceSelectionJavaInfoParticipator_noDevice;
       }
     }
 

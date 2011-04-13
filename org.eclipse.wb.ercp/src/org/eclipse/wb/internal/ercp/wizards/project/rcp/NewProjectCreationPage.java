@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.project.rcp;
 
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.WizardPage;
@@ -54,7 +55,7 @@ public final class NewProjectCreationPage extends WizardNewProjectCreationPage {
       GridLayoutFactory.create(composite);
       {
         m_sampleProjectButton = new Button(composite, SWT.CHECK);
-        m_sampleProjectButton.setText("Generate sample project");
+        m_sampleProjectButton.setText(WizardsMessages.NewProjectCreationPage_sampleButton);
       }
     }
     Dialog.applyDialogFont(container);

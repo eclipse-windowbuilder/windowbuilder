@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.viewpart;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.ercp.wizards.ErcpWizard;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.part.ViewPart;
@@ -29,7 +30,7 @@ public final class ViewPartWizard extends ErcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ViewPartWizard() {
-    setWindowTitle("New Eclipse RCP ViewPart");
+    setWindowTitle(WizardsMessages.ViewPartWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

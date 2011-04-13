@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.wizards.ERcpWizardPage;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -43,9 +44,9 @@ public final class SwtApplicationWizardPage extends ERcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public SwtApplicationWizardPage() {
-    setTitle("Create eSWT application");
+    setTitle(WizardsMessages.SwtApplicationWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/ApplicationWindow/wizard.gif"));
-    setDescription("Create a simple eSWT application with Shell and event loop.");
+    setDescription(WizardsMessages.SwtApplicationWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -93,7 +94,7 @@ public final class SwtApplicationWizardPage extends ERcpWizardPage {
     GridDataFactory.create(methodsComposite).fillH().spanH(columns);
     //
     Label label = new Label(methodsComposite, SWT.NONE);
-    label.setText("Create contents in:");
+    label.setText(WizardsMessages.SwtApplicationWizardPage_contentLocation);
     //
     m_createContentsButton = new Button(methodsComposite, SWT.RADIO);
     m_createContentsButton.setText("protected " + getCreateMethod("createContents") + "() method");

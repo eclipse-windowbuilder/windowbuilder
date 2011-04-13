@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.wizards.ERcpWizardPage;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -38,9 +39,9 @@ public final class PreferencePageWizardPage extends ERcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PreferencePageWizardPage() {
-    setTitle("Create Eclipse PreferencePage");
+    setTitle(WizardsMessages.PreferencePageWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/PreferencePage/banner.gif"));
-    setDescription("Create empty PreferencePage.");
+    setDescription(WizardsMessages.PreferencePageWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

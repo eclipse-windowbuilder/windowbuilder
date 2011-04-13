@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
 import org.eclipse.wb.internal.core.model.variable.description.FieldUniqueVariableDescription;
 import org.eclipse.wb.internal.core.model.variable.description.LocalUniqueVariableDescription;
+import org.eclipse.wb.internal.ercp.model.ModelMessages;
 import org.eclipse.wb.internal.ercp.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.swt.model.generation.preview.GenerationPreviewFieldUniqueBlock;
 import org.eclipse.wb.internal.swt.model.generation.preview.GenerationPreviewFieldUniqueFlat;
@@ -78,7 +79,7 @@ public final class ErcpToolkitDescription extends ToolkitDescription {
 
   @Override
   public String getName() {
-    return "eRCP toolkit";
+    return ModelMessages.ErcpToolkitDescription_toolkitName;
   }
 
   @Override

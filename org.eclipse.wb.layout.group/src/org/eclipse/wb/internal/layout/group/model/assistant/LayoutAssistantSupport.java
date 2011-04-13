@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.presentation.ButtonPropertyEditorPresentation;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.TabFactory;
+import org.eclipse.wb.internal.layout.group.Messages;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
 import org.eclipse.swt.events.DisposeEvent;
@@ -88,7 +89,7 @@ public class LayoutAssistantSupport {
       } else {
         page = new GroupLayoutAlignmentPage(folder, m_layout, objects);
       }
-      TabFactory.item(folder).text("GroupLayout").control(page);
+      TabFactory.item(folder).text(Messages.LayoutAssistantSupport_layoutTabTitle).control(page);
       pages.add((ILayoutAssistantPage) page);
     }
   }
@@ -96,7 +97,7 @@ public class LayoutAssistantSupport {
   protected void addConstraintsProperty(List<Property> properties,
       final AbstractComponentInfo component) {
     String name = getJavaInfo().getDescription().getComponentClass().getName();
-    ComplexProperty constraintsProperty = new ComplexProperty("Constraints", "(" + name + ")") {
+    ComplexProperty constraintsProperty = new ComplexProperty(Messages.LayoutAssistantSupport_constraintsTabTitle, "(" + name + ")") {
       @Override
       public boolean isModified() throws Exception {
         return true;

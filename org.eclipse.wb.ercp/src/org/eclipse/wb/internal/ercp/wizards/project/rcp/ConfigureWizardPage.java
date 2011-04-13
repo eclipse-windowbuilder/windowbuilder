@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.ercp.wizards.project.rcp;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
@@ -42,12 +44,12 @@ public final class ConfigureWizardPage extends WizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ConfigureWizardPage() {
-    this("You should configure plug-in development target platform before any eRCP project creation.");
+    this(WizardsMessages.ConfigureWizardPage_name1);
   }
 
   public ConfigureWizardPage(String message) {
-    super("eRCP configurations");
-    setTitle("eRCP configuration");
+    super(WizardsMessages.ConfigureWizardPage_name2);
+    setTitle(WizardsMessages.ConfigureWizardPage_title);
     setMessage(message);
     setPageComplete(false);
   }
@@ -64,11 +66,11 @@ public final class ConfigureWizardPage extends WizardPage {
     composite.setFont(parent.getFont());
     composite.setLayout(new GridLayout());
     //
-    new Label(composite, SWT.NONE).setText("1. Download eRCP distribution and extract it somewhere on disk [eRCP location].");
+    new Label(composite, SWT.NONE).setText(WizardsMessages.ConfigureWizardPage_step1);
     // link to open preferences
     {
       Link openPreferencesLink = new Link(composite, SWT.NONE);
-      openPreferencesLink.setText("2. <a>Click here to open target plarform configuration</a>");
+      openPreferencesLink.setText(WizardsMessages.ConfigureWizardPage_step2);
       openPreferencesLink.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
@@ -84,7 +86,7 @@ public final class ConfigureWizardPage extends WizardPage {
         }
       });
     }
-    new Label(composite, SWT.NONE).setText("3. Use \"Browser...\" and select directory [eRCP location]\\eRCP\\win32.");
+    new Label(composite, SWT.NONE).setText(WizardsMessages.ConfigureWizardPage_step3);
     //
     setControl(composite);
     Dialog.applyDialogFont(composite);

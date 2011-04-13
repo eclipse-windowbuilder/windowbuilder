@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringButtonDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.WizardPage;
@@ -131,8 +132,8 @@ public final class NewProjectCreationPage extends WizardNewProjectCreationPage {
             {
               directoryDialog = new DirectoryDialog(getShell());
               directoryDialog.setFilterPath(m_locationField.getText());
-              directoryDialog.setText("eRCP location");
-              directoryDialog.setMessage("Select eRCP location.");
+              directoryDialog.setText(WizardsMessages.NewProjectCreationPage_locationText);
+              directoryDialog.setMessage(WizardsMessages.NewProjectCreationPage_locationMessage);
             }
             // select new location
             String newLocation = directoryDialog.open();
@@ -141,13 +142,13 @@ public final class NewProjectCreationPage extends WizardNewProjectCreationPage {
             }
           }
         });
-        m_locationField.setButtonLabel("&Browse...");
-        doCreateField(m_locationField, "eRCP location:", 40);
+        m_locationField.setButtonLabel(WizardsMessages.NewProjectCreationPage_browseButton);
+        doCreateField(m_locationField, WizardsMessages.NewProjectCreationPage_browseLabel, 40);
       }
       // sample content
       {
         m_sampleField = new BooleanDialogField();
-        doCreateField(m_sampleField, "Create sample content", 40);
+        doCreateField(m_sampleField, WizardsMessages.NewProjectCreationPage_createSample, 40);
       }
     }
 
@@ -162,7 +163,7 @@ public final class NewProjectCreationPage extends WizardNewProjectCreationPage {
       {
         String projectName = getProjectName();
         if (StringUtils.isEmpty(projectName)) {
-          return "No project name.";
+          return WizardsMessages.NewProjectCreationPage_validateNoProjectName;
         }
       }
       // validate location

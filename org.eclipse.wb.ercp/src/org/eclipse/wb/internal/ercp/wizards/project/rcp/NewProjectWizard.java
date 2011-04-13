@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.ercp.wizards.project.rcp;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -34,7 +35,7 @@ public final class NewProjectWizard extends Wizard implements INewWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewProjectWizard() {
-    setWindowTitle("New eRCP Project");
+    setWindowTitle(WizardsMessages.NewProjectWizard_title);
     setNeedsProgressMonitor(true);
   }
 
@@ -50,8 +51,8 @@ public final class NewProjectWizard extends Wizard implements INewWizard {
     }
     {
       m_mainPage = new NewProjectCreationPage("main");
-      m_mainPage.setTitle("eRCP project");
-      m_mainPage.setDescription("Create a new eRCP project.");
+      m_mainPage.setTitle(WizardsMessages.NewProjectWizard_mainPageTitle);
+      m_mainPage.setDescription(WizardsMessages.NewProjectWizard_mainPageDescription);
       addPage(m_mainPage);
     }
   }

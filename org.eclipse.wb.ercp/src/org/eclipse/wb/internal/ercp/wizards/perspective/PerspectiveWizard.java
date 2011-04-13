@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.perspective;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.ercp.wizards.ErcpWizard;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 
@@ -28,7 +29,7 @@ public final class PerspectiveWizard extends ErcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PerspectiveWizard() {
-    setWindowTitle("New Eclipse RCP Perspective");
+    setWindowTitle(WizardsMessages.PerspectiveWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

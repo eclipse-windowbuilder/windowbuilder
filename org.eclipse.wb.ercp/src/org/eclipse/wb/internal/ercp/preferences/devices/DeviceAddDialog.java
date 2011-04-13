@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.ercp.preferences.devices;
 
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.wb.internal.ercp.devices.DeviceMessages;
 import org.eclipse.wb.internal.ercp.devices.command.Command;
 import org.eclipse.wb.internal.ercp.devices.command.DeviceAddCommand;
 import org.eclipse.wb.internal.ercp.devices.model.CategoryInfo;
@@ -31,7 +32,7 @@ public final class DeviceAddDialog extends DeviceAbstractDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   public DeviceAddDialog() {
-    super("New mobile device", "Add new mobile device.");
+    super(DeviceMessages.DeviceAddDialog_title, DeviceMessages.DeviceAddDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////

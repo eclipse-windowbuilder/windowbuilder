@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.layout.group.Messages;
 import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
@@ -74,7 +75,7 @@ public final class GroupLayoutSpacesPage extends Composite
     Group topGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(topGroup).grab().fill();
     GridLayoutFactory.create(topGroup).columns(3);
-    topGroup.setText("Space");
+    topGroup.setText(Messages.GroupLayoutSpacesPage_spaceGroup);
     {
       new Label(topGroup, SWT.NONE);
       m_spaceComposites[0] = new SpaceComposite(topGroup, LEADING, VERTICAL);
@@ -86,7 +87,7 @@ public final class GroupLayoutSpacesPage extends Composite
         Group group = new Group(topGroup, SWT.NONE);
         GridDataFactory.create(group).grab().fill();
         GridLayoutFactory.create(group);
-        group.setText("Component");
+        group.setText(Messages.GroupLayoutSpacesPage_componentGroup);
         m_componentComposite = new ComponentComposite(group);
       }
       m_spaceComposites[2] = new SpaceComposite(topGroup, TRAILING, HORIZONTAL);
@@ -138,7 +139,7 @@ public final class GroupLayoutSpacesPage extends Composite
     ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
     toolItem.setImage(m_layout.getAdapter(IImageProvider.class).getImage(
         "info/layout/groupLayout/clear.gif"));
-    toolItem.setToolTipText("Set layout default size");
+    toolItem.setToolTipText(Messages.GroupLayoutSpacesPage_setDefaultSize);
     toolItem.addSelectionListener(selectionListener);
     return toolBar;
   }
@@ -189,15 +190,15 @@ public final class GroupLayoutSpacesPage extends Composite
         Group sizeGroup = new Group(this, SWT.NONE);
         GridDataFactory.create(sizeGroup).alignVM().grab();
         GridLayoutFactory.create(sizeGroup).columns(3);
-        sizeGroup.setText("Size");
+        sizeGroup.setText(Messages.GroupLayoutSpacesPage_sizeGroup);
         {
-          new Label(sizeGroup, SWT.NONE).setText("Width");
+          new Label(sizeGroup, SWT.NONE).setText(Messages.GroupLayoutSpacesPage_sizeWidth);
           m_widthSpinner = createSpinner(sizeGroup);
           createSpinnerNotifier(m_widthSpinner, new ComponentSizeSetListener(HORIZONTAL));
           createClearButton(sizeGroup, new ComponentSizeSetDefaultListener(HORIZONTAL));
         }
         {
-          new Label(sizeGroup, SWT.NONE).setText("Height");
+          new Label(sizeGroup, SWT.NONE).setText(Messages.GroupLayoutSpacesPage_sizeHeight);
           m_heightSpinner = createSpinner(sizeGroup);
           createSpinnerNotifier(m_heightSpinner, new ComponentSizeSetListener(VERTICAL));
           createClearButton(sizeGroup, new ComponentSizeSetDefaultListener(VERTICAL));
@@ -279,7 +280,7 @@ public final class GroupLayoutSpacesPage extends Composite
       }
       m_spinner = createSpinner(this);
       m_button = new Button(this, SWT.CHECK);
-      m_button.setText("Default");
+      m_button.setText(Messages.GroupLayoutSpacesPage_defaultSpace);
       // install listeners
       m_button.addSelectionListener(new SelectionAdapter() {
         @Override

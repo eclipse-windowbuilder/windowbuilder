@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.ercp.ToolkitProvider;
+import org.eclipse.wb.internal.ercp.preferences.PreferencesMessages;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -58,7 +59,7 @@ public final class AbsoluteLayoutPreferencePage extends FieldLayoutPreferencePag
   protected Control createPageContents(Composite parent) {
     Composite container = new Composite(parent, SWT.NULL);
     GridLayoutFactory.create(container);
-    createBooleanFieldEditor(P_USE_FREE_MODE, "Use \"Free\" component placement style", container);
+    createBooleanFieldEditor(P_USE_FREE_MODE, PreferencesMessages.AbsoluteLayoutPreferencePage_useFreeStyle, container);
     {
       final Composite freeStylePropertiesComposite = new Composite(container, SWT.NONE);
       GridDataFactory.create(freeStylePropertiesComposite).fillH().alignVM();
@@ -67,41 +68,41 @@ public final class AbsoluteLayoutPreferencePage extends FieldLayoutPreferencePag
         final Group componentGapsGroup = new Group(freeStylePropertiesComposite, SWT.NONE);
         GridLayoutFactory.create(componentGapsGroup);
         GridDataFactory.create(componentGapsGroup).fillV();
-        componentGapsGroup.setText("Component Gaps");
-        createIntegerFieldEditor(P_COMPONENT_GAP_LEFT, "Left", componentGapsGroup, true);
-        createIntegerFieldEditor(P_COMPONENT_GAP_RIGHT, "Right", componentGapsGroup, true);
-        createIntegerFieldEditor(P_COMPONENT_GAP_TOP, "Top", componentGapsGroup, true);
-        createIntegerFieldEditor(P_COMPONENT_GAP_BOTTOM, "Bottom", componentGapsGroup, true);
+        componentGapsGroup.setText(PreferencesMessages.AbsoluteLayoutPreferencePage_componentGapsGroup);
+        createIntegerFieldEditor(P_COMPONENT_GAP_LEFT, PreferencesMessages.AbsoluteLayoutPreferencePage_componentGapsLeft, componentGapsGroup, true);
+        createIntegerFieldEditor(P_COMPONENT_GAP_RIGHT, PreferencesMessages.AbsoluteLayoutPreferencePage_componentGapsRight, componentGapsGroup, true);
+        createIntegerFieldEditor(P_COMPONENT_GAP_TOP, PreferencesMessages.AbsoluteLayoutPreferencePage_componentGapsTop, componentGapsGroup, true);
+        createIntegerFieldEditor(P_COMPONENT_GAP_BOTTOM, PreferencesMessages.AbsoluteLayoutPreferencePage_componentGapsBottom, componentGapsGroup, true);
       }
       {
         final Group containerGapsGroup = new Group(freeStylePropertiesComposite, SWT.NONE);
         GridLayoutFactory.create(containerGapsGroup);
         GridDataFactory.create(containerGapsGroup).fillV();
-        containerGapsGroup.setText("Container Gaps");
-        createIntegerFieldEditor(P_CONTAINER_GAP_LEFT, "Left", containerGapsGroup, true);
-        createIntegerFieldEditor(P_CONTAINER_GAP_RIGHT, "Right", containerGapsGroup, true);
-        createIntegerFieldEditor(P_CONTAINER_GAP_TOP, "Top", containerGapsGroup, true);
-        createIntegerFieldEditor(P_CONTAINER_GAP_BOTTOM, "Bottom", containerGapsGroup, true);
+        containerGapsGroup.setText(PreferencesMessages.AbsoluteLayoutPreferencePage_containerGapsGroup);
+        createIntegerFieldEditor(P_CONTAINER_GAP_LEFT, PreferencesMessages.AbsoluteLayoutPreferencePage_containerGapsLeft, containerGapsGroup, true);
+        createIntegerFieldEditor(P_CONTAINER_GAP_RIGHT, PreferencesMessages.AbsoluteLayoutPreferencePage_containerGapsRight, containerGapsGroup, true);
+        createIntegerFieldEditor(P_CONTAINER_GAP_TOP, PreferencesMessages.AbsoluteLayoutPreferencePage_containerGapsTop, containerGapsGroup, true);
+        createIntegerFieldEditor(P_CONTAINER_GAP_BOTTOM, PreferencesMessages.AbsoluteLayoutPreferencePage_containerGapsBottom, containerGapsGroup, true);
       }
     }
-    createBooleanFieldEditor(P_CREATION_FLOW, "Apply 'grid' creation flow", container);
-    createBooleanFieldEditor(P_USE_GRID, "Use Grid Snapping", container);
+    createBooleanFieldEditor(P_CREATION_FLOW, PreferencesMessages.AbsoluteLayoutPreferencePage_applyGridFlow, container);
+    createBooleanFieldEditor(P_USE_GRID, PreferencesMessages.AbsoluteLayoutPreferencePage_useGridSnapping, container);
     {
       final Group gridGroup = new Group(container, SWT.NONE);
       GridDataFactory.create(gridGroup).fillH().alignVM();
-      gridGroup.setText("Grid Properties");
+      gridGroup.setText(PreferencesMessages.AbsoluteLayoutPreferencePage_gridGroup);
       GridLayoutFactory.create(gridGroup);
-      createIntegerFieldEditor(P_GRID_STEP_X, "Grid Step X", gridGroup, false);
-      createIntegerFieldEditor(P_GRID_STEP_Y, "Grid Step Y", gridGroup, false);
-      createBooleanFieldEditor(P_DISPLAY_GRID, "Display Grid", gridGroup);
+      createIntegerFieldEditor(P_GRID_STEP_X, PreferencesMessages.AbsoluteLayoutPreferencePage_gridStepX, gridGroup, false);
+      createIntegerFieldEditor(P_GRID_STEP_Y, PreferencesMessages.AbsoluteLayoutPreferencePage_gridStepY, gridGroup, false);
+      createBooleanFieldEditor(P_DISPLAY_GRID, PreferencesMessages.AbsoluteLayoutPreferencePage_gridDisplay, gridGroup);
     }
     createBooleanFieldEditor(
         P_DISPLAY_LOCATION_SIZE_HINTS,
-        "Display location/size hints",
+        PreferencesMessages.AbsoluteLayoutPreferencePage_gridLocationSizeHint,
         container);
     createBooleanFieldEditor(
         P_AUTOSIZE_ON_PROPERTY_CHANGE,
-        "Automatically autosize component on text/image property change",
+        PreferencesMessages.AbsoluteLayoutPreferencePage_autoSizeTextImage,
         container);
     return container;
   }

@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.composite;
 
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.wizards.ERcpWizardPage;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,9 +36,9 @@ public final class CompositeWizardPage extends ERcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CompositeWizardPage() {
-    setTitle("Create eSWT Composite");
+    setTitle(WizardsMessages.CompositeWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Composite/banner.gif"));
-    setDescription("Create empty eSWT Composite. Composites can be reused later in complex forms.");
+    setDescription(WizardsMessages.CompositeWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

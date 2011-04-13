@@ -16,6 +16,7 @@ import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.layout.group.Messages;
 import org.eclipse.wb.internal.layout.group.model.AlignmentsSupport;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
@@ -63,7 +64,7 @@ public final class GroupLayoutAlignmentPage extends Composite
     Group topGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(topGroup).grab().fill();
     GridLayoutFactory.create(topGroup);
-    topGroup.setText("Alignment");
+    topGroup.setText(Messages.GroupLayoutAlignmentPage_alignmentGroup);
     {
       m_toolBarManager = new ToolBarManager(SWT.FLAT);
       ToolBar toolBar = m_toolBarManager.createControl(topGroup);

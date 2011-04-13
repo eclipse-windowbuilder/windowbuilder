@@ -197,11 +197,8 @@ public class Activator extends AbstractUIPlugin implements IStartup {
               MessageDialogWithToggle.openYesNoQuestion(
                   null,
                   "WindowBuilder",
-                  "It seems that you're running the Compiz Window Manager. "
-                      + "It allows the special windows to appear offscreen and this will allow "
-                      + "the product to prevent preview window flickering.\n\n"
-                      + "Do you want to setup the Compiz WM to move the preview windows into the offscreen area?",
-                  "Do not ask again",
+                  Messages.Activator_compizMessage,
+                  Messages.Activator_compizDontAsk,
                   false,
                   getPreferenceStore(),
                   PK_ASK_FOR_WORKAROUND);

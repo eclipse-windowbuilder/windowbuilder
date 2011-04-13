@@ -15,6 +15,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
+import org.eclipse.wb.internal.layout.group.Messages;
 
 import org.eclipse.jface.action.IMenuManager;
 
@@ -67,7 +68,7 @@ public class MiscActions {
     private final IGroupLayoutInfo m_layout;
 
     private SetDefaultSizeAction(IGroupLayoutInfo layout, AbstractComponentInfo component) {
-      super(component, "Set Default Size");
+      super(component, Messages.MiscActions_setDefaultSize);
       m_layout = layout;
       m_component = component;
       setEnabled(component != null);

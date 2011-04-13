@@ -15,6 +15,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.model.layout.absolute.IImageProvider;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
+import org.eclipse.wb.internal.layout.group.Messages;
 
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuManager;
@@ -49,19 +50,19 @@ public final class AnchorsSupport implements LayoutConstants {
   ////////////////////////////////////////////////////////////////////////////
   public void fillContextMenu(AbstractComponentInfo component, IMenuManager manager) {
     {
-      IMenuManager anchorsManager = new MenuManager("Anchors");
+      IMenuManager anchorsManager = new MenuManager(Messages.AnchorsSupport_anchorsMenu);
       manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, anchorsManager);
-      anchorsManager.add(new SetAnchorAction(component, "Left", "h/menu/left.gif", true, LEADING));
-      anchorsManager.add(new SetAnchorAction(component, "Right", "h/menu/right.gif", true, TRAILING));
-      anchorsManager.add(new SetAnchorAction(component, "Top", "v/menu/top.gif", false, LEADING));
+      anchorsManager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchorLeft, "h/menu/left.gif", true, LEADING));
+      anchorsManager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchorRight, "h/menu/right.gif", true, TRAILING));
+      anchorsManager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchorTop, "v/menu/top.gif", false, LEADING));
       anchorsManager.add(new SetAnchorAction(component,
-          "Bottom",
+          Messages.AnchorsSupport_anchorBottom,
           "v/menu/bottom.gif",
           false,
           TRAILING));
     }
     {
-      IMenuManager autoResigingManager = new MenuManager("Auto Resizing");
+      IMenuManager autoResigingManager = new MenuManager(Messages.AnchorsSupport_autoResizeMenu);
       manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, autoResigingManager);
       autoResigingManager.add(new ToggleResizeableAction(component, "h/menu/both.gif", true));
       autoResigingManager.add(new ToggleResizeableAction(component, "v/menu/both.gif", false));
@@ -72,17 +73,17 @@ public final class AnchorsSupport implements LayoutConstants {
       IContributionManager manager,
       boolean isHorizontal) {
     if (isHorizontal) {
-      manager.add(new SetAnchorAction(component, "Anchored Left", "h/menu/left.gif", true, LEADING));
+      manager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchoredLeft, "h/menu/left.gif", true, LEADING));
       manager.add(new SetAnchorAction(component,
-          "Anchored Right",
+          Messages.AnchorsSupport_anchoredRight,
           "h/menu/right.gif",
           true,
           TRAILING));
       manager.add(new MakeResizeableAction(component, "h/menu/both.gif", isHorizontal));
     } else {
-      manager.add(new SetAnchorAction(component, "Anchored Top", "v/menu/top.gif", false, LEADING));
+      manager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchoredTop, "v/menu/top.gif", false, LEADING));
       manager.add(new SetAnchorAction(component,
-          "Anchored Bottom",
+          Messages.AnchorsSupport_anchoredBottom,
           "v/menu/bottom.gif",
           false,
           TRAILING));
@@ -260,7 +261,7 @@ public final class AnchorsSupport implements LayoutConstants {
     private MakeResizeableAction(AbstractComponentInfo component,
         String imageName,
         boolean isHorizontal) {
-      super(component, "Auto Resizable", new ImageImageDescriptor(getImageProvider().getImage(
+      super(component, Messages.AnchorsSupport_autoResizable, new ImageImageDescriptor(getImageProvider().getImage(
           "info/layout/groupLayout/" + imageName)), AS_CHECK_BOX);
       m_component = component;
       m_isHorizontal = isHorizontal;
@@ -288,7 +289,7 @@ public final class AnchorsSupport implements LayoutConstants {
         String imageName,
         boolean isHorizontal) {
       super(component,
-          isHorizontal ? "Horizontal" : "Vertical",
+          isHorizontal ? Messages.AnchorsSupport_resizableHorizontal : Messages.AnchorsSupport_resizableVertical,
           new ImageImageDescriptor(getImageProvider().getImage(
               "info/layout/groupLayout/" + imageName)),
           AS_CHECK_BOX);

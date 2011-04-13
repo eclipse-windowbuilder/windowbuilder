@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.layout.group.model.assistant;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
+import org.eclipse.wb.internal.layout.group.Messages;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -58,7 +59,7 @@ public final class ConstraintsDialog extends Dialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Constraints");
+    newShell.setText(Messages.ConstraintsDialog_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

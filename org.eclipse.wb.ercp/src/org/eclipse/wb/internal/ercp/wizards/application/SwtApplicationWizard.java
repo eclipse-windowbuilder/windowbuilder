@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.application;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.ercp.wizards.ErcpWizard;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 
@@ -28,7 +29,7 @@ public final class SwtApplicationWizard extends ErcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public SwtApplicationWizard() {
-    setWindowTitle("New eSWT application");
+    setWindowTitle(WizardsMessages.SwtApplicationWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

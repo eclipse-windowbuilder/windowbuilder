@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.wizards.ERcpWizardPage;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -42,9 +43,9 @@ public final class PerspectiveWizardPage extends ERcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public PerspectiveWizardPage() {
-    setTitle("Create Perspective");
+    setTitle(WizardsMessages.PerspectiveWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Perspective/banner.gif"));
-    setDescription("Create empty Eclipse RCP Perspective.");
+    setDescription(WizardsMessages.PerspectiveWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -84,8 +85,8 @@ public final class PerspectiveWizardPage extends ERcpWizardPage {
   @Override
   protected void createLocalControls(Composite parent, int columns) {
     m_perspectiveNameField = new StringDialogField();
-    m_perspectiveNameField.setLabelText("Perspective name:");
-    m_perspectiveNameField.setText("New Perspective");
+    m_perspectiveNameField.setLabelText(WizardsMessages.PerspectiveWizardPage_nameLabel);
+    m_perspectiveNameField.setText(WizardsMessages.PerspectiveWizardPage_nameDefault);
     m_perspectiveNameField.doFillIntoGrid(parent, columns);
     GridDataFactory.modify(m_perspectiveNameField.getTextControl(null)).hintH(getMaxFieldWidth());
   }

@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.wizards.ERcpWizardPage;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -43,9 +44,9 @@ public final class ShellWizardPage extends ERcpWizardPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ShellWizardPage() {
-    setTitle("Create eSWT Shell");
+    setTitle(WizardsMessages.ShellWizardPage_title);
     setImageDescriptor(Activator.getImageDescriptor("wizard/Shell/banner.gif"));
-    setDescription("Create empty eSWT Shell.");
+    setDescription(WizardsMessages.ShellWizardPage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -83,7 +84,7 @@ public final class ShellWizardPage extends ERcpWizardPage {
         new SelectionButtonDialogFieldGroup(SWT.RADIO, new String[]{
             "org.eclipse.swt.widgets.&Shell",
             "org.eclipse.ercp.swt.mobile.&MobileShell"}, 1);
-    superClassGroupField.setLabelText("Select superclass:");
+    superClassGroupField.setLabelText(WizardsMessages.ShellWizardPage_superclassLabel);
     superClassGroupField.setSelection(0, true);
     superClassGroupField.setDialogFieldListener(new IDialogFieldListener() {
       public void dialogFieldChanged(DialogField field) {

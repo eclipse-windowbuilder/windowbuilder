@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.ercp.preferences.devices;
 
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.wb.internal.ercp.devices.DeviceMessages;
 import org.eclipse.wb.internal.ercp.devices.command.Command;
 import org.eclipse.wb.internal.ercp.devices.command.DeviceEditCommand;
 import org.eclipse.wb.internal.ercp.devices.model.DeviceInfo;
@@ -32,7 +33,7 @@ public final class DeviceEditDialog extends DeviceAbstractDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   public DeviceEditDialog(DeviceInfo device) {
-    super("Edit mobile device", "Edit a mobile device.");
+    super(DeviceMessages.DeviceEditDialog_title, DeviceMessages.DeviceEditDialog_message);
     m_device = device;
   }
 

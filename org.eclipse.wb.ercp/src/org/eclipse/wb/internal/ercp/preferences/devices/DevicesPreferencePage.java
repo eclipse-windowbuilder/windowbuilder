@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.ercp.Activator;
 import org.eclipse.wb.internal.ercp.devices.DeviceManager;
+import org.eclipse.wb.internal.ercp.devices.DeviceMessages;
 import org.eclipse.wb.internal.ercp.devices.command.CategoryAddCommand;
 import org.eclipse.wb.internal.ercp.devices.command.CategoryMoveCommand;
 import org.eclipse.wb.internal.ercp.devices.command.CategoryNameCommand;
@@ -69,6 +70,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -264,52 +266,81 @@ public final class DevicesPreferencePage extends PreferencePage implements IWork
     GridDataFactory.create(buttonsComposite).grabV().fill();
     GridLayoutFactory.create(buttonsComposite).noMargins();
     //
-    createButton(buttonsComposite, "Add Category...", new Listener() {
-      public void handleEvent(Event event) {
-        onAddCategory();
-      }
-    });
-    m_addEntryButton = createButton(buttonsComposite, "Add device...", new Listener() {
-      public void handleEvent(Event event) {
-        onAddDevice();
-      }
-    });
+    createButton(
+        buttonsComposite,
+        DeviceMessages.DevicesPreferencePage_addCategoryButton,
+        new Listener() {
+          public void handleEvent(Event event) {
+            onAddCategory();
+          }
+        });
+    m_addEntryButton =
+        createButton(
+            buttonsComposite,
+            DeviceMessages.DevicesPreferencePage_addDeviceButton,
+            new Listener() {
+              public void handleEvent(Event event) {
+                onAddDevice();
+              }
+            });
     //
     createButtonSeparator(buttonsComposite);
-    m_editButton = createButton(buttonsComposite, "Edit...", new Listener() {
-      public void handleEvent(Event event) {
-        onEdit();
-      }
-    });
-    m_removeButton = createButton(buttonsComposite, "Remove...", new Listener() {
-      public void handleEvent(Event event) {
-        onRemove();
-      }
-    });
+    m_editButton =
+        createButton(
+            buttonsComposite,
+            DeviceMessages.DevicesPreferencePage_editButton,
+            new Listener() {
+              public void handleEvent(Event event) {
+                onEdit();
+              }
+            });
+    m_removeButton =
+        createButton(
+            buttonsComposite,
+            DeviceMessages.DevicesPreferencePage_removeButton,
+            new Listener() {
+              public void handleEvent(Event event) {
+                onRemove();
+              }
+            });
     //
     createButtonSeparator(buttonsComposite);
-    m_moveUpButton = createButton(buttonsComposite, "Up", new Listener() {
-      public void handleEvent(Event event) {
-        onMove(-1);
-      }
-    });
-    m_moveDownButton = createButton(buttonsComposite, "Down", new Listener() {
-      public void handleEvent(Event event) {
-        onMove(+2);
-      }
-    });
+    m_moveUpButton =
+        createButton(
+            buttonsComposite,
+            DeviceMessages.DevicesPreferencePage_upButton,
+            new Listener() {
+              public void handleEvent(Event event) {
+                onMove(-1);
+              }
+            });
+    m_moveDownButton =
+        createButton(
+            buttonsComposite,
+            DeviceMessages.DevicesPreferencePage_downButton,
+            new Listener() {
+              public void handleEvent(Event event) {
+                onMove(+2);
+              }
+            });
     //
     createButtonSeparator(buttonsComposite);
-    createButton(buttonsComposite, "Collapse All", new Listener() {
-      public void handleEvent(Event event) {
-        m_viewer.collapseAll();
-      }
-    });
-    createButton(buttonsComposite, "Expand All", new Listener() {
-      public void handleEvent(Event event) {
-        m_viewer.expandAll();
-      }
-    });
+    createButton(
+        buttonsComposite,
+        DeviceMessages.DevicesPreferencePage_collapseAllButton,
+        new Listener() {
+          public void handleEvent(Event event) {
+            m_viewer.collapseAll();
+          }
+        });
+    createButton(
+        buttonsComposite,
+        DeviceMessages.DevicesPreferencePage_expandAllButton,
+        new Listener() {
+          public void handleEvent(Event event) {
+            m_viewer.expandAll();
+          }
+        });
     // update buttons first time
     updateButtons();
   }
@@ -405,8 +436,8 @@ public final class DevicesPreferencePage extends PreferencePage implements IWork
       CategoryInfo category = (CategoryInfo) element;
       InputDialog inputDialog =
           new InputDialog(getShell(),
-              "Category",
-              "Enter new category name:",
+              DeviceMessages.DevicesPreferencePage_editCategoryTitle,
+              DeviceMessages.DevicesPreferencePage_editCategoryMessage,
               category.getName(),
               null);
       // execute dialog
@@ -428,9 +459,12 @@ public final class DevicesPreferencePage extends PreferencePage implements IWork
    */
   private void onRemove() {
     List<Object> selection = getSelectedElements();
-    if (MessageDialog.openConfirm(getShell(), "Confirm", "Are you sure you want to remove "
-        + selection.size()
-        + " selected element(s)?")) {
+    if (MessageDialog.openConfirm(
+        getShell(),
+        DeviceMessages.DevicesPreferencePage_removeConfirmTitle,
+        MessageFormat.format(
+            DeviceMessages.DevicesPreferencePage_removeConfirmMessage,
+            selection.size()))) {
       for (Object element : selection) {
         if (element instanceof CategoryInfo) {
           commands_add(new CategoryRemoveCommand((CategoryInfo) element));
@@ -447,7 +481,11 @@ public final class DevicesPreferencePage extends PreferencePage implements IWork
    */
   private void onAddCategory() {
     InputDialog inputDialog =
-        new InputDialog(getShell(), "New category", "Enter new category name:", "", null);
+        new InputDialog(getShell(),
+            DeviceMessages.DevicesPreferencePage_newCategoryTitle,
+            DeviceMessages.DevicesPreferencePage_newCategoryMessage,
+            "",
+            null);
     if (inputDialog.open() == Window.OK) {
       commands_add(new CategoryAddCommand("category_" + System.currentTimeMillis(),
           inputDialog.getValue()));

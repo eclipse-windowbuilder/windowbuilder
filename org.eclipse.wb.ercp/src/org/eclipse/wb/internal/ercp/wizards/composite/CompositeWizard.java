@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.composite;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.ercp.wizards.ErcpWizard;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
@@ -29,7 +30,7 @@ public final class CompositeWizard extends ErcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CompositeWizard() {
-    setWindowTitle("New eSWT Composite");
+    setWindowTitle(WizardsMessages.CompositeWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

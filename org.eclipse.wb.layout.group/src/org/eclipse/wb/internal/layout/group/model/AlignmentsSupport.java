@@ -15,6 +15,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AbstractAlignmentActionsSupport;
+import org.eclipse.wb.internal.layout.group.Messages;
 
 import org.eclipse.jface.action.Separator;
 
@@ -58,8 +59,8 @@ public final class AlignmentsSupport<C extends IAbstractComponentInfo>
   protected void addSizeActions(List<Object> actions) {
     // create size actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("width", "Link/Unlink width", ALIGN_WIDTH));
-    actions.add(new SelectionAction("height", "Link/Unlink height", ALIGN_HEIGHT));
+    actions.add(new SelectionAction("width", Messages.AlignmentsSupport_linkWidth, ALIGN_WIDTH));
+    actions.add(new SelectionAction("height", Messages.AlignmentsSupport_linkHeight, ALIGN_HEIGHT));
   }
 
   ////////////////////////////////////////////////////////////////////////////

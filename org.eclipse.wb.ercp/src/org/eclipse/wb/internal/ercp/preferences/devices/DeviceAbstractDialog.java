@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringButtonDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
+import org.eclipse.wb.internal.ercp.devices.DeviceMessages;
 import org.eclipse.wb.internal.ercp.devices.model.DeviceInfo;
 
 import org.eclipse.swt.SWT;
@@ -45,7 +46,7 @@ public abstract class DeviceAbstractDialog extends AbstractValidationTitleAreaDi
         shellText,
         titleText,
         null,
-        "Specify the name, image and display of the device.");
+        DeviceMessages.DeviceAbstractDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -70,7 +71,7 @@ public abstract class DeviceAbstractDialog extends AbstractValidationTitleAreaDi
     // name
     {
       m_nameField = new StringDialogField();
-      doCreateField(m_nameField, "&Name:");
+      doCreateField(m_nameField, DeviceMessages.DeviceAbstractDialog_nameLabel);
     }
     // name
     {
@@ -84,28 +85,28 @@ public abstract class DeviceAbstractDialog extends AbstractValidationTitleAreaDi
           }
         }
       });
-      m_imageField.setButtonLabel("&Browse...");
-      doCreateField(m_imageField, "&Image path:");
+      m_imageField.setButtonLabel(DeviceMessages.DeviceAbstractDialog_browseImage);
+      doCreateField(m_imageField, DeviceMessages.DeviceAbstractDialog_imagePathLabel);
     }
     // display: x
     {
       m_displayField_x = new StringDialogField();
-      doCreateField(m_displayField_x, "Display &x:");
+      doCreateField(m_displayField_x, DeviceMessages.DeviceAbstractDialog_xDisplayLabel);
     }
     // display: y
     {
       m_displayField_y = new StringDialogField();
-      doCreateField(m_displayField_y, "Display &y:");
+      doCreateField(m_displayField_y, DeviceMessages.DeviceAbstractDialog_yDisplayLabel);
     }
     // display: width
     {
       m_displayField_width = new StringDialogField();
-      doCreateField(m_displayField_width, "Display &width:");
+      doCreateField(m_displayField_width, DeviceMessages.DeviceAbstractDialog_widthDisplayLabel);
     }
     // display: height
     {
       m_displayField_height = new StringDialogField();
-      doCreateField(m_displayField_height, "Display &height:");
+      doCreateField(m_displayField_height, DeviceMessages.DeviceAbstractDialog_heightDisplayLabel);
     }
   }
 
@@ -120,20 +121,20 @@ public abstract class DeviceAbstractDialog extends AbstractValidationTitleAreaDi
     {
       String name = m_nameField.getText().trim();
       if (name.length() == 0) {
-        return "Name can not be empty.";
+        return DeviceMessages.DeviceAbstractDialog_validateEmptyName;
       }
     }
     // validate image
     {
       String imagePath = m_imageField.getText().trim();
       if (imagePath.length() == 0) {
-        return "Image path can not be empty.";
+        return DeviceMessages.DeviceAbstractDialog_validateEmptyImagePath;
       }
       try {
         Image image = new Image(null, new FileInputStream(imagePath));
         image.dispose();
       } catch (Throwable e) {
-        return "Bad image: " + e.getMessage();
+        return DeviceMessages.DeviceAbstractDialog_validateBadImage + e.getMessage();
       }
     }
     // display
@@ -144,7 +145,7 @@ public abstract class DeviceAbstractDialog extends AbstractValidationTitleAreaDi
         Integer.parseInt(m_displayField_width.getText());
         Integer.parseInt(m_displayField_height.getText());
       } catch (Throwable e) {
-        return "Bad display: " + e.getMessage();
+        return DeviceMessages.DeviceAbstractDialog_validateBadDisplay + e.getMessage();
       }
     }
     // OK

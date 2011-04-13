@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp.wizards.shell;
 
 import org.eclipse.wb.internal.core.wizards.AbstractDesignWizardPage;
 import org.eclipse.wb.internal.ercp.wizards.ErcpWizard;
+import org.eclipse.wb.internal.ercp.wizards.WizardsMessages;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Shell;
@@ -29,7 +30,7 @@ public final class ShellWizard extends ErcpWizard {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ShellWizard() {
-    setWindowTitle("New eSWT Shell");
+    setWindowTitle(WizardsMessages.ShellWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
