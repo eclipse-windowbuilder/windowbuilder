@@ -12,21 +12,14 @@ package org.eclipse.wb.internal.core.editor.errors.report2.logs;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.internal.core.editor.errors.report2.IReportEntry;
+import org.eclipse.wb.internal.core.editor.errors.report2.FileListReportEntry;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FilenameFilter;
-import java.io.InputStream;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * The provider of Eclipse log files.
@@ -34,8 +27,9 @@ import java.util.zip.ZipOutputStream;
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
-public final class EclipseErrorLogsReportEntry implements IReportEntry {
-  private List<File> getFiles() {
+public final class EclipseErrorLogsReportEntry extends FileListReportEntry {
+  @Override
+  protected List<File> getFiles() {
     // get path to Eclipse .log file(s) and get it's directory 
     IPath logsPath = Platform.getLogFileLocation().makeAbsolute().removeLastSegments(1);
     File logsPathAsFile = logsPath.toFile();
@@ -48,19 +42,8 @@ public final class EclipseErrorLogsReportEntry implements IReportEntry {
     return Lists.newArrayList(logFiles);
   }
 
-  public void write(ZipOutputStream zipStream) throws Exception {
-    List<File> files = getFiles();
-    for (File file : files) {
-      InputStream fileStream = new FileInputStream(file);
-      // remove leading slash
-      String filePath = "eclipse-logs/" + FilenameUtils.getName(file.getAbsolutePath());
-      zipStream.putNextEntry(new ZipEntry(filePath));
-      try {
-        IOUtils.copy(fileStream, zipStream);
-      } finally {
-        zipStream.closeEntry();
-        IOUtils.closeQuietly(fileStream);
-      }
-    }
+  @Override
+  protected String getPrefix() {
+    return "eclipse-logs/";
   }
 }
