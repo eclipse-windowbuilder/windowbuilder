@@ -475,7 +475,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
       } else {
         DesignerPlugin.log(e);
         XmlExceptionComposite composite = getErrorComposite(XmlExceptionComposite.class);
-        composite.setException(e, screenshot, m_file, m_document, m_rootObject);
+        composite.setException(e, screenshot, m_file, m_document);
         m_pageBook.showPage(composite);
       }
     } catch (Throwable ex) {

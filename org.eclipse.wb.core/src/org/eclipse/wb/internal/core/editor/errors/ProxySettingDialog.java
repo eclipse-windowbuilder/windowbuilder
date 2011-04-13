@@ -43,7 +43,7 @@ public class ProxySettingDialog extends Dialog {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected ProxySettingDialog(Shell parentShell) {
+  public ProxySettingDialog(Shell parentShell) {
     super(parentShell);
   }
 

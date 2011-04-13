@@ -96,12 +96,9 @@
 	<extension-point id="designPageFactories" name="Factories for design pages"
 		schema="schema/designPageFactories.exsd"/>
 	<!-- Error Reporting -->
-	<extension-point id="errorLogsProviders"
-		name="Provider for error logs which further will be included into error report"
-		schema="schema/errorLogsProviders.exsd"/>
-	<extension-point id="errorReportEntries"
-		name="Provider for extra report entries which further will be included into error report"
-		schema="schema/errorReportEntries.exsd"/>
+	<extension-point id="errorReportEntriesProviders"
+		name="Providers for extra report entries which further will be included into error report"
+		schema="schema/errorReportProviders.exsd"/>
 	<!-- Branding -->
 	<extension-point id="branding" name="Branding descriptions" schema="schema/branding.exsd"/>
 
@@ -486,11 +483,9 @@
 	<!-- ======================================================== -->
 	<!-- Error report: log files -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.errorLogsProviders">
+	<extension point="org.eclipse.wb.core.errorReportEntriesProviders">
 		<provider
-			class="org.eclipse.wb.internal.core.editor.errors.report.logs.EclipseErrorLogsProvider"/>
-		<provider
-			class="org.eclipse.wb.internal.core.editor.errors.report.logs.ParseErrorsLogProvider"/>
+			class="org.eclipse.wb.internal.core.editor.errors.report2.logs.LogsReportEntriesProvider"/>
 	</extension>
 
 	<!-- ======================================================== -->

@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
-import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.editor.actions.RefreshAction;
 import org.eclipse.wb.internal.core.editor.actions.SwitchAction;
-import org.eclipse.wb.internal.core.editor.errors.report.ErrorReport;
-import org.eclipse.wb.internal.core.editor.errors.report.ErrorReport.SourceInfo;
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.editor.errors.report2.IReportEntry;
+import org.eclipse.wb.internal.core.editor.errors.report2.StringFileReportEntry;
+import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.eclipse.core.resources.IProject;
@@ -71,12 +70,11 @@ public final class JavaExceptionComposite extends ExceptionComposite {
   }
 
   @Override
-  protected ErrorReport getErrorReport() {
+  protected ZipFileErrorReport getZipFileErrorReport() {
     IProject project = m_compilationUnit.getJavaProject().getProject();
-    return new ErrorReport(getScreenshotImage(),
-        getProductName(),
+    return new ZipFileErrorReport(getScreenshotImage(),
         project,
-        getSourceInfo(m_compilationUnit));
+        getSourceFileReport(m_compilationUnit));
   }
 
   @Override
@@ -89,24 +87,21 @@ public final class JavaExceptionComposite extends ExceptionComposite {
     new RefreshAction().run();
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Error Report related.
+  //
+  ////////////////////////////////////////////////////////////////////////////
   /**
-   * @return the source of the CU or <code>null</code> if any error.
+   * @return the report info containing actual source of editing CU.
    */
-  public static SourceInfo getSourceInfo(ICompilationUnit compilationUnit) {
+  public static IReportEntry getSourceFileReport(ICompilationUnit compilationUnit) {
     try {
-      return new ErrorReport.SourceInfo(compilationUnit.getElementName(),
+      return new StringFileReportEntry(compilationUnit.getElementName(),
           compilationUnit.getSource());
     } catch (Throwable e) {
       // ignore, just send nothing
     }
     return null;
-  }
-
-  /**
-   * @return the product code from the {@link ToolkitDescription} if available otherwise returns
-   *         "UNKNOWN".
-   */
-  public static String getProductName() {
-    return BrandingUtils.getBranding().getProductName();
   }
 }

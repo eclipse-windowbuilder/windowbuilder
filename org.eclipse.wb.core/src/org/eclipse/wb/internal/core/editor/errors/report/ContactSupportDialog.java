@@ -8,12 +8,12 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.internal.core.editor.errors;
+package org.eclipse.wb.internal.core.editor.errors.report;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.editor.errors.report.ErrorReport;
-import org.eclipse.wb.internal.core.editor.errors.report.IReportSubmitter;
+import org.eclipse.wb.internal.core.editor.errors.BrowserMessageDialog;
+import org.eclipse.wb.internal.core.editor.errors.ProxySettingDialog;
 import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAreaDialog;
 import org.eclipse.wb.internal.core.utils.dialogfields.BooleanDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;

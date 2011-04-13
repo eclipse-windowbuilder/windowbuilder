@@ -14,8 +14,8 @@ import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
-import org.eclipse.wb.internal.core.editor.errors.report.ErrorReport;
-import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
+import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -43,7 +43,6 @@ public abstract class ExceptionComposite extends Composite {
   private BrowserComposite m_browserComposite;
   private Image m_screenshotImage;
   private int m_sourcePosition;
-  private String m_exceptionTitle;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -80,18 +79,15 @@ public abstract class ExceptionComposite extends Composite {
       {
         Button contactSupportButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(contactSupportButton).fillH();
-        contactSupportButton.setText("Contact Support...");
+        contactSupportButton.setText("Create Report...");
         contactSupportButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/support32.png"));
         contactSupportButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
-            ContactSupportDialog dialog =
-                new ContactSupportDialog(getShell(),
-                    m_exceptionTitle,
-                    m_screenshotImage,
-                    getErrorReport());
+            CreateReportDialog dialog =
+                new CreateReportDialog(getShell(), m_screenshotImage, getZipFileErrorReport());
             dialog.open();
           }
         });
@@ -164,9 +160,9 @@ public abstract class ExceptionComposite extends Composite {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * @return new ErrorReport to be used by {@link ContactSupportDialog}.
+   * @return new ZipFileErrorReport to be used by {@link CreateReportDialog}.
    */
-  protected abstract ErrorReport getErrorReport();
+  protected abstract ZipFileErrorReport getZipFileErrorReport();
 
   /**
    * Handles the 'switch to source' action.
@@ -203,11 +199,6 @@ public abstract class ExceptionComposite extends Composite {
   protected final void setException0(Throwable e, Image screenshot) {
     m_screenshotImage = screenshot;
     m_browserComposite.setText(DesignerExceptionUtils.getExceptionHTML(e));
-    m_exceptionTitle = "";
-    if (e instanceof DesignerException) {
-      DesignerException designerException = (DesignerException) e;
-      m_exceptionTitle = DesignerExceptionUtils.getExceptionTitle(designerException.getCode());
-    }
     updateForSourcePosition(e);
   }
 }

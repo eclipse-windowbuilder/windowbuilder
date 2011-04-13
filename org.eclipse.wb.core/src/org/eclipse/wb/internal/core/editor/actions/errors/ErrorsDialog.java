@@ -13,9 +13,9 @@ package org.eclipse.wb.internal.core.editor.actions.errors;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.editor.errors.ContactSupportDialog;
 import org.eclipse.wb.internal.core.editor.errors.JavaExceptionComposite;
-import org.eclipse.wb.internal.core.editor.errors.report.ErrorReport;
+import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
+import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableTitleAreaDialog;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
@@ -48,7 +49,7 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
   private static final int CONTACT_SUPPORT_ID = 999;
   private final ObjectInfo m_rootObject;
   private final List<IErrorPage> m_pages;
-  private final ContactSupportDialog m_dialog;
+  private final Dialog m_dialog;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -64,9 +65,11 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
     JavaInfo rootObjectJava = m_rootObject instanceof JavaInfo ? (JavaInfo) m_rootObject : null;
     ICompilationUnit unit = rootObject != null ? rootObjectJava.getEditor().getModelUnit() : null;
     IProject project = unit != null ? unit.getJavaProject().getProject() : null;
-    ErrorReport errorReport =
-        new ErrorReport(screenshot, "", project, JavaExceptionComposite.getSourceInfo(unit));
-    m_dialog = new ContactSupportDialog(DesignerPlugin.getShell(), "", screenshot, errorReport);
+    ZipFileErrorReport errorReport =
+        new ZipFileErrorReport(screenshot,
+            project,
+            JavaExceptionComposite.getSourceFileReport(unit));
+    m_dialog = new CreateReportDialog(DesignerPlugin.getShell(), screenshot, errorReport);
     ImageDisposer.add(m_dialog, "ContactSupportDialog_screenshot", screenshot);
   }
 
