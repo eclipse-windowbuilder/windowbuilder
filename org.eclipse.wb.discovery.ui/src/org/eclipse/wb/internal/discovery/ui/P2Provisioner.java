@@ -146,9 +146,6 @@ class P2Provisioner {
   private Collection<IInstallableUnit> collectInstallableUnits(IProgressMonitor progressMonitor)
       throws ProvisionException, OperationCanceledException {
     String statusText = Messages.P2Provisioner_statusInstalling;
-    if (toolkits.size() > 1) {
-      statusText += "s";
-    }
     SubMonitor monitor = SubMonitor.convert(progressMonitor, statusText, 100 * toolkits.size());
     Collection<IInstallableUnit> units = new ArrayList<IInstallableUnit>();
     for (WBToolkit toolkit : toolkits) {
