@@ -4,6 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class ModelMessages extends NLS {
   private static final String BUNDLE_NAME = "org.eclipse.wb.internal.rcp.model.ModelMessages"; //$NON-NLS-1$
+  public static String RcpToolkitDescription_name;
   public static String ActionBarAdvisorInfo_factoryCategoryDescription;
   public static String ActionBarAdvisorInfo_factoryCategoryName;
   public static String ActionBarAdvisorInfo_systemCategoryDescription;

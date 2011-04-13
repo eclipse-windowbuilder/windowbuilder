@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
 import org.eclipse.wb.internal.core.model.variable.description.FieldUniqueVariableDescription;
 import org.eclipse.wb.internal.core.model.variable.description.LocalUniqueVariableDescription;
-import org.eclipse.wb.internal.rcp.model.Messages;
+import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.swt.model.generation.preview.GenerationPreviewFieldUniqueBlock;
 import org.eclipse.wb.internal.swt.model.generation.preview.GenerationPreviewFieldUniqueFlat;
@@ -79,7 +79,7 @@ public final class RcpToolkitDescription extends ToolkitDescription {
 
   @Override
   public String getName() {
-    return Messages.RcpToolkitDescription_name;
+    return ModelMessages.RcpToolkitDescription_name;
   }
 
   @Override
