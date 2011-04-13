@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.wizards.palette;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.UiMessages;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 
 import org.eclipse.core.resources.IFile;
@@ -42,7 +43,7 @@ public final class NewProjectPaletteWizard extends Wizard implements INewWizard 
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewProjectPaletteWizard() {
-    setWindowTitle("New Project Palette");
+    setWindowTitle(UiMessages.NewProjectPaletteWizard_title);
     setNeedsProgressMonitor(true);
   }
 

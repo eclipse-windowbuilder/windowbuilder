@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.preferences;
 
+import org.eclipse.wb.internal.core.UiMessages;
 import org.eclipse.wb.internal.core.model.description.LayoutDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
@@ -74,7 +75,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
       GridLayoutFactory.create(this).noMargins().columns(2);
       // default layout
       {
-        new Label(this, SWT.NONE).setText("Default layout manager:");
+        new Label(this, SWT.NONE).setText(UiMessages.LayoutsPreferencePage_defaultLayout);
         final Combo layoutCombo = new Combo(this, SWT.READ_ONLY);
         GridDataFactory.create(layoutCombo).grabH().fillH();
         UiUtils.setVisibleItemCount(layoutCombo, 15);
@@ -87,7 +88,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
         });
         // add items for layouts
         {
-          layoutCombo.add("Implicit (default) layout");
+          layoutCombo.add(UiMessages.LayoutsPreferencePage_implicitLayout);
           for (LayoutDescription layoutDescription : layouts) {
             layoutCombo.add(layoutDescription.getName());
           }
@@ -126,7 +127,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
       checkButton(
           this,
           2,
-          "Containers automatically use layout manager type of parent",
+          UiMessages.LayoutsPreferencePage_inheritLayout,
           IPreferenceConstants.P_LAYOUT_OF_PARENT);
     }
   }

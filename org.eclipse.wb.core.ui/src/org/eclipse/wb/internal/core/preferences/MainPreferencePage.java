@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.preferences;
 import org.eclipse.wb.core.controls.jface.preference.ComboFieldEditor;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.UiMessages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -57,13 +58,13 @@ public final class MainPreferencePage extends FieldEditorPreferencePage
     // hint
     {
       Label label = new Label(getFieldEditorParent(), SWT.NONE);
-      label.setText("Close and re-open any editors to see the effects of these preferences.");
+      label.setText(UiMessages.MainPreferencePage_closeEditorsWarning);
       GridDataFactory.create(label).spanH(2).alignHF();
       PreferenceLinkArea link =
           new PreferenceLinkArea(getFieldEditorParent(),
               SWT.NONE,
               "org.eclipse.jdt.ui.preferences.CodeFormatterPreferencePage",
-              "See <a>''{0}''</a> to modify the Eclipse formatting preferences.",
+              UiMessages.MainPreferencePage_formattingLink,
               (IWorkbenchPreferenceContainer) getContainer(),
               null);
       GridDataFactory.create(link.getControl()).spanH(2).alignHF();
@@ -72,79 +73,79 @@ public final class MainPreferencePage extends FieldEditorPreferencePage
     {
       ComboFieldEditor editorLayout =
           new ComboFieldEditor(P_EDITOR_LAYOUT,
-              "Editor layout:",
+              UiMessages.MainPreferencePage_editorLayout,
               new String[][]{
                   new String[]{
-                      "On separate notebook tabs (Source first)",
+                      UiMessages.MainPreferencePage_editorLayoutTabsSource,
                       "" + V_EDITOR_LAYOUT_PAGES_SOURCE},
                   new String[]{
-                      "On separate notebook tabs (Design first)",
+                      UiMessages.MainPreferencePage_editorLayoutTabsDesign,
                       "" + V_EDITOR_LAYOUT_PAGES_DESIGN},
                   new String[]{
-                      "Above each other with a split pane",
+                      UiMessages.MainPreferencePage_editorLayoutSplitAbove,
                       "" + V_EDITOR_LAYOUT_SPLIT_VERTICAL},
                   new String[]{
-                      "Side by side with a split pane",
+                      UiMessages.MainPreferencePage_editorLayoutSplitSide,
                       "" + V_EDITOR_LAYOUT_SPLIT_HORIZONTAL}},
               getFieldEditorParent());
       addField(editorLayout);
       // sync delay
       IntegerFieldEditor syncDelay =
           new IntegerFieldEditor(P_EDITOR_LAYOUT_SYNC_DELAY,
-              "Sync Delay (ms):",
+              UiMessages.MainPreferencePage_syncDelay,
               getFieldEditorParent());
-      syncDelay.setErrorMessage("Default syncronization delay in milliseconds must be an integer value in 250-10000 range.");
+      syncDelay.setErrorMessage(UiMessages.MainPreferencePage_syncDelayMessage);
       syncDelay.setEmptyStringAllowed(false);
       syncDelay.setValidRange(-1, Integer.MAX_VALUE);
       syncDelay.getTextControl(getFieldEditorParent()).setToolTipText(
-          "Set the default syncronization delay in milliseconds, -1 for syncronization on save");
+          UiMessages.MainPreferencePage_syncDelayHint);
       addField(syncDelay);
     }
     // other
     ComboFieldEditor widgetTreeDblClickActionEditor =
         new ComboFieldEditor(P_EDITOR_TREE_DBL_CLICK_ACTION,
-            "Double-click on component tree to:",
+            UiMessages.MainPreferencePage_doubleClick,
             new String[][]{
                 new String[]{
-                    "Open editor at position of this widget",
+                    UiMessages.MainPreferencePage_doubleClickOpenEditor,
                     "" + V_EDITOR_TREE_OPEN_WIDGET_IN_EDITOR},
                 new String[]{
-                    "Create/open default event listener",
+                    UiMessages.MainPreferencePage_doubleClickOpenEventListener,
                     "" + V_EDITOR_TREE_CREATE_LISTENER},
                 new String[]{
-                    "Initiate widget's variable rename",
+                    UiMessages.MainPreferencePage_doubleClickRename,
                     "" + V_EDITOR_TREE_INITIATE_RENAME},},
             getFieldEditorParent());
     addField(widgetTreeDblClickActionEditor);
     //
     addField(new BooleanFieldEditor(P_EDITOR_RECOGNIZE_GUI,
-        "Associate WindowBuilder editor with automatically recognized Java GUI files",
+        UiMessages.MainPreferencePage_associateWithWB,
         getFieldEditorParent()));
     addField(new BooleanFieldEditor(P_EDITOR_MAX_DESIGN,
-        "Maximize editor on \"Design\" page activation",
+        UiMessages.MainPreferencePage_maximizeEditorOndesign,
         getFieldEditorParent()));
     addField(new BooleanFieldEditor(P_EDITOR_FORMAT_ON_SAVE,
-        "Format source code (and reparse) on editor save",
+        UiMessages.MainPreferencePage_formatOnSave,
         getFieldEditorParent()));
     addField(new BooleanFieldEditor(P_EDITOR_GOTO_DEFINITION_ON_SELECTION,
-        "Go to component definition in source on selection",
+        UiMessages.MainPreferencePage_goInSourceOnSelection,
         getFieldEditorParent()));
     //
     addField(new BooleanFieldEditor(P_COMMON_PALETTE_ADD_CHOSEN,
-        "Automatically add to palette when using Choose Component",
+        UiMessages.MainPreferencePage_autoCustomOnChoose,
         getFieldEditorParent()));
     addField(new BooleanFieldEditor(P_COMMON_ACCEPT_NON_VISUAL_BEANS,
-        "Accept drop non-visual beans to design canvas",
+        UiMessages.MainPreferencePage_supportNonVisualBeans,
         getFieldEditorParent()));
     addField(new BooleanFieldEditor(P_COMMON_SHOW_DEBUG_INFO,
-        "Show debug information in console",
+        UiMessages.MainPreferencePage_showDebugOnConsole,
         getFieldEditorParent()));
     addField(new BooleanFieldEditor(P_COMMON_SHOW_VERSION_WARNING,
-        "Show warning for incompatible Eclipse/WindowBuilder versions",
+        UiMessages.MainPreferencePage_checkVersions,
         getFieldEditorParent()));
     if (EnvironmentUtils.IS_LINUX) {
       addField(new BooleanFieldEditor(P_COMMON_LINUX_DISABLE_SCREENSHOT_WORKAROUNDS,
-          "Disable Preview Window flickering workarounds (Linux only)",
+          UiMessages.MainPreferencePage_disableLinuxWorkaround,
           getFieldEditorParent()));
     }
   }

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.wizards.actions;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.UiMessages;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -238,8 +239,8 @@ public abstract class AbstractOpenWizardAction extends Action
     IWorkspace workspace = ResourcesPlugin.getWorkspace();
     if (workspace.getRoot().getProjects().length == 0) {
       Shell shell = getWorkbenchWindow().getShell();
-      String title = "No Projects";
-      String message = "A project must be created first";
+      String title = UiMessages.AbstractOpenWizardAction_emptyWorkspaceTitle;
+      String message = UiMessages.AbstractOpenWizardAction_emptyWorkspaceMessage;
       if (MessageDialog.openQuestion(shell, title, message)) {
         new NewProjectAction().run();
         return workspace.getRoot().getProjects().length != 0;

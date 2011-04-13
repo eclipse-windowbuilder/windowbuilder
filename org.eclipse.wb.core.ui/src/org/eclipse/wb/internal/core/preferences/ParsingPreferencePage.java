@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.preferences;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.UiMessages;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ColorFieldEditor;
@@ -53,13 +54,15 @@ public final class ParsingPreferencePage extends FieldEditorPreferencePage
   protected void createFieldEditors() {
     m_hideBeginEditor =
         new StringFieldEditor(P_CODE_HIDE_BEGIN,
-            "Begin hidden code block tag:",
+            UiMessages.ParsingPreferencePage_hideBlockBegin,
             getFieldEditorParent());
     m_hideEndEditor =
-        new StringFieldEditor(P_CODE_HIDE_END, "End hidden code block tag:", getFieldEditorParent());
+        new StringFieldEditor(P_CODE_HIDE_END,
+            UiMessages.ParsingPreferencePage_hideBlockEnd,
+            getFieldEditorParent());
     m_hideLineEditor =
         new StringFieldEditor(P_CODE_HIDE_LINE,
-            "Single hidden code line tag:",
+            UiMessages.ParsingPreferencePage_hideSingle,
             getFieldEditorParent());
     m_hideBeginEditor.setEmptyStringAllowed(false);
     m_hideEndEditor.setEmptyStringAllowed(false);
@@ -69,14 +72,14 @@ public final class ParsingPreferencePage extends FieldEditorPreferencePage
     addField(m_hideLineEditor);
     // evaluation
     addField(new BooleanFieldEditor(P_CODE_STRICT_EVALUATE,
-        "Strict evaluation mode (require using @wbp tags for parameters, etc)",
+        UiMessages.ParsingPreferencePage_strictEvaluate,
         getFieldEditorParent()));
     // highlight visited/executed lines
     addField(new BooleanFieldEditor(P_HIGHLIGHT_VISITED,
-        "Highlight visited/executed lines in source after parse",
+        UiMessages.ParsingPreferencePage_highlightVisitedLines,
         getFieldEditorParent()));
     addField(new ColorFieldEditor(P_HIGHLIGHT_VISITED_COLOR,
-        "Visited line highlight color:",
+        UiMessages.ParsingPreferencePage_highlightVisitedLinesColor,
         getFieldEditorParent()));
   }
 

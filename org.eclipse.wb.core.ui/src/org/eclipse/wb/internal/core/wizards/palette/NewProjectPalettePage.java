@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.wizards.palette;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.core.UiMessages;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.utils.dialogfields.ComboDialogField;
@@ -35,6 +36,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -53,8 +55,8 @@ public final class NewProjectPalettePage extends WizardPage {
   ////////////////////////////////////////////////////////////////////////////
   public NewProjectPalettePage() {
     super("main");
-    setTitle("Project Palette");
-    setDescription("Create a new palette contributions that will be used in all GUI compilation units in this project and projects that require this project.");
+    setTitle(UiMessages.NewProjectPalettePage_title);
+    setDescription(UiMessages.NewProjectPalettePage_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -130,9 +132,9 @@ public final class NewProjectPalettePage extends WizardPage {
     // create fields
     {
       m_projectField = ProjectSelectionDialogField.create();
-      m_projectField.setButtonLabel("&Browse...");
+      m_projectField.setButtonLabel(UiMessages.NewProjectPalettePage_projectBrowse);
       m_projectField.setProject(m_initialProject);
-      doCreateField(m_projectField, "Project:");
+      doCreateField(m_projectField, UiMessages.NewProjectPalettePage_projectLabel);
       m_projectField.setUpdateListener(m_validateListener);
     }
     {
@@ -154,7 +156,7 @@ public final class NewProjectPalettePage extends WizardPage {
         }
       });
       m_toolkitField.selectItem(1); // select second, because first is "Core Java"
-      doCreateField(m_toolkitField, "Toolkit:");
+      doCreateField(m_toolkitField, UiMessages.NewProjectPalettePage_toolkitLabel);
     }
     m_projectField.setFocus();
     // initial validation
@@ -197,7 +199,7 @@ public final class NewProjectPalettePage extends WizardPage {
     {
       javaProject = m_projectField.getProject();
       if (javaProject == null) {
-        return "Select Java project.";
+        return UiMessages.NewProjectPalettePage_validateNoProject;
       }
     }
     // validate toolkit
@@ -208,10 +210,10 @@ public final class NewProjectPalettePage extends WizardPage {
           javaProject.getProject().getFile(
               new Path("wbp-meta/" + toolkit.getId() + ".wbp-palette.xml"));
       if (paletteFile.exists()) {
-        return "Project palette file for toolkit \""
-            + toolkit.getName()
-            + "\" already exists.\n"
-            + paletteFile.getFullPath();
+        return MessageFormat.format(
+            UiMessages.NewProjectPalettePage_validateHasToolkit,
+            toolkit.getName(),
+            paletteFile.getFullPath());
       }
     }
     // no error
