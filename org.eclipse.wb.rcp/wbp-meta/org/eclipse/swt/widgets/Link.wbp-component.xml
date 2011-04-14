@@ -6,7 +6,7 @@
 	<creation>
 		<source><![CDATA[new org.eclipse.swt.widgets.Link(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
 		<invocation signature="setText(java.lang.String)"><![CDATA["<a>New Link</a>"]]></invocation>
-		<x-attribute name="text" value="&lt;a>New Link&lt;a/>"/>
+		<x-attribute name="text" value="&lt;a>New Link&lt;/a>"/>
 	</creation>
 	<!-- CONSTRUCTORS -->
 	<constructors>
