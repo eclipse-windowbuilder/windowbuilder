@@ -340,8 +340,23 @@ public final class DesignerExceptionUtils {
       String[] parameters = designerException.getParameters();
       return getErrorEntry(code, parameters);
     } else {
-      return ErrorEntryInfo.forThrowable(rootException);
+      return getUnexpectedErrorEntryInfo(throwable);
     }
+  }
+
+  /**
+   * Create error entry for other exceptions which are not instance of {@link DesignerException}.
+   * 
+   * @return the {@link ErrorEntryInfo} instance.
+   */
+  private static ErrorEntryInfo getUnexpectedErrorEntryInfo(Throwable throwable) {
+    String message = throwable.getMessage();
+    ErrorEntryInfo e = getErrorEntry(ICoreExceptionConstants.UNEXPECTED);
+    // append exception message
+    String desc = e.getDescription();
+    desc += message != null ? "<p>" + throwable.getClass().getName() + ": " + message + "</p>" : "";
+    // return updated
+    return new ErrorEntryInfo(e.getCode(), e.isWarning(), e.getTitle(), desc, e.getAltDescription());
   }
 
   public static ErrorEntryInfo getErrorEntry(int exceptionCode, String... parameters) {
@@ -356,7 +371,7 @@ public final class DesignerExceptionUtils {
     return new ErrorEntryInfo(exceptionCode,
         false,
         "WindowBuilder error",
-        "No detailed description for error (" + exceptionCode + "), please contact support.");
+        "No detailed description found for error (" + exceptionCode + ").");
   }
 
   private static ErrorEntryInfo getErrorEntry0(int exceptionCode, String... parameters) {

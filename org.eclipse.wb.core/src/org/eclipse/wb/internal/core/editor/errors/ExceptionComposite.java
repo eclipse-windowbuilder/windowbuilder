@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.editor.errors;
 
 import org.eclipse.wb.core.branding.BrandingUtils;
+import org.eclipse.wb.core.branding.IBrandingDescription;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -30,6 +31,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link Composite} for displaying {@link Exception} on design pane.
@@ -55,17 +59,36 @@ public abstract class ExceptionComposite extends Composite {
     GridLayoutFactory.create(this);
     {
       Composite titleComposite = new Composite(this, SWT.NONE);
-      GridDataFactory.create(titleComposite).alignHL();
+      GridDataFactory.create(titleComposite).alignHL().grabH();
       GridLayoutFactory.create(titleComposite).columns(2).margins(10);
       {
         Label label = new Label(titleComposite, SWT.NONE);
+        GridDataFactory.create(label).alignVM();
         label.setImage(SwtResourceManager.getImage(SWT.ICON_ERROR));
       }
       {
-        Label label = new Label(titleComposite, SWT.NONE);
+        Link label = new Link(titleComposite, SWT.WRAP | SWT.NO_FOCUS);
+        GridDataFactory.create(label).alignHL().grabH().alignVM();
         label.setText(BrandingUtils.getBranding().getProductName()
-            + " was not able to show the GUI.");
-        GridDataFactory.create(label).alignHL();
+            + " was not able to show the GUI. Please read the description below and"
+            + " look bug tracking <a>system</a> or discussion <a>group</a> for more information."
+            + " Press \"Create Report...\" button and create a new issue if you wasn't able"
+            + " to found the similar one.");
+        label.addSelectionListener(new SelectionAdapter() {
+          @Override
+          public void widgetSelected(SelectionEvent event) {
+            IBrandingDescription branding = BrandingUtils.getBranding();
+            String url = null;
+            if ("system".equals(event.text)) {
+              url = branding.getSupportInfo().getBugtrackingUrl();
+            } else if ("group".equals(event.text)) {
+              url = branding.getSupportInfo().getForumUrl();
+            }
+            if (!StringUtils.isEmpty(url)) {
+              DesignerExceptionUtils.openBrowser(url);
+            }
+          }
+        });
       }
     }
     {

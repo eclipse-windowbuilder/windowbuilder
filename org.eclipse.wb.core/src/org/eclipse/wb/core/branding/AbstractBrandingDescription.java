@@ -27,23 +27,29 @@ import org.eclipse.wb.internal.core.utils.platform.PluginUtilities;
  */
 public abstract class AbstractBrandingDescription implements IBrandingDescription {
   private final String m_productName;
+  private final IBrandingSupportInfo m_supportInfo;
 
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected AbstractBrandingDescription(String productName) {
+  protected AbstractBrandingDescription(String productName, IBrandingSupportInfo supportInfo) {
     m_productName = productName;
+    m_supportInfo = supportInfo;
   }
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IDesignerBrandingDescription
+  // IBrandingDescription
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getProductName() {
     return m_productName;
+  }
+
+  public IBrandingSupportInfo getSupportInfo() {
+    return m_supportInfo;
   }
 
   ////////////////////////////////////////////////////////////////////////////

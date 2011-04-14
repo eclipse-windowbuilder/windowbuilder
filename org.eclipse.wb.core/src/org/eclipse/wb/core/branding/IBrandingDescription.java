@@ -27,6 +27,11 @@ public interface IBrandingDescription {
   String getProductName();
 
   /**
+   * @return the url for bug-tracking system and discussion forum.
+   */
+  IBrandingSupportInfo getSupportInfo();
+
+  /**
    * Called by {@link DesignComposite} to paint all product branding onto the canvas.
    */
   void paintBrandingOnCanvas(Rectangle clientArea, Graphics graphics);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
-import org.eclipse.wb.internal.core.utils.exception.DesignerException;
-import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 
 /**
  * Structure representing error entry in "exceptions.xml" file.
@@ -92,27 +90,6 @@ public final class ErrorEntryInfo {
 
   public String getAltDescription() {
     return m_altDescription;
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utility
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Create error entry for other exceptions which are not instance of {@link DesignerException}.
-   * 
-   * @return the {@link ErrorEntryInfo} instance.
-   */
-  public static ErrorEntryInfo forThrowable(Throwable throwable) {
-    String message = throwable.getMessage();
-    return new ErrorEntryInfo(ICoreExceptionConstants.UNEXPECTED,
-        false,
-        "WindowBuilder internal error",
-        "<p>WindowBuilder encountered unexpected internal error. Please contact support.</p>"
-            + (message != null
-                ? "<p>" + throwable.getClass().getName() + ": " + message + "</p>"
-                : ""));
   }
 
   ////////////////////////////////////////////////////////////////////////////

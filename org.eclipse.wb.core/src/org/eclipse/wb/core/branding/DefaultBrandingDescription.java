@@ -21,12 +21,26 @@ package org.eclipse.wb.core.branding;
 final class DefaultBrandingDescription extends AbstractBrandingDescription {
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Support info
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private static final IBrandingSupportInfo SUPPORT_INFO = new IBrandingSupportInfo() {
+    public String getBugtrackingUrl() {
+      return "https://bugs.eclipse.org/bugs/enter_bug.cgi?product=WindowBuilder";
+    }
+
+    public String getForumUrl() {
+      return "http://eclipse.org/forums/index.php?t=thread&frm_id=214";
+    }
+  };
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Instance
   //
   ////////////////////////////////////////////////////////////////////////////
   public static IBrandingDescription INSTANCE = new DefaultBrandingDescription();
 
   private DefaultBrandingDescription() {
-    super("WindowBuilder");
+    super("WindowBuilder", SUPPORT_INFO);
   }
 }

@@ -5,11 +5,10 @@
 	<!-- ======================================================== -->
 	<exception id="0" title="Wrapper">This is a wrapper exception for other exceptions. In general, you should
 		not see it. If you see it, this means that there is a bug in our exception displaying code. :-) </exception>
-	<exception id="1" title="Unexpected exception">An unexpected situation happened. We don't know exactly
-		what it means or how to fix it. Maybe this isn't even a problem in {product_name} itself, but in your
-		Eclipse installation, other plug-ins, etc. Report this to support and include any descriptions, source
-		code examples, screen shots, etc. We will ask for more of them, if there is not enough to identify and
-		fix your problem. ;-)</exception>
+	<exception id="1" title="Internal Error">{product_name} encountered unexpected internal error.
+		<p>This could be caused by {product_name} bug or some misconfiguration issues, conflicts, partial 
+		update and so on.</p>
+	</exception>
 	<exception id="2" title="Incomplete product installation">Incomplete product installation or upgrade
 		detected. Please install or update the entire product. If the problem persists, un-install and
 		re-install the entire product. Also ensure that the Eclipse JDT and PDE are fully installed as
