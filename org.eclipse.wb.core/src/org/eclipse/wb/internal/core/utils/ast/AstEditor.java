@@ -2121,14 +2121,18 @@ public final class AstEditor {
     List<String> lines = Lists.newArrayList();
     {
       lines.addAll(annotations);
-      lines.add(header + " {");
-      // body
-      String singleIndent = getGeneration().getIndentation(1);
-      for (String bodyLine : bodyLines) {
-        lines.add(singleIndent + bodyLine);
+      if (bodyLines != null) {
+        lines.add(header + " {");
+        // body
+        String singleIndent = getGeneration().getIndentation(1);
+        for (String bodyLine : bodyLines) {
+          lines.add(singleIndent + bodyLine);
+        }
+        // close method
+        lines.add("}");
+      } else {
+        lines.add(header);
       }
-      // close method
-      lines.add("}");
     }
     // add method
     return (MethodDeclaration) addBodyDeclaration(lines, target);

@@ -1646,6 +1646,14 @@ public class AstNodeUtils {
     return Modifier.isAbstract(modifiers);
   }
 
+  /**
+   * @return <code>true</code> if given {@link TypeDeclaration} has "abstract" modifier.
+   */
+  public static boolean isAbstract(TypeDeclaration type) {
+    ITypeBinding typeBinding = getTypeBinding(type);
+    return isAbstract(typeBinding);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Searching in bindings
