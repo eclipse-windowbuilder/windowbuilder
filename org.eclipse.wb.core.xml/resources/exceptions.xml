@@ -15,7 +15,7 @@
 	<exception id="5002" title="No GUI toolkit">{product_name} does not know the GUI toolkit used
 		for : {0}. You may be trying to open something unsupported by {product_name}.</exception>
 	<exception id="5003" title="Problem with static field editor">{product_name} found a problem in
-		the configurable static field editor: {0}. Try to fix it yourself or contact support.</exception>
+		the configurable static field editor: {0}.</exception>
 	<exception id="5004" title="Not Java project" warning="true">You attempted to open {0} which is
 		not in a Java project: {1}. Create a valid Java project according to the toolkit requirements.</exception>
 	<!-- filler filler filler filler filler -->

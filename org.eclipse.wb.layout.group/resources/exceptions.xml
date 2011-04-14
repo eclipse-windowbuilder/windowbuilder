@@ -6,6 +6,6 @@
 		patterns unknown to the code parser. Please send a test case to support.
 	</exception>
 	<!-- code gen errors -->
-	<exception id="1200" title="Unable to generate GroupLayout code.">Invalid code generated for GroupLayout. Please contact support.
+	<exception id="1200" title="Unable to generate GroupLayout code.">Invalid code generated for GroupLayout.
 	</exception>
 </exceptions>

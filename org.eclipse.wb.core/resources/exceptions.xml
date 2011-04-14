@@ -96,8 +96,7 @@
 	<!-- ======================================================== -->
 	<exception id="201" title="ASTEditor string replacement problem">ASTEditor (internal class for
 		source/ASTNode's manipulations) found a problem while replacing a substring in the compilation unit
-		source code. This problem can be caused by prior problems in AST manipulations. Please contact support
-		and provide a test case and log file.</exception>
+		source code. This problem can be caused by prior problems in AST manipulations.</exception>
 	<exception id="203" title="Unknown variable type/binding">{product_name} can not access type or binding
 		information about variable <b>{0}</b>. This usually happens when compilation unit has compilation
 		problems, such as: <ul>
@@ -136,10 +135,10 @@
 	<!-- ======================================================== -->
 	<exception id="300" title="Unknown expression">The AST evaluation engine was unable to evaluate the
 		expression '{0}'. This can be caused by many problems - compilation errors, unsupported code
-		structures, etc. Please contact support with details.</exception>
+		structures, etc.</exception>
 	<exception id="303" title="Variable not found">The AST evaluation engine was unable to find the variable
 		(SimpleName) with name '{0}'. This can be caused by many problems - compilation errors, unsupported
-		code structures, etc. Please contact support and provide details.</exception>
+		code structures, etc.</exception>
 	<exception id="304" title="No method invocation">
 		<p>The AST evaluation engine was unable to find an invocation of the method</p>
 		<pre>{0}</pre>
@@ -245,7 +244,7 @@
 		constructors require specific descriptions). It is expected that {product_name} will not try to ask
 		for descriptions for components that can't be found. Please send a test case to support.</exception>
 	<exception id="501" title="Problem with static field editor">{product_name} found a problem in the
-		configurable static field editor: {0}. Try to fix it yourself or contact support.</exception>
+		configurable static field editor: {0}.</exception>
 	<exception id="502" title="Unable to load *.wbp-component.xml description.">For component {0}.<p/>Check
 		root exception for details.</exception>
 	<exception id="503" title="No GUI toolkit">{product_name} does not know the GUI toolkit used for : {0}.
