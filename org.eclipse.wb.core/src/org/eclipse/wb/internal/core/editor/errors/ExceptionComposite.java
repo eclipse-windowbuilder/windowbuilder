@@ -72,7 +72,7 @@ public abstract class ExceptionComposite extends Composite {
         label.setText(BrandingUtils.getBranding().getProductName()
             + " was not able to show the GUI. Please read the description below and"
             + " look bug tracking <a>system</a> or discussion <a>group</a> for more information."
-            + " Press \"Create Report...\" button and create a new issue if you wasn't able"
+            + " Press \"Create Report...\" button and create a new issue if you were not able"
             + " to found the similar one.");
         label.addSelectionListener(new SelectionAdapter() {
           @Override
