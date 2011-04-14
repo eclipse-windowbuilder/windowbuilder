@@ -294,14 +294,14 @@ public class XmlDesignPageTest extends XwtGefTest {
       UiContext context = new UiContext();
       getVisibleExceptionCompositeXML(context);
     }
-    // open "Contact Support" dialog
+    // open "Create Report" dialog
     new UiContext().executeAndCheck(new UIRunnable() {
       public void run(UiContext context) throws Exception {
-        context.clickButton("Contact Support...");
+        context.clickButton("Create Report...");
       }
     }, new UIRunnable() {
       public void run(UiContext context) throws Exception {
-        context.useShell("Contact Support");
+        context.useShell("Create Report");
         context.clickButton("Cancel");
       }
     });
