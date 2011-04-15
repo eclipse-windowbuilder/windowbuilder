@@ -70,18 +70,18 @@ public abstract class ExceptionComposite extends Composite {
         Link label = new Link(titleComposite, SWT.WRAP | SWT.NO_FOCUS);
         GridDataFactory.create(label).alignHL().grabH().alignVM();
         label.setText(BrandingUtils.getBranding().getProductName()
-            + " was not able to show the GUI. Please read the description below and"
-            + " look bug tracking <a>system</a> or discussion <a>group</a> for more information."
-            + " Press \"Create Report...\" button and create a new issue if you were not able"
-            + " to found the similar one.");
+            + " was not able to show the GUI. Please see the description below and"
+            + " go to the <a>bug tracking system</a> or <a>discussion group</a> for more information."
+            + " Press the \"Create Report...\" button and create a new issue, if you were not able"
+            + " to find a similar one.");
         label.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent event) {
             IBrandingDescription branding = BrandingUtils.getBranding();
             String url = null;
-            if ("system".equals(event.text)) {
+            if ("bug tracking system".equals(event.text)) {
               url = branding.getSupportInfo().getBugtrackingUrl();
-            } else if ("group".equals(event.text)) {
+            } else if ("discussion group".equals(event.text)) {
               url = branding.getSupportInfo().getForumUrl();
             }
             if (!StringUtils.isEmpty(url)) {
