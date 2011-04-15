@@ -34,6 +34,11 @@ import java.util.zip.ZipOutputStream;
  * @coverage core.editor.errors.report2
  */
 public final class ParseErrorsLogReportEntry implements IReportEntry {
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Contents
+  //
+  ////////////////////////////////////////////////////////////////////////////
   private void writeBadNodes(ZipOutputStream outputStream,
       String title,
       AstEditor editor,
@@ -83,6 +88,11 @@ public final class ParseErrorsLogReportEntry implements IReportEntry {
     IOUtils2.writeString(outputStream, "\r\n----\r\n");
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // IReportEntry
+  //
+  ////////////////////////////////////////////////////////////////////////////
   public void write(ZipOutputStream zipStream) throws Exception {
     JavaInfo javaInfo = EditorState.getActiveJavaInfo();
     if (javaInfo == null) {

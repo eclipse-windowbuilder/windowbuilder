@@ -32,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
 
@@ -41,9 +42,10 @@ import java.net.URL;
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
-public final class EnvironmentFileReportInfo extends StringFileReportEntry {
+public final class EnvironmentFileReportInfo extends FileReportEntry {
   // constants
   private static final String CR = "\n";
+  private final IProject m_project;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -51,7 +53,8 @@ public final class EnvironmentFileReportInfo extends StringFileReportEntry {
   //
   ////////////////////////////////////////////////////////////////////////////
   public EnvironmentFileReportInfo(IProject project) {
-    super("environment.txt", createContents(project));
+    super("environment.txt");
+    m_project = project;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -59,6 +62,12 @@ public final class EnvironmentFileReportInfo extends StringFileReportEntry {
   // Contents
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
+  protected InputStream getContents() throws Exception {
+    String contents = createContents(m_project);
+    return IOUtils.toInputStream(contents);
+  }
+
   private static String createContents(IProject project) {
     String c = "";
     c += "Product Name: " + BrandingUtils.getBranding().getProductName() + CR;
