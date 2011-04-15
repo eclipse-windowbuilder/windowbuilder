@@ -16,8 +16,8 @@ import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
-import org.eclipse.wb.core.eval.IExpressionEvaluator;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
+import org.eclipse.wb.core.eval.IExpressionEvaluator;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.eval.evaluators.AnonymousEvaluationError;

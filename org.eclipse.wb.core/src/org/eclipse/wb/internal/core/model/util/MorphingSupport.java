@@ -392,7 +392,10 @@ public final class MorphingSupport {
         {
           String message = validate(target);
           if (message != null) {
-            MessageDialog.openError(DesignerPlugin.getShell(), ModelMessages.MorphingSupport_incompatibleTargetTitle, message);
+            MessageDialog.openError(
+                DesignerPlugin.getShell(),
+                ModelMessages.MorphingSupport_incompatibleTargetTitle,
+                message);
             return;
           }
         }

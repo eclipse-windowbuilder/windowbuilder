@@ -35,7 +35,11 @@ public final class WebSafeColorsComposite extends AbstractColorsGridComposite {
   ////////////////////////////////////////////////////////////////////////////
   public WebSafeColorsComposite(Composite parent, int style, AbstractColorDialog colorPickerDialog) {
     super(parent, style, colorPickerDialog);
-    createSortGroup(this, new String[]{Messages.WebSafeColorsComposite_sortTone, Messages.WebSafeColorsComposite_sortHue, Messages.WebSafeColorsComposite_sortSaturation, Messages.WebSafeColorsComposite_sortLightness}, new Comparator[]{
+    createSortGroup(this, new String[]{
+        Messages.WebSafeColorsComposite_sortTone,
+        Messages.WebSafeColorsComposite_sortHue,
+        Messages.WebSafeColorsComposite_sortSaturation,
+        Messages.WebSafeColorsComposite_sortLightness}, new Comparator[]{
         ColorInfoComparator.TONE,
         ColorInfoComparator.HUE,
         ColorInfoComparator.SATURATION,

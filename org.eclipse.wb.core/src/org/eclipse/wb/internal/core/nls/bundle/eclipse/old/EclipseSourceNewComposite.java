@@ -56,7 +56,9 @@ public final class EclipseSourceNewComposite extends AbstractAccessorSourceNewCo
   @Override
   protected void createAdditionalAccessorFields(Composite parent) {
     m_buttonsGroup =
-        new SelectionButtonDialogFieldGroup(SWT.CHECK, new String[]{Messages.EclipseSourceNewComposite_useDefaultNames}, 3);
+        new SelectionButtonDialogFieldGroup(SWT.CHECK,
+            new String[]{Messages.EclipseSourceNewComposite_useDefaultNames},
+            3);
     m_buttonsGroup.doFillIntoGrid(parent, 3);
   }
 
@@ -70,9 +72,7 @@ public final class EclipseSourceNewComposite extends AbstractAccessorSourceNewCo
       try {
         accessorClass.getDeclaredField("BUNDLE_NAME");
       } catch (Throwable e) {
-        setInvalid(
-            KEY_ACCESSOR_CLASS,
-            Messages.EclipseSourceNewComposite_validateNoBundleNameField);
+        setInvalid(KEY_ACCESSOR_CLASS, Messages.EclipseSourceNewComposite_validateNoBundleNameField);
       }
     } catch (Throwable e) {
     }

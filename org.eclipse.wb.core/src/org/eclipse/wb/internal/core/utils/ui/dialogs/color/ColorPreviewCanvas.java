@@ -113,7 +113,13 @@ public final class ColorPreviewCanvas extends Canvas {
             try {
               gc.setFont(font);
               gc.setForeground(color);
-              drawCenteredText(gc, Messages.ColorPreviewCanvas_sampleText, r.width / 2, y, r.width / 2, r.height - y);
+              drawCenteredText(
+                  gc,
+                  Messages.ColorPreviewCanvas_sampleText,
+                  r.width / 2,
+                  y,
+                  r.width / 2,
+                  r.height - y);
             } finally {
               font.dispose();
             }

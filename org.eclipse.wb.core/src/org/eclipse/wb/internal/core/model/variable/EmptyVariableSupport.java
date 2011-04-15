@@ -477,8 +477,7 @@ public class EmptyVariableSupport extends VariableSupport {
     // add type
     Type newType;
     {
-      newType =
-          editor.getParser().parseQualifiedType(position + source.length(), typeName);
+      newType = editor.getParser().parseQualifiedType(position + source.length(), typeName);
       source += typeName + " ";
     }
     // add variable

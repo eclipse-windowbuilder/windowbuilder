@@ -67,13 +67,11 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
       PaletteInfo palette,
       CategoryInfo initialCategory,
       boolean forStatic) {
-    super(parentShell,
-        forStatic ? Messages.FactoriesAddDialog_shellTitleStatic : Messages.FactoriesAddDialog_shellTitleInstance,
-        forStatic
-            ? Messages.FactoriesAddDialog_titleStatic
-            : Messages.FactoriesAddDialog_titleInstance,
-        null,
-        Messages.FactoriesAddDialog_message);
+    super(parentShell, forStatic
+        ? Messages.FactoriesAddDialog_shellTitleStatic
+        : Messages.FactoriesAddDialog_shellTitleInstance, forStatic
+        ? Messages.FactoriesAddDialog_titleStatic
+        : Messages.FactoriesAddDialog_titleInstance, null, Messages.FactoriesAddDialog_message);
     m_editor = editor;
     m_palette = palette;
     m_initialCategory = initialCategory;
@@ -115,16 +113,19 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     }
     // method signatures
     {
-      m_signaturesField = new CheckedListDialogField(new IListAdapter() {
-        public void selectionChanged(ListDialogField field) {
-        }
+      m_signaturesField =
+          new CheckedListDialogField(new IListAdapter() {
+            public void selectionChanged(ListDialogField field) {
+            }
 
-        public void doubleClicked(ListDialogField field) {
-        }
+            public void doubleClicked(ListDialogField field) {
+            }
 
-        public void customButtonPressed(ListDialogField field, int index) {
-        }
-      }, new String[]{Messages.FactoriesAddDialog_selectAllButton, Messages.FactoriesAddDialog_deselectAllButton}, new LabelProvider());
+            public void customButtonPressed(ListDialogField field, int index) {
+            }
+          }, new String[]{
+              Messages.FactoriesAddDialog_selectAllButton,
+              Messages.FactoriesAddDialog_deselectAllButton}, new LabelProvider());
       m_signaturesField.setCheckAllButtonIndex(0);
       m_signaturesField.setUncheckAllButtonIndex(1);
       doCreateField(m_signaturesField, Messages.FactoriesAddDialog_methodsLabel);

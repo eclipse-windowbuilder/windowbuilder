@@ -86,12 +86,13 @@ final class DesignerPalettePopupActions {
     menuManager.add(new Separator());
     // settings
     {
-      Action settingsAction = new Action(Messages.DesignerPalettePopupActions_settingsAction, ID_SETTINGS) {
-        @Override
-        public void run() {
-          m_operations.editPreferences();
-        }
-      };
+      Action settingsAction =
+          new Action(Messages.DesignerPalettePopupActions_settingsAction, ID_SETTINGS) {
+            @Override
+            public void run() {
+              m_operations.editPreferences();
+            }
+          };
       menuManager.add(settingsAction);
     }
   }
@@ -101,34 +102,36 @@ final class DesignerPalettePopupActions {
     final CategoryInfo targetCategory = getCategory(target);
     // add category
     {
-      Action addCategoryAction = new Action(Messages.DesignerPalettePopupActions_addCategoryAction, ID_ADD_CATEGORY) {
-        @Override
-        public void run() {
-          // prepare initial "next category"
-          CategoryInfo nextCategory = null;
-          if (targetCategory != null) {
-            nextCategory = targetCategory;
-          } else if (targetEntry != null) {
-            nextCategory = targetEntry.getCategory();
-          }
-          m_operations.addCategory(nextCategory);
-        }
-      };
+      Action addCategoryAction =
+          new Action(Messages.DesignerPalettePopupActions_addCategoryAction, ID_ADD_CATEGORY) {
+            @Override
+            public void run() {
+              // prepare initial "next category"
+              CategoryInfo nextCategory = null;
+              if (targetCategory != null) {
+                nextCategory = targetCategory;
+              } else if (targetEntry != null) {
+                nextCategory = targetEntry.getCategory();
+              }
+              m_operations.addCategory(nextCategory);
+            }
+          };
       menuManager.add(addCategoryAction);
     }
     // add component
     {
-      Action addComponentAction = new Action(Messages.DesignerPalettePopupActions_addComponentAction, ID_ADD_COMPONENT) {
-        @Override
-        public void run() {
-          // prepare category for new component
-          CategoryInfo category = targetCategory;
-          if (targetEntry != null) {
-            category = targetEntry.getCategory();
-          }
-          m_operations.addComponent(category);
-        }
-      };
+      Action addComponentAction =
+          new Action(Messages.DesignerPalettePopupActions_addComponentAction, ID_ADD_COMPONENT) {
+            @Override
+            public void run() {
+              // prepare category for new component
+              CategoryInfo category = targetCategory;
+              if (targetEntry != null) {
+                category = targetEntry.getCategory();
+              }
+              m_operations.addComponent(category);
+            }
+          };
       menuManager.add(addComponentAction);
     }
     // factories
@@ -138,7 +141,8 @@ final class DesignerPalettePopupActions {
           targetEntry != null ? targetEntry.getCategory() : targetCategory;
       // add static factories
       {
-        IMenuManager staticMenuManager = new MenuManager(Messages.DesignerPalettePopupActions_addStaticFactoryAction);
+        IMenuManager staticMenuManager =
+            new MenuManager(Messages.DesignerPalettePopupActions_addStaticFactoryAction);
         menuManager.add(staticMenuManager);
         // single
         {
@@ -153,7 +157,8 @@ final class DesignerPalettePopupActions {
       }
       // add instance factories
       {
-        IMenuManager instanceMenuManager = new MenuManager(Messages.DesignerPalettePopupActions_addInstanceFactoryAction);
+        IMenuManager instanceMenuManager =
+            new MenuManager(Messages.DesignerPalettePopupActions_addInstanceFactoryAction);
         menuManager.add(instanceMenuManager);
         // single
         {
@@ -170,7 +175,8 @@ final class DesignerPalettePopupActions {
     // separator
     menuManager.add(new Separator());
     // Jar
-    menuManager.add(new Action(Messages.DesignerPalettePopupActions_importJarAction, IMPORT_JAR_IMAGE) {
+    menuManager.add(new Action(Messages.DesignerPalettePopupActions_importJarAction,
+        IMPORT_JAR_IMAGE) {
       @Override
       public void run() {
         // prepare initial "next category"
@@ -204,27 +210,31 @@ final class DesignerPalettePopupActions {
     }
     // remove
     {
-      Action removeAction = new Action(Messages.DesignerPalettePopupActions_removeAction, ID_REMOVE) {
-        @Override
-        public void run() {
-          if (targetEntry != null) {
-            if (MessageDialog.openConfirm(
-                getShell(),
-                Messages.DesignerPalettePopupActions_removeEntryTitle,
-                MessageFormat.format(
-                    Messages.DesignerPalettePopupActions_removeEntryMessage,
-                    targetEntry.getName()))) {
-              m_operations.removeEntry(targetEntry);
+      Action removeAction =
+          new Action(Messages.DesignerPalettePopupActions_removeAction, ID_REMOVE) {
+            @Override
+            public void run() {
+              if (targetEntry != null) {
+                if (MessageDialog.openConfirm(
+                    getShell(),
+                    Messages.DesignerPalettePopupActions_removeEntryTitle,
+                    MessageFormat.format(
+                        Messages.DesignerPalettePopupActions_removeEntryMessage,
+                        targetEntry.getName()))) {
+                  m_operations.removeEntry(targetEntry);
+                }
+              } else if (targetCategory != null) {
+                if (MessageDialog.openConfirm(
+                    getShell(),
+                    Messages.DesignerPalettePopupActions_removeCategoryTitle,
+                    MessageFormat.format(
+                        Messages.DesignerPalettePopupActions_removeCategoryMessage,
+                        targetCategory.getName()))) {
+                  m_operations.removeCategory(targetCategory);
+                }
+              }
             }
-          } else if (targetCategory != null) {
-            if (MessageDialog.openConfirm(getShell(), Messages.DesignerPalettePopupActions_removeCategoryTitle, MessageFormat.format(
-                Messages.DesignerPalettePopupActions_removeCategoryMessage,
-                targetCategory.getName()))) {
-              m_operations.removeCategory(targetCategory);
-            }
-          }
-        }
-      };
+          };
       menuManager.add(removeAction);
       removeAction.setEnabled(targetEntry != null || targetCategory != null);
     }
@@ -232,27 +242,29 @@ final class DesignerPalettePopupActions {
     menuManager.add(new Separator());
     // default
     {
-      Action defaultAction = new Action(Messages.DesignerPalettePopupActions_restoreDefaultsAction) {
-        @Override
-        public void run() {
-          if (MessageDialog.openConfirm(
-              getShell(),
-              Messages.DesignerPalettePopupActions_restoreDefaultsTitle,
-              Messages.DesignerPalettePopupActions_restoreDefaultsMessage)) {
-            m_operations.defaultPalette();
-          }
-        }
-      };
+      Action defaultAction =
+          new Action(Messages.DesignerPalettePopupActions_restoreDefaultsAction) {
+            @Override
+            public void run() {
+              if (MessageDialog.openConfirm(
+                  getShell(),
+                  Messages.DesignerPalettePopupActions_restoreDefaultsTitle,
+                  Messages.DesignerPalettePopupActions_restoreDefaultsMessage)) {
+                m_operations.defaultPalette();
+              }
+            }
+          };
       menuManager.add(defaultAction);
     }
     // palette manager
     {
-      Action managerAction = new Action(Messages.DesignerPalettePopupActions_managerAction, ID_MANAGER) {
-        @Override
-        public void run() {
-          m_operations.editPalette();
-        }
-      };
+      Action managerAction =
+          new Action(Messages.DesignerPalettePopupActions_managerAction, ID_MANAGER) {
+            @Override
+            public void run() {
+              m_operations.editPalette();
+            }
+          };
       menuManager.add(managerAction);
     }
     // import/export

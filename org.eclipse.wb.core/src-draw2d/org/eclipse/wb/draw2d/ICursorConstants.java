@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 

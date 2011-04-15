@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.actions.assistant;
 
-
 /**
  * Pages created in {@link LayoutAssistantListener} add this interface to receive update events.
  * 

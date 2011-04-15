@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.association;
 
-
 /**
  * Implementation of {@link Association} for root component.
  * 

@@ -99,7 +99,11 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
   }
 
   protected void handleFinishException(Shell shell, InvocationTargetException e) {
-    ExceptionHandler.perform(e, shell, Messages.DesignerNewElementWizard_errorTitle, Messages.DesignerNewElementWizard_errorMessage);
+    ExceptionHandler.perform(
+        e,
+        shell,
+        Messages.DesignerNewElementWizard_errorTitle,
+        Messages.DesignerNewElementWizard_errorMessage);
   }
 
   @Override

@@ -34,15 +34,17 @@ public final class NamedColorsComposite extends AbstractColorsGridComposite {
   ////////////////////////////////////////////////////////////////////////////
   public NamedColorsComposite(Composite parent, int style, AbstractColorDialog colorDialog) {
     super(parent, style, colorDialog);
-    createSortGroup(
-        this,
-        new String[]{Messages.NamedColorsComposite_sortTone, Messages.NamedColorsComposite_sortHue, Messages.NamedColorsComposite_sortSaturation, Messages.NamedColorsComposite_sortLightness, Messages.NamedColorsComposite_sortName},
-        new Comparator[]{
-            ColorInfoComparator.TONE,
-            ColorInfoComparator.HUE,
-            ColorInfoComparator.SATURATION,
-            ColorInfoComparator.LIGHTNESS,
-            ColorInfoComparator.NAME});
+    createSortGroup(this, new String[]{
+        Messages.NamedColorsComposite_sortTone,
+        Messages.NamedColorsComposite_sortHue,
+        Messages.NamedColorsComposite_sortSaturation,
+        Messages.NamedColorsComposite_sortLightness,
+        Messages.NamedColorsComposite_sortName}, new Comparator[]{
+        ColorInfoComparator.TONE,
+        ColorInfoComparator.HUE,
+        ColorInfoComparator.SATURATION,
+        ColorInfoComparator.LIGHTNESS,
+        ColorInfoComparator.NAME});
     createColorsGroup(this, Messages.NamedColorsComposite_htmlGroup, HTML_COLORS);
     createColorsGroup(this, Messages.NamedColorsComposite_svgGroup, SVG_COLORS);
     setComparator(ColorInfoComparator.TONE);

@@ -59,8 +59,8 @@ public class FigureUtils {
   }
 
   /**
-   * Translates given {@link Translatable} from <code>source</code> {@link Figure} local
-   * coordinates to local coordinates from <code>target</code> {@link Figure}.
+   * Translates given {@link Translatable} from <code>source</code> {@link Figure} local coordinates
+   * to local coordinates from <code>target</code> {@link Figure}.
    */
   public static final void translateFigureToFigure2(Figure source,
       Figure target,
@@ -70,8 +70,8 @@ public class FigureUtils {
   }
 
   /**
-   * Translates given {@link Translatable} from this {@link Figure} bounds coordinates to absolute
-   * ( {@link RootFigure} relative) coordinates.
+   * Translates given {@link Translatable} from this {@link Figure} bounds coordinates to absolute (
+   * {@link RootFigure} relative) coordinates.
    */
   public static final void translateFigureToAbsolute(Figure figure, Translatable translatable) {
     for (Figure parent = figure.getParent(); parent != null; parent = parent.getParent()) {

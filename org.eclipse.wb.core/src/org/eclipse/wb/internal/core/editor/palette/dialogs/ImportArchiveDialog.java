@@ -259,7 +259,8 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     m_classesViewer = CheckboxTableViewer.newCheckList(container, SWT.BORDER | SWT.FULL_SELECTION);
     GridDataFactory.create(m_classesViewer.getControl()).fill().grab().spanH(3).hint(300, 150);
     TableFactory.modify(m_classesViewer).headerVisible(true).linesVisible(true);
-    TableFactory.modify(m_classesViewer).newColumn().text(Messages.ImportArchiveDialog_classesColumn).width(getInitialSize().x - 30);
+    TableFactory.modify(m_classesViewer).newColumn().text(
+        Messages.ImportArchiveDialog_classesColumn).width(getInitialSize().x - 30);
     m_classesViewer.setContentProvider(new ArrayContentProvider());
     m_classesViewer.setLabelProvider(new LabelProvider());
     m_classesViewer.addCheckStateListener(new ICheckStateListener() {
@@ -305,8 +306,10 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 
   @Override
   protected void createButtonsForButtonBar(Composite parent) {
-    m_checkButton = createButton(parent, CHECK_ALL_ID, Messages.ImportArchiveDialog_selectAllButton, false);
-    m_uncheckButton = createButton(parent, UNCHECK_ALL_ID, Messages.ImportArchiveDialog_deselectAllButton, false);
+    m_checkButton =
+        createButton(parent, CHECK_ALL_ID, Messages.ImportArchiveDialog_selectAllButton, false);
+    m_uncheckButton =
+        createButton(parent, UNCHECK_ALL_ID, Messages.ImportArchiveDialog_deselectAllButton, false);
     super.createButtonsForButtonBar(parent);
     calculateFinish();
   }
@@ -420,7 +423,10 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     // handle components command
     for (Object checkedElement : m_classesViewer.getCheckedElements()) {
       PaletteElementInfo element = (PaletteElementInfo) checkedElement;
-      String description = MessageFormat.format(Messages.ImportArchiveDialog_newComponentDescription, element.className);
+      String description =
+          MessageFormat.format(
+              Messages.ImportArchiveDialog_newComponentDescription,
+              element.className);
       m_commands.add(new ComponentAddCommand(element.className
           + "_"
           + Long.toString(System.currentTimeMillis()),
@@ -443,7 +449,9 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
         includeObjects.add(workspaceRoot.getProject(project));
       }
       // open dialog
-      chooseFromWorkspace(Messages.ImportArchiveDialog_classpathJarSelection, new JarFileFilter(includeObjects));
+      chooseFromWorkspace(
+          Messages.ImportArchiveDialog_classpathJarSelection,
+          new JarFileFilter(includeObjects));
     } catch (Throwable e) {
       DesignerPlugin.log(e);
     }
@@ -539,10 +547,12 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
       if (ignoreManifest || m_elements.isEmpty()) {
         if (!ignoreManifest) {
           String message =
-              MessageFormat.format(
-                  Messages.ImportArchiveDialog_hasManifestMessage,
-                  m_jarPath);
-          ignoreManifest = MessageDialog.openQuestion(getShell(), Messages.ImportArchiveDialog_hasManifestTitle, message);
+              MessageFormat.format(Messages.ImportArchiveDialog_hasManifestMessage, m_jarPath);
+          ignoreManifest =
+              MessageDialog.openQuestion(
+                  getShell(),
+                  Messages.ImportArchiveDialog_hasManifestTitle,
+                  message);
         }
         if (ignoreManifest) {
           JarInputStream jarStream =

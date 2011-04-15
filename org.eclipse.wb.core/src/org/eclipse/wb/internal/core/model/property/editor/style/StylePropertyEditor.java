@@ -81,7 +81,6 @@ public final class StylePropertyEditor extends AbstractStylePropertyEditor
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
-
   @Override
   protected String getText(Property property) throws Exception {
     return "[" + getSource(property, false, ", ") + "]";
@@ -90,6 +89,7 @@ public final class StylePropertyEditor extends AbstractStylePropertyEditor
   public String getPropertyTitle() {
     return m_title;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // As string

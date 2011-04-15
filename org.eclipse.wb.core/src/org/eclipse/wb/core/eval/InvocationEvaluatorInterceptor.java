@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;

@@ -53,11 +53,7 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
       AstEditor editor,
       String shellText,
       String titleText) {
-    super(parentShell,
-        shellText,
-        titleText,
-        null,
-        Messages.ComponentAbstractDialog_message);
+    super(parentShell, shellText, titleText, null, Messages.ComponentAbstractDialog_message);
     m_editor = editor;
   }
 

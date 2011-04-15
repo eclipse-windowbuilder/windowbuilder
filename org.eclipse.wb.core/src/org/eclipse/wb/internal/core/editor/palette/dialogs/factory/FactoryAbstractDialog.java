@@ -63,11 +63,7 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
       boolean forStatic,
       String shellText,
       String titleText) {
-    super(parentShell,
-        shellText,
-        titleText,
-        null,
-        Messages.FactoryAbstractDialog_message);
+    super(parentShell, shellText, titleText, null, Messages.FactoryAbstractDialog_message);
     m_editor = editor;
     m_forStatic = forStatic;
   }

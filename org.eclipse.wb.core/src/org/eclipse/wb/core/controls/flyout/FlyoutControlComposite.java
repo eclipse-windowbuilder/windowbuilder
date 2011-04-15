@@ -873,10 +873,22 @@ public final class FlyoutControlComposite extends Composite {
 
         private void addDockActions() {
           MenuManager dockManager = new MenuManager(Messages.FlyoutControlComposite_dockManager);
-          addDockAction(dockManager, Messages.FlyoutControlComposite_dockLeft, IFlyoutPreferences.DOCK_WEST);
-          addDockAction(dockManager, Messages.FlyoutControlComposite_dockRight, IFlyoutPreferences.DOCK_EAST);
-          addDockAction(dockManager, Messages.FlyoutControlComposite_dockTop, IFlyoutPreferences.DOCK_NORTH);
-          addDockAction(dockManager, Messages.FlyoutControlComposite_dockBottom, IFlyoutPreferences.DOCK_SOUTH);
+          addDockAction(
+              dockManager,
+              Messages.FlyoutControlComposite_dockLeft,
+              IFlyoutPreferences.DOCK_WEST);
+          addDockAction(
+              dockManager,
+              Messages.FlyoutControlComposite_dockRight,
+              IFlyoutPreferences.DOCK_EAST);
+          addDockAction(
+              dockManager,
+              Messages.FlyoutControlComposite_dockTop,
+              IFlyoutPreferences.DOCK_NORTH);
+          addDockAction(
+              dockManager,
+              Messages.FlyoutControlComposite_dockBottom,
+              IFlyoutPreferences.DOCK_SOUTH);
           manager.add(dockManager);
         }
 

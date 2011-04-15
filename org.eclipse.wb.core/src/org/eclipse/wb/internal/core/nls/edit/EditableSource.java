@@ -234,11 +234,15 @@ public final class EditableSource implements IEditableSource {
     boolean keepNewKeyValue = false;
     if (containsNewKey) {
       MessageDialog dialog =
-          new MessageDialog(DesignerPlugin.getShell(), Messages.EditableSource_renameConfirmTitle, null, MessageFormat.format(
-              Messages.EditableSource_renameConfirmKeepExistingValue,
-              newKey), MessageDialog.QUESTION, new String[]{
-              Messages.EditableSource_renameConfirmYesKeep,
-              Messages.EditableSource_renameConfirmNoUseRenaming}, 0);
+          new MessageDialog(DesignerPlugin.getShell(),
+              Messages.EditableSource_renameConfirmTitle,
+              null,
+              MessageFormat.format(Messages.EditableSource_renameConfirmKeepExistingValue, newKey),
+              MessageDialog.QUESTION,
+              new String[]{
+                  Messages.EditableSource_renameConfirmYesKeep,
+                  Messages.EditableSource_renameConfirmNoUseRenaming},
+              0);
       int openResult = dialog.open();
       if (openResult == SWT.DEFAULT) {
         // cancel pressed

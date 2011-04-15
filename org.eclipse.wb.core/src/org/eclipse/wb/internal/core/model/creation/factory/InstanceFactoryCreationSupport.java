@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.core.model.creation.factory;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
-import org.eclipse.wb.core.eval.IExpressionEvaluator;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
+import org.eclipse.wb.core.eval.IExpressionEvaluator;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;

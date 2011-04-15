@@ -13,6 +13,8 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
 
+import javax.swing.LayoutStyle;
+
 /**
  * Intended for {@link PlacementsSupport} to operate with layout.
  * 

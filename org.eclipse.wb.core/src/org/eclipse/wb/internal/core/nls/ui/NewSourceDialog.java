@@ -51,8 +51,7 @@ import java.beans.PropertyChangeListener;
  * @coverage core.nls.ui
  */
 public class NewSourceDialog extends TitleAreaDialog {
-  private static final String USUAL_MESSAGE =
-      Messages.NewSourceDialog_message;
+  private static final String USUAL_MESSAGE = Messages.NewSourceDialog_message;
   private static final String ONLY_ONE_SOURCE_MESSAGE = Messages.NewSourceDialog_messageOneSource;
   private final JavaInfo m_root;
   private boolean m_hasOneSource;

@@ -67,9 +67,10 @@ final class ListenerProperty extends AbstractListenerProperty {
   public void setValue(Object value) throws Exception {
     if (value == UNKNOWN_VALUE) {
       // ask confirmation
-      if (MessageDialog.openConfirm(DesignerPlugin.getShell(), ModelMessages.ListenerProperty_removeTitle, MessageFormat.format(
-          ModelMessages.ListenerProperty_removeMessage,
-          m_listener.getName()))) {
+      if (MessageDialog.openConfirm(
+          DesignerPlugin.getShell(),
+          ModelMessages.ListenerProperty_removeTitle,
+          MessageFormat.format(ModelMessages.ListenerProperty_removeMessage, m_listener.getName()))) {
         removeListener();
       }
     }
@@ -167,7 +168,9 @@ final class ListenerProperty extends AbstractListenerProperty {
           }
         };
         int line = m_javaInfo.getEditor().getLineNumber(stubMethod.getStartPosition());
-        actions[0].setText(property.getMethod().getName() + ModelMessages.ListenerProperty_line + line);
+        actions[0].setText(property.getMethod().getName()
+            + ModelMessages.ListenerProperty_line
+            + line);
         actions[0].setImageDescriptor(EventsPropertyUtils.LISTENER_METHOD_IMAGE_DESCRIPTOR);
       }
     }

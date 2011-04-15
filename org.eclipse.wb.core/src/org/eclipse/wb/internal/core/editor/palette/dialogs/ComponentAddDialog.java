@@ -41,7 +41,10 @@ public final class ComponentAddDialog extends ComponentAbstractDialog {
       AstEditor editor,
       PaletteInfo palette,
       CategoryInfo initialCategory) {
-    super(parentShell, editor, Messages.ComponentAddDialog_title, Messages.ComponentAddDialog_message);
+    super(parentShell,
+        editor,
+        Messages.ComponentAddDialog_title,
+        Messages.ComponentAddDialog_message);
     m_palette = palette;
     m_initialCategory = initialCategory;
   }

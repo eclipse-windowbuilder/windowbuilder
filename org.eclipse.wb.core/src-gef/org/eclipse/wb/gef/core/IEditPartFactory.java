@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-
 /**
  * A factory for creating new EditParts. {@link EditPartViewer} can be configured with an
  * <code>{@link IEditPartFactory}</code>. Whenever an <code>{@link EditPart}</code> in that viewer

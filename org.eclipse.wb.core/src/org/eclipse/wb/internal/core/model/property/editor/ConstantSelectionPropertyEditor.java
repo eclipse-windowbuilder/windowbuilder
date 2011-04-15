@@ -580,7 +580,11 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-      createButton(parent, ADD_TYPE_ID, ModelMessages.ConstantSelectionPropertyEditor_addTypeButton, false);
+      createButton(
+          parent,
+          ADD_TYPE_ID,
+          ModelMessages.ConstantSelectionPropertyEditor_addTypeButton,
+          false);
       createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
       createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }

@@ -182,14 +182,18 @@ public final class ExposePropertyAction extends Action {
     {
       String signature = m_exposedGetter + "()";
       if (AstNodeUtils.getMethodBySignature(m_typeDeclaration, signature) != null) {
-        return MessageFormat.format(ModelMessages.ExposePropertyAction_validateMethodAlreadyExists, signature);
+        return MessageFormat.format(
+            ModelMessages.ExposePropertyAction_validateMethodAlreadyExists,
+            signature);
       }
     }
     // check for existing setter
     {
       String signature = m_exposedSetter + "(" + m_propertyTypeName + ")";
       if (AstNodeUtils.getMethodBySignature(m_typeDeclaration, signature) != null) {
-        return MessageFormat.format(ModelMessages.ExposePropertyAction_validateMethodAlreadyExists, signature);
+        return MessageFormat.format(
+            ModelMessages.ExposePropertyAction_validateMethodAlreadyExists,
+            signature);
       }
     }
     // OK
@@ -360,7 +364,9 @@ public final class ExposePropertyAction extends Action {
       {
         String message = ExposePropertyAction.this.validate(m_nameField.getText());
         if (message != null) {
-          JdtUiUtils.setJavaSourceForViewer(m_previewViewer, ModelMessages.ExposePropertyAction_dialogNoPreview);
+          JdtUiUtils.setJavaSourceForViewer(
+              m_previewViewer,
+              ModelMessages.ExposePropertyAction_dialogNoPreview);
           return message;
         }
       }

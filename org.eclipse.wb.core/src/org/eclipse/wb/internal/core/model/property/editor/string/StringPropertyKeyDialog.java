@@ -209,7 +209,8 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       {
         TableFactory tableFactory = TableFactory.modify(m_valuesViewer).standard();
         tableFactory.newColumn().widthC(40).text(ModelMessages.StringPropertyKeyDialog_keyColumn);
-        tableFactory.newColumn().widthC(57).image(LocaleUtils.getImage(m_locale)).text(ModelMessages.StringPropertyKeyDialog_valueColumn);
+        tableFactory.newColumn().widthC(57).image(LocaleUtils.getImage(m_locale)).text(
+            ModelMessages.StringPropertyKeyDialog_valueColumn);
       }
       // content
       setValuesFilter();
@@ -238,9 +239,18 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       //
       new Label(optionsComposite, SWT.NONE).setText(ModelMessages.StringPropertyKeyDialog_filterLabel);
       // create buttons
-      m_filterKeyButton = createFilterOptionButton(optionsComposite, ModelMessages.StringPropertyKeyDialog_filterKeyButton);
-      m_filterValueButton = createFilterOptionButton(optionsComposite, ModelMessages.StringPropertyKeyDialog_filterValueButton);
-      m_filterBothButton = createFilterOptionButton(optionsComposite, ModelMessages.StringPropertyKeyDialog_filterBothButton);
+      m_filterKeyButton =
+          createFilterOptionButton(
+              optionsComposite,
+              ModelMessages.StringPropertyKeyDialog_filterKeyButton);
+      m_filterValueButton =
+          createFilterOptionButton(
+              optionsComposite,
+              ModelMessages.StringPropertyKeyDialog_filterValueButton);
+      m_filterBothButton =
+          createFilterOptionButton(
+              optionsComposite,
+              ModelMessages.StringPropertyKeyDialog_filterBothButton);
       // by default select "key"
       if (!m_filterKeyButton.getSelection()
           && !m_filterValueButton.getSelection()

@@ -34,7 +34,10 @@ public final class ComponentEditDialog extends ComponentAbstractDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ComponentEditDialog(Shell parentShell, AstEditor editor, ComponentEntryInfo component) {
-    super(parentShell, editor, Messages.ComponentEditDialog_title, Messages.ComponentEditDialog_message);
+    super(parentShell,
+        editor,
+        Messages.ComponentEditDialog_title,
+        Messages.ComponentEditDialog_message);
     m_component = component;
   }
 

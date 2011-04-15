@@ -135,7 +135,10 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
     IType type = JdtUiUtils.selectType(shell, javaProject);
     if (type != null) {
       if (Flags.isAbstract(type.getFlags())) {
-        UiUtils.openError(shell, ModelMessages.InnerClassPropertyEditor_selectTypeAbstractTitle, ModelMessages.InnerClassPropertyEditor_selectTypeAbstractMessage);
+        UiUtils.openError(
+            shell,
+            ModelMessages.InnerClassPropertyEditor_selectTypeAbstractTitle,
+            ModelMessages.InnerClassPropertyEditor_selectTypeAbstractMessage);
         return;
       }
       String source = getCreationSource(javaInfo, type);

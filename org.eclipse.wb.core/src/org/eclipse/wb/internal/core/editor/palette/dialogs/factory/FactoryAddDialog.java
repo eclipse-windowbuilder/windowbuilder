@@ -42,11 +42,11 @@ public final class FactoryAddDialog extends FactoryAbstractDialog {
       boolean forStatic,
       PaletteInfo palette,
       CategoryInfo initialCategory) {
-    super(parentShell,
-        editor,
-        forStatic,
-        forStatic ? Messages.FactoryAddDialog_titleStatic : Messages.FactoryAddDialog_titleInstance,
-        forStatic ? Messages.FactoryAddDialog_messageStatic : Messages.FactoryAddDialog_messageInstance);
+    super(parentShell, editor, forStatic, forStatic
+        ? Messages.FactoryAddDialog_titleStatic
+        : Messages.FactoryAddDialog_titleInstance, forStatic
+        ? Messages.FactoryAddDialog_messageStatic
+        : Messages.FactoryAddDialog_messageInstance);
     m_palette = palette;
     m_initialCategory = initialCategory;
   }

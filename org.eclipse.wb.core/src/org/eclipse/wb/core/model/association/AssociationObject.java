@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.association;
 
-
 /**
  * Container for {@link Association} and "requirement" flag.
  * 

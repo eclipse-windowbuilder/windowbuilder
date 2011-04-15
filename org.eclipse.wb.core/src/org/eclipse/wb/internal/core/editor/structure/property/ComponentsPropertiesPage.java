@@ -381,12 +381,17 @@ public final class ComponentsPropertiesPage implements IPage {
    * Creates category actions.
    */
   private void create_setCategoryAction() {
-    m_setCategoryAction_default = new SetCategoryAction(Messages.ComponentsPropertiesPage_useDefaultCategoryAction, null);
+    m_setCategoryAction_default =
+        new SetCategoryAction(Messages.ComponentsPropertiesPage_useDefaultCategoryAction, null);
     m_setCategoryAction_preferred =
-        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsPreferredAction, PropertyCategory.PREFERRED);
-    m_setCategoryAction_normal = new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsNormalAction, PropertyCategory.NORMAL);
+        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsPreferredAction,
+            PropertyCategory.PREFERRED);
+    m_setCategoryAction_normal =
+        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsNormalAction,
+            PropertyCategory.NORMAL);
     m_setCategoryAction_advanced =
-        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsAdvancedAction, PropertyCategory.ADVANCED);
+        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsAdvancedAction,
+            PropertyCategory.ADVANCED);
   }
 
   /**
@@ -496,14 +501,18 @@ public final class ComponentsPropertiesPage implements IPage {
       // to field
       if (variableSupport.canConvertLocalToField()) {
         m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/local_to_field.gif"));
-        setTexts(m_variableConvertAction, Messages.ComponentsPropertiesPage_convertLocalToFieldAction);
+        setTexts(
+            m_variableConvertAction,
+            Messages.ComponentsPropertiesPage_convertLocalToFieldAction);
         m_variableConvertAction.setEnabled(true);
         return;
       }
       // to local
       if (variableSupport.canConvertFieldToLocal()) {
         m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/field_to_local.gif"));
-        setTexts(m_variableConvertAction, Messages.ComponentsPropertiesPage_convertFieldToLocalAction);
+        setTexts(
+            m_variableConvertAction,
+            Messages.ComponentsPropertiesPage_convertFieldToLocalAction);
         m_variableConvertAction.setEnabled(true);
         return;
       }

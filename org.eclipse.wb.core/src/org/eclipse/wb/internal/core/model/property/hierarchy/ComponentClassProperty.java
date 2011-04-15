@@ -25,8 +25,7 @@ import org.eclipse.jdt.core.IJavaProject;
  * @coverage core.model.property
  */
 public final class ComponentClassProperty extends Property {
-  private static final String TITLE_TOOLTIP =
-      ModelMessages.ComponentClassProperty_tooltip;
+  private static final String TITLE_TOOLTIP = ModelMessages.ComponentClassProperty_tooltip;
   private final String m_componentClassName;
 
   ////////////////////////////////////////////////////////////////////////////

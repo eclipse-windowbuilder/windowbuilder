@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.exception;
 
-
 import org.apache.commons.lang.StringUtils;
 
 /**

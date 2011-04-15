@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-
 import java.util.List;
 
 /**

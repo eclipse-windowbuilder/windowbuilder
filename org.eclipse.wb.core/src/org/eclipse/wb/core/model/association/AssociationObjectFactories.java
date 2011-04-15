@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.association;
 
-
 /**
  * Helper for creating {@link AssociationObjectFactory}'s.
  * 

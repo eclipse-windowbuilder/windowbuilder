@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor;
 
-
 import org.eclipse.jdt.core.ICompilationUnit;
 
 /**

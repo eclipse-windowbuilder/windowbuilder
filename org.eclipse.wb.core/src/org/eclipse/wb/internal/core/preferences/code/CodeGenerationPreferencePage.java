@@ -370,7 +370,9 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
               m_previewViewer,
               preview.getPreview(variableComposite, statementComposite));
         } else {
-          JdtUiUtils.setJavaSourceForViewer(m_previewViewer, Messages.CodeGenerationPreferencePage_noPreviewMessage);
+          JdtUiUtils.setJavaSourceForViewer(
+              m_previewViewer,
+              Messages.CodeGenerationPreferencePage_noPreviewMessage);
         }
       }
     });

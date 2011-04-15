@@ -51,9 +51,7 @@ import java.text.MessageFormat;
       throw new CoreException(new Status(IStatus.ERROR,
           DesignerPlugin.PLUGIN_ID,
           IStatus.OK,
-          MessageFormat.format(
-              Messages.UndoCompilationUnitChange_noFile,
-              cunit.getElementName()),
+          MessageFormat.format(Messages.UndoCompilationUnitChange_noFile, cunit.getElementName()),
           null));
     }
     return file;

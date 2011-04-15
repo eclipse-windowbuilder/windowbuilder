@@ -69,7 +69,9 @@ public final class CategoryAddDialog extends CategoryAbstractDialog {
       // add categories
       boolean categorySelected = false;
       for (CategoryInfo category : m_palette.getCategories()) {
-        m_locationField.addItem(MessageFormat.format(Messages.CategoryAddDialog_targetCategoryBefore, category.getName()));
+        m_locationField.addItem(MessageFormat.format(
+            Messages.CategoryAddDialog_targetCategoryBefore,
+            category.getName()));
         if (category == m_initialNextCategory) {
           m_locationField.selectItem(m_locationField.getItemCount() - 1);
           categorySelected = true;

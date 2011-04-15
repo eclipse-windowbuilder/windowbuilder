@@ -37,11 +37,7 @@ public abstract class CategoryAbstractDialog extends AbstractPaletteElementDialo
   //
   ////////////////////////////////////////////////////////////////////////////
   public CategoryAbstractDialog(Shell parentShell, String shellText, String titleText) {
-    super(parentShell,
-        shellText,
-        titleText,
-        null,
-        Messages.CategoryAbstractDialog_message);
+    super(parentShell, shellText, titleText, null, Messages.CategoryAbstractDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////

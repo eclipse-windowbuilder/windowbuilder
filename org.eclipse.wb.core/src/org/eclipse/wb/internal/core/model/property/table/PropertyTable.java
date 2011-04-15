@@ -1056,7 +1056,13 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
     Rectangle area = getClientArea();
     // draw message
     gc.setForeground(COLOR_NO_PROPERTIES);
-    DrawUtils.drawStringCHCV(gc, ModelMessages.PropertyTable_noProperties, 0, 0, area.width, area.height);
+    DrawUtils.drawStringCHCV(
+        gc,
+        ModelMessages.PropertyTable_noProperties,
+        0,
+        0,
+        area.width,
+        area.height);
   }
 
   /**

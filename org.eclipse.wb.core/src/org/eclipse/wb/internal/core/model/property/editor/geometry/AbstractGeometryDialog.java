@@ -74,7 +74,11 @@ public abstract class AbstractGeometryDialog extends Dialog {
 
   @Override
   protected final void createButtonsForButtonBar(Composite parent) {
-    createButton(parent, IDialogConstants.IGNORE_ID, ModelMessages.AbstractGeometryDialog_defaultButton, false);
+    createButton(
+        parent,
+        IDialogConstants.IGNORE_ID,
+        ModelMessages.AbstractGeometryDialog_defaultButton,
+        false);
     super.createButtonsForButtonBar(parent);
   }
 

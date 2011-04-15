@@ -61,16 +61,20 @@ public abstract class NlsPreferencePage extends AbstractBindingPreferencesPage
         IPreferenceStore preferences) {
       super(parent, bindManager, preferences);
       GridLayoutFactory.create(this).columns(2).noMargins();
+      checkButton(this, 2, Messages.NlsPreferencePage_autoExternalize, P_NLS_AUTO_EXTERNALIZE);
       checkButton(
           this,
           2,
-          Messages.NlsPreferencePage_autoExternalize,
-          P_NLS_AUTO_EXTERNALIZE);
-      checkButton(this, 2, Messages.NlsPreferencePage_keyHasQualifiedClassName, P_NLS_KEY_QUALIFIED_TYPE_NAME);
+          Messages.NlsPreferencePage_keyHasQualifiedClassName,
+          P_NLS_KEY_QUALIFIED_TYPE_NAME);
       stringField(this, 2, Messages.NlsPreferencePage_keyInValuePrefix, P_NLS_KEY_AS_VALUE_PREFIX);
       {
         Control[] controls =
-            stringField(this, 2, Messages.NlsPreferencePage_alwaysVisibleLocales, P_NLS_ALWAYS_VISIBLE_LOCALES);
+            stringField(
+                this,
+                2,
+                Messages.NlsPreferencePage_alwaysVisibleLocales,
+                P_NLS_ALWAYS_VISIBLE_LOCALES);
         Control labelWidget = controls[0];
         labelWidget.setToolTipText(Messages.NlsPreferencePage_alwaysVisibleLocalesHint);
       }

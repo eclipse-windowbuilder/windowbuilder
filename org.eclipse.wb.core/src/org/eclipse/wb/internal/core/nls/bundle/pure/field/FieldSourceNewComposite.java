@@ -100,9 +100,9 @@ public class FieldSourceNewComposite extends AbstractBundleSourceNewComposite {
       });
       // set status
       if (hasSuchName[0]) {
-        setInvalid(KEY_FIELD_NAME, MessageFormat.format(
-            Messages.FieldSourceNewComposite_validateFieldExists,
-            fieldName));
+        setInvalid(
+            KEY_FIELD_NAME,
+            MessageFormat.format(Messages.FieldSourceNewComposite_validateFieldExists, fieldName));
         return;
       }
     }

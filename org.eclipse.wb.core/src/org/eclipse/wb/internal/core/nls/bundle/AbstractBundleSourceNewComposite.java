@@ -170,7 +170,9 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     {
       IPackageFragmentRoot root = m_propertyPackageField.getRoot();
       if (root == null || !root.exists()) {
-        setInvalid(KEY_PROPERTY_FOLDER, Messages.AbstractBundleSourceNewComposite_validatePropertiesInvalidSourceFolder);
+        setInvalid(
+            KEY_PROPERTY_FOLDER,
+            Messages.AbstractBundleSourceNewComposite_validatePropertiesInvalidSourceFolder);
       } else {
         setValid(KEY_PROPERTY_FOLDER);
       }
@@ -179,7 +181,9 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     {
       IPackageFragment fragment = m_propertyPackageField.getPackage();
       if (fragment == null || !fragment.exists()) {
-        setInvalid(KEY_PROPERTY_PACKAGE, Messages.AbstractBundleSourceNewComposite_validatePropertiesInvalidPackage);
+        setInvalid(
+            KEY_PROPERTY_PACKAGE,
+            Messages.AbstractBundleSourceNewComposite_validatePropertiesInvalidPackage);
       } else {
         setValid(KEY_PROPERTY_PACKAGE);
       }
@@ -188,9 +192,13 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     {
       String fileName = m_propertyFileField.getText();
       if (fileName.length() == 0) {
-        setInvalid(KEY_PROPERTY_FILE, Messages.AbstractBundleSourceNewComposite_validatePropertiesFileEmpty);
+        setInvalid(
+            KEY_PROPERTY_FILE,
+            Messages.AbstractBundleSourceNewComposite_validatePropertiesFileEmpty);
       } else if (!fileName.endsWith(".properties")) {
-        setInvalid(KEY_PROPERTY_FILE, Messages.AbstractBundleSourceNewComposite_validatePropertiesFileExtension);
+        setInvalid(
+            KEY_PROPERTY_FILE,
+            Messages.AbstractBundleSourceNewComposite_validatePropertiesFileExtension);
       } else {
         setValid(KEY_PROPERTY_FILE);
       }

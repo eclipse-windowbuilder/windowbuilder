@@ -22,8 +22,8 @@ import java.util.List;
  */
 public final class BrandingUtils {
   /**
-   * @return the {@link IBrandingDescription} contributed by product provider, or default
-   *         one for WindowBuilder project.
+   * @return the {@link IBrandingDescription} contributed by product provider, or default one for
+   *         WindowBuilder project.
    */
   public static IBrandingDescription getBranding() {
     List<IBrandingDescription> instances =

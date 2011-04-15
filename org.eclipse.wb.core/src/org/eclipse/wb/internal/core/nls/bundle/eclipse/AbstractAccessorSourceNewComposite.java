@@ -151,7 +151,9 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
     {
       IPackageFragmentRoot root = m_accessorPackageField.getRoot();
       if (root == null || !root.exists()) {
-        setInvalid(KEY_ACCESSOR_FOLDER, Messages.AbstractAccessorSourceNewComposite_validateAccessorSourceFolder);
+        setInvalid(
+            KEY_ACCESSOR_FOLDER,
+            Messages.AbstractAccessorSourceNewComposite_validateAccessorSourceFolder);
       } else {
         setValid(KEY_ACCESSOR_FOLDER);
       }
@@ -162,9 +164,13 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
       IPackageFragment pkg = m_accessorPackageField.getPackage();
       packageName = pkg == null ? null : pkg.getElementName();
       if (pkg == null || !pkg.exists()) {
-        setInvalid(KEY_ACCESSOR_PACKAGE, Messages.AbstractAccessorSourceNewComposite_validateAccessorPackageEmpty);
+        setInvalid(
+            KEY_ACCESSOR_PACKAGE,
+            Messages.AbstractAccessorSourceNewComposite_validateAccessorPackageEmpty);
       } else if (pkg.isDefaultPackage()) {
-        setInvalid(KEY_ACCESSOR_PACKAGE, Messages.AbstractAccessorSourceNewComposite_validateAccessorPackageDefault);
+        setInvalid(
+            KEY_ACCESSOR_PACKAGE,
+            Messages.AbstractAccessorSourceNewComposite_validateAccessorPackageDefault);
       } else {
         setValid(KEY_ACCESSOR_PACKAGE);
       }
@@ -174,7 +180,9 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
     {
       IStatus status = JavaConventions.validateJavaTypeName(className);
       if (className.indexOf('.') != -1) {
-        setInvalid(KEY_ACCESSOR_CLASS, Messages.AbstractAccessorSourceNewComposite_validateAccessorClassDot);
+        setInvalid(
+            KEY_ACCESSOR_CLASS,
+            Messages.AbstractAccessorSourceNewComposite_validateAccessorClassDot);
       } else if (status.getSeverity() != IStatus.OK) {
         setStatus(KEY_ACCESSOR_CLASS, status);
       } else {

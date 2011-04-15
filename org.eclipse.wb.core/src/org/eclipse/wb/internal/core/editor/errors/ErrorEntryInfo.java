@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
-
 /**
  * Structure representing error entry in "exceptions.xml" file.
  * 

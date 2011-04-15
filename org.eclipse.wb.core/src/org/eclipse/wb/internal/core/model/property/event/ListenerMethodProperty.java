@@ -330,7 +330,10 @@ final class ListenerMethodProperty extends AbstractEventProperty
             MessageFormat.format(
                 ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesMessage,
                 m_listener.getName());
-        if (!MessageDialog.openQuestion(DesignerPlugin.getShell(), ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesTitle, message)) {
+        if (!MessageDialog.openQuestion(
+            DesignerPlugin.getShell(),
+            ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesTitle,
+            message)) {
           removeAllListenerArtifacts = false;
         }
       }

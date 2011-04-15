@@ -55,25 +55,29 @@ public final class OrderingSupport {
     // add separate actions
     boolean isFirst = m_components.indexOf(m_component) == 0;
     boolean isLast = m_components.indexOf(m_component) == m_components.size() - 1;
-    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringToFront, "bring_to_front.png", !isFirst) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringToFront,
+        "bring_to_front.png", !isFirst) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, getFirstSibling());
       }
     });
-    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendToBack, "send_to_back.png", !isLast) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendToBack,
+        "send_to_back.png", !isLast) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, null);
       }
     });
-    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringForward, "bring_forward.png", !isFirst) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringForward,
+        "bring_forward.png", !isFirst) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, getPreviousSibling());
       }
     });
-    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendBackward, "send_backward.png", !isLast) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendBackward,
+        "send_backward.png", !isLast) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, getNextSibling());

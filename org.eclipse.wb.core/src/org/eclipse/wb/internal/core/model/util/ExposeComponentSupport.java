@@ -249,7 +249,9 @@ public final class ExposeComponentSupport {
         String methodName = m_nameField.getText();
         String methodSignature = methodName + "()";
         if (AstNodeUtils.getMethodBySignature(getTypeDeclaration(m_component), methodSignature) != null) {
-          return MessageFormat.format(ModelMessages.ExposeComponentSupport_methodAlreadyExists, methodSignature);
+          return MessageFormat.format(
+              ModelMessages.ExposeComponentSupport_methodAlreadyExists,
+              methodSignature);
         }
       }
       // OK

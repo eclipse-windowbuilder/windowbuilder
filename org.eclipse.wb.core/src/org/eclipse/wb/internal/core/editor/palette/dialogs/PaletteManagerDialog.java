@@ -440,11 +440,15 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
         onAddCategory();
       }
     });
-    m_addEntryButton = createButton(buttonsComposite, Messages.PaletteManagerDialog_addEntryButton, new Listener() {
-      public void handleEvent(Event event) {
-        onAddEntry();
-      }
-    });
+    m_addEntryButton =
+        createButton(
+            buttonsComposite,
+            Messages.PaletteManagerDialog_addEntryButton,
+            new Listener() {
+              public void handleEvent(Event event) {
+                onAddEntry();
+              }
+            });
     createButton(buttonsComposite, Messages.PaletteManagerDialog_importJarButton, new Listener() {
       public void handleEvent(Event event) {
         onImportJar();
@@ -452,28 +456,32 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     });
     //
     createButtonSeparator(buttonsComposite);
-    m_editButton = createButton(buttonsComposite, Messages.PaletteManagerDialog_editButton, new Listener() {
-      public void handleEvent(Event event) {
-        onEdit();
-      }
-    });
-    m_removeButton = createButton(buttonsComposite, Messages.PaletteManagerDialog_removeButton, new Listener() {
-      public void handleEvent(Event event) {
-        onRemove();
-      }
-    });
+    m_editButton =
+        createButton(buttonsComposite, Messages.PaletteManagerDialog_editButton, new Listener() {
+          public void handleEvent(Event event) {
+            onEdit();
+          }
+        });
+    m_removeButton =
+        createButton(buttonsComposite, Messages.PaletteManagerDialog_removeButton, new Listener() {
+          public void handleEvent(Event event) {
+            onRemove();
+          }
+        });
     //
     createButtonSeparator(buttonsComposite);
-    m_moveUpButton = createButton(buttonsComposite, Messages.PaletteManagerDialog_upButton, new Listener() {
-      public void handleEvent(Event event) {
-        onMove(-1);
-      }
-    });
-    m_moveDownButton = createButton(buttonsComposite, Messages.PaletteManagerDialog_downButton, new Listener() {
-      public void handleEvent(Event event) {
-        onMove(+2);
-      }
-    });
+    m_moveUpButton =
+        createButton(buttonsComposite, Messages.PaletteManagerDialog_upButton, new Listener() {
+          public void handleEvent(Event event) {
+            onMove(-1);
+          }
+        });
+    m_moveDownButton =
+        createButton(buttonsComposite, Messages.PaletteManagerDialog_downButton, new Listener() {
+          public void handleEvent(Event event) {
+            onMove(+2);
+          }
+        });
     //
     createButtonSeparator(buttonsComposite);
     createButton(buttonsComposite, Messages.PaletteManagerDialog_collapseAllButton, new Listener() {
@@ -612,7 +620,11 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
    * @return the {@link IAction} for adding single factory method.
    */
   private IAction onAddEntry_factory(final CategoryInfo category, final boolean forStatic) {
-    return new Action(Messages.PaletteManagerDialog_addFactorySingle + (forStatic ? Messages.PaletteManagerDialog_addFactorySingleStatic : Messages.PaletteManagerDialog_addFactorySingleInstance) + Messages.PaletteManagerDialog_addFactorySingleFactory) {
+    return new Action(Messages.PaletteManagerDialog_addFactorySingle
+        + (forStatic
+            ? Messages.PaletteManagerDialog_addFactorySingleStatic
+            : Messages.PaletteManagerDialog_addFactorySingleInstance)
+        + Messages.PaletteManagerDialog_addFactorySingleFactory) {
       @Override
       public void run() {
         FactoryAddDialog dialog =
@@ -629,7 +641,11 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
    * @return the {@link IAction} for adding several factory methods.
    */
   private IAction onAddEntry_factories(final CategoryInfo category, final boolean forStatic) {
-    return new Action(Messages.PaletteManagerDialog_addFactorySeveral + (forStatic ? Messages.PaletteManagerDialog_addFactorySeveralStatic : Messages.PaletteManagerDialog_addFactorySeveralInstance) + Messages.PaletteManagerDialog_addFactorySeveralFactories) {
+    return new Action(Messages.PaletteManagerDialog_addFactorySeveral
+        + (forStatic
+            ? Messages.PaletteManagerDialog_addFactorySeveralStatic
+            : Messages.PaletteManagerDialog_addFactorySeveralInstance)
+        + Messages.PaletteManagerDialog_addFactorySeveralFactories) {
       @Override
       public void run() {
         // prepare dialog
@@ -715,9 +731,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     if (MessageDialog.openConfirm(
         getShell(),
         Messages.PaletteManagerDialog_removeTitle,
-        MessageFormat.format(
-            Messages.PaletteManagerDialog_removeMessage,
-            selection.size()))) {
+        MessageFormat.format(Messages.PaletteManagerDialog_removeMessage, selection.size()))) {
       for (Object element : selection) {
         if (element instanceof CategoryInfo) {
           commands_add(new CategoryRemoveCommand((CategoryInfo) element));
