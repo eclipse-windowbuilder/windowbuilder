@@ -19,6 +19,7 @@ import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
@@ -200,8 +201,10 @@ final class ListenerMethodProperty extends AbstractEventProperty
       // ask confirmation about method remove
       if (!MessageDialog.openConfirm(
           DesignerPlugin.getShell(),
-          "Confirm",
-          "Do you really want to delete the method '" + m_method.getName() + "'?")) {
+          ModelMessages.ListenerMethodProperty_deleteMethodTitle,
+          MessageFormat.format(
+              ModelMessages.ListenerMethodProperty_deleteMethodMessage,
+              m_method.getName()))) {
         return;
       }
       // remove method
@@ -210,10 +213,10 @@ final class ListenerMethodProperty extends AbstractEventProperty
       // ask confirmation about listener remove
       if (!MessageDialog.openConfirm(
           DesignerPlugin.getShell(),
-          "Confirm",
-          "You can not delete individual methods for a listener '"
-              + m_listener.getName()
-              + "'.\nDo you want to delete the full listener?")) {
+          ModelMessages.ListenerMethodProperty_deleteListenerTitle,
+          MessageFormat.format(
+              ModelMessages.ListenerMethodProperty_deleteListenerMessage,
+              m_listener.getName()))) {
         return;
       }
       // remove listener
@@ -325,9 +328,9 @@ final class ListenerMethodProperty extends AbstractEventProperty
       } else {
         String message =
             MessageFormat.format(
-                "Listener ''{0}'' has more than one usage. Do you want to delete all of them?",
+                ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesMessage,
                 m_listener.getName());
-        if (!MessageDialog.openQuestion(DesignerPlugin.getShell(), "Confirm", message)) {
+        if (!MessageDialog.openQuestion(DesignerPlugin.getShell(), ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesTitle, message)) {
           removeAllListenerArtifacts = false;
         }
       }

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.hierarchy;
 
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
@@ -25,7 +26,7 @@ import org.eclipse.jdt.core.IJavaProject;
  */
 public final class ComponentClassProperty extends Property {
   private static final String TITLE_TOOLTIP =
-      "Shows the fully qualified class name of the selected component. This field is READ ONLY.";
+      ModelMessages.ComponentClassProperty_tooltip;
   private final String m_componentClassName;
 
   ////////////////////////////////////////////////////////////////////////////

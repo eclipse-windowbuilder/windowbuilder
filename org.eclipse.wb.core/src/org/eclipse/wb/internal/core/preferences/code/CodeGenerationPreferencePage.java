@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -202,8 +203,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     {
       Label hintLabel = new Label(container, SWT.WRAP);
       GridDataFactory.create(hintLabel).hintHC(50);
-      hintLabel.setText("Note: selecting tab in folder above means selecting"
-          + " corresponding variable generation type as default.");
+      hintLabel.setText("Note: selecting tab in folder above means selecting corresponding variable generation type as default.");
     }
     // selection listener
     m_variablesTabFolder.addListener(SWT.Selection, new Listener() {
@@ -247,8 +247,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     {
       Label hintLabel = new Label(container, SWT.WRAP);
       GridDataFactory.create(hintLabel).hintHC(50);
-      hintLabel.setText("Note: selecting tab in folder above means selecting"
-          + " corresponding statement generation type as default.");
+      hintLabel.setText("Note: selecting tab in folder above means selecting corresponding statement generation type as default.");
     }
   }
 
@@ -396,7 +395,9 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       {
         Label descriptionLabel = new Label(wrapper, SWT.WRAP);
         GridDataFactory.create(descriptionLabel).grabH().fillH().hintHC(50);
-        descriptionLabel.setText("Description: " + description.getDescription() + ".");
+        descriptionLabel.setText(MessageFormat.format(
+            "Description: {0}.",
+            description.getDescription()));
       }
       {
         GenerationPropertiesComposite composite =

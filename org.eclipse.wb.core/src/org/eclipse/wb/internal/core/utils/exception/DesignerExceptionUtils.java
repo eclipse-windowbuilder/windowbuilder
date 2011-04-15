@@ -52,6 +52,7 @@ import org.osgi.framework.Bundle;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -368,10 +369,13 @@ public final class DesignerExceptionUtils {
       }
     }
     // not found, use default
-    return new ErrorEntryInfo(exceptionCode,
-        false,
-        "WindowBuilder error",
-        "No detailed description found for error (" + exceptionCode + ").");
+    {
+      String description =
+          MessageFormat.format(
+              "No detailed description found for error ({0,number,#}).",
+              exceptionCode);
+      return new ErrorEntryInfo(exceptionCode, false, "WindowBuilder error", description);
+    }
   }
 
   private static ErrorEntryInfo getErrorEntry0(int exceptionCode, String... parameters) {

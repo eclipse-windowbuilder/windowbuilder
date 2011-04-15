@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryCreationSupport;
@@ -145,8 +146,8 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
       {
         Shell shell = DesignerPlugin.getShell();
         dialog = new ElementListSelectionDialog(shell, ObjectsLabelProvider.INSTANCE);
-        dialog.setTitle("Select factory");
-        dialog.setMessage("Select a factory to use (? = any character, * - any String):");
+        dialog.setTitle(Messages.InstanceFactoryEntryInfo_selectFactoryTitle);
+        dialog.setMessage(Messages.InstanceFactoryEntryInfo_selectFactoryMessage);
       }
       // open dialog
       dialog.setElements(factories.toArray());

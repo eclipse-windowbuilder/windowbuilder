@@ -17,6 +17,7 @@ import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;
@@ -134,7 +135,7 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
     IType type = JdtUiUtils.selectType(shell, javaProject);
     if (type != null) {
       if (Flags.isAbstract(type.getFlags())) {
-        UiUtils.openError(shell, "Error", "You can not use abstract type.");
+        UiUtils.openError(shell, ModelMessages.InnerClassPropertyEditor_selectTypeAbstractTitle, ModelMessages.InnerClassPropertyEditor_selectTypeAbstractMessage);
         return;
       }
       String source = getCreationSource(javaInfo, type);

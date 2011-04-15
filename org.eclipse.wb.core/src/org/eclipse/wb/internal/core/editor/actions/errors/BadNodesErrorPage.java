@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.actions.errors;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -79,7 +80,7 @@ public abstract class BadNodesErrorPage implements IErrorPage {
       Group group = new Group(container, SWT.NONE);
       GridDataFactory.create(group).grabH().fill();
       GridLayoutFactory.create(group);
-      group.setText("Nodes caused exceptions");
+      group.setText(Messages.BadNodesErrorPage_nodesGroup);
       //
       m_nodesList = new List(group, SWT.BORDER | SWT.V_SCROLL);
       GridDataFactory.create(m_nodesList).hintC(100, 10).grab().fill();
@@ -105,7 +106,7 @@ public abstract class BadNodesErrorPage implements IErrorPage {
       Group group = new Group(container, SWT.NONE);
       GridDataFactory.create(group).grab().fill();
       GridLayoutFactory.create(group);
-      group.setText("Full node source and exception");
+      group.setText(Messages.BadNodesErrorPage_nodeGroup);
       //
       m_browser = new Browser(group, SWT.BORDER);
       GridDataFactory.create(m_browser).hintC(100, 15).grab().fill();

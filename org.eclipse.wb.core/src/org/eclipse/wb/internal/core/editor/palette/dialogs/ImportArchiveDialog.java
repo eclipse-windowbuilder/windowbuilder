@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryAddCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.ComponentAddCommand;
@@ -83,6 +84,7 @@ import org.apache.commons.lang.StringUtils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -140,10 +142,10 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   ////////////////////////////////////////////////////////////////////////////
   public ImportArchiveDialog(Shell parentShell, PaletteInfo palette, CategoryInfo initialCategory) {
     super(parentShell,
-        "Import Jar Archive",
-        "Import elements from Jar Archive to the palette",
+        Messages.ImportArchiveDialog_shellTitle,
+        Messages.ImportArchiveDialog_title,
         null,
-        "Select archive file and one or more elements to import.");
+        Messages.ImportArchiveDialog_message);
     setShellStyle(SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE);
     // initial state
     m_palette = palette;
@@ -183,7 +185,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   protected void createControls(Composite container) {
     GridLayoutFactory.create(container).columns(3);
     // title
-    new Label(container, SWT.NONE).setText("Jar Archive:");
+    new Label(container, SWT.NONE).setText(Messages.ImportArchiveDialog_archiveLabel);
     // jar combo
     m_fileArchiveCombo = new Combo(container, SWT.READ_ONLY);
     GridDataFactory.create(m_fileArchiveCombo).fillH().grabH();
@@ -205,13 +207,13 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     ToolBar browseToolBar = new ToolBar(container, SWT.FLAT | SWT.RIGHT);
     // choose menu
     m_browseItem = new ToolItem(browseToolBar, SWT.DROP_DOWN);
-    m_browseItem.setToolTipText("Choose jar archive from...");
+    m_browseItem.setToolTipText(Messages.ImportArchiveDialog_browseToolTip);
     m_browseItem.setImage(DesignerPlugin.getImage("palette/category.gif"));
     //
     m_browseMenu = new Menu(browseToolBar);
     // Classpath
     MenuItem classpathItem = new MenuItem(m_browseMenu, SWT.NONE);
-    classpathItem.setText("Classpath");
+    classpathItem.setText(Messages.ImportArchiveDialog_classpathItem);
     classpathItem.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -220,7 +222,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     });
     // Workspace
     MenuItem workspaceItem = new MenuItem(m_browseMenu, SWT.NONE);
-    workspaceItem.setText("Workspace");
+    workspaceItem.setText(Messages.ImportArchiveDialog_workspaceItem);
     workspaceItem.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -229,7 +231,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     });
     // FileSystem
     MenuItem filesystemItem = new MenuItem(m_browseMenu, SWT.NONE);
-    filesystemItem.setText("FileSystem");
+    filesystemItem.setText(Messages.ImportArchiveDialog_fileSystemItem);
     filesystemItem.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -252,12 +254,12 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     // manifest button
     m_ignoreManifestButton = new Button(container, SWT.CHECK);
     GridDataFactory.create(m_ignoreManifestButton).spanH(3);
-    m_ignoreManifestButton.setText("Ignore manifest (META-INF/MANIFEST.MF) and show all classes");
+    m_ignoreManifestButton.setText(Messages.ImportArchiveDialog_ignoreManifestFlag);
     // classes viewer
     m_classesViewer = CheckboxTableViewer.newCheckList(container, SWT.BORDER | SWT.FULL_SELECTION);
     GridDataFactory.create(m_classesViewer.getControl()).fill().grab().spanH(3).hint(300, 150);
     TableFactory.modify(m_classesViewer).headerVisible(true).linesVisible(true);
-    TableFactory.modify(m_classesViewer).newColumn().text("Classes").width(getInitialSize().x - 30);
+    TableFactory.modify(m_classesViewer).newColumn().text(Messages.ImportArchiveDialog_classesColumn).width(getInitialSize().x - 30);
     m_classesViewer.setContentProvider(new ArrayContentProvider());
     m_classesViewer.setLabelProvider(new LabelProvider());
     m_classesViewer.addCheckStateListener(new ICheckStateListener() {
@@ -267,13 +269,13 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     });
     // category title
     m_categoryLabel = new Label(container, SWT.NONE);
-    m_categoryLabel.setText("Category:");
+    m_categoryLabel.setText(Messages.ImportArchiveDialog_categoryLabel);
     // category combo
     m_categoryCombo = new Combo(container, SWT.READ_ONLY);
     GridDataFactory.create(m_categoryCombo).fillH().grabH().spanH(2);
     UiUtils.setVisibleItemCount(m_categoryCombo, 15);
     // load categories
-    m_categoryCombo.add("<New Category>");
+    m_categoryCombo.add(Messages.ImportArchiveDialog_categoryNew);
     for (CategoryInfo category : m_palette.getCategories()) {
       m_categoryCombo.add(category.getName());
     }
@@ -303,8 +305,8 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 
   @Override
   protected void createButtonsForButtonBar(Composite parent) {
-    m_checkButton = createButton(parent, CHECK_ALL_ID, "Select &All", false);
-    m_uncheckButton = createButton(parent, UNCHECK_ALL_ID, "&Deselect All", false);
+    m_checkButton = createButton(parent, CHECK_ALL_ID, Messages.ImportArchiveDialog_selectAllButton, false);
+    m_uncheckButton = createButton(parent, UNCHECK_ALL_ID, Messages.ImportArchiveDialog_deselectAllButton, false);
     super.createButtonsForButtonBar(parent);
     calculateFinish();
   }
@@ -333,17 +335,17 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   protected String validate() throws Exception {
     // check choose content
     if (m_elements.isEmpty()) {
-      return "Select archive file contains elements to import.";
+      return Messages.ImportArchiveDialog_validateSelectArchive;
     }
     // check selected content
     Object[] checkedElements = m_classesViewer.getCheckedElements();
     if (checkedElements.length == 0) {
-      return "Select one or more elements to import.";
+      return Messages.ImportArchiveDialog_validateSelectClass;
     }
     // check category name
     String categoryName = m_categoryText.getText();
     if (m_categoryCombo.getSelectionIndex() == 0 && categoryName.length() == 0) {
-      return "Category name can not be empty.";
+      return Messages.ImportArchiveDialog_validateEmptyCategoryName;
     }
     //
     return null;
@@ -381,11 +383,13 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
       }
       if (addToClassPath) {
         addToClassPath =
-            MessageDialog.openQuestion(getShell(), "Confirm", "Jar '"
-                + m_jarPath.toString()
-                + "' is not in project classpath.\n\nPress \"Yes\" to add '"
-                + m_jarPath.toString()
-                + "' to classpath or \"No\" to ignore.");
+            MessageDialog.openQuestion(
+                getShell(),
+                Messages.ImportArchiveDialog_JarNotInClasspathTitle,
+                MessageFormat.format(
+                    Messages.ImportArchiveDialog_JarNotInClasspathMessage,
+                    m_jarPath.toString(),
+                    m_jarPath.toString()));
         if (addToClassPath) {
           // copy library to project and add to .classpath
           ProjectUtils.addJar(javaProject, m_jarPath, null);
@@ -405,8 +409,9 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
       // create new category
       String name = m_categoryText.getText();
       String id = name + "_" + Long.toString(System.currentTimeMillis());
-      m_commands.add(new CategoryAddCommand(id, name, "Container with import elements from "
-          + m_jarPath, true, true, null));
+      String description =
+          MessageFormat.format(Messages.ImportArchiveDialog_newCategoryDescription, m_jarPath);
+      m_commands.add(new CategoryAddCommand(id, name, description, true, true, null));
       category = new CategoryInfo(id);
     } else {
       // prepare exist category
@@ -415,10 +420,15 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     // handle components command
     for (Object checkedElement : m_classesViewer.getCheckedElements()) {
       PaletteElementInfo element = (PaletteElementInfo) checkedElement;
+      String description = MessageFormat.format(Messages.ImportArchiveDialog_newComponentDescription, element.className);
       m_commands.add(new ComponentAddCommand(element.className
           + "_"
-          + Long.toString(System.currentTimeMillis()), element.name, "Custom component: "
-          + element.className, true, element.className, category));
+          + Long.toString(System.currentTimeMillis()),
+          element.name,
+          description,
+          true,
+          element.className,
+          category));
     }
   }
 
@@ -433,14 +443,14 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
         includeObjects.add(workspaceRoot.getProject(project));
       }
       // open dialog
-      chooseFromWorkspace("Classpath jar selection", new JarFileFilter(includeObjects));
+      chooseFromWorkspace(Messages.ImportArchiveDialog_classpathJarSelection, new JarFileFilter(includeObjects));
     } catch (Throwable e) {
       DesignerPlugin.log(e);
     }
   }
 
   private void chooseFromWorkspace() {
-    chooseFromWorkspace("Workspace jar selection", new JarFileFilter());
+    chooseFromWorkspace(Messages.ImportArchiveDialog_workspaceJarSelection, new JarFileFilter());
   }
 
   private void chooseFromWorkspace(String title, JarFileFilter filter) {
@@ -450,7 +460,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
             new WorkbenchLabelProvider(),
             new WorkbenchContentProvider());
     dialog.setTitle(title);
-    dialog.setMessage("Choose jar archive to be added elements to palette:");
+    dialog.setMessage(Messages.ImportArchiveDialog_choosefromWorkspaceMessage);
     dialog.addFilter(filter);
     // sets initial settings
     if (m_initSelection != null) {
@@ -528,13 +538,11 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
       // check load all elements 
       if (ignoreManifest || m_elements.isEmpty()) {
         if (!ignoreManifest) {
-          ignoreManifest =
-              MessageDialog.openQuestion(
-                  getShell(),
-                  "Confirm",
-                  "Jar '"
-                      + m_jarPath
-                      + "'\ndoes not contain a META-INF/MANIFEST.MF file or it is empty/incorrect. Show all classes?");
+          String message =
+              MessageFormat.format(
+                  Messages.ImportArchiveDialog_hasManifestMessage,
+                  m_jarPath);
+          ignoreManifest = MessageDialog.openQuestion(getShell(), Messages.ImportArchiveDialog_hasManifestTitle, message);
         }
         if (ignoreManifest) {
           JarInputStream jarStream =

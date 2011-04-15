@@ -24,6 +24,8 @@ import org.eclipse.ltk.core.refactoring.ContentStamp;
 import org.eclipse.ltk.core.refactoring.UndoTextFileChange;
 import org.eclipse.text.edits.UndoEdit;
 
+import java.text.MessageFormat;
+
 /**
  * Copy of <code>UndoCompilationUnitChange</code> from internal JDT.
  * 
@@ -48,7 +50,9 @@ import org.eclipse.text.edits.UndoEdit;
       throw new CoreException(new Status(IStatus.ERROR,
           DesignerPlugin.PLUGIN_ID,
           IStatus.OK,
-          "Compilation unit ''" + cunit.getElementName() + "'' does not have an underlying file.",
+          MessageFormat.format(
+              "Compilation unit ''{0}'' does not have an underlying file.",
+              cunit.getElementName()),
           null));
     }
     return file;

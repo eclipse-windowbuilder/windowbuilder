@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.util.factory;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
@@ -67,7 +68,7 @@ public final class FactoryActionsSupport {
     // add "Factory" sub-menu
     MenuManagerEx factoryManager;
     {
-      factoryManager = new MenuManagerEx("Factory");
+      factoryManager = new MenuManagerEx(ModelMessages.FactoryActionsSupport_factoryManager);
       factoryManager.setImage(DesignerPlugin.getImage("actions/factory/factory.png"));
       manager.appendToGroup(IContextMenuConstants.GROUP_INHERITANCE, factoryManager);
     }

@@ -16,6 +16,7 @@ import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantListener;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -83,7 +84,7 @@ public class LayoutAssistantWindow extends Window {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Layout Assistant");
+    newShell.setText(Messages.LayoutAssistantWindow_title);
     m_locationTracker.setShell(newShell);
   }
 
@@ -156,18 +157,18 @@ public class LayoutAssistantWindow extends Window {
               if (parent == null) {
                 parent = component.getParent();
               } else if (parent != component.getParent()) {
-                showMessage("Please select component(s) on single parent.");
+                showMessage(Messages.LayoutAssistantWindow_singleParent);
                 return;
               }
             } else {
-              showMessage("Please select component(s).");
+              showMessage(Messages.LayoutAssistantWindow_notObjectSelected);
               return;
             }
           }
         }
         // check empty
         if (m_selectedComponents.isEmpty()) {
-          showMessage("Empty selection.");
+          showMessage(Messages.LayoutAssistantWindow_emptySelection);
           return;
         }
       }
@@ -181,7 +182,7 @@ public class LayoutAssistantWindow extends Window {
       });
       // update pages
       if (m_pages.isEmpty()) {
-        showMessage("Selection does not provide\nany layout assistance.");
+        showMessage(Messages.LayoutAssistantWindow_noAssistanceForSelection);
       } else {
         updatePages();
         // restore page selection
@@ -216,6 +217,6 @@ public class LayoutAssistantWindow extends Window {
     GridDataFactory.create(label).grab().alignHC().alignVM();
     label.setText(message);
     //
-    TabFactory.item(m_tabContainer).text("Info").control(composite);
+    TabFactory.item(m_tabContainer).text(Messages.LayoutAssistantWindow_infoTab).control(composite);
   }
 }

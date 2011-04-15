@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.description.CreationDescription.TypeParameterDescription;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -111,10 +112,10 @@ public class TypeParameterComposite extends Composite {
       if (!hierarchy.contains(parameterType)) {
         String message =
             MessageFormat.format(
-                "Type {0} is not subtype of {1}",
+                Messages.TypeParameterComposite_subTypeMessage,
                 selectedType.getFullyQualifiedName(),
                 parameterTypeName);
-        UiUtils.openError(getShell(), "Error", message);
+        UiUtils.openError(getShell(), Messages.TypeParameterComposite_subTypeTitle, message);
         return;
       }
     }

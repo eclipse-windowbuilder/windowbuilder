@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.model.util.factory;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -53,7 +54,7 @@ public final class FactorySelectAction extends Action {
     m_component = component;
     m_editor = m_component.getEditor();
     setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/factory/open_factory.gif"));
-    setText("Select factory...");
+    setText(ModelMessages.FactorySelectAction_text);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -75,8 +76,8 @@ public final class FactorySelectAction extends Action {
       ListDialog selectionDialog;
       {
         selectionDialog = new ListDialog(DesignerPlugin.getShell());
-        selectionDialog.setTitle("Factory method selection");
-        selectionDialog.setMessage("Select factory method:");
+        selectionDialog.setTitle(ModelMessages.FactorySelectAction_dialogTitle);
+        selectionDialog.setMessage(ModelMessages.FactorySelectAction_dialogMessage);
         selectionDialog.setContentProvider(new ArrayContentProvider());
         selectionDialog.setLabelProvider(new LabelProvider() {
           @Override
@@ -123,8 +124,8 @@ public final class FactorySelectAction extends Action {
               scope,
               IJavaElementSearchConstants.CONSIDER_CLASSES,
               false);
-      dialog.setTitle("Open type");
-      dialog.setMessage("Select a type (? = any character, * - any String):");
+      dialog.setTitle(ModelMessages.FactorySelectAction_chooseTitle);
+      dialog.setMessage(ModelMessages.FactorySelectAction_chooseMessage);
     }
     // open dialog
     if (dialog.open() != Window.OK) {

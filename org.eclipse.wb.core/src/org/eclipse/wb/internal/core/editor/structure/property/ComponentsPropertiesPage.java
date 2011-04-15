@@ -21,6 +21,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDeactivePropertyEditor;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.PropertyManager;
@@ -342,7 +343,7 @@ public final class ComponentsPropertiesPage implements IPage {
       }
     };
     m_showAdvancedPropertiesAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/filter_advanced_properties.gif"));
-    setTexts(m_showAdvancedPropertiesAction, "Show advanced properties");
+    setTexts(m_showAdvancedPropertiesAction, Messages.ComponentsPropertiesPage_showAdvancedAction);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -380,12 +381,12 @@ public final class ComponentsPropertiesPage implements IPage {
    * Creates category actions.
    */
   private void create_setCategoryAction() {
-    m_setCategoryAction_default = new SetCategoryAction("Use default category", null);
+    m_setCategoryAction_default = new SetCategoryAction(Messages.ComponentsPropertiesPage_useDefaultCategoryAction, null);
     m_setCategoryAction_preferred =
-        new SetCategoryAction("Mark as preferred", PropertyCategory.PREFERRED);
-    m_setCategoryAction_normal = new SetCategoryAction("Mark as normal", PropertyCategory.NORMAL);
+        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsPreferredAction, PropertyCategory.PREFERRED);
+    m_setCategoryAction_normal = new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsNormalAction, PropertyCategory.NORMAL);
     m_setCategoryAction_advanced =
-        new SetCategoryAction("Mark as advanced", PropertyCategory.ADVANCED);
+        new SetCategoryAction(Messages.ComponentsPropertiesPage_markAsAdvancedAction, PropertyCategory.ADVANCED);
   }
 
   /**
@@ -442,7 +443,7 @@ public final class ComponentsPropertiesPage implements IPage {
       }
     };
     m_defaultValueAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/properties_default.gif"));
-    setTexts(m_defaultValueAction, "Restore default value");
+    setTexts(m_defaultValueAction, Messages.ComponentsPropertiesPage_restoreDefaultAction);
   }
 
   /**
@@ -495,21 +496,21 @@ public final class ComponentsPropertiesPage implements IPage {
       // to field
       if (variableSupport.canConvertLocalToField()) {
         m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/local_to_field.gif"));
-        setTexts(m_variableConvertAction, "Convert local to field");
+        setTexts(m_variableConvertAction, Messages.ComponentsPropertiesPage_convertLocalToFieldAction);
         m_variableConvertAction.setEnabled(true);
         return;
       }
       // to local
       if (variableSupport.canConvertFieldToLocal()) {
         m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/field_to_local.gif"));
-        setTexts(m_variableConvertAction, "Convert field to local");
+        setTexts(m_variableConvertAction, Messages.ComponentsPropertiesPage_convertFieldToLocalAction);
         m_variableConvertAction.setEnabled(true);
         return;
       }
     }
     // disable
     m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/variable_no_conversion.gif"));
-    setTexts(m_variableConvertAction, "Conversion is not supported");
+    setTexts(m_variableConvertAction, Messages.ComponentsPropertiesPage_conversionNotSupported);
     m_variableConvertAction.setEnabled(false);
   }
 
@@ -537,7 +538,7 @@ public final class ComponentsPropertiesPage implements IPage {
       }
     };
     m_gotoDefinitionAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/goto_definition.gif"));
-    setTexts(m_gotoDefinitionAction, "Goto definition");
+    setTexts(m_gotoDefinitionAction, Messages.ComponentsPropertiesPage_goDefinition);
   }
 
   /**
@@ -578,7 +579,7 @@ public final class ComponentsPropertiesPage implements IPage {
       }
     };
     m_showEventsAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/events.gif"));
-    setTexts(m_showEventsAction, "Show events");
+    setTexts(m_showEventsAction, Messages.ComponentsPropertiesPage_showEventsAction);
     m_showEventsAction.setChecked(m_showEvents);
   }
 

@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProvider;
@@ -1055,7 +1056,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
     Rectangle area = getClientArea();
     // draw message
     gc.setForeground(COLOR_NO_PROPERTIES);
-    DrawUtils.drawStringCHCV(gc, "<No Properties>", 0, 0, area.width, area.height);
+    DrawUtils.drawStringCHCV(gc, ModelMessages.PropertyTable_noProperties, 0, 0, area.width, area.height);
   }
 
   /**

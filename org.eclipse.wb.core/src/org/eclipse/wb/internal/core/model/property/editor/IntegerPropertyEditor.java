@@ -11,8 +11,11 @@
 package org.eclipse.wb.internal.core.model.property.editor;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+
+import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for <code>int</code>.
@@ -68,9 +71,10 @@ public final class IntegerPropertyEditor extends AbstractTextPropertyEditor {
     try {
       value = Integer.valueOf(text);
     } catch (Throwable e) {
-      UiUtils.openWarning(DesignerPlugin.getShell(), property.getTitle(), "\""
-          + text
-          + "\" is not a valid int.");
+      UiUtils.openWarning(
+          DesignerPlugin.getShell(),
+          property.getTitle(),
+          MessageFormat.format(ModelMessages.IntegerPropertyEditor_notValidInt, text));
       return false;
     }
     // modify property

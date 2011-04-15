@@ -11,8 +11,11 @@
 package org.eclipse.wb.internal.core.model.property.editor;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+
+import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for {@link Double}.
@@ -76,9 +79,10 @@ public final class DoubleObjectPropertyEditor extends AbstractTextPropertyEditor
     try {
       value = Double.valueOf(text);
     } catch (Throwable e) {
-      UiUtils.openWarning(DesignerPlugin.getShell(), property.getTitle(), "\""
-          + text
-          + "\" is not a valid double.");
+      UiUtils.openWarning(
+          DesignerPlugin.getShell(),
+          property.getTitle(),
+          MessageFormat.format(ModelMessages.DoubleObjectPropertyEditor_notValidDouble, text));
       return false;
     }
     // modify property

@@ -17,6 +17,7 @@ import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -477,7 +478,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
         Group group = new Group(container, SWT.NONE);
         GridDataFactory.create(group).grab().fill();
         GridLayoutFactory.create(group);
-        group.setText("Interfaces and classes");
+        group.setText(ModelMessages.ConstantSelectionPropertyEditor_typesGroup);
         {
           m_typesViewer = new TableViewer(group, SWT.BORDER | SWT.FULL_SELECTION);
           {
@@ -500,10 +501,10 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
         Group group = new Group(container, SWT.NONE);
         GridDataFactory.create(group).grab().fill();
         GridLayoutFactory.create(group).columns(2);
-        group.setText("Fields");
+        group.setText(ModelMessages.ConstantSelectionPropertyEditor_fieldsGroup);
         {
           Label label = new Label(group, SWT.NONE);
-          label.setText("&Filter:");
+          label.setText(ModelMessages.ConstantSelectionPropertyEditor_filterLabel);
         }
         {
           m_filterText = new Text(group, SWT.BORDER);
@@ -563,7 +564,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
     @Override
     protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
-      newShell.setText("Select constant");
+      newShell.setText(ModelMessages.ConstantSelectionPropertyEditor_title);
     }
 
     @Override
@@ -579,7 +580,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-      createButton(parent, ADD_TYPE_ID, "&Add type...", false);
+      createButton(parent, ADD_TYPE_ID, ModelMessages.ConstantSelectionPropertyEditor_addTypeButton, false);
       createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
       createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }

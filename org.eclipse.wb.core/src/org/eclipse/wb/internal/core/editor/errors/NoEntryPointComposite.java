@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.actions.SwitchAction;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -94,7 +95,7 @@ public final class NoEntryPointComposite extends Composite {
     }
     // viewer
     {
-      new Label(this, SWT.NONE).setText("Please select method to use as entry point:");
+      new Label(this, SWT.NONE).setText(Messages.NoEntryPointComposite_viewerLabel);
       m_viewer = new TableViewer(this, SWT.BORDER | SWT.V_SCROLL);
       Table table = m_viewer.getTable();
       GridDataFactory.create(table).hintVC(10).grabH().fill();
@@ -119,7 +120,7 @@ public final class NoEntryPointComposite extends Composite {
       {
         Button selectButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(selectButton).fillH();
-        selectButton.setText("Use as entry point");
+        selectButton.setText(Messages.NoEntryPointComposite_useButton);
         selectButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/entry_point.png"));
@@ -133,7 +134,7 @@ public final class NoEntryPointComposite extends Composite {
       {
         Button switchButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(switchButton).fillH();
-        switchButton.setText("Switch to code");
+        switchButton.setText(Messages.NoEntryPointComposite_switchToCodeButton);
         switchButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/switch32.png"));

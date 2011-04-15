@@ -23,6 +23,7 @@ import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.command.factory.FactoryAddCommand;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.AbstractInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ConstructorDescription;
@@ -108,7 +109,7 @@ public final class FactoryCreateAction extends Action {
     m_editor = m_component.getEditor();
     // configure action look
     setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/factory/factory_new.png"));
-    setText("Create factory...");
+    setText(ModelMessages.FactoryCreateAction_text);
     // prepare collections for creation/invocations
     ExecutionUtils.runLog(new RunnableEx() {
       public void run() throws Exception {
@@ -617,15 +618,15 @@ public final class FactoryCreateAction extends Action {
     // validate source folder
     {
       if (m_sourceFolder == null || !m_sourceFolder.exists()) {
-        return "The source folder for factory class is invalid.";
+        return ModelMessages.FactoryCreateAction_validateInvalidSourceFolder;
       }
     }
     // validate package
     {
       if (m_package == null || !m_package.exists()) {
-        return "The package for factory class is invalid.";
+        return ModelMessages.FactoryCreateAction_validateInvalidPackage;
       } else if (m_package.getElementName().length() == 0) {
-        return "Factory class can not be placed in default package.";
+        return ModelMessages.FactoryCreateAction_validateDefaultPackage;
       }
     }
     // now we know, that basic elements are valid, so we can prepare method
@@ -635,9 +636,9 @@ public final class FactoryCreateAction extends Action {
     {
       IStatus status = JavaConventions.validateJavaTypeName(m_className);
       if (m_className.length() == 0) {
-        return "The factory class name is empty.";
+        return ModelMessages.FactoryCreateAction_validateEmptyClass;
       } else if (m_className.indexOf('.') != -1) {
-        return "The factory class name should not contain a dot(.).";
+        return ModelMessages.FactoryCreateAction_validateDotInClass;
       } else if (status.getSeverity() != IStatus.OK) {
         return status.getMessage();
       }
@@ -646,7 +647,7 @@ public final class FactoryCreateAction extends Action {
     {
       IStatus status = JavaConventions.validateMethodName(m_methodName);
       if (m_methodName.length() == 0) {
-        return "The factory method name is empty.";
+        return ModelMessages.FactoryCreateAction_validateEmptyMethod;
       } else if (status.getSeverity() != IStatus.OK) {
         return status.getMessage();
       }
@@ -677,10 +678,10 @@ public final class FactoryCreateAction extends Action {
     public FactoryCreateDialog() {
       super(DesignerPlugin.getShell(),
           DesignerPlugin.getDefault(),
-          "Create factory",
-          "Create factory based on already configured component.",
+          ModelMessages.FactoryCreateAction_dialogShellTitle,
+          ModelMessages.FactoryCreateAction_dialogTitle,
           DesignerPlugin.getImage("actions/factory/factory_banner.png"),
-          "Select factory class, method and set of properties.");
+          ModelMessages.FactoryCreateAction_dialogMessage);
       setShellStyle(SWT.DIALOG_TRIM | SWT.RESIZE | SWT.APPLICATION_MODAL);
     }
 
@@ -728,10 +729,10 @@ public final class FactoryCreateAction extends Action {
       {
         m_packageField =
             new PackageRootAndPackageSelectionDialogField(60,
-                "Source fol&der:",
-                "&Browse...",
-                "Pac&kage:",
-                "B&rowse...");
+                ModelMessages.FactoryCreateAction_dialogPackageSourceFolder,
+                ModelMessages.FactoryCreateAction_dialogPackageSourceFolderBrowse,
+                ModelMessages.FactoryCreateAction_dialogPackagePackage,
+                ModelMessages.FactoryCreateAction_dialogPackagePackageBrowse);
         m_packageField.setDialogFieldListener(m_validateListener);
         m_packageField.doFillIntoGrid(m_fieldsContainer, 3);
         // use current package
@@ -753,8 +754,8 @@ public final class FactoryCreateAction extends Action {
             });
           }
         });
-        m_classField.setButtonLabel("Br&owse...");
-        doCreateField(m_classField, "&Class:");
+        m_classField.setButtonLabel(ModelMessages.FactoryCreateAction_classBrowse);
+        doCreateField(m_classField, ModelMessages.FactoryCreateAction_classLabel);
         // try to use existing factory
         ExecutionUtils.runLog(new RunnableEx() {
           public void run() throws Exception {
@@ -770,7 +771,7 @@ public final class FactoryCreateAction extends Action {
       // method name
       {
         m_methodField = new StringDialogField();
-        doCreateField(m_methodField, "&Method:");
+        doCreateField(m_methodField, ModelMessages.FactoryCreateAction_methodLabel);
         // use "createComponent" as initial name
         m_methodField.setText("create"
             + CodeUtils.getShortClass(m_component.getDescription().getComponentClass().getName()));
@@ -780,7 +781,7 @@ public final class FactoryCreateAction extends Action {
         // create Combo
         {
           m_categoryField = new ComboDialogField(SWT.READ_ONLY);
-          m_categoryField.setLabelText("&Palette category:");
+          m_categoryField.setLabelText(ModelMessages.FactoryCreateAction_paletteCategoryLabel);
           m_categoryField.setDialogFieldListener(new IDialogFieldListener() {
             public void dialogFieldChanged(DialogField field) {
               if (m_paletteCategories != null) {
@@ -801,7 +802,7 @@ public final class FactoryCreateAction extends Action {
         {
           Button managerButton = new Button(m_fieldsContainer, SWT.NONE);
           GridDataFactory.create(managerButton).fillH();
-          managerButton.setText("Ma&nager...");
+          managerButton.setText(ModelMessages.FactoryCreateAction_paletteManagerButton);
           managerButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
               IPaletteSite.Helper.getSite(m_component).editPalette();
@@ -818,7 +819,7 @@ public final class FactoryCreateAction extends Action {
     private void createArgumentsInvocationsComposite(Composite parent) {
       Composite composite = new Composite(parent, SWT.NONE);
       GridLayoutFactory.create(composite).noMargins();
-      new Label(composite, SWT.NONE).setText("Invocations (check to extract) and arguments (check to make parameter) to extract into factory:");
+      new Label(composite, SWT.NONE).setText(ModelMessages.FactoryCreateAction_dialogArgumentsHint);
       {
         Tree tree = new Tree(composite, SWT.BORDER | SWT.CHECK);
         GridDataFactory.create(tree).hintC(150, 12).grab().fill();
@@ -855,7 +856,7 @@ public final class FactoryCreateAction extends Action {
         {
           TreeItem creationItem = new TreeItem(tree, SWT.NONE);
           creationItem.setImage(DesignerPlugin.getImage("actions/factory/folder.png"));
-          creationItem.setText("Creation arguments");
+          creationItem.setText(ModelMessages.FactoryCreateAction_dialogArgumentsCreation);
           creationItem.setGrayed(true);
           creationItem.setChecked(true);
           // arguments
@@ -873,7 +874,7 @@ public final class FactoryCreateAction extends Action {
         // invocations
         {
           TreeItem invocationsItem = new TreeItem(tree, SWT.NONE);
-          invocationsItem.setText("Invocations");
+          invocationsItem.setText(ModelMessages.FactoryCreateAction_dialogArgumentsInvocations);
           invocationsItem.setImage(DesignerPlugin.getImage("actions/factory/folder.png"));
           invocationsItem.setGrayed(true);
           invocationsItem.setChecked(true);
@@ -909,7 +910,7 @@ public final class FactoryCreateAction extends Action {
     private void createPreviewComposite(Composite parent) {
       Composite composite = new Composite(parent, SWT.NONE);
       GridLayoutFactory.create(composite).noMargins();
-      new Label(composite, SWT.NONE).setText("Preview:");
+      new Label(composite, SWT.NONE).setText(ModelMessages.FactoryCreateAction_dialogPreview);
       m_previewViewer =
           JdtUiUtils.createJavaSourceViewer(composite, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
       GridDataFactory.create(m_previewViewer.getControl()).hintVC(12).grab().fill();
@@ -923,7 +924,7 @@ public final class FactoryCreateAction extends Action {
       // do fill with items
       {
         m_categoryField.setItems(new String[]{});
-        m_categoryField.addItem("*** Don't add to palette");
+        m_categoryField.addItem(ModelMessages.FactoryCreateAction_dialogCategoryNo);
         // add categories
         {
           IPaletteSite paletteSite = IPaletteSite.Helper.getSite(m_component);
@@ -956,7 +957,7 @@ public final class FactoryCreateAction extends Action {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-      createButton(parent, CREATE_ID, "Create", false);
+      createButton(parent, CREATE_ID, ModelMessages.FactoryCreateAction_dialogCreateButton, false);
       super.createButtonsForButtonBar(parent);
     }
 
@@ -999,7 +1000,7 @@ public final class FactoryCreateAction extends Action {
       } else {
         JdtUiUtils.setJavaSourceForViewer(
             m_previewViewer,
-            "No preview, fix configuration problems.");
+            ModelMessages.FactoryCreateAction_dialogNoPreview);
       }
       // return validation message
       return message;

@@ -17,6 +17,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -120,7 +121,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor
           };
       selectionDialog.setAllowMultiple(false);
       selectionDialog.setTitle(property_.getTitle());
-      selectionDialog.setMessage("Select component:");
+      selectionDialog.setMessage(ModelMessages.ObjectPropertyEditor_chooseMessage);
       selectionDialog.setValidator(validator);
       // set input
       selectionDialog.setInput(new Object[]{thisComponent.getRoot()});

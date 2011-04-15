@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.errors;
 
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.parser.JavaInfoParser;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
@@ -22,7 +23,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
  */
 public final class BadNodesRefreshErrorPage extends BadNodesErrorPage {
   public String getTitle() {
-    return "Execution errors";
+    return Messages.BadNodesRefreshErrorPage_title;
   }
 
   @Override

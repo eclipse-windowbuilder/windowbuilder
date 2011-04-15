@@ -16,6 +16,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 
+import java.text.MessageFormat;
+
 /**
  * {@link Change} for deleting files. It ignores fact that file may be already does not exist. We
  * need such behavior because in GWT participants it is possible that use deletes both Async and
@@ -49,7 +51,7 @@ public class DeleteFileChange extends Change {
 
   @Override
   public String getName() {
-    return "Remove file " + m_file.getLocation().lastSegment();
+    return MessageFormat.format("Remove file {0}", m_file.getLocation().lastSegment());
   }
 
   @Override
@@ -60,7 +62,9 @@ public class DeleteFileChange extends Change {
   public RefactoringStatus isValid(IProgressMonitor pm) throws CoreException {
     RefactoringStatus status = new RefactoringStatus();
     if (!m_file.exists()) {
-      status.addError("File " + m_file.getLocation().lastSegment() + " does not exist.");
+      status.addError(MessageFormat.format(
+          "File {0} does not exist.",
+          m_file.getLocation().lastSegment()));
     }
     return status;
   }

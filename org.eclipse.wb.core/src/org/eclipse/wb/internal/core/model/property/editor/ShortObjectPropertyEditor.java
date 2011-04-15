@@ -11,8 +11,11 @@
 package org.eclipse.wb.internal.core.model.property.editor;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+
+import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for {@link Short}.
@@ -76,9 +79,10 @@ public final class ShortObjectPropertyEditor extends AbstractTextPropertyEditor 
     try {
       value = Short.valueOf(text);
     } catch (Throwable e) {
-      UiUtils.openWarning(DesignerPlugin.getShell(), property.getTitle(), "\""
-          + text
-          + "\" is not a valid short.");
+      UiUtils.openWarning(
+          DesignerPlugin.getShell(),
+          property.getTitle(),
+          MessageFormat.format(ModelMessages.ShortObjectPropertyEditor_notValidShort, text));
       return false;
     }
     // modify property

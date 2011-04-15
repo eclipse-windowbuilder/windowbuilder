@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -248,7 +249,9 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
         // validate visible declarations
         for (VariableDeclaration declaration : declarations) {
           if (getDeclarationName(declaration, declarationsNames).equals(name)) {
-            return "Variable \"" + name + "\" is already visible at this position.";
+            return MessageFormat.format(
+                "Variable \"{0}\" is already visible at this position.",
+                name);
           }
         }
       }
@@ -259,7 +262,9 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
         // validate shadowed declarations
         for (VariableDeclaration declaration : declarations) {
           if (getDeclarationName(declaration, declarationsNames).equals(name)) {
-            return "Variable \"" + name + "\" conflicts with other variable declared after it.";
+            return MessageFormat.format(
+                "Variable \"{0}\" conflicts with other variable declared after it.",
+                name);
           }
         }
       }
@@ -310,7 +315,9 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
         // check each declaration
         for (VariableDeclaration declaration : declarations) {
           if (declaration.getName().getIdentifier().equals(name)) {
-            return "Variable \"" + name + "\" is already visible at this position.";
+            return MessageFormat.format(
+                "Variable \"{0}\" is already visible at this position.",
+                name);
           }
         }
       }
@@ -322,7 +329,9 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
         // check each declaration
         for (VariableDeclaration declaration : declarations) {
           if (declaration.getName().getIdentifier().equals(name)) {
-            return "Variable \"" + name + "\" conflicts with other variable declared after it.";
+            return MessageFormat.format(
+                "Variable \"{0}\" conflicts with other variable declared after it.",
+                name);
           }
         }
       }

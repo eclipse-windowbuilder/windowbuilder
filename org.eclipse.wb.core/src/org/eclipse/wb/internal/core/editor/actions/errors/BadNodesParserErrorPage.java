@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.errors;
 
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
 
@@ -21,7 +22,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
  */
 public final class BadNodesParserErrorPage extends BadNodesErrorPage {
   public String getTitle() {
-    return "Parser errors";
+    return Messages.BadNodesParserErrorPage_title;
   }
 
   @Override

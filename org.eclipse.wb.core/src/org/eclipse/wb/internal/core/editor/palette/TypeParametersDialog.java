@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.palette;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.description.CreationDescription.TypeParameterDescription;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -78,9 +79,9 @@ public final class TypeParametersDialog extends ResizableTitleAreaDialog {
    * Subclasses override this methods to set title and message for this {@link TitleAreaDialog}.
    */
   protected void configureMessages() {
-    getShell().setText("Generic component creation");
-    setTitle("Selecting type arguments.");
-    setMessage("This dialog provides ability to select type argument of generic component.");
+    getShell().setText(Messages.TypeParametersDialog_shellTitle);
+    setTitle(Messages.TypeParametersDialog_title);
+    setMessage(Messages.TypeParametersDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////

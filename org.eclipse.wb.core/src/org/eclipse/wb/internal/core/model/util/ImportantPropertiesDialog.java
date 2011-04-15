@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.PropertyManager;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
@@ -117,7 +118,7 @@ public class ImportantPropertiesDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Important properties");
+    newShell.setText(ModelMessages.ImportantPropertiesDialog_title);
   }
 
   @Override

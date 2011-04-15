@@ -60,6 +60,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -371,7 +372,7 @@ public final class SourceComposite extends Composite {
                 if (!MessageDialog.openConfirm(
                     getShell(),
                     "Confirm",
-                    "Do you really want to internalize key '" + key + "'?")) {
+                    MessageFormat.format("Do you really want to internalize key ''{0}''?", key))) {
                   return;
                 }
                 // do internalize
@@ -409,7 +410,9 @@ public final class SourceComposite extends Composite {
               if (!MessageDialog.openConfirm(
                   getShell(),
                   "Confirm",
-                  "Do you really want to remove the locale '" + locale.getTitle() + "'?")) {
+                  MessageFormat.format(
+                      "Do you really want to remove the locale ''{0}''?",
+                      locale.getTitle()))) {
                 return;
               }
               // do remove

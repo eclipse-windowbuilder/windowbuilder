@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.model.property.editor;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.StringsDialog;
 
@@ -70,8 +71,8 @@ public final class StringArrayPropertyEditor extends TextDialogPropertyEditor {
         new StringsDialog(DesignerPlugin.getShell(),
             DesignerPlugin.getDefault(),
             property.getTitle(),
-            "&Elements:",
-            "Each line in the above text field represents single element.");
+            ModelMessages.StringArrayPropertyEditor_itemsLabel,
+            ModelMessages.StringArrayPropertyEditor_hint);
     itemsDialog.setItems(getItems(property));
     // open dialog
     if (itemsDialog.open() == Window.OK) {

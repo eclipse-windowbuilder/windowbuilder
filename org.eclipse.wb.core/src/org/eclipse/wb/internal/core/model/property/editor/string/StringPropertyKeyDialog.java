@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.model.property.editor.string;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSupport;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
@@ -111,8 +112,8 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     super.create();
     // title/message
     {
-      setTitle("Choose a key");
-      setMessage("Search for keys or values and select a key.");
+      setTitle(ModelMessages.StringPropertyKeyDialog_title);
+      setMessage(ModelMessages.StringPropertyKeyDialog_message);
     }
     // select key
     {
@@ -151,7 +152,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     Group sourcesGroup = new Group(parent, SWT.NONE);
     GridDataFactory.create(sourcesGroup).hintC(105, 5).grabH().fill();
     GridLayoutFactory.create(sourcesGroup);
-    sourcesGroup.setText("String sources");
+    sourcesGroup.setText(ModelMessages.StringPropertyKeyDialog_sourcesGroup);
     //
     m_sourcesViewer = new ListViewer(sourcesGroup, SWT.BORDER);
     GridDataFactory.create(m_sourcesViewer.getList()).grab().fill();
@@ -185,10 +186,10 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     Group valuesGroup = new Group(parent, SWT.NONE);
     GridDataFactory.create(valuesGroup).hintC(105, 20).grab().fill();
     GridLayoutFactory.create(valuesGroup);
-    valuesGroup.setText("Values");
+    valuesGroup.setText(ModelMessages.StringPropertyKeyDialog_valuesGroup);
     // pattern
     {
-      new Label(valuesGroup, SWT.NONE).setText("&Search string (? = any character, * = any string):");
+      new Label(valuesGroup, SWT.NONE).setText(ModelMessages.StringPropertyKeyDialog_valuesFilterLabel);
       //
       m_filterPatternText = new Text(valuesGroup, SWT.BORDER);
       GridDataFactory.create(m_filterPatternText).grabH().fill();
@@ -200,15 +201,15 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     }
     // viewer
     {
-      new Label(valuesGroup, SWT.NONE).setText("&Matching strings:");
+      new Label(valuesGroup, SWT.NONE).setText(ModelMessages.StringPropertyKeyDialog_matchedGroup);
       //
       m_valuesViewer = new TableViewer(valuesGroup, SWT.BORDER | SWT.FULL_SELECTION);
       GridDataFactory.create(m_valuesViewer.getTable()).grab().fill();
       // columns
       {
         TableFactory tableFactory = TableFactory.modify(m_valuesViewer).standard();
-        tableFactory.newColumn().widthC(40).text("Key");
-        tableFactory.newColumn().widthC(57).image(LocaleUtils.getImage(m_locale)).text("Value");
+        tableFactory.newColumn().widthC(40).text(ModelMessages.StringPropertyKeyDialog_keyColumn);
+        tableFactory.newColumn().widthC(57).image(LocaleUtils.getImage(m_locale)).text(ModelMessages.StringPropertyKeyDialog_valueColumn);
       }
       // content
       setValuesFilter();
@@ -235,11 +236,11 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       GridDataFactory.create(optionsComposite).fill();
       GridLayoutFactory.create(optionsComposite).noMargins().columns(4);
       //
-      new Label(optionsComposite, SWT.NONE).setText("Search for:");
+      new Label(optionsComposite, SWT.NONE).setText(ModelMessages.StringPropertyKeyDialog_filterLabel);
       // create buttons
-      m_filterKeyButton = createFilterOptionButton(optionsComposite, "&Key");
-      m_filterValueButton = createFilterOptionButton(optionsComposite, "&Value");
-      m_filterBothButton = createFilterOptionButton(optionsComposite, "&Both");
+      m_filterKeyButton = createFilterOptionButton(optionsComposite, ModelMessages.StringPropertyKeyDialog_filterKeyButton);
+      m_filterValueButton = createFilterOptionButton(optionsComposite, ModelMessages.StringPropertyKeyDialog_filterValueButton);
+      m_filterBothButton = createFilterOptionButton(optionsComposite, ModelMessages.StringPropertyKeyDialog_filterBothButton);
       // by default select "key"
       if (!m_filterKeyButton.getSelection()
           && !m_filterValueButton.getSelection()
@@ -333,7 +334,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Choose key");
+    newShell.setText(ModelMessages.StringPropertyKeyDialog_shellTitle);
   }
 
   ////////////////////////////////////////////////////////////////////////////

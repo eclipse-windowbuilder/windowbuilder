@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.palette.dialogs;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.ComponentAddCommand;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -40,7 +41,7 @@ public final class ComponentAddDialog extends ComponentAbstractDialog {
       AstEditor editor,
       PaletteInfo palette,
       CategoryInfo initialCategory) {
-    super(parentShell, editor, "Add component", "Add component to the palette.");
+    super(parentShell, editor, Messages.ComponentAddDialog_title, Messages.ComponentAddDialog_message);
     m_palette = palette;
     m_initialCategory = initialCategory;
   }
@@ -59,7 +60,7 @@ public final class ComponentAddDialog extends ComponentAbstractDialog {
     // category
     {
       m_categoryField = createCategoryField(m_palette, m_initialCategory);
-      doCreateField(m_categoryField, "&Add to palette category:");
+      doCreateField(m_categoryField, Messages.ComponentAddDialog_category);
     }
   }
 

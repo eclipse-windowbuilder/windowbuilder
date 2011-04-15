@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.editor.palette.dialogs.factory;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.dialogs.AbstractPaletteElementDialog;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
@@ -39,6 +40,7 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 /**
@@ -65,7 +67,7 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
         shellText,
         titleText,
         null,
-        "Specify the name, class/method and description of the factory.");
+        Messages.FactoryAbstractDialog_message);
     m_editor = editor;
     m_forStatic = forStatic;
   }
@@ -88,7 +90,7 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
     // name
     {
       m_nameField = new StringDialogField();
-      doCreateField(m_nameField, "&Name:");
+      doCreateField(m_nameField, Messages.FactoryAbstractDialog_nameLabel);
     }
     // factory class
     {
@@ -105,8 +107,8 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
           }
         }
       });
-      m_factoryClassField.setButtonLabel("Ch&oose...");
-      doCreateField(m_factoryClassField, "&Factory class:");
+      m_factoryClassField.setButtonLabel(Messages.FactoryAbstractDialog_classChoose);
+      doCreateField(m_factoryClassField, Messages.FactoryAbstractDialog_classLabel);
       m_factoryClassField.getTextControl(null).setEditable(false);
     }
     // method signature
@@ -126,8 +128,8 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
                     return super.getText(element);
                   }
                 });
-            dialog.setTitle("Select factory method");
-            dialog.setMessage("Select a type to add (? = any character, * - any String):");
+            dialog.setTitle(Messages.FactoryAbstractDialog_methodDialogTitle);
+            dialog.setMessage(Messages.FactoryAbstractDialog_methodDialogMessage);
             // set signatures
             dialog.setElements(m_signaturesMap.keySet().toArray());
             // open dialog
@@ -143,20 +145,20 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
           }
         }
       });
-      m_methodSignatureField.setButtonLabel("&Choose...");
-      doCreateField(m_methodSignatureField, "&Method signature:");
+      m_methodSignatureField.setButtonLabel(Messages.FactoryAbstractDialog_methodChoose);
+      doCreateField(m_methodSignatureField, Messages.FactoryAbstractDialog_methodLabel);
       m_methodSignatureField.getTextControl(null).setEditable(false);
     }
     // description
     {
       m_descriptionField = new StringAreaDialogField(5);
-      doCreateField(m_descriptionField, "&Description:");
+      doCreateField(m_descriptionField, Messages.FactoryAbstractDialog_descriptionLabel);
       GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
     }
     // state
     {
       m_visibleField = new BooleanDialogField();
-      doCreateField(m_visibleField, "&Visible:");
+      doCreateField(m_visibleField, Messages.FactoryAbstractDialog_visibleFlag);
     }
   }
 
@@ -173,7 +175,7 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
     {
       String factoryClassName = m_factoryClassField.getText().trim();
       if (factoryClassName.length() == 0) {
-        return "Factory class name can not be empty.";
+        return Messages.FactoryAbstractDialog_validateEmptyClass;
       }
       // check for existence
       try {
@@ -186,21 +188,23 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
       }
       // validate signatures
       if (m_signaturesMap.isEmpty()) {
-        return "Factory class " + factoryClassName + " contains no factory methods.";
+        return MessageFormat.format(
+            Messages.FactoryAbstractDialog_validateNoMethods,
+            factoryClassName);
       }
     }
     // validate signature
     {
       String signature = m_methodSignatureField.getText();
       if (signature.length() == 0) {
-        return "Method signature can not be empty.";
+        return Messages.FactoryAbstractDialog_validateEmptyMethod;
       }
     }
     // validate name
     {
       String name = m_nameField.getText().trim();
       if (name.length() == 0) {
-        return "Name can not be empty.";
+        return Messages.FactoryAbstractDialog_validateEmptyName;
       }
     }
     // OK

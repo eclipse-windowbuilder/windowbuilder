@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
 import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -56,7 +57,7 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
         shellText,
         titleText,
         null,
-        "Specify the name, class and description of the component.");
+        Messages.ComponentAbstractDialog_message);
     m_editor = editor;
   }
 
@@ -79,12 +80,12 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
     {
       m_idField = new StringDialogField();
       m_idField.setEditable(false);
-      doCreateField(m_idField, "&ID:");
+      doCreateField(m_idField, Messages.ComponentAbstractDialog_idLabel);
     }
     // name
     {
       m_nameField = new StringDialogField();
-      doCreateField(m_nameField, "&Name:");
+      doCreateField(m_nameField, Messages.ComponentAbstractDialog_nameLabel);
       m_nameField.setFocus();
     }
     // class
@@ -109,20 +110,20 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
           }
         }
       });
-      m_classField.setButtonLabel("Ch&oose...");
-      doCreateField(m_classField, "&Class name:");
+      m_classField.setButtonLabel(Messages.ComponentAbstractDialog_classButton);
+      doCreateField(m_classField, Messages.ComponentAbstractDialog_classLabel);
       m_classField.getTextControl(null).setEditable(false);
     }
     // description
     {
       m_descriptionField = new StringAreaDialogField(5);
-      doCreateField(m_descriptionField, "&Description:");
+      doCreateField(m_descriptionField, Messages.ComponentAbstractDialog_descriptionLabel);
       GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
     }
     // state
     {
       m_visibleField = new BooleanDialogField();
-      doCreateField(m_visibleField, "&Visible:");
+      doCreateField(m_visibleField, Messages.ComponentAbstractDialog_visibleFlag);
     }
   }
 
@@ -143,7 +144,7 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
     {
       String className = m_classField.getText().trim();
       if (className.length() == 0) {
-        return "Component class name can not be empty.";
+        return Messages.ComponentAbstractDialog_validateEmptyClass;
       }
       // check for existence
       try {
@@ -157,7 +158,7 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
     {
       String name = m_nameField.getText().trim();
       if (name.length() == 0) {
-        return "Component name can not be empty.";
+        return Messages.ComponentAbstractDialog_validateEmptyName;
       }
     }
     // OK

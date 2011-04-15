@@ -35,6 +35,7 @@ import org.eclipse.swt.SWT;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -232,13 +233,11 @@ public final class EditableSource implements IEditableSource {
     boolean keepNewKeyValue = false;
     if (containsNewKey) {
       MessageDialog dialog =
-          new MessageDialog(DesignerPlugin.getShell(),
-              "Confirm",
-              null,
-              "There is already value for key '" + newKey + "'. Do you want keep existing value?",
-              MessageDialog.QUESTION,
-              new String[]{"Yes, keep existing value", "No, use value of renaming key"},
-              0);
+          new MessageDialog(DesignerPlugin.getShell(), "Confirm", null, MessageFormat.format(
+              "There is already value for key ''{0}''. Do you want keep existing value?",
+              newKey), MessageDialog.QUESTION, new String[]{
+              "Yes, keep existing value",
+              "No, use value of renaming key"}, 0);
       int openResult = dialog.open();
       if (openResult == SWT.DEFAULT) {
         // cancel pressed

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -38,6 +39,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -138,9 +140,10 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
         }
         value = evaluate(m_toDateScript, variables);
       } catch (Throwable e) {
-        UiUtils.openWarning(DesignerPlugin.getShell(), property.getTitle(), "\""
-            + valueText
-            + "\" is not a valid Date.");
+        UiUtils.openWarning(
+            DesignerPlugin.getShell(),
+            property.getTitle(),
+            MessageFormat.format(ModelMessages.DatePropertyEditor_notValidDate, valueText));
         return false;
       }
     }
@@ -308,7 +311,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
     @Override
     protected void configureShell(Shell newShell) {
       super.configureShell(newShell);
-      newShell.setText("Date & Time chooser");
+      newShell.setText(ModelMessages.DatePropertyEditor_dialogTitle);
     }
 
     @Override

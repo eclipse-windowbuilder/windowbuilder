@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.property.order;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -82,7 +83,7 @@ final class ReorderDialog extends ResizableDialog {
     GridLayoutFactory.create(container).columns(2);
     // title
     Label title = new Label(container, SWT.NONE);
-    title.setText("Children:");
+    title.setText(ModelMessages.ReorderDialog_childrenLabel);
     GridDataFactory.create(title).spanH(2);
     // reorder viewer
     m_viewer = CheckboxTableViewer.newCheckList(container, SWT.FULL_SELECTION | SWT.BORDER);
@@ -97,7 +98,7 @@ final class ReorderDialog extends ResizableDialog {
     TableFactory.modify(m_viewer).headerVisible(true).linesVisible(true);
     GridDataFactory.create(m_viewer.getControl()).fill().grab().hintC(60, 15);
     TableFactory.modify(m_viewer).newColumn().width(convertWidthInCharsToPixels(60)).text(
-        "Child title");
+        ModelMessages.ReorderDialog_childColumn);
     // show all components and select first
     m_viewer.setInput(m_allInfos);
     m_viewer.getTable().select(0);
@@ -116,7 +117,7 @@ final class ReorderDialog extends ResizableDialog {
         do_upButton_widgetSelected(e);
       }
     });
-    m_upButton.setText("&Up");
+    m_upButton.setText(ModelMessages.ReorderDialog_upButton);
     GridDataFactory.create(m_upButton).fillH().grabH();
     // down
     m_downButton = new Button(buttonsComposite, SWT.NONE);
@@ -126,7 +127,7 @@ final class ReorderDialog extends ResizableDialog {
         do_downButton_widgetSelected(e);
       }
     });
-    m_downButton.setText("&Down");
+    m_downButton.setText(ModelMessages.ReorderDialog_downButton);
     GridDataFactory.create(m_downButton).fillH().grabH();
     // filler
     GridDataFactory.create(new Label(buttonsComposite, SWT.NONE)).fillH().grabH();
@@ -138,7 +139,7 @@ final class ReorderDialog extends ResizableDialog {
         m_viewer.setAllChecked(true);
       }
     });
-    m_selectAllButton.setText("&Select all");
+    m_selectAllButton.setText(ModelMessages.ReorderDialog_selectAllButton);
     GridDataFactory.create(m_selectAllButton).fillH().grabH();
     // unselect all
     m_unSelectAllButton = new Button(buttonsComposite, SWT.NONE);
@@ -148,7 +149,7 @@ final class ReorderDialog extends ResizableDialog {
         m_viewer.setAllChecked(false);
       }
     });
-    m_unSelectAllButton.setText("&Deselect all");
+    m_unSelectAllButton.setText(ModelMessages.ReorderDialog_deselectAllButton);
     GridDataFactory.create(m_unSelectAllButton).fillH().grabH();
     // calculate start state
     do_viewer_selectionChanged();
@@ -158,7 +159,7 @@ final class ReorderDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Reorder children");
+    newShell.setText(ModelMessages.ReorderDialog_title);
   }
 
   @Override

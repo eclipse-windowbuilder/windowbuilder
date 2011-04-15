@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.model.property.editor.string;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
@@ -159,11 +160,11 @@ public final class StringPropertyDialog extends ResizableDialog {
       Group group = new Group(area, SWT.NONE);
       GridDataFactory.create(group).fill();
       GridLayoutFactory.create(group);
-      group.setText("Localization");
+      group.setText(ModelMessages.StringPropertyDialog_localizationGroup);
       // flag of using existing NLS key
       {
         m_nlsButton = new Button(group, SWT.CHECK);
-        m_nlsButton.setText("Use existing NLS source/key");
+        m_nlsButton.setText(ModelMessages.StringPropertyDialog_localizationUseExisting);
         m_nlsButton.setEnabled(!m_editableSupport.getEditableSources().isEmpty());
         // initial state
         ExecutionUtils.runLog(new RunnableEx() {
@@ -186,7 +187,7 @@ public final class StringPropertyDialog extends ResizableDialog {
         GridLayoutFactory.create(m_nlsComposite).columns(3).noMargins();
         // source
         {
-          new Label(m_nlsComposite, SWT.NONE).setText("Source:");
+          new Label(m_nlsComposite, SWT.NONE).setText(ModelMessages.StringPropertyDialog_localizationSourceLabel);
           //
           m_nlsSourceText = new Text(m_nlsComposite, SWT.BORDER | SWT.READ_ONLY);
           GridDataFactory.create(m_nlsSourceText).grabH().fillH();
@@ -195,7 +196,7 @@ public final class StringPropertyDialog extends ResizableDialog {
         {
           Button browseButton = new Button(m_nlsComposite, SWT.NONE);
           GridDataFactory.create(browseButton).hintHU(50).spanV(2).fill();
-          browseButton.setText("&Browse...");
+          browseButton.setText(ModelMessages.StringPropertyDialog_localizationBrowse);
           // add selection listener
           browseButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
@@ -215,7 +216,7 @@ public final class StringPropertyDialog extends ResizableDialog {
         }
         // key
         {
-          new Label(m_nlsComposite, SWT.NONE).setText("Key:");
+          new Label(m_nlsComposite, SWT.NONE).setText(ModelMessages.StringPropertyDialog_localizationKeyLabel);
           //
           m_nlsKeyText = new Text(m_nlsComposite, SWT.BORDER | SWT.READ_ONLY);
           GridDataFactory.create(m_nlsKeyText).grabH().fillH();
@@ -261,7 +262,7 @@ public final class StringPropertyDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("String editor");
+    newShell.setText(ModelMessages.StringPropertyDialog_title);
   }
 
   @Override

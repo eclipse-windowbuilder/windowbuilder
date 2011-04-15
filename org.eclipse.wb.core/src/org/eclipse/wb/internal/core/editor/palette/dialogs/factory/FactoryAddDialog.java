@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.editor.palette.dialogs.factory;
 
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.factory.FactoryAddCommand;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
@@ -44,8 +45,8 @@ public final class FactoryAddDialog extends FactoryAbstractDialog {
     super(parentShell,
         editor,
         forStatic,
-        forStatic ? "Add static factory" : "Add instance factory",
-        forStatic ? "Add static factory to the palette." : "Add instance factory to the palette.");
+        forStatic ? Messages.FactoryAddDialog_titleStatic : Messages.FactoryAddDialog_titleInstance,
+        forStatic ? Messages.FactoryAddDialog_messageStatic : Messages.FactoryAddDialog_messageInstance);
     m_palette = palette;
     m_initialCategory = initialCategory;
   }
@@ -63,7 +64,7 @@ public final class FactoryAddDialog extends FactoryAbstractDialog {
     // category
     {
       m_categoryField = createCategoryField(m_palette, m_initialCategory);
-      doCreateField(m_categoryField, "&Add to palette category:");
+      doCreateField(m_categoryField, Messages.FactoryAddDialog_categoryLabel);
     }
     // initialize fields
     m_visibleField.setSelection(true);

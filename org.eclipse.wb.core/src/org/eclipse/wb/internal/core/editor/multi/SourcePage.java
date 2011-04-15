@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
@@ -110,7 +111,7 @@ public final class SourcePage implements IEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getName() {
-    return "Source";
+    return Messages.SourcePage_name;
   }
 
   public Image getImage() {

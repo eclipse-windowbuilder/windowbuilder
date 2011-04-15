@@ -18,6 +18,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPage;
+import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -51,8 +52,8 @@ public final class LayoutAssistantAction extends Action {
   //
   ////////////////////////////////////////////////////////////////////////////
   public LayoutAssistantAction(IEditorPart editor, IEditPartViewer viewer) {
-    super("Layout Assistant", IAction.AS_CHECK_BOX);
-    setToolTipText("Layout Assistant");
+    super(Messages.LayoutAssistantAction_text, IAction.AS_CHECK_BOX);
+    setToolTipText(Messages.LayoutAssistantAction_toolTip);
     setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/assistant/assistant.png"));
     setDisabledImageDescriptor(DesignerPlugin.getImageDescriptor("actions/assistant/assistant_disabled.png"));
     // initialize editor

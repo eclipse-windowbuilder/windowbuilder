@@ -17,6 +17,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.accessor.AccessorUtils;
@@ -75,8 +76,8 @@ public final class ExposePropertyAction extends Action {
   ////////////////////////////////////////////////////////////////////////////
   public ExposePropertyAction() {
     setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/expose/exposeProperty.png"));
-    setText("Expose property...");
-    setToolTipText("Expose property...");
+    setText(ModelMessages.ExposePropertyAction_text);
+    setToolTipText(ModelMessages.ExposePropertyAction_tooltip);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -181,14 +182,14 @@ public final class ExposePropertyAction extends Action {
     {
       String signature = m_exposedGetter + "()";
       if (AstNodeUtils.getMethodBySignature(m_typeDeclaration, signature) != null) {
-        return "Method \"" + signature + "\" already exists.";
+        return MessageFormat.format(ModelMessages.ExposePropertyAction_validateMethodAlreadyExists, signature);
       }
     }
     // check for existing setter
     {
       String signature = m_exposedSetter + "(" + m_propertyTypeName + ")";
       if (AstNodeUtils.getMethodBySignature(m_typeDeclaration, signature) != null) {
-        return "Method \"" + signature + "\" already exists.";
+        return MessageFormat.format(ModelMessages.ExposePropertyAction_validateMethodAlreadyExists, signature);
       }
     }
     // OK
@@ -301,10 +302,10 @@ public final class ExposePropertyAction extends Action {
     public ExposeDialog() {
       super(DesignerPlugin.getShell(),
           DesignerPlugin.getDefault(),
-          "Expose property",
-          "Expose component property as property of top-level class.",
+          ModelMessages.ExposePropertyAction_dialogShellTitle,
+          ModelMessages.ExposePropertyAction_dialogTitle,
           DesignerPlugin.getImage("actions/expose/expose_banner.gif"),
-          "Enter the name of top-level property.");
+          ModelMessages.ExposePropertyAction_dialogMessage);
       setShellStyle(SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
     }
 
@@ -324,7 +325,7 @@ public final class ExposePropertyAction extends Action {
       // name
       {
         m_nameField = new StringDialogField();
-        doCreateField(m_nameField, "Property name:");
+        doCreateField(m_nameField, ModelMessages.ExposePropertyAction_dialogPropertyLabel);
         // initial name
         String exposedName =
             m_javaInfo.getVariableSupport().getComponentName()
@@ -338,11 +339,11 @@ public final class ExposePropertyAction extends Action {
                 new String[]{"&public", "pro&tected"},
                 1,
                 SWT.SHADOW_ETCHED_IN);
-        doCreateField(m_modifierField, "Modifier");
+        doCreateField(m_modifierField, ModelMessages.ExposePropertyAction_dialogModifier);
       }
       // preview
       {
-        new Label(container, SWT.NONE).setText("Preview:");
+        new Label(container, SWT.NONE).setText(ModelMessages.ExposePropertyAction_dialogPreview);
         m_previewViewer = JdtUiUtils.createJavaSourceViewer(container, SWT.BORDER | SWT.V_SCROLL);
         GridDataFactory.create(m_previewViewer.getControl()).spanH(2).hintVC(9).grab().fill();
       }
@@ -359,7 +360,7 @@ public final class ExposePropertyAction extends Action {
       {
         String message = ExposePropertyAction.this.validate(m_nameField.getText());
         if (message != null) {
-          JdtUiUtils.setJavaSourceForViewer(m_previewViewer, "No preview");
+          JdtUiUtils.setJavaSourceForViewer(m_previewViewer, ModelMessages.ExposePropertyAction_dialogNoPreview);
           return message;
         }
       }

@@ -14,6 +14,7 @@ import org.eclipse.wb.core.controls.SelfOrientingSashForm;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage;
 import org.eclipse.wb.internal.core.editor.structure.property.ComponentsPropertiesPage;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -50,7 +51,7 @@ public final class DesignComponentsComposite extends Composite {
       // tree
       {
         PageSiteComposite siteComposite = new PageSiteComposite(m_sashForm, SWT.BORDER);
-        siteComposite.setTitleText("Components");
+        siteComposite.setTitleText(Messages.DesignComponentsComposite_componentsTitle);
         siteComposite.setTitleImage(DesignerPlugin.getImage("structure/components_view.gif"));
         m_treePage = new ComponentsTreePage();
         siteComposite.setPage(m_treePage);
@@ -58,7 +59,7 @@ public final class DesignComponentsComposite extends Composite {
       // properties
       {
         PageSiteComposite siteComposite = new PageSiteComposite(m_sashForm, SWT.BORDER);
-        siteComposite.setTitleText("Properties");
+        siteComposite.setTitleText(Messages.DesignComponentsComposite_propertiesTitle);
         siteComposite.setTitleImage(DesignerPlugin.getImage("structure/properties_view.gif"));
         m_propertiesPage = new ComponentsPropertiesPage();
         siteComposite.setPage(m_propertiesPage);

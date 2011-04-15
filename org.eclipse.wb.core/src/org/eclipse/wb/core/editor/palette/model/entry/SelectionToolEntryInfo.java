@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.palette.model.entry;
 
+import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
@@ -34,7 +35,7 @@ public class SelectionToolEntryInfo extends ToolEntryInfo implements IDefaultEnt
   //
   ////////////////////////////////////////////////////////////////////////////
   public SelectionToolEntryInfo() {
-    setName("Selection");
+    setName(Messages.SelectionToolEntryInfo_name);
   }
 
   ////////////////////////////////////////////////////////////////////////////

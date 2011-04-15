@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
@@ -110,35 +111,35 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
   protected void addAlignmentActions(List<Object> actions) {
     // create horizontal actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("h_left", "Align left edges", ALIGN_H_LEFT));
-    actions.add(new SelectionAction("h_centers", "Align horizontal centers", ALIGN_H_CENTERS));
-    actions.add(new SelectionAction("h_right", "Align right edges", ALIGN_H_RIGHT));
+    actions.add(new SelectionAction("h_left", GefMessages.AbstractAlignmentActionsSupport_alignLeft, ALIGN_H_LEFT));
+    actions.add(new SelectionAction("h_centers", GefMessages.AbstractAlignmentActionsSupport_alighHorizontalCenters, ALIGN_H_CENTERS));
+    actions.add(new SelectionAction("h_right", GefMessages.AbstractAlignmentActionsSupport_alignRight, ALIGN_H_RIGHT));
     // create vertical actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("v_top", "Align top edges", ALIGN_V_TOP));
-    actions.add(new SelectionAction("v_centers", "Align vertical centers", ALIGN_V_CENTERS));
-    actions.add(new SelectionAction("v_bottom", "Align bottom edges", ALIGN_V_BOTTOM));
+    actions.add(new SelectionAction("v_top", GefMessages.AbstractAlignmentActionsSupport_alignTop, ALIGN_V_TOP));
+    actions.add(new SelectionAction("v_centers", GefMessages.AbstractAlignmentActionsSupport_alignVerticalCenters, ALIGN_V_CENTERS));
+    actions.add(new SelectionAction("v_bottom", GefMessages.AbstractAlignmentActionsSupport_alignBottom, ALIGN_V_BOTTOM));
   }
 
   protected void addSpaceActions(List<Object> actions) {
     // create space actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("h_space", "Space equally, horizontally", ALIGN_H_SPACE));
-    actions.add(new SelectionAction("v_space", "Space equally, vertically", ALIGN_V_SPACE));
+    actions.add(new SelectionAction("h_space", GefMessages.AbstractAlignmentActionsSupport_spaceEquallyHorizontal, ALIGN_H_SPACE));
+    actions.add(new SelectionAction("v_space", GefMessages.AbstractAlignmentActionsSupport_spaceEquallyVertical, ALIGN_V_SPACE));
   }
 
   protected void addSizeActions(List<Object> actions) {
     // create size actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("width", "Replicate width", ALIGN_WIDTH));
-    actions.add(new SelectionAction("height", "Replicate height", ALIGN_HEIGHT));
+    actions.add(new SelectionAction("width", GefMessages.AbstractAlignmentActionsSupport_replicateWidth, ALIGN_WIDTH));
+    actions.add(new SelectionAction("height", GefMessages.AbstractAlignmentActionsSupport_replicateHeight, ALIGN_HEIGHT));
   }
 
   protected void addCenterInContainerActions(List<Object> actions) {
     // create center actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("h_center", "Center horizontally in window", ALIGN_H_CENTER));
-    actions.add(new SelectionAction("v_center", "Center vertically in window", ALIGN_V_CENTER));
+    actions.add(new SelectionAction("h_center", GefMessages.AbstractAlignmentActionsSupport_centerHorizontally, ALIGN_H_CENTER));
+    actions.add(new SelectionAction("v_center", GefMessages.AbstractAlignmentActionsSupport_centerVertically, ALIGN_V_CENTER));
   }
 
   /**

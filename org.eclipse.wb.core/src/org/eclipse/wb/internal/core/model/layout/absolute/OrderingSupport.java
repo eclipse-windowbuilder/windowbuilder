@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.layout.absolute;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
@@ -49,30 +50,30 @@ public final class OrderingSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void contributeActions(IMenuManager manager) {
-    IMenuManager orderMenuManager = new MenuManager("Order");
+    IMenuManager orderMenuManager = new MenuManager(ModelMessages.OrderingSupport_orderManager);
     manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, orderMenuManager);
     // add separate actions
     boolean isFirst = m_components.indexOf(m_component) == 0;
     boolean isLast = m_components.indexOf(m_component) == m_components.size() - 1;
-    orderMenuManager.add(new OrderAction("Bring to Front", "bring_to_front.png", !isFirst) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringToFront, "bring_to_front.png", !isFirst) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, getFirstSibling());
       }
     });
-    orderMenuManager.add(new OrderAction("Send to Back", "send_to_back.png", !isLast) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendToBack, "send_to_back.png", !isLast) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, null);
       }
     });
-    orderMenuManager.add(new OrderAction("Bring Forward", "bring_forward.png", !isFirst) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_bringForward, "bring_forward.png", !isFirst) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, getPreviousSibling());
       }
     });
-    orderMenuManager.add(new OrderAction("Send Backward", "send_backward.png", !isLast) {
+    orderMenuManager.add(new OrderAction(ModelMessages.OrderingSupport_sendBackward, "send_backward.png", !isLast) {
       @Override
       protected void runEx() throws Exception {
         GlobalState.getOrderProcessor().move(m_component, getNextSibling());

@@ -24,6 +24,7 @@ import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.BeanFigure;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
@@ -159,7 +160,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
   private void showCreationFeedback(CreateRequest request) {
     JavaInfo newInfo = (JavaInfo) request.getNewObject();
     Point location = request.getLocation();
-    showFeedback("New ", newInfo, location);
+    showFeedback(GefMessages.NonVisualLayoutEditPolicy_newFeedback, newInfo, location);
   }
 
   @SuppressWarnings("unchecked")
@@ -168,7 +169,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
       List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
       JavaInfo newInfo = mementos.get(0).create(m_rootInfo);
       Point location = request.getLocation();
-      showFeedback("Copy of ", newInfo, location);
+      showFeedback(GefMessages.NonVisualLayoutEditPolicy_copyFeedback, newInfo, location);
     } catch (Throwable e) {
       DesignerPlugin.log(e);
     }

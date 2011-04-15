@@ -11,8 +11,11 @@
 package org.eclipse.wb.internal.core.model.property.editor;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
+
+import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for {@link String}.
@@ -64,9 +67,10 @@ public final class CharacterPropertyEditor extends AbstractTextPropertyEditor {
     }
     // only one character
     if (text.length() > 1) {
-      UiUtils.openWarning(DesignerPlugin.getShell(), property.getTitle(), "\""
-          + text
-          + "\" is not a valid character.");
+      UiUtils.openWarning(
+          DesignerPlugin.getShell(),
+          property.getTitle(),
+          MessageFormat.format(ModelMessages.CharacterPropertyEditor_notValid, text));
       return false;
     }
     // modify property

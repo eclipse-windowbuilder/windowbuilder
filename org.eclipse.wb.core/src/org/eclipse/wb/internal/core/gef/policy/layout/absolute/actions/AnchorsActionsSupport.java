@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
+import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 
@@ -37,28 +38,28 @@ public class AnchorsActionsSupport {
       boolean isHorizontal) {
     if (isHorizontal) {
       manager.add(new SetAlignmentAction(widget,
-          "Set Left Alignment",
+          GefMessages.AnchorsActionsSupport_leftAlignment,
           "h/menu/left.gif",
           IPositionConstants.LEFT));
       manager.add(new SetAlignmentAction(widget,
-          "Set Right Alignment",
+          GefMessages.AnchorsActionsSupport_rightAlignment,
           "h/menu/right.gif",
           IPositionConstants.RIGHT));
       manager.add(new MakeResizeableAction(widget,
-          "Make Resizeable",
+          GefMessages.AnchorsActionsSupport_makeResizableHorizontal,
           "h/menu/both.gif",
           isHorizontal));
     } else {
       manager.add(new SetAlignmentAction(widget,
-          "Set Top Alignment",
+          GefMessages.AnchorsActionsSupport_topAlignment,
           "v/menu/top.gif",
           IPositionConstants.TOP));
       manager.add(new SetAlignmentAction(widget,
-          "Set Bottom Alignment",
+          GefMessages.AnchorsActionsSupport_bottomAlignment,
           "v/menu/bottom.gif",
           IPositionConstants.BOTTOM));
       manager.add(new MakeResizeableAction(widget,
-          "Make Resizeable",
+          GefMessages.AnchorsActionsSupport_makeResizableVertical,
           "v/menu/both.gif",
           isHorizontal));
     }

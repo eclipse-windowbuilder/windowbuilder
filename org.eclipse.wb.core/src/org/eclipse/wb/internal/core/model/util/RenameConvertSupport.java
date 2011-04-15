@@ -17,6 +17,7 @@ import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.variable.AbstractNamedVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.FieldReuseVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
@@ -130,7 +131,7 @@ public final class RenameConvertSupport {
     ////////////////////////////////////////////////////////////////////////////
     public RenameAction() {
       setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/rename/rename_convert.png"));
-      setText("Rename...");
+      setText(ModelMessages.RenameConvertSupport_text);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -321,10 +322,10 @@ public final class RenameConvertSupport {
     public RenameDialog() {
       super(DesignerPlugin.getShell(),
           DesignerPlugin.getDefault(),
-          "Rename/convert",
-          "Rename/convert components",
+          ModelMessages.RenameConvertSupport_shellTitle,
+          ModelMessages.RenameConvertSupport_title,
           DesignerPlugin.getImage("actions/rename/rename_banner.gif"),
-          "Enter a new name and/or convert to field/local variable.");
+          ModelMessages.RenameConvertSupport_message);
       setShellStyle(SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
     }
 
@@ -400,7 +401,7 @@ public final class RenameConvertSupport {
         {
           ToolItem toolItem = new ToolItem(toolBar, SWT.RADIO);
           toolItem.setImage(DesignerPlugin.getImage("actions/rename/be_local.png"));
-          toolItem.setToolTipText("Be local");
+          toolItem.setToolTipText(ModelMessages.RenameConvertSupport_toLocal);
           toolItem.setEnabled(isNormalVariable);
           toolItem.setSelection(variableSupport instanceof LocalVariableSupport);
           // listener
@@ -413,7 +414,7 @@ public final class RenameConvertSupport {
         {
           ToolItem toolItem = new ToolItem(toolBar, SWT.RADIO);
           toolItem.setImage(DesignerPlugin.getImage("actions/rename/be_field.png"));
-          toolItem.setToolTipText("Be field");
+          toolItem.setToolTipText(ModelMessages.RenameConvertSupport_beField);
           toolItem.setEnabled(isNormalVariable);
           toolItem.setSelection(variableSupport instanceof FieldVariableSupport);
           // listener

@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.factory.FactoryAddCommand;
 import org.eclipse.wb.internal.core.editor.palette.dialogs.AbstractPaletteDialog;
@@ -40,6 +41,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -66,12 +68,12 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
       CategoryInfo initialCategory,
       boolean forStatic) {
     super(parentShell,
-        forStatic ? "Add static factories" : "Add instance factories",
+        forStatic ? Messages.FactoriesAddDialog_shellTitleStatic : Messages.FactoriesAddDialog_shellTitleInstance,
         forStatic
-            ? "Add static factories to the palette."
-            : "Add instance factories to the palette.",
+            ? Messages.FactoriesAddDialog_titleStatic
+            : Messages.FactoriesAddDialog_titleInstance,
         null,
-        "Select factory class and one or more methods.");
+        Messages.FactoriesAddDialog_message);
     m_editor = editor;
     m_palette = palette;
     m_initialCategory = initialCategory;
@@ -107,8 +109,8 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
           }
         }
       });
-      m_factoryClassField.setButtonLabel("Ch&oose...");
-      doCreateField(m_factoryClassField, "&Factory class:");
+      m_factoryClassField.setButtonLabel(Messages.FactoriesAddDialog_classChoose);
+      doCreateField(m_factoryClassField, Messages.FactoriesAddDialog_classLabel);
       m_factoryClassField.getTextControl(null).setEditable(false);
     }
     // method signatures
@@ -122,15 +124,15 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
 
         public void customButtonPressed(ListDialogField field, int index) {
         }
-      }, new String[]{"Select all", "Deselect all"}, new LabelProvider());
+      }, new String[]{Messages.FactoriesAddDialog_selectAllButton, Messages.FactoriesAddDialog_deselectAllButton}, new LabelProvider());
       m_signaturesField.setCheckAllButtonIndex(0);
       m_signaturesField.setUncheckAllButtonIndex(1);
-      doCreateField(m_signaturesField, "&Method signatures:");
+      doCreateField(m_signaturesField, Messages.FactoriesAddDialog_methodsLabel);
     }
     // category
     {
       m_categoryField = createCategoryField(m_palette, m_initialCategory);
-      doCreateField(m_categoryField, "&Add to palette category:");
+      doCreateField(m_categoryField, Messages.FactoriesAddDialog_categoryLabel);
     }
   }
 
@@ -147,7 +149,7 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     {
       String factoryClassName = m_factoryClassField.getText().trim();
       if (factoryClassName.length() == 0) {
-        return "Factory class name can not be empty.";
+        return Messages.FactoriesAddDialog_validateEmptyClass;
       }
       // check for existence
       if (!factoryClassName.equals(m_factoryClassName)) {
@@ -164,7 +166,9 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
             m_signaturesField.setElements(signaturesMap.keySet());
             // validate
             if (signaturesMap.isEmpty()) {
-              return "Factory class " + factoryClassName + " contains no factory methods.";
+              return MessageFormat.format(
+                  Messages.FactoriesAddDialog_validateNoMethods,
+                  factoryClassName);
             }
           }
         } catch (Throwable e) {
@@ -174,7 +178,7 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     }
     // validate signatures selection
     if (m_signaturesField.getCheckedElements().isEmpty()) {
-      return "At least one method should be selected.";
+      return Messages.FactoriesAddDialog_validateNoMethodSelection;
     }
     // OK
     return null;

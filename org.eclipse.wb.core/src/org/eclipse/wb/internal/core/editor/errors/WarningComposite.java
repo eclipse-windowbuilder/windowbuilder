@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.errors;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -74,7 +75,7 @@ public abstract class WarningComposite extends Composite {
       {
         Button refreshButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(refreshButton).fillH();
-        refreshButton.setText("Reparse");
+        refreshButton.setText(Messages.WarningComposite_refreshButton);
         refreshButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/refresh32.png"));
@@ -88,7 +89,7 @@ public abstract class WarningComposite extends Composite {
       {
         m_switchButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_switchButton).fillH();
-        m_switchButton.setText("Switch to code");
+        m_switchButton.setText(Messages.WarningComposite_switchButton);
         m_switchButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -137,9 +138,9 @@ public abstract class WarningComposite extends Composite {
     boolean hasSourcePosition = m_sourcePosition != -1;
     // text
     if (hasSourcePosition) {
-      m_switchButton.setText("Go to problem");
+      m_switchButton.setText(Messages.WarningComposite_goProblemButton);
     } else {
-      m_switchButton.setText("Switch to code");
+      m_switchButton.setText(Messages.WarningComposite_switchButton);
     }
     // image
     if (!EnvironmentUtils.IS_MAC) {

@@ -19,6 +19,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -113,7 +114,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
     // add "Surround with" sub-menu
     MenuManagerEx surroundManager;
     {
-      surroundManager = new MenuManagerEx("Surround with");
+      surroundManager = new MenuManagerEx(ModelMessages.SurroundSupport_surorundManager);
       surroundManager.setImage(DesignerPlugin.getImage("actions/surround/surround.png"));
       manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, surroundManager);
     }

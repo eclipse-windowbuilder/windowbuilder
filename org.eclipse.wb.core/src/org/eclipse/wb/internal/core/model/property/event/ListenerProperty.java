@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.property.event;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -25,6 +26,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Image;
+
+import java.text.MessageFormat;
 
 /**
  * Implementation of {@link Property} for single {@link ListenerInfo}.
@@ -64,10 +67,9 @@ final class ListenerProperty extends AbstractListenerProperty {
   public void setValue(Object value) throws Exception {
     if (value == UNKNOWN_VALUE) {
       // ask confirmation
-      if (MessageDialog.openConfirm(
-          DesignerPlugin.getShell(),
-          "Confirm",
-          "Do you really want delete listener '" + m_listener.getName() + "' and all its methods?")) {
+      if (MessageDialog.openConfirm(DesignerPlugin.getShell(), ModelMessages.ListenerProperty_removeTitle, MessageFormat.format(
+          ModelMessages.ListenerProperty_removeMessage,
+          m_listener.getName()))) {
         removeListener();
       }
     }
@@ -165,7 +167,7 @@ final class ListenerProperty extends AbstractListenerProperty {
           }
         };
         int line = m_javaInfo.getEditor().getLineNumber(stubMethod.getStartPosition());
-        actions[0].setText(property.getMethod().getName() + " -> line " + line);
+        actions[0].setText(property.getMethod().getName() + ModelMessages.ListenerProperty_line + line);
         actions[0].setImageDescriptor(EventsPropertyUtils.LISTENER_METHOD_IMAGE_DESCRIPTOR);
       }
     }

@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.actions.errors;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -47,7 +48,7 @@ public final class WarningsErrorPage implements IErrorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getTitle() {
-    return "Warnings";
+    return Messages.WarningsErrorPage_title;
   }
 
   public final void setRoot(ObjectInfo rootObject) {
@@ -81,7 +82,7 @@ public final class WarningsErrorPage implements IErrorPage {
       Group group = new Group(container, SWT.NONE);
       GridDataFactory.create(group).grabH().fill();
       GridLayoutFactory.create(group);
-      group.setText("Warnings");
+      group.setText(Messages.WarningsErrorPage_listLabel);
       //
       m_nodesList = new List(group, SWT.BORDER | SWT.V_SCROLL);
       GridDataFactory.create(m_nodesList).hintC(100, 10).grab().fill();
@@ -107,7 +108,7 @@ public final class WarningsErrorPage implements IErrorPage {
       Group group = new Group(container, SWT.NONE);
       GridDataFactory.create(group).grab().fill();
       GridLayoutFactory.create(group);
-      group.setText("Message and exception");
+      group.setText(Messages.WarningsErrorPage_singleLabel);
       //
       m_browser = new Browser(group, SWT.BORDER);
       GridDataFactory.create(m_browser).hintC(100, 15).grab().fill();

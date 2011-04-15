@@ -18,6 +18,7 @@ import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.CreationDescription;
@@ -154,8 +155,8 @@ public final class InstanceObjectPropertyEditor extends TextDialogPropertyEditor
               scope,
               IJavaElementSearchConstants.CONSIDER_CLASSES,
               false);
-      dialog.setTitle("Open type");
-      dialog.setMessage("Select a type (? = any character, * - any String):");
+      dialog.setTitle(ModelMessages.InstanceObjectPropertyEditor_chooseTitle);
+      dialog.setMessage(ModelMessages.InstanceObjectPropertyEditor_chooseMessage);
     }
     // open dialog
     if (dialog.open() == Window.OK) {

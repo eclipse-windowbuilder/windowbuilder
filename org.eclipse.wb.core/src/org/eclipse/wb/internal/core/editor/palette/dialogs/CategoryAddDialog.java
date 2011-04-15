@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryAddCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.utils.dialogfields.ComboDialogField;
@@ -21,6 +22,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ public final class CategoryAddDialog extends CategoryAbstractDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CategoryAddDialog(Shell parentShell, PaletteInfo palette, CategoryInfo initialNextCategory) {
-    super(parentShell, "New palette category", "Add a new category to the palette");
+    super(parentShell, Messages.CategoryAddDialog_title, Messages.CategoryAddDialog_message);
     m_palette = palette;
     m_initialNextCategory = initialNextCategory;
   }
@@ -63,18 +65,18 @@ public final class CategoryAddDialog extends CategoryAbstractDialog {
     // location
     {
       m_locationField = new ComboDialogField(SWT.READ_ONLY);
-      doCreateField(m_locationField, "&Insert new category:");
+      doCreateField(m_locationField, Messages.CategoryAddDialog_targetCategoryLabel);
       // add categories
       boolean categorySelected = false;
       for (CategoryInfo category : m_palette.getCategories()) {
-        m_locationField.addItem("before \"" + category.getName() + "\"");
+        m_locationField.addItem(MessageFormat.format(Messages.CategoryAddDialog_targetCategoryBefore, category.getName()));
         if (category == m_initialNextCategory) {
           m_locationField.selectItem(m_locationField.getItemCount() - 1);
           categorySelected = true;
         }
       }
       // add end
-      m_locationField.addItem("(at the end)");
+      m_locationField.addItem(Messages.CategoryAddDialog_targetCategoryEnd);
       if (!categorySelected) {
         m_locationField.selectItem(m_locationField.getItemCount() - 1);
       }

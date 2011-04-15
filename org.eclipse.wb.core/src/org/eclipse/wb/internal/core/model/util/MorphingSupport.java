@@ -20,6 +20,7 @@ import org.eclipse.wb.core.model.association.AssociationUtils;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryCreationSupport;
@@ -63,6 +64,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -99,7 +101,7 @@ public final class MorphingSupport {
     // add "Morph" sub-menu
     MenuManagerEx morphManager;
     {
-      morphManager = new MenuManagerEx("Morph");
+      morphManager = new MenuManagerEx(ModelMessages.MorphingSupport_managerText);
       morphManager.setImage(DesignerPlugin.getImage("actions/morph/morph2.png"));
       manager.appendToGroup(IContextMenuConstants.GROUP_INHERITANCE, morphManager);
     }
@@ -149,13 +151,13 @@ public final class MorphingSupport {
       String baseClassName = m_component.getDescription().getComponentClass().getName();
       MorphSubclassAction action = new MorphSubclassAction(baseClassName);
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/morph/subclass.gif"));
-      action.setText("&Subclass...");
+      action.setText(ModelMessages.MorphingSupport_subclassAction);
       morphManager.add(action);
     }
     {
       MorphSubclassAction action = new MorphSubclassAction(m_toolkitClassName);
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/morph/other.gif"));
-      action.setText("&Other...");
+      action.setText(ModelMessages.MorphingSupport_otherAction);
       morphManager.add(action);
     }
   }
@@ -201,11 +203,9 @@ public final class MorphingSupport {
         MethodDescription method = targetDescription.getMethod(associationSignature);
         // check that method exists
         if (method == null) {
-          return "Source container uses "
-              + associationSignature
-              + " for children association."
-              + " But target component does not have such method."
-              + " Morphing must be done manually in the Source view.";
+          return MessageFormat.format(
+              ModelMessages.MorphingSupport_validateNoAssociationMethod,
+              associationSignature);
         }
         // check that method is association
         boolean hasChild = false;
@@ -214,11 +214,11 @@ public final class MorphingSupport {
           hasChild |= parameter.isChild();
         }
         if (!hasChild) {
-          return "Source container uses "
+          return ModelMessages.MorphingSupport_validateAssociationMethod_1
               + associationSignature
-              + " for children association."
-              + " But target component does not use this method for association."
-              + " Morphing must be done manually in the Source view.";
+              + ModelMessages.MorphingSupport_validateAssociationMethod_2
+              + ModelMessages.MorphingSupport_validateAssociationMethod_3
+              + ModelMessages.MorphingSupport_validateAssociationMethod_4;
         }
       }
     }
@@ -392,7 +392,7 @@ public final class MorphingSupport {
         {
           String message = validate(target);
           if (message != null) {
-            MessageDialog.openError(DesignerPlugin.getShell(), "Incompatible morph target", message);
+            MessageDialog.openError(DesignerPlugin.getShell(), ModelMessages.MorphingSupport_incompatibleTargetTitle, message);
             return;
           }
         }
@@ -496,8 +496,8 @@ public final class MorphingSupport {
                 scope,
                 IJavaElementSearchConstants.CONSIDER_CLASSES,
                 false);
-        dialog.setTitle("Open type");
-        dialog.setMessage("Select a type (? = any character, * - any String):");
+        dialog.setTitle(ModelMessages.MorphingSupport_chooseTitle);
+        dialog.setMessage(ModelMessages.MorphingSupport_chooseMessage);
       }
       // open dialog
       if (dialog.open() == Window.OK) {

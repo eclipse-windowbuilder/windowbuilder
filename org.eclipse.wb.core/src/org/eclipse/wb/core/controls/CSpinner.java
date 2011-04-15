@@ -89,13 +89,11 @@ public class CSpinner extends Composite {
             m_value = (int) (m_format.parse(m_text.getText()).doubleValue() * m_multiplier);
             if (m_value < m_minimum || m_value > m_maximum) {
               m_text.setBackground(COLOR_INVALID);
-              setState("Value "
-                  + m_value
-                  + " is out of range ["
-                  + m_minimum
-                  + ", "
-                  + m_maximum
-                  + "]");
+              setState(MessageFormat.format(
+                  Messages.CSpinner_outOfRange,
+                  m_value,
+                  m_minimum,
+                  m_maximum));
               notifySelectionListeners(false);
             } else {
               setState(null);
@@ -103,7 +101,7 @@ public class CSpinner extends Composite {
             }
           } catch (ParseException ex) {
             setState(MessageFormat.format(
-                "Test \"{0}\"does not satisfy pattern \"{1}\" ",
+                Messages.CSpinner_canNotParse,
                 m_text.getText(),
                 m_formatPattern));
             notifySelectionListeners(false);

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -56,23 +57,23 @@ public class ProxySettingDialog extends Dialog {
   protected Control createDialogArea(Composite parent) {
     Composite area = (Composite) super.createDialogArea(parent);
     Label hintLabel = new Label(area, SWT.NONE);
-    hintLabel.setText("Enter proxy settings below or leave blank to disable the proxy usage.");
+    hintLabel.setText(Messages.ProxySettingDialog_hint);
     {
       Group group = new Group(area, SWT.NONE);
-      group.setText("HTTP proxy settings");
+      group.setText(Messages.ProxySettingDialog_groupText);
       GridDataFactory.modify(group).grab().fill();
       GridLayoutFactory.create(group).columns(2);
       {
         {
           Label label = new Label(group, SWT.NONE);
-          label.setText("Host name or address:");
+          label.setText(Messages.ProxySettingDialog_addressLabel);
           m_addressText = new Text(group, SWT.BORDER);
           m_addressText.setText(getSystemProperty(PROXY_HOST));
           GridDataFactory.create(m_addressText).grabH().fillH();
         }
         {
           Label label = new Label(group, SWT.NONE);
-          label.setText("Port:");
+          label.setText(Messages.ProxySettingDialog_portLabel);
           m_portText = new Text(group, SWT.BORDER);
           m_portText.setText(getSystemProperty(PROXY_PORT));
           GridDataFactory.create(m_portText).grabH().fillH();
@@ -85,7 +86,7 @@ public class ProxySettingDialog extends Dialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Configure proxy settings");
+    newShell.setText(Messages.ProxySettingDialog_title);
   }
 
   @Override
@@ -106,16 +107,16 @@ public class ProxySettingDialog extends Dialog {
       } catch (Throwable e) {
         MessageDialog.openError(
             getShell(),
-            "Error",
-            "Invalid port number. The port number should be in range 0-65535.");
+            Messages.ProxySettingDialog_errPortTitle,
+            Messages.ProxySettingDialog_errPortMessage);
         return;
       }
       allOK = addressString.length() > 0;
       if (!allOK) {
         MessageDialog.openError(
             getShell(),
-            "Error",
-            "Please provide HTTP proxy host name or IP address.");
+            Messages.ProxySettingDialog_errAddressTitle,
+            Messages.ProxySettingDialog_arrAddressMessage);
         return;
       }
       setSystemProperty(PROXY_SET, "true");

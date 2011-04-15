@@ -19,6 +19,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateIcon;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
@@ -84,7 +85,7 @@ public final class EventsProperty extends AbstractEventProperty {
           ObjectInfo object,
           IMenuManager manager) throws Exception {
         if (object == m_javaInfo) {
-          contributeActions(manager, "Add event handler");
+          contributeActions(manager, ModelMessages.EventsProperty_menuManagerName);
         }
       }
     });

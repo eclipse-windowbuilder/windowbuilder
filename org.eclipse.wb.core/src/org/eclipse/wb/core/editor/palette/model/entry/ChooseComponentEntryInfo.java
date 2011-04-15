@@ -11,6 +11,7 @@
 package org.eclipse.wb.core.editor.palette.model.entry;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
+import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
@@ -28,6 +29,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -46,8 +48,8 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ChooseComponentEntryInfo() {
-    setName("Choose component");
-    setDescription("Allows to select type of component and drop it on design canvas.");
+    setName(Messages.ChooseComponentEntryInfo_name);
+    setDescription(Messages.ChooseComponentEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -70,7 +72,9 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
       {
         componentEntry.setId("custom_" + System.currentTimeMillis());
         componentEntry.setName(CodeUtils.getShortClass(componentClassName));
-        componentEntry.setDescription("Creates " + componentClassName + " component.");
+        componentEntry.setDescription(MessageFormat.format(
+            Messages.ChooseComponentEntryInfo_newDescription,
+            componentClassName));
         componentEntry.setComponentClassName(componentClassName);
       }
       // always add
@@ -82,11 +86,10 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
         boolean shouldReparse =
             MessageDialog.openQuestion(
                 DesignerPlugin.getShell(),
-                "Unable to load component",
-                "WindowBuilder was unable to load "
-                    + componentClassName
-                    + ". This may be caused by ClassLoader problems."
-                    + " Do you want to refresh editor and try again?");
+                Messages.ChooseComponentEntryInfo_unableLoadTitle,
+                MessageFormat.format(
+                    Messages.ChooseComponentEntryInfo_unableLoadMessage,
+                    componentClassName));
         if (shouldReparse) {
           IDesignPageSite.Helper.getSite(m_rootJavaInfo).reparse();
         }
@@ -134,7 +137,7 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
       getSite().addCommand(
           new CategoryAddCommand("category_" + System.currentTimeMillis(),
               "Custom",
-              "Container for custom components",
+              Messages.ChooseComponentEntryInfo_customDescription,
               true,
               true,
               null));

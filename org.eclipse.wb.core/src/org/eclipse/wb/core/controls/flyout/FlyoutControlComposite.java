@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.flyout;
 
+import org.eclipse.wb.core.controls.Messages;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -286,7 +287,7 @@ public final class FlyoutControlComposite extends Composite {
     public FlyoutContainer(Composite parent, int style) {
       super(parent, style);
       configureMenu();
-      updateTitleImage("Flyout");
+      updateTitleImage(Messages.FlyoutControlComposite_title);
       // add listeners
       addListener(SWT.Dispose, new Listener() {
         public void handleEvent(Event event) {
@@ -871,11 +872,11 @@ public final class FlyoutControlComposite extends Composite {
         }
 
         private void addDockActions() {
-          MenuManager dockManager = new MenuManager("&Dock On");
-          addDockAction(dockManager, "&Left", IFlyoutPreferences.DOCK_WEST);
-          addDockAction(dockManager, "&Right", IFlyoutPreferences.DOCK_EAST);
-          addDockAction(dockManager, "&Top", IFlyoutPreferences.DOCK_NORTH);
-          addDockAction(dockManager, "&Bottom", IFlyoutPreferences.DOCK_SOUTH);
+          MenuManager dockManager = new MenuManager(Messages.FlyoutControlComposite_dockManager);
+          addDockAction(dockManager, Messages.FlyoutControlComposite_dockLeft, IFlyoutPreferences.DOCK_WEST);
+          addDockAction(dockManager, Messages.FlyoutControlComposite_dockRight, IFlyoutPreferences.DOCK_EAST);
+          addDockAction(dockManager, Messages.FlyoutControlComposite_dockTop, IFlyoutPreferences.DOCK_NORTH);
+          addDockAction(dockManager, Messages.FlyoutControlComposite_dockBottom, IFlyoutPreferences.DOCK_SOUTH);
           manager.add(dockManager);
         }
 

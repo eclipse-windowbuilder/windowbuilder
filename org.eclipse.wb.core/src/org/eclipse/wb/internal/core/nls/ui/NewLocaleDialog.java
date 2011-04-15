@@ -25,6 +25,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+import java.text.MessageFormat;
+
 /**
  * Dialog for selecting new locale.
  * 
@@ -73,7 +75,9 @@ public class NewLocaleDialog extends ChooseLocaleDialog {
     for (int i = 0; i < m_locales.length; i++) {
       LocaleInfo locale = m_locales[i];
       if (locale.equals(m_selectedLocale)) {
-        setErrorMessage("Selected locale name '" + m_selectedLocale.getTitle() + "' already exists");
+        setErrorMessage(MessageFormat.format(
+            "Selected locale name ''{0}'' already exists",
+            m_selectedLocale.getTitle()));
         getButton(IDialogConstants.OK_ID).setEnabled(false);
         return;
       }

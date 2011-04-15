@@ -52,6 +52,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -125,7 +126,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         String template = getString(P_VARIABLE_TEXT_TEMPLATE);
         String message = NamesManager.validate(template);
         if (message != null) {
-          return "Invalid template, it uses unknown variables: " + message;
+          return MessageFormat.format("Invalid template, it uses unknown variables: {0}", message);
         }
       }
       // continue

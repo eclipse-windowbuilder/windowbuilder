@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -220,7 +221,7 @@ public final class SelectSupport {
     // add separate actions
     String cmdModifierName = getCommandModifierName();
     {
-      String text = "All\t" + cmdModifierName + "+A";
+      String text = MessageFormat.format("All\t{0}+A", cmdModifierName);
       selectMenuManager.add(new SelectAction(text, "all.png") {
         @Override
         protected void runEx() throws Exception {
@@ -229,7 +230,7 @@ public final class SelectSupport {
       });
     }
     {
-      String text = "All of Same Type\t" + cmdModifierName + "+Shift+A";
+      String text = MessageFormat.format("All of Same Type\t{0}+Shift+A", cmdModifierName);
       selectMenuManager.add(new SelectAction(text, "sameType.png") {
         @Override
         protected void runEx() throws Exception {
@@ -238,7 +239,7 @@ public final class SelectSupport {
       });
     }
     {
-      String text = "All on Same Parent\t" + cmdModifierName + "+Alt+A";
+      String text = MessageFormat.format("All on Same Parent\t{0}+Alt+A", cmdModifierName);
       selectMenuManager.add(new SelectAction(text, "sameParent.png") {
         @Override
         protected void runEx() throws Exception {

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
@@ -40,7 +41,7 @@ public abstract class CategoryAbstractDialog extends AbstractPaletteElementDialo
         shellText,
         titleText,
         null,
-        "Specify the name and description of the category.");
+        Messages.CategoryAbstractDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -61,27 +62,27 @@ public abstract class CategoryAbstractDialog extends AbstractPaletteElementDialo
     {
       m_idField = new StringDialogField();
       m_idField.setEditable(false);
-      doCreateField(m_idField, "&ID:");
+      doCreateField(m_idField, Messages.CategoryAbstractDialog_idLabel);
     }
     // name
     {
       m_nameField = new StringDialogField();
-      doCreateField(m_nameField, "&Name:");
+      doCreateField(m_nameField, Messages.CategoryAbstractDialog_nameLabel);
       m_nameField.setFocus();
     }
     // description
     {
       m_descriptionField = new StringAreaDialogField(5);
-      doCreateField(m_descriptionField, "&Description:");
+      doCreateField(m_descriptionField, Messages.CategoryAbstractDialog_descriptionLabel);
       GridDataFactory.modify(m_descriptionField.getTextControl(null)).grabV();
     }
     // state
     {
       m_stateField =
           new SelectionButtonDialogFieldGroup(SWT.CHECK, new String[]{
-              "&Visible",
-              "&Open by default"}, 1, SWT.SHADOW_ETCHED_IN);
-      doCreateField(m_stateField, "State");
+              Messages.CategoryAbstractDialog_stateVisible,
+              Messages.CategoryAbstractDialog_stateOpen}, 1, SWT.SHADOW_ETCHED_IN);
+      doCreateField(m_stateField, Messages.CategoryAbstractDialog_stateLabel);
     }
     // allow to add more controls
     createAdditionalControls(container);
@@ -104,7 +105,7 @@ public abstract class CategoryAbstractDialog extends AbstractPaletteElementDialo
     {
       String name = m_nameField.getText();
       if (name.length() == 0) {
-        return "Category name can not be empty.";
+        return Messages.CategoryAbstractDialog_validateEmptyName;
       }
     }
     // OK

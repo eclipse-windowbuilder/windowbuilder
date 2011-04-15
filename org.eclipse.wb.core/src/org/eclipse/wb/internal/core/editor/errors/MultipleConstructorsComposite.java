@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.errors;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.actions.SwitchAction;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -90,7 +91,7 @@ public final class MultipleConstructorsComposite extends Composite {
     }
     // viewer
     {
-      new Label(this, SWT.NONE).setText("Please select constructor to use as entry point:");
+      new Label(this, SWT.NONE).setText(Messages.MultipleConstructorsComposite_listLabel);
       m_constructorsViewer = new TableViewer(this, SWT.BORDER | SWT.V_SCROLL);
       Table table = m_constructorsViewer.getTable();
       GridDataFactory.create(table).hintVC(10).grabH().fill();
@@ -115,7 +116,7 @@ public final class MultipleConstructorsComposite extends Composite {
       {
         Button selectButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(selectButton).fillH();
-        selectButton.setText("Use constructor");
+        selectButton.setText(Messages.MultipleConstructorsComposite_useButton);
         selectButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/entry_point.png"));
@@ -129,7 +130,7 @@ public final class MultipleConstructorsComposite extends Composite {
       {
         Button switchButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(switchButton).fillH();
-        switchButton.setText("Switch to code");
+        switchButton.setText(Messages.MultipleConstructorsComposite_switchButton);
         switchButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/switch32.png"));

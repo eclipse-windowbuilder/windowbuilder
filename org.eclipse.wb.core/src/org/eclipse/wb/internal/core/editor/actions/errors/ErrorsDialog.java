@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.editor.actions.errors;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.errors.JavaExceptionComposite;
 import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
 import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
@@ -89,9 +90,9 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
    * Subclasses override this methods to set title and message for this {@link TitleAreaDialog}.
    */
   protected void configureMessages() {
-    getShell().setText("Errors");
-    setTitle("Designer editor errors.");
-    setMessage("This dialog displays errors that happened during parsing or executing current compilation unit.");
+    getShell().setText(Messages.ErrorsDialog_shellTitle);
+    setTitle(Messages.ErrorsDialog_title);
+    setMessage(Messages.ErrorsDialog_message);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -101,7 +102,7 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void createButtonsForButtonBar(Composite parent) {
-    createButton(parent, CONTACT_SUPPORT_ID, "Contact Support...", false);
+    createButton(parent, CONTACT_SUPPORT_ID, Messages.ErrorsDialog_supportButton, false);
     createButton(parent, IDialogConstants.CLOSE_ID, IDialogConstants.CLOSE_LABEL, true);
   }
 

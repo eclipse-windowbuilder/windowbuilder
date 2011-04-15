@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -90,7 +91,7 @@ public final class ComponentsTreePage implements IPage {
       };
       toolBarManager.add(action);
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("expand_all.gif"));
-      action.setToolTipText("Expand All");
+      action.setToolTipText(Messages.ComponentsTreePage_expandAllAction);
     }
     {
       Action action = new Action() {
@@ -101,7 +102,7 @@ public final class ComponentsTreePage implements IPage {
       };
       toolBarManager.add(action);
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("collapse_all.gif"));
-      action.setToolTipText("Collapse All");
+      action.setToolTipText(Messages.ComponentsTreePage_collapseAllAction);
     }
     actionBars.updateActionBars();
   }

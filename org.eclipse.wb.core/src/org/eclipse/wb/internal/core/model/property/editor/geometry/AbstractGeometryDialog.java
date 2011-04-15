@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.model.property.editor.geometry;
 
 import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -73,7 +74,7 @@ public abstract class AbstractGeometryDialog extends Dialog {
 
   @Override
   protected final void createButtonsForButtonBar(Composite parent) {
-    createButton(parent, IDialogConstants.IGNORE_ID, "Default", false);
+    createButton(parent, IDialogConstants.IGNORE_ID, ModelMessages.AbstractGeometryDialog_defaultButton, false);
     super.createButtonsForButtonBar(parent);
   }
 
@@ -133,7 +134,7 @@ public abstract class AbstractGeometryDialog extends Dialog {
     // pixels
     {
       Label pixelsLabel = new Label(m_area, SWT.NONE);
-      pixelsLabel.setText("pixels");
+      pixelsLabel.setText(ModelMessages.AbstractGeometryDialog_pixelsLabel);
     }
   }
 }

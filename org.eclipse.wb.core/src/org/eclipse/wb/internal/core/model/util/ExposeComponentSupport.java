@@ -15,6 +15,7 @@ import com.google.common.collect.ImmutableList;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.variable.AbstractSimpleVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -96,8 +97,9 @@ public final class ExposeComponentSupport {
       }
     }
     // OK, we can add expose action
-    manager.appendToGroup(IContextMenuConstants.GROUP_INHERITANCE, new ExposeAction(component,
-        text));
+    manager.appendToGroup(
+        IContextMenuConstants.GROUP_INHERITANCE,
+        new ExposeAction(component, text));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -197,10 +199,10 @@ public final class ExposeComponentSupport {
     public ExposeDialog(JavaInfo component) {
       super(DesignerPlugin.getShell(),
           DesignerPlugin.getDefault(),
-          "Expose component",
-          "Expose component using method.",
+          ModelMessages.ExposeComponentSupport_shellTitle,
+          ModelMessages.ExposeComponentSupport_title,
           DesignerPlugin.getImage("actions/expose/expose_banner.gif"),
-          "Enter name for method that will expose selected component.");
+          ModelMessages.ExposeComponentSupport_message);
       m_component = component;
     }
 
@@ -219,7 +221,7 @@ public final class ExposeComponentSupport {
       // name
       {
         m_nameField = new StringDialogField();
-        doCreateField(m_nameField, "Method name:");
+        doCreateField(m_nameField, ModelMessages.ExposeComponentSupport_methodLabel);
         {
           String componentName = m_component.getVariableSupport().getComponentName();
           m_nameField.setText("get" + StringUtils.capitalize(componentName));
@@ -232,7 +234,7 @@ public final class ExposeComponentSupport {
                 new String[]{"&public", "pro&tected"},
                 1,
                 SWT.SHADOW_ETCHED_IN);
-        doCreateField(m_modifierField, "Modifier");
+        doCreateField(m_modifierField, ModelMessages.ExposeComponentSupport_modifierLabel);
       }
     }
 
@@ -247,7 +249,7 @@ public final class ExposeComponentSupport {
         String methodName = m_nameField.getText();
         String methodSignature = methodName + "()";
         if (AstNodeUtils.getMethodBySignature(getTypeDeclaration(m_component), methodSignature) != null) {
-          return "Method \"" + methodSignature + "\" already exists.";
+          return MessageFormat.format(ModelMessages.ExposeComponentSupport_methodAlreadyExists, methodSignature);
         }
       }
       // OK

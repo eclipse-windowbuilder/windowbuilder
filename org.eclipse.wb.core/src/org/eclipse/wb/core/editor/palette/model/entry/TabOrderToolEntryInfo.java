@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.palette.model.entry;
 
+import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -35,8 +36,8 @@ public final class TabOrderToolEntryInfo extends ToolEntryInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public TabOrderToolEntryInfo() {
-    setName("Tab Order");
-    setDescription("Set tab order for selected container.");
+    setName(Messages.TabOrderToolEntryInfo_name);
+    setDescription(Messages.TabOrderToolEntryInfo_description);
   }
 
   ////////////////////////////////////////////////////////////////////////////

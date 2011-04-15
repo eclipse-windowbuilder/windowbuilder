@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryEditCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 
@@ -32,7 +33,7 @@ public final class CategoryEditDialog extends CategoryAbstractDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   public CategoryEditDialog(Shell parentShell, CategoryInfo category) {
-    super(parentShell, "Edit palette category", "Edit an existing palette category");
+    super(parentShell, Messages.CategoryEditDialog_title, Messages.CategoryEditDialog_message);
     m_category = category;
   }
 

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs.factory;
 
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.factory.FactoryEditCommand;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
@@ -38,10 +39,10 @@ public final class FactoryEditDialog extends FactoryAbstractDialog {
       boolean forStatic,
       FactoryEntryInfo entry) {
     super(parentShell, editor, forStatic, forStatic
-        ? "Edit palette static factory"
-        : "Edit palette instance factory", forStatic
-        ? "Edit a palette static factory."
-        : "Edit a palette instance factory.");
+        ? Messages.FactoryEditDialog_titleStatic
+        : Messages.FactoryEditDialog_titleInstance, forStatic
+        ? Messages.FactoryEditDialog_messageStatic
+        : Messages.FactoryEditDialog_messageInstance);
     m_entry = entry;
   }
 
