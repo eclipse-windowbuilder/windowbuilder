@@ -137,6 +137,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
                 Messages.CreateReportDialog_additionalScreenshots
                     + (addDefaultScreenshot ? ":" : ""),
                 2);
+            GridDataFactory.modify(m_screenshotsField.getLabelControl(groupComposite1)).grabH();
             // don't disable this control when no default screenshot
             if (addDefaultScreenshot) {
               m_screenshotsField.setSelection(true);
@@ -158,7 +159,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
           {
             Link link = new Link(groupComposite1, SWT.NONE);
             link.setText(Messages.CreateReportDialog_addLink);
-            GridDataFactory.create(link).hintHC(link.getText().length());
+            GridDataFactory.create(link).alignHL().hintHC(link.getText().length());
             link.addSelectionListener(new SelectionAdapter() {
               @Override
               public void widgetSelected(SelectionEvent e) {
@@ -297,7 +298,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
           {
             Link link = new Link(groupComposite2, SWT.NONE);
             link.setText(Messages.CreateReportDialog_addLink);
-            GridDataFactory.create(link);
+            GridDataFactory.create(link).alignHL();
             link.addSelectionListener(new SelectionAdapter() {
               @Override
               public void widgetSelected(SelectionEvent e) {
