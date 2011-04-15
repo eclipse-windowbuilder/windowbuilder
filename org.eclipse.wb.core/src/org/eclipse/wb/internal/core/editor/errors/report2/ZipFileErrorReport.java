@@ -25,9 +25,11 @@ import org.eclipse.swt.program.Program;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -106,7 +108,8 @@ public final class ZipFileErrorReport implements IErrorReport {
     // store zip as temp file
     // prepare temp dir and file
     File tempDir = getReportTemporaryDirectory();
-    File tempFile = File.createTempFile("report", ".zip", tempDir);
+    String fileName = "report-" + DateFormatUtils.format(new Date(), "yyyyMMdd-HHmmss") + ".zip";
+    File tempFile = new File(tempDir, fileName);
     tempFile.deleteOnExit();
     // create stream
     ZipOutputStream zipStream = null;
