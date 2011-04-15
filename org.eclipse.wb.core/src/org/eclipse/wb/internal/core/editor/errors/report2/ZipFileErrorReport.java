@@ -102,7 +102,7 @@ public final class ZipFileErrorReport implements IErrorReport {
    * Compress the contents of report into single zip file.
    */
   private String createZipReport(IProgressMonitor monitor) throws Exception {
-    monitor.beginTask("Preparing report data...", m_entries.size());
+    monitor.beginTask(Messages.ZipFileErrorReport_taskTitle, m_entries.size());
     // store zip as temp file
     // prepare temp dir and file
     File tempDir = getReportTemporaryDirectory();
@@ -248,7 +248,7 @@ public final class ZipFileErrorReport implements IErrorReport {
       return "<html><body><pre>" + contents + "</pre></body></html>";
     } catch (Throwable e) {
       // should not happen :)
-      return "<Error displaying the environment info>";
+      return Messages.ZipFileErrorReport_errorMessage;
     }
   }
 

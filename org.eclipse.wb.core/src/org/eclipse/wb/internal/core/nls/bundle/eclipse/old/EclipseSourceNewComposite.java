@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.bundle.eclipse.old;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.AbstractAccessorSourceNewComposite;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
@@ -55,7 +56,7 @@ public final class EclipseSourceNewComposite extends AbstractAccessorSourceNewCo
   @Override
   protected void createAdditionalAccessorFields(Composite parent) {
     m_buttonsGroup =
-        new SelectionButtonDialogFieldGroup(SWT.CHECK, new String[]{"Use default values"}, 3);
+        new SelectionButtonDialogFieldGroup(SWT.CHECK, new String[]{Messages.EclipseSourceNewComposite_useDefaultNames}, 3);
     m_buttonsGroup.doFillIntoGrid(parent, 3);
   }
 
@@ -71,7 +72,7 @@ public final class EclipseSourceNewComposite extends AbstractAccessorSourceNewCo
       } catch (Throwable e) {
         setInvalid(
             KEY_ACCESSOR_CLASS,
-            "Accessor class has no field BUNDLE_NAME with full name of resource bundle.");
+            Messages.EclipseSourceNewComposite_validateNoBundleNameField);
       }
     } catch (Throwable e) {
     }
@@ -83,7 +84,7 @@ public final class EclipseSourceNewComposite extends AbstractAccessorSourceNewCo
   //
   ////////////////////////////////////////////////////////////////////////////
   public static String getTitle() {
-    return "Classic Eclipse messages class";
+    return Messages.EclipseSourceNewComposite_title;
   }
 
   @Override

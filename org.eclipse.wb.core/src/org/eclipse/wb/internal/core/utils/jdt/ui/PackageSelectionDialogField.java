@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
@@ -191,8 +192,8 @@ public final class PackageSelectionDialogField extends StringButtonDialogField
               new JavaElementLabelProvider());
       // configure dialog
       dialog.setIgnoreCase(false);
-      dialog.setTitle("Package selection");
-      dialog.setMessage("&Choose the destination package:");
+      dialog.setTitle(Messages.PackageSelectionDialogField_dialogTitle);
+      dialog.setMessage(Messages.PackageSelectionDialogField_dialogMessage);
       dialog.setElements(getPackagesList().toArray());
       // select package
       if (dialog.open() == Window.OK) {

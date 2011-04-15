@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
+import org.eclipse.wb.internal.core.preferences.Messages;
 import org.eclipse.wb.internal.core.preferences.bind.AbstractBindingPreferencesPage;
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.ui.AbstractBindingComposite;
@@ -101,15 +102,18 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
       TabFolder tabFolder = new TabFolder(this, SWT.NONE);
       GridDataFactory.create(tabFolder).grab().fill();
       {
-        Composite composite = TabFactory.item(tabFolder).text("Type specific").composite();
+        Composite composite =
+            TabFactory.item(tabFolder).text(Messages.VariablesPreferencePage_typeSpecificTab).composite();
         createTypeSpecificPage(composite);
       }
       {
-        Composite composite = TabFactory.item(tabFolder).text("Auto rename").composite();
+        Composite composite =
+            TabFactory.item(tabFolder).text(Messages.VariablesPreferencePage_autoRenameTab).composite();
         createAutoRenamePage(composite);
       }
       {
-        Composite composite = TabFactory.item(tabFolder).text("Miscellaneous").composite();
+        Composite composite =
+            TabFactory.item(tabFolder).text(Messages.VariablesPreferencePage_miscTab).composite();
         createMiscellaneousPage(composite);
       }
     }
@@ -126,7 +130,9 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         String template = getString(P_VARIABLE_TEXT_TEMPLATE);
         String message = NamesManager.validate(template);
         if (message != null) {
-          return MessageFormat.format("Invalid template, it uses unknown variables: {0}", message);
+          return MessageFormat.format(
+              Messages.VariablesPreferencePage_validateVariableNameTemplate,
+              message);
         }
       }
       // continue
@@ -145,17 +151,20 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
       GridLayoutFactory.create(parent).columns(2).equalColumns();
       // mode
       {
-        new Label(parent, SWT.NONE).setText("Use text component variable auto rename:");
+        new Label(parent, SWT.NONE).setText(Messages.VariablesPreferencePage_arLabel);
         // control
         Combo modeCombo = new Combo(parent, SWT.READ_ONLY);
         GridDataFactory.create(modeCombo).grabH().fillH();
-        modeCombo.setItems(new String[]{"Always", "For default names", "Never"});
+        modeCombo.setItems(new String[]{
+            Messages.VariablesPreferencePage_arAlways,
+            Messages.VariablesPreferencePage_arDefault,
+            Messages.VariablesPreferencePage_arNever});
         // bind
         bindSelection(modeCombo, P_VARIABLE_TEXT_MODE);
       }
       // template
       {
-        new Label(parent, SWT.NONE).setText("Create variable using pattern:");
+        new Label(parent, SWT.NONE).setText(Messages.VariablesPreferencePage_arPatternLabel);
         // control
         Combo templateCombo = new Combo(parent, SWT.NONE);
         GridDataFactory.create(templateCombo).grabH().fillH();
@@ -172,7 +181,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         GridDataFactory.create(composite).spanH(2).fillH();
         GridLayoutFactory.create(composite).columns(3).noMargins();
         // initial text
-        new Label(composite, SWT.NONE).setText("Process only");
+        new Label(composite, SWT.NONE).setText(Messages.VariablesPreferencePage_arLimitWords1);
         // control
         {
           Text wordsText = new Text(composite, SWT.BORDER);
@@ -180,17 +189,17 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
           bindInteger(wordsText, P_VARIABLE_TEXT_WORDS_LIMIT);
         }
         // final text
-        new Label(composite, SWT.NONE).setText("words of text value (0 for no limit)");
+        new Label(composite, SWT.NONE).setText(Messages.VariablesPreferencePage_arLimitWords2);
       }
       // template parts hint
       {
         Label templateHint = new Label(parent, SWT.WRAP);
         GridDataFactory.create(templateHint).spanH(2);
-        templateHint.setText("Available pattern parts are:\n"
-            + "     ${class_name} - the short class name\n"
-            + "     ${class_acronym} - the acronym of the short class name\n"
-            + "     ${default_name} - the default name of component\n"
-            + "     ${text} - the value of the text property");
+        templateHint.setText(Messages.VariablesPreferencePage_arHint1
+            + Messages.VariablesPreferencePage_arHint2
+            + Messages.VariablesPreferencePage_arHint3
+            + Messages.VariablesPreferencePage_arHint4
+            + Messages.VariablesPreferencePage_arHint5);
       }
     }
 
@@ -207,7 +216,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
       // variable in component
       checkButton(
           parent,
-          "Remember variable name in component",
+          Messages.VariablesPreferencePage_miscRememberName,
           IPreferenceConstants.P_VARIABLE_IN_COMPONENT);
     }
 
@@ -233,10 +242,11 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         {
           TableFactory tableFactory = TableFactory.modify(m_namesViewer);
           tableFactory.linesVisible(true).headerVisible(true);
-          tableFactory.newColumn().text("Component class").widthC(35);
-          tableFactory.newColumn().text("Default name").widthC(20);
-          tableFactory.newColumn().text("Acronym").widthC(15);
-          tableFactory.newColumn().text("As field").widthC(15);
+          tableFactory.newColumn().text(Messages.VariablesPreferencePage_tsClassColumn).widthC(35);
+          tableFactory.newColumn().text(Messages.VariablesPreferencePage_tsDefaultNameColumn).widthC(
+              20);
+          tableFactory.newColumn().text(Messages.VariablesPreferencePage_tsAcronymColumn).widthC(15);
+          tableFactory.newColumn().text(Messages.VariablesPreferencePage_tsAsFieldColumn).widthC(15);
         }
         // providers
         m_namesViewer.setContentProvider(new ArrayContentProvider());
@@ -259,14 +269,14 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         {
           Button addButton = new Button(buttonsComposite, SWT.NONE);
           GridDataFactory.create(addButton).fillH();
-          addButton.setText("Add...");
+          addButton.setText(Messages.VariablesPreferencePage_tsAddButton);
           // operation
           addButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
               InputDialog inputDialog =
                   new InputDialog(getShell(),
-                      "Add Class",
-                      "Enter the name of the class to add",
+                      Messages.VariablesPreferencePage_tsAddTitle,
+                      Messages.VariablesPreferencePage_tsAddMessage,
                       "",
                       null);
               if (inputDialog.open() == Window.OK) {
@@ -284,7 +294,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         {
           final Button removeButton = new Button(buttonsComposite, SWT.NONE);
           GridDataFactory.create(removeButton).fillH();
-          removeButton.setText("Remove...");
+          removeButton.setText(Messages.VariablesPreferencePage_tsRemove);
           // operation
           removeButton.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event event) {
@@ -292,10 +302,10 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
                   (ComponentNameDescription) ((IStructuredSelection) m_namesViewer.getSelection()).getFirstElement();
               if (MessageDialog.openConfirm(
                   getShell(),
-                  "Confirm",
-                  "Are you sure you want to delete configuration for class \""
-                      + description.getClassName()
-                      + "\"?")) {
+                  Messages.VariablesPreferencePage_tsRemoveTitle,
+                  MessageFormat.format(
+                      Messages.VariablesPreferencePage_tsRemoveMessage,
+                      description.getClassName()))) {
                 m_descriptions.remove(description);
                 m_namesViewer.remove(description);
               }
@@ -416,7 +426,10 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         NamesManager.setNameDescriptions(m_toolkit, m_descriptions);
       } catch (Throwable e) {
         DesignerPlugin.log(e);
-        MessageDialog.openError(getShell(), "Error occurred", "Error setting preferences");
+        MessageDialog.openError(
+            getShell(),
+            Messages.VariablesPreferencePage_setErrorTitle,
+            Messages.VariablesPreferencePage_setErrorMessage);
         return false;
       }
       return super.performOk();

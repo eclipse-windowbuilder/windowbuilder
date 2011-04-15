@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 
+import org.eclipse.wb.internal.core.utils.Messages;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -111,7 +113,7 @@ public final class ColorPreviewCanvas extends Canvas {
             try {
               gc.setFont(font);
               gc.setForeground(color);
-              drawCenteredText(gc, "Sample text", r.width / 2, y, r.width / 2, r.height - y);
+              drawCenteredText(gc, Messages.ColorPreviewCanvas_sampleText, r.width / 2, y, r.width / 2, r.height - y);
             } finally {
               font.dispose();
             }

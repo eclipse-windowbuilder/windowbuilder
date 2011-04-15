@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.ui;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAreaDialog;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
@@ -36,8 +37,8 @@ public final class AddKeyValueDialog extends AbstractValidationTitleAreaDialog {
   public AddKeyValueDialog(Shell parentShell) {
     super(parentShell,
         DesignerPlugin.getDefault(),
-        "New key/value",
-        "Add new key/value into all locales.",
+        Messages.AddKeyValueDialog_title,
+        Messages.AddKeyValueDialog_message,
         null,
         null);
     setShellStyle(SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -58,12 +59,12 @@ public final class AddKeyValueDialog extends AbstractValidationTitleAreaDialog {
     // key
     {
       m_keyField = new StringDialogField();
-      doCreateField(m_keyField, "&Key:");
+      doCreateField(m_keyField, Messages.AddKeyValueDialog_keyLabel);
     }
     // value
     {
       m_valueField = new StringDialogField();
-      doCreateField(m_valueField, "&Value:");
+      doCreateField(m_valueField, Messages.AddKeyValueDialog_valueLabel);
     }
   }
 
@@ -78,7 +79,7 @@ public final class AddKeyValueDialog extends AbstractValidationTitleAreaDialog {
     {
       String key = m_keyField.getText().trim();
       if (key.length() == 0) {
-        return "Key can not be empty.";
+        return Messages.AddKeyValueDialog_validateEmptyKey;
       }
     }
     // OK

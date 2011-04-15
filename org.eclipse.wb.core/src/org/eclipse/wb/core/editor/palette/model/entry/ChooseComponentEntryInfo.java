@@ -11,13 +11,13 @@
 package org.eclipse.wb.core.editor.palette.model.entry;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
-import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryAddCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.ComponentAddCommand;
@@ -73,7 +73,7 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
         componentEntry.setId("custom_" + System.currentTimeMillis());
         componentEntry.setName(CodeUtils.getShortClass(componentClassName));
         componentEntry.setDescription(MessageFormat.format(
-            Messages.ChooseComponentEntryInfo_newDescription,
+            Messages.ChooseComponentEntryInfo_newComponentDescription,
             componentClassName));
         componentEntry.setComponentClassName(componentClassName);
       }
@@ -86,9 +86,9 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
         boolean shouldReparse =
             MessageDialog.openQuestion(
                 DesignerPlugin.getShell(),
-                Messages.ChooseComponentEntryInfo_unableLoadTitle,
+                Messages.ChooseComponentEntryInfo_unableToLoadTest,
                 MessageFormat.format(
-                    Messages.ChooseComponentEntryInfo_unableLoadMessage,
+                    Messages.ChooseComponentEntryInfo_unableToLoadMessage,
                     componentClassName));
         if (shouldReparse) {
           IDesignPageSite.Helper.getSite(m_rootJavaInfo).reparse();
@@ -137,7 +137,7 @@ public final class ChooseComponentEntryInfo extends ToolEntryInfo {
       getSite().addCommand(
           new CategoryAddCommand("category_" + System.currentTimeMillis(),
               "Custom",
-              Messages.ChooseComponentEntryInfo_customDescription,
+              Messages.ChooseComponentEntryInfo_customCategoryDescription,
               true,
               true,
               null));

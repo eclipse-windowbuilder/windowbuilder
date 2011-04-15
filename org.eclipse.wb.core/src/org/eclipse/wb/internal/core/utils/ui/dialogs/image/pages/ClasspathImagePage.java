@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImageDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
@@ -50,6 +51,6 @@ public final class ClasspathImagePage extends AbstractBrowseImagePage {
 
   @Override
   public String getTitle() {
-    return "Classpath resource (don't forget to refresh project before)";
+    return Messages.ClasspathImagePage_title;
   }
 }

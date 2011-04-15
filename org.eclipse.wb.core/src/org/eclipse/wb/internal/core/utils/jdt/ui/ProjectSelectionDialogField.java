@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.ui;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
@@ -182,8 +183,8 @@ public final class ProjectSelectionDialogField extends StringButtonDialogField
       ListDialog dialog = new ListDialog(shell);
       dialog.setContentProvider(contentProvider);
       dialog.setLabelProvider(labelProvider);
-      dialog.setTitle("Java project selection");
-      dialog.setMessage("Choose a Java project:");
+      dialog.setTitle(Messages.ProjectSelectionDialogField_dialogTitle);
+      dialog.setMessage(Messages.ProjectSelectionDialogField_dialogMessage);
       // show projects
       dialog.setInput(JavaCore.create(ResourcesPlugin.getWorkspace().getRoot()));
       dialog.setInitialSelections(new Object[]{initialSelection});

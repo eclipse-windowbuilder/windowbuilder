@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.palette.model.entry;
 
-import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.gef.tools.TabOrderTool;
 
 import org.eclipse.swt.graphics.Image;

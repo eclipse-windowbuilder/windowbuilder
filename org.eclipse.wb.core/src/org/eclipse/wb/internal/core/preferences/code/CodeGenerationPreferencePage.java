@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
 import org.eclipse.wb.internal.core.model.generation.preview.GenerationPreview;
 import org.eclipse.wb.internal.core.model.generation.statement.StatementGeneratorDescription;
 import org.eclipse.wb.internal.core.model.variable.description.VariableSupportDescription;
+import org.eclipse.wb.internal.core.preferences.Messages;
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.binding.IDataProvider;
 import org.eclipse.wb.internal.core.utils.binding.editors.controls.CheckButtonEditor;
@@ -89,7 +90,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     //
     {
       Button deduceSettingsButton = new Button(contents, SWT.CHECK);
-      deduceSettingsButton.setText("Use the existing code generation settings when they can be deduced");
+      deduceSettingsButton.setText(Messages.CodeGenerationPreferencePage_deduceFlag);
       m_bindManager.bind(
           new CheckButtonEditor(deduceSettingsButton),
           new BooleanPreferenceProvider(m_preferences, GenerationSettings.P_DEDUCE_SETTINGS),
@@ -101,7 +102,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       GridDataFactory.create(composite).grabH().fill();
       GridLayoutFactory.create(composite).columns(2).noMargins();
       // controls
-      new Label(composite, SWT.NONE).setText("Method name for new statements:");
+      new Label(composite, SWT.NONE).setText(Messages.CodeGenerationPreferencePage_forcedMethod);
       Combo methodCombo = new Combo(composite, SWT.BORDER);
       methodCombo.setItems(getMethodForCombo());
       // bind
@@ -131,7 +132,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     Group container = new Group(parent, SWT.NONE);
     GridDataFactory.create(container).grab().fill();
     GridLayoutFactory.create(container).columns(2).equalColumns().noMargins();
-    container.setText("Default code generation settings");
+    container.setText(Messages.CodeGenerationPreferencePage_defaultGroup);
     //
     createVariableComposite(container);
     createStatementComposite(container);
@@ -184,7 +185,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     GridDataFactory.create(container).grabH().fill();
     GridLayoutFactory.create(container);
     // title
-    new Label(container, SWT.NONE).setText("Variable generation:");
+    new Label(container, SWT.NONE).setText(Messages.CodeGenerationPreferencePage_variableLabel);
     // tab folder
     {
       m_variablesTabFolder = new TabFolder(container, SWT.NONE);
@@ -203,7 +204,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     {
       Label hintLabel = new Label(container, SWT.WRAP);
       GridDataFactory.create(hintLabel).hintHC(50);
-      hintLabel.setText("Note: selecting tab in folder above means selecting corresponding variable generation type as default.");
+      hintLabel.setText(Messages.CodeGenerationPreferencePage_hintVariableSelectingTab);
     }
     // selection listener
     m_variablesTabFolder.addListener(SWT.Selection, new Listener() {
@@ -237,7 +238,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     GridDataFactory.create(container).grabH().fill();
     GridLayoutFactory.create(container);
     // title
-    new Label(container, SWT.NONE).setText("Statement generation:");
+    new Label(container, SWT.NONE).setText(Messages.CodeGenerationPreferencePage_statementLabel);
     // tab folder
     {
       m_statementsTabFolder = new TabFolder(container, SWT.NONE);
@@ -247,7 +248,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     {
       Label hintLabel = new Label(container, SWT.WRAP);
       GridDataFactory.create(hintLabel).hintHC(50);
-      hintLabel.setText("Note: selecting tab in folder above means selecting corresponding statement generation type as default.");
+      hintLabel.setText(Messages.CodeGenerationPreferencePage_hintStatementSelectingTab);
     }
   }
 
@@ -328,7 +329,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       GridDataFactory.create(previewComposite).spanH(2).grab().fill();
       GridLayoutFactory.create(previewComposite);
       // label
-      new Label(previewComposite, SWT.NONE).setText("Preview:");
+      new Label(previewComposite, SWT.NONE).setText(Messages.CodeGenerationPreferencePage_previewLabel);
       // source viewer
       {
         m_previewViewer =
@@ -369,7 +370,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
               m_previewViewer,
               preview.getPreview(variableComposite, statementComposite));
         } else {
-          JdtUiUtils.setJavaSourceForViewer(m_previewViewer, "No preview");
+          JdtUiUtils.setJavaSourceForViewer(m_previewViewer, Messages.CodeGenerationPreferencePage_noPreviewMessage);
         }
       }
     });
@@ -396,7 +397,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
         Label descriptionLabel = new Label(wrapper, SWT.WRAP);
         GridDataFactory.create(descriptionLabel).grabH().fillH().hintHC(50);
         descriptionLabel.setText(MessageFormat.format(
-            "Description: {0}.",
+            Messages.CodeGenerationPreferencePage_descriptionLabel,
             description.getDescription()));
       }
       {

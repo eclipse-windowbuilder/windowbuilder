@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.ui;
 
 import org.eclipse.wb.core.controls.CTableCombo;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.nls.model.LocalePartInfo;
 import org.eclipse.wb.internal.core.nls.model.LocalePartInfos;
@@ -88,8 +89,8 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
 
   @Override
   protected Control createDialogArea(Composite parent) {
-    setTitle("Choose locale");
-    setMessage("Specify the language and country for locale.");
+    setTitle(Messages.ChooseLocaleDialog_title);
+    setMessage(Messages.ChooseLocaleDialog_message);
     // create container
     Composite container = (Composite) super.createDialogArea(parent);
     // create groups
@@ -111,11 +112,11 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
     Group localeGroup = new Group(parent, SWT.NONE);
     localeGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     localeGroup.setLayout(new GridLayout(2, false));
-    localeGroup.setText("Locale");
+    localeGroup.setText(Messages.ChooseLocaleDialog_localeGroup);
     // language
     {
       Label languageLabel = new Label(localeGroup, SWT.NONE);
-      languageLabel.setText("Language:");
+      languageLabel.setText(Messages.ChooseLocaleDialog_languageLabel);
     }
     {
       m_languageCombo = new CTableCombo(localeGroup, SWT.BORDER);
@@ -135,7 +136,7 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
     // country
     {
       Label countryLabel = new Label(localeGroup, SWT.NONE);
-      countryLabel.setText("Country (optional):");
+      countryLabel.setText(Messages.ChooseLocaleDialog_countryLabel);
     }
     {
       m_countryCombo = new CTableCombo(localeGroup, SWT.BORDER);
@@ -160,7 +161,7 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
   private void createLocalesViewer(Group localeGroup) {
     {
       Label countryLabel = new Label(localeGroup, SWT.NONE);
-      countryLabel.setText("All locales:");
+      countryLabel.setText(Messages.ChooseLocaleDialog_allLocalesLabel);
     }
     {
       m_localesViewer = new TableViewer(localeGroup, SWT.BORDER | SWT.FULL_SELECTION);
@@ -303,7 +304,7 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Choose Locale");
+    newShell.setText(Messages.ChooseLocaleDialog_shellTitle);
   }
 
   ////////////////////////////////////////////////////////////////////////////

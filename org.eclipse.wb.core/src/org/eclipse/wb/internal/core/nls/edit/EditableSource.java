@@ -17,6 +17,7 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.commands.AddKeyCommand;
 import org.eclipse.wb.internal.core.nls.commands.AddLocaleCommand;
 import org.eclipse.wb.internal.core.nls.commands.ExternalizePropertyCommand;
@@ -233,11 +234,11 @@ public final class EditableSource implements IEditableSource {
     boolean keepNewKeyValue = false;
     if (containsNewKey) {
       MessageDialog dialog =
-          new MessageDialog(DesignerPlugin.getShell(), "Confirm", null, MessageFormat.format(
-              "There is already value for key ''{0}''. Do you want keep existing value?",
+          new MessageDialog(DesignerPlugin.getShell(), Messages.EditableSource_renameConfirmTitle, null, MessageFormat.format(
+              Messages.EditableSource_renameConfirmKeepExistingValue,
               newKey), MessageDialog.QUESTION, new String[]{
-              "Yes, keep existing value",
-              "No, use value of renaming key"}, 0);
+              Messages.EditableSource_renameConfirmYesKeep,
+              Messages.EditableSource_renameConfirmNoUseRenaming}, 0);
       int openResult = dialog.open();
       if (openResult == SWT.DEFAULT) {
         // cancel pressed

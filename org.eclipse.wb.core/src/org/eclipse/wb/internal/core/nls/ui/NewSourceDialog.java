@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.nls.ui;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
 import org.eclipse.wb.internal.core.nls.SourceDescription;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
@@ -51,8 +52,8 @@ import java.beans.PropertyChangeListener;
  */
 public class NewSourceDialog extends TitleAreaDialog {
   private static final String USUAL_MESSAGE =
-      "Creates a new source of NLS strings. You can select one of the supported NLS code styles.";
-  private static final String ONLY_ONE_SOURCE_MESSAGE = "Creates a new source of NLS strings.";
+      Messages.NewSourceDialog_message;
+  private static final String ONLY_ONE_SOURCE_MESSAGE = Messages.NewSourceDialog_messageOneSource;
   private final JavaInfo m_root;
   private boolean m_hasOneSource;
   ////////////////////////////////////////////////////////////////////////////
@@ -82,7 +83,7 @@ public class NewSourceDialog extends TitleAreaDialog {
   @Override
   protected Control createDialogArea(Composite parent) {
     // configure title area
-    setTitle("New NLS strings source");
+    setTitle(Messages.NewSourceDialog_title);
     setMessage(USUAL_MESSAGE);
     setTitleImage(DesignerPlugin.getImage("nls/add_source.gif"));
     // configure container
@@ -127,7 +128,7 @@ public class NewSourceDialog extends TitleAreaDialog {
       Group exampleGroup = new Group(container, SWT.NONE);
       GridDataFactory.create(exampleGroup).grabH().fillH();
       exampleGroup.setLayout(new GridLayout());
-      exampleGroup.setText("Example");
+      exampleGroup.setText(Messages.NewSourceDialog_exampleGroup);
       //
       m_sampleViewer = JdtUiUtils.createJavaSourceViewer(exampleGroup, SWT.BORDER);
       GridDataFactory.create(m_sampleViewer.getControl()).grab().fill().hintVC(4);
@@ -150,7 +151,7 @@ public class NewSourceDialog extends TitleAreaDialog {
     Group typeGroup = new Group(container, SWT.NONE);
     GridDataFactory.create(typeGroup).grabH().fill();
     typeGroup.setLayout(new GridLayout());
-    typeGroup.setText("Source types");
+    typeGroup.setText(Messages.NewSourceDialog_sourceTypesGroup);
     // create radio buttons for possible sources
     for (int i = 0; i < m_sourceDescriptions.length; i++) {
       SourceDescription sourceDescription = m_sourceDescriptions[i];
@@ -240,7 +241,7 @@ public class NewSourceDialog extends TitleAreaDialog {
       m_containerCompositeLayout = new StackLayout();
       m_containerComposite.setLayout(m_containerCompositeLayout);
     }
-    m_containerComposite.setText("Source properties");
+    m_containerComposite.setText(Messages.NewSourceDialog_sourceProperties);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -274,7 +275,7 @@ public class NewSourceDialog extends TitleAreaDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("New source");
+    newShell.setText(Messages.NewSourceDialog_shellTitle);
   }
 
   ////////////////////////////////////////////////////////////////////////////

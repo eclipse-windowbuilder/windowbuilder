@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.bundle.eclipse.modern;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.AbstractAccessorSourceNewComposite;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
@@ -46,7 +47,7 @@ public final class ModernEclipseSourceNewComposite extends AbstractAccessorSourc
   //
   ////////////////////////////////////////////////////////////////////////////
   public static String getTitle() {
-    return "Modern Eclipse messages class";
+    return Messages.ModernEclipseSourceNewComposite_title;
   }
 
   @Override

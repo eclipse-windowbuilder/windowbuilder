@@ -278,9 +278,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
     assertNotNull(entry);
     assertEquals(-1000, entry.getCode());
     assertEquals("WindowBuilder error", entry.getTitle());
-    assertEquals(
-        "No detailed description for error (-1000), please contact support.",
-        entry.getDescription());
+    assertEquals("No detailed description found for error (-1000).", entry.getDescription());
   }
 
   /**
@@ -367,7 +365,7 @@ public class DesignerExceptionUtilsTest extends DesignerTestCase {
     Throwable e = new Error("foo");
     ErrorEntryInfo entry = DesignerExceptionUtils.getErrorEntry(e);
     assertEquals(ICoreExceptionConstants.UNEXPECTED, entry.getCode());
-    assertEquals("WindowBuilder internal error", entry.getTitle());
+    assertEquals("Internal Error", entry.getTitle());
   }
 
   ////////////////////////////////////////////////////////////////////////////

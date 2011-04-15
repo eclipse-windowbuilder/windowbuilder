@@ -26,7 +26,6 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.ProgressMonitorPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.Clipboard;
@@ -90,8 +89,8 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
   public CreateReportDialog(Shell parentShell, Image screenshot, ZipFileErrorReport errorReport) {
     super(parentShell,
         DesignerPlugin.getDefault(),
-        "Create Report",
-        "Please add/select the information you want to include.",
+        Messages.CreateReportDialog_title,
+        Messages.CreateReportDialog_message,
         DesignerPlugin.getImage("actions/errors/support_banner.png"),
         "");
     m_errorReport = errorReport;
@@ -110,7 +109,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
     {
       // group to add additional required and optional data (user info, hard&soft info, .log file and so on)
       Group additionalDataGroup = new Group(container, SWT.NONE);
-      additionalDataGroup.setText("Data to include into report");
+      additionalDataGroup.setText(Messages.CreateReportDialog_additionalGroup);
       GridDataFactory.create(additionalDataGroup).grabH().fillH();
       GridLayoutFactory.create(additionalDataGroup).columns(2);
       {
@@ -121,15 +120,23 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
         {
           // Eclipse .log file
           BooleanDialogField logInfoField = new BooleanDialogField(true);
-          doCreateBooleanField(groupComposite1, logInfoField, "&Log files (ex., Eclipse .log)", 3);
+          doCreateBooleanField(
+              groupComposite1,
+              logInfoField,
+              Messages.CreateReportDialog_additionalLogs,
+              3);
           selectAndDisable(groupComposite1, logInfoField);
         }
         {
           // screenshots and link to add it
           {
             m_screenshotsField = new BooleanDialogField(true);
-            doCreateBooleanField(groupComposite1, m_screenshotsField, "Sc&reenshots"
-                + (addDefaultScreenshot ? ":" : ""), 2);
+            doCreateBooleanField(
+                groupComposite1,
+                m_screenshotsField,
+                Messages.CreateReportDialog_additionalScreenshots
+                    + (addDefaultScreenshot ? ":" : ""),
+                2);
             // don't disable this control when no default screenshot
             if (addDefaultScreenshot) {
               m_screenshotsField.setSelection(true);
@@ -150,7 +157,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
           }
           {
             Link link = new Link(groupComposite1, SWT.NONE);
-            link.setText("<a>add...</a>");
+            link.setText(Messages.CreateReportDialog_addLink);
             GridDataFactory.create(link).hintHC(link.getText().length());
             link.addSelectionListener(new SelectionAdapter() {
               @Override
@@ -177,7 +184,11 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
         }
         {
           m_cuField = new BooleanDialogField(true);
-          doCreateBooleanField(groupComposite1, m_cuField, "Source file at which error occurred", 3);
+          doCreateBooleanField(
+              groupComposite1,
+              m_cuField,
+              Messages.CreateReportDialog_additionalSourceFile,
+              3);
           m_cuField.setDialogFieldListener(new IDialogFieldListener() {
             public void dialogFieldChanged(DialogField field) {
               m_errorReport.setIncludeSourceFile(m_cuField.getSelection());
@@ -192,7 +203,11 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
         }
         {
           m_projectField = new BooleanDialogField(true);
-          doCreateBooleanField(groupComposite1, m_projectField, "Entire &project of error", 3);
+          doCreateBooleanField(
+              groupComposite1,
+              m_projectField,
+              Messages.CreateReportDialog_additionalProject,
+              3);
           m_projectField.setDialogFieldListener(new IDialogFieldListener() {
             public void dialogFieldChanged(DialogField field) {
               boolean selected = m_projectField.getSelection();
@@ -201,8 +216,8 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
                 boolean dialogResult =
                     MessageDialog.openConfirm(
                         getShell(),
-                        "Warning",
-                        "Adding the entire project into problem report may cause of creating a very big report file. Press OK to continue.");
+                        Messages.CreateReportDialog_additionalProjectTitle,
+                        Messages.CreateReportDialog_additionalProjectMessage);
                 if (dialogResult) {
                   m_errorReport.setIncludeProject(selected);
                   // we should set both "CU" and "project" mode
@@ -225,19 +240,23 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
         // hardware and software summary and link to view it
         {
           BooleanDialogField compInfoField = new BooleanDialogField(true);
-          doCreateBooleanField(groupComposite2, compInfoField, "So&ftware and hardware summary", 2);
+          doCreateBooleanField(
+              groupComposite2,
+              compInfoField,
+              Messages.CreateReportDialog_softHardSummary,
+              2);
           selectAndDisable(groupComposite2, compInfoField);
         }
         {
           Link link = new Link(groupComposite2, SWT.NONE);
-          link.setText("<a>view...</a>");
+          link.setText(Messages.CreateReportDialog_viewLink);
           GridDataFactory.create(link);
           link.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
               BrowserMessageDialog.openMessage(
                   getShell(),
-                  "Software and Hardware Info",
+                  Messages.CreateReportDialog_softHardSummaryTitle,
                   m_errorReport.getComputerInfo());
             }
           });
@@ -248,7 +267,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
           doCreateBooleanField(
               groupComposite2,
               preferencesInfoField,
-              "&WindowBuilder preferences",
+              Messages.CreateReportDialog_preferences,
               3);
           selectAndDisable(groupComposite2, preferencesInfoField);
         }
@@ -256,7 +275,11 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
           // filez ;) and link to add it
           {
             m_filesField = new BooleanDialogField(true);
-            doCreateBooleanField(groupComposite2, m_filesField, "Fi&le attachments", 2);
+            doCreateBooleanField(
+                groupComposite2,
+                m_filesField,
+                Messages.CreateReportDialog_fileAttachments,
+                2);
             m_filesField.setDialogFieldListener(new IDialogFieldListener() {
               public void dialogFieldChanged(DialogField field) {
                 boolean fieldSelected = m_filesField.getSelection();
@@ -273,7 +296,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
           }
           {
             Link link = new Link(groupComposite2, SWT.NONE);
-            link.setText("<a>add...</a>");
+            link.setText(Messages.CreateReportDialog_addLink);
             GridDataFactory.create(link);
             link.addSelectionListener(new SelectionAdapter() {
               @Override
@@ -442,7 +465,11 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
    */
   private BooleanDialogField addDefaultScreenshotControl(Composite parent) {
     BooleanDialogField screenShotField = new BooleanDialogField(true);
-    doCreateBooleanField(parent, screenShotField, "Just before error", 2);
+    doCreateBooleanField(
+        parent,
+        screenShotField,
+        Messages.CreateReportDialog_beforeErrorScreenshot,
+        2);
     return screenShotField;
   }
 
@@ -484,18 +511,18 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
     {
       Label successLabel = new Label(successComposite, SWT.NONE);
       // TODO: add link to proper bug-tracking system.
-      successLabel.setText("Operations done successfully, you now can submit the report into a bug-tracking system.");
+      successLabel.setText(Messages.CreateReportDialog_successLabel);
       GridDataFactory.create(successLabel).grab().alignVB().alignHC();
     }
     {
       Label successLabel = new Label(successComposite, SWT.NONE);
-      successLabel.setText("Press \"Close\" button.");
+      successLabel.setText(Messages.CreateReportDialog_pressClosebutton);
       GridDataFactory.create(successLabel).grab().alignVT().alignHC();
     }
     containerParent.layout(true, true);
-    String message = "Report prepared successfully.";
+    String message = Messages.CreateReportDialog_successMessage;
     setMessage(message, IMessageProvider.INFORMATION);
-    setTitle("Success.");
+    setTitle(Messages.CreateReportDialog_successTitle);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -530,14 +557,11 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
         new Status(IStatus.ERROR,
             DesignerPlugin.getDefault().toString(),
             IStatus.ERROR,
-            "Click \"Details\" for more info.",
+            Messages.CreateReportDialog_errorUseDetails,
             e);
     ErrorDialog dialog =
-        new ErrorDialog(
-            DesignerPlugin.getShell(),
-            "Error creating report",
-            "Sorry, there was an error creating report. Please try again or prepare report manually.",
-            status, IStatus.ERROR) {
+        new ErrorDialog(DesignerPlugin.getShell(), Messages.CreateReportDialog_errorTitle,
+            Messages.CreateReportDialog_errorMessage, status, IStatus.ERROR) {
           private Clipboard clipboard;
 
           @Override
@@ -567,7 +591,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
             menu.dispose();
             Menu copyMenu = new Menu(list);
             MenuItem copyItem = new MenuItem(copyMenu, SWT.NONE);
-            copyItem.setText(JFaceResources.getString("copy")); //$NON-NLS-1$
+            copyItem.setText(Messages.CreateReportDialog_copyAction);
             copyItem.addSelectionListener(new SelectionListener() {
               public void widgetSelected(@SuppressWarnings("hiding") SelectionEvent e) {
                 copyList(list);

@@ -45,7 +45,7 @@ public class DesignerJavaProjectWizard extends DesignerNewElementWizard
   ////////////////////////////////////////////////////////////////////////////
   public DesignerJavaProjectWizard() {
     setDialogSettings(DesignerPlugin.getDefault().getDialogSettings());
-    setWindowTitle("New Java Project");
+    setWindowTitle(Messages.DesignerJavaProjectWizard_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -107,8 +107,8 @@ public class DesignerJavaProjectWizard extends DesignerNewElementWizard
 
   @Override
   protected void handleFinishException(Shell shell, InvocationTargetException e) {
-    String title = "Error Creating Java Project";
-    String message = "An error occurred while creating the Java project";
+    String title = Messages.DesignerJavaProjectWizard_errorTitle;
+    String message = Messages.DesignerJavaProjectWizard_errorMessage;
     ExceptionHandler.perform(e, getShell(), title, message);
   }
 

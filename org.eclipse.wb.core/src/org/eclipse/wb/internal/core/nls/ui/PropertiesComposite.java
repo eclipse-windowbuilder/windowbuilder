@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.SourceDescription;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSupport;
@@ -112,11 +113,11 @@ public final class PropertiesComposite extends Composite {
     Group sourceGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(sourceGroup).alignHF().grabH();
     GridLayoutFactory.create(sourceGroup).columns(2);
-    sourceGroup.setText("String source");
+    sourceGroup.setText(Messages.PropertiesComposite_sourceGroup);
     {
       Label label = new Label(sourceGroup, SWT.NONE);
       GridDataFactory.create(label).fill().grabH().spanH(2);
-      label.setText("Existing sources:");
+      label.setText(Messages.PropertiesComposite_existingSourcesLabel);
     }
     {
       m_sourcesViewer = new ListViewer(sourceGroup, SWT.BORDER);
@@ -143,7 +144,7 @@ public final class PropertiesComposite extends Composite {
       {
         Button addButton = new Button(buttonsComposite, SWT.NONE);
         setButtonLayoutData(addButton);
-        addButton.setText("&New...");
+        addButton.setText(Messages.PropertiesComposite_newbutton);
         //
         addButton.addSelectionListener(new SelectionAdapter() {
           @Override
@@ -172,11 +173,11 @@ public final class PropertiesComposite extends Composite {
     Group propertyGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(propertyGroup).grab().fill();
     GridLayoutFactory.create(propertyGroup).columns(2);
-    propertyGroup.setText("Properties");
+    propertyGroup.setText(Messages.PropertiesComposite_propertiesGroup);
     {
       Label label = new Label(propertyGroup, SWT.NONE);
       GridDataFactory.create(label).fill().grabH().spanH(2);
-      label.setText("Properties for externalization:");
+      label.setText(Messages.PropertiesComposite_propertiesLabel);
     }
     {
       m_propertiesViewer = new CheckboxTreeViewer(propertyGroup, SWT.BORDER);
@@ -211,7 +212,7 @@ public final class PropertiesComposite extends Composite {
     // create "Copy strings to all locales" check box
     {
       m_copyToAllLocalesButton = new Button(propertyGroup, SWT.CHECK);
-      m_copyToAllLocalesButton.setText("Copy strings to all locales");
+      m_copyToAllLocalesButton.setText(Messages.PropertiesComposite_copyButton);
     }
   }
 
@@ -222,7 +223,7 @@ public final class PropertiesComposite extends Composite {
     {
       Button enableAllButton = new Button(buttonsComposite, SWT.NONE);
       setButtonLayoutData(enableAllButton);
-      enableAllButton.setText("&Enable all");
+      enableAllButton.setText(Messages.PropertiesComposite_enableAllButton);
       // install handler
       enableAllButton.addSelectionListener(new SelectionAdapter() {
         @Override
@@ -235,7 +236,7 @@ public final class PropertiesComposite extends Composite {
     {
       Button disableAllButton = new Button(buttonsComposite, SWT.NONE);
       setButtonLayoutData(disableAllButton);
-      disableAllButton.setText("D&isable all");
+      disableAllButton.setText(Messages.PropertiesComposite_disableAllButton);
       // install handler
       disableAllButton.addSelectionListener(new SelectionAdapter() {
         @Override
@@ -253,7 +254,7 @@ public final class PropertiesComposite extends Composite {
     {
       m_externalizeButton = new Button(buttonsComposite, SWT.NONE);
       setButtonLayoutData(m_externalizeButton);
-      m_externalizeButton.setText("E&xternalize");
+      m_externalizeButton.setText(Messages.PropertiesComposite_externalizeButton);
       m_externalizeButton.setEnabled(false);
       // install handler
       m_externalizeButton.addSelectionListener(new SelectionAdapter() {

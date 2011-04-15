@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImageDialog;
@@ -76,7 +77,7 @@ public final class FileImagePage extends AbstractImagePage {
     {
       Button button = new Button(this, SWT.NONE);
       GridDataFactory.create(button).hintHU(IDialogConstants.BUTTON_WIDTH).fill();
-      button.setText("&Browse...");
+      button.setText(Messages.FileImagePage_browseButton);
       button.addListener(SWT.Selection, new Listener() {
         public void handleEvent(Event event) {
           FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN);
@@ -138,7 +139,7 @@ public final class FileImagePage extends AbstractImagePage {
 
   @Override
   public String getTitle() {
-    return "Absolute path in file system (use only for quick testing, never use in real application!)";
+    return Messages.FileImagePage_title;
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -39,7 +39,7 @@ import java.util.List;
  */
 public final class PreferencesFileReportEntry extends FileReportEntry {
   private static final String EXPORT_ERROR_MESSAGE =
-      "Error during exporting WindowBuilder preferences.";
+      Messages.PreferencesFileReportEntry_errorMessage;
   private static final String PREFERENCES_PREFIX = "org.eclipse.wb";
 
   ////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ public final class PreferencesFileReportEntry extends FileReportEntry {
       // show error
       ErrorDialog.openError(
           DesignerPlugin.getShell(),
-          "Export error.",
+          Messages.PreferencesFileReportEntry_errorTitle,
           EXPORT_ERROR_MESSAGE,
           exportStatus == null
               ? new Status(IStatus.ERROR, DesignerPlugin.PLUGIN_ID, 0, null, e)

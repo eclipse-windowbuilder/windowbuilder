@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.ui;
 
 import org.eclipse.wb.core.controls.CTableCombo;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -55,8 +56,8 @@ public class NewLocaleDialog extends ChooseLocaleDialog {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected Control createDialogArea(Composite parent) {
-    setTitle("Create new locale");
-    setMessage("Specify the language and country for the new locale.");
+    setTitle(Messages.NewLocaleDialog_title);
+    setMessage(Messages.NewLocaleDialog_message);
     // create container
     Composite container = (Composite) super.createDialogArea(parent);
     Composite composite = new Composite(container, SWT.NONE);
@@ -76,7 +77,7 @@ public class NewLocaleDialog extends ChooseLocaleDialog {
       LocaleInfo locale = m_locales[i];
       if (locale.equals(m_selectedLocale)) {
         setErrorMessage(MessageFormat.format(
-            "Selected locale name ''{0}'' already exists",
+            Messages.NewLocaleDialog_alreadyExists,
             m_selectedLocale.getTitle()));
         getButton(IDialogConstants.OK_ID).setEnabled(false);
         return;
@@ -98,10 +99,10 @@ public class NewLocaleDialog extends ChooseLocaleDialog {
     Group copyGroup = new Group(parent, SWT.NONE);
     copyGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     copyGroup.setLayout(new GridLayout(2, false));
-    copyGroup.setText("Copy");
+    copyGroup.setText(Messages.NewLocaleDialog_copyGroup);
     {
       Label countryLabel = new Label(copyGroup, SWT.NONE);
-      countryLabel.setText("Copy strings from:");
+      countryLabel.setText(Messages.NewLocaleDialog_copyFrom);
     }
     {
       m_baseCombo = new CTableCombo(copyGroup, SWT.BORDER);

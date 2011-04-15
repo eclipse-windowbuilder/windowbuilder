@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.preferences.event;
 
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.model.property.event.IPreferenceConstants;
+import org.eclipse.wb.internal.core.preferences.Messages;
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.binding.editors.controls.CheckButtonEditor;
 import org.eclipse.wb.internal.core.utils.binding.editors.controls.ComboSelectionEditor;
@@ -84,26 +85,26 @@ public abstract class EventsPreferencePage extends PreferencePage
   private void createControls(Composite container) {
     {
       Label eventCodeTypeLabel = new Label(container, SWT.NONE);
-      eventCodeTypeLabel.setText("Event code generation:");
+      eventCodeTypeLabel.setText(Messages.EventsPreferencePage_typeLabel);
     }
     {
       m_typeAnonymous = new Button(container, SWT.RADIO);
       GridDataFactory.create(m_typeAnonymous).indentH(20);
-      m_typeAnonymous.setText("Create &anonymous class");
+      m_typeAnonymous.setText(Messages.EventsPreferencePage_typeAnonymous);
     }
     {
       m_typeInnerClass = new Button(container, SWT.RADIO);
       GridDataFactory.create(m_typeInnerClass).indentH(20);
-      m_typeInnerClass.setText("Create &inner class");
+      m_typeInnerClass.setText(Messages.EventsPreferencePage_typeInner);
       m_bindManager.addUpdateEvent(m_typeInnerClass, SWT.Selection);
       //
       m_innerClassPosition = new Combo(container, SWT.READ_ONLY);
       GridDataFactory.create(m_innerClassPosition).grabH().fillH().indentH(40);
       m_innerClassPosition.setItems(new String[]{
-          "First body declaration in class",
-          "Last body declaration in class",
-          "Before first inner listener, or as first body declaration in class",
-          "After last inner listener, or as last body declaration in class",});
+          Messages.EventsPreferencePage_typeInnerFirstInClass,
+          Messages.EventsPreferencePage_typeInnerLastInClass,
+          Messages.EventsPreferencePage_typeInnerBeforeFirstListener,
+          Messages.EventsPreferencePage_typeInnerAfterLastListener,});
       UiUtils.setVisibleItemCount(m_innerClassPosition, m_innerClassPosition.getItemCount());
       //
       {
@@ -119,13 +120,13 @@ public abstract class EventsPreferencePage extends PreferencePage
     {
       m_typeInterface = new Button(container, SWT.RADIO);
       GridDataFactory.create(m_typeInterface).indentH(20);
-      m_typeInterface.setText("Implement &listener interface in parent class");
+      m_typeInterface.setText(Messages.EventsPreferencePage_typeInterface);
     }
     {
       String toolTipText = getStubEventHandlerMethodNameToolTipText();
       {
         m_createStubMethods = new Button(container, SWT.CHECK);
-        m_createStubMethods.setText("&Create stub event handler methods named:");
+        m_createStubMethods.setText(Messages.EventsPreferencePage_stubLabel);
         m_createStubMethods.setToolTipText(toolTipText);
         m_bindManager.addUpdateEvent(m_createStubMethods, SWT.Selection);
       }
@@ -147,25 +148,25 @@ public abstract class EventsPreferencePage extends PreferencePage
         Label patternsLabel = new Label(container, SWT.WRAP);
         GridDataFactory.create(patternsLabel).grabH().fillH().indentH(20);
         patternsLabel.setToolTipText(toolTipText);
-        patternsLabel.setText("Available pattern parts are:\r\n"
-            + "${component_name} - the name of the component to which\r\n"
-            + "        the handler is being attached.\r\n"
-            + "${component_class_name} - the name of the class of the\r\n"
-            + "        component to which the handler is being attached.\r\n"
-            + "${event_name} - the name of the event being handled.");
+        patternsLabel.setText(Messages.EventsPreferencePage_patternHint1
+            + Messages.EventsPreferencePage_patternHint2
+            + Messages.EventsPreferencePage_patternHint3
+            + Messages.EventsPreferencePage_patternHint4
+            + Messages.EventsPreferencePage_patternHint5
+            + Messages.EventsPreferencePage_patternHint6);
       }
     }
     {
       m_deleteStubMethods = new Button(container, SWT.CHECK);
-      m_deleteStubMethods.setText("Delete stub event handler methods on component delete");
+      m_deleteStubMethods.setText(Messages.EventsPreferencePage_deleteStubsFlag);
     }
     {
       m_finalParameters = new Button(container, SWT.CHECK);
-      m_finalParameters.setText("Declare parameters in event handlers as \"final\"");
+      m_finalParameters.setText(Messages.EventsPreferencePage_finalParametersFlag);
     }
     {
       m_decorateIcon = new Button(container, SWT.CHECK);
-      m_decorateIcon.setText("Show icon decorator for components with events");
+      m_decorateIcon.setText(Messages.EventsPreferencePage_decorateIconFlag);
     }
     // create bindings
     {
@@ -214,18 +215,18 @@ public abstract class EventsPreferencePage extends PreferencePage
   private static String getStubEventHandlerMethodNameToolTipText() {
     StringBuffer buffer;
     buffer = new StringBuffer();
-    buffer.append("Use this field to change the pattern used to generate\n");
-    buffer.append("the name of the method that will be invoked from within\n");
-    buffer.append("the event handler. The pattern can include the template\n");
-    buffer.append("variables (names enclosed between \"${\" and \"}\")\n");
-    buffer.append("shown below. Capitalizing the name of any variable will\n");
-    buffer.append("cause the value of the variable to be capitalized\n");
-    buffer.append("before it is inserted into the resulting text.\n\n");
-    buffer.append("component_name - the name of the component to which the\n");
-    buffer.append("    handler is being attached\n");
-    buffer.append("component_class_name - the name of the class of the\n");
-    buffer.append("    component to which the handler is being attached\n");
-    buffer.append("event_name - the name of the event being handled");
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint1);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint2);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint3);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint4);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint5);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint6);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint7);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint8);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint9);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint10);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint11);
+    buffer.append(Messages.EventsPreferencePage_stubPatternHint12);
     return buffer.toString();
   }
 
@@ -235,21 +236,21 @@ public abstract class EventsPreferencePage extends PreferencePage
   private static String getInnerClassNameToolTipText() {
     StringBuffer buffer;
     buffer = new StringBuffer();
-    buffer.append("Use this field to change the pattern used to generate\n");
-    buffer.append("the name of the inner class.\n");
-    buffer.append("\n");
-    buffer.append("The pattern can include the template\n");
-    buffer.append("variables (names enclosed between \"${\" and \"}\")\n");
-    buffer.append("shown below. Capitalizing the name of any variable will\n");
-    buffer.append("cause the value of the variable to be capitalized\n");
-    buffer.append("before it is inserted into the resulting text.\n");
-    buffer.append("\n");
-    buffer.append("component_name - the name of the component to which the\n");
-    buffer.append("    handler is being attached\n");
-    buffer.append("component_className - the name of the class of the\n");
-    buffer.append("    component to which the handler is being attached\n");
-    buffer.append("listener_name - the name of the event being handled\n");
-    buffer.append("listener_className - the name of the event listener");
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint1);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint2);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint3);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint4);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint5);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint6);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint7);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint8);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint9);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint10);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint11);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint12);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint13);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint14);
+    buffer.append(Messages.EventsPreferencePage_innerPatternHint15);
     return buffer.toString();
   }
 

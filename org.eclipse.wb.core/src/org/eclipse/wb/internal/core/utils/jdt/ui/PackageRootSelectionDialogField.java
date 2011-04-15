@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.utils.jdt.ui;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
@@ -244,8 +245,8 @@ public final class PackageRootSelectionDialogField extends StringButtonDialogFie
       ElementTreeSelectionDialog dialog =
           new ElementTreeSelectionDialog(shell, labelProvider, contentProvider);
       //
-      dialog.setTitle("Source folder selection");
-      dialog.setMessage("Choose a source folder:");
+      dialog.setTitle(Messages.PackageRootSelectionDialogField_dialogTitle);
+      dialog.setMessage(Messages.PackageRootSelectionDialogField_dialogMessage);
       dialog.setSorter(new JavaElementSorter());
       //
       dialog.setValidator(new ISelectionStatusValidator() {

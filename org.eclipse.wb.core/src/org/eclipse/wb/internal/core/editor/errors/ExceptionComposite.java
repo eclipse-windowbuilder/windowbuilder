@@ -15,6 +15,7 @@ import org.eclipse.wb.core.branding.IBrandingDescription;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
 import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
@@ -34,6 +35,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 
 import org.apache.commons.lang.StringUtils;
+
+import java.text.MessageFormat;
 
 /**
  * {@link Composite} for displaying {@link Exception} on design pane.
@@ -69,11 +72,9 @@ public abstract class ExceptionComposite extends Composite {
       {
         Link label = new Link(titleComposite, SWT.WRAP | SWT.NO_FOCUS);
         GridDataFactory.create(label).alignHL().grabH().alignVM();
-        label.setText(BrandingUtils.getBranding().getProductName()
-            + " was not able to show the GUI. Please see the description below and"
-            + " go to the <a>bug tracking system</a> or <a>discussion group</a> for more information."
-            + " Press the \"Create Report...\" button and create a new issue, if you were not able"
-            + " to find a similar one.");
+        label.setText(MessageFormat.format(
+            Messages.ExceptionComposite_message,
+            BrandingUtils.getBranding().getProductName()));
         label.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent event) {
@@ -102,7 +103,7 @@ public abstract class ExceptionComposite extends Composite {
       {
         Button contactSupportButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(contactSupportButton).fillH();
-        contactSupportButton.setText("Create Report...");
+        contactSupportButton.setText(Messages.ExceptionComposite_reportButton);
         contactSupportButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/support32.png"));
@@ -118,7 +119,7 @@ public abstract class ExceptionComposite extends Composite {
       {
         Button refreshButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(refreshButton).fillH();
-        refreshButton.setText("Reparse");
+        refreshButton.setText(Messages.ExceptionComposite_reparseButton);
         refreshButton.setImage(EnvironmentUtils.IS_MAC
             ? null
             : DesignerPlugin.getImage("actions/errors/refresh32.png"));
@@ -132,7 +133,7 @@ public abstract class ExceptionComposite extends Composite {
       {
         m_switchButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_switchButton).fillH();
-        m_switchButton.setText("Switch to code");
+        m_switchButton.setText(Messages.ExceptionComposite_switchButton);
         m_switchButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent ev) {
@@ -161,9 +162,9 @@ public abstract class ExceptionComposite extends Composite {
     boolean hasSourcePosition = m_sourcePosition != -1;
     // text
     if (hasSourcePosition) {
-      m_switchButton.setText("Go to problem");
+      m_switchButton.setText(Messages.ExceptionComposite_goProblemButton);
     } else {
-      m_switchButton.setText("Switch to code");
+      m_switchButton.setText(Messages.ExceptionComposite_switchButton);
     }
     // image
     if (!EnvironmentUtils.IS_MAC) {

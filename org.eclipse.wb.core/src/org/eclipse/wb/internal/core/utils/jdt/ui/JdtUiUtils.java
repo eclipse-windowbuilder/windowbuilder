@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.utils.jdt.ui;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.SubtypesScope;
@@ -208,8 +209,8 @@ public final class JdtUiUtils {
   public static IType selectType(Shell shell, IJavaSearchScope scope, int style) throws Exception {
     ProgressMonitorDialog context = new ProgressMonitorDialog(shell);
     SelectionDialog dialog = JavaUI.createTypeDialog(shell, context, scope, style, false);
-    dialog.setTitle("Open type");
-    dialog.setMessage("Select a type to add (? = any character, * - any String):");
+    dialog.setTitle(Messages.JdtUiUtils_selectTypeTitle);
+    dialog.setMessage(Messages.JdtUiUtils_selectTypeMessage);
     // open dialog
     if (dialog.open() == Window.OK) {
       return (IType) dialog.getResult()[0];

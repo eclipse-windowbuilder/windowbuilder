@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.xml.parser.QAttribute;
@@ -89,21 +90,21 @@ public final class DesignerExceptionUtils {
       }
       // add stack trace
       {
-        html += "<H2>Stack trace:</H2>";
+        html += Messages.DesignerExceptionUtils_stackTraceLabel;
         html += "<pre>";
         html += StringEscapeUtils.escapeHtml(ExceptionUtils.getStackTrace(rootException));
         html += "</pre>";
       }
       // add full stack trace
       {
-        html += "<H2>Full stack trace (to see full context):</H2>";
+        html += Messages.DesignerExceptionUtils_fullStackTraceLabel;
         html += "<pre>";
         html += StringEscapeUtils.escapeHtml(ExceptionUtils.getStackTrace(e));
         html += "</pre>";
       }
     } else {
       html += "<pre>";
-      html += "No exception";
+      html += Messages.DesignerExceptionUtils_noExceptionLabel;
       html += "</pre>";
     }
     return html;
@@ -325,7 +326,7 @@ public final class DesignerExceptionUtils {
   public static String getExceptionTitle(int exceptionCode) {
     ErrorEntryInfo entry = getErrorEntry0(exceptionCode);
     if (entry == null) {
-      return "No description";
+      return Messages.DesignerExceptionUtils_noDescriptionTitle2;
     }
     return entry.getTitle();
   }
@@ -371,10 +372,11 @@ public final class DesignerExceptionUtils {
     // not found, use default
     {
       String description =
-          MessageFormat.format(
-              "No detailed description found for error ({0,number,#}).",
-              exceptionCode);
-      return new ErrorEntryInfo(exceptionCode, false, "WindowBuilder error", description);
+          MessageFormat.format(Messages.DesignerExceptionUtils_noDescriptionMessage, exceptionCode);
+      return new ErrorEntryInfo(exceptionCode,
+          false,
+          Messages.DesignerExceptionUtils_noDescriptionTitle,
+          description);
     }
   }
 
@@ -563,9 +565,10 @@ public final class DesignerExceptionUtils {
       Clipboard clipboard = new Clipboard(DesignerPlugin.getStandardDisplay());
       clipboard.setContents(new String[]{url}, new Transfer[]{TextTransfer.getInstance()});
       clipboard.dispose();
-      MessageDialog.openInformation(DesignerPlugin.getShell(), "Open URL", "Please visit \""
-          + url
-          + "\"\n(this address copied into clipboard).");
+      MessageDialog.openInformation(
+          DesignerPlugin.getShell(),
+          Messages.DesignerExceptionUtils_openUrlTitle,
+          MessageFormat.format(Messages.DesignerExceptionUtils_openUrlMessage, url));
     }
   }
 }

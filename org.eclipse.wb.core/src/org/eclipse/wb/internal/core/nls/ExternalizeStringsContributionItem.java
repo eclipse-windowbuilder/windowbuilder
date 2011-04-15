@@ -75,7 +75,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
       m_toolItem.setToolTipText("Back in USSR");
     } else {
       m_toolItem.setImage(DesignerPlugin.getImage("nls/globe3.png"));
-      m_toolItem.setToolTipText("Externalize strings");
+      m_toolItem.setToolTipText(Messages.ExternalizeStringsContributionItem_externalizeToolTip);
     }
     // listener
     m_toolItem.addListener(SWT.Selection, new Listener() {
@@ -164,8 +164,8 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
     if (isDefaultPackage) {
       MessageDialog.openError(
           DesignerPlugin.getShell(),
-          "Can't Externalize",
-          "Strings within files in the default package cannot be externalized.");
+          Messages.ExternalizeStringsContributionItem_defaultPackageTitle,
+          Messages.ExternalizeStringsContributionItem_defaultPackageMessage);
     } else {
       NlsDialog dialog = new NlsDialog(DesignerPlugin.getShell(), m_root);
       // open and expect OK

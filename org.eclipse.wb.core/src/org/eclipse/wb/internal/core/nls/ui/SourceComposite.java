@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSourceListener;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
@@ -138,7 +139,7 @@ public final class SourceComposite extends Composite {
     {
       Label stringsLabel = new Label(this, SWT.NONE);
       GridDataFactory.create(stringsLabel).spanH(2).fillH();
-      stringsLabel.setText("Strings:");
+      stringsLabel.setText(Messages.SourceComposite_stringsLabel);
     }
     // create viewer
     {
@@ -159,7 +160,7 @@ public final class SourceComposite extends Composite {
         // create 'key' column
         {
           TableColumn keyColumn = new TableColumn(m_table, SWT.NONE);
-          keyColumn.setText("Key");
+          keyColumn.setText(Messages.SourceComposite_keyColumn);
           keyColumn.setWidth(m_pixelConverter.convertWidthInCharsToPixels(60));
         }
         // create locale columns
@@ -170,12 +171,12 @@ public final class SourceComposite extends Composite {
     {
       Label hintLabel = new Label(this, SWT.WRAP);
       GridDataFactory.create(hintLabel).spanH(2);
-      hintLabel.setText("The table above is editable. Click on a cell and type new value. Use Up/Down arrows to commit\nand select cell above or below. Use Tab/Shift+Tab to commit and select cell to the right/left.");
+      hintLabel.setText(Messages.SourceComposite_hint);
     }
     // create "Show strings only for current form" check box
     {
       m_currentStringsButton = new Button(this, SWT.CHECK);
-      m_currentStringsButton.setText("Show strings only for current form");
+      m_currentStringsButton.setText(Messages.SourceComposite_onlyCurrentFormFlag);
       m_currentStringsButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
@@ -187,7 +188,7 @@ public final class SourceComposite extends Composite {
     {
       Button newLocaleButton = new Button(this, SWT.NONE);
       GridDataFactory.create(newLocaleButton).alignHR();
-      newLocaleButton.setText("New locale...");
+      newLocaleButton.setText(Messages.SourceComposite_newLocaleButton);
       newLocaleButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
@@ -365,14 +366,14 @@ public final class SourceComposite extends Composite {
           final String key = (String) selection.getFirstElement();
           // only keys for current form can be internalized
           if (m_source.getFormKeys().contains(key)) {
-            manager.add(new Action("Internalize key...") {
+            manager.add(new Action(Messages.SourceComposite_internalizeKeyAction) {
               @Override
               public void run() {
                 // ask confirmation
                 if (!MessageDialog.openConfirm(
                     getShell(),
-                    "Confirm",
-                    MessageFormat.format("Do you really want to internalize key ''{0}''?", key))) {
+                    Messages.SourceComposite_internalizeTitle,
+                    MessageFormat.format(Messages.SourceComposite_internalizeMessage, key))) {
                   return;
                 }
                 // do internalize
@@ -386,14 +387,14 @@ public final class SourceComposite extends Composite {
           }
         }
         // "Add key/value" action
-        manager.add(new Action("Add key/value...") {
+        manager.add(new Action(Messages.SourceComposite_addKeyValueAction) {
           @Override
           public void run() {
             addKeyValue();
           }
         });
         // "Add locale" action
-        manager.add(new Action("Add locale...") {
+        manager.add(new Action(Messages.SourceComposite_addLocaleAction) {
           @Override
           public void run() {
             addNewLocale();
@@ -402,16 +403,16 @@ public final class SourceComposite extends Composite {
         // "Remove locale" action
         final int column = UiUtils.getColumnUnderCursor(m_table);
         {
-          Action action = new Action("Remove locale...") {
+          Action action = new Action(Messages.SourceComposite_removeLocaleAction) {
             @Override
             public void run() {
               final LocaleInfo locale = m_locales[column - 1];
               // ask confirmation
               if (!MessageDialog.openConfirm(
                   getShell(),
-                  "Confirm",
+                  Messages.SourceComposite_removeLocaleTitle,
                   MessageFormat.format(
-                      "Do you really want to remove the locale ''{0}''?",
+                      Messages.SourceComposite_removeLocaleMessage,
                       locale.getTitle()))) {
                 return;
               }

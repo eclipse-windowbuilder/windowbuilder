@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImageDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.AbstractImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.ImageInfo;
@@ -45,7 +46,7 @@ public final class DefaultImagePage extends AbstractImagePage {
 
   @Override
   public String getTitle() {
-    return "Default image (no code would be generated)";
+    return Messages.DefaultImagePage_title;
   }
 
   ////////////////////////////////////////////////////////////////////////////

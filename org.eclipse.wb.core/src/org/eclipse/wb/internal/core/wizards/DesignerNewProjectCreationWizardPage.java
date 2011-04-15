@@ -112,8 +112,8 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
     try {
       getContainer().run(false, true, op);
     } catch (InvocationTargetException e) {
-      String title = "New Java Project";
-      String message = "An error occurred while creating project. Check log for details.";
+      String title = Messages.DesignerNewProjectCreationWizardPage_title;
+      String message = Messages.DesignerNewProjectCreationWizardPage_message;
       DesignerNewElementWizard.ExceptionHandler.perform(e, getShell(), title, message);
     } catch (InterruptedException e) {
       // cancel pressed
@@ -179,7 +179,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
         if (monitor == null || noProgressMonitor) {
           monitor = new NullProgressMonitor();
         }
-        monitor.beginTask("Removing project...", 3);
+        monitor.beginTask(Messages.DesignerNewProjectCreationWizardPage_removeProgress, 3);
         try {
           fCurrProject.delete(fCanRemoveContent, false, monitor);
         } catch (CoreException e) {
@@ -194,8 +194,8 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
     try {
       getContainer().run(false, true, op);
     } catch (InvocationTargetException e) {
-      String title = "Error Creating Java Project";
-      String message = "An error occurred while removing a temporary project";
+      String title = Messages.DesignerNewProjectCreationWizardPage_removeErrorTitle;
+      String message = Messages.DesignerNewProjectCreationWizardPage_removeErrorMessage;
       DesignerNewElementWizard.ExceptionHandler.perform(e, getShell(), title, message);
     } catch (InterruptedException e) {
       // cancel pressed

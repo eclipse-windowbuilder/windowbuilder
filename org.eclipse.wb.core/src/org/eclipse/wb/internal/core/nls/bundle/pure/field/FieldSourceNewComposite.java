@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.bundle.pure.field;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSource;
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSourceNewComposite;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
@@ -26,6 +27,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+
+import java.text.MessageFormat;
 
 /**
  * Composite for creating new source.
@@ -60,12 +63,12 @@ public class FieldSourceNewComposite extends AbstractBundleSourceNewComposite {
     Group fieldGroup = new Group(this, SWT.NONE);
     fieldGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     fieldGroup.setLayout(new GridLayout(3, false));
-    fieldGroup.setText("Field for ResourceBundle instance");
+    fieldGroup.setText(Messages.FieldSourceNewComposite_fieldGroup);
     // create field name field
     {
       m_fieldNameField = new StringDialogField();
       m_fieldNameField.setDialogFieldListener(m_validateListener);
-      m_fieldNameField.setLabelText("Field name:");
+      m_fieldNameField.setLabelText(Messages.FieldSourceNewComposite_fieldNameLabel);
       createTextFieldControls(fieldGroup, m_fieldNameField, 3);
     }
   }
@@ -97,9 +100,9 @@ public class FieldSourceNewComposite extends AbstractBundleSourceNewComposite {
       });
       // set status
       if (hasSuchName[0]) {
-        setInvalid(KEY_FIELD_NAME, "There is already field or variable with name '"
-            + fieldName
-            + "' in this compilation unit.");
+        setInvalid(KEY_FIELD_NAME, MessageFormat.format(
+            Messages.FieldSourceNewComposite_validateFieldExists,
+            fieldName));
         return;
       }
     }
@@ -121,7 +124,7 @@ public class FieldSourceNewComposite extends AbstractBundleSourceNewComposite {
   //
   ////////////////////////////////////////////////////////////////////////////
   public static String getTitle() {
-    return "ResourceBundle in field";
+    return Messages.FieldSourceNewComposite_title;
   }
 
   @Override

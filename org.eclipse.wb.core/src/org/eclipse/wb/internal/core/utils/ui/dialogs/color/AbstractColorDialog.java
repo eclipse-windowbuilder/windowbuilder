@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ReusableDialog;
 
@@ -106,7 +107,7 @@ public abstract class AbstractColorDialog extends ReusableDialog {
       Group group = new Group(area, SWT.NONE);
       GridDataFactory.create(group).fillH();
       group.setLayout(new FillLayout());
-      group.setText("Selected color");
+      group.setText(Messages.AbstractColorDialog_previewGroup);
       //
       m_previewCanvas = new ColorPreviewCanvas(group, SWT.NONE, showShortTextInColorPreview());
     }
@@ -131,7 +132,7 @@ public abstract class AbstractColorDialog extends ReusableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Color chooser");
+    newShell.setText(Messages.AbstractColorDialog_title);
   }
 
   @Override

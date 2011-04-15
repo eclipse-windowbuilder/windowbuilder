@@ -14,6 +14,7 @@ import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.edit.EditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
@@ -52,6 +53,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 /**
@@ -201,10 +203,10 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
       {
         m_packageField =
             new PackageRootAndPackageSelectionDialogField(60,
-                "Source fol&der:",
-                "&Browse...",
-                "Pac&kage:",
-                "B&rowse...");
+                Messages.AbstractFieldsSourceNewComposite_sourceFolder,
+                Messages.AbstractFieldsSourceNewComposite_sourceFolderBrowse,
+                Messages.AbstractFieldsSourceNewComposite_package,
+                Messages.AbstractFieldsSourceNewComposite_packageBrowse);
         m_packageField.setDialogFieldListener(m_validateListener);
         m_packageField.doFillIntoGrid(classGroup, 3);
       }
@@ -229,8 +231,8 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
                       IJavaElementSearchConstants.CONSIDER_TYPES,
                       false,
                       selectPattern);
-              dialog.setTitle("Class selection");
-              dialog.setMessage("&Choose the class:");
+              dialog.setTitle(Messages.AbstractFieldsSourceNewComposite_chooseTitle);
+              dialog.setMessage(Messages.AbstractFieldsSourceNewComposite_chooseMessage);
               // select type
               if (dialog.open() != Window.OK) {
                 return;
@@ -246,8 +248,8 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
           }
         });
         m_classField.setDialogFieldListener(m_validateListener);
-        m_classField.setLabelText("&Class:");
-        m_classField.setButtonLabel("Brow&se...");
+        m_classField.setLabelText(Messages.AbstractFieldsSourceNewComposite_chooseLabel);
+        m_classField.setButtonLabel(Messages.AbstractFieldsSourceNewComposite_chooseBrowse);
         createTextFieldControls(classGroup, m_classField, 3);
       }
       // create additional fields
@@ -279,7 +281,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
       {
         IPackageFragmentRoot root = m_packageField.getRoot();
         if (root == null || !root.exists()) {
-          setInvalid(KEY_FOLDER, "The source folder is invalid.");
+          setInvalid(KEY_FOLDER, Messages.AbstractFieldsSourceNewComposite_validateSourceFolder);
         } else {
           setValid(KEY_FOLDER);
         }
@@ -290,9 +292,9 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
         IPackageFragment pkg = m_packageField.getPackage();
         packageName = pkg == null ? null : pkg.getElementName();
         if (pkg == null || !pkg.exists()) {
-          setInvalid(KEY_PACKAGE, "The package is invalid.");
+          setInvalid(KEY_PACKAGE, Messages.AbstractFieldsSourceNewComposite_validatePackage);
         } else if (pkg.getElementName().length() == 0) {
-          setInvalid(KEY_PACKAGE, "Class can not be placed in default package.");
+          setInvalid(KEY_PACKAGE, Messages.AbstractFieldsSourceNewComposite_validatePackageDefault);
         } else {
           setValid(KEY_PACKAGE);
         }
@@ -302,7 +304,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
       {
         IStatus status = JavaConventions.validateJavaTypeName(className);
         if (className.indexOf('.') != -1) {
-          setInvalid(KEY_CLASS, "Class name should not contain a dot(.).");
+          setInvalid(KEY_CLASS, Messages.AbstractFieldsSourceNewComposite_validateClassDot);
         } else if (status.getSeverity() != IStatus.OK) {
           setStatus(KEY_CLASS, status);
         } else {
@@ -368,7 +370,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
       {
         m_field = new StringDialogField();
         m_field.setDialogFieldListener(m_validateListener);
-        m_field.setLabelText("Field name:");
+        m_field.setLabelText(Messages.AbstractFieldsSourceNewComposite_fieldName);
         createTextFieldControls(fieldGroup, m_field, 2);
       }
     }
@@ -394,9 +396,9 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
         });
         // set status
         if (hasSuchName[0]) {
-          setInvalid(KEY_FIELD_NAME, "There is already field or variable with name '"
-              + fieldName
-              + "' in this compilation unit.");
+          setInvalid(KEY_FIELD_NAME, MessageFormat.format(
+              Messages.AbstractFieldsSourceNewComposite_validateFieldNameUsed,
+              fieldName));
           return;
         }
       }

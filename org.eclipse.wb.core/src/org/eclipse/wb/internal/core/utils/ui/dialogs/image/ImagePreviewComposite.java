@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
@@ -24,6 +25,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+
+import java.text.MessageFormat;
 
 /**
  * {@link Composite} for displaying {@link ImageInfo}.
@@ -67,7 +70,7 @@ public class ImagePreviewComposite extends Composite {
             Image image = m_imageInfo.getImage();
             UiUtils.drawScaledImage(gc, image, clientArea);
           } else {
-            String text = "<No preview available>";
+            String text = Messages.ImagePreviewComposite_noPreview;
             Point extent = gc.textExtent(text);
             int x = clientArea.x + (clientArea.width - extent.x) / 2;
             int y = clientArea.y + (clientArea.height - extent.y) / 2;
@@ -90,15 +93,18 @@ public class ImagePreviewComposite extends Composite {
       // update dimension
       {
         Rectangle bounds = m_imageInfo.getImage().getBounds();
-        m_dimensionLabel.setText("Dimension: " + bounds.width + " x " + bounds.height);
+        m_dimensionLabel.setText(MessageFormat.format(
+            Messages.ImagePreviewComposite_dimension,
+            bounds.width,
+            bounds.height));
       }
       // update size
       {
         long size = m_imageInfo.getSize();
         if (size != -1) {
-          m_sizeLabel.setText("Size: " + size + " bytes");
+          m_sizeLabel.setText(MessageFormat.format(Messages.ImagePreviewComposite_size, size));
         } else {
-          m_sizeLabel.setText("Size: N/A");
+          m_sizeLabel.setText(Messages.ImagePreviewComposite_sizeNA);
         }
       }
     } else {

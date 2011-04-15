@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.actions.assistant;
 
-import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.utils.ui.TabFactory;
 
 import org.eclipse.swt.widgets.Composite;
@@ -61,7 +61,11 @@ public abstract class LayoutAssistantSupport {
     }
     // check selection is children of this container
     if (firstObject.getParent() == container) {
-      addPage(folder, pages, Messages.LayoutAssistantSupport_parentLayoutPage, createLayoutPage(folder));
+      addPage(
+          folder,
+          pages,
+          Messages.LayoutAssistantSupport_parentLayoutPage,
+          createLayoutPage(folder));
       addPage(folder, pages, getConstraintsPageTitle(), createConstraintsPage(folder, objects));
     }
   }

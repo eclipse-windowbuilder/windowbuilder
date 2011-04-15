@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.nls.bundle.eclipse;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSourceNewComposite;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
@@ -67,15 +68,15 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
     Group accessorGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(accessorGroup).grabH().fillH();
     GridLayoutFactory.create(accessorGroup).columns(3);
-    accessorGroup.setText("Resource bundle accessor class (will be created if does not exist)");
+    accessorGroup.setText(Messages.AbstractAccessorSourceNewComposite_accessorGroup);
     // create source folder and package selection field
     {
       m_accessorPackageField =
           new PackageRootAndPackageSelectionDialogField(60,
-              "Source fol&der:",
-              "&Browse...",
-              "Pac&kage:",
-              "B&rowse...");
+              Messages.AbstractAccessorSourceNewComposite_accessorSourceFolder,
+              Messages.AbstractAccessorSourceNewComposite_accessorSourceFolderBrowse,
+              Messages.AbstractAccessorSourceNewComposite_accessorPackage,
+              Messages.AbstractAccessorSourceNewComposite_accessorPackageBrowse);
       m_accessorPackageField.setDialogFieldListener(m_validateListener);
       m_accessorPackageField.doFillIntoGrid(accessorGroup, 3);
     }
@@ -100,8 +101,8 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
                     IJavaElementSearchConstants.CONSIDER_TYPES,
                     false,
                     "*Messages<");
-            dialog.setTitle("Accessor class selection");
-            dialog.setMessage("&Choose the accessor class:");
+            dialog.setTitle(Messages.AbstractAccessorSourceNewComposite_accessorChooseTitle);
+            dialog.setMessage(Messages.AbstractAccessorSourceNewComposite_accessorChooseMessage);
             // select type
             if (dialog.open() != Window.OK) {
               return;
@@ -117,8 +118,8 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
         }
       });
       m_accessorClassField.setDialogFieldListener(m_validateListener);
-      m_accessorClassField.setLabelText("&Class:");
-      m_accessorClassField.setButtonLabel("Brow&se...");
+      m_accessorClassField.setLabelText(Messages.AbstractAccessorSourceNewComposite_accessorChooseLabel);
+      m_accessorClassField.setButtonLabel(Messages.AbstractAccessorSourceNewComposite_accessorChooseButton);
       createTextFieldControls(accessorGroup, m_accessorClassField, 3);
     }
     // create additional fields
@@ -150,7 +151,7 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
     {
       IPackageFragmentRoot root = m_accessorPackageField.getRoot();
       if (root == null || !root.exists()) {
-        setInvalid(KEY_ACCESSOR_FOLDER, "The source folder for accessor class is invalid.");
+        setInvalid(KEY_ACCESSOR_FOLDER, Messages.AbstractAccessorSourceNewComposite_validateAccessorSourceFolder);
       } else {
         setValid(KEY_ACCESSOR_FOLDER);
       }
@@ -161,9 +162,9 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
       IPackageFragment pkg = m_accessorPackageField.getPackage();
       packageName = pkg == null ? null : pkg.getElementName();
       if (pkg == null || !pkg.exists()) {
-        setInvalid(KEY_ACCESSOR_PACKAGE, "The package for accessor class is invalid.");
+        setInvalid(KEY_ACCESSOR_PACKAGE, Messages.AbstractAccessorSourceNewComposite_validateAccessorPackageEmpty);
       } else if (pkg.isDefaultPackage()) {
-        setInvalid(KEY_ACCESSOR_PACKAGE, "Accessor class can not be placed in default package.");
+        setInvalid(KEY_ACCESSOR_PACKAGE, Messages.AbstractAccessorSourceNewComposite_validateAccessorPackageDefault);
       } else {
         setValid(KEY_ACCESSOR_PACKAGE);
       }
@@ -173,7 +174,7 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
     {
       IStatus status = JavaConventions.validateJavaTypeName(className);
       if (className.indexOf('.') != -1) {
-        setInvalid(KEY_ACCESSOR_CLASS, "Class name should not contain a dot(.).");
+        setInvalid(KEY_ACCESSOR_CLASS, Messages.AbstractAccessorSourceNewComposite_validateAccessorClassDot);
       } else if (status.getSeverity() != IStatus.OK) {
         setStatus(KEY_ACCESSOR_CLASS, status);
       } else {

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.utils.refactoring;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.Messages;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -51,7 +52,7 @@ import java.text.MessageFormat;
           DesignerPlugin.PLUGIN_ID,
           IStatus.OK,
           MessageFormat.format(
-              "Compilation unit ''{0}'' does not have an underlying file.",
+              Messages.UndoCompilationUnitChange_noFile,
               cunit.getElementName()),
           null));
     }

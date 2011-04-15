@@ -3,11 +3,11 @@ package org.eclipse.wb.internal.core.editor;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-  private static final String BUNDLE_NAME = "org.eclipse.wb.internal.core.editor.messages"; //$NON-NLS-1$
   public static String BadNodesErrorPage_nodeGroup;
   public static String BadNodesErrorPage_nodesGroup;
   public static String BadNodesParserErrorPage_title;
   public static String BadNodesRefreshErrorPage_title;
+  private static final String BUNDLE_NAME = "org.eclipse.wb.internal.core.editor.messages"; //$NON-NLS-1$
   public static String CategoryAbstractDialog_descriptionLabel;
   public static String CategoryAbstractDialog_idLabel;
   public static String CategoryAbstractDialog_message;
@@ -23,6 +23,12 @@ public class Messages extends NLS {
   public static String CategoryAddDialog_title;
   public static String CategoryEditDialog_message;
   public static String CategoryEditDialog_title;
+  public static String ChooseComponentEntryInfo_customCategoryDescription;
+  public static String ChooseComponentEntryInfo_description;
+  public static String ChooseComponentEntryInfo_name;
+  public static String ChooseComponentEntryInfo_newComponentDescription;
+  public static String ChooseComponentEntryInfo_unableToLoadMessage;
+  public static String ChooseComponentEntryInfo_unableToLoadTest;
   public static String ComponentAbstractDialog_classButton;
   public static String ComponentAbstractDialog_classLabel;
   public static String ComponentAbstractDialog_descriptionLabel;
@@ -37,6 +43,8 @@ public class Messages extends NLS {
   public static String ComponentAddDialog_title;
   public static String ComponentEditDialog_message;
   public static String ComponentEditDialog_title;
+  public static String ComponentEntryInfo_abstractMessage;
+  public static String ComponentEntryInfo_abstractTitle;
   public static String ComponentsPropertiesPage_conversionNotSupported;
   public static String ComponentsPropertiesPage_convertFieldToLocalAction;
   public static String ComponentsPropertiesPage_convertLocalToFieldAction;
@@ -80,6 +88,7 @@ public class Messages extends NLS {
   public static String ErrorsDialog_shellTitle;
   public static String ErrorsDialog_supportButton;
   public static String ErrorsDialog_title;
+  public static String ExceptionComposite_goProblemButton;
   public static String ExceptionComposite_message;
   public static String ExceptionComposite_reparseButton;
   public static String ExceptionComposite_reportButton;
@@ -152,12 +161,15 @@ public class Messages extends NLS {
   public static String InstanceFactoryEntryInfo_selectFactoryTitle;
   public static String LayoutAssistantAction_text;
   public static String LayoutAssistantAction_toolTip;
+  public static String LayoutAssistantSupport_layoutPage;
+  public static String LayoutAssistantSupport_parentLayoutPage;
   public static String LayoutAssistantWindow_emptySelection;
   public static String LayoutAssistantWindow_infoTab;
   public static String LayoutAssistantWindow_noAssistanceForSelection;
   public static String LayoutAssistantWindow_notObjectSelected;
   public static String LayoutAssistantWindow_singleParent;
   public static String LayoutAssistantWindow_title;
+  public static String MarqueeSelectionToolEntryInfo_name;
   public static String MultipleConstructorsComposite_listLabel;
   public static String MultipleConstructorsComposite_switchButton;
   public static String MultipleConstructorsComposite_useButton;
@@ -213,7 +225,10 @@ public class Messages extends NLS {
   public static String ProxySettingDialog_hint;
   public static String ProxySettingDialog_portLabel;
   public static String ProxySettingDialog_title;
+  public static String SelectionToolEntryInfo_name;
   public static String SourcePage_name;
+  public static String TabOrderToolEntryInfo_description;
+  public static String TabOrderToolEntryInfo_name;
   public static String TypeParameterComposite_subTypeMessage;
   public static String TypeParameterComposite_subTypeTitle;
   public static String TypeParametersDialog_message;

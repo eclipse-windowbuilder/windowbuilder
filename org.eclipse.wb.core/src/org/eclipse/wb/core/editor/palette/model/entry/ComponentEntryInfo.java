@@ -14,7 +14,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import org.eclipse.wb.core.editor.Messages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
@@ -24,6 +23,7 @@ import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.TypeParametersDialog;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.AttributesProvider;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.AttributesProviders;
@@ -69,8 +69,8 @@ import java.util.WeakHashMap;
  * @coverage core.editor.palette
  */
 public final class ComponentEntryInfo extends ToolEntryInfo {
-  public static final String KEY_SIMULATE_PRESENTATION = Messages.ComponentEntryInfo_0;
-  public static final Image DEFAULT_ICON = DesignerPlugin.getImage(Messages.ComponentEntryInfo_1);
+  public static final String KEY_SIMULATE_PRESENTATION = "ComponentEntryInfo.simulatePresentation";
+  public static final Image DEFAULT_ICON = DesignerPlugin.getImage("palette/Object.png");
   private String m_className;
   private String m_creationId;
   private String m_enabledScript;
@@ -87,33 +87,33 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
   public ComponentEntryInfo(CategoryInfo categoryInfo, IConfigurationElement element)
       throws Exception {
     this(categoryInfo, AttributesProviders.get(element));
-    m_icon = ExternalFactoriesHelper.getImage(element, Messages.ComponentEntryInfo_2);
+    m_icon = ExternalFactoriesHelper.getImage(element, "icon");
     addLibraries(element);
   }
 
   public ComponentEntryInfo(CategoryInfo categoryInfo, AttributesProvider attributes) {
     // class
     {
-      m_className = attributes.getAttribute(Messages.ComponentEntryInfo_3);
-      Assert.isNotNull(m_className, Messages.ComponentEntryInfo_4);
+      m_className = attributes.getAttribute("class");
+      Assert.isNotNull(m_className, "Component must have 'class' attribute.");
     }
     // creationId
     {
-      m_creationId = attributes.getAttribute(Messages.ComponentEntryInfo_5);
+      m_creationId = attributes.getAttribute("creationId");
     }
     // id
     {
-      String id = attributes.getAttribute(Messages.ComponentEntryInfo_6);
+      String id = attributes.getAttribute("id");
       if (id == null) {
-        id = categoryInfo.getId() + Messages.ComponentEntryInfo_7 + m_className;
+        id = categoryInfo.getId() + " " + m_className;
         if (m_creationId != null) {
-          id += Messages.ComponentEntryInfo_8 + m_creationId;
+          id += " " + m_creationId;
         }
       }
       setId(id);
     }
     // other
-    setName(attributes.getAttribute(Messages.ComponentEntryInfo_9));
+    setName(attributes.getAttribute("name"));
     setDescription(attributes.getAttribute("description"));
     setVisible(getBoolean(attributes, "visible", true));
     m_enabledScript = attributes.getAttribute("enabled");
@@ -412,7 +412,10 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
     }
     if (ReflectionUtils.isAbstract(m_class) && !m_creation.hasTrueTag("createAnonymous")) {
       Shell parentShell = IPaletteSite.Helper.getSite(m_rootJavaInfo).getShell();
-      UiUtils.openError(parentShell, Messages.ComponentEntryInfo_abstractTitle, Messages.ComponentEntryInfo_abstractMessage);
+      UiUtils.openError(
+          parentShell,
+          Messages.ComponentEntryInfo_abstractTitle,
+          Messages.ComponentEntryInfo_abstractMessage);
       return null;
     }
     // prepare generics

@@ -64,15 +64,15 @@ public abstract class NlsPreferencePage extends AbstractBindingPreferencesPage
       checkButton(
           this,
           2,
-          "&Automatically externalize string properties, if class contains externalized properties",
+          Messages.NlsPreferencePage_autoExternalize,
           P_NLS_AUTO_EXTERNALIZE);
-      checkButton(this, 2, "Use &qualified class name in keys", P_NLS_KEY_QUALIFIED_TYPE_NAME);
-      stringField(this, 2, "Key as value prefix:", P_NLS_KEY_AS_VALUE_PREFIX);
+      checkButton(this, 2, Messages.NlsPreferencePage_keyHasQualifiedClassName, P_NLS_KEY_QUALIFIED_TYPE_NAME);
+      stringField(this, 2, Messages.NlsPreferencePage_keyInValuePrefix, P_NLS_KEY_AS_VALUE_PREFIX);
       {
         Control[] controls =
-            stringField(this, 2, "Always visible locales:", P_NLS_ALWAYS_VISIBLE_LOCALES);
+            stringField(this, 2, Messages.NlsPreferencePage_alwaysVisibleLocales, P_NLS_ALWAYS_VISIBLE_LOCALES);
         Control labelWidget = controls[0];
-        labelWidget.setToolTipText("Comma separated list, for example: en, de, ru_RU");
+        labelWidget.setToolTipText(Messages.NlsPreferencePage_alwaysVisibleLocalesHint);
       }
     }
   }

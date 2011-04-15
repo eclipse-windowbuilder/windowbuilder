@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.nls.bundle;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.ui.common.AbstractFieldsSourceNewComposite;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
@@ -68,14 +69,14 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     m_propertyGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(m_propertyGroup).grabH().fillH();
     GridLayoutFactory.create(m_propertyGroup).columns(3);
-    m_propertyGroup.setText("Property file location and name");
+    m_propertyGroup.setText(Messages.AbstractBundleSourceNewComposite_propertiesGroup);
     {
       m_propertyPackageField =
           new PackageRootAndPackageSelectionDialogField(60,
-              "Source fo&lder: ",
-              "Br&owse...",
-              "P&ackage:",
-              "Bro&wse...");
+              Messages.AbstractBundleSourceNewComposite_propertiesSourceFolder,
+              Messages.AbstractBundleSourceNewComposite_propertiesSourceFolderBrowse,
+              Messages.AbstractBundleSourceNewComposite_propertiesPackage,
+              Messages.AbstractBundleSourceNewComposite_propertiesPackageBrowse);
       m_propertyPackageField.setDialogFieldListener(m_validateListener);
       m_propertyPackageField.doFillIntoGrid(m_propertyGroup, 3);
       // create property file field
@@ -85,8 +86,8 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
             ElementListSelectionDialog dialog =
                 new ElementListSelectionDialog(getShell(), new JavaElementLabelProvider());
             dialog.setIgnoreCase(false);
-            dialog.setTitle("Property file selection");
-            dialog.setMessage("&Choose the property file:");
+            dialog.setTitle(Messages.AbstractBundleSourceNewComposite_propertiesChooseTitle);
+            dialog.setMessage(Messages.AbstractBundleSourceNewComposite_propertiesChooseMessage);
             dialog.setElements(createFileListInput());
             dialog.setFilter("*.properties");
             // select file
@@ -136,8 +137,8 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
           }
         });
         m_propertyFileField.setDialogFieldListener(m_validateListener);
-        m_propertyFileField.setLabelText("Propert&y file name:");
-        m_propertyFileField.setButtonLabel("Brows&e...");
+        m_propertyFileField.setLabelText(Messages.AbstractBundleSourceNewComposite_propertiesLabel);
+        m_propertyFileField.setButtonLabel(Messages.AbstractBundleSourceNewComposite_propertiesChooseButton);
         createTextFieldControls(m_propertyGroup, m_propertyFileField, 3);
       }
     }
@@ -169,7 +170,7 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     {
       IPackageFragmentRoot root = m_propertyPackageField.getRoot();
       if (root == null || !root.exists()) {
-        setInvalid(KEY_PROPERTY_FOLDER, "The source folder for resource bundle is invalid.");
+        setInvalid(KEY_PROPERTY_FOLDER, Messages.AbstractBundleSourceNewComposite_validatePropertiesInvalidSourceFolder);
       } else {
         setValid(KEY_PROPERTY_FOLDER);
       }
@@ -178,7 +179,7 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     {
       IPackageFragment fragment = m_propertyPackageField.getPackage();
       if (fragment == null || !fragment.exists()) {
-        setInvalid(KEY_PROPERTY_PACKAGE, "The package for resource bundle is invalid");
+        setInvalid(KEY_PROPERTY_PACKAGE, Messages.AbstractBundleSourceNewComposite_validatePropertiesInvalidPackage);
       } else {
         setValid(KEY_PROPERTY_PACKAGE);
       }
@@ -187,9 +188,9 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     {
       String fileName = m_propertyFileField.getText();
       if (fileName.length() == 0) {
-        setInvalid(KEY_PROPERTY_FILE, "The property file is invalid.");
+        setInvalid(KEY_PROPERTY_FILE, Messages.AbstractBundleSourceNewComposite_validatePropertiesFileEmpty);
       } else if (!fileName.endsWith(".properties")) {
-        setInvalid(KEY_PROPERTY_FILE, "The property file name must ends with '.properties'.");
+        setInvalid(KEY_PROPERTY_FILE, Messages.AbstractBundleSourceNewComposite_validatePropertiesFileExtension);
       } else {
         setValid(KEY_PROPERTY_FILE);
       }

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 
+import org.eclipse.wb.internal.core.utils.Messages;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -58,7 +60,7 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
    */
   private void createColorHint() {
     Group group = new Group(this, SWT.NONE);
-    group.setText("Color under cursor");
+    group.setText(Messages.AbstractColorsGridComposite_colorHintGroup);
     group.setLayout(new FillLayout());
     group.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
     //
@@ -141,7 +143,7 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
     Group group = new Group(parent, SWT.NONE);
     group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     group.setLayout(new GridLayout(titles.length, false));
-    group.setText("Sort");
+    group.setText(Messages.AbstractColorsGridComposite_sortGroup);
     //
     for (int i = 0; i < titles.length; i++) {
       final String title = titles[i];

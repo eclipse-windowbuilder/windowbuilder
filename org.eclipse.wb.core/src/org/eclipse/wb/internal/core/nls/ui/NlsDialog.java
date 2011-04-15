@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSupport;
@@ -162,7 +163,7 @@ public final class NlsDialog extends ResizableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private void createPropertiesTab() {
     TabItem item = new TabItem(m_tabFolder, SWT.NONE);
-    item.setText("Properties");
+    item.setText(Messages.NlsDialog_propertiesPage);
     //
     PropertiesComposite composite =
         new PropertiesComposite(m_tabFolder, SWT.NONE, m_editableSupport);
@@ -177,7 +178,7 @@ public final class NlsDialog extends ResizableDialog {
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Externalize strings");
+    newShell.setText(Messages.NlsDialog_title);
   }
 
   @Override

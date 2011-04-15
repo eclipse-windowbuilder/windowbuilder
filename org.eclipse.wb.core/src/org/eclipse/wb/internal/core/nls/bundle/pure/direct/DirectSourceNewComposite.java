@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.nls.bundle.pure.direct;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.nls.Messages;
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSource;
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSourceNewComposite;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
@@ -44,7 +45,7 @@ public final class DirectSourceNewComposite extends AbstractBundleSourceNewCompo
   //
   ////////////////////////////////////////////////////////////////////////////
   public static String getTitle() {
-    return "Direct ResourceBundle usage";
+    return Messages.DirectSourceNewComposite_title;
   }
 
   @Override

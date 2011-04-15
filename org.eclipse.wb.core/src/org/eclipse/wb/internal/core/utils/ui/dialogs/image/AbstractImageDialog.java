@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -94,21 +95,21 @@ public abstract class AbstractImageDialog extends ResizableDialog {
       m_pageButtonsGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(m_pageButtonsGroup).spanH(2).grabH().fill();
       GridLayoutFactory.create(m_pageButtonsGroup);
-      m_pageButtonsGroup.setText("Image selection mode");
+      m_pageButtonsGroup.setText(Messages.AbstractImageDialog_modeLabel);
     }
     // create Group for page content
     {
       m_pagesGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(m_pagesGroup).grab().fill();
       m_pagesGroup.setLayout(new StackLayout());
-      m_pagesGroup.setText("Parameters");
+      m_pagesGroup.setText(Messages.AbstractImageDialog_parametersGroup);
     }
     // create Group for preview
     {
       Group previewGroup = new Group(area, SWT.NONE);
       GridDataFactory.create(previewGroup).hint(300, 350).fill();
       previewGroup.setLayout(new FillLayout());
-      previewGroup.setText("Preview");
+      previewGroup.setText(Messages.AbstractImageDialog_previewGroup);
       //
       m_previewComposite = new ImagePreviewComposite(previewGroup, SWT.NONE);
     }
@@ -139,7 +140,7 @@ public abstract class AbstractImageDialog extends ResizableDialog {
   @Override
   protected final void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText("Image chooser");
+    newShell.setText(Messages.AbstractImageDialog_title);
   }
 
   ////////////////////////////////////////////////////////////////////////////

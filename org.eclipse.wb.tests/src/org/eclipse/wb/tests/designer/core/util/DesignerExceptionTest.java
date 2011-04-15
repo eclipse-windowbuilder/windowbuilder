@@ -96,13 +96,13 @@ public class DesignerExceptionTest extends TestCase {
   ////////////////////////////////////////////////////////////////////////////
   public void test_getMessage_useTitle_knownCode() {
     DesignerException designerException = new DesignerException(ICoreExceptionConstants.UNEXPECTED);
-    assertEquals("1 (Unexpected exception).", designerException.getMessage());
+    assertEquals("1 (Internal Error).", designerException.getMessage());
   }
 
   public void test_getMessage_useTitle_knownCode_withParameters() {
     DesignerException designerException =
         new DesignerException(ICoreExceptionConstants.UNEXPECTED, "A", "BB");
-    assertEquals("1 (Unexpected exception). A BB", designerException.getMessage());
+    assertEquals("1 (Internal Error). A BB", designerException.getMessage());
   }
 
   public void test_getMessage_useTitle_unknownCode() {

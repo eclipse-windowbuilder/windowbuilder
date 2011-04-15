@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
@@ -35,15 +36,15 @@ public final class NamedColorsComposite extends AbstractColorsGridComposite {
     super(parent, style, colorDialog);
     createSortGroup(
         this,
-        new String[]{"Tone", "Hue", "Saturation", "Lightness", "Name"},
+        new String[]{Messages.NamedColorsComposite_sortTone, Messages.NamedColorsComposite_sortHue, Messages.NamedColorsComposite_sortSaturation, Messages.NamedColorsComposite_sortLightness, Messages.NamedColorsComposite_sortName},
         new Comparator[]{
             ColorInfoComparator.TONE,
             ColorInfoComparator.HUE,
             ColorInfoComparator.SATURATION,
             ColorInfoComparator.LIGHTNESS,
             ColorInfoComparator.NAME});
-    createColorsGroup(this, "HTML colors", HTML_COLORS);
-    createColorsGroup(this, "Scalable Vector Graphics (SVG) colors", SVG_COLORS);
+    createColorsGroup(this, Messages.NamedColorsComposite_htmlGroup, HTML_COLORS);
+    createColorsGroup(this, Messages.NamedColorsComposite_svgGroup, SVG_COLORS);
     setComparator(ColorInfoComparator.TONE);
   }
 

@@ -99,7 +99,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
   }
 
   protected void handleFinishException(Shell shell, InvocationTargetException e) {
-    ExceptionHandler.perform(e, shell, "New", "Creation of element failed.");
+    ExceptionHandler.perform(e, shell, Messages.DesignerNewElementWizard_errorTitle, Messages.DesignerNewElementWizard_errorMessage);
   }
 
   @Override
@@ -253,7 +253,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
         msg.write("\n\n");
       }
       if (exceptionMessage == null || exceptionMessage.length() == 0) {
-        msg.write(" See error log for more details.");
+        msg.write(Messages.DesignerNewElementWizard_errorSeeLog);
       } else {
         msg.write(exceptionMessage);
       }

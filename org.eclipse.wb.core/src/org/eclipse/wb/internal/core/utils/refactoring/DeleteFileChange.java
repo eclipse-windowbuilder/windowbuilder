@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.refactoring;
 
+import org.eclipse.wb.internal.core.utils.Messages;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -51,7 +53,7 @@ public class DeleteFileChange extends Change {
 
   @Override
   public String getName() {
-    return MessageFormat.format("Remove file {0}", m_file.getLocation().lastSegment());
+    return MessageFormat.format(Messages.DeleteFileChange_name, m_file.getLocation().lastSegment());
   }
 
   @Override
@@ -63,7 +65,7 @@ public class DeleteFileChange extends Change {
     RefactoringStatus status = new RefactoringStatus();
     if (!m_file.exists()) {
       status.addError(MessageFormat.format(
-          "File {0} does not exist.",
+          Messages.DeleteFileChange_errNoFile,
           m_file.getLocation().lastSegment()));
     }
     return status;

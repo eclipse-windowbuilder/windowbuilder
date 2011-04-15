@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages;
 
+import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
@@ -34,7 +35,7 @@ public final class WebSafeColorsComposite extends AbstractColorsGridComposite {
   ////////////////////////////////////////////////////////////////////////////
   public WebSafeColorsComposite(Composite parent, int style, AbstractColorDialog colorPickerDialog) {
     super(parent, style, colorPickerDialog);
-    createSortGroup(this, new String[]{"Tone", "Hue", "Saturation", "Lightness"}, new Comparator[]{
+    createSortGroup(this, new String[]{Messages.WebSafeColorsComposite_sortTone, Messages.WebSafeColorsComposite_sortHue, Messages.WebSafeColorsComposite_sortSaturation, Messages.WebSafeColorsComposite_sortLightness}, new Comparator[]{
         ColorInfoComparator.TONE,
         ColorInfoComparator.HUE,
         ColorInfoComparator.SATURATION,
