@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -397,6 +396,7 @@ public final class ComponentPresentationHelper {
     private void loadFromCacheFile() throws Exception {
       InputStream stream = new FileInputStream(m_cacheFile);
       try {
+        stream = new BufferedInputStream(stream);
         loadFromStream(stream);
       } finally {
         IOUtils.closeQuietly(stream);
@@ -404,7 +404,6 @@ public final class ComponentPresentationHelper {
     }
 
     private void loadFromStream(InputStream inputStream) throws Exception {
-      inputStream = new BufferedInputStream(inputStream);
       DataInputStream dataInput = new DataInputStream(inputStream);
       // skip check sums
       readCheckSums(dataInput);
@@ -415,9 +414,14 @@ public final class ComponentPresentationHelper {
           String toolkitId = dataInput.readUTF();
           String name = dataInput.readUTF();
           String description = dataInput.readUTF();
-          Image icon = new Image(Display.getDefault(), inputStream);
+          byte[] iconBytes;
+          {
+            int bytesLength = dataInput.readInt();
+            iconBytes = new byte[bytesLength];
+            dataInput.readFully(iconBytes);
+          }
           ComponentPresentation presentation =
-              new ComponentPresentation(key, toolkitId, name, description, icon);
+              new ComponentPresentation(key, toolkitId, name, description, iconBytes);
           m_presentations.put(key, presentation);
         } catch (EOFException e) {
           break;
@@ -438,7 +442,11 @@ public final class ComponentPresentationHelper {
         randomAccessFile.writeUTF(presentation.getToolkitId());
         randomAccessFile.writeUTF(presentation.getName());
         randomAccessFile.writeUTF(presentation.getDescription());
-        randomAccessFile.write(ImageUtils.getBytesPNG(presentation.getIcon()));
+        {
+          byte[] bytes = ImageUtils.getBytesPNG(presentation.getIcon());
+          randomAccessFile.writeInt(bytes.length);
+          randomAccessFile.write(bytes);
+        }
       } finally {
         randomAccessFile.close();
       }

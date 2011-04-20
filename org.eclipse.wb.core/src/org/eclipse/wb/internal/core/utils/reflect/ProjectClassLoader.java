@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 
 import org.eclipse.core.resources.IProject;
@@ -26,16 +29,14 @@ import org.objectweb.asm.ClassReader;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.security.cert.Certificate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -46,7 +47,7 @@ import javax.swing.UIManager;
  * @author scheglov_ke
  * @coverage shared.utils.reflect
  */
-public final class ProjectClassLoader extends URLClassLoader {
+public class ProjectClassLoader extends URLClassLoader {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Creation
@@ -57,36 +58,47 @@ public final class ProjectClassLoader extends URLClassLoader {
    */
   public static ProjectClassLoader create(ClassLoader parentClassLoader, IJavaProject javaProject)
       throws Exception {
-    List entries = new ArrayList();
-    addRuntimeClassPathEntries(entries, javaProject, new HashSet());
-    // prepare list of URL's for given String entries
-    URL urls[] = new URL[entries.size()];
-    for (int i = 0; i < entries.size(); i++) {
-      String location = (String) entries.get(i);
-      /* $if eclipse.version > 2.1$ */
-      urls[i] = new File(location).toURI().toURL();
-      /* $else$
-      urls[i] = new File(location).toURL();
-      $endif$ */
-    }
-    // create class loader
+    URL[] urls = getClasspathUrls(javaProject);
     return new ProjectClassLoader(urls, parentClassLoader, javaProject);
   }
 
   /**
-   * @return the {@link ProjectClassLoader} for given {@link URL}'s with givent parent
+   * @param javaProject
+   * @return
+   * @throws Exception
+   * @throws MalformedURLException
+   */
+  public static URL[] getClasspathUrls(IJavaProject javaProject) throws Exception {
+    long start = System.nanoTime();
+    List<String> entries = Lists.newArrayList();
+    addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet());
+    // prepare list of URL's for given String entries
+    URL urls[] = new URL[entries.size()];
+    for (int i = 0; i < entries.size(); i++) {
+      String location = entries.get(i);
+      urls[i] = new File(location).toURI().toURL();
+    }
+    /*System.out.println("getClasspathUrls.time: "
+        + (System.nanoTime() - start)
+        / 1000000.0
+        + "   urls: "
+        + urls.length);*/
+    return urls;
+  }
+
+  /**
+   * @return the {@link ProjectClassLoader} for given {@link URL}'s with given parent
    *         {@link ClassLoader}.
    */
   public static ProjectClassLoader create(ClassLoader parentClassLoader,
       URL[] urls,
       IJavaProject javaProject) throws Exception {
-    // create class loader
     return new ProjectClassLoader(urls, parentClassLoader, javaProject);
   }
 
-  private static void addRuntimeClassPathEntries(List/*<String>*/entries,
+  private static void addRuntimeClassPathEntries(List<String> entries,
       IJavaProject javaProject,
-      Set/*<IJavaProject>*/visitedProjects) throws Exception {
+      Set<IJavaProject> visitedProjects) throws Exception {
     IProject project = javaProject.getProject();
     // not Java project
     if (!javaProject.exists()) {
@@ -109,9 +121,9 @@ public final class ProjectClassLoader extends URLClassLoader {
     addFragments(entries, project, visitedProjects);
   }
 
-  private static void addFragments(List/*<String>*/entries,
+  private static void addFragments(List<String> entries,
       IProject project,
-      Set/*<IJavaProject>*/visitedProjects) throws Exception {
+      Set<IJavaProject> visitedProjects) throws Exception {
     IJavaProject javaProject = JavaCore.create(project);
     if (!javaProject.exists()) {
       return;
@@ -144,9 +156,9 @@ public final class ProjectClassLoader extends URLClassLoader {
     }
   }
 
-  private static void addRuntimeClassPathEntries(List/*<String>*/entries,
+  private static void addRuntimeClassPathEntries(List<String> entries,
       String projectName,
-      Set/*<IJavaProject>*/visitedProjects) throws Exception {
+      Set<IJavaProject> visitedProjects) throws Exception {
     IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     IProject project = root.getProject(projectName);
     IJavaProject javaProject = JavaCore.create(project);
@@ -167,7 +179,7 @@ public final class ProjectClassLoader extends URLClassLoader {
    *         {@link IProject}. We need this to play safe in GWT.
    */
   public static String[] getClasspath(IJavaProject javaProject) throws Exception {
-    List locations = new ArrayList();
+    List<String> locations = Lists.newArrayList();
     // prepare unresolved class path
     IRuntimeClasspathEntry[] unresolvedEntries =
         JavaRuntime.computeUnresolvedRuntimeClasspath(javaProject);
@@ -186,7 +198,7 @@ public final class ProjectClassLoader extends URLClassLoader {
       }
     }
     // convert into array
-    return (String[]) locations.toArray(new String[locations.size()]);
+    return locations.toArray(new String[locations.size()]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -199,7 +211,7 @@ public final class ProjectClassLoader extends URLClassLoader {
    */
   private static void cleanUpJIDE() {
     UIDefaults defaults = UIManager.getDefaults();
-    for (Iterator I = defaults.keySet().iterator(); I.hasNext();) {
+    for (Iterator<?> I = defaults.keySet().iterator(); I.hasNext();) {
       Object key = I.next();
       if (key.toString().toLowerCase().indexOf("jide") != -1) {
         I.remove();
@@ -216,11 +228,11 @@ public final class ProjectClassLoader extends URLClassLoader {
    * {@link List} of additional {@link IByteCodeProcessor}'s that should be applied to each loaded
    * class.
    */
-  private final List/*<IByteCodeProcessor>*/m_processors = new ArrayList();
+  private final List<IByteCodeProcessor> m_processors = Lists.newArrayList();
   /**
    * {@link Set} of classes names that should be made non-abstract.
    */
-  private final Set/*<String>*/m_nonAbstractClasses = new TreeSet();
+  private final Set<String> m_nonAbstractClasses = Sets.newTreeSet();
   private final IJavaProject m_javaProject;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -228,7 +240,7 @@ public final class ProjectClassLoader extends URLClassLoader {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  private ProjectClassLoader(URL[] urls, ClassLoader parent, IJavaProject javaProject) {
+  public ProjectClassLoader(URL[] urls, ClassLoader parent, IJavaProject javaProject) {
     super(urls, parent);
     m_javaProject = javaProject;
     cleanUpJIDE();
@@ -272,7 +284,7 @@ public final class ProjectClassLoader extends URLClassLoader {
   private static CodeSource m_fakeCodeSource;
 
   @Override
-  protected Class findClass(String className) throws ClassNotFoundException {
+  protected Class<?> findClass(String className) throws ClassNotFoundException {
     String classResourceName = className.replace('.', '/') + ".class";
     InputStream input = getResourceAsStream(classResourceName);
     if (input == null) {
@@ -282,8 +294,7 @@ public final class ProjectClassLoader extends URLClassLoader {
         // read class bytes
         byte[] bytes = IOUtils2.readBytes(input);
         // apply processors
-        for (Iterator I = m_processors.iterator(); I.hasNext();) {
-          IByteCodeProcessor processor = (IByteCodeProcessor) I.next();
+        for (IByteCodeProcessor processor : m_processors) {
           bytes = processor.process(className, bytes);
         }
         // implement abstract methods (only for required classes)
