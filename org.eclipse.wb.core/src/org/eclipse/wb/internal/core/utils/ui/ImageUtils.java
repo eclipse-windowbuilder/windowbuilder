@@ -24,11 +24,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.DirectColorModel;
+import java.awt.image.ImageObserver;
 import java.awt.image.IndexColorModel;
 import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.imageio.ImageIO;
 
@@ -72,22 +74,53 @@ public final class ImageUtils {
     if (image instanceof BufferedImage) {
       bufferedImage = (BufferedImage) image;
     } else {
-      // wait for size
-      while (true) {
-        if (image.getWidth(null) > 0 && image.getHeight(null) > 0) {
-          break;
-        }
-        ExecutionUtils.sleep(0);
-      }
+      waitForImage(image);
+      // prepare dimensions
       int w = image.getWidth(null);
       int h = image.getHeight(null);
-      // prepare BufferedImage
+      // draw into BufferedImage
       bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
       Graphics2D g2 = bufferedImage.createGraphics();
       g2.drawImage(image, 0, 0, null);
+      // done
       g2.dispose();
     }
     return bufferedImage;
+  }
+
+  /**
+   * Waits until image is fully loaded, so ready for drawing.
+   */
+  private static void waitForImage(java.awt.Image image) {
+    BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2 = bufferedImage.createGraphics();
+    // prepare observer
+    final AtomicBoolean done = new AtomicBoolean();
+    ImageObserver imageObserver = new ImageObserver() {
+      public boolean imageUpdate(java.awt.Image img, int flags, int x, int y, int width, int height) {
+        if (flags < ALLBITS) {
+          return true;
+        } else {
+          synchronized (done) {
+            done.set(true);
+            done.notify();
+          }
+          return false;
+        }
+      }
+    };
+    // draw Image with wait
+    g2.drawImage(image, 0, 0, imageObserver);
+    while (!done.get()) {
+      try {
+        synchronized (done) {
+          done.wait(0);
+        }
+      } catch (InterruptedException e) {
+      }
+    }
+    // clean up
+    g2.dispose();
   }
 
   /**
