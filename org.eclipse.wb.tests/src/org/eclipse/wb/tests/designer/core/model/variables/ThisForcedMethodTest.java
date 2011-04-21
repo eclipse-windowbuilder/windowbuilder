@@ -301,6 +301,26 @@ public class ThisForcedMethodTest extends SwingModelTest {
     assertTarget(target, getMethod("init()").getBody(), null, false);
   }
 
+  public void test_getTarget_existingEmpty_tryStatement() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    try {",
+            "      init();",
+            "    } catch (Throwable e) {",
+            "    }",
+            "  }",
+            "  private void init() {",
+            "  }",
+            "}");
+    String expectedSource = m_lastEditor.getSource();
+    // check target
+    StatementTarget target = JavaInfoUtils.getTarget(panel, null);
+    assertEditor(expectedSource, m_lastEditor);
+    assertTarget(target, getMethod("init()").getBody(), null, false);
+  }
+
   /**
    * Method invoked at the end of constructor has different name than "forced", so we don't use it.
    * We create new "forced" method.

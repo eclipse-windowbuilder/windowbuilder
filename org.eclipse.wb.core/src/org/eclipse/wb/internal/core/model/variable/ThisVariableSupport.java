@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.IVariableBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -35,6 +36,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
+import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import java.util.ArrayList;
@@ -251,10 +253,17 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
     // prepare last statement
     Statement statement;
     {
-      List<Statement> statements = DomGenerics.statements(constructor);
-      statement = GenericsUtils.getLastOrNull(statements);
-      if (statement == null) {
-        return null;
+      Block body = constructor.getBody();
+      while (true) {
+        List<Statement> statements = DomGenerics.statements(body);
+        statement = GenericsUtils.getLastOrNull(statements);
+        // dive into TryStatement
+        if (statement instanceof TryStatement) {
+          body = ((TryStatement) statement).getBody();
+          continue;
+        }
+        // done
+        break;
       }
     }
     // check last statement
@@ -273,6 +282,7 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
         }
       }
     }
+    // invalid statement
     return null;
   }
 
