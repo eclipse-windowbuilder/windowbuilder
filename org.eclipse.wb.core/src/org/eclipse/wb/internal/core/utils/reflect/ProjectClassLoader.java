@@ -78,11 +78,11 @@ public class ProjectClassLoader extends URLClassLoader {
       String location = entries.get(i);
       urls[i] = new File(location).toURI().toURL();
     }
-    /*System.out.println("getClasspathUrls.time: "
+    System.out.println("getClasspathUrls.time: "
         + (System.nanoTime() - start)
         / 1000000.0
         + "   urls: "
-        + urls.length);*/
+        + urls.length);
     return urls;
   }
 
