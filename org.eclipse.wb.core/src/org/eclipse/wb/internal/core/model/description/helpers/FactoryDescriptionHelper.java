@@ -175,7 +175,7 @@ public class FactoryDescriptionHelper {
       ResourceInfo resourceInfo =
           DescriptionHelper.getResourceInfo(context, factoryClass, descriptionName);
       if (resourceInfo != null) {
-        final Map<Integer, FactoryMethodDescription> textualDescriptions = Maps.newHashMap();
+        Map<Integer, FactoryMethodDescription> textualDescriptions = Maps.newHashMap();
         Digester digester = prepareDigester(factoryClass, state, textualDescriptions);
         digester.push(allMethodsAreFactories);
         digester.push(descriptions);
@@ -191,6 +191,12 @@ public class FactoryDescriptionHelper {
     // factory flag for not-wbp methods
     if (allMethodsAreFactories == null) {
       allMethodsAreFactories = hasFactorySuffix(factoryType) || hasFactoryTag(factoryType);
+    }
+    // if no methods from XML, may be no methods at all
+    if (!allMethodsAreFactories.booleanValue()
+        && descriptions.isEmpty()
+        && !hasFactoryTagSource(factoryType)) {
+      return Maps.newTreeMap();
     }
     // add descriptions for all methods, using JavaDoc
     {
@@ -615,9 +621,7 @@ public class FactoryDescriptionHelper {
    */
   private static boolean hasFactoryTag(IType type) throws Exception {
     // check quickly, is IType is from source and has factory tags in source
-    if (type.isBinary()
-        || !type.getCompilationUnit().isConsistent()
-        || type.getSource().indexOf(WBP_FACTORY_TAG) == -1) {
+    if (!hasFactoryTagSource(type)) {
       return false;
     }
     // OK, look more precise
@@ -633,6 +637,20 @@ public class FactoryDescriptionHelper {
     }
     // no factory tag
     return false;
+  }
+
+  /**
+   * @return <code>true</code> if given {@link IType} has factory tag at all, global or for some
+   *         specific method.
+   */
+  private static boolean hasFactoryTagSource(IType type) throws Exception {
+    if (type.isBinary()) {
+      return false;
+    }
+    if (!type.getCompilationUnit().isConsistent()) {
+      return false;
+    }
+    return type.getSource().contains(WBP_FACTORY_TAG);
   }
 
   /**
