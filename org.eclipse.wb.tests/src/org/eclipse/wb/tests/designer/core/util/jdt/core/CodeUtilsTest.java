@@ -882,7 +882,13 @@ public class CodeUtilsTest extends AbstractJavaTest {
     createModelCompilationUnit(
         "test",
         "B.java",
-        getSourceDQ("package test;", "class B extends A {", "  void foo() {", "  }", "}"));
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "package test;",
+            "class B extends A {",
+            "  void foo() {",
+            "  }",
+            "}"));
     TypeDeclaration type =
         createTypeDeclaration_Test(
             "class Test {",

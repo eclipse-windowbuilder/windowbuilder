@@ -513,9 +513,13 @@ public class CodeUtils {
    */
   public static IMethod findMethodSingleType(IType type, String signature)
       throws JavaModelException {
+    String name = StringUtils.substringBefore(signature, "(");
+    boolean wantConstructor = "<init>".equals(name);
     for (IMethod method : type.getMethods()) {
-      if (signature.equals(getMethodSignature(method))) {
-        return method;
+      if (method.getElementName().equals(name) || wantConstructor && method.isConstructor()) {
+        if (getMethodSignature(method).equals(signature)) {
+          return method;
+        }
       }
     }
     // not found
