@@ -280,6 +280,7 @@ public class CodeUtils {
    * 
    * <pre>
 	 * CodeUtils.getShortClass("javax.swing.JPanel")  = "JPanel"
+	 * CodeUtils.getShortClass("test.MyPanel$Inner")  = "Inner"
 	 * CodeUtils.getShortClass("boolean")             = "boolean"
 	 * </pre>
    * 
@@ -289,8 +290,9 @@ public class CodeUtils {
    * @return the short name of given class name.
    */
   public static String getShortClass(String className) {
-    if (className.indexOf('.') != -1) {
-      return StringUtils.substringAfterLast(className, ".");
+    int index = StringUtils.lastIndexOfAny(className, new String[]{".", "$"});
+    if (index != -1) {
+      return className.substring(index + 1);
     }
     return className;
   }

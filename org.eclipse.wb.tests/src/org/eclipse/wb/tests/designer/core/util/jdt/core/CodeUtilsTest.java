@@ -89,6 +89,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
   public void test_getShortClass() {
     assertEquals("boolean", CodeUtils.getShortClass("boolean"));
     assertEquals("List", CodeUtils.getShortClass("java.util.List"));
+    assertEquals("Sub", CodeUtils.getShortClass("test.MyPanel$Sub"));
   }
 
   public void test_getPackage() {
