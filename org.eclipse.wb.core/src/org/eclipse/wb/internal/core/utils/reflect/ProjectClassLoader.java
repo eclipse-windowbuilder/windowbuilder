@@ -73,16 +73,24 @@ public class ProjectClassLoader extends URLClassLoader {
     List<String> entries = Lists.newArrayList();
     addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet());
     // prepare list of URL's for given String entries
-    URL urls[] = new URL[entries.size()];
-    for (int i = 0; i < entries.size(); i++) {
-      String location = entries.get(i);
-      urls[i] = new File(location).toURI().toURL();
-    }
+    URL[] urls = toURLs(entries);
     System.out.println("getClasspathUrls.time: "
         + (System.nanoTime() - start)
         / 1000000.0
         + "   urls: "
         + urls.length);
+    return urls;
+  }
+
+  /**
+   * @return the {@link URL}s for given locations in file system.
+   */
+  public static URL[] toURLs(List<String> locations) throws Exception {
+    URL urls[] = new URL[locations.size()];
+    for (int i = 0; i < locations.size(); i++) {
+      String location = locations.get(i);
+      urls[i] = new File(location).toURI().toURL();
+    }
     return urls;
   }
 
