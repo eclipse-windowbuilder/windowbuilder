@@ -48,6 +48,9 @@ public final class GridLayoutSurroundSupport extends LayoutSurroundSupport {
 
   @Override
   protected boolean validateComponents(List<ControlInfo> components) throws Exception {
+    if (!super.validateComponents(components)) {
+      return false;
+    }
     // prepare enclosing bounds
     {
       m_enclosingCells = getCells(components.get(0));
@@ -63,8 +66,8 @@ public final class GridLayoutSurroundSupport extends LayoutSurroundSupport {
         return false;
       }
     }
-    // continue
-    return super.validateComponents(components);
+    // OK
+    return true;
   }
 
   @Override

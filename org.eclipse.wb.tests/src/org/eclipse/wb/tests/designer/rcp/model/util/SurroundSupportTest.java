@@ -611,6 +611,42 @@ public class SurroundSupportTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
+   * We can not surround exposed control.
+   */
+  public void test_GridLayout_disableWhenExposed() throws Exception {
+    setFileContentSrc(
+        "test/MyComposite.java",
+        getTestSource(
+            "public class MyComposite extends Composite {",
+            "  private Button button;",
+            "  public MyComposite(Composite parent, int style) {",
+            "    super(parent, style);",
+            "    setLayout(new GridLayout());",
+            "    button = new Button(this, SWT.NONE);",
+            "  }",
+            "  public Button getButton() {",
+            "    return button;",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new RowLayout());",
+        "    {",
+        "      MyComposite myComposite = new MyComposite(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
+    refresh();
+    ControlInfo button = getJavaInfoByName("getButton()");
+    assertNotNull(button);
+    // no surround
+    assertNoSurroundManager(button, ImmutableList.of(button));
+  }
+
+  /**
    * Bad: two controls on diagonal, and other control in same rectangle.
    */
   public void test_GridLayout_0() throws Exception {

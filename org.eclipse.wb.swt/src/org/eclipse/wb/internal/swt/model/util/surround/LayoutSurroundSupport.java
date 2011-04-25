@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.util.surround;
 
+import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.model.util.surround.SurroundSupport;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -47,11 +48,20 @@ public abstract class LayoutSurroundSupport extends SwtSurroundSupport {
 
   @Override
   protected boolean validateComponents(List<ControlInfo> components) throws Exception {
+    if (!super.validateComponents(components)) {
+      return false;
+    }
     // perform "surround" only for "active" layout
     if (!m_layout.isActive()) {
       return false;
     }
-    // continue
-    return super.validateComponents(components);
+    // don't handle implicit
+    for (ControlInfo component : components) {
+      if (component.getCreationSupport() instanceof IImplicitCreationSupport) {
+        return false;
+      }
+    }
+    // OK
+    return true;
   }
 }
