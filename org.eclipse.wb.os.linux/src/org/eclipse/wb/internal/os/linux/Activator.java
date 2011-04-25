@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.os.linux;
 
 import com.google.common.collect.Maps;
 
+import org.eclipse.wb.core.branding.BrandingUtils;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -44,8 +46,6 @@ public class Activator extends AbstractUIPlugin implements IStartup {
   static {
     try {
       System.loadLibrary("wbp-compiz");
-      // try to invoke
-      _isCompizSet();
       gconfAvailable = true;
     } catch (Throwable e) {
       // can't load gconf-related lib, skipping all compiz checks.
@@ -192,20 +192,24 @@ public class Activator extends AbstractUIPlugin implements IStartup {
     }
     getStandardDisplay().syncExec(new Runnable() {
       public void run() {
-        if (isRunningCompiz() && !isCompizSet() && askAgain()) {
-          MessageDialogWithToggle dialog =
-              MessageDialogWithToggle.openYesNoQuestion(
-                  null,
-                  "WindowBuilder",
-                  Messages.Activator_compizMessage,
-                  Messages.Activator_compizDontAsk,
-                  false,
-                  getPreferenceStore(),
-                  PK_ASK_FOR_WORKAROUND);
-          int returnCode = dialog.getReturnCode();
-          if (returnCode == IDialogConstants.YES_ID) {
-            setupCompiz();
+        try {
+          if (isRunningCompiz() && !isCompizSet() && askAgain()) {
+            MessageDialogWithToggle dialog =
+                MessageDialogWithToggle.openYesNoQuestion(
+                    null,
+                    BrandingUtils.getBranding().getProductName(),
+                    Messages.Activator_compizMessage,
+                    Messages.Activator_compizDontAsk,
+                    false,
+                    getPreferenceStore(),
+                    PK_ASK_FOR_WORKAROUND);
+            int returnCode = dialog.getReturnCode();
+            if (returnCode == IDialogConstants.YES_ID) {
+              setupCompiz();
+            }
           }
+        } catch (Throwable e) {
+          DesignerPlugin.log(e);
         }
       }
     });
