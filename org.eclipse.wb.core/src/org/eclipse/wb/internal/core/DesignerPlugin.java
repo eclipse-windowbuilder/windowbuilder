@@ -41,6 +41,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
@@ -296,8 +297,8 @@ public class DesignerPlugin extends AbstractUIPlugin implements IStartup {
       }
 
       private boolean isExitVM(java.security.Permission perm) {
-        String name = perm.getName();
-        return name != null && name.startsWith("exitVM");
+        return perm instanceof RuntimePermission
+            && StringUtils.startsWith(perm.getName(), "exitVM");
       }
     });
   }
