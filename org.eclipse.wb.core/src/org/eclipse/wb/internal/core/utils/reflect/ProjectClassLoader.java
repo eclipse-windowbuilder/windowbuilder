@@ -29,7 +29,6 @@ import org.objectweb.asm.ClassReader;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSource;
@@ -63,23 +62,12 @@ public class ProjectClassLoader extends URLClassLoader {
   }
 
   /**
-   * @param javaProject
-   * @return
-   * @throws Exception
-   * @throws MalformedURLException
+   * @return {@link URL}s for each classpath entry of given {@link IJavaProject}.
    */
   public static URL[] getClasspathUrls(IJavaProject javaProject) throws Exception {
-    long start = System.nanoTime();
     List<String> entries = Lists.newArrayList();
     addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet());
-    // prepare list of URL's for given String entries
-    URL[] urls = toURLs(entries);
-    System.out.println("getClasspathUrls.time: "
-        + (System.nanoTime() - start)
-        / 1000000.0
-        + "   urls: "
-        + urls.length);
-    return urls;
+    return toURLs(entries);
   }
 
   /**
