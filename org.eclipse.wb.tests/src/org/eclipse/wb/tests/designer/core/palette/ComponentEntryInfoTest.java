@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.Text;
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.util.Map;
@@ -985,7 +986,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
       testBundle.setFile(
           descriptionsPath + ".wbp-cache-descriptions",
           "Please, cache this package.");
-      String componentPath = descriptionsPath + CodeUtils.getShortClass(className);
+      String componentPath = descriptionsPath + StringUtils.substringAfterLast(className, ".");
       testBundle.setFile(
           componentPath + ".wbp-component.xml",
           getSourceDQ(
