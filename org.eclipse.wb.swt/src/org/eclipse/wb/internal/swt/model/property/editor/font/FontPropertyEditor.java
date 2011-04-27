@@ -175,25 +175,24 @@ public final class FontPropertyEditor extends TextDialogPropertyEditor
     // set initial value
     {
       Object value = property.getValue();
-      if (value != Property.UNKNOWN_VALUE) {
-        if (value == null) {
-          value = DisplaySupport.getSystemFont();
-        }
-        // prepare font value
-        Object[] registryValue = getRegistryValue(property);
-        FontInfo fontInfo;
-        if (registryValue == null) {
-          fontInfo = new FontInfo(null, value, null, false);
-          if (isJFaceValue(genericProperty.getExpression())) {
-            fontInfo.setPageId(JFaceFontPage.NAME);
-          }
-        } else {
-          fontInfo = new FontInfo(null, value, (String) registryValue[3], false);
-          fontInfo.setData(registryValue);
-          fontInfo.setPageId(RegistryFontPage.NAME);
-        }
-        fontDialog.setFontInfo(fontInfo);
+      if (value == null || value == Property.UNKNOWN_VALUE) {
+        value = DisplaySupport.getSystemFont();
       }
+      // prepare font value
+      Object[] registryValue = getRegistryValue(property);
+      FontInfo fontInfo;
+      if (registryValue == null) {
+        fontInfo = new FontInfo(null, value, null, false);
+        if (isJFaceValue(genericProperty.getExpression())) {
+          fontInfo.setPageId(JFaceFontPage.NAME);
+        }
+      } else {
+        fontInfo = new FontInfo(null, value, (String) registryValue[3], false);
+        fontInfo.setData(registryValue);
+        fontInfo.setPageId(RegistryFontPage.NAME);
+      }
+      // set value
+      fontDialog.setFontInfo(fontInfo);
     }
     // open dialog
     if (fontDialog.open() == Window.OK) {
