@@ -67,7 +67,6 @@ public class AppletTest extends SwingModelTest {
     assertEquals(new Rectangle(0, 0, 450, 300), applet.getBounds());
     {
       Rectangle bounds = button.getBounds();
-      System.out.println(bounds);
       assertThat(bounds.x).isGreaterThan(100).isLessThan(300);
       assertThat(bounds.y).isEqualTo(5);
     }
@@ -97,6 +96,28 @@ public class AppletTest extends SwingModelTest {
     assertEquals(new Rectangle(0, 0, 450, 300), contentPane.getBounds());
     // no constraints for JButton, so it fills content pane
     assertEquals(new Rectangle(0, 0, 450, 300), button.getBounds());
+  }
+
+  /**
+   * {@link JApplet#getParent()} returns <code>null</code>, but we should not fail, and it is not
+   * included into hierarchy.
+   */
+  public void test_JApplet_getParent() throws Exception {
+    ContainerInfo applet =
+        parseContainer(
+            "public class Test extends JApplet {",
+            "  public Test() {",
+            "  }",
+            "  public void init() {",
+            "    super.getParent();",
+            "  }",
+            "}");
+    applet.refresh();
+    assertNoErrors(applet);
+    assertHierarchy(
+        "{this: javax.swing.JApplet} {this} {}",
+        "  {method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {}",
+        "    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
   }
 
   ////////////////////////////////////////////////////////////////////////////

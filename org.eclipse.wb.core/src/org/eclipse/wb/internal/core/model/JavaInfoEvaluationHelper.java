@@ -263,7 +263,7 @@ public abstract class JavaInfoEvaluationHelper {
         // remember value of Expression
         setValue(expression, value);
         // remember object for JavaInfo
-        {
+        if (value != null) {
           JavaInfo javaInfo = getJavaInfoRepresentedBy(expression);
           if (javaInfo != null) {
             boolean noObjectYet = javaInfo.getObject() == null;
