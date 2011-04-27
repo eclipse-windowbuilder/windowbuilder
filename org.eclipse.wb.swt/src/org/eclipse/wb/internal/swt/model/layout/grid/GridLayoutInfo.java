@@ -852,6 +852,11 @@ public class GridLayoutInfo extends LayoutInfo
   private Rectangle getImplicitControlCells(Object control) {
     Object layout = getObject();
     Point xy = GridLayoutSupport.getXY(layout, control);
+    // may be excluded
+    if (xy == null) {
+      return new Rectangle();
+    }
+    // continue
     Dimension wh = GridLayoutSupport.getWH(layout, control);
     return new Rectangle(xy.x, xy.y, wh.width, wh.height);
   }

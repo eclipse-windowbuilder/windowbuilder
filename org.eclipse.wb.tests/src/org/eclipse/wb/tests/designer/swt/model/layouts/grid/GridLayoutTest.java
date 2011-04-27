@@ -2876,6 +2876,42 @@ public class GridLayoutTest extends RcpModelTest {
         "}");
   }
 
+  /**
+   * When we mark {@link Control} as excluded, this should not cause problems.
+   */
+  public void test_excludeFlag_forImplicit() throws Exception {
+    setFileContentSrc(
+        "test/MyComposite.java",
+        getTestSource(
+            "class MyComposite extends Composite {",
+            "  MyComposite(Composite parent, int style) {",
+            "    super(parent, style);",
+            "    setLayout(new GridLayout());",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      {",
+            "        GridData gridData = new GridData();",
+            "        gridData.exclude = true;",
+            "        button.setLayoutData(gridData);",
+            "      }",
+            "    }",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    CompositeInfo shell =
+        parseComposite(
+            "// filler filler filler filler filler",
+            "class Test extends Shell {",
+            "  Test() {",
+            "    setLayout(new GridLayout(1, false));",
+            "    new MyComposite(this, SWT.NONE);",
+            "  }",
+            "}");
+    shell.refresh();
+    assertNoErrors(shell);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Delete layout
