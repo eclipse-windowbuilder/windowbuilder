@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.discovery.ui.preferences;
 
+import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
 import org.eclipse.wb.internal.discovery.core.WBToolkitRegistry;
 import org.eclipse.wb.internal.discovery.ui.Messages;
@@ -133,7 +134,7 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
       checkForUpdatesButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
-          WBToolkitRegistry.getRegistry().checkForUpdates();
+          WBDiscoveryCorePlugin.getPlugin().checkForRegistryUpdates();
         }
       });
     }

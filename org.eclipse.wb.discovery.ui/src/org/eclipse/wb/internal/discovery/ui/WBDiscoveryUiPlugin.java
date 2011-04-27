@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.discovery.ui;
 
-import org.eclipse.wb.internal.discovery.core.WBToolkit;
-import org.eclipse.wb.internal.discovery.ui.util.ToolkitPingJob;
-import org.eclipse.wb.internal.discovery.ui.wizard.DynamicRegistryHelper;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -25,7 +21,10 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-
+import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.core.WBToolkitRegistry;
+import org.eclipse.wb.internal.discovery.ui.util.ToolkitPingJob;
+import org.eclipse.wb.internal.discovery.ui.wizard.DynamicRegistryHelper;
 import org.osgi.framework.BundleContext;
 
 import java.util.List;
@@ -40,10 +39,13 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
   public static final boolean DEBUG = Boolean.getBoolean("org.eclipse.wb.discovery.debug");
   /** The preference key to contribute new wizard entries. */
   public static final String CONTRIBUTE_WIZARD_ENTRIES_PREF = "contributeWizardEntries";
+  
   // The shared instance
   private static WBDiscoveryUiPlugin plugin;
   private static LocalResourceManager resourceManager;
 
+  private WBToolkitRegistry.IRegistryChangeListener registryListener;
+  
   /**
    * The constructor
    */
@@ -69,6 +71,10 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 	 * 
 	 */
   public void stop(BundleContext context) throws Exception {
+    if (registryListener != null) {
+      WBToolkitRegistry.getRegistry().removeRegistryListener(registryListener);
+      registryListener = null;
+    }
     plugin = null;
     super.stop(context);
   }
@@ -162,11 +168,12 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
    * Initiate a check for updates to the registered toolkits.
    */
   protected void listenForToolkitUpdates() {
-    // TODO: add a listener to the WBToolkitRegistry
-    // http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/trunk/org.eclipse.wb.discovery.core/resources/toolkits.xml
-    // if the toolkits changed, then call
-    // EclipseRegistryTools.getRegisitryTools().removeRegistrations();
-    // EclipseRegistryTools.getRegisitryTools().registerWizards();
+    registryListener = new WBToolkitRegistry.IRegistryChangeListener() {
+      public void handleChange() {
+        DynamicRegistryHelper.getRegistryHelper().removeRegistrations();
+        DynamicRegistryHelper.getRegistryHelper().registerWizards();
+      }
+    };    
   }
 
   /**

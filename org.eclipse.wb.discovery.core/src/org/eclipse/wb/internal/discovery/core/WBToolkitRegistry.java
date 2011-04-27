@@ -8,21 +8,11 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-/*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Google, Inc. - initial API and implementation
- *******************************************************************************/
 package org.eclipse.wb.internal.discovery.core;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.osgi.service.resolver.VersionRange;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Version;
 import org.w3c.dom.Document;
@@ -30,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -45,7 +36,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 public class WBToolkitRegistry {
   private static WBToolkitRegistry registry;
-
+  
+  public interface IRegistryChangeListener {
+    // TODO: call this method on registry changes
+    public void handleChange();
+  };
+  
   /**
    * Returns the singleton instance of the WBToolkitRegistry.
    * 
@@ -59,7 +55,9 @@ public class WBToolkitRegistry {
   }
 
   private List<WBToolkit> toolkits = new ArrayList<WBToolkit>();
-
+  
+  private List<IRegistryChangeListener> listeners = new ArrayList<WBToolkitRegistry.IRegistryChangeListener>();
+  
   private WBToolkitRegistry() {
     initRegistry();
   }
@@ -88,9 +86,35 @@ public class WBToolkitRegistry {
   public List<WBToolkit> getToolkits() {
     return Collections.unmodifiableList(toolkits);
   }
+  
+  public void addRegistryListener(IRegistryChangeListener listener) {
+    if (!listeners.contains(listener)) {
+      listeners.add(listener);
+    }
+  }
+  
+  public void removeRegistryListener(IRegistryChangeListener listener) {
+    listeners.remove(listener);
+  }
+  
+  protected long getLastCachedModified() {
+    File toolkitsFile = getCacheLocation().append("toolkits.xml").toFile();
+    
+    if (toolkitsFile.exists() && toolkitsFile.canRead()) {
+      return toolkitsFile.lastModified();
+    } else {
+      return 0;
+    }
+  }
 
-  public void checkForUpdates() {
+  protected void updateFrom(URL toolkitsUrl) {
     // TODO:
+    
+    IPath cacheDirectory = getCacheLocation();
+    
+    
+    
+    
   }
 
   private void initRegistry() {
@@ -98,16 +122,15 @@ public class WBToolkitRegistry {
     // TODO: else read from the static location
     URL toolkitsData =
         WBDiscoveryCorePlugin.getPlugin().getBundle().getEntry("resources/toolkits.xml");
+    
     try {
       toolkits = parseToolkits(toolkitsData);
     } catch (Throwable t) {
       WBDiscoveryCorePlugin.logError(t);
     }
+    
     Collections.sort(toolkits, new Comparator<WBToolkit>() {
       public int compare(WBToolkit toolkit1, WBToolkit toolkit2) {
-        //if (toolkit1.isInstalled() != toolkit2.isInstalled()) {
-        //  return toolkit1.isInstalled() ? 1 : -1;
-        //}
         return toolkit1.getName().compareToIgnoreCase(toolkit2.getName());
       }
     });
@@ -142,6 +165,10 @@ public class WBToolkitRegistry {
     return results;
   }
 
+  private IPath getCacheLocation() {
+    return WBDiscoveryCorePlugin.getPlugin().getStateLocation();
+  }
+  
   private void parseUpdateSiteInfo(NodeList nodes, WBToolkit entry) {
     //<updateSite version="[3.6,3.7)" url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
     //  <feature id="org.eclipse.wb.xwt.feature"/>
@@ -192,4 +219,5 @@ public class WBToolkitRegistry {
     }
     return null;
   }
+
 }

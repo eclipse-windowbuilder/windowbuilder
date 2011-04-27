@@ -17,7 +17,6 @@ import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
-// TODO: contribute to DesignToolbarHelper
 /**
  * This action opens the Toolkits preference page.
  * 
