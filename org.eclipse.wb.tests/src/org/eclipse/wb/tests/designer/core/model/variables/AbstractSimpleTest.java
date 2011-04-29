@@ -17,11 +17,14 @@ import org.eclipse.wb.internal.core.model.variable.FieldInitializerVariableSuppo
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.GridLayoutInfo;
 
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 
@@ -40,6 +43,54 @@ public class AbstractSimpleTest extends AbstractVariableTest {
   ////////////////////////////////////////////////////////////////////////////
   public void _test_exit() throws Exception {
     System.exit(0);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Tests
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Creation code is not valid at all, so has no {@link ITypeBinding}.
+   */
+  public void test_addBadCode_veryBad() throws Exception {
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class MyButton extends JButton {",
+            "  public MyButton(String s) {",
+            "  }",
+            "}"));
+    setFileContentSrc(
+        "test/MyButton.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <creation>",
+            "    <source><![CDATA[thisIsBAD]]></source>",
+            "  </creation>",
+            "</component>"));
+    waitForAutoBuild();
+    // parse
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "  }",
+            "}");
+    FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
+    // try to add
+    try {
+      ComponentInfo newButton = createJavaInfo("test.MyButton");
+      flowLayout.add(newButton, null);
+      fail();
+    } catch (DesignerException e) {
+      assertEquals(ICoreExceptionConstants.GEN_NO_TYPE_BINDING, e.getCode());
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

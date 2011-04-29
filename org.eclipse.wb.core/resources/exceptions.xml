@@ -129,6 +129,13 @@
 			<li>Bug in {product_name}.</li>
 		</ul>
 	</exception>
+	<exception id="207" title="Invalid source. No type binding." warning="true"><b>{0}</b> is not
+		valid source for component creation, it does not reference existing type.
+	</exception>
+	<exception id="208" title="Invalid source. No constructor binding." warning="true">
+		<b>{0}</b> is not valid source for component creation, it references not existing
+		constructor.
+	</exception>
 	<!-- ======================================================== -->
 	<!-- Evaluation -->
 	<!-- ======================================================== -->

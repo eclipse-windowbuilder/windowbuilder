@@ -29,6 +29,8 @@ import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEdi
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
@@ -38,6 +40,7 @@ import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -928,6 +931,49 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
         "    }",
         "  }",
         "}"});
+  }
+
+  /**
+   * {@link ITypeBinding} for creation exists, but references not existing constructor.
+   */
+  public void test_CREATE_badConstructur() throws Exception {
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class MyButton extends JButton {",
+            "  public MyButton() {",
+            "  }",
+            "}"));
+    setFileContentSrc(
+        "test/MyButton.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <creation>",
+            "    <source><![CDATA[new test.MyButton(BAD)]]></source>",
+            "  </creation>",
+            "</component>"));
+    waitForAutoBuild();
+    // parse
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "  }",
+            "}");
+    FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
+    // try to add
+    try {
+      ComponentInfo newButton = createJavaInfo("test.MyButton");
+      flowLayout.add(newButton, null);
+      fail();
+    } catch (DesignerException e) {
+      assertEquals(ICoreExceptionConstants.GEN_NO_CONSTRUCTOR_BINDING, e.getCode());
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

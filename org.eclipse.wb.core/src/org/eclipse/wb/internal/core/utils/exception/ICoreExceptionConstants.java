@@ -40,6 +40,8 @@ public interface ICoreExceptionConstants {
   int AST_NO_TYPE_BINDING = 204;
   int AST_PARSE_ERROR = 205;
   int NO_PLUGIN = 206;
+  int GEN_NO_TYPE_BINDING = 207;
+  int GEN_NO_CONSTRUCTOR_BINDING = 208;
   //
   int EVAL_UNKNOWN_EXPRESSION_TYPE = 300;
   //int EVAL_UNKNOWN_OPERATOR = 301;

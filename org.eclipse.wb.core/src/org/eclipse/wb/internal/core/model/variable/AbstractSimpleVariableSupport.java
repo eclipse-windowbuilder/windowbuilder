@@ -34,6 +34,8 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Assignment;
@@ -303,6 +305,11 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
       throws Exception {
     m_variable = variable;
     rememberDeclaration();
+    // process initializer
+    if (AstNodeUtils.getTypeBinding(initializer) == null) {
+      throw new DesignerException(ICoreExceptionConstants.GEN_NO_TYPE_BINDING,
+          m_javaInfo.getEditor().getSource(initializer));
+    }
     m_javaInfo.addRelatedNode(initializer);
     m_javaInfo.getCreationSupport().add_setSourceExpression(initializer);
     add_setVariableParameterizedType(initializer);

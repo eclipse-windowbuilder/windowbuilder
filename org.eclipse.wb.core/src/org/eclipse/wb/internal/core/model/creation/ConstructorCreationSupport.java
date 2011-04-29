@@ -35,6 +35,8 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
@@ -152,6 +154,10 @@ public final class ConstructorCreationSupport extends CreationSupport
     if (m_javaInfo != null && m_creation != null) {
       ComponentDescription componentDescription = m_javaInfo.getDescription();
       m_description = componentDescription.getConstructor(m_binding);
+      if (m_description == null) {
+        String source = m_javaInfo.getEditor().getSource(m_creation);
+        throw new DesignerException(ICoreExceptionConstants.GEN_NO_CONSTRUCTOR_BINDING, source);
+      }
       ComponentDescriptionHelper.ensureInitialized(
           m_javaInfo.getEditor().getJavaProject(),
           m_description);
