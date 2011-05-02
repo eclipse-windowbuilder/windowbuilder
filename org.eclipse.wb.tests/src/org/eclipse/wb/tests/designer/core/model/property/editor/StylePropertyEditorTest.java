@@ -367,7 +367,7 @@ public class StylePropertyEditorTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_enum() throws Exception {
-    parseStyleProperties("SWT.R1", new String[]{"set|B0 B1", "enum0|en 0xF0 R1 R2 R3"});
+    parseStyleProperties("SWT.NONE", new String[]{"set|B0 B1", "enum0|en 0xF0 R1 R2 R3"});
     // "B0"
     Property property_B0 = m_properties[0];
     assertEquals("b0", property_B0.getTitle());
@@ -381,14 +381,14 @@ public class StylePropertyEditorTest extends SwingModelTest {
     // "enum"
     Property propertyEnum = m_properties[2];
     assertEquals("en", propertyEnum.getTitle());
-    assertEquals("R1", propertyEnum.getValue());
+    assertNull(propertyEnum.getValue());
     // "B0" := true
     property_B0.setValue(true);
     assertEquals(true, property_B0.getValue());
     assertEquals(false, property_B1.getValue());
-    assertEquals("R1", propertyEnum.getValue());
-    assertStyleSource("SWT.B0 | SWT.R1");
-    assertEditorText("[B0, R1]");
+    assertNull(propertyEnum.getValue());
+    assertStyleSource("SWT.B0");
+    assertEditorText("[B0]");
     // "enum" := R2
     propertyEnum.setValue("R2");
     assertEquals(true, property_B0.getValue());

@@ -68,13 +68,15 @@ public final class EnumerationStylePropertyImpl extends SubStylePropertyImpl {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public long getFlag(String sFlag) {
-    return m_values[ArrayUtils.indexOf(m_sValues, sFlag)];
+    int index = ArrayUtils.indexOf(m_sValues, sFlag);
+    return index != ArrayUtils.INDEX_NOT_FOUND ? m_values[index] : 0;
   }
 
   @Override
   public String getFlagValue(Property property) throws Exception {
-    long style = getStyleValue(property) & m_flagsClearMask;
-    return m_sValues[ArrayUtils.indexOf(m_values, style)];
+    long value = getStyleValue(property) & m_flagsClearMask;
+    int index = ArrayUtils.indexOf(m_values, value);
+    return index != ArrayUtils.INDEX_NOT_FOUND ? m_sValues[index] : null;
   }
 
   ////////////////////////////////////////////////////////////////////////////
