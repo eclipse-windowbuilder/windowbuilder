@@ -18,6 +18,8 @@ import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
@@ -195,6 +197,79 @@ public class ProjectClassLoader extends URLClassLoader {
     }
     // convert into array
     return locations.toArray(new String[locations.size()]);
+  }
+
+  // XXX
+  public static void addOutputLocations(Set<IProject> visitedProjects,
+      List<String> entries,
+      IProject project) throws Exception {
+    // may be not exists
+    if (!project.exists()) {
+      return;
+    }
+    // check for recursion
+    if (visitedProjects.contains(project)) {
+      return;
+    }
+    visitedProjects.add(project);
+    // add output folders for IJavaProject
+    {
+      IJavaProject javaProject = JavaCore.create(project);
+      if (javaProject.exists()) {
+        String workspaceLocation =
+            project.getWorkspace().getRoot().getLocation().toPortableString();
+        {
+          IPath outputLocation = javaProject.getOutputLocation();
+          entries.add(workspaceLocation + outputLocation.toPortableString());
+        }
+        for (IClasspathEntry entry : javaProject.getRawClasspath()) {
+          if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+            IPath outputLocation = entry.getOutputLocation();
+            if (outputLocation != null) {
+              entries.add(workspaceLocation + outputLocation.toPortableString());
+            }
+          }
+        }
+      }
+    }
+    // process required projects
+    IProject[] referencedProjects = project.getReferencedProjects();
+    for (IProject referencedProject : referencedProjects) {
+      addOutputLocations(visitedProjects, entries, referencedProject);
+    }
+  }
+
+  // XXX
+  public static void addSourceLocations(Set<IProject> visitedProjects,
+      List<String> entries,
+      IProject project) throws Exception {
+    // may be not exists
+    if (!project.exists()) {
+      return;
+    }
+    // check for recursion
+    if (visitedProjects.contains(project)) {
+      return;
+    }
+    visitedProjects.add(project);
+    // add source folders for IJavaProject
+    {
+      IJavaProject javaProject = JavaCore.create(project);
+      if (javaProject.exists()) {
+        String workspaceLocation =
+            project.getWorkspace().getRoot().getLocation().toPortableString();
+        for (IClasspathEntry entry : javaProject.getRawClasspath()) {
+          if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+            entries.add(workspaceLocation + entry.getPath().toPortableString());
+          }
+        }
+      }
+    }
+    // process required projects
+    IProject[] referencedProjects = project.getReferencedProjects();
+    for (IProject referencedProject : referencedProjects) {
+      addSourceLocations(visitedProjects, entries, referencedProject);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
