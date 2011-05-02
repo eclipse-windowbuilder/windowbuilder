@@ -19,8 +19,11 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Synchronizer;
 
@@ -185,6 +188,17 @@ public final class SwingUtils {
   }
 
   /**
+   * We set this filter to disable some events during rendering. Specifically we disable
+   * {@link SWT#MouseDoubleClick} because it is sent event when {@link Shell} is disabled on
+   * {@link SWT#MouseUp}.
+   */
+  private static final Listener m_disableEventFilter = new Listener() {
+    public void handleEvent(Event event) {
+      event.type = SWT.None;
+    }
+  };
+
+  /**
    * We should disable main Eclipse {@link Shell} during running SWT events loop to prevent user
    * from interacting with it, while models may be temporary in unusable state.
    */
@@ -196,6 +210,13 @@ public final class SwingUtils {
       if (!isWindowsTesting) {
         shell.update();
       }
+    }
+    // set/remove filter
+    Display display = shell.getDisplay();
+    if (enabled) {
+      display.removeFilter(SWT.MouseDoubleClick, m_disableEventFilter);
+    } else {
+      display.addFilter(SWT.MouseDoubleClick, m_disableEventFilter);
     }
     // do disable/enable
     shell.setRedraw(enabled);
