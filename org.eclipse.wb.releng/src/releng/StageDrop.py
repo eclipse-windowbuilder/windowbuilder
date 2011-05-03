@@ -310,10 +310,5 @@ def rezipSite(dir):
           log.debug(formatZip.format(info.filename, info.file_size, info.compress_size))
 
 if __name__ == "__main__":
-  md5File = 'md5File'
-  fhMd5File = open(md5File, 'wt')
-  print fhMd5File;
-  log.info('creating ' + md5File)
-
   main()
   log.info("StageDrop.py is done")
