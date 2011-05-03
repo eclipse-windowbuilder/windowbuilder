@@ -21,8 +21,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,8 +43,7 @@ public class WBToolkitRegistry {
   private static WBToolkitRegistry registry;
   
   public interface IRegistryChangeListener {
-    // TODO: call this method on registry changes
-    public void handleChange();
+    public void handleRegistryChange();
   };
   
   /**
@@ -107,33 +111,108 @@ public class WBToolkitRegistry {
     }
   }
 
-  protected void updateFrom(URL toolkitsUrl) {
-    // TODO:
-    
+  protected void updateCacheFrom(URL toolkitsUrl) {
     IPath cacheDirectory = getCacheLocation();
     
+    // copy toolkitsUrl to cacheDirectory
+    copy(toolkitsUrl, cacheDirectory);
     
-    
-    
-  }
-
-  private void initRegistry() {
-    // TODO: read from some some cached location
-    // TODO: else read from the static location
-    URL toolkitsData =
-        WBDiscoveryCorePlugin.getPlugin().getBundle().getEntry("resources/toolkits.xml");
-    
+    // copy referenced images to cacheDirectory
     try {
-      toolkits = parseToolkits(toolkitsData);
+      //URL toolkitsFileURL = getCacheLocation().append("toolkits.xml").toFile().toURL();
+      
+      for (WBToolkit toolkit : parseToolkits(toolkitsUrl)) {
+        URL iconURL = toolkit.getIconURL();
+        
+        if (iconURL != null) {
+          copy(iconURL, cacheDirectory);
+        }
+      }
     } catch (Throwable t) {
       WBDiscoveryCorePlugin.logError(t);
     }
     
-    Collections.sort(toolkits, new Comparator<WBToolkit>() {
-      public int compare(WBToolkit toolkit1, WBToolkit toolkit2) {
-        return toolkit1.getName().compareToIgnoreCase(toolkit2.getName());
+    parseToolkitsFromCache();
+  }
+
+  private void copy(URL fileURL, IPath parentDirectory) {
+    String fileName = fileURL.getPath();
+    
+    if (fileName.indexOf('/') != -1) {
+      fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+    }
+    
+    IPath filePath = parentDirectory.append(fileName);
+    
+    try {
+      URLConnection connection = fileURL.openConnection();
+      File outFile = filePath.toFile();
+      
+      copy(connection.getInputStream(), new FileOutputStream(outFile));
+      
+      long lastModified = connection.getHeaderFieldDate("Last-Modified", 0); //$NON-NLS-1$
+      
+      outFile.setLastModified(lastModified);
+    } catch (IOException ioe) {
+      WBDiscoveryCorePlugin.logError(ioe);
+    }
+  }
+
+  private void copy(InputStream in, OutputStream out) throws IOException {
+    byte[] buffer = new byte[4096];
+    
+    int count = in.read(buffer);
+    
+    while (count != -1) {
+      out.write(buffer, 0, count);
+      
+      count = in.read(buffer);
+    }
+    
+    in.close();
+    out.close();
+  }
+
+  private void initRegistry() {
+    if (!cacheExists()) {
+      URL toolkitsUrl =
+        WBDiscoveryCorePlugin.getPlugin().getBundle().getEntry("resources/toolkits.xml");
+      
+      updateCacheFrom(toolkitsUrl);
+    } else {
+      parseToolkitsFromCache();
+    }
+  }
+
+  @SuppressWarnings("deprecation")
+  private void parseToolkitsFromCache() {
+    try {
+      URL toolkitsFileURL = getCacheLocation().append("toolkits.xml").toFile().toURL();
+      
+      try {
+        toolkits = parseToolkits(toolkitsFileURL);
+      } catch (Throwable t) {
+        WBDiscoveryCorePlugin.logError(t);
       }
-    });
+      
+      Collections.sort(toolkits, new Comparator<WBToolkit>() {
+        public int compare(WBToolkit toolkit1, WBToolkit toolkit2) {
+          return toolkit1.getName().compareToIgnoreCase(toolkit2.getName());
+        }
+      });
+      
+      for (IRegistryChangeListener listener : listeners) {
+        listener.handleRegistryChange();
+      }
+    } catch (MalformedURLException exception) {
+      WBDiscoveryCorePlugin.logError(exception);
+    }
+  }
+
+  private boolean cacheExists() {
+    File toolkitsFile = getCacheLocation().append("toolkits.xml").toFile();
+    
+    return toolkitsFile.exists();
   }
 
   private List<WBToolkit> parseToolkits(URL toolkitsData) throws IOException, Throwable {

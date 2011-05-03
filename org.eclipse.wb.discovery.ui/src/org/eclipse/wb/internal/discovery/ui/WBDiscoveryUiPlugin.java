@@ -169,7 +169,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
    */
   protected void listenForToolkitUpdates() {
     registryListener = new WBToolkitRegistry.IRegistryChangeListener() {
-      public void handleChange() {
+      public void handleRegistryChange() {
         DynamicRegistryHelper.getRegistryHelper().removeRegistrations();
         DynamicRegistryHelper.getRegistryHelper().registerWizards();
       }

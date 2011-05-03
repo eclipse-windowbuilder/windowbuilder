@@ -69,7 +69,7 @@ class WBToolkitRegistryUpdateJob extends Job {
         long lastCachedModified = WBToolkitRegistry.getRegistry().getLastCachedModified();
 
         if (lastModified > lastCachedModified) {
-          WBToolkitRegistry.getRegistry().updateFrom(url);
+          WBToolkitRegistry.getRegistry().updateCacheFrom(url);
         }
       }
     } catch (IOException ioe) {
