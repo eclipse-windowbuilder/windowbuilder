@@ -7,6 +7,7 @@ import logging
 import os
 import subprocess
 import util
+import re
 
 global eclipseArchiveDir
 eclipseArchiveDir = os.path.join(os.sep + "home", "data", "httpd", 
@@ -34,6 +35,7 @@ def __findEclipseArchive(eclipseVersion):
     foundEclipseDirs = []
     for file in files:
       if file.startswith("R-") or file.startswith("S-"):
+        log.debug('found: ' + file)
         foundEclipseDirs.append(file)
     
     if len(foundEclipseDirs) == 0:
@@ -44,9 +46,9 @@ def __findEclipseArchive(eclipseVersion):
     searchDir = None
     for dir in foundEclipseDirs:
       if dir.find(eclipseVersion) >= 0:
-        searchDir = os.path.join(eclipseArchiveDir, foundEclipseDirs[0])
+        searchDir = os.path.join(eclipseArchiveDir, dir)
         break
-    
+    log.debug('searchDir = ' + searchDir);
     if searchDir == None:
       log.error("could not find any Eclipse directories with " + eclipseVersion)
       raise OSError("could not find any Eclipse directories with " + eclipseVersion)
@@ -54,13 +56,17 @@ def __findEclipseArchive(eclipseVersion):
     try:
       files = os.listdir(searchDir);
     except OSError as e:
-      log.error("could not read files in " + eclipseArchiveDir);
+      log.error("could not read files in " + searchDir);
       raise e
   
     eclipseArchiveFile = None
-    searchTerm = eclipseVersion + "-linux-gtk.tar.gz"
+    searchTerm = eclipseVersion + "(M[0-9])?-linux-gtk.tar.gz"
+    search = re.compile(searchTerm)
+
+    log.debug('searchTerm = ' + searchTerm)
     for file in files:
-      if file.find(searchTerm):
+      log.debug("found eclipse file: " + file)
+      if search.search(file) != None:
         eclipseArchiveFile = os.path.join(searchDir, file)
         break;
   
@@ -149,42 +155,33 @@ def packSite(baseDir, dir, eclipseVersion):
 
   return out
 
-def publishSite(baseDir, eclipseVersion):
-  log.debug("publishSite(" + baseDir + ", " + eclipseVersion + ")")
+def publishSite(baseDir, dir, eclipseVersion):
+  log.debug("publishSite(" + baseDir + ", " + dir + ", " + eclipseVersion + ")")
   eclipseHome = __getEclipse(eclipseVersion, baseDir);
-  try:
-    os.mkdir(baseDir)
-  except OSError as e:
-    if e.errno != 17:
-      raise e
    
   launcher = __findPlugin(eclipseHome, "org.eclipse.equinox.launcher_")
-  try:
-    files = os.listdir(baseDir);
-  except OSError as e:
-    log.error("could not read files in " + baseDir);
-    raise e
 
   out = os.path.join(baseDir, "out")
   for eclipseVer in ['3.4', '3.5', '3.6', '3.7']:
-    fullFile = os.path.join(baseDir, eclipseVer);
-    os.remove(os.path.join(fullFile, 'artifacts.jar'))
-    os.remove(os.path.join(fullFile, 'content.jar'))
-    target = "file:" + fullFile
-    commands = ["java", "-jar", launcher, "-application",  
-                "org.eclipse.equinox.p2.publisher.UpdateSitePublisher", 
-                "-metadataRepository", target, 
-                "-metadataRepositoryName",  
-                "Eclipse " + eclipseVer + " WindowBuilder Repo",
-                "-artifactRepository", target,
-                "-artifactRepositoryName",
-                "Eclipse " + eclipseVer + " WindowBuilder Repo",
-                "-source", fullFile,
-                "-compress", "-publishArtifacts"]
-    for cmd in commands:
-      print cmd,
-    print
-    subprocess.check_call(commands)
+    fullFile = os.path.join(dir, eclipseVer);
+    if os.path.exists(fullFile):
+      os.remove(os.path.join(fullFile, 'artifacts.jar'))
+      os.remove(os.path.join(fullFile, 'content.jar'))
+      target = "file:" + fullFile
+      commands = ["java", "-jar", launcher, "-application",  
+                  "org.eclipse.equinox.p2.publisher.UpdateSitePublisher", 
+                  "-metadataRepository", target, 
+                  "-metadataRepositoryName",  
+                  "Eclipse " + eclipseVer + " WindowBuilder Repo",
+                  "-artifactRepository", target,
+                  "-artifactRepositoryName",
+                  "Eclipse " + eclipseVer + " WindowBuilder Repo",
+                  "-source", fullFile,
+                  "-compress", "-publishArtifacts"]
+      for cmd in commands:
+        print cmd,
+      print
+      subprocess.check_call(commands)
 
   return out
 

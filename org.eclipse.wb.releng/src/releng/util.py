@@ -14,12 +14,13 @@ def unarchive(archive, dest):
   log.debug("unarchive(" + archive + ", " + dest + ")")
   cwd = os.getcwd()
   os.chdir(dest)
+  fhLogFile = open('/dev/null', 'wt')
   if archive.endswith("tar.gz") or archive.endswith("tgz"):
-    subprocess.check_call(['/bin/tar', 'xzvf', archive])
+    subprocess.check_call(['/bin/tar', 'xzvf', archive], stdout = fhLogFile)
   elif archive.endswith("tar"):
-    subprocess.check_call(['/bin/tar', 'xvf', archive])
+    subprocess.check_call(['/bin/tar', 'xvf', archive], stdout = fhLogFile)
   elif archive.endswith("zip"):
-    subprocess.check_call(['/usr/bin/unzip', archive])
+    subprocess.check_call(['/usr/bin/unzip', archive], stdout = fhLogFile)
   
   os.chdir(cwd)
 

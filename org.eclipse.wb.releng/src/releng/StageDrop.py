@@ -51,7 +51,7 @@ def main():
     
   if signFiles:
     log.info("Sign files")
-    signedDir = signFiles(signDir)
+    signedDir = signZipFiles(signDir)
     copyFiles(signedDir, signDir, None)
     rmDirTree(signedDir)
     os.rmdir(signedDir)
@@ -59,9 +59,9 @@ def main():
   if packSite:
     log.info("pack Site")
     packDir = eclipse.packSite(baseDir, signDir, eclipseVersion)
-    copyFiles(signedDir, signDir, None)
-    rmDirTree(signedDir)
-    os.rmdir(signedDir)
+    copyFiles(packDir, signDir, None)
+    rmDirTree(packDir)
+    os.rmdir(packDir)
   
   log.info("Move signed files from " + signDir + " to " + productDir)
   moveFiles(signDir, productDir, None)
@@ -70,13 +70,14 @@ def main():
   unzipSites(productDir);
   
   log.info("Generate Eclipse P2 Metadata")
-  eclipse.publishSite(productDir, eclipseVersion)
+  eclipse.publishSite(baseDir, productDir, eclipseVersion)
   
   log.info("rezip Site")
   rezipSite(productDir)
   
   log.info("update MD5 files")
   util.updateMd5Hash(productDir)
+
   
   log.debug("done main")
   
@@ -109,6 +110,7 @@ def processArgs():
     
   optimizeSite = options.optimizesite
   packSite = options.packsite
+  signFiles = options.signfiles
 
   if options.signdir != None:
     signDir = options.signdir
@@ -202,7 +204,7 @@ def moveFiles(fromDir, toDir, filter):
     if (filter == None or filter(file)):
       shutil.move(os.path.join(fromDir, file), toDir)
     
-def signFiles(dir):
+def signZipFiles(dir):
   log.debug("signFiles(" + dir + ")")
   
   try:
@@ -217,15 +219,16 @@ def signFiles(dir):
       zipPath = os.path.join(dir, file)
       os.chmod(zipPath, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP | 
                stat.S_IRGRP | stat.S_IWOTH | stat.S_IROTH)
-      subprocess.check_call(['/bin/echo', 'sign', zipPath, 'nomail', 'signed'])
-#      subprocess.check_call(['/usr/local/bin/sign', file, 'nomail', 'signed'])
+#      subprocess.check_call(['/bin/echo', 'sign', zipPath, 'nomail', 'signed'])
+      subprocess.check_call(['/usr/local/bin/sign', zipPath, 'nomail', 'signed'])
       filesToSign.append(os.path.join(dir, "signed", file))
 
   signedFiles = []
   found = False;
   while(not found):
     found = True
-    sleep(10)
+    for x in range(60):
+      sleep(1)
     for file in filesToSign:
       if (os.path.exists(file)):
         log.debug(file + " exists")
@@ -235,7 +238,7 @@ def signFiles(dir):
         log.debug(file + " does not exists")
         continue
         
-  sleep(10)      
+  sleep(10)
   log.info("all files have been signed")
   return os.path.join(dir, "signed")
 
@@ -288,21 +291,25 @@ def rezipSite(dir):
       log.debug("removing " + zipFile)
       os.remove(zipFile)
       log.debug("creating zip file " + zipFile)
-      zip = zipfile.ZipFile(zipFile, "w")
+      cwd = os.getcwd()
+      os.chdir(siteDir)
+      log.debug('creating zip in ' + os.getcwd())
+      command = ['zip', zipFile]
+
       for root, dirs, files in os.walk(siteDir, followlinks=False):
-        for name in dirs:
-          dirToZip = os.path.join(root, name)
-          zipDirName = dirToZip[len(siteDir)+1:]
-          log.debug(formatDir.format(dirToZip, zipDirName))
-          zip.write(dirToZip, zipDirName, zipfile.ZIP_STORED)
-      
         for name in files:
           fileToZip = os.path.join(root, name)
           zipFileName = fileToZip[len(siteDir)+1:]
           log.debug(formatFile.format(fileToZip, zipFileName))
-          zip.write(fileToZip, zipFileName, zipfile.ZIP_DEFLATED)
+          command.append(zipFileName)
             
-      zip.close()
+      if log.debug:
+        data = "Command: "
+        for cmd in command:
+          data = data + cmd + ' '
+        log.debug(data)
+
+      subprocess.check_call(command)
       # open the file again, to see what's in it
       if (log.debug):
         zip = zipfile.ZipFile(zipFile, "r")
