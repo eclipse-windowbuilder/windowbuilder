@@ -65,7 +65,6 @@ def __findEclipseArchive(eclipseVersion):
 
     log.debug('searchTerm = ' + searchTerm)
     for file in files:
-      log.debug("found eclipse file: " + file)
       if search.search(file) != None:
         eclipseArchiveFile = os.path.join(searchDir, file)
         break;
