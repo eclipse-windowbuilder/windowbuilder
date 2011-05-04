@@ -280,11 +280,28 @@ public final class DesignPage implements IDesignPage {
   // Life cycle listener
   //
   ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return all registered {@link EditorLifeCycleListener}s.
+   */
   private List<EditorLifeCycleListener> getLifeCycleListeners() {
     return ExternalFactoriesHelper.getElementsInstances(
         EditorLifeCycleListener.class,
         "org.eclipse.wb.core.editorLifeCycleListeners",
         "listener");
+  }
+
+  /**
+   * @return <code>false</code> if any of
+   *         {@link EditorLifeCycleListener#parseWithProgress(Object, ICompilationUnit)} returned
+   *         <code>false</code>.
+   */
+  private boolean isLifeCycleProgressRequired() {
+    for (EditorLifeCycleListener listener : getLifeCycleListeners()) {
+      if (!listener.parseWithProgress(this, m_compilationUnit)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -378,7 +395,7 @@ public final class DesignPage implements IDesignPage {
       disposeAll(false);
       // do parse
       m_designerState = DesignerState.Parsing;
-      if (m_showProgress) {
+      if (m_showProgress && isLifeCycleProgressRequired()) {
         internal_refreshGEF_withProgress();
       } else {
         internal_refreshGEF(new NullProgressMonitor());

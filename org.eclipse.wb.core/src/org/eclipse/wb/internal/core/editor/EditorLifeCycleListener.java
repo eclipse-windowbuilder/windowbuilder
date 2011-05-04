@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
+import org.eclipse.jdt.core.ICompilationUnit;
+
 /**
  * This interface is used to notify external listeners about editor life cycle.
  * 
@@ -17,6 +19,14 @@ package org.eclipse.wb.internal.core.editor;
  * @coverage core.editor
  */
 public abstract class EditorLifeCycleListener {
+  /**
+   * @return <code>false</code> if given {@link ICompilationUnit} can be parsed quickly, so no
+   *         progress required; or <code>true</code> if progress should be displayed.
+   */
+  public boolean parseWithProgress(Object editor, ICompilationUnit unit) {
+    return true;
+  }
+
   /**
    * Parsing is about to start.
    */
