@@ -20,7 +20,6 @@ import org.eclipse.wb.core.editor.IDesignPage;
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.EditorActivatedListener;
 import org.eclipse.wb.core.model.broadcast.EditorActivatedRequest;
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
@@ -40,6 +39,7 @@ import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
 import org.eclipse.wb.internal.core.utils.exception.NoEntryPointError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -122,7 +122,7 @@ public final class DesignPage implements IDesignPage {
   public void dispose() {
     m_undoManager.deactivate();
     m_designerEditor.getEditorSite().getPage().removePartListener(m_partListener);
-    disposeModel();
+    disposeAll(true);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -277,6 +277,18 @@ public final class DesignPage implements IDesignPage {
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Life cycle listener
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private List<EditorLifeCycleListener> getLifeCycleListeners() {
+    return ExternalFactoriesHelper.getElementsInstances(
+        EditorLifeCycleListener.class,
+        "org.eclipse.wb.core.editorLifeCycleListeners",
+        "listener");
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
@@ -290,10 +302,24 @@ public final class DesignPage implements IDesignPage {
   /**
    * Disposes design and model.
    */
-  private void disposeAll() {
-    dispose_beforePresentation();
-    m_designComposite.disposeDesign();
-    disposeModel();
+  private void disposeAll(final boolean force) {
+    // dispose design
+    if (!m_pageBook.isDisposed()) {
+      dispose_beforePresentation();
+      m_designComposite.disposeDesign();
+    }
+    // dispose model
+    if (m_rootObject != null) {
+      ExecutionUtils.runLog(new RunnableEx() {
+        public void run() throws Exception {
+          m_rootObject.refresh_dispose();
+          m_rootObject.getBroadcastObject().dispose();
+          disposeContext(force);
+          GlobalStateJava.deactivate(m_rootObject);
+        }
+      });
+      m_rootObject = null;
+    }
   }
 
   /**
@@ -310,15 +336,16 @@ public final class DesignPage implements IDesignPage {
   }
 
   /**
-   * Disposes current model - {@link ObjectInfo} hierarchy.
+   * Notifies listeners that hierarchy is disposed or editor is closing.
+   * 
+   * @param force
+   *          is <code>true</code> if user closes editor or explicitly requests re-parsing.
    */
-  private void disposeModel() {
-    if (m_rootObject != null) {
+  protected void disposeContext(final boolean force) {
+    for (final EditorLifeCycleListener listener : getLifeCycleListeners()) {
       ExecutionUtils.runLog(new RunnableEx() {
         public void run() throws Exception {
-          m_rootObject.refresh_dispose();
-          m_rootObject.getBroadcastObject().dispose();
-          GlobalStateJava.deactivate(m_rootObject);
+          listener.disposeContext(DesignPage.this, force);
         }
       });
     }
@@ -328,6 +355,7 @@ public final class DesignPage implements IDesignPage {
    * Parses {@link ICompilationUnit} and displays it in GEF.
    */
   public void refreshGEF() {
+    disposeContext(true);
     m_undoManager.refreshDesignerEditor();
     // notify listeners
     {
@@ -347,7 +375,7 @@ public final class DesignPage implements IDesignPage {
   boolean internal_refreshGEF() {
     setEnabled(false);
     try {
-      disposeAll();
+      disposeAll(false);
       // do parse
       m_designerState = DesignerState.Parsing;
       if (m_showProgress) {
@@ -455,14 +483,23 @@ public final class DesignPage implements IDesignPage {
   private void internal_refreshGEF(IProgressMonitor monitor) throws Exception {
     monitor.subTask("Initializing...");
     monitor.worked(1);
+    // notify parseStart()
+    for (EditorLifeCycleListener listener : getLifeCycleListeners()) {
+      listener.parseStart(this);
+    }
     // do parse
-    {
+    try {
       long start = System.currentTimeMillis();
       monitor.subTask("Parsing...");
       System.out.print("Parsing...");
       m_rootObject = JavaInfoParser.parse(m_compilationUnit);
       monitor.worked(1);
       System.out.println("done: " + (System.currentTimeMillis() - start));
+    } finally {
+      // notify parseEnd()
+      for (EditorLifeCycleListener listener : getLifeCycleListeners()) {
+        listener.parseEnd(this);
+      }
     }
     // install site
     {
@@ -562,7 +599,7 @@ public final class DesignPage implements IDesignPage {
       screenshot = null;
     }
     // dispose current state to prevent any further exceptions
-    disposeAll();
+    disposeAll(true);
     // show exception
     if (EnvironmentUtils.isTestingTime()) {
       e.printStackTrace();

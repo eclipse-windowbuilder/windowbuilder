@@ -128,6 +128,19 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   }
 
   /**
+   * Sends notification that presentation will be disposed.
+   */
+  private void dispose_beforePresentation() {
+    if (m_rootObject != null) {
+      ExecutionUtils.runLog(new RunnableEx() {
+        public void run() throws Exception {
+          m_rootObject.getBroadcastObject().dispose_beforePresentation();
+        }
+      });
+    }
+  }
+
+  /**
    * Disposes {@link EditorContext} of current hierarchy.
    * <p>
    * It is not guarantied that hierarchy exists, may be parsing was failed.
@@ -140,19 +153,6 @@ public abstract class XmlDesignPage extends XmlEditorPage {
       ExecutionUtils.runLog(new RunnableEx() {
         public void run() throws Exception {
           m_rootObject.getContext().dispose();
-        }
-      });
-    }
-  }
-
-  /**
-   * Sends notification that presentation will be disposed.
-   */
-  private void dispose_beforePresentation() {
-    if (m_rootObject != null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          m_rootObject.getBroadcastObject().dispose_beforePresentation();
         }
       });
     }

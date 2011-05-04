@@ -101,6 +101,7 @@
 		schema="schema/errorReportProviders.exsd"/>
 	<!-- Branding -->
 	<extension-point id="branding" name="Branding descriptions" schema="schema/branding.exsd"/>
+ <extension-point id="editorLifeCycleListeners" name="Listener for Java based editor life cycle" schema="schema/editorLifeCycleListeners.exsd"/>
 
 
 
