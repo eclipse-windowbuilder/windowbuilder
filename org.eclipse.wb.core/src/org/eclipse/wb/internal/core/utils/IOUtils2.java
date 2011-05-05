@@ -17,7 +17,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -31,6 +33,8 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 
 /**
@@ -50,6 +54,34 @@ public class IOUtils2 {
     tempFile.delete();
     tempFile.mkdirs();
     return tempFile;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // File names
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the absolute location of given {@link URL}. It is expected that {@link URL} represents
+   *         such absolute location file.
+   */
+  public static String getPortableAbsolutePath(URL url) {
+    File f;
+    try {
+      f = new File(url.toURI());
+    } catch (URISyntaxException e) {
+      f = new File(url.getPath());
+    }
+    String path = f.getAbsolutePath();
+    path = StringUtils.replace(path, "%20", " ");
+    return toPortablePath(path);
+  }
+
+  /**
+   * Converts all separators to the Unix separator of forward slash.
+   */
+  public static String toPortablePath(String path) {
+    return FilenameUtils.separatorsToUnix(path);
   }
 
   ////////////////////////////////////////////////////////////////////////////
