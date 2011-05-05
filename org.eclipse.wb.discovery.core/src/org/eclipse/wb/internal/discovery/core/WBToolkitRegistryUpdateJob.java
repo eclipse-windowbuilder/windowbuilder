@@ -24,8 +24,8 @@ import java.net.URL;
  * information directly from the svn repository using the web interface.
  */
 class WBToolkitRegistryUpdateJob extends Job {
-  private static final long MILLIS_PER_MINUTE = 60 * 1000;
-  private static final long MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
+  //private static final long MILLIS_PER_MINUTE = 60 * 1000;
+  //private static final long MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
 
   private static final String UPDATE_URL = "http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/"
     + "trunk/org.eclipse.wb.discovery.core/resources/toolkits.xml"; //$NON-NLS-1$
@@ -36,9 +36,9 @@ class WBToolkitRegistryUpdateJob extends Job {
     setSystem(true);
   }
 
-  public void startJob() {
-    schedule(30 * MILLIS_PER_MINUTE);
-  }
+//  public void startJob() {
+//    schedule(30 * MILLIS_PER_MINUTE);
+//  }
 
   @Override
   protected IStatus run(IProgressMonitor monitor) {
@@ -48,7 +48,7 @@ class WBToolkitRegistryUpdateJob extends Job {
       WBDiscoveryCorePlugin.logError(re);
     }
 
-    schedule(24 * MILLIS_PER_HOUR);
+    //schedule(24 * MILLIS_PER_HOUR);
 
     return Status.OK_STATUS;
   }

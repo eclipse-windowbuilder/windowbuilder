@@ -66,7 +66,7 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
         new Status(IStatus.ERROR, PLUGIN_ID, message, t));
   }
   
-  private WBToolkitRegistryUpdateJob updateJob;
+  //private WBToolkitRegistryUpdateJob updateJob;
 
   /**
    * The constructor.
@@ -76,8 +76,11 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
   }
 
   public void checkForRegistryUpdates() {
-    updateJob.cancel();
-    updateJob.schedule();
+    //updateJob.cancel();
+    //updateJob.schedule();
+    
+    WBToolkitRegistryUpdateJob updateJob = new WBToolkitRegistryUpdateJob();
+    updateJob.schedule(1000);
   }
 
   @Override
@@ -86,14 +89,14 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
 
     plugin = this;
 
-    updateJob = new WBToolkitRegistryUpdateJob();
-    updateJob.startJob();
+    //updateJob = new WBToolkitRegistryUpdateJob();
+    //updateJob.startJob();
   }
 
   @Override
   public void stop(BundleContext context) throws Exception {
-    updateJob.cancel();
-    updateJob = null;
+    //updateJob.cancel();
+    //updateJob = null;
 
     plugin = null;
 

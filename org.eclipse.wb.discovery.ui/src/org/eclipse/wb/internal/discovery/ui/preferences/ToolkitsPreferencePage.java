@@ -167,6 +167,9 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
     Dialog.applyDialogFont(body);
     updateInstallButtons();
     body.layout(true);
+    
+    WBDiscoveryCorePlugin.getPlugin().checkForRegistryUpdates();
+    
     return body;
   }
 
