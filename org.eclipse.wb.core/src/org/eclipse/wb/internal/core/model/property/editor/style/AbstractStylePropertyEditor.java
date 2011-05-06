@@ -58,7 +58,11 @@ public abstract class AbstractStylePropertyEditor extends TextDisplayPropertyEdi
    * @return the current style value.
    */
   protected long getStyleValue(Property property) throws Exception {
-    Number value = (Number) property.getValue();
+    Object propertyValue = property.getValue();
+    if (Property.UNKNOWN_VALUE == propertyValue) {
+      return 0;
+    }
+    Number value = (Number) propertyValue;
     return value != null ? value.longValue() : 0;
   }
 
