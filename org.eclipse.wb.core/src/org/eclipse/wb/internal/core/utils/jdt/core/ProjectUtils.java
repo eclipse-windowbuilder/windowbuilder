@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -34,7 +35,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.IJobManager;
@@ -395,7 +396,7 @@ public final class ProjectUtils {
       ClasspathUtilCore.addLibraries(model, entries);
     }
     // set new entries
-    javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
+    setRawClasspath(javaProject, entries);
   }
 
   /**
@@ -420,7 +421,30 @@ public final class ProjectUtils {
         (IClasspathEntry[]) ArrayUtils.add(
             rawClasspath,
             JavaCore.newProjectEntry(requiredProject.getPath()));
-    project.setRawClasspath(rawClasspath, new NullProgressMonitor());
+    project.setRawClasspath(rawClasspath, null);
+  }
+
+  /**
+   * Removes {@link IClasspathEntry} for which {@link Predicate} returns <code>true</code>.
+   */
+  public static void removeClasspathEntries(IJavaProject javaProject,
+      Predicate<IClasspathEntry> predicate) throws CoreException {
+    List<IClasspathEntry> newEntries = Lists.newArrayList();
+    IClasspathEntry[] existingEntries = javaProject.getRawClasspath();
+    for (IClasspathEntry entry : existingEntries) {
+      if (!predicate.apply(entry)) {
+        newEntries.add(entry);
+      }
+    }
+    setRawClasspath(javaProject, newEntries);
+  }
+
+  /**
+   * Calls {@link IJavaProject#setRawClasspath(IClasspathEntry[], IProgressMonitor)}.
+   */
+  private static void setRawClasspath(IJavaProject javaProject, List<IClasspathEntry> entries)
+      throws JavaModelException {
+    javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
   }
 
   ////////////////////////////////////////////////////////////////////////////

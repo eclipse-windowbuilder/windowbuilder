@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.util.jdt.core;
 
+import com.google.common.base.Predicate;
+
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -787,6 +789,38 @@ public class ProjectUtilsTest extends AbstractJavaTest {
     ProjectUtils.addSWTLibrary(m_javaProject);
     // OK, org.eclipse.swt.SWT now exists in project
     assertTrue(ProjectUtils.hasType(m_javaProject, "org.eclipse.swt.SWT"));
+  }
+
+  /**
+   * Test for {@link ProjectUtils#removeClasspathEntries(IJavaProject, Predicate)}.
+   */
+  @DisposeProjectAfter
+  public void test_removeClasspathEntries() throws Exception {
+    // initially has JRE_CONTAINER and "src"
+    {
+      IClasspathEntry[] rawClasspath = m_javaProject.getRawClasspath();
+      assertThat(rawClasspath).hasSize(2);
+      assertEquals(
+          "org.eclipse.jdt.launching.JRE_CONTAINER",
+          rawClasspath[0].getPath().toPortableString());
+      assertEquals("/TestProject/src", rawClasspath[1].getPath().toPortableString());
+    }
+    // remove "src"
+    ProjectUtils.removeClasspathEntries(m_javaProject, new Predicate<IClasspathEntry>() {
+      @Override
+      public boolean apply(IClasspathEntry entry) {
+        String location = entry.getPath().toPortableString();
+        return location.endsWith("/src");
+      }
+    });
+    // has only JRE_CONTAINER
+    {
+      IClasspathEntry[] rawClasspath = m_javaProject.getRawClasspath();
+      assertThat(rawClasspath).hasSize(1);
+      assertEquals(
+          "org.eclipse.jdt.launching.JRE_CONTAINER",
+          rawClasspath[0].getPath().toPortableString());
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
