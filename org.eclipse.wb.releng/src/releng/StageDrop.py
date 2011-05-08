@@ -1,6 +1,7 @@
 """
 Python script to stage a drop of WindowBuilder
 """
+import datetime
 import eclipse
 import logging
 import logging.config
@@ -12,8 +13,10 @@ import subprocess
 import sys
 import util
 import zipfile 
+
 from optparse import OptionParser
 from time import sleep
+from datetime import datetime, time, date
 
 logging.config.fileConfig('logger.config')
 
@@ -30,6 +33,7 @@ def main():
   optimizeSite = data['optimizesite']
   packSite = data['packsite']
   signFiles = data['signfiles']  
+  doDeploy = data['dodeploy']
   baseDir = initialize(subproduct)
   
   productDir = os.path.join(baseDir, subproduct);
@@ -66,8 +70,8 @@ def main():
   log.info("Move signed files from " + signDir + " to " + productDir)
   moveFiles(signDir, productDir, None)
   
-  log.info("Unzip the signed files");
-  unzipSites(productDir);
+  log.info("Unzip the signed files")
+  unzipSites(productDir)
   
   log.info("Generate Eclipse P2 Metadata")
   eclipse.publishSite(baseDir, productDir, eclipseVersion)
@@ -78,6 +82,12 @@ def main():
   log.info("update MD5 files")
   util.updateMd5Hash(productDir)
 
+  if doDeploy:
+    log.info("deploy code")
+    deployCode(productDir)
+
+  log.info("cleanup")
+  cleanup(signDir)
   
   log.debug("done main")
   
@@ -95,6 +105,7 @@ def processArgs():
   parser.set_defaults(optimizesite=True)
   parser.set_defaults(packsite=True)
   parser.set_defaults(signfiles=True)
+  parser.set_defaults(dodeploy=False)
   parser.add_option("--signdir", action="store", dest="signdir")
   parser.add_option("-e", "--eclipseversion", action="store", 
                     dest="eclipseversion")
@@ -103,6 +114,7 @@ def processArgs():
   parser.add_option("--nooptimizesite", action="store_false", dest="optimizesite");
   parser.add_option("--nopacksite", action="store_false", dest="packsite")
   parser.add_option("--nosignfiles", action="store_false", dest="signfiles")
+  parser.add_option("--deployfiles", action="store_true", dest="dodeploy")
   (options, args) = parser.parse_args()
   
   if len(args) != 2:
@@ -111,6 +123,7 @@ def processArgs():
   optimizeSite = options.optimizesite
   packSite = options.packsite
   signFiles = options.signfiles
+  doDeploy = options.dodeploy
 
   if options.signdir != None:
     signDir = options.signdir
@@ -136,8 +149,8 @@ def processArgs():
   ret = dict({'droplocation':dropLocation, 'subproduct':subproduct, 
               'signdir':signDir, 'eclipseversion':eclipseVersion,
               'optimizesite':optimizeSite, 'packsite':packSite,
-              'signfiles':signFiles})
-  log.debug("out of main")
+              'signfiles':signFiles, 'dodeploy':doDeploy})
+  log.debug("out of processArgs")
   return ret
 
 def initialize(subproduct):
@@ -315,6 +328,24 @@ def rezipSite(dir):
         zip = zipfile.ZipFile(zipFile, "r")
         for info in zip.infolist():
           log.debug(formatZip.format(info.filename, info.file_size, info.compress_size))
+    log.debug("out rezipSite")
+
+def deployCode(dir):
+  log.debug("in deployCode(" + dir + ")")
+  deployDir = os.path.join(os.sep + 'home', 'data', 'httpd', 'download.eclipse.org', 'tools', 'windowbuilder')
+  latestDir = os.path.join(deployDir, 'latest')
+  d = datetime.today()
+  nowString = '{%Y%m%d%H%M}'.format(d)
+  dateDir = os.path.join(deployDir, nowString)
+  log.info("deploying to ")
+  log.info(latestDir)
+  log.info('and')
+  log.infor(dateDir)
+  log.debug("out deployCode")
+
+def cleanup(signDir):
+  log.debug("in cleanup(" + signDir + ")")
+  log.debug("out cleanup")
 
 if __name__ == "__main__":
   main()
