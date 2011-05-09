@@ -418,7 +418,9 @@ public class JavaInfo extends ObjectInfo {
    */
   protected void initialize() throws Exception {
     m_initialized = true;
-    createExposedChildren();
+    if (m_object != null) {
+      createExposedChildren();
+    }
     ImportantPropertiesDialog.scheduleImportantProperties(this);
     // external participators
     {
