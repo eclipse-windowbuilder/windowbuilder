@@ -240,16 +240,17 @@ public class CodeUtils {
   }
 
   /**
-   * @return references of given {@link IType} in given {@link IJavaSearchScope}.
+   * @return references of given {@link IField} in given {@link IJavaSearchScope}.
    */
-  public static List<IJavaElement> searchReferences(IJavaSearchScope scope, IType type) {
-    return searchReferences(scope, type);
+  public static List<IJavaElement> searchReferences(IJavaSearchScope scope, IType type)
+      throws Exception {
+    return searchReferences(scope, (IJavaElement) type);
   }
 
   /**
    * @return references of given {@link IJavaElement} in given {@link IJavaSearchScope}.
    */
-  private static List<IJavaElement> searchReferences(IJavaSearchScope scope, IJavaElement type)
+  private static List<IJavaElement> searchReferences(IJavaSearchScope scope, IJavaElement element)
       throws Exception {
     final List<IJavaElement> references = Lists.newArrayList();
     SearchRequestor requestor = new SearchRequestor() {
@@ -257,19 +258,19 @@ public class CodeUtils {
       public void acceptSearchMatch(SearchMatch match) {
         if (match instanceof ReferenceMatch) {
           ReferenceMatch refMatch = (ReferenceMatch) match;
-          IJavaElement element = (IJavaElement) refMatch.getElement();
+          IJavaElement matchElement = (IJavaElement) refMatch.getElement();
           {
             IJavaElement localElement = refMatch.getLocalElement();
             if (localElement != null) {
-              element = localElement;
+              matchElement = localElement;
             }
           }
-          references.add(element);
+          references.add(matchElement);
         }
       }
     };
     // do search
-    SearchPattern pattern = SearchPattern.createPattern(type, IJavaSearchConstants.REFERENCES);
+    SearchPattern pattern = SearchPattern.createPattern(element, IJavaSearchConstants.REFERENCES);
     SearchEngine searchEngine = new SearchEngine();
     searchEngine.search(
         pattern,
@@ -281,13 +282,14 @@ public class CodeUtils {
     return references;
   }
 
+  /**
+   * @return the {@link IJavaSearchScope} for full {@link IJavaProject}.
+   */
   private static IJavaSearchScope prepareSearchScope(IJavaElement element) {
     IJavaProject javaProject = element.getJavaProject();
-    IJavaSearchScope scope =
-        SearchEngine.createJavaSearchScope(
-            new IJavaElement[]{javaProject},
-            IJavaSearchScope.SOURCES);
-    return scope;
+    return SearchEngine.createJavaSearchScope(
+        new IJavaElement[]{javaProject},
+        IJavaSearchScope.SOURCES);
   }
 
   ////////////////////////////////////////////////////////////////////////////
