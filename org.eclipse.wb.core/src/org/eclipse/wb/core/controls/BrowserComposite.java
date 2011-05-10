@@ -41,7 +41,7 @@ public class BrowserComposite extends Composite {
     if (browserAvailable(this)) {
       m_browser = new Browser(this, SWT.NONE);
     } else {
-      m_text = new Text(this, SWT.READ_ONLY | SWT.WRAP);
+      m_text = new Text(this, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
       m_text.setBackground(IColorConstants.button);
     }
   }

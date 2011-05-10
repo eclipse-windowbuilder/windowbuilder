@@ -119,7 +119,7 @@ public final class DesignerExceptionUtils {
   public static String getExceptionHTML(Throwable e) {
     ErrorEntryInfo errorDescription = getErrorEntry(e);
     if (!BrowserComposite.browserAvailable(DesignerPlugin.getShell())) {
-      return getPlainTextDescription(errorDescription);
+      return getPlainTextDescription(errorDescription) + "\n" + ExceptionUtils.getStackTrace(e);
     }
     // prepare HTML template
     String html;
@@ -189,7 +189,8 @@ public final class DesignerExceptionUtils {
       // remove html tags if any
       String description = errorEntry.getDescription();
       description = StringUtilities.stripHtml(description);
-      description = StringUtils.replaceChars(description, "~`@#$%^&*()-=+[]\\{}|;':\",./<>?!", "");
+      // 20110509.Kosta: keep all characters for now
+      //description = StringUtils.replaceChars(description, "~`@#$%^&*()-=+[]\\{}|;':\",./<>?!", "");
       return description;
     }
   }
