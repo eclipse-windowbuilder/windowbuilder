@@ -46,12 +46,12 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.core.search.ReferenceMatch;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchParticipant;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
-import org.eclipse.jdt.core.search.TypeReferenceMatch;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IRegion;
@@ -227,25 +227,36 @@ public class CodeUtils {
    * @return references of given {@link IType} in {@link IJavaProject}.
    */
   public static List<IJavaElement> searchReferences(IType type) throws Exception {
-    IJavaProject javaProject = type.getJavaProject();
-    IJavaSearchScope scope =
-        SearchEngine.createJavaSearchScope(
-            new IJavaElement[]{javaProject},
-            IJavaSearchScope.SOURCES);
+    IJavaSearchScope scope = prepareSearchScope(type);
     return searchReferences(scope, type);
+  }
+
+  /**
+   * @return references of given {@link IField} in {@link IJavaProject}.
+   */
+  public static List<IJavaElement> searchReferences(IField field) throws Exception {
+    IJavaSearchScope scope = prepareSearchScope(field);
+    return searchReferences(scope, field);
   }
 
   /**
    * @return references of given {@link IType} in given {@link IJavaSearchScope}.
    */
-  public static List<IJavaElement> searchReferences(IJavaSearchScope scope, IType type)
+  public static List<IJavaElement> searchReferences(IJavaSearchScope scope, IType type) {
+    return searchReferences(scope, type);
+  }
+
+  /**
+   * @return references of given {@link IJavaElement} in given {@link IJavaSearchScope}.
+   */
+  private static List<IJavaElement> searchReferences(IJavaSearchScope scope, IJavaElement type)
       throws Exception {
     final List<IJavaElement> references = Lists.newArrayList();
     SearchRequestor requestor = new SearchRequestor() {
       @Override
       public void acceptSearchMatch(SearchMatch match) {
-        if (match instanceof TypeReferenceMatch) {
-          TypeReferenceMatch refMatch = (TypeReferenceMatch) match;
+        if (match instanceof ReferenceMatch) {
+          ReferenceMatch refMatch = (ReferenceMatch) match;
           IJavaElement element = (IJavaElement) refMatch.getElement();
           {
             IJavaElement localElement = refMatch.getLocalElement();
@@ -268,6 +279,15 @@ public class CodeUtils {
         new NullProgressMonitor());
     // done
     return references;
+  }
+
+  private static IJavaSearchScope prepareSearchScope(IJavaElement element) {
+    IJavaProject javaProject = element.getJavaProject();
+    IJavaSearchScope scope =
+        SearchEngine.createJavaSearchScope(
+            new IJavaElement[]{javaProject},
+            IJavaSearchScope.SOURCES);
+    return scope;
   }
 
   ////////////////////////////////////////////////////////////////////////////
