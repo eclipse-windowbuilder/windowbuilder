@@ -30,7 +30,6 @@ import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.imageio.ImageIO;
 
@@ -95,14 +94,13 @@ public final class ImageUtils {
     BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g2 = bufferedImage.createGraphics();
     // prepare observer
-    final AtomicBoolean done = new AtomicBoolean();
+    final Object done = new Object();
     ImageObserver imageObserver = new ImageObserver() {
       public boolean imageUpdate(java.awt.Image img, int flags, int x, int y, int width, int height) {
         if (flags < ALLBITS) {
           return true;
         } else {
           synchronized (done) {
-            done.set(true);
             done.notify();
           }
           return false;
@@ -110,13 +108,16 @@ public final class ImageUtils {
       }
     };
     // draw Image with wait
-    g2.drawImage(image, 0, 0, imageObserver);
-    while (!done.get()) {
-      try {
-        synchronized (done) {
-          done.wait(0);
+    synchronized (done) {
+      boolean completelyLoaded = g2.drawImage(image, 0, 0, imageObserver);
+      if (!completelyLoaded) {
+        while (true) {
+          try {
+            done.wait(0);
+            break;
+          } catch (InterruptedException e) {
+          }
         }
-      } catch (InterruptedException e) {
       }
     }
     // clean up
