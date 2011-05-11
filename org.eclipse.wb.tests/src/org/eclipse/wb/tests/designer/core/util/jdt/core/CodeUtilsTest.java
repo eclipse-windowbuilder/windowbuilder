@@ -651,6 +651,45 @@ public class CodeUtilsTest extends AbstractJavaTest {
     assertEquals("MyAnnotation", annotation.getElementName());
   }
 
+  /**
+   * Test for {@link CodeUtils#searchReferences(IField)}.
+   */
+  public void test_searchReferences_IField() throws Exception {
+    IField targetField =
+        createModelCompilationUnit(
+            "test",
+            "Target.java",
+            getSourceDQ(
+                "// filler filler filler filler filler",
+                "// filler filler filler filler filler",
+                "package test;",
+                "public class Target {",
+                "  int myField;",
+                "}")).getTypes()[0].getFields()[0];
+    IType type =
+        createModelCompilationUnit(
+            "test",
+            "Test.java",
+            getSourceDQ(
+                "// filler filler filler filler filler",
+                "// filler filler filler filler filler",
+                "package test;",
+                "public class Test {",
+                "  void foo(Target t) {",
+                "    t.myField = 1;",
+                "  }",
+                "}")).getTypes()[0];
+    // search
+    List<IJavaElement> references = CodeUtils.searchReferences(targetField);
+    assertThat(references).hasSize(1);
+    // check IMethod
+    {
+      IMethod methodElement = (IMethod) references.get(0);
+      assertEquals(type.getMethods()[0], methodElement);
+      assertEquals("foo", methodElement.getElementName());
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // getType()
