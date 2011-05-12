@@ -38,6 +38,7 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
     DEVELOPER_HOST =
         "SCHEGLOV-KE".equals(host)
             || "KOSTA-HOME".equals(host)
+            || "SCHEGLOV".equals(host)
             || "SCHEGLOV-MACPRO".equals(host)
             || "SCHEGLOV-WIN".equals(host)
             || "MITIN-AA".equals(host)
