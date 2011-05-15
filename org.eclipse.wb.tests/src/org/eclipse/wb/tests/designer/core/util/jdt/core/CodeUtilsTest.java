@@ -286,14 +286,11 @@ public class CodeUtilsTest extends AbstractJavaTest {
   /**
    * If {@link IJavaProject} does not exist, it does not have source containers.
    */
+  @DisposeProjectAfter
   public void test_getSourceContainers_notJavaProject() throws Exception {
-    try {
-      ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
-      List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
-      assertThat(sourceContainers).isEmpty();
-    } finally {
-      do_projectDispose();
-    }
+    ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
+    List<IContainer> sourceContainers = CodeUtils.getSourceContainers(m_javaProject, true);
+    assertThat(sourceContainers).isEmpty();
   }
 
   /**

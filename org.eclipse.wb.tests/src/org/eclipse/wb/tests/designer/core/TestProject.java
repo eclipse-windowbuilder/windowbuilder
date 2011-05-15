@@ -94,6 +94,11 @@ public class TestProject {
     createSourceFolder();
   }
 
+  public TestProject(IProject project) {
+    m_project = project;
+    m_javaProject = JavaCore.create(m_project);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Project creation utils

@@ -15,6 +15,7 @@ import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -199,9 +200,11 @@ public class ProjectClassLoader extends URLClassLoader {
     return locations.toArray(new String[locations.size()]);
   }
 
-  // XXX
+  /**
+   * Adds absolute locations (in file system) of output folders for given and required projects.
+   */
   public static void addOutputLocations(Set<IProject> visitedProjects,
-      List<String> entries,
+      List<String> locations,
       IProject project) throws Exception {
     // may be not exists
     if (!project.exists()) {
@@ -216,18 +219,16 @@ public class ProjectClassLoader extends URLClassLoader {
     {
       IJavaProject javaProject = JavaCore.create(project);
       if (javaProject.exists()) {
-        String workspaceLocation =
-            project.getWorkspace().getRoot().getLocation().toPortableString();
+        // default output location
         {
-          IPath outputLocation = javaProject.getOutputLocation();
-          entries.add(workspaceLocation + outputLocation.toPortableString());
+          IPath outputPath = javaProject.getOutputLocation();
+          addAbsoluteLocation(locations, outputPath);
         }
-        for (IClasspathEntry entry : javaProject.getRawClasspath()) {
+        // source folder specific output locations
+        for (IClasspathEntry entry : javaProject.getResolvedClasspath(true)) {
           if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-            IPath outputLocation = entry.getOutputLocation();
-            if (outputLocation != null) {
-              entries.add(workspaceLocation + outputLocation.toPortableString());
-            }
+            IPath outputPath = entry.getOutputLocation();
+            addAbsoluteLocation(locations, outputPath);
           }
         }
       }
@@ -235,13 +236,15 @@ public class ProjectClassLoader extends URLClassLoader {
     // process required projects
     IProject[] referencedProjects = project.getReferencedProjects();
     for (IProject referencedProject : referencedProjects) {
-      addOutputLocations(visitedProjects, entries, referencedProject);
+      addOutputLocations(visitedProjects, locations, referencedProject);
     }
   }
 
-  // XXX
+  /**
+   * Adds absolute locations (in file system) of source folders for given and required projects.
+   */
   public static void addSourceLocations(Set<IProject> visitedProjects,
-      List<String> entries,
+      List<String> locations,
       IProject project) throws Exception {
     // may be not exists
     if (!project.exists()) {
@@ -256,11 +259,10 @@ public class ProjectClassLoader extends URLClassLoader {
     {
       IJavaProject javaProject = JavaCore.create(project);
       if (javaProject.exists()) {
-        String workspaceLocation =
-            project.getWorkspace().getRoot().getLocation().toPortableString();
-        for (IClasspathEntry entry : javaProject.getRawClasspath()) {
+        for (IClasspathEntry entry : javaProject.getResolvedClasspath(true)) {
           if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-            entries.add(workspaceLocation + entry.getPath().toPortableString());
+            IPath entryPath = entry.getPath();
+            addAbsoluteLocation(locations, entryPath);
           }
         }
       }
@@ -268,7 +270,19 @@ public class ProjectClassLoader extends URLClassLoader {
     // process required projects
     IProject[] referencedProjects = project.getReferencedProjects();
     for (IProject referencedProject : referencedProjects) {
-      addSourceLocations(visitedProjects, entries, referencedProject);
+      addSourceLocations(visitedProjects, locations, referencedProject);
+    }
+  }
+
+  /**
+   * Resolves given {@link IPath} to absolute location in file system and adds to the {@link List}.
+   */
+  private static void addAbsoluteLocation(List<String> locations, IPath outputPath) {
+    if (outputPath != null) {
+      IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+      IFolder entryFolder = workspaceRoot.getFolder(outputPath);
+      String entryLocation = entryFolder.getLocation().toPortableString();
+      locations.add(entryLocation);
     }
   }
 

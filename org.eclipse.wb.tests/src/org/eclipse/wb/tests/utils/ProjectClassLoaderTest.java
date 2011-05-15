@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -20,8 +23,23 @@ import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+
+import static org.fest.assertions.Assertions.assertThat;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Test for {@link ProjectClassLoader}.
@@ -29,6 +47,10 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
  * @author scheglov_ke
  */
 public class ProjectClassLoaderTest extends SwingModelTest {
+  private static IWorkspace workspace = ResourcesPlugin.getWorkspace();
+  private static IWorkspaceRoot workspaceRoot = workspace.getRoot();
+  private static final String workspaceLocation = workspaceRoot.getLocation().toPortableString();
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Exit zone :-) XXX
@@ -401,5 +423,158 @@ public class ProjectClassLoaderTest extends SwingModelTest {
       fragmentProject.dispose();
       requiredProject.dispose();
     }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // addSourceLocations()
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void test_addSourceLocations_normalProject() throws Exception {
+    List<String> locations = getSourceLocations();
+    assertThat(locations).containsExactly(workspaceLocation + "/TestProject/src");
+  }
+
+  @DisposeProjectAfter
+  public void test_addSourceLocations_noSuchProject() throws Exception {
+    m_project.delete(true, null);
+    // check locations
+    List<String> locations = getSourceLocations();
+    assertThat(locations).isEmpty();
+  }
+
+  @DisposeProjectAfter
+  public void test_addSourceLocations_notJavaProject() throws Exception {
+    ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
+    // check locations
+    List<String> locations = getSourceLocations();
+    assertThat(locations).isEmpty();
+  }
+
+  @DisposeProjectAfter
+  public void test_addSourceLocations_projectNotInWorkspace() throws Exception {
+    String newProjectLocation = moveProjectIntoWorkspceSubFolder();
+    // check locations
+    List<String> locations = getSourceLocations();
+    assertThat(locations).containsExactly(newProjectLocation + "/src");
+  }
+
+  @DisposeProjectAfter
+  public void test_addSourceLocations_recursion() throws Exception {
+    // create new project "myProject"
+    TestProject myProject = new TestProject("myProject");
+    IJavaProject myJavaProject = myProject.getJavaProject();
+    // reference "myProject" from "TestProject"
+    try {
+      // create circular dependency
+      ProjectUtils.requireProject(m_javaProject, myJavaProject);
+      ProjectUtils.requireProject(myJavaProject, m_javaProject);
+      // check locations
+      List<String> locations = getSourceLocations();
+      assertThat(locations).containsExactly(
+          workspaceLocation + "/TestProject/src",
+          workspaceLocation + "/myProject/src");
+    } finally {
+      myProject.dispose();
+    }
+  }
+
+  /**
+   * Move existing {@link IProject} into "subFolder" in workspace.
+   * 
+   * @return the new absolute location of project.
+   */
+  public static String moveProjectIntoWorkspceSubFolder() throws Exception {
+    String newProjectLocation = workspaceLocation + "/subFolder/Test";
+    // move project content
+    FileUtils.moveDirectory(
+        new File(m_project.getLocation().toPortableString()),
+        new File(newProjectLocation));
+    // delete old project
+    m_project.delete(true, null);
+    // create new project, in workspace sub-folder
+    {
+      IProjectDescription projectDescription = workspace.newProjectDescription("Test");
+      projectDescription.setLocation(new Path(newProjectLocation));
+      m_project = workspaceRoot.getProject("Test");
+      m_project.create(projectDescription, null);
+      m_project.open(null);
+      // update Java project
+      m_testProject = new TestProject(m_project);
+      m_javaProject = m_testProject.getJavaProject();
+    }
+    return newProjectLocation;
+  }
+
+  /**
+   * @return result of {@link ProjectClassLoader#addSourceLocations(Set, List, IProject)}.
+   */
+  private List<String> getSourceLocations() throws Exception {
+    List<String> locations = Lists.newArrayList();
+    ProjectClassLoader.addSourceLocations(Sets.<IProject>newHashSet(), locations, m_project);
+    return locations;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // addOutputLocations()
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void test_addOutputLocations_normalProject() throws Exception {
+    List<String> locations = getOutputLocations();
+    assertThat(locations).containsExactly(workspaceLocation + "/TestProject/bin");
+  }
+
+  @DisposeProjectAfter
+  public void test_addOutputLocations_noSuchProject() throws Exception {
+    m_project.delete(true, null);
+    // check locations
+    List<String> locations = getOutputLocations();
+    assertThat(locations).isEmpty();
+  }
+
+  @DisposeProjectAfter
+  public void test_addOutputLocations_notJavaProject() throws Exception {
+    ProjectUtils.removeNature(m_project, JavaCore.NATURE_ID);
+    // check locations
+    List<String> locations = getOutputLocations();
+    assertThat(locations).isEmpty();
+  }
+
+  @DisposeProjectAfter
+  public void test_addOutputLocations_projectNotInWorkspace() throws Exception {
+    String newProjectLocation = moveProjectIntoWorkspceSubFolder();
+    // check locations
+    List<String> locations = getOutputLocations();
+    assertThat(locations).containsExactly(newProjectLocation + "/bin");
+  }
+
+  @DisposeProjectAfter
+  public void test_addOutputLocations_recursion() throws Exception {
+    // create new project "myProject"
+    TestProject myProject = new TestProject("myProject");
+    IJavaProject myJavaProject = myProject.getJavaProject();
+    // reference "myProject" from "TestProject"
+    try {
+      // create circular dependency
+      ProjectUtils.requireProject(m_javaProject, myJavaProject);
+      ProjectUtils.requireProject(myJavaProject, m_javaProject);
+      // check locations
+      List<String> locations = getOutputLocations();
+      assertThat(locations).containsExactly(
+          workspaceLocation + "/TestProject/bin",
+          workspaceLocation + "/myProject/bin");
+    } finally {
+      myProject.dispose();
+    }
+  }
+
+  /**
+   * @return result of {@link ProjectClassLoader#addOutputLocations(Set, List, IProject)}.
+   */
+  private List<String> getOutputLocations() throws Exception {
+    List<String> locations = Lists.newArrayList();
+    ProjectClassLoader.addOutputLocations(Sets.<IProject>newHashSet(), locations, m_project);
+    return locations;
   }
 }
