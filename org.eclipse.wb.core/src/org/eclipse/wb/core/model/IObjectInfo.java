@@ -64,7 +64,7 @@ public interface IObjectInfo {
   /**
    * @return {@link IObjectPresentation} for visual presentation of this object.
    */
-  public abstract IObjectPresentation getPresentation();
+  IObjectPresentation getPresentation();
 
   ////////////////////////////////////////////////////////////////////////////
   //
