@@ -359,7 +359,7 @@ public final class TreeRobot {
   public Point getLocationBefore(Object object) {
     Rectangle bounds = getBounds(getEditPart(object));
     int x = bounds.x + 0;
-    int y = bounds.y + 0;
+    int y = bounds.y + 4;
     Point location = new Point(x, y);
     return location;
   }
@@ -367,7 +367,7 @@ public final class TreeRobot {
   public Point getLocationAfter(Object object) {
     Rectangle bounds = getBounds(getEditPart(object));
     int x = bounds.x + 0;
-    int y = bounds.y + bounds.height / 2 - 1;
+    int y = bounds.bottom() - 4;
     Point location = new Point(x, y);
     return location;
   }
