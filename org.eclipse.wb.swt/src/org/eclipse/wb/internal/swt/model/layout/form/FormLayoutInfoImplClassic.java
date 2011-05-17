@@ -61,14 +61,14 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
     this.layout = layout_;
     this.anchorActions = new AnchorActionsClassic<C>(this);
     this.alignmentActions = new AlignmentsSupport();
-    this.layout.getUnderlyingModel().addBroadcastListener(new ObjectEventListener() {
+    this.layout.addBroadcastListener(new ObjectEventListener() {
       @Override
       public void addSelectionActions(List<ObjectInfo> objects, List<Object> actions)
           throws Exception {
         alignmentActions.addAlignmentActions(objects, actions);
       }
     });
-    this.layout.getUnderlyingModel().addBroadcastListener(new LayoutAssistantListener() {
+    this.layout.addBroadcastListener(new LayoutAssistantListener() {
       @Override
       public void createAssistantPages(List<ObjectInfo> objects,
           TabFolder folder,

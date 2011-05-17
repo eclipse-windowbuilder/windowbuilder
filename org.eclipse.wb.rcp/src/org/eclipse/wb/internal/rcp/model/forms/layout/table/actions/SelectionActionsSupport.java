@@ -42,7 +42,7 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
   ////////////////////////////////////////////////////////////////////////////
   public SelectionActionsSupport(ITableWrapLayoutInfo<C> layout) {
     m_layout = layout;
-    m_layout.getUnderlyingModel().addBroadcastListener(this);
+    m_layout.addBroadcastListener(this);
   }
 
   ////////////////////////////////////////////////////////////////////////////

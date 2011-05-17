@@ -42,7 +42,7 @@ public final class ColumnLayoutSelectionActionsSupport<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   public ColumnLayoutSelectionActionsSupport(IColumnLayoutInfo<C> layout) {
     m_layout = layout;
-    m_layout.getUnderlyingModel().addBroadcastListener(this);
+    m_layout.addBroadcastListener(this);
   }
 
   ////////////////////////////////////////////////////////////////////////////

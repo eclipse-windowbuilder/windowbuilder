@@ -12,8 +12,10 @@ package org.eclipse.wb.internal.core.xml.model.utils;
 
 import com.google.common.collect.Maps;
 
+import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
@@ -27,6 +29,7 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectResolveTag;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescriptionHelper;
+import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerFactory;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Control;
@@ -370,6 +373,43 @@ public final class XmlObjectUtils {
       return tag;
     } else {
       return namespace + ":" + tag;
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // FlowContainer
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Uses first {@link FlowContainer} which accepts given component for creation.
+   */
+  public static void flowContainerCreate(XmlObjectInfo container,
+      XmlObjectInfo component,
+      XmlObjectInfo nextComponent) throws Exception {
+    List<FlowContainer> flowContainers = new FlowContainerFactory(container, false).get();
+    for (FlowContainer flowContainer : flowContainers) {
+      if (flowContainer.validateComponent(component)) {
+        flowContainer.command_CREATE(component, nextComponent);
+        ExecutionUtils.refresh(container);
+        break;
+      }
+    }
+  }
+
+  /**
+   * Uses first {@link FlowContainer} which accepts given component for move.
+   */
+  public static void flowContainerMove(XmlObjectInfo container,
+      XmlObjectInfo component,
+      XmlObjectInfo nextComponent) throws Exception {
+    List<FlowContainer> flowContainers = new FlowContainerFactory(container, false).get();
+    for (FlowContainer flowContainer : flowContainers) {
+      if (flowContainer.validateComponent(component)) {
+        flowContainer.command_MOVE(component, nextComponent);
+        ExecutionUtils.refresh(container);
+        break;
+      }
     }
   }
 }

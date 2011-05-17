@@ -47,6 +47,20 @@ public interface IObjectInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Broadcasting
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Adds new listener with type of superclass.
+   * <p>
+   * Given listener is bound to this instance of {@link IObjectInfo}, so if {@link IObjectInfo} will
+   * be removed from its parent, after next refresh() listener also will be removed. We should do
+   * this to prevent memory leaks.
+   */
+  public void addBroadcastListener(Object listenerImpl);
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Properties
   //
   ////////////////////////////////////////////////////////////////////////////

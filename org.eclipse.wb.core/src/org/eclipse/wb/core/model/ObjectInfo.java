@@ -315,13 +315,6 @@ public abstract class ObjectInfo implements IObjectInfo {
     return getBroadcastSupport().getListener(listenerClass);
   }
 
-  /**
-   * Adds new listener with type of superclass.
-   * 
-   * Given listener is bound to this instance of {@link ObjectInfo}, so if {@link ObjectInfo} will
-   * be removed from its parent, after next {@link #refresh()} listener also will be removed from
-   * {@link BroadcastSupport}. We should do this to prevent memory leaks.
-   */
   public final void addBroadcastListener(Object listenerImpl) {
     getBroadcastSupport().addListener(this, listenerImpl);
   }
