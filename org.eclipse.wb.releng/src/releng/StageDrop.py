@@ -3,9 +3,11 @@ Python script to stage a drop of WindowBuilder
 """
 import datetime
 import eclipse
+import glob
 import logging
 import logging.config
 import os
+import Queue
 import re
 import shutil
 import stat
@@ -34,6 +36,8 @@ def main():
   packSite = data['packsite']
   signFiles = data['signfiles']  
   doDeploy = data['dodeploy']
+  deployDir = data['deploydir']
+  dirs2save = data['dirstosave']
   baseDir = initialize(subproduct)
   
   productDir = os.path.join(baseDir, subproduct);
@@ -84,10 +88,10 @@ def main():
 
   if doDeploy:
     log.info("deploy code")
-    deployCode(productDir)
+    deployCode(productDir, deployDir)
 
   log.info("cleanup")
-  cleanup(signDir)
+  cleanup(signDir, deployDir, dirs2save)
   
   log.debug("done main")
   
@@ -95,9 +99,14 @@ def main():
 def zipFilter(file):
   return file.endswith('.zip')
 
+def zipOrMd5Filter(file):
+  return file.endswith('.zip') or file.endswith('.MD5')
+
 def processArgs():
   signDir = os.path.join(os.sep + "home", "data", "httpd", 
                          "download-staging.priv", "tools", "windowbuilder")
+  deployDir = os.path.join(os.sep + 'home', 'data', 'httpd', 
+                           'download.eclipse.org', 'tools', 'windowbuilder')
   usage = "usage: %prog [options] drop subproduct"
   parser = OptionParser(usage=usage)
   parser.set_defaults(debug=False)
@@ -106,6 +115,7 @@ def processArgs():
   parser.set_defaults(packsite=True)
   parser.set_defaults(signfiles=True)
   parser.set_defaults(dodeploy=False)
+  parser.set_defaults(dirstosave="5")
   parser.add_option("--signdir", action="store", dest="signdir")
   parser.add_option("-e", "--eclipseversion", action="store", 
                     dest="eclipseversion")
@@ -115,6 +125,8 @@ def processArgs():
   parser.add_option("--nopacksite", action="store_false", dest="packsite")
   parser.add_option("--nosignfiles", action="store_false", dest="signfiles")
   parser.add_option("--deployfiles", action="store_true", dest="dodeploy")
+  parser.add_option("--deploydir", action="store", dest="deploydir")
+  parser.add_option("--dirstosave", action="store", dest="dirstosave")
   (options, args) = parser.parse_args()
   
   if len(args) != 2:
@@ -124,9 +136,14 @@ def processArgs():
   packSite = options.packsite
   signFiles = options.signfiles
   doDeploy = options.dodeploy
+  dirs2save = int(options.dirstosave)
+
 
   if options.signdir != None:
     signDir = options.signdir
+
+  if options.deploydir != None:
+    deployDir = options.deploydir
   
   if options.eclipsearchivedir != None:
     eclipse.setArchiveDir(options.eclipsearchivedir)
@@ -145,11 +162,18 @@ def processArgs():
     log.error("you must specify a subproduct")
     usage()
     sys.exit(21)
+    
+  if doDeploy:
+    optimizeSite = False
+    packSite = False
+    signFiles = False
+    
   
   ret = dict({'droplocation':dropLocation, 'subproduct':subproduct, 
               'signdir':signDir, 'eclipseversion':eclipseVersion,
               'optimizesite':optimizeSite, 'packsite':packSite,
-              'signfiles':signFiles, 'dodeploy':doDeploy})
+              'signfiles':signFiles, 'dodeploy':doDeploy,
+              'deploydir':deployDir, 'dirstosave':dirs2save})
   log.debug("out of processArgs")
   return ret
 
@@ -196,11 +220,11 @@ def copyFiles(fromDir, toDir, filter):
     raise e
   
   if len(files) == 0:
-    if (filter == None or filter(file)):
-      raise OSError("no files to process")
+    raise OSError("no files to process")
   
   for file in files:
-    shutil.copy2(os.path.join(fromDir, file), toDir)
+    if (filter == None or filter(file)):
+      shutil.copy2(os.path.join(fromDir, file), toDir)
     
 def moveFiles(fromDir, toDir, filter):
   log.debug("moveFiles(" + fromDir + ", " + toDir)
@@ -330,23 +354,71 @@ def rezipSite(dir):
           log.debug(formatZip.format(info.filename, info.file_size, info.compress_size))
     log.debug("out rezipSite")
 
-def deployCode(dir):
-  log.debug("in deployCode(" + dir + ")")
-  deployDir = os.path.join(os.sep + 'home', 'data', 'httpd', 'download.eclipse.org', 'tools', 'windowbuilder')
+def deployCode(fromDir, toDir):
+  log.debug("in deployCode(" + fromDir + ", " + toDir+ ")")
+  deployDir = toDir
   latestDir = os.path.join(deployDir, 'latest')
   d = datetime.today()
-  nowString = '{%Y%m%d%H%M}'.format(d)
+  nowString = d.strftime('%Y%m%d%H%M')
   dateDir = os.path.join(deployDir, nowString)
+  deployDirs = [latestDir, dateDir]
   log.info("deploying to ")
   log.info(latestDir)
   log.info('and')
-  log.infor(dateDir)
+  log.info(dateDir)
   log.debug("out deployCode")
+  rmDirTree(latestDir);
+  for file in deployDirs:
+    try:
+      os.mkdir(file)
+    except OSError as e:
+      if e.errno != 17:
+        log.error("failed to make directory " + dir);
+        raise e
 
-def cleanup(signDir):
-  log.debug("in cleanup(" + signDir + ")")
+    sourceFiles = glob.glob(os.path.join(fromDir, '*'))
+    command = ['rsync', '-av']
+    for sfile in sourceFiles:
+      command.append(sfile)
+    command.append(file)
+           
+    if log.debug:
+      data = "Command: "
+      for cmd in command:
+        data = data + cmd + ' '
+      log.debug(data)
+
+      subprocess.check_call(command)
+   
+
+def cleanup(signDir, deployDir, dirsToSave):
+  log.debug("in cleanup(" + signDir + ", " + deployDir + ", " + 
+            str(dirsToSave) + ")")
+  rmDirTree(signDir);
+  
+  
+  pq = Queue.PriorityQueue()
+  try:
+    for file in os.listdir(deployDir):
+      pq.put(file)
+  except OSError as e:
+    log.error("could not read files in " + dir);
+    raise e
+  dirsToDelete = pq.qsize()
+  dirsToDelete -= dirsToSave + 1
+  dirCount = 0
+  while not pq.empty():
+    dir = os.path.join(deployDir, pq.get())
+    dirCount += 1;
+    if dirCount <= dirsToDelete:
+      print "deleting -> " + dir
+      rmDirTree(dir)
+      os.rmdir(dir)
+    else:
+      print "saving  ->  " + dir
   log.debug("out cleanup")
 
 if __name__ == "__main__":
   main()
+  
   log.info("StageDrop.py is done")

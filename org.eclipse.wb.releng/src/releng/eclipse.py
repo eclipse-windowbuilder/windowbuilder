@@ -60,7 +60,7 @@ def __findEclipseArchive(eclipseVersion):
       raise e
   
     eclipseArchiveFile = None
-    searchTerm = eclipseVersion + "(M[0-9])?-linux-gtk.tar.gz"
+    searchTerm = eclipseVersion + "(M[0-9]|RC[0-9]|\.[0-3])?-linux-gtk.tar.gz"
     search = re.compile(searchTerm)
 
     log.debug('searchTerm = ' + searchTerm)
