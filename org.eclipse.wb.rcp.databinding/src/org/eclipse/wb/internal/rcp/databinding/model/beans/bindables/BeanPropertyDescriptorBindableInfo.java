@@ -12,7 +12,8 @@ package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
-import org.eclipse.wb.internal.rcp.databinding.model.SimpleObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
+import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -63,14 +64,11 @@ public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindab
       parentReference = StringUtils.removeEnd(parentReference, "\"");
       //
       final String bindingReference = parentReference + "." + reference;
-      return new SimpleObservePresentation(reference, objectType) {
-        @Override
-        public String getTextForBinding() throws Exception {
-          return bindingReference;
-        }
-      };
+      return new SimpleObservePresentation(reference,
+          bindingReference,
+          TypeImageProvider.getImage(objectType));
     }
-    return new SimpleObservePresentation(reference, objectType);
+    return new SimpleObservePresentation(reference, TypeImageProvider.getImage(objectType));
   }
 
   ////////////////////////////////////////////////////////////////////////////

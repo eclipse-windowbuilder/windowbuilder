@@ -12,9 +12,10 @@ package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
-import org.eclipse.wb.internal.rcp.databinding.model.SimpleObservePresentation;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 /**
@@ -44,7 +45,7 @@ public final class MethodBeanBindableInfo extends BeanBindableInfo {
     super(beanSupport, parent, objectType, referenceProvider, createPresentation(
         referenceProvider,
         presentationReferenceProvider));
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
   }
 
   private static IObservePresentation createPresentation(IReferenceProvider referenceProvider,

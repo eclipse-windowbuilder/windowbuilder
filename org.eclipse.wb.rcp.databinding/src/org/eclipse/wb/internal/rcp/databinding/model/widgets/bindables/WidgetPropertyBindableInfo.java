@@ -13,11 +13,15 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
+import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
-import org.eclipse.wb.internal.rcp.databinding.model.SimpleObservePresentation;
+import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -40,21 +44,15 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
   // Constructors
   //
   ////////////////////////////////////////////////////////////////////////////
-  public WidgetPropertyBindableInfo(String text,
-      Class<?> objectType,
-      String reference,
-      IObserveDecorator decorator) {
-    this(text, objectType, reference, SwtObservableFactory.SWT, decorator);
-  }
-
-  public WidgetPropertyBindableInfo(String text,
-      Class<?> objectType,
-      String reference,
+  public WidgetPropertyBindableInfo(Class<?> objectType,
+      IReferenceProvider referenceProvider,
       IObservableFactory observableFactory,
+      IObservePresentation presentation,
       IObserveDecorator decorator) {
-    super(objectType, reference);
+    super(objectType, referenceProvider);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_observableFactory = observableFactory;
-    m_presentation = new SimpleObservePresentation(text, objectType);
+    m_presentation = presentation;
     m_decorator = decorator;
   }
 
@@ -64,17 +62,39 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
       String reference,
       IObservableFactory observableFactory,
       IObserveDecorator decorator) {
-    super(objectType, reference);
-    m_observableFactory = observableFactory;
-    m_presentation = new SimpleObservePresentation(text, image);
-    m_decorator = decorator;
+    this(objectType,
+        new StringReferenceProvider(reference),
+        observableFactory,
+        new SimpleObservePresentation(text, image),
+        decorator);
+  }
+
+  public WidgetPropertyBindableInfo(String text,
+      Class<?> objectType,
+      String reference,
+      IObservableFactory observableFactory,
+      IObserveDecorator decorator) {
+    this(text,
+        TypeImageProvider.getImage(objectType),
+        objectType,
+        reference,
+        observableFactory,
+        decorator);
+  }
+
+  public WidgetPropertyBindableInfo(String text,
+      Class<?> objectType,
+      String reference,
+      IObserveDecorator decorator) {
+    this(text, objectType, reference, SwtObservableFactory.SWT, decorator);
   }
 
   public WidgetPropertyBindableInfo(WidgetPropertyBindableInfo bindable) {
-    super(bindable.getObjectType(), bindable.getReferenceProvider());
-    m_observableFactory = bindable.m_observableFactory;
-    m_presentation = bindable.m_presentation;
-    m_decorator = bindable.m_decorator;
+    this(bindable.getObjectType(),
+        bindable.getReferenceProvider(),
+        bindable.m_observableFactory,
+        bindable.m_presentation,
+        bindable.m_decorator);
   }
 
   ////////////////////////////////////////////////////////////////////////////

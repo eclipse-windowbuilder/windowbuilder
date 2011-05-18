@@ -13,12 +13,13 @@ package org.eclipse.wb.internal.swing.databinding.model.beans;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
-import org.eclipse.wb.internal.swing.databinding.model.SimpleObservePresentation;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.properties.ObjectPropertyInfo;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
@@ -44,6 +45,7 @@ public final class ObjectPropertyObserveInfo extends ObserveInfo implements IObs
   ////////////////////////////////////////////////////////////////////////////
   public ObjectPropertyObserveInfo(IGenericType objectType) {
     super(objectType, StringReferenceProvider.EMPTY);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_creationType =
         java.util.List.class.isAssignableFrom(getObjectClass())
             ? ObserveCreationType.ListSelfProperty

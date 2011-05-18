@@ -12,15 +12,19 @@ package org.eclipse.wb.internal.swing.databinding.model.beans;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
-import org.eclipse.wb.internal.swing.databinding.model.SimpleObservePresentation;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.properties.BeanPropertyInfo;
 import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
+import org.eclipse.wb.internal.swing.databinding.ui.providers.TypeImageProvider;
+
+import org.eclipse.swt.graphics.Image;
 
 /**
  * Model for <code>Java Beans</code> object properties.
@@ -48,15 +52,16 @@ public class BeanPropertyObserveInfo extends BeanObserveInfo implements IObserve
         parent instanceof BeanPropertyObserveInfo ? parent : null,
         objectType,
         referenceProvider);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_creationType =
         java.util.List.class.isAssignableFrom(getObjectClass())
             ? ObserveCreationType.ListProperty
             : ObserveCreationType.AnyProperty;
+    Image beenImage = beanSupport.getBeanImage(getObjectClass(), null, false);
     m_presentation =
-        new SimpleObservePresentation(text, text, getObjectClass(), beanSupport.getBeanImage(
-            getObjectClass(),
-            null,
-            false));
+        new SimpleObservePresentation(text, text, beenImage == null
+            ? TypeImageProvider.getImage(getObjectClass())
+            : beenImage);
     m_decorator = decorator;
   }
 

@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
@@ -59,7 +60,7 @@ public class BeanPropertyBindableInfo extends PropertyBindableInfo {
       Class<?> objectType,
       String reference,
       IObservePresentation presentation) {
-    super(beanSupport, parent, objectType, reference, presentation);
+    super(beanSupport, parent, objectType, new StringReferenceProvider(reference), presentation);
     m_decorator = BeanSupport.getDecorator(objectType);
   }
 

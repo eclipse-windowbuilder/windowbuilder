@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.swing.databinding.model.beans;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -37,7 +38,7 @@ public final class FieldBeanObserveInfo extends BeanObserveInfo {
       IGenericType objectType,
       JavaInfo javaInfo) throws Exception {
     super(beanSupport, null, objectType, new FragmentReferenceProvider(fragment));
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_fragment = fragment;
     m_presentation =
         new FieldBeanObservePresentation(this, javaInfo, beanSupport.getBeanImage(

@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenc
 import org.eclipse.wb.internal.core.databinding.parser.IModelResolver;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.EmfObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport.PropertyInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
@@ -53,7 +54,7 @@ public final class EObjectBindableInfo extends BindableInfo {
       PropertiesSupport propertiesSupport,
       IModelResolver resolver) throws Exception {
     super(objectType, new FragmentReferenceProvider(fragment));
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
     m_fragment = fragment;
     m_propertiesSupport = propertiesSupport;
     m_presentation = new EObjectObservePresentation(this);

@@ -35,7 +35,7 @@ import java.util.List;
 public abstract class ObserveInfo implements IObserveInfo {
   private IGenericType m_objectType;
   private final IReferenceProvider m_referenceProvider;
-  private boolean m_setBindingDecoration;
+  private int m_bindingDecorationCorner;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -131,17 +131,19 @@ public abstract class ObserveInfo implements IObserveInfo {
     return m_bindings;
   }
 
-  protected final void setBindingDecoration(boolean setBindingDecoration) {
-    m_setBindingDecoration = setBindingDecoration;
+  protected final void setBindingDecoration(int decorationCorner) {
+    m_bindingDecorationCorner = decorationCorner;
   }
 
   private void updateBindingDecoration() throws Exception {
-    if (m_setBindingDecoration) {
+    if (m_bindingDecorationCorner != 0) {
       IObservePresentation presentation = getPresentation();
       if (presentation instanceof IObservePresentationDecorator) {
         IObservePresentationDecorator presentationDecorator =
             (IObservePresentationDecorator) presentation;
-        presentationDecorator.setBindingDecorator(!CollectionUtils.isEmpty(m_bindings));
+        presentationDecorator.setBindingDecorator(CollectionUtils.isEmpty(m_bindings)
+            ? 0
+            : m_bindingDecorationCorner);
       }
     }
   }

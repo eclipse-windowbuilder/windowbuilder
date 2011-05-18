@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.databinding.xwt.model.beans;
 
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
@@ -35,7 +36,7 @@ public class XmlElementBeanBindableInfo extends BeanBindableInfo {
       boolean dataContext) throws Exception {
     super(beanSupport, null, objectType, referenceProvider, objectInfo);
     m_dataContext = dataContext;
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -20,5 +20,5 @@ public interface IObservePresentationDecorator {
   /**
    * Enable or disable decorate this presentation.
    */
-  void setBindingDecorator(boolean sets) throws Exception;
+  void setBindingDecorator(int corner) throws Exception;
 }

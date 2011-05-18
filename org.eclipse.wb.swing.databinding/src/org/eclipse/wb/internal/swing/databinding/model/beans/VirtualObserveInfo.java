@@ -13,11 +13,12 @@ package org.eclipse.wb.internal.swing.databinding.model.beans;
 import com.google.common.collect.ImmutableList;
 
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.Activator;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveCreationType;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
-import org.eclipse.wb.internal.swing.databinding.model.SimpleObservePresentation;
 import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
 
 /**
@@ -34,7 +35,7 @@ public final class VirtualObserveInfo extends BeanObserveInfo {
   ////////////////////////////////////////////////////////////////////////////
   public VirtualObserveInfo() {
     super(null, null, ClassGenericType.LIST_CLASS, StringReferenceProvider.EMPTY);
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_presentation =
         new SimpleObservePresentation("[Virtual]", "[Virtual]", Activator.getImage("virtual.png"));
     setProperties(ImmutableList.<ObserveInfo>of(new ObjectPropertyObserveInfo(getObjectType())));

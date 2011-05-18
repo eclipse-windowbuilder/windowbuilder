@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvid
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.AbstractBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
@@ -57,7 +58,7 @@ public final class FieldBeanBindableInfo extends BeanBindableInfo {
       IReferenceProvider referenceProvider,
       JavaInfo javaInfo) throws Exception {
     super(beanSupport, null, objectType, referenceProvider, javaInfo);
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
     m_hostJavaInfo = fragment == null ? javaInfo : null;
     m_fragment = fragment;
     m_children = Lists.newArrayList();

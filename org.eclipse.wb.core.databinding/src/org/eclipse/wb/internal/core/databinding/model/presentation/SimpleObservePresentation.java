@@ -27,6 +27,10 @@ public class SimpleObservePresentation extends ObservePresentation {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
+  public SimpleObservePresentation(String text, Image image) {
+    this(text, text, image);
+  }
+
   public SimpleObservePresentation(String text, String textForBinding, Image image) {
     m_text = text;
     m_textForBinding = textForBinding;

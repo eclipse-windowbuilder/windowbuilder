@@ -11,9 +11,10 @@
 package org.eclipse.wb.internal.swing.databinding.model.beans;
 
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.Activator;
-import org.eclipse.wb.internal.swing.databinding.model.SimpleObservePresentation;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -37,7 +38,7 @@ public final class LocalVariableObserveInfo extends BeanObserveInfo {
       VariableDeclarationFragment fragment,
       IGenericType objectType) throws Exception {
     super(beanSupport, null, objectType, new FragmentReferenceProvider(fragment));
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_fragment = fragment;
     m_presentation =
         new SimpleObservePresentation(null, null, Activator.getImage("localvariable_obj.gif")) {

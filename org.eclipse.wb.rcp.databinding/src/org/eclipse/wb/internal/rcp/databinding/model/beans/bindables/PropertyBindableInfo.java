@@ -13,10 +13,12 @@ package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
-import org.eclipse.wb.internal.rcp.databinding.model.SimpleObservePresentation;
+import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -34,22 +36,21 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
   ////////////////////////////////////////////////////////////////////////////
   public PropertyBindableInfo(BeanSupport beanSupport,
       IObserveInfo parent,
-      String text,
       Class<?> objectType,
-      String reference) {
-    super(beanSupport,
-        parent,
-        objectType,
-        new StringReferenceProvider(reference),
-        new SimpleObservePresentation(text, objectType));
-  }
-
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      Class<?> objectType,
-      String reference,
+      IReferenceProvider referenceProvider,
       IObservePresentation presentation) {
-    super(beanSupport, parent, objectType, new StringReferenceProvider(reference), presentation);
+    super(beanSupport, parent, objectType, referenceProvider, presentation);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
+  }
+
+  public PropertyBindableInfo(BeanSupport beanSupport,
+      IObserveInfo parent,
+      String text,
+      Image image,
+      Class<?> objectType,
+      IReferenceProvider referenceProvider) {
+    this(beanSupport, parent, objectType, referenceProvider, new SimpleObservePresentation(text,
+        image));
   }
 
   public PropertyBindableInfo(BeanSupport beanSupport,
@@ -58,30 +59,28 @@ public abstract class PropertyBindableInfo extends BeanBindableInfo implements I
       Image image,
       Class<?> objectType,
       String reference) {
-    super(beanSupport,
+    this(beanSupport, parent, text, image, objectType, new StringReferenceProvider(reference));
+  }
+
+  public PropertyBindableInfo(BeanSupport beanSupport,
+      IObserveInfo parent,
+      String text,
+      Class<?> objectType,
+      String reference) {
+    this(beanSupport, parent, text, TypeImageProvider.getImage(objectType), objectType, reference);
+  }
+
+  public PropertyBindableInfo(BeanSupport beanSupport,
+      IObserveInfo parent,
+      String text,
+      Class<?> objectType,
+      IReferenceProvider referenceProvider) {
+    this(beanSupport,
         parent,
+        text,
+        TypeImageProvider.getImage(objectType),
         objectType,
-        new StringReferenceProvider(reference),
-        new SimpleObservePresentation(text, image));
-  }
-
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider) {
-    super(beanSupport, parent, objectType, referenceProvider, new SimpleObservePresentation(text,
-        objectType));
-  }
-
-  public PropertyBindableInfo(BeanSupport beanSupport,
-      IObserveInfo parent,
-      String text,
-      Image image,
-      Class<?> objectType,
-      IReferenceProvider referenceProvider) {
-    super(beanSupport, parent, objectType, referenceProvider, new SimpleObservePresentation(text,
-        image));
+        referenceProvider);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -46,15 +46,11 @@ public abstract class ObservePresentation
   // IObservePresentationDecorator
   //
   ////////////////////////////////////////////////////////////////////////////
-  public final void setBindingDecorator(boolean sets) throws Exception {
-    if (sets) {
+  public final void setBindingDecorator(int corner) throws Exception {
+    if (corner != 0) {
       Image image = getInternalImage();
       if (image != null) {
-        m_decorateImage =
-            SwtResourceManager.decorateImage(
-                image,
-                JavaInfoDecorator.IMAGE,
-                SwtResourceManager.TOP_RIGHT);
+        m_decorateImage = SwtResourceManager.decorateImage(image, JavaInfoDecorator.IMAGE, corner);
       }
     } else {
       m_decorateImage = null;

@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -31,8 +32,8 @@ import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.properties.
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
-import org.eclipse.wb.internal.rcp.databinding.model.SimpleObservePresentation;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
+import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -61,7 +62,8 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
       Class<?> objectType,
       String text,
       String reference) {
-    this(objectType, reference, new SimpleObservePresentation(text, objectType));
+    this(objectType, reference, new SimpleObservePresentation(text,
+        TypeImageProvider.getImage(objectType)));
     m_propertiesSupport = propertiesSupport;
     m_parent = parent;
     m_internalReference = reference;

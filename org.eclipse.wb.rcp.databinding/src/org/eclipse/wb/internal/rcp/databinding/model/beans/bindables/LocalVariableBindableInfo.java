@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
 import org.eclipse.wb.internal.core.databinding.model.reference.FragmentReferenceProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
 
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -40,7 +41,7 @@ public class LocalVariableBindableInfo extends BeanBindableInfo {
             new FragmentReferenceProvider(fragment),
             null,
             Activator.getImage("localvariable_obj.gif")));
-    setBindingDecoration(true);
+    setBindingDecoration(SwtResourceManager.TOP_RIGHT);
     m_fragment = fragment;
   }
 

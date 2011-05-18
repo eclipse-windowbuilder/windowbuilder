@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvid
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.SeparatorUiContentProvider;
+import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.databinding.model.properties.BeanPropertyInfo;
@@ -46,6 +47,7 @@ public final class PropertiesObserveInfo extends BeanPropertyObserveInfo {
       IObserveDecorator decorator,
       String[] properties) throws Exception {
     super(beanSupport, parent, text, objectType, referenceProvider, decorator);
+    setBindingDecoration(SwtResourceManager.TOP_LEFT);
     m_properties = properties;
   }
 

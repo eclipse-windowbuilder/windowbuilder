@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
+import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.DetailListEmfObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.DetailValueEmfObservableInfo;
@@ -18,7 +19,6 @@ import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.EmfObservab
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
-import org.eclipse.wb.internal.rcp.databinding.model.SimpleObservePresentation;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.direct.DirectObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
