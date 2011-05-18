@@ -453,7 +453,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 
   @DisposeProjectAfter
   public void test_addSourceLocations_projectNotInWorkspace() throws Exception {
-    String newProjectLocation = moveProjectIntoWorkspceSubFolder();
+    String newProjectLocation = moveProjectIntoWorkspaceSubFolder();
     // check locations
     List<String> locations = getSourceLocations();
     assertThat(locations).containsExactly(newProjectLocation + "/src");
@@ -484,7 +484,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
    * 
    * @return the new absolute location of project.
    */
-  public static String moveProjectIntoWorkspceSubFolder() throws Exception {
+  public static String moveProjectIntoWorkspaceSubFolder() throws Exception {
     String newProjectLocation = workspaceLocation + "/subFolder/Test";
     // move project content
     FileUtils.moveDirectory(
@@ -543,7 +543,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 
   @DisposeProjectAfter
   public void test_addOutputLocations_projectNotInWorkspace() throws Exception {
-    String newProjectLocation = moveProjectIntoWorkspceSubFolder();
+    String newProjectLocation = moveProjectIntoWorkspaceSubFolder();
     // check locations
     List<String> locations = getOutputLocations();
     assertThat(locations).containsExactly(newProjectLocation + "/bin");
