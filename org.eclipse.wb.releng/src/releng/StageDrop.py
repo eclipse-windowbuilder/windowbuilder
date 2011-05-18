@@ -274,6 +274,7 @@ def signZipFiles(dir):
         found = False
         log.debug(file + " does not exists")
         continue
+    log.info("all files are not processed yet")
         
   sleep(10)
   log.info("all files have been signed")
