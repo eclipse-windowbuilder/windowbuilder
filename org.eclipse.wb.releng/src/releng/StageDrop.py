@@ -344,7 +344,7 @@ def rezipSite(dir):
           fileToZip = os.path.join(root, name)
           zipFileName = fileToZip[len(siteDir)+1:]
           log.debug(formatFile.format(fileToZip, zipFileName))
-          if not zipFileName.endswith('.gz'):
+          if not zipFileName.endswith('pack.gz'):
             command.append(zipFileName)
             
       if log.debug:
@@ -409,8 +409,8 @@ def cleanup(signDir, deployDir, dirsToSave):
     for file in os.listdir(deployDir):
       pq.put(file)
   except OSError as e:
-    log.error("could not read files in " + dir);
-    raise e
+    log.warn("could not read files in " + deployDir);
+    
   dirsToDelete = pq.qsize()
   dirsToDelete -= dirsToSave + 1
   dirCount = 0
