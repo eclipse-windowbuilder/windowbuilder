@@ -45,7 +45,7 @@ def main():
   log.info("clear directory " + signDir)
   rmDirTree(signDir)
   log.info("Copy files from " + dropLocation + " to " + productDir)
-  copyFiles(dropLocation, productDir, None)
+  copyFiles(dropLocation, productDir, filesOnly)
   
   log.info("Move zip files from " + productDir + " to " + signDir)
   moveFiles(productDir, signDir, zipFilter)
@@ -101,6 +101,9 @@ def zipFilter(file):
 
 def zipOrMd5Filter(file):
   return file.endswith('.zip') or file.endswith('.MD5')
+
+def filesOnly(file):
+  return os.path.isfile(file)
 
 def processArgs():
   signDir = os.path.join(os.sep + "home", "data", "httpd", 
@@ -223,8 +226,9 @@ def copyFiles(fromDir, toDir, filter):
     raise OSError("no files to process")
   
   for file in files:
-    if (filter == None or filter(file)):
-      shutil.copy2(os.path.join(fromDir, file), toDir)
+    fullPath = os.path.join(fromDir, file)
+    if (filter == None or filter(fullPath)):
+      shutil.copy2(fullPath, toDir)
     
 def moveFiles(fromDir, toDir, filter):
   log.debug("moveFiles(" + fromDir + ", " + toDir)
@@ -238,8 +242,9 @@ def moveFiles(fromDir, toDir, filter):
     raise OSError("no files to process")
   
   for file in files:
-    if (filter == None or filter(file)):
-      shutil.move(os.path.join(fromDir, file), toDir)
+    fullPath = os.path.join(fromDir, file)
+    if (filter == None or filter(fullPath)):
+      shutil.move(fullPath, toDir)
     
 def signZipFiles(dir):
   log.debug("signFiles(" + dir + ")")
@@ -339,7 +344,8 @@ def rezipSite(dir):
           fileToZip = os.path.join(root, name)
           zipFileName = fileToZip[len(siteDir)+1:]
           log.debug(formatFile.format(fileToZip, zipFileName))
-          command.append(zipFileName)
+          if not zipFileName.endswith('.gz'):
+            command.append(zipFileName)
             
       if log.debug:
         data = "Command: "
