@@ -120,7 +120,7 @@ def processArgs():
   signDir = os.path.join(os.sep + "home", "data", "httpd", 
                          "download-staging.priv", "tools", "windowbuilder")
   deployDir = os.path.join(os.sep + 'home', 'data', 'httpd', 
-                           'download.eclipse.org', 'tools', 'windowbuilder')
+                           'download.eclipse.org', 'windowbuilder')
   usage = "usage: %prog [options] drop subproduct"
   parser = OptionParser(usage=usage)
   parser.set_defaults(debug=False)
@@ -166,6 +166,8 @@ def processArgs():
        
   dropLocation = args[0]
   subproduct = args[1]
+
+  deployDir = os.path.join(deployDir, subproduct);
   
   if dropLocation == None:
     log.error("you must specify a drop location")
@@ -359,6 +361,13 @@ def rezipSite(dir):
 def deployCode(fromDir, toDir):
   log.debug("in deployCode(" + fromDir + ", " + toDir+ ")")
   deployDir = toDir
+  try:
+    os.mkdir(deployDir)
+  except OSError as e:
+    if e.errno != 17:
+      log.error("failed to make directory " + str(deployDir));
+      raise e
+
   latestDir = os.path.join(deployDir, 'integration')
   d = datetime.today()
   nowString = d.strftime('%Y%m%d%H%M')
@@ -375,7 +384,7 @@ def deployCode(fromDir, toDir):
       os.mkdir(file)
     except OSError as e:
       if e.errno != 17:
-        log.error("failed to make directory " + dir);
+        log.error("failed to make directory " + str(file));
         raise e
 
     sourceFiles = glob.glob(os.path.join(fromDir, '*'))
