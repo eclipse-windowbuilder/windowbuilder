@@ -38,55 +38,66 @@ def main():
   doDeploy = data['dodeploy']
   deployDir = data['deploydir']
   dirs2save = data['dirstosave']
-  baseDir = initialize(subproduct)
   
+  baseDir = os.path.join(os.sep + "shared", "tools", "windowbuilder", "stage")
   productDir = os.path.join(baseDir, subproduct);
   
-  log.info("clear directory " + signDir)
-  rmDirTree(signDir)
-  log.info("Copy files from " + dropLocation + " to " + productDir)
-  copyFiles(dropLocation, productDir, filesOnly)
-  
-  log.info("Move zip files from " + productDir + " to " + signDir)
-  moveFiles(productDir, signDir, zipFilter)
-  
-  if optimizeSite:
-    log.info("Optimize Site")
-    optimizedDir = eclipse.optimizeSite(baseDir, signDir, eclipseVersion)
-    copyFiles(optimizedDir, signDir, None)
-    rmDirTree(optimizedDir)
-    os.rmdir(optimizedDir)
+  if not doDeploy:
+    log.info("Initialize " + signDir)
+
+    try:
+      os.mkdir(baseDir)
+    except OSError as e:
+      if e.errno != 17:
+        log.error("could not create " + baseDir)
+        raise e
+      
+    rmDirTree(signDir)
+    rmDirTree(baseDir)
+    os.mkdir(productDir)
     
-  if signFiles:
-    log.info("Sign files")
-    signedDir = signZipFiles(signDir)
-    copyFiles(signedDir, signDir, None)
-    rmDirTree(signedDir)
-    os.rmdir(signedDir)
+    log.info("Copy files from " + dropLocation + " to " + productDir)
+    copyFiles(dropLocation, productDir, filesOnly)
+    
+    log.info("Move zip files from " + productDir + " to " + signDir)
+    moveFiles(productDir, signDir, zipFilter)
+    
+    if optimizeSite:
+      log.info("Optimize Site")
+      optimizedDir = eclipse.optimizeSite(baseDir, signDir, eclipseVersion)
+      copyFiles(optimizedDir, signDir, None)
+      rmDirTree(optimizedDir)
+      os.rmdir(optimizedDir)
+      
+    if signFiles:
+      log.info("Sign files")
+      signedDir = signZipFiles(signDir)
+      copyFiles(signedDir, signDir, None)
+      rmDirTree(signedDir)
+      os.rmdir(signedDir)
+  
+    if packSite:
+      log.info("pack Site")
+      packDir = eclipse.packSite(baseDir, signDir, eclipseVersion)
+      copyFiles(packDir, signDir, None)
+      rmDirTree(packDir)
+      os.rmdir(packDir)
+    log.info("Move signed files from " + signDir + " to " + productDir)
+    moveFiles(signDir, productDir, None)
+    
+    log.info("Unzip the signed files")
+    unzipSites(productDir)
 
-  if packSite:
-    log.info("pack Site")
-    packDir = eclipse.packSite(baseDir, signDir, eclipseVersion)
-    copyFiles(packDir, signDir, None)
-    rmDirTree(packDir)
-    os.rmdir(packDir)
+    log.info("Generate Eclipse P2 Metadata")
+    eclipse.publishSite(baseDir, productDir, eclipseVersion)
   
-  log.info("Move signed files from " + signDir + " to " + productDir)
-  moveFiles(signDir, productDir, None)
-  
-  log.info("Unzip the signed files")
-  unzipSites(productDir)
-  
-  log.info("Generate Eclipse P2 Metadata")
-  eclipse.publishSite(baseDir, productDir, eclipseVersion)
-  
-  log.info("rezip Site")
-  rezipSite(productDir)
-  
-  log.info("update MD5 files")
-  util.updateMd5Hash(productDir)
-
-  if doDeploy:
+    log.info("rezip Site")
+    rezipSite(productDir)
+    
+    log.info("update MD5 files")
+    util.updateMd5Hash(productDir)
+  else:
+    log.info("doing deployment")
     log.info("deploy code")
     deployCode(productDir, deployDir)
 
@@ -180,22 +191,6 @@ def processArgs():
   log.debug("out of processArgs")
   return ret
 
-def initialize(subproduct):
-  log.debug("initialize")
-  baseDir = os.path.join(os.sep + "shared", "tools", "windowbuilder", "stage")
-  
-  WBDir = os.path.join(baseDir, subproduct)
-  rmDirTree(baseDir)
-  try:
-    os.mkdir(baseDir)
-  except OSError as e:
-    if e.errno != 17:
-      log.error("could not create " + baseDir)
-      raise e
-  
-  os.mkdir(WBDir)
-  return baseDir
-  
 def rmDirTree(top):
   # Delete everything reachable from the directory named in "top",
   # assuming there are no symbolic links.
@@ -364,7 +359,7 @@ def rezipSite(dir):
 def deployCode(fromDir, toDir):
   log.debug("in deployCode(" + fromDir + ", " + toDir+ ")")
   deployDir = toDir
-  latestDir = os.path.join(deployDir, 'latest')
+  latestDir = os.path.join(deployDir, 'integration')
   d = datetime.today()
   nowString = d.strftime('%Y%m%d%H%M')
   dateDir = os.path.join(deployDir, nowString)
