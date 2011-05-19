@@ -365,7 +365,7 @@ def deployCode(fromDir, toDir):
     os.mkdir(deployDir)
   except OSError as e:
     if e.errno != 17:
-      log.error("failed to make directory " + str(deployDir));
+      log.error("failed to make directory " + str(deployDir) + ": " + str(e));
       raise e
 
   latestDir = os.path.join(deployDir, 'integration')
@@ -384,7 +384,7 @@ def deployCode(fromDir, toDir):
       os.mkdir(file)
     except OSError as e:
       if e.errno != 17:
-        log.error("failed to make directory " + str(file));
+        log.error("failed to make directory " + str(file) + ": " + str(e));
         raise e
 
     sourceFiles = glob.glob(os.path.join(fromDir, '*'))
