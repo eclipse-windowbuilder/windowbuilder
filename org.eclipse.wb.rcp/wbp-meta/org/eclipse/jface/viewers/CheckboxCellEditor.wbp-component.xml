@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns="http://www.eclipse.org/wb/WBPComponent">
 	<model class="org.eclipse.wb.core.model.JavaInfo"/>
+    <!-- CONSTRUCTORS -->
+    <constructors>
+        <constructor>
+            <parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+            <parameter type="int" property="setStyle(int)" defaultSource="org.eclipse.swt.SWT.NONE">
+                <editor id="style">
+                    <parameter name="class">org.eclipse.swt.SWT</parameter>
+                    <parameter name="set">BORDER READ_ONLY WRAP H_SCROLL V_SCROLL PASSWORD CANCEL</parameter>
+                    <parameter name="select0">align LEFT LEFT CENTER RIGHT</parameter>
+                    <parameter name="select1">lines SINGLE SINGLE MULTI</parameter>
+                </editor>
+            </parameter>
+        </constructor>
+        <constructor>
+            <parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+        </constructor>
+    </constructors>
 </component>

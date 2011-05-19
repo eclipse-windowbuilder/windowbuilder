@@ -2,6 +2,15 @@
 <component xmlns="http://www.eclipse.org/wb/WBPComponent">
 	<toolkit id="org.eclipse.wb.rcp"/>
 	<model class="org.eclipse.wb.core.model.WrapperMethodInfo"/>
+	<!-- PROPERTIES -->
+	<property id="setStyle(int)">
+		<editor id="style">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="set">BORDER READ_ONLY WRAP H_SCROLL V_SCROLL PASSWORD CANCEL</parameter>
+			<parameter name="select0">align LEFT LEFT CENTER RIGHT</parameter>
+			<parameter name="select1">lines SINGLE SINGLE MULTI</parameter>
+		</editor>
+	</property>
 	<!-- PARAMETERS -->
 	<parameters>
 		<parameter name="Wrapper.method">getControl</parameter>
