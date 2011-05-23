@@ -146,7 +146,32 @@ public final class TestUtils {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final String EXTENSION_ID = "testExtension";
-  private static final String EXTENSION_QUALIFIER = "org.eclipse.wb.tests.";
+  private static Bundle m_contributionBundle;
+
+  /**
+   * @return the {@link Bundle} from which contribution is performed, not <code>null</code>.
+   */
+  private static Bundle getContributorBundle() {
+    if (m_contributionBundle != null) {
+      return m_contributionBundle;
+    }
+    return Activator.getDefault().getBundle();
+  }
+
+  /**
+   * Sets the {@link Bundle} from which contribution is performed, may be <code>null</code> to reset
+   * to the WindowBuilder bundle.
+   */
+  public static void setContributionBundle(Bundle contributionBundle) {
+    m_contributionBundle = contributionBundle;
+  }
+
+  /**
+   * @return the qualified exception id, i.e. contributor bundle plus simpel ID.
+   */
+  private static String getQualifiedExtensionId(String simpleId) {
+    return getContributorBundle().getSymbolicName() + "." + simpleId;
+  }
 
   /**
    * Adds dynamic extension.
@@ -199,7 +224,7 @@ public final class TestUtils {
     contribution = StringUtils.replace(contribution, "%extensionId%", extensionId);
     // add extension into registry
     {
-      Bundle bundle = Activator.getDefault().getBundle();
+      Bundle bundle = getContributorBundle();
       IContributor contributor = ContributorFactoryOSGi.createContributor(bundle);
       IExtensionRegistry registry = Platform.getExtensionRegistry();
       Object userToken = ((ExtensionRegistry) registry).getTemporaryUserToken();
@@ -214,7 +239,7 @@ public final class TestUtils {
     }
     // wait for added extension
     {
-      String qualifiedExtensionId = EXTENSION_QUALIFIER + extensionId;
+      String qualifiedExtensionId = getQualifiedExtensionId(extensionId);
       while (ExternalFactoriesHelper.getExtension(pointId, qualifiedExtensionId) == null) {
         waitEventLoop(1);
       }
@@ -251,7 +276,7 @@ public final class TestUtils {
    *          the (simple) id of extension to remove, for example <code>"myNature"</code>.
    */
   public static void removeDynamicExtension(String pointId, String extensionId) {
-    String qualifiedExtensionId = EXTENSION_QUALIFIER + extensionId;
+    String qualifiedExtensionId = getQualifiedExtensionId(extensionId);
     while (ExternalFactoriesHelper.getExtension(pointId, qualifiedExtensionId) != null) {
       doRemoveDynamicExtension(pointId, extensionId);
       waitEventLoop(1);
@@ -263,7 +288,7 @@ public final class TestUtils {
    */
   private static void doRemoveDynamicExtension(String pointId, String extensionId) {
     IExtensionRegistry registry = Platform.getExtensionRegistry();
-    IExtension extension = registry.getExtension(pointId, EXTENSION_QUALIFIER + extensionId);
+    IExtension extension = registry.getExtension(pointId, getQualifiedExtensionId(extensionId));
     // do remove
     Object userToken = ((ExtensionRegistry) registry).getTemporaryUserToken();
     registry.removeExtension(extension, userToken);
