@@ -35,6 +35,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JPopupMenu;
@@ -419,6 +420,25 @@ public class JPopupMenuTest extends SwingModelTest {
         "  private static void addPopup(Component component, JPopupMenu popup) {",
         "  }",
         "}");
+  }
+
+  /**
+   * Tests for popup menu to have a special popup menu tracking listener.
+   */
+  public void test_hasTrackingListener() throws Exception {
+    ContainerInfo panelInfo =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    JPopupMenu popup = new JPopupMenu();",
+            "    addPopup(this, popup);",
+            "  }",
+            "  private static void addPopup(Component component, JPopupMenu popup) {",
+            "  }",
+            "}");
+    panelInfo.refresh();
+    MouseListener[] mouseListeners = panelInfo.getComponent().getMouseListeners();
+    assertThat(mouseListeners).isNotEmpty();
   }
 
   ////////////////////////////////////////////////////////////////////////////

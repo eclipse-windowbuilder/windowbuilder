@@ -37,6 +37,8 @@ import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 import org.eclipse.swt.graphics.Image;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JMenu;
@@ -96,11 +98,19 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 
   @Override
   protected void refresh_afterCreate() throws Exception {
+    JPopupMenu menu = (JPopupMenu) getObject();
     // add text, if no "real" items
     {
-      JPopupMenu menu = (JPopupMenu) getObject();
       if (menu.getComponentCount() == 0) {
         menu.add(new JMenuItem(IMenuInfo.NO_ITEMS_TEXT));
+      }
+    }
+    // add a popup menu tracking listener to get the menu working in 'Test/Preview' mode. 
+    {
+      ComponentInfo parent = (ComponentInfo) getParent();
+      if (parent != null) {
+        Component parentComponent = parent.getComponent();
+        addPopup(parentComponent, menu);
       }
     }
     // continue
@@ -154,6 +164,36 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
       return adapter.cast(m_popupImpl);
     }
     return null;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Popup menu tracking 
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Adds a special popup tracking listener to get the menu working in 'Test/Preview' mode.
+   */
+  private static void addPopup(Component component, final JPopupMenu popup) {
+    component.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          showMenu(e);
+        }
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          showMenu(e);
+        }
+      }
+
+      private void showMenu(MouseEvent e) {
+        popup.show(e.getComponent(), e.getX(), e.getY());
+      }
+    });
   }
 
   ////////////////////////////////////////////////////////////////////////////
