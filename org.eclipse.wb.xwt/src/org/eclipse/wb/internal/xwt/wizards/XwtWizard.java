@@ -11,10 +11,12 @@
 package org.eclipse.wb.internal.xwt.wizards;
 
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
+import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
 import org.eclipse.wb.internal.rcp.wizards.RcpWizard;
 import org.eclipse.wb.internal.xwt.Activator;
 import org.eclipse.wb.internal.xwt.editor.XwtEditor;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.ui.JavaUI;
@@ -101,6 +103,31 @@ public abstract class XwtWizard extends RcpWizard {
       String jarName = copyJar(javaProject, name + "_0.9.1.SNAPSHOT.jar");
       String srcName = copyJar(javaProject, name + ".source_0.9.1.SNAPSHOT.jar");
       addLibrary(javaProject, jarName, srcName);
+    }
+    // bindings
+    addPlugin(javaProject, "org.eclipse.core.databinding.Binding", "org.eclipse.core.databinding");
+    addPlugin(
+        javaProject,
+        "org.eclipse.core.databinding.observable.IObservable",
+        "org.eclipse.core.databinding.observable");
+    addPlugin(
+        javaProject,
+        "org.eclipse.jface.databinding.swt.SWTObservables",
+        "org.eclipse.jface.databinding");
+  }
+
+  /**
+   * Ensures that plugin (or its libraries) are imported into given {@link IJavaProject}.
+   */
+  private void addPlugin(IJavaProject javaProject, String typeName, String pluginId)
+      throws Exception {
+    if (!ProjectUtils.hasType(javaProject, typeName)) {
+      IProject project = javaProject.getProject();
+      if (PdeUtils.hasPDENature(project)) {
+        PdeUtils.get(project).addPluginImport(pluginId);
+      } else {
+        ProjectUtils.addPluginLibraries(javaProject, pluginId);
+      }
     }
   }
 

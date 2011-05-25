@@ -111,6 +111,13 @@ public class ApplicationWizardTest extends XwtModelTest {
     assertTrue(ProjectUtils.hasType(m_javaProject, "org.eclipse.e4.xwt.XWT"));
     assertTrue(ProjectUtils.hasType(m_javaProject, "org.eclipse.e4.xwt.forms.XWTForms"));
     assertTrue(ProjectUtils.hasType(m_javaProject, "org.pushingpixels.trident.Timeline"));
+    assertTrue(ProjectUtils.hasType(m_javaProject, "org.eclipse.core.databinding.Binding"));
+    assertTrue(ProjectUtils.hasType(
+        m_javaProject,
+        "org.eclipse.core.databinding.observable.IObservable"));
+    assertTrue(ProjectUtils.hasType(
+        m_javaProject,
+        "org.eclipse.jface.databinding.swt.SWTObservables"));
   }
 
   ////////////////////////////////////////////////////////////////////////////
