@@ -47,7 +47,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
       IDesignCompositeProvider {
   private static final String CONTEXT_ID = "org.eclipse.wb.core.xml.editorScope";
   protected StructuredTextEditor m_xmlEditor;
-  private final SourcePage m_sourcePage = new SourcePage();
+  private SourcePage m_sourcePage = new SourcePage();
   private XmlDesignPage m_designPage;
   private final List<IXmlEditorPage> m_additionalPages = Lists.newArrayList();
   private IXmlEditorPage m_activePage = m_sourcePage;
@@ -60,11 +60,20 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void dispose() {
+    // dispose pages
     m_sourcePage.dispose();
     m_designPage.dispose();
     for (IXmlEditorPage page : m_additionalPages) {
       page.dispose();
     }
+    // clear page references (sometimes top level editor leaks)
+    {
+      m_activePage = null;
+      m_sourcePage = null;
+      m_designPage = null;
+      m_additionalPages.clear();
+    }
+    // continue
     super.dispose();
   }
 
