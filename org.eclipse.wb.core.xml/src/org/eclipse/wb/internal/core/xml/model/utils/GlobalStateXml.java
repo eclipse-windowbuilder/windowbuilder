@@ -71,6 +71,7 @@ public final class GlobalStateXml {
     } else {
       GlobalState.setToolkit(null);
       GlobalState.setClassLoader(null);
+      setEditorContext(null);
     }
     GlobalState.setParametersProvider(m_parametersProvider);
     GlobalState.setDescriptionHelper(m_descriptionHelper);
