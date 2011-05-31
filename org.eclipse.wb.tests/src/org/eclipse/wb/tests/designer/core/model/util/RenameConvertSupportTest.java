@@ -42,6 +42,15 @@ import java.util.List;
 public class RenameConvertSupportTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   //
+  // Exit zone :-) XXX
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void _test_exit() throws Exception {
+    System.exit(0);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
@@ -147,18 +156,43 @@ public class RenameConvertSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
+   * Open dialog using {@link RenameConvertSupport#rename(List)}.
+   */
+  public void test_animateUI_openDialog() throws Exception {
+    parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    final ComponentInfo button = getJavaInfoByName("button");
+    // animate
+    new UiContext().executeAndCheck(new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        RenameConvertSupport.rename(ImmutableList.of(button));
+      }
+    }, new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        context.useShell("Rename/convert");
+        context.clickButton("Cancel");
+      }
+    });
+  }
+
+  /**
    * Set new name.
    */
   public void test_animateUI_setName() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     // prepare action
     final IAction renameAction = getRenameAction(button);
     assertNotNull(renameAction);
@@ -194,15 +228,14 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Convert local -> field.
    */
   public void test_animateUI_toField() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     // prepare action
     final IAction renameAction = getRenameAction(button);
     assertNotNull(renameAction);
@@ -239,21 +272,20 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Set new name.
    */
   public void test_animateUI_setName_lazy() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button;",
-            "  public Test() {",
-            "    add(getButton());",
-            "  }",
-            "  private JButton getButton() {",
-            "    if (button == null) {",
-            "      button = new JButton();",
-            "    }",
-            "    return button;",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button;",
+        "  public Test() {",
+        "    add(getButton());",
+        "  }",
+        "  private JButton getButton() {",
+        "    if (button == null) {",
+        "      button = new JButton();",
+        "    }",
+        "    return button;",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     // prepare action
     final IAction renameAction = getRenameAction(button);
     assertNotNull(renameAction);
@@ -348,15 +380,14 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Set new name, single component.
    */
   public void test_commands_setName_single() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // set new name
     Object command = getCommand(support, button);
@@ -376,17 +407,16 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Set new name, auto-generate unique.
    */
   public void test_commands_setName_autoUnique() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int myButton;",
-            "    //",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int myButton;",
+        "    //",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // set new name
     Object command = getCommand(support, button);
@@ -408,15 +438,14 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Convert local -> field.
    */
   public void test_commands_toField() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // convert to field
     Object command = getCommand(support, button);
@@ -437,16 +466,15 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Convert field -> local.
    */
   public void test_commands_toLocal() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button;",
-            "  public Test() {",
-            "    button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button;",
+        "  public Test() {",
+        "    button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // convert to local
     Object command = getCommand(support, button);
@@ -466,16 +494,15 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Conversion local -> field -> local is ignored.
    */
   public void test_commands_toField_toLocal() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     String initialSource = m_lastEditor.getSource();
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // convert
     Object command = getCommand(support, button);
@@ -490,17 +517,16 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Conversion field -> local -> field is ignored.
    */
   public void test_commands_toLocal_toField() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button;",
-            "  public Test() {",
-            "    button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button;",
+        "  public Test() {",
+        "    button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     String initialSource = m_lastEditor.getSource();
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // convert
     Object command = getCommand(support, button);
@@ -520,15 +546,14 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * No commands -> all OK.
    */
   public void test_validate_OK() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // no any command, so OK
     assertNull(validateCommands(support));
@@ -538,15 +563,14 @@ public class RenameConvertSupportTest extends SwingModelTest {
    * Attempt to set invalid identifier.
    */
   public void test_validate_invalidIdentifier() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     RenameConvertSupport support = getRenameSupport(button);
     // add command
     Object command = getCommand(support, button);
