@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: WindowBuilder Discovery UI
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.discovery.ui;singleton:=true
 Bundle-Version: 0.0.0.qualifier
 Bundle-Activator: org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin
+Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wb.discovery.core,

@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: WindowBuilder Discovery Core
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.discovery.core;singleton:=true
 Bundle-Version: 0.0.0.qualifier
 Bundle-Activator: org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin
+Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.equinox.p2.core,
