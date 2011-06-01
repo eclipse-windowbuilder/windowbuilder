@@ -43,6 +43,7 @@ public class WBToolkit {
   private URL parentPath;
   private String iconPath;
   private String updateSite;
+  private String auxiliaryUpdateSite;
   private List<WBToolkitFeature> features = new ArrayList<WBToolkitFeature>();
   private String providerName;
   private String licenseDescription;
@@ -183,7 +184,7 @@ public class WBToolkit {
   protected void setUpdateSite(String updateSite) {
     this.updateSite = updateSite;
   }
-
+  
   /**
    * @return the update site URI
    */
@@ -198,6 +199,37 @@ public class WBToolkit {
     }
   }
 
+  /**
+   * @return get the update site URL
+   */
+  public String getAuxiliaryUpdateSite() {
+    return auxiliaryUpdateSite;
+  }
+
+  /**
+   * Set the update set URL.
+   * 
+   * @param updateSite
+   *          the update site
+   */
+  protected void setAuxiliaryUpdateSite(String updateSite) {
+    this.auxiliaryUpdateSite = updateSite;
+  }
+  
+  /**
+   * @return the update site URI
+   */
+  public URI getAuxiliaryUpdateSiteURI() {
+    try {
+    	if (getAuxiliaryUpdateSite() == null) {
+        return null;
+      }
+      return new URI(getAuxiliaryUpdateSite());
+    } catch (URISyntaxException e) {
+      return null;
+    }
+  }
+  
   /**
    * @return the list of features necessary to install this toolkit
    */

@@ -263,6 +263,7 @@ public class WBToolkitRegistry {
         Element element = (Element) node;
         if (isInCurrentVersionRange(getAttributeText(element, "version"))) {
           entry.setUpdateSite(getAttributeText(element, "url"));
+          entry.setAuxiliaryUpdateSite(getAttributeText(element, "auxurl"));
           NodeList features = element.getElementsByTagName("feature");
           for (int j = 0; j < features.getLength(); j++) {
             Node featureNode = features.item(j);

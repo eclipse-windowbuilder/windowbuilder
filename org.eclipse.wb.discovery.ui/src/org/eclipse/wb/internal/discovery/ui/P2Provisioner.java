@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.discovery.ui;
 
-import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
-import org.eclipse.wb.internal.discovery.core.WBToolkit;
-import org.eclipse.wb.internal.discovery.core.WBToolkitFeature;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -36,13 +37,10 @@ import org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob;
 import org.eclipse.equinox.p2.ui.ProvisioningUI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
-
+import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
+import org.eclipse.wb.internal.discovery.core.WBToolkit;
+import org.eclipse.wb.internal.discovery.core.WBToolkitFeature;
 import org.osgi.framework.ServiceReference;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * A utility class to help manage P2.
@@ -137,9 +135,21 @@ class P2Provisioner {
 
   private URI[] getRepositories() {
     List<URI> uris = new ArrayList<URI>();
+    
     for (WBToolkit toolkit : toolkits) {
-      uris.add(toolkit.getUpdateSiteURI());
+      URI uri = toolkit.getUpdateSiteURI();
+      
+      if (uri != null) {
+      	uris.add(uri);
+      }
+      
+      uri = toolkit.getAuxiliaryUpdateSiteURI();
+      
+      if (uri != null) {
+      	uris.add(uri);
+      }
     }
+    
     return uris.toArray(new URI[uris.size()]);
   }
 
@@ -160,11 +170,23 @@ class P2Provisioner {
           (IMetadataRepositoryManager) agent.getService(IMetadataRepositoryManager.SERVICE_NAME);
       IArtifactRepositoryManager artifactManager =
           (IArtifactRepositoryManager) agent.getService(IArtifactRepositoryManager.SERVICE_NAME);
+      
+      URI auxiliaryUpdateUrl = toolkit.getAuxiliaryUpdateSiteURI();
+      
+      if (auxiliaryUpdateUrl != null) {
+	    manager.addRepository(auxiliaryUpdateUrl);
+	    artifactManager.addRepository(auxiliaryUpdateUrl);
+	      
+	    // Load and query the metadata.
+	    manager.loadRepository(auxiliaryUpdateUrl, monitor.newChild(25));
+      }
+      
       manager.addRepository(updateSiteURI);
       artifactManager.addRepository(updateSiteURI);
-      // Load and query the metadata.
+      
       IMetadataRepository metadataRepo =
-          manager.loadRepository(updateSiteURI, monitor.newChild(50));
+          manager.loadRepository(updateSiteURI, monitor.newChild(25));
+      
       for (WBToolkitFeature feature : toolkit.getFeatures()) {
         // ??? necessary magic
         String featureId = feature.getFeatureId() + ".feature.group";
@@ -175,6 +197,7 @@ class P2Provisioner {
         units.addAll(featureResults);
       }
     }
+    
     return units;
   }
 

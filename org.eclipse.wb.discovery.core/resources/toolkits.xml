@@ -108,13 +108,15 @@
 		
 		<description>The Google Plugin for Eclipse provides support for building projects with the Google Web Toolkit and Google APIs, as well as integration with Google Project Hosting and App Engine.</description>
     
-		<updateSite version="[3.6,3.7)" url="http://dl.google.com/eclipse/plugin/3.6">
+		<updateSite version="[3.6,3.7)" url="http://dl.google.com/eclipse/plugin/3.6"
+		    auxurl="http://download.eclipse.org/releases/helios">
             <feature id="com.google.gdt.eclipse.suite.e36.feature"/>
             <feature id="com.google.gwt.eclipse.sdkbundle.e36.feature" optional="true"/>
             <feature id="com.google.appengine.eclipse.sdkbundle.e36.feature" optional="true"/>
 		</updateSite>
 		
-		<updateSite version="[3.7,3.8)" url="http://dl.google.com/eclipse/plugin/3.7">
+		<updateSite version="[3.7,3.8)" url="http://dl.google.com/eclipse/plugin/3.7"
+		    auxurl="http://download.eclipse.org/releases/indigo">
             <feature id="com.google.gdt.eclipse.suite.e37.feature"/>
             <feature id="com.google.gwt.eclipse.sdkbundle.e37.feature" optional="true"/>
             <feature id="com.google.appengine.eclipse.sdkbundle.e37.feature" optional="true"/>
