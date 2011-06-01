@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.discovery.ui.util.BorderPainter;
 import org.eclipse.wb.internal.discovery.ui.util.ProgressBarMonitor;
 import org.eclipse.wb.internal.discovery.ui.wizard.DynamicRegistryHelper;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.equinox.p2.core.ProvisionException;
 import org.eclipse.jface.dialogs.Dialog;
@@ -276,14 +277,19 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
         toolkits.add(control.getToolkit());
       }
     }
+    
+    IProgressMonitor monitor = new ProgressBarMonitor(progressBar);
+    
     try {
-      WBDiscoveryUiPlugin.getPlugin().installToolkits(toolkits, new ProgressBarMonitor(progressBar));
+      WBDiscoveryUiPlugin.getPlugin().installToolkits(toolkits, monitor);
       closePreferencesDialog();
     } catch (ProvisionException e) {
+      monitor.done();
+      
       MessageDialog.openError(
           getShell(),
           Messages.ToolkitsPreferencePage_errorInstalling,
-          e.getCause().getMessage());
+          e.getMessage());
     } catch (OperationCanceledException e) {
       // ignore
     }
@@ -297,12 +303,16 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
         toolkits.add(control.getToolkit());
       }
     }
+    
+    IProgressMonitor monitor = new ProgressBarMonitor(progressBar);
+    
     try {
       WBDiscoveryUiPlugin.getPlugin().uninstallToolkits(
-          toolkits,
-          new ProgressBarMonitor(progressBar));
+          toolkits, monitor);
       closePreferencesDialog();
     } catch (ProvisionException e) {
+      monitor.done();
+        
       MessageDialog.openError(
           getShell(),
           Messages.ToolkitsPreferencePage_errorUninstalling,
