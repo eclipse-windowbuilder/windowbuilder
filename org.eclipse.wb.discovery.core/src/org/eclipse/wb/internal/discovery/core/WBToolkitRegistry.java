@@ -228,6 +228,7 @@ public class WBToolkitRegistry {
       Node node = nodeList.item(s);
       if (node.getNodeType() == Node.ELEMENT_NODE) {
         Element element = (Element) node;
+        
         WBToolkit entry = new WBToolkit();
         entry.setId(getAttributeText(element, "id"));
         entry.setName(getAttributeText(element, "name"));
@@ -238,7 +239,11 @@ public class WBToolkitRegistry {
         parseUpdateSiteInfo(element.getElementsByTagName("updateSite"), entry);
         entry.setProviderName(getAttributeText(element, "providerName"));
         entry.setMoreInfoURL(getAttributeText(element, "moreInfoURL"));
-        results.add(entry);
+        
+        // Check to make sure that this toolkit is valid for this configuration of Eclipse.
+        if (entry.getUpdateSite() != null) {
+        	results.add(entry);
+        }
       }
     }
     return results;
