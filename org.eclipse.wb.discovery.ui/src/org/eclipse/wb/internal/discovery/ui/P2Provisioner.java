@@ -174,11 +174,11 @@ class P2Provisioner {
       URI auxiliaryUpdateUrl = toolkit.getAuxiliaryUpdateSiteURI();
       
       if (auxiliaryUpdateUrl != null) {
-	    manager.addRepository(auxiliaryUpdateUrl);
-	    artifactManager.addRepository(auxiliaryUpdateUrl);
+        manager.addRepository(auxiliaryUpdateUrl);
+        artifactManager.addRepository(auxiliaryUpdateUrl);
 	      
-	    // Load and query the metadata.
-	    manager.loadRepository(auxiliaryUpdateUrl, monitor.newChild(25));
+        // Load and query the metadata.
+        manager.loadRepository(auxiliaryUpdateUrl, monitor.newChild(25));
       }
       
       manager.addRepository(updateSiteURI);
