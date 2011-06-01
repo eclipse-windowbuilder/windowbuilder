@@ -403,20 +403,20 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     monitor.worked(1);
     // do parse
     {
-      long start = System.currentTimeMillis();
+      //long start = System.currentTimeMillis();
       monitor.subTask(Messages.XmlDesignPage_progressParsing);
-      System.out.print("Parsing...");
+      //System.out.print("Parsing...");
       parse();
       monitor.worked(1);
-      System.out.println("done: " + (System.currentTimeMillis() - start));
+      //System.out.println("done: " + (System.currentTimeMillis() - start));
     }
     // refresh model (create GUI)
     {
-      long start = System.currentTimeMillis();
+      //long start = System.currentTimeMillis();
       monitor.subTask(Messages.XmlDesignPage_progressRefreshing);
       m_rootObject.refresh();
       monitor.worked(1);
-      System.out.println("refresh: " + (System.currentTimeMillis() - start));
+      //System.out.println("refresh: " + (System.currentTimeMillis() - start));
     }
     // site
     installDesignPageSite();

@@ -506,12 +506,12 @@ public final class DesignPage implements IDesignPage {
     }
     // do parse
     try {
-      long start = System.currentTimeMillis();
+      //long start = System.currentTimeMillis();
       monitor.subTask("Parsing...");
-      System.out.print("Parsing...");
+      //System.out.print("Parsing...");
       m_rootObject = JavaInfoParser.parse(m_compilationUnit);
       monitor.worked(1);
-      System.out.println("done: " + (System.currentTimeMillis() - start));
+      //System.out.println("done: " + (System.currentTimeMillis() - start));
     } finally {
       // notify parseEnd()
       for (EditorLifeCycleListener listener : getLifeCycleListeners()) {
@@ -553,11 +553,11 @@ public final class DesignPage implements IDesignPage {
     schedule_rememberDependency();
     // refresh model (create GUI)
     {
-      long start = System.currentTimeMillis();
+      //long start = System.currentTimeMillis();
       monitor.subTask("Refreshing...");
       m_rootObject.refresh();
       monitor.worked(1);
-      System.out.println("refresh: " + (System.currentTimeMillis() - start));
+      //System.out.println("refresh: " + (System.currentTimeMillis() - start));
     }
     // refresh design
     m_designComposite.refresh(m_rootObject, monitor);

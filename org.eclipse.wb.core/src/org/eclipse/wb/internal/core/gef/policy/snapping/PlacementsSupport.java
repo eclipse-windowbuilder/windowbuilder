@@ -435,7 +435,7 @@ public final class PlacementsSupport {
       }
     } else {
       // overlapping
-      System.out.println("move overlapping");
+      //System.out.println("move overlapping");
     }
   }
 
@@ -651,7 +651,7 @@ public final class PlacementsSupport {
       }
     } else {
       // overlapping
-      System.out.println("resize overlapping");
+      //System.out.println("resize overlapping");
     }
   }
 

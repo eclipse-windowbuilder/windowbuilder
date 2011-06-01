@@ -122,14 +122,14 @@ public class XmlDesignComposite extends DesignComposite {
       m_componentsComposite.setInput(m_viewer, m_rootObject);
     }
     {
-      long start = System.currentTimeMillis();
+      //long start = System.currentTimeMillis();
       monitor.subTask(Messages.XmlDesignComposite_statucPalette);
       monitor.worked(1);
       {
         String toolkitId = m_rootObject.getDescription().getToolkit().getId();
         m_designerPalette.setInput(m_viewer, m_rootObject, toolkitId);
       }
-      System.out.println("palette: " + (System.currentTimeMillis() - start));
+      //System.out.println("palette: " + (System.currentTimeMillis() - start));
     }
     /*{
     	monitor.subTask("Configuring errors action...");
