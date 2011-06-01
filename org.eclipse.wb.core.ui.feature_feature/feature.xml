@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.core.ui.feature"
       label="%featureName"
-      version="0.9.0"
+      version="1.0.0"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
