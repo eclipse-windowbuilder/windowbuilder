@@ -124,14 +124,13 @@ public class WBToolkit {
       return null;
     } else {
       try {
-        URI parentURI = parentPath.toURI();
-        URI uri = parentURI.resolve(iconPath);
-        if (uri == null) {
-          return null;
-        }
-        return uri.toURL();
-      } catch (URISyntaxException e) {
-        return null;
+    	String urlString = parentPath.toString();
+    	if (!urlString.endsWith("/")) {
+    		urlString = urlString.substring(0, urlString.length());
+    	}
+    	int index = urlString.lastIndexOf('/');
+    	urlString = urlString.substring(0, index);
+    	return new URL(urlString + "/" + iconPath);
       } catch (MalformedURLException e) {
         return null;
       }
