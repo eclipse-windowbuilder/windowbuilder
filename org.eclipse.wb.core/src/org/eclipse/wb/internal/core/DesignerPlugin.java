@@ -36,7 +36,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scrollable;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -52,7 +51,7 @@ import java.io.InputStream;
  * @author scheglov_ke
  * @coverage core
  */
-public class DesignerPlugin extends AbstractUIPlugin implements IStartup {
+public class DesignerPlugin extends AbstractUIPlugin {
   public static final String PLUGIN_ID = "org.eclipse.wb.core";
   private static DesignerPlugin m_plugin;
 
@@ -457,7 +456,17 @@ public class DesignerPlugin extends AbstractUIPlugin implements IStartup {
   // Early start up
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void earlyStartup() {
+  private static boolean m_cachesLoaded = false;
+
+  /**
+   * This is fast method which scheduled jobs for pre-loading caches. If jobs where already
+   * scheduled in this Eclipse session, second and following invocations are ignored.
+   */
+  public static synchronized void scheduleCachesLoading() {
+    if (m_cachesLoaded) {
+      return;
+    }
+    m_cachesLoaded = true;
     // pre-load palette
     if (System.getProperty(DesignerPalette.FLAG_NO_PALETTE) == null) {
       ExecutionUtils.runLog(new RunnableEx() {

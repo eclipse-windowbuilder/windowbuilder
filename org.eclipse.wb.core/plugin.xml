@@ -488,9 +488,4 @@
 		<provider
 			class="org.eclipse.wb.internal.core.editor.errors.report2.logs.LogsReportEntriesProvider"/>
 	</extension>
-
-	<!-- ======================================================== -->
-	<!-- Early startup -->
-	<!-- ======================================================== -->
-	<extension point="org.eclipse.ui.startup"/>
 </plugin>

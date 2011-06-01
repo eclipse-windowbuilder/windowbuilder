@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.ui.TabFolderDecorator;
 import org.eclipse.wb.internal.core.views.IDesignCompositeProvider;
+import org.eclipse.wb.internal.core.xml.Activator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -52,6 +53,15 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   private final List<IXmlEditorPage> m_additionalPages = Lists.newArrayList();
   private IXmlEditorPage m_activePage = m_sourcePage;
   private String m_cleanSource;
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Constructor
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public AbstractXmlEditor() {
+    Activator.scheduleCachesLoading();
+  }
 
   ////////////////////////////////////////////////////////////////////////////
   //

@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.xml.model.description.ComponentPresentationH
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.IStartup;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import org.osgi.framework.BundleContext;
@@ -33,7 +32,7 @@ import java.io.InputStream;
  * @author scheglov_ke
  * @coverage XML
  */
-public class Activator extends AbstractUIPlugin implements IStartup {
+public class Activator extends AbstractUIPlugin {
   public static final String PLUGIN_ID = "org.eclipse.wb.core.xml";
   private static Activator m_plugin;
 
@@ -95,7 +94,17 @@ public class Activator extends AbstractUIPlugin implements IStartup {
   // Early start up
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void earlyStartup() {
+  private static boolean m_cachesLoaded = false;
+
+  /**
+   * This is fast method which scheduled jobs for pre-loading caches. If jobs where already
+   * scheduled in this Eclipse session, second and following invocations are ignored.
+   */
+  public static synchronized void scheduleCachesLoading() {
+    if (m_cachesLoaded) {
+      return;
+    }
+    m_cachesLoaded = true;
     // pre-load palette
     if (System.getProperty(DesignerPalette.FLAG_NO_PALETTE) == null) {
       ExecutionUtils.runLog(new RunnableEx() {
