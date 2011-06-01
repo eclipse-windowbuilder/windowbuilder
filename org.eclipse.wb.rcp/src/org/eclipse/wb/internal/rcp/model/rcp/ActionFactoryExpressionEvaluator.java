@@ -37,7 +37,6 @@ public class ActionFactoryExpressionEvaluator implements IExpressionEvaluator {
       QualifiedName qualifiedName = (QualifiedName) expression;
       if (AstNodeUtils.getFullyQualifiedName(qualifiedName.getQualifier(), false).equals(
           "org.eclipse.ui.actions.ActionFactory")) {
-        System.out.println("action: " + expression);
       }
     }
     // we don't understand given expression

@@ -24,6 +24,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo.AttachmentTypes;
+import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
@@ -347,11 +348,6 @@ public final class PlacementsSupport {
                 - widgetsWidth.end();
       }
     }
-    //		System.out.println((isHorizontal ? "H" : "V")
-    //			+ ": "
-    //			+ distances[direction]
-    //			+ " --> "
-    //			+ neighbors[direction]);
   }
 
   private void setAttachmentType(PlacementInfo placement, SnapPoint snapPoint) {
@@ -435,7 +431,7 @@ public final class PlacementsSupport {
       }
     } else {
       // overlapping
-      //System.out.println("move overlapping");
+      Debug.println("move overlapping");
     }
   }
 
@@ -651,7 +647,7 @@ public final class PlacementsSupport {
       }
     } else {
       // overlapping
-      //System.out.println("resize overlapping");
+      Debug.println("resize overlapping");
     }
   }
 

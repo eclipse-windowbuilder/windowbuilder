@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
 import org.eclipse.wb.core.branding.BrandingUtils;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.platform.PlatformInfo;
@@ -218,7 +219,7 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
         try {
           new Browser(shell, SWT.NONE);
         } catch (Throwable e) {
-          System.out.println(e.getMessage());
+          DesignerPlugin.log(e);
         }
         return baos.toString();
       } catch (Throwable e1) {

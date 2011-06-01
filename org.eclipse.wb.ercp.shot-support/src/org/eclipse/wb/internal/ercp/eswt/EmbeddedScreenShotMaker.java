@@ -65,7 +65,6 @@ public class EmbeddedScreenShotMaker {
   public static void makeShots(Control control) {
     Shell shell = control.getShell();
     // if shell has no layout call layout manually
-    //System.out.println("shell.getLayout(): " + shell.getLayout() + "   " + control);
     if (shell.getLayout() == null) {
       Control[] children = shell.getChildren();
       for (int i = 0; i < children.length; i++) {

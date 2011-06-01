@@ -70,7 +70,6 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
       int gap) {
     String a = FormLayoutUtils.getAlignmentSource(FormLayoutUtils.convertGefSide(sourceSide));
     String b = FormLayoutUtils.getAlignmentSource(FormLayoutUtils.convertGefSide(targetSide));
-    //System.out.println("Component: " + a + " -> " + b);
   }
 
   public void command_moveToPercent(List<? extends IAbstractComponentInfo> workingSet,
@@ -79,7 +78,6 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
       int percent,
       int gap) {
     String a = FormLayoutUtils.getAlignmentSource(FormLayoutUtils.convertGefSide(sourceSide));
-    //System.out.println("Percent: " + percent + " @ " + a);
   }
 
   /**

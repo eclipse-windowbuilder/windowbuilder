@@ -31,7 +31,6 @@ public final class PerspectiveShortcutContainerEditPart extends AbstractShortcut
   public PerspectiveShortcutContainerEditPart(PerspectiveShortcutContainerInfo container) {
     super(container);
     m_container = container;
-    System.out.println("Per");
   }
 
   ////////////////////////////////////////////////////////////////////////////

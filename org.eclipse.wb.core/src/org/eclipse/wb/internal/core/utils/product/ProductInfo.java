@@ -90,7 +90,6 @@ public final class ProductInfo {
     try {
       isEclipseRunning = Platform.isRunning();
     } catch (NoClassDefFoundError e) {
-      System.out.println(e);
       version = Version.emptyVersion;
       return version;
     }
@@ -124,7 +123,6 @@ public final class ProductInfo {
     try {
       isEclipseRunning = Platform.isRunning();
     } catch (NoClassDefFoundError e) {
-      System.out.println(e);
       build = UNKNOWN_BUILD;
       return build;
     }

@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.DesignComposite;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.structure.PartListenerAdapter;
+import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -403,20 +404,20 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     monitor.worked(1);
     // do parse
     {
-      //long start = System.currentTimeMillis();
+      long start = System.currentTimeMillis();
       monitor.subTask(Messages.XmlDesignPage_progressParsing);
-      //System.out.print("Parsing...");
+      Debug.print("Parsing...");
       parse();
       monitor.worked(1);
-      //System.out.println("done: " + (System.currentTimeMillis() - start));
+      Debug.println("done: " + (System.currentTimeMillis() - start));
     }
     // refresh model (create GUI)
     {
-      //long start = System.currentTimeMillis();
+      long start = System.currentTimeMillis();
       monitor.subTask(Messages.XmlDesignPage_progressRefreshing);
       m_rootObject.refresh();
       monitor.worked(1);
-      //System.out.println("refresh: " + (System.currentTimeMillis() - start));
+      Debug.println("refresh: " + (System.currentTimeMillis() - start));
     }
     // site
     installDesignPageSite();

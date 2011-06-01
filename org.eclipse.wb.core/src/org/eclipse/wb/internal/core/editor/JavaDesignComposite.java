@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.editor.actions.SelectSupport;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
 import org.eclipse.wb.internal.core.model.DesignRootObject;
+import org.eclipse.wb.internal.core.utils.Debug;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
@@ -137,14 +138,14 @@ public final class JavaDesignComposite extends DesignComposite {
       m_componentsComposite.setInput(m_viewer, m_rootObject);
     }
     {
-      //long start = System.currentTimeMillis();
+      long start = System.currentTimeMillis();
       monitor.subTask("Loading palette...");
       monitor.worked(1);
       {
         String toolkitId = m_rootObject.getDescription().getToolkit().getId();
         m_designerPalette.setInput(m_viewer, m_rootObject, toolkitId);
       }
-      //System.out.println("palette: " + (System.currentTimeMillis() - start));
+      Debug.println("palette: " + (System.currentTimeMillis() - start));
     }
     {
       monitor.subTask("Configuring errors action...");

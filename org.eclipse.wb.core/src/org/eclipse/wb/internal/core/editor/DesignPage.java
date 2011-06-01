@@ -34,6 +34,7 @@ import org.eclipse.wb.internal.core.editor.structure.PartListenerAdapter;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
 import org.eclipse.wb.internal.core.parser.JavaInfoParser;
+import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
 import org.eclipse.wb.internal.core.utils.exception.NoEntryPointError;
@@ -506,12 +507,12 @@ public final class DesignPage implements IDesignPage {
     }
     // do parse
     try {
-      //long start = System.currentTimeMillis();
+      long start = System.currentTimeMillis();
       monitor.subTask("Parsing...");
-      //System.out.print("Parsing...");
+      Debug.print("Parsing...");
       m_rootObject = JavaInfoParser.parse(m_compilationUnit);
       monitor.worked(1);
-      //System.out.println("done: " + (System.currentTimeMillis() - start));
+      Debug.println("done: " + (System.currentTimeMillis() - start));
     } finally {
       // notify parseEnd()
       for (EditorLifeCycleListener listener : getLifeCycleListeners()) {
@@ -553,11 +554,11 @@ public final class DesignPage implements IDesignPage {
     schedule_rememberDependency();
     // refresh model (create GUI)
     {
-      //long start = System.currentTimeMillis();
+      long start = System.currentTimeMillis();
       monitor.subTask("Refreshing...");
       m_rootObject.refresh();
       monitor.worked(1);
-      //System.out.println("refresh: " + (System.currentTimeMillis() - start));
+      Debug.println("refresh: " + (System.currentTimeMillis() - start));
     }
     // refresh design
     m_designComposite.refresh(m_rootObject, monitor);

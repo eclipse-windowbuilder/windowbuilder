@@ -82,7 +82,6 @@ public class CarbonBaseline extends Baseline {
    short[] baseline = new short[1];
    OS.GetThemeTextDimensions(cfString, defaultThemeFont, OS.kThemeStateActive, false, ioBounds, baseline);
    if (baseline[0] != 0) {
-   System.out.println("baseline = " + baseline[0]);
    return baseline[0];
    }
    } finally {

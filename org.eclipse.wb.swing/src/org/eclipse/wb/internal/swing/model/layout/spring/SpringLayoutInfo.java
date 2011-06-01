@@ -81,7 +81,6 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
   //
   ////////////////////////////////////////////////////////////////////////////
   public void detach(IAbstractComponentInfo widget, int side) throws Exception {
-    //System.out.println("detach: " + side);
     SpringAttachmentInfo attachment = getAttachment(widget, side);
     attachment.delete();
   }
@@ -97,7 +96,6 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 
   public void adjustAttachmentOffset(IAbstractComponentInfo widget, int side, int delta)
       throws Exception {
-    //System.out.println("adjustAttachmentOffset " + side + " " + delta);
     SpringAttachmentInfo attachment = getAttachment(widget, side);
     int oldOffset = attachment.getOffset();
     int newOffset = oldOffset + delta;
@@ -164,7 +162,6 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
       int attachedSide,
       int draggingSide,
       int resizeDelta) throws Exception {
-    //System.out.println("setExplicitSize " + attachedSide + " " + draggingSide + " " + resizeDelta);
     Rectangle modelBounds = widget.getModelBounds();
     Dimension oldSize = modelBounds != null ? modelBounds.getSize() : widget.getPreferredSize();
     //
@@ -292,13 +289,11 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
   ////////////////////////////////////////////////////////////////////////////
   public final void command_CREATE(ComponentInfo component, ComponentInfo nextComponent)
       throws Exception {
-    //System.out.println("command_CREATE");
     add(component, null, nextComponent);
   }
 
   public final void command_ADD(ComponentInfo component, ComponentInfo nextComponent)
       throws Exception {
-    //System.out.println("command_ADD");
     move(component, null, nextComponent);
   }
 

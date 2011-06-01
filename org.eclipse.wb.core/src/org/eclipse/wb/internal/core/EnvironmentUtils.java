@@ -37,13 +37,10 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
     String host = HOST_NAME.toUpperCase();
     DEVELOPER_HOST =
         "SCHEGLOV-KE".equals(host)
-            || "KOSTA-HOME".equals(host)
-            || "SCHEGLOV".equals(host)
             || "SCHEGLOV-MACPRO".equals(host)
             || "SCHEGLOV-WIN".equals(host)
             || "MITIN-AA".equals(host)
             || "MITIN-AA-MAC".equals(host)
-            || "LOBAS-AV".equals(host)
             || "SABLIN-AA".equals(host)
             || "FLANKER-WINDOWS".equals(host);
   }

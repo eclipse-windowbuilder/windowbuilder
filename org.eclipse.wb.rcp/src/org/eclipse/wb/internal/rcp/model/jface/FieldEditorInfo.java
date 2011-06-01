@@ -90,7 +90,6 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
         if (node == getCreationSupport().getNode()) {
           m_beforeControls.clear();
           appendControls(getShell(), m_beforeControls);
-          //System.out.println(this + "\n\tB: " + m_beforeControls.size() + " " + m_beforeControls);
         }
       }
 
@@ -102,7 +101,6 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
           if (node == creationStatement) {
             appendControls(getShell(), m_controls);
             m_controls.removeAll(m_beforeControls);
-            //System.out.println(this + "\n\tA: " + m_controls.size() + " " + m_controls);
           }
         }
       }

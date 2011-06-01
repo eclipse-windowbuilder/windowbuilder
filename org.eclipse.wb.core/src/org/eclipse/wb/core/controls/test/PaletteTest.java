@@ -285,7 +285,6 @@ public class PaletteTest implements IColorConstants {
     //
     ////////////////////////////////////////////////////////////////////////////
     public boolean activate(boolean reload) {
-      System.out.println("activate: " + this);
       return true;
     }
   }
