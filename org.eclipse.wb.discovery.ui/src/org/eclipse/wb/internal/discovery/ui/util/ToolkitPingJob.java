@@ -42,17 +42,20 @@ public class ToolkitPingJob extends Job {
     for (WBToolkit toolkit : toolkits) {
       try {
         String updateSite = toolkit.getUpdateSite();
-        if (!updateSite.endsWith("/")) {
-          updateSite += "/";
+        
+        if (updateSite != null) {
+          if (!updateSite.endsWith("/")) {
+            updateSite += "/";
+          }
+          updateSite += "site.xml";
+          URL url = new URL(updateSite);
+          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+          connection.setRequestMethod("HEAD");
+          connection.setRequestProperty("User-Agent", USER_AGENT);
+          @SuppressWarnings("unused")
+          int responseCode = connection.getResponseCode();
+          connection.disconnect();
         }
-        updateSite += "site.xml";
-        URL url = new URL(updateSite);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("HEAD");
-        connection.setRequestProperty("User-Agent", USER_AGENT);
-        @SuppressWarnings("unused")
-        int responseCode = connection.getResponseCode();
-        connection.disconnect();
       } catch (IOException ioe) {
         //ignore
       }
