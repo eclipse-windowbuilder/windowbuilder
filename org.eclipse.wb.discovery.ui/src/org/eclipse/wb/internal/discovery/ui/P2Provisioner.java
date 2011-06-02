@@ -7,6 +7,10 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ * 
+ * Portions of this file were taken from the Mylyn Connector Discovery UI plugin
+ * (org.eclipse.mylyn.discovery.ui/PrepareInstallProfileJob_e_3_6.java),
+ * and are Copyright (c) 2009, 2010 Tasktop Technologies and others.
  *******************************************************************************/
 package org.eclipse.wb.internal.discovery.ui;
 
