@@ -190,7 +190,7 @@ public class Activator extends AbstractUIPlugin {
       // no necessary gconf libs installed, skip checks.
       return;
     }
-    getStandardDisplay().syncExec(new Runnable() {
+    getStandardDisplay().asyncExec(new Runnable() {
       public void run() {
         try {
           if (isRunningCompiz() && !isCompizSet() && askAgain()) {
