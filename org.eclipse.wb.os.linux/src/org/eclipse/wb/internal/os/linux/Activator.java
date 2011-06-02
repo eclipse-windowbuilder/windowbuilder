@@ -22,7 +22,6 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IStartup;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import org.apache.commons.io.IOUtils;
@@ -41,7 +40,7 @@ import java.util.Map;
  * @author mitin_aa
  * @coverage os.linux
  */
-public class Activator extends AbstractUIPlugin implements IStartup {
+public class Activator extends AbstractUIPlugin {
   private static boolean gconfAvailable = false;
   static {
     try {
@@ -66,6 +65,7 @@ public class Activator extends AbstractUIPlugin implements IStartup {
   public void start(BundleContext context) throws Exception {
     super.start(context);
     m_plugin = this;
+    scheduleCompizCheck();
   }
 
   @Override
@@ -185,7 +185,7 @@ public class Activator extends AbstractUIPlugin implements IStartup {
     _setupCompiz();
   }
 
-  public void earlyStartup() {
+  private void scheduleCompizCheck() {
     if (!gconfAvailable) {
       // no necessary gconf libs installed, skip checks.
       return;
