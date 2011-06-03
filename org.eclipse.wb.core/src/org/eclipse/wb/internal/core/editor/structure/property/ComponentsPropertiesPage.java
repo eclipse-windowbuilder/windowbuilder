@@ -31,7 +31,6 @@ import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProv
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.IPropertyExceptionHandler;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
-import org.eclipse.wb.internal.core.model.util.ExposePropertyAction;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -163,7 +162,6 @@ public final class ComponentsPropertiesPage implements IPage {
     create_gotoDefinitionAction();
     create_variableConvertAction();
     create_showAdvancedPropertiesAction();
-    create_exposePropertyAction();
     create_setCategoryAction();
     create_defaultValueAction();
     trackPropertySelection();
@@ -178,7 +176,6 @@ public final class ComponentsPropertiesPage implements IPage {
         update_showEventsAction();
         update_gotoDefinitionAction();
         update_variableConvertAction();
-        update_exposePropertyAction();
         update_categoryAction();
         update_defaultValueAction();
       }
@@ -206,7 +203,6 @@ public final class ComponentsPropertiesPage implements IPage {
         manager.add(m_variableConvertAction);
         manager.add(m_gotoDefinitionAction);
         manager.add(new Separator(IPropertiesMenuContributor.GROUP_EDIT));
-        manager.add(m_exposePropertyAction);
         manager.add(m_defaultValueAction);
         manager.add(m_showAdvancedPropertiesAction);
         {
@@ -223,8 +219,12 @@ public final class ComponentsPropertiesPage implements IPage {
                 IPropertiesMenuContributor.class,
                 "org.eclipse.wb.core.propertiesPageActions",
                 "menu");
-        for (IPropertiesMenuContributor contributor : contributors) {
-          contributor.contributeMenu(manager, m_activeProperty);
+        for (final IPropertiesMenuContributor contributor : contributors) {
+          ExecutionUtils.runLog(new RunnableEx() {
+            public void run() throws Exception {
+              contributor.contributeMenu(manager, m_activeProperty);
+            }
+          });
         }
       }
     });
@@ -242,7 +242,6 @@ public final class ComponentsPropertiesPage implements IPage {
         ExecutionUtils.runLog(new RunnableEx() {
           public void run() throws Exception {
             update_defaultValueAction();
-            update_exposePropertyAction();
             update_categoryAction();
           }
         });
@@ -372,27 +371,6 @@ public final class ComponentsPropertiesPage implements IPage {
     };
     m_showAdvancedPropertiesAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/filter_advanced_properties.gif"));
     setTexts(m_showAdvancedPropertiesAction, Messages.ComponentsPropertiesPage_showAdvancedAction);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action: expose property
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private ExposePropertyAction m_exposePropertyAction;
-
-  /**
-   * Creates the {@link #m_exposePropertyAction}.
-   */
-  private void create_exposePropertyAction() {
-    m_exposePropertyAction = new ExposePropertyAction();
-  }
-
-  /**
-   * Updates the state of {@link #m_exposePropertyAction}.
-   */
-  private void update_exposePropertyAction() throws Exception {
-    m_exposePropertyAction.setProperty(m_activeProperty);
   }
 
   ////////////////////////////////////////////////////////////////////////////

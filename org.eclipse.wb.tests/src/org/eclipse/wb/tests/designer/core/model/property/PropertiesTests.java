@@ -32,7 +32,7 @@ public class PropertiesTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(EventsPropertyTest.class));
     suite.addTest(createSingleSuite(ComponentClassPropertyTest.class));
     suite.addTest(createSingleSuite(TabOrderPropertyTest.class));
-    suite.addTest(createSingleSuite(ExposePropertyActionTest.class));
+    suite.addTest(createSingleSuite(ExposePropertySupportTest.class));
     suite.addTest(AccessorsTests.suite());
     suite.addTest(PropertyEditorsTests.suite());
     suite.addTest(PropertyTableTests.suite());

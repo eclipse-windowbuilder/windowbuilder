@@ -26,7 +26,7 @@ public interface IExposableExpressionAccessor {
    * 
    * @return the {@link Class} of property value.
    */
-  Class<?> getValueClass(JavaInfo javaInfo) throws Exception;
+  Class<?> getValueClass(JavaInfo javaInfo);
 
   /**
    * @param javaInfo

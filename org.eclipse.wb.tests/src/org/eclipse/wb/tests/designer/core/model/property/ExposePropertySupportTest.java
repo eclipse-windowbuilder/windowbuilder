@@ -11,8 +11,9 @@
 package org.eclipse.wb.tests.designer.core.model.property;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.editor.structure.property.IPropertiesMenuContributor;
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.internal.core.model.util.ExposePropertyAction;
+import org.eclipse.wb.internal.core.model.util.ExposePropertySupport;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -22,6 +23,9 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
@@ -29,11 +33,11 @@ import org.eclipse.swt.widgets.Text;
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
- * Tests for {@link ExposePropertyAction}.
+ * Tests for {@link ExposePropertySupport}.
  * 
  * @author scheglov_ke
  */
-public class ExposePropertyActionTest extends SwingModelTest {
+public class ExposePropertySupportTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Exit zone :-) XXX
@@ -51,20 +55,20 @@ public class ExposePropertyActionTest extends SwingModelTest {
   public void test_validOrInvalidProperty() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "// filler filler filler",
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
             "public class Test extends JPanel {",
             "  public Test() {",
             "  }",
             "}");
-    ExposePropertyAction action = new ExposePropertyAction();
     //
     {
-      action.setProperty(panel.getPropertyByTitle("Class"));
-      assertFalse(action.isEnabled());
+      IAction action = getExposeAction(panel, "Class");
+      assertNull(action);
     }
     {
-      action.setProperty(panel.getPropertyByTitle("enabled"));
-      assertTrue(action.isEnabled());
+      IAction action = getExposeAction(panel, "enabled");
+      assertNotNull(action);
     }
   }
 
@@ -82,8 +86,7 @@ public class ExposePropertyActionTest extends SwingModelTest {
             "  private int getFoo() {return 0;}",
             "  private void setBar(boolean bar) {}",
             "}");
-    ExposePropertyAction action = new ExposePropertyAction();
-    action.setProperty(panel.getPropertyByTitle("enabled"));
+    IAction action = getExposeAction(panel, "enabled");
     // invalid identifier
     {
       String message = call_validate(action, "bad-name");
@@ -103,8 +106,7 @@ public class ExposePropertyActionTest extends SwingModelTest {
     assertNull(call_validate(action, "someUniqueProperty"));
   }
 
-  private static String call_validate(ExposePropertyAction action, String exposedName)
-      throws Exception {
+  private static String call_validate(IAction action, String exposedName) throws Exception {
     return (String) ReflectionUtils.invokeMethod(action, "validate(java.lang.String)", exposedName);
   }
 
@@ -262,10 +264,10 @@ public class ExposePropertyActionTest extends SwingModelTest {
       boolean isPublic) throws Exception {
     String initialSource = component.getEditor().getSource();
     // prepare action
-    ExposePropertyAction action;
+    IAction action;
     {
-      action = new ExposePropertyAction();
-      action.setProperty(component.getPropertyByTitle(propertyName));
+      action = getExposeAction(component, propertyName);
+      assertNotNull(action);
       assertTrue(action.isEnabled());
     }
     // get preview
@@ -366,20 +368,10 @@ public class ExposePropertyActionTest extends SwingModelTest {
       String propertyName,
       String exposedName,
       boolean isPublic) throws Exception {
-    ExposePropertyAction action = prepareAction(component, propertyName);
+    IAction action = getExposeAction(component, propertyName);
     // do expose
     assertNull(call_validate(action, exposedName));
     ReflectionUtils.invokeMethod2(action, "expose", boolean.class, isPublic);
-  }
-
-  private static ExposePropertyAction prepareAction(JavaInfo component, String propertyName)
-      throws Exception {
-    ExposePropertyAction action = new ExposePropertyAction();
-    {
-      Property property = component.getPropertyByTitle(propertyName);
-      action.setProperty(property);
-    }
-    return action;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -398,7 +390,7 @@ public class ExposePropertyActionTest extends SwingModelTest {
     ComponentInfo button = getJavaInfoByName("button");
     assertNotNull(button);
     // prepare action
-    final IAction action = prepareAction(button, "text");
+    final IAction action = getExposeAction(button, "text");
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
       public void run(UiContext context) throws Exception {
@@ -447,5 +439,31 @@ public class ExposePropertyActionTest extends SwingModelTest {
         "    button.setText(text);",
         "  }",
         "}");
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the "Expose property..." {@link IAction}, which is contributed for given
+   *         {@link Property}, may be <code>null</code>.
+   */
+  private static IAction getExposeAction(Property property) throws Exception {
+    IMenuManager manager = new MenuManager();
+    manager.add(new Separator(IPropertiesMenuContributor.GROUP_EDIT));
+    // ask for contributions
+    ExposePropertySupport.INSTANCE.contributeMenu(manager, property);
+    return findChildAction(manager, "Expose property...");
+  }
+
+  /**
+   * @return the "Expose property..." {@link IAction}, which is contributed for given
+   *         {@link JavaInfo}'s property, may be <code>null</code>.
+   */
+  private static IAction getExposeAction(JavaInfo javaInfo, String propertyName) throws Exception {
+    Property property = javaInfo.getPropertyByTitle(propertyName);
+    return getExposeAction(property);
   }
 }

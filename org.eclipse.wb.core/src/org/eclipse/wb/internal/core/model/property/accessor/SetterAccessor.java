@@ -185,7 +185,7 @@ public final class SetterAccessor extends ExpressionAccessor {
    */
   private final IExposableExpressionAccessor m_exposableAccessor =
       new IExposableExpressionAccessor() {
-        public Class<?> getValueClass(JavaInfo javaInfo) throws Exception {
+        public Class<?> getValueClass(JavaInfo javaInfo) {
           return m_setter.getParameterTypes()[0];
         }
 

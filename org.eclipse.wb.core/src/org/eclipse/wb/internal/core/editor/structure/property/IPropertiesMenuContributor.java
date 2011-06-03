@@ -27,5 +27,5 @@ public interface IPropertiesMenuContributor {
   String GROUP_PRIORITY = GROUP_BASE + "priority";
   String GROUP_ADDITIONAL = GROUP_BASE + "additional";
 
-  void contributeMenu(IMenuManager manager, Property property);
+  void contributeMenu(IMenuManager manager, Property property) throws Exception;
 }
