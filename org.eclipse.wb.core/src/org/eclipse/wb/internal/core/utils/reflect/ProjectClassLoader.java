@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
+import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -129,11 +130,10 @@ public class ProjectClassLoader extends URLClassLoader {
     }
     // add fragments of this project
     {
-      org.eclipse.pde.core.plugin.IPluginModelBase model =
-          org.eclipse.pde.core.plugin.PluginRegistry.findModel(project);
+      Object model = ReflectivePDE.findModel(project);
       if (model != null) {
         org.eclipse.osgi.service.resolver.BundleDescription modelBundleDescription =
-            model.getBundleDescription();
+            ReflectivePDE.getPluginModelBundleDescription(model);
         if (modelBundleDescription != null) {
           org.eclipse.osgi.service.resolver.BundleDescription[] fragments =
               modelBundleDescription.getFragments();

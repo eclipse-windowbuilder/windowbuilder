@@ -36,7 +36,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Expression;
@@ -648,7 +647,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   /**
    * Returns IContainer's for all source directories of current Java project.
    */
-  private List<IContainer> getSourceContainers() throws JavaModelException {
+  private List<IContainer> getSourceContainers() throws Exception {
     return CodeUtils.getSourceContainers(m_javaProject, true);
   }
 }

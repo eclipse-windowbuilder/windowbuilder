@@ -11,8 +11,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core,
  org.eclipse.wb.swing,
  org.eclipse.wb.core.databinding,
- org.eclipse.pde.core,
- org.eclipse.pde.ui,
  org.eclipse.core.databinding,
  org.eclipse.core.databinding.beans,
  org.eclipse.jface.databinding

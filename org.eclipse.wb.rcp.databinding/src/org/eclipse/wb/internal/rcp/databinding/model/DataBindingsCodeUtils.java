@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
+import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 import org.eclipse.wb.internal.rcp.databinding.Activator;
 import org.eclipse.wb.internal.rcp.databinding.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils;
@@ -43,7 +44,6 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.pde.core.plugin.PluginRegistry;
 
 import java.util.List;
 
@@ -73,12 +73,12 @@ public final class DataBindingsCodeUtils {
     boolean addDatabindingBeans =
         !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.BeansObservables");
     boolean addDatabindingObservable =
-        PluginRegistry.findModel("org.eclipse.core.databinding.observable") != null
+        ReflectivePDE.findModel("org.eclipse.core.databinding.observable") != null
             && !ProjectUtils.hasType(
                 javaProject,
                 "org.eclipse.core.databinding.observable.Observables");
     boolean addDatabindingProperty =
-        PluginRegistry.findModel("org.eclipse.core.databinding.property") != null
+        ReflectivePDE.findModel("org.eclipse.core.databinding.property") != null
             && !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.property.IProperty");
     boolean addDatabindingJFace =
         !ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.SWTObservables");

@@ -17,14 +17,12 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
-import org.eclipse.wb.internal.core.utils.exception.DesignerException;
-import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.NoOpProgressMonitor;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
-import org.eclipse.wb.internal.core.utils.pde.ClasspathUtilCore;
+import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -48,8 +46,6 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.pde.core.plugin.IPluginModelBase;
-import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.swt.SWT;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -388,13 +384,7 @@ public final class ProjectUtils {
     // add existing entries
     CollectionUtils.addAll(entries, javaProject.getRawClasspath());
     // add plugin entries
-    {
-      IPluginModelBase model = PluginRegistry.findModel(pluginId);
-      if (model == null) {
-        throw new DesignerException(ICoreExceptionConstants.NO_PLUGIN, pluginId);
-      }
-      ClasspathUtilCore.addLibraries(model, entries);
-    }
+    ReflectivePDE.addPluginLibraries(pluginId, entries);
     // set new entries
     setRawClasspath(javaProject, entries);
   }

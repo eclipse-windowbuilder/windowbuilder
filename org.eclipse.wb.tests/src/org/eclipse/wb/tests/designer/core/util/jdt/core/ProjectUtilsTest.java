@@ -12,8 +12,6 @@ package org.eclipse.wb.tests.designer.core.util.jdt.core;
 
 import com.google.common.base.Predicate;
 
-import org.eclipse.wb.internal.core.utils.exception.DesignerException;
-import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -762,20 +760,6 @@ public class ProjectUtilsTest extends AbstractJavaTest {
     ProjectUtils.addPluginLibraries(m_javaProject, "org.eclipse.jdt.core");
     // OK, org.eclipse.jdt.core.IType now exists in project
     assertTrue(ProjectUtils.hasType(m_javaProject, "org.eclipse.jdt.core.IType"));
-  }
-
-  /**
-   * Test for {@link ProjectUtils#addPluginLibraries(IJavaProject, String)}. We should not just fail
-   * with {@link NullPointerException}.
-   */
-  @DisposeProjectAfter
-  public void test_addPluginLibraries_noSuchPlugin() throws Exception {
-    try {
-      ProjectUtils.addPluginLibraries(m_javaProject, "no.such.Plugin");
-      fail();
-    } catch (DesignerException e) {
-      assertEquals(ICoreExceptionConstants.NO_PLUGIN, e.getCode());
-    }
   }
 
   /**

@@ -67,6 +67,8 @@
 	<extension-point id="propertiesPageProcessors"
 		name="Processors for List for Property before displaying"
 		schema="schema/propertiesPageProcessors.exsd"/>
+	<extension-point id="propertiesPageActions" name="Contributions for properties page actions"
+		schema="schema/propertiesPageActions.exsd"/>
 	<!-- palette -->
 	<extension-point id="paletteComponentExists" name="Palette component quick check for existence"
 		schema="schema/paletteComponentExists.exsd"/>
@@ -93,6 +95,8 @@
 		name="Factories for creating configurable (not generic) properties"
 		schema="schema/configurablePropertyFactories.exsd"/>
 	<!-- DesignPages -->
+	<extension-point id="editorLifeCycleListeners" name="Listener for Java based editor life cycle"
+		schema="schema/editorLifeCycleListeners.exsd"/>
 	<extension-point id="designPageFactories" name="Factories for design pages"
 		schema="schema/designPageFactories.exsd"/>
 	<!-- Error Reporting -->
@@ -101,7 +105,6 @@
 		schema="schema/errorReportProviders.exsd"/>
 	<!-- Branding -->
 	<extension-point id="branding" name="Branding descriptions" schema="schema/branding.exsd"/>
- <extension-point id="editorLifeCycleListeners" name="Listener for Java based editor life cycle" schema="schema/editorLifeCycleListeners.exsd"/>
 
 
 
@@ -486,6 +489,7 @@
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.errorReportEntriesProviders">
 		<provider
-			class="org.eclipse.wb.internal.core.editor.errors.report2.logs.LogsReportEntriesProvider"/>
+			class="org.eclipse.wb.internal.core.editor.errors.report2.logs.LogsReportEntriesProvider"
+		/>
 	</extension>
 </plugin>

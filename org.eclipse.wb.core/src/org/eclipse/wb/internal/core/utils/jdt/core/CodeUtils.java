@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 
 import org.eclipse.core.resources.IContainer;
@@ -56,8 +57,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.osgi.service.resolver.BundleDescription;
-import org.eclipse.pde.core.plugin.IPluginModelBase;
-import org.eclipse.pde.core.plugin.PluginRegistry;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -752,7 +751,7 @@ public class CodeUtils {
    *         .
    */
   public static List<IContainer> getSourceContainers(IJavaProject javaProject,
-      boolean includeRequiredProjects) throws JavaModelException {
+      boolean includeRequiredProjects) throws Exception {
     List<IContainer> containers = Lists.newArrayList();
     addSourceContainers(
         containers,
@@ -769,7 +768,7 @@ public class CodeUtils {
   private static void addSourceContainers(List<IContainer> containers,
       Set<IJavaProject> visitedProjects,
       IJavaProject javaProject,
-      boolean includeRequiredProjects) throws JavaModelException {
+      boolean includeRequiredProjects) throws Exception {
     // check for existence
     if (!javaProject.exists()) {
       return;
@@ -799,9 +798,9 @@ public class CodeUtils {
     }
     // source folders for fragments
     if (includeRequiredProjects) {
-      IPluginModelBase model = PluginRegistry.findModel(project);
+      Object model = ReflectivePDE.findModel(project);
       if (model != null) {
-        BundleDescription bundleDescription = model.getBundleDescription();
+        BundleDescription bundleDescription = ReflectivePDE.getPluginModelBundleDescription(model);
         if (bundleDescription != null) {
           BundleDescription[] fragments = bundleDescription.getFragments();
           for (BundleDescription fragment : fragments) {
@@ -819,7 +818,7 @@ public class CodeUtils {
    */
   private static void addSourceContainers(List<IContainer> containers,
       Set<IJavaProject> visitedProjects,
-      String projectName) throws JavaModelException {
+      String projectName) throws Exception {
     IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     IProject project = root.getProject(projectName);
     IJavaProject javaProject = JavaCore.create(project);

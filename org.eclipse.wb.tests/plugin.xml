@@ -32,5 +32,14 @@
     		id="testEditor"
             class="org.eclipse.wb.tests.designer.XML.NoopConfigurablePropertyEditor"/>
    </extension>
-
+   
+   
+   <!-- ======================================================== -->
+   <!-- NLS sources -->
+   <!-- ======================================================== -->
+   <extension point="org.eclipse.wb.core.nlsSources">
+      <binding toolkit="org.eclipse.wb.swing"
+         description="org.eclipse.wb.core.nls.bundle.eclipse.modern.ModernEclipseSource"/>
+   </extension>
+   
 </plugin>

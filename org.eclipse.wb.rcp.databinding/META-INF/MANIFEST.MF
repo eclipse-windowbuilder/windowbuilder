@@ -13,8 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.rcp,
  org.eclipse.wb.core.databinding,
  org.eclipse.core.databinding.observable;resolution:=optional,
- org.eclipse.pde.core,
- org.eclipse.pde.ui,
  org.eclipse.core.databinding,
  org.eclipse.core.databinding.beans,
  org.eclipse.jface.databinding
