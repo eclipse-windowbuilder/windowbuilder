@@ -26,6 +26,7 @@ import java.lang.reflect.Method;
  * @coverage XML.model.property
  */
 public final class MethodExpressionAccessor extends ExpressionAccessor {
+  private final Method m_setter;
   private final Method m_getter;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -35,6 +36,7 @@ public final class MethodExpressionAccessor extends ExpressionAccessor {
   ////////////////////////////////////////////////////////////////////////////
   public MethodExpressionAccessor(String attribute, Method setter, Method getter) {
     super(attribute);
+    m_setter = setter;
     m_getter = getter;
     m_tooltipProvider = AccessorUtils.PropertyTooltipProvider_forMethod(setter);
   }
@@ -99,6 +101,13 @@ public final class MethodExpressionAccessor extends ExpressionAccessor {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the setter of the property.
+   */
+  public Method getSetter() {
+    return m_setter;
+  }
+
   /**
    * @return the getter of the property.
    */

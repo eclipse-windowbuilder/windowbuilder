@@ -15,10 +15,11 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
-import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.MethodExpressionAccessor;
 
 import static org.fest.assertions.Assertions.assertThat;
+
+import java.lang.reflect.Method;
 
 /**
  * Test for {@link MethodExpressionAccessor}.
@@ -28,7 +29,7 @@ import static org.fest.assertions.Assertions.assertThat;
 public class MethodExpressionAccessorTest extends AbstractCoreTest {
   private XmlObjectInfo myComponent;
   private GenericPropertyImpl property;
-  private ExpressionAccessor accessor;
+  private MethodExpressionAccessor accessor;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -172,6 +173,30 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
     assertEquals(123, accessor.getValue(myComponent));
   }
 
+  public void test_getSetter_getGetter() throws Exception {
+    prepareMyComponent(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public int getTest() {",
+        "  return 123;",
+        "}",
+        "public void setTest(int value) {",
+        "}");
+    prepareProperty();
+    // has setter
+    {
+      Method setter = accessor.getSetter();
+      assertNotNull(setter);
+      assertEquals("setTest", setter.getName());
+    }
+    // has getter
+    {
+      Method getter = accessor.getGetter();
+      assertNotNull(getter);
+      assertEquals("getTest", getter.getName());
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Utils
@@ -193,6 +218,6 @@ public class MethodExpressionAccessorTest extends AbstractCoreTest {
     myComponent = getObjectByName("myComponent");
     property = (GenericPropertyImpl) myComponent.getPropertyByTitle("test");
     assertNotNull(property);
-    accessor = property.getDescription().getAccessor();
+    accessor = (MethodExpressionAccessor) property.getDescription().getAccessor();
   }
 }

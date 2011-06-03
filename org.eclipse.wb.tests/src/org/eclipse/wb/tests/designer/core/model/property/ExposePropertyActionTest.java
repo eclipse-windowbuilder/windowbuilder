@@ -11,13 +11,22 @@
 package org.eclipse.wb.tests.designer.core.model.property;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.ExposePropertyAction;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+import org.eclipse.wb.tests.gef.UIRunnable;
+import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.VariableDeclaration;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Text;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * Tests for {@link ExposePropertyAction}.
@@ -25,6 +34,15 @@ import org.eclipse.jdt.core.dom.VariableDeclaration;
  * @author scheglov_ke
  */
 public class ExposePropertyActionTest extends SwingModelTest {
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Exit zone :-) XXX
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void _test_exit() throws Exception {
+    System.exit(0);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Tests
@@ -99,15 +117,14 @@ public class ExposePropertyActionTest extends SwingModelTest {
    * Property with primitive type.
    */
   public void test_getPreviewSource_primitive() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     //
     assertEquals(
         getSourceDQ(
@@ -126,16 +143,15 @@ public class ExposePropertyActionTest extends SwingModelTest {
    * Test case when parameter of setter conflicts with existing {@link VariableDeclaration}.
    */
   public void test_getPreviewSource_parameter() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private int alignmentX;",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  private int alignmentX;",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     //
     assertEquals(
         getSourceDQ(
@@ -154,15 +170,14 @@ public class ExposePropertyActionTest extends SwingModelTest {
    * Property with qualified type name.
    */
   public void test_getPreviewSource_qualified() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     //
     assertEquals(
         getSourceDQ(
@@ -193,15 +208,14 @@ public class ExposePropertyActionTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyButton button = new MyButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyButton button = new MyButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     // check preview
     assertEquals(
         getSourceDQ(
@@ -220,15 +234,14 @@ public class ExposePropertyActionTest extends SwingModelTest {
    * <code>protected</code> modifier for exposed.
    */
   public void test_getPreviewSource_protected() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     //
     assertEquals(
         getSourceDQ(
@@ -281,15 +294,14 @@ public class ExposePropertyActionTest extends SwingModelTest {
    * Expose <code>String</code> property.
    */
   public void test_expose_String() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     //
     call_expose(button, "name", "buttonName", true);
     assertEditor(
@@ -324,15 +336,14 @@ public class ExposePropertyActionTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyButton button = new MyButton();",
-            "    add(button);",
-            "  }",
-            "}");
-    ComponentInfo button = panel.getChildrenComponents().get(0);
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyButton button = new MyButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
     //
     call_expose(button, "items", "buttonItems", true);
     assertEditor(
@@ -355,14 +366,86 @@ public class ExposePropertyActionTest extends SwingModelTest {
       String propertyName,
       String exposedName,
       boolean isPublic) throws Exception {
-    // prepare action
-    ExposePropertyAction action;
-    {
-      action = new ExposePropertyAction();
-      action.setProperty(component.getPropertyByTitle(propertyName));
-    }
+    ExposePropertyAction action = prepareAction(component, propertyName);
     // do expose
     assertNull(call_validate(action, exposedName));
     ReflectionUtils.invokeMethod2(action, "expose", boolean.class, isPublic);
+  }
+
+  private static ExposePropertyAction prepareAction(JavaInfo component, String propertyName)
+      throws Exception {
+    ExposePropertyAction action = new ExposePropertyAction();
+    {
+      Property property = component.getPropertyByTitle(propertyName);
+      action.setProperty(property);
+    }
+    return action;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Dialog UI
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void test_animateDialog() throws Exception {
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
+    assertNotNull(button);
+    // prepare action
+    final IAction action = prepareAction(button, "text");
+    // animate
+    new UiContext().executeAndCheck(new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        action.run();
+      }
+    }, new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        context.useShell("Expose property");
+        // prepare widgets
+        Text textWidget = context.getTextByLabel("Property name:");
+        StyledText previewWidget = (StyledText) context.getControlAfterLabel("Preview:");
+        Button okButton = context.getButtonByText("OK");
+        // initial state
+        {
+          assertEquals("buttonText", textWidget.getText());
+          assertThat(previewWidget.getText()).contains("getButtonText()");
+          assertTrue(okButton.isEnabled());
+        }
+        // set wrong property name
+        {
+          textWidget.setText("wrong name");
+          assertThat(previewWidget.getText()).isEqualTo("No preview");
+          assertFalse(okButton.isEnabled());
+        }
+        // set good name again
+        {
+          textWidget.setText("myText");
+          assertThat(previewWidget.getText()).contains("getMyText()");
+          assertTrue(okButton.isEnabled());
+        }
+        // OK
+        context.clickButton(okButton);
+      }
+    });
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  private JButton button;",
+        "  public Test() {",
+        "    button = new JButton();",
+        "    add(button);",
+        "  }",
+        "  public String getMyText() {",
+        "    return button.getText();",
+        "  }",
+        "  public void setMyText(String text) {",
+        "    button.setText(text);",
+        "  }",
+        "}");
   }
 }

@@ -40,6 +40,8 @@ import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
@@ -52,6 +54,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.IPage;
 import org.eclipse.ui.part.Page;
@@ -186,20 +189,45 @@ public final class ComponentsPropertiesPage implements IPage {
    * Sets the context menu for {@link #m_propertyTable}.
    */
   private void setPropertyTableContextMenu() {
-    MenuManager manager = new MenuManager();
-    manager.add(m_variableConvertAction);
-    manager.add(m_gotoDefinitionAction);
-    manager.add(new Separator());
-    manager.add(m_exposePropertyAction);
-    manager.add(m_defaultValueAction);
-    manager.add(m_showAdvancedPropertiesAction);
-    {
-      manager.add(new Separator());
-      manager.add(m_setCategoryAction_default);
-      manager.add(m_setCategoryAction_preferred);
-      manager.add(m_setCategoryAction_normal);
-      manager.add(m_setCategoryAction_advanced);
-    }
+    final MenuManager manager = new MenuManager();
+    manager.setRemoveAllWhenShown(true);
+    manager.addMenuListener(new IMenuListener() {
+      public void menuAboutToShow(IMenuManager _manager) {
+        // dispose items to avoid their caching
+        for (MenuItem item : manager.getMenu().getItems()) {
+          item.dispose();
+        }
+        // apply new items
+        fillContextMenu();
+      }
+
+      private void fillContextMenu() {
+        manager.add(new Separator(IPropertiesMenuContributor.GROUP_TOP));
+        manager.add(m_variableConvertAction);
+        manager.add(m_gotoDefinitionAction);
+        manager.add(new Separator(IPropertiesMenuContributor.GROUP_EDIT));
+        manager.add(m_exposePropertyAction);
+        manager.add(m_defaultValueAction);
+        manager.add(m_showAdvancedPropertiesAction);
+        {
+          manager.add(new Separator(IPropertiesMenuContributor.GROUP_PRIORITY));
+          manager.add(m_setCategoryAction_default);
+          manager.add(m_setCategoryAction_preferred);
+          manager.add(m_setCategoryAction_normal);
+          manager.add(m_setCategoryAction_advanced);
+        }
+        manager.add(new Separator(IPropertiesMenuContributor.GROUP_ADDITIONAL));
+        // use external contributors
+        List<IPropertiesMenuContributor> contributors =
+            ExternalFactoriesHelper.getElementsInstances(
+                IPropertiesMenuContributor.class,
+                "org.eclipse.wb.core.propertiesPageActions",
+                "menu");
+        for (IPropertiesMenuContributor contributor : contributors) {
+          contributor.contributeMenu(manager, m_activeProperty);
+        }
+      }
+    });
     m_propertyTable.setMenu(manager.createContextMenu(m_propertyTable));
   }
 

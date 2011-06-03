@@ -199,7 +199,7 @@ public final class GenericPropertyImpl extends GenericProperty {
   /**
    * @return all {@link ExpressionAccessor} which can be used.
    */
-  private List<ExpressionAccessor> getAccessors() {
+  public List<ExpressionAccessor> getAccessors() {
     List<ExpressionAccessor> accessors = Lists.newArrayList();
     // content accessor first
     if (m_description.hasTrueTag("isContent")) {
