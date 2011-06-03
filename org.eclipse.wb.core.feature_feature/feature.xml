@@ -18,9 +18,6 @@
       %license
    </license>
 
-   <requires>
-   </requires>
-
    <plugin
          id="org.eclipse.wb.jdt.fragment"
          download-size="0"
