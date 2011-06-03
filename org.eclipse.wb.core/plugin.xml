@@ -379,8 +379,7 @@
 	<!-- =================================================================================== -->
 	<extension point="org.eclipse.core.contenttype.contentTypes">
 		<content-type id="javaSourceGUI" base-type="org.eclipse.jdt.core.javaSource"
-			name="GUI Java file" file-extensions="java" priority="high"
-			describer="org.eclipse.wb.internal.core.editor.describer.JavaSourceUiDescriber"/>
+			name="GUI Java file" file-extensions="java" priority="high"/>
 	</extension>
 
 	<!-- ======================================================== -->

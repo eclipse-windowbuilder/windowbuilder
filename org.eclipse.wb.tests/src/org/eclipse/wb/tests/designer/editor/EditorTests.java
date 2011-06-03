@@ -27,7 +27,6 @@ public class EditorTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(TopSelectionEditPolicyTest.class));
     // basic features
     suite.addTest(createSingleSuite(UndoManagerTest.class));
-    suite.addTest(createSingleSuite(ContentDescriberTest.class));
     suite.addTest(createSingleSuite(ReparseOnModificationTest.class));
     suite.addTest(createSingleSuite(SelectSupportTest.class));
     // suites
