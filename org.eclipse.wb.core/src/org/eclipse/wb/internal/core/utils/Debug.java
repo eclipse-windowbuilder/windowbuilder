@@ -22,7 +22,7 @@ public class Debug {
   /**
    * Prints debug output on console, only if developers host.
    */
-  public static void print(String s) {
+  public static void print(Object s) {
     if (EnvironmentUtils.DEVELOPER_HOST) {
       System.out.print(s);
     }
@@ -31,7 +31,7 @@ public class Debug {
   /**
    * Prints debug output on console, only if developers host.
    */
-  public static void println(String s) {
+  public static void println(Object s) {
     if (EnvironmentUtils.DEVELOPER_HOST) {
       System.out.println(s);
     }
