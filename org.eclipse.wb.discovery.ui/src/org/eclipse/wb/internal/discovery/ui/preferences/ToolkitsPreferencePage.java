@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.discovery.ui.preferences;
 import org.eclipse.wb.internal.discovery.core.WBDiscoveryCorePlugin;
 import org.eclipse.wb.internal.discovery.core.WBToolkit;
 import org.eclipse.wb.internal.discovery.core.WBToolkitRegistry;
+import org.eclipse.wb.internal.discovery.core.WBToolkitRegistry.IRegistryChangeListener;
 import org.eclipse.wb.internal.discovery.ui.Messages;
 import org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin;
 import org.eclipse.wb.internal.discovery.ui.util.BorderPainter;
@@ -53,7 +54,7 @@ import java.util.List;
  * The preference page used to manage the available WindowBuilder toolkits. Normally found in
  * Preferences > WindowBuilder > UI Toolkits.
  */
-public class ToolkitsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+public class ToolkitsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IRegistryChangeListener {
   static final String PREFERENCE_PAGE_ID =
       "org.eclipse.wb.internal.discovery.ui.preferences.ToolkitsPreferencePage";
   private List<ToolkitControl> controls = new ArrayList<ToolkitControl>();
@@ -61,7 +62,8 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
   private Button installButton;
   private Button uninstallButton;
   private ProgressBar progressBar;
-
+  private Composite scrolledContents;
+  
   /**
    * Create a new ToolkitsPreferencePage.
    */
@@ -139,7 +141,7 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
         }
       });
     }
-    final Composite scrolledContents = new Composite(scrolledComposite, SWT.NONE);
+    scrolledContents = new Composite(scrolledComposite, SWT.NONE);
     scrolledContents.setBackground(bkColor);
     scrolledContents.setRedraw(false);
     try {
@@ -169,6 +171,8 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
     updateInstallButtons();
     body.layout(true);
     
+    WBToolkitRegistry.getRegistry().addRegistryListener(this);
+    
     WBDiscoveryCorePlugin.getPlugin().checkForRegistryUpdates();
     
     return body;
@@ -178,6 +182,27 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
     int pageInc = scrolledComposite.getBounds().height;
     scrolledComposite.getVerticalBar().setIncrement(20);
     scrolledComposite.getVerticalBar().setPageIncrement(pageInc);
+  }
+
+  public void handleRegistryChange() {
+    Display.getDefault().asyncExec(new Runnable() {
+      public void run() {
+        controls.clear();
+        
+        for (Control control : scrolledContents.getChildren()) {
+          control.dispose();
+        }
+        
+        createToolkitsContents(scrolledContents);
+      }
+    });
+  }
+  
+  @Override
+  public void dispose() {
+    WBToolkitRegistry.getRegistry().removeRegistryListener(this);
+    
+    super.dispose();
   }
 
   @Override
@@ -328,4 +353,5 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
       dialog.close();
     }
   }
+
 }
