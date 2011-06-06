@@ -15,15 +15,13 @@
 		
 		<updateSite 
 			version="[3.6,3.7)"
-			url="http://download.eclipse.org/windowbuilder/WB/integration/3.6"
-			auxurl="http://download.eclipse.org/releases/helios">
+			url="http://download.eclipse.org/windowbuilder/WB/integration/3.6">
             <feature id="org.eclipse.wb.rcp.feature"/>
 		</updateSite>
 		
         <updateSite 
             version="[3.7,5.0)"
-            url="http://download.eclipse.org/windowbuilder/WB/integration/3.7"
-            auxurl="http://download.eclipse.org/releases/indigo">
+            url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
             <feature id="org.eclipse.wb.rcp.feature"/>
         </updateSite>
 	</toolkit>
@@ -64,15 +62,13 @@
 
         <updateSite 
             version="[3.6,3.7)"
-            url="http://download.eclipse.org/windowbuilder/WB/integration/3.6"
-            auxurl="http://download.eclipse.org/releases/helios">
+            url="http://download.eclipse.org/windowbuilder/WB/integration/3.6">
             <feature id="org.eclipse.wb.ercp.feature"/>
         </updateSite>
         
         <updateSite 
             version="[3.7,5.0)"
-            url="http://download.eclipse.org/windowbuilder/WB/integration/3.7"
-            auxurl="http://download.eclipse.org/releases/indigo">
+            url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
             <feature id="org.eclipse.wb.ercp.feature"/>
         </updateSite>
     </toolkit>
@@ -90,15 +86,13 @@
 
         <updateSite 
             version="[3.6,3.7)"
-            url="http://download.eclipse.org/windowbuilder/WB/integration/3.6"
-            auxurl="http://download.eclipse.org/releases/helios">
+            url="http://download.eclipse.org/windowbuilder/WB/integration/3.6">
             <feature id="org.eclipse.wb.xwt.feature"/>
         </updateSite>
         
         <updateSite 
             version="[3.7,5.0)"
-            url="http://download.eclipse.org/windowbuilder/WB/integration/3.7"
-            auxurl="http://download.eclipse.org/releases/indigo">
+            url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
             <feature id="org.eclipse.wb.xwt.feature"/>
         </updateSite>
     </toolkit>
