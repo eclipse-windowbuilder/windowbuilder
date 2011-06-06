@@ -58,6 +58,7 @@
         icon="toolkit_ercp.png"
         providerName="Eclipse.org"
         licenseDescription="EPL"
+        os="win32"
         moreInfoURL="http://www.eclipse.org/ercp/">
         
         <description>This WindowBuilder toolkit allows you to build user interfaces with Eclipse's embedded Rich Client Platform (eRCP) framework. eRCP targets embedded devices.</description>

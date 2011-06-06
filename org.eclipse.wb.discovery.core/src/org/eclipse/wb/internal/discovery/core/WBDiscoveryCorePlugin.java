@@ -66,6 +66,23 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
         new Status(IStatus.ERROR, PLUGIN_ID, message, t));
   }
   
+  /**
+   * @return a string representing the current operating system
+   */
+  protected static String getCurrentOS() {
+    String osName = System.getProperty("os.name").toLowerCase();
+    
+    if (osName.indexOf("linux") != -1 || osName.indexOf("unix") != -1) {
+      return "linux";
+    } else if (osName.indexOf("mac") != -1) {
+      return "mac";
+    } else if (osName.indexOf("window") != -1 || osName.indexOf("win") != -1) {
+      return "win32";
+    }
+    
+    return "unknown";
+  }
+
   //private WBToolkitRegistryUpdateJob updateJob;
 
   /**

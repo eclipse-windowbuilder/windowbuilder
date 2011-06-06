@@ -230,6 +230,7 @@ public class WBToolkitRegistry {
         Element element = (Element) node;
         
         WBToolkit entry = new WBToolkit();
+        
         entry.setId(getAttributeText(element, "id"));
         entry.setName(getAttributeText(element, "name"));
         entry.setTitle(getAttributeText(element, "title"));
@@ -240,8 +241,13 @@ public class WBToolkitRegistry {
         entry.setProviderName(getAttributeText(element, "providerName"));
         entry.setMoreInfoURL(getAttributeText(element, "moreInfoURL"));
         
+        String os = getAttributeText(element, "os");
+        if (os != null) {
+          entry.setOsList(os.split(","));
+        }
+        
         // Check to make sure that this toolkit is valid for this configuration of Eclipse.
-        if (entry.getUpdateSite() != null) {
+        if (entry.supportsCurrentOS() && entry.getUpdateSite() != null) {
         	results.add(entry);
         }
       }

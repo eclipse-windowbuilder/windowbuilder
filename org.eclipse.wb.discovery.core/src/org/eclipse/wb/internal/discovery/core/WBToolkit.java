@@ -28,6 +28,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class WBToolkit {
   private String providerName;
   private String licenseDescription;
   private String moreInfoURL;
+  private List<String> osList = new ArrayList<String>();
 
   /**
    * Create a new WindowBuilder toolkit.
@@ -315,6 +317,39 @@ public class WBToolkit {
   }
 
   /**
+   * @return the list of operating systems this toolkit can be installed on
+   */
+  public List<String> getOsList() {
+    return Collections.unmodifiableList(osList);
+  }
+  
+  /**
+   * Set the list of supported operating systems.
+   * @param oses
+   */
+  protected void setOsList(String[] oses) {
+    osList.clear();
+    osList.addAll(Arrays.asList(oses));
+  }
+  
+  /**
+   * @return whether the current operating system is supported by this toolkit
+   */
+  public boolean supportsCurrentOS() {
+    if (osList.size() == 0) {
+      return true;
+    }
+    
+    for (String os : osList) {
+      if (WBDiscoveryCorePlugin.getCurrentOS().equals(os)) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+  
+  /**
    * @return whether this toolkit is installed or not
    */
   public boolean isInstalled() {
@@ -386,4 +421,5 @@ public class WBToolkit {
   public String toString() {
     return getName();
   }
+
 }
