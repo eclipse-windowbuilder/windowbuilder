@@ -43,7 +43,6 @@
 			under SuSE Linux?</a></li>
 			<li><a href="#LinuxFlashing">How can I prevent 
 			the preview window from flashing under Linux using Metacity</a></li>
-			<li><a href="#VE">Is Swing Designer based on the Eclipse Visual Editor?</a></li>
 		</ul>
 				<h2><a name="OtherGUIBuilders"></a>Can Swing Designer 
 			edit windows created with JBuilder, VA Java, NetBeans, VisualCafe, 
@@ -268,13 +267,13 @@ initialization (which can manifest itself as a <span style="font-weight: bold;">
 		<p>An UnsupportedClassVersionError is usually caused by attempting to 
 		run code compiled against a later JRE with an IDE using an earlier JRE. 
 		Typically, you will see this when trying to use a class (such as a 
-		custom widget) that has been compiled against JDK 1.5 within a version 
-		of Eclipse launched with JDK 1.4.</p>
+		custom widget) that has been compiled against JDK 1.6 within a version 
+		of Eclipse launched with JDK 1.5.</p>
 		<p>Two solutions are possible: you may either recompile the class using 
-		JDK 1.4, or you can tell Eclipse to run using JDK 1.5 by modifying its 
-		startup parameters as follows (use your path to JDK 1.5 on your system):</p>
+		JDK 1.5, or you can tell Eclipse to run using JDK 1.6 by modifying its 
+		startup parameters as follows (use your path to JDK 1.6 on your system):</p>
 		<blockquote>
-			<p>-vm C:\jdk1.5.0_04\bin\java.exe</p>
+			<p>-vm C:\jdk1.6.0_21\bin\java.exe</p>
 		</blockquote>
 		<h2 style="font-weight: bold;"><a name="UnsatisfiedLinkError"></a>What should I do 
 			if I encounter an UnsatisfiedLinkError when launching my SWT 
@@ -429,13 +428,6 @@ builder itself.</p>
 			<li>
 			You are done!</li>
 		</ol>
-				<h2 style="font-weight: bold;"><a name="VE"></a>Is Swing 
-				Designer 
-			based on the Eclipse Visual Editor?</h2>
-		<p>No. Swing Designer does not use any code from the Eclipse Visual 
-			Editor project (and vice versa). Both the Eclipse VE and Swing 
-		Designer are native Eclipse applications that are based 
-			on the Eclipse GEF (Graphical Editor Framework) libraries.</p>
 				</td>
 			</tr>
 		</table>

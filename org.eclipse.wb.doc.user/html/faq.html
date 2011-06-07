@@ -53,11 +53,8 @@
 			under SuSE Linux?</a></li>
 			<li><a href="#LinuxFlashing">How can I prevent 
 			the preview window from flashing under Linux using Metacity</a></li>
-			<li><a href="#VE">Is WindowBuilder Pro based on the Eclipse Visual Editor?</a></li>
-			<li><a href="#LatestVersion">How do I know whether I have the latest 
-			WindowBuilder Pro version?</a></li>
 		</ul>
-				<h2><a name="UpdateManager"></a>What should I do if I'm 
+				<h2>What should I do if I'm 
 				getting errors using the Update Manager?</h2>
 				<p>If you encounter some sort of Eclipse Update Manager failure 
 				with messages such as &quot;Downloaded stream not a valid archive&quot; or 
@@ -269,9 +266,9 @@ directories from the Eclipse ZIP file.</p>
 			<li>
 			Check that you have the correct version of 
 			WindowBuilder Pro installed for your Eclipse environment. If you are 
-			using Eclipse 3.4, use the latest WindowBuilder Pro build targeted at 
-			Eclipse 3.4. Likewise, if you are using Eclipse 3.5, use the latest
-			WindowBuilder Pro build targeted at Eclipse 3.5.</li>
+			using Eclipse 3.6, use the latest WindowBuilder Pro build targeted at 
+			Eclipse 3.6. Likewise, if you are using Eclipse 3.7, use the latest
+			WindowBuilder Pro build targeted at Eclipse 3.7.</li>
 			<li>
 			Check that only one version of WindowBuilder Pro (one 
 			set of *designer* plugins and features) is installed. If you have an 
@@ -328,13 +325,13 @@ src="features/images/source_design.png" v:shapes="_x0000_i1033"></p>
 			exists, you should send your Eclipse ".log" file (found in your 
 			<b>&lt;workspace&gt;/.metadata</b> directory) as well as any relevant test cases 
 			to
-			support. 
-		Including a test case that will 
+			<a href="support/product_support.html">support</a>. 
+		Including a <a href="support/test_cases.html">test case</a> that will 
 			help us reproduce the problem is very important. The faster we can 
 			reproduce the problem, the faster we can get you a fix. If we can't 
 			reproduce a problem, there is little we can do to help you. </p>
 		<p>Ideally, 
-			the test case you send should be the same window you were editing 
+			the <a href="support/test_cases.html">test case</a> you send should be the same window you were editing 
 			when the problem occurred (along with any supporting files needed to 
 		compile it). If that is not possible (possibly because 
 			you aren't allowed to send any code to a 3rd party), then you should 
@@ -350,13 +347,14 @@ src="features/images/source_design.png" v:shapes="_x0000_i1033"></p>
 		licensing. Your Eclipse ".log" file (found in your 
 		<b>&lt;workspace&gt;/.metadata</b> directory) should provide a hint as to the cause 
 		of the parsing error. Send the log file as well as a test case to
-			support 
-		(ideally the window you are trying to edit). Including a test case that will 
+			<a href="support/product_support.html">support</a> 
+		(ideally the window you are trying to edit). Including a 
+		<a href="support/test_cases.html">test case</a> that will 
 			help us reproduce the problem is very important. The faster we can 
 			reproduce the problem, the faster we can get you a fix. If we can't 
 			reproduce a problem, there is little we can do to help you. </p>
 		<p>Ideally, 
-			the test case you send should be the same window you were editing 
+			the <a href="support/test_cases.html">test case</a> you send should be the same window you were editing 
 			when the problem occurred (along with any supporting files needed to 
 		compile it). If that is not possible (possibly because 
 			you aren't allowed to send any code to a 3rd party), then you should 
@@ -436,13 +434,13 @@ initialization (which can manifest itself as a <span style="font-weight: bold;">
 		<p>An UnsupportedClassVersionError is usually caused by attempting to 
 		run code compiled against a later JRE with an IDE using an earlier JRE. 
 		Typically, you will see this when trying to use a class (such as a 
-		custom widget) that has been compiled against JDK 1.5 within a version 
-		of Eclipse launched with JDK 1.4.</p>
+		custom widget) that has been compiled against JDK 1.6 within a version 
+		of Eclipse launched with JDK 1.5.</p>
 		<p>Two solutions are possible: you may either recompile the class using 
-		JDK 1.4, or you can tell Eclipse to run using JDK 1.5 by modifying its 
-		startup parameters as follows (use your path to JDK 1.5 on your system):</p>
+		JDK 1.5, or you can tell Eclipse to run using JDK 1.6 by modifying its 
+		startup parameters as follows (use your path to JDK 1.6 on your system):</p>
 		<blockquote>
-			<p>-vm C:\jdk1.5.0_04\bin\java.exe</p>
+			<p>-vm C:\jdk1.6.0_21\bin\java.exe</p>
 		</blockquote>
 		<h2 style="font-weight: bold;"><a name="UnsatisfiedLinkError"></a>What should I do 
 			if I encounter an UnsatisfiedLinkError when launching my SWT 
@@ -569,25 +567,6 @@ initialization (which can manifest itself as a <span style="font-weight: bold;">
 			<li>
 			You are done!</li>
 		</ol>
-				<h2 style="font-weight: bold;"><a name="VE"></a>Is WindowBuilder 
-				Pro 
-			based on the Eclipse Visual Editor?</h2>
-		<p>No. WindowBuilder Pro does not use any code from the Eclipse Visual 
-			Editor project (and vice versa). Both the Eclipse VE and 
-		WindowBuilder Pro are native Eclipse applications that are based 
-			on the Eclipse GEF (Graphical Editor Framework) libraries.</p>
-		<h2 style="font-weight: bold;"><a name="LatestVersion"></a>How do I know whether I 
-			have the latest WindowBuilder Pro version?</h2><p>We follow the same general 
-			release and naming convention that is used by Eclipse.org. On the 
-				WindowBuilder Pro download page, you will find two columns of downloads. The first 
-			column will allow you to download the most recent GA version of the 
-			product while the second columns will allow you to download the most 
-			recent development stream (or beta stream) build. The date of the 
-			latest build is always shown at the top of the column. You can check 
-			which build you are currently using by looking at the main
-				WindowBuilder Pro preference page. 
-			In general, new development stream build may be directly installed 
-			over older ones.</p>
 				</td>
 			</tr>
 		</table>
