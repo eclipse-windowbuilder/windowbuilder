@@ -88,6 +88,9 @@ def main():
     log.info("Unzip the signed files")
     unzipSites(productDir)
 
+    log.info("UpdateMirror")
+    updateMirror(productDir)
+    
     log.info("Generate Eclipse P2 Metadata")
     eclipse.publishSite(baseDir, productDir, eclipseVersion)
   
@@ -282,7 +285,7 @@ def signZipFiles(dir):
   log.info("all files have been signed")
   return os.path.join(dir, "signed")
 
-
+from xml.dom import minidom
 def unzipSites(dir):
   log.debug("unzipSites(" + dir + ")")
   try:
@@ -429,6 +432,24 @@ def cleanup(signDir, deployDir, dirsToSave):
       print "saving  ->  " + dir
   log.debug("out cleanup")
 
+def updateMirror(dir):
+  log.debug("in updateMirror(" + dir + ")")
+  fullFile = os.path.join(dir, '3.7');
+  if os.path.exists(fullFile):
+    file = os.path.join(fullFile, 'site.xml')
+    log.debug('processing ' + file)
+    dom = minidom.parse(file)
+    attr = dom.createAttribute('mirrorsURL')
+    site = dom.documentElement
+    attr.value = "http://www.eclipse.org/downloads/download.php?file=/windowbuilder/WB/release/R201106211200/3.7&format=xml"
+    site.setAttributeNode(attr)
+    f = open(file, 'w')
+    site.writexml( f, addindent="   ")
+    f.close()
+
+    
+  log.debug("out updateMirror()")
+  
 if __name__ == "__main__":
   main()
   

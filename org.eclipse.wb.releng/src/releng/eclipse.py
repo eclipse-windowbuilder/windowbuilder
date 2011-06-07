@@ -70,7 +70,7 @@ def __findEclipseArchive(eclipseVersion):
         break;
   
     if eclipseArchiveFile == None:
-      log.error("could not find any Eclipse archives with " + searchTerm)
+      log.error("could not find any Eclipse archives with " + searchTerm + ' in ' + file)
       raise OSError("could not find any Eclipse archives with " + searchTerm)
     
   log.info("found Eclipse archive " + eclipseArchiveFile)
