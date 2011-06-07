@@ -10,6 +10,7 @@ package org.eclipse.wb.internal.discovery.core;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.util.Util;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -70,17 +71,15 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
    * @return a string representing the current operating system
    */
   protected static String getCurrentOS() {
-    String osName = System.getProperty("os.name").toLowerCase();
-    
-    if (osName.indexOf("linux") != -1 || osName.indexOf("unix") != -1) {
-      return "linux";
-    } else if (osName.indexOf("mac") != -1) {
-      return "mac";
-    } else if (osName.indexOf("window") != -1 || osName.indexOf("win") != -1) {
+    if (Util.isWindows()) {
       return "win32";
+    } else if (Util.isMac()) {
+      return "mac";
+    } else if (Util.isLinux()) {
+      return "linux";
+    } else {
+    	return "unknown";
     }
-    
-    return "unknown";
   }
 
   //private WBToolkitRegistryUpdateJob updateJob;
