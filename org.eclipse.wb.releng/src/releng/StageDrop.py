@@ -129,7 +129,7 @@ def processArgs():
   parser.set_defaults(packsite=True)
   parser.set_defaults(signfiles=True)
   parser.set_defaults(dodeploy=False)
-  parser.set_defaults(dirstosave="5")
+  parser.set_defaults(dirstosave="7")
   parser.add_option("--signdir", action="store", dest="signdir")
   parser.add_option("-e", "--eclipseversion", action="store", 
                     dest="eclipseversion")
