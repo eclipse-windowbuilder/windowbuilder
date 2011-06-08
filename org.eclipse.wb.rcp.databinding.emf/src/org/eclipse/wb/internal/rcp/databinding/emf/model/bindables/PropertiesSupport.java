@@ -40,6 +40,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -252,7 +253,8 @@ public class PropertiesSupport {
       }
     }
     String emfClassName =
-        EmfCodeGenUtil.format(eObjectClass.getSimpleName(), '_', null, true, true).toUpperCase();
+        EmfCodeGenUtil.format(eObjectClass.getSimpleName(), '_', null, true, true).toUpperCase(
+            Locale.ENGLISH);
     ClassInfo classInfo = packageInfo.get(emfClassName);
     if (classInfo == null) {
       for (Map.Entry<String, ClassInfo> entry : packageInfo.entrySet()) {
@@ -281,7 +283,8 @@ public class PropertiesSupport {
       List<PropertyInfo> newProperties = Lists.newArrayList();
       for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(eObjectClass)) {
         String propertyName =
-            EmfCodeGenUtil.format(descriptor.getName(), '_', null, false, false).toUpperCase();
+            EmfCodeGenUtil.format(descriptor.getName(), '_', null, false, false).toUpperCase(
+                Locale.ENGLISH);
         for (Iterator<PropertyInfo> I = classInfo.properties.iterator(); I.hasNext();) {
           PropertyInfo propertyInfo = I.next();
           if (propertyName.equals(propertyInfo.internalName)) {

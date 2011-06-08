@@ -73,6 +73,7 @@ import java.io.StringReader;
 import java.text.MessageFormat;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -284,8 +285,9 @@ public class StylesEditComposite extends Composite {
       @Override
       public boolean select(Viewer viewer, Object parentElement, Object element) {
         CssRuleNode rule = ((RuleWrapper) element).getRule();
-        return rule.getSelector().getValue().toUpperCase().indexOf(
-            m_filterField.getText().toUpperCase()) != -1;
+        String selector = rule.getSelector().getValue().toUpperCase(Locale.ENGLISH);
+        String filterText = m_filterField.getText().toUpperCase(Locale.ENGLISH);
+        return selector.indexOf(filterText) != -1;
       }
     };
   }

@@ -41,6 +41,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -181,18 +182,18 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
             String setString = "";
             for (int i = 2; i < line.length; i++) {
               setString += " ";
-              setString += line[i].toUpperCase();
+              setString += line[i].toUpperCase(Locale.ENGLISH);
             }
             parameters.put("set", setString.trim());
           }
           // select
           if (line.length >= 5 && line[0].equals("select") && line[3] == null) {
             String title = line[1];
-            String defaultField = line[2].toUpperCase();
+            String defaultField = line[2].toUpperCase(Locale.ENGLISH);
             String selectString = title + " " + defaultField;
             for (int i = 4; i < line.length; i++) {
               selectString += " ";
-              selectString += line[i].toUpperCase();
+              selectString += line[i].toUpperCase(Locale.ENGLISH);
             }
             parameters.put("select" + selectIndex, selectString.trim());
             selectIndex++;

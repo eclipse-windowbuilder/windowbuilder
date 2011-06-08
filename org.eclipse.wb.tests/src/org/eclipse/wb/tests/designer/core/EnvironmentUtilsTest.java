@@ -15,6 +15,8 @@ import com.google.common.collect.ImmutableSet;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import java.util.Locale;
+
 /**
  * Test for {@link EnvironmentUtils}.
  * 
@@ -38,7 +40,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
     boolean isLinux;
     boolean isMac;
     {
-      String hostName = EnvironmentUtils.HOST_NAME.toUpperCase();
+      String hostName = EnvironmentUtils.HOST_NAME.toUpperCase(Locale.ENGLISH);
       isWindows =
           ImmutableSet.of("SCHEGLOV-KE", "SCHEGLOV-WIN", "FLANKER-WINDOWS", "SABLIN-AA").contains(
               hostName);

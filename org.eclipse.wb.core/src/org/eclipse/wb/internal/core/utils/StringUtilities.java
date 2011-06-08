@@ -14,6 +14,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Locale;
+
 /**
  * Implements utility methods that operate on strings.
  * 
@@ -398,7 +400,7 @@ public class StringUtilities {
    * @return the upper case hex decimal {@link String}.
    */
   private static String hex(char c) {
-    return Integer.toHexString(c).toUpperCase();
+    return Integer.toHexString(c).toUpperCase(Locale.ENGLISH);
   }
 
   ////////////////////////////////////////////////////////////////////////////

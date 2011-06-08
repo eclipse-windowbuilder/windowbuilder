@@ -22,6 +22,7 @@ import java.awt.SystemColor;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,7 +54,8 @@ public final class AwtColors {
         for (int i = 0; i < colorFields.length; i++) {
           Field field = colorFields[i];
           String fieldName = field.getName();
-          if (field.getType() == Color.class && fieldName.toUpperCase().equals(fieldName)) {
+          if (field.getType() == Color.class
+              && fieldName.toUpperCase(Locale.ENGLISH).equals(fieldName)) {
             Color color = (Color) field.get(null);
             ColorInfo colorInfo =
                 new ColorInfo(fieldName, color.getRed(), color.getGreen(), color.getBlue());

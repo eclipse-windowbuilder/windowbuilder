@@ -46,6 +46,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -235,7 +236,8 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
     {
       String modeText = (String) parameters.get("mode");
       Assert.isNotNull(modeText, "'mode' attribute required.");
-      m_mode = Mode.valueOf(modeText.toUpperCase());
+      modeText = modeText.toUpperCase(Locale.ENGLISH);
+      m_mode = Mode.valueOf(modeText);
       Assert.isNotNull(
           m_mode,
           "Invalid value for 'mode' attribute. Only 'anonymous' or 'inner' supported.");

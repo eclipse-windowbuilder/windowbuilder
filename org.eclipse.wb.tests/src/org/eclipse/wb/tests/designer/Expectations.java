@@ -24,6 +24,7 @@ import org.apache.commons.lang.SystemUtils;
 import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -139,8 +140,8 @@ public final class Expectations {
     return ImmutableList.of(
         keyHostOS,
         keyHost,
-        keyHost.toLowerCase(),
-        keyHost.toUpperCase(),
+        keyHost.toLowerCase(Locale.ENGLISH),
+        keyHost.toUpperCase(Locale.ENGLISH),
         keyOS,
         timeZone);
   }

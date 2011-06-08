@@ -18,6 +18,7 @@ import org.apache.commons.lang.SystemUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Locale;
 
 /**
  * Helper for environment state access.
@@ -34,7 +35,7 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
   public static final String HOST_NAME = getHostName();
   public static final boolean DEVELOPER_HOST;
   static {
-    String host = HOST_NAME.toUpperCase();
+    String host = HOST_NAME.toUpperCase(Locale.ENGLISH);
     DEVELOPER_HOST =
         "SCHEGLOV-KE".equals(host)
             || "SCHEGLOV-MACPRO".equals(host)
@@ -235,7 +236,7 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
    * IBM Java has its own glitches.
    */
   public static boolean isJavaIBM() {
-    return getTestSensetive_JAVA_VM_VENDOR().toUpperCase().contains("IBM");
+    return getTestSensetive_JAVA_VM_VENDOR().toUpperCase(Locale.ENGLISH).contains("IBM");
   }
 
   private static String getTestSensetive_JAVA_VM_VENDOR() {

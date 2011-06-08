@@ -33,6 +33,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.TypedListener;
 
+import java.util.Locale;
+
 /**
  * {@link Control} like {@link Combo} or {@link CCombo} that shows {@link Table} with image/text as
  * drop-down.
@@ -407,7 +409,7 @@ public class CTableCombo extends Composite {
           int oldIndex = getSelectionIndex();
           int index = -1;
           for (int i = 0; i < getItemCount(); i++) {
-            String item = getItem(i).toUpperCase();
+            String item = getItem(i).toUpperCase(Locale.ENGLISH);
             if (item.length() != 0 && item.charAt(0) == Character.toUpperCase(event.character)) {
               index = i;
               break;

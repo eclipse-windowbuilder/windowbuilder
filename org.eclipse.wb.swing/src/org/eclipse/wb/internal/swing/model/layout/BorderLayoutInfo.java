@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Model for {@link BorderLayout}.
@@ -172,7 +173,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
     if (region == null) {
       return null;
     }
-    return "java.awt.BorderLayout." + region.toUpperCase();
+    return "java.awt.BorderLayout." + region.toUpperCase(Locale.ENGLISH);
   }
 
   ////////////////////////////////////////////////////////////////////////////
