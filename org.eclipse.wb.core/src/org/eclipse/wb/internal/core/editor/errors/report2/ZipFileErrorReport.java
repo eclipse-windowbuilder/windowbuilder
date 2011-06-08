@@ -133,7 +133,7 @@ public final class ZipFileErrorReport implements IErrorReport {
   /**
    * @return the temporary directory for holding report files.
    */
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "RV_RETURN_VALUE_IGNORED_BAD_PRACTIC")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "RV_RETURN_VALUE_IGNORED_BAD_PRACTIC")
   public static File getReportTemporaryDirectory() {
     String tmpDirPath = System.getProperty("java.io.tmpdir");
     tmpDirPath += File.separator + "wbp-report";

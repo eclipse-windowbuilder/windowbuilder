@@ -138,7 +138,7 @@ public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
    * Factors incoming requests into various specific methods.
    */
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
   public Command getCommand(Request request) {
     Object type = request.getType();
     if (type == Request.REQ_CREATE) {

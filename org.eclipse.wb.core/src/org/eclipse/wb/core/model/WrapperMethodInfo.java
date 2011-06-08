@@ -74,7 +74,7 @@ public class WrapperMethodInfo extends JavaInfo implements IWrapperInfo {
   // Clipboard
   //
   ////////////////////////////////////////////////////////////////////////////
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SE_BAD_FIELD")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SE_BAD_FIELD")
   private void clipboardCopy_addCommands(List<ClipboardCommand> commands) throws Exception {
     final JavaInfoMemento wrapperMemento = JavaInfoMemento.createMemento(WrapperMethodInfo.this);
     commands.add(new ClipboardCommand() {

@@ -424,7 +424,7 @@ public final class ConstructorCreationSupport extends CreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SE_BAD_FIELD_INNER_CLASS")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SE_BAD_FIELD_INNER_CLASS")
   public IClipboardCreationSupport getClipboard() throws Exception {
     final String source = getClipboardSource();
     return new IClipboardCreationSupport() {

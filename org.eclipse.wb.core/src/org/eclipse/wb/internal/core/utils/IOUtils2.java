@@ -48,7 +48,7 @@ public class IOUtils2 {
   // Directory
   //
   ////////////////////////////////////////////////////////////////////////////
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "RV_RETURN_VALUE_IGNORED_BAD_PRACTIC")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "RV_RETURN_VALUE_IGNORED_BAD_PRACTIC")
   public static File createTempDirectory(String prefix, String suffix) throws IOException {
     File tempFile = File.createTempFile(prefix, suffix);
     tempFile.delete();

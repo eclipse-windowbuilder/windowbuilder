@@ -61,7 +61,7 @@ public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
   public void showTargetFeedback(Request request) {
     TabOrderContainerRequest containerRequest = (TabOrderContainerRequest) request;
     //
@@ -109,7 +109,7 @@ public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
   }
 
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
   public void eraseTargetFeedback(Request request) {
     eraseChildrenIndexes();
     TabOrderContainerRequest containerRequest = (TabOrderContainerRequest) request;

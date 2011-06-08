@@ -94,19 +94,19 @@ public final class TableTableColumnSelectionEditPolicy extends SelectionEditPoli
   }
 
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
   public Command getCommand(Request request) {
     return getResizeCommand((ChangeBoundsRequest) request);
   }
 
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
   public void showSourceFeedback(Request request) {
     showResizeFeedback((ChangeBoundsRequest) request);
   }
 
   @Override
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
   public void eraseSourceFeedback(Request request) {
     eraseResizeFeedback((ChangeBoundsRequest) request);
   }

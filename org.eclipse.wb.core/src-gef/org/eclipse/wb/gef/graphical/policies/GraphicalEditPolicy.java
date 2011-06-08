@@ -55,7 +55,7 @@ public class GraphicalEditPolicy extends EditPolicy {
   /**
    * Obtains the specified layer.
    */
-  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ")
+  //@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ")
   protected final Layer getLayer(String name) {
     if (isOnMenuLayer()) {
       if (name == IEditPartViewer.HANDLE_LAYER) {
