@@ -31,15 +31,22 @@ public final class PropertyTagRule extends AbstractDesignerRule {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void begin(String namespace, String name, Attributes attributes) throws Exception {
-    String propertyName = getRequiredAttribute(name, attributes, "name");
-    // check all properties
-    ComponentDescription componentDescription = (ComponentDescription) digester.peek();
-    for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
-      String id = propertyDescription.getId();
-      if (PropertiesFlagRule.matchPropertyId(id, propertyName)) {
-        String tag = getRequiredAttribute(name, attributes, "tag");
-        String value = getRequiredAttribute(name, attributes, "value");
-        propertyDescription.putTag(tag, value);
+    if (name.equals("tag")) {
+      GenericPropertyDescription propertyDescription = (GenericPropertyDescription) digester.peek();
+      String tagName = getRequiredAttribute(name, attributes, "name");
+      String tagValue = getRequiredAttribute(name, attributes, "value");
+      propertyDescription.putTag(tagName, tagValue);
+    } else {
+      String propertyName = getRequiredAttribute(name, attributes, "name");
+      ComponentDescription componentDescription = (ComponentDescription) digester.peek();
+      // check all properties
+      for (GenericPropertyDescription propertyDescription : componentDescription.getProperties()) {
+        String id = propertyDescription.getId();
+        if (PropertiesFlagRule.matchPropertyId(id, propertyName)) {
+          String tag = getRequiredAttribute(name, attributes, "tag");
+          String value = getRequiredAttribute(name, attributes, "value");
+          propertyDescription.putTag(tag, value);
+        }
       }
     }
   }

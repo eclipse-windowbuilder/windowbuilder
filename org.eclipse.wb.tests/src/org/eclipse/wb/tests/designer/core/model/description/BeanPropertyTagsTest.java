@@ -449,6 +449,43 @@ public class BeanPropertyTagsTest extends SwingModelTest {
     }
   }
 
+  /**
+   * Test for using tag "title" to specify different title of {@link GenericPropertyDescription}.
+   * 
+   * <pre>
+   *     <property id="...">
+   *         <tag name="title" value="HTML"/>
+   *     </property>
+   * </pre>
+   */
+  public void test_setTitleForProperty2() throws Exception {
+    setFileContentSrc(
+        "test/MyObject.java",
+        getSourceDQ(
+            "package test;",
+            "public class MyObject {",
+            "  public void setValue(int value) {",
+            "  }",
+            "}"));
+    setFileContentSrc(
+        "test/MyObject.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <property id='setValue(int)'>",
+            "    <tag name='title' value='MyTitle'/>",
+            "  </property>",
+            "</component>"));
+    waitForAutoBuild();
+    //
+    ComponentDescription description = getMyObjectDescription();
+    {
+      GenericPropertyDescription property = description.getProperty("setValue(int)");
+      assertEquals("MyTitle", property.getTitle());
+      assertEquals("MyTitle", property.getTag("title"));
+    }
+  }
+
   private ComponentDescription getMyObjectDescription() throws Exception {
     parseContainer(
         "// filler filler filler",

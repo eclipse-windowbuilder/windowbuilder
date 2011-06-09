@@ -328,6 +328,11 @@ public final class ComponentDescriptionHelper {
       ClassLoader classLoader = context.getClassLoader();
       digester.addRule(pattern, new PropertyDefaultRule(classLoader));
     }
+    // tag
+    {
+      String pattern = propertyAccessPattern + "/tag";
+      digester.addRule(pattern, new PropertyTagRule());
+    }
     /*// getter
     {
     	String pattern = propertyAccessPattern + "/getter";

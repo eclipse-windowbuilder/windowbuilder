@@ -55,6 +55,7 @@ import org.eclipse.wb.internal.core.model.description.rules.PropertyCategoryRule
 import org.eclipse.wb.internal.core.model.description.rules.PropertyDefaultRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyEditorRule;
 import org.eclipse.wb.internal.core.model.description.rules.PropertyGetterRule;
+import org.eclipse.wb.internal.core.model.description.rules.PropertyTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.PublicFieldPropertiesRule;
 import org.eclipse.wb.internal.core.model.description.rules.SetClassPropertyRule;
 import org.eclipse.wb.internal.core.model.description.rules.SetListedPropertiesRule;
@@ -744,6 +745,11 @@ public final class ComponentDescriptionHelper {
     {
       String pattern = propertyAccessPattern + "/getter";
       digester.addRule(pattern, new PropertyGetterRule());
+    }
+    // tag
+    {
+      String pattern = propertyAccessPattern + "/tag";
+      digester.addRule(pattern, new PropertyTagRule());
     }
   }
 
