@@ -253,7 +253,7 @@ public abstract class AbstractGridHelper {
   /**
    * @return the host {@link EditPart}.
    */
-  private GraphicalEditPart getHost() {
+  protected GraphicalEditPart getHost() {
     if (m_editPolicy instanceof LayoutEditPolicy) {
       return m_editPolicy.getHost();
     } else {
@@ -301,7 +301,7 @@ public abstract class AbstractGridHelper {
   /**
    * Translates given {@link Translatable} from model coordinates into feedback layer coordinates.
    */
-  private void translateModelToFeedback(Translatable t) {
+  protected void translateModelToFeedback(Translatable t) {
     if (m_editPolicy instanceof LayoutEditPolicy) {
       PolicyUtils.translateModelToFeedback((LayoutEditPolicy) m_editPolicy, t);
     } else {

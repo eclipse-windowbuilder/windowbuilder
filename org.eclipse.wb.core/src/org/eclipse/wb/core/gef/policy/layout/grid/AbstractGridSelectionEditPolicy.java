@@ -116,7 +116,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
    */
   private Rectangle getComponentCellBounds_atFeedback() throws Exception {
     Rectangle bounds = getComponentCellBounds();
-    PolicyUtils.translateModelToFeedback(this, bounds);
+    translateModelToFeedback(bounds);
     return bounds;
   }
 
@@ -268,7 +268,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
       IGridInfo gridInfo = getGridInfo();
       Rectangle cells = gridInfo.getComponentCells(component);
       cellRect = gridInfo.getCellsRectangle(cells).getCopy();
-      PolicyUtils.translateModelToFeedback(this, cellRect);
+      translateModelToFeedback(cellRect);
     }
     // prepare location and size
     Point figureLocation;
@@ -386,7 +386,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
       }
       // set bounds
       {
-        PolicyUtils.translateModelToFeedback(this, bounds);
+        translateModelToFeedback(bounds);
         m_lineFeedback.setBounds(bounds);
       }
     }
@@ -514,7 +514,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
       // set bounds
       {
         Rectangle bounds = gridInfo.getCellsRectangle(cells);
-        PolicyUtils.translateModelToFeedback(this, bounds);
+        translateModelToFeedback(bounds);
         m_lineFeedback.setBounds(bounds);
       }
     }
@@ -638,5 +638,14 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
       return new SideLocator(percent, 1);
     }
     throw new IllegalArgumentException("Unknown direction: " + direction);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Policy Utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  protected void translateModelToFeedback(Rectangle bounds) {
+    PolicyUtils.translateModelToFeedback(this, bounds);
   }
 }

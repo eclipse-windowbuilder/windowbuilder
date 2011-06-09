@@ -85,7 +85,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  public final void deactivate() {
+  public void deactivate() {
     super.deactivate();
     m_gridSelectionHelper.eraseGridFeedback();
   }
