@@ -112,7 +112,7 @@ public class OpaqueCreationSupport extends CreationSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  public String add_getSource(NodeTarget target) throws Exception {
+  public String add_getSource(NodeTarget target) {
     return m_source;
   }
 

@@ -11,12 +11,13 @@
 package org.eclipse.wb.internal.swing.FormLayout.parser;
 
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.model.creation.CreationSupport;
+import org.eclipse.wb.internal.core.model.creation.ILiveCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.OpaqueCreationSupport;
 import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
 import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.model.property.accessor.FactoryAccessor;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
-import org.eclipse.wb.internal.core.parser.IParseFactory;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -25,12 +26,14 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import java.util.List;
 
 /**
- * {@link IParseFactory} for JGoodies.
+ * {@link CreationSupport} for JGoodies <code>DefaultComponentFactory</code>.
  * 
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
-public final class DefaultComponentFactoryCreationSupport extends OpaqueCreationSupport {
+public final class DefaultComponentFactoryCreationSupport extends OpaqueCreationSupport
+    implements
+      ILiveCreationSupport {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructors
@@ -42,6 +45,16 @@ public final class DefaultComponentFactoryCreationSupport extends OpaqueCreation
 
   public DefaultComponentFactoryCreationSupport(String source) {
     super("com.jgoodies.forms.factories.DefaultComponentFactory.getInstance()." + source);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // ILiveCreationSupport
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public CreationSupport getLiveComponentCreation() {
+    String source = add_getSource(null);
+    return new OpaqueCreationSupport(source);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -22,6 +22,8 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
+import org.eclipse.swt.graphics.Image;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -129,6 +131,15 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
     assertInstanceOf(
         DefaultComponentFactoryCreationSupport.class,
         newComponent.getCreationSupport());
+    // live image
+    {
+      Image image = newComponent.getImage();
+      assertNotNull(image);
+      org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
+      assertThat(bounds.width).isGreaterThan(50).isLessThan(100);
+      assertThat(bounds.height).isGreaterThan(10).isLessThan(20);
+      image.dispose();
+    }
     // add object
     ((FlowLayoutInfo) panel.getLayout()).add(newComponent, null);
     assertEditor(
