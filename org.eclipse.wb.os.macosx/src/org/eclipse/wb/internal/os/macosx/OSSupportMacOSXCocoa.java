@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.os.macosx;
 
 import org.eclipse.wb.draw2d.IColorConstants;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.os.OSSupport;
 
@@ -22,6 +23,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -144,6 +146,76 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   @Override
   public void setAlpha(Shell shell, int alpha) {
     _setAlpha(getID(shell, "window"), alpha);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // AWT/Swing
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  @Override
+  public Image makeShotAwt(final Object component, final int width, final int height) {
+    final Image[] toReturn = new Image[]{null};
+    final Display display = DesignerPlugin.getStandardDisplay();
+    display.syncExec(new Runnable() {
+      public void run() {
+        toReturn[0] = makeShotAwt0(display, component, width, height);
+      }
+    });
+    return toReturn[0];
+  }
+
+  private Image makeShotAwt0(Display display, Object component, int width, int height) {
+    GC gc = null;
+    try {
+      Image image = new Image(display, width, height);
+      gc = new GC(image);
+      H context = getID(gc, "handle");
+      Number peerId = getComponentPeerId(component);
+      Number parentId = findParentComponentPeerId(component);
+      if (peerId == null || parentId == null || peerId.equals(parentId)) {
+        return null;
+      }
+      _makeShot(peerId, parentId, context);
+      return image;
+    } catch (Throwable e) {
+      // ignore and return null;
+    } finally {
+      if (gc != null) {
+        gc.dispose();
+      }
+    }
+    return null;
+  }
+
+  private static Number findParentComponentPeerId(Object component) throws Exception {
+    for (component = getParentComponent(component); component != null; component =
+        getParentComponent(component)) {
+      Number peerId = getComponentPeerId(component);
+      if (peerId != null) {
+        return peerId;
+      }
+    }
+    return null;
+  }
+
+  private static Object getParentComponent(Object component) throws Exception {
+    return ReflectionUtils.invokeMethod2(component, "getParent");
+  }
+
+  private static Number getComponentPeerId(Object component) {
+    try {
+      boolean hasPeer = (Boolean) ReflectionUtils.invokeMethod2(component, "isDisplayable");
+      if (hasPeer) {
+        Object peer = ReflectionUtils.getFieldObject(component, "peer");
+        if (peer != null) {
+          return (Number) ReflectionUtils.invokeMethod2(peer, "getViewPtr");
+        }
+      }
+    } catch (Throwable e) {
+      // ignore and return null
+    }
+    return null;
   }
 
   ////////////////////////////////////////////////////////////////////////////

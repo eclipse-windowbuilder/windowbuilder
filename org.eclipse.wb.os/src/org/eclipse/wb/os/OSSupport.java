@@ -310,4 +310,18 @@ public abstract class OSSupport {
   public void scroll(Control cursorControl, int count) {
     // does nothing
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // AWT/Swing
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Attempts to take shot from AWT component's native peer. Returns <code>null</code> if no peer,
+   * cannot determine native handle or any other low-level error or improper state determined.
+   */
+  public Image makeShotAwt(Object component, int width, int height) {
+    // do nothing by default
+    return null;
+  }
 }

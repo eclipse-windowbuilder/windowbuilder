@@ -46,7 +46,7 @@ import javax.swing.JPanel;
  */
 public final class SwingScreenshotMaker {
   private final AbstractComponentInfo m_root;
-  private final Map<Component, Object> m_componentImages = Maps.newHashMap();
+  private final Map<Component, java.awt.Image> m_componentImages = Maps.newHashMap();
   private final Component m_component;
   private Window m_window;
   private Point m_oldComponentLocation;
@@ -157,23 +157,23 @@ public final class SwingScreenshotMaker {
       image = componentImage;
     }
     // store image for top-level first
-    if (EnvironmentUtils.IS_MAC && m_window == m_component) {
-      // draw decorations on OSX using SWT 
-      m_componentImages.put(
-          m_component,
-          SwingImageUtils.createOSXImage(m_window, SwingImageUtils.convertImage_AWT_to_SWT(image)));
-    } else {
-      m_componentImages.put(m_component, image);
-    }
+    m_componentImages.put(m_component, image);
     // do traverse
-    SwingImageUtils.makeShotsHierarchy(m_component, m_componentImages, true);
+    SwingImageUtils.makeShotsHierarchy(m_component, m_componentImages, m_component);
     // convert images
+    final Map<Component, Image> convertedImages = Maps.newHashMap();
     for (Component keyComponent : Collections.unmodifiableMap(m_componentImages).keySet()) {
-      Object image2 = m_componentImages.get(keyComponent);
-      if (image2 != null && image2 instanceof java.awt.Image) {
-        m_componentImages.put(
-            keyComponent,
-            SwingImageUtils.convertImage_AWT_to_SWT((java.awt.Image) image2));
+      java.awt.Image image2 = m_componentImages.get(keyComponent);
+      if (image2 != null) {
+        convertedImages.put(keyComponent, SwingImageUtils.convertImage_AWT_to_SWT(image2));
+      }
+    }
+    // draw decorations on OS X
+    if (EnvironmentUtils.IS_MAC && m_window == m_component) {
+      Image oldImage = convertedImages.get(m_component);
+      convertedImages.put(m_component, SwingImageUtils.createOSXImage(m_window, oldImage));
+      if (oldImage != null) {
+        oldImage.dispose();
       }
     }
     // set images
@@ -183,7 +183,7 @@ public final class SwingScreenshotMaker {
         if (objectInfo instanceof AbstractComponentInfo) {
           AbstractComponentInfo componentInfo = (AbstractComponentInfo) objectInfo;
           Object componentObject = componentInfo.getComponentObject();
-          Image image = (Image) m_componentImages.get(componentObject);
+          Image image = convertedImages.get(componentObject);
           componentInfo.setImage(image);
         }
       }

@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
+import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
@@ -224,19 +225,40 @@ public class SwingImageUtils {
    * @param componentImages
    *          the {@link Map} of components which screen shots should be made for. This map would be
    *          filled by prepared {@link java.awt.Image} instances.
-   * @param isRoot
-   *          determines should this branch hierarchy root should be included into screen shot map.
+   * @param rootComponent
+   *          this branch hierarchy root component.
    */
   static void makeShotsHierarchy(Component component,
-      Map<Component, Object> componentImages,
-      boolean isRoot) throws Exception {
-    if (componentImages.containsKey(component) && !isRoot) {
-      componentImages.put(component, createComponentShotAWT(component));
+      Map<Component, java.awt.Image> componentImages,
+      Component rootComponent) throws Exception {
+    if (componentImages.containsKey(component) && component != rootComponent) {
+      BufferedImage thisComponentImage = (BufferedImage) createComponentShotAWT(component);
+      // BUG in OS X (Java 1.6.0_24-b07-334-10M3326): Component.printAll() returns no image 
+      // for AWT components and these components are not drawn on the JComponent container 
+      // using the same printAll() method. 
+      // The workaround is to hack into a native peer, get the native image and then paint it. 
+      if (EnvironmentUtils.IS_MAC && !(component instanceof JComponent)) {
+        int width = Math.max(1, component.getWidth());
+        int height = Math.max(1, component.getHeight());
+        Image nativeImage = OSSupport.get().makeShotAwt(component, width, height);
+        if (nativeImage != null) {
+          BufferedImage rootImage = (BufferedImage) componentImages.get(rootComponent);
+          Point rootLocation = rootComponent.getLocationOnScreen();
+          Point componentLocation = component.getLocationOnScreen();
+          thisComponentImage = ImageUtils.convertToAWT(nativeImage.getImageData());
+          rootImage.getGraphics().drawImage(
+              thisComponentImage,
+              componentLocation.x - rootLocation.x,
+              componentLocation.y - rootLocation.y,
+              null);
+        }
+      }
+      componentImages.put(component, thisComponentImage);
     }
     if (component instanceof Container) {
       Container container = (Container) component;
       for (Component childComponent : container.getComponents()) {
-        makeShotsHierarchy(childComponent, componentImages, false);
+        makeShotsHierarchy(childComponent, componentImages, rootComponent);
       }
     }
   }
