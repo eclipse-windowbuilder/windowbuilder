@@ -114,7 +114,7 @@ public class ComponentInfo extends AbstractComponentInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  protected void doRefresh(final RunnableEx runnableEx) throws Exception {
+  protected void execRefreshOperation(final RunnableEx runnableEx) throws Exception {
     SwingUtils.runLaterAndWait(runnableEx);
   }
 

@@ -479,11 +479,20 @@ public abstract class ObjectInfo implements IObjectInfo {
     // clean up broadcast
     getBroadcastSupport().cleanUpTargets(ObjectInfo.this);
     // do refresh
-    doRefresh(new RunnableEx() {
+    execRefreshOperation(new RunnableEx() {
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
           public void run() throws Exception {
             refreshCreate0();
+          }
+        });
+      }
+    });
+    // split fetch operations into separate parts
+    execRefreshOperation(new RunnableEx() {
+      public void run() throws Exception {
+        ExecutionUtils.runDesignTime(new RunnableEx() {
+          public void run() throws Exception {
             refresh_fetch();
             refresh_finish();
           }
@@ -501,7 +510,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    * Runs {@link RunnableEx} performing refresh. This is overridden in Swing because it requires
    * doing refresh in AWT dispatch thread.
    */
-  protected void doRefresh(RunnableEx runnableEx) throws Exception {
+  protected void execRefreshOperation(RunnableEx runnableEx) throws Exception {
     runnableEx.run();
   }
 
@@ -511,11 +520,19 @@ public abstract class ObjectInfo implements IObjectInfo {
   public final void refreshLight() throws Exception {
     Assert.isLegal(isRoot());
     // do refresh
-    doRefresh(new RunnableEx() {
+    execRefreshOperation(new RunnableEx() {
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
           public void run() throws Exception {
             refreshCreate0();
+          }
+        });
+      }
+    });
+    execRefreshOperation(new RunnableEx() {
+      public void run() throws Exception {
+        ExecutionUtils.runDesignTime(new RunnableEx() {
+          public void run() throws Exception {
             refresh_finish();
           }
         });
