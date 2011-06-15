@@ -15,7 +15,8 @@
     <!-- ================================= 
           target: build              
          ================================= -->
-    <target name="build" depends="init" description="This Ant script is used to build the Window Builder code">
+    <target name="build" depends="init" 
+    	      description="This Ant script is used to build the Window Builder code">
     </target>
 
     <!-- - - - - - - - - - - - - - - - - - 
@@ -30,9 +31,17 @@
   	     <isset property="build.home" />
   	  	</not>
   	  </condition>
+    	<echo message="build.home = ${build.home}" />
+    	<echo message="reading ${build.home}/${user.name}.properties" />
     	<property file="${build.home}/${user.name}.properties" />
+    	<echo message="reading ${build.home}/default-user.properties" /> 
     	<property file="${build.home}/default-user.properties" />
     	
+    	<delete dir="${build.tmp}" failonerror="false" includeemptydirs="true" />
+      <delete dir="${build.target}" failonerror="false" includeemptydirs="true" />
+
+    	<echoproperties prefix="build." />
+
     	<mkdir dir="${build.root}"/>
     	<mkdir dir="${build.tmp}"/>
     	<mkdir dir="${build.target}"/>
