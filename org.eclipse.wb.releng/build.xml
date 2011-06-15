@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Jun 15, 2011 12:19:58 PM                                                        
+
+     WindowBuilderBuild    
+     This Ant script is used to build the Window Builder code
+                   
+     mrrussell                                                                
+     ====================================================================== -->
+<project name="WindowBuilderBuild" default="build">
+    <description>
+            This Ant script is used to build the Window Builder code
+    </description>
+
+    <!-- ================================= 
+          target: build              
+         ================================= -->
+    <target name="build" depends="init" description="This Ant script is used to build the Window Builder code">
+      <property environment="env" />
+    	<echoproperties prefix="env." />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init">
+    </target>
+
+</project>
