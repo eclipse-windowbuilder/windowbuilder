@@ -14,6 +14,7 @@ import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
+import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
@@ -106,19 +107,21 @@ public abstract class AbstractGridHelper {
     if (m_gridFigure != null) {
       return;
     }
-    m_gridFigure = new Figure();
+    m_gridFigure = new Figure() {
+      @Override
+      protected void paintClientArea(Graphics graphics) {
+        // correct bounds (then device skin enabled)
+        Rectangle hostClientArea = getHostClientArea();
+        translateModelToFeedback(hostClientArea);
+        setBounds(hostClientArea);
+      };
+    };
     // prepare grid information
     IGridInfo gridInfo = getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
     // prepare host information
-    Rectangle hostClientArea = getHost().getFigure().getBounds().getCopy();
-    {
-      IAbstractComponentInfo containerInfo = (IAbstractComponentInfo) getHost().getModel();
-      hostClientArea.crop(containerInfo.getClientAreaInsets());
-      hostClientArea.x = hostClientArea.y = 0;
-      hostClientArea.crop(gridInfo.getInsets());
-    }
+    Rectangle hostClientArea = getHostClientArea();
     // add horizontal lines
     {
       int y = hostClientArea.top();
@@ -198,14 +201,24 @@ public abstract class AbstractGridHelper {
     {
       RectangleFigure borderFigure = new RectangleFigure();
       borderFigure.setForeground(m_borderColor);
+      borderFigure.setBounds(new Rectangle(new Point(0, 0), hostClientArea.getSize()));
       m_gridFigure.add(borderFigure);
-      // set bounds
-      borderFigure.setLocation(0, 0);
-      borderFigure.setSize(hostClientArea.getSize());
     }
-    getHost().getViewer().getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(m_gridFigure);
     translateModelToFeedback(hostClientArea);
     m_gridFigure.setBounds(hostClientArea);
+    getHost().getViewer().getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(m_gridFigure);
+  }
+
+  /**
+   * @return calculated host client area {@link Rectangle}.
+   */
+  private Rectangle getHostClientArea() {
+    Rectangle hostClientArea = getHost().getFigure().getBounds().getCopy();
+    IAbstractComponentInfo containerInfo = (IAbstractComponentInfo) getHost().getModel();
+    hostClientArea.crop(containerInfo.getClientAreaInsets());
+    hostClientArea.x = hostClientArea.y = 0;
+    hostClientArea.crop(getGridInfo().getInsets());
+    return hostClientArea;
   }
 
   /**
