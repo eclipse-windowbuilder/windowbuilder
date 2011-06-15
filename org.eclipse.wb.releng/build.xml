@@ -24,11 +24,18 @@
     <target name="init">
       <property environment="env" />
     	<echoproperties prefix="env." />
-    	<property name="build.root" location="${env.WORKSPACE}/build" />
-      <property name="build.tmp" location="${build.root}/tmp" />
-    	<property name="build.target" location="${build.root}/target" />
+    	<property name="cwd" location="." />
+  	  <condition property="build.home" value="${cwd}">
+  	  	<not>
+  	     <isset property="build.home" />
+  	  	</not>
+  	  </condition>
+    	<property file="${build.home}/${user.name}.properties" />
+    	<property file="${build.home}/default-user.properties" />
+    	
     	<mkdir dir="${build.root}"/>
     	<mkdir dir="${build.tmp}"/>
+    	<mkdir dir="${build.target}"/>
     </target>
 
 </project>
