@@ -10,17 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
-import org.eclipse.wb.draw2d.geometry.Insets;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -38,7 +34,6 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.swt.graphics.Color;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 /**
  * Helper for displaying grid for grid-based layouts.
@@ -67,7 +62,6 @@ public abstract class AbstractGridHelper {
   private final Color m_borderColor;
   private final Color m_existingLineColor;
   private final Color m_virtualLineColor;
-  private List<Figure> m_gridLines;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -103,28 +97,27 @@ public abstract class AbstractGridHelper {
   // Feedback
   //
   ////////////////////////////////////////////////////////////////////////////
-  Rectangle hostClientArea;
+  private Figure m_gridFigure = null;
 
   /**
    * Shows the grid feedback.
    */
   public final void showGridFeedback() {
-    if (m_gridLines != null) {
+    if (m_gridFigure != null) {
       return;
     }
-    m_gridLines = Lists.newArrayList();
+    m_gridFigure = new Figure();
     // prepare grid information
     IGridInfo gridInfo = getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
-    Insets insets = gridInfo.getInsets();
     // prepare host information
+    Rectangle hostClientArea = getHost().getFigure().getBounds().getCopy();
     {
-      hostClientArea = getHostFigure().getBounds().getCopy();
       IAbstractComponentInfo containerInfo = (IAbstractComponentInfo) getHost().getModel();
       hostClientArea.crop(containerInfo.getClientAreaInsets());
       hostClientArea.x = hostClientArea.y = 0;
-      hostClientArea.crop(insets);
+      hostClientArea.crop(gridInfo.getInsets());
     }
     // add horizontal lines
     {
@@ -205,11 +198,40 @@ public abstract class AbstractGridHelper {
     {
       RectangleFigure borderFigure = new RectangleFigure();
       borderFigure.setForeground(m_borderColor);
-      m_gridLines.add(borderFigure);
-      getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(borderFigure);
+      m_gridFigure.add(borderFigure);
       // set bounds
-      translateModelToFeedback(hostClientArea);
-      borderFigure.setBounds(hostClientArea);
+      borderFigure.setLocation(0, 0);
+      borderFigure.setSize(hostClientArea.getSize());
+    }
+    getHost().getViewer().getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(m_gridFigure);
+    translateModelToFeedback(hostClientArea);
+    m_gridFigure.setBounds(hostClientArea);
+  }
+
+  /**
+   * Adds single line - part of grid to display all cells.<br>
+   * Coordinates should be parent-relative (model).<br>
+   * Begin point is inclusive, end point is exclusive.
+   */
+  private void addGridLine(int x1, int y1, int x2, int y2, Color color) {
+    if (color != null) {
+      Polyline line = new Polyline();
+      line.setForeground(color);
+      // prepare points
+      Point p1 = new Point(x1, y1);
+      Point p2 = new Point(x2, y2);
+      // end points are exclusive
+      if (x1 == x2) {
+        p2.y--;
+      }
+      if (y1 == y2) {
+        p2.x--;
+      }
+      // add points
+      line.addPoint(p1);
+      line.addPoint(p2);
+      // add line
+      m_gridFigure.add(line);
     }
   }
 
@@ -217,11 +239,9 @@ public abstract class AbstractGridHelper {
    * Erases the grid feedback.
    */
   public final void eraseGridFeedback() {
-    if (m_gridLines != null) {
-      for (Figure figure : m_gridLines) {
-        FigureUtils.removeFigure(figure);
-      }
-      m_gridLines = null;
+    if (m_gridFigure != null) {
+      FigureUtils.removeFigure(m_gridFigure);
+      m_gridFigure = null;
     }
   }
 
@@ -244,13 +264,6 @@ public abstract class AbstractGridHelper {
   }
 
   /**
-   * @return the {@link Layer} with given id.
-   */
-  private Layer getLayer(String layerId) {
-    return getHost().getViewer().getLayer(layerId);
-  }
-
-  /**
    * @return the host {@link EditPart}.
    */
   protected GraphicalEditPart getHost() {
@@ -258,43 +271,6 @@ public abstract class AbstractGridHelper {
       return m_editPolicy.getHost();
     } else {
       return (GraphicalEditPart) m_editPolicy.getHost().getParent();
-    }
-  }
-
-  /**
-   * @return the {@link Figure} of host {@link EditPart}.
-   */
-  private Figure getHostFigure() {
-    return getHost().getFigure();
-  }
-
-  /**
-   * Adds single line - part of grid to display all cells.<br>
-   * Coordinates should be parent-relative (model).<br>
-   * Begin point is inclusive, end point is exclusive.
-   */
-  private void addGridLine(int x1, int y1, int x2, int y2, Color color) {
-    if (color != null) {
-      Polyline line = new Polyline();
-      line.setForeground(color);
-      // prepare points
-      Point p1 = new Point(x1, y1);
-      Point p2 = new Point(x2, y2);
-      translateModelToFeedback(p1);
-      translateModelToFeedback(p2);
-      // end points are exclusive
-      if (x1 == x2) {
-        p2.y--;
-      }
-      if (y1 == y2) {
-        p2.x--;
-      }
-      // add points
-      line.addPoint(p1);
-      line.addPoint(p2);
-      // add line
-      getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(line);
-      m_gridLines.add(line);
     }
   }
 

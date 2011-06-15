@@ -58,7 +58,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
     // add listeners
     new BroadcastListenerHelper(layout, this, new ObjectEventListener() {
       @Override
-      public void refreshed() throws Exception {
+      public void refreshed2() throws Exception {
         refreshSelectionGrid();
       }
     });
