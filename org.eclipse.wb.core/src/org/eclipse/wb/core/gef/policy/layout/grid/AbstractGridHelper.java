@@ -12,7 +12,7 @@ package org.eclipse.wb.core.gef.policy.layout.grid;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.core.model.IObjectInfo;
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.IColorConstants;
@@ -146,7 +146,10 @@ public abstract class AbstractGridHelper {
     // create grid figure
     m_gridFigure = new Figure();
     // install listener on root model figure
-    m_rootFigureListener.install(getRootFigure());
+    ObjectInfo root = ((ObjectInfo) getHost().getModel()).getRoot();
+    GraphicalEditPart rootEditPart =
+        (GraphicalEditPart) getHost().getViewer().getEditPartByModel(root);
+    m_rootFigureListener.install(rootEditPart.getFigure());
     // prepare grid information
     IGridInfo gridInfo = getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
@@ -317,28 +320,6 @@ public abstract class AbstractGridHelper {
     } else {
       return (GraphicalEditPart) m_editPolicy.getHost().getParent();
     }
-  }
-
-  /**
-   * @return the {@link Figure} for root model.
-   */
-  private Figure getRootFigure() {
-    Figure rootFigure = null;
-    EditPart editPart = getHost();
-    while (editPart != null) {
-      if (editPart instanceof GraphicalEditPart) {
-        rootFigure = ((GraphicalEditPart) editPart).getFigure();
-        Object model = editPart.getModel();
-        if (model instanceof IObjectInfo) {
-          if (((IObjectInfo) model).getParent() == null) {
-            // reached root model
-            break;
-          }
-        }
-      }
-      editPart = editPart.getParent();
-    }
-    return rootFigure;
   }
 
   /**
