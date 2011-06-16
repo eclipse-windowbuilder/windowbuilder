@@ -31,6 +31,12 @@
   	     <isset property="build.home" />
   	  	</not>
   	  </condition>
+      <condition property="build.eclipse.target" value="3.7">
+         <not>
+          <isset property="build.eclipse.target" />
+         </not>
+       </condition>
+
     	<echo message="build.home = ${build.home}" />
     	<echo message="reading ${build.home}/${user.name}.properties" />
     	<property file="${build.home}/${user.name}.properties" />
@@ -45,6 +51,20 @@
     	<mkdir dir="${build.root}"/>
     	<mkdir dir="${build.tmp}"/>
     	<mkdir dir="${build.target}"/>
+    	<setupTarget eclipseVersion="${build.eclipse.target}" />
     </target>
+	
+	 <!-- = = = = = = = = = = = = = = = = =
+          macrodef: setupTarget          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="setupTarget">
+        <attribute name="eclipseVersion" default="${build.eclipse.target}" />
+        <sequential>
+            <get dest="${build.tmp}" 
+            	   src="${eclipse-@{eclipseVersion}-url}/${eclipse-@{eclipseVersion}-archive}" />
+            <untar src="${build.tmp}/${eclipse-@{eclipseVersion}-archive}"
+        	         dest="${build.target}" compression="gzip" />
+        </sequential>
+    </macrodef>
 
 </project>
