@@ -70,8 +70,8 @@
         <attribute name="eclipseArchive" 
                    default="${build.tmp}/${eclipse-@{eclipseVersion}-archive}" />
         <sequential>
-            <echo message="getting @{eclipseArchiveUrl} to ${build.tmp}" />
-            <get dest="${build.tmp}" src="@{eclipseArchiveUrl}" />
+            <echo message="getting @{eclipseArchiveUrl} to @{eclipseArchive}" />
+            <get dest="@{eclipseArchive}" src="@{eclipseArchiveUrl}" />
             <echo message="untar @{eclipseArchive} to ${build.target}" />
             <untar src="${build.tmp}/${eclipse-@{eclipseVersion}-archive}"
                    dest="${build.target}" compression="gzip" />
