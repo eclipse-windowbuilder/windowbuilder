@@ -31,6 +31,11 @@
   	     <isset property="build.home" />
   	  	</not>
   	  </condition>
+      <condition property="build.data" value="${cwd}/data">
+        <not>
+         <isset property="build.data" />
+        </not>
+      </condition>
       <condition property="build.eclipse.target" value="3.7">
          <not>
           <isset property="build.eclipse.target" />
@@ -38,10 +43,11 @@
        </condition>
 
     	<echo message="build.home = ${build.home}" />
-    	<echo message="reading ${build.home}/${user.name}.properties" />
-    	<property file="${build.home}/${user.name}.properties" />
-    	<echo message="reading ${build.home}/default-user.properties" /> 
-    	<property file="${build.home}/default-user.properties" />
+      <echo message="build.data = ${build.data}" />
+    	<echo message="reading ${build.data}/${user.name}.properties" />
+    	<property file="${build.data}/${user.name}.properties" />
+    	<echo message="reading ${build.data}/default-user.properties" /> 
+    	<property file="${build.data}/default-user.properties" />
     	
     	<delete dir="${build.tmp}" failonerror="false" includeemptydirs="true" />
       <delete dir="${build.target}" failonerror="false" includeemptydirs="true" />
