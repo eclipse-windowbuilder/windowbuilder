@@ -12,12 +12,13 @@ package org.eclipse.wb.core.gef.policy.layout.grid;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
+import org.eclipse.wb.core.model.IObjectInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
+import org.eclipse.wb.draw2d.events.IFigureListener;
 import org.eclipse.wb.draw2d.geometry.Interval;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -100,6 +101,41 @@ public abstract class AbstractGridHelper {
   ////////////////////////////////////////////////////////////////////////////
   private Figure m_gridFigure = null;
 
+  private class RootFigureListener implements IFigureListener {
+    private Figure m_rootFigure;
+
+    public void figureMoved(Figure source) {
+      if (source == m_rootFigure) {
+        // correct grid figure bounds according host figure
+        Rectangle hostClientArea = getHostClientArea();
+        translateModelToFeedback(hostClientArea);
+        m_gridFigure.setBounds(hostClientArea);
+      }
+    }
+
+    public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
+    }
+
+    void install(Figure rootFigure) {
+      if (m_rootFigure != null) {
+        uninstall();
+      }
+      if (rootFigure != null) {
+        rootFigure.addFigureListener(this);
+        m_rootFigure = rootFigure;
+      }
+    }
+
+    void uninstall() {
+      if (m_rootFigure != null) {
+        m_rootFigure.removeFigureListener(this);
+        m_rootFigure = null;
+      }
+    }
+  }
+
+  private final RootFigureListener m_rootFigureListener = new RootFigureListener();
+
   /**
    * Shows the grid feedback.
    */
@@ -107,15 +143,10 @@ public abstract class AbstractGridHelper {
     if (m_gridFigure != null) {
       return;
     }
-    m_gridFigure = new Figure() {
-      @Override
-      protected void paintClientArea(Graphics graphics) {
-        // correct bounds (then device skin enabled)
-        Rectangle hostClientArea = getHostClientArea();
-        translateModelToFeedback(hostClientArea);
-        setBounds(hostClientArea);
-      };
-    };
+    // create grid figure
+    m_gridFigure = new Figure();
+    // install listener on root model figure
+    m_rootFigureListener.install(getRootFigure());
     // prepare grid information
     IGridInfo gridInfo = getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
@@ -253,6 +284,7 @@ public abstract class AbstractGridHelper {
    */
   public final void eraseGridFeedback() {
     if (m_gridFigure != null) {
+      m_rootFigureListener.uninstall();
       FigureUtils.removeFigure(m_gridFigure);
       m_gridFigure = null;
     }
@@ -285,6 +317,28 @@ public abstract class AbstractGridHelper {
     } else {
       return (GraphicalEditPart) m_editPolicy.getHost().getParent();
     }
+  }
+
+  /**
+   * @return the {@link Figure} for root model.
+   */
+  private Figure getRootFigure() {
+    Figure rootFigure = null;
+    EditPart editPart = getHost();
+    while (editPart != null) {
+      if (editPart instanceof GraphicalEditPart) {
+        rootFigure = ((GraphicalEditPart) editPart).getFigure();
+        Object model = editPart.getModel();
+        if (model instanceof IObjectInfo) {
+          if (((IObjectInfo) model).getParent() == null) {
+            // reached root model
+            break;
+          }
+        }
+      }
+      editPart = editPart.getParent();
+    }
+    return rootFigure;
   }
 
   /**
