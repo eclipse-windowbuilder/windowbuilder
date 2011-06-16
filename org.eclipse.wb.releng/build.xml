@@ -16,7 +16,7 @@
           target: build              
          ================================= -->
     <target name="build" depends="init" 
-    	      description="This Ant script is used to build the Window Builder code">
+            description="This Ant script is used to build the Window Builder code">
     </target>
 
     <!-- - - - - - - - - - - - - - - - - - 
@@ -24,13 +24,13 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="init">
       <property environment="env" />
-    	<echoproperties prefix="env." />
-    	<property name="cwd" location="." />
-  	  <condition property="build.home" value="${cwd}">
-  	  	<not>
-  	     <isset property="build.home" />
-  	  	</not>
-  	  </condition>
+      <echoproperties prefix="env." />
+      <property name="cwd" location="." />
+      <condition property="build.home" value="${cwd}">
+        <not>
+         <isset property="build.home" />
+        </not>
+      </condition>
       <condition property="build.data" value="${cwd}/data">
         <not>
          <isset property="build.data" />
@@ -42,34 +42,39 @@
          </not>
        </condition>
 
-    	<echo message="build.home = ${build.home}" />
+      <echo message="build.home = ${build.home}" />
       <echo message="build.data = ${build.data}" />
-    	<echo message="reading ${build.data}/${user.name}.properties" />
-    	<property file="${build.data}/${user.name}.properties" />
-    	<echo message="reading ${build.data}/default-user.properties" /> 
-    	<property file="${build.data}/default-user.properties" />
-    	
-    	<delete dir="${build.tmp}" failonerror="false" includeemptydirs="true" />
+      <echo message="reading ${build.data}/${user.name}.properties" />
+      <property file="${build.data}/${user.name}.properties" />
+      <echo message="reading ${build.data}/default-user.properties" /> 
+      <property file="${build.data}/default-user.properties" />
+      
+      <delete dir="${build.tmp}" failonerror="false" includeemptydirs="true" />
       <delete dir="${build.target}" failonerror="false" includeemptydirs="true" />
 
-    	<echoproperties prefix="build." />
+      <echoproperties prefix="build." />
 
-    	<mkdir dir="${build.root}"/>
-    	<mkdir dir="${build.tmp}"/>
-    	<mkdir dir="${build.target}"/>
-    	<setupTarget eclipseVersion="${build.eclipse.target}" />
+      <mkdir dir="${build.root}"/>
+      <mkdir dir="${build.tmp}"/>
+      <mkdir dir="${build.target}"/>
+      <setupTarget eclipseVersion="${build.eclipse.target}" />
     </target>
-	
-	 <!-- = = = = = = = = = = = = = = = = =
+  
+   <!-- = = = = = = = = = = = = = = = = =
           macrodef: setupTarget          
          = = = = = = = = = = = = = = = = = -->
     <macrodef name="setupTarget">
         <attribute name="eclipseVersion" default="${build.eclipse.target}" />
+        <attribute name="eclipseArchiveUrl" 
+                   default="${eclipse-@{eclipseVersion}-url}/${eclipse-@{eclipseVersion}-archive}" />
+        <attribute name="eclipseArchive" 
+                   default="${build.tmp}/${eclipse-@{eclipseVersion}-archive}" />
         <sequential>
-            <get dest="${build.tmp}" 
-            	   src="${eclipse-@{eclipseVersion}-url}/${eclipse-@{eclipseVersion}-archive}" />
+            <echo message="getting @{eclipseArchiveUrl} to ${build.tmp}" />
+            <get dest="${build.tmp}" src="@{eclipseArchiveUrl}" />
+            <echo message="untar @{eclipseArchive} to ${build.target}" />
             <untar src="${build.tmp}/${eclipse-@{eclipseVersion}-archive}"
-        	         dest="${build.target}" compression="gzip" />
+                   dest="${build.target}" compression="gzip" />
         </sequential>
     </macrodef>
 
