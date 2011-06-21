@@ -63,7 +63,7 @@ For example, we can add EditPolicy&apos;s.
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 

@@ -51,7 +51,7 @@ However for PDE project updating .classpath is not enough, we should also update
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 

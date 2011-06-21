@@ -65,7 +65,7 @@ For example eRCP and RCP share same namespace, so we need to know toolkit to dec
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 

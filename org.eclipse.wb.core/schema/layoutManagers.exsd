@@ -132,7 +132,7 @@ Don&apos;t know yet what to do with absolute/null layout manager.
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 

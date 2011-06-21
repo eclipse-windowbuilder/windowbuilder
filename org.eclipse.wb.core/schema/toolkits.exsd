@@ -564,7 +564,7 @@ By default &quot;id&quot; of is name of factory class signature of method.
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 
