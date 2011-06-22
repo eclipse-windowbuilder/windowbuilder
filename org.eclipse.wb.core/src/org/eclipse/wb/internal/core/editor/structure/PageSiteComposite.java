@@ -15,19 +15,12 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IStatusLineManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.part.IPage;
-import org.eclipse.ui.services.IServiceLocator;
 
 /**
  * The site {@link Composite} for {@link IPage}.
@@ -93,63 +86,10 @@ public final class PageSiteComposite extends Composite {
     Assert.isNull(m_page);
     Assert.isNotNull(page);
     m_page = page;
-    //
+    // create Control
     m_page.createControl(this);
     GridDataFactory.create(m_page.getControl()).spanH(2).grab().fill();
-    m_page.setActionBars(m_actionBars);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // ActionBars
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final ActionBars m_actionBars = new ActionBars();
-
-  /**
-   * Internal implementation of {@link IActionBars}.
-   * 
-   * @author scheglov_ke
-   */
-  private final class ActionBars implements IActionBars {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Implemented
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public IToolBarManager getToolBarManager() {
-      return m_toolBarManager;
-    }
-
-    public void updateActionBars() {
-      m_toolBarManager.update(false);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Not implemented
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public void clearGlobalActionHandlers() {
-    }
-
-    public IAction getGlobalActionHandler(String actionId) {
-      return null;
-    }
-
-    public IMenuManager getMenuManager() {
-      return null;
-    }
-
-    public IServiceLocator getServiceLocator() {
-      return null;
-    }
-
-    public IStatusLineManager getStatusLineManager() {
-      return null;
-    }
-
-    public void setGlobalActionHandler(String actionId, IAction handler) {
-    }
+    // set toolbar
+    m_page.setToolBar(m_toolBarManager);
   }
 }

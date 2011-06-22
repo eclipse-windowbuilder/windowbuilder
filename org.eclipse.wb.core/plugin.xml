@@ -298,15 +298,17 @@
 			class="org.eclipse.wb.internal.core.model.property.configurable.StringsAddPropertyFactory"
 		/>
 	</extension>
-	
-	
+
+
 	<!-- ======================================================== -->
 	<!-- Property UI -->
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.propertiesPageActions">
+		<toolbar
+			class="org.eclipse.wb.internal.core.editor.structure.property.JavaPropertiesToolBarContributor"/>
 		<menu class="org.eclipse.wb.internal.core.model.util.ExposePropertySupport"/>
 	</extension>
-	
+
 
 	<!-- ======================================================== -->
 	<!-- NLS sources -->

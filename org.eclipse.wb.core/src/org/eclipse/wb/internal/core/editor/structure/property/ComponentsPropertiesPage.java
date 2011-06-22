@@ -15,13 +15,13 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.editor.structure.property.PropertyCategoryProviderProvider;
 import org.eclipse.wb.core.editor.structure.property.PropertyListProcessor;
-import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDeactivePropertyEditor;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.structure.IPage;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.PropertyManager;
@@ -32,7 +32,6 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.table.IPropertyExceptionHandler;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
-import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -44,6 +43,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -54,9 +54,6 @@ import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.part.IPage;
-import org.eclipse.ui.part.Page;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -64,7 +61,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Implementation of {@link Page} for displaying {@link Property}'s of {@link ObjectInfo}'s.
+ * Implementation of {@link IPage} for displaying {@link Property}'s of {@link ObjectInfo}'s.
  * 
  * @author scheglov_ke
  * @coverage core.editor.structure
@@ -138,20 +135,11 @@ public final class ComponentsPropertiesPage implements IPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   private Property m_activeProperty;
+  private IToolBarManager m_toolBarManager;
 
-  public void setActionBars(IActionBars actionBars) {
-    IToolBarManager toolBarManager = actionBars.getToolBarManager();
-    // fill toolbar
-    toolBarManager.add(m_showEventsAction);
-    toolBarManager.add(new Separator());
-    toolBarManager.add(m_gotoDefinitionAction);
-    toolBarManager.add(m_variableConvertAction);
-    toolBarManager.add(new Separator());
-    toolBarManager.add(m_showAdvancedPropertiesAction);
-    toolBarManager.add(m_defaultValueAction);
-    // update actions
+  public void setToolBar(IToolBarManager toolBarManager) {
+    m_toolBarManager = toolBarManager;
     updateActions();
-    actionBars.updateActionBars();
   }
 
   /**
@@ -159,8 +147,6 @@ public final class ComponentsPropertiesPage implements IPage {
    */
   private void createActions() {
     create_showEventsAction();
-    create_gotoDefinitionAction();
-    create_variableConvertAction();
     create_showAdvancedPropertiesAction();
     create_setCategoryAction();
     create_defaultValueAction();
@@ -173,11 +159,39 @@ public final class ComponentsPropertiesPage implements IPage {
   private void updateActions() {
     ExecutionUtils.runLog(new RunnableEx() {
       public void run() throws Exception {
+        // update standard items
         update_showEventsAction();
-        update_gotoDefinitionAction();
-        update_variableConvertAction();
         update_categoryAction();
         update_defaultValueAction();
+        // update toolbar
+        Control toolBarControl = ((ToolBarManager) m_toolBarManager).getControl();
+        try {
+          toolBarControl.setRedraw(false);
+          m_toolBarManager.removeAll();
+          // add standard items
+          m_toolBarManager.add(m_showEventsAction);
+          m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_EDIT));
+          m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_ADDITIONAL));
+          m_toolBarManager.add(m_showAdvancedPropertiesAction);
+          m_toolBarManager.add(m_defaultValueAction);
+          // use external contributors
+          List<IPropertiesToolBarContributor> contributors =
+              ExternalFactoriesHelper.getElementsInstances(
+                  IPropertiesToolBarContributor.class,
+                  "org.eclipse.wb.core.propertiesPageActions",
+                  "toolbar");
+          for (final IPropertiesToolBarContributor contributor : contributors) {
+            ExecutionUtils.runLog(new RunnableEx() {
+              public void run() throws Exception {
+                contributor.contributeToolBar(m_toolBarManager, m_objects);
+              }
+            });
+          }
+          // done
+          m_toolBarManager.update(false);
+        } finally {
+          toolBarControl.setRedraw(true);
+        }
       }
     });
   }
@@ -200,8 +214,6 @@ public final class ComponentsPropertiesPage implements IPage {
 
       private void fillContextMenu() {
         manager.add(new Separator(IPropertiesMenuContributor.GROUP_TOP));
-        manager.add(m_variableConvertAction);
-        manager.add(m_gotoDefinitionAction);
         manager.add(new Separator(IPropertiesMenuContributor.GROUP_EDIT));
         manager.add(m_defaultValueAction);
         manager.add(m_showAdvancedPropertiesAction);
@@ -465,105 +477,6 @@ public final class ComponentsPropertiesPage implements IPage {
       m_defaultValueAction.setEnabled(m_activeProperty.isModified());
     } else {
       m_defaultValueAction.setEnabled(false);
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action: local/field
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Action m_variableConvertAction;
-
-  /**
-   * Creates the {@link #m_variableConvertAction}.
-   */
-  private void create_variableConvertAction() {
-    m_variableConvertAction = new Action() {
-      @Override
-      public void run() {
-        final JavaInfo javaInfo = (JavaInfo) m_objects.get(0);
-        ExecutionUtils.run(javaInfo, new RunnableEx() {
-          public void run() throws Exception {
-            VariableSupport variableSupport = javaInfo.getVariableSupport();
-            if (variableSupport.canConvertLocalToField()) {
-              variableSupport.convertLocalToField();
-            } else if (variableSupport.canConvertFieldToLocal()) {
-              variableSupport.convertFieldToLocal();
-            }
-          }
-        });
-      }
-    };
-  }
-
-  /**
-   * Updates the state of {@link #m_variableConvertAction}.
-   */
-  private void update_variableConvertAction() throws Exception {
-    if (m_objects.size() == 1 && m_objects.get(0) instanceof JavaInfo) {
-      JavaInfo javaInfo = (JavaInfo) m_objects.get(0);
-      VariableSupport variableSupport = javaInfo.getVariableSupport();
-      // to field
-      if (variableSupport.canConvertLocalToField()) {
-        m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/local_to_field.gif"));
-        setTexts(
-            m_variableConvertAction,
-            Messages.ComponentsPropertiesPage_convertLocalToFieldAction);
-        m_variableConvertAction.setEnabled(true);
-        return;
-      }
-      // to local
-      if (variableSupport.canConvertFieldToLocal()) {
-        m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/field_to_local.gif"));
-        setTexts(
-            m_variableConvertAction,
-            Messages.ComponentsPropertiesPage_convertFieldToLocalAction);
-        m_variableConvertAction.setEnabled(true);
-        return;
-      }
-    }
-    // disable
-    m_variableConvertAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/variable_no_conversion.gif"));
-    setTexts(m_variableConvertAction, Messages.ComponentsPropertiesPage_conversionNotSupported);
-    m_variableConvertAction.setEnabled(false);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Action: goto definition
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private Action m_gotoDefinitionAction;
-
-  /**
-   * Creates the {@link #m_gotoDefinitionAction}.
-   */
-  private void create_gotoDefinitionAction() {
-    m_gotoDefinitionAction = new Action() {
-      @Override
-      public void run() {
-        if (m_objects.get(0) instanceof JavaInfo) {
-          JavaInfo javaInfo = (JavaInfo) m_objects.get(0);
-          int position = javaInfo.getCreationSupport().getNode().getStartPosition();
-          //
-          IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
-          site.openSourcePosition(position);
-        }
-      }
-    };
-    m_gotoDefinitionAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/goto_definition.gif"));
-    setTexts(m_gotoDefinitionAction, Messages.ComponentsPropertiesPage_goDefinition);
-  }
-
-  /**
-   * Updates the state of {@link #m_gotoDefinitionAction}.
-   */
-  private void update_gotoDefinitionAction() throws Exception {
-    if (m_objects.size() == 1) {
-      m_gotoDefinitionAction.setEnabled(true);
-    } else {
-      m_gotoDefinitionAction.setEnabled(false);
     }
   }
 

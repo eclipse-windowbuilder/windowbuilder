@@ -29,6 +29,8 @@ public class EditorTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(UndoManagerTest.class));
     suite.addTest(createSingleSuite(ReparseOnModificationTest.class));
     suite.addTest(createSingleSuite(SelectSupportTest.class));
+    suite.addTest(createSingleSuite(ComponentsPropertiesPageTest.class));
+    suite.addTest(createSingleSuite(JavaPropertiesToolBarContributorTest.class));
     // suites
     suite.addTest(ActionTests.suite());
     suite.addTest(LayoutRequestValidatorTests.suite());

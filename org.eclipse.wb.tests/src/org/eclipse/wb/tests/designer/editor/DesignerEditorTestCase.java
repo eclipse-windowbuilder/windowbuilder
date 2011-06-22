@@ -42,6 +42,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchPage;
@@ -306,6 +308,16 @@ public class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Asserts selection range in "Java" editor.
+   */
+  protected final void assertJavaSelection(int expectedOffset, int expectedLength) {
+    ISelectionProvider selectionProvider = m_designerEditor.getSelectionProvider();
+    ITextSelection selection = (ITextSelection) selectionProvider.getSelection();
+    assertEquals(expectedOffset, selection.getOffset());
+    assertEquals(expectedLength, selection.getLength());
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Actions access

@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.structure.IPage;
 import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
@@ -39,8 +40,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.part.IPage;
 
 import java.util.List;
 
@@ -80,8 +79,7 @@ public final class ComponentsTreePage implements IPage {
     getControl().setFocus();
   }
 
-  public void setActionBars(IActionBars actionBars) {
-    IToolBarManager toolBarManager = actionBars.getToolBarManager();
+  public void setToolBar(IToolBarManager toolBarManager) {
     {
       IAction action = new Action() {
         @Override
@@ -104,7 +102,7 @@ public final class ComponentsTreePage implements IPage {
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("collapse_all.gif"));
       action.setToolTipText(Messages.ComponentsTreePage_collapseAllAction);
     }
-    actionBars.updateActionBars();
+    toolBarManager.update(false);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -18,6 +18,7 @@
       </annotation>
       <complexType>
          <sequence>
+            <element ref="toolbar" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="menu" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
@@ -39,6 +40,21 @@
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.editor.structure.property.IPropertiesMenuContributor"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="toolbar">
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.editor.structure.property.IPropertiesToolBarContributor"/>
                </appInfo>
             </annotation>
          </attribute>

@@ -40,6 +40,7 @@ public class XmlEditorTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(UndoManagerTest.class));
     suite.addTest(createSingleSuite(XmlDesignPageTest.class));
     suite.addTest(createSingleSuite(DesignContextMenuProviderTest.class));
+    suite.addTest(createSingleSuite(XmlPropertiesToolBarContributorTest.class));
     suite.addTest(createSingleSuite(SelectSupportTest.class));
     return suite;
   }

@@ -17,7 +17,8 @@
 		name="Providers for additional Rules for loading ComponentDescription"
 		schema="schema/descriptionRulesProviders.exsd"/>
 	<!-- property -->
-	<extension-point id="propertyEditors" name="Property editors" schema="schema/propertyEditors.exsd"/>
+	<extension-point id="propertyEditors" name="Property editors"
+		schema="schema/propertyEditors.exsd"/>
 	<extension-point id="propertyConverters" name="Property value to XML converter"
 		schema="schema/propertyConverters.exsd"/>
 	<!-- XML pages -->
@@ -46,13 +47,14 @@
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.xml.rootProcessors">
 		<processor class="org.eclipse.wb.internal.core.xml.model.XmlObjectRootProcessor"/>
-		<processor class="org.eclipse.wb.internal.core.xml.model.generic.SimpleContainerClipboardSupport"
-		/>
+		<processor
+			class="org.eclipse.wb.internal.core.xml.model.generic.SimpleContainerClipboardSupport"/>
 	</extension>
 
 	<extension point="org.eclipse.wb.core.xml.initializationParticipators">
 		<participator
-			class="org.eclipse.wb.internal.core.xml.model.utils.DescriptionDrivenFeaturesParticipator"/>
+			class="org.eclipse.wb.internal.core.xml.model.utils.DescriptionDrivenFeaturesParticipator"
+		/>
 	</extension>
 
 
@@ -100,7 +102,16 @@
 			class="org.eclipse.wb.internal.core.model.property.editor.StringArrayPropertyEditor"/>
 		<!-- configurable -->
 		<configurableEditor id="staticField"
-			class="org.eclipse.wb.internal.core.xml.model.property.editor.StaticFieldPropertyEditor"/>
+			class="org.eclipse.wb.internal.core.xml.model.property.editor.StaticFieldPropertyEditor"
+		/>
+	</extension>
+
+
+	<!-- ======================================================== -->
+	<!-- Property UI -->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.propertiesPageActions">
+		<toolbar class="org.eclipse.wb.internal.core.xml.editor.XmlPropertiesToolBarContributor"/>
 	</extension>
 
 
@@ -194,7 +205,8 @@
 	</extension>
 
 	<extension point="org.eclipse.wb.core.editPolicyFactories">
-		<factory class="org.eclipse.wb.internal.core.xml.gef.GenericContainersLayoutEditPolicyFactory"/>
+		<factory
+			class="org.eclipse.wb.internal.core.xml.gef.GenericContainersLayoutEditPolicyFactory"/>
 	</extension>
 
 
@@ -204,14 +216,16 @@
 	<extension point="org.eclipse.wb.core.treeEditPartFactories">
 		<factory class="org.eclipse.wb.internal.core.xml.gefTree.EditPartFactory"/>
 	</extension>
-	
+
 	<extension point="org.eclipse.wb.core.treeEditPartConfigurators">
-		<configurator class="org.eclipse.wb.internal.core.xml.gefTree.GenericContainersConfigurator"/>
+		<configurator class="org.eclipse.wb.internal.core.xml.gefTree.GenericContainersConfigurator"
+		/>
 	</extension>
 
 	<extension point="org.eclipse.wb.core.treeEditPolicyFactories">
 		<factory
-			class="org.eclipse.wb.internal.core.xml.gefTree.GenericContainersLayoutEditPolicyFactory"/>
+			class="org.eclipse.wb.internal.core.xml.gefTree.GenericContainersLayoutEditPolicyFactory"
+		/>
 	</extension>
 
 </plugin>
