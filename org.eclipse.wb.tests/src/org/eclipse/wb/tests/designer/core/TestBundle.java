@@ -244,7 +244,7 @@ public final class TestBundle {
             MessageFormat.format("Bundle-SymbolicName: {0};singleton:=true", m_id),
             "Bundle-Version: 1.0.0",
             "Bundle-ClassPath: .",
-            "Require-Bundle: org.eclipse.wb.core",
+            "Require-Bundle: org.eclipse.wb.core,org.eclipse.wb.core.xml",
             "Bundle-ActivationPolicy: lazy"}, "\n"));
     if (pack2jar) {
       pack2jar();

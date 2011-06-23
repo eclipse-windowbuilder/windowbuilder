@@ -94,9 +94,15 @@ final class MultiSplitMode extends DefaultMultiMode {
     m_sashForm = new SashForm(parent, vertical ? SWT.VERTICAL : SWT.HORIZONTAL);
     m_sashForm.setBackground(IColorConstants.buttonDarker);
     // parts
-    createDesign();
-    createSource();
-    m_sashForm.setWeights(new int[]{2, 1});
+    if (isSourceFirst()) {
+      createSource();
+      createDesign();
+      m_sashForm.setWeights(new int[]{40, 60});
+    } else {
+      createDesign();
+      createSource();
+      m_sashForm.setWeights(new int[]{60, 40});
+    }
     // do first refresh and track document modifications
     m_designPage.setShowProgress(false);
     m_designPage.refreshGEF();
@@ -200,11 +206,21 @@ final class MultiSplitMode extends DefaultMultiMode {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
+   * @return <code>true</code> "Source" page should be first.
+   */
+  private boolean isSourceFirst() {
+    int layout = DesignerPlugin.getPreferences().getInt(IPreferenceConstants.P_EDITOR_LAYOUT);
+    return layout == IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_SOURCE
+        || layout == IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE;
+  }
+
+  /**
    * @return <code>true</code> if source/design part should be located above each other.
    */
   private boolean isSplitVerticalMode() {
     int layout = DesignerPlugin.getPreferences().getInt(IPreferenceConstants.P_EDITOR_LAYOUT);
-    return layout == IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL;
+    return layout == IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE
+        || layout == IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN;
   }
 
   /**

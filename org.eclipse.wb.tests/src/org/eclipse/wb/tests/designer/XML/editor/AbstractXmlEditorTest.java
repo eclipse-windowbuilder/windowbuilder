@@ -11,9 +11,15 @@
 package org.eclipse.wb.tests.designer.XML.editor;
 
 import org.eclipse.wb.internal.core.xml.editor.AbstractXmlEditor;
+import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.internal.part.NullEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * Test for {@link AbstractXmlEditor}.
@@ -39,6 +45,32 @@ public class AbstractXmlEditorTest extends XwtGefTest {
     openEditor("<Shell/>");
     // we can access it
     Object adapter = m_designerEditor.getAdapter(StructuredTextEditor.class);
-    assertSame(m_designerEditor.getXMLEditor(), adapter);
+    assertSame(m_sourcePage.getXmlEditor(), adapter);
+  }
+
+  public void test_doSaveAs() throws Exception {
+    openEditor("<Shell/>");
+    // disabled
+    assertEquals(false, m_designerEditor.isSaveAsAllowed());
+    // ignored
+    m_designerEditor.doSaveAs();
+  }
+
+  /**
+   * Our editor accepts only {@link IFileEditorInput}.
+   */
+  public void test_init_notFile() throws Exception {
+    AbstractXmlEditor editor = new AbstractXmlEditor() {
+      @Override
+      protected XmlDesignPage createDesignPage() {
+        return null;
+      }
+    };
+    try {
+      editor.init(null, new NullEditorInput());
+      fail();
+    } catch (PartInitException e) {
+      assertThat(e.getMessage()).contains("IFileEditorInput");
+    }
   }
 }

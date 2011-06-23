@@ -102,13 +102,21 @@ public interface IPreferenceConstants {
    */
   int V_EDITOR_LAYOUT_PAGES_DESIGN = 1;
   /**
-   * Split mode, above each other.
+   * Split mode, above each other, "Design" first.
    */
-  int V_EDITOR_LAYOUT_SPLIT_VERTICAL = 2;
+  int V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN = 2;
   /**
-   * Split mode, side by side.
+   * Split mode, side by side, "Design" first.
    */
-  int V_EDITOR_LAYOUT_SPLIT_HORIZONTAL = 3;
+  int V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_DESIGN = 3;
+  /**
+   * Split mode, above each other, "Source" first.
+   */
+  int V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE = 4;
+  /**
+   * Split mode, side by side, "Source" first.
+   */
+  int V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_SOURCE = 5;
   /**
    * Delay (in milliseconds) to refresh design canvas on source change in split mode.
    */

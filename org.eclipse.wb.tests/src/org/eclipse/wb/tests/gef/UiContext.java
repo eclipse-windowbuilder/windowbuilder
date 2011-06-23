@@ -139,7 +139,7 @@ public class UiContext {
   /**
    * @return the first {@link Widget} with compatible {@link Class}.
    */
-  public <T extends Widget> T findFirstWidget(Widget start, Class<T> classToFind) {
+  public static <T extends Widget> T findFirstWidget(Widget start, Class<T> classToFind) {
     List<T> widgets = findWidgets(start, classToFind);
     if (!widgets.isEmpty()) {
       return widgets.get(0);
@@ -158,7 +158,7 @@ public class UiContext {
   /**
    * @return the {@link List} of {@link Widget}'s with compatible {@link Class}.
    */
-  public <T extends Widget> List<T> findWidgets(Widget start, final Class<T> classToFind) {
+  public static <T extends Widget> List<T> findWidgets(Widget start, final Class<T> classToFind) {
     final List<T> widgets = Lists.newArrayList();
     visit(start, new IWidgetsVisitor() {
       @Override
@@ -568,7 +568,7 @@ public class UiContext {
   /**
    * Visitor for all {@link Widget}'s.
    */
-  public class IWidgetsVisitor {
+  public static class IWidgetsVisitor {
     /**
      * @return <code>true</code> if the children of this {@link Widget} should be visited, and
      *         <code>false</code> if the children of this {@link Widget} should be skipped.
@@ -587,7 +587,7 @@ public class UiContext {
   /**
    * Visits all {@link Widgets}'s starting from given one.
    */
-  public void visit(Widget widget, IWidgetsVisitor visitor) {
+  public static void visit(Widget widget, IWidgetsVisitor visitor) {
     // ignore invisible Control's
     if (widget instanceof Control) {
       Control control = (Control) widget;

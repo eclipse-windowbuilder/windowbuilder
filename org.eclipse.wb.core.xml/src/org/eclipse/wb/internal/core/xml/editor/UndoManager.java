@@ -130,14 +130,39 @@ public final class UndoManager {
   // IDocument listener
   //
   ////////////////////////////////////////////////////////////////////////////
+  private int m_bufferChangeCount = 0;
+  private IRefreshStrategy m_refreshStrategy = IRefreshStrategy.IMMEDIATELY;
   private final IDocumentListener m_documentListener = new IDocumentListener() {
     public void documentChanged(DocumentEvent event) {
-      refreshDesignerEditor();
+      if (event.getText() != null || event.getLength() != 0) {
+        scheduleRefresh_onBufferChange();
+      }
     }
 
     public void documentAboutToBeChanged(DocumentEvent event) {
     }
+
+    private void scheduleRefresh_onBufferChange() {
+      final int bufferChangeCount = ++m_bufferChangeCount;
+      Runnable runnable = new Runnable() {
+        public void run() {
+          if (bufferChangeCount == m_bufferChangeCount) {
+            refreshDesignerEditor();
+          }
+        }
+      };
+      if (m_refreshStrategy.shouldImmediately()) {
+        runnable.run();
+      } else if (m_refreshStrategy.shouldWithDelay()) {
+        int delay = m_refreshStrategy.getDelay();
+        Display.getDefault().timerExec(delay, runnable);
+      }
+    }
   };
+
+  void setRefreshStrategy(IRefreshStrategy refreshStrategy) {
+    m_refreshStrategy = refreshStrategy;
+  }
 
   /**
    * Adds {@link IDocumentListener}.

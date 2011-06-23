@@ -71,6 +71,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   private UndoManager m_undoManager;
   protected XmlObjectInfo m_rootObject;
   private DesignerState m_designerState = DesignerState.Undefined;
+  private boolean m_forceDocumentListener;
   ////////////////////////////////////////////////////////////////////////////
   //
   // Life cycle
@@ -167,7 +168,9 @@ public abstract class XmlDesignPage extends XmlEditorPage {
       m_designComposite.onActivate();
       checkDependenciesOnDesignPageActivation();
     } else {
-      m_undoManager.deactivate();
+      if (!m_forceDocumentListener) {
+        m_undoManager.deactivate();
+      }
       m_designComposite.onDeActivate();
     }
   }
@@ -216,6 +219,21 @@ public abstract class XmlDesignPage extends XmlEditorPage {
    */
   public UndoManager getUndoManager() {
     return m_undoManager;
+  }
+
+  /**
+   * Ensure that page always listens for {@link IDocument} changes, even if it is not active. We
+   * need this for "split mode", when updates on "Source" page should cause delayed UI refresh.
+   */
+  public void forceDocumentListener() {
+    m_forceDocumentListener = true;
+  }
+
+  /**
+   * Sets {@link IRefreshStrategy} to respond to {@link IDocument} changes.
+   */
+  public void setRefreshStrategy(IRefreshStrategy refreshStrategy) {
+    m_undoManager.setRefreshStrategy(refreshStrategy);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -322,13 +340,20 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   /**
    * Performs toolkit specific parsing.
    */
-  protected abstract void parse() throws Exception;
+  protected abstract XmlObjectInfo parse() throws Exception;
+
+  /**
+   * Disposes context and {@link #updateGEF()}.
+   */
+  public void refreshGEF() {
+    disposeContext(true);
+    updateGEF();
+  }
 
   /**
    * Parses XML and displays it in GEF.
    */
-  public void refreshGEF() {
-    disposeContext(true);
+  void updateGEF() {
     m_undoManager.refreshDesignerEditor();
   }
 
@@ -338,6 +363,18 @@ public abstract class XmlDesignPage extends XmlEditorPage {
    * @return <code>true</code> if parsing was successful.
    */
   boolean internal_refreshGEF() {
+    // XXX
+    // if "split mode", then try to parse, but expect that if may fail
+    if (m_forceDocumentListener) {
+      m_designComposite.setEnabled(false);
+      try {
+        parse();
+      } catch (Throwable e) {
+        return false;
+      }
+      m_designComposite.setEnabled(true);
+    }
+    // OK, do real parsing
     setEnabled(false);
     try {
       m_designerState = DesignerState.Parsing;
@@ -407,7 +444,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
       long start = System.currentTimeMillis();
       monitor.subTask(Messages.XmlDesignPage_progressParsing);
       Debug.print("Parsing...");
-      parse();
+      m_rootObject = parse();
       monitor.worked(1);
       Debug.println("done: " + (System.currentTimeMillis() - start));
     }

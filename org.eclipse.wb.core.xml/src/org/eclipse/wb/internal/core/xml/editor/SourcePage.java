@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.xml.Messages;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 /**
  * "Source" page of {@link AbstractXmlEditor}.
@@ -24,6 +25,31 @@ import org.eclipse.swt.widgets.Control;
  * @coverage XML.editor
  */
 public final class SourcePage extends XmlEditorPage {
+  private final Control m_control;
+  private final StructuredTextEditor m_xmlEditor;
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Constructor
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public SourcePage(StructuredTextEditor xmlEditor, Control control) {
+    m_xmlEditor = xmlEditor;
+    m_control = control;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Access
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the underlying XML editor.
+   */
+  public StructuredTextEditor getXmlEditor() {
+    return m_xmlEditor;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // GUI
@@ -34,7 +60,7 @@ public final class SourcePage extends XmlEditorPage {
   }
 
   public Control getControl() {
-    return null;
+    return m_control;
   }
 
   ////////////////////////////////////////////////////////////////////////////

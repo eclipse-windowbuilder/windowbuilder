@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.editor.structure.components.IComponentsTree;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.editor.AbstractXmlEditor;
+import org.eclipse.wb.internal.core.xml.editor.SourcePage;
 import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
 import org.eclipse.wb.internal.core.xml.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.xml.editor.palette.DesignerPalette;
@@ -85,6 +86,7 @@ public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   protected AbstractXmlEditor m_designerEditor;
+  protected SourcePage m_sourcePage;
   protected XmlDesignPage m_designPage;
   protected DesignPageActions m_designPageActions;
   protected DesignerPalette m_designerPalette;
@@ -152,6 +154,7 @@ public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {
    * We should do this after opening "Design" page.
    */
   private void fetchDesignViewers() {
+    m_sourcePage = m_designerEditor.getSourcePage();
     // prepare DesignPage and DesignComposite
     m_designPage = m_designerEditor.getDesignPage();
     Object designComposite = ReflectionUtils.getFieldObject(m_designPage, "m_designComposite");
@@ -293,7 +296,7 @@ public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {
    * Asserts selection range in "XML" editor.
    */
   protected final void assertXMLSelection(int expectedOffset, int expectedLength) {
-    ISelectionProvider selectionProvider = m_designerEditor.getXMLEditor().getSelectionProvider();
+    ISelectionProvider selectionProvider = m_sourcePage.getXmlEditor().getSelectionProvider();
     ITextSelection selection = (ITextSelection) selectionProvider.getSelection();
     assertEquals(expectedOffset, selection.getOffset());
     assertEquals(expectedLength, selection.getLength());

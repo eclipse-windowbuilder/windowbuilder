@@ -53,25 +53,29 @@ public class AbstractXmlEditorContributor extends MultiPageEditorActionBarContri
     // update IActionBars
     IActionBars actionBars = getActionBars();
     if (actionBars != null) {
-      redirectTextActions(actionBars, part);
+      redirectTextActions(actionBars);
     }
   }
 
   /**
    * Configures {@link IActionBars} to use global action handlers from {@link ITextEditor}.
    */
-  private void redirectTextActions(IActionBars actionBars, IEditorPart part) {
-    ITextEditor editor = part instanceof ITextEditor ? (ITextEditor) part : null;
+  private void redirectTextActions(IActionBars actionBars) {
+    ITextEditor editor =
+        m_activeEditor instanceof ITextEditor ? (ITextEditor) m_activeEditor : null;
     redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE);
     redirectTextAction(actionBars, editor, ITextEditorActionConstants.CUT);
     redirectTextAction(actionBars, editor, ITextEditorActionConstants.COPY);
     redirectTextAction(actionBars, editor, ITextEditorActionConstants.PASTE);
     redirectTextAction(actionBars, editor, ITextEditorActionConstants.SELECT_ALL);
     redirectTextAction(actionBars, editor, ITextEditorActionConstants.FIND);
+    redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE);
+    //redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE_TO_BEGINNING);
+    //redirectTextAction(actionBars, editor, ITextEditorActionConstants.DELETE_LINE_TO_END);
     redirectTextAction(actionBars, editor, IDEActionFactory.BOOKMARK.getId());
     // UNDO and REDO should be handled by XML editor
-    if (part == null && m_designerEditor != null) {
-      ITextEditor xmlEditor = m_designerEditor.getXMLEditor();
+    if (m_activeEditor == null && m_designerEditor != null) {
+      ITextEditor xmlEditor = m_designerEditor.getSourcePage().getXmlEditor();
       redirectTextAction(actionBars, xmlEditor, ITextEditorActionConstants.UNDO);
       redirectTextAction(actionBars, xmlEditor, ITextEditorActionConstants.REDO);
     }

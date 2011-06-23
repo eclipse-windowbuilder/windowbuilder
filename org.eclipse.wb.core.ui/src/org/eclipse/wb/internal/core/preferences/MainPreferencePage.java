@@ -72,22 +72,25 @@ public final class MainPreferencePage extends FieldEditorPreferencePage
     // editor layout mode
     {
       ComboFieldEditor editorLayout =
-          new ComboFieldEditor(P_EDITOR_LAYOUT,
-              UiMessages.MainPreferencePage_editorLayout,
-              new String[][]{
-                  new String[]{
-                      UiMessages.MainPreferencePage_editorLayoutTabsSource,
-                      "" + V_EDITOR_LAYOUT_PAGES_SOURCE},
-                  new String[]{
-                      UiMessages.MainPreferencePage_editorLayoutTabsDesign,
-                      "" + V_EDITOR_LAYOUT_PAGES_DESIGN},
-                  new String[]{
-                      UiMessages.MainPreferencePage_editorLayoutSplitAbove,
-                      "" + V_EDITOR_LAYOUT_SPLIT_VERTICAL},
-                  new String[]{
-                      UiMessages.MainPreferencePage_editorLayoutSplitSide,
-                      "" + V_EDITOR_LAYOUT_SPLIT_HORIZONTAL}},
-              getFieldEditorParent());
+          new ComboFieldEditor(P_EDITOR_LAYOUT, "Editor layout:", new String[][]{
+              new String[]{
+                  "On separate notebook tabs (Source first)",
+                  "" + V_EDITOR_LAYOUT_PAGES_SOURCE},
+              new String[]{
+                  "On separate notebook tabs (Design first)",
+                  "" + V_EDITOR_LAYOUT_PAGES_DESIGN},
+              new String[]{
+                  "Above each other with a split pane (Source first)",
+                  "" + V_EDITOR_LAYOUT_SPLIT_VERTICAL_SOURCE},
+              new String[]{
+                  "Above each other with a split pane (Design first)",
+                  "" + V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN},
+              new String[]{
+                  "Side by side with a split pane (Source first)",
+                  "" + V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_SOURCE},
+              new String[]{
+                  "Side by side with a split pane (Design first)",
+                  "" + V_EDITOR_LAYOUT_SPLIT_HORIZONTAL_DESIGN},}, getFieldEditorParent());
       addField(editorLayout);
       // sync delay
       IntegerFieldEditor syncDelay =

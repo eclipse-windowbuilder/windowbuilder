@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.xml;
 
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -80,11 +81,15 @@ public abstract class AbstractDocumentEditContext {
   /**
    * Commits changes made in this context to original {@link IDocument}.
    */
-  public void commit() {
+  public void commit() throws Exception {
     String newContent = m_document.get();
     String oldContent = m_bufferDocument.get();
     if (!newContent.equals(oldContent)) {
-      m_bufferDocument.set(newContent);
+      int[] intervals = StringUtilities.getDifferenceIntervals(oldContent, newContent);
+      m_bufferDocument.replace(
+          intervals[0],
+          intervals[1],
+          newContent.substring(intervals[2], intervals[2] + intervals[3]));
     }
   }
 

@@ -59,7 +59,7 @@ public class SplitModeTest extends SwingGefTest {
     IPreferenceStore preferences = DesignerPlugin.getPreferences();
     preferences.setValue(
         IPreferenceConstants.P_EDITOR_LAYOUT,
-        IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL);
+        IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
     preferences.setValue(IPreferenceConstants.P_EDITOR_LAYOUT_SYNC_DELAY, 100);
     openContainer(
         "// filler filler filler",
@@ -93,7 +93,7 @@ public class SplitModeTest extends SwingGefTest {
     IPreferenceStore preferences = DesignerPlugin.getPreferences();
     preferences.setValue(
         IPreferenceConstants.P_EDITOR_LAYOUT,
-        IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL);
+        IPreferenceConstants.V_EDITOR_LAYOUT_SPLIT_VERTICAL_DESIGN);
     preferences.setValue(IPreferenceConstants.P_EDITOR_LAYOUT_SYNC_DELAY, -1);
     openContainer(
         "// filler filler filler",

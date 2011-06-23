@@ -72,7 +72,7 @@ public class FileDocumentEditContext extends AbstractDocumentEditContext {
   /**
    * "super" version of {@link #commit()} to use in inner class.
    */
-  private void commit_super() {
+  private void commit_super() throws Exception {
     super.commit();
   }
 

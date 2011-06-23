@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.xwt.editor;
 
 import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
+import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.xwt.parser.XwtParser;
 
 /**
@@ -26,8 +27,8 @@ public final class XwtDesignPage extends XmlDesignPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  protected void parse() throws Exception {
+  protected XmlObjectInfo parse() throws Exception {
     XwtParser parser = new XwtParser(m_file, m_document);
-    m_rootObject = parser.parse();
+    return parser.parse();
   }
 }

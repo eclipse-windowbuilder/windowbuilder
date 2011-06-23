@@ -24,6 +24,14 @@ import junit.framework.TestSuite;
 public class XmlEditorTests extends DesignerSuiteTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.xml.editor");
+    // editor
+    suite.addTest(createSingleSuite(AbstractXmlEditorTest.class));
+    suite.addTest(createSingleSuite(EditorLayoutTest.class));
+    suite.addTest(createSingleSuite(UndoManagerTest.class));
+    suite.addTest(createSingleSuite(XmlDesignPageTest.class));
+    suite.addTest(createSingleSuite(DesignContextMenuProviderTest.class));
+    suite.addTest(createSingleSuite(XmlPropertiesToolBarContributorTest.class));
+    suite.addTest(createSingleSuite(SelectSupportTest.class));
     // actions
     suite.addTest(createSingleSuite(EditorRelatedActionTest.class));
     suite.addTest(createSingleSuite(SwitchActionTest.class));
@@ -36,12 +44,6 @@ public class XmlEditorTests extends DesignerSuiteTests {
     // policies
     suite.addTest(createSingleSuite(TopSelectionEditPolicyTest.class));
     suite.addTest(createSingleSuite(DirectTextPropertyEditPolicyTest.class));
-    // editor
-    suite.addTest(createSingleSuite(UndoManagerTest.class));
-    suite.addTest(createSingleSuite(XmlDesignPageTest.class));
-    suite.addTest(createSingleSuite(DesignContextMenuProviderTest.class));
-    suite.addTest(createSingleSuite(XmlPropertiesToolBarContributorTest.class));
-    suite.addTest(createSingleSuite(SelectSupportTest.class));
     return suite;
   }
 }
