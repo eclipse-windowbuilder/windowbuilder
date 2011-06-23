@@ -83,7 +83,7 @@
 	<!-- PROPERTIES -->
 	<properties-preferred names="text image checked expanded grayed"/>
 	<properties-advanced names="handle itemCount"/>
-	<property-tag name="text" tag="isText" value="true"/>
+	<property-tag name="setText(java.lang.String)" tag="isText" value="true"/>
 	<!-- PARAMETERS -->
 	<parameters>
 		<!-- flip expanded -->
