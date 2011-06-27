@@ -23,7 +23,6 @@ import junit.framework.TestSuite;
 public class TheRcpTests extends DesignerSuiteTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.rcp");
-    suite.addTest(createSingleSuite(PlatformUiTest.class));
     suite.addTest(createSingleSuite(PropertyPageTest.class));
     suite.addTest(createSingleSuite(PdeUtilsTest.class));
     suite.addTest(createSingleSuite(ExtensionElementPropertyTest.class));

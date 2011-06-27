@@ -66,7 +66,7 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
     assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).isEmpty();
   }
 
-  public void test_35() throws Exception {
+  public void test_37() throws Exception {
     parseComposite(
         "// filler filler filler",
         "public class Test extends Shell {",
@@ -82,13 +82,13 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
     {
       Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Button");
       List<String> versions = provider.getVersions(componentClass);
-      assertThat(versions).containsExactly("3.6", "3.5", "3.4", "3.3", "3.2");
+      assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
     }
     // RCP class: TableViewer
     {
       Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.jface.viewers.TableViewer");
       List<String> versions = provider.getVersions(componentClass);
-      assertThat(versions).containsExactly("3.6", "3.5", "3.4", "3.3", "3.2");
+      assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
     }
     // not RCP class
     {
@@ -97,7 +97,7 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
     }
     // check versions
     assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).includes(
-        MapAssert.entry("rcp_version", "3.6"));
-    assertThat(m_lastState.getVersions()).includes(MapAssert.entry("rcp_version", "3.6"));
+        MapAssert.entry("rcp_version", "3.7"));
+    assertThat(m_lastState.getVersions()).includes(MapAssert.entry("rcp_version", "3.7"));
   }
 }
