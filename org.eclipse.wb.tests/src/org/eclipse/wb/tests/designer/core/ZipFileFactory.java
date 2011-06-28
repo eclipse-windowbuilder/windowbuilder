@@ -13,6 +13,8 @@ package org.eclipse.wb.tests.designer.core;
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -54,6 +56,20 @@ public final class ZipFileFactory {
     m_zipStream.putNextEntry(new ZipEntry(path));
     IOUtils.copy(inputStream, m_zipStream);
     IOUtils.closeQuietly(inputStream);
+    m_zipStream.closeEntry();
+    return this;
+  }
+
+  public ZipFileFactory add(String path, File file) throws IOException {
+    path += "/" + file.getName();
+    if (file.isFile()) {
+      add(path, new FileInputStream(file));
+    }
+    if (file.isDirectory()) {
+      for (File child : file.listFiles()) {
+        add(path, child);
+      }
+    }
     return this;
   }
 
