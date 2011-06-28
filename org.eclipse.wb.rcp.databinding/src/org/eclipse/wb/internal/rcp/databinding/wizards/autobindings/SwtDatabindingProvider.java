@@ -327,9 +327,9 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
           + "ObserveWidget, "
           + propertyName
           + "ObserveValue, "
-          + strategyDescriptor.getTargetStrategyCode()
+          + getStrategyValue(strategyDescriptor.getTargetStrategyCode())
           + ", "
-          + strategyDescriptor.getModelStrategyCode()
+          + getStrategyValue(strategyDescriptor.getModelStrategyCode())
           + ");");
       //
       if (I.hasNext()) {
@@ -353,6 +353,12 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
     }
     //
     return code;
+  }
+
+  private static String getStrategyValue(String strategyCode) {
+    return StringUtils.isEmpty(strategyCode) || "null".equalsIgnoreCase(strategyCode)
+        ? "null"
+        : "new org.eclipse.core.databinding.UpdateValueStrategy(" + strategyCode + ")";
   }
 
   public static boolean useBlockMode() {

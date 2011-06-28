@@ -109,7 +109,7 @@
 		</descriptor>
 		<!-- Integer -->
 		<descriptor>
-			<setPropertyType value="int java.lang.Integer short java.lang.Short float java.lang.Float double java.lang.Double java.math.BigInteger java.math.BigDecimal"/>
+			<setPropertyType value="int java.lang.Integer short java.lang.Short long java.lang.Long float java.lang.Float double java.lang.Double java.math.BigInteger java.math.BigDecimal"/>
 			<setDefault/>
 			<addImage value="widgets/Scale.gif"/>
 			<addName value="Scale"/>
