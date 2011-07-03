@@ -16,6 +16,7 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.rcp.databinding.emf.Activator;
 import org.eclipse.wb.internal.rcp.databinding.emf.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
@@ -38,7 +39,6 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -51,7 +51,7 @@ import java.util.Set;
  * @coverage bindings.rcp.emf.model
  */
 public class PropertiesSupport {
-  private final Map<String, Map<String, ClassInfo>> m_packages = Maps.newHashMap();
+  private final Map<String, PackageInfo> m_packages = Maps.newHashMap();
   private final IJavaProject m_javaProject;
   private final ClassLoader m_classLoader;
   private final Class<?> m_EPackage;
@@ -199,33 +199,9 @@ public class PropertiesSupport {
   // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return {@code [ClassInfo, PropertyInfo, String:packagePrefix]}
-   */
-  public Object[] getClassInfoForProperty(String emfProperty) throws Exception {
-    for (Map.Entry<String, Map<String, ClassInfo>> packageEntry : m_packages.entrySet()) {
-      if (emfProperty.startsWith(packageEntry.getKey())) {
-        for (Map.Entry<String, ClassInfo> classEntry : packageEntry.getValue().entrySet()) {
-          ClassInfo classInfo = classEntry.getValue();
-          for (PropertyInfo property : classInfo.properties) {
-            if (emfProperty.equals(property.reference)) {
-              if (classInfo.thisClass == null) {
-                try {
-                  classInfo.thisClass =
-                      m_classLoader.loadClass(packageEntry.getKey()
-                          + "."
-                          + EmfCodeGenUtil.unformat(classInfo.className));
-                } catch (Throwable e) {
-                }
-              }
-              linkClassProperties(classInfo, classInfo.thisClass);
-              return new Object[]{property.parent, property, packageEntry.getKey()};
-            }
-          }
-        }
-      }
-    }
-    return null;
+  public List<PropertyInfo> getProperties(Class<?> eObjectClass) throws Exception {
+    ClassInfo classInfo = getClassInfo(eObjectClass);
+    return classInfo == null ? Collections.<PropertyInfo>emptyList() : classInfo.properties;
   }
 
   public PropertyInfo getProperty(Class<?> eObjectClass, String propertyName) throws Exception {
@@ -241,23 +217,42 @@ public class PropertiesSupport {
     return null;
   }
 
-  public ClassInfo getClassInfo(Class<?> eObjectClass) throws Exception {
-    String packageName = eObjectClass.getPackage().getName();
-    Map<String, ClassInfo> packageInfo = m_packages.get(packageName);
-    if (packageInfo == null) {
-      packageInfo = loadPackage(eObjectClass.getName());
-      if (packageInfo == null) {
-        packageInfo = Collections.emptyMap();
-      } else {
-        m_packages.put(packageName, packageInfo);
+  /**
+   * @return {@code [ClassInfo, PropertyInfo, String:packagePrefix]}
+   */
+  public Object[] getClassInfoForProperty(String emfProperty) throws Exception {
+    for (Map.Entry<String, PackageInfo> packageEntry : m_packages.entrySet()) {
+      if (emfProperty.startsWith(packageEntry.getKey())) {
+        for (Map.Entry<String, ClassInfo> classEntry : packageEntry.getValue().classes.entrySet()) {
+          ClassInfo classInfo = classEntry.getValue();
+          for (PropertyInfo property : classInfo.properties) {
+            if (emfProperty.equals(property.reference)) {
+              if (classInfo.thisClass == null) {
+                try {
+                  classInfo.thisClass =
+                      m_classLoader.loadClass(packageEntry.getKey()
+                          + "."
+                          + EmfCodeGenUtil.unformat(classInfo.className));
+                } catch (Throwable e) {
+                }
+              }
+              return new Object[]{property.parent, property, packageEntry.getKey()};
+            }
+          }
+        }
       }
     }
+    return null;
+  }
+
+  public ClassInfo getClassInfo(Class<?> eObjectClass) throws Exception {
+    PackageInfo packageInfo = getPackageInfo(eObjectClass);
     String emfClassName =
         EmfCodeGenUtil.format(eObjectClass.getSimpleName(), '_', null, true, true).toUpperCase(
             Locale.ENGLISH);
-    ClassInfo classInfo = packageInfo.get(emfClassName);
+    ClassInfo classInfo = packageInfo.classes.get(emfClassName);
     if (classInfo == null) {
-      for (Map.Entry<String, ClassInfo> entry : packageInfo.entrySet()) {
+      for (Map.Entry<String, ClassInfo> entry : packageInfo.classes.entrySet()) {
         if (entry.getKey().endsWith(emfClassName)) {
           emfClassName = entry.getKey();
           classInfo = entry.getValue();
@@ -265,123 +260,115 @@ public class PropertiesSupport {
         }
       }
     }
-    if (classInfo != null && !CollectionUtils.isEmpty(classInfo.properties)) {
-      linkClassProperties(classInfo, eObjectClass);
-      return classInfo;
-    }
-    return null;
-  }
-
-  public List<PropertyInfo> getProperties(Class<?> eObjectClass) throws Exception {
-    ClassInfo classInfo = getClassInfo(eObjectClass);
-    return classInfo == null ? Collections.<PropertyInfo>emptyList() : classInfo.properties;
-  }
-
-  private static void linkClassProperties(ClassInfo classInfo, Class<?> eObjectClass)
-      throws Exception {
-    if (classInfo.link && eObjectClass != null) {
-      List<PropertyInfo> newProperties = Lists.newArrayList();
-      for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(eObjectClass)) {
-        String propertyName =
-            EmfCodeGenUtil.format(descriptor.getName(), '_', null, false, false).toUpperCase(
-                Locale.ENGLISH);
-        for (Iterator<PropertyInfo> I = classInfo.properties.iterator(); I.hasNext();) {
-          PropertyInfo propertyInfo = I.next();
-          if (propertyName.equals(propertyInfo.internalName)) {
-            propertyInfo.name = descriptor.getName();
-            propertyInfo.type = descriptor.getPropertyType();
-            newProperties.add(propertyInfo);
-            I.remove();
-            break;
-          }
-        }
-      }
-      Collections.sort(newProperties, new Comparator<PropertyInfo>() {
-        public int compare(PropertyInfo property1, PropertyInfo property2) {
-          return property1.name.compareTo(property2.name);
-        }
-      });
-      //
-      classInfo.thisClass = eObjectClass;
-      classInfo.properties = newProperties;
-      classInfo.link = false;
-    }
-  }
-
-  private Map<String, ClassInfo> loadPackage(String packageAnyClass) throws Exception {
-    IType packageAnyType = m_javaProject.findType(packageAnyClass);
-    if (packageAnyType == null) {
-      return null;
-    }
-    IPackageFragment packageFragment = packageAnyType.getPackageFragment();
-    //
-    Set<String> allClasses = new HashSet<String>();
-    for (IClassFile classFile : packageFragment.getClassFiles()) {
-      IType type = classFile.getType();
-      if (type != null) {
-        allClasses.add(type.getFullyQualifiedName());
-      }
-    }
-    for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
-      IType type = compilationUnit.findPrimaryType();
-      if (type != null) {
-        allClasses.add(type.getFullyQualifiedName());
-      }
-    }
-    //
-    for (IClassFile classFile : packageFragment.getClassFiles()) {
-      Map<String, ClassInfo> packageInfo = createPackage(classFile.getType(), allClasses);
-      if (packageInfo != null) {
-        return packageInfo;
-      }
-    }
-    for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
-      Map<String, ClassInfo> packageInfo =
-          createPackage(compilationUnit.findPrimaryType(), allClasses);
-      if (packageInfo != null) {
-        return packageInfo;
-      }
-    }
-    return null;
+    return classInfo;
   }
 
   public void addPackage(String packageAnyClass) throws Exception {
-    IType packageAnyType = m_javaProject.findType(packageAnyClass);
-    if (packageAnyType != null) {
-      IPackageFragment packageFragment = packageAnyType.getPackageFragment();
-      String packageName = packageFragment.getElementName();
-      //
-      if (!m_packages.containsKey(packageName)) {
-        m_packages.put(packageName, loadPackage(packageAnyClass));
-      }
-    }
+    getPackageInfo(packageAnyClass);
   }
 
-  private Map<String, ClassInfo> createPackage(IType type, Set<String> allClasses)
-      throws JavaModelException, Exception {
-    Map<String, ClassInfo> packageInfo = null;
-    if (type != null) {
-      Class<?> packageClass = m_classLoader.loadClass(type.getFullyQualifiedName());
-      if (m_EPackage != packageClass && m_EPackage.isAssignableFrom(packageClass)) {
-        IType literalsType = type.getType("Literals");
-        if (literalsType != null) {
-          packageInfo = loadClasses(literalsType, allClasses);
+  private HierarchySupport m_hierarchySupport = null;
+
+  private PackageInfo getPackageInfo(Class<?> eObjectClass) throws Exception {
+    return getPackageInfo(eObjectClass.getName());
+  }
+
+  private PackageInfo getPackageInfo(String packageAnyClass) throws Exception {
+    String packageName = CodeUtils.getPackage(packageAnyClass);
+    PackageInfo packageInfo = m_packages.get(packageName);
+    if (packageInfo == null) {
+      packageInfo = loadPackage(packageAnyClass);
+      if (packageInfo == null) {
+        packageInfo = new PackageInfo(packageName);
+      } else {
+        m_packages.put(packageName, packageInfo);
+        // build hierarchy
+        boolean processJoin = false;
+        if (m_hierarchySupport == null) {
+          m_hierarchySupport = new HierarchySupport(this, true);
+          processJoin = true;
         }
+        for (Map.Entry<String, ClassInfo> entry : packageInfo.classes.entrySet()) {
+          ClassInfo classInfo = entry.getValue();
+          m_hierarchySupport.addClass(classInfo);
+        }
+        if (processJoin) {
+          m_hierarchySupport.joinClasses();
+          m_hierarchySupport = null;
+        }
+        //packageInfo.status = InfoStatus.LOADED;
       }
     }
     return packageInfo;
   }
 
-  private Map<String, ClassInfo> loadClasses(IType literalsType, Set<String> allClasses)
+  private PackageInfo loadPackage(String packageAnyClass) throws Exception {
+    IType packageAnyType = m_javaProject.findType(packageAnyClass);
+    if (packageAnyType == null) {
+      return null;
+    }
+    Set<String> allClasses = new HashSet<String>();
+    IPackageFragment packageFragment = packageAnyType.getPackageFragment();
+    // collect all class names
+    {
+      for (IClassFile classFile : packageFragment.getClassFiles()) {
+        IType type = classFile.getType();
+        if (type != null) {
+          allClasses.add(type.getFullyQualifiedName());
+        }
+      }
+      for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
+        IType type = compilationUnit.findPrimaryType();
+        if (type != null) {
+          allClasses.add(type.getFullyQualifiedName());
+        }
+      }
+    }
+    //
+    for (IClassFile classFile : packageFragment.getClassFiles()) {
+      Map<String, ClassInfo> packageClasses = getPackageClassInfos(classFile.getType(), allClasses);
+      if (packageClasses != null) {
+        return new PackageInfo(packageFragment.getElementName(), packageClasses);
+      }
+    }
+    for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
+      Map<String, ClassInfo> packageClasses =
+          getPackageClassInfos(compilationUnit.findPrimaryType(), allClasses);
+      if (packageClasses != null) {
+        return new PackageInfo(packageFragment.getElementName(), packageClasses);
+      }
+    }
+    return null;
+  }
+
+  private Map<String, ClassInfo> getPackageClassInfos(IType packageAnyType, Set<String> allClasses)
+      throws JavaModelException, Exception {
+    Map<String, ClassInfo> packageClasses = null;
+    if (packageAnyType != null) {
+      try {
+        Class<?> packageClass = m_classLoader.loadClass(packageAnyType.getFullyQualifiedName());
+        if (m_EPackage != packageClass && m_EPackage.isAssignableFrom(packageClass)) {
+          IType literalsType = packageAnyType.getType("Literals");
+          if (literalsType != null) {
+            packageClasses = loadEmfClassInfos(literalsType, allClasses);
+          }
+        }
+      } catch (ClassNotFoundException e) {
+        // nothing to do
+      }
+    }
+    return packageClasses;
+  }
+
+  private Map<String, ClassInfo> loadEmfClassInfos(IType literalsType, Set<String> allClasses)
       throws Exception {
     Class<?> literalsClass = m_classLoader.loadClass(literalsType.getFullyQualifiedName());
     String packageName = literalsClass.getPackage().getName();
-    HierarchySupport hierarchySupport = new HierarchySupport(this, packageName);
-    Map<String, ClassInfo> packageInfo = Maps.newHashMap();
+    Map<String, ClassInfo> packageClasses = Maps.newHashMap();
     String literalsReference = literalsType.getFullyQualifiedName('.') + ".";
     List<Field> eClasses = Lists.newArrayList();
     List<Field> eProperties = Lists.newArrayList();
-    //
+    // collect literals
     for (Field field : literalsClass.getFields()) {
       Class<?> fieldType = field.getType();
       if (m_EClass.isAssignableFrom(fieldType)) {
@@ -392,12 +379,11 @@ public class PropertiesSupport {
         eProperties.add(field);
       }
     }
-    //
+    // process EClass & its properties
     for (Field eClassField : eClasses) {
-      ClassInfo classInfo = new ClassInfo();
       String fieldName = eClassField.getName();
-      classInfo.className = fieldName;
-      packageInfo.put(fieldName, classInfo);
+      ClassInfo classInfo = new ClassInfo(fieldName);
+      packageClasses.put(fieldName, classInfo);
       //
       String unformatClassName = packageName + "." + EmfCodeGenUtil.unformat(classInfo.className);
       //
@@ -423,17 +409,42 @@ public class PropertiesSupport {
               propertyName.substring(propertyPrefix.length())));
         }
       }
+    }
+    //
+    for (ClassInfo classInfo : packageClasses.values()) {
+      linkClassProperties(classInfo);
+    }
+    //
+    return packageClasses;
+  }
+
+  private static void linkClassProperties(ClassInfo classInfo) throws Exception {
+    if (classInfo.status != InfoStatus.LOADED && classInfo.thisClass != null) {
+      classInfo.status = InfoStatus.LOADING;
+      List<PropertyInfo> newProperties = Lists.newArrayList();
+      for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(classInfo.thisClass)) {
+        String propertyName =
+            EmfCodeGenUtil.format(descriptor.getName(), '_', null, false, false).toUpperCase(
+                Locale.ENGLISH);
+        for (PropertyInfo propertyInfo : classInfo.properties) {
+          if (propertyName.equals(propertyInfo.internalName)) {
+            propertyInfo.name = descriptor.getName();
+            propertyInfo.type = descriptor.getPropertyType();
+            newProperties.add(propertyInfo);
+            classInfo.properties.remove(propertyInfo);
+            break;
+          }
+        }
+      }
+      Collections.sort(newProperties, new Comparator<PropertyInfo>() {
+        public int compare(PropertyInfo property1, PropertyInfo property2) {
+          return property1.name.compareTo(property2.name);
+        }
+      });
       //
-      hierarchySupport.addClass(classInfo, true);
+      classInfo.properties = newProperties;
+      classInfo.status = InfoStatus.LOADED;
     }
-    //
-    for (ClassInfo classInfo : packageInfo.values()) {
-      linkClassProperties(classInfo, classInfo.thisClass);
-    }
-    //
-    hierarchySupport.joinClasses();
-    //
-    return packageInfo;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -441,11 +452,32 @@ public class PropertiesSupport {
   // Classes
   //
   ////////////////////////////////////////////////////////////////////////////
+  private static enum InfoStatus {
+    NEW, LOADING, LOADED
+  }
+  private static class PackageInfo {
+    //InfoStatus status = InfoStatus.NEW;
+    //final String packageName;
+    final Map<String, ClassInfo> classes;
+
+    PackageInfo(String packageName) {
+      this(packageName, Maps.<String, ClassInfo>newHashMap());
+    }
+
+    PackageInfo(String packageName, Map<String, ClassInfo> classes) {
+      //this.packageName = packageName;
+      this.classes = classes;
+    }
+  }
   public static class ClassInfo {
-    public String className;
+    InfoStatus status = InfoStatus.NEW;
+    public final String className;
     public Class<?> thisClass;
     public List<PropertyInfo> properties = Lists.newArrayList();
-    public boolean link = true;
+
+    ClassInfo(String className) {
+      this.className = className;
+    }
   }
   public static class PropertyInfo {
     public ClassInfo parent;
@@ -459,7 +491,7 @@ public class PropertiesSupport {
     // Constructor
     //
     ////////////////////////////////////////////////////////////////////////////
-    public PropertyInfo(ClassInfo parent, String reference, String internalName) {
+    PropertyInfo(ClassInfo parent, String reference, String internalName) {
       this.parent = parent;
       this.reference = reference;
       this.internalName = internalName;

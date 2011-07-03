@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport.ClassInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport.PropertyInfo;
 
@@ -31,19 +32,19 @@ import java.util.Set;
  * @coverage bindings.rcp.emf.model
  */
 public class HierarchySupport {
-  private final List<TreeElement> m_roots = Lists.newArrayList();
-  private final Map<String, TreeElement> m_nameToElement = Maps.newHashMap();
+  private final List<HierarchyElement> m_roots = Lists.newArrayList();
+  private final Map<String, HierarchyElement> m_nameToElement = Maps.newHashMap();
   private final PropertiesSupport m_propertiesSupport;
-  private final String m_packagePrefix;
+  private final boolean m_addProperties;
 
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public HierarchySupport(PropertiesSupport propertiesSupport, String packagePrefix) {
+  public HierarchySupport(PropertiesSupport propertiesSupport, boolean addProperties) {
     m_propertiesSupport = propertiesSupport;
-    m_packagePrefix = packagePrefix;
+    m_addProperties = addProperties;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -51,55 +52,65 @@ public class HierarchySupport {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void addClass(ClassInfo classInfo, boolean addProperties) throws Exception {
-    if (classInfo.thisClass == null) {
-      return;
-    }
-    String className = classInfo.thisClass.getName();
-    TreeElement element = m_nameToElement.get(className);
-    if (element == null) {
-      element = new TreeElement();
-      m_nameToElement.put(className, element);
-      for (Class<?> superClass : classInfo.thisClass.getInterfaces()) {
-        linkClass(element, superClass);
-      }
-    }
-    element.classInfo = classInfo;
-    if (addProperties) {
-      element.properties.addAll(classInfo.properties);
-    }
+  public void addClass(ClassInfo classInfo) throws Exception {
+    loadClass(classInfo);
   }
 
-  private void linkClass(TreeElement element, Class<?> superClass) throws Exception {
-    String superClassName = superClass.getName();
-    TreeElement superElement = m_nameToElement.get(superClassName);
-    if (superElement == null) {
-      superElement = new TreeElement();
-      m_nameToElement.put(superClassName, superElement);
-      if (superClassName.startsWith(m_packagePrefix)) {
-        for (Class<?> superSuperClass : superClass.getInterfaces()) {
-          linkClass(superElement, superSuperClass);
-        }
-      } else {
-        superElement.classInfo = m_propertiesSupport.getClassInfo(superClass);
-        m_roots.add(superElement);
-      }
+  private HierarchyElement loadClass(ClassInfo classInfo) throws Exception {
+    if (classInfo.thisClass == null) {
+      return null;
     }
-    superElement.elements.add(element);
+    String className = classInfo.thisClass.getName();
+    HierarchyElement element = m_nameToElement.get(className);
+    if (element == null) {
+      element = loadClassHierarchy(classInfo.thisClass);
+    }
+    element.classInfo = classInfo;
+    if (m_addProperties) {
+      element.properties.addAll(classInfo.properties);
+    }
+    return element;
+  }
+
+  private HierarchyElement loadClassHierarchy(Class<?> clazz) throws Exception {
+    HierarchyElement element = new HierarchyElement();
+    String className = clazz.getName();
+    String packageName = CodeUtils.getPackage(className);
+    m_nameToElement.put(className, element);
+    for (Class<?> superClass : clazz.getInterfaces()) {
+      String superClassName = superClass.getName();
+      HierarchyElement superElement = m_nameToElement.get(superClassName);
+      if (superElement == null) {
+        String superPackageName = CodeUtils.getPackage(superClassName);
+        if (superPackageName.equals(packageName)) {
+          superElement = loadClassHierarchy(superClass);
+        } else {
+          ClassInfo superClassInfo = m_propertiesSupport.getClassInfo(superClass);
+          if (superClassInfo != null) {
+            superElement = loadClass(superClassInfo);
+          } else {
+            superElement = loadClassHierarchy(superClass);
+          }
+          m_roots.add(superElement);
+        }
+      }
+      superElement.elements.add(element);
+    }
+    return element;
   }
 
   public void joinClasses() {
-    for (TreeElement root : m_roots) {
+    for (HierarchyElement root : m_roots) {
       joinClass(root);
     }
-    for (TreeElement root : m_roots) {
+    for (HierarchyElement root : m_roots) {
       sortProperties(root);
     }
   }
 
-  private void joinClass(TreeElement element) {
+  private void joinClass(HierarchyElement element) {
     if (element.classInfo != null) {
-      for (TreeElement childElement : element.elements) {
+      for (HierarchyElement childElement : element.elements) {
         for (PropertyInfo property : element.classInfo.properties) {
           if (childElement.properties.add(property) && childElement.classInfo != null) {
             childElement.classInfo.properties.add(property);
@@ -108,12 +119,12 @@ public class HierarchySupport {
         }
       }
     }
-    for (TreeElement childElement : element.elements) {
+    for (HierarchyElement childElement : element.elements) {
       joinClass(childElement);
     }
   }
 
-  private void sortProperties(TreeElement element) {
+  private void sortProperties(HierarchyElement element) {
     if (element.sort && element.classInfo != null) {
       element.sort = false;
       Collections.sort(element.classInfo.properties, new Comparator<PropertyInfo>() {
@@ -122,16 +133,16 @@ public class HierarchySupport {
         }
       });
     }
-    for (TreeElement childElement : element.elements) {
+    for (HierarchyElement childElement : element.elements) {
       sortProperties(childElement);
     }
   }
 
   public ClassInfo getLastClass() {
-    List<TreeElement> elements = m_roots;
+    List<HierarchyElement> elements = m_roots;
     while (true) {
       Assert.isTrue(!elements.isEmpty());
-      TreeElement element = elements.get(0);
+      HierarchyElement element = elements.get(0);
       if (element.elements.isEmpty()) {
         Assert.isNotNull(element.classInfo);
         return element.classInfo;
@@ -145,10 +156,10 @@ public class HierarchySupport {
   // Classes
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static class TreeElement {
-    public ClassInfo classInfo;
-    public Set<PropertyInfo> properties = Sets.newHashSet();
-    public List<TreeElement> elements = Lists.newArrayList();
-    public boolean sort;
+  private static class HierarchyElement {
+    ClassInfo classInfo;
+    Set<PropertyInfo> properties = Sets.newHashSet();
+    List<HierarchyElement> elements = Lists.newArrayList();
+    boolean sort;
   }
 }

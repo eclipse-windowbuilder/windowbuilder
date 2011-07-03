@@ -81,15 +81,14 @@ public class MapsEmfObservableInfo extends MapsBeanObservableInfo {
     //
     m_emfProperties = Lists.newArrayList();
     List<String> properties = Lists.newArrayList();
-    HierarchySupport hierarchySupport =
-        new HierarchySupport(m_propertiesSupport, (String) firstResult[2]);
+    HierarchySupport hierarchySupport = new HierarchySupport(m_propertiesSupport, false);
     // prepare EMF properties
     for (String propertyReference : referenceProperties) {
       Object[] result = m_propertiesSupport.getClassInfoForProperty(propertyReference);
       Assert.isNotNull(result);
       ClassInfo classInfo = (ClassInfo) result[0];
       Assert.isNotNull(classInfo.thisClass);
-      hierarchySupport.addClass(classInfo, false);
+      hierarchySupport.addClass(classInfo);
       //
       for (PropertyInfo property : classInfo.properties) {
         if (propertyReference.equals(property.reference)) {

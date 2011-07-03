@@ -210,15 +210,16 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
 
   public void handlePropertyChecked(PropertyAdapter property, boolean checked) {
     if (checked) {
-      AbstractDescriptor[] editorData =
-          {
-              m_widgetContainer.getDefaultDescriptor(property, true),
-              m_strategyContainer == null ? null : m_strategyContainer.getDefaultDescriptor(
-                  property,
-                  true)};
-      m_propertyToEditor.put(property, editorData);
-    } else {
-      m_propertyToEditor.remove(property);
+      AbstractDescriptor[] editorData = m_propertyToEditor.get(property);
+      if (editorData == null) {
+        editorData =
+            new AbstractDescriptor[]{
+                m_widgetContainer.getDefaultDescriptor(property, true),
+                m_strategyContainer == null ? null : m_strategyContainer.getDefaultDescriptor(
+                    property,
+                    true)};
+        m_propertyToEditor.put(property, editorData);
+      }
     }
   }
 
