@@ -322,7 +322,7 @@ def rezipSite(dir):
       zipFile = os.path.join(dir, file)
       log.info("processing " + zipFile)
       res = versionRE.search(file)
-      __displaymatch(res)
+      util.__displaymatch(res)
       version = res.group(1)
       siteDir = os.path.join(dir, version)
 
