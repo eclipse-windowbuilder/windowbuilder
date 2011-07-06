@@ -727,11 +727,11 @@ final class ListenerMethodProperty extends AbstractEventProperty
     // prepare method as listener method or stub method
     MethodDeclaration method = findStubMethod();
     if (method == null) {
-      if (m_preferences.getBoolean(P_CREATE_STUB)) {
-        method = ensureStubMethod();
-      } else {
-        method = ensureListenerMethod();
-      }
+      method = ExecutionUtils.runObject(m_javaInfo, new RunnableObjectEx<MethodDeclaration>() {
+        public MethodDeclaration runObject() throws Exception {
+          return ensureStubMethod();
+        }
+      });
     }
     // open method
     JavaInfoUtils.scheduleOpenNode(m_javaInfo, method);

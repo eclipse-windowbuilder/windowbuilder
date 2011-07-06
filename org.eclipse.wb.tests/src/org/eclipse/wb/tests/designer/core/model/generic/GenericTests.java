@@ -33,6 +33,7 @@ public class GenericTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
     suite.addTest(createSingleSuite(FlipBooleanPropertyGefTest.class));
     suite.addTest(createSingleSuite(DblClickRunScriptEditPolicyTest.class));
+    suite.addTest(createSingleSuite(OpenListenerEditPolicyTest.class));
     return suite;
   }
 }
