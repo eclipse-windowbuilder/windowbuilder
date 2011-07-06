@@ -46,11 +46,4 @@ def updateMd5Hash(dir):
       fhMd5File = open(md5File, 'wt')
       log.info('creating ' + md5File)
       subprocess.check_call(commands, stdout = fhMd5File)
-      
-      
-def __displaymatch(match):
-    if match is None:
-        return None
-    log.debug('<Match: %r, groups=%r>' % (match.group(), match.groups()))
-      
 
