@@ -322,22 +322,24 @@ public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {
   protected final <T extends XmlObjectInfo> T loadCreationTool(String componentClassName,
       String creationId) throws Exception {
     // prepare new component
-    final XmlObjectInfo newComponent;
+    XmlObjectInfo newComponent;
     {
       newComponent =
           XmlObjectUtils.createObject(
               m_lastContext,
               componentClassName,
               new ElementCreationSupport(creationId));
+      newComponent = XmlObjectUtils.getWrapped(newComponent);
       newComponent.putArbitraryValue(XmlObjectInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
     }
     // load CreationTool
+    final XmlObjectInfo finalNewComponent = newComponent;
     ICreationFactory factory = new ICreationFactory() {
       public void activate() {
       }
 
       public Object getNewObject() {
-        return newComponent;
+        return finalNewComponent;
       }
     };
     CreationTool creationTool = new CreationTool(factory);

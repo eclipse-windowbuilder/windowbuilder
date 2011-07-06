@@ -37,7 +37,7 @@ import java.util.Map;
  * @author scheglov_ke
  * @coverage XML.model.creation
  */
-public final class ElementCreationSupport extends CreationSupport implements ILiveCreationSupport {
+public class ElementCreationSupport extends CreationSupport implements ILiveCreationSupport {
   private DocumentElement m_element;
   private String m_creationId;
   private boolean m_addAttributes;
