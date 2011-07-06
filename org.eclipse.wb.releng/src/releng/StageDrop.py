@@ -297,7 +297,7 @@ def unzipSites(dir):
   
   for file in files:
     res = versionRE.search(file)
-    __displaymatch(res)
+    util.__displaymatch(res)
     version = res.group(1)
     unarchiveDest = os.path.join(dir, version)
     if not os.path.exists(unarchiveDest):
@@ -305,11 +305,6 @@ def unzipSites(dir):
       
     util.unarchive(os.path.join(dir, file), unarchiveDest)
 
-def __displaymatch(match):
-    if match is None:
-        return None
-    log.debug('<Match: %r, groups=%r>' % (match.group(), match.groups()))
-      
 def rezipSite(dir):
   log.debug("rezipSite(" + dir + ")")
   formatDir =  'D: {0:<120} N: {1}'

@@ -3,6 +3,7 @@ Created on Apr 20, 2011
 
 @author: mrrussell
 '''
+import datetime
 import logging
 import os
 import subprocess
@@ -37,17 +38,27 @@ def __findEclipseArchive(eclipseVersion):
       if file.startswith("R-") or file.startswith("S-"):
         log.debug('found: ' + file)
         foundEclipseDirs.append(file)
-    
     if len(foundEclipseDirs) == 0:
       log.error("could not find any Eclipse directories starting with R or S in " +
                 eclipseArchiveDir)
       raise OSError("could not find any Eclipse directories starting with R or S in " +
                 eclipseArchiveDir)
+      
+    savedTs = datetime.datetime(1970,1,1)
     searchDir = None
+    searchTerm = "[RS]-([0-9]\.[0-9](\.[0-9]|M[0-9]|RC[0-9])?)-(.+)(.*)"
+    search = re.compile(searchTerm)
     for dir in foundEclipseDirs:
-      if dir.find(eclipseVersion) >= 0:
-        searchDir = os.path.join(eclipseArchiveDir, dir)
-        break
+      results = search.search(dir)
+      util.__displaymatch(results)
+      version = results.group(1)
+      timestamp = results.group(3)
+      if version.find(eclipseVersion) >= 0:
+        eclipseTs = datetime.datetime.strptime(timestamp, "%Y%m%d%H%M")
+        if eclipseTs > savedTs:
+          savedTs = eclipseTs
+          searchDir = os.path.join(eclipseArchiveDir, dir)
+
     log.debug('searchDir = ' + searchDir);
     if searchDir == None:
       log.error("could not find any Eclipse directories with " + eclipseVersion)
