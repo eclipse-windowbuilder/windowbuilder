@@ -12,6 +12,7 @@ package org.eclipse.wb.tests.designer.XML.editor;
 
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.xml.gef.policy.DirectTextPropertyEditPolicy;
+import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
@@ -43,6 +44,23 @@ public class DirectTextPropertyEditPolicyTest extends XwtGefTest {
     // do edit
     canvas.performDirectEdit(shell, "New text");
     assertXML("<Shell text='New text'/>");
+  }
+
+  /**
+   * When we perform UNDO, or dispose hierarchy using any other way, we should cancel direct edit.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=351282
+   */
+  public void test_activateAndUndo() throws Exception {
+    CompositeInfo shell = openEditor("<Shell/>");
+    // drop new Button
+    XmlObjectInfo newButton = loadButton();
+    canvas.moveTo(shell, 0.5, 0.5).click();
+    // begin direct edit
+    canvas.assertSelection(newButton);
+    canvas.beginDirectEdit();
+    // perform UNDO
+    getUndoAction().run();
   }
 
   public void test_activateForNew() throws Exception {

@@ -699,7 +699,7 @@ public final class GraphicalRobot {
    */
   public void performDirectEdit(String text) {
     // begin direct edit
-    keyDown(0x20, ' ');
+    beginDirectEdit();
     // animate
     animateDirectEdit(text);
   }
@@ -708,12 +708,25 @@ public final class GraphicalRobot {
    * Animates already activated direct edit.
    */
   public void animateDirectEdit(String text) {
-    UiContext context = new UiContext();
     // prepare Text widget
-    Text textWidget = context.findFirstWidget(m_viewer.getControl(), Text.class);
+    Text textWidget = UiContext.findFirstWidget(m_viewer.getControl(), Text.class);
     assertThat(textWidget).describedAs("No Text widget.").isNotNull();
     // use Text widget
     textWidget.setText(text);
+    endDirectEdit(textWidget);
+  }
+
+  /**
+   * Begins direct edit for selected component.
+   */
+  public void beginDirectEdit() {
+    keyDown(0x20, ' ');
+  }
+
+  /**
+   * Ends direct edit for selected component.
+   */
+  public void endDirectEdit(Text textWidget) {
     new EventSender(textWidget).keyDown(SWT.CR);
   }
 
