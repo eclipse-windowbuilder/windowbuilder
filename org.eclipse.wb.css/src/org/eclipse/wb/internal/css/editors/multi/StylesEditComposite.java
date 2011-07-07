@@ -808,10 +808,10 @@ public class StylesEditComposite extends Composite {
 
   /**
    * Wrapper for {@link CssRuleNode}. We use it as element for rules viewer because we need to
-   * replace {@link CssRuleNode} when users changes its text, but there is not way to replacing item
+   * replace {@link CssRuleNode} when users changes its text, but there is no way to replacing item
    * in {@link ListViewer}.
    */
-  protected static final class RuleWrapper {
+  public static final class RuleWrapper {
     CssRuleNode m_rule;
 
     ////////////////////////////////////////////////////////////////////////////
