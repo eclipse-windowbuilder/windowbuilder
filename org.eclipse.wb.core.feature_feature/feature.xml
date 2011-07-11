@@ -19,6 +19,10 @@
       %license
    </license>
 
+   <url>
+      <discovery label="WindowBuilderCore Discovery" url="http://download.eclipse.org/windowbuilder/WB/integration/3.7"/>
+   </url>
+
    <plugin
          id="org.eclipse.wb.jdt.fragment"
          download-size="0"
@@ -45,8 +49,7 @@
          id="org.eclipse.wb.runtime.lib"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.wb.core"
@@ -59,8 +62,7 @@
          id="org.eclipse.wb.core.lib"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="true"/>
+         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.wb.os.linux"
