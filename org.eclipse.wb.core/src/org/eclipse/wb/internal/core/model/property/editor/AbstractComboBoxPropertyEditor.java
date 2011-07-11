@@ -14,6 +14,8 @@ import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.controls.CComboBox;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
+import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -41,6 +43,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
   //
   ////////////////////////////////////////////////////////////////////////////
   private CComboBox m_combo;
+  private String m_dropDelayedText;
 
   @Override
   public final boolean activate(final PropertyTable propertyTable,
@@ -55,12 +58,6 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
       @Override
       public void keyPressed(KeyEvent e) {
         switch (e.keyCode) {
-          case SWT.DEL :
-            try {
-              property.setValue(Property.UNKNOWN_VALUE);
-            } catch (Exception exception) {
-              propertyTable.handleException(exception);
-            }
           case SWT.ESC :
             e.doit = false;
             m_combo.getDisplay().asyncExec(new Runnable() {
@@ -85,6 +82,17 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
       }
     });
     m_combo.setFocus();
+    // schedule showing drop-down, because we don't have bounds yet
+    ExecutionUtils.runAsync(new RunnableEx() {
+      public void run() throws Exception {
+        m_combo.comboDropDown(true);
+        if (m_dropDelayedText != null) {
+          m_combo.setEditText(m_dropDelayedText);
+          m_combo.setEditSelection(m_dropDelayedText.length(), m_dropDelayedText.length());
+          m_dropDelayedText = null;
+        }
+      }
+    });
     // keep editor active
     return true;
   }
@@ -108,6 +116,17 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
   @Override
   public void setBounds(Rectangle bounds) {
     m_combo.setBounds(bounds);
+  }
+
+  @Override
+  public void keyDown(PropertyTable propertyTable, Property property, KeyEvent event)
+      throws Exception {
+    boolean withAlt = (event.stateMask & SWT.ALT) != 0;
+    boolean withCtrl = (event.stateMask & SWT.CTRL) != 0;
+    if (event.character > 0x20 && !(withAlt || withCtrl)) {
+      propertyTable.activateEditor(property, null);
+      m_dropDelayedText = "" + event.character;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

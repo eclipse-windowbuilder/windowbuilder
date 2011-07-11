@@ -55,8 +55,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TypedListener;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 
 /**
@@ -125,7 +123,7 @@ public class CComboBox extends Composite {
     addDisposeListener(new DisposeListener() {
       public void widgetDisposed(DisposeEvent e) {
         {
-          // remove Dysplay hooks
+          // remove Display hooks
           Display display = getDisplay();
           display.removeFilter(SWT.FocusIn, displayFocusInHook);
           display.removeFilter(SWT.FocusOut, displayFocusOutHook);
@@ -164,12 +162,6 @@ public class CComboBox extends Composite {
               comboDropDown(false);
               e.doit = false;
             } else {
-              // forward to ComboBox listeners
-              notifyListeners(SWT.KeyDown, convert2event(e));
-            }
-            break;
-          case SWT.DEL :
-            if (StringUtils.isEmpty(getEditText())) {
               // forward to ComboBox listeners
               notifyListeners(SWT.KeyDown, convert2event(e));
             }
@@ -443,6 +435,10 @@ public class CComboBox extends Composite {
   public void setEditText(String text) {
     m_text.setText(text == null ? "" : text);
     m_text.selectAll();
+  }
+
+  public void setEditSelection(int start, int end) {
+    m_text.setSelection(start, end);
   }
 
   /**
