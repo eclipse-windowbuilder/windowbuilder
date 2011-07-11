@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.IJavaProject;
  * @author scheglov_ke
  * @coverage core.model.property
  */
-public abstract class JavaProperty extends Property {
+public abstract class JavaProperty extends ObjectProperty {
   protected final JavaInfo m_javaInfo;
   private String m_title;
 
@@ -59,6 +59,11 @@ public abstract class JavaProperty extends Property {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
+  public ObjectInfo getObjectInfo() {
+    return m_javaInfo;
+  }
+
   /**
    * @return the {@link JavaInfo} of this {@link Property}.
    */

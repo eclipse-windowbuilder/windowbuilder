@@ -26,6 +26,7 @@ public class PropertyTests extends DesignerSuiteTests {
     TestSuite suite = new TestSuite("org.eclipse.wb.xml.model.property");
     suite.addTest(createSingleSuite(XmlPropertyTest.class));
     suite.addTest(createSingleSuite(EmptyXmlPropertyTest.class));
+    suite.addTest(createSingleSuite(XmlAttributePropertyTest.class));
     suite.addTest(createSingleSuite(PropertyTest.class));
     suite.addTest(createSingleSuite(StaticFieldPropertyEditorTest.class));
     suite.addTest(createSingleSuite(EnumPropertyEditorTest.class));

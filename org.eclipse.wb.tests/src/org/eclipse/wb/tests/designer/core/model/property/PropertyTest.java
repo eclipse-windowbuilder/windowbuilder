@@ -86,6 +86,7 @@ public class PropertyTest extends SwingModelTest {
             "}");
     JavaProperty property = (JavaProperty) panel.getPropertyByTitle("enabled");
     //
+    assertSame(panel, property.getObjectInfo());
     assertSame(panel, property.getJavaInfo());
     assertSame(panel, property.getAdapter(ObjectInfo.class));
   }

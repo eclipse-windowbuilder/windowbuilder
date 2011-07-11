@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.xml.model.property;
 
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.internal.core.model.property.ObjectProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
@@ -26,7 +27,7 @@ import org.eclipse.jdt.core.IJavaProject;
  * @author scheglov_ke
  * @coverage XML.model.property
  */
-public abstract class XmlProperty extends Property {
+public abstract class XmlProperty extends ObjectProperty {
   protected final XmlObjectInfo m_object;
   private final String m_title;
 
@@ -64,6 +65,11 @@ public abstract class XmlProperty extends Property {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
+  public final ObjectInfo getObjectInfo() {
+    return m_object;
+  }
+
   /**
    * @return the {@link XmlObjectInfo} of this property.
    */
