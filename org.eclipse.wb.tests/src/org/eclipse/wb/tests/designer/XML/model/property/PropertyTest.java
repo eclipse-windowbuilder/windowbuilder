@@ -138,6 +138,50 @@ public class PropertyTest extends AbstractCoreTest {
   // Value
   //
   ////////////////////////////////////////////////////////////////////////////
+  public void test_getValue_modified() throws Exception {
+    prepareMyComponent(new String[]{
+        "// filler filler filler filler filler",
+        "public void setTest(int value) {",
+        "}"});
+    ControlInfo shell =
+        parse(
+            "// filler filler filler filler filler",
+            "<Shell>",
+            "  <t:MyComponent wbp:name='component' test='123'/>",
+            "</Shell>");
+    shell.refresh();
+    XmlObjectInfo component = getObjectByName("component");
+    GenericProperty property = (GenericProperty) component.getPropertyByTitle("test");
+    // has value
+    assertTrue(property.isModified());
+    assertEquals(123, property.getValue());
+  }
+
+  /**
+   * Test for using tag "x-rawValue".
+   */
+  public void test_getValue_modified_rawValue() throws Exception {
+    prepareMyComponent(new String[]{
+        "// filler filler filler filler filler",
+        "public void setTest(int value) {",
+        "}"}, new String[]{
+        "<property id='setTest(int)'>",
+        "  <tag name='x-rawValue' value='true'/>",
+        "</property>"});
+    ControlInfo shell =
+        parse(
+            "// filler filler filler filler filler",
+            "<Shell>",
+            "  <t:MyComponent wbp:name='component' test='SWT.PUSH'/>",
+            "</Shell>");
+    shell.refresh();
+    XmlObjectInfo component = getObjectByName("component");
+    GenericProperty property = (GenericProperty) component.getPropertyByTitle("test");
+    // has value
+    assertTrue(property.isModified());
+    assertEquals("SWT.PUSH", property.getValue());
+  }
+
   public void test_getValue_notModified_defaultInDescription() throws Exception {
     prepareMyComponent(new String[]{
         "// filler filler filler filler filler",

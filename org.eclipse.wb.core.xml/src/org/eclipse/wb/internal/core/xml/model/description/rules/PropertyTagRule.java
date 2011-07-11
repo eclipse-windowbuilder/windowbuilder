@@ -36,6 +36,7 @@ public final class PropertyTagRule extends AbstractDesignerRule {
       String tagName = getRequiredAttribute(name, attributes, "name");
       String tagValue = getRequiredAttribute(name, attributes, "value");
       propertyDescription.putTag(tagName, tagValue);
+      propertyDescription.getAccessor().putTag(tagName, tagValue);
     } else {
       String propertyName = getRequiredAttribute(name, attributes, "name");
       ComponentDescription componentDescription = (ComponentDescription) digester.peek();

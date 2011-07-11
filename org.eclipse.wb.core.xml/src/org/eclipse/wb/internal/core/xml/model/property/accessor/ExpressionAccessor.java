@@ -107,13 +107,16 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    *         {@link Property#UNKNOWN_VALUE} if attribute was not set.
    */
   public Object getValue(XmlObjectInfo object) throws Exception {
+    if (hasTrueTag("x-rawValue")) {
+      return object.getAttribute(m_attribute);
+    }
     return object.getAttributeValue(m_attribute);
   }
 
   /**
    * @return the default value of property in given {@link XmlObjectInfo}.
    */
-  public Object getDefaultValue(@SuppressWarnings("unused") XmlObjectInfo object) throws Exception {
+  public Object getDefaultValue(XmlObjectInfo object) throws Exception {
     return Property.UNKNOWN_VALUE;
   }
 
