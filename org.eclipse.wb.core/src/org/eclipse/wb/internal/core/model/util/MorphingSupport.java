@@ -13,12 +13,10 @@ package org.eclipse.wb.internal.core.model.util;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
-import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.AssociationUtils;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -36,33 +34,19 @@ import org.eclipse.wb.internal.core.model.variable.AbstractSimpleVariableSupport
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.jdt.core.SubtypesScope;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
-import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.QualifiedName;
-import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.ui.IJavaElementSearchConstants;
-import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IContributionManager;
-import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.SelectionDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -72,9 +56,77 @@ import java.util.Set;
  * Helper for morphing {@link JavaInfo} for one component class to another.
  * 
  * @author scheglov_ke
+ * @author sablin_aa
  * @coverage core.model.util
  */
-public final class MorphingSupport {
+public final class MorphingSupport extends AbstractMorphingSupport<JavaInfo> {
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Instance fields
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private final AstEditor m_editor;
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Constructor
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private MorphingSupport(String toolkitClassName, JavaInfo component) {
+    super(toolkitClassName, component);
+    m_editor = m_component.getEditor();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Access
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  @Override
+  protected IJavaProject getJavaProject() {
+    return m_editor.getJavaProject();
+  }
+
+  @Override
+  protected ClassLoader getClassLoader() {
+    return EditorState.get(m_editor).getEditorLoader();
+  }
+
+  @Override
+  protected Class<?> getComponentClass() {
+    return m_component.getDescription().getComponentClass();
+  }
+
+  @Override
+  protected List<MorphingTargetDescription> getMorphingTargets() {
+    return m_component.getDescription().getMorphingTargets();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Presentation
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  @Override
+  protected String getTargetText(MorphingTargetDescription target) throws Exception {
+    return getComponentPresentation(target).getName();
+  }
+
+  @Override
+  protected ImageDescriptor getTargetImageDescriptor(MorphingTargetDescription target)
+      throws Exception {
+    ComponentPresentation presentation = getComponentPresentation(target);
+    return new ImageImageDescriptor(presentation.getIcon());
+  }
+
+  private ComponentPresentation getComponentPresentation(MorphingTargetDescription target)
+      throws Exception {
+    return ComponentPresentationHelper.getPresentation(
+        m_editor,
+        target.getComponentClass().getName(),
+        target.getCreationId());
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Contribution
@@ -98,79 +150,8 @@ public final class MorphingSupport {
     if (!(component.getVariableSupport() instanceof AbstractSimpleVariableSupport)) {
       return;
     }
-    // add "Morph" sub-menu
-    MenuManagerEx morphManager;
-    {
-      morphManager = new MenuManagerEx(ModelMessages.MorphingSupport_managerText);
-      morphManager.setImage(DesignerPlugin.getImage("actions/morph/morph2.png"));
-      manager.appendToGroup(IContextMenuConstants.GROUP_INHERITANCE, morphManager);
-    }
     // add "morph" actions
-    new MorphingSupport(toolkitClassName, component).contribute(morphManager);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance fields
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private final String m_toolkitClassName;
-  private final JavaInfo m_component;
-  private final AstEditor m_editor;
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private MorphingSupport(String toolkitClassName, JavaInfo component) {
-    m_toolkitClassName = toolkitClassName;
-    m_component = component;
-    m_editor = m_component.getEditor();
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Contribution
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Contributes "morph" actions.
-   * 
-   * @param manager
-   *          the {@link IContributionManager} to add action to.
-   */
-  private void contribute(IContributionManager morphManager) throws Exception {
-    // add known morphing targets
-    for (MorphingTargetDescription target : m_component.getDescription().getMorphingTargets()) {
-      morphManager.add(new MorphTargetAction(target));
-    }
-    // add special actions
-    morphManager.add(new Separator());
-    {
-      String baseClassName = m_component.getDescription().getComponentClass().getName();
-      MorphSubclassAction action = new MorphSubclassAction(baseClassName);
-      action.setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/morph/subclass.gif"));
-      action.setText(ModelMessages.MorphingSupport_subclassAction);
-      morphManager.add(action);
-    }
-    {
-      MorphSubclassAction action = new MorphSubclassAction(m_toolkitClassName);
-      action.setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/morph/other.gif"));
-      action.setText(ModelMessages.MorphingSupport_otherAction);
-      morphManager.add(action);
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Utility access
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static void morph(String toolkitClassName,
-      JavaInfo component,
-      MorphingTargetDescription target) throws Exception {
-    new MorphingSupport(toolkitClassName, component).morph(target);
+    new MorphingSupport(toolkitClassName, component).contribute(createMorphManager(manager));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -178,12 +159,8 @@ public final class MorphingSupport {
   // Morphing
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Validates if given {@link MorphingTargetDescription} can be used.
-   * 
-   * @return the error message or <code>null</code>.
-   */
-  private String validate(MorphingTargetDescription target) throws Exception {
+  @Override
+  protected String validate(MorphingTargetDescription target) throws Exception {
     // prepare signatures of methods used for children association
     Set<String> associationSignatures = Sets.newHashSet();
     for (JavaInfo child : m_component.getChildrenJava()) {
@@ -226,10 +203,8 @@ public final class MorphingSupport {
     return null;
   }
 
-  /**
-   * Performs morphing to given {@link MorphingTargetDescription}.
-   */
-  private void morph(MorphingTargetDescription target) throws Exception {
+  @Override
+  protected void morph(MorphingTargetDescription target) throws Exception {
     if (m_component.getCreationSupport() instanceof ConstructorCreationSupport
         || m_component.getCreationSupport() instanceof StaticFactoryCreationSupport
         || m_component.getCreationSupport() instanceof InstanceFactoryCreationSupport) {
@@ -348,169 +323,12 @@ public final class MorphingSupport {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // MorphTargetAction
+  // Utility access
   //
   ////////////////////////////////////////////////////////////////////////////
-  /**
-   * Abstract {@link Action} for morphing component.
-   */
-  private abstract class MorphAction extends Action {
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Object - make "singleton"
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public final int hashCode() {
-      return 0;
-    }
-
-    @Override
-    public final boolean equals(Object obj) {
-      if (obj instanceof MorphTargetAction) {
-        return true;
-      }
-      return false;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Run
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public final void run() {
-      // prepare target
-      final MorphingTargetDescription target;
-      try {
-        target = getTarget();
-        // no target
-        if (target == null) {
-          return;
-        }
-        // validate
-        {
-          String message = validate(target);
-          if (message != null) {
-            MessageDialog.openError(
-                DesignerPlugin.getShell(),
-                ModelMessages.MorphingSupport_incompatibleTargetTitle,
-                message);
-            return;
-          }
-        }
-      } catch (Throwable e) {
-        DesignerPlugin.log(e);
-        return;
-      }
-      // do morph
-      ExecutionUtils.run(m_component.getRootJava(), new RunnableEx() {
-        public void run() throws Exception {
-          morph(target);
-        }
-      });
-    }
-
-    /**
-     * @return the target to morph to, or <code>null</code> if user canceled selection.
-     */
-    protected abstract MorphingTargetDescription getTarget() throws Exception;
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MorphTargetAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link Action} for morphing component into existing {@link MorphingTargetDescription}.
-   */
-  private class MorphTargetAction extends MorphAction {
-    private final MorphingTargetDescription m_target;
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public MorphTargetAction(MorphingTargetDescription target) throws Exception {
-      m_target = target;
-      ComponentPresentation presentation =
-          ComponentPresentationHelper.getPresentation(
-              m_editor,
-              target.getComponentClass().getName(),
-              target.getCreationId());
-      setImageDescriptor(new ImageImageDescriptor(presentation.getIcon()));
-      setText(presentation.getName());
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Run
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected MorphingTargetDescription getTarget() throws Exception {
-      return m_target;
-    }
-  }
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // MorphSubclassAction
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * {@link Action} for morphing component into user selected subclass.
-   */
-  private class MorphSubclassAction extends MorphAction {
-    private final String m_baseClassName;
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Constructor
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public MorphSubclassAction(String baseClassName) {
-      m_baseClassName = baseClassName;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Run
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected MorphingTargetDescription getTarget() throws Exception {
-      // prepare scope
-      IJavaSearchScope scope;
-      {
-        IJavaProject project = m_editor.getJavaProject();
-        IType componentType = project.findType(m_baseClassName);
-        scope = new SubtypesScope(componentType);
-      }
-      // prepare dialog
-      SelectionDialog dialog;
-      {
-        Shell shell = DesignerPlugin.getShell();
-        ProgressMonitorDialog context = new ProgressMonitorDialog(shell);
-        dialog =
-            JavaUI.createTypeDialog(
-                shell,
-                context,
-                scope,
-                IJavaElementSearchConstants.CONSIDER_CLASSES,
-                false);
-        dialog.setTitle(ModelMessages.MorphingSupport_chooseTitle);
-        dialog.setMessage(ModelMessages.MorphingSupport_chooseMessage);
-      }
-      // open dialog
-      if (dialog.open() == Window.OK) {
-        IType type = (IType) dialog.getResult()[0];
-        String typeName = type.getFullyQualifiedName();
-        Class<?> targetClass = EditorState.get(m_editor).getEditorLoader().loadClass(typeName);
-        return new MorphingTargetDescription(targetClass, null);
-      }
-      // no target
-      return null;
-    }
+  public static void morph(String toolkitClassName,
+      JavaInfo component,
+      MorphingTargetDescription target) throws Exception {
+    new MorphingSupport(toolkitClassName, component).morph(target);
   }
 }
