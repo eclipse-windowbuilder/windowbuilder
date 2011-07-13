@@ -275,9 +275,8 @@ public class CComboBox extends Composite {
       @Override
       public void widgetSelected(SelectionEvent e) {
         int selectionIndex = m_table.getTable().getSelectionIndex();
-        ComboBoxItem selectionItem = (ComboBoxItem) m_table.getElementAt(selectionIndex);
+        setSelectionIndex(selectionIndex);
         comboDropDown(false);
-        setSelection(selectionItem);
         // forward to ComboBox listeners
         notifyListeners(SWT.Selection, convert2event(e));
       }
@@ -411,6 +410,18 @@ public class CComboBox extends Composite {
     addItem(label, null);
   }
 
+  public void removeAll() {
+    m_items.clear();
+  }
+
+  public int getItemCount() {
+    return m_items.size();
+  }
+
+  public String getItemLabel(int index) {
+    return m_items.get(index).m_label;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -466,50 +477,51 @@ public class CComboBox extends Composite {
   // Selection
   //
   ////////////////////////////////////////////////////////////////////////////
-  private ComboBoxItem m_selection;
-
-  protected void setSelection(ComboBoxItem selection) {
-    m_selection = selection;
-    if (isDroppedDown()) {
-      m_table.getTable().setSelection(getSelectionIndex());
-    }
-    setEditText(getSelectionText());
-  }
+  private int m_selectionIndex = -1;
 
   /**
    * Selection index.
    */
   public int getSelectionIndex() {
-    return m_selection == null ? -1 : m_items.indexOf(m_selection);
+    return m_selectionIndex;
   }
 
   public void setSelectionIndex(int index) {
-    setSelection(m_items.get(index));
+    m_selectionIndex = index;
+    if (isDroppedDown()) {
+      m_table.getTable().setSelection(m_selectionIndex);
+    }
+    setEditText(getSelectionText());
   }
 
   /**
    * Selection text.
    */
-  public String getSelectionText() {
-    return m_selection == null ? null : m_selection.m_label;
-  }
-
-  public void setSelectionText(String label) {
-    for (ComboBoxItem item : m_items) {
-      if (item.m_label.equals(label)) {
-        setSelection(item);
-        return;
-      }
+  private String getSelectionText() {
+    if (m_selectionIndex != -1 && isDroppedDown()) {
+      Object itemData = m_table.getTable().getItem(m_selectionIndex).getData();
+      return ((ComboBoxItem) itemData).m_label;
     }
-    setSelection(null);
-    setEditText(label);
+    return null;
   }
 
   /**
    * Selection image.
    */
-  public Image getSelectionImage() {
-    return m_selection == null ? null : m_selection.m_image;
+  private Image getSelectionImage() {
+    return m_selectionIndex != -1 ? m_items.get(m_selectionIndex).m_image : null;
+  }
+
+  public void setSelectionText(String label) {
+    for (int i = 0; i < m_items.size(); i++) {
+      ComboBoxItem item = m_items.get(i);
+      if (item.m_label.equals(label)) {
+        setSelectionIndex(i);
+        return;
+      }
+    }
+    setSelectionIndex(-1);
+    setEditText(label);
   }
 
   /**

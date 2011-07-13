@@ -51,20 +51,15 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
       Point location) throws Exception {
     m_combo = new CComboBox(propertyTable, SWT.NONE);
     // initialize
-    fillItems(property, m_combo);
-    selectCurrent(property, m_combo);
+    addItems(property, m_combo);
+    selectItem(property, m_combo);
     // install listeners
     m_combo.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
         switch (e.keyCode) {
           case SWT.ESC :
-            e.doit = false;
-            m_combo.getDisplay().asyncExec(new Runnable() {
-              public void run() {
-                propertyTable.deactivateEditor(false);
-              }
-            });
+            propertyTable.deactivateEditor(false);
             break;
         }
       }
@@ -78,7 +73,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
     m_combo.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
-        toProperty(propertyTable, property);
+        propertyTable.deactivateEditor(true);
       }
     });
     m_combo.setFocus();
@@ -101,9 +96,8 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
   public final void deactivate(PropertyTable propertyTable, Property property, boolean save) {
     if (save) {
       try {
-        toProperty(propertyTable, property);
+        toPropertyEx(property, m_combo);
       } catch (Throwable e) {
-        propertyTable.deactivateEditor(false);
         propertyTable.handleException(e);
       }
     }
@@ -137,24 +131,15 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
   /**
    * Adds items to given {@link CComboBox}.
    */
-  protected abstract void fillItems(Property property, CComboBox combo) throws Exception;
+  protected abstract void addItems(Property property, CComboBox combo) throws Exception;
 
   /**
    * Selects current item in given {@link CCombo3}.
    */
-  protected abstract void selectCurrent(Property property, CComboBox combo) throws Exception;
+  protected abstract void selectItem(Property property, CComboBox combo) throws Exception;
 
   /**
    * Transfers data from widget to {@link Property}.
    */
-  private void toProperty(PropertyTable propertyTable, Property property) {
-    try {
-      toPropertyEx(property, m_combo);
-    } catch (Exception e) {
-      propertyTable.handleException(e);
-    }
-    propertyTable.deactivateEditor(false);
-  }
-
   protected abstract void toPropertyEx(Property property, CComboBox combo) throws Exception;
 }
