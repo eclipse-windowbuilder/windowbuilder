@@ -106,8 +106,9 @@ class CustomizerAction extends Action {
               MessageFormat.format(
                   ModelMessages.CustomizerAction_dialogMessage,
                   m_customizerClass.getName()));
+      int dialogResult = dialog.open();
       // handle update properties
-      if (dialog.open() == Window.OK) {
+      if (dialogResult == Window.OK) {
         RunnableEx runnable = null;
         if (explicit) {
           // update changed properties
@@ -143,6 +144,21 @@ class CustomizerAction extends Action {
         }
         // run update
         ExecutionUtils.run(m_javaInfo, runnable);
+      }
+      // rollback property changes
+      if (dialogResult == Window.CANCEL) {
+        ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+          public void run() throws Exception {
+            int size = javaInfoState.properties.size();
+            for (int i = 0; i < size; i++) {
+              Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
+              Object oldValue = javaInfoState.oldValues.get(i);
+              if (!ObjectUtils.equals(newValue, oldValue)) {
+                javaInfoState.setters.get(i).invoke(javaInfoState.object, oldValue);
+              }
+            }
+          }
+        });
       }
     } finally {
       if (propertyChangeListener != null) {

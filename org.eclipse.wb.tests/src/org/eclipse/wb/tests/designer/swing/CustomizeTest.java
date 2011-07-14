@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing;
 
+import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -85,9 +86,8 @@ public class CustomizeTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // create bean info
-    createASTCompilationUnit(
-        "test",
-        "MyButtonBeanInfo.java",
+    setFileContentSrc(
+        "test/MyButtonBeanInfo.java",
         getTestSource(
             "import java.beans.BeanInfo;",
             "import java.beans.BeanDescriptor;",
@@ -116,8 +116,8 @@ public class CustomizeTest extends SwingModelTest {
         parseContainer(
             "public class Test extends JPanel {",
             "  public Test() {",
-            "  MyButton button = new MyButton();",
-            "  add(button);",
+            "    MyButton button = new MyButton();",
+            "    add(button);",
             "  }",
             "}");
     panel.refresh();
@@ -146,30 +146,139 @@ public class CustomizeTest extends SwingModelTest {
     assertEditor(
         "public class Test extends JPanel {",
         "  public Test() {",
-        "  MyButton button = new MyButton();",
-        "  add(button);",
+        "    MyButton button = new MyButton();",
+        "    add(button);",
         "  }",
         "}");
   }
 
-  public void test_customizer_chageProperties() throws Exception {
+  // XXX
+  public void test_customizer_chageProperties_OK() throws Exception {
+    prepare_customizer_changeProperties();
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    MyButton button = new MyButton();",
+            "    add(button);",
+            "  }",
+            "}");
+    panel.refresh();
+    final ComponentInfo button = panel.getChildrenComponents().get(0);
+    // check action
+    IMenuManager manager = getContextMenu(button);
+    final IAction action = findChildAction(manager, "&Customize...");
+    assertNotNull(action);
+    // open customize dialog
+    new UiContext().executeAndCheck(new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        action.run();
+      }
+    }, new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        context.useShell("Customize");
+        // change properties
+        Object object = button.getObject();
+        Object customizer = ReflectionUtils.getFieldObject(object, "customizer");
+        ReflectionUtils.invokeMethod(customizer, "doBeanChanges()");
+        // commit changes
+        context.clickButton("OK");
+      }
+    });
+    // check source
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyButton button = new MyButton();",
+        "    button.setTitle('New title');",
+        "    button.setFreeze(true);",
+        "    add(button);",
+        "  }",
+        "}");
+  }
+
+  /**
+   * Open customizer, change bean properties, but "Cancel" customizer. We check that after "Cancel"
+   * properties have old values, as before customizing.
+   */
+  public void test_customizer_chageProperties_Cancel() throws Exception {
+    prepare_customizer_changeProperties();
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    MyButton button = new MyButton();",
+            "    button.setTitle('Old title');",
+            "    add(button);",
+            "  }",
+            "}");
+    panel.refresh();
+    final ComponentInfo button = panel.getChildrenComponents().get(0);
+    final Object buttonObject = button.getObject();
+    // initial property values
+    {
+      assertEquals("Old title", ScriptUtils.evaluate("getTitle()", buttonObject));
+      assertEquals(false, ScriptUtils.evaluate("isFreeze()", buttonObject));
+    }
+    // check action
+    IMenuManager manager = getContextMenu(button);
+    final IAction action = findChildAction(manager, "&Customize...");
+    assertNotNull(action);
+    // open customize dialog
+    new UiContext().executeAndCheck(new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        action.run();
+      }
+    }, new UIRunnable() {
+      public void run(UiContext context) throws Exception {
+        context.useShell("Customize");
+        // change properties
+        Object customizer = ReflectionUtils.getFieldObject(buttonObject, "customizer");
+        ReflectionUtils.invokeMethod(customizer, "doBeanChanges()");
+        // cancel changes
+        context.clickButton("Cancel");
+      }
+    });
+    // check source
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyButton button = new MyButton();",
+        "    button.setTitle('Old title');",
+        "    add(button);",
+        "  }",
+        "}");
+    // object properties are not changed
+    {
+      assertEquals("Old title", ScriptUtils.evaluate("getTitle()", buttonObject));
+      assertEquals(false, ScriptUtils.evaluate("isFreeze()", buttonObject));
+    }
+  }
+
+  private void prepare_customizer_changeProperties() throws Exception {
     setFileContentSrc(
         "test/MyCustomizer.java",
         getTestSource(
             "import java.beans.Customizer;",
             "import java.beans.PropertyChangeListener;",
             "public class MyCustomizer extends JPanel implements Customizer {",
+            "  private MyButton button;",
             "  public void setObject(Object bean) {",
+            "    button = (MyButton) bean;",
+            "    button.customizer = this;",
             "  }",
-            "  public void addPropertyChangeListener(PropertyChangeListener listener) {",
-            "  }",
-            "  public void removePropertyChangeListener(PropertyChangeListener listener) {",
+            "  public void doBeanChanges() {",
+            "    button.setTitle('New title');",
+            "    firePropertyChange('title', null, 'New title');",
+            "    button.setFreeze(true);",
+            "    firePropertyChange('freeze', null, true);",
             "  }",
             "}"));
     setFileContentSrc(
         "test/MyButton.java",
         getTestSource(
             "public class MyButton extends JButton {",
+            "  public Object customizer;",
             "  private String m_title;",
             "  public String getTitle() {",
             "    return m_title;",
@@ -221,49 +330,6 @@ public class CustomizeTest extends SwingModelTest {
             "  }",
             "}"));
     waitForAutoBuild();
-    // create panel
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  MyButton button = new MyButton();",
-            "  add(button);",
-            "  }",
-            "}");
-    panel.refresh();
-    final ComponentInfo button = panel.getChildrenComponents().get(0);
-    // check action
-    IMenuManager manager = getContextMenu(button);
-    final IAction action = findChildAction(manager, "&Customize...");
-    assertNotNull(action);
-    // open customize dialog
-    new UiContext().executeAndCheck(new UIRunnable() {
-      public void run(UiContext context) throws Exception {
-        action.run();
-      }
-    }, new UIRunnable() {
-      public void run(UiContext context) throws Exception {
-        context.useShell("Customize");
-        // change properties
-        Object object = button.getObject();
-        ReflectionUtils.invokeMethod(object, "setTitle(java.lang.String)", "test");
-        ReflectionUtils.invokeMethod(object, "setFreeze(boolean)", true);
-        // press "OK" button
-        Button okButton = context.getButtonByText("OK");
-        assertNotNull(okButton);
-        context.click(okButton);
-      }
-    });
-    // check source
-    assertEditor(
-        "public class Test extends JPanel {",
-        "  public Test() {",
-        "  MyButton button = new MyButton();",
-        "  button.setTitle('test');",
-        "  button.setFreeze(true);",
-        "  add(button);",
-        "  }",
-        "}");
   }
 
   public void test_customizer_EXPLICIT_PROPERTY_CHANGE() throws Exception {
@@ -340,8 +406,8 @@ public class CustomizeTest extends SwingModelTest {
         parseContainer(
             "public class Test extends JPanel {",
             "  public Test() {",
-            "  MyButton button = new MyButton();",
-            "  add(button);",
+            "    MyButton button = new MyButton();",
+            "    add(button);",
             "  }",
             "}");
     panel.refresh();
@@ -380,9 +446,9 @@ public class CustomizeTest extends SwingModelTest {
     assertEditor(
         "public class Test extends JPanel {",
         "  public Test() {",
-        "  MyButton button = new MyButton();",
-        "  button.setTitle('test');",
-        "  add(button);",
+        "    MyButton button = new MyButton();",
+        "    button.setTitle('test');",
+        "    add(button);",
         "  }",
         "}");
   }

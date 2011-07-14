@@ -36,6 +36,7 @@ public final class JavaInfoState {
   public final List<Property> properties = new ArrayList<Property>();
   public final List<Object> oldValues = new ArrayList<Object>();
   public final List<Method> getters = new ArrayList<Method>();
+  public final List<Method> setters = new ArrayList<Method>();
   public final Set<String> changedProperties = new TreeSet<String>();
   public final Map<String, Object> changedPropertyValues = new TreeMap<String, Object>();
 
@@ -60,12 +61,14 @@ public final class JavaInfoState {
     JavaInfoState info = new JavaInfoState(javaInfo);
     Map<String, Property> allProperties = preparePropertiesByTitle(javaInfo);
     for (GenericPropertyDescription description : javaInfo.getDescription().getProperties()) {
-      // find property "get" method
+      // find property "get" and "set" methods
       Method getter = null;
+      Method setter = null;
       for (ExpressionAccessor accessor : description.getAccessorsList()) {
         if (accessor instanceof SetterAccessor) {
           SetterAccessor setAccessor = (SetterAccessor) accessor;
           getter = setAccessor.getGetter();
+          setter = setAccessor.getSetter();
           break;
         }
       }
@@ -74,6 +77,7 @@ public final class JavaInfoState {
         Property property = allProperties.get(description.getTitle());
         info.properties.add(property);
         info.getters.add(getter);
+        info.setters.add(setter);
         info.oldValues.add(getter.invoke(info.object));
       }
     }
