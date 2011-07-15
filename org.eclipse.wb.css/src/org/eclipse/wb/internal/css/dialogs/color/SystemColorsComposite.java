@@ -224,4 +224,16 @@ public class SystemColorsComposite extends AbstractColorsGridComposite {
     //
     return new ColorInfo(name, description, rgb);
   }
+
+  /**
+   * @return the {@link RGB} of given named color, may be <code>null</code>.
+   */
+  public static RGB getRGB(String name) {
+    for (ColorInfo colorInfo : SYSTEM_COLORS) {
+      if (colorInfo.getName().equals(name)) {
+        return colorInfo.getRGB();
+      }
+    }
+    return null;
+  }
 }

@@ -16,9 +16,11 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsCo
 import org.eclipse.wb.internal.css.Messages;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
 /**
@@ -49,5 +51,39 @@ public final class ColorDialog extends AbstractColorDialog {
     if (SystemUtils.IS_OS_WINDOWS) {
       addPage(Messages.ColorDialog_systemPage, new SystemColorsComposite(parent, SWT.NONE, this));
     }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Utils
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the {@link RGB} of given named color, may be <code>null</code>.
+   */
+  public static RGB getRGB(String name) {
+    RGB rgb;
+    rgb = NamedColorsComposite.getRGB(name);
+    if (rgb == null) {
+      rgb = SystemColorsComposite.getRGB(name);
+    }
+    if (rgb == null && name.length() == 7) {
+      name = StringUtils.removeStart(name, "#");
+      int r = Integer.parseInt(name.substring(0, 2), 16);
+      int g = Integer.parseInt(name.substring(2, 4), 16);
+      int b = Integer.parseInt(name.substring(4, 6), 16);
+      rgb = new RGB(r, g, b);
+    }
+    if (rgb == null && name.length() == 4) {
+      name = StringUtils.removeStart(name, "#");
+      int r0 = Integer.parseInt(name.substring(0, 1), 16);
+      int g0 = Integer.parseInt(name.substring(1, 2), 16);
+      int b0 = Integer.parseInt(name.substring(2, 3), 16);
+      int r = (r0 << 4) + r0;
+      int g = (g0 << 4) + g0;
+      int b = (b0 << 4) + b0;
+      rgb = new RGB(r, g, b);
+    }
+    return rgb;
   }
 }

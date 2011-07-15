@@ -17,13 +17,13 @@ package org.eclipse.wb.internal.css.semantics;
  * @coverage CSS.semantics
  */
 public class FontProperty extends AbstractSemanticsComposite {
-  private final SimpleValue m_family = mapSimpleProperty(this, "font-family");
-  private final SimpleValue m_style = mapSimpleProperty(this, "font-style");
-  private final SimpleValue m_variant = mapSimpleProperty(this, "font-variant");
-  private final SimpleValue m_weight = mapSimpleProperty(this, "font-weight");
-  private final SimpleValue m_stretch = mapSimpleProperty(this, "font-stretch");
-  private final LengthValue m_size = mapLengthProperty(this, "font-size");
-  private final SimpleValue m_sizeAdjust = mapSimpleProperty(this, "font-size-adjust");
+  private final SimpleValue family = mapSimpleProperty(this, "font-family");
+  private final SimpleValue style = mapSimpleProperty(this, "font-style");
+  private final SimpleValue variant = mapSimpleProperty(this, "font-variant");
+  private final SimpleValue weight = mapSimpleProperty(this, "font-weight");
+  private final SimpleValue stretch = mapSimpleProperty(this, "font-stretch");
+  private final LengthValue size = mapLengthProperty(this, "font-size");
+  private final SimpleValue sizeAdjust = mapSimpleProperty(this, "font-size-adjust");
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -40,30 +40,30 @@ public class FontProperty extends AbstractSemanticsComposite {
   //
   ////////////////////////////////////////////////////////////////////////////
   public SimpleValue getFamily() {
-    return m_family;
+    return family;
   }
 
   public SimpleValue getStyle() {
-    return m_style;
+    return style;
   }
 
   public SimpleValue getVariant() {
-    return m_variant;
+    return variant;
   }
 
   public SimpleValue getWeight() {
-    return m_weight;
+    return weight;
   }
 
   public SimpleValue getStretch() {
-    return m_stretch;
+    return stretch;
   }
 
   public LengthValue getSize() {
-    return m_size;
+    return size;
   }
 
   public SimpleValue getSizeAdjust() {
-    return m_sizeAdjust;
+    return sizeAdjust;
   }
 }

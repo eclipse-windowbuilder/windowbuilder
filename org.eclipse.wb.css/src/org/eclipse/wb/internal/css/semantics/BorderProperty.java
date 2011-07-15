@@ -142,7 +142,7 @@ public class BorderProperty extends AbstractSemanticsComposite {
   }
 
   /**
-   * @return shorthand value for givan side (for using as border-top/right/bottom/left).
+   * @return shorthand value for given side (for using as border-top/right/bottom/left).
    */
   private String getShorthandValueForUpdate(int side) {
     String width = m_width.getValue(side).get();

@@ -20,14 +20,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @coverage CSS.semantics
  */
 public final class Semantics extends AbstractSemanticsComposite {
-  public final LengthSidedProperty m_margin = new LengthSidedProperty(this, "margin", null);
-  public final LengthSidedProperty m_padding = new LengthSidedProperty(this, "padding", null);
-  public final BorderProperty m_border = new BorderProperty(this);
-  public final FontProperty m_font = new FontProperty(this);
-  public final TextProperty m_text = new TextProperty(this);
-  public final BackgroundProperty m_background = new BackgroundProperty(this);
-  public final SimpleValue m_color = mapSimpleProperty(this, "color");
-  public final OtherProperty m_other = new OtherProperty(this);
+  public final LengthSidedProperty margin = new LengthSidedProperty(this, "margin", null);
+  public final LengthSidedProperty padding = new LengthSidedProperty(this, "padding", null);
+  public final BorderProperty border = new BorderProperty(this);
+  public final FontProperty font = new FontProperty(this);
+  public final TextProperty text = new TextProperty(this);
+  public final BackgroundProperty background = new BackgroundProperty(this);
+  public final SimpleValue color = mapSimpleProperty(this, "color");
+  public final OtherProperty other = new OtherProperty(this);
 
   ////////////////////////////////////////////////////////////////////////////
   //

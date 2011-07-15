@@ -17,11 +17,11 @@ package org.eclipse.wb.internal.css.semantics;
  * @coverage CSS.semantics
  */
 public class OtherProperty extends AbstractSemanticsComposite {
-  public final SimpleValue m_borderCollapse = mapSimpleProperty(this, "border-collapse");
-  public final SimpleValue m_pageBreakBefore = mapSimpleProperty(this, "page-break-before");
-  public final SimpleValue m_pageBreakAfter = mapSimpleProperty(this, "page-break-after");
-  public final SimpleValue m_tableLayout = mapSimpleProperty(this, "table-layout");
-  public final SimpleValue m_cursor = mapSimpleProperty(this, "cursor");
+  public final SimpleValue borderCollapse = mapSimpleProperty(this, "border-collapse");
+  public final SimpleValue pageBreakBefore = mapSimpleProperty(this, "page-break-before");
+  public final SimpleValue pageBreakAfter = mapSimpleProperty(this, "page-break-after");
+  public final SimpleValue tableLayout = mapSimpleProperty(this, "table-layout");
+  public final SimpleValue cursor = mapSimpleProperty(this, "cursor");
 
   ////////////////////////////////////////////////////////////////////////////
   //

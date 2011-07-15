@@ -29,7 +29,7 @@ public class SemanticsTest extends AbstractCssTest {
             "  border-color: #000 #111 #222 #333",
             "}",
             "/* filler filler filler filler */");
-    SimpleSidedProperty color = semantics.m_border.getColor();
+    SimpleSidedProperty color = semantics.border.getColor();
     assertSidedProperty_toString(color, "top={#000},right={#111},bottom={#222},left={#333}");
   }
 
@@ -43,7 +43,7 @@ public class SemanticsTest extends AbstractCssTest {
             "  border-color: #000 rgb(1, 2, 3) #222 #333",
             "}",
             "/* filler filler filler filler */");
-    SimpleSidedProperty color = semantics.m_border.getColor();
+    SimpleSidedProperty color = semantics.border.getColor();
     assertSidedProperty_toString(color, "top={#000},right={rgb(1, 2, 3)},bottom={#222},left={#333}");
   }
 

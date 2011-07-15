@@ -105,7 +105,7 @@ public final class LengthValue extends AbstractValue {
           } catch (Throwable e) {
             continue;
           }
-          // ok, we have correct value and unit
+          // OK, we have correct value and unit
           m_value = value;
           m_unit = unit;
           notifyListeners();
@@ -115,7 +115,7 @@ public final class LengthValue extends AbstractValue {
     }
     // no, we can not separate given string on value and unit, so use string itself as value
     m_value = s;
-    m_unit = null;
+    m_unit = "px";
     notifyListeners();
   }
 

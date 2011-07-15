@@ -17,10 +17,10 @@ package org.eclipse.wb.internal.css.semantics;
  * @coverage CSS.semantics
  */
 public class BackgroundProperty extends AbstractSemanticsComposite {
-  public final SimpleValue m_color = mapSimpleProperty(this, "background-color");
-  public final SimpleValue m_image = mapSimpleProperty(this, "background-image");
-  public final SimpleValue m_repeat = mapSimpleProperty(this, "background-repeat");
-  public final SimpleValue m_attachment = mapSimpleProperty(this, "background-attachment");
+  public final SimpleValue color = mapSimpleProperty(this, "background-color");
+  public final SimpleValue image = mapSimpleProperty(this, "background-image");
+  public final SimpleValue repeat = mapSimpleProperty(this, "background-repeat");
+  public final SimpleValue attachment = mapSimpleProperty(this, "background-attachment");
 
   ////////////////////////////////////////////////////////////////////////////
   //
