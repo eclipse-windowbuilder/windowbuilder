@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.rcp.feature"
       label="%featureName"
-      version="1.0.0"
+      version="1.1.0"
       provider-name="%providerName"
       plugin="org.eclipse.wb.rcp"
       image="eclipse_update_120.jpg">
