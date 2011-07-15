@@ -38,6 +38,7 @@ def main():
   doDeploy = data['dodeploy']
   deployDir = data['deploydir']
   dirs2save = data['dirstosave']
+  mirrorprod = data['mirrorprod']
   
   baseDir = os.path.join(os.sep + "shared", "tools", "windowbuilder", "stage")
   productDir = os.path.join(baseDir, subproduct);
@@ -89,7 +90,7 @@ def main():
     unzipSites(productDir)
 
     log.info("UpdateMirror")
-    updateMirror(productDir)
+    updateMirror(productDir, mirrorprod)
     
     log.info("Generate Eclipse P2 Metadata")
     eclipse.publishSite(baseDir, productDir, eclipseVersion)
@@ -133,6 +134,7 @@ def processArgs():
   parser.set_defaults(signfiles=True)
   parser.set_defaults(dodeploy=False)
   parser.set_defaults(dirstosave="7")
+  parser.set_defaults(mirrorprod=False)
   parser.add_option("--signdir", action="store", dest="signdir")
   parser.add_option("-e", "--eclipseversion", action="store", 
                     dest="eclipseversion")
@@ -144,6 +146,7 @@ def processArgs():
   parser.add_option("--deployfiles", action="store_true", dest="dodeploy")
   parser.add_option("--deploydir", action="store", dest="deploydir")
   parser.add_option("--dirstosave", action="store", dest="dirstosave")
+  parser.add_option("--mirrorprod" action="store_true", dest="mirrorprod")
   (options, args) = parser.parse_args()
   
   if len(args) != 2:
@@ -153,6 +156,7 @@ def processArgs():
   packSite = options.packsite
   signFiles = options.signfiles
   doDeploy = options.dodeploy
+  mirrorprod = options.mirrorprod
   dirs2save = int(options.dirstosave)
 
 
@@ -192,7 +196,8 @@ def processArgs():
               'signdir':signDir, 'eclipseversion':eclipseVersion,
               'optimizesite':optimizeSite, 'packsite':packSite,
               'signfiles':signFiles, 'dodeploy':doDeploy,
-              'deploydir':deployDir, 'dirstosave':dirs2save})
+              'deploydir':deployDir, 'dirstosave':dirs2save,
+              'mirrorprod':mirrorprod})
   log.debug("out of processArgs")
   return ret
 
@@ -427,8 +432,8 @@ def cleanup(signDir, deployDir, dirsToSave):
       print "saving  ->  " + dir
   log.debug("out cleanup")
 
-def updateMirror(dir):
-  log.debug("in updateMirror(" + dir + ")")
+def updateMirror(dir, mirrorprod):
+  log.debug("in updateMirror(" + dir + ', ' + mirrorprod + ")")
   fullFile = os.path.join(dir, '3.7');
   if os.path.exists(fullFile):
     file = os.path.join(fullFile, 'site.xml')
@@ -436,7 +441,10 @@ def updateMirror(dir):
     dom = minidom.parse(file)
     attr = dom.createAttribute('mirrorsURL')
     site = dom.documentElement
-    attr.value = "http://www.eclipse.org/downloads/download.php?file=/windowbuilder/WB/release/R201106211200/3.7&format=xml"
+    if mirrorprod:
+      attr.value = "http://www.eclipse.org/downloads/download.php?file=/windowbuilder/WB/release/R201106211200/3.7&format=xml"
+    else:
+      attr.value = "http://www.eclipse.org/downloads/download.php?file=/windowbuilder/WB/integration/3.7&format=xml"
     site.setAttributeNode(attr)
     f = open(file, 'w')
     site.writexml( f, addindent="   ")
