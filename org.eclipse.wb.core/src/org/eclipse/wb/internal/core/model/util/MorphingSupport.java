@@ -72,7 +72,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  private MorphingSupport(String toolkitClassName, T component) {
+  protected MorphingSupport(String toolkitClassName, T component) {
     super(toolkitClassName, component);
     m_editor = m_component.getEditor();
   }
@@ -211,91 +211,17 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
     if (m_component.getCreationSupport() instanceof ConstructorCreationSupport
         || m_component.getCreationSupport() instanceof StaticFactoryCreationSupport
         || m_component.getCreationSupport() instanceof InstanceFactoryCreationSupport) {
-      ComponentDescription newDescription =
-          ComponentDescriptionHelper.getDescription(m_editor, target.getComponentClass());
-      // prepare new component
-      CreationSupport newCreationSupport;
-      JavaInfo newComponent;
-      {
-        newCreationSupport = getTargetCreationSupport(target);
-        newComponent = JavaInfoUtils.createJavaInfo(m_editor, newDescription, newCreationSupport);
-      }
-      //
-      m_component.getBroadcastJava().replaceChildBefore(
-          m_component.getParentJava(),
-          m_component,
-          newComponent);
-      // replace component in parent (following operations may require parent)
-      m_component.getParent().replaceChild(m_component, newComponent);
-      // move related nodes
-      for (ASTNode node : m_component.getRelatedNodes()) {
-        // check if method invocation can exist in new component
-        if (node.getLocationInParent() == MethodInvocation.EXPRESSION_PROPERTY) {
-          MethodInvocation invocation = (MethodInvocation) node.getParent();
-          String signature = AstNodeUtils.getMethodSignature(invocation);
-          if (newDescription.getMethod(signature) == null) {
-            m_editor.removeEnclosingStatement(invocation);
-            continue;
-          }
-        }
-        // check if assignment can exist in new component
-        if (node.getLocationInParent() == QualifiedName.QUALIFIER_PROPERTY) {
-          QualifiedName fieldAccess = (QualifiedName) node.getParent();
-          if (fieldAccess.getLocationInParent() == Assignment.LEFT_HAND_SIDE_PROPERTY) {
-            String fieldName = fieldAccess.getName().getIdentifier();
-            if (ReflectionUtils.getFieldByName(target.getComponentClass(), fieldName) == null) {
-              m_editor.removeEnclosingStatement(node);
-              continue;
-            }
-          }
-        }
-        // OK, we can add this related node
-        newComponent.addRelatedNode(node);
-      }
-      // move children
-      for (JavaInfo javaChild : m_component.getChildrenJava()) {
-        newComponent.addChild(javaChild);
-      }
-      // reuse variable
-      {
-        // replace type in variable
-        {
-          AbstractSimpleVariableSupport variable =
-              (AbstractSimpleVariableSupport) m_component.getVariableSupport();
-          variable.setType(target.getComponentClass().getName());
-        }
-        // possible new variable was generated, use it
-        m_component.getVariableSupport().moveTo(newComponent);
-      }
-      // replace creation
-      {
-        CreationSupport oldCreationSupport = m_component.getCreationSupport();
-        Expression oldCreationExpression = (Expression) oldCreationSupport.getNode();
-        StatementTarget statementTarget =
-            new StatementTarget(AstNodeUtils.getEnclosingStatement(oldCreationExpression), true);
-        // prepare new creation expression
-        Expression newCreationExpression;
-        {
-          String source = newCreationSupport.add_getSource(null);
-          source = AssociationUtils.replaceTemplates(newComponent, source, statementTarget);
-          newCreationExpression = m_editor.replaceExpression(oldCreationExpression, source);
-        }
-        // set new creation expression
-        newCreationSupport.add_setSourceExpression(newCreationExpression);
-        newComponent.addRelatedNode(newCreationExpression);
-      }
-      // set association
-      {
-        Association oldAssociation = m_component.getAssociation();
-        Association newAssociation = oldAssociation.getCopy();
-        newComponent.setAssociation(newAssociation);
-      }
-      //
-      m_component.getBroadcastJava().replaceChildAfter(
-          m_component.getParentJava(),
-          m_component,
-          newComponent);
+      super.morph(target);
     }
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  protected T morph_create(MorphingTargetDescription target) throws Exception {
+    ComponentDescription newDescription =
+        ComponentDescriptionHelper.getDescription(m_editor, target.getComponentClass());
+    CreationSupport newCreationSupport = getTargetCreationSupport(target);
+    return (T) JavaInfoUtils.createJavaInfo(m_editor, newDescription, newCreationSupport);
   }
 
   private ConstructorCreationSupport getTargetCreationSupport(MorphingTargetDescription target) {
@@ -322,6 +248,99 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
     }
     // use specified creation id
     return new ConstructorCreationSupport(target.getCreationId(), false);
+  }
+
+  @Override
+  protected void morph_replace(T newComponent) throws Exception {
+    m_component.getBroadcastJava().replaceChildBefore(
+        m_component.getParentJava(),
+        m_component,
+        newComponent);
+    // replace component in parent (following operations may require parent)
+    m_component.getParent().replaceChild(m_component, newComponent);
+  }
+
+  @Override
+  protected void morph_properties(T newComponent) throws Exception {
+    ComponentDescription newComponentDescription = newComponent.getDescription();
+    // move related nodes
+    for (ASTNode node : m_component.getRelatedNodes()) {
+      // check if method invocation can exist in new component
+      if (node.getLocationInParent() == MethodInvocation.EXPRESSION_PROPERTY) {
+        MethodInvocation invocation = (MethodInvocation) node.getParent();
+        String signature = AstNodeUtils.getMethodSignature(invocation);
+        if (newComponentDescription.getMethod(signature) == null) {
+          m_editor.removeEnclosingStatement(invocation);
+          continue;
+        }
+      }
+      // check if assignment can exist in new component
+      if (node.getLocationInParent() == QualifiedName.QUALIFIER_PROPERTY) {
+        QualifiedName fieldAccess = (QualifiedName) node.getParent();
+        if (fieldAccess.getLocationInParent() == Assignment.LEFT_HAND_SIDE_PROPERTY) {
+          String fieldName = fieldAccess.getName().getIdentifier();
+          if (ReflectionUtils.getFieldByName(newComponentDescription.getComponentClass(), fieldName) == null) {
+            m_editor.removeEnclosingStatement(node);
+            continue;
+          }
+        }
+      }
+      // OK, we can add this related node
+      newComponent.addRelatedNode(node);
+    }
+  }
+
+  @Override
+  protected void morph_children(T newComponent) throws Exception {
+    // move children
+    for (JavaInfo javaChild : m_component.getChildrenJava()) {
+      newComponent.addChild(javaChild);
+    }
+  }
+
+  @Override
+  protected void morph_finish(T newComponent) throws Exception {
+    // reuse variable
+    {
+      // replace type in variable
+      {
+        ComponentDescription newComponentDescription = newComponent.getDescription();
+        AbstractSimpleVariableSupport variable =
+            (AbstractSimpleVariableSupport) m_component.getVariableSupport();
+        variable.setType(newComponentDescription.getComponentClass().getName());
+      }
+      // possible new variable was generated, use it
+      m_component.getVariableSupport().moveTo(newComponent);
+    }
+    // replace creation
+    {
+      CreationSupport oldCreationSupport = m_component.getCreationSupport();
+      CreationSupport newCreationSupport = newComponent.getCreationSupport();
+      Expression oldCreationExpression = (Expression) oldCreationSupport.getNode();
+      StatementTarget statementTarget =
+          new StatementTarget(AstNodeUtils.getEnclosingStatement(oldCreationExpression), true);
+      // prepare new creation expression
+      Expression newCreationExpression;
+      {
+        String source = newCreationSupport.add_getSource(null);
+        source = AssociationUtils.replaceTemplates(newComponent, source, statementTarget);
+        newCreationExpression = m_editor.replaceExpression(oldCreationExpression, source);
+      }
+      // set new creation expression
+      newCreationSupport.add_setSourceExpression(newCreationExpression);
+      newComponent.addRelatedNode(newCreationExpression);
+    }
+    // set association
+    {
+      Association oldAssociation = m_component.getAssociation();
+      Association newAssociation = oldAssociation.getCopy();
+      newComponent.setAssociation(newAssociation);
+    }
+    //
+    m_component.getBroadcastJava().replaceChildAfter(
+        m_component.getParentJava(),
+        m_component,
+        newComponent);
   }
 
   ////////////////////////////////////////////////////////////////////////////

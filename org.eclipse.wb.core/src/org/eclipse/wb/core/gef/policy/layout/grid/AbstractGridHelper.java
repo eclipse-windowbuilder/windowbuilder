@@ -146,10 +146,12 @@ public abstract class AbstractGridHelper {
     // create grid figure
     m_gridFigure = new Figure();
     // install listener on root model figure
-    ObjectInfo root = ((ObjectInfo) getHost().getModel()).getRoot();
-    GraphicalEditPart rootEditPart =
-        (GraphicalEditPart) getHost().getViewer().getEditPartByModel(root);
-    m_rootFigureListener.install(rootEditPart.getFigure());
+    {
+      ObjectInfo rootObjectInfo = ((ObjectInfo) getHost().getModel()).getRoot();
+      GraphicalEditPart rootEditPart =
+          (GraphicalEditPart) getHost().getViewer().getEditPartByModel(rootObjectInfo);
+      m_rootFigureListener.install(rootEditPart.getFigure());
+    }
     // prepare grid information
     IGridInfo gridInfo = getGridInfo();
     Interval[] columnIntervals = gridInfo.getColumnIntervals();

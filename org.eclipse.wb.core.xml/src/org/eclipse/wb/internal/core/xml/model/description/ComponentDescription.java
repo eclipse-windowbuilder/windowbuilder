@@ -17,6 +17,7 @@ import com.google.common.collect.Maps;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
+import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -261,6 +262,34 @@ public final class ComponentDescription extends AbstractDescription
   public boolean hasTrueParameter(String name) {
     String parameter = getParameter(name);
     return "true".equals(parameter);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Morphing
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private final List<MorphingTargetDescription> m_morphingTargets = Lists.newArrayList();
+
+  /**
+   * @return the {@link MorphingTargetDescription}'s registered for this component.
+   */
+  public List<MorphingTargetDescription> getMorphingTargets() {
+    return m_morphingTargets;
+  }
+
+  /**
+   * Registers new {@link MorphingTargetDescription}.
+   */
+  public void addMorphingTarget(MorphingTargetDescription morphingTarget) {
+    m_morphingTargets.add(morphingTarget);
+  }
+
+  /**
+   * Clear registered {@link MorphingTargetDescription}'s list.
+   */
+  public void clearMorphingTargets() {
+    m_morphingTargets.clear();
   }
 
   ////////////////////////////////////////////////////////////////////////////

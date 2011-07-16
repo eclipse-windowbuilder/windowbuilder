@@ -142,7 +142,23 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
   /**
    * Performs morphing to given {@link MorphingTargetDescription}.
    */
-  protected abstract void morph(MorphingTargetDescription target) throws Exception;
+  protected void morph(MorphingTargetDescription target) throws Exception {
+    T newComponent = morph_create(target);
+    morph_replace(newComponent);
+    morph_properties(newComponent);
+    morph_children(newComponent);
+    morph_finish(newComponent);
+  }
+
+  protected abstract T morph_create(MorphingTargetDescription target) throws Exception;
+
+  protected abstract void morph_replace(T newComponent) throws Exception;
+
+  protected abstract void morph_properties(T newComponent) throws Exception;
+
+  protected abstract void morph_children(T newComponent) throws Exception;
+
+  protected abstract void morph_finish(T newComponent) throws Exception;
 
   ////////////////////////////////////////////////////////////////////////////
   //

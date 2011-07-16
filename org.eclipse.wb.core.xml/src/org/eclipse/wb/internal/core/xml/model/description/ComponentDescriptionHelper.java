@@ -32,6 +32,8 @@ import org.eclipse.wb.internal.core.xml.model.description.rules.ConfigurableObje
 import org.eclipse.wb.internal.core.xml.model.description.rules.CreatePropertiesFieldRule;
 import org.eclipse.wb.internal.core.xml.model.description.rules.CreatePropertiesPropertyDescriptorRule;
 import org.eclipse.wb.internal.core.xml.model.description.rules.ModelClassRule;
+import org.eclipse.wb.internal.core.xml.model.description.rules.MorphingNoInheritRule;
+import org.eclipse.wb.internal.core.xml.model.description.rules.MorphingTargetRule;
 import org.eclipse.wb.internal.core.xml.model.description.rules.PropertiesCategoryRule;
 import org.eclipse.wb.internal.core.xml.model.description.rules.PropertiesNoDefaultValueRule;
 import org.eclipse.wb.internal.core.xml.model.description.rules.PropertyAccessRule;
@@ -255,6 +257,15 @@ public final class ComponentDescriptionHelper {
     addPropertiesRules(digester, context);
     // creations
     addCreationRules(digester, context, "component/creation", "addCreation");
+    // morphing targets
+    {
+      String pattern = "component/morphTargets/morphTarget";
+      digester.addRule(pattern, new MorphingTargetRule(context.getClassLoader()));
+    }
+    {
+      String pattern = "component/morphTargets/noInherit";
+      digester.addRule(pattern, new MorphingNoInheritRule());
+    }
     // untyped parameters
     {
       String pattern = "component/parameters/parameter";
