@@ -96,25 +96,29 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
   /**
    * Contributes "morph" actions.
    * 
+   * @param morphingSupport
+   *          the {@link AbstractMorphingSupport<T>} that should be contributed.
    * @param manager
    *          the {@link IContributionManager} to add action to.
    */
-  protected final void contribute(IContributionManager morphManager) throws Exception {
+  public static <T extends ObjectInfo> void contribute(AbstractMorphingSupport<T> morphingSupport,
+      IContributionManager manager) throws Exception {
+    MenuManagerEx morphManager = createMorphManager(manager);
     // add known morphing targets
-    for (MorphingTargetDescription target : getMorphingTargets()) {
-      morphManager.add(new MorphTargetAction(target));
+    for (MorphingTargetDescription target : morphingSupport.getMorphingTargets()) {
+      morphManager.add(morphingSupport.new MorphTargetAction(target));
     }
     // add special actions
     morphManager.add(new Separator());
     {
-      String baseClassName = getComponentClass().getName();
-      MorphSubclassAction action = new MorphSubclassAction(baseClassName);
+      String baseClassName = morphingSupport.getComponentClass().getName();
+      Action action = morphingSupport.new MorphSubclassAction(baseClassName);
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/morph/subclass.gif"));
       action.setText(ModelMessages.MorphingSupport_subclassAction);
       morphManager.add(action);
     }
     {
-      MorphSubclassAction action = new MorphSubclassAction(m_toolkitClassName);
+      Action action = morphingSupport.new MorphSubclassAction(morphingSupport.m_toolkitClassName);
       action.setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/morph/other.gif"));
       action.setText(ModelMessages.MorphingSupport_otherAction);
       morphManager.add(action);
@@ -131,7 +135,9 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
    * 
    * @return the error message or <code>null</code>.
    */
-  protected abstract String validate(MorphingTargetDescription target) throws Exception;
+  protected String validate(MorphingTargetDescription target) throws Exception {
+    return null;
+  }
 
   /**
    * Performs morphing to given {@link MorphingTargetDescription}.

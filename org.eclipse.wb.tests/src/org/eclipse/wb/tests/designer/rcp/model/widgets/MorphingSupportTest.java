@@ -13,14 +13,11 @@ package org.eclipse.wb.tests.designer.rcp.model.widgets;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.util.MorphingSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.swt.widgets.Group;
-
-import java.lang.reflect.Constructor;
 
 /**
  * Tests for {@link MorphingSupport} and RCP.
@@ -95,9 +92,6 @@ public class MorphingSupportTest extends RcpModelTest {
    * Performs morphing of {@link JavaInfo} into given target.
    */
   private static void morph(JavaInfo javaInfo, MorphingTargetDescription target) throws Exception {
-    Constructor<MorphingSupport> constructor =
-        ReflectionUtils.getConstructor(MorphingSupport.class, String.class, JavaInfo.class);
-    MorphingSupport support = constructor.newInstance("org.eclipse.swt.widgets.Control", javaInfo);
-    ReflectionUtils.invokeMethod2(support, "morph", MorphingTargetDescription.class, target);
+    MorphingSupport.morph("org.eclipse.swt.widgets.Control", javaInfo, target);
   }
 }

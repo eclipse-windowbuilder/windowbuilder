@@ -59,7 +59,7 @@ import java.util.Set;
  * @author sablin_aa
  * @coverage core.model.util
  */
-public final class MorphingSupport extends AbstractMorphingSupport<JavaInfo> {
+public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphingSupport<T> {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields
@@ -72,7 +72,7 @@ public final class MorphingSupport extends AbstractMorphingSupport<JavaInfo> {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  private MorphingSupport(String toolkitClassName, JavaInfo component) {
+  private MorphingSupport(String toolkitClassName, T component) {
     super(toolkitClassName, component);
     m_editor = m_component.getEditor();
   }
@@ -151,7 +151,10 @@ public final class MorphingSupport extends AbstractMorphingSupport<JavaInfo> {
       return;
     }
     // add "morph" actions
-    new MorphingSupport(toolkitClassName, component).contribute(createMorphManager(manager));
+    MorphingSupport<JavaInfo> morphingSupport =
+        new MorphingSupport<JavaInfo>(toolkitClassName, component) {
+        };
+    contribute(morphingSupport, manager);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -200,7 +203,7 @@ public final class MorphingSupport extends AbstractMorphingSupport<JavaInfo> {
       }
     }
     // OK
-    return null;
+    return super.validate(target);
   }
 
   @Override
@@ -326,9 +329,21 @@ public final class MorphingSupport extends AbstractMorphingSupport<JavaInfo> {
   // Utility access
   //
   ////////////////////////////////////////////////////////////////////////////
+  public static String validate(String toolkitClassName,
+      JavaInfo component,
+      MorphingTargetDescription target) throws Exception {
+    MorphingSupport<JavaInfo> morphingSupport =
+        new MorphingSupport<JavaInfo>(toolkitClassName, component) {
+        };
+    return morphingSupport.validate(target);
+  }
+
   public static void morph(String toolkitClassName,
       JavaInfo component,
       MorphingTargetDescription target) throws Exception {
-    new MorphingSupport(toolkitClassName, component).morph(target);
+    MorphingSupport<JavaInfo> morphingSupport =
+        new MorphingSupport<JavaInfo>(toolkitClassName, component) {
+        };
+    morphingSupport.morph(target);
   }
 }

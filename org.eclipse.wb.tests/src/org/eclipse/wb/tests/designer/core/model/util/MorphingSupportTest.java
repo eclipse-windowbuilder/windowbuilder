@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.model.util.MorphingSupport;
 import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
@@ -41,7 +40,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.easymock.EasyMock;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -831,34 +829,17 @@ public class MorphingSupportTest extends SwingModelTest {
   /**
    * Performs morphing of {@link JavaInfo} into given target.
    */
-  private static String validate(JavaInfo javaInfo, MorphingTargetDescription target)
+  public static String validate(JavaInfo javaInfo, MorphingTargetDescription target)
       throws Exception {
-    MorphingSupport support = createMorphingSupport(javaInfo);
-    return validate(target, support);
-  }
-
-  private static String validate(MorphingTargetDescription target, MorphingSupport support)
-      throws Exception {
-    return (String) ReflectionUtils.invokeMethod2(
-        support,
-        "validate",
-        MorphingTargetDescription.class,
-        target);
+    return MorphingSupport.validate("java.awt.Component", javaInfo, target);
   }
 
   /**
    * Performs morphing of {@link JavaInfo} into given target.
    */
   public static void morph(JavaInfo javaInfo, MorphingTargetDescription target) throws Exception {
-    MorphingSupport support = createMorphingSupport(javaInfo);
-    assertNull(validate(target, support));
-    ReflectionUtils.invokeMethod2(support, "morph", MorphingTargetDescription.class, target);
-  }
-
-  private static MorphingSupport createMorphingSupport(JavaInfo javaInfo) throws Exception {
-    Constructor<MorphingSupport> constructor =
-        ReflectionUtils.getConstructor(MorphingSupport.class, String.class, JavaInfo.class);
-    return constructor.newInstance("java.awt.Component", javaInfo);
+    assertNull(validate(javaInfo, target));
+    MorphingSupport.morph("java.awt.Component", javaInfo, target);
   }
 
   ////////////////////////////////////////////////////////////////////////////
