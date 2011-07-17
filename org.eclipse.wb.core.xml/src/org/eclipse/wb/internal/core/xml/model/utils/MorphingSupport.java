@@ -197,4 +197,27 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
         m_component,
         newComponent);*/
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Utility access
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public static String validate(String toolkitClassName,
+      XmlObjectInfo component,
+      MorphingTargetDescription target) throws Exception {
+    MorphingSupport<XmlObjectInfo> morphingSupport =
+        new MorphingSupport<XmlObjectInfo>(toolkitClassName, component) {
+        };
+    return morphingSupport.validate(target);
+  }
+
+  public static void morph(String toolkitClassName,
+      XmlObjectInfo component,
+      MorphingTargetDescription target) throws Exception {
+    MorphingSupport<XmlObjectInfo> morphingSupport =
+        new MorphingSupport<XmlObjectInfo>(toolkitClassName, component) {
+        };
+    morphingSupport.morph(target);
+  }
 }

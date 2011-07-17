@@ -29,6 +29,7 @@ public class DescriptionTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(FieldExpressionAccessorTest.class));
     suite.addTest(createSingleSuite(ComponentDescriptionHelperTest.class));
     suite.addTest(createSingleSuite(GenericPropertyDescriptionTest.class));
+    suite.addTest(createSingleSuite(MorphingTargetDescriptionTest.class));
     return suite;
   }
 }

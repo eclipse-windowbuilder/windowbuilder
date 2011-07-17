@@ -41,6 +41,7 @@ public class ModelTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(ClipboardTest.class));
     suite.addTest(createSingleSuite(AbstractComponentTest.class));
     suite.addTest(GenericTests.suite());
+    suite.addTest(createSingleSuite(MorphingSupportTest.class));
     return suite;
   }
 }
