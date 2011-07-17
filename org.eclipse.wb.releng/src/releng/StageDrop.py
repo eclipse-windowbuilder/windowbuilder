@@ -146,7 +146,7 @@ def processArgs():
   parser.add_option("--deployfiles", action="store_true", dest="dodeploy")
   parser.add_option("--deploydir", action="store", dest="deploydir")
   parser.add_option("--dirstosave", action="store", dest="dirstosave")
-  parser.add_option("--mirrorprod" action="store_true", dest="mirrorprod")
+  parser.add_option("--mirrorprod", action="store_true", dest="mirrorprod")
   (options, args) = parser.parse_args()
   
   if len(args) != 2:
@@ -433,7 +433,7 @@ def cleanup(signDir, deployDir, dirsToSave):
   log.debug("out cleanup")
 
 def updateMirror(dir, mirrorprod):
-  log.debug("in updateMirror(" + dir + ', ' + mirrorprod + ")")
+  log.debug("in updateMirror(" + str(dir) + ', ' + str(mirrorprod) + ")")
   fullFile = os.path.join(dir, '3.7');
   if os.path.exists(fullFile):
     file = os.path.join(fullFile, 'site.xml')
