@@ -13,7 +13,6 @@ package org.eclipse.wb.tests.designer.XWT.wizard;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.xwt.wizards.ApplicationWizard;
 import org.eclipse.wb.tests.designer.TestUtils;
-import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
@@ -21,7 +20,6 @@ import org.eclipse.wb.tests.designer.rcp.model.rcp.AbstractPdeTest;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -33,26 +31,7 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author scheglov_ke
  */
-public class ApplicationWizardTest extends XwtModelTest {
-  private IPackageFragment m_packageFragment;
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    m_packageFragment = m_testProject.getPackage("test");
-  }
-
-  @Override
-  protected void tearDown() throws Exception {
-    waitEventLoop(10);
-    super.tearDown();
-  }
-
+public class ApplicationWizardTest extends XwtWizardTest {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Exit zone :-) XXX

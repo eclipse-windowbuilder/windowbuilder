@@ -12,12 +12,10 @@ package org.eclipse.wb.tests.designer.XWT.wizard;
 
 import org.eclipse.wb.internal.xwt.wizards.FormsCompositeWizard;
 import org.eclipse.wb.tests.designer.TestUtils;
-import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.gef.UIRunnable;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -27,20 +25,7 @@ import static org.fest.assertions.Assertions.assertThat;
  * 
  * @author scheglov_ke
  */
-public class FormsCompositeWizardTest extends XwtModelTest {
-  private IPackageFragment m_packageFragment;
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Life cycle
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-    m_packageFragment = m_testProject.getPackage("test");
-  }
-
+public class FormsCompositeWizardTest extends XwtWizardTest {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Exit zone :-) XXX

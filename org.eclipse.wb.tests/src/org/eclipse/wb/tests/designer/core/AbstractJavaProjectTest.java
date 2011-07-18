@@ -108,6 +108,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
   @Override
   protected void runTest_after(Method method) throws Throwable {
     if (method.getAnnotation(DisposeProjectAfter.class) != null) {
+      waitEventLoop(0);
       do_projectDispose();
     }
     if (method.getAnnotation(WaitForAutoBuildAfter.class) != null) {
