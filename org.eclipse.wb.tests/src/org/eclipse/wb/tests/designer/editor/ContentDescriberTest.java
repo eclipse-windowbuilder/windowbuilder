@@ -14,7 +14,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.describer.JavaSourceUiDescriber;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
-import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 
 import org.eclipse.core.resources.IFile;
@@ -35,6 +34,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
+    DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, true);
     if (m_testProject == null) {
       do_projectCreate();
     }
@@ -42,6 +42,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
 
   @Override
   protected void tearDown() throws Exception {
+    DesignerPlugin.getPreferences().setToDefault(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI);
     super.tearDown();
     do_projectDispose();
   }
@@ -61,23 +62,18 @@ public class ContentDescriberTest extends AbstractJavaTest {
   }
 
   public void test_disableRecognition() throws Exception {
-    PreferencesRepairer preferences = new PreferencesRepairer(DesignerPlugin.getPreferences());
-    preferences.setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, false);
-    try {
-      IFile file =
-          setFileContentSrc(
-              "test/Test.java",
-              getSourceDQ(
-                  "package test;",
-                  "import javax.swing.*;",
-                  "public class Test extends JPanel {",
-                  "  // filler",
-                  "}"));
-      waitForContentType();
-      assertFalse(isDesignerType(file));
-    } finally {
-      preferences.restore();
-    }
+    DesignerPlugin.getPreferences().setValue(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI, false);
+    IFile file =
+        setFileContentSrc(
+            "test/Test.java",
+            getSourceDQ(
+                "package test;",
+                "import javax.swing.*;",
+                "public class Test extends JPanel {",
+                "  // filler",
+                "}"));
+    waitForContentType();
+    assertFalse(isDesignerType(file));
   }
 
   public void test_useExcludePattern() throws Exception {

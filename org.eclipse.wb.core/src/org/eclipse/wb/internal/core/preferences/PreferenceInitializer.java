@@ -40,7 +40,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
     preferences.setDefault(P_EDITOR_LAYOUT, V_EDITOR_LAYOUT_PAGES_SOURCE);
     preferences.setDefault(P_EDITOR_LAYOUT_SYNC_DELAY, 1000);
     // editor
-    preferences.setDefault(P_EDITOR_RECOGNIZE_GUI, true);
+    preferences.setDefault(P_EDITOR_RECOGNIZE_GUI, false);
     preferences.setDefault(P_EDITOR_MAX_DESIGN, false);
     preferences.setDefault(P_EDITOR_FORMAT_ON_SAVE, false);
     preferences.setDefault(P_EDITOR_GOTO_DEFINITION_ON_SELECTION, true);
