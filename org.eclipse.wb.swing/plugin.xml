@@ -2,6 +2,15 @@
 <?eclipse version="3.2"?>
 <plugin>
 	<!-- ======================================================== -->
+	<!-- Designer content type-->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designerContentPatterns">
+		<includePattern>java.applet.</includePattern>
+		<includePattern>javax.swing.</includePattern>
+	</extension>
+
+
+	<!-- ======================================================== -->
 	<!-- Exceptions -->
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.exceptions">

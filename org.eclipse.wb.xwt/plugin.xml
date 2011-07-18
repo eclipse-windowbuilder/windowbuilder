@@ -2,6 +2,14 @@
 <?eclipse version="3.2"?>
 <plugin>
 	<!-- ======================================================== -->
+	<!-- Java Designer content type-->
+	<!-- ======================================================== -->
+	<extension point="org.eclipse.wb.core.designerContentPatterns">
+		<excludePattern>XWT.load</excludePattern>
+	</extension>
+
+
+	<!-- ======================================================== -->
 	<!-- Exceptions -->
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.exceptions">
