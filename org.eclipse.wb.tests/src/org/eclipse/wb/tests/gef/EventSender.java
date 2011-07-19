@@ -124,13 +124,14 @@ public class EventSender {
   /**
    * Emulate mouse move to given location <code>(x, y)</code>.
    */
-  public void moveTo(int x, int y) {
+  public EventSender moveTo(int x, int y) {
     saveLastMouseLocation(x, y);
     // send event
     Event event = createEvent(x, y, 0);
     m_control.notifyListeners(SWT.MouseMove, event);
     // process "async" runnables
     waitEventLoop(0);
+    return this;
   }
 
   /**
@@ -199,7 +200,7 @@ public class EventSender {
     m_control.notifyListeners(SWT.KeyUp, event);
   }
 
-  private Event createKeyEvent(int key, char c) {
+  public Event createKeyEvent(int key, char c) {
     Event event = new Event();
     event.widget = m_control;
     event.stateMask = m_stateMask;

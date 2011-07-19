@@ -145,6 +145,13 @@ public final class PropertyUtils {
   }
 
   /**
+   * @return the {@link Property} using "/" separated path.
+   */
+  public static Property getByPath(Property property, String path) throws Exception {
+    return getByPath(getChildren(property), path);
+  }
+
+  /**
    * @return sub-properties of given {@link Property}, may be empty array, but not <code>null</code>
    *         .
    */

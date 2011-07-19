@@ -130,7 +130,7 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
    */
   private void handleKeyPressed(PropertyTable propertyTable, Property property, KeyEvent e)
       throws Exception {
-    if (e.character == SWT.CR) {
+    if (e.keyCode == SWT.CR) {
       toProperty(property);
     } else if (e.keyCode == SWT.ESC) {
       propertyTable.deactivateEditor(false);
