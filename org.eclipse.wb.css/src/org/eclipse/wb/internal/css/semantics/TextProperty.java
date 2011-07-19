@@ -38,6 +38,11 @@ public class TextProperty extends AbstractSemanticsComposite {
       "middle",
       "bottom",
       "text-bottom"};
+  public static final String[] DECORATION_VALUES = {
+      "underline",
+      "overline",
+      "line-through",
+      "blink"};
   public final LengthValue indent = mapLengthProperty(this, "text-indent");
   public final SimpleValue align = mapSimpleProperty(this, "text-align");
   public final SimpleValue decoration = mapSimpleProperty(this, "text-decoration");

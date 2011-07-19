@@ -309,7 +309,7 @@ public class StyleEditDialog extends ReusableDialog {
           new SetsValueEditor(m_options,
               m_semantics.text.decoration,
               Messages.StyleEditDialog_fontDecoration,
-              new String[][]{{"none"}, {"underline", "overline", "line-through", "blink"}});
+              new String[][]{{"none"}, TextProperty.DECORATION_VALUES});
       editor.doFillGrid(fontGroup, numColumns);
     }
   }
@@ -418,7 +418,7 @@ public class StyleEditDialog extends ReusableDialog {
             new LengthValueEditor(m_options,
                 text.verticalAlign,
                 Messages.StyleEditDialog_textAlignmentVertical,
-                TextProperty.ALIGN_H_VALUES);
+                TextProperty.ALIGN_V_VALUES);
         editor.doFillGrid(alignGroup, numColumns, true);
       }
     }
