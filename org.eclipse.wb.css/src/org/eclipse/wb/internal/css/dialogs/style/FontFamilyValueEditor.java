@@ -38,13 +38,13 @@ public final class FontFamilyValueEditor extends AbstractTextButtonValueEditor {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void onButtonClick(Button button) {
-    FontListDialog colorDialog = new FontListDialog(button.getShell());
-    colorDialog.setFontsString(m_value.get());
+    FontListDialog dialog = new FontListDialog(button.getShell());
+    dialog.setFontsString(m_value.get());
     // open dialog
-    if (colorDialog.open() != Window.OK) {
+    if (dialog.open() != Window.OK) {
       return;
     }
     // set new value
-    m_value.set(colorDialog.getFontsString());
+    m_value.set(dialog.getFontsString());
   }
 }

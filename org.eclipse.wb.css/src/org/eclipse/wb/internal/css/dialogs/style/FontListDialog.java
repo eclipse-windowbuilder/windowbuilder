@@ -96,6 +96,15 @@ public class FontListDialog extends Dialog {
       {
         m_selectedList = new org.eclipse.swt.widgets.List(selectedComposite, SWT.BORDER);
         GridDataFactory.create(m_selectedList).grab().fill().hintC(50, 15);
+        m_selectedList.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseDoubleClick(MouseEvent e) {
+            String[] items = m_selectedList.getSelection();
+            for (String item : items) {
+              m_selectedList.remove(item);
+            }
+          }
+        });
         if (m_fonts != null) {
           m_selectedList.setItems(m_fonts);
           m_selectedList.select(0);

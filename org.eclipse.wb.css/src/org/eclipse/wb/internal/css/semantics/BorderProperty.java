@@ -27,16 +27,16 @@ public class BorderProperty extends AbstractSemanticsComposite {
   public static final String[] SPECIAL_WIDTHS = {"thin", "medium", "thick"};
   public static final String[] STYLES = {
       "",
-      "node",
-      "hidden",
-      "dotted",
       "dashed",
-      "solid",
+      "dotted",
       "double",
       "groove",
-      "ridge",
+      "hidden",
       "inset",
-      "outset"};
+      "node",
+      "outset",
+      "ridge",
+      "solid",};
   private final LengthSidedProperty m_width = new LengthSidedProperty(this, "border", "width");
   private final SimpleSidedProperty m_style = new SimpleSidedProperty(this, "border", "style");
   private final SimpleSidedProperty m_color = new SimpleSidedProperty(this, "border", "color");

@@ -258,45 +258,25 @@ public class StyleEditDialog extends ReusableDialog {
           new LengthValueEditor(m_options,
               font.getSize(),
               Messages.StyleEditDialog_fontSize,
-              new String[]{
-                  "",
-                  "8",
-                  "9",
-                  "10",
-                  "14",
-                  "16",
-                  "18",
-                  "24",
-                  "36",
-                  "smaller",
-                  "larger",
-                  "xx-small",
-                  "x-small",
-                  "small",
-                  "medium",
-                  "large",
-                  "x-large",
-                  "xx-large"});
+              FontProperty.SIZE_VALUES);
       editor.doFillGrid(fontGroup, numColumns, true);
     }
     // style
     {
-      String[] values = {"", "normal", "italic", "oblique"};
       SimpleValueEditor editor =
           new SimpleValueEditor(m_options,
               font.getStyle(),
               Messages.StyleEditDialog_fontStyle,
-              values);
+              FontProperty.STYLES);
       editor.doFillGrid(fontGroup, numColumns, true, false);
     }
     // variant
     {
-      String[] values = {"", "normal", "small-caps"};
       SimpleValueEditor editor =
           new SimpleValueEditor(m_options,
               font.getVariant(),
               Messages.StyleEditDialog_fontVariant,
-              values);
+              FontProperty.VARIANTS);
       editor.doFillGrid(fontGroup, numColumns, false, false);
     }
     // weight
@@ -305,21 +285,7 @@ public class StyleEditDialog extends ReusableDialog {
           new SimpleValueEditor(m_options,
               font.getWeight(),
               Messages.StyleEditDialog_fontWeight,
-              new String[]{
-                  "",
-                  "normal",
-                  "bold",
-                  "bolder",
-                  "lighter",
-                  "100",
-                  "200",
-                  "300",
-                  "400",
-                  "500",
-                  "600",
-                  "700",
-                  "800",
-                  "900"});
+              FontProperty.WEIGHT_VALUES);
       editor.doFillGrid(fontGroup, numColumns, false, false);
     }
     // stretch
@@ -328,19 +294,7 @@ public class StyleEditDialog extends ReusableDialog {
           new SimpleValueEditor(m_options,
               font.getStretch(),
               Messages.StyleEditDialog_fontStretch,
-              new String[]{
-                  "",
-                  "normal",
-                  "wider",
-                  "narrower",
-                  "ultra-condensed",
-                  "extra-condensed",
-                  "condensed",
-                  "semi-condensed",
-                  "semi-expanded",
-                  "expanded",
-                  "extra-expanded",
-                  "ultra-expanded"});
+              FontProperty.STRETCH_VALUES);
       editor.doFillGrid(fontGroup, numColumns, false, false);
     }
     // color
@@ -451,23 +405,20 @@ public class StyleEditDialog extends ReusableDialog {
       alignGroup.setText(Messages.StyleEditDialog_textAlignment);
       // horizontal
       {
-        String[] values = {"", "left", "right", "center", "justify"};
         SimpleValueEditor editor =
             new SimpleValueEditor(m_options,
                 text.align,
                 Messages.StyleEditDialog_textAlignmentHorizontal,
-                values);
+                TextProperty.ALIGN_H_VALUES);
         editor.doFillGrid(alignGroup, numColumns, true, false);
       }
       // vertical
       {
-        String[] values =
-            {"baseline", "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom"};
         LengthValueEditor editor =
             new LengthValueEditor(m_options,
                 text.verticalAlign,
                 Messages.StyleEditDialog_textAlignmentVertical,
-                values);
+                TextProperty.ALIGN_H_VALUES);
         editor.doFillGrid(alignGroup, numColumns, true);
       }
     }
@@ -479,14 +430,13 @@ public class StyleEditDialog extends ReusableDialog {
       spacingGroup.setText(Messages.StyleEditDialog_textSpacing);
       //
       {
-        String[] values = new String[]{"normal", "1", "2", "3", "4", "5"};
         // letter
         {
           LengthValueEditor editor =
               new LengthValueEditor(m_options,
                   text.letterSpacing,
                   Messages.StyleEditDialog_textSpacingLetter,
-                  values);
+                  TextProperty.SPACE_VALUES);
           editor.doFillGrid(spacingGroup, numColumns, true);
         }
         // word
@@ -495,18 +445,17 @@ public class StyleEditDialog extends ReusableDialog {
               new LengthValueEditor(m_options,
                   text.wordSpacing,
                   Messages.StyleEditDialog_textSpacingWord,
-                  values);
+                  TextProperty.SPACE_VALUES);
           editor.doFillGrid(spacingGroup, numColumns, true);
         }
       }
       // line
       {
-        String[] values = {"normal"};
         LengthValueEditor editor =
             new LengthValueEditor(m_options,
                 text.lineHeight,
                 Messages.StyleEditDialog_textLineHeight,
-                values);
+                TextProperty.LINE_VALUES);
         editor.doFillGrid(spacingGroup, numColumns, true);
       }
     }
@@ -518,42 +467,38 @@ public class StyleEditDialog extends ReusableDialog {
       flowGroup.setText(Messages.StyleEditDialog_textFlowGroup);
       // indent
       {
-        String[] values = {"1", "2", "3", "4", "5"};
         LengthValueEditor editor =
             new LengthValueEditor(m_options,
                 text.indent,
                 Messages.StyleEditDialog_textIndent,
-                values);
+                TextProperty.INDENT_VALUES);
         editor.doFillGrid(flowGroup, numColumns, true);
       }
       // white-space
       {
-        String[] values = {"", "normal", "pre", "nowrap"};
         SimpleValueEditor editor =
             new SimpleValueEditor(m_options,
                 text.whiteSpace,
                 Messages.StyleEditDialog_textWhiteSpace,
-                values);
+                TextProperty.WHITE_VALUES);
         editor.doFillGrid(flowGroup, numColumns, true, false);
       }
       // direction
       {
-        String[] values = {"", "ltr", "rtl"};
         SimpleValueEditor editor =
             new SimpleValueEditor(m_options,
                 text.direction,
                 Messages.StyleEditDialog_textDirection,
-                values);
+                TextProperty.DIRECTION_VALUES);
         editor.doFillGrid(flowGroup, numColumns, true, false);
       }
       // transform
       {
-        String[] values = {"", "none", "capitalize", "uppercase", "lowercase"};
         SimpleValueEditor editor =
             new SimpleValueEditor(m_options,
                 text.transform,
                 Messages.StyleEditDialog_textTransform,
-                values);
+                TextProperty.TRANSFORM_VALUES);
         editor.doFillGrid(flowGroup, numColumns, true, false);
       }
     }

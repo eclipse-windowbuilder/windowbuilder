@@ -17,6 +17,27 @@ package org.eclipse.wb.internal.css.semantics;
  * @coverage CSS.semantics
  */
 public class TextProperty extends AbstractSemanticsComposite {
+  public static final String[] INDENT_VALUES = {"1", "2", "3", "4", "5"};
+  public static final String[] WHITE_VALUES = {"", "normal", "pre", "nowrap"};
+  public static final String[] LINE_VALUES = {"inherit", "normal"};
+  public static final String[] DIRECTION_VALUES = {"", "ltr", "rtl"};
+  public static final String[] TRANSFORM_VALUES = {
+      "",
+      "none",
+      "capitalize",
+      "uppercase",
+      "lowercase"};
+  public static final String[] SPACE_VALUES = {"normal", "1", "2", "3", "4", "5"};
+  public static final String[] ALIGN_H_VALUES = {"", "left", "right", "center", "justify"};
+  public static final String[] ALIGN_V_VALUES = {
+      "baseline",
+      "sub",
+      "super",
+      "top",
+      "text-top",
+      "middle",
+      "bottom",
+      "text-bottom"};
   public final LengthValue indent = mapLengthProperty(this, "text-indent");
   public final SimpleValue align = mapSimpleProperty(this, "text-align");
   public final SimpleValue decoration = mapSimpleProperty(this, "text-decoration");

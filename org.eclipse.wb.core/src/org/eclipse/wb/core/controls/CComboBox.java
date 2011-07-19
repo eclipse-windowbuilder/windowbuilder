@@ -52,6 +52,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TypedListener;
 
@@ -513,13 +514,15 @@ public class CComboBox extends Composite {
   }
 
   public void setSelectionText(String label) {
-    for (int i = 0; i < m_items.size(); i++) {
-      ComboBoxItem item = m_items.get(i);
-      if (item.m_label.equals(label)) {
+    TableItem[] items = m_table.getTable().getItems();
+    for (int i = 0; i < items.length; i++) {
+      TableItem item = items[i];
+      if (item.getText().equals(label)) {
         setSelectionIndex(i);
         return;
       }
     }
+    // no such item
     setSelectionIndex(-1);
     setEditText(label);
   }

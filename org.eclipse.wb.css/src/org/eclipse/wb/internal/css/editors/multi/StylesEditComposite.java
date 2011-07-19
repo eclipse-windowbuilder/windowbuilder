@@ -767,7 +767,9 @@ public class StylesEditComposite extends Composite {
           if (rules.size() == 1) {
             Display.getDefault().syncExec(new Runnable() {
               public void run() {
-                m_rulePreviewControl.showRule(rules.get(0));
+                if (!m_rulePreviewControl.isDisposed()) {
+                  m_rulePreviewControl.showRule(rules.get(0));
+                }
               }
             });
           }

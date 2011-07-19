@@ -16,6 +16,7 @@ import org.eclipse.wb.internal.core.utils.CompactToStringStyle;
 import org.eclipse.wb.internal.css.model.CssDeclarationNode;
 import org.eclipse.wb.internal.css.model.CssRuleNode;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.List;
@@ -82,7 +83,7 @@ public abstract class AbstractSidedProperty extends AbstractSemanticsComposite {
   }
 
   /**
-   * Updates given rule so that it is reflecs state of this semantic object.
+   * Updates given rule so that it is reflects state of this semantic object.
    */
   @Override
   public final void update(CssRuleNode rule) {
@@ -191,6 +192,28 @@ public abstract class AbstractSidedProperty extends AbstractSemanticsComposite {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
+   * @return the shorthand value of this property.
+   */
+  public final String get() {
+    String top = getValue(SIDE_TOP).get();
+    String right = getValue(SIDE_RIGHT).get();
+    String bottom = getValue(SIDE_BOTTOM).get();
+    String left = getValue(SIDE_LEFT).get();
+    if (ObjectUtils.equals(top, right)
+        && ObjectUtils.equals(top, bottom)
+        && ObjectUtils.equals(top, left)) {
+      return top;
+    }
+    if (ObjectUtils.equals(top, bottom) && ObjectUtils.equals(left, right)) {
+      return top + " " + left;
+    }
+    if (ObjectUtils.equals(left, right)) {
+      return top + " " + left + " " + bottom;
+    }
+    return top + " " + right + " " + bottom + " " + left;
+  }
+
+  /**
    * Sets value for given property if it has correct name. We know, that all our properties have
    * names like "{prefix}-top-{suffix}", or "{prefix}-{suffix}". For example "border-left-color" or
    * "border-color". It is possible that suffix is <code>null</code>, for example "margin-left".
@@ -219,10 +242,10 @@ public abstract class AbstractSidedProperty extends AbstractSemanticsComposite {
    * Checks if given property name is shorthand property for this sided property.
    */
   private boolean isShorthandProperty(String property) {
-    boolean shorthandWithSuffix = m_suffix != null && (m_prefix + "-" + m_suffix).equals(property);
-    boolean shorthandWithoutSuffix = m_suffix == null && m_prefix.equals(property);
-    boolean shorthand = shorthandWithSuffix || shorthandWithoutSuffix;
-    return shorthand;
+    boolean withSuffix = m_suffix != null && (m_prefix + "-" + m_suffix).equals(property);
+    boolean withoutSuffix = m_suffix == null && m_prefix.equals(property);
+    boolean asNull = property == null;
+    return withSuffix || withoutSuffix || asNull;
   }
 
   /**

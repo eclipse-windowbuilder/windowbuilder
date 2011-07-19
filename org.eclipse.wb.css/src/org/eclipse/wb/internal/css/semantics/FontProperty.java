@@ -17,6 +17,55 @@ package org.eclipse.wb.internal.css.semantics;
  * @coverage CSS.semantics
  */
 public class FontProperty extends AbstractSemanticsComposite {
+  public static final String[] STYLES = {"", "normal", "italic", "oblique"};
+  public static final String[] VARIANTS = {"", "normal", "small-caps"};
+  public static final String[] SIZE_VALUES = {
+      "",
+      "8",
+      "9",
+      "10",
+      "14",
+      "16",
+      "18",
+      "24",
+      "36",
+      "smaller",
+      "larger",
+      "xx-small",
+      "x-small",
+      "small",
+      "medium",
+      "large",
+      "x-large",
+      "xx-large"};
+  public static final String[] WEIGHT_VALUES = {
+      "",
+      "normal",
+      "bold",
+      "bolder",
+      "lighter",
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900"};
+  public static final String[] STRETCH_VALUES = {
+      "",
+      "normal",
+      "wider",
+      "narrower",
+      "ultra-condensed",
+      "extra-condensed",
+      "condensed",
+      "semi-condensed",
+      "semi-expanded",
+      "expanded",
+      "extra-expanded",
+      "ultra-expanded"};
   private final SimpleValue family = mapSimpleProperty(this, "font-family");
   private final SimpleValue style = mapSimpleProperty(this, "font-style");
   private final SimpleValue variant = mapSimpleProperty(this, "font-variant");

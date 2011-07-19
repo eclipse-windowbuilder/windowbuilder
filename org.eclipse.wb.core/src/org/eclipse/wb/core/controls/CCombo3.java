@@ -201,7 +201,7 @@ public class CCombo3 extends Composite {
             } else if (event.keyCode == SWT.ARROW_DOWN) {
               m_table.setSelection((selectionIndex + 1) % m_table.getItemCount());
               return;
-            } else if (event.character == SWT.CR) {
+            } else if (event.character == SWT.CR || event.character == ' ') {
               sendSelectionEvent(event);
               return;
             }
@@ -225,10 +225,10 @@ public class CCombo3 extends Composite {
   private final Listener m_arrowListener = new Listener() {
     public void handleEvent(Event event) {
       switch (event.type) {
-        /*case SWT.FocusIn : {
-         resendFocusEvent(event);
-         break;
-         }*/
+      /*case SWT.FocusIn : {
+       resendFocusEvent(event);
+       break;
+       }*/
         case SWT.Selection : {
           doDropDown(!isDropped());
           break;

@@ -136,7 +136,8 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
   /**
    * Selects current item in given {@link CCombo3}.
    */
-  protected abstract void selectItem(Property property, CComboBox combo) throws Exception;
+  protected void selectItem(Property property, CComboBox combo) throws Exception {
+  }
 
   /**
    * Transfers data from widget to {@link Property}.

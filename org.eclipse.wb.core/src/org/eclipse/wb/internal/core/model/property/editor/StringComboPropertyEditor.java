@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */
-public final class StringComboPropertyEditor extends AbstractComboPropertyEditor {
+public class StringComboPropertyEditor extends AbstractComboPropertyEditor {
   private final String[] m_items;
 
   ////////////////////////////////////////////////////////////////////////////

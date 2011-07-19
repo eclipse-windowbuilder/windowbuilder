@@ -30,8 +30,10 @@ import java.util.List;
  */
 public class ComplexProperty extends Property {
   private final String m_title;
+  private String m_text;
   private String m_tooltip;
   private boolean m_modified;
+  private Property[] m_properties;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -45,6 +47,7 @@ public class ComplexProperty extends Property {
   public ComplexProperty(String title, String text, Property[] properties) {
     super(new ComplexPropertyEditor());
     m_title = title;
+    m_text = text;
     setText(text);
     setProperties(properties);
   }
@@ -58,7 +61,14 @@ public class ComplexProperty extends Property {
    * Sets the text.
    */
   public void setText(String text) {
-    ((ComplexPropertyEditor) getEditor()).setText(text);
+    m_text = text;
+  }
+
+  /**
+   * @return the text to display as value.
+   */
+  public String getText() throws Exception {
+    return m_text;
   }
 
   /**
@@ -79,14 +89,14 @@ public class ComplexProperty extends Property {
    * @return the sub-properties.
    */
   public Property[] getProperties() {
-    return ((ComplexPropertyEditor) getEditor()).m_properties;
+    return m_properties;
   }
 
   /**
    * Sets the sub-properties.
    */
   public void setProperties(Property[] properties) {
-    ((ComplexPropertyEditor) getEditor()).setProperties(properties);
+    m_properties = properties;
   }
 
   /**
@@ -154,22 +164,7 @@ public class ComplexProperty extends Property {
   private static final class ComplexPropertyEditor extends TextDisplayPropertyEditor
       implements
         IComplexPropertyEditor {
-    private String m_text;
     private PropertyEditorPresentation m_presentation;
-    private Property[] m_properties;
-
-    ////////////////////////////////////////////////////////////////////////////
-    //
-    // Access
-    //
-    ////////////////////////////////////////////////////////////////////////////
-    public void setText(String text) {
-      m_text = text;
-    }
-
-    public void setProperties(Property[] properties) {
-      m_properties = properties;
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -177,7 +172,7 @@ public class ComplexProperty extends Property {
     //
     ////////////////////////////////////////////////////////////////////////////
     public Property[] getProperties(Property property) throws Exception {
-      return m_properties;
+      return ((ComplexProperty) property).getProperties();
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -187,7 +182,7 @@ public class ComplexProperty extends Property {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected String getText(Property property) throws Exception {
-      return m_text;
+      return ((ComplexProperty) property).getText();
     }
 
     ////////////////////////////////////////////////////////////////////////////
