@@ -82,10 +82,9 @@ public final class QParser {
       if (c == -1) {
         break;
       }
-      // we need to map \r, \r\n, and \n to \n
+      // use "\r", "\n" or "\r\n" as to move to next line
       if (c == '\n' && eol) {
         eol = false;
-        continue;
       } else if (eol) {
         eol = false;
       } else if (c == '\n') {
@@ -93,7 +92,6 @@ public final class QParser {
         col = 0;
       } else if (c == '\r') {
         eol = true;
-        c = '\n';
         line++;
         col = 0;
       } else {

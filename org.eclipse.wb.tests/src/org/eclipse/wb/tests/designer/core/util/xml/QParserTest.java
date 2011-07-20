@@ -455,6 +455,17 @@ public class QParserTest extends AbstractJavaProjectTest {
         "endDocument");
   }
 
+  public void test_text_slashR_slashN() throws Exception {
+    parseSource("<root>\r\n123\r\n</root>");
+    assertParseEvents(
+        "----------------------- filler -----------------------",
+        "startDocument",
+        "  <root offset:0 length:6",
+        "    T false \r\n123\r\n",
+        "  >root offset:13 endOffset:20",
+        "endDocument");
+  }
+
   public void test_textSpecial_lt() throws Exception {
     parseSource("<root>&lt;</root>");
     assertParseEvents(
