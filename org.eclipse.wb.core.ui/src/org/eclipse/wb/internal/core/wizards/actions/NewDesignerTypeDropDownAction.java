@@ -19,14 +19,18 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
+import org.eclipse.ui.IWorkbenchWindowPulldownDelegate;
 
 import java.util.List;
 
@@ -38,8 +42,8 @@ import java.util.List;
  */
 public class NewDesignerTypeDropDownAction extends Action
     implements
-      IMenuCreator,
-      IWorkbenchWindowPulldownDelegate2 {
+      IWorkbenchWindowPulldownDelegate,
+      IActionDelegate2 {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields
@@ -53,7 +57,6 @@ public class NewDesignerTypeDropDownAction extends Action
   //
   ////////////////////////////////////////////////////////////////////////////
   public NewDesignerTypeDropDownAction() {
-    setMenuCreator(this);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -66,10 +69,6 @@ public class NewDesignerTypeDropDownAction extends Action
       m_menu.dispose();
       m_menu = null;
     }
-  }
-
-  public Menu getMenu(Menu parent) {
-    return null;
   }
 
   public Menu getMenu(Control parent) {
@@ -206,13 +205,38 @@ public class NewDesignerTypeDropDownAction extends Action
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // IActionDelegate2
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void init(IAction action) {
+  }
+
+  public void runWithEvent(IAction action, Event event) {
+    // this action is represented as ToolItem
+    Widget widget = event.widget;
+    if (widget instanceof ToolItem) {
+      ToolItem toolItem = (ToolItem) widget;
+      Listener[] listeners = toolItem.getListeners(SWT.Selection);
+      if (listeners.length > 0) {
+        Listener listener = listeners[0];
+        // prepare DropDown click event
+        Event e = new Event();
+        e.type = SWT.Selection;
+        e.widget = toolItem;
+        e.detail = SWT.DROP_DOWN;
+        e.x = toolItem.getBounds().x;
+        e.y = toolItem.getBounds().height;
+        // send event to the widget
+        listener.handleEvent(e);
+      }
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // IWorkbenchWindowActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void run() {
-  }
-
   public void init(IWorkbenchWindow window) {
   }
 
