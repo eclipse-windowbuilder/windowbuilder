@@ -76,7 +76,6 @@ public class CssDocumentTest extends AbstractJavaProjectTest {
     super.tearDown();
   }
 
-  // XXX
   ////////////////////////////////////////////////////////////////////////////
   //
   // CSSDocument
@@ -692,6 +691,30 @@ public class CssDocumentTest extends AbstractJavaProjectTest {
   /**
    * Test for {@link CssDocument#addRule(CssRuleNode)}.
    */
+  public void test_addRule_last_extraIndent() throws Exception {
+    prepareContext(
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "  a {",
+        "    nameA: 1;",
+        "  }");
+    //
+    rootElement.addRule(CssFactory.newRule("newRule"));
+    assertContext(
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "  a {",
+        "    nameA: 1;",
+        "  }",
+        "  newRule {",
+        "  }");
+  }
+
+  /**
+   * Test for {@link CssDocument#addRule(CssRuleNode)}.
+   */
   public void test_addRule_first_noComment() throws Exception {
     prepareContext(
         "a {",
@@ -864,6 +887,32 @@ public class CssDocumentTest extends AbstractJavaProjectTest {
   /**
    * Test for {@link CssRuleNode#addDeclaration(CssDeclarationNode)}.
    */
+  public void test_addDeclaration_first_extraIndent() throws Exception {
+    prepareContext(
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "  a {",
+        "      nameA: 1;",
+        "    nameB: 22;",
+        "  }");
+    //
+    CssDeclarationNode newDeclaration = CssFactory.newDeclaration("newProperty", "newValue");
+    firstRule.addDeclaration(0, newDeclaration);
+    assertContext(
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "  a {",
+        "    newProperty: newValue;",
+        "      nameA: 1;",
+        "    nameB: 22;",
+        "  }");
+  }
+
+  /**
+   * Test for {@link CssRuleNode#addDeclaration(CssDeclarationNode)}.
+   */
   public void test_addDeclaration_last() throws Exception {
     prepareContext(
         "/* filler filler filler filler filler */",
@@ -911,6 +960,30 @@ public class CssDocumentTest extends AbstractJavaProjectTest {
         "  nameB: 22;",
         "  newProperty: newValue;",
         "}");
+  }
+
+  /**
+   * Test for {@link CssRuleNode#addDeclaration(CssDeclarationNode)}.
+   */
+  public void test_addDeclaration_last_extraIndent() throws Exception {
+    prepareContext(
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "  a {",
+        "      nameA: 1;",
+        "  }");
+    //
+    CssDeclarationNode newDeclaration = CssFactory.newDeclaration("newProperty", "newValue");
+    firstRule.addDeclaration(1, newDeclaration);
+    assertContext(
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "/* filler filler filler filler filler */",
+        "  a {",
+        "      nameA: 1;",
+        "    newProperty: newValue;",
+        "  }");
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -174,6 +174,9 @@ public class CComboBox extends Composite {
               int index = table.getSelectionIndex() - 1;
               table.setSelection(index < 0 ? table.getItemCount() - 1 : index);
               e.doit = false;
+            } else {
+              // forward to ComboBox listeners
+              notifyListeners(SWT.KeyDown, convert2event(e));
             }
             break;
           case SWT.ARROW_DOWN :
@@ -183,14 +186,15 @@ public class CComboBox extends Composite {
               int index = table.getSelectionIndex() + 1;
               table.setSelection(index == table.getItemCount() ? 0 : index);
               e.doit = false;
+            } else if ((e.stateMask & SWT.ALT) != 0) {
+              // force drop down combo
+              comboDropDown(true);
+              e.doit = false;
+              // return focus to text
+              setFocus2Text(false);
             } else {
-              if ((e.stateMask & SWT.ALT) != 0) {
-                // force drop down combo
-                comboDropDown(true);
-                e.doit = false;
-                // return focus to text
-                setFocus2Text(false);
-              }
+              // forward to ComboBox listeners
+              notifyListeners(SWT.KeyDown, convert2event(e));
             }
             break;
           case '\r' :

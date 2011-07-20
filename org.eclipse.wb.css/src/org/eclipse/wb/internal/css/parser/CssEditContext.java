@@ -346,17 +346,18 @@ public final class CssEditContext {
     int pos;
     {
       CssRuleNode rule = (CssRuleNode) declaration.getParent();
+      String indent = getLineIndent(rule);
       int index = rule.getIndex(declaration);
       if (index == 0) {
         pos = rule.getLeftBrace().getEnd();
-        String prefix = getEOL(pos) + "\t";
+        String prefix = getEOL(pos) + indent + "\t";
         // add text for new declaration
         replaceString(pos, 0, prefix + text, declaration);
         pos += prefix.length();
       } else {
         CssDeclarationNode prevDeclaration = rule.getDeclaration(index - 1);
         pos = prevDeclaration.getEnd();
-        String prefix = getEOL(pos) + "\t";
+        String prefix = getEOL(pos) + indent + "\t";
         // ensure that previous declaration has ';' at the end, so we can add new declarations after it
         {
           char lastPrevDeclarationChar = m_document.getChar(pos - 1);
@@ -408,7 +409,7 @@ public final class CssEditContext {
     String eol = getEOL(pos);
     // add text
     replaceString(pos, 0, "@charset " + charset.getString().getValue() + ";" + eol, charset);
-    // update location XXX
+    // update location
     {
       charset.setOffset(pos);
       pos += "@charset ".length();
@@ -430,25 +431,26 @@ public final class CssEditContext {
   private void insertRule(CssRuleNode rule) throws Exception {
     // prepare position for adding new rule text
     int pos;
-    String eol;
+    String prefix;
     String text;
     {
       CssDocument document = (CssDocument) rule.getParent();
       int index = document.getIndex(rule);
       if (index == 0) {
         pos = 0;
-        eol = getEOL(pos);
-        text = rule.getSelector().getValue() + " {" + eol + "}";
+        String eol = getEOL(pos);
+        prefix = eol;
+        text = rule.getSelector().getValue() + " {" + prefix + "}";
         // first rule, so add EOL after it
         text += eol;
       } else {
         CssRuleNode prevRule = document.getRule(index - 1);
         pos = prevRule.getEnd();
-        eol = getEOL(pos);
-        text = rule.getSelector().getValue() + " {" + eol + "}";
+        prefix = getEOL(pos) + getLineIndent(prevRule);
+        text = rule.getSelector().getValue() + " {" + prefix + "}";
         // there is rule before, so add EOL before this new rule
-        replaceString(pos, 0, eol, rule);
-        pos += eol.length();
+        replaceString(pos, 0, prefix, rule);
+        pos += prefix.length();
       }
     }
     // add rule and update offset/length
@@ -469,8 +471,8 @@ public final class CssEditContext {
         rule.getLeftBrace().setOffset(pos);
         pos += 1;
       }
-      // skip EOL
-      pos += eol.length();
+      // skip prefix
+      pos += prefix.length();
       // '}'
       {
         rule.getRightBrace().setOffset(pos);
@@ -525,6 +527,30 @@ public final class CssEditContext {
       end++;
     }
     return end;
+  }
+
+  // XXX
+  /**
+   * @return the indent of given {@link CssNode}.
+   */
+  private String getLineIndent(CssNode element) throws Exception {
+    int end = element.getOffset();
+    int start = end;
+    while (start != 0) {
+      char c = m_document.getChar(start - 1);
+      // in any case we need whitespace
+      if (!Character.isWhitespace(c)) {
+        break;
+      }
+      // stop on \r and \n
+      if (c == '\r' || c == '\n') {
+        break;
+      }
+      //
+      start--;
+    }
+    // return result
+    return m_document.get(start, end - start);
   }
 
   /**

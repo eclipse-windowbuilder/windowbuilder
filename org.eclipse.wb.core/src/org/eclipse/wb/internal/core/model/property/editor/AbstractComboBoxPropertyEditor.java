@@ -57,11 +57,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
     m_combo.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
-        switch (e.keyCode) {
-          case SWT.ESC :
-            propertyTable.deactivateEditor(false);
-            break;
-        }
+        handleKeyPressed(propertyTable, property, e);
       }
     });
     m_combo.addFocusListener(new FocusAdapter() {
@@ -92,18 +88,32 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
     return true;
   }
 
+  private void handleKeyPressed(PropertyTable propertyTable, Property property, KeyEvent e) {
+    if (e.keyCode == SWT.ESC) {
+      propertyTable.deactivateEditor(false);
+    } else if (e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN) {
+      e.doit = false;
+      propertyTable.deactivateEditor(true);
+      propertyTable.navigate(e);
+    }
+  }
+
   @Override
   public final void deactivate(PropertyTable propertyTable, Property property, boolean save) {
     if (save) {
-      try {
-        toPropertyEx(property, m_combo);
-      } catch (Throwable e) {
-        propertyTable.handleException(e);
-      }
+      toProperty(propertyTable, property);
     }
     if (m_combo != null) {
       m_combo.dispose();
       m_combo = null;
+    }
+  }
+
+  private void toProperty(PropertyTable propertyTable, Property property) {
+    try {
+      toPropertyEx(property, m_combo);
+    } catch (Throwable e) {
+      propertyTable.handleException(e);
     }
   }
 
