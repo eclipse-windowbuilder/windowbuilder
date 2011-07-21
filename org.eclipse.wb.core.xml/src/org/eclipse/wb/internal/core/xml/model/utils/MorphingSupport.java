@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.utils;
 
+import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.AbstractMorphingSupport;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.ImageImageDescriptor;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
@@ -123,6 +123,10 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
   public static void contribute(String toolkitClassName,
       XmlObjectInfo component,
       IContributionManager manager) throws Exception {
+    if (component.isRoot()) {
+      // TODO not supported yet
+      return;
+    }
     // add "morph" actions
     MorphingSupport<XmlObjectInfo> morphingSupport =
         new MorphingSupport<XmlObjectInfo>(toolkitClassName, component) {
@@ -151,7 +155,9 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
     // prepare new component
     CreationSupport creationSupport =
         new ElementCreationSupport(m_component.getCreationSupport().getElement());
-    return (T) XmlObjectUtils.createObject(m_editor, newDescription, creationSupport);
+    T newComponent = (T) XmlObjectUtils.createObject(m_editor, newDescription, creationSupport);
+    GlobalStateXml.activate(newComponent);
+    return newComponent;
   }
 
   @Override
@@ -160,8 +166,14 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
     m_component.getParentJava(),
     m_component,
     newComponent);*/
-    // replace component in parent (following operations may require parent)
-    m_component.getParent().replaceChild(m_component, newComponent);
+    ObjectInfo parent = m_component.getParent();
+    if (parent == null) {
+      // replace root
+      // TODO
+    } else {
+      // replace component in parent (following operations may require parent)
+      parent.replaceChild(m_component, newComponent);
+    }
   }
 
   @Override
@@ -186,12 +198,16 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
   }
 
   @Override
-  protected void morph_finish(T newComponent) throws Exception {
+  protected void morph_source(T newComponent) throws Exception {
     // replace element type
     CreationSupport creationSupport = newComponent.getCreationSupport();
     Class<?> componentClass = newComponent.getDescription().getComponentClass();
-    creationSupport.getElement().setTag(CodeUtils.getShortClass(componentClass.getName()));
-    //
+    String newComponentTag = XmlObjectUtils.getTagForClass(newComponent, componentClass);
+    creationSupport.getElement().setTag(newComponentTag);
+  }
+
+  @Override
+  protected void morph_finish(T newComponent) throws Exception {
     /* TODO m_component.getBroadcastJava().replaceChildAfter(
         m_component.getParentJava(),
         m_component,

@@ -299,7 +299,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
   }
 
   @Override
-  protected void morph_finish(T newComponent) throws Exception {
+  protected void morph_source(T newComponent) throws Exception {
     // reuse variable
     {
       // replace type in variable
@@ -336,7 +336,10 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
       Association newAssociation = oldAssociation.getCopy();
       newComponent.setAssociation(newAssociation);
     }
-    //
+  }
+
+  @Override
+  protected void morph_finish(T newComponent) throws Exception {
     m_component.getBroadcastJava().replaceChildAfter(
         m_component.getParentJava(),
         m_component,

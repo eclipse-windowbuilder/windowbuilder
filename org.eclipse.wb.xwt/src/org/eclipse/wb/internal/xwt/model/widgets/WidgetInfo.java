@@ -10,13 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.xwt.model.widgets;
 
+import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
+import org.eclipse.wb.internal.core.xml.model.utils.MorphingSupport;
 import org.eclipse.wb.internal.xwt.model.property.editor.style.StylePropertyEditor;
 
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.Widget;
+
+import java.util.List;
 
 /**
  * Model for any {@link Widget} in XWT.
@@ -25,6 +31,8 @@ import org.eclipse.swt.widgets.Widget;
  * @coverage XWT.model.widgets
  */
 public class WidgetInfo extends AbstractComponentInfo {
+  private final WidgetInfo m_this = this;
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -35,6 +43,17 @@ public class WidgetInfo extends AbstractComponentInfo {
       CreationSupport creationSupport) throws Exception {
     super(context, description, creationSupport);
     StylePropertyEditor.addStyleProperty(this);
+    // contribute context menu
+    addBroadcastListener(new ObjectEventListener() {
+      @Override
+      public void addContextMenu(List<? extends ObjectInfo> objects,
+          ObjectInfo object,
+          IMenuManager manager) throws Exception {
+        if (object == m_this) {
+          MorphingSupport.contribute("org.eclipse.swt.widgets.Widget", m_this, manager);
+        }
+      }
+    });
   }
 
   ////////////////////////////////////////////////////////////////////////////

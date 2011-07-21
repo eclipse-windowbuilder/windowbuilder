@@ -147,6 +147,7 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
     morph_replace(newComponent);
     morph_properties(newComponent);
     morph_children(newComponent);
+    morph_source(newComponent);
     morph_finish(newComponent);
   }
 
@@ -157,6 +158,8 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
   protected abstract void morph_properties(T newComponent) throws Exception;
 
   protected abstract void morph_children(T newComponent) throws Exception;
+
+  protected abstract void morph_source(T newComponent) throws Exception;
 
   protected abstract void morph_finish(T newComponent) throws Exception;
 
