@@ -307,14 +307,12 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
       createPageDesign(1);
       m_sourcePage.setPageIndex(0);
       m_designPage.setPageIndex(1);
-      m_activePage = m_sourcePage;
     } else {
       createPageXml();
       createPageDesign(0);
       m_designPage.getControl().moveAbove(null);
       m_sourcePage.setPageIndex(1);
       m_designPage.setPageIndex(0);
-      m_activePage = m_designPage;
     }
     createAdditionalPages();
     // activate page
@@ -608,23 +606,29 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
         pageIndex++;
       }
     }
+    // prepare new active page
+    IXmlEditorPage activePage = m_activePage;
+    if (pageIndex == m_sourcePage.getPageIndex()) {
+      activePage = m_sourcePage;
+    } else if (pageIndex == m_designPage.getPageIndex()) {
+      activePage = m_designPage;
+    } else {
+      for (IXmlEditorPage page : m_additionalPages) {
+        if (pageIndex == page.getPageIndex()) {
+          activePage = page;
+          break;
+        }
+      }
+    }
+    // do nothing, if this page is already active
+    // else this will cause loosing "..." button clicking in properties table
+    if (activePage == m_activePage) {
+      return;
+    }
     // deactivate active page
     if (m_activePage != null) {
       m_activePage.setActive(false);
       m_activePage = null;
-    }
-    // prepare new active page
-    if (pageIndex == m_sourcePage.getPageIndex()) {
-      m_activePage = m_sourcePage;
-    } else if (pageIndex == m_designPage.getPageIndex()) {
-      m_activePage = m_designPage;
-    } else {
-      for (IXmlEditorPage page : m_additionalPages) {
-        if (pageIndex == page.getPageIndex()) {
-          m_activePage = page;
-          break;
-        }
-      }
     }
     // We use "fake" item because we can not override private getItem() method.
     // Currently (20110623) this item is not used for anything useful for WindowBuilder.
@@ -640,6 +644,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
       }
     }
     // activate new active page
+    m_activePage = activePage;
     if (m_activePage != null) {
       m_activePage.setActive(true);
     }
