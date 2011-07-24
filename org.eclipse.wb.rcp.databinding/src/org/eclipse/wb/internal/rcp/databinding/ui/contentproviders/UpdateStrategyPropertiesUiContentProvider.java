@@ -23,9 +23,11 @@ import org.eclipse.wb.internal.rcp.databinding.Messages;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
-import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
@@ -40,6 +42,7 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   private final List<IUiContentProvider> m_providers = Lists.newArrayList();
   private ExpandableComposite m_expandableComposite;
   private final String m_settingKey;
+  private final String m_captionPrefix;
   private final IDialogSettings m_settings;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -49,6 +52,13 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   ////////////////////////////////////////////////////////////////////////////
   public UpdateStrategyPropertiesUiContentProvider(String direction) {
     m_settingKey = direction + " strategy expanded state";
+    if ("Target".equals(direction)) {
+      m_captionPrefix = Messages.UpdateStrategyPropertiesUiContentProvider_Target2Model + " ";
+    } else if ("Model".equals(direction)) {
+      m_captionPrefix = Messages.UpdateStrategyPropertiesUiContentProvider_Model2Target + " ";
+    } else {
+      m_captionPrefix = StringUtils.EMPTY;
+    }
     IDialogSettings mainSettings = Activator.getDefault().getDialogSettings();
     m_settings = UiUtils.getSettings(mainSettings, getClass().getName());
   }
@@ -98,19 +108,11 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
-    m_expandableComposite.addExpansionListener(new IExpansionListener() {
-      public void expansionStateChanging(ExpansionEvent e) {
-        m_settings.put(m_settingKey, !m_expandableComposite.isExpanded());
-        if (m_expandableComposite.isExpanded()) {
-          m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
-        } else {
-          m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
-        }
-      }
-
+    m_expandableComposite.addExpansionListener(new ExpansionAdapter() {
+      @Override
       public void expansionStateChanged(ExpansionEvent e) {
+        compositeExpansionStateChanging();
         parent.layout();
       }
     });
@@ -127,11 +129,22 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
     for (IUiContentProvider provider : m_providers) {
       provider.createContent(clientComposite, subColumns);
     }
-    //
+    // init controls state
     if (m_settings.getBoolean(m_settingKey)) {
       m_expandableComposite.setExpanded(true);
-      m_expandableComposite.setText(Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
       parent.layout();
+    }
+    compositeExpansionStateChanging();
+  }
+
+  private void compositeExpansionStateChanging() {
+    m_settings.put(m_settingKey, !m_expandableComposite.isExpanded());
+    if (m_expandableComposite.isExpanded()) {
+      m_expandableComposite.setText(m_captionPrefix
+          + Messages.UpdateStrategyPropertiesUiContentProvider_strategyProperties);
+    } else {
+      m_expandableComposite.setText(m_captionPrefix
+          + Messages.UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots);
     }
   }
 

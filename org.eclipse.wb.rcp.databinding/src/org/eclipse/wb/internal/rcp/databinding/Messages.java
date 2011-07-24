@@ -123,6 +123,8 @@ public class Messages extends NLS {
   public static String UpdateStrategyInfo_converterArgumentNotFound;
   public static String UpdateStrategyInfo_errorMessage;
   public static String UpdateStrategyInfo_errorMessagePrefix;
+  public static String UpdateStrategyPropertiesUiContentProvider_Target2Model;
+  public static String UpdateStrategyPropertiesUiContentProvider_Model2Target;
   public static String UpdateStrategyPropertiesUiContentProvider_strategyProperties;
   public static String UpdateStrategyPropertiesUiContentProvider_strategyPropertiesDots;
   public static String UpdateValueStrategyInfo_title;
