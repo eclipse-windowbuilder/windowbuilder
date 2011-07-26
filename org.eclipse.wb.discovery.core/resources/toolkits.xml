@@ -120,6 +120,11 @@
             <feature id="com.google.gdt.eclipse.suite.e36.feature"/>
             <feature id="com.google.gwt.eclipse.sdkbundle.e36.feature" optional="true"/>
             <feature id="com.google.appengine.eclipse.sdkbundle.e36.feature" optional="true"/>
+            <feature id="org.eclipse.wb.core.feature" optional="true"/>
+            <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
+            <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
+            <feature id="com.google.gdt.eclipse.designer.hosted.feature" optional="true"/>
+            <feature id="com.google.gdt.eclipse.designer.editor.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.gpe.feature" optional="true"/>
 		</updateSite>
 		
@@ -128,6 +133,11 @@
             <feature id="com.google.gdt.eclipse.suite.e37.feature"/>
             <feature id="com.google.gwt.eclipse.sdkbundle.e37.feature" optional="true"/>
             <feature id="com.google.appengine.eclipse.sdkbundle.e37.feature" optional="true"/>
+            <feature id="org.eclipse.wb.core.feature" optional="true"/>
+            <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
+            <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
+            <feature id="com.google.gdt.eclipse.designer.hosted.feature" optional="true"/>
+            <feature id="com.google.gdt.eclipse.designer.editor.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.gpe.feature" optional="true"/>
 		</updateSite>
 	</toolkit>
