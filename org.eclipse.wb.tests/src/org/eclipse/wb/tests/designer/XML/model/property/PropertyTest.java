@@ -160,7 +160,7 @@ public class PropertyTest extends AbstractCoreTest {
   /**
    * Test for using tag "x-rawValue".
    */
-  public void test_getValue_modified_rawValue() throws Exception {
+  public void test_getValue_rawValue_modified() throws Exception {
     prepareMyComponent(new String[]{
         "// filler filler filler filler filler",
         "public void setTest(int value) {",
@@ -180,6 +180,35 @@ public class PropertyTest extends AbstractCoreTest {
     // has value
     assertTrue(property.isModified());
     assertEquals("SWT.PUSH", property.getValue());
+  }
+
+  /**
+   * Test for using tag "x-rawValue".
+   */
+  public void test_getValue_rawValue_default() throws Exception {
+    prepareMyComponent(new String[]{
+        "// filler filler filler filler filler",
+        "private String m_test = '555';",
+        "public String getTest() {",
+        "  return m_test;",
+        "}",
+        "public void setTest(String value) {",
+        "}"}, new String[]{
+        "<property id='setTest(java.lang.String)'>",
+        "  <tag name='x-rawValue' value='true'/>",
+        "</property>"});
+    ControlInfo shell =
+        parse(
+            "// filler filler filler filler filler",
+            "<Shell>",
+            "  <t:MyComponent wbp:name='component'/>",
+            "</Shell>");
+    shell.refresh();
+    XmlObjectInfo component = getObjectByName("component");
+    GenericProperty property = (GenericProperty) component.getPropertyByTitle("test");
+    // has value
+    assertFalse(property.isModified());
+    assertEquals("555", property.getValue());
   }
 
   public void test_getValue_notModified_defaultInDescription() throws Exception {

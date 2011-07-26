@@ -108,7 +108,10 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    */
   public Object getValue(XmlObjectInfo object) throws Exception {
     if (hasTrueTag("x-rawValue")) {
-      return object.getAttribute(m_attribute);
+      String value = object.getAttribute(m_attribute);
+      if (value != null) {
+        return value;
+      }
     }
     return object.getAttributeValue(m_attribute);
   }
