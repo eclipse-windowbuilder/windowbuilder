@@ -122,7 +122,7 @@
             <feature id="com.google.appengine.eclipse.sdkbundle.e36.feature" optional="true"/>
             <feature id="org.eclipse.wb.core.feature" optional="true"/>
             <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
-            <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
+            <feature id="org.eclipse.wb.css.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.hosted.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.editor.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.gpe.feature" optional="true"/>
@@ -135,7 +135,7 @@
             <feature id="com.google.appengine.eclipse.sdkbundle.e37.feature" optional="true"/>
             <feature id="org.eclipse.wb.core.feature" optional="true"/>
             <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
-            <feature id="org.eclipse.wb.core.xml.feature" optional="true"/>
+            <feature id="org.eclipse.wb.css.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.hosted.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.editor.feature" optional="true"/>
             <feature id="com.google.gdt.eclipse.designer.gpe.feature" optional="true"/>
