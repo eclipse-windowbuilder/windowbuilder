@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.css.dialogs.color;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.NamedColorsComposite;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages.WebSafeColorsComposite;
@@ -22,6 +24,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
+
+import java.util.List;
 
 /**
  * Dialog for color choosing.
@@ -58,6 +62,25 @@ public final class ColorDialog extends AbstractColorDialog {
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////
+  private static String COLOR_NAMES[];
+
+  /**
+   * @return the names of all colors on this page.
+   */
+  public static String[] getColorNames() {
+    if (COLOR_NAMES == null) {
+      List<String> colorNames = Lists.newArrayList();
+      for (String color : NamedColorsComposite.getColorNames()) {
+        colorNames.add(color);
+      }
+      for (String color : SystemColorsComposite.getColorNames()) {
+        colorNames.add(color);
+      }
+      COLOR_NAMES = colorNames.toArray(new String[colorNames.size()]);
+    }
+    return COLOR_NAMES;
+  }
+
   /**
    * @return the {@link RGB} of given named color, may be <code>null</code>.
    */

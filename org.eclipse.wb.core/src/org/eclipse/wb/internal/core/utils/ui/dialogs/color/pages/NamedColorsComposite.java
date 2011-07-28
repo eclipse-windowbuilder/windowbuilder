@@ -220,6 +220,23 @@ public final class NamedColorsComposite extends AbstractColorsGridComposite {
       new ColorInfo("tan", new RGB(210, 180, 140)),
       new ColorInfo("rosybrown", new RGB(188, 143, 143)),
       new ColorInfo("black", new RGB(0, 0, 0)),};
+  private static final String COLOR_NAMES[] = new String[HTML_COLORS.length + SVG_COLORS.length];
+
+  /**
+   * @return the names of all colors on this page.
+   */
+  public static String[] getColorNames() {
+    if (COLOR_NAMES[0] == null) {
+      int index = 0;
+      for (ColorInfo colorInfo : HTML_COLORS) {
+        COLOR_NAMES[index++] = colorInfo.getName();
+      }
+      for (ColorInfo colorInfo : SVG_COLORS) {
+        COLOR_NAMES[index++] = colorInfo.getName();
+      }
+    }
+    return COLOR_NAMES;
+  }
 
   /**
    * @return the {@link RGB} of given named color, may be <code>null</code>.

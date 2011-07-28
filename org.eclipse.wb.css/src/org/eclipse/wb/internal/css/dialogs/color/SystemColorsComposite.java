@@ -195,6 +195,7 @@ public class SystemColorsComposite extends AbstractColorsGridComposite {
           Messages.SystemColorsComposite_windowText,
           Messages.SystemColorsComposite_windowTextDescription,
           COLOR_WINDOWTEXT),};
+  private static final String COLOR_NAMES[] = new String[SYSTEM_COLORS.length];
 
   /**
    * @return the {@link ColorInfo} for given system color id (Windows only).
@@ -223,6 +224,19 @@ public class SystemColorsComposite extends AbstractColorsGridComposite {
     }
     //
     return new ColorInfo(name, description, rgb);
+  }
+
+  /**
+   * @return the names of all colors on this page.
+   */
+  public static String[] getColorNames() {
+    if (COLOR_NAMES[0] == null) {
+      int index = 0;
+      for (ColorInfo colorInfo : SYSTEM_COLORS) {
+        COLOR_NAMES[index++] = colorInfo.getName();
+      }
+    }
+    return COLOR_NAMES;
   }
 
   /**

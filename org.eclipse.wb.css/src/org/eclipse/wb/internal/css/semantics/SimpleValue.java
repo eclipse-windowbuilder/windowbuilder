@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.css.semantics;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * String string value, it is used for most properties.
  * 
@@ -69,7 +71,7 @@ public final class SimpleValue extends AbstractValue {
     if (m_value == value || m_value != null && m_value.equals(value)) {
       return;
     }
-    m_value = value;
+    m_value = StringUtils.trimToNull(value);
     notifyListeners();
   }
 
