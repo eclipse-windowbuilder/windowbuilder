@@ -204,10 +204,8 @@ public class DesignToolbarHelper {
           items = Lists.newArrayList();
           m_rootObject.getBroadcastObject().addHierarchyActions(items);
         }
-        // don't remove items that are added again
-        m_hierarchyItems.clear();
-        toRemove.removeAll(items);
         // add items to toolbar
+        m_hierarchyItems.clear();
         for (Object object : items) {
           // prepare contribution item
           IContributionItem item;
@@ -218,6 +216,7 @@ public class DesignToolbarHelper {
             item = new ActionContributionItem(action);
           }
           // add item
+          toRemove.remove(item);
           m_hierarchyItems.add(item);
           m_toolBarManager.remove(item);
           m_toolBarManager.appendToGroup(HIERARCHY_ACTIONS_GROUP, item);
