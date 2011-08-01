@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.core.xml.IExceptionConstants;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
+import org.eclipse.wb.internal.core.xml.model.UseModelIfNotAlready;
 import org.eclipse.wb.internal.core.xml.model.description.AbstractDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescriptionHelper;
@@ -23,7 +24,10 @@ import org.eclipse.wb.internal.core.xml.model.description.CreationDescription;
 import org.eclipse.wb.internal.core.xml.model.description.IDescriptionProcessor;
 import org.eclipse.wb.internal.core.xml.model.description.IDescriptionRulesProvider;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
+import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
+import org.eclipse.wb.internal.xwt.model.widgets.WidgetInfo;
 import org.eclipse.wb.tests.designer.TestUtils;
+import org.eclipse.wb.tests.designer.core.TestBundle;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.graphics.Image;
@@ -92,6 +96,84 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
       assertEquals(16, icon.getBounds().width);
       assertEquals(16, icon.getBounds().height);
     }
+  }
+
+  /**
+   * Test for {@link UseModelIfNotAlready} annotation.
+   */
+  public void test_UseModelIfNotAlready() throws Exception {
+    setFileContentSrc(
+        "test/MyInterface.java",
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "package test;",
+            "public interface MyInterface {",
+            "}"));
+    setFileContentSrc(
+        "test/MyInterface.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <x-model class='" + UseModelIfNotAlreadyInfo.class.getName() + "'/>",
+            "</component>"));
+    setFileContentSrc(
+        "test/BaseComponent.java",
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "package test;",
+            "public class BaseComponent {",
+            "}"));
+    setFileContentSrc(
+        "test/BaseComponent.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <x-model class='" + CompositeInfo.class.getName() + "'/>",
+            "</component>"));
+    setFileContentSrc(
+        "test/ComponentA.java",
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "package test;",
+            "public class ComponentA extends BaseComponent implements MyInterface {",
+            "}"));
+    setFileContentSrc(
+        "test/ComponentB.java",
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "package test;",
+            "public class ComponentB implements MyInterface {",
+            "}"));
+    waitForAutoBuild();
+    // use with TestBundle to provide MyInterfaceInfo model
+    TestBundle testBundle = new TestBundle();
+    try {
+      testBundle.addClass(UseModelIfNotAlreadyInfo.class);
+      testBundle.addExtension(
+          "org.eclipse.wb.core.toolkits",
+          new String[]{"<toolkit id='org.eclipse.wb.rcp'/>"});
+      testBundle.install();
+      // ComponentA has base class
+      {
+        ComponentDescription description = getDescription("test.ComponentA");
+        assertSame(CompositeInfo.class, description.getModelClass());
+      }
+      // ComponentB is interface only
+      {
+        ComponentDescription description = getDescription("test.ComponentB");
+        assertSame(UseModelIfNotAlreadyInfo.class, description.getModelClass());
+      }
+    } finally {
+      testBundle.dispose();
+    }
+  }
+
+  @UseModelIfNotAlready(WidgetInfo.class)
+  private class UseModelIfNotAlreadyInfo {
   }
 
   /**
