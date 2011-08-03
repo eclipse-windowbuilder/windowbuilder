@@ -44,7 +44,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
   public void test_parse_0() throws Exception {
     ContainerInfo frame =
         parseContainer(
-            "// filler filler filler",
+            "// filler filler filler filler filler",
             "public class Test extends JFrame {",
             "  public Test() {",
             "  }",
@@ -352,7 +352,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
    * Test that we can replace component exposed as <code>getX()</code> using method
    * <code>setX()</code>, and when we delete replacement, original exposed component is restored.
    */
-  public void test_setContentPane() throws Exception {
+  public void test_setContentPane_addDirectly() throws Exception {
     ContainerInfo frame =
         parseContainer(
             "// filler filler filler filler filler",
@@ -387,6 +387,31 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
         "{this: javax.swing.JFrame} {this} {}",
         "  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}",
         "    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+  }
+
+  /**
+   * Test that we can replace component exposed as <code>getX()</code> using method
+   * <code>setX()</code>, we still can add children using to <code>getX()</code>.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=352568
+   */
+  public void test_setContentPane_addUsingGetter() throws Exception {
+    parseContainer(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public final class Test extends JFrame {",
+        "  Test() {",
+        "    setContentPane(new JPanel());",
+        "    getContentPane().add(new JButton());",
+        "  }",
+        "}");
+    assertHierarchy(
+        "{this: javax.swing.JFrame} {this} {/setContentPane(new JPanel())/}",
+        "  {new: javax.swing.JPanel} {empty} {/setContentPane(new JPanel())/ /getContentPane().add(new JButton())/}",
+        "    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+        "    {new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}");
+    refresh();
+    assertNoErrors(m_lastParseInfo);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -445,7 +470,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
     // parse
     ContainerInfo panel =
         parseContainer(
-            "// filler filler filler",
+            "// filler filler filler filler filler",
             "public class Test extends MyPanel {",
             "  public Test() {",
             "  }",
@@ -483,7 +508,7 @@ public class ExposedPropertyCreationSupportTest extends SwingModelTest {
     // parse
     ContainerInfo panel =
         parseContainer(
-            "// filler filler filler",
+            "// filler filler filler filler filler",
             "public class Test extends MyPanel {",
             "  public Test() {",
             "  }",

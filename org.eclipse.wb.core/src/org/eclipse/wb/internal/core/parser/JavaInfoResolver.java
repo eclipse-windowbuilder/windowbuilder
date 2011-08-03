@@ -29,6 +29,7 @@ import org.eclipse.wb.internal.core.model.creation.WrapperMethodControlCreationS
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -291,6 +292,24 @@ public final class JavaInfoResolver {
         JavaInfo result = getExposedJavaInfo(child, invocation);
         if (result != null) {
           return result;
+        }
+      }
+    }
+    // replaced exposed
+    {
+      String expectedSetName = "set" + invocation.getName().getIdentifier().substring(3);
+      for (MethodInvocation parentInvocation : parent.getMethodInvocations()) {
+        if (parentInvocation.arguments().size() == 1) {
+          String setName = parentInvocation.getName().getIdentifier();
+          if (setName.equals(expectedSetName)) {
+            Expression setExpression = DomGenerics.arguments(parentInvocation).get(0);
+            JavaInfo result = getJavaInfo(setExpression);
+            if (result != null) {
+              ExecutionFlowUtils2.ensurePermanentValue(invocation).setModel(result);
+              result.addRelatedNode(invocation);
+              return result;
+            }
+          }
         }
       }
     }
