@@ -231,11 +231,19 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
         return;
       }
       // do morph
-      ExecutionUtils.run(m_component.getRoot(), new RunnableEx() {
-        public void run() throws Exception {
-          morph(target);
+      {
+        RunnableEx runnable = new RunnableEx() {
+          public void run() throws Exception {
+            morph(target);
+          }
+        };
+        ObjectInfo rootObject = m_component.getRoot();
+        if (m_component != rootObject) {
+          ExecutionUtils.run(rootObject, runnable);
+        } else {
+          ExecutionUtils.runLog(runnable);
         }
-      });
+      }
     }
 
     /**

@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.xml.model.utils;
 
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.model.description.ComponentPresentation;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -208,6 +209,10 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
 
   @Override
   protected void morph_finish(T newComponent) throws Exception {
+    if (m_component.isRoot()) {
+      m_component.getContext().commit();
+      DesignPageSite.Helper.getSite(m_component).reparse();
+    }
     /* TODO m_component.getBroadcastJava().replaceChildAfter(
         m_component.getParentJava(),
         m_component,
