@@ -70,7 +70,7 @@ public class ProjectClassLoader extends URLClassLoader {
    */
   public static URL[] getClasspathUrls(IJavaProject javaProject) throws Exception {
     List<String> entries = Lists.newArrayList();
-    addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet());
+    addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet(), true);
     return toURLs(entries);
   }
 
@@ -98,7 +98,8 @@ public class ProjectClassLoader extends URLClassLoader {
 
   private static void addRuntimeClassPathEntries(List<String> entries,
       IJavaProject javaProject,
-      Set<IJavaProject> visitedProjects) throws Exception {
+      Set<IJavaProject> visitedProjects,
+      boolean fullClassPath) throws Exception {
     IProject project = javaProject.getProject();
     // not Java project
     if (!javaProject.exists()) {
@@ -115,8 +116,13 @@ public class ProjectClassLoader extends URLClassLoader {
       return;
     }
     visitedProjects.add(javaProject);
-    // prepare information 
-    CollectionUtils.addAll(entries, computeFullRuntimeClassPath(javaProject));
+    // do add classpath entries
+    if (fullClassPath) {
+      CollectionUtils.addAll(entries, getClasspath(javaProject));
+    } else {
+      IPath outputLocation = javaProject.getOutputLocation();
+      addAbsoluteLocation(entries, outputLocation);
+    }
     // include fragments
     addFragments(entries, project, visitedProjects);
   }
@@ -137,10 +143,9 @@ public class ProjectClassLoader extends URLClassLoader {
         if (modelBundleDescription != null) {
           org.eclipse.osgi.service.resolver.BundleDescription[] fragments =
               modelBundleDescription.getFragments();
-          for (int i = 0; i < fragments.length; i++) {
-            org.eclipse.osgi.service.resolver.BundleDescription fragment = fragments[i];
+          for (org.eclipse.osgi.service.resolver.BundleDescription fragment : fragments) {
             String fragmentProjectName = fragment.getSymbolicName();
-            addRuntimeClassPathEntries(entries, fragmentProjectName, visitedProjects);
+            addFragment_runtimeClassPathEntries(entries, fragmentProjectName, visitedProjects);
           }
         }
       }
@@ -148,27 +153,19 @@ public class ProjectClassLoader extends URLClassLoader {
     // add also fragments of required projects
     {
       String[] requiredProjectNames = javaProject.getRequiredProjectNames();
-      for (int i = 0; i < requiredProjectNames.length; i++) {
-        String requiredProjectName = requiredProjectNames[i];
-        addRuntimeClassPathEntries(entries, requiredProjectName, visitedProjects);
+      for (String requiredProjectName : requiredProjectNames) {
+        addFragment_runtimeClassPathEntries(entries, requiredProjectName, visitedProjects);
       }
     }
   }
 
-  private static void addRuntimeClassPathEntries(List<String> entries,
+  private static void addFragment_runtimeClassPathEntries(List<String> entries,
       String projectName,
       Set<IJavaProject> visitedProjects) throws Exception {
     IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     IProject project = root.getProject(projectName);
     IJavaProject javaProject = JavaCore.create(project);
-    addRuntimeClassPathEntries(entries, javaProject, visitedProjects);
-  }
-
-  /**
-   * @return the locations of classpath entries of {@link IJavaProject}.
-   */
-  public static String[] computeFullRuntimeClassPath(IJavaProject javaProject) throws Exception {
-    return getClasspath(javaProject);
+    addRuntimeClassPathEntries(entries, javaProject, visitedProjects, false);
   }
 
   /**

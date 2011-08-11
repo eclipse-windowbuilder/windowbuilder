@@ -283,8 +283,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       String eSwtJarPath = "/ws/" + Platform.getWS() + "/" + ESWT_CONVERGED_JAR;
       String eSWTLocation = null;
       {
-        String[] locations =
-            ProjectClassLoader.computeFullRuntimeClassPath(editor.getJavaProject());
+        String[] locations = ProjectClassLoader.getClasspath(editor.getJavaProject());
         for (String location : locations) {
           if (location.endsWith(eSwtJarPath)) {
             eSWTLocation = location;

@@ -158,7 +158,7 @@ public final class DescriptionHelper {
   public static Image getIconImage(ILoadingContext context, String iconPath) throws Exception {
     for (String ext : ICON_EXTS) {
       String iconName = iconPath + ext;
-      ResourceInfo resourceInfo = getResourceInfo0(context, iconName);
+      ResourceInfo resourceInfo = getResourceInfo0(context, iconName, true);
       if (resourceInfo != null) {
         InputStream stream = resourceInfo.getURL().openStream();
         try {
@@ -180,7 +180,7 @@ public final class DescriptionHelper {
       String toolkitId,
       String componentClassName) throws Exception {
     String name = componentClassName.replace('.', '/') + ".wbp-forced-toolkit.txt";
-    ResourceInfo resourceInfo = getResourceInfo0(context, name);
+    ResourceInfo resourceInfo = getResourceInfo0(context, name, true);
     if (resourceInfo != null) {
       return IOUtils2.readString(resourceInfo.getURL().openStream()).equals(toolkitId);
     }
@@ -221,14 +221,14 @@ public final class DescriptionHelper {
       List<String> versions = provider.getVersions(resourceClass);
       for (String version : versions) {
         String versionedPath = version + "/" + defaultPath;
-        ResourceInfo resource = getResourceInfo0(context, versionedPath);
+        ResourceInfo resource = getResourceInfo0(context, versionedPath, false);
         if (resource != null) {
           return resource;
         }
       }
     }
-    // use default path
-    return getResourceInfo0(context, defaultPath);
+    // use default path XXX
+    return getResourceInfo0(context, defaultPath, true);
   }
 
   /**
@@ -243,8 +243,9 @@ public final class DescriptionHelper {
    *         resource found.
    */
   @SuppressWarnings("unchecked")
-  private static ResourceInfo getResourceInfo0(ILoadingContext context, String name)
-      throws Exception {
+  private static ResourceInfo getResourceInfo0(ILoadingContext context,
+      String name,
+      boolean tryContext) throws Exception {
     // cache with results
     Map<String, ResourceInfo> cacheResult;
     {
@@ -272,8 +273,8 @@ public final class DescriptionHelper {
         return null;
       }
     }
-    // prepare result
-    ResourceInfo result = getResourceInfo00(context, name);
+    // prepare result XXX
+    ResourceInfo result = getResourceInfo00(context, name, tryContext);
     // fill caches
     if (result != null) {
       cacheResult.put(name, result);
@@ -286,9 +287,14 @@ public final class DescriptionHelper {
 
   /**
    * Non-caching implementation of {@link #getResourceInfo0(EditorState, String)}.
+   * 
+   * @param tryContext
+   *          is <code>false</code> if {@link ILoadingContext} should not be used, because version
+   *          was attached to the name, and custom components can not have version.
    */
-  private static ResourceInfo getResourceInfo00(ILoadingContext context, String name)
-      throws Exception {
+  private static ResourceInfo getResourceInfo00(ILoadingContext context,
+      String name,
+      boolean tryContext) throws Exception {
     // check bundles with toolkits
     {
       ResourceInfo resource = getResourceInfo(name, context.getToolkitId());
@@ -302,8 +308,8 @@ public final class DescriptionHelper {
         return null;
       }
     }
-    // ask context
-    {
+    // ask context XXX
+    if (tryContext) {
       URL resource = context.getResource(name);
       if (resource != null) {
         return new ResourceInfo(null, null, resource);

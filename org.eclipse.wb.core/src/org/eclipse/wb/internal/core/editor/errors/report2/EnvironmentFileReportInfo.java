@@ -121,7 +121,7 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     try {
       IJavaProject javaProject = JavaCore.create(project);
       if (javaProject.exists()) {
-        String[] entries = ProjectClassLoader.computeFullRuntimeClassPath(javaProject);
+        String[] entries = ProjectClassLoader.getClasspath(javaProject);
         for (String entry : entries) {
           classPath += entry + File.pathSeparator;
         }
