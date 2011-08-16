@@ -176,9 +176,8 @@ builder itself. </p>
 		not possible at design time (such as accessing an application database 
 		or some other file). Runtime specific behavior should be isolated (and 
 		stubbed out as necessary) by wrappering the runtime specific code with a call to
-		isDesignTime() which will answer true when the 
-		component is loaded within GWT Designer and false at runtime. 
-		Implement an isDesignTime() method that is hardcoded to return false.</p>
+		Beans.isDesignTime() which will answer true when the component is loaded 
+		within GWT Designer and false at runtime.</p>
 		<h2 style="font-weight: bold;"><a name="InstantiationException"></a>What should I do 
 			if I encounter an InstantiationException or other error using a custom widget?</h2>
 		<p>An InstantiationException means that GWT Designer 
