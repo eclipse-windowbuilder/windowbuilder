@@ -519,7 +519,8 @@ public class WrapperInfoTest extends SwingModelTest {
 
     @Override
     public void add(JavaInfo host, JavaInfo exposed) throws Exception {
-      if (ReflectionUtils.isSuccessorOf(exposed.getObject().getClass(), "test.MyViewer")) {
+      Class<?> componentClass = exposed.getDescription().getComponentClass();
+      if (ReflectionUtils.isSuccessorOf(componentClass, "test.MyViewer")) {
         ((WrapperMethodInfo) exposed).getWrapper().configureHierarchy(host);
       }
     }

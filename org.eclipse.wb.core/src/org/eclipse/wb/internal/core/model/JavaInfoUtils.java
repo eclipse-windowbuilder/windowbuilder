@@ -537,10 +537,10 @@ public class JavaInfoUtils {
         host,
         getMethod));
     methodJavaInfo.setAssociation(new ImplicitObjectAssociation(host));
-    // initialize
-    methodJavaInfo.setObject(methodObject);
     // add new child
     addExposedJavaInfo(host, methodJavaInfo);
+    // initialize
+    methodJavaInfo.setObject(methodObject);
     return methodJavaInfo;
   }
 
