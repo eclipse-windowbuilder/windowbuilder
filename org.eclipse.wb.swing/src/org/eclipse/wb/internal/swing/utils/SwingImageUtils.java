@@ -113,8 +113,8 @@ public class SwingImageUtils {
 
   static Image createOSXImage(Window window, Image windowImage) throws Exception {
     // draw decorations manually, because it becomes slow if using SWT shell to capture decorations. 
-    int width = window.getWidth();
-    int height = window.getHeight();
+    int width = Math.max(1, window.getWidth());
+    int height = Math.max(1, window.getHeight());
     Image fullImage = new Image(null, width, height);
     try {
       GC gc = new GC(fullImage);

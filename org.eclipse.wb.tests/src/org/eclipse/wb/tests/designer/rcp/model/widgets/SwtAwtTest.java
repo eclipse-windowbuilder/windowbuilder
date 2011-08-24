@@ -124,6 +124,34 @@ public class SwtAwtTest extends RcpModelTest {
     }
   }
 
+  /**
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=355351
+   */
+  public void test_parseWhenZeroSize() throws Exception {
+    CompositeInfo shell =
+        parseComposite(
+            "import java.awt.Frame;",
+            "import org.eclipse.swt.awt.SWT_AWT;",
+            "public class Test extends Shell {",
+            "  public Test() {",
+            "    setLayout(new RowLayout());",
+            "    Composite composite = new Composite(this, SWT.EMBEDDED);",
+            "    composite.setLayoutData(new RowData(0,0));",
+            "    Frame frame = SWT_AWT.new_Frame(composite);",
+            "  }",
+            "}");
+    ComponentInfo frame = getJavaInfoByName("frame");
+    // refresh
+    shell.refresh();
+    assertNotNull(frame.getImage());
+    {
+      Rectangle frameBounds = frame.getBounds();
+      assertThat(frameBounds.x).isEqualTo(0);
+      assertThat(frameBounds.y).isEqualTo(0);
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Add
