@@ -49,17 +49,11 @@
 	</method-order>
 	<!-- PROPERTIES -->
 	<properties-preferred names="text items"/>
-	<properties-advanced names="listVisible textLimit selection orientation"/>
+	<properties-advanced names="listVisible textLimit selection"/>
 	<method-single-property title="select" method="select(int)">
 		<category value="preferred"/>
 		<getter name="getSelectionIndex"/>
 	</method-single-property>
-	<property id="setOrientation(int)">
-		<editor id="staticField">
-			<parameter name="class">org.eclipse.swt.SWT</parameter>
-			<parameter name="fields">LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
-		</editor>
-	</property>
 	<!-- MORPHING -->
 	<morphTargets>
 		<morphTarget class="org.eclipse.swt.custom.CCombo"/>

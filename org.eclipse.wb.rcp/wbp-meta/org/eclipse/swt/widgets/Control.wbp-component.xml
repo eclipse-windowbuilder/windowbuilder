@@ -62,6 +62,13 @@
 	<property id="setRedraw(boolean)">
 		<defaultValue value="true"/>
 	</property>
+	<property id="setOrientation(int)">
+		<category value="advanced"/>
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
+		</editor>
+	</property>
 	<!-- PARAMETERS -->
 	<parameters>
 		<!-- DragSource -->

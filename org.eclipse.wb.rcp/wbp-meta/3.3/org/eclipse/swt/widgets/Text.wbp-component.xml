@@ -39,14 +39,8 @@
 	<!-- PROPERTIES -->
 	<properties-preferred names="text"/>
 	<properties-advanced
-		names="doubleClickEnabled echoChar message orientation tabs textLimit selection topIndex"/>
+		names="doubleClickEnabled echoChar message tabs textLimit selection topIndex"/>
 	<property-tag name="text" tag="isText" value="true"/>
-	<property id="setOrientation(int)">
-		<editor id="staticField">
-			<parameter name="class">org.eclipse.swt.SWT</parameter>
-			<parameter name="fields">LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
-		</editor>
-	</property>
 	<!-- MORPHING -->
 	<morphTargets>
 		<morphTarget class="org.eclipse.swt.widgets.Button"/>

@@ -21,17 +21,11 @@
 	</constructors>
 	<!-- PROPERTIES -->
 	<properties-preferred names="text"/>
-	<properties-advanced names="bidiColoring caretOffset horizontalIndex horizontalPixel justify lineSpacing orientation tabs textLimit topIndex topPixel selection wordWrap"/>
+	<properties-advanced names="bidiColoring caretOffset horizontalIndex horizontalPixel justify lineSpacing tabs textLimit topIndex topPixel selection wordWrap"/>
 	<property id="setAlignment(int)">
 		<editor id="staticField">
 			<parameter name="class">org.eclipse.swt.SWT</parameter>
 			<parameter name="fields">LEFT CENTER RIGHT</parameter>
-		</editor>
-	</property>
-	<property id="setOrientation(int)">
-		<editor id="staticField">
-			<parameter name="class">org.eclipse.swt.SWT</parameter>
-			<parameter name="fields">LEFT_TO_RIGHT RIGHT_TO_LEFT</parameter>
 		</editor>
 	</property>
 	<!-- PARAMETERS -->
