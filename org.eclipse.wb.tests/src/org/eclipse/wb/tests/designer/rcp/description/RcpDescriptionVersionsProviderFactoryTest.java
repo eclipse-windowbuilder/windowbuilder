@@ -82,13 +82,13 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
     {
       Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Button");
       List<String> versions = provider.getVersions(componentClass);
-      assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
+      assertThat(versions).containsExactly("3.8", "3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
     }
     // RCP class: TableViewer
     {
       Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.jface.viewers.TableViewer");
       List<String> versions = provider.getVersions(componentClass);
-      assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
+      assertThat(versions).containsExactly("3.8", "3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
     }
     // not RCP class
     {
