@@ -206,8 +206,7 @@ public final class SwingUtils {
     Shell shell = DesignerPlugin.getShell();
     // process outstanding paint events before disabling any drawing.
     if (!enabled) {
-      boolean isWindowsTesting = EnvironmentUtils.IS_WINDOWS && EnvironmentUtils.isTestingTime();
-      if (!isWindowsTesting) {
+      if (!EnvironmentUtils.IS_WINDOWS) {
         shell.update();
       }
     }

@@ -1000,6 +1000,11 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
    * Handles {@link SWT#Paint} event.
    */
   private void handlePaint(GC gc, int x, int y, int width, int height) {
+    // sometimes we disable Eclipse Shell to prevent user actions, but we do this for short time
+    if (!isEnabled()) {
+      return;
+    }
+    // prevent recursion
     if (m_painting) {
       return;
     }
