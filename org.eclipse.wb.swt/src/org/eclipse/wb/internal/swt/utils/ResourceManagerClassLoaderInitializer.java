@@ -27,6 +27,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 
 import java.net.URL;
@@ -115,7 +116,7 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
     {
       IPluginModelBase modelBase = PluginRegistry.findModel(symbolicName);
       String installLocation = modelBase.getInstallLocation();
-      if (installLocation.endsWith(".jar")) {
+      if (!StringUtils.isEmpty(installLocation) && installLocation.toLowerCase().endsWith(".jar")) {
         String urlPath = "jar:file:/" + installLocation + "!/" + fullPath;
         urlPath = FilenameUtils.normalize(urlPath, true);
         return new URL(urlPath);
