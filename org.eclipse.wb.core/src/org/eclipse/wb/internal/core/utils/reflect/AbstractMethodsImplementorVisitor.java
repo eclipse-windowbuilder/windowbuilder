@@ -22,6 +22,7 @@ import org.objectweb.asm.Type;
  * {@link Error}.
  * 
  * @author scheglov_ke
+ * @coverage core.util
  */
 public final class AbstractMethodsImplementorVisitor extends ToBytesClassAdapter {
   private final String m_className;

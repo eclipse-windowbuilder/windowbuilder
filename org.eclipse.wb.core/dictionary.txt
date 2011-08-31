@@ -151,3 +151,4 @@ konstantin
 scheglov
 sortable
 parametrized
+chrome

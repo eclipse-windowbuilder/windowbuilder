@@ -29,7 +29,7 @@ import java.util.Set;
  * loaders will always be called in the REVERSE order they were added in.
  * 
  * @author scheglov_ke
- * @coverage shared.utils.reflect
+ * @coverage core.util
  */
 public class CompositeClassLoader extends ClassLoader {
   private final List<ClassLoader> m_classLoaders = new ArrayList();

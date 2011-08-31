@@ -480,6 +480,26 @@ public class ProjectClassLoaderTest extends SwingModelTest {
   }
 
   /**
+   * Old Java project style, when source and output is project itself.
+   * <p>
+   * https://groups.google.com/forum/#!topic/google-web-toolkit/r0Klxfkd7qA
+   */
+  @DisposeProjectAfter
+  public void test_addSourceLocations_oldProjectStyle() throws Exception {
+    setFileContent(
+        ".classpath",
+        getSourceDQ(
+            "<classpath>",
+            "  <classpathentry kind='con' path='org.eclipse.jdt.launching.JRE_CONTAINER'/>",
+            "  <classpathentry kind='src' path=''/>",
+            "  <classpathentry kind='output' path='bin'/>",
+            "</classpath>"));
+    // check locations
+    List<String> locations = getSourceLocations();
+    assertThat(locations).containsExactly(workspaceLocation + "/TestProject");
+  }
+
+  /**
    * Move existing {@link IProject} into "subFolder" in workspace.
    * 
    * @return the new absolute location of project.

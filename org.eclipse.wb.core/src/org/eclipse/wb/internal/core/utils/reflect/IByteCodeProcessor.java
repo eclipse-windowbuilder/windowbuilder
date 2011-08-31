@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.core.utils.reflect;
  * .
  * 
  * @author scheglov_ke
+ * @coverage core.util
  */
 public interface IByteCodeProcessor {
   /**

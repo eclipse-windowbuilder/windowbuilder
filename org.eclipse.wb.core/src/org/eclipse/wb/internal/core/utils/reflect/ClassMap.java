@@ -17,7 +17,7 @@ import java.util.Map;
  * {@link Map}-like interface for mapping {@link Class} to value.
  * 
  * @author scheglov_ke
- * @coverage core.model.description
+ * @coverage core.util
  */
 public final class ClassMap<V> {
   ////////////////////////////////////////////////////////////////////////////

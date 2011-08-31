@@ -48,7 +48,7 @@ import javax.swing.UIManager;
  * Implementation of {@link URLClassLoader} for loading classes from {@link IJavaProject}.
  * 
  * @author scheglov_ke
- * @coverage shared.utils.reflect
+ * @coverage core.util
  */
 public class ProjectClassLoader extends URLClassLoader {
   ////////////////////////////////////////////////////////////////////////////
@@ -277,9 +277,18 @@ public class ProjectClassLoader extends URLClassLoader {
   private static void addAbsoluteLocation(List<String> locations, IPath outputPath) {
     if (outputPath != null) {
       IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-      IFolder entryFolder = workspaceRoot.getFolder(outputPath);
-      String entryLocation = entryFolder.getLocation().toPortableString();
-      locations.add(entryLocation);
+      // prepare location
+      IPath entryLocation;
+      if (outputPath.segmentCount() == 1) {
+        String projectName = outputPath.lastSegment();
+        IProject project = workspaceRoot.getProject(projectName);
+        entryLocation = project.getLocation();
+      } else {
+        IFolder entryFolder = workspaceRoot.getFolder(outputPath);
+        entryLocation = entryFolder.getLocation();
+      }
+      // add location
+      locations.add(entryLocation.toPortableString());
     }
   }
 

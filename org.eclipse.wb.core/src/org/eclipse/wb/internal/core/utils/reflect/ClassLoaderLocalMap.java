@@ -28,6 +28,7 @@ import java.util.WeakHashMap;
  * 
  * @author Jevgeni Kabanov
  * @author scheglov_ke
+ * @coverage core.util
  */
 @SuppressWarnings("unchecked")
 public class ClassLoaderLocalMap implements Opcodes {
