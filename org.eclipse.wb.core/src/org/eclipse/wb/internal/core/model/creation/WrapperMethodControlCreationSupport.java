@@ -134,7 +134,9 @@ public class WrapperMethodControlCreationSupport extends CreationSupport
 
   @Override
   public void delete() throws Exception {
-    JavaInfoUtils.deleteJavaInfo(m_javaInfo, true);
+    CreationSupport wrapperCreation = m_wrapper.getWrapperInfo().getCreationSupport();
+    boolean isImplicitWrapper = wrapperCreation instanceof IImplicitCreationSupport;
+    JavaInfoUtils.deleteJavaInfo(m_javaInfo, !isImplicitWrapper);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -416,6 +416,7 @@ public class WrapperInfoTest extends SwingModelTest {
   // Exposing
   //
   ////////////////////////////////////////////////////////////////////////////
+  // XXX
   /**
    * Test for {@link JavaInfo#isRepresentedBy(ASTNode)}.
    * <p>
@@ -491,10 +492,22 @@ public class WrapperInfoTest extends SwingModelTest {
           "    {viewer: public javax.swing.JButton test.MyViewer.getButton()} {viewer} {}",
           "      {method: public test.MyViewer test.MyPanel.getViewer()} {property} {/myPanel.getViewer()/}");
       refresh();
-      //
+      // test viewer
       JavaInfo viewer = getJavaInfoByName("getViewer()");
       MethodInvocation invocation = getNode("getViewer()", MethodInvocation.class);
       assertSame(viewer, JavaInfoResolver.getJavaInfo(m_lastParseInfo, invocation));
+      // can not delete exposed JButton, i.e. no changes
+      {
+        ComponentInfo button = (ComponentInfo) viewer.getParent();
+        button.delete();
+        assertHierarchy(
+            "{this: javax.swing.JPanel} {this} {/add(myPanel)/}",
+            "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+            "  {new: test.MyPanel} {local-unique: myPanel} {/new MyPanel()/ /add(myPanel)/}",
+            "    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+            "    {viewer: public javax.swing.JButton test.MyViewer.getButton()} {viewer} {}",
+            "      {method: public test.MyViewer test.MyPanel.getViewer()} {property} {}");
+      }
     } finally {
       TestUtils.removeDynamicExtension(COMPONENTS_HIERARCHY_PROVIDERS_POINT_ID);
     }
