@@ -64,6 +64,7 @@ public abstract class AbstractGridHelper {
   private final Color m_borderColor;
   private final Color m_existingLineColor;
   private final Color m_virtualLineColor;
+  private Rectangle hostClientArea;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -107,7 +108,7 @@ public abstract class AbstractGridHelper {
     public void figureMoved(Figure source) {
       if (source == m_rootFigure) {
         // correct grid figure bounds according host figure
-        Rectangle hostClientArea = getHostClientArea();
+        prepareHostClientArea();
         translateModelToFeedback(hostClientArea);
         m_gridFigure.setBounds(hostClientArea);
       }
@@ -157,7 +158,7 @@ public abstract class AbstractGridHelper {
     Interval[] columnIntervals = gridInfo.getColumnIntervals();
     Interval[] rowIntervals = gridInfo.getRowIntervals();
     // prepare host information
-    Rectangle hostClientArea = getHostClientArea();
+    prepareHostClientArea();
     // add horizontal lines
     {
       int y = hostClientArea.top();
@@ -246,15 +247,14 @@ public abstract class AbstractGridHelper {
   }
 
   /**
-   * @return calculated host client area {@link Rectangle}.
+   * Calculate host client area {@link Rectangle}.
    */
-  private Rectangle getHostClientArea() {
-    Rectangle hostClientArea = getHost().getFigure().getBounds().getCopy();
+  private void prepareHostClientArea() {
     IAbstractComponentInfo containerInfo = (IAbstractComponentInfo) getHost().getModel();
+    hostClientArea = getHost().getFigure().getBounds().getCopy();
     hostClientArea.crop(containerInfo.getClientAreaInsets());
     hostClientArea.x = hostClientArea.y = 0;
     hostClientArea.crop(getGridInfo().getInsets());
-    return hostClientArea;
   }
 
   /**
@@ -269,6 +269,10 @@ public abstract class AbstractGridHelper {
       // prepare points
       Point p1 = new Point(x1, y1);
       Point p2 = new Point(x2, y2);
+      if (getGridInfo().isRTL()) {
+        p1.x = hostClientArea.width - p1.x;
+        p2.x = hostClientArea.width - p2.x;
+      }
       // end points are exclusive
       if (x1 == x2) {
         p2.y--;

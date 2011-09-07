@@ -33,6 +33,8 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.apache.commons.lang.ObjectUtils;
+
 import java.lang.reflect.Method;
 
 /**
@@ -204,11 +206,24 @@ public abstract class PolicyUtils {
       // translate: container figure -> client area
       {
         IAbstractComponentInfo container = (IAbstractComponentInfo) toContainer.getModel();
-        t.translate(container.getClientAreaInsets().getNegated());
         absoluteToModel_rightToLeft(t, container);
+        t.translate(container.getClientAreaInsets().getNegated());
       }
     } catch (Throwable e) {
       DesignerPlugin.log(e);
+    }
+  }
+
+  /**
+   * Translates given {@link Translatable} from model coordinates into feedback layer coordinates.
+   */
+  public static void translateModelToFeedback(GraphicalEditPolicy policy, Translatable t) {
+    if (policy instanceof LayoutEditPolicy) {
+      translateAbsoluteToModel((LayoutEditPolicy) policy, t);
+    } else if (policy instanceof SelectionEditPolicy) {
+      translateAbsoluteToModel((SelectionEditPolicy) policy, t);
+    } else {
+      throw new IllegalArgumentException(ObjectUtils.toString(policy));
     }
   }
 
