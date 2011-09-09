@@ -323,7 +323,7 @@ public final class UndoManager {
     Runnable runnable = new Runnable() {
       public void run() {
         if (isStillInSave()) {
-          Display.getDefault().asyncExec(this);
+          Display.getDefault().timerExec(1, this);
           return;
         }
         if (bufferChangeCount == m_bufferChangeCount) {
