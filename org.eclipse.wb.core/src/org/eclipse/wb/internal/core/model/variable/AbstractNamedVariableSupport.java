@@ -349,10 +349,11 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
    * Sets new identifier for this variable.
    */
   protected final void modifyName(String newIdentifier) throws Exception {
+    String oldName = getName();
     for (Expression reference : getReferences()) {
       modifyVariableName(reference, newIdentifier);
     }
-    m_javaInfo.getBroadcastJava().variable_setName(this);
+    m_javaInfo.getBroadcastJava().variable_setName(this, oldName, newIdentifier);
   }
 
   /**

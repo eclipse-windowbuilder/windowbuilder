@@ -62,9 +62,10 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
   private void rememberVariableNameAsNameData() {
     addBroadcastListener(new JavaEventListener() {
       @Override
-      public void variable_setName(AbstractNamedVariableSupport variableSupport) throws Exception {
+      public void variable_setName(AbstractNamedVariableSupport variableSupport,
+          String oldName,
+          String newName) throws Exception {
         if (variableSupport.getJavaInfo() == WidgetInfo.this) {
-          String newName = variableSupport.getName();
           setVariableNameAsNameData(newName);
         }
       }

@@ -58,7 +58,9 @@ public abstract class SyncParentChildVariableNameSupport<T extends JavaInfo> {
     // parent JavaInfo rename
     m_childInfo.addBroadcastListener(new JavaEventListener() {
       @Override
-      public void variable_setName(AbstractNamedVariableSupport variableSupport) throws Exception {
+      public void variable_setName(AbstractNamedVariableSupport variableSupport,
+          String oldName,
+          String newName) throws Exception {
         JavaInfo parent = m_childInfo.getParentJava();
         if (variableSupport.getJavaInfo() == parent
             && m_childInfo.getVariableSupport() instanceof AbstractNamedVariableSupport

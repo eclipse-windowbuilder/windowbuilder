@@ -44,6 +44,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
     {
       preferences.setDefault(P_NLS_AUTO_EXTERNALIZE, true);
       preferences.setDefault(P_NLS_KEY_QUALIFIED_TYPE_NAME, false);
+      preferences.setDefault(P_NLS_KEY_RENAME_WITH_VARIABLE, false);
       preferences.setDefault(P_NLS_KEY_AS_VALUE_PREFIX, "*");
     }
     // layouts

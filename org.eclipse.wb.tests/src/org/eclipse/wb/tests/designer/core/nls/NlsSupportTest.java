@@ -65,6 +65,7 @@ public class NlsSupportTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void tearDown() throws Exception {
+    waitEventLoop(0);
     if (m_frame != null) {
       m_frame.refresh_dispose();
       m_frame = null;
@@ -618,6 +619,70 @@ public class NlsSupportTest extends SwingModelTest {
       String newMessages = getFileContentSrc("test/Messages.java");
       assertEquals(properties, newProperties);
       assertEquals(messages, newMessages);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Variable
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * When user renames component, we should rename associated NLS keys.
+   */
+  public void test_renameKeysWhenVariable() throws Exception {
+    setFileContentSrc(
+        "test/messages.properties",
+        getSourceDQ("Test.frame.title=My JFrame", "frame.name=My name", "foo.bar=baz"));
+    setFileContentSrc(
+        "test/MyResourceBundleFactory.java",
+        getSourceDQ(
+            "package test;",
+            "import java.util.ResourceBundle;",
+            "public class MyResourceBundleFactory {",
+            "  public static ResourceBundle getMainBundle() {",
+            "    return ResourceBundle.getBundle('test.messages');",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    //
+    ContainerInfo frame =
+        parseContainer(
+            "import java.util.ResourceBundle;",
+            "public class Test {",
+            "  private static final ResourceBundle m_bundle = ResourceBundle.getBundle('test.messages'); //$NON-NLS-1$",
+            "  public static void main(String[] args) {",
+            "    JFrame frame = new JFrame();",
+            "    frame.setTitle(m_bundle.getString('Test.frame.title')); //$NON-NLS-1$",
+            "  }",
+            "}");
+    frame.refresh();
+    // set "rename" preference flag
+    PreferencesRepairer preferencesRepairer =
+        new PreferencesRepairer(frame.getDescription().getToolkit().getPreferences());
+    try {
+      preferencesRepairer.setValue(IPreferenceConstants.P_NLS_KEY_RENAME_WITH_VARIABLE, true);
+      frame.getVariableSupport().setName("newName");
+      // "Test.frame.title" renamed, because it has "frame" and used
+      // "frame.name" renamed because has "frame", but ignored, because it is not used in this form
+      // "foo.bar" not renamed, because no "frame"
+      {
+        String newProperties = getFileContentSrc("test/messages.properties");
+        assertTrue(newProperties.contains("Test.newName.title=My JFrame"));
+        assertTrue(newProperties.contains("frame.name=My name"));
+        assertTrue(newProperties.contains("foo.bar=baz"));
+      }
+    } finally {
+      preferencesRepairer.restore();
+    }
+    // don't enable "rename" flag
+    {
+      frame.getVariableSupport().setName("frame2");
+      // no changes
+      {
+        String newProperties = getFileContentSrc("test/messages.properties");
+        assertTrue(newProperties.contains("Test.newName.title=My JFrame"));
+      }
     }
   }
 }

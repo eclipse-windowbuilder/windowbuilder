@@ -260,6 +260,11 @@ public interface IPreferenceConstants {
    */
   String P_NLS_KEY_AS_VALUE_PREFIX = "nls.prefixOfPropertyValueToSpecifyThatItIsKey";
   /**
+   * When <code>true</code>, then changes of variable name will cause rename of NLS keys which have
+   * this name inside.
+   */
+  String P_NLS_KEY_RENAME_WITH_VARIABLE = "nls.renameKeysWithVariables";
+  /**
    * Comma separated list of locale names, such as "en, de, ru_RU", which should be always displayed
    * in NLS drop-down.
    */

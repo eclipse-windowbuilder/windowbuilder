@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.nls.edit.EditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.nls.model.IKeyGeneratorStrategy;
+import org.eclipse.wb.internal.core.nls.model.IKeyRenameStrategy;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstVisitorEx;
@@ -40,6 +41,8 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
@@ -68,6 +71,32 @@ public abstract class AbstractBundleSource extends AbstractSource {
       String typeName = getTypeName(component);
       String componentName = component.getVariableSupport().getComponentName();
       return typeName + "." + componentName + "." + property.getTitle();
+    }
+  };
+  /**
+   * Usual key rename strategy.
+   */
+  public static final IKeyRenameStrategy KEY_RENAME = new IKeyRenameStrategy() {
+    public String getNewKey(String oldName, String newName, String oldKey) {
+      if (oldName != null && oldKey.contains(oldName)) {
+        String newKey = oldKey;
+        newKey = StringUtils.replace(newKey, "." + oldName + ".", "." + newName + ".");
+        newKey = StringUtils.replace(newKey, "_" + oldName + "_", "_" + newName + "_");
+        {
+          String prefix = oldName + ".";
+          if (newKey.startsWith(prefix)) {
+            newKey = newName + "." + newKey.substring(prefix.length());
+          }
+        }
+        {
+          String prefix = oldName + "_";
+          if (newKey.startsWith(prefix)) {
+            newKey = newName + "_" + newKey.substring(prefix.length());
+          }
+        }
+        return newKey;
+      }
+      return oldKey;
     }
   };
   ////////////////////////////////////////////////////////////////////////////
@@ -226,6 +255,14 @@ public abstract class AbstractBundleSource extends AbstractSource {
    *         sources can use other generators.
    */
   protected abstract IKeyGeneratorStrategy getKeyGeneratorStrategy();
+
+  /**
+   * @return the {@link IKeyRenameStrategy}, usually standard {@link #KEY_RENAME}.
+   */
+  @Override
+  public IKeyRenameStrategy getKeyRenameStrategy() {
+    return KEY_RENAME;
+  }
 
   @Override
   public final void apply_renameKeys(final Map<String, String> oldToNew) throws Exception {

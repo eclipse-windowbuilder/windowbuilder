@@ -319,7 +319,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
       public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
         if (child == m_javaInfo) {
           m_javaInfo.removeBroadcastListener(this);
-          m_javaInfo.getBroadcastJava().variable_setName(m_this);
+          m_javaInfo.getBroadcastJava().variable_setName(m_this, null, getName());
         }
       }
     });

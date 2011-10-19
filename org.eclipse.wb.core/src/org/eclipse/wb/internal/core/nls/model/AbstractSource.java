@@ -192,6 +192,11 @@ public abstract class AbstractSource {
   public abstract IEditableSource getEditable() throws Exception;
 
   /**
+   * @return the {@link IKeyRenameStrategy}.
+   */
+  public abstract IKeyRenameStrategy getKeyRenameStrategy();
+
+  /**
    * Apply new values map for given locale.
    */
   public abstract void apply_setValues(LocaleInfo locale, Map<String, String> values)

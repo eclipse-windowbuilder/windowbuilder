@@ -15,11 +15,13 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
+import org.eclipse.wb.internal.core.model.variable.AbstractNamedVariableSupport;
 import org.eclipse.wb.internal.core.nls.commands.AbstractCommand;
 import org.eclipse.wb.internal.core.nls.commands.AddKeyCommand;
 import org.eclipse.wb.internal.core.nls.commands.AddLocaleCommand;
@@ -33,6 +35,7 @@ import org.eclipse.wb.internal.core.nls.edit.EditableSupport;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSupport;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
+import org.eclipse.wb.internal.core.nls.model.IKeyRenameStrategy;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -181,11 +184,12 @@ public final class NlsSupport {
     m_sourceDescriptions = getSourceDescriptions(m_root);
     prepareSources(m_root);
     setDefaultLocaleDuringRefresh();
+    renameKeysOnVariableNameChange();
   }
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Refresh support
+  // Broadcast based operations
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
@@ -212,6 +216,37 @@ public final class NlsSupport {
         if (m_oldDefaultLocale != null) {
           Locale.setDefault(m_oldDefaultLocale);
           m_oldDefaultLocale = null;
+        }
+      }
+    });
+  }
+
+  /**
+   * When user renames component, we should rename associated NLS keys.
+   */
+  private void renameKeysOnVariableNameChange() {
+    m_root.addBroadcastListener(new JavaEventListener() {
+      @Override
+      public void variable_setName(AbstractNamedVariableSupport variableSupport,
+          String oldName,
+          String newName) throws Exception {
+        IPreferenceStore preferences = m_root.getDescription().getToolkit().getPreferences();
+        if (oldName != null
+            && newName != null
+            && preferences.getBoolean(IPreferenceConstants.P_NLS_KEY_RENAME_WITH_VARIABLE)) {
+          IEditableSupport editable = getEditable();
+          for (AbstractSource source : getSources()) {
+            IKeyRenameStrategy keyRenameStrategy = source.getKeyRenameStrategy();
+            IEditableSource editableSource = editable.getEditableSource(source);
+            Set<String> keys = source.getKeys();
+            for (String oldKey : keys) {
+              String newKey = keyRenameStrategy.getNewKey(oldName, newName, oldKey);
+              if (!keys.contains(newKey)) {
+                editableSource.renameKey(oldKey, newKey);
+              }
+            }
+          }
+          applyEditable(editable);
         }
       }
     });
@@ -475,7 +510,7 @@ public final class NlsSupport {
       }
     }
     // save, because many NLS operations change compilation unit and external files,
-    // so we should same them to keep consistent state
+    // so we should save them to keep consistent state
     JavaInfoUtils.scheduleSave(m_root);
   }
 

@@ -91,6 +91,7 @@ public class Messages extends NLS {
   public static String NlsPreferencePage_autoExternalize;
   public static String NlsPreferencePage_keyHasQualifiedClassName;
   public static String NlsPreferencePage_keyInValuePrefix;
+  public static String NlsPreferencePage_renameWithVariable;
   public static String PropertiesComposite_copyButton;
   public static String PropertiesComposite_disableAllButton;
   public static String PropertiesComposite_enableAllButton;

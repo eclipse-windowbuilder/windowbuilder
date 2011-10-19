@@ -217,7 +217,9 @@ public abstract class JavaEventListener {
    * @param variableSupport
    *          the {@link AbstractNamedVariableSupport} that was changed the name.
    */
-  public void variable_setName(AbstractNamedVariableSupport variableSupport) throws Exception {
+  public void variable_setName(AbstractNamedVariableSupport variableSupport,
+      String oldName,
+      String newName) throws Exception {
   }
 
   /**

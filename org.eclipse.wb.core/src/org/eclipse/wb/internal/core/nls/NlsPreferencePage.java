@@ -55,13 +55,18 @@ public abstract class NlsPreferencePage extends AbstractBindingPreferencesPage
   // Contents
   //
   ////////////////////////////////////////////////////////////////////////////
-  private class ContentsComposite extends AbstractBindingComposite {
+  private static class ContentsComposite extends AbstractBindingComposite {
     public ContentsComposite(Composite parent,
         DataBindManager bindManager,
         IPreferenceStore preferences) {
       super(parent, bindManager, preferences);
       GridLayoutFactory.create(this).columns(2).noMargins();
       checkButton(this, 2, Messages.NlsPreferencePage_autoExternalize, P_NLS_AUTO_EXTERNALIZE);
+      checkButton(
+          this,
+          2,
+          Messages.NlsPreferencePage_renameWithVariable,
+          P_NLS_KEY_RENAME_WITH_VARIABLE);
       checkButton(
           this,
           2,

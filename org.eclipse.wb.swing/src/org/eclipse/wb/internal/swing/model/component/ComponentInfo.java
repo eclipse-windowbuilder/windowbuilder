@@ -93,9 +93,10 @@ public class ComponentInfo extends AbstractComponentInfo {
     });
     addBroadcastListener(new JavaEventListener() {
       @Override
-      public void variable_setName(AbstractNamedVariableSupport variableSupport) throws Exception {
+      public void variable_setName(AbstractNamedVariableSupport variableSupport,
+          String oldName,
+          String newName) throws Exception {
         if (variableSupport.getJavaInfo() == ComponentInfo.this) {
-          String newName = variableSupport.getName();
           setVariableNameAs_setName(newName);
         }
       }
