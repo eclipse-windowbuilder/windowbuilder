@@ -265,10 +265,12 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart {
         }
 
         private void runDelayedEvents() {
-          final Control viewerControl = getViewer().getControl();
           ExecutionUtils.runLogLater(new RunnableEx() {
             public void run() throws Exception {
-              EventManager.runDelayedEvents(viewerControl);
+              if (isEnabled()) {
+                Control viewerControl = getViewer().getControl();
+                EventManager.runDelayedEvents(viewerControl);
+              }
             }
           });
         }
