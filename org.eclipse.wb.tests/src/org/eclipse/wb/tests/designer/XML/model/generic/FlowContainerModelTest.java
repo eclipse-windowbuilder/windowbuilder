@@ -581,6 +581,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 Associations.direct(),
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));
@@ -621,6 +622,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 Associations.direct(),
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));
@@ -656,6 +658,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 Associations.direct(),
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));
@@ -806,6 +809,7 @@ public class FlowContainerModelTest extends AbstractCoreTest {
     FlowContainer flowContainer =
         new FlowContainerConfigurable(panel,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 Associations.direct(),
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue()));

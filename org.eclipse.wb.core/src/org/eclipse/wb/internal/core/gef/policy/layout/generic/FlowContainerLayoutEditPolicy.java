@@ -71,6 +71,11 @@ public final class FlowContainerLayoutEditPolicy extends ObjectFlowLayoutEditPol
     return m_container.isHorizontal();
   }
 
+  @Override
+  protected boolean isRtl(Request request) {
+    return m_container.isRtl();
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Requests

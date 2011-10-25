@@ -24,6 +24,7 @@ public class FlowContainerConfiguration {
   private final ContainerObjectValidator m_componentValidator;
   private final ContainerObjectValidator m_referenceValidator;
   private final Predicate<Object> m_horizontalPredicate;
+  private final Predicate<Object> m_rtlPredicate;
   private final AssociationObjectFactory m_associationObjectFactory;
   private final String m_groupName;
 
@@ -33,14 +34,16 @@ public class FlowContainerConfiguration {
   //
   ////////////////////////////////////////////////////////////////////////////
   public FlowContainerConfiguration(Predicate<Object> horizontalPredicate,
+      Predicate<Object> rtlPredicate,
       AssociationObjectFactory associationObjectFactory,
       ContainerObjectValidator componentValidator,
       ContainerObjectValidator referenceValidator,
       String groupName) {
+    m_horizontalPredicate = horizontalPredicate;
+    m_rtlPredicate = rtlPredicate;
+    m_associationObjectFactory = associationObjectFactory;
     m_componentValidator = componentValidator;
     m_referenceValidator = referenceValidator;
-    m_horizontalPredicate = horizontalPredicate;
-    m_associationObjectFactory = associationObjectFactory;
     m_groupName = groupName;
   }
 
@@ -51,6 +54,10 @@ public class FlowContainerConfiguration {
   ////////////////////////////////////////////////////////////////////////////
   public Predicate<Object> getHorizontalPredicate() {
     return m_horizontalPredicate;
+  }
+
+  public Predicate<Object> getRtlPredicate() {
+    return m_rtlPredicate;
   }
 
   public AssociationObjectFactory getAssociationObjectFactory() {

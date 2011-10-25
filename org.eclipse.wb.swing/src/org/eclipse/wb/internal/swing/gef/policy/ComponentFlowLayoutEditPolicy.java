@@ -31,8 +31,8 @@ public abstract class ComponentFlowLayoutEditPolicy
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public ComponentFlowLayoutEditPolicy(JavaInfo layout) {
-    super(layout);
+  public ComponentFlowLayoutEditPolicy(JavaInfo container) {
+    super(container);
   }
 
   ////////////////////////////////////////////////////////////////////////////

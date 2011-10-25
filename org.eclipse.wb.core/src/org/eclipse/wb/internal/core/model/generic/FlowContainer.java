@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generic;
 
+
 /**
  * Interface of typical flow based container.
  * 
@@ -26,6 +27,11 @@ public interface FlowContainer extends AbstractContainer {
    * @return <code>true</code> if this container is horizontal.
    */
   boolean isHorizontal();
+
+  /**
+   * @return <code>true</code> if this container has RTL orientation.
+   */
+  boolean isRtl();
 
   /**
    * @return <code>true</code> if given existing child of container can be used as reference.

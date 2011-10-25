@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
+import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.mock.EasyMockTemplate;
 import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
@@ -595,6 +595,7 @@ public class FlowContainerModelTest extends SwingModelTest {
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 null,
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue(),
@@ -635,6 +636,7 @@ public class FlowContainerModelTest extends SwingModelTest {
     final FlowContainer flowContainer =
         new FlowContainerConfigurable(container,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 null,
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue(),
@@ -810,6 +812,7 @@ public class FlowContainerModelTest extends SwingModelTest {
     FlowContainer flowContainer =
         new FlowContainerConfigurable(panel,
             new FlowContainerConfiguration(Predicates.alwaysTrue(),
+                Predicates.alwaysFalse(),
                 AssociationObjectFactories.invocationChild("%parent%.add(%child%)", false),
                 ContainerObjectValidators.alwaysTrue(),
                 ContainerObjectValidators.alwaysTrue(),
@@ -838,7 +841,7 @@ public class FlowContainerModelTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   static void prepareFlowPanel() throws Exception {
     prepareFlowPanel_classes();
-    AbstractJavaTest.setFileContentSrc(
+    AbstractJavaProjectTest.setFileContentSrc(
         "test/FlowPanel.wbp-component.xml",
         getSourceDQ(
             "<?xml version='1.0' encoding='UTF-8'?>",

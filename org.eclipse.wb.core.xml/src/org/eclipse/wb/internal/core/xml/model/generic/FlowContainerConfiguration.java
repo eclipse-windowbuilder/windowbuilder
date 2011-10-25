@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.xml.model.association.Association;
  */
 public class FlowContainerConfiguration {
   private final Predicate<Object> m_horizontalPredicate;
+  private final Predicate<Object> m_rtlPredicate;
   private final Association m_association;
   private final ContainerObjectValidator m_componentValidator;
   private final ContainerObjectValidator m_referenceValidator;
@@ -33,10 +34,12 @@ public class FlowContainerConfiguration {
   //
   ////////////////////////////////////////////////////////////////////////////
   public FlowContainerConfiguration(Predicate<Object> horizontalPredicate,
+      Predicate<Object> rtlPredicate,
       Association association,
       ContainerObjectValidator componentValidator,
       ContainerObjectValidator referenceValidator) {
     m_horizontalPredicate = horizontalPredicate;
+    m_rtlPredicate = rtlPredicate;
     m_association = association;
     m_componentValidator = componentValidator;
     m_referenceValidator = referenceValidator;
@@ -49,6 +52,10 @@ public class FlowContainerConfiguration {
   ////////////////////////////////////////////////////////////////////////////
   public Predicate<Object> getHorizontalPredicate() {
     return m_horizontalPredicate;
+  }
+
+  public Predicate<Object> getRtlPredicate() {
+    return m_rtlPredicate;
   }
 
   public Association getAssociation() {

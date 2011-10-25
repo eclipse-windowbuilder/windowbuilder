@@ -55,6 +55,14 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
    */
   protected abstract boolean isHorizontal(Request request);
 
+  /**
+   * @return <code>true</code> if container has RTL orientation, i.e. children are added right to
+   *         left.
+   */
+  protected boolean isRtl(Request request) {
+    return false;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Reference children
@@ -157,27 +165,27 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected final Command getMoveCommand(ChangeBoundsRequest request) {
-    if (request.getEditParts().size() == 1) {
-      EditPart moveEditPart = request.getEditParts().get(0);
-      // checks for no-op
-      {
-        EditPart referenceEditPart = getInsertionReference(request);
-        List<EditPart> children = getReferenceChildren(request);
-        if (children.contains(moveEditPart)) {
-          // move of last to last
-          if (referenceEditPart == null && children.indexOf(moveEditPart) == children.size() - 1) {
-            return Command.EMPTY;
-          }
-          // move before already next
-          if (children.indexOf(moveEditPart) + 1 == children.indexOf(referenceEditPart)) {
-            return Command.EMPTY;
-          }
+    if (request.getEditParts().size() != 1) {
+      return null;
+    }
+    EditPart moveEditPart = request.getEditParts().get(0);
+    // checks for no-op
+    {
+      EditPart referenceEditPart = getInsertionReference(request);
+      List<EditPart> children = getReferenceChildren(request);
+      if (children.contains(moveEditPart)) {
+        // move of last to last
+        if (referenceEditPart == null && children.indexOf(moveEditPart) == children.size() - 1) {
+          return Command.EMPTY;
+        }
+        // move before already next
+        if (children.indexOf(moveEditPart) + 1 == children.indexOf(referenceEditPart)) {
+          return Command.EMPTY;
         }
       }
-      // OK, now we can create command
-      return getMoveCommand(moveEditPart.getModel(), getReferenceObject(request));
     }
-    return null;
+    // OK, now we can create command
+    return getMoveCommand(moveEditPart.getModel(), getReferenceObject(request));
   }
 
   /**
@@ -192,11 +200,11 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected final Command getAddCommand(ChangeBoundsRequest request) {
-    if (request.getEditParts().size() == 1) {
-      EditPart editPart = request.getEditParts().get(0);
-      return getAddCommand(editPart.getModel(), getReferenceObject(request));
+    if (request.getEditParts().size() != 1) {
+      return null;
     }
-    return null;
+    EditPart editPart = request.getEditParts().get(0);
+    return getAddCommand(editPart.getModel(), getReferenceObject(request));
   }
 
   /**
@@ -218,11 +226,12 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
   @Override
   protected void showLayoutTargetFeedback(Request request) {
     final boolean horizontal = isHorizontal(request);
+    final boolean rtl = isRtl(request);
     // prepare children
     List<EditPart> children = getReferenceChildren(request);
     if (children.isEmpty()) {
       m_reference = null;
-      showLayoutTargetFeedback_noReference(horizontal);
+      showLayoutTargetFeedback_noReference(horizontal, rtl);
       return;
     }
     // prepare transposer
@@ -281,7 +290,13 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
     // sort row by X
     Collections.sort(rowChildren, new Comparator<EditPart>() {
       public int compare(EditPart part_1, EditPart part_2) {
-        return getAbsoluteBounds(horizontal, part_1).x - getAbsoluteBounds(horizontal, part_2).x;
+        int x1 = getAbsoluteBounds(horizontal, part_1).x;
+        int x2 = getAbsoluteBounds(horizontal, part_2).x;
+        if (horizontal && rtl) {
+          return x2 - x1;
+        } else {
+          return x1 - x2;
+        }
       }
     });
     // find reference
@@ -290,12 +305,18 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
     if (!rowChildren.isEmpty()) {
       for (EditPart child : rowChildren) {
         Rectangle bounds = getAbsoluteBounds(horizontal, child);
-        if (p.x < bounds.getCenter().x) {
+        boolean isReference;
+        if (horizontal && rtl) {
+          isReference = p.x > bounds.getCenter().x;
+        } else {
+          isReference = p.x < bounds.getCenter().x;
+        }
+        if (isReference) {
           m_reference = child;
-          m_beforeReference = true;
           break;
         }
       }
+      // no reference, so use "after last"
       if (m_reference == null) {
         m_reference = rowChildren.get(rowChildren.size() - 1);
         m_beforeReference = false;
@@ -311,12 +332,24 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
         if (referenceIndex != 0) {
           EditPart prevReference = rowChildren.get(referenceIndex - 1);
           Rectangle prevBounds = getAbsoluteBounds(horizontal, prevReference);
-          x = bounds.x - Math.min(3, (bounds.x - prevBounds.right()) / 2);
+          if (horizontal && rtl) {
+            x = bounds.right() + Math.min(3, (prevBounds.left() - bounds.right()) / 2);
+          } else {
+            x = bounds.left() - Math.min(3, (bounds.left() - prevBounds.right()) / 2);
+          }
         } else {
-          x = bounds.x - 3;
+          if (horizontal && rtl) {
+            x = bounds.right() + 3;
+          } else {
+            x = bounds.left() - 3;
+          }
         }
       } else {
-        x = bounds.right() + 3;
+        if (horizontal && rtl) {
+          x = bounds.left() - 3;
+        } else {
+          x = bounds.right() + 3;
+        }
       }
       // add line
       {
@@ -336,7 +369,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
     }
   }
 
-  private void showLayoutTargetFeedback_noReference(boolean horizontal) {
+  private void showLayoutTargetFeedback_noReference(boolean horizontal, boolean rtl) {
     Polyline feedbackLine = getLineFeedback();
     Figure hostFigure = getHostFigure();
     Rectangle bounds = hostFigure.getBounds().getCopy();
@@ -345,17 +378,27 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
     Point p1;
     Point p2;
     if (horizontal) {
-      p1 = new Point(bounds.x, bounds.y);
-      p2 = new Point(bounds.x, bounds.bottom());
+      if (rtl) {
+        p1 = new Point(bounds.right(), bounds.top());
+        p2 = new Point(bounds.right(), bounds.bottom());
+      } else {
+        p1 = new Point(bounds.left(), bounds.top());
+        p2 = new Point(bounds.left(), bounds.bottom());
+      }
     } else {
-      p1 = new Point(bounds.x, bounds.y);
-      p2 = new Point(bounds.right(), bounds.y);
+      p1 = new Point(bounds.left(), bounds.top());
+      p2 = new Point(bounds.right(), bounds.top());
     }
     // if host is big enough, tweak points for better look
     if (horizontal) {
       if (bounds.width > 20) {
-        p1.x += 5;
-        p2.x += 5;
+        if (rtl) {
+          p1.x -= 5;
+          p2.x -= 5;
+        } else {
+          p1.x += 5;
+          p2.x += 5;
+        }
       }
       if (bounds.height > 20) {
         p1.y += 5;
@@ -464,7 +507,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
    * @return absolute bounds of given {@link EditPart}'s {@link Figure}, transposed if needed by
    *         layout.
    */
-  private Rectangle getAbsoluteBounds(boolean horizontal, EditPart editPart) {
+  private static Rectangle getAbsoluteBounds(boolean horizontal, EditPart editPart) {
     Rectangle bounds = PolicyUtils.getAbsoluteBounds((GraphicalEditPart) editPart);
     if (!horizontal) {
       bounds.transpose();

@@ -49,6 +49,10 @@ public final class FlowContainerConfigurable implements FlowContainer {
     return m_configuration.getHorizontalPredicate().apply(m_container);
   }
 
+  public boolean isRtl() {
+    return m_configuration.getRtlPredicate().apply(m_container);
+  }
+
   public String getGroupName() {
     return m_configuration.getGroupName();
   }

@@ -533,6 +533,11 @@ public class ContainerInfo extends ComponentInfo {
     return getChildren(ComponentInfo.class);
   }
 
+  @Override
+  public boolean isRTL() {
+    return !getComponent().getComponentOrientation().isLeftToRight();
+  }
+
   /**
    * @return <code>true</code> if need draw dots border for this {@link ContainerInfo}.
    */

@@ -100,10 +100,10 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
   // CREATE
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_CREATE_omEmpty() throws Exception {
+  public void test_CREATE_onEmpty() throws Exception {
     ContainerInfo panel =
         openContainer(
-            "// filler filler filler",
+            "// filler filler filler filler filler",
             "public class Test extends JPanel {",
             "  public Test() {",
             "  }",
@@ -113,7 +113,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
     canvas.moveTo(panel, 10, 10);
     canvas.click();
     assertEditor(
-        "// filler filler filler",
+        "// filler filler filler filler filler",
         "public class Test extends JPanel {",
         "  public Test() {",
         "    {",
@@ -227,41 +227,178 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // CREATE RTL
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public void test_CREATE_RTL_onEmpty() throws Exception {
+    ContainerInfo panel =
+        openContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+            "  }",
+            "}");
+    //
+    loadCreationTool("javax.swing.JButton");
+    canvas.moveTo(panel, 10, 10);
+    canvas.click();
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton button = new JButton('New button');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
+  }
+
+  public void test_CREATE_RTL_last() throws Exception {
+    openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton existing = new JButton('Button');",
+        "      add(existing);",
+        "    }",
+        "  }",
+        "}");
+    ComponentInfo existing = getJavaInfoByName("existing");
+    //
+    loadCreationTool("javax.swing.JButton");
+    canvas.target(existing).outX(-5).inY(5).move();
+    canvas.click();
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton existing = new JButton('Button');",
+        "      add(existing);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('New button');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
+  }
+
+  public void test_CREATE_RTL_beforeExisting() throws Exception {
+    openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton existing = new JButton('Button');",
+        "      add(existing);",
+        "    }",
+        "  }",
+        "}");
+    ComponentInfo existing = getJavaInfoByName("existing");
+    //
+    loadCreationTool("javax.swing.JButton");
+    canvas.target(existing).in(-5, 5).move();
+    canvas.click();
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton button = new JButton('New button');",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JButton existing = new JButton('Button');",
+        "      add(existing);",
+        "    }",
+        "  }",
+        "}");
+  }
+
+  public void test_CREATE_RTL_betweenExisting() throws Exception {
+    openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton buttonA = new JButton('ButtonA');",
+        "      add(buttonA);",
+        "    }",
+        "    {",
+        "      JButton buttonB = new JButton('ButtonB');",
+        "      add(buttonB);",
+        "    }",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("buttonA");
+    //
+    loadCreationTool("javax.swing.JButton");
+    canvas.target(button).outX(-5).inY(5).move();
+    canvas.click();
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);",
+        "    {",
+        "      JButton buttonA = new JButton('ButtonA');",
+        "      add(buttonA);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('New button');",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JButton buttonB = new JButton('ButtonB');",
+        "      add(buttonB);",
+        "    }",
+        "  }",
+        "}");
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // MOVE
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_MOVE_0() throws Exception {
+  /**
+   * Flow container supports moving only single component.
+   */
+  public void test_MOVE_twoComponents() throws Exception {
     String[] lines =
         new String[]{
             "public class Test extends JPanel {",
             "  public Test() {",
             "    {",
-            "      JButton button = new JButton('Button 1');",
-            "      add(button);",
+            "      JButton buttonA = new JButton('Button A');",
+            "      add(buttonA);",
             "    }",
             "    {",
-            "      JButton button = new JButton('Button 2');",
-            "      add(button);",
+            "      JButton buttonB = new JButton('Button B');",
+            "      add(buttonB);",
             "    }",
             "  }",
             "}"};
-    ContainerInfo panel = openContainer(lines);
-    ComponentInfo button_1 = panel.getChildrenComponents().get(0);
-    ComponentInfo button_2 = panel.getChildrenComponents().get(1);
+    openContainer(lines);
+    ComponentInfo buttonA = getJavaInfoByName("buttonA");
+    ComponentInfo buttonB = getJavaInfoByName("buttonB");
     // select two buttons
-    canvas.select(button_1, button_2);
+    canvas.select(buttonA, buttonB);
     assertEquals(2, m_viewerCanvas.getSelectedEditParts().size());
     // drag
     {
-      canvas.beginDrag(button_2);
-      canvas.dragTo(panel, 10, 10);
+      canvas.beginDrag(buttonB, 10, 5);
+      canvas.dragTo(buttonA, -10, 0);
+      //canvas.dragTo(panel, 10, 10);
       canvas.endDrag();
     }
     // no changes expected
     assertEditor(lines);
   }
 
-  public void test_MOVE_1() throws Exception {
+  public void test_MOVE_localVariable() throws Exception {
     String[] source =
         new String[]{
             "public class Test extends JPanel {",
@@ -293,7 +430,7 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
     check_MOVE(source, source2);
   }
 
-  public void test_MOVE_2() throws Exception {
+  public void test_MOVE_lazy() throws Exception {
     String[] source =
         new String[]{
             "public class Test extends JPanel {",
@@ -376,53 +513,83 @@ public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {
   // ADD
   //
   ////////////////////////////////////////////////////////////////////////////
-  public void test_ADD_1() throws Exception {
-    String[] source =
-        new String[]{
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new BorderLayout());",
-            "    {",
-            "      JButton button = new JButton('Button');",
-            "      add(button, BorderLayout.NORTH);",
-            "    }",
-            "    {",
-            "      JPanel panel = new JPanel();",
-            "      panel.setBackground(Color.PINK);",
-            "      panel.setPreferredSize(new Dimension(0, 150));",
-            "      add(panel, BorderLayout.SOUTH);",
-            "    }",
-            "  }",
-            "}"};
-    String[] source2 =
-        new String[]{
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new BorderLayout());",
-            "    {",
-            "      JPanel panel = new JPanel();",
-            "      panel.setBackground(Color.PINK);",
-            "      panel.setPreferredSize(new Dimension(0, 150));",
-            "      add(panel, BorderLayout.SOUTH);",
-            "      {",
-            "        JButton button = new JButton('Button');",
-            "        panel.add(button);",
-            "      }",
-            "    }",
-            "  }",
-            "}"};
-    check_ADD(source, source2);
-  }
-
-  private void check_ADD(String[] source, String[] source2) throws Exception {
-    ContainerInfo panel = openContainer(source);
-    ComponentInfo button = panel.getChildrenComponents().get(0);
-    ComponentInfo inner = panel.getChildrenComponents().get(1);
+  public void test_ADD() throws Exception {
+    openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new BorderLayout());",
+        "    {",
+        "      JButton button = new JButton('Button');",
+        "      add(button, BorderLayout.NORTH);",
+        "    }",
+        "    {",
+        "      JPanel panel = new JPanel();",
+        "      panel.setBackground(Color.PINK);",
+        "      panel.setPreferredSize(new Dimension(0, 150));",
+        "      add(panel, BorderLayout.SOUTH);",
+        "    }",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
+    ComponentInfo inner = getJavaInfoByName("panel");
     //
     canvas.beginDrag(button);
     canvas.dragTo(inner, 10, 10);
     canvas.endDrag();
     canvas.assertFeedbackFigures(0);
-    assertEditor(source2);
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new BorderLayout());",
+        "    {",
+        "      JPanel panel = new JPanel();",
+        "      panel.setBackground(Color.PINK);",
+        "      panel.setPreferredSize(new Dimension(0, 150));",
+        "      add(panel, BorderLayout.SOUTH);",
+        "      {",
+        "        JButton button = new JButton('Button');",
+        "        panel.add(button);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
+  }
+
+  public void test_ADD_twoComponents() throws Exception {
+    String[] lines =
+        {
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    setLayout(new BorderLayout());",
+            "    {",
+            "      JButton buttonA = new JButton('ButtonA');",
+            "      add(buttonA, BorderLayout.NORTH);",
+            "    }",
+            "    {",
+            "      JButton buttonB = new JButton('ButtonB');",
+            "      add(buttonB, BorderLayout.SOUTH);",
+            "    }",
+            "    {",
+            "      JPanel panel = new JPanel();",
+            "      panel.setBackground(Color.PINK);",
+            "      panel.setPreferredSize(new Dimension(0, 150));",
+            "      add(panel, BorderLayout.CENTER);",
+            "    }",
+            "  }",
+            "}"};
+    openContainer(lines);
+    ComponentInfo buttonA = getJavaInfoByName("buttonA");
+    ComponentInfo buttonB = getJavaInfoByName("buttonB");
+    ComponentInfo inner = getJavaInfoByName("panel");
+    // select two buttons
+    canvas.select(buttonA, buttonB);
+    assertEquals(2, m_viewerCanvas.getSelectedEditParts().size());
+    // drag
+    canvas.beginDrag(buttonB, 10, 5);
+    canvas.dragTo(inner, 10, 10);
+    canvas.endDrag();
+    canvas.assertFeedbackFigures(0);
+    // no changes
+    assertEditor(lines);
   }
 }

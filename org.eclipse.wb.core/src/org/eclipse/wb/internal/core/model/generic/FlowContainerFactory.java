@@ -105,6 +105,7 @@ public final class FlowContainerFactory {
 
   private FlowContainerConfiguration createConfiguration(String prefix) {
     return new FlowContainerConfiguration(getHorizontalPredicate(prefix, true),
+        getRtlPredicate(prefix, true),
         getAssociation(prefix),
         getComponentValidator(prefix),
         getReferenceValidator(prefix),
@@ -175,6 +176,14 @@ public final class FlowContainerFactory {
       return Predicates.alwaysTrue();
     }
     return new ExpressionPredicate<Object>(horizontalString);
+  }
+
+  private Predicate<Object> getRtlPredicate(String prefix, boolean def) {
+    String rtlString = getParameter(prefix + ".rtl");
+    if (rtlString == null) {
+      return Predicates.alwaysFalse();
+    }
+    return new ExpressionPredicate<Object>(rtlString);
   }
 
   ////////////////////////////////////////////////////////////////////////////
