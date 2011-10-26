@@ -73,8 +73,10 @@ public abstract class DetailBeanObservableInfo extends ObservableInfo {
 
   public void setDetailPropertyReference(Class<?> detailBeanClass, String detailPropertyReference)
       throws Exception {
-    m_detailBeanClass = detailBeanClass;
-    m_isPojoBindable = isPojoBean(m_detailBeanClass);
+    if (!detailBeanClass.equals(m_detailBeanClass)) {
+      m_detailBeanClass = detailBeanClass;
+      m_isPojoBindable = isPojoBean(m_detailBeanClass);
+    }
     m_detailPropertyReference = detailPropertyReference;
   }
 

@@ -42,9 +42,12 @@ public class ValueSetPropertyCodeSupport extends DetailPropertyCodeSupport {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected DetailBeanObservableInfo createDetailObservable() {
-    return new DetailSetBeanObservableInfo(m_masterObservable,
-        null,
-        m_detailProperty.getParserPropertyReference(),
-        m_detailProperty.getParserPropertyType());
+    DetailSetBeanObservableInfo detailObservable =
+        new DetailSetBeanObservableInfo(m_masterObservable,
+            null,
+            m_detailProperty.getParserPropertyReference(),
+            m_detailProperty.getParserPropertyType());
+    detailObservable.setPojoBindable(m_masterObservable.isPojoBindable());
+    return detailObservable;
   }
 }

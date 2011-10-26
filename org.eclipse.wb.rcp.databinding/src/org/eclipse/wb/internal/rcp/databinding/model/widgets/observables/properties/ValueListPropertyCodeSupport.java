@@ -42,9 +42,12 @@ public class ValueListPropertyCodeSupport extends DetailPropertyCodeSupport {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected DetailBeanObservableInfo createDetailObservable() {
-    return new DetailListBeanObservableInfo(m_masterObservable,
-        null,
-        m_detailProperty.getParserPropertyReference(),
-        m_detailProperty.getParserPropertyType());
+    DetailListBeanObservableInfo detailObservable =
+        new DetailListBeanObservableInfo(m_masterObservable,
+            null,
+            m_detailProperty.getParserPropertyReference(),
+            m_detailProperty.getParserPropertyType());
+    detailObservable.setPojoBindable(m_masterObservable.isPojoBindable());
+    return detailObservable;
   }
 }

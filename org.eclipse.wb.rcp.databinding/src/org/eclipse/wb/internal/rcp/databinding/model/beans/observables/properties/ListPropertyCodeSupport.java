@@ -58,6 +58,7 @@ public class ListPropertyCodeSupport extends BeanPropertiesCodeSupport {
             m_parserBeanType,
             m_parserPropertyReference,
             m_parserPropertyType);
+    observable.setPojoBindable(parserIsPojo());
     observable.setCodeSupport(new ListPropertyDetailCodeSupport());
     return observable;
   }

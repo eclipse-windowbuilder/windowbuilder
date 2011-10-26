@@ -15,6 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.GlobalFactoryHelper;
 import org.eclipse.wb.internal.rcp.databinding.model.IObservableFactory;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailListBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailSetBeanObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailValueBeanObservableInfo;
@@ -114,7 +115,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
         return detailObservable;
       }
       // create detail
-      ObservableInfo observable = null;
+      DetailBeanObservableInfo observable = null;
       switch (type) {
         case OnlyValue :
           observable = new DetailValueBeanObservableInfo(masterObservable, null, null, null);
@@ -142,6 +143,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
           break;
       }
       Assert.isNotNull(observable);
+      observable.setPojoBindable(masterObservable.isPojoBindable());
       return observable;
     }
   };
