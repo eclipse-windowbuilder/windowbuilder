@@ -622,22 +622,22 @@ public class CodeGenerationTest extends AbstractBindingTest {
         new ListBeanObservableInfo(bindableObject, bindableProperty),
         new BeanObservableListCodeSupport(),
         "observeList",
-        "org.eclipse.core.databinding.observable.list.IObservableList observeList = org.eclipse.core.databinding.beans.BeansObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");",
-        "org.eclipse.core.databinding.observable.list.IObservableList beanBytesObserveList = org.eclipse.core.databinding.beans.BeansObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");");
+        "org.eclipse.core.databinding.observable.list.IObservableList observeList = org.eclipse.core.databinding.beans.PojoObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");",
+        "org.eclipse.core.databinding.observable.list.IObservableList beanBytesObserveList = org.eclipse.core.databinding.beans.PojoObservables.observeList(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");");
     //
     assertObservableInfo(
         new SetBeanObservableInfo(bindableObject, bindableProperty),
         new BeanObservableSetCodeSupport(),
         "observeSet",
-        "org.eclipse.core.databinding.observable.set.IObservableSet observeSet = org.eclipse.core.databinding.beans.BeansObservables.observeSet(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");",
-        "org.eclipse.core.databinding.observable.set.IObservableSet beanBytesObserveSet = org.eclipse.core.databinding.beans.BeansObservables.observeSet(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");");
+        "org.eclipse.core.databinding.observable.set.IObservableSet observeSet = org.eclipse.core.databinding.beans.PojoObservables.observeSet(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");",
+        "org.eclipse.core.databinding.observable.set.IObservableSet beanBytesObserveSet = org.eclipse.core.databinding.beans.PojoObservables.observeSet(org.eclipse.core.databinding.observable.Realm.getDefault(), m_bean, \"bytes\");");
     //
     assertObservableInfo(
         new ValueBeanObservableInfo(bindableObject, bindableProperty),
         new BeanObservableValueCodeSupport(),
         "observeValue",
-        "org.eclipse.core.databinding.observable.value.IObservableValue observeValue = org.eclipse.core.databinding.beans.BeansObservables.observeValue(m_bean, \"bytes\");",
-        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.BeansObservables.observeValue(m_bean, \"bytes\");");
+        "org.eclipse.core.databinding.observable.value.IObservableValue observeValue = org.eclipse.core.databinding.beans.PojoObservables.observeValue(m_bean, \"bytes\");",
+        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.PojoObservables.observeValue(m_bean, \"bytes\");");
   }
 
   public void test_CollectionObservableInfo() throws Exception {
@@ -760,7 +760,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     assertEqualsLines(
         lines,
-        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.BeansObservables.observeValue(m_bean, \"bytes\");",
+        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.PojoObservables.observeValue(m_bean, \"bytes\");",
         "org.eclipse.core.databinding.observable.value.IObservableValue detail = org.eclipse.core.databinding.beans.BeansObservables.observeDetailValue(beanBytesObserveValue, \"abc\", int.class);");
     //
     lines.clear();
@@ -791,7 +791,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     assertEqualsLines(
         lines,
-        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.BeansObservables.observeValue(m_bean, \"bytes\");",
+        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.PojoObservables.observeValue(m_bean, \"bytes\");",
         "org.eclipse.core.databinding.observable.list.IObservableList detail = org.eclipse.core.databinding.beans.BeansObservables.observeDetailList(beanBytesObserveValue, \"abc\", int.class);");
     //
     lines.clear();
@@ -813,7 +813,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     assertEqualsLines(
         lines,
-        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.BeansObservables.observeValue(m_bean, \"bytes\");",
+        "org.eclipse.core.databinding.observable.value.IObservableValue beanBytesObserveValue = org.eclipse.core.databinding.beans.PojoObservables.observeValue(m_bean, \"bytes\");",
         "org.eclipse.core.databinding.observable.set.IObservableSet detail = org.eclipse.core.databinding.beans.BeansObservables.observeDetailSet(beanBytesObserveValue, \"abc\", int.class);");
     //
     lines.clear();
