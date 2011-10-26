@@ -1,11 +1,21 @@
-"""
-Python script to stage a drop of WindowBuilder
+"""Copyright 2011 Google Inc. All Rights Reserved.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+  Google, Inc. - initial API and implementation
+
+@author: Mark R Russell
+
+Python script to stage a drop of WindowBuilder.
 """
 import datetime
-import eclipse
 import glob
 import logging
-import logging.config
+import optparse
 import os
 import Queue
 import re
@@ -13,447 +23,518 @@ import shutil
 import stat
 import subprocess
 import sys
+import time
+from xml.dom import minidom
+import zipfile
+import eclipse
 import util
-import zipfile 
 
-from optparse import OptionParser
-from time import sleep
-from datetime import datetime, time, date
 
 logging.config.fileConfig('logger.config')
 
-log = logging.getLogger("releng")
-log.info("starting StageDrop.py")
+log = logging.getLogger('releng')
+log.info('starting StageDrop.py')
+
 
 def main():
-  log.debug("in main")
-  data = processArgs()
-  dropLocation = data['droplocation']
+  log.debug('in main')
+  data = _ProcessArgs()
+  drop_location = data['droplocation']
   subproduct = data['subproduct']
-  signDir = data['signdir']
-  eclipseVersion = data['eclipseversion']
-  optimizeSite = data['optimizesite']
-  packSite = data['packsite']
-  signFiles = data['signfiles']  
-  doDeploy = data['dodeploy']
-  deployDir = data['deploydir']
+  sign_dir = data['signdir']
+  eclipse_version = data['eclipseversion']
+  optimize_site = data['optimizesite']
+  pack_site = data['packsite']
+  sign_files = data['signfiles']
+  do_deploy = data['dodeploy']
+  deploy_dir = data['deploydir']
   dirs2save = data['dirstosave']
   mirrorprod = data['mirrorprod']
-  
-  baseDir = os.path.join(os.sep + "shared", "tools", "windowbuilder", "stage")
-  productDir = os.path.join(baseDir, subproduct);
-  
-  if not doDeploy:
-    log.info("Initialize " + signDir)
+
+  base_dir = os.path.join(os.sep + 'shared', 'tools', 'windowbuilder', 'stage')
+  product_dir = os.path.join(base_dir, subproduct)
+
+  if not do_deploy:
+    log.info('Initialize ' + sign_dir)
 
     try:
-      os.mkdir(baseDir)
+      os.mkdir(base_dir)
     except OSError as e:
       if e.errno != 17:
-        log.error("could not create " + baseDir)
+        log.error('could not create ' + base_dir)
         raise e
-      
-    rmDirTree(signDir)
-    rmDirTree(baseDir)
-    os.mkdir(productDir)
-    
-    log.info("Copy files from " + dropLocation + " to " + productDir)
-    copyFiles(dropLocation, productDir, filesOnly)
-    
-    log.info("Move zip files from " + productDir + " to " + signDir)
-    moveFiles(productDir, signDir, zipFilter)
-    
-    if optimizeSite:
-      log.info("Optimize Site")
-      optimizedDir = eclipse.optimizeSite(baseDir, signDir, eclipseVersion)
-      copyFiles(optimizedDir, signDir, None)
-      rmDirTree(optimizedDir)
-      os.rmdir(optimizedDir)
-      
-    if signFiles:
-      log.info("Sign files")
-      signedDir = signZipFiles(signDir)
-      copyFiles(signedDir, signDir, None)
-      rmDirTree(signedDir)
-      os.rmdir(signedDir)
-  
-    if packSite:
-      log.info("pack Site")
-      packDir = eclipse.packSite(baseDir, signDir, eclipseVersion)
-      copyFiles(packDir, signDir, None)
-      rmDirTree(packDir)
-      os.rmdir(packDir)
-    log.info("Move signed files from " + signDir + " to " + productDir)
-    moveFiles(signDir, productDir, None)
-    
-    log.info("Unzip the signed files")
-    unzipSites(productDir)
 
-    log.info("UpdateMirror")
-    updateMirror(productDir, mirrorprod)
-    
-    log.info("Generate Eclipse P2 Metadata")
-    eclipse.publishSite(baseDir, productDir, eclipseVersion)
-  
-    log.info("rezip Site")
-    rezipSite(productDir)
-    
-    log.info("update MD5 files")
-    util.updateMd5Hash(productDir)
+    _RmDirTree(sign_dir)
+    _RmDirTree(base_dir)
+    os.mkdir(product_dir)
+
+    log.info('Copy files from {0} to {1}'.format(drop_location, product_dir))
+    _CopyFiles(drop_location, product_dir, _FilesOnly)
+
+    log.info('Move zip files from {0} to {1}'.format(product_dir, sign_dir))
+    _MoveFiles(product_dir, sign_dir, _ZipFilter)
+
+    if optimize_site:
+      log.info('Optimize Site')
+      optimized_dir = eclipse.OptimizeSite(base_dir, sign_dir, eclipse_version)
+      _CopyFiles(optimized_dir, sign_dir, None)
+      _RmDirTree(optimized_dir)
+      os.rmdir(optimized_dir)
+
+    if sign_files:
+      log.info('Sign files')
+      signed_dir = _SignZipFiles(sign_dir)
+      _CopyFiles(signed_dir, sign_dir, None)
+      _RmDirTree(signed_dir)
+      os.rmdir(signed_dir)
+
+    if pack_site:
+      log.info('pack Site')
+      pack_dir = eclipse.PackSite(base_dir, sign_dir, eclipse_version)
+      _CopyFiles(pack_dir, sign_dir, None)
+      _RmDirTree(pack_dir)
+      os.rmdir(pack_dir)
+    log.info('Move signed files from {0} to {1}'.format(sign_dir, product_dir))
+    _MoveFiles(sign_dir, product_dir, None)
+
+    log.info('Unzip the signed files')
+    _UnzipSites(product_dir)
+
+    log.info('UpdateMirror')
+    _UpdateMirror(product_dir, mirrorprod)
+
+    log.info('Generate Eclipse P2 Metadata')
+    eclipse.PublishSite(base_dir, product_dir, eclipse_version)
+
+    log.info('rezip Site')
+    _ReZipSite(product_dir)
+
+    log.info('update MD5 files')
+    util.UpdateMd5Hash(product_dir)
   else:
-    log.info("doing deployment")
-    log.info("deploy code")
-    deployCode(productDir, deployDir)
+    log.info('doing deployment')
+    log.info('deploy code')
+    _DeployCode(product_dir, deploy_dir)
 
-  log.info("cleanup")
-  cleanup(signDir, deployDir, dirs2save)
-  
-  log.debug("done main")
-  
+  log.info('cleanup')
+  _Cleanup(sign_dir, deploy_dir, dirs2save)
 
-def zipFilter(file):
-  return file.endswith('.zip')
+  log.debug('done main')
 
-def zipOrMd5Filter(file):
-  return file.endswith('.zip') or file.endswith('.MD5')
 
-def filesOnly(file):
-  return os.path.isfile(file)
+def _ZipFilter(file_in):
+  return file_in.endswith('.zip')
 
-def processArgs():
-  signDir = os.path.join(os.sep + "home", "data", "httpd", 
-                         "download-staging.priv", "tools", "windowbuilder")
-  deployDir = os.path.join(os.sep + 'home', 'data', 'httpd', 
-                           'download.eclipse.org', 'windowbuilder')
-  usage = "usage: %prog [options] drop subproduct"
-  parser = OptionParser(usage=usage)
+
+def _ZipOrMd5Filter(file_in):
+  return file_in.endswith('.zip') or file_in.endswith('.MD5')
+
+
+def _FilesOnly(file_in):
+  return os.path.isfile(file_in)
+
+
+def _ProcessArgs():
+  """Process the Command Line arguments.
+
+  Returns:
+  a dictanary of the arguments values
+  """
+  sign_dir = os.path.join(os.sep + 'home', 'data', 'httpd',
+                          'download-staging.priv', 'tools', 'windowbuilder')
+  deploy_dir = os.path.join(os.sep + 'home', 'data', 'httpd',
+                            'download.eclipse.org', 'windowbuilder')
+  usage = 'usage: %prog [options] drop subproduct'
+  parser = optparse.OptionParser(usage=usage)
   parser.set_defaults(debug=False)
-  parser.set_defaults(eclipseversion="3.7")
+  parser.set_defaults(eclipseversion='3.7')
   parser.set_defaults(optimizesite=True)
   parser.set_defaults(packsite=True)
   parser.set_defaults(signfiles=True)
   parser.set_defaults(dodeploy=False)
-  parser.set_defaults(dirstosave="7")
+  parser.set_defaults(dirstosave='7')
   parser.set_defaults(mirrorprod=False)
-  parser.add_option("--signdir", action="store", dest="signdir")
-  parser.add_option("-e", "--eclipseversion", action="store", 
-                    dest="eclipseversion")
-  parser.add_option("--eclipsearchivedir", action="store", 
-                    dest="eclipsearchivedir")
-  parser.add_option("--nooptimizesite", action="store_false", dest="optimizesite");
-  parser.add_option("--nopacksite", action="store_false", dest="packsite")
-  parser.add_option("--nosignfiles", action="store_false", dest="signfiles")
-  parser.add_option("--deployfiles", action="store_true", dest="dodeploy")
-  parser.add_option("--deploydir", action="store", dest="deploydir")
-  parser.add_option("--dirstosave", action="store", dest="dirstosave")
-  parser.add_option("--mirrorprod", action="store_true", dest="mirrorprod")
+  parser.add_option('--signdir', action='store', dest='signdir')
+  parser.add_option('-e', '--eclipseversion', action='store',
+                    dest='eclipseversion')
+  parser.add_option('--eclipsearchivedir', action='store',
+                    dest='eclipsearchivedir')
+  parser.add_option('--nooptimizesite', action='store_false',
+                    dest='optimizesite')
+  parser.add_option('--nopacksite', action='store_false', dest='packsite')
+  parser.add_option('--nosignfiles', action='store_false', dest='signfiles')
+  parser.add_option('--deployfiles', action='store_true', dest='dodeploy')
+  parser.add_option('--deploydir', action='store', dest='deploydir')
+  parser.add_option('--dirstosave', action='store', dest='dirstosave')
+  parser.add_option('--mirrorprod', action='store_true', dest='mirrorprod')
   (options, args) = parser.parse_args()
-  
+
   if len(args) != 2:
-    parser.error("incorrect number of arguments")
-    
-  optimizeSite = options.optimizesite
-  packSite = options.packsite
-  signFiles = options.signfiles
-  doDeploy = options.dodeploy
+    parser.error('incorrect number of arguments')
+
+  optimize_site = options.optimizesite
+  pack_site = options.packsite
+  sign_files = options.signfiles
+  do_deploy = options.dodeploy
   mirrorprod = options.mirrorprod
   dirs2save = int(options.dirstosave)
 
+  if options.signdir is not None:
+    sign_dir = options.signdir
 
-  if options.signdir != None:
-    signDir = options.signdir
+  if options.deploydir is not None:
+    deploy_dir = options.deploydir
 
-  if options.deploydir != None:
-    deployDir = options.deploydir
-  
-  if options.eclipsearchivedir != None:
-    eclipse.setArchiveDir(options.eclipsearchivedir)
-    
-  eclipseVersion = options.eclipseversion
-       
-  dropLocation = args[0]
+  if options.eclipsearchivedir is not None:
+    eclipse.SetArchiveDir(options.eclipsearchivedir)
+
+  eclipse_version = options.eclipseversion
+
+  drop_location = args[0]
   subproduct = args[1]
 
-  deployDir = os.path.join(deployDir, subproduct);
-  
-  if dropLocation == None:
-    log.error("you must specify a drop location")
-    usage()
+  deploy_dir = os.path.join(deploy_dir, subproduct)
+
+  if drop_location is None:
+    log.error('you must specify a drop location')
+    parser.error('incorrect number of arguments')
     sys.exit(20)
 
-  if subproduct == None:
-    log.error("you must specify a subproduct")
-    usage()
+  if subproduct is None:
+    log.error('you must specify a subproduct')
+    parser.error('incorrect number of arguments')
     sys.exit(21)
-    
-  if doDeploy:
-    optimizeSite = False
-    packSite = False
-    signFiles = False
-    
-  
-  ret = dict({'droplocation':dropLocation, 'subproduct':subproduct, 
-              'signdir':signDir, 'eclipseversion':eclipseVersion,
-              'optimizesite':optimizeSite, 'packsite':packSite,
-              'signfiles':signFiles, 'dodeploy':doDeploy,
-              'deploydir':deployDir, 'dirstosave':dirs2save,
-              'mirrorprod':mirrorprod})
-  log.debug("out of processArgs")
+
+  if do_deploy:
+    optimize_site = False
+    pack_site = False
+    sign_files = False
+
+  ret = dict({'droplocation': drop_location, 'subproduct': subproduct,
+              'signdir': sign_dir, 'eclipseversion': eclipse_version,
+              'optimizesite': optimize_site, 'packsite': pack_site,
+              'signfiles': sign_files, 'dodeploy': do_deploy,
+              'deploydir': deploy_dir, 'dirstosave': dirs2save,
+              'mirrorprod': mirrorprod})
+  log.debug('out of processArgs')
   return ret
 
-def rmDirTree(top):
-  # Delete everything reachable from the directory named in "top",
-  # assuming there are no symbolic links.
-  # CAUTION:  This is dangerous!  For example, if top == '/', it
-  # could delete all your disk files.
-  log.debug("rmDirTree(" + top + ")")
-  log.info("removing " + top + " directory tree")
-  if top == "/":
-    log.critical("can not pass / as the top directory")
+
+def _RmDirTree(top):
+  """Delere the directory tree.
+
+  Delete everything reachable from the directory named in "top",
+  assuming there are no symbolic links.
+  CAUTION:  This is dangerous!  For example, if top == '/', it
+  could delete all your disk files.
+
+  Args:
+    top: the top of te directory tree to delete
+  """
+  log.debug('rmDirTree(' + top + ')')
+  log.info('removing ' + top + ' directory tree')
+  if top == '/':
+    log.critical('can not pass / as the top directory')
     return
-  
-  for root, dirs, files in os.walk(top, topdown=False):
-    for name in files:
-        os.remove(os.path.join(root, name))
-    for name in dirs:
-        os.rmdir(os.path.join(root, name))
-  return
 
-def copyFiles(fromDir, toDir, filter):
-  log.debug("copyFiles(" + fromDir + ", " + toDir)
+  shutil.rmtree(top)
+
+
+def _CopyFiles(from_dir, to_dir, filt):
+  """Copy files using the given filter to select the files to copy.
+
+  Args:
+    from_dir: the dorectory to copy the files from
+    to_dir: the directory to copy the files to
+    filt: the filter to use during copying
+
+  Raises:
+    OSError: raised if no files can be read from from_dir
+  """
+  log.debug('CopyFiles(' + from_dir + ', ' + to_dir)
   try:
-    files = os.listdir(fromDir);
+    files = os.listdir(from_dir)
   except OSError as e:
-    log.error("could not read files in " + fromDir);
+    log.error('could not read files in ' + from_dir)
     raise e
-  
-  if len(files) == 0:
-    raise OSError("no files to process")
-  
-  for file in files:
-    fullPath = os.path.join(fromDir, file)
-    if (filter == None or filter(fullPath)):
-      shutil.copy2(fullPath, toDir)
-    
-def moveFiles(fromDir, toDir, filter):
-  log.debug("moveFiles(" + fromDir + ", " + toDir)
+
+  if files:
+    raise OSError('no files to process')
+
+  for f in files:
+    full_path = os.path.join(from_dir, f)
+    if filt is None or filt(full_path):
+      shutil.copy2(full_path, to_dir)
+
+
+def _MoveFiles(from_dir, to_dir, filt):
+  """Move files using the given filter to select the files to move.
+
+  Args:
+    from_dir: the dorectory to copy the files from
+    to_dir: the directory to copy the files to
+    filt: the filter to use during moving
+
+  Raises:
+    OSError: raised if no files can be read from from_dir
+  """
+  log.debug('moveFiles(' + from_dir + ', ' + to_dir)
   try:
-    files = os.listdir(fromDir);
+    files = os.listdir(from_dir)
   except OSError as e:
-    log.error("could not read files in " + fromDir);
+    log.error('could not read files in ' + from_dir)
     raise e
-  
-  if len(files) == 0:
-    raise OSError("no files to process")
-  
-  for file in files:
-    fullPath = os.path.join(fromDir, file)
-    if (filter == None or filter(fullPath)):
-      shutil.move(fullPath, toDir)
-    
-def signZipFiles(dir):
-  log.debug("signFiles(" + dir + ")")
-  
+
+  if files:
+    raise OSError('no files to process')
+
+  for f in files:
+    full_path = os.path.join(from_dir, f)
+    if filt is None or filt(full_path):
+      shutil.move(full_path, to_dir)
+
+
+def _SignZipFiles(ziped_update_sites_dir):
+  """Sign the zip files with Eclipses key.
+
+  Args:
+    ziped_update_sites_dir: the directory where the ziped update sites are
+
+  Returns:
+    the directory where the signed jar file are.
+  """
+
+  log.debug('signFiles(' + ziped_update_sites_dir + ')')
+
   try:
-    files = os.listdir(dir);
+    files = os.listdir(ziped_update_sites_dir)
   except OSError as e:
-    log.error("could not read files in " + dir);
+    log.error('could not read files in ' + ziped_update_sites_dir)
     raise e
-  
-  filesToSign = []
-  for file in files:
-    if file.endswith('.zip'):
-      zipPath = os.path.join(dir, file)
-      os.chmod(zipPath, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP | 
+
+  files_to_sign = []
+  for f in files:
+    if f.endswith('.zip'):
+      zip_path = os.path.join(ziped_update_sites_dir, f)
+      os.chmod(zip_path, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP |
                stat.S_IRGRP | stat.S_IWOTH | stat.S_IROTH)
-#      subprocess.check_call(['/bin/echo', 'sign', zipPath, 'nomail', 'signed'])
-      subprocess.check_call(['/usr/local/bin/sign', zipPath, 'nomail', 'signed'])
-      filesToSign.append(os.path.join(dir, "signed", file))
+#      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
+#                             'nomail', 'signed'])
+      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
+                             'signed'])
+      files_to_sign.append(os.path.join(ziped_update_sites_dir, 'signed', f))
 
-  signedFiles = []
-  found = False;
-  while(not found):
+  signed_files = []
+  found = False
+  while not found:
     found = True
     for x in range(60):
-      sleep(1)
-    for file in filesToSign:
-      if (os.path.exists(file)):
-        log.debug(file + " exists")
-        signedFiles.append(file)
+      time.sleep(1)
+    for f in files_to_sign:
+      if os.path.exists(f):
+        log.debug(f + ' exists')
+        signed_files.append(f)
       else:
         found = False
-        log.debug(file + " does not exists")
+        log.debug(f + ' does not exists')
         continue
-    log.info("all files are not processed yet")
-        
-  sleep(10)
-  log.info("all files have been signed")
-  return os.path.join(dir, "signed")
+    log.info('all files are not processed yet')
 
-from xml.dom import minidom
-def unzipSites(dir):
-  log.debug("unzipSites(" + dir + ")")
+  time.sleep(10)
+  log.info('all files have been signed')
+  return os.path.join(ziped_update_sites_dir, 'signed')
+
+
+def _UnzipSites(ziped_update_sites_dir):
+  log.debug('unzipSites(' + ziped_update_sites_dir + ')')
   try:
-    files = os.listdir(dir);
+    files = os.listdir(ziped_update_sites_dir)
   except OSError as e:
-    log.error("could not read files in " + dir);
+    log.error('could not read files in ' + ziped_update_sites_dir)
     raise e
-  versionRE = re.compile('.+Eclipse([0-9]\.[0-9]).+')
-  
-  for file in files:
-    res = versionRE.search(file)
-    util.__displaymatch(res)
+  version_re = re.compile('.+Eclipse([0-9]\.[0-9]).+')
+
+  for f in files:
+    res = version_re.search(f)
+    util.DisplayMatch(res)
     version = res.group(1)
-    unarchiveDest = os.path.join(dir, version)
-    if not os.path.exists(unarchiveDest):
-      os.mkdir(unarchiveDest)
-      
-    util.unarchive(os.path.join(dir, file), unarchiveDest)
+    unarchive_dest = os.path.join(ziped_update_sites_dir, version)
+    if not os.path.exists(unarchive_dest):
+      os.mkdir(unarchive_dest)
 
-def rezipSite(dir):
-  log.debug("rezipSite(" + dir + ")")
-  formatDir =  'D: {0:<120} N: {1}'
-  formatFile = 'F: {0:<120} N: {1}'
-  formatZip = '{0:<70} {1:>9} {2:>9}'
+    util.Unarchive(os.path.join(dir, file), unarchive_dest)
+
+
+def _ReZipSite(update_site_dir):
+  """Rezip the update site.
+
+  Args:
+    update_site_dir: the root direcory of the update site
+  """
+  log.debug('ReZipSite(' + update_site_dir + ')')
+  format_dir = 'D: {0:<120} N: {1}'
+  format_file = 'F: {0:<120} N: {1}'
+  format_zip = '{0:<70} {1:>9} {2:>9}'
   try:
-    files = os.listdir(dir);
+    files = os.listdir(update_site_dir)
   except OSError as e:
-    log.error("could not read files in " + dir);
+    log.error('could not read files in ' + update_site_dir)
     raise e
-  versionRE = re.compile('.+Eclipse([0-9]\.[0-9]).+')
-  
-  for file in files:
-    if file.endswith('.zip'):
-      zipFile = os.path.join(dir, file)
-      log.info("processing " + zipFile)
-      res = versionRE.search(file)
-      util.__displaymatch(res)
+  version_re = re.compile('.+Eclipse([0-9]\.[0-9]).+')
+
+  for f in files:
+    if f.endswith('.zip'):
+      zip_file = os.path.join(update_site_dir, f)
+      log.info('processing ' + zip_file)
+      res = version_re.search(file)
+      util.DisplayMatch(res)
       version = res.group(1)
-      siteDir = os.path.join(dir, version)
+      site_dir = os.path.join(update_site_dir, version)
 
-      log.debug("removing " + zipFile)
-      os.remove(zipFile)
-      log.debug("creating zip file " + zipFile)
-      cwd = os.getcwd()
-      os.chdir(siteDir)
+      log.debug('removing ' + zip_file)
+      os.remove(zip_file)
+      log.debug('creating zip file ' + zip_file)
+      os.chdir(site_dir)
       log.debug('creating zip in ' + os.getcwd())
-      command = ['zip', zipFile]
+      command = ['zip', zip_file]
 
-      for root, dirs, files in os.walk(siteDir, followlinks=False):
+      for root, dirs, files in os.walk(site_dir, followlinks=False):
         for name in files:
-          fileToZip = os.path.join(root, name)
-          zipFileName = fileToZip[len(siteDir)+1:]
-          log.debug(formatFile.format(fileToZip, zipFileName))
-          if not zipFileName.endswith('pack.gz'):
-            command.append(zipFileName)
-            
+          file_to_zip = os.path.join(root, name)
+          zip_file_name = file_to_zip[len(site_dir)+1:]
+          log.debug(format_file.format(file_to_zip, zip_file_name))
+          if not zip_file_name.endswith('pack.gz'):
+            command.append(zip_file_name)
+
       if log.debug:
-        data = "Command: "
+        data = 'Command: '
         for cmd in command:
           data = data + cmd + ' '
         log.debug(data)
 
       subprocess.check_call(command)
       # open the file again, to see what's in it
-      if (log.debug):
-        zip = zipfile.ZipFile(zipFile, "r")
-        for info in zip.infolist():
-          log.debug(formatZip.format(info.filename, info.file_size, info.compress_size))
-    log.debug("out rezipSite")
+      if log.debug:
+        z = zipfile.ZipFile(zip_file, 'r')
+        for info in z.infolist():
+          log.debug(format_zip.format(info.filename, info.file_size,
+                                      info.compress_size))
+    log.debug('out rezipSite')
 
-def deployCode(fromDir, toDir):
-  log.debug("in deployCode(" + fromDir + ", " + toDir+ ")")
-  deployDir = toDir
+
+def _DeployCode(from_dir, to_dir):
+  """Deploy the code to the Eclipse Download area.
+
+  Args:
+    from_dir: where the code to deploy is located
+    to_dir: the place to deploy the code
+  """
+  log.debug('in deployCode([0], [1])'.format(from_dir, to_dir))
+  deploy_dir = to_dir
   try:
-    os.mkdir(deployDir)
+    os.mkdir(deploy_dir)
   except OSError as e:
     if e.errno != 17:
-      log.error("failed to make directory " + str(deployDir) + ": " + str(e));
+      log.error('failed to make directory ' + str(deploy_dir) + ': ' + str(e))
       raise e
 
-  latestDir = os.path.join(deployDir, 'integration')
-  d = datetime.today()
-  nowString = d.strftime('%Y%m%d%H%M')
-  dateDir = os.path.join(deployDir, nowString)
-  deployDirs = [latestDir, dateDir]
-  log.info("deploying to ")
-  log.info(latestDir)
+  latest_dir = os.path.join(deploy_dir, 'integration')
+  d = datetime.datetime.today()
+  now_string = d.strftime('%Y%m%d%H%M')
+  date_dir = os.path.join(deploy_dir, now_string)
+  deploy_dirs = [latest_dir, date_dir]
+  log.info('deploying to ')
+  log.info(latest_dir)
   log.info('and')
-  log.info(dateDir)
-  log.debug("out deployCode")
-  rmDirTree(latestDir);
-  for file in deployDirs:
+  log.info(date_dir)
+  log.debug('out deployCode')
+  _RmDirTree(latest_dir)
+  for f in deploy_dirs:
     try:
-      os.mkdir(file)
+      os.mkdir(f)
     except OSError as e:
       if e.errno != 17:
-        log.error("failed to make directory " + str(file) + ": " + str(e));
+        log.error('failed to make directory ' + str(f) + ': ' + str(e))
         raise e
 
-    sourceFiles = glob.glob(os.path.join(fromDir, '*'))
+    source_files = glob.glob(os.path.join(from_dir, '*'))
     command = ['rsync', '-av']
-    for sfile in sourceFiles:
+    for sfile in source_files:
       command.append(sfile)
-    command.append(file)
-           
+    command.append(f)
+
     if log.debug:
-      data = "Command: "
+      data = 'Command: '
       for cmd in command:
         data = data + cmd + ' '
       log.debug(data)
 
-      subprocess.check_call(command)
-   
+    subprocess.check_call(command)
 
-def cleanup(signDir, deployDir, dirsToSave):
-  log.debug("in cleanup(" + signDir + ", " + deployDir + ", " + 
-            str(dirsToSave) + ")")
-  rmDirTree(signDir);
-  
-  
+
+def _Cleanup(sign_dir, deploy_dir, dirs_to_save):
+  """Cleanup the working directories.
+
+  Args:
+    sign_dir: the directory where the signing took place
+    deploy_dir: the directory where the deployed code was staged
+    dirs_to_save: the number of directories to save
+  """
+  log.debug('in cleanup(' + sign_dir + ', ' + deploy_dir + ', ' +
+            str(dirs_to_save) + ')')
+  _RmDirTree(sign_dir)
+
   pq = Queue.PriorityQueue()
   try:
-    for file in os.listdir(deployDir):
-      pq.put(file)
-  except OSError as e:
-    log.warn("could not read files in " + deployDir);
-    
-  dirsToDelete = pq.qsize()
-  dirsToDelete -= dirsToSave + 1
-  dirCount = 0
-  while not pq.empty():
-    dir = os.path.join(deployDir, pq.get())
-    dirCount += 1;
-    if dirCount <= dirsToDelete:
-      print "deleting -> " + dir
-      rmDirTree(dir)
-      os.rmdir(dir)
-    else:
-      print "saving  ->  " + dir
-  log.debug("out cleanup")
+    for f in os.listdir(deploy_dir):
+      pq.put(f)
+  except OSError:
+    log.warn('could not read files in ' + deploy_dir)
 
-def updateMirror(dir, mirrorprod):
-  log.debug("in updateMirror(" + str(dir) + ', ' + str(mirrorprod) + ")")
-  fullFile = os.path.join(dir, '3.7');
-  if os.path.exists(fullFile):
-    file = os.path.join(fullFile, 'site.xml')
-    log.debug('processing ' + file)
-    dom = minidom.parse(file)
+  dirs_to_delete = pq.qsize()
+  dirs_to_delete -= dirs_to_save + 1
+  dir_count = 0
+  while not pq.empty():
+    d = os.path.join(deploy_dir, pq.get())
+    dir_count += 1
+    if dir_count <= dirs_to_delete:
+      print 'deleting -> ' + d
+      _RmDirTree(d)
+      os.rmdir(d)
+    else:
+      print 'saving  ->  ' + d
+  log.debug('out cleanup')
+
+
+def _UpdateMirror(deploy_dir, mirrorprod):
+  """Update the mirror attribute int he site.xml file.
+
+  Args:
+    deploy_dir: the directory the code is deployed to
+    mirrorprod: flag indicating that the the prod mirror should be used
+  """
+  log.debug('in updateMirror(' + str(deploy_dir) + ', ' + str(mirrorprod) + ')')
+  full_file = os.path.join(deploy_dir, '3.7')
+  if os.path.exists(full_file):
+    sitefile = os.path.join(full_file, 'site.xml')
+    log.debug('processing ' + sitefile)
+    dom = minidom.parse(sitefile)
     attr = dom.createAttribute('mirrorsURL')
     site = dom.documentElement
     if mirrorprod:
-      attr.value = "http://www.eclipse.org/downloads/download.php?file=/windowbuilder/WB/release/R201106211200/3.7&format=xml"
+      attr.value = ('http://www.eclipse.org/downloads/download.php?file='
+                    '/windowbuilder/WB/release/R201106211200/3.7&format=xml')
     else:
-      attr.value = "http://www.eclipse.org/downloads/download.php?file=/windowbuilder/WB/integration/3.7&format=xml"
+      attr.value = ('http://www.eclipse.org/downloads/download.php?file='
+                    '/windowbuilder/WB/integration/3.7&format=xml')
     site.setAttributeNode(attr)
-    f = open(file, 'w')
-    site.writexml( f, addindent="   ")
+    f = open(sitefile, 'w')
+    site.writexml(f, addindent='   ')
     f.close()
 
-    
-  log.debug("out updateMirror()")
-  
-if __name__ == "__main__":
+  log.debug('out updateMirror()')
+
+if __name__ == '__main__':
   main()
-  
-  log.info("StageDrop.py is done")
+
+  log.info('StageDrop.py is done')

@@ -1,53 +1,108 @@
-'''
-Created on Apr 20, 2011
+"""Copyright 2011 Google Inc. All Rights Reserved.
 
-@author: mrrussell
-'''
-import io
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+  Google, Inc. - initial API and implementation
+
+@author: Mark R Russell
+"""
+
+
 import logging
 import os
 import subprocess
 
-log = logging.getLogger("releng.util")
+log = logging.getLogger('releng.util')
 
-def unarchive(archive, dest):
-  log.debug("unarchive(" + archive + ", " + dest + ")")
+
+def Unarchive(archive, dest):
+  """Unarchive the given archive to the given destination.
+
+  Args:
+    archive: the archive to process
+    dest: the destination to unarchive the given file
+  Raises:
+    Exception: if there was an error unarchiving the archive
+  """
+  log.debug('Unarchive({0}, {1})'.format(archive, dest))
   cwd = os.getcwd()
   os.chdir(dest)
-  fhLogFile = open('/dev/null', 'wt')
-  if archive.endswith("tar.gz") or archive.endswith("tgz"):
-    subprocess.check_call(['/bin/tar', 'xzvf', archive], stdout = fhLogFile)
-  elif archive.endswith("tar"):
-    subprocess.check_call(['/bin/tar', 'xvf', archive], stdout = fhLogFile)
-  elif archive.endswith("zip"):
-    subprocess.check_call(['/usr/bin/unzip', archive], stdout = fhLogFile)
-  
-  os.chdir(cwd)
-
-def updateMd5Hash(dir):
-  log.debug("updateMd5Hash(" + dir + ")")
+  commands = []
+  if archive.endswith('tar.gz') or archive.endswith('tgz'):
+    commands.append('/bin/tar')
+    commands.append('xzvf')
+    commands.append(archive)
+  elif archive.endswith('tar'):
+    commands.append('/bin/tar')
+    commands.append('xvf')
+    commands.append(archive)
+  elif archive.endswith('zip'):
+    commands.append('/usr/bin/unzip')
+    commands.append(archive)
   try:
-    files = os.listdir(dir);
+    p = subprocess.Popen(commands, stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    (out, err) = p.communicate()
+    if p.returncode:
+      msg = ('unarchive failed for {0}: '
+             'return code was {1}').format(archive, p.returncode)
+      log.error(msg)
+      msg = ''
+      i = 0
+      for c in err:
+        msg += c
+        i += 1
+        if i == 100:
+          log.error(msg)
+          msg = ''
+      print msg
+      raise Exception(msg)
+    elif log.isEnabledFor(logging.debug):
+      msg = ''
+      i = 0
+      for c in out:
+        msg += c
+        i += 1
+        if i == 100:
+          print msg
+          msg = ''
+      log.debug(msg)
+
+  finally:
+    os.chdir(cwd)
+
+
+def UpdateMd5Hash(directory):
+  """Update the md5 hashs for the Zip files in the given directory.
+
+  Args:
+    directory: the directory where the files are the need the md5 has updated
+  """
+  log.debug('updateMd5Hash({0})'.format(directory))
+  try:
+    files = os.listdir(directory)
   except OSError as e:
-    log.error("could not read files in " + dir);
+    log.error('could not read files in ' + directory)
     raise e
 
-  for file in files:
-    if file.endswith('.zip'):
-      fullFile = os.path.join(dir, file);
-      commands = ["/usr/bin/md5sum", "-b", fullFile]
-      if log.info:
-        cl = ""
-        for cmd in commands:
-          cl = cl + cmd + ' '
-        log.info('command line: ' + cl)
-      
-      md5File = os.path.join(dir, file + '.MD5')
-      fhMd5File = open(md5File, 'wt')
-      log.info('creating ' + md5File)
-      subprocess.check_call(commands, stdout = fhMd5File)
+  for f in files:
+    if f.endswith('.zip'):
+      full_file = os.path.join(directory, f)
+      commands = ['/usr/bin/md5sum', '-b', full_file]
+      if log.isEnabledFor(log.info):
+        log.info('command line: {0}'.format(' '.join(commands)))
 
-def __displaymatch(match):
-    if match is None:
-        return None
-    return '<Match: %r, groups=%r>' % (match.group(), match.groups())
+      md5_file = os.path.join(directory, file + '.MD5')
+      fd_md5 = open(md5_file, 'w')
+      log.info('creating ' + md5_file)
+      subprocess.check_call(commands, stdout=fd_md5)
+
+
+def DisplayMatch(match):
+  if match is None:
+    return None
+  return '<Match: %r, groups=%r>' % (match.group(), match.groups())
