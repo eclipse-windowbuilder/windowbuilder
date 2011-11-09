@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
 import org.eclipse.wb.internal.core.nls.SourceDescription;
-import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.old.SourceParameters;
 import org.eclipse.wb.internal.core.nls.commands.InternalizeKeyCommand;
@@ -610,8 +609,8 @@ public class EditableSupportTest extends AbstractNlsTest {
           LocaleInfo[] locales = editableSource.getLocales();
           assertEquals(3, locales.length);
           assertEquals("(default)", locales[0].getTitle());
-          assertEquals("it", locales[1].getTitle());
-          assertEquals("fr", locales[2].getTitle());
+          assertEquals("fr", locales[1].getTitle());
+          assertEquals("it", locales[2].getTitle());
         }
       }
       // apply commands
@@ -668,9 +667,10 @@ public class EditableSupportTest extends AbstractNlsTest {
         {
           LocaleInfo[] locales = editableSource.getLocales();
           assertEquals(3, locales.length);
-          assertEquals("fr", locales[2].toString());
+          assertEquals("fr", locales[1].toString());
+          assertEquals("it", locales[2].toString());
         }
-        editableSource.removeLocale(editableSource.getLocales()[2]);
+        editableSource.removeLocale(editableSource.getLocales()[1]);
         {
           LocaleInfo[] locales = editableSource.getLocales();
           assertEquals(2, locales.length);
@@ -720,7 +720,7 @@ public class EditableSupportTest extends AbstractNlsTest {
             "    setName('Some name');",
             "  }",
             "}");
-    AbstractBundleSource.setLocaleInfo(frame, LocaleInfo.DEFAULT);
+    AbstractSource.setLocaleInfo(frame, LocaleInfo.DEFAULT);
     //
     NlsSupport support = NlsSupport.get(frame);
     AbstractSource source = support.getSources()[0];

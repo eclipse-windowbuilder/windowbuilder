@@ -26,7 +26,7 @@ import java.util.Locale;
  * @author scheglov_ke
  * @coverage core.nls
  */
-public final class LocaleInfo {
+public final class LocaleInfo implements Comparable<LocaleInfo> {
   /**
    * The default {@link LocaleInfo}.
    */
@@ -78,6 +78,26 @@ public final class LocaleInfo {
       return 0;
     }
     return m_locale.hashCode();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Comparable
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public int compareTo(LocaleInfo o) {
+    if (m_locale == null) {
+      if (o.m_locale == null) {
+        return 0;
+      }
+      return -1;
+    }
+    if (o.m_locale == null) {
+      return 1;
+    }
+    String localeNameA = m_locale.toString();
+    String localeNameB = o.m_locale.toString();
+    return localeNameA.compareTo(localeNameB);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -59,7 +59,7 @@ public final class EditableSource implements IEditableSource {
   private final Set<String> m_keys = Sets.newHashSet();
   private final Set<String> m_formKeys = Sets.newHashSet();
   private KeyToComponentsSupport m_keyToComponentsSupport = new KeyToComponentsSupport(false); // initialize by default for case of new source
-  private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newHashMap();
+  private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newTreeMap();
 
   ////////////////////////////////////////////////////////////////////////////
   //

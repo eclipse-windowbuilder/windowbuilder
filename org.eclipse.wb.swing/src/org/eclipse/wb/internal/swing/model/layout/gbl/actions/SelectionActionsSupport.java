@@ -128,7 +128,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
         "fill.gif",
         ModelMessages.SelectionActionsSupport_vaFill,
         RowInfo.Alignment.FILL);
-    if (SystemUtils.IS_JAVA_1_6) {
+    if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
       addAlignmentAction(
           actions,
           constraints,

@@ -72,6 +72,39 @@ public class GenericTypeResolverJavaInfoTest extends SwingModelTest {
   }
 
   /**
+   * No type argument in {@link ClassInstanceCreation} itself, but in Java7 we can use "diamond".
+   */
+  public void test_hasTypeArgument_java7() throws Exception {
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "// filler filler filler",
+            "public class MyButton<T> extends JButton {",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      MyButton<String> button = new MyButton<>();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
+    //
+    ComponentInfo button = getJavaInfoByName("button");
+    GenericTypeResolverJavaInfo resolver = new GenericTypeResolverJavaInfo(button);
+    {
+      Class<?> buttonClass = button.getDescription().getComponentClass();
+      TypeVariable<?> typeVariable = buttonClass.getTypeParameters()[0];
+      assertEquals("java.lang.String", resolver.resolve(typeVariable));
+    }
+  }
+
+  /**
    * Type parameter was not specified.
    */
   public void test_noTypeArgument_hasBounds() throws Exception {

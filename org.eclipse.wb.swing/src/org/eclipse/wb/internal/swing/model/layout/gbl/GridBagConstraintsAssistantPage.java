@@ -41,7 +41,7 @@ public class GridBagConstraintsAssistantPage extends AbstractAssistantPage {
     super(parent, selection);
     GridLayoutFactory.create(this).columns(3);
     //
-    if (SystemUtils.IS_JAVA_1_6) {
+    if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
       // horizontal alignments
       {
         Group horizontalGroup = createHorizontalAlignmentGroup();

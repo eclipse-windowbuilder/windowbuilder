@@ -165,8 +165,8 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * Test for {@link ProjectUtils#getJavaVersion(IJavaProject)}.
    */
   public void test_getJavaVersion() throws Exception {
-    // initially has 1.6 compliance
-    assertEquals(1.6, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
+    // initially has 1.7 compliance
+    assertEquals(1.7, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
     // set temporary 1.3 compliance
     {
       String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
@@ -177,18 +177,18 @@ public class ProjectUtilsTest extends AbstractJavaTest {
         m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
       }
     }
-    // set "null", so default compliance, we use Java 1.6
+    // set "null", so default compliance, we use Java 1.7
     {
       String oldCompliance = m_javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
       try {
         m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, null);
-        assertEquals(1.6, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
+        assertEquals(1.7, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
       } finally {
         m_javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, oldCompliance);
       }
     }
-    // check that again 1.6 compliance
-    assertEquals(1.6, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
+    // check that again 1.7 compliance
+    assertEquals(1.7, ProjectUtils.getJavaVersion(m_javaProject), 0.001);
   }
 
   /**

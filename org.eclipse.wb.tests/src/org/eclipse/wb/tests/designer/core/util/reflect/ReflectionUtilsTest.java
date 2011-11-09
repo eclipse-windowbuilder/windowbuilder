@@ -35,6 +35,8 @@ import net.sf.cglib.transform.TransformingClassGenerator;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.apache.commons.lang.SystemUtils;
+
 import java.awt.Component;
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
@@ -1751,6 +1753,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     assertThat(names).contains("enabled", "text");
   }
 
+  // XXX
   /**
    * Test for {@link ReflectionUtils#getPropertyDescriptors(BeanInfo, Class)}.
    * <p>
@@ -1776,7 +1779,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     // prepare PropertyDescriptor-s
     Map<String, PropertyDescriptor> descriptors = getPropertyDescriptorNames(SpecificClass.class);
     // check "foo(java.lang.Object)"
-    PropertyDescriptor propertyDescriptor = descriptors.get("foo(java.lang.Object)");
+    PropertyDescriptor propertyDescriptor;
+    if (SystemUtils.JAVA_VERSION_FLOAT < 1.7f) {
+      propertyDescriptor = descriptors.get("foo(java.lang.Object)");
+    } else {
+      propertyDescriptor = descriptors.get("foo");
+    }
     assertNotNull(propertyDescriptor);
     assertSame(Object.class, propertyDescriptor.getPropertyType());
   }

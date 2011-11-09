@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.parser;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.reflect.CompositeClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -104,6 +105,10 @@ public class EditorStateTest extends SwingModelTest {
             "  }",
             "}"));
     waitForAutoBuild();
+    // does not work for Java 7
+    if (EnvironmentUtils.getJavaVersion() >= 1.7) {
+      return;
+    }
     // prepare editor's registry
     Map registry = (Map) ReflectionUtils.invokeMethod(PropertyEditorManager.class, "getRegistry()");
     int initialEditors = registry.size();

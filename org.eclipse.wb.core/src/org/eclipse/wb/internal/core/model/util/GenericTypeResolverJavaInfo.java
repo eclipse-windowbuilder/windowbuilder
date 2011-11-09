@@ -21,10 +21,8 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ParameterizedType;
-import org.eclipse.jdt.core.dom.Type;
 
 import java.lang.reflect.TypeVariable;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,11 +58,10 @@ public class GenericTypeResolverJavaInfo extends GenericTypeResolver {
         ParameterizedType parameterizedType = (ParameterizedType) creation.getType();
         ITypeBinding binding = AstNodeUtils.getTypeBinding(parameterizedType);
         ITypeBinding[] typeParameters_bindings = binding.getTypeDeclaration().getTypeParameters();
-        @SuppressWarnings("unchecked")
-        List<Type> typeArguments_bindings = parameterizedType.typeArguments();
+        ITypeBinding[] typeArguments_bindings = binding.getTypeArguments();
         for (int i = 0; i < typeParameters_bindings.length; i++) {
           ITypeBinding typeParameter = typeParameters_bindings[i];
-          Type typeArgument = typeArguments_bindings.get(i);
+          ITypeBinding typeArgument = typeArguments_bindings[i];
           String typeParameterName = typeParameter.getName();
           String typeArgumentName = AstNodeUtils.getFullyQualifiedName(typeArgument, true);
           typeArguments.put(typeParameterName, typeArgumentName);

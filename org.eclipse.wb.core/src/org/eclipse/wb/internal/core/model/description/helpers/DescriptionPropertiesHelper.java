@@ -49,6 +49,10 @@ public class DescriptionPropertiesHelper {
    * @return the {@link PropertyEditor} for given type.
    */
   public static PropertyEditor getEditorForType(Class<?> type) throws Exception {
+    // enum editor
+    if (type.isEnum()) {
+      return EnumPropertyEditor.INSTANCE;
+    }
     // try to find editor using PropertyEditorProvider
     for (PropertyEditorProvider provider : getPropertyEditorProviders()) {
       PropertyEditor editor = provider.getEditorForType(type);
@@ -66,10 +70,6 @@ public class DescriptionPropertiesHelper {
           return ExternalFactoriesHelper.createExecutableExtension(element, "class");
         }
       }
-    }
-    // enum editor
-    if (type.isEnum()) {
-      return EnumPropertyEditor.INSTANCE;
     }
     // not found
     return null;

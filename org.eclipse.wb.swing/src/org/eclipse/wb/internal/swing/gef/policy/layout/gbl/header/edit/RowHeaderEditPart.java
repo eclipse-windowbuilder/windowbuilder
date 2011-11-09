@@ -216,7 +216,7 @@ public final class RowHeaderEditPart extends DimensionHeaderEditPart<RowInfo> {
           GefMessages.RowHeaderEditPart_vaFill,
           AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/fill.gif"),
           RowInfo.Alignment.FILL));
-      if (SystemUtils.IS_JAVA_1_6) {
+      if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
         manager.add(new SetAlignmentRowAction(this,
             GefMessages.RowHeaderEditPart_vaBaseline,
             AbstractGridBagLayoutInfo.getImageDescriptor("headers/v/menu/baseline.gif"),

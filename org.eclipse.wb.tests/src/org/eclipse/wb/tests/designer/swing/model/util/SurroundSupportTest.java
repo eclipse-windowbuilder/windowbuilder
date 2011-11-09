@@ -339,11 +339,11 @@ public class SurroundSupportTest extends SwingModelTest {
     String expectedPanelBounds =
         Expectations.get("44, 28, 112, 79", new StrValue[]{
             new StrValue("flanker-windows", "44, 30, 112, 77"),
-            new StrValue("scheglov-win", "44, 30, 112, 77")});
+            new StrValue("scheglov-win", "44, 34, 112, 73")});
     String expectedButtonBounds =
         Expectations.get("6, 22, 100, 50", new StrValue[]{
             new StrValue("flanker-windows", "6, 20, 100, 50"),
-            new StrValue("scheglov-win", "6, 20, 100, 50")});
+            new StrValue("scheglov-win", "6, 16, 100, 50")});
     assertEditor(
         "public class Test extends JPanel {",
         "  public Test() {",

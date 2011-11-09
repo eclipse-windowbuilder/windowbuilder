@@ -609,7 +609,7 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
         ModelMessages.AbstractGridBagConstraintsInfo_vaFill,
         "fill.gif",
         RowInfo.Alignment.FILL));
-    if (SystemUtils.IS_JAVA_1_6) {
+    if (SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7) {
       manager.add(new SetAlignmentVerticalAction(this,
           ModelMessages.AbstractGridBagConstraintsInfo_vaBaseline,
           "baseline.gif",

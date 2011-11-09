@@ -73,7 +73,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
    * Test for {@link EnvironmentUtils#getJavaVersion()}.
    */
   public void test_getJavaVersion() throws Exception {
-    assertEquals(1.6, EnvironmentUtils.getJavaVersion(), 0.001);
+    assertEquals(1.7, EnvironmentUtils.getJavaVersion(), 0.001);
     {
       // specify version 1.5
       EnvironmentUtils.setForcedJavaVersion(1.5f);
@@ -83,7 +83,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
         EnvironmentUtils.setForcedJavaVersion(null);
       }
     }
-    assertEquals(1.6, EnvironmentUtils.getJavaVersion(), 0.001);
+    assertEquals(1.7, EnvironmentUtils.getJavaVersion(), 0.001);
   }
 
   /**

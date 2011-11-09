@@ -298,8 +298,15 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     if (!methodBinding.isConstructor()) {
       return null;
     }
-    String signature = AstNodeUtils.getMethodDeclarationSignature(methodBinding);
-    ConstructorDescription constructorDescription = getConstructor(signature);
+    ConstructorDescription constructorDescription;
+    {
+      String signature = AstNodeUtils.getMethodSignature(methodBinding);
+      constructorDescription = getConstructor(signature);
+    }
+    if (constructorDescription == null) {
+      String signature = AstNodeUtils.getMethodDeclarationSignature(methodBinding);
+      constructorDescription = getConstructor(signature);
+    }
     return constructorDescription;
   }
 
