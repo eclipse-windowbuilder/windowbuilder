@@ -141,7 +141,8 @@ def _ProcessArgs():
   a dictanary of the arguments values
   """
   sign_dir = os.path.join(os.sep + 'home', 'data', 'httpd',
-                          'download-staging.priv', 'tools', 'windowbuilder')
+                          'download-staging.priv', 'tools', 'windowbuilder',
+                          'sign')
   deploy_dir = os.path.join(os.sep + 'home', 'data', 'httpd',
                             'download.eclipse.org', 'windowbuilder')
   usage = 'usage: %prog [options] drop subproduct'
