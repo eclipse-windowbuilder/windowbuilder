@@ -96,7 +96,7 @@ def UpdateMd5Hash(directory):
       if log.isEnabledFor(log.info):
         log.info('command line: {0}'.format(' '.join(commands)))
 
-      md5_file = os.path.join(directory, file + '.MD5')
+      md5_file = os.path.join(directory, f + '.MD5')
       fd_md5 = open(md5_file, 'w')
       log.info('creating ' + md5_file)
       subprocess.check_call(commands, stdout=fd_md5)

@@ -15,6 +15,7 @@ Python script to stage a drop of WindowBuilder.
 import datetime
 import glob
 import logging
+import logging.config
 import optparse
 import os
 import Queue
@@ -66,7 +67,8 @@ def main():
 
     _RmDirTree(sign_dir)
     _RmDirTree(base_dir)
-    os.mkdir(product_dir)
+    os.makedirs(product_dir)
+    os.makedirs(sign_dir)
 
     log.info('Copy files from {0} to {1}'.format(drop_location, product_dir))
     _CopyFiles(drop_location, product_dir, _FilesOnly)
@@ -74,29 +76,27 @@ def main():
     log.info('Move zip files from {0} to {1}'.format(product_dir, sign_dir))
     _MoveFiles(product_dir, sign_dir, _ZipFilter)
 
-    if optimize_site:
-      log.info('Optimize Site')
-      optimized_dir = eclipse.OptimizeSite(base_dir, sign_dir, eclipse_version)
-      _CopyFiles(optimized_dir, sign_dir, None)
-      _RmDirTree(optimized_dir)
-      os.rmdir(optimized_dir)
-
     if sign_files:
       log.info('Sign files')
       signed_dir = _SignZipFiles(sign_dir)
       _CopyFiles(signed_dir, sign_dir, None)
       _RmDirTree(signed_dir)
-      os.rmdir(signed_dir)
 
     if pack_site:
       log.info('pack Site')
       pack_dir = eclipse.PackSite(base_dir, sign_dir, eclipse_version)
       _CopyFiles(pack_dir, sign_dir, None)
       _RmDirTree(pack_dir)
-      os.rmdir(pack_dir)
+
+    if optimize_site:
+      log.info('Optimize Site')
+      optimized_dir = eclipse.OptimizeSite(base_dir, sign_dir, eclipse_version)
+      _CopyFiles(optimized_dir, sign_dir, None)
+      _RmDirTree(optimized_dir)
+
     log.info('Move signed files from {0} to {1}'.format(sign_dir, product_dir))
     _MoveFiles(sign_dir, product_dir, None)
-
+    
     log.info('Unzip the signed files')
     _UnzipSites(product_dir)
 
@@ -232,12 +232,13 @@ def _RmDirTree(top):
     top: the top of te directory tree to delete
   """
   log.debug('rmDirTree(' + top + ')')
-  log.info('removing ' + top + ' directory tree')
-  if top == '/':
-    log.critical('can not pass / as the top directory')
-    return
-
-  shutil.rmtree(top)
+  if os.path.exists(top):
+    log.info('removing ' + top + ' directory tree')
+    if top == '/':
+      log.critical('can not pass / as the top directory')
+      return
+  
+    shutil.rmtree(top)
 
 
 def _CopyFiles(from_dir, to_dir, filt):
@@ -258,7 +259,7 @@ def _CopyFiles(from_dir, to_dir, filt):
     log.error('could not read files in ' + from_dir)
     raise e
 
-  if files:
+  if not files:
     raise OSError('no files to process')
 
   for f in files:
@@ -278,14 +279,14 @@ def _MoveFiles(from_dir, to_dir, filt):
   Raises:
     OSError: raised if no files can be read from from_dir
   """
-  log.debug('moveFiles(' + from_dir + ', ' + to_dir)
+  log.debug('moveFiles({0}, {1})'.format(from_dir , to_dir))
   try:
     files = os.listdir(from_dir)
   except OSError as e:
     log.error('could not read files in ' + from_dir)
     raise e
 
-  if files:
+  if not files:
     raise OSError('no files to process')
 
   for f in files:
@@ -318,10 +319,10 @@ def _SignZipFiles(ziped_update_sites_dir):
       zip_path = os.path.join(ziped_update_sites_dir, f)
       os.chmod(zip_path, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP |
                stat.S_IRGRP | stat.S_IWOTH | stat.S_IROTH)
-#      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
-#                             'nomail', 'signed'])
-      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
-                             'signed'])
+      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
+                             'nomail', 'signed'])
+#      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
+#                             'signed'])
       files_to_sign.append(os.path.join(ziped_update_sites_dir, 'signed', f))
 
   signed_files = []
@@ -362,7 +363,7 @@ def _UnzipSites(ziped_update_sites_dir):
     if not os.path.exists(unarchive_dest):
       os.mkdir(unarchive_dest)
 
-    util.Unarchive(os.path.join(dir, file), unarchive_dest)
+    util.Unarchive(os.path.join(ziped_update_sites_dir, f), unarchive_dest)
 
 
 def _ReZipSite(update_site_dir):
@@ -386,7 +387,7 @@ def _ReZipSite(update_site_dir):
     if f.endswith('.zip'):
       zip_file = os.path.join(update_site_dir, f)
       log.info('processing ' + zip_file)
-      res = version_re.search(file)
+      res = version_re.search(f)
       util.DisplayMatch(res)
       version = res.group(1)
       site_dir = os.path.join(update_site_dir, version)
@@ -398,8 +399,8 @@ def _ReZipSite(update_site_dir):
       log.debug('creating zip in ' + os.getcwd())
       command = ['zip', zip_file]
 
-      for root, dirs, files in os.walk(site_dir, followlinks=False):
-        for name in files:
+      for root, dirs, files_to_zip in os.walk(site_dir, followlinks=False):
+        for name in files_to_zip:
           file_to_zip = os.path.join(root, name)
           zip_file_name = file_to_zip[len(site_dir)+1:]
           log.debug(format_file.format(file_to_zip, zip_file_name))

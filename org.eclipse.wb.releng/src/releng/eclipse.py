@@ -49,7 +49,7 @@ def _FindEclipseArchive(eclipse_version):
       if f.startswith('R-') or f.startswith('S-'):
         log.debug('found: ' + f)
         found_eclipse_dirs.append(f)
-    if found_eclipse_dirs:
+    if not found_eclipse_dirs:
       msg = ('could not find any Eclipse directories'
              ' starting with R or S in {0}').format(eclipse_archive_dir)
       log.error(msg)
@@ -68,7 +68,7 @@ def _FindEclipseArchive(eclipse_version):
         eclipse_ts = datetime.datetime.strptime(timestamp, '%Y%m%d%H%M')
         if eclipse_ts > saved_ts:
           saved_ts = eclipse_ts
-          search_dir = os.path.join(eclipse_archive_dir, dir)
+          search_dir = os.path.join(eclipse_archive_dir, d)
 
     log.debug('search_dir = ' + search_dir)
     if search_dir is None:
@@ -89,12 +89,12 @@ def _FindEclipseArchive(eclipse_version):
     log.debug('search_term = ' + search_term)
     for f in files:
       if search.search(f) is not None:
-        eclipse_archive_file = os.path.join(search_dir, file)
+        eclipse_archive_file = os.path.join(search_dir, f)
         break
 
     if eclipse_archive_file is None:
       msg = ('could not find any Eclipse archives'
-             ' with {0} in {1}').format(search_term, file)
+             ' with {0} in {1}').format(search_term, search_dir)
       log.error(msg)
       raise OSError(msg)
 
@@ -148,7 +148,7 @@ def OptimizeSite(eclipse_install_dir, ziped_update_sites_dir, eclipse_version):
     if e.errno != 17:
       raise e
 
-  launcher = _FindPlugin(eclipse_home, 'org.eclipse.equinox.p2.jarprocessor')
+  launcher = _FindPlugin(eclipse_home, 'org.eclipse.equinox.p2.jarprocessor_')
   try:
     files = os.listdir(ziped_update_sites_dir)
   except OSError as e:
@@ -190,7 +190,7 @@ def PackSite(eclipse_install_dir, ziped_update_sites_dir, eclipse_version):
     if e.errno != 17:
       raise e
 
-  launcher = _FindPlugin(eclipse_home, 'org.eclipse.equinox.p2.jarprocessor')
+  launcher = _FindPlugin(eclipse_home, 'org.eclipse.equinox.p2.jarprocessor_')
   try:
     files = os.listdir(ziped_update_sites_dir)
   except OSError as e:
