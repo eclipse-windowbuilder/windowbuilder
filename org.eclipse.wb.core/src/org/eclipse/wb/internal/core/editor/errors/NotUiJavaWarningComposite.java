@@ -53,7 +53,7 @@ public final class NotUiJavaWarningComposite extends JavaWarningComposite {
     {
       Button toolkitsButton = new Button(buttonsComposite, SWT.NONE);
       GridDataFactory.create(toolkitsButton).fill();
-      toolkitsButton.setText("Open GUI Toolkits");
+      toolkitsButton.setText("Open UI Toolkits");
       toolkitsButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
