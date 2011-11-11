@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Label;
  * @coverage core.editor.errors
  */
 public abstract class WarningComposite extends Composite {
-  private final Button m_switchButton;
+  private Button m_switchButton;
   private final BrowserComposite m_browser;
   private final Label m_titleLabel;
   private int m_sourcePosition;
@@ -68,36 +68,47 @@ public abstract class WarningComposite extends Composite {
       m_browser = new BrowserComposite(this, SWT.NONE);
       GridDataFactory.create(m_browser).grab().fill();
     }
+    createButtons();
+  }
+
+  protected void createButtons() {
+    Composite buttonsComposite = new Composite(this, SWT.NONE);
+    GridDataFactory.create(buttonsComposite).alignHR();
+    int numButtons = getNumButtons();
+    GridLayoutFactory.create(buttonsComposite).columns(numButtons).equalColumns().marginsH(0);
+    createButtons(buttonsComposite);
+  }
+
+  protected void createButtons(Composite buttonsComposite) {
     {
-      Composite buttonsComposite = new Composite(this, SWT.NONE);
-      GridDataFactory.create(buttonsComposite).alignHR();
-      GridLayoutFactory.create(buttonsComposite).columns(2).equalColumns().marginsH(0);
-      {
-        Button refreshButton = new Button(buttonsComposite, SWT.NONE);
-        GridDataFactory.create(refreshButton).fillH();
-        refreshButton.setText(Messages.WarningComposite_refreshButton);
-        refreshButton.setImage(EnvironmentUtils.IS_MAC
-            ? null
-            : DesignerPlugin.getImage("actions/errors/refresh32.png"));
-        refreshButton.addSelectionListener(new SelectionAdapter() {
-          @Override
-          public void widgetSelected(SelectionEvent e) {
-            doRefresh();
-          }
-        });
-      }
-      {
-        m_switchButton = new Button(buttonsComposite, SWT.NONE);
-        GridDataFactory.create(m_switchButton).fillH();
-        m_switchButton.setText(Messages.WarningComposite_switchButton);
-        m_switchButton.addSelectionListener(new SelectionAdapter() {
-          @Override
-          public void widgetSelected(SelectionEvent e) {
-            doShowSource(m_sourcePosition);
-          }
-        });
-      }
+      Button refreshButton = new Button(buttonsComposite, SWT.NONE);
+      GridDataFactory.create(refreshButton).fillH();
+      refreshButton.setText(Messages.WarningComposite_refreshButton);
+      refreshButton.setImage(EnvironmentUtils.IS_MAC
+          ? null
+          : DesignerPlugin.getImage("actions/errors/refresh32.png"));
+      refreshButton.addSelectionListener(new SelectionAdapter() {
+        @Override
+        public void widgetSelected(SelectionEvent e) {
+          doRefresh();
+        }
+      });
     }
+    {
+      m_switchButton = new Button(buttonsComposite, SWT.NONE);
+      GridDataFactory.create(m_switchButton).fillH();
+      m_switchButton.setText(Messages.WarningComposite_switchButton);
+      m_switchButton.addSelectionListener(new SelectionAdapter() {
+        @Override
+        public void widgetSelected(SelectionEvent e) {
+          doShowSource(m_sourcePosition);
+        }
+      });
+    }
+  }
+
+  protected int getNumButtons() {
+    return 2;
   }
 
   ////////////////////////////////////////////////////////////////////////////

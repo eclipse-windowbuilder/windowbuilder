@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Composite;
  * @author mitin_aa
  * @coverage core.editor.errors
  */
-public final class JavaWarningComposite extends WarningComposite {
+public class JavaWarningComposite extends WarningComposite {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor

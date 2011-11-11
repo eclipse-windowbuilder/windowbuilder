@@ -29,13 +29,16 @@ import org.eclipse.wb.internal.core.editor.errors.JavaExceptionComposite;
 import org.eclipse.wb.internal.core.editor.errors.JavaWarningComposite;
 import org.eclipse.wb.internal.core.editor.errors.MultipleConstructorsComposite;
 import org.eclipse.wb.internal.core.editor.errors.NoEntryPointComposite;
+import org.eclipse.wb.internal.core.editor.errors.NotUiJavaWarningComposite;
 import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
 import org.eclipse.wb.internal.core.editor.structure.PartListenerAdapter;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
 import org.eclipse.wb.internal.core.parser.JavaInfoParser;
 import org.eclipse.wb.internal.core.utils.Debug;
+import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
+import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
 import org.eclipse.wb.internal.core.utils.exception.NoEntryPointError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -470,6 +473,7 @@ public final class DesignPage implements IDesignPage {
     // show Throwable
     try {
       e = DesignerExceptionUtils.rewriteException(e);
+      Throwable designerCause = DesignerExceptionUtils.getDesignerCause(e);
       if (e instanceof MultipleConstructorsError) {
         MultipleConstructorsComposite composite =
             getErrorComposite(MultipleConstructorsComposite.class);
@@ -478,6 +482,11 @@ public final class DesignPage implements IDesignPage {
       } else if (e instanceof NoEntryPointError) {
         NoEntryPointComposite composite = getErrorComposite(NoEntryPointComposite.class);
         composite.setException((NoEntryPointError) e);
+        m_pageBook.showPage(composite);
+      } else if (designerCause instanceof DesignerException
+          && ((DesignerException) designerCause).getCode() == ICoreExceptionConstants.PARSER_NOT_GUI) {
+        NotUiJavaWarningComposite composite = getErrorComposite(NotUiJavaWarningComposite.class);
+        composite.setException(e);
         m_pageBook.showPage(composite);
       } else if (DesignerExceptionUtils.isWarning(e)) {
         JavaWarningComposite composite = getErrorComposite(JavaWarningComposite.class);
