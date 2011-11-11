@@ -61,7 +61,12 @@ public abstract class AbstractTextButtonValueEditor extends AbstractValueEditor 
       // add listener
       m_text.addModifyListener(new ModifyListener() {
         public void modifyText(ModifyEvent e) {
-          m_value.setValue(m_text.getText());
+          m_text.removeModifyListener(this);
+          try {
+            m_value.setValue(m_text.getText());
+          } finally {
+            m_text.addModifyListener(this);
+          }
         }
       });
     }
