@@ -176,13 +176,25 @@ public class ParseFactory extends AbstractParseFactory {
     }
     // special support for javax.swing.AbstractAction 
     if (AstNodeUtils.isSuccessorOf(creation, "javax.swing.AbstractAction")) {
-      if (typeBinding.getDeclaringClass() != null) {
-        // ... as inner class
-        CreationSupport creationSupport = new ActionInnerCreationSupport(creation);
-        return JavaInfoUtils.createJavaInfo(editor, AbstractAction.class, creationSupport);
+      // ... as named class
+      {
+        ITypeBinding declaringClassBinding = typeBinding.getDeclaringClass();
+        if (declaringClassBinding != null) {
+          // ... as inner class
+          ITypeBinding topTypeBinding = AstNodeUtils.getEnclosingTypeTop(creation).resolveBinding();
+          if (declaringClassBinding == topTypeBinding) {
+            CreationSupport creationSupport = new ActionInnerCreationSupport(creation);
+            return JavaInfoUtils.createJavaInfo(editor, AbstractAction.class, creationSupport);
+          }
+          // ... as external class
+          {
+            CreationSupport creationSupport = new ConstructorCreationSupport(creation);
+            return JavaInfoUtils.createJavaInfo(editor, AbstractAction.class, creationSupport);
+          }
+        }
       }
+      // ... as anonymous class
       if (anonymousClassDeclaration != null) {
-        // ... as anonymous class
         Class<?> clazz = getClass(editor, typeBinding);
         CreationSupport creationSupport = new ActionAnonymousCreationSupport(creation);
         return JavaInfoUtils.createJavaInfo(editor, clazz, creationSupport);

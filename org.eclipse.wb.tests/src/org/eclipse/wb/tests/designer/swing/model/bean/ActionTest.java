@@ -1374,6 +1374,47 @@ public class ActionTest extends SwingModelTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
+  // External
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Test for using external {@link Action}.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=362706
+   */
+  public void test_external() throws Exception {
+    setFileContentSrc(
+        "test/ExternalActions.java",
+        getSourceDQ(
+            "package test;",
+            "import java.awt.event.*;",
+            "import javax.swing.*;",
+            "public class ExternalActions {",
+            "  public static class MyAction extends AbstractAction {",
+            "    public MyAction() {",
+            "      super('My name');",
+            "    }",
+            "    public void actionPerformed(ActionEvent e) {",
+            "    }",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    parseContainer(
+        "public class Test extends JPanel {",
+        "  private Action action = new ExternalActions.MyAction();",
+        "  public Test() {",
+        "  }",
+        "}");
+    assertHierarchy(
+        "{this: javax.swing.JPanel} {this} {}",
+        "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
+        "  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
+        "    {new: javax.swing.AbstractAction} {field-initializer: action} {/new ExternalActions.MyAction()/}");
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
   // Anonymous
   //
   ////////////////////////////////////////////////////////////////////////////
