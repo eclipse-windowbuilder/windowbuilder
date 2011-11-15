@@ -429,6 +429,8 @@ public class JavaInfoUtils {
     }
     addExposedChildred_Method(host, exposedTypes);
     addExposedChildred_Field(host, exposedTypes);
+    // clear temporary objects
+    host.removeArbitraryValue("JavaInfoUtils.alreadyExposed.Object");
     // reorder added components
     buildExposedChildrenHierarchy(host);
   }
@@ -538,7 +540,7 @@ public class JavaInfoUtils {
         getMethod));
     methodJavaInfo.setAssociation(new ImplicitObjectAssociation(host));
     // add new child
-    addExposedJavaInfo(host, methodJavaInfo);
+    addExposedJavaInfo(host, methodJavaInfo, methodObject);
     // initialize
     methodJavaInfo.setObject(methodObject);
     return methodJavaInfo;
@@ -635,10 +637,10 @@ public class JavaInfoUtils {
     // configure JavaInfo
     fieldJavaInfo.setVariableSupport(new ExposedFieldVariableSupport(fieldJavaInfo, host, field));
     fieldJavaInfo.setAssociation(new ImplicitObjectAssociation(host));
+    // add new child
+    addExposedJavaInfo(host, fieldJavaInfo, fieldObject);
     // initialize
     fieldJavaInfo.setObject(fieldObject);
-    // add new child
-    addExposedJavaInfo(host, fieldJavaInfo);
     return fieldJavaInfo;
   }
 
@@ -664,8 +666,14 @@ public class JavaInfoUtils {
 
   /**
    * Adds exposed {@link JavaInfo} to its host.
+   * 
+   * @param methodObject
    */
-  private static void addExposedJavaInfo(JavaInfo host, JavaInfo exposed) throws Exception {
+  private static void addExposedJavaInfo(JavaInfo host, JavaInfo exposed, Object exposedObject)
+      throws Exception {
+    if (isAlreadyExposedObject(host, exposedObject)) {
+      return;
+    }
     for (HierarchyProvider provider : getHierarchyProviders()) {
       provider.add(host, exposed);
       if (exposed.getParent() != null) {
@@ -675,6 +683,24 @@ public class JavaInfoUtils {
     if (exposed.getParent() == null) {
       host.addChild(exposed);
     }
+  }
+
+  /**
+   * @return <code>true</code> if given object is already exposed.
+   */
+  @SuppressWarnings("unchecked")
+  private static boolean isAlreadyExposedObject(JavaInfo host, Object exposedObject) {
+    String key = "JavaInfoUtils.alreadyExposed.Object";
+    Set<Object> alreadyExposed = (Set<Object>) host.getArbitraryValue(key);
+    if (alreadyExposed == null) {
+      alreadyExposed = Sets.newHashSet();
+      host.putArbitraryValue(key, alreadyExposed);
+    }
+    if (alreadyExposed.contains(exposedObject)) {
+      return true;
+    }
+    alreadyExposed.add(exposedObject);
+    return false;
   }
 
   /**
@@ -1952,7 +1978,9 @@ public class JavaInfoUtils {
    * @see IJavaInfoRendering IJavaInfoRendering for more information.
    */
   public static void scheduleSpecialRendering(JavaInfo javaInfo) {
-    scheduleSpecialRendering(javaInfo, (IJavaInfoRendering) javaInfo);
+    if (javaInfo instanceof IJavaInfoRendering) {
+      scheduleSpecialRendering(javaInfo, (IJavaInfoRendering) javaInfo);
+    }
   }
 
   /**
