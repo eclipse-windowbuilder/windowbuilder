@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
+import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -76,6 +77,27 @@ public class CardLayoutTest extends AbstractLayoutTest {
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Dangling {@link CardLayout} should not cause problems.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=363376
+   */
+  public void test_dangling() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "  }",
+            "}");
+    // create CardLayoutInfo just to have "stack container" broadcast listeners
+    createJavaInfo("java.awt.CardLayout");
+    // add new JButton, during this CardLayoutInfo will be called
+    ComponentInfo button = createJavaInfo("javax.swing.JButton");
+    ((FlowLayoutInfo) panel.getLayout()).add(button, null);
+  }
+
   /**
    * {@link JPopupMenu} is not managed.
    */

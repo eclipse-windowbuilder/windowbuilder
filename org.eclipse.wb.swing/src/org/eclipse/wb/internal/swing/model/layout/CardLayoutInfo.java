@@ -37,6 +37,11 @@ public final class CardLayoutInfo extends LayoutInfo {
   private final StackContainerSupport<ComponentInfo> m_stackContainer =
       new StackContainerSupport<ComponentInfo>(this) {
         @Override
+        protected boolean isActive() {
+          return CardLayoutInfo.this.isActive();
+        }
+
+        @Override
         protected ObjectInfo getContainer() {
           return CardLayoutInfo.this.getContainer();
         }
