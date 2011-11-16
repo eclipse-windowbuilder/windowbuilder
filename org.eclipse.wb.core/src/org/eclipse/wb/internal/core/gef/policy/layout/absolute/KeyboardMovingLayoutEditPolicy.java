@@ -88,11 +88,10 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
    */
   private void handleKeyPressed(KeyRequest request, List<EditPart> editParts) {
     synchronized (m_changeBoundsRequest) {
-      m_isKeyboardMoving = true;
       if (m_keyDragTimer != null) {
-        m_keyDragTimer.cancel();
-        m_keyDragTimer = null;
+        return;
       }
+      m_isKeyboardMoving = true;
       // fill request
       boolean isResizing = request.isControlKeyPressed();
       m_changeBoundsRequest.setEditParts(editParts);
@@ -152,6 +151,10 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
    * Key released handler, which generates command after 300ms of key released
    */
   private void handleKeyReleased() {
+    if (!m_isKeyboardMoving) {
+      // previous 'keypressed' request was cancelled, so cancel 'release' too.  
+      return;
+    }
     // start drag timer
     if (m_keyDragTimer == null) {
       m_keyDragTimer = new Timer();
@@ -162,31 +165,34 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
           display.syncExec(new Runnable() {
             public void run() {
               synchronized (m_changeBoundsRequest) {
-                List<EditPart> editParts = m_changeBoundsRequest.getEditParts();
-                //
-                if (editParts != null && !editParts.isEmpty()) {
-                  // Create command
-                  CompoundEditCommand command =
-                      new CompoundEditCommand((ObjectInfo) getHost().getModel());
+                try {
+                  List<EditPart> editParts = m_changeBoundsRequest.getEditParts();
                   //
-                  if (Request.REQ_MOVE.equals(m_changeBoundsRequest.getType())) {
-                    eraseLayoutTargetFeedback(m_changeBoundsRequest);
-                    command.add(getCommand(m_changeBoundsRequest));
-                  } else {
-                    for (EditPart part : editParts) {
-                      part.eraseSourceFeedback(m_changeBoundsRequest);
-                      command.add(part.getCommand(m_changeBoundsRequest));
+                  if (editParts != null && !editParts.isEmpty()) {
+                    // Create command
+                    CompoundEditCommand command =
+                        new CompoundEditCommand((ObjectInfo) getHost().getModel());
+                    //
+                    if (Request.REQ_MOVE.equals(m_changeBoundsRequest.getType())) {
+                      eraseLayoutTargetFeedback(m_changeBoundsRequest);
+                      command.add(getCommand(m_changeBoundsRequest));
+                    } else {
+                      for (EditPart part : editParts) {
+                        part.eraseSourceFeedback(m_changeBoundsRequest);
+                        command.add(part.getCommand(m_changeBoundsRequest));
+                      }
                     }
+                    // run command
+                    getViewer().getEditDomain().executeCommand(command);
                   }
-                  // run command
-                  getViewer().getEditDomain().executeCommand(command);
+                } finally {
+                  m_isKeyboardMoving = false;
+                  m_keyDragTimer = null;
+                  // clear request
+                  m_changeBoundsRequest.setMoveDelta(new Point());
+                  m_changeBoundsRequest.setSizeDelta(new Dimension());
+                  m_changeBoundsRequest.setResizeDirection(IPositionConstants.NONE);
                 }
-                // clear request
-                m_changeBoundsRequest.setMoveDelta(new Point());
-                m_changeBoundsRequest.setSizeDelta(new Dimension());
-                m_changeBoundsRequest.setResizeDirection(IPositionConstants.NONE);
-                m_isKeyboardMoving = false;
-                m_keyDragTimer = null;
               }
             }
           });
