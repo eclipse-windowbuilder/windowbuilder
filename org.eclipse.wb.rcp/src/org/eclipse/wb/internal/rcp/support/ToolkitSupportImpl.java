@@ -14,11 +14,15 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.geometry.Rectangle;
+import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.swt.support.IToolkitSupport;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ShellAdapter;
+import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -137,14 +141,40 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void showShell(Object shellObject) throws Exception {
-    Shell shell = (Shell) shellObject;
+    final Shell shell = (Shell) shellObject;
+    final Shell mainShell = DesignerPlugin.getShell();
+    // [Linux] feature in SWT/GTK: since we cannot use Test/Preview shell as modal 
+    // and if the 'main' shell of the application is disabled, switching to other 
+    // application (and even to this Eclipse itself) and back will hide 
+    // Test/Preview shell behind the 'main' shell.
+    // The workaround is to forcibly hide Test/Preview window.
+    ShellAdapter shellAdapter = new ShellAdapter() {
+      @Override
+      public void shellActivated(ShellEvent e) {
+        mainShell.removeShellListener(this);
+        shell.getDisplay().asyncExec(new Runnable() {
+          public void run() {
+            shell.setVisible(false);
+          }
+        });
+      }
+    };
     shell.setVisible(true);
     shell.setActive();
-    // run events loop
-    Display display = shell.getDisplay();
-    while (!shell.isDisposed() && shell.isVisible()) {
-      if (!display.readAndDispatch()) {
-        display.sleep();
+    try {
+      if (EnvironmentUtils.IS_LINUX) {
+        mainShell.addShellListener(shellAdapter);
+      }
+      // run events loop
+      Display display = shell.getDisplay();
+      while (!shell.isDisposed() && shell.isVisible()) {
+        if (!display.readAndDispatch()) {
+          display.sleep();
+        }
+      }
+    } finally {
+      if (EnvironmentUtils.IS_LINUX) {
+        mainShell.removeShellListener(shellAdapter);
       }
     }
   }
