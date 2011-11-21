@@ -11,15 +11,6 @@
   <description>
             This Ant script is used to build the Window Builder code
     </description>
-  <property environment="env" />
-
-  <condition property="hudson.workspace" value="${env.WORKSPACE}" else="${basedir}/ws">
-    <isset property="env.WORKSPACE" />
-  </condition>
-
-  <condition property="buckminster.loglevel" value="${env.BUCKMINSTER_LOGLEVEL}" else="info">
-      <isset property="env.BUCKMINSTER_LOGLEVEL" />
-  </condition>
   <!-- ================================= 
           target: build              
          ================================= -->
@@ -44,14 +35,18 @@
           target: init                      
          - - - - - - - - - - - - - - - - - -->
   <target name="init">
+    <property environment="env" />
+
+    <condition property="hudson.workspace" value="${env.WORKSPACE}" else="${basedir}/ws">
+      <isset property="env.WORKSPACE" />
+    </condition>
+
+    <condition property="buckminster.loglevel" value="${env.BUCKMINSTER_LOGLEVEL}" else="info">
+        <isset property="env.BUCKMINSTER_LOGLEVEL" />
+    </condition>
     <echoproperties prefix="env." />
     <printProperty property="hudson.workspace" />
     <property name="cwd" location="." />
-    <condition property="build.root" value="${hudson.workspace}/build">
-      <not>
-        <isset property="build.root" />
-      </not>
-    </condition>
     <condition property="build.data" value="${cwd}/data">
       <not>
         <isset property="build.data" />
@@ -63,13 +58,13 @@
       </not>
     </condition>
 
-    <echo message="build.home = ${build.home}" />
-    <echo message="build.data = ${build.data}" />
+    <printProperty property="build.data" />
     <echo message="reading ${build.data}/${user.name}.properties" />
     <property file="${build.data}/${user.name}.properties" />
     <echo message="reading ${build.data}/default-user.properties" />
     <property file="${build.data}/default-user.properties" />
 
+    <printProperty property="build.root" />
     <delete dir="${build.tmp}" failonerror="false" includeemptydirs="true" />
     <delete dir="${build.target}" failonerror="false" includeemptydirs="true" />
 
@@ -85,22 +80,22 @@
     <echo message="Fetching headless director application" />
     <tempfile destdir="${java.io.tmpdir}" prefix="director-" suffix=".zip"
               property="director.zip" deleteonexit="true" />
-    <get src="${director.url}" dest="${director.zip}" />
-    <mkdir dir="${tools}" />
-    <unzip src="${director.zip}" dest="${toolsPath}" />
+    <get src="${director.url}" dest="${director.zip}" verbose="true"/>
+    <mkdir dir="${build.tools}" />
+    <unzip src="${director.zip}" dest="${build.tools}" />
     <delete file="${director.zip}" />
   </target>
 
   <target name="install.buckminster" unless="buckminster.exists" depends="get.director">
     <echo message="Configuring headless buckminster with needed features" />
-    <eclipse.launch app="director">
+    <launchEclipse app="director">
       <args>
         <jvmarg value="-Declipse.p2.mirrors=false" />
         <!--jvmarg value="-Dorg.eclipse.update.jarprocessor.pack200=${org.eclipse.update.jarprocessor.pack200}" /-->
         <arg value="-r" />
         <arg value="${buckminster.p2.site}" />
         <arg value="-d" />
-        <arg value="${toolsPath}/buckminster" />
+        <arg value="${build.tools}/buckminster" />
         <arg value="-p" />
         <arg value="Buckminster" />
         <arg value="-i" />
@@ -114,7 +109,7 @@
         <arg value="-i" />
         <arg value="org.eclipse.buckminster.emma.headless.feature.feature.group" />
       </args>
-    </eclipse.launch>
+    </launchEclipse>
   </target>
 
   <!-- = = = = = = = = = = = = = = = = =
@@ -143,4 +138,34 @@
     </sequential>
   </macrodef>
   
+  <!-- = = = = = = = = = = = = = = = = =
+          macrodef: launchEclipse
+         = = = = = = = = = = = = = = = = = -->
+  <macrodef name="launchEclipse">
+    <attribute name="app" />
+    <element name="args" optional="true" />
+    <sequential>
+      <!-- We assume that the eclipse installation is beneath ${buildtools} -->
+      <property name="@{app}.deploy.dir" value="${build.tools}/@{app}" />
+
+      <!-- Find the Eclipse launcher and adding its location to the @{app}.launcher property -->
+      <pathconvert property="@{app}.launcher">
+        <first count="1">
+          <sort>
+            <fileset dir="${@{app}.deploy.dir}/plugins" includes="**/org.eclipse.equinox.launcher_*.jar" />
+            <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
+              <date />
+            </reverse>
+          </sort>
+        </first>
+      </pathconvert>
+
+      <!-- Launch the eclipse application -->
+      <java fork="true" jar="${@{app}.launcher}" dir="${@{app}.deploy.dir}">
+        <env key="no_proxy" value="${no.proxy}" />
+        <!-- Uncomment to debug <jvmarg value="-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=y"/> -->
+        <args />
+      </java>
+    </sequential>
+  </macrodef>
 </project>
