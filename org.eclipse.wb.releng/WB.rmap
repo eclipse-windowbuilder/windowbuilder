@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:locator pattern="^org\.eclipse\.wb\.(\..+)?_feature" searchPathRef="WindowBuilder" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.wb\.(\..+)?" searchPathRef="WindowBuilder"/>
+  <rm:locator searchPathRef="TargetPlatform"/>
+  <rm:searchPath name="TargetPlatform">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" resolutionFilter="(build.type=R)" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:uri format="http://download.eclipse.org/eclipse/updates/3.7"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="WindowBuilder">
+    <rm:provider componentTypes="eclipse.feature" readerType="svn">
+      <rm:uri format="http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/trunk/{0}_feature">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,buckminster" readerType="svn">
+      <rm:uri format="http://dev.eclipse.org/svnroot/tools/org.eclipse.windowbuilder/trunk/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

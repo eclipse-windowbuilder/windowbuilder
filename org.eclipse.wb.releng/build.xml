@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ====================================================================== 
-     Jun 15, 2011 12:19:58 PM                                                        
+     Jun 15, 2011 12:19:58 PM
 
      WindowBuilderBuild    
      This Ant script is used to build the Window Builder code
                    
-     mrrussell                                                                
+     mrussell (Mark R Russell)
+     
+     Copyright (c) 2011 Google Inc. All rights reserved. This program and the
+     accompanying materials are made available under the terms of the Eclipse
+     Public License v1.0 which is available at
+     http://www.eclipse.org/legal/epl-v10.html
+     Contributors: Google Inc 
+     Some important parts have been copied from Teneo and Buckminster's own
+     build setups
+    
      ====================================================================== -->
 <project name="WindowBuilderBuild" default="build">
   <description>
@@ -14,7 +23,7 @@
   <!-- ================================= 
           target: build              
          ================================= -->
-  <target name="build" depends="init, init.checks, install.buckminster" 
+  <target name="build" depends="init, init.checks, install.buckminster, buckminster" 
           description="This script is used to build the Window Builder code">
   </target>
   
@@ -26,8 +35,10 @@
      
   -->
   <target name="init.checks" depends="init.clean.tools">
-    <available file="${build.tools}/director/director" property="director.exists" />
-    <available file="${build.tools}/buckminster/buckminster" property="buckminster.exists" />
+    <available file="${build.tools}/director/director"
+               property="director.exists" />
+    <available file="${build.tools}/buckminster/buckminster"
+               property="buckminster.exists" />
   </target>
 
 
@@ -37,15 +48,15 @@
   <target name="init">
     <property environment="env" />
 
-    <condition property="hudson.workspace" value="${env.WORKSPACE}" else="${basedir}/ws">
+    <condition property="build.hudson.workspace" value="${env.WORKSPACE}" else="${basedir}/ws">
       <isset property="env.WORKSPACE" />
     </condition>
 
-    <condition property="buckminster.loglevel" value="${env.BUCKMINSTER_LOGLEVEL}" else="info">
+    <condition property="build.buck.loglevel" value="${env.BUCKMINSTER_LOGLEVEL}" else="info">
         <isset property="env.BUCKMINSTER_LOGLEVEL" />
     </condition>
     <echoproperties prefix="env." />
-    <printProperty property="hudson.workspace" />
+    <printProperty property="build.hudson.workspace" />
     <property name="cwd" location="." />
     <condition property="build.data" value="${cwd}/data">
       <not>
@@ -57,6 +68,8 @@
         <isset property="build.eclipse.target" />
       </not>
     </condition>
+    
+    <property name="build.wb.cquery" location="WB.cquery" />
 
     <printProperty property="build.data" />
     <echo message="reading ${build.data}/${user.name}.properties" />
@@ -72,8 +85,33 @@
 
     <mkdir dir="${build.root}" />
     <mkdir dir="${build.tmp}" />
+    <mkdir dir="${build.buck.workspace}" />
     <mkdir dir="${build.target}" />
     <setupTarget eclipseVersion="${build.eclipse.target}" />
+  </target>
+  
+  <target name="buckminster" >
+    <copy todir="${build.tmp}" overwrite="true">
+      <fileset dir="." includes="script.buck" />
+      <filterset begintoken="@" endtoken="@">
+        <!--
+        <filter token="target.platform" value="${build.target}/eclipse" />
+        -->
+        <filter token="target.platform" value="/usr/local/google/home/mrrussell/tmp/eclipse" />
+        <filter token="build.wb.cquery" value="${build.wb.cquery}" />
+        
+      </filterset>
+    </copy>
+    <launchEclipse app="buckminster">
+      <args>
+        <arg value="-data" />
+        <arg value="${build.buck.workspace}" />
+        <arg value="--loglevel" />
+        <arg value="${build.buck.loglevel}" />
+        <arg value="--scriptfile" />
+        <arg value="${build.tmp}/script.buck" />
+      </args>
+    </launchEclipse>
   </target>
 
   <target name="get.director" unless="director.exists">
@@ -108,6 +146,20 @@
         <arg value="org.eclipse.buckminster.git.headless.feature.feature.group" />
         <arg value="-i" />
         <arg value="org.eclipse.buckminster.emma.headless.feature.feature.group" />
+      </args>
+    </launchEclipse>
+    <launchEclipse app="director">
+      <args>
+        <jvmarg value="-Declipse.p2.mirrors=false" />
+        <!--jvmarg value="-Dorg.eclipse.update.jarprocessor.pack200=${org.eclipse.update.jarprocessor.pack200}" /-->
+        <arg value="-r" />
+        <arg value="${buckminster.p2.external.site}" />
+        <arg value="-d" />
+        <arg value="${build.tools}/buckminster" />
+        <arg value="-p" />
+        <arg value="Buckminster" />
+        <arg value="-i" />
+        <arg value="org.eclipse.buckminster.subclipse.headless.feature.feature.group" />
       </args>
     </launchEclipse>
   </target>
