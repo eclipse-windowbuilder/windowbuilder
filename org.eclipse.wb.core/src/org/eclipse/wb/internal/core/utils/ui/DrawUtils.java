@@ -389,6 +389,23 @@ public class DrawUtils {
     return new Color(color.getDevice(), r, g, b);
   }
 
+  /**
+   * @return <code>true</code> if the given <code>color</code> is dark.
+   */
+  public static boolean isDarkColor(Color c) {
+    int value =
+        (int) Math.sqrt(c.getRed()
+            * c.getRed()
+            * .241
+            + c.getGreen()
+            * c.getGreen()
+            * .691
+            + c.getBlue()
+            * c.getBlue()
+            * .068);
+    return value < 130;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Fonts

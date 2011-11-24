@@ -61,7 +61,7 @@ public final class PaletteComposite extends Composite {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final Color COLOR_PALETTE_BACKGROUND = IColorConstants.button;
-  private static final Color COLOR_TEXT_ENABLED = IColorConstants.black;
+  private static final Color COLOR_TEXT_ENABLED = IColorConstants.listForeground;
   private static final Color COLOR_TEXT_DISABLED = IColorConstants.gray;
   private static final Color COLOR_ENTRY_SELECTED = DrawUtils.getShiftedColor(
       COLOR_PALETTE_BACKGROUND,

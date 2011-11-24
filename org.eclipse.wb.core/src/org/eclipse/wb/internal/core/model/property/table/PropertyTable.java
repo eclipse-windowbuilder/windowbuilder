@@ -77,8 +77,11 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
       -32);
   private static final Color COLOR_PROPERTY_BG = DrawUtils.getShiftedColor(COLOR_BACKGROUND, -12);
   private static final Color COLOR_PROPERTY_BG_MODIFIED = COLOR_BACKGROUND;
-  private static final Color COLOR_PROPERTY_FG_TITLE = IColorConstants.black;
-  private static final Color COLOR_PROPERTY_FG_VALUE = IColorConstants.darkBlue;
+  private static final Color COLOR_PROPERTY_FG_TITLE = IColorConstants.listForeground;
+  private static final Color COLOR_PROPERTY_FG_VALUE =
+      DrawUtils.isDarkColor(IColorConstants.listBackground)
+          ? IColorConstants.lightBlue
+          : IColorConstants.darkBlue;
   private static final Color COLOR_PROPERTY_BG_SELECTED = IColorConstants.listSelection;
   private static final Color COLOR_PROPERTY_FG_SELECTED = IColorConstants.listSelectionText;
   private static final Color COLOR_PROPERTY_FG_ADVANCED = IColorConstants.gray;
