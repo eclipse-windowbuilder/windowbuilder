@@ -12,6 +12,9 @@ package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import org.eclipse.wb.internal.rcp.model.forms.DetailsPageInfo;
 
+import org.eclipse.ui.forms.IDetailsPage;
+import org.eclipse.ui.forms.IManagedForm;
+
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
@@ -171,6 +174,47 @@ public class DetailsPageTest extends AbstractFormsTest {
             "}");
     assertHierarchy(
         "{this: org.eclipse.ui.forms.IDetailsPage} {this} {}",
+        "  {parameter} {parent} {/parent.setLayout(new GridLayout())/}",
+        "    {new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout())/}",
+        "  {instance factory container}",
+        "    {toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}");
+    // refresh
+    page.refresh();
+    assertNoErrors(page);
+  }
+
+  /**
+   * We should ignore {@link IManagedForm} in {@link IDetailsPage#initialize(IManagedForm)} not only
+   * for direct implementation of {@link IDetailsPage}, but also in subclass of other class which
+   * implements it.
+   * <p>
+   * http://www.eclipse.org/forums/index.php/t/262821/
+   */
+  public void test_extendAbstractClass() throws Exception {
+    setFileContentSrc(
+        "test/AbstractPage.java",
+        getSourceDQ(
+            "package test;",
+            "import org.eclipse.ui.forms.IDetailsPage;",
+            "public abstract class AbstractPage implements IDetailsPage {",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    DetailsPageInfo page =
+        parseJavaInfo(
+            "public abstract class Test extends AbstractPage {",
+            "  private IManagedForm managedForm;",
+            "  public Test() {",
+            "  }",
+            "  public void initialize(IManagedForm form) {",
+            "    managedForm = form;",
+            "  }",
+            "  public void createContents(Composite parent) {",
+            "    parent.setLayout(new GridLayout());",
+            "  }",
+            "}");
+    assertHierarchy(
+        "{this: test.AbstractPage} {this} {}",
         "  {parameter} {parent} {/parent.setLayout(new GridLayout())/}",
         "    {new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout())/}",
         "  {instance factory container}",

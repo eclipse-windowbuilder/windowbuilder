@@ -212,16 +212,17 @@ public final class ComponentDescriptionHelper {
     List<ClassResourceInfo> additionalDescriptions = Lists.newArrayList();
     {
       Class<?> hostComponentClass = hostDescription.getComponentClass();
-      for (; hostComponentClass != null; hostComponentClass = hostComponentClass.getSuperclass()) {
-        ComponentDescriptionKey hostKey = new ComponentDescriptionKey(hostComponentClass);
+      List<Class<?>> types = ReflectionUtils.getSuperHierarchy(hostComponentClass);
+      types = Lists.reverse(types);
+      for (Class<?> type : types) {
+        ComponentDescriptionKey hostKey = new ComponentDescriptionKey(type);
         // prepare specific ResourceInfo
         ResourceInfo resourceInfo;
         {
           EditorState state = EditorState.get(editor);
           ILoadingContext context = EditorStateLoadingContext.get(state);
           String descriptionPath = hostKey.getName() + "." + suffix + ".wbp-component.xml";
-          resourceInfo =
-              DescriptionHelper.getResourceInfo(context, hostComponentClass, descriptionPath);
+          resourceInfo = DescriptionHelper.getResourceInfo(context, type, descriptionPath);
         }
         // add specific DescriptionInfo
         if (resourceInfo != null) {

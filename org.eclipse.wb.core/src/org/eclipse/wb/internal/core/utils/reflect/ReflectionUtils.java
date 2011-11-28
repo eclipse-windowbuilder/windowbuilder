@@ -308,6 +308,27 @@ public class ReflectionUtils {
     }, false);
   }
 
+  /**
+   * @return the list of all supertypes: superclasses and interfaces. Class itself and its
+   *         interfaces first, then superclass.
+   */
+  public static List<Class<?>> getSuperHierarchy(Class<?> clazz) throws Exception {
+    List<Class<?>> types = Lists.newArrayList();
+    types.add(clazz);
+    // check super Class
+    Class<?> superclass = clazz.getSuperclass();
+    if (superclass != null) {
+      // interfaces
+      for (Class<?> interfaceClass : clazz.getInterfaces()) {
+        types.addAll(getSuperHierarchy(interfaceClass));
+      }
+      // super Class
+      types.addAll(getSuperHierarchy(superclass));
+    }
+    // done
+    return types;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Specific

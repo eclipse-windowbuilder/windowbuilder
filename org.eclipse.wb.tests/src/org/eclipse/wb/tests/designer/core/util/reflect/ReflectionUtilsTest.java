@@ -1930,4 +1930,34 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     assertTrue(ReflectionUtils.isMemberClass(Map.Entry.class));
     // no check for NoClassDefFoundError
   }
+
+  /**
+   * Test for {@link ReflectionUtils#getSuperHierarchy(Class)}.
+   */
+  public void test_getAllSupertypes() throws Exception {
+    abstract class A implements List<String> {
+    }
+    abstract class B extends A implements Comparable<String> {
+    }
+    // Object
+    {
+      List<Class<?>> types = ReflectionUtils.getSuperHierarchy(Object.class);
+      assertThat(types).containsExactly(Object.class);
+    }
+    // A
+    {
+      List<Class<?>> types = ReflectionUtils.getSuperHierarchy(A.class);
+      assertThat(types).containsExactly(A.class, List.class, Object.class);
+    }
+    // B
+    {
+      List<Class<?>> types = ReflectionUtils.getSuperHierarchy(B.class);
+      assertThat(types).containsExactly(
+          B.class,
+          Comparable.class,
+          A.class,
+          List.class,
+          Object.class);
+    }
+  }
 }
