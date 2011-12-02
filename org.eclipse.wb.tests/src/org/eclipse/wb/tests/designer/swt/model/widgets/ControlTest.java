@@ -34,6 +34,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -797,6 +798,25 @@ public class ControlTest extends RcpModelTest {
     ControlSupport.dispose(shell);
     // try to refresh again, new Shell should be created and used
     composite.refresh();
+  }
+
+  /**
+   * Some users try to put some other parameter before standard "parent" and "style".
+   */
+  public void test_parentNotAsFirstParameter() throws Exception {
+    useStrictEvaluationMode(false);
+    CompositeInfo composite =
+        parseComposite(
+            "public class Test extends Composite {",
+            "  public Test(int flag, Composite parent, int style) {",
+            "    super(parent, style);",
+            "  }",
+            "}");
+    composite.refresh();
+    // has "parent" and "style"
+    Composite compositeObject = (Composite) composite.getObject();
+    assertNotNull(compositeObject.getParent());
+    assertEquals(SWT.LEFT_TO_RIGHT, compositeObject.getStyle());
   }
 
   ////////////////////////////////////////////////////////////////////////////

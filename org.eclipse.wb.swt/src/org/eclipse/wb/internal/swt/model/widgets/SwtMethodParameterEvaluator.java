@@ -43,12 +43,16 @@ public final class SwtMethodParameterEvaluator implements IMethodParameterEvalua
       SingleVariableDeclaration parameter,
       int index) throws Exception {
     ClassLoader classLoader = context.getClassLoader();
+    String parameterName = parameter.getName().getIdentifier();
+    ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(parameter);
     // parent
-    if (index == 0) {
-      ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(parameter);
-      if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
+    if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Composite")) {
+      if (index == 0 || parameterName.equals("parent")) {
         return getDefaultShell(parameter, classLoader);
       }
+    }
+    // Display
+    if (index == 0) {
       if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.swt.widgets.Display")) {
         Class<?> c_Display = classLoader.loadClass("org.eclipse.swt.widgets.Display");
         return ReflectionUtils.invokeMethod(c_Display, "getDefault()");
