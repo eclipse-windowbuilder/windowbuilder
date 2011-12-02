@@ -294,6 +294,7 @@
 				<resourcePrefix>java.util.</resourcePrefix>
 				<resourcePrefix>javax.swing.</resourcePrefix>
 				<resourcePrefix>org.jdesktop.</resourcePrefix>
+				<resourcePrefix>org.openide.</resourcePrefix>
 			</resourcePrefixes>
 			<palette>
 				<category id="org.eclipse.wb.swing.system" name="System" description="System tools">

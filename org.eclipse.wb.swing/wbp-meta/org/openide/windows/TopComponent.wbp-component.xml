@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<!-- PROPERTIES EDITORS-->
+	<property id="setCloseOperation(int)">
+		<editor id="staticField">
+			<parameter name="class">org.openide.windows.TopComponent</parameter>
+			<parameter name="fields">CLOSE_EACH CLOSE_LAST</parameter>
+		</editor>
+	</property>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">true</parameter>
+	</parameters>
+</component>
