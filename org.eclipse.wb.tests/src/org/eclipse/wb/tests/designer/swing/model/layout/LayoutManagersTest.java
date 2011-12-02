@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatemen
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.model.variable.description.FieldInitializerVariableDescription;
 import org.eclipse.wb.internal.core.model.variable.description.FieldUniqueVariableDescription;
 import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescription;
@@ -872,6 +873,54 @@ public class LayoutManagersTest extends AbstractLayoutTest {
         "    }",
         "  }",
         "}");
+  }
+
+  /**
+   * When we parse {@link LayoutManager}, which has parent {@link Container} in constructor, it
+   * happens that parent is set before {@link VariableSupport}, so we attempt to set name. So, we
+   * should check that we are at parsing time, so ignore setting of {@link VariableSupport}.
+   */
+  public void test_nameTemplate_ignoreDuringParsing() throws Exception {
+    setFileContentSrc(
+        "test/MyLayout.java",
+        getTestSource(
+            "public class MyLayout extends FlowLayout {",
+            "  public MyLayout(Container container) {",
+            "    container.setLayout(this);",
+            "  }",
+            "}"));
+    setFileContentSrc(
+        "test/MyLayout.wbp-component.xml",
+        getSource(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <constructors>",
+            "    <constructor>",
+            "      <parameter type='java.awt.Container' parent='true'/>",
+            "    </constructor>",
+            "  </constructors>",
+            "</component>"));
+    waitForAutoBuild();
+    // set template
+    Activator.getDefault().getPreferenceStore().setValue(
+        org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.P_LAYOUT_NAME_TEMPLATE,
+        "${containerName}${layoutClassName}");
+    // parse and check that source was not changed
+    String[] lines =
+        {
+            "class Test extends JPanel {",
+            "  public Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JPanel panel = new JPanel();",
+            "      MyLayout layout = new MyLayout(panel);",
+            "      panel.setLayout(layout);",
+            "      add(panel);",
+            "    }",
+            "  }",
+            "}"};
+    parseJavaInfo(lines);
+    assertEditor(lines);
   }
 
   ////////////////////////////////////////////////////////////////////////////
