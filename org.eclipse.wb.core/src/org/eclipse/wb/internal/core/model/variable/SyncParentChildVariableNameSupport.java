@@ -15,6 +15,7 @@ import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.JavaInfoSetVariable;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
+import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -49,7 +50,9 @@ public abstract class SyncParentChildVariableNameSupport<T extends JavaInfo> {
             && oldVariable instanceof EmptyVariableSupport
             && newVariable instanceof AbstractNamedVariableSupport) {
           JavaInfo parent = m_childInfo.getParentJava();
-          if (parent != null && parent.getVariableSupport() instanceof AbstractNamedVariableSupport) {
+          if (!GlobalState.isParsing()
+              && parent != null
+              && parent.getVariableSupport() instanceof AbstractNamedVariableSupport) {
             setNewName();
           }
         }
