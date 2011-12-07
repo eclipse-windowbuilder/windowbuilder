@@ -149,7 +149,8 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
 
       @Override
       public void refreshed() throws Exception {
-        if (m_layout.getParent() != null) {
+        // don't refresh if on 'live' component.
+        if (m_layout.getParent() != null && getLayoutDesigner() != null) {
           getLayoutDesigner().updateCurrentState();
         }
       }
