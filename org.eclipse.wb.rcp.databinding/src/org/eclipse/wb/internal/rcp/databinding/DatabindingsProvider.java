@@ -530,6 +530,16 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
         }
       }
     }
+    // Sub-properties not allowed for sets, lists, maps.
+    // see http://www.eclipse.org/forums/index.php/t/262915/
+    if (modelType == Type.List
+        || modelType == Type.OnlyList
+        || modelType == Type.Set
+        || modelType == Type.OnlySet) {
+      if (modelProperty.getParent() != null) {
+        return false;
+      }
+    }
     // ignore itself
     return !targetBindable.getReference().equals(modelBindable.getReference())
         || !targetPropertyBindable.getReference().equals(modelPropertyBindable.getReference());
