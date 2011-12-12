@@ -327,18 +327,19 @@ public final class ViewerInputParser implements ISubParser {
             new Throwable());
         return null;
       }
-      //
-      if (m_viewers.get(viewerBindable) != null) {
+      // prepare binding
+      AbstractViewerInputBindingInfo viewerBinding = getViewerBindingInfo(viewerBindable);
+      if (viewerBinding == null) {
         AbstractParser.addError(
             editor,
-            MessageFormat.format(Messages.ViewerInputParser_doubleInvocation, invocation),
+            MessageFormat.format(
+                Messages.ViewerInputParser_modelViewerNotFound,
+                invocation.getExpression()),
             new Throwable());
         return null;
       }
       //
-      if (ReflectionUtils.isSuccessorOf(
-          viewerBindable.getObjectType(),
-          "org.eclipse.jface.viewers.AbstractTreeViewer")) {
+      if (viewerBinding instanceof TreeViewerInputBindingInfo) {
         // prepare content provider
         ObservableCollectionTreeContentProviderInfo contentProvider =
             (ObservableCollectionTreeContentProviderInfo) resolver.getModel(arguments[0]);
@@ -349,13 +350,9 @@ public final class ViewerInputParser implements ISubParser {
               new Throwable());
           return null;
         }
-        // create binding
-        TreeViewerInputBindingInfo viewerBinding = new TreeViewerInputBindingInfo(viewerBindable);
-        viewerBinding.setContentProvider(contentProvider);
-        // add binding
-        m_contextInfo.getBindings().add(viewerBinding);
-        m_viewers.put(viewerBindable, viewerBinding);
-      } else {
+        TreeViewerInputBindingInfo viewerInputBinding = (TreeViewerInputBindingInfo) viewerBinding;
+        viewerInputBinding.setContentProvider(contentProvider);
+      } else if (viewerBinding instanceof ViewerInputBindingInfo) {
         // prepare content provider
         ObservableCollectionContentProviderInfo contentProvider =
             (ObservableCollectionContentProviderInfo) resolver.getModel(arguments[0]);
@@ -366,12 +363,14 @@ public final class ViewerInputParser implements ISubParser {
               new Throwable());
           return null;
         }
-        // create binding
-        ViewerInputBindingInfo viewerBinding = new ViewerInputBindingInfo(viewerBindable);
-        viewerBinding.setContentProvider(contentProvider);
-        // add binding
-        m_contextInfo.getBindings().add(viewerBinding);
-        m_viewers.put(viewerBindable, viewerBinding);
+        ViewerInputBindingInfo viewerInputBinding = (ViewerInputBindingInfo) viewerBinding;
+        viewerInputBinding.setContentProvider(contentProvider);
+      } else {
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(Messages.ViewerInputParser_contentProviderNotFound, arguments[0]),
+            new Throwable());
+        return null;
       }
     } else if (signature.endsWith("setLabelProvider(org.eclipse.jface.viewers.IBaseLabelProvider)")) {
       // prepare viewer
@@ -387,7 +386,7 @@ public final class ViewerInputParser implements ISubParser {
         return null;
       }
       // prepare binding
-      AbstractViewerInputBindingInfo viewerBinding = m_viewers.get(viewerBindable);
+      AbstractViewerInputBindingInfo viewerBinding = getViewerBindingInfo(viewerBindable);
       if (viewerBinding == null) {
         AbstractParser.addError(
             editor,
@@ -415,7 +414,7 @@ public final class ViewerInputParser implements ISubParser {
         // sets label provider
         ViewerInputBindingInfo viewerInputBinding = (ViewerInputBindingInfo) viewerBinding;
         viewerInputBinding.setLabelProvider(labelProvider);
-      } else {
+      } else if (viewerBinding instanceof TreeViewerInputBindingInfo) {
         // prepare label provider
         AbstractLabelProviderInfo labelProvider =
             (AbstractLabelProviderInfo) resolver.getModel(arguments[0]);
@@ -432,6 +431,11 @@ public final class ViewerInputParser implements ISubParser {
         // sets label provider
         TreeViewerInputBindingInfo viewerInputBinding = (TreeViewerInputBindingInfo) viewerBinding;
         viewerInputBinding.setLabelProvider(labelProvider);
+      } else {
+        AbstractParser.addError(editor, MessageFormat.format(
+            Messages.ViewerInputParser_labelProviderArgumentNotFound,
+            arguments[0]), new Throwable());
+        return null;
       }
     } else if (signature.endsWith("setInput(java.lang.Object)")) {
       // prepare viewer
@@ -646,5 +650,24 @@ public final class ViewerInputParser implements ISubParser {
       return new CellEditorControlPropertyCodeSupport();
     }
     return null;
+  }
+
+  private AbstractViewerInputBindingInfo getViewerBindingInfo(WidgetBindableInfo viewerBindable)
+      throws Exception {
+    AbstractViewerInputBindingInfo viewerBinding = m_viewers.get(viewerBindable);
+    if (viewerBinding == null) {
+      // create binding
+      if (ReflectionUtils.isSuccessorOf(
+          viewerBindable.getObjectType(),
+          "org.eclipse.jface.viewers.AbstractTreeViewer")) {
+        viewerBinding = new TreeViewerInputBindingInfo(viewerBindable);
+      } else {
+        viewerBinding = new ViewerInputBindingInfo(viewerBindable);
+      }
+      // add binding
+      m_contextInfo.getBindings().add(viewerBinding);
+      m_viewers.put(viewerBindable, viewerBinding);
+    }
+    return viewerBinding;
   }
 }

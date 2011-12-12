@@ -304,17 +304,17 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
     if (m_codeSupport == null) {
       // prepare viewer reference
       String viewerReference = m_viewerBindable.getReference();
-      // add content provider code
+      // define content provider
       contentProvider.addSourceCode(lines, generationSupport);
-      lines.add(viewerReference
-          + ".setContentProvider("
-          + contentProvider.getVariableIdentifier()
-          + ");");
-      lines.add("//");
-      // add label provider code
+      // add set label provider code
       lines.add(viewerReference
           + ".setLabelProvider("
           + labelProvider.getSourceCode(lines, generationSupport)
+          + ");");
+      // add set content provider code
+      lines.add(viewerReference
+          + ".setContentProvider("
+          + contentProvider.getVariableIdentifier()
           + ");");
       lines.add("//");
       // add input source code
