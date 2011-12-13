@@ -159,6 +159,7 @@ public abstract class AbstractGridHelper {
     Interval[] rowIntervals = gridInfo.getRowIntervals();
     // prepare host information
     prepareHostClientArea();
+    hostClientArea.crop(gridInfo.getInsets());
     // add horizontal lines
     {
       int y = hostClientArea.top();
@@ -238,9 +239,11 @@ public abstract class AbstractGridHelper {
     {
       RectangleFigure borderFigure = new RectangleFigure();
       borderFigure.setForeground(m_borderColor);
-      borderFigure.setBounds(new Rectangle(new Point(0, 0), hostClientArea.getSize()));
+      borderFigure.setBounds(hostClientArea);
       m_gridFigure.add(borderFigure);
     }
+    // add feedback figure
+    prepareHostClientArea();
     translateModelToFeedback(hostClientArea);
     m_gridFigure.setBounds(hostClientArea);
     getHost().getViewer().getLayer(IEditPartViewer.HANDLE_LAYER_SUB_2).add(m_gridFigure);
@@ -254,7 +257,6 @@ public abstract class AbstractGridHelper {
     hostClientArea = getHost().getFigure().getBounds().getCopy();
     hostClientArea.crop(containerInfo.getClientAreaInsets());
     hostClientArea.x = hostClientArea.y = 0;
-    hostClientArea.crop(getGridInfo().getInsets());
   }
 
   /**

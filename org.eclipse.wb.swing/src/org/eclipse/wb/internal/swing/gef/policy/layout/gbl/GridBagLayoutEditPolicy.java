@@ -233,7 +233,7 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
         break;
       }
       // gap or near to end of interval
-      if (!isLast) {
+      if (nextInterval != null) {
         int gap = nextInterval.begin - interval.end();
         boolean directGap = interval.end() <= location.x && location.x < nextInterval.begin;
         boolean narrowGap = gap < 2 * INSERT_COLUMN_SIZE;
@@ -299,7 +299,7 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
         break;
       }
       // gap or near to end of interval
-      if (!isLast) {
+      if (nextInterval != null) {
         int gap = nextInterval.begin - interval.end();
         boolean directGap = interval.end() <= location.y && location.y < nextInterval.begin;
         boolean narrowGap = gap < 2 * INSERT_ROW_SIZE;
