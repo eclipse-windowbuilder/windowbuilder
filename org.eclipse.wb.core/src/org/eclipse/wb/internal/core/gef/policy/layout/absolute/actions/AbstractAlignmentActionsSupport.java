@@ -70,7 +70,9 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
         return;
       }
       // target is not on our container
-      if (objects.get(0).getParent() != getLayoutContainer().getUnderlyingModel()) {
+      IAbstractComponentInfo layoutContainer = getLayoutContainer();
+      if (layoutContainer == null
+          || objects.get(0).getParent() != layoutContainer.getUnderlyingModel()) {
         return;
       }
     }
