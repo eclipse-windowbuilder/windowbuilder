@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.swing.model.component.JDesktopPaneInfo"/>
     <description>A container used to create a multiple-document interface or a virtual desktop.</description>
     <!-- PROPERTIES -->
     <properties-advanced names="desktopManager"/>

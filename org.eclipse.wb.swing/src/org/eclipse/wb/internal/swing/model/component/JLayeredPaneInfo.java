@@ -47,7 +47,7 @@ import javax.swing.JLayeredPane;
  * @author scheglov_ke
  * @coverage swing.model
  */
-public final class JLayeredPaneInfo extends ContainerInfo {
+public class JLayeredPaneInfo extends ContainerInfo {
   private final JLayeredPaneInfo m_this = this;
 
   ////////////////////////////////////////////////////////////////////////////
