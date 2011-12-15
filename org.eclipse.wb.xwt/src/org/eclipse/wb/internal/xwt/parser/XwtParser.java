@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
+import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.utils.xml.DocumentModelVisitor;
@@ -88,6 +89,14 @@ public final class XwtParser {
   //
   ////////////////////////////////////////////////////////////////////////////
   public XmlObjectInfo parse() throws Exception {
+    return ExecutionUtils.runDesignTime(new RunnableObjectEx<XmlObjectInfo>() {
+      public XmlObjectInfo runObject() throws Exception {
+        return parse0();
+      }
+    });
+  }
+
+  private XmlObjectInfo parse0() throws Exception {
     m_context.initialize();
     m_context.setParsing(true);
     fillMap_pathToElement();
