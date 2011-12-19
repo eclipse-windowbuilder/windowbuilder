@@ -630,6 +630,11 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
       m_activePage.setActive(false);
       m_activePage = null;
     }
+    // activate new active page
+    m_activePage = activePage;
+    if (m_activePage != null) {
+      m_activePage.setActive(true);
+    }
     // We use "fake" item because we can not override private getItem() method.
     // Currently (20110623) this item is not used for anything useful for WindowBuilder.
     {
@@ -642,11 +647,6 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
           fakeItem.dispose();
         }
       }
-    }
-    // activate new active page
-    m_activePage = activePage;
-    if (m_activePage != null) {
-      m_activePage.setActive(true);
     }
   }
 
