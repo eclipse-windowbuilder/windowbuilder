@@ -10,16 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.iterators.IteratorEnumeration;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -32,9 +32,9 @@ import java.util.Set;
  * @coverage core.util
  */
 public class CompositeClassLoader extends ClassLoader {
-  private final List<ClassLoader> m_classLoaders = new ArrayList();
-  private final List/*<List<String>>*/m_classNamespaces = new ArrayList();
-  private final List/*<List<String>>*/m_resourceNamespaces = new ArrayList();
+  private final List<ClassLoader> m_classLoaders = Lists.newArrayList();
+  private final List<List<String>> m_classNamespaces = Lists.newArrayList();
+  private final List<List<String>> m_resourceNamespaces = Lists.newArrayList();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -44,7 +44,7 @@ public class CompositeClassLoader extends ClassLoader {
   /**
    * @return the {@link List} of underlying {@link ClassLoader}'s.
    */
-  public List getClassLoaders() {
+  public List<ClassLoader> getClassLoaders() {
     return m_classLoaders;
   }
 
@@ -56,7 +56,7 @@ public class CompositeClassLoader extends ClassLoader {
    *          <code>null</code>, in this case this {@link ClassLoader} will be always used for
    *          attempt to load {@link Class}.
    */
-  public void add(ClassLoader classLoader, List namespaces) {
+  public void add(ClassLoader classLoader, List<String> namespaces) {
     add(classLoader, namespaces, namespaces);
   }
 
@@ -68,15 +68,14 @@ public class CompositeClassLoader extends ClassLoader {
    *          <code>null</code>, in this case this {@link ClassLoader} will be always used for
    *          attempt to load {@link Class}.
    */
-  public void add(ClassLoader classLoader, List classPrefixes, List resourcePrefixes) {
+  public void add(ClassLoader classLoader, List<String> classPrefixes, List<String> resourcePrefixes) {
     if (classLoader != null) {
       m_classLoaders.add(0, classLoader);
       m_classNamespaces.add(0, classPrefixes);
       // resource namespace: convert to use '/' instead of '.' to do this only one time
       if (resourcePrefixes != null) {
-        List resourceNamespaces = new ArrayList();
-        for (Iterator iterator = resourcePrefixes.iterator(); iterator.hasNext();) {
-          String namespace = (String) iterator.next();
+        List<String> resourceNamespaces = Lists.newArrayList();
+        for (String namespace : resourcePrefixes) {
           resourceNamespaces.add(namespace.replace('.', '/'));
         }
         m_resourceNamespaces.add(0, resourceNamespaces);
@@ -115,7 +114,7 @@ public class CompositeClassLoader extends ClassLoader {
       ClassLoader classLoader = m_classLoaders.get(i);
       // check namespace
       {
-        List namespaces = (List) m_resourceNamespaces.get(i);
+        List<String> namespaces = m_resourceNamespaces.get(i);
         if (!hasNamespace(name, namespaces)) {
           continue;
         }
@@ -131,23 +130,22 @@ public class CompositeClassLoader extends ClassLoader {
   }
 
   @Override
-  protected Enumeration findResources(String name) throws IOException {
-    Set allResources = new HashSet();
-    for (Iterator iterator = m_classLoaders.iterator(); iterator.hasNext();) {
-      ClassLoader classLoader = (ClassLoader) iterator.next();
-      Enumeration resources = classLoader.getResources(name);
+  protected Enumeration<URL> findResources(String name) throws IOException {
+    Set<URL> allResources = Sets.newHashSet();
+    for (ClassLoader classLoader : m_classLoaders) {
+      Enumeration<URL> resources = classLoader.getResources(name);
       CollectionUtils.addAll(allResources, resources);
     }
-    return new IteratorEnumeration(allResources.iterator());
+    return Iterators.asEnumeration(allResources.iterator());
   }
 
   @Override
-  protected Class findClass(String name) throws ClassNotFoundException {
+  protected Class<?> findClass(String name) throws ClassNotFoundException {
     for (int i = 0; i < m_classLoaders.size(); i++) {
       ClassLoader classLoader = m_classLoaders.get(i);
       // check namespace
       {
-        List namespaces = (List) m_classNamespaces.get(i);
+        List<String> namespaces = m_classNamespaces.get(i);
         if (!hasNamespace(name, namespaces)) {
           continue;
         }
@@ -172,10 +170,9 @@ public class CompositeClassLoader extends ClassLoader {
    * @return <code>true</code> if given name is in one of the given namespace's. Always returns
    *         <code>true</code> if given namespace's is <code>null</code>.
    */
-  private static boolean hasNamespace(String name, List/*<String>*/namespaces) {
+  private static boolean hasNamespace(String name, List<String> namespaces) {
     if (namespaces != null) {
-      for (Iterator iterator = namespaces.iterator(); iterator.hasNext();) {
-        String namespace = (String) iterator.next();
+      for (String namespace : namespaces) {
         if (name.startsWith(namespace)) {
           return true;
         }
