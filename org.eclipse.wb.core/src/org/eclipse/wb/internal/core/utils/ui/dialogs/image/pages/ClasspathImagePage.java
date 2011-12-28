@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Composite;
  * Implementation of {@link AbstractImagePage} that selects image as class path resource.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class ClasspathImagePage extends AbstractBrowseImagePage {
   public static final String ID = "CLASSPATH";

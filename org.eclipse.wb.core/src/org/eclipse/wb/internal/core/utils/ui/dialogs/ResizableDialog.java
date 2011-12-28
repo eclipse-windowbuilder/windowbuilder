@@ -24,6 +24,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * {@link Dialog} that remembers location/size between usage sessions.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class ResizableDialog extends Dialog {
   /**

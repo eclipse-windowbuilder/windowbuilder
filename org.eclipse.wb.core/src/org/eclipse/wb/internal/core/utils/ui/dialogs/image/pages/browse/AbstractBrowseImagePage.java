@@ -42,6 +42,7 @@ import org.apache.commons.lang.ArrayUtils;
  * Implementation of {@link AbstractImagePage} that supports browsing.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class AbstractBrowseImagePage extends AbstractImagePage {
   private final TreeViewer m_viewer;

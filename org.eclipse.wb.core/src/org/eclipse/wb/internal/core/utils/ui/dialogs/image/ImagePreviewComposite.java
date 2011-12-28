@@ -32,6 +32,7 @@ import java.text.MessageFormat;
  * {@link Composite} for displaying {@link ImageInfo}.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public class ImagePreviewComposite extends Composite {
   private final Label m_dimensionLabel;

@@ -10,22 +10,23 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
-import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.swt.graphics.Image;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation od {@link IImageContainer} for {@link IPackageFragmentRoot}.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 final class SrcImageContainer implements IImageContainer, IClasspathImageContainer {
   private final IPackageFragmentRoot m_packageFragmentRoot;
@@ -39,11 +40,10 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
   public SrcImageContainer(String id, IPackageFragmentRoot packageFragmentRoot) throws Exception {
     m_packageFragmentRoot = packageFragmentRoot;
     //
-    List packageContainers = new ArrayList();
+    List<SrcPackageImageContainer> packageContainers = Lists.newArrayList();
     {
       IJavaElement[] children = m_packageFragmentRoot.getChildren();
-      for (int i = 0; i < children.length; i++) {
-        IJavaElement child = children[i];
+      for (IJavaElement child : children) {
         if (child instanceof IPackageFragment) {
           IPackageFragment packageFragment = (IPackageFragment) child;
           SrcPackageImageContainer container =
@@ -55,7 +55,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
       }
     }
     m_packageContainers =
-        (SrcPackageImageContainer[]) packageContainers.toArray(new SrcPackageImageContainer[packageContainers.size()]);
+        packageContainers.toArray(new SrcPackageImageContainer[packageContainers.size()]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
-  public IImageElement[] elements() {
+  public IImageContainer[] elements() {
     return m_packageContainers;
   }
 
@@ -90,8 +90,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
   }
 
   public void dispose() {
-    for (int i = 0; i < m_packageContainers.length; i++) {
-      SrcPackageImageContainer container = m_packageContainers[i];
+    for (SrcPackageImageContainer container : m_packageContainers) {
       container.dispose();
     }
   }

@@ -16,6 +16,7 @@ import org.eclipse.swt.graphics.Image;
  * Information about image.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class ImageInfo {
   private final String m_pageId;

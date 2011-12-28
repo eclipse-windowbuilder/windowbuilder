@@ -13,11 +13,12 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 import java.util.Comparator;
 
 /**
- * Comparator for {@link ColorInfo} object using different criterias.
+ * Comparator for {@link ColorInfo} object using different criteria.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
-public class ColorInfoComparator implements Comparator {
+public class ColorInfoComparator implements Comparator<ColorInfo> {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instances
@@ -42,9 +43,7 @@ public class ColorInfoComparator implements Comparator {
   // Comparator
   //
   ////////////////////////////////////////////////////////////////////////////
-  public int compare(Object o1, Object o2) {
-    ColorInfo color_1 = (ColorInfo) o1;
-    ColorInfo color_2 = (ColorInfo) o2;
+  public int compare(ColorInfo color_1, ColorInfo color_2) {
     if (this == TONE) {
       return getTone(color_1) - getTone(color_2);
     }
@@ -56,14 +55,14 @@ public class ColorInfoComparator implements Comparator {
       if (hueCompare != 0) {
         return hueCompare;
       }
-      return SATURATION.compare(o1, o2);
+      return SATURATION.compare(color_1, color_2);
     }
     if (this == SATURATION) {
       int saturationCompare = Float.compare(color_1.m_saturation, color_2.m_saturation);
       if (saturationCompare != 0) {
         return saturationCompare;
       }
-      return LIGHTNESS.compare(o1, o2);
+      return LIGHTNESS.compare(color_1, color_2);
     }
     if (this == LIGHTNESS) {
       return Float.compare(color_1.m_lightness, color_2.m_lightness);

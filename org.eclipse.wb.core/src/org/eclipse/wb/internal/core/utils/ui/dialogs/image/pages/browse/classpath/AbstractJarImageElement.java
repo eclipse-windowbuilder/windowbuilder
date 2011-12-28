@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
  * Abstract implementation of {@link IImageElement} for single entry in jar.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class AbstractJarImageElement implements IImageElement {
   protected final JarImageContainer m_jarContainer;

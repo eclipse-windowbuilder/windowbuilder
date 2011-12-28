@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages;
 
+import com.google.common.collect.Maps;
+
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -31,18 +33,17 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Implementation of {@link AbstractImagePage} that selects image from file system.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class FileImagePage extends AbstractImagePage {
   public static final String ID = "FILE";
-  private final Map/*<String, ImageInfo>*/m_pathToImageInfo = new TreeMap();
+  private final Map<String, ImageInfo> m_pathToImageInfo = Maps.newTreeMap();
   private final Text m_pathText;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -56,8 +57,7 @@ public final class FileImagePage extends AbstractImagePage {
     // add dispose listener
     addListener(SWT.Dispose, new Listener() {
       public void handleEvent(Event event) {
-        for (Iterator I = m_pathToImageInfo.values().iterator(); I.hasNext();) {
-          ImageInfo imageInfo = (ImageInfo) I.next();
+        for (ImageInfo imageInfo : m_pathToImageInfo.values()) {
           imageInfo.getImage().dispose();
         }
       }
@@ -101,7 +101,7 @@ public final class FileImagePage extends AbstractImagePage {
    */
   private void updateImageInfo() {
     String path = m_pathText.getText();
-    ImageInfo imageInfo = (ImageInfo) m_pathToImageInfo.get(path);
+    ImageInfo imageInfo = m_pathToImageInfo.get(path);
     if (imageInfo == null) {
       File file = new File(path);
       if (file.exists() && !file.isDirectory()) {

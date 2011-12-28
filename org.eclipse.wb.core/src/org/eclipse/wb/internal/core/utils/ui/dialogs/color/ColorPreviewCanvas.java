@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
  * Control for displaying {@link ColorInfo}.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class ColorPreviewCanvas extends Canvas {
   private ColorInfo m_color;

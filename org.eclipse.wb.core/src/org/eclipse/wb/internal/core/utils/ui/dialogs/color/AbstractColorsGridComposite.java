@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.utils.Messages;
 
 import org.eclipse.swt.SWT;
@@ -24,16 +26,14 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Abstract {@link Composite} for color selection.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class AbstractColorsGridComposite extends AbstractColorsComposite {
   ////////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
   // Color grids
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List m_colorsGrids = new ArrayList();
+  private final List<ColorsGridComposite> m_colorsGrids = Lists.newArrayList();
 
   /**
    * Adds new {@link Group} with given title and fills it with {@link ColorsGridComposite} with
@@ -139,15 +139,17 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
   /**
    * Creates group for sorting colors in added {@link ColorsGridComposite}'s.
    */
-  protected final Group createSortGroup(Composite parent, String[] titles, Comparator[] comparators) {
+  protected final Group createSortGroup(Composite parent,
+      List<String> titles,
+      List<ColorInfoComparator> comparators) {
     Group group = new Group(parent, SWT.NONE);
     group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-    group.setLayout(new GridLayout(titles.length, false));
+    group.setLayout(new GridLayout(titles.size(), false));
     group.setText(Messages.AbstractColorsGridComposite_sortGroup);
     //
-    for (int i = 0; i < titles.length; i++) {
-      final String title = titles[i];
-      final Comparator comparator = comparators[i];
+    for (int i = 0; i < titles.size(); i++) {
+      final String title = titles.get(i);
+      final ColorInfoComparator comparator = comparators.get(i);
       // create radio button
       Button button = new Button(group, SWT.RADIO);
       button.setText(title);
@@ -169,9 +171,8 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
   /**
    * Sorts colors in all added {@link ColorsGridComposite}'s using given comparator.
    */
-  protected final void setComparator(Comparator comparator) {
-    for (Iterator I = m_colorsGrids.iterator(); I.hasNext();) {
-      ColorsGridComposite colorsGrid = (ColorsGridComposite) I.next();
+  protected final void setComparator(ColorInfoComparator comparator) {
+    for (ColorsGridComposite colorsGrid : m_colorsGrids) {
       Arrays.sort(colorsGrid.getColors(), comparator);
       colorsGrid.redraw();
     }

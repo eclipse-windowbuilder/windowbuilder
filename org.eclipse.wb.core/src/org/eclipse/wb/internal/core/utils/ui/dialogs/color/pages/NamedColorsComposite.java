@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color.pages;
 
+import com.google.common.collect.ImmutableList;
+
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorDialog;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.AbstractColorsGridComposite;
@@ -19,12 +21,11 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfoComparator;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
-import java.util.Comparator;
-
 /**
  * Composite for selecting named color (HTML or SVG).
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class NamedColorsComposite extends AbstractColorsGridComposite {
   ////////////////////////////////////////////////////////////////////////////
@@ -34,17 +35,17 @@ public final class NamedColorsComposite extends AbstractColorsGridComposite {
   ////////////////////////////////////////////////////////////////////////////
   public NamedColorsComposite(Composite parent, int style, AbstractColorDialog colorDialog) {
     super(parent, style, colorDialog);
-    createSortGroup(this, new String[]{
+    createSortGroup(this, ImmutableList.of(
         Messages.NamedColorsComposite_sortTone,
         Messages.NamedColorsComposite_sortHue,
         Messages.NamedColorsComposite_sortSaturation,
         Messages.NamedColorsComposite_sortLightness,
-        Messages.NamedColorsComposite_sortName}, new Comparator[]{
+        Messages.NamedColorsComposite_sortName), ImmutableList.of(
         ColorInfoComparator.TONE,
         ColorInfoComparator.HUE,
         ColorInfoComparator.SATURATION,
         ColorInfoComparator.LIGHTNESS,
-        ColorInfoComparator.NAME});
+        ColorInfoComparator.NAME));
     createColorsGroup(this, Messages.NamedColorsComposite_htmlGroup, HTML_COLORS);
     createColorsGroup(this, Messages.NamedColorsComposite_svgGroup, SVG_COLORS);
     setComparator(ColorInfoComparator.TONE);

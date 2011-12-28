@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.Image;
  * implementation of {@link IImageResource} for single file in jar.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 final class JarImageResource extends AbstractJarImageElement implements IImageResource {
   ////////////////////////////////////////////////////////////////////////////

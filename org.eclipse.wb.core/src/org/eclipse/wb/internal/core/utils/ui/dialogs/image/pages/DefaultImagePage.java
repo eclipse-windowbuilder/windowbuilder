@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Composite;
  * Implementation of {@link AbstractImagePage} that does not set image, i.e. keeps existing one.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class DefaultImagePage extends AbstractImagePage {
   public static final String ID = "DEFAULT";

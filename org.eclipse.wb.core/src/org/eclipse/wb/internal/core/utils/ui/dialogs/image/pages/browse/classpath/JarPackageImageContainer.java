@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 
@@ -18,13 +20,13 @@ import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.swt.graphics.Image;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link IImageContainer} for package in jar.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 final class JarPackageImageContainer extends AbstractJarImageElement implements IImageContainer {
   ////////////////////////////////////////////////////////////////////////////
@@ -42,7 +44,7 @@ final class JarPackageImageContainer extends AbstractJarImageElement implements 
   //
   ////////////////////////////////////////////////////////////////////////////
   public IImageElement[] elements() {
-    return (IImageElement[]) m_imageEntryList.toArray(new IImageElement[m_imageEntryList.size()]);
+    return m_imageEntryList.toArray(new IImageElement[m_imageEntryList.size()]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -63,7 +65,7 @@ final class JarPackageImageContainer extends AbstractJarImageElement implements 
   // Image resources
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List m_imageEntryList = new ArrayList();
+  private final List<JarImageResource> m_imageEntryList = Lists.newArrayList();
 
   /**
    * Adds given {@link JarImageResource} to this package.

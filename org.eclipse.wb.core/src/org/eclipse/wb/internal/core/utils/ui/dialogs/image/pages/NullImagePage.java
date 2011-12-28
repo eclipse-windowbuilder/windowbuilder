@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Composite;
  * Implementation of {@link AbstractImagePage} that sets "null" as image.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class NullImagePage extends AbstractImagePage {
   public static final String ID = "NULL";

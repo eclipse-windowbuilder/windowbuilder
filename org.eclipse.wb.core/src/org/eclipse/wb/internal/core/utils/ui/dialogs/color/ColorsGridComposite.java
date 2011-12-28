@@ -33,6 +33,7 @@ import org.apache.commons.lang.ArrayUtils;
  * Control for displaying grid of {@link ColorInfo}.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public class ColorsGridComposite extends Canvas {
   private int m_cellWidth = 25;

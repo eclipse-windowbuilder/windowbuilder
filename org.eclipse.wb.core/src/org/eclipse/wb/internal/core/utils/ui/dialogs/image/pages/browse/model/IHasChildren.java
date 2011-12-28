@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model;
 
 /**
  * @author lobas_av
+ * @coverage core.ui
  */
 public interface IHasChildren {
   /**

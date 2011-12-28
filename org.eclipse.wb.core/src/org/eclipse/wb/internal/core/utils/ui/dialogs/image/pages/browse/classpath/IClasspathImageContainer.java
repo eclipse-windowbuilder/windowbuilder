@@ -10,12 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
+import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
+
 /**
  * Common interface for {@link ClasspathImageRoot} top level elements.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
-interface IClasspathImageContainer {
+interface IClasspathImageContainer extends IImageContainer {
+  /**
+   * @return the children {@link IImageContainer}'s.
+   */
+  IImageContainer[] elements();
+
   /**
    * @return <code>true</code> if this jar does not have any images.
    */

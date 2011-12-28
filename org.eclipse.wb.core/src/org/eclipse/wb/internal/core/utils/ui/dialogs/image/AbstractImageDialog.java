@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image;
 
+import com.google.common.collect.Maps;
+
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -29,12 +31,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Abstract dialog for image choosing.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class AbstractImageDialog extends ResizableDialog {
   ////////////////////////////////////////////////////////////////////////////
@@ -62,7 +64,7 @@ public abstract class AbstractImageDialog extends ResizableDialog {
     m_input_pageId = pageId;
     m_input_pageData = pageData;
     if (m_input_pageId != null) {
-      AbstractImagePage page = (AbstractImagePage) m_idToPage.get(m_input_pageId);
+      AbstractImagePage page = m_idToPage.get(m_input_pageId);
       if (page != null) {
         page.init(m_input_pageData);
       }
@@ -123,10 +125,10 @@ public abstract class AbstractImageDialog extends ResizableDialog {
     Control contents = super.createContents(parent);
     // try to set initial page
     if (m_input_pageId != null) {
-      AbstractImagePage page = (AbstractImagePage) m_idToPage.get(m_input_pageId);
+      AbstractImagePage page = m_idToPage.get(m_input_pageId);
       if (page != null) {
         // set selected button
-        Button button = (Button) m_idToButton.get(m_input_pageId);
+        Button button = m_idToButton.get(m_input_pageId);
         button.setSelection(true);
         // activate page
         setActivePage(page);
@@ -148,8 +150,8 @@ public abstract class AbstractImageDialog extends ResizableDialog {
   // Pages
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map/*<String, AbstractImagePage>*/m_idToPage = new TreeMap();
-  private final Map/*<String, Button>*/m_idToButton = new TreeMap();
+  private final Map<String, AbstractImagePage> m_idToPage = Maps.newTreeMap();
+  private final Map<String, Button> m_idToButton = Maps.newTreeMap();
 
   protected final void addPage(AbstractImagePage page) {
     String id = page.getId();

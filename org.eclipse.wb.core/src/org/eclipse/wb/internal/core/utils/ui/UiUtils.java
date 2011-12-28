@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -41,10 +44,8 @@ import org.eclipse.swt.widgets.Widget;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Utilities for UI.
@@ -251,11 +252,13 @@ public class UiUtils {
           case SWT.MouseDown :
             Event e = new Event();
             e.item = (TableItem) tipControl.getData(TAB_ITEM_KEY);
+            // dispose tooltip
+            tipShell.dispose();
             // Assuming table is single select, set the selection as if
             // the mouse down event went through to the table
             table.setSelection(new TableItem[]{(TableItem) e.item});
             table.notifyListeners(SWT.Selection, e);
-            // fall through
+            break;
           case SWT.MouseExit :
             tipShell.dispose();
             break;
@@ -353,15 +356,15 @@ public class UiUtils {
    * @return the array of expanded {@link TreeItem}'s.
    */
   public static TreeItem[] getExpanded(Tree tree) {
-    List expandedItems = new ArrayList();
+    List<TreeItem> expandedItems = Lists.newArrayList();
     addExpanded(expandedItems, tree.getItems());
-    return (TreeItem[]) expandedItems.toArray(new TreeItem[expandedItems.size()]);
+    return expandedItems.toArray(new TreeItem[expandedItems.size()]);
   }
 
   /**
    * Adds expanded {@link TreeItem}'s for given {@link TreeItem}'s and all their children.
    */
-  private static void addExpanded(List expandedItems, TreeItem[] treeItems) {
+  private static void addExpanded(List<TreeItem> expandedItems, TreeItem[] treeItems) {
     for (int i = 0; i < treeItems.length; i++) {
       TreeItem treeItem = treeItems[i];
       if (treeItem.getExpanded()) {
@@ -566,13 +569,13 @@ public class UiUtils {
   // File icons
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static Map m_extensionToIcon = new TreeMap();
+  private static Map<String, Image> m_extensionToIcon = Maps.newHashMap();
 
   /**
    * @return icon that is associated with given file extension in the operating system
    */
   public static Image getIcon(String extension) {
-    Image icon = (Image) m_extensionToIcon.get(extension);
+    Image icon = m_extensionToIcon.get(extension);
     if (icon == null) {
       Program program = Program.findProgram(extension);
       if (program != null) {

@@ -27,6 +27,7 @@ import java.io.InputStream;
  * .
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 final class SrcImageResource implements IImageResource {
   private final String m_id;

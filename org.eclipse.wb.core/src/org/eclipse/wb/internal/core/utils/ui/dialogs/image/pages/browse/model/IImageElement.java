@@ -16,6 +16,7 @@ import org.eclipse.swt.graphics.Image;
  * Generic resource in image browsing.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public interface IImageElement {
   /**
@@ -27,5 +28,4 @@ public interface IImageElement {
    * @return the text to display.
    */
   String getName();
-  //String getFullPath();
 }

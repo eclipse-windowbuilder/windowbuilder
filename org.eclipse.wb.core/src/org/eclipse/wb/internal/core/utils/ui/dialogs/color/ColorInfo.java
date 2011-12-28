@@ -16,6 +16,7 @@ import org.eclipse.swt.graphics.RGB;
  * Information about color.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class ColorInfo {
   public final String m_name;
@@ -192,11 +193,11 @@ public final class ColorInfo {
         saturation = dist_color / (2.0f - max_color - min_color);
       }
       // prepare hue
-      if (r_color == max_color) {
+      if (equals(r_color, max_color)) {
         hue = (g_color - b_color) / dist_color;
-      } else if (g_color == max_color) {
+      } else if (equals(g_color, max_color)) {
         hue = 2.0f + (b_color - r_color) / dist_color;
-      } else if (b_color == max_color) {
+      } else if (equals(b_color, max_color)) {
         hue = 4.0f + (r_color - g_color) / dist_color;
       }
       // convert hue into [0, 1] of interval [0, 360]
@@ -207,5 +208,12 @@ public final class ColorInfo {
     }
     //
     return new float[]{hue, saturation, lightness};
+  }
+
+  /**
+   * Checks if two given {@link float} are equal.
+   */
+  private static boolean equals(float a, float b) {
+    return Math.abs(a - b) < 0.00001;
   }
 }

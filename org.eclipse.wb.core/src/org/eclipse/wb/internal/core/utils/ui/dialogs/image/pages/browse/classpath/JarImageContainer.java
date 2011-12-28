@@ -10,10 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
+import com.google.common.collect.Maps;
+
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.ImageInfo;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
-import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -25,8 +26,6 @@ import org.eclipse.swt.widgets.Display;
 
 import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -36,13 +35,13 @@ import java.util.zip.ZipEntry;
  * Implementation of {@link IImageContainer} for jar file in classpath.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
-final class JarImageContainer implements IImageContainer, IClasspathImageContainer {
+final class JarImageContainer implements IClasspathImageContainer {
   private final String m_id;
   private final IPackageFragmentRoot m_root;
   private final JarFile m_jarFile;
-  //private final IPath m_jarPath;
-  private final Map m_packagePathToEntryMap;
+  private final Map<IPath, JarPackageImageContainer> m_packagePathToEntryMap = Maps.newHashMap();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -58,9 +57,8 @@ final class JarImageContainer implements IImageContainer, IClasspathImageContain
       m_jarFile = new JarFile(jarPath.toOSString());
     }
     //
-    m_packagePathToEntryMap = new HashMap();
-    for (Enumeration E = m_jarFile.entries(); E.hasMoreElements();) {
-      JarEntry entry = (JarEntry) E.nextElement();
+    for (Enumeration<JarEntry> E = m_jarFile.entries(); E.hasMoreElements();) {
+      JarEntry entry = E.nextElement();
       // prepare entry information
       String entryName = entry.getName();
       IPath entryPath = new Path(entryName);
@@ -70,7 +68,7 @@ final class JarImageContainer implements IImageContainer, IClasspathImageContain
         JarPackageImageContainer packageEntry;
         {
           IPath packagePath = entryPath.removeLastSegments(1);
-          packageEntry = (JarPackageImageContainer) m_packagePathToEntryMap.get(packagePath);
+          packageEntry = m_packagePathToEntryMap.get(packagePath);
           if (packageEntry == null) {
             packageEntry = new JarPackageImageContainer(this, packagePath);
             m_packagePathToEntryMap.put(packagePath, packageEntry);
@@ -100,8 +98,8 @@ final class JarImageContainer implements IImageContainer, IClasspathImageContain
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
-  public IImageElement[] elements() {
-    return (IImageContainer[]) m_packagePathToEntryMap.values().toArray(
+  public IImageContainer[] elements() {
+    return m_packagePathToEntryMap.values().toArray(
         new IImageContainer[m_packagePathToEntryMap.size()]);
   }
 
@@ -127,14 +125,13 @@ final class JarImageContainer implements IImageContainer, IClasspathImageContain
   // Images
   //
   ////////////////////////////////////////////////////////////////////////////
-  private Map m_nameToImageInfo = new HashMap();
+  private Map<String, ImageInfo> m_nameToImageInfo = Maps.newHashMap();
 
   /**
    * Disposes images loaded from jar.
    */
   private void disposeJarImages() {
-    for (Iterator I = m_nameToImageInfo.values().iterator(); I.hasNext();) {
-      ImageInfo imageInfo = (ImageInfo) I.next();
+    for (ImageInfo imageInfo : m_nameToImageInfo.values()) {
       imageInfo.getImage().dispose();
     }
     m_nameToImageInfo = null;
@@ -144,7 +141,7 @@ final class JarImageContainer implements IImageContainer, IClasspathImageContain
    * @return the {@link Image} for {@link ZipEntry} with given name.
    */
   ImageInfo getImage(String entryName) {
-    ImageInfo imageInfo = (ImageInfo) m_nameToImageInfo.get(entryName);
+    ImageInfo imageInfo = m_nameToImageInfo.get(entryName);
     if (imageInfo == null) {
       // prepare entry in jar
       ZipEntry entry = m_jarFile.getEntry(entryName);

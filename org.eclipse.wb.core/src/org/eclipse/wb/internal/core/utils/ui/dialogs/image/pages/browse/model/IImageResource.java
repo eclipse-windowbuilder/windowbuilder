@@ -16,14 +16,11 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.ImageInfo;
  * {@link IImageElement} for {@link ImageInfo}.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public interface IImageResource extends IImageElement {
   /**
    * @return the {@link ImageInfo} for this resource.
    */
   ImageInfo getImageInfo();
-  /*IPath getLocation();
-   String getFileExtension();
-   long getLength();
-   String toImagePath();*/
 }

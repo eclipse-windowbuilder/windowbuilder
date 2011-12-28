@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Composite;
  * Abstract {@link Composite} for color selection.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class AbstractColorsComposite extends Composite {
   protected final AbstractColorDialog m_colorDialog;

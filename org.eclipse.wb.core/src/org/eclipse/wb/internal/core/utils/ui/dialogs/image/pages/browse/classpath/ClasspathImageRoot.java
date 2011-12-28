@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageRoot;
@@ -19,17 +21,17 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link IImageRoot} for browsing classpath.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public final class ClasspathImageRoot implements IImageRoot {
   private final IJavaProject m_project;
-  private final IImageContainer m_containers[];
+  private final IClasspathImageContainer m_containers[];
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -39,7 +41,7 @@ public final class ClasspathImageRoot implements IImageRoot {
   public ClasspathImageRoot(String id, IJavaProject project) {
     m_project = project;
     //
-    List containers = new ArrayList();
+    List<IImageContainer> containers = Lists.newArrayList();
     try {
       IPackageFragmentRoot[] roots = m_project.getAllPackageFragmentRoots();
       for (int i = 0; i < roots.length; i++) {
@@ -61,7 +63,7 @@ public final class ClasspathImageRoot implements IImageRoot {
       }
     } catch (Throwable e) {
     }
-    m_containers = (IImageContainer[]) containers.toArray(new IImageContainer[containers.size()]);
+    m_containers = containers.toArray(new IClasspathImageContainer[containers.size()]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -70,13 +72,12 @@ public final class ClasspathImageRoot implements IImageRoot {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void dispose() {
-    for (int i = 0; i < m_containers.length; i++) {
-      IClasspathImageContainer container = (IClasspathImageContainer) m_containers[i];
+    for (IClasspathImageContainer container : m_containers) {
       container.dispose();
     }
   }
 
-  public IImageElement[] elements() {
+  public IClasspathImageContainer[] elements() {
     return m_containers;
   }
 
@@ -93,17 +94,14 @@ public final class ClasspathImageRoot implements IImageRoot {
       String packageName = pathObject.removeLastSegments(1).toPortableString().replace('/', '.');
       String resourceName = pathObject.lastSegment();
       // try each root container
-      for (int i = 0; i < m_containers.length; i++) {
-        IImageContainer rootContainer = m_containers[i];
+      for (IClasspathImageContainer rootContainer : m_containers) {
         // try each package container
-        IImageElement[] packageContainers = rootContainer.elements();
-        for (int j = 0; j < packageContainers.length; j++) {
-          IImageContainer packageContainer = (IImageContainer) packageContainers[j];
+        IImageContainer[] packageContainers = rootContainer.elements();
+        for (IImageContainer packageContainer : packageContainers) {
           if (packageContainer.getName().equals(packageName)) {
             // try each resource in package
             IImageElement[] elements = packageContainer.elements();
-            for (int k = 0; k < elements.length; k++) {
-              IImageElement element = elements[k];
+            for (IImageElement element : elements) {
               if (element.getName().equals(resourceName)) {
                 return new Object[]{rootContainer, packageContainer, element};
               }

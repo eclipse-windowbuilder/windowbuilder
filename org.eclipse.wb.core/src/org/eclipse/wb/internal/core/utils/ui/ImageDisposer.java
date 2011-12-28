@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.utils.ui;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
@@ -133,12 +134,12 @@ public final class ImageDisposer {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static void printReferences() {
-    System.out.println("references: " + m_references.size());
+    Debug.println("references: " + m_references.size());
     try {
       for (ImageHolder reference : m_references) {
-        System.out.print("\t");
-        System.out.print(reference.m_name);
-        System.out.println();
+        Debug.print("\t");
+        Debug.print(reference.m_name);
+        Debug.println();
       }
     } catch (Throwable e) {
     }

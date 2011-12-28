@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.TabItem;
  * Abstract {@link Dialog} for color choosing.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 public abstract class AbstractColorDialog extends ReusableDialog {
   private ColorInfo m_colorInfo;
@@ -176,6 +177,8 @@ public abstract class AbstractColorDialog extends ReusableDialog {
    * Closes dialog with "OK" result.
    */
   public final void closeOk() {
-    buttonPressed(IDialogConstants.OK_ID);
+    if (m_colorInfo != null) {
+      buttonPressed(IDialogConstants.OK_ID);
+    }
   }
 }

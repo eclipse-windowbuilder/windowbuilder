@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
@@ -21,13 +23,13 @@ import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.swt.graphics.Image;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation od {@link IImageContainer} for {@link IPackageFragment}.
  * 
  * @author scheglov_ke
+ * @coverage core.ui
  */
 final class SrcPackageImageContainer implements IImageContainer {
   private final IPackageFragment m_packageFragment;
@@ -43,11 +45,10 @@ final class SrcPackageImageContainer implements IImageContainer {
       IPackageFragment packageFragment) throws Exception {
     m_packageFragment = packageFragment;
     //
-    List resources = new ArrayList();
+    List<SrcImageResource> resources = Lists.newArrayList();
     {
       Object[] nonJavaResources = m_packageFragment.getNonJavaResources();
-      for (int i = 0; i < nonJavaResources.length; i++) {
-        Object nonJavaResource = nonJavaResources[i];
+      for (Object nonJavaResource : nonJavaResources) {
         if (nonJavaResource instanceof IFile) {
           IFile resource = (IFile) nonJavaResource;
           String extension = resource.getLocation().getFileExtension();
@@ -59,7 +60,7 @@ final class SrcPackageImageContainer implements IImageContainer {
         }
       }
     }
-    m_resources = (SrcImageResource[]) resources.toArray(new SrcImageResource[resources.size()]);
+    m_resources = resources.toArray(new SrcImageResource[resources.size()]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -100,8 +101,7 @@ final class SrcPackageImageContainer implements IImageContainer {
    * Disposes any allocated resources.
    */
   void dispose() {
-    for (int i = 0; i < m_resources.length; i++) {
-      SrcImageResource resource = m_resources[i];
+    for (SrcImageResource resource : m_resources) {
       resource.dispose();
     }
   }

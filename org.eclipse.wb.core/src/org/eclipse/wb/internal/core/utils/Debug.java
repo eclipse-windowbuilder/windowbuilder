@@ -36,4 +36,13 @@ public class Debug {
       System.out.println(s);
     }
   }
+
+  /**
+   * Prints new line on console, only if developers host.
+   */
+  public static void println() {
+    if (EnvironmentUtils.DEVELOPER_HOST) {
+      System.out.println();
+    }
+  }
 }
