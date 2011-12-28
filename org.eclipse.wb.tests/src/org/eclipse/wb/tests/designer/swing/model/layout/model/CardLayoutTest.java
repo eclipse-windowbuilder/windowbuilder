@@ -174,6 +174,41 @@ public class CardLayoutTest extends AbstractLayoutTest {
     assertThat(layout.getComponents()).containsExactly(buttonA, buttonB);
   }
 
+  /**
+   * Test for converting into {@link CardLayout}.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=366817
+   */
+  public void test_convert() throws Exception {
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test extends JPanel {",
+            "  public Test() {",
+            "    {",
+            "      JButton button = new JButton();",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}");
+    refresh();
+    ComponentInfo button = getJavaInfoByName("button");
+    // set layout
+    {
+      CardLayoutInfo layout = createJavaInfo("java.awt.CardLayout");
+      panel.setLayout(layout);
+    }
+    assertEditor(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new CardLayout(0, 0));",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button, '" + getAssociationName(button) + "');",
+        "    }",
+        "  }",
+        "}");
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // CREATE

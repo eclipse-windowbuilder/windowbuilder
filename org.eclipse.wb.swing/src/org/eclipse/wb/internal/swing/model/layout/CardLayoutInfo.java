@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.swing.model.layout;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.core.model.association.Association;
+import org.eclipse.wb.core.model.association.InvocationAssociation;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildGraphical;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -20,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.widgets.Composite;
 
 import java.awt.CardLayout;
@@ -138,6 +141,24 @@ public final class CardLayoutInfo extends LayoutInfo {
       // show current component
       while (!component.isVisible()) {
         layout.next(container);
+      }
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Conversion
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  @Override
+  public void onSet() throws Exception {
+    for (ComponentInfo component : getContainer().getChildrenComponents()) {
+      Association association = component.getAssociation();
+      if (association instanceof InvocationAssociation) {
+        MethodInvocation invocation = ((InvocationAssociation) association).getInvocation();
+        if (invocation.arguments().size() == 1) {
+          getEditor().addInvocationArgument(invocation, 1, getComponentConstraints());
+        }
       }
     }
   }
