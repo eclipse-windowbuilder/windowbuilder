@@ -85,12 +85,18 @@ public class SwingImageUtils {
    */
   static java.awt.Image createComponentShotAWT(final Component component) throws Exception {
     Assert.isNotNull(component);
+    // prepare sizes
+    final int componentWidth = component.getWidth();
+    final int componentHeight = component.getHeight();
+    final int imageWidth = Math.max(1, componentWidth);
+    final int imageHeight = Math.max(1, componentHeight);
     // prepare empty image
-    final int componentWidth = Math.max(1, component.getWidth());
-    final int componentHeight = Math.max(1, component.getHeight());
-    // print given component into image
     final BufferedImage componentImage =
-        new BufferedImage(componentWidth, componentHeight, BufferedImage.TYPE_INT_RGB);
+        new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+    // If actual size on component is zero, then we are done.
+    if (componentWidth == 0 || componentHeight == 0) {
+      return componentImage;
+    }
     // some components like JLabel are transparent by default and printing it separately gives
     // bad results like invalid background color. The workaround is to set opacity property and
     // restore old value back when all done.

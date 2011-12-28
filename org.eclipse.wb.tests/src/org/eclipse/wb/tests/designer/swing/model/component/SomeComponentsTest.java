@@ -14,7 +14,10 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import java.awt.Canvas;
+
 import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 
 /**
  * Test for different components.
@@ -57,5 +60,29 @@ public class SomeComponentsTest extends SwingModelTest {
     assertNotNull(editorPane.getPropertyByTitle("page(java.lang.String)"));
     // but we don't have PropertyEditor for URL, so no such property
     assertNull(editorPane.getPropertyByTitle("page(java.net.URL)"));
+  }
+
+  /**
+   * When we put {@link Canvas} on {@link JScrollPane} and it has empty size, this causes exception.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=367254
+   */
+  public void test_Canvas_JScrollPane() throws Exception {
+    parseJavaInfo(
+        "import java.awt.Canvas;",
+        "class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new BorderLayout());",
+        "    {",
+        "      JScrollPane scrollPane = new JScrollPane();",
+        "      add(scrollPane);",
+        "      {",
+        "        Canvas canvas = new Canvas();",
+        "        scrollPane.setRowHeaderView(canvas);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
+    refresh();
   }
 }
