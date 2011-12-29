@@ -89,7 +89,7 @@ public class LayoutInfo extends JavaInfo {
           onDelete();
         }
         // delete child from this container
-        if (isManagedComponent(child)) {
+        if (isManagedObject(child)) {
           ComponentInfo component = (ComponentInfo) child;
           removeComponentConstraints(getContainer(), component);
         }
@@ -100,7 +100,7 @@ public class LayoutInfo extends JavaInfo {
       public void moveBefore(JavaInfo child, ObjectInfo oldParent, JavaInfo newParent)
           throws Exception {
         // move FROM this layout
-        if (isManagedComponent(child) && newParent != oldParent) {
+        if (isManagedObject(child) && newParent != oldParent) {
           ComponentInfo component = (ComponentInfo) child;
           removeComponentConstraints(getContainer(), component);
         }
@@ -124,27 +124,18 @@ public class LayoutInfo extends JavaInfo {
   }
 
   /**
-   * @return <code>true</code> if given {@link Object} is managed by this {@link LayoutInfo}. This
-   *         means:
-   *         <ul>
-   *         <li>this {@link LayoutInfo} is {@link #isActive()}.</li>
-   *         <li>given {@link ObjectInfo} is {@link ComponentInfo} and child of
-   *         {@link #getContainer()}.</li>
-   *         </ul>
+   * @return <code>true</code> if given {@link Object} is managed by this {@link LayoutInfo}.
    */
   public boolean isManagedObject(Object object) {
-    ContainerInfo container = getContainer();
-    return isManagedClass(object)
-        && isActiveOnContainer(container)
-        && container.getChildren().contains(object);
-  }
-
-  /**
-   * @return <code>true</code> if given {@link ObjectInfo} is {@link ComponentInfo} and this
-   *         {@link LayoutInfo} is active on its parent {@link ContainerInfo}.
-   */
-  protected final boolean isManagedComponent(ObjectInfo child) {
-    return isManagedClass(child) && isActiveOnContainer(child.getParent());
+    if (isManagedClass(object)) {
+      ComponentInfo component = (ComponentInfo) object;
+      if (JavaInfoUtils.isIndirectlyExposed(component)) {
+        return false;
+      }
+      ObjectInfo container = component.getParent();
+      return isActiveOnContainer(container);
+    }
+    return false;
   }
 
   /**
@@ -393,7 +384,7 @@ public class LayoutInfo extends JavaInfo {
   }
 
   protected void storeLayoutDataDefault(ComponentInfo component) throws Exception {
-    if (isManagedComponent(component)) {
+    if (isManagedObject(component)) {
       GeneralLayoutData generalLayoutData = new GeneralLayoutData();
       generalLayoutData.gridX = null;
       generalLayoutData.gridY = null;

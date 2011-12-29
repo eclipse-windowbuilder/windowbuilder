@@ -56,7 +56,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
     // add listeners
     addBroadcastListener(new JavaInfoAddProperties() {
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (isManagedComponent(javaInfo)) {
+        if (isManagedObject(javaInfo)) {
           properties.add(getConstraintsProperty((ComponentInfo) javaInfo));
         }
       }

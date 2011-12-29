@@ -148,7 +148,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     });
     addBroadcastListener(new JavaInfoAddProperties() {
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (isManagedComponent(javaInfo)) {
+        if (isManagedObject(javaInfo)) {
           ComponentInfo component = (ComponentInfo) javaInfo;
           CellConstraintsSupport support = getConstraints(component);
           properties.add(support.getCellProperty());

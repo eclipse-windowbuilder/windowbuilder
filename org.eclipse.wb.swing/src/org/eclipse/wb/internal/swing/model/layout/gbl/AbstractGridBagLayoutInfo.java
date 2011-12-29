@@ -95,7 +95,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
     // add listeners
     addBroadcastListener(new JavaInfoAddProperties() {
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (isManagedComponent(javaInfo)) {
+        if (isManagedObject(javaInfo)) {
           ComponentInfo component = (ComponentInfo) javaInfo;
           getConstraints(component).addConstraintsProperties(properties);
         }

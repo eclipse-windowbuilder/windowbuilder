@@ -154,7 +154,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
   private void addConstraintsProperty() {
     addBroadcastListener(new JavaInfoAddProperties() {
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (isManagedComponent(javaInfo)) {
+        if (isManagedObject(javaInfo)) {
           ComponentInfo component = (ComponentInfo) javaInfo;
           CellConstraintsSupport constraints = getConstraints(component);
           properties.add(constraints.getCellProperty());
@@ -170,7 +170,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
     addBroadcastListener(new ObjectInfoDelete() {
       @Override
       public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
-        if (isManagedComponent(child)) {
+        if (isManagedObject(child)) {
           ComponentInfo component = (ComponentInfo) child;
           updateSplitFlowDirection(component);
         }
@@ -180,7 +180,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       @Override
       public void moveBefore(JavaInfo child, ObjectInfo oldParent, JavaInfo newParent)
           throws Exception {
-        if (isManagedComponent(child)) {
+        if (isManagedObject(child)) {
           ComponentInfo component = (ComponentInfo) child;
           updateSplitFlowDirection(component);
         }

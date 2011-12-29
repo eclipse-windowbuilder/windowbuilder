@@ -190,7 +190,7 @@ public final class GroupLayoutInfo2 extends LayoutInfo implements IAdaptable {
 
     @Override
     public boolean isRelatedComponent(ObjectInfo component) {
-      return getGroupLayout().isManagedComponent(component);
+      return getGroupLayout().isManagedObject(component);
     }
 
     @Override

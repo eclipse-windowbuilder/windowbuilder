@@ -108,9 +108,9 @@ public final class CardLayoutInfo extends LayoutInfo {
     addBroadcastListener(new ObjectInfoChildGraphical() {
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         // show only current component on design canvas
-        if (isManagedComponent(object)) {
+        if (isManagedObject(object)) {
           ComponentInfo component = (ComponentInfo) object;
-          if (isManagedComponent(component) && component != getCurrentComponent()) {
+          if (isManagedObject(component) && component != getCurrentComponent()) {
             visible[0] = false;
           }
         }

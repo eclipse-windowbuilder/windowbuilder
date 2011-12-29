@@ -92,7 +92,7 @@ public final class GridLayoutInfo extends GenericFlowLayoutInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void storeLayoutData(ComponentInfo component) throws Exception {
-    if (isManagedComponent(component)) {
+    if (isManagedObject(component)) {
       GeneralLayoutData generalLayoutData = new GeneralLayoutData();
       {
         // calculate cell

@@ -66,7 +66,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
     super.initialize();
     addBroadcastListener(new JavaInfoAddProperties() {
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
-        if (isManagedComponent(javaInfo)) {
+        if (isManagedObject(javaInfo)) {
           ComponentInfo component = (ComponentInfo) javaInfo;
           BorderLayoutInfo key = BorderLayoutInfo.this;
           Property constraintsProperty = (Property) component.getArbitraryValue(key);

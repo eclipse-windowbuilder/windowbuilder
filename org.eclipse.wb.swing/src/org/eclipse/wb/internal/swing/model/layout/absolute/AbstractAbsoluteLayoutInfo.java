@@ -76,7 +76,7 @@ public abstract class AbstractAbsoluteLayoutInfo extends LayoutInfo {
       public void addContextMenu(List<? extends ObjectInfo> objects,
           ObjectInfo object,
           IMenuManager manager) throws Exception {
-        if (isManagedComponent(object)) {
+        if (isManagedObject(object)) {
           ComponentInfo component = (ComponentInfo) object;
           contributeComponentContextMenu(manager, component);
         }

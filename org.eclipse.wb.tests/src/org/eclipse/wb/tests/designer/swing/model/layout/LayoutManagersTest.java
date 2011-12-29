@@ -235,6 +235,44 @@ public class LayoutManagersTest extends AbstractLayoutTest {
     assertTrue(newLayout.isManagedObject(button));
   }
 
+  /**
+   * Test for {@link LayoutInfo#isManagedObject(ObjectInfo)}.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=366824
+   */
+  public void test_isManagedObject_falseBecauseIndirectlyExposed() throws Exception {
+    setFileContentSrc(
+        "test/Super.java",
+        getTestSource(
+            "public class Super extends JPanel {",
+            "  private JPanel panel = new JPanel();",
+            "  private JButton button = new JButton();",
+            "  public Super() {",
+            "    setLayout(new GridBagLayout());",
+            "    add(panel);",
+            "    panel.add(button);",
+            "  }",
+            "  public JButton getButton() {",
+            "    return button;",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    ContainerInfo panel =
+        parseContainer(
+            "// filler filler filler filler filler",
+            "public class Test extends Super {",
+            "  public Test() {",
+            "  }",
+            "}");
+    ComponentInfo button = getJavaInfoByName("getButton()");
+    assertNotNull(button);
+    // prepare layouts
+    LayoutInfo layout = panel.getLayout();
+    // indirectly exposed, so not managed 
+    assertFalse(layout.isManagedObject(button));
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // BorderLayout
