@@ -184,7 +184,7 @@ public abstract class AbstractLiveManager {
     m_method =
         m_editor.addMethodDeclaration(
             "private static void __tmp()",
-            ImmutableList.of(sourceLines),
+            ImmutableList.copyOf(sourceLines),
             new BodyDeclarationTarget(m_tmpType, false));
     m_editorState.setFlowDescription(new ExecutionFlowDescription(m_method));
     // parse created method

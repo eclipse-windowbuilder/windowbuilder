@@ -220,7 +220,7 @@ public final class TreeRobot {
   public TreeRobot select(Object... models) {
     TreeEditPart[] editParts = getEditParts(models);
     m_justSelectedEditParts = editParts;
-    m_viewer.setSelection(ImmutableList.<EditPart>of(editParts));
+    m_viewer.setSelection(ImmutableList.<EditPart>copyOf(editParts));
     return this;
   }
 

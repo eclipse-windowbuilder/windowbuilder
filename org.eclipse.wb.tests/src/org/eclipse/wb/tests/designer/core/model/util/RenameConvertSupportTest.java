@@ -589,7 +589,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
    */
   private RenameConvertSupport getRenameSupport(ObjectInfo... objects) throws Exception {
     return ReflectionUtils.getConstructor(RenameConvertSupport.class, Iterable.class).newInstance(
-        ImmutableList.of(objects));
+        ImmutableList.copyOf(objects));
   }
 
   /**
@@ -614,7 +614,7 @@ public class RenameConvertSupportTest extends SwingModelTest {
     // prepare manager
     MenuManager menuManager = getDesignerMenuManager();
     // add action
-    RenameConvertSupport.contribute(ImmutableList.of(objects), menuManager);
+    RenameConvertSupport.contribute(ImmutableList.copyOf(objects), menuManager);
     return findChildAction(menuManager, "Rename...");
   }
 }

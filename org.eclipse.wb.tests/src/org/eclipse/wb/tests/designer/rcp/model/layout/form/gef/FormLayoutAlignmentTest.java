@@ -438,7 +438,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
     List<Object> actions;
     {
       actions = Lists.newArrayList();
-      List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(controls);
+      List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>copyOf(controls);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
     // run action

@@ -779,7 +779,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
   private static List<String> getBundleClassLoaderNamespaces(IConfigurationElement contributorElement) {
     String namespacesString = contributorElement.getAttribute("namespaces");
     if (namespacesString != null) {
-      return ImmutableList.of(StringUtils.split(namespacesString));
+      return ImmutableList.copyOf(StringUtils.split(namespacesString));
     }
     return null;
   }

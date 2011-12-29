@@ -1044,7 +1044,7 @@ public class SurroundSupportTest extends SwingModelTest {
   private static IAction getSurroundAction(String actionText, ObjectInfo... objects)
       throws Exception {
     assertFalse(objects.length == 0);
-    IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.of(objects));
+    IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.copyOf(objects));
     assertNotNull(surroundManager);
     return findChildAction(surroundManager, actionText);
   }

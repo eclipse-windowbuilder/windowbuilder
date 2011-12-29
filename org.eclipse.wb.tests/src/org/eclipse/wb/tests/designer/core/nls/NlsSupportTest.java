@@ -287,7 +287,7 @@ public class NlsSupportTest extends SwingModelTest {
       preferencesRepairer.setValue(IPreferenceConstants.P_NLS_ALWAYS_VISIBLE_LOCALES, "de, ru_RU");
       LocaleInfo[] locales = m_support.getLocales();
       List<String> localeNames =
-          Lists.transform(ImmutableList.of(locales), new Function<LocaleInfo, String>() {
+          Lists.transform(ImmutableList.copyOf(locales), new Function<LocaleInfo, String>() {
             public String apply(LocaleInfo from) {
               return from.toString();
             }

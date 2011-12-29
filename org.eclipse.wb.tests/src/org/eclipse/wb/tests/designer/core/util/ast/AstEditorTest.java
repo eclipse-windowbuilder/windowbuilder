@@ -3933,7 +3933,7 @@ public class AstEditorTest extends AbstractJavaTest {
         (VariableDeclarationFragment) statement.fragments().get(0);
     ClassInstanceCreation creation = (ClassInstanceCreation) fragment.getInitializer();
     // do replace
-    m_lastEditor.replaceCreationArguments(creation, ImmutableList.of(newArgumentsLines));
+    m_lastEditor.replaceCreationArguments(creation, ImmutableList.copyOf(newArgumentsLines));
     // check source
     assertEditor(getSource(expectedSourceLines), m_lastEditor);
     // check signature

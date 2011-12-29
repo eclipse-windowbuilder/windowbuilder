@@ -215,7 +215,7 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
       newName = editor.getUniqueTypeName(m_baseName);
       String newSource =
           TemplateUtils.evaluate(m_source, javaInfo, ImmutableMap.of("name", newName));
-      newLines = ImmutableList.of(StringUtils.split(newSource, "\r\n"));
+      newLines = ImmutableList.copyOf(StringUtils.split(newSource, "\r\n"));
     }
     // add type
     {

@@ -436,7 +436,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
         moveLocation,
         ImmutableList.copyOf(modelList),
         widgetBounds,
-        ImmutableList.of(relativeBounds));
+        ImmutableList.copyOf(relativeBounds));
     widgetBounds = placementsSupport.getBounds();
     // Store new "model" location to be shown in TextFeedback if enabled
     int newX = widgetBounds.x;
@@ -535,7 +535,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
         moveLocation,
         ImmutableList.copyOf(modelList),
         widgetBounds,
-        ImmutableList.of(relativeBounds),
+        ImmutableList.copyOf(relativeBounds),
         request.getResizeDirection());
     //
     widgetBounds = getPlacementsSupport().getBounds();
@@ -780,7 +780,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
           request.getLocation(),
           ImmutableList.copyOf(pastedModels),
           widgetBounds,
-          ImmutableList.of(relativeBounds));
+          ImmutableList.copyOf(relativeBounds));
       widgetBounds = placementsSupport.getBounds();
       m_pasteLocation = widgetBounds.getLocation();
       translateModelToFeedback(widgetBounds);

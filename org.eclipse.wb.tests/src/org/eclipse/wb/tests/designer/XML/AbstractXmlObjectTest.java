@@ -587,7 +587,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
    */
   public static IMenuManager getContextMenu(ObjectInfo... objectsArray) throws Exception {
     IMenuManager manager = getDesignerMenuManager();
-    List<ObjectInfo> objects = ImmutableList.of(objectsArray);
+    List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
     ObjectInfo object = objectsArray[0];
     object.getBroadcastObject().addContextMenu(objects, object, manager);
     return manager;
@@ -610,7 +610,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
     List<Object> actions = Lists.newArrayList();
     if (objectsArray.length != 0) {
       ObjectInfo object = objectsArray[0];
-      List<ObjectInfo> objects = ImmutableList.of(objectsArray);
+      List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
       object.getBroadcastObject().addSelectionActions(objects, actions);
     }
     return actions;

@@ -120,7 +120,7 @@ public class PropertyUtilsTest extends SwingModelTest {
             "  }",
             "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
-    List<Property> properties = ImmutableList.of(button.getProperties());
+    List<Property> properties = ImmutableList.copyOf(button.getProperties());
     //
     assertNotNull(PropertyUtils.getByTitle(properties, "enabled"));
     assertNull(PropertyUtils.getByTitle(properties, "noSuchProperty"));

@@ -1067,7 +1067,7 @@ public class SurroundSupportTest extends RcpModelTest {
    */
   private static void runSurround(String actionText, ObjectInfo... objects) throws Exception {
     assertFalse(objects.length == 0);
-    IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.of(objects));
+    IMenuManager surroundManager = createSurroundManager(objects[0], ImmutableList.copyOf(objects));
     assertNotNull(surroundManager);
     IAction surroundAction = findChildAction(surroundManager, actionText);
     assertNotNull(surroundAction);
