@@ -156,7 +156,7 @@ def _ProcessArgs():
   parser.set_defaults(packsite=True)
   parser.set_defaults(signfiles=True)
   parser.set_defaults(dodeploy=False)
-  parser.set_defaults(dirstosave='7')
+  parser.set_defaults(dirstosave='3')
   parser.set_defaults(mirrorprod=False)
   parser.add_option('--signdir', action='store', dest='signdir')
   parser.add_option('-e', '--eclipseversion', action='store',
@@ -494,12 +494,13 @@ def _Cleanup(sign_dir, deploy_dir, dirs_to_save):
   pq = Queue.PriorityQueue()
   try:
     for f in os.listdir(deploy_dir):
-      pq.put(f)
+      if f[0].isdigit(): 
+        pq.put(f)
   except OSError:
     log.warn('could not read files in ' + deploy_dir)
 
   dirs_to_delete = pq.qsize()
-  dirs_to_delete -= dirs_to_save + 1
+  dirs_to_delete -= dirs_to_save
   dir_count = 0
   while not pq.empty():
     d = os.path.join(deploy_dir, pq.get())
@@ -507,7 +508,6 @@ def _Cleanup(sign_dir, deploy_dir, dirs_to_save):
     if dir_count <= dirs_to_delete:
       print 'deleting -> ' + d
       _RmDirTree(d)
-      os.rmdir(d)
     else:
       print 'saving  ->  ' + d
   log.debug('out cleanup')
