@@ -251,6 +251,45 @@ def PublishSite(eclipse_install_dir, update_sites_dir, eclipse_version):
   return out
 
 
+
+def RunAnt(eclipse_install_dir, ant_script, prod_dir, eclipse_version):
+  """Run an ANt script under Eclipse.
+
+  Args:
+    eclipse_install_dir: directory to unarchive Eclipse if it has not
+                          been unarchived yet
+    ant_script: the ANt Script to run
+    prod_dir: the location of the update sites
+    eclipse_version: the version of eclipse to use for optimizing
+  """
+  log.debug('RunAnt({0}, {1}, {2}, {3}'.format(eclipse_install_dir,
+                                               ant_script,
+                                               prod_dir,
+                                               eclipse_version))
+  eclipse_home = _GetEclipse(eclipse_version, eclipse_install_dir)
+  try:
+    os.mkdir(eclipse_install_dir)
+  except OSError as e:
+    if e.errno != 17:
+      raise e
+
+  launcher = _FindPlugin(eclipse_home, 'org.eclipse.equinox.launcher_')
+  try:
+    files = os.listdir(prod_dir)
+  except OSError as e:
+    log.error('could not read files in ' + prod_dir)
+    raise e
+
+  for f in files:
+    full_file = os.path.join(prod_dir, f)
+    if os.path.isdir(full_file):
+      commands = ['java', '-jar', launcher, '-application', 
+                  'org.eclipse.ant.core.antRunner', '-f', 
+                  ant_script, '-Dbuild.repo.dir=' + full_file,
+                  'process-artifacts']
+      log.info(' '.join(commands))
+      subprocess.check_call(commands)
+
 def SetArchiveDir(d):
   global eclipse_archive_dir
   eclipse_archive_dir = d

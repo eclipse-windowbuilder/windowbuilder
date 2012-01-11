@@ -103,6 +103,10 @@ def main():
     log.info('UpdateMirror')
     _UpdateMirror(product_dir, mirrorprod)
 
+    log.info('finalProcess')
+    eclipse.RunAnt(base_dir, 'finalProcess.xml', product_dir, eclipse_version)
+
+
     log.info('Generate Eclipse P2 Metadata')
     eclipse.PublishSite(base_dir, product_dir, eclipse_version)
 
@@ -320,10 +324,10 @@ def _SignZipFiles(ziped_update_sites_dir):
       zip_path = os.path.join(ziped_update_sites_dir, f)
       os.chmod(zip_path, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP |
                stat.S_IRGRP | stat.S_IWOTH | stat.S_IROTH)
-      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
-                             'nomail', 'signed'])
-#      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
-#                             'signed'])
+#      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
+#                             'nomail', 'signed'])
+      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
+                             'signed'])
       files_to_sign.append(os.path.join(ziped_update_sites_dir, 'signed', f))
 
   signed_files = []
@@ -357,14 +361,16 @@ def _UnzipSites(ziped_update_sites_dir):
   version_re = re.compile('.+Eclipse([0-9]\.[0-9]).+')
 
   for f in files:
-    res = version_re.search(f)
-    util.DisplayMatch(res)
-    version = res.group(1)
-    unarchive_dest = os.path.join(ziped_update_sites_dir, version)
-    if not os.path.exists(unarchive_dest):
-      os.mkdir(unarchive_dest)
+    log.debug('processing {0}/{1}'.format(ziped_update_sites_dir, f))
+    if f.endswith('.zip'):
+      res = version_re.search(f)
+      log.debug(util.DisplayMatch(res))
+      version = res.group(1)
+      unarchive_dest = os.path.join(ziped_update_sites_dir, version)
+      if not os.path.exists(unarchive_dest):
+        os.mkdir(unarchive_dest)
 
-    util.Unarchive(os.path.join(ziped_update_sites_dir, f), unarchive_dest)
+      util.Unarchive(os.path.join(ziped_update_sites_dir, f), unarchive_dest)
 
 
 def _ReZipSite(update_site_dir):
