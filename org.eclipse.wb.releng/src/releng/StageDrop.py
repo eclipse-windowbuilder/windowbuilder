@@ -94,7 +94,7 @@ def main():
       _CopyFiles(optimized_dir, sign_dir, None)
       _RmDirTree(optimized_dir)
 
-    log.info('Move signed files from {0} to {1}'.format(sign_dir, product_dir))
+    log.info('Move optimized files from {0} to {1}'.format(sign_dir, product_dir))
     _MoveFiles(sign_dir, product_dir, None)
     
     log.info('Unzip the signed files')
@@ -103,12 +103,11 @@ def main():
     log.info('UpdateMirror')
     _UpdateMirror(product_dir, mirrorprod)
 
-    log.info('finalProcess')
-    eclipse.RunAnt(base_dir, 'finalProcess.xml', product_dir, eclipse_version)
-
-
     log.info('Generate Eclipse P2 Metadata')
     eclipse.PublishSite(base_dir, product_dir, eclipse_version)
+
+    log.info('finalProcess')
+    eclipse.RunAnt(base_dir, 'finalProcess.xml', product_dir, eclipse_version)
 
     log.info('rezip Site')
     _ReZipSite(product_dir)
