@@ -92,10 +92,8 @@ public final class UndoManager {
    * Deactivates {@link UndoManager}, so it stops listening for document changes.
    */
   public void deactivate() {
-    if (m_active) {
-      m_active = false;
-      removeDocumentListener();
-    }
+    m_active = false;
+    removeDocumentListener();
   }
 
   /**

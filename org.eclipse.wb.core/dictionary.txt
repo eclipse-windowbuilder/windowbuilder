@@ -152,3 +152,5 @@ scheglov
 sortable
 parametrized
 chrome
+guava
+finalizer

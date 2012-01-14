@@ -81,10 +81,14 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     @Override
     public void partActivated(IWorkbenchPart part) {
       if (part == m_editor) {
-        GlobalStateXml.activate(m_rootObject);
-        if (m_active) {
-          checkDependenciesOnDesignPageActivation();
-        }
+        ExecutionUtils.runAsync(new RunnableEx() {
+          public void run() throws Exception {
+            GlobalStateXml.activate(m_rootObject);
+            if (m_active) {
+              checkDependenciesOnDesignPageActivation();
+            }
+          }
+        });
       }
     }
   };
