@@ -123,9 +123,6 @@ public final class ComponentPresentationHelper {
     if (resource != null) {
       // parse name and descriptions
       ComponentParseHelper parseHelper = parseResource(resource.getURL());
-      if (!parseHelper.hasCreation(creationId)) {
-        return null;
-      }
       // done, create presentation
       String desc = parseHelper.getDescription(creationId);
       String name = parseHelper.getName(componentClassName, creationId);
@@ -292,10 +289,6 @@ public final class ComponentPresentationHelper {
     // Access
     //
     ////////////////////////////////////////////////////////////////////////////
-    public boolean hasCreation(String creationId) {
-      return m_names.containsKey(creationId);
-    }
-
     public String getName(String className, String creationId) {
       String name = m_names.get(creationId);
       if (name == null) {
