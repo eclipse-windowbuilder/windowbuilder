@@ -48,6 +48,8 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyFactory;
 import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
+import org.eclipse.wb.internal.core.model.property.accessor.SetterAccessor;
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.model.property.hierarchy.ComponentClassProperty;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
@@ -66,6 +68,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
+import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.VisitedNodes;
@@ -73,6 +76,8 @@ import org.eclipse.wb.internal.core.utils.state.VisitedNodes;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -91,6 +96,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -570,8 +576,44 @@ public class JavaInfo extends ObjectInfo {
         }
       }
     }
+    // remove extra properties
+    removeExtraSystemClassLoaderProperties(properties);
     // return properties
     return properties;
+  }
+
+  /**
+   * We get properties from Eclipse JVM, which may be newer than JVM configured for project. So, we
+   * may get more properties, and have to remove all properties which don't exist in project JVM.
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=364893
+   */
+  private void removeExtraSystemClassLoaderProperties(List<Property> properties) throws Exception {
+    IJavaProject javaProject = getEditor().getJavaProject();
+    Class<?> componentClass = getDescription().getComponentClass();
+    String componentClassName = ReflectionUtils.getCanonicalName(componentClass);
+    IType componentModelType = javaProject.findType(componentClassName);
+    for (Iterator<Property> I = properties.iterator(); I.hasNext();) {
+      Property property = I.next();
+      if (property instanceof GenericPropertyImpl) {
+        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
+        List<ExpressionAccessor> accessors = genericProperty.getAccessors();
+        for (ExpressionAccessor accessor : accessors) {
+          if (accessor instanceof SetterAccessor) {
+            SetterAccessor setterAccessor = (SetterAccessor) accessor;
+            Method setMethod = setterAccessor.getSetter();
+            if (setMethod.getDeclaringClass().getClassLoader() == null) {
+              String methodSignature = ReflectionUtils.getMethodSignature(setMethod);
+              IMethod modelMethod = CodeUtils.findMethod(componentModelType, methodSignature);
+              if (modelMethod == null) {
+                I.remove();
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   /**
