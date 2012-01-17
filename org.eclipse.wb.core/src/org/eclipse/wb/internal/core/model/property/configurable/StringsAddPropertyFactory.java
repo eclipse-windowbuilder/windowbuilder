@@ -51,7 +51,7 @@ public final class StringsAddPropertyFactory implements IConfigurablePropertyFac
    * {@link ConfigurableProperty} implementation for this {@link IConfigurablePropertyFactory}.
    */
   private static final class ConfigurableProperty extends JavaProperty {
-    private final StringsAddPropertyEditor m_editor;
+    private final StringsAddPropertyEditor m_stringsEditor;
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -60,7 +60,7 @@ public final class StringsAddPropertyFactory implements IConfigurablePropertyFac
     ////////////////////////////////////////////////////////////////////////////
     public ConfigurableProperty(JavaInfo javaInfo, String title) {
       super(javaInfo, title, new StringsAddPropertyEditor());
-      m_editor = (StringsAddPropertyEditor) getEditor();
+      m_stringsEditor = (StringsAddPropertyEditor) getEditor();
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public final class StringsAddPropertyFactory implements IConfigurablePropertyFac
     ////////////////////////////////////////////////////////////////////////////
     @Override
     public boolean isModified() throws Exception {
-      return m_editor.getItems(this).length != 0;
+      return m_stringsEditor.getItems(this).length != 0;
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -80,13 +80,13 @@ public final class StringsAddPropertyFactory implements IConfigurablePropertyFac
     ////////////////////////////////////////////////////////////////////////////
     @Override
     public Object getValue() throws Exception {
-      return m_editor.getItems(this);
+      return m_stringsEditor.getItems(this);
     }
 
     @Override
     public void setValue(Object value) throws Exception {
       if (value instanceof String[]) {
-        m_editor.setItems(this, (String[]) value);
+        m_stringsEditor.setItems(this, (String[]) value);
       }
     }
   }
