@@ -33,6 +33,8 @@ import org.eclipse.swt.SWT;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.lang.reflect.TypeVariable;
+
 /**
  * Test for {@link GenericProperty} and its components.
  * 
@@ -83,8 +85,53 @@ public class PropertyTest extends AbstractCoreTest {
     refresh();
     XmlObjectInfo button = getObjectByName("button");
     //
-    GenericPropertyImpl textProperty = (GenericPropertyImpl) button.getPropertyByTitle("text");
+    GenericProperty textProperty = (GenericProperty) button.getPropertyByTitle("text");
     assertSame(String.class, textProperty.getType());
+  }
+
+  /**
+   * Property for type which is {@link TypeVariable}.
+   */
+  public void test_typeVariableProperty() throws Exception {
+    setFileContentSrc(
+        "test/MySuper.java",
+        getSourceDQ(
+            "package test;",
+            "import org.eclipse.swt.SWT;",
+            "import org.eclipse.swt.widgets.*;",
+            "public class MySuper<T> extends Composite {",
+            "  public MySuper(Composite parent, int style) {",
+            "    super(parent, style);",
+            "  }",
+            "  public void setTest(T value) {",
+            "  }",
+            "}"));
+    setFileContentSrc(
+        "test/MyComponent.java",
+        getSourceDQ(
+            "package test;",
+            "import org.eclipse.swt.SWT;",
+            "import org.eclipse.swt.widgets.*;",
+            "public class MyComponent extends MySuper<Boolean> {",
+            "  public MyComponent(Composite parent, int style) {",
+            "    super(parent, style);",
+            "  }",
+            "}"));
+    waitForAutoBuild();
+    // parse
+    parse(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "<Shell>",
+        "  <t:MyComponent wbp:name='component'/>",
+        "</Shell>");
+    refresh();
+    XmlObjectInfo component = getObjectByName("component");
+    //
+    Property property = component.getPropertyByTitle("test");
+    assertNotNull(property);
+    GenericProperty genericProperty = (GenericProperty) property;
+    assertSame(Boolean.class, genericProperty.getType());
   }
 
   /**

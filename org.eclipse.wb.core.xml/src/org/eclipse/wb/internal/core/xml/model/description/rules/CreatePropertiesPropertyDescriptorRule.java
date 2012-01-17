@@ -11,6 +11,10 @@
 package org.eclipse.wb.internal.core.xml.model.description.rules;
 
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
+import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
+import org.eclipse.wb.internal.core.utils.GenericsUtils;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
+import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.DescriptionPropertiesHelper;
@@ -25,6 +29,8 @@ import org.xml.sax.Attributes;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.List;
 
 /**
@@ -62,7 +68,7 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
     String title = propertyDescriptor.getName();
     String attribute = StringUtils.substringBeforeLast(StringUtils.uncapitalize(title), "(");
     Method getMethod = propertyDescriptor.getReadMethod();
-    Class<?> propertyType = propertyDescriptor.getPropertyType();
+    Class<?> propertyType = resolvePropertyType(componentDescription, setMethod);
     // prepare property parts
     String id = ReflectionUtils.getMethodSignature(setMethod);
     ExpressionAccessor accessor = new MethodExpressionAccessor(attribute, setMethod, getMethod);
@@ -75,5 +81,27 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
     property.setEditor(editor);
     // add property
     componentDescription.addProperty(property);
+  }
+
+  private static Class<?> resolvePropertyType(ComponentDescription componentDescription,
+      Method setMethod) {
+    Class<?> propertyType = setMethod.getParameterTypes()[0];
+    final Type genericPropertyType = setMethod.getGenericParameterTypes()[0];
+    if (genericPropertyType instanceof TypeVariable<?>) {
+      final Class<?> declaringClass = setMethod.getDeclaringClass();
+      final Class<?> actualClass = componentDescription.getComponentClass();
+      return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Class<?>>() {
+        public Class<?> runObject() throws Exception {
+          String typeName =
+              GenericsUtils.getTypeName(GenericTypeResolver.superClass(
+                  GenericTypeResolver.EMPTY,
+                  actualClass,
+                  declaringClass), genericPropertyType);
+          return actualClass.getClassLoader().loadClass(typeName);
+        }
+      },
+          propertyType);
+    }
+    return propertyType;
   }
 }
