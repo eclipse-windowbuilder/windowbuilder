@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.xml.model.generic;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidator;
 import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
@@ -24,6 +25,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Factory for accessing {@link SimpleContainer} for {@link XmlObjectInfo}.
@@ -131,11 +133,38 @@ public final class SimpleContainerFactory {
     String associationString = getParameter(prefix + ".x-association");
     if (associationString == null) {
       return Associations.direct();
+    } else if (associationString.startsWith("inter ")) {
+      associationString = StringUtils.removeStart(associationString, "inter ");
+      // extract tag
+      String tag = StringUtils.substringBefore(associationString, " ");
+      associationString = StringUtils.substringAfter(associationString, " ");
+      // extract attributes
+      Map<String, String> attributes = parseAttributes(associationString);
+      return Associations.intermediate(tag, attributes);
     } else {
       Assert.isTrue(associationString.startsWith("property "));
       String property = StringUtils.removeStart(associationString, "property ");
       return Associations.property(property);
     }
+  }
+
+  /**
+   * Parses attributes in format: attrA='a' attrB='b b'
+   */
+  private static Map<String, String> parseAttributes(String s) {
+    Map<String, String> attributes = Maps.newHashMap();
+    while (s.length() != 0) {
+      s = s.trim();
+      // extract name/value
+      int attrNameEnd = s.indexOf("='");
+      int attrValueEnd = s.indexOf("'", attrNameEnd + 2);
+      String attrName = s.substring(0, attrNameEnd);
+      String attrValue = s.substring(attrNameEnd + 2, attrValueEnd);
+      attributes.put(attrName, attrValue);
+      // next attribute
+      s = s.substring(attrValueEnd + 1);
+    }
+    return attributes;
   }
 
   ////////////////////////////////////////////////////////////////////////////

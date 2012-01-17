@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.generic.ContainerObjectValidators;
 import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.association.Association;
@@ -79,9 +78,9 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
   }
 
   /**
-   * Explicit "property" association
+   * The "property" association
    */
-  public void test_getConfigurations_association_explicitProperty() throws Exception {
+  public void test_getConfigurations_association_property() throws Exception {
     List<SimpleContainerConfiguration> configurations =
         getConfigurations(true, new String[][]{
             {"simpleContainer", "true"},
@@ -92,6 +91,22 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
         configurations.get(0),
         "org.eclipse.swt.widgets.Control",
         "property myProperty");
+  }
+
+  /**
+   * The "inter" association.
+   */
+  public void test_getConfigurations_association_inter() throws Exception {
+    List<SimpleContainerConfiguration> configurations =
+        getConfigurations(true, new String[][]{
+            {"simpleContainer", "true"},
+            {"simpleContainer.x-association", "inter myName attrA='a a' attrB='b'"},
+            {"simpleContainer.component", "java.awt.Component"},});
+    assertThat(configurations).hasSize(1);
+    assertConfiguration(
+        configurations.get(0),
+        "java.awt.Component",
+        "inter myName {attrA=a a, attrB=b}");
   }
 
   public void test_getConfigurations_association_bad() throws Exception {
@@ -269,10 +284,14 @@ public class SimpleContainerModelTest extends AbstractCoreTest {
               parameterPair[1]);
     }
     // prepare description
-    prepareMyComponent(new String[]{}, CodeUtils.join(
-        new String[]{"  <parameters>"},
-        parameterLines,
-        new String[]{"  </parameters>"}));
+    prepareMyComponent();
+    setFileContentSrc(
+        "test/MyComponent.wbp-component.xml",
+        getSource3(new String[]{
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <parameters>"}, parameterLines, new String[]{"  </parameters>", "</component>"}));
+    waitForAutoBuild();
     // parse
     XmlObjectInfo panel = parse("<t:MyComponent/>");
     // get configurations
