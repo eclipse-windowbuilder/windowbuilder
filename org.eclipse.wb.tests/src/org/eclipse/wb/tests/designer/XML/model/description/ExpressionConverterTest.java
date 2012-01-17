@@ -49,6 +49,16 @@ public class ExpressionConverterTest extends AbstractCoreTest {
     assertEquals("false", converter.toSource(object, false));
   }
 
+  public void test_Boolean() throws Exception {
+    assertConverterEditor(Boolean.class);
+    //
+    XmlObjectInfo object = parse("<Shell/>");
+    ExpressionConverter converter = BooleanConverter.INSTANCE;
+    assertEquals(null, converter.toSource(object, null));
+    assertEquals("true", converter.toSource(object, true));
+    assertEquals("false", converter.toSource(object, false));
+  }
+
   public void test_int() throws Exception {
     assertConverterEditor(int.class);
     //

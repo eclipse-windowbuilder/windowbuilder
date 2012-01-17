@@ -64,13 +64,13 @@
 	<extension point="org.eclipse.wb.core.xml.propertyConverters">
 		<converter type="boolean"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.BooleanConverter"/>
+		<converter type="java.lang.Boolean"
+			class="org.eclipse.wb.internal.core.xml.model.property.converter.BooleanConverter"/>
 		<converter type="int"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter"/>
 		<converter type="float"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.FloatConverter"/>
-		<!--<converter type="java.lang.Boolean"
-			class="org.eclipse.wb.internal.core.model.property.converter.BooleanObjectConverter"/>
-		<converter type="char"
+		<!--<converter type="char"
 			class="org.eclipse.wb.internal.core.model.property.converter.CharacterConverter"/>
 		<converter type="byte" class="org.eclipse.wb.internal.core.model.property.converter.ByteConverter"/>
 		<converter type="short"
@@ -93,6 +93,8 @@
 	<extension point="org.eclipse.wb.core.xml.propertyEditors">
 		<!-- typed -->
 		<editor type="boolean"
+			class="org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor"/>
+		<editor type="java.lang.Boolean"
 			class="org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor"/>
 		<editor type="int"
 			class="org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor"/>
