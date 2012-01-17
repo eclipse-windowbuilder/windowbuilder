@@ -224,7 +224,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
     result = StringUtils.removeEnd(result, ",\n");
     {
       // remove name spaces
-      result = result.replaceAll("\\s*xmlns:*\\w*='[^']*'", "");
+      result = result.replaceAll("\\s*xmlns:*\\w*=\\s*'[^']*'", "");
       // remove empty lines in root object (after name space in separate lines)
       {
         result = result.replaceAll("\"\",\n", "");
