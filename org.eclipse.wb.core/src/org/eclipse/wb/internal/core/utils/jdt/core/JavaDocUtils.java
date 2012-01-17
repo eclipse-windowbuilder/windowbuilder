@@ -77,6 +77,7 @@ public class JavaDocUtils {
     String tooltip = StringUtils.join(javaDocLines.iterator(), " ");
     tooltip = StringUtilities.normalizeWhitespaces(tooltip);
     // remove other meta data
+    tooltip = StringUtils.replace(tooltip, "{@inheritDoc}", "");
     tooltip = StringUtils.substringBefore(tooltip, "@param");
     tooltip = StringUtils.substringBefore(tooltip, "@since");
     tooltip = StringUtils.substringBefore(tooltip, "@see");
@@ -134,7 +135,6 @@ public class JavaDocUtils {
   /**
    * @return the JavaDoc for given {@link IMember} or <code>null</code> if no source found.
    */
-  @SuppressWarnings("unchecked")
   public static List<String> getJavaDocLines(IMember member, boolean allowInherited)
       throws Exception {
     // prepare reader
