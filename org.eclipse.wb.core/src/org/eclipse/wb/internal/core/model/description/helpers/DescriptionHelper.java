@@ -89,7 +89,8 @@ public final class DescriptionHelper {
   /**
    * Validates <code>*.wbp-component.xml</code> against its schema.
    */
-  public static void validateComponentDescription(ResourceInfo resource) throws Exception {
+  public static synchronized void validateComponentDescription(ResourceInfo resource)
+      throws Exception {
     // validate on developers computers
     if (EnvironmentUtils.isTestingTime()) {
       // prepare Schema
@@ -492,7 +493,7 @@ public final class DescriptionHelper {
   /**
    * @return the {@link ToolkitDescription} for toolkit with given id.
    */
-  public static ToolkitDescription getToolkit(String toolkitId) throws Exception {
+  public static synchronized ToolkitDescription getToolkit(String toolkitId) throws Exception {
     Assert.isNotNull(toolkitId);
     // prepare all toolkits
     if (m_idToToolkit == null) {
