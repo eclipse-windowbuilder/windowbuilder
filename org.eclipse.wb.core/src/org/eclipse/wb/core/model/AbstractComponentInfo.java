@@ -212,8 +212,8 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void delete() throws Exception {
-    refresh_dispose();
     super.delete();
+    refresh_dispose();
   }
 
   ////////////////////////////////////////////////////////////////////////////
