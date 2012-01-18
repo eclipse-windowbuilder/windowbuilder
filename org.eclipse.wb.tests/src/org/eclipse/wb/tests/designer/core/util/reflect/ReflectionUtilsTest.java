@@ -1460,6 +1460,15 @@ public class ReflectionUtilsTest extends DesignerTestCase {
         ReflectionUtils.getClassByName(classLoader, "java.lang.Double[][][]"));
   }
 
+  public void test_hasClass() throws Exception {
+    Class<?> thisClass = getClass();
+    ClassLoader classLoader = thisClass.getClassLoader();
+    // has this Class
+    assertTrue(ReflectionUtils.hasClass(classLoader, thisClass.getName()));
+    // no invalid class
+    assertFalse(ReflectionUtils.hasClass(classLoader, "no.such.Class"));
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // getDefaultValue()

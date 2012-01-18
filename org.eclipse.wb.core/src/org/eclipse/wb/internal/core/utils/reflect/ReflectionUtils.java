@@ -115,6 +115,18 @@ public class ReflectionUtils {
   }
 
   /**
+   * @return <code>true</code> if given {@link ClassLoader} has class with given name.
+   */
+  public static boolean hasClass(ClassLoader classLoader, String name) {
+    try {
+      classLoader.loadClass(name);
+      return true;
+    } catch (Throwable e) {
+      return false;
+    }
+  }
+
+  /**
    * @return the {@link Object} default value for class with given {@code className}.
    */
   public static Object getDefaultValue(String className) {
