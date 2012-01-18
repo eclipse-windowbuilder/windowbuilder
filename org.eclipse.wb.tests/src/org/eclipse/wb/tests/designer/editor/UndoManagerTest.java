@@ -237,6 +237,7 @@ public class UndoManagerTest extends SwingGefTest {
     assertSame(originalContainer, m_contentJavaInfo);
     // active WBP editor, document was changed, so reparse
     activePage.activate(m_designerEditor);
+    waitEventLoop(0);
     fetchContentFields();
     assertNotSame(originalContainer, m_contentJavaInfo);
   }

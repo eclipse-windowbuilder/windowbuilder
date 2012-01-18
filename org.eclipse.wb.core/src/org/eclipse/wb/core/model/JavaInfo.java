@@ -589,10 +589,15 @@ public class JavaInfo extends ObjectInfo {
    * https://bugs.eclipse.org/bugs/show_bug.cgi?id=364893
    */
   private void removeExtraSystemClassLoaderProperties(List<Property> properties) throws Exception {
-    IJavaProject javaProject = getEditor().getJavaProject();
     Class<?> componentClass = getDescription().getComponentClass();
+    // For some special components Class may be null.
+    if (componentClass == null) {
+      return;
+    }
+    // Prepare Class information.
     String componentClassName = ReflectionUtils.getCanonicalName(componentClass);
-    IType componentModelType = javaProject.findType(componentClassName);
+    IType componentModelType = getEditor().getJavaProject().findType(componentClassName);
+    // Analyze properties.
     for (Iterator<Property> I = properties.iterator(); I.hasNext();) {
       Property property = I.next();
       if (property instanceof GenericPropertyImpl) {
