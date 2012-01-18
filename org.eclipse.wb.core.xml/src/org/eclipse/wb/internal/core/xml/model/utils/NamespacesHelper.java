@@ -105,17 +105,20 @@ public class NamespacesHelper {
    * @return the existing name given given URI or generate and add new name.
    */
   public String ensureName(String uri, String base) {
+    prepareNamespaces();
+    // try to find existing namespace declaration
     {
-      prepareNamespaces();
       String name = m_nameForURI.get(uri);
       if (name != null) {
         return name;
       }
     }
     // add new namespace
-    String name = getNewName(uri, base);
-    add(name, uri);
-    return name;
+    {
+      String name = getNewName(uri, base);
+      add(name, uri);
+      return name;
+    }
   }
 
   /**

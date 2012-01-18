@@ -10,6 +10,8 @@
 	<!-- editor -->
 	<extension-point id="pairResourceProviders" name="Providers for pair/companion resource"
 		schema="schema/pairResourceProviders.exsd"/>
+	<extension-point id="tagResolverProviders" name="Provider for XmlObjectREsolveTag broadcasts"
+		schema="schema/tagResolverProviders.exsd"/>
 	<!-- descriptions -->
 	<extension-point id="descriptionProcessors" name="Processors for loaded descriptions"
 		schema="schema/descriptionProcessors.exsd"/>

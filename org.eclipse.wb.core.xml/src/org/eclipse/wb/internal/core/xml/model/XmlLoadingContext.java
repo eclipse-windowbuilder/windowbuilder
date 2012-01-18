@@ -106,7 +106,7 @@ public final class XmlLoadingContext implements ILoadingContext {
     List<IFile> files = ProjectUtils.findFiles(javaProject, "wbp-meta/" + name);
     if (!files.isEmpty()) {
       IFile file = files.get(0);
-      return file.getLocation().toFile().toURL();
+      return file.getLocation().toFile().toURI().toURL();
     }
     return null;
   }

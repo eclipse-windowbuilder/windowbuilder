@@ -349,6 +349,20 @@ public final class XmlObjectUtils {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
+   * Asks every {@link TagResolverProvider} to register {@link XmlObjectResolveTag} broadcast.
+   */
+  public static void registerTagResolvers(XmlObjectInfo rootObject) throws Exception {
+    List<TagResolverProvider> providers =
+        ExternalFactoriesHelper.getElementsInstances(
+            TagResolverProvider.class,
+            "org.eclipse.wb.core.xml.tagResolverProviders",
+            "provider");
+    for (TagResolverProvider provider : providers) {
+      provider.register(rootObject);
+    }
+  }
+
+  /**
    * @param object
    *          some {@link XmlObjectInfo} in hierarchy.
    * @param clazz
