@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.xml.model.utils;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.util.generic.ModelMethodPropertyChildSupport;
 import org.eclipse.wb.internal.core.model.util.generic.ModelMethodPropertySupport;
-import org.eclipse.wb.internal.core.xml.model.IXMLObjectInitializationParticipator;
+import org.eclipse.wb.internal.core.xml.model.IRootProcessor;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
@@ -23,16 +23,14 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * @author scheglov_ke
  * @coverage XML.model.util
  */
-public final class DescriptionDrivenFeaturesParticipator
-    implements
-      IXMLObjectInitializationParticipator {
+public final class DescriptionDrivenFeatures implements IRootProcessor {
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IXMLObjectInitializationParticipator
+  // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
   public void process(XmlObjectInfo object) throws Exception {
-    //CopyPropertyTop_Support.install(javaInfo);
+    new CopyPropertyTopSupport(object);
     //CopyPropertyTop_ChildSupport.install(javaInfo);
     ModelMethodPropertySupport.install(object, "x-modelMethodProperty ");
     ModelMethodPropertyChildSupport.install(object, "x-modelMethodChildProperty ");

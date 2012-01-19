@@ -49,14 +49,9 @@
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.xml.rootProcessors">
 		<processor class="org.eclipse.wb.internal.core.xml.model.XmlObjectRootProcessor"/>
+		<processor class="org.eclipse.wb.internal.core.xml.model.utils.DescriptionDrivenFeatures"/>
 		<processor
 			class="org.eclipse.wb.internal.core.xml.model.generic.SimpleContainerClipboardSupport"/>
-	</extension>
-
-	<extension point="org.eclipse.wb.core.xml.initializationParticipators">
-		<participator
-			class="org.eclipse.wb.internal.core.xml.model.utils.DescriptionDrivenFeaturesParticipator"
-		/>
 	</extension>
 
 

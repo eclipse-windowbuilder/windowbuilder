@@ -44,7 +44,20 @@ public final class GenericPropertyImpl extends GenericProperty {
   //
   ////////////////////////////////////////////////////////////////////////////
   public GenericPropertyImpl(XmlObjectInfo object, GenericPropertyDescription description) {
-    super(object, description.getTitle(), description.getEditor());
+    this(object, description, description.getTitle());
+  }
+
+  /**
+   * Creates identical copy of given {@link GenericPropertyImpl}, but with different title.
+   */
+  public GenericPropertyImpl(GenericPropertyImpl property, String title) {
+    this(property.getObject(), property.getDescription(), title);
+  }
+
+  private GenericPropertyImpl(XmlObjectInfo object,
+      GenericPropertyDescription description,
+      String title) {
+    super(object, title, description.getEditor());
     m_description = description;
     setCategory(description.getCategory());
     m_converter = m_description.getConverter();

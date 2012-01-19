@@ -72,6 +72,22 @@ public class PropertyTest extends AbstractCoreTest {
     assertNotNull(textProperty.getDescription());
   }
 
+  public void test_makeCopy() throws Exception {
+    parse(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "<Shell>",
+        "  <Button wbp:name='button'/>",
+        "</Shell>");
+    refresh();
+    XmlObjectInfo button = getObjectByName("button");
+    //
+    GenericPropertyImpl property = (GenericPropertyImpl) button.getPropertyByTitle("text");
+    GenericPropertyImpl copy = new GenericPropertyImpl(property, "otherName");
+    assertEquals("text", property.getTitle());
+    assertEquals("otherName", copy.getTitle());
+  }
+
   /**
    * Test for {@link GenericPropertyImpl#getType()}.
    */

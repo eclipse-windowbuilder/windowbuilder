@@ -34,6 +34,7 @@ public class GenericTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(SimpleContainerGefTest.class));
     suite.addTest(createSingleSuite(SimpleContainerLayoutGefTest.class));
     // properties
+    suite.addTest(createSingleSuite(CopyPropertyTopTest.class));
     suite.addTest(createSingleSuite(ModelMethodPropertyTest.class));
     suite.addTest(createSingleSuite(ModelMethodPropertyChildTest.class));
     // done
