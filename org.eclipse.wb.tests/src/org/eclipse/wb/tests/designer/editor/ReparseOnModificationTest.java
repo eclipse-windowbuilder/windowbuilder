@@ -79,6 +79,7 @@ public class ReparseOnModificationTest extends SwingGefTest {
     {
       ICompilationUnit unit = initialPanel.getEditor().getModelUnit();
       JavaUI.openInEditor(unit);
+      waitEventLoop(0);
     }
     fetchContentFields();
     assertNotSame(initialPanel, m_contentJavaInfo);
@@ -229,8 +230,8 @@ public class ReparseOnModificationTest extends SwingGefTest {
   }
 
   /**
-   * @return <code>true</code> if {@link EditorActivatedListener#invoke(boolean[])}
-   *         requested reparsing.
+   * @return <code>true</code> if {@link EditorActivatedListener#invoke(boolean[])} requested
+   *         reparsing.
    */
   private static boolean shouldReparse_editorActivated(JavaInfo panel) throws Exception {
     EditorActivatedRequest request = new EditorActivatedRequest();
