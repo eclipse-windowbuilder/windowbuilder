@@ -59,14 +59,14 @@ public class AssertTest extends TestCase {
       Assert.isNull(this);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument expected: ", e.getMessage());
+      assertEquals("null argument expected", e.getMessage());
     }
     //
     try {
       Assert.isNull(this, "message");
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument expected: " + "message", e.getMessage());
+      assertEquals("message", e.getMessage());
     }
   }
 
@@ -80,7 +80,7 @@ public class AssertTest extends TestCase {
       Assert.isNull(this, "errorFormat %d %d", 1, 2);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument expected: errorFormat 1 2", e.getMessage());
+      assertEquals("errorFormat 1 2", e.getMessage());
     }
   }
 
@@ -94,7 +94,7 @@ public class AssertTest extends TestCase {
       Assert.isNull2(this, "errorFormat {0} {1}", 1, 2);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument expected: errorFormat 1 2", e.getMessage());
+      assertEquals("errorFormat 1 2", e.getMessage());
     }
   }
 
@@ -108,7 +108,7 @@ public class AssertTest extends TestCase {
       Assert.isNotNull(null);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument: ", e.getMessage());
+      assertEquals("null argument", e.getMessage());
     }
   }
 
@@ -122,7 +122,7 @@ public class AssertTest extends TestCase {
       Assert.isNotNull(null, "message");
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument: message", e.getMessage());
+      assertEquals("message", e.getMessage());
     }
   }
 
@@ -136,7 +136,7 @@ public class AssertTest extends TestCase {
       Assert.isNotNull(null, "errorFormat %d %d", 1, 2);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument: errorFormat 1 2", e.getMessage());
+      assertEquals("errorFormat 1 2", e.getMessage());
     }
   }
 
@@ -152,7 +152,7 @@ public class AssertTest extends TestCase {
       Assert.isNotNull2(null, "errorFormat {0} {1}", 1, 2);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("null argument: errorFormat 1 2", e.getMessage());
+      assertEquals("errorFormat 1 2", e.getMessage());
     }
   }
 
@@ -198,7 +198,7 @@ public class AssertTest extends TestCase {
       Assert.isTrue(false);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("assertion failed: ", e.getMessage());
+      assertEquals("assertion failed", e.getMessage());
     }
   }
 
@@ -212,7 +212,7 @@ public class AssertTest extends TestCase {
       Assert.isTrue(false, "message");
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("assertion failed: message", e.getMessage());
+      assertEquals("message", e.getMessage());
     }
   }
 
@@ -226,7 +226,7 @@ public class AssertTest extends TestCase {
       Assert.isTrue(false, "errorFormat %d %d", 1, 2);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("assertion failed: errorFormat 1 2", e.getMessage());
+      assertEquals("errorFormat 1 2", e.getMessage());
     }
   }
 
@@ -256,14 +256,14 @@ public class AssertTest extends TestCase {
       Assert.equals(0, 1);
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("assertation failed: 0 expected, but 1 found", e.getMessage());
+      assertEquals("0 expected, but 1 found", e.getMessage());
     }
     //
     try {
       Assert.equals(0, 1, "message");
       fail();
     } catch (AssertionFailedException e) {
-      assertEquals("assertation failed: message", e.getMessage());
+      assertEquals("message", e.getMessage());
     }
   }
 

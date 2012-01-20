@@ -88,7 +88,7 @@ public final class Assert {
    *          the value to test
    */
   public static void isNull(Object object) {
-    isNull(object, ""); //$NON-NLS-1$
+    isNull(object, "null argument expected"); //$NON-NLS-1$
   }
 
   /**
@@ -103,7 +103,7 @@ public final class Assert {
    */
   public static void isNull(Object object, String message) {
     if (object != null) {
-      throw new AssertionFailedException("null argument expected: " + message); //$NON-NLS-1$
+      throw new AssertionFailedException(message);
     }
   }
 
@@ -123,7 +123,8 @@ public final class Assert {
    */
   public static void isNull(Object object, String errorFormat, Object... args) {
     if (object != null) {
-      fail("null argument expected: " + String.format(errorFormat, args)); //$NON-NLS-1$
+      String message = String.format(errorFormat, args);
+      fail(message);
     }
   }
 
@@ -137,7 +138,7 @@ public final class Assert {
    */
   public static void isNull2(Object object, String errorFormat, Object... args) {
     if (object != null) {
-      String message = "null argument expected: " + MessageFormat.format(errorFormat, args); //$NON-NLS-1$
+      String message = MessageFormat.format(errorFormat, args);
       fail(message);
     }
   }
@@ -155,7 +156,7 @@ public final class Assert {
    *          the value to test
    */
   public static void isNotNull(Object object) {
-    isNotNull(object, ""); //$NON-NLS-1$
+    isNotNull(object, "null argument"); //$NON-NLS-1$
   }
 
   /**
@@ -170,7 +171,7 @@ public final class Assert {
    */
   public static void isNotNull(Object object, String message) {
     if (object == null) {
-      fail("null argument: " + message); //$NON-NLS-1$
+      fail(message);
     }
   }
 
@@ -190,7 +191,7 @@ public final class Assert {
    */
   public static void isNotNull(Object object, String errorFormat, Object... args) {
     if (object == null) {
-      fail("null argument: " + String.format(errorFormat, args)); //$NON-NLS-1$
+      fail(String.format(errorFormat, args));
     }
   }
 
@@ -204,7 +205,7 @@ public final class Assert {
    */
   public static void isNotNull2(Object object, String errorFormat, Object... args) {
     if (object == null) {
-      String message = "null argument: " + MessageFormat.format(errorFormat, args); //$NON-NLS-1$
+      String message = MessageFormat.format(errorFormat, args);
       fail(message);
     }
   }
@@ -248,7 +249,7 @@ public final class Assert {
    * @return <code>true</code> if the check passes (does not return if the check fails)
    */
   public static boolean isTrue(boolean expression) {
-    return isTrue(expression, ""); //$NON-NLS-1$
+    return isTrue(expression, "assertion failed"); //$NON-NLS-1$
   }
 
   /**
@@ -264,7 +265,7 @@ public final class Assert {
    */
   public static boolean isTrue(boolean expression, String message) {
     if (!expression) {
-      fail("assertion failed: " + message); //$NON-NLS-1$
+      fail(message);
     }
     return expression;
   }
@@ -286,7 +287,8 @@ public final class Assert {
    */
   public static boolean isTrue(boolean expression, String errorFormat, Object... args) {
     if (!expression) {
-      fail("assertion failed: " + String.format(errorFormat, args)); //$NON-NLS-1$
+      String message = String.format(errorFormat, args);
+      fail(message);
     }
     return expression;
   }
@@ -341,7 +343,7 @@ public final class Assert {
    */
   public static void equals(int expected, int actual, String message) {
     if (expected != actual) {
-      fail("assertation failed: " + message);
+      fail(message);
     }
   }
 
