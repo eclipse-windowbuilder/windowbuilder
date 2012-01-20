@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -17,12 +18,14 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
 import org.eclipse.wb.internal.core.nls.SourceDescription;
 import org.eclipse.wb.internal.core.nls.commands.AbstractCommand;
 import org.eclipse.wb.internal.core.nls.commands.CreateSourceCommand;
 import org.eclipse.wb.internal.core.nls.commands.ICommandQueue;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
+import org.eclipse.wb.internal.core.nls.model.INlsPropertyContributor;
 
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.dom.Expression;
@@ -117,10 +120,16 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
     {
       List<StringPropertyInfo> componentProperties = Lists.newArrayList();
       m_componentToPropertyList.put(component, componentProperties);
-      // fill list of properties
-      Property[] properties = component.getProperties();
-      for (int i = 0; i < properties.length; i++) {
-        Property property = properties[i];
+      // prepare list of properties
+      List<Property> properties = Lists.newArrayList(component.getProperties());
+      for (Property property : ImmutableList.copyOf(properties)) {
+        PropertyEditor editor = property.getEditor();
+        if (editor instanceof INlsPropertyContributor) {
+          ((INlsPropertyContributor) editor).contributeNlsProperties(property, properties);
+        }
+      }
+      // fill String properties
+      for (Property property : properties) {
         if (NlsSupport.isStringProperty(property) && property.isModified()) {
           GenericProperty stringProperty = (GenericProperty) property;
           StringPropertyInfo propertyInfo = new StringPropertyInfo(stringProperty);
