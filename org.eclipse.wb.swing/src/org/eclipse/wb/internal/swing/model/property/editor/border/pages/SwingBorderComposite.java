@@ -118,7 +118,7 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
   /**
    * Prepares {@link FontInfo}'s for {@link Font}'s from {@link UIManager}.
    */
-  private static void prepareBorders() {
+  private static synchronized void prepareBorders() {
     if (m_borders == null) {
       m_borderKeys = Lists.newArrayList();
       m_borders = Lists.newArrayList();

@@ -101,9 +101,6 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
       m_titlePositionField.setValue(ourBorder.getTitlePosition());
       m_titleColorField.setValue(ourBorder.getTitleColor());
       m_borderField.setBorder(ourBorder.getBorder());
-      /*m_colorField.setValue(ourBorder.getLineColor());
-      m_thicknessField.setValue(ourBorder.getThickness());
-      m_typeField.setValue(ourBorder.getRoundedCorners());*/
       // OK, this is our Border
       return true;
     } else {
@@ -112,9 +109,6 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
       m_titlePositionField.setValue(TitledBorder.TOP);
       m_titleColorField.setValue(null);
       m_borderField.setBorder(null);
-      /*m_colorField.setValue(Color.BLACK);
-      m_thicknessField.setValue(1);
-      m_typeField.setValue(false);*/
       // no, we don't know this Border
       return false;
     }
@@ -122,16 +116,6 @@ public final class TitledBorderComposite extends AbstractBorderComposite {
 
   @Override
   public String getSource() throws Exception {
-    /*String colorSource = m_colorField.getSource();
-    String thinknessSource = m_thicknessField.getSource();
-    String cornersSource = m_typeField.getSource();
-    if ("false".equals(cornersSource)) {
-    	if ("1".equals(thinknessSource)) {
-    		return "new javax.swing.border.LineBorder(" + colorSource + ")";
-    	}
-    	return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ")";
-    }
-    return "new javax.swing.border.LineBorder(" + colorSource + ", " + thinknessSource + ", true)";*/
     String borderSource = m_borderField.getSource();
     String titleSource = m_titleField.getSource();
     String titleJustificationSource = m_titleJustificationField.getSource();
