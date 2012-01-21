@@ -65,6 +65,8 @@
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.BooleanConverter"/>
 		<converter type="int"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter"/>
+		<converter type="java.lang.Integer"
+			class="org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter"/>
 		<converter type="float"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.FloatConverter"/>
 		<!--<converter type="char"
@@ -94,6 +96,8 @@
 		<editor type="java.lang.Boolean"
 			class="org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor"/>
 		<editor type="int"
+			class="org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor"/>
+		<editor type="java.lang.Integer"
 			class="org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor"/>
 		<editor type="java.lang.String"
 			class="org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor"/>

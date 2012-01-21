@@ -70,6 +70,17 @@ public class ExpressionConverterTest extends AbstractCoreTest {
     assertEquals("0", converter.toSource(object, 0));
   }
 
+  public void test_Integer() throws Exception {
+    assertConverterEditor(Integer.class);
+    //
+    XmlObjectInfo object = parse("<Shell/>");
+    ExpressionConverter converter = IntegerConverter.INSTANCE;
+    assertEquals(null, converter.toSource(object, null));
+    assertEquals("12", converter.toSource(object, 12));
+    assertEquals("-12", converter.toSource(object, -12));
+    assertEquals("0", converter.toSource(object, 0));
+  }
+
   public void test_String() throws Exception {
     assertConverterEditor(String.class);
     //
