@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import java.lang.reflect.Method;
@@ -19,6 +21,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -96,31 +99,71 @@ public class GenericTypeResolver {
   // Superclass
   //
   ////////////////////////////////////////////////////////////////////////////
+  private static Map<String, Type> getActualTypeArguments(Class<?> declarationClass,
+      Class<?> currentClass,
+      Type[] arguments) {
+    // Prepare map of current Class type parameters to arguments.
+    Map<String, Type> currentArguments = Maps.newHashMap();
+    TypeVariable<?>[] typeParameters = currentClass.getTypeParameters();
+    for (int i = 0; i < typeParameters.length; i++) {
+      TypeVariable<?> typeParameter = typeParameters[i];
+      currentArguments.put(typeParameter.getName(), arguments[i]);
+    }
+    // If current is declaration Class, we are done.
+    if (currentClass == declarationClass) {
+      return currentArguments;
+    }
+    // Prepare all super Types.
+    List<Type> superTypes = Lists.newArrayList();
+    if (currentClass.getGenericSuperclass() != null) {
+      superTypes.add(currentClass.getGenericSuperclass());
+    }
+    for (Type superInterface : currentClass.getGenericInterfaces()) {
+      superTypes.add(superInterface);
+    }
+    // Check every super Type.
+    for (Type superType : superTypes) {
+      Class<?> superClass;
+      Type superArguments[];
+      if (superType instanceof ParameterizedType) {
+        ParameterizedType parameterizedSuperType = (ParameterizedType) superType;
+        superClass = (Class<?>) parameterizedSuperType.getRawType();
+        superArguments = parameterizedSuperType.getActualTypeArguments();
+        for (int i = 0; i < superArguments.length; i++) {
+          Type argument = superArguments[i];
+          if (argument instanceof TypeVariable<?>) {
+            String name = ((TypeVariable<?>) argument).getName();
+            Type resolvedArgument = currentArguments.get(name);
+            Assert.isNotNull(resolvedArgument);
+            superArguments[i] = resolvedArgument;
+          }
+        }
+      } else {
+        superClass = (Class<?>) superType;
+        superArguments = new Type[0];
+      }
+      Map<String, Type> map = getActualTypeArguments(declarationClass, superClass, superArguments);
+      if (map != null) {
+        return map;
+      }
+    }
+    return null;
+  }
+
   public static GenericTypeResolver superClass(final GenericTypeResolver parent,
       Class<?> actualClass,
       Class<?> declarationClass) {
-    if (actualClass != declarationClass) {
-      Type superGeneric = actualClass.getGenericSuperclass();
-      if (superGeneric instanceof ParameterizedType) {
-        ParameterizedType superParameterized = (ParameterizedType) superGeneric;
-        final Map<String, Type> typeArguments = getTypeArguments(superGeneric);
-        GenericTypeResolver thisClassResolver = new GenericTypeResolver(parent) {
-          @Override
-          protected String resolveTypeVariable(TypeVariable<?> variable) {
-            String variableName = variable.getName();
-            Type variableType = typeArguments.get(variableName);
-            return parent.resolve(variableType);
-          }
-        };
-        return superClass(
-            thisClassResolver,
-            (Class<?>) superParameterized.getRawType(),
-            declarationClass);
-      } else {
-        return superClass(parent, actualClass.getSuperclass(), declarationClass);
+    Assert.isTrue(declarationClass.isAssignableFrom(declarationClass));
+    final Map<String, Type> declarationClassArguments =
+        getActualTypeArguments(declarationClass, actualClass, actualClass.getTypeParameters());
+    return new GenericTypeResolver(parent) {
+      @Override
+      protected String resolveTypeVariable(TypeVariable<?> variable) {
+        String variableName = variable.getName();
+        Type variableType = declarationClassArguments.get(variableName);
+        return parent.resolve(variableType);
       }
-    }
-    return parent;
+    };
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -172,8 +215,8 @@ public class GenericTypeResolver {
     if (type instanceof ParameterizedType) {
       ParameterizedType parameterized = (ParameterizedType) type;
       Type[] actualTypeArguments = parameterized.getActualTypeArguments();
-      Class<?> generic = (Class<?>) parameterized.getRawType();
-      TypeVariable<?>[] typeParameters = generic.getTypeParameters();
+      Class<?> raw = (Class<?>) parameterized.getRawType();
+      TypeVariable<?>[] typeParameters = raw.getTypeParameters();
       for (int i = 0; i < typeParameters.length; i++) {
         TypeVariable<?> typeParameter = typeParameters[i];
         typeArguments.put(typeParameter.getName(), actualTypeArguments[i]);

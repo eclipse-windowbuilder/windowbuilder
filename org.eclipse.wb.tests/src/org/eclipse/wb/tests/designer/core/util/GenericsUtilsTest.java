@@ -656,6 +656,59 @@ public class GenericsUtilsTest extends DesignerTestCase {
     assertEquals(Listener.class.getName() + "<java.lang.String>", actualParameterType);
   }
 
+  interface Inter<E> {
+    void setValue(E value);
+  }
+
+  /**
+   * Generic type used in Inter and declared as type argument in using Super.
+   */
+  public void test_getTypeName_resolveFromSuperInterface() throws Exception {
+    abstract class Super<T> implements Inter<T> {
+    }
+    abstract class Sub extends Super<String> {
+    }
+    //
+    Type typeToResolve;
+    {
+      Method method = Inter.class.getDeclaredMethod("setValue", Object.class);
+      typeToResolve = method.getGenericParameterTypes()[0];
+      assertEquals("E", typeToResolve.toString());
+    }
+    // prepare resolver
+    GenericTypeResolver resolver =
+        GenericTypeResolver.superClass(GenericTypeResolver.EMPTY, Sub.class, Inter.class);
+    // validate
+    String actualParameterType = GenericsUtils.getTypeName(resolver, typeToResolve);
+    assertEquals("java.lang.String", actualParameterType);
+  }
+
+  /**
+   * Generic type used in Super and declared as type argument in using Super.
+   */
+  public void test_getTypeName_resolveFromSuperClass() throws Exception {
+    @SuppressWarnings("unused")
+    class Super<T> {
+      void setValue(T value) {
+      }
+    }
+    class Sub extends Super<String> {
+    }
+    //
+    Type typeToResolve;
+    {
+      Method method = Super.class.getDeclaredMethod("setValue", Object.class);
+      typeToResolve = method.getGenericParameterTypes()[0];
+      assertEquals("T", typeToResolve.toString());
+    }
+    // prepare resolver
+    GenericTypeResolver resolver =
+        GenericTypeResolver.superClass(GenericTypeResolver.EMPTY, Sub.class, Super.class);
+    // validate
+    String actualParameterType = GenericsUtils.getTypeName(resolver, typeToResolve);
+    assertEquals("java.lang.String", actualParameterType);
+  }
+
   public void test_getTypeName_TypeVariable_WildcardType() throws Exception {
     @SuppressWarnings("unused")
     class Listener<E> {
