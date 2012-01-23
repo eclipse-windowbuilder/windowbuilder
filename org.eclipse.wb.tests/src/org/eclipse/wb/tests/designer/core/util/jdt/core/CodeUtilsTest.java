@@ -849,6 +849,17 @@ public class CodeUtilsTest extends AbstractJavaTest {
     assertEquals("foo(java.awt.Component)", CodeUtils.getMethodSignature(method));
   }
 
+  /**
+   * Test for {@link CodeUtils#getMethodSignature(IMethod)}.
+   * <p>
+   * Signature of {@link IMethod} with type parameters should use bounds in place of parameters.
+   */
+  public void test_getMethodSignature_withGenerics_array() throws Exception {
+    IType type = m_javaProject.findType("javax.swing.JComboBox");
+    IMethod method = type.getMethod("JComboBox", new String[]{"[TE;"});
+    assertEquals("<init>(java.lang.Object[])", CodeUtils.getMethodSignature(method));
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // findMethod

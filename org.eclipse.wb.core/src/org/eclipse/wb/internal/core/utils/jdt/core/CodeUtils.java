@@ -628,7 +628,7 @@ public class CodeUtils {
     //
     int arrayCount = Signature.getArrayCount(typeSignature);
     char type = typeSignature.charAt(arrayCount);
-    if (type == Signature.C_UNRESOLVED) {
+    if (type == Signature.C_UNRESOLVED || type == Signature.C_TYPE_VARIABLE) {
       int semi = typeSignature.indexOf(Signature.C_SEMICOLON, arrayCount + 1);
       String name = typeSignature.substring(arrayCount + 1, semi);
       name = getResolvedTypeName_resolveTypeVariable(context, name);
