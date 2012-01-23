@@ -144,6 +144,11 @@ public final class GenericPropertyImpl extends GenericProperty {
       }
       value = valueToValidate[0];
     }
+    // may be editor wants to handle it
+    if (m_editor instanceof ISetValuePropertyEditor) {
+      ((ISetValuePropertyEditor) m_editor).setValue(this, value);
+      return;
+    }
     // prepare expression
     String expression;
     if (value == UNKNOWN_VALUE || ObjectUtils.equals(value, getDefaultValue())) {
