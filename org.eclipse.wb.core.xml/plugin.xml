@@ -69,6 +69,8 @@
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter"/>
 		<converter type="float"
 			class="org.eclipse.wb.internal.core.xml.model.property.converter.FloatConverter"/>
+		<converter type="double"
+			class="org.eclipse.wb.internal.core.xml.model.property.converter.DoubleConverter"/>
 		<!--<converter type="char"
 			class="org.eclipse.wb.internal.core.model.property.converter.CharacterConverter"/>
 		<converter type="byte" class="org.eclipse.wb.internal.core.model.property.converter.ByteConverter"/>
@@ -99,6 +101,8 @@
 			class="org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor"/>
 		<editor type="java.lang.Integer"
 			class="org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor"/>
+		<editor type="double"
+			class="org.eclipse.wb.internal.core.model.property.editor.DoublePropertyEditor"/>
 		<editor type="java.lang.String"
 			class="org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor"/>
 		<editor type="java.lang.String[]"

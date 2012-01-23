@@ -14,6 +14,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.description.DescriptionPropertiesHelper;
 import org.eclipse.wb.internal.core.xml.model.property.converter.BooleanConverter;
+import org.eclipse.wb.internal.core.xml.model.property.converter.DoubleConverter;
 import org.eclipse.wb.internal.core.xml.model.property.converter.EnumConverter;
 import org.eclipse.wb.internal.core.xml.model.property.converter.ExpressionConverter;
 import org.eclipse.wb.internal.core.xml.model.property.converter.IntegerConverter;
@@ -79,6 +80,17 @@ public class ExpressionConverterTest extends AbstractCoreTest {
     assertEquals("12", converter.toSource(object, 12));
     assertEquals("-12", converter.toSource(object, -12));
     assertEquals("0", converter.toSource(object, 0));
+  }
+
+  public void test_double() throws Exception {
+    assertConverterEditor(double.class);
+    //
+    XmlObjectInfo object = parse("<Shell/>");
+    ExpressionConverter converter = DoubleConverter.INSTANCE;
+    assertEquals(null, converter.toSource(object, null));
+    assertEquals("12.5", converter.toSource(object, 12.5));
+    assertEquals("-12.7", converter.toSource(object, -12.7));
+    assertEquals("0.0", converter.toSource(object, 0.0));
   }
 
   public void test_String() throws Exception {
