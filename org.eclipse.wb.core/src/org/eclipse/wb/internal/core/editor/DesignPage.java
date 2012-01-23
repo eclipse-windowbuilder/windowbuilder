@@ -76,6 +76,7 @@ import java.util.Map;
  * @coverage core.editor
  */
 public final class DesignPage implements IDesignPage {
+  private boolean m_disposed;
   private DesignerEditor m_designerEditor;
   private ICompilationUnit m_compilationUnit;
   private boolean m_showProgress = true;
@@ -100,11 +101,13 @@ public final class DesignPage implements IDesignPage {
       if (part == m_designerEditor) {
         ExecutionUtils.runAsync(new RunnableEx() {
           public void run() throws Exception {
-            GlobalStateJava.activate(m_rootObject);
-            if (m_active) {
-              checkDependenciesOnDesignPageActivation();
-              m_undoManager.deactivate();
-              m_undoManager.activate();
+            if (!isDisposed()) {
+              GlobalStateJava.activate(m_rootObject);
+              if (m_active) {
+                checkDependenciesOnDesignPageActivation();
+                m_undoManager.deactivate();
+                m_undoManager.activate();
+              }
             }
           }
         });
@@ -125,9 +128,17 @@ public final class DesignPage implements IDesignPage {
   }
 
   /**
+   * @return <code>true</code> if this {@link DesignPage} is disposed.
+   */
+  public boolean isDisposed() {
+    return m_disposed;
+  }
+
+  /**
    * Disposes this {@link DesignPage}.
    */
   public void dispose() {
+    m_disposed = true;
     m_undoManager.deactivate();
     m_designerEditor.getEditorSite().getPage().removePartListener(m_partListener);
     disposeAll(true);
