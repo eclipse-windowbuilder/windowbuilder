@@ -106,21 +106,21 @@ public class LayoutDataInfo extends XmlObjectInfo implements ILayoutDataInfo {
   // "LayoutData" property
   //
   ////////////////////////////////////////////////////////////////////////////
-  private ComplexProperty m_complexProperty;
+  private ComplexProperty m_property;
 
   /**
    * Adds properties of this {@link LayoutDataInfo} to the properties of its {@link ControlInfo}.
    */
   private void addLayoutDataProperty(List<Property> properties) throws Exception {
     // prepare complex property
-    if (m_complexProperty == null) {
+    if (m_property == null) {
       String text;
       {
         Class<?> componentClass = getDescription().getComponentClass();
         text = "(" + componentClass.getName() + ")";
       }
       // prepare ComplexProperty
-      m_complexProperty = new ComplexProperty("LayoutData", text) {
+      m_property = new ComplexProperty("LayoutData", text) {
         @Override
         public boolean isModified() throws Exception {
           return !isVirtual();
@@ -133,11 +133,11 @@ public class LayoutDataInfo extends XmlObjectInfo implements ILayoutDataInfo {
           }
         }
       };
-      m_complexProperty.setCategory(PropertyCategory.system(5));
+      m_property.setCategory(PropertyCategory.system(5));
       // set sub-properties
-      m_complexProperty.setProperties(getProperties());
+      m_property.setProperties(getProperties());
     }
     // add property
-    properties.add(m_complexProperty);
+    properties.add(m_property);
   }
 }
