@@ -73,7 +73,6 @@ public class CSpinner extends Composite {
         textStyle |= SWT.BORDER;
       }
       m_text = new Text(this, textStyle);
-      m_text.setText("" + m_value);
       m_text.addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -233,7 +232,7 @@ public class CSpinner extends Composite {
    */
   public void setSelection(int newValue) {
     newValue = Math.min(Math.max(m_minimum, newValue), m_maximum);
-    if (newValue != m_value) {
+    if (newValue != m_value || m_text.getText().length() == 0) {
       m_value = newValue;
       updateText();
       // set valid state
