@@ -4,13 +4,13 @@
 	<topic 
 		label="System Requirements"
 		href="html/installation/system.html"/>
+   <topic href="html/installation/updatesite_3.8.html" label="Using update site for Eclipse 3.8 and 4.2">
+   </topic>
    <topic href="html/installation/updatesite_3.7.html" label="Using update site for Eclipse 3.7">
    </topic>
    <topic href="html/installation/updatesite_3.6.html" label="Using update site for Eclipse 3.6">
    </topic>
    <topic href="html/installation/updatesite_3.5.html" label="Using update site for Eclipse 3.5">
-   </topic>
-   <topic href="html/installation/updatesite_3.4.html" label="Using update site for Eclipse 3.4">
    </topic>
 	<topic 
 		label="Uninstall"
