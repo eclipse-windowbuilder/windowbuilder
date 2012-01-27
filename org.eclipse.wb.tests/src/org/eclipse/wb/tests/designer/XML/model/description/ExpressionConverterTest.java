@@ -90,7 +90,8 @@ public class ExpressionConverterTest extends AbstractCoreTest {
     assertEquals(null, converter.toSource(object, null));
     assertEquals("12.5", converter.toSource(object, 12.5));
     assertEquals("-12.7", converter.toSource(object, -12.7));
-    assertEquals("0.0", converter.toSource(object, 0.0));
+    assertEquals("10", converter.toSource(object, 10.0));
+    assertEquals("0", converter.toSource(object, 0.0));
   }
 
   public void test_String() throws Exception {

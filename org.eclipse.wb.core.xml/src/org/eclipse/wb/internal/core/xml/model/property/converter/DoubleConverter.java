@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.core.xml.model.property.converter;
 
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * {@link ExpressionConverter} for <code>double</code> values.
  * 
@@ -38,7 +40,9 @@ public final class DoubleConverter extends ExpressionConverter {
   @Override
   public String toSource(XmlObjectInfo object, Object value) throws Exception {
     if (value instanceof Double) {
-      return Double.toString((Double) value);
+      String source = Double.toString((Double) value);
+      source = StringUtils.removeEnd(source, ".0");
+      return source;
     }
     return null;
   }
