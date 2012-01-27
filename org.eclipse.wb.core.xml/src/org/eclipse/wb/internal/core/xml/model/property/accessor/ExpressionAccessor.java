@@ -65,7 +65,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
     }
     // sub-element
     {
-      DocumentElement element = getElement(object);
+      DocumentElement element = getExistingElement(object);
       if (element != null) {
         String propertyName = element.getTag() + "." + m_attribute;
         if (element.getChild(propertyName, true) != null) {
@@ -81,7 +81,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
    * @return the {@link String} expression of attribute, may be <code>null</code> if not set.
    */
   public String getExpression(XmlObjectInfo object) {
-    DocumentElement element = getElement(object);
+    DocumentElement element = getExistingElement(object);
     if (element != null) {
       return element.getAttribute(m_attribute);
     }
@@ -101,10 +101,17 @@ public abstract class ExpressionAccessor extends AbstractDescription {
   }
 
   /**
-   * @return the {@link DocumentElement} to use to get/set attribute.
+   * @return the {@link DocumentElement} to use to get attribute.
+   */
+  protected DocumentElement getExistingElement(XmlObjectInfo object) {
+    return object.getCreationSupport().getExistingElement();
+  }
+
+  /**
+   * @return the {@link DocumentElement} to use to set attribute.
    */
   protected DocumentElement getElement(XmlObjectInfo object) {
-    return object.getCreationSupport().getExistingElement();
+    return object.getCreationSupport().getElement();
   }
 
   /**
