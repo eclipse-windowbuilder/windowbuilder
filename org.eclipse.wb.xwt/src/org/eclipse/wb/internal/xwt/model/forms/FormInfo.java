@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.xwt.model.forms;
 
 import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
-import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.AbstractPositionCompositeInfo;
@@ -40,7 +39,7 @@ public final class FormInfo extends AbstractPositionCompositeInfo {
       CreationSupport creationSupport) throws Exception {
     super(context, description, creationSupport, POSITIONS);
     // add "body"
-    if (!(getCreationSupport() instanceof IImplicitCreationSupport)) {
+    if (!XmlObjectUtils.isImplicit(this)) {
       CompositeInfo body =
           (CompositeInfo) XmlObjectUtils.createObject(
               context,

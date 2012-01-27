@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
-import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.utils.NamespacesHelper;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
@@ -131,7 +130,7 @@ public final class NameSupport {
       public void endVisit(ObjectInfo object) throws Exception {
         if (object instanceof XmlObjectInfo) {
           XmlObjectInfo xmlObject = (XmlObjectInfo) object;
-          if (xmlObject.getCreationSupport() instanceof IImplicitCreationSupport) {
+          if (XmlObjectUtils.isImplicit(xmlObject)) {
             return;
           }
           String name = getName(xmlObject);

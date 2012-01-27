@@ -30,7 +30,6 @@ import org.eclipse.wb.internal.core.xml.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.xml.model.clipboard.XmlObjectMemento;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.xml.model.creation.ElementCreationSupport;
-import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
@@ -349,7 +348,7 @@ public class CompositeInfo extends ScrollableInfo implements ICompositeInfo {
   protected void clipboardCopy_addCommands(List<ClipboardCommand> commands) throws Exception {
     if (hasLayout()) {
       LayoutInfo layout = getLayout();
-      if (layout.getCreationSupport() instanceof IImplicitCreationSupport) {
+      if (XmlObjectUtils.isImplicit(layout)) {
         // no need to set implicit layout
       } else {
         final XmlObjectMemento layoutMemento = XmlObjectMemento.createMemento(layout);

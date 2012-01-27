@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectAdd;
 import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectMove;
 import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectResolveTag;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
+import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.xml.model.generic.FlowContainerFactory;
@@ -48,6 +49,19 @@ import java.util.Map.Entry;
  * @coverage XML.model.utils
  */
 public final class XmlObjectUtils {
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Checks
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return <code>true</code> if given {@link XmlObjectInfo} is implicit, i.e. has not real
+   *         element.
+   */
+  public static boolean isImplicit(XmlObjectInfo object) {
+    return object.getCreationSupport() instanceof IImplicitCreationSupport;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Parameters

@@ -35,10 +35,10 @@ import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
-import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.xml.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccessor;
+import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 
 import org.eclipse.jface.action.IMenuManager;
@@ -355,7 +355,7 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
         if (object instanceof XmlObjectInfo) {
           XmlObjectInfo xmlObject = (XmlObjectInfo) object;
           CreationSupport creationSupport = xmlObject.getCreationSupport();
-          if (!(creationSupport instanceof IImplicitCreationSupport)) {
+          if (!XmlObjectUtils.isImplicit(xmlObject)) {
             DocumentElement element = creationSupport.getElement();
             if (name.equals(element.getAttribute("wbp:name"))) {
               result[0] = xmlObject;

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.xwt.model.layout;
 
 import org.eclipse.wb.internal.core.xml.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.xml.model.clipboard.PropertiesClipboardCommand;
-import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
+import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
@@ -34,7 +34,7 @@ public final class LayoutDataClipboardCommand extends CompositeClipboardCommand 
   ////////////////////////////////////////////////////////////////////////////
   public LayoutDataClipboardCommand(LayoutInfo layout, ControlInfo control) throws Exception {
     LayoutDataInfo layoutData = LayoutInfo.getLayoutData(control);
-    if (layoutData.getCreationSupport() instanceof IImplicitCreationSupport) {
+    if (XmlObjectUtils.isImplicit(layoutData)) {
       m_index = -1;
       m_propertiesCommand = null;
     } else {

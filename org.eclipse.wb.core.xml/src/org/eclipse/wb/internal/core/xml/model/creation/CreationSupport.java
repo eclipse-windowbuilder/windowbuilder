@@ -38,6 +38,14 @@ public abstract class CreationSupport {
   }
 
   /**
+   * @return the existing {@link DocumentElement} in XML model, or <code>null</code> if
+   *         corresponding {@link XmlObjectInfo} is virtual, not existing yet.
+   */
+  public DocumentElement getExistingElement() {
+    return getElement();
+  }
+
+  /**
    * @return the {@link DocumentElement} which should be moved, usually same as
    *         {@link #getElement()}.
    */

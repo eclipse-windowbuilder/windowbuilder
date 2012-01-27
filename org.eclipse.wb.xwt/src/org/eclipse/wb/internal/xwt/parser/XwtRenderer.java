@@ -24,8 +24,8 @@ import org.eclipse.wb.internal.core.xml.model.EditorContext;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectSetObjectAfter;
 import org.eclipse.wb.internal.core.xml.model.creation.CreationSupport;
-import org.eclipse.wb.internal.core.xml.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.xml.model.utils.GlobalStateXml;
+import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 import org.eclipse.e4.xwt.DefaultLoadingContext;
@@ -115,7 +115,7 @@ public final class XwtRenderer {
         if (objectInfo instanceof XmlObjectInfo) {
           XmlObjectInfo xmlObjectInfo = (XmlObjectInfo) objectInfo;
           CreationSupport creationSupport = xmlObjectInfo.getCreationSupport();
-          if (!(creationSupport instanceof IImplicitCreationSupport)) {
+          if (!XmlObjectUtils.isImplicit(xmlObjectInfo)) {
             DocumentElement element = creationSupport.getElement();
             String path = XwtParser.getPath(element);
             m_pathToModelMap.put(path, xmlObjectInfo);
