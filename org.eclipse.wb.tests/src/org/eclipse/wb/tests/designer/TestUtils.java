@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer;
 
+import com.google.common.collect.Lists;
+
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.core.TestProject;
 import org.eclipse.wb.tests.designer.tests.Activator;
 
@@ -39,13 +42,25 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWizard;
 
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 import org.apache.commons.lang.StringUtils;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.commons.EmptyVisitor;
 import org.osgi.framework.Bundle;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Vector;
 import java.util.jar.JarOutputStream;
 import java.util.zip.ZipEntry;
 
@@ -358,5 +373,75 @@ public final class TestUtils {
     }
     // return path to "jar"
     return tempFile.getAbsolutePath();
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // TestSuite
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Sorts test methods in the given {@link TestSuite} to same order as they are declared in source
+   * of test class.
+   */
+  public static void sortTestSuiteMethods(Class<?> clazz, TestSuite suite) {
+    try {
+      final List<String> sourceMethodNames = getSourceMethodNames(clazz);
+      Vector<TestCase> tests = getTestsVector(suite);
+      Collections.sort(tests, new Comparator<TestCase>() {
+        public int compare(TestCase o1, TestCase o2) {
+          String method_1 = o1.getName();
+          String method_2 = o2.getName();
+          if ("test_setUp".equals(method_1)) {
+            return -1;
+          }
+          if ("test_setUp".equals(method_2)) {
+            return 1;
+          }
+          if ("test_tearDown".equals(method_1)) {
+            return 1;
+          }
+          if ("test_tearDown".equals(method_2)) {
+            return -1;
+          }
+          return sourceMethodNames.indexOf(method_1) - sourceMethodNames.indexOf(method_2);
+        }
+      });
+    } catch (Throwable e) {
+      ReflectionUtils.propagate(e);
+    }
+  }
+
+  /**
+   * @return the names of methods declared in the given {@link Class}, in same order as in source.
+   */
+  private static List<String> getSourceMethodNames(Class<?> testClass) throws Exception {
+    final List<String> sourceMethodNames = Lists.newArrayList();
+    String classPath = testClass.getName().replace('.', '/') + ".class";
+    InputStream classStream = testClass.getClassLoader().getResourceAsStream(classPath);
+    ClassReader classReader = new ClassReader(classStream);
+    classReader.accept(new EmptyVisitor() {
+      @Override
+      public MethodVisitor visitMethod(int access,
+          String name,
+          String desc,
+          String signature,
+          String[] exceptions) {
+        sourceMethodNames.add(name);
+        return new EmptyVisitor();
+      }
+    }, 0);
+    return sourceMethodNames;
+  }
+
+  /**
+   * @return the live {@link Vector} of tests in the given {@link TestSuite}.
+   */
+  private static Vector<TestCase> getTestsVector(TestSuite suite) throws Exception {
+    Field testsField = TestSuite.class.getDeclaredField("fTests");
+    testsField.setAccessible(true);
+    @SuppressWarnings("unchecked")
+    Vector<TestCase> tests = (Vector<TestCase>) testsField.get(suite);
+    return tests;
   }
 }
