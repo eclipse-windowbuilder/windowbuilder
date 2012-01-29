@@ -137,18 +137,26 @@ public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {
    */
   protected final String getTestSource(String... lines) {
     lines = removeFillerLines(lines);
+    lines = expandSourceLinesShortcuts(lines);
     lines = getDoubleQuotes(lines);
     lines = getTestSource_decorate(lines);
     return getSource(lines);
   }
 
   /**
-   * Removes liens which start with "// filler".
+   * Removes lines which start with "// filler".
    */
   protected static String[] removeFillerLines(String... lines) {
     while (lines.length != 0 && lines[0].startsWith("// filler")) {
       lines = (String[]) ArrayUtils.remove(lines, 0);
     }
+    return lines;
+  }
+
+  /**
+   * Allows subclasses perform toolkit specific shortcuts expansions.
+   */
+  protected String[] expandSourceLinesShortcuts(String... lines) {
     return lines;
   }
 
