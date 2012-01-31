@@ -44,33 +44,14 @@ def Unarchive(archive, dest):
     commands.append('/usr/bin/unzip')
     commands.append(archive)
   try:
-    p = subprocess.Popen(commands, stdout=subprocess.PIPE,
-                         stderr=subprocess.PIPE)
-    (out, err) = p.communicate()
-    if p.returncode:
+    log.warning(' '.join(commands))
+    
+    status = subprocess.call(commands)
+    if status:
       msg = ('unarchive failed for {0}: '
-             'return code was {1}').format(archive, p.returncode)
+             'return code was {1}').format(archive, status)
       log.error(msg)
-      msg = ''
-      i = 0
-      for c in err:
-        msg += c
-        i += 1
-        if i == 100:
-          log.error(msg)
-          msg = ''
-      print msg
       raise Exception(msg)
-    elif log.isEnabledFor(logging.debug):
-      msg = ''
-      i = 0
-      for c in out:
-        msg += c
-        i += 1
-        if i == 100:
-          print msg
-          msg = ''
-      log.debug(msg)
 
   finally:
     os.chdir(cwd)
