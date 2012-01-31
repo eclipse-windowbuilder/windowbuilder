@@ -94,15 +94,17 @@ public final class GraphicalRobot {
   /**
    * Emulates CTRL key down.
    */
-  public void ctrlDown() {
+  public GraphicalRobot ctrlDown() {
     m_sender.ctrlDown();
+    return this;
   }
 
   /**
    * Emulates CTRL key up.
    */
-  public void ctrlUp() {
+  public GraphicalRobot ctrlUp() {
     m_sender.ctrlUp();
+    return this;
   }
 
   /**
