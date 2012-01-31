@@ -14,10 +14,10 @@ import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ConstructorDescription;
+import org.eclipse.wb.internal.core.utils.ast.AnonymousTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 
-import org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
@@ -65,7 +65,7 @@ public final class ActionAnonymousCreationSupport extends ActionAbstractCreation
   @Override
   protected void setCreationEx() {
     super.setCreationEx();
-    m_typeDeclaration = new AnonymousTypeDeclaration2(m_creation.getAnonymousClassDeclaration());
+    m_typeDeclaration = AnonymousTypeDeclaration.create(m_creation.getAnonymousClassDeclaration());
   }
 
   ////////////////////////////////////////////////////////////////////////////

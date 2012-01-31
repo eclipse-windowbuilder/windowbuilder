@@ -38,7 +38,6 @@ import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2;
 import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BlockComment;
@@ -876,8 +875,7 @@ public final class AstEditor {
         }
         // special handling for AnonymousTypeDeclaration
         {
-          AnonymousTypeDeclaration2 anonymous =
-              (AnonymousTypeDeclaration2) node.getProperty(AnonymousTypeDeclaration2.KEY);
+          TypeDeclaration anonymous = AnonymousTypeDeclaration.get(node);
           if (anonymous != null) {
             anonymous.setSourceRange(node.getStartPosition(), node.getLength());
           }
@@ -2554,7 +2552,7 @@ public final class AstEditor {
       String indent;
       {
         ASTNode indentNode;
-        if (targetType instanceof AnonymousTypeDeclaration2) {
+        if (AnonymousTypeDeclaration.is(targetType)) {
           indentNode = AstNodeUtils.getEnclosingStatement(targetType);
         } else {
           indentNode = targetType;

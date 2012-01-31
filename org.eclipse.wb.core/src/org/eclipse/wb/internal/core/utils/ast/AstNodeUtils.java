@@ -27,7 +27,6 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
@@ -816,7 +815,8 @@ public class AstNodeUtils {
             if (_typeName.equals(typeName)) {
               AnonymousClassDeclaration anonymousClassDeclaration =
                   creation.getAnonymousClassDeclaration();
-              typeDeclaration[0] = new AnonymousTypeDeclaration2(anonymousClassDeclaration);
+              typeDeclaration[0] =
+                  AnonymousTypeDeclaration.create(anonymousClassDeclaration);
             }
           }
         }
@@ -1938,7 +1938,7 @@ public class AstNodeUtils {
   public static TypeDeclaration getParentType(MethodDeclaration methodDeclaration) {
     ASTNode parentNode = methodDeclaration.getParent();
     if (parentNode instanceof AnonymousClassDeclaration) {
-      return new AnonymousTypeDeclaration2((AnonymousClassDeclaration) parentNode);
+      return AnonymousTypeDeclaration.create((AnonymousClassDeclaration) parentNode);
     } else {
       return (TypeDeclaration) parentNode;
     }

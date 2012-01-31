@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.ast.AnonymousTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.AstCodeGeneration;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -42,7 +43,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2;
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
@@ -1699,8 +1699,8 @@ public class AstEditorTest extends AbstractJavaTest {
         (ExpressionStatement) methodDeclaration.getBody().statements().get(0);
     MethodInvocation invocation = (MethodInvocation) expressionStatement.getExpression();
     ClassInstanceCreation creation = (ClassInstanceCreation) invocation.arguments().get(0);
-    AnonymousTypeDeclaration2 anonymousTypeDeclaration =
-        new AnonymousTypeDeclaration2(creation.getAnonymousClassDeclaration());
+    TypeDeclaration anonymousTypeDeclaration =
+        AnonymousTypeDeclaration.create(creation.getAnonymousClassDeclaration());
     int anonymousTypeLength = anonymousTypeDeclaration.getLength();
     //
     BodyDeclarationTarget target = new BodyDeclarationTarget(anonymousTypeDeclaration, null, false);
@@ -6413,8 +6413,8 @@ public class AstEditorTest extends AbstractJavaTest {
                 "}"));
     AnonymousClassDeclaration anonymousClassDeclaration = creation.getAnonymousClassDeclaration();
     assertNotNull(anonymousClassDeclaration);
-    AnonymousTypeDeclaration2 anonymousTypeDeclaration =
-        new AnonymousTypeDeclaration2(anonymousClassDeclaration);
+    TypeDeclaration anonymousTypeDeclaration =
+        AnonymousTypeDeclaration.create(anonymousClassDeclaration);
     ITypeBinding binding = AstNodeUtils.getTypeBinding(anonymousTypeDeclaration);
     assertEquals(
         "java.awt.event.KeyAdapter",

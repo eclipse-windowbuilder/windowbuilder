@@ -18,6 +18,7 @@ import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodDecla
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodGenericSignature;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodSignature;
 
+import org.eclipse.wb.internal.core.utils.ast.AnonymousTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
@@ -28,7 +29,6 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
@@ -213,8 +213,8 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
       assert_getFullyQualifiedName_anon("test.Test$3", field_3);
       {
         TypeDeclaration type_3 =
-            new AnonymousTypeDeclaration2(((ClassInstanceCreation) DomGenerics.fragments(field_3).get(
-                0).getInitializer()).getAnonymousClassDeclaration());
+            AnonymousTypeDeclaration.create(((ClassInstanceCreation) DomGenerics.fragments(
+                field_3).get(0).getInitializer()).getAnonymousClassDeclaration());
         {
           FieldDeclaration field_4 = type_3.getFields()[0];
           assert_getFullyQualifiedName_anon("test.Test$3$1", field_4);
@@ -224,7 +224,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
           assert_getFullyQualifiedName_anon("test.Test$3$2", field_5);
           {
             TypeDeclaration type_5 =
-                new AnonymousTypeDeclaration2(((ClassInstanceCreation) DomGenerics.fragments(
+                AnonymousTypeDeclaration.create(((ClassInstanceCreation) DomGenerics.fragments(
                     field_5).get(0).getInitializer()).getAnonymousClassDeclaration());
             {
               FieldDeclaration field_6 = type_5.getFields()[0];
@@ -237,7 +237,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
           assert_getFullyQualifiedName_anon("test.Test$3$3", field_7);
           {
             TypeDeclaration type_7 =
-                new AnonymousTypeDeclaration2(((ClassInstanceCreation) DomGenerics.fragments(
+                AnonymousTypeDeclaration.create(((ClassInstanceCreation) DomGenerics.fragments(
                     field_7).get(0).getInitializer()).getAnonymousClassDeclaration());
             {
               FieldDeclaration field_8 = type_7.getFields()[0];

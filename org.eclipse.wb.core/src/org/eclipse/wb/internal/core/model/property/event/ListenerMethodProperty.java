@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
+import org.eclipse.wb.internal.core.utils.ast.AnonymousTypeDeclaration;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
@@ -46,7 +47,6 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.dom.AnonymousTypeDeclaration2;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -244,7 +244,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
         ClassInstanceCreation creation = (ClassInstanceCreation) argument;
         // check for anonymous class
         if (creation.getAnonymousClassDeclaration() != null) {
-          return new AnonymousTypeDeclaration2(creation.getAnonymousClassDeclaration());
+          return AnonymousTypeDeclaration.create(creation.getAnonymousClassDeclaration());
         }
         // find inner type
         return AstNodeUtils.getTypeDeclaration(creation);
