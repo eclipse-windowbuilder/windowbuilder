@@ -518,6 +518,82 @@ public class PropertyTest extends AbstractCoreTest {
     }
   }
 
+  public void test_setValue_keepDefault_setDefault() throws Exception {
+    prepareMyComponent(new String[]{
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public int test = 555;"}, new String[]{
+        "<property id='test'>",
+        "  <tag name='x-keepDefault' value='true'/>",
+        "</property>"});
+    ControlInfo shell =
+        parse(
+            "<Shell>",
+            "  <Shell.layout>",
+            "    <RowLayout/>",
+            "  </Shell.layout>",
+            "  <t:MyComponent wbp:name='component' test='123'/>",
+            "</Shell>");
+    shell.refresh();
+    XmlObjectInfo component = getObjectByName("component");
+    GenericProperty property = (GenericProperty) component.getPropertyByTitle("test");
+    // has value
+    assertTrue(property.isModified());
+    assertEquals(123, property.getValue());
+    // set default, but keep it
+    {
+      property.setValue(555);
+      assertXML(
+          "<Shell>",
+          "  <Shell.layout>",
+          "    <RowLayout/>",
+          "  </Shell.layout>",
+          "  <t:MyComponent wbp:name='component' test='555'/>",
+          "</Shell>");
+      // always modified, has default value
+      assertTrue(property.isModified());
+      assertEquals(555, property.getValue());
+    }
+  }
+
+  public void test_setValue_keepDefault_askRemove() throws Exception {
+    prepareMyComponent(new String[]{
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public int test = 555;"}, new String[]{
+        "<property id='test'>",
+        "  <tag name='x-keepDefault' value='true'/>",
+        "</property>"});
+    ControlInfo shell =
+        parse(
+            "<Shell>",
+            "  <Shell.layout>",
+            "    <RowLayout/>",
+            "  </Shell.layout>",
+            "  <t:MyComponent wbp:name='component' test='123'/>",
+            "</Shell>");
+    shell.refresh();
+    XmlObjectInfo component = getObjectByName("component");
+    GenericProperty property = (GenericProperty) component.getPropertyByTitle("test");
+    // has value
+    assertTrue(property.isModified());
+    assertEquals(123, property.getValue());
+    // ask to remove, but keep it
+    {
+      property.setValue(Property.UNKNOWN_VALUE);
+      assertXML(
+          "<Shell>",
+          "  <Shell.layout>",
+          "    <RowLayout/>",
+          "  </Shell.layout>",
+          "  <t:MyComponent wbp:name='component' test='555'/>",
+          "</Shell>");
+      // always modified, has default value
+      assertTrue(property.isModified());
+      assertEquals(555, property.getValue());
+    }
+  }
+
   /**
    * Test for using {@link IExpressionPropertyEditor}.
    */

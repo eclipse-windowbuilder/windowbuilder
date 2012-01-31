@@ -151,8 +151,13 @@ public final class GenericPropertyImpl extends GenericProperty {
     }
     // prepare expression
     String expression;
-    if (value == UNKNOWN_VALUE || ObjectUtils.equals(value, getDefaultValue())) {
-      expression = null;
+    Object defaultValue = getDefaultValue();
+    if (value == UNKNOWN_VALUE || ObjectUtils.equals(value, defaultValue)) {
+      if (hasTrueTag("x-keepDefault")) {
+        expression = m_converter.toSource(m_object, defaultValue);
+      } else {
+        expression = null;
+      }
     } else if (m_editor instanceof IExpressionPropertyEditor) {
       expression = ((IExpressionPropertyEditor) m_editor).getValueExpression(this, value);
     } else {
@@ -192,7 +197,9 @@ public final class GenericPropertyImpl extends GenericProperty {
       value = valueToValidate[0];
     }
     // set expression
-    if (value != UNKNOWN_VALUE && ObjectUtils.equals(value, getDefaultValue())) {
+    if (value != UNKNOWN_VALUE
+        && !hasTrueTag("x-keepDefault")
+        && ObjectUtils.equals(value, getDefaultValue())) {
       expression = null;
     }
     setExpression0(expression);
