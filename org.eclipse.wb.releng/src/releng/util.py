@@ -107,6 +107,7 @@ def _VerifySite(directory, sign_files):
   current_dir = os.getcwd()
   working_dir = tempfile.mkdtemp(prefix='verify-')
   processing_file = None
+  error_list = []
   try:
     os.chdir(working_dir)
     for f in packed_files:
@@ -121,22 +122,37 @@ def _VerifySite(directory, sign_files):
       for e in elements:
         processing_file = e
         if sign_files:
+          if f.index('wb.xwt') > 0:
+            os.remove(f)
+            continue
           commands = ['jarsigner', '-verify', e]
           if log.isEnabledFor(log.info):
             log.info('command line: {0}'.format(' '.join(commands)))
           p = subprocess.Popen(commands, stderr=subprocess.PIPE,
                                stdout=subprocess.PIPE)
           (stdout, stderr) = p.communicate()
-          print 'stderr: {0}'.format(str(stderr))
-          print 'stdout: {0}'.format(str(stdout))
           if str(stdout).find('jar verified') < 0:
-            raise Exception('failed to validate {0}'.format(processing_file))
+            msg = 'failed to validate {0}'.format(processing_file)
+            error_list.append(msg)
+            print msg
+          os.remove(e)
         else:
           print 'would do: jarsigner -verify {0}'.format(e)
   finally:
     os.chdir(current_dir)
     shutil.rmtree(working_dir)
 
+  if error_list:
+    print "************************************************************"
+    print "verify errors"
+    print "************************************************************"
+    print "************************************************************"
+    for error_line in error_list:
+      print error_line
+    print "************************************************************"
+    print "************************************************************"
+    print "************************************************************"
+    
 
 def DisplayMatch(match):
   if match is None:
