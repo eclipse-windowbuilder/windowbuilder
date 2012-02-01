@@ -14,7 +14,9 @@ Contributors:
 
 import logging
 import os
+import shutil
 import subprocess
+import tempfile
 
 log = logging.getLogger('releng.util')
 
@@ -81,6 +83,59 @@ def UpdateMd5Hash(directory):
       fd_md5 = open(md5_file, 'w')
       log.info('creating ' + md5_file)
       subprocess.check_call(commands, stdout=fd_md5)
+
+
+def _VerifySite(directory, sign_files):
+  """Verify the site is packed and signed correctly.
+
+  Args:
+    directory: the directory where the files to verify are located
+    sign_files: flag indicating if the files are signed
+  """
+  log.debug('_VerifySite({0}, {1})'.format(directory, sign_files))
+  elements = os.listdir(directory)
+  packed_files = []
+  for e in elements:
+    full_path = os.path.join(directory, e)
+    if os.path.isdir(full_path):
+      for root, dirs, files in os.walk(full_path):
+        log.debug('Current directory {0}'.format(root))
+        for f in files:
+          if str(f).endswith('.pack.gz'):
+            packed_files.append(os.path.join(root, f))
+  
+  current_dir = os.getcwd()
+  working_dir = tempfile.mkdtemp(prefix='verify-')
+  processing_file = None
+  try:
+    os.chdir(working_dir)
+    for f in packed_files:
+      log.debug('processing: {0}'.format(f))
+      f_jar = str(f)[0:f.rindex('.pack.gz')]
+      short_jar = os.path.basename(f_jar)
+      commands = ['unpack200', f, os.path.abspath(os.path.join('.', short_jar))]
+      if log.isEnabledFor(log.info):
+        log.info('command line: {0}'.format(' '.join(commands)))
+      subprocess.check_call(commands)
+      elements = os.listdir(working_dir)
+      for e in elements:
+        processing_file = e
+        if sign_files:
+          commands = ['jarsigner', '-verify', e]
+          if log.isEnabledFor(log.info):
+            log.info('command line: {0}'.format(' '.join(commands)))
+          p = subprocess.Popen(commands, stderr=subprocess.PIPE,
+                               stdout=subprocess.PIPE)
+          (stdout, stderr) = p.communicate()
+          print 'stderr: {0}'.format(str(stderr))
+          print 'stdout: {0}'.format(str(stdout))
+          if str(stdout).find('jar verified') < 0:
+            raise Exception('failed to validate {0}'.format(processing_file))
+        else:
+          print 'would do: jarsigner -verify {0}'.format(e)
+  finally:
+    os.chdir(current_dir)
+    shutil.rmtree(working_dir)
 
 
 def DisplayMatch(match):

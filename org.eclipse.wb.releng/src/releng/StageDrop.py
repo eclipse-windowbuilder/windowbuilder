@@ -109,6 +109,9 @@ def main():
     log.info('finalProcess')
     eclipse.RunAnt(base_dir, 'finalProcess.xml', product_dir, eclipse_version)
 
+    log.info('Verify Site')
+    util._VerifySite(product_dir, sign_files)
+
     log.info('rezip Site')
     _ReZipSite(product_dir)
 
@@ -153,7 +156,7 @@ def _ProcessArgs():
   parser.set_defaults(debug=False)
   parser.set_defaults(eclipseversion='3.7')
   parser.set_defaults(optimizesite=True)
-  parser.set_defaults(packsite=True)
+  parser.set_defaults(packsite=False)
   parser.set_defaults(signfiles=True)
   parser.set_defaults(dodeploy=False)
   parser.set_defaults(dirstosave='3')
@@ -165,7 +168,6 @@ def _ProcessArgs():
                     dest='eclipsearchivedir')
   parser.add_option('--nooptimizesite', action='store_false',
                     dest='optimizesite')
-  parser.add_option('--nopacksite', action='store_false', dest='packsite')
   parser.add_option('--nosignfiles', action='store_false', dest='signfiles')
   parser.add_option('--deployfiles', action='store_true', dest='dodeploy')
   parser.add_option('--deploydir', action='store', dest='deploydir')
@@ -420,12 +422,6 @@ def _ReZipSite(update_site_dir):
         log.debug(data)
 
       subprocess.check_call(command)
-      # open the file again, to see what's in it
-      if log.debug:
-        z = zipfile.ZipFile(zip_file, 'r')
-        for info in z.infolist():
-          log.debug(format_zip.format(info.filename, info.file_size,
-                                      info.compress_size))
     log.debug('out rezipSite')
 
 
@@ -540,6 +536,7 @@ def _UpdateMirror(deploy_dir, mirrorprod):
     f.close()
 
   log.debug('out updateMirror()')
+
 
 if __name__ == '__main__':
   main()
