@@ -141,7 +141,7 @@ def _VerifySite(directory, sign_files):
         os.remove(e)
   finally:
     os.chdir(current_dir)
-#    shutil.rmtree(working_dir)
+    shutil.rmtree(working_dir)
 
   if error_list:
     log.error("************************************************************")
