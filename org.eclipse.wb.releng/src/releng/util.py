@@ -110,6 +110,7 @@ def _VerifySite(directory, sign_files):
   error_list = []
   try:
     os.chdir(working_dir)
+    packed_files.sort()
     for f in packed_files:
       log.debug('processing: {0}'.format(f))
       f_jar = str(f)[0:f.rindex('.pack.gz')]
@@ -122,7 +123,7 @@ def _VerifySite(directory, sign_files):
       for e in elements:
         processing_file = e
         if sign_files:
-          if f.index('wb.xwt') > 0:
+          if f.find('wb.xwt') > 0:
             os.remove(f)
             continue
           commands = ['jarsigner', '-verify', e]
@@ -134,24 +135,24 @@ def _VerifySite(directory, sign_files):
           if str(stdout).find('jar verified') < 0:
             msg = 'failed to validate {0}'.format(processing_file)
             error_list.append(msg)
-            print msg
-          os.remove(e)
+            log.error(msg)
         else:
-          print 'would do: jarsigner -verify {0}'.format(e)
+          log.warning('would do: jarsigner -verify {0}'.format(e))
+        os.remove(e)
   finally:
     os.chdir(current_dir)
-    shutil.rmtree(working_dir)
+#    shutil.rmtree(working_dir)
 
   if error_list:
-    print "************************************************************"
-    print "verify errors"
-    print "************************************************************"
-    print "************************************************************"
+    log.error("************************************************************")
+    log.error("verify errors")
+    log.error("************************************************************")
+    log.error("************************************************************")
     for error_line in error_list:
-      print error_line
-    print "************************************************************"
-    print "************************************************************"
-    print "************************************************************"
+      log.error(error_line)
+    log.error("************************************************************")
+    log.error("************************************************************")
+    log.error("************************************************************")
     
 
 def DisplayMatch(match):
