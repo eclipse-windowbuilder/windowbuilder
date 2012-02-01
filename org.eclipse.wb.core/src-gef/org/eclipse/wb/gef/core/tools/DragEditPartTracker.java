@@ -68,8 +68,8 @@ public class DragEditPartTracker extends SelectEditPartTracker {
   @Override
   protected void handleButtonUp(int button) {
     if (m_state == STATE_DRAG_IN_PROGRESS) {
-      // prepare models if change parent for restore selection
-      List<Object> models = isMove() ? null : getOperationSetModels();
+      // prepare models if restoring selection
+      List<Object> models = getOperationSetModels();
       eraseTargetFeedback();
       executeCommand();
       m_state = STATE_NONE;
