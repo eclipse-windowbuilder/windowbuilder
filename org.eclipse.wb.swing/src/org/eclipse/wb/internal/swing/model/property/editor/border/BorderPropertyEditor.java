@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border;
 
+import com.google.common.base.Function;
+
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper;
+import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
@@ -20,14 +23,17 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 import org.eclipse.wb.internal.core.nls.model.INlsPropertyContributor;
+import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.IVariableBinding;
 import org.eclipse.jface.window.Window;
 
 import java.util.List;
@@ -43,7 +49,8 @@ import javax.swing.border.TitledBorder;
  */
 public final class BorderPropertyEditor extends TextDialogPropertyEditor
     implements
-      INlsPropertyContributor {
+      INlsPropertyContributor,
+      IClipboardSourceProvider {
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance
@@ -67,6 +74,37 @@ public final class BorderPropertyEditor extends TextDialogPropertyEditor
     }
     if (property.isModified() && value == null) {
       return "(no border)";
+    }
+    return null;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // IClipboardSourceProvider
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public String getClipboardSource(GenericProperty property) throws Exception {
+    Expression expression = property.getExpression();
+    if (expression != null) {
+      final String badExpressionMark = "__wbp_variableReference";
+      // Ask "external" source.
+      // Replace each reference on variable with "bad" mark.
+      AstEditor editor = property.getJavaInfo().getEditor();
+      String source = editor.getExternalSource(expression, new Function<ASTNode, String>() {
+        public String apply(ASTNode input) {
+          IVariableBinding variableBinding = AstNodeUtils.getVariableBinding(input);
+          if (variableBinding != null && !variableBinding.isField()) {
+            return badExpressionMark;
+          }
+          return null;
+        }
+      });
+      // if source has variable references, fail
+      if (source.contains(badExpressionMark)) {
+        return null;
+      }
+      // OK, we have good external source
+      return source;
     }
     return null;
   }
