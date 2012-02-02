@@ -123,9 +123,6 @@ def _VerifySite(directory, sign_files):
       for e in elements:
         processing_file = e
         if sign_files:
-          if f.find('wb.xwt') > 0:
-            os.remove(f)
-            continue
           commands = ['jarsigner', '-verify', e]
           if log.isEnabledFor(log.info):
             log.info('command line: {0}'.format(' '.join(commands)))

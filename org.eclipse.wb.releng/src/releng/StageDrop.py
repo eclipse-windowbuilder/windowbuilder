@@ -21,13 +21,11 @@ import os
 import Queue
 import re
 import shutil
-import stat
 import subprocess
 import sys
-import time
 from xml.dom import minidom
-import zipfile
 import eclipse
+import signcode
 import util
 
 
@@ -51,6 +49,7 @@ def main():
   deploy_dir = data['deploydir']
   dirs2save = data['dirstosave']
   mirrorprod = data['mirrorprod']
+  mocksign = data['mocksign']
 
   base_dir = os.path.join(os.sep + 'shared', 'tools', 'windowbuilder', 'stage')
   product_dir = os.path.join(base_dir, subproduct)
@@ -78,7 +77,11 @@ def main():
 
     if sign_files:
       log.info('Sign files')
-      signed_dir = _SignZipFiles(sign_dir)
+      if mocksign:
+        sc = signcode.SignCode(signcode.MockSign)
+      else:
+        sc = signcode.SignCode()
+      signed_dir = sc.SignZipFiles(sign_dir)
       _CopyFiles(signed_dir, sign_dir, None)
       _RmDirTree(signed_dir)
 
@@ -129,7 +132,7 @@ def main():
 
 
 def _ZipFilter(file_in):
-  return file_in.endswith('.zip')
+  return os.path.isfile(file_in) and file_in.endswith('.zip')
 
 
 def _ZipOrMd5Filter(file_in):
@@ -161,6 +164,7 @@ def _ProcessArgs():
   parser.set_defaults(dodeploy=False)
   parser.set_defaults(dirstosave='3')
   parser.set_defaults(mirrorprod=False)
+  parser.set_defaults(mocksign=False)
   parser.add_option('--signdir', action='store', dest='signdir')
   parser.add_option('-e', '--eclipseversion', action='store',
                     dest='eclipseversion')
@@ -169,6 +173,7 @@ def _ProcessArgs():
   parser.add_option('--nooptimizesite', action='store_false',
                     dest='optimizesite')
   parser.add_option('--nosignfiles', action='store_false', dest='signfiles')
+  parser.add_option('--mocksignfiles', action='store_true', dest='mocksign')
   parser.add_option('--deployfiles', action='store_true', dest='dodeploy')
   parser.add_option('--deploydir', action='store', dest='deploydir')
   parser.add_option('--dirstosave', action='store', dest='dirstosave')
@@ -221,7 +226,7 @@ def _ProcessArgs():
               'optimizesite': optimize_site, 'packsite': pack_site,
               'signfiles': sign_files, 'dodeploy': do_deploy,
               'deploydir': deploy_dir, 'dirstosave': dirs2save,
-              'mirrorprod': mirrorprod})
+              'mirrorprod': mirrorprod, 'mocksign': options.mocksign})
   log.debug('out of processArgs')
   return ret
 
@@ -299,57 +304,57 @@ def _MoveFiles(from_dir, to_dir, filt):
     full_path = os.path.join(from_dir, f)
     if filt is None or filt(full_path):
       shutil.move(full_path, to_dir)
-
-
-def _SignZipFiles(ziped_update_sites_dir):
-  """Sign the zip files with Eclipses key.
-
-  Args:
-    ziped_update_sites_dir: the directory where the ziped update sites are
-
-  Returns:
-    the directory where the signed jar file are.
-  """
-
-  log.debug('signFiles(' + ziped_update_sites_dir + ')')
-
-  try:
-    files = os.listdir(ziped_update_sites_dir)
-  except OSError as e:
-    log.error('could not read files in ' + ziped_update_sites_dir)
-    raise e
-
-  files_to_sign = []
-  for f in files:
-    if f.endswith('.zip'):
-      zip_path = os.path.join(ziped_update_sites_dir, f)
-      os.chmod(zip_path, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP |
-               stat.S_IRGRP | stat.S_IWOTH | stat.S_IROTH)
-#      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
-#                             'nomail', 'signed'])
-      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
-                             'signed'])
-      files_to_sign.append(os.path.join(ziped_update_sites_dir, 'signed', f))
-
-  signed_files = []
-  found = False
-  while not found:
-    found = True
-    for x in range(60):
-      time.sleep(1)
-    for f in files_to_sign:
-      if os.path.exists(f):
-        log.debug(f + ' exists')
-        signed_files.append(f)
-      else:
-        found = False
-        log.debug(f + ' does not exists')
-        continue
-    log.info('all files are not processed yet')
-
-  time.sleep(10)
-  log.info('all files have been signed')
-  return os.path.join(ziped_update_sites_dir, 'signed')
+#
+#
+#def _SignZipFiles(ziped_update_sites_dir):
+#  """Sign the zip files with Eclipses key.
+#
+#  Args:
+#    ziped_update_sites_dir: the directory where the ziped update sites are
+#
+#  Returns:
+#    the directory where the signed jar file are.
+#  """
+#
+#  log.debug('signFiles(' + ziped_update_sites_dir + ')')
+#
+#  try:
+#    files = os.listdir(ziped_update_sites_dir)
+#  except OSError as e:
+#    log.error('could not read files in ' + ziped_update_sites_dir)
+#    raise e
+#
+#  files_to_sign = []
+#  for f in files:
+#    if f.endswith('.zip'):
+#      zip_path = os.path.join(ziped_update_sites_dir, f)
+#      os.chmod(zip_path, stat.S_IWRITE | stat.S_IREAD | stat.S_IWGRP |
+#               stat.S_IRGRP | stat.S_IWOTH | stat.S_IROTH)
+##      subprocess.check_call(['/bin/echo', 'sign', zip_path, 
+##                             'nomail', 'signed'])
+#      subprocess.check_call(['/usr/local/bin/sign', zip_path, 'nomail',
+#                             'signed'])
+#      files_to_sign.append(os.path.join(ziped_update_sites_dir, 'signed', f))
+#
+#  signed_files = []
+#  found = False
+#  while not found:
+#    found = True
+#    for x in range(60):
+#      time.sleep(1)
+#    for f in files_to_sign:
+#      if os.path.exists(f):
+#        log.debug(f + ' exists')
+#        signed_files.append(f)
+#      else:
+#        found = False
+#        log.debug(f + ' does not exists')
+#        continue
+#    log.info('all files are not processed yet')
+#
+#  time.sleep(10)
+#  log.info('all files have been signed')
+#  return os.path.join(ziped_update_sites_dir, 'signed')
 
 
 def _UnzipSites(ziped_update_sites_dir):
