@@ -190,7 +190,7 @@ public final class FlowContainerFactory {
 
   private Association getAssociation(String prefix) {
     String associationString = getParameter(prefix + ".x-association");
-    if (associationString == null) {
+    if (StringUtils.isEmpty(associationString)) {
       return Associations.direct();
     } else if (associationString.startsWith("inter ")) {
       associationString = StringUtils.removeStart(associationString, "inter ");
