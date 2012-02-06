@@ -103,11 +103,9 @@ public abstract class ObjectFlowLayoutEditPolicy<C> extends AbstractFlowLayoutEd
   // Implementation of commands
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected void command_CREATE(C component, C referenceComponent) throws Exception {
-  }
+  protected abstract void command_CREATE(C component, C referenceComponent) throws Exception;
 
-  protected void command_MOVE(C component, C referenceComponent) throws Exception {
-  }
+  protected abstract void command_MOVE(C component, C referenceComponent) throws Exception;
 
   protected void command_ADD(C component, C referenceComponent) throws Exception {
     command_MOVE(component, referenceComponent);
