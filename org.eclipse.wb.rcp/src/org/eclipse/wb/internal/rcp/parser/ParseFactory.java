@@ -17,10 +17,12 @@ import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils2;
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
+import org.eclipse.wb.internal.core.model.creation.MethodParameterCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.OpaqueCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.ThisCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryInfo;
@@ -41,6 +43,8 @@ import org.eclipse.wb.internal.core.utils.reflect.BundleClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.CompositeClassLoader;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.rcp.IExceptionConstants;
+import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
+import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
 import org.eclipse.wb.internal.rcp.model.forms.SectionPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.ActionFactoryCreationSupport;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.FolderViewInfo;
@@ -60,6 +64,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.ConstructorInvocation;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -193,6 +198,39 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
         return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
       }
     }
+    // E4 part
+    for (MethodDeclaration method : typeDeclaration.getMethods()) {
+      IAnnotationBinding[] annotations = method.resolveBinding().getAnnotations();
+      for (IAnnotationBinding annotation : annotations) {
+        String annotationName = annotation.getAnnotationType().getQualifiedName();
+        if ("javax.annotation.PostConstruct".equals(annotationName)) {
+          for (SingleVariableDeclaration parameter : DomGenerics.parameters(method)) {
+            if (AstNodeUtils.isSuccessorOf(
+                parameter.getType().resolveBinding(),
+                "org.eclipse.swt.widgets.Composite")) {
+              // prepare ComponentDescription
+              ComponentDescription componentDescription =
+                  ComponentDescriptionHelper.getDescription(
+                      editor,
+                      "org.eclipse.swt.widgets.Composite");
+              componentDescription.setToolkit(RcpToolkitDescription.INSTANCE);
+              // prepare JavaInfo
+              JavaInfo javaInfo =
+                  new E4PartInfo(editor,
+                      componentDescription,
+                      new MethodParameterCreationSupport(parameter));
+              javaInfo.setVariableSupport(new MethodParameterVariableSupport(javaInfo, parameter));
+              // register JavaInfo
+              ObjectInfoUtils.setNewId(javaInfo);
+              javaInfo.bindToExpression(parameter.getName());
+              // prepare root context
+              List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
+              return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
+            }
+          }
+        }
+      }
+    }
     // no root found
     return null;
   }
@@ -204,6 +242,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       ITypeBinding typeBinding,
       Expression arguments[],
       JavaInfo argumentInfos[]) throws Exception {
+    System.out.println(creation);
     if (!hasRCP(editor)) {
       return null;
     }

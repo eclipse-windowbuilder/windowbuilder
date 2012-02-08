@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.rcp.model;
 
 import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
+import org.eclipse.wb.tests.designer.rcp.model.e4.E4Tests;
 import org.eclipse.wb.tests.designer.rcp.model.forms.FormsTests;
 import org.eclipse.wb.tests.designer.rcp.model.jface.JFaceTests;
 import org.eclipse.wb.tests.designer.rcp.model.layout.LayoutTests;
@@ -37,6 +38,7 @@ public class ModelTests extends DesignerSuiteTests {
     suite.addTest(JFaceTests.suite());
     suite.addTest(FormsTests.suite());
     suite.addTest(TheRcpTests.suite());
+    suite.addTest(E4Tests.suite());
     return suite;
   }
 }
