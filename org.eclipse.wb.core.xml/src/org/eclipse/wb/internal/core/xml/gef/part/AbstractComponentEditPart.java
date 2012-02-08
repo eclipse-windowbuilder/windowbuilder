@@ -24,7 +24,6 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
-import org.eclipse.wb.internal.core.xml.gef.policy.DirectTextPropertyEditPolicy;
 import org.eclipse.wb.internal.core.xml.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.xml.gef.policy.TopSelectionEditPolicy;
 import org.eclipse.wb.internal.core.xml.model.AbstractComponentInfo;
@@ -182,7 +181,6 @@ public class AbstractComponentEditPart extends GraphicalEditPart {
       installEditPolicy(EditPolicy.SELECTION_ROLE, new NonResizableSelectionEditPolicy());
     }
     //
-    DirectTextPropertyEditPolicy.install(this);
     installEditPolicy(new OpenListenerEditPolicy(m_component));
     /*OpenErrorLog_EditPolicy.install(this);
     refreshEditPolicies();*/

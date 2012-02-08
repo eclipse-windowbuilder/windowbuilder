@@ -207,7 +207,8 @@
 	<!-- ======================================================== -->
 	<!-- GEF canvas -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.editPartConfigurators">
+    <extension point="org.eclipse.wb.core.editPartConfigurators">
+        <configurator class="org.eclipse.wb.internal.core.xml.gef.CoreEditPartConfigurator"/>
 		<configurator class="org.eclipse.wb.internal.core.xml.gef.GenericContainersConfigurator"/>
 	</extension>
 
