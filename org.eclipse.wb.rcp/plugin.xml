@@ -622,6 +622,15 @@
 			id="org.eclipse.wb.rcp.rcp.ActionBarAdvisorWizard">
 			<description> Create a Eclipse ActionBarAdvisor </description>
 		</wizard>
+		<!-- E4 Items -->
+		<category id="org.eclipse.wb.rcp.e4" name="E4"
+			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>
+		<wizard name="ViewPart" icon="icons/wizard/ViewPart/wizard.gif"
+			category="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.e4"
+			class="org.eclipse.wb.internal.rcp.wizards.e4.view.ViewPartWizard"
+			id="org.eclipse.wb.rcp.e4.ViewPartWizard">
+			<description>Create an E4 ViewPart</description>
+		</wizard>
 		<!-- Forms Items -->
 		<category id="org.eclipse.wb.rcp.forms" name="Forms"
 			parentCategory="org.eclipse.wb/org.eclipse.wb.rcp"/>

@@ -109,6 +109,9 @@ public class WizardsMessages extends NLS {
   public static String WizardWizardPage_removeButton;
   public static String WizardWizardPage_title;
   public static String WizardWizardPage_upButton;
+  public static String E4ViewPartWizard_title;
+  public static String E4ViewPartWizardPage_description;
+  public static String E4ViewPartWizardPage_title;
   static {
     // initialize resource bundle
     NLS.initializeMessages(BUNDLE_NAME, WizardsMessages.class);
