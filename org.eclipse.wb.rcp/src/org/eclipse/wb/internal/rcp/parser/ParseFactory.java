@@ -242,7 +242,6 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       ITypeBinding typeBinding,
       Expression arguments[],
       JavaInfo argumentInfos[]) throws Exception {
-    System.out.println(creation);
     if (!hasRCP(editor)) {
       return null;
     }
