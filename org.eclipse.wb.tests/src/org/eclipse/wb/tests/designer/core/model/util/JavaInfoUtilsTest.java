@@ -3652,44 +3652,6 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     assertNoErrors(panel);
   }
 
-  /**
-   * If child already exposed using method, don't expose it again (using different method or field).
-   */
-  public void test_addExposedChildren_byMethod_byField() throws Exception {
-    setFileContentSrc(
-        "test/MyPanel.java",
-        getTestSource(
-            "public class MyPanel extends JPanel {",
-            "  protected JButton button = new JButton();",
-            "  public MyPanel() {",
-            "    add(button);",
-            "  }",
-            "  protected JButton getButtonA() {",
-            "    return button;",
-            "  }",
-            "  protected JButton getButtonB() {",
-            "    return button;",
-            "  }",
-            "}"));
-    waitForAutoBuild();
-    // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    assertHierarchy(
-        "{this: test.MyPanel} {this} {}",
-        "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-        "  {method: protected javax.swing.JButton test.MyPanel.getButtonA()} {property} {}");
-    // refresh
-    panel.refresh();
-    assertNoErrors(panel);
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // isIndirectlyExposed()
