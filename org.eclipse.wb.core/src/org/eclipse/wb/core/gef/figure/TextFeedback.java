@@ -131,6 +131,7 @@ public final class TextFeedback {
   public void centerHorizontallyAbove(Rectangle target, int shift) {
     int x = target.x + (target.width - m_size.width) / 2;
     int y = target.y - m_size.height - shift;
+    y = Math.max(y, 1);
     m_label.setLocation(x, y);
   }
 
