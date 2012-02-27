@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
@@ -101,6 +102,17 @@ public class IOUtils2 {
    * @return the {@link String} content of given {@link InputStream} and closes stream.
    */
   public static String readString(InputStream input) throws IOException {
+    try {
+      return IOUtils.toString(input);
+    } finally {
+      input.close();
+    }
+  }
+
+  /**
+   * @return the {@link String} content of given {@link Reader} and closes it.
+   */
+  public static String readString(Reader input) throws IOException {
     try {
       return IOUtils.toString(input);
     } finally {
