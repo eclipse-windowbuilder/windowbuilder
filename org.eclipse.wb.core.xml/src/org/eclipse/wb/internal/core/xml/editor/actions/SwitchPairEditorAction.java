@@ -11,6 +11,8 @@
 package org.eclipse.wb.internal.core.xml.editor.actions;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
+import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.core.resources.IFile;
@@ -31,6 +33,7 @@ import java.util.List;
  * @coverage XML.editor.action
  */
 public class SwitchPairEditorAction extends Action implements IEditorActionDelegate {
+  private IEditorPart m_editor;
   private IFile m_pairFile;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -39,22 +42,24 @@ public class SwitchPairEditorAction extends Action implements IEditorActionDeleg
   //
   ////////////////////////////////////////////////////////////////////////////
   public final void setActiveEditor(IAction action, IEditorPart editor) {
-    preparePairFile(editor);
-    setEnabled(m_pairFile != null);
+    m_editor = editor;
+    m_pairFile = null;
   }
 
-  private void preparePairFile(IEditorPart editor) {
-    m_pairFile = null;
+  private void preparePairFile() {
+    if (m_pairFile != null) {
+      return;
+    }
     // may be no current editor
-    if (editor == null) {
+    if (m_editor == null) {
       return;
     }
     // prepare current file
     IFile editorFile;
-    if (!(editor.getEditorInput() instanceof IFileEditorInput)) {
+    if (!(m_editor.getEditorInput() instanceof IFileEditorInput)) {
       return;
     }
-    editorFile = ((IFileEditorInput) editor.getEditorInput()).getFile();
+    editorFile = ((IFileEditorInput) m_editor.getEditorInput()).getFile();
     // ask providers for pair
     List<IPairResourceProvider> providers =
         ExternalFactoriesHelper.getElementsInstances(
@@ -84,11 +89,13 @@ public class SwitchPairEditorAction extends Action implements IEditorActionDeleg
 
   @Override
   public void run() {
-    if (m_pairFile != null) {
-      try {
-        IDE.openEditor(DesignerPlugin.getActivePage(), m_pairFile);
-      } catch (Throwable e) {
+    ExecutionUtils.runLog(new RunnableEx() {
+      public void run() throws Exception {
+        preparePairFile();
+        if (m_pairFile != null) {
+          IDE.openEditor(DesignerPlugin.getActivePage(), m_pairFile);
+        }
       }
-    }
+    });
   }
 }
