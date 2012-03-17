@@ -189,8 +189,10 @@ public final class ComponentDescription extends AbstractDescription
    */
   public void addProperty(GenericPropertyDescription property) {
     String id = property.getId();
-    m_idToProperty.put(id, property);
-    m_properties.add(property);
+    if (!m_idToProperty.containsKey(id)) {
+      m_idToProperty.put(id, property);
+      m_properties.add(property);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

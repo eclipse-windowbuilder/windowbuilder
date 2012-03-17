@@ -70,7 +70,11 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
     Method getMethod = propertyDescriptor.getReadMethod();
     Class<?> propertyType = resolvePropertyType(componentDescription, setMethod);
     // prepare property parts
-    String id = ReflectionUtils.getMethodSignature(setMethod);
+    String id =
+        setMethod.getName()
+            + "("
+            + ReflectionUtils.getFullyQualifiedName(propertyType, false)
+            + ")";
     ExpressionAccessor accessor = new MethodExpressionAccessor(attribute, setMethod, getMethod);
     ExpressionConverter converter = DescriptionPropertiesHelper.getConverterForType(propertyType);
     PropertyEditor editor = DescriptionPropertiesHelper.getEditorForType(propertyType);
