@@ -47,7 +47,6 @@ public abstract class GenericFlowLayoutEditPolicy extends ComponentFlowLayoutEdi
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected boolean isRtl(Request request) {
-    System.out.println("isRtl: " + m_layout.getContainer().isRTL());
     return m_layout.getContainer().isRTL();
   }
 
