@@ -151,7 +151,7 @@ public final class SwingRewriteProcessor {
   private static boolean isRootPaneContainer(Object target) {
     ITypeBinding typeBinding;
     if (target instanceof TypeDeclaration) {
-      typeBinding = AstNodeUtils.getTypeBinding(((TypeDeclaration) target));
+      typeBinding = AstNodeUtils.getTypeBinding((TypeDeclaration) target);
     } else {
       assert target instanceof Expression;
       typeBinding = AstNodeUtils.getTypeBinding((Expression) target);
