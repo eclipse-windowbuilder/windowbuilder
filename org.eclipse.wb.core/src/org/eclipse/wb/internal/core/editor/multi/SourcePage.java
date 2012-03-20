@@ -124,7 +124,10 @@ public final class SourcePage implements IEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void setAction(String actionID, IAction action) {
-    if (!"save".equals(actionID) && !"undo".equals(actionID) && !"redo".equals(actionID)) {
+    if (action != null
+        && !"save".equals(actionID)
+        && !"undo".equals(actionID)
+        && !"redo".equals(actionID)) {
       m_idToTextEditorAction.put(actionID, action);
     }
   }
