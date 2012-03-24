@@ -12,7 +12,6 @@ package org.eclipse.wb.core.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -49,8 +48,6 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyFactory;
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.internal.core.model.property.accessor.ExpressionAccessor;
-import org.eclipse.wb.internal.core.model.property.accessor.SetterAccessor;
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.model.property.hierarchy.ComponentClassProperty;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
@@ -69,9 +66,6 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
-import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
-import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.VisitedNodes;
@@ -79,8 +73,6 @@ import org.eclipse.wb.internal.core.utils.state.VisitedNodes;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IMethod;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -99,13 +91,11 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * Abstract model for any Java-based model object. It has some presentation in AST.
@@ -580,81 +570,8 @@ public class JavaInfo extends ObjectInfo {
         }
       }
     }
-    // remove extra properties
-    removeExtraSystemClassLoaderProperties(properties);
     // return properties
     return properties;
-  }
-
-  /**
-   * We get properties from Eclipse JVM, which may be newer than JVM configured for project. So, we
-   * may get more properties, and have to remove all properties which don't exist in project JVM.
-   * <p>
-   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=364893
-   */
-  private void removeExtraSystemClassLoaderProperties(List<Property> properties) throws Exception {
-    Class<?> componentClass = getDescription().getComponentClass();
-    // for some special components Class may be null
-    if (componentClass == null) {
-      return;
-    }
-    // prepare extra methods
-    Set<Method> extraMethods = getExtraSystemMethods(componentClass, getEditor().getJavaProject());
-    // analyze properties
-    for (Iterator<Property> I = properties.iterator(); I.hasNext();) {
-      Property property = I.next();
-      if (property instanceof GenericPropertyImpl) {
-        GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
-        List<ExpressionAccessor> accessors = genericProperty.getAccessors();
-        for (ExpressionAccessor accessor : accessors) {
-          if (accessor instanceof SetterAccessor) {
-            SetterAccessor setterAccessor = (SetterAccessor) accessor;
-            Method setMethod = setterAccessor.getSetter();
-            if (setMethod.getDeclaringClass().getClassLoader() == null
-                && extraMethods.contains(setMethod)) {
-              I.remove();
-              break;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  private static ClassMap<Map<String, Set<Method>>> m_extraSystemProperties = ClassMap.create();
-
-  private static Set<Method> getExtraSystemMethods(Class<?> componentClass, IJavaProject javaProject)
-      throws Exception {
-    // prepare Class information by projects
-    Map<String, Set<Method>> projectExtraMethods = m_extraSystemProperties.get(componentClass);
-    if (projectExtraMethods == null) {
-      projectExtraMethods = Maps.newHashMap();
-      m_extraSystemProperties.put(componentClass, projectExtraMethods);
-    }
-    // prepare IJavaProject specific information
-    String javaVersion = ProjectUtils.getJavaVersionString(javaProject);
-    Set<Method> extraMethods = projectExtraMethods.get(javaVersion);
-    if (extraMethods == null) {
-      extraMethods = Sets.newHashSet();
-      projectExtraMethods.put(javaVersion, extraMethods);
-      // prepare Class information
-      String componentClassName = ReflectionUtils.getCanonicalName(componentClass);
-      IType componentModelType = javaProject.findType(componentClassName);
-      // analyze each Method from System ClassLoader
-      Map<String, Method> allMethods = ReflectionUtils.getMethods(componentClass);
-      for (Entry<String, Method> entry : allMethods.entrySet()) {
-        String signature = entry.getKey();
-        Method method = entry.getValue();
-        if (method.getDeclaringClass().getClassLoader() == null) {
-          IMethod modelMethod = CodeUtils.findMethod(componentModelType, signature);
-          if (modelMethod == null) {
-            extraMethods.add(method);
-          }
-        }
-      }
-    }
-    // done
-    return extraMethods;
   }
 
   /**
