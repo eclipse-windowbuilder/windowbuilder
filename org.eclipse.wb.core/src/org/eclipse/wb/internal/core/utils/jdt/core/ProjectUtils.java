@@ -84,8 +84,15 @@ public final class ProjectUtils {
    * @return the Java version compliance level.
    */
   public static float getJavaVersion(IJavaProject javaProject) {
-    String complianceString = javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
+    String complianceString = getJavaVersionString(javaProject);
     return Float.parseFloat(complianceString);
+  }
+
+  /**
+   * @return the {@link String} name of Java version.
+   */
+  public static String getJavaVersionString(IJavaProject javaProject) {
+    return javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, true);
   }
 
   /**
@@ -93,7 +100,7 @@ public final class ProjectUtils {
    */
   public static boolean isJDK15(IJavaProject project) {
     if (project != null) {
-      String complianceString = project.getOption(JavaCore.COMPILER_COMPLIANCE, true);
+      String complianceString = getJavaVersionString(project);
       if (complianceString != null) {
         float compliance = Float.parseFloat(complianceString);
         return compliance >= 1.5;
