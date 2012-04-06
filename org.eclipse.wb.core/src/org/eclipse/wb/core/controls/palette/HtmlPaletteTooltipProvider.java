@@ -19,6 +19,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * Standard palette tooltip: bold header and multi line details.
  * 
@@ -35,7 +37,7 @@ public final class HtmlPaletteTooltipProvider implements ICustomTooltipProvider 
   //
   ////////////////////////////////////////////////////////////////////////////
   public HtmlPaletteTooltipProvider(String header, String details) {
-    m_header = header;
+    m_header = StringEscapeUtils.escapeHtml(header);
     m_details = details;
   }
 
