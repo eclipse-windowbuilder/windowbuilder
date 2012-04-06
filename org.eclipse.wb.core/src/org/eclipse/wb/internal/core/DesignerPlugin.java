@@ -67,16 +67,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
     BundleResourceProvider.configureCleanUp(context);
     setupEventFilters();
     addMouseWheelRedirector();
-    // we need this to be able to delete JAR's used in URLClassLoader
-    // see http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4167874
-    // XXX may be causes big slowdown...
-    try {
-      //URLConnection.setDefaultUseCaches(false);
-      org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils.getFieldByName(
-          java.net.URLConnection.class,
-          "defaultUseCaches").set(null, false);
-    } catch (Throwable e) {
-    }
     addLogListener();
     if (EnvironmentUtils.IS_LINUX) {
       installPreferenceForwarder();
