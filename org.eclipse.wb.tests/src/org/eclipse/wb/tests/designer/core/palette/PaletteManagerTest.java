@@ -111,6 +111,49 @@ public class PaletteManagerTest extends AbstractPaletteTest {
   }
 
   /**
+   * When two {@link CategoryInfo}s declared with same ID, silently use first one.
+   * <p>
+   * http://www.eclipse.org/forums/index.php?t=rview&goto=839174#msg_839174
+   */
+  public void test_duplicateCategory() throws Exception {
+    JavaInfo panel = parseEmptyPanel();
+    PaletteManager manager = new PaletteManager(panel, TOOLKIT_ID);
+    // add dynamic palette
+    {
+      addPaletteExtension(new String[]{
+          "<category id='category_1' name='name 1' description='desc 1'>",
+          "  <component class='javax.swing.JButton'/>",
+          "</category>",
+          "<category id='category_1' name='name 2' description='desc 2'>",
+          "  <component class='javax.swing.JTextField'/>",
+          "</category>",});
+      try {
+        manager.reloadPalette();
+        PaletteInfo palette = manager.getPalette();
+        assertEquals(1, palette.getCategories().size());
+        // check category
+        CategoryInfo category = palette.getCategory("category_1");
+        assertEquals("name 1", category.getName());
+        assertEquals("desc 1", category.getDescription());
+        // check components
+        {
+          assertEquals(2, category.getEntries().size());
+          {
+            ComponentEntryInfo componentEntry = (ComponentEntryInfo) category.getEntries().get(0);
+            assertEquals("javax.swing.JButton", componentEntry.getClassName());
+          }
+          {
+            ComponentEntryInfo componentEntry = (ComponentEntryInfo) category.getEntries().get(1);
+            assertEquals("javax.swing.JTextField", componentEntry.getClassName());
+          }
+        }
+      } finally {
+        removeToolkitExtension();
+      }
+    }
+  }
+
+  /**
    * Test for {@link PaletteManager#getPalette()}.
    */
   public void test_getPaletteCopy() throws Exception {
@@ -387,6 +430,49 @@ public class PaletteManagerTest extends AbstractPaletteTest {
       CategoryInfo category = palette.getCategories().get(1);
       assertEquals("categoryId.2", category.getId());
       assertFalse(category.isOpen());
+    }
+  }
+
+  /**
+   * When two {@link CategoryInfo}s declared with same ID, silently use first one.
+   * <p>
+   * http://www.eclipse.org/forums/index.php?t=rview&goto=839174#msg_839174
+   */
+  public void test_customPalette_project_duplicateCategoryDeclaration() throws Exception {
+    setFileContent(
+        "wbp-meta",
+        TOOLKIT_ID + ".wbp-palette.xml",
+        getSourceDQ(
+            "<palette>",
+            "  <category id='categoryId.1' name='name 1' description='desc 1'>",
+            "    <component class='javax.swing.JButton'/>",
+            "  </category>",
+            "  <category id='categoryId.1' name='name 2' description='desc 2'>",
+            "    <component class='javax.swing.JTextField'/>",
+            "  </category>",
+            "</palette>"));
+    // load palette
+    PaletteInfo palette = loadPalette();
+    // categories
+    assertEquals(1, palette.getCategories().size());
+    {
+      CategoryInfo category = palette.getCategories().get(0);
+      assertEquals("categoryId.1", category.getId());
+      assertEquals("name 1", category.getName());
+      assertEquals("desc 1", category.getDescription());
+      assertTrue(category.isOpen());
+      // components
+      {
+        assertEquals(2, category.getEntries().size());
+        {
+          ComponentEntryInfo component = (ComponentEntryInfo) category.getEntries().get(0);
+          assertEquals("javax.swing.JButton", component.getClassName());
+        }
+        {
+          ComponentEntryInfo component = (ComponentEntryInfo) category.getEntries().get(1);
+          assertEquals("javax.swing.JTextField", component.getClassName());
+        }
+      }
     }
   }
 

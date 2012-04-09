@@ -372,10 +372,20 @@ public final class PaletteManager {
    */
   private void processCategory(IConfigurationElement categoryElement) {
     AttributesProvider attributesProvider = AttributesProviders.get(categoryElement);
-    CategoryInfo categoryInfo = new CategoryInfo(attributesProvider);
-    m_paletteInfo.addCategory(categoryInfo);
-    addReorderRequest(categoryInfo, attributesProvider);
-    processPaletteChildren(m_paletteInfo, categoryInfo, categoryElement);
+    // may be there was already category with such id
+    CategoryInfo category;
+    {
+      String id = attributesProvider.getAttribute("id");
+      category = m_paletteInfo.getCategory(id);
+    }
+    // new category, usual case
+    if (category == null) {
+      category = new CategoryInfo(attributesProvider);
+      m_paletteInfo.addCategory(category);
+      addReorderRequest(category, attributesProvider);
+    }
+    // process children
+    processPaletteChildren(m_paletteInfo, category, categoryElement);
   }
 
   /**
@@ -552,9 +562,17 @@ public final class PaletteManager {
             throws SAXException {
           if ("category".equals(tag)) {
             AttributesProvider attributesProvider = AttributesProviders.get(attributes);
-            m_category = new CategoryInfo(attributesProvider);
-            m_paletteInfo.addCategory(m_category);
-            addReorderRequest(m_category, attributesProvider);
+            // may be there is already category with this ID
+            {
+              String id = attributesProvider.getAttribute("id");
+              m_category = m_paletteInfo.getCategory(id);
+            }
+            // new category, usual case
+            if (m_category == null) {
+              m_category = new CategoryInfo(attributesProvider);
+              m_paletteInfo.addCategory(m_category);
+              addReorderRequest(m_category, attributesProvider);
+            }
           } else if ("component".equals(tag)) {
             CategoryInfo category = getTargetCategory(attributes);
             AttributesProvider attributesProvider = AttributesProviders.get(attributes);
