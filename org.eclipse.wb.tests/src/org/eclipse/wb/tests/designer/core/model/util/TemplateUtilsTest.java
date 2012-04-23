@@ -65,7 +65,7 @@ public class TemplateUtilsTest extends SwingModelTest {
             "  }",
             "}");
     String id = ObjectInfoUtils.getId(panel);
-    assertEquals("j:" + id, getExpression(panel));
+    assertEquals(TemplateUtils.ID_PREFIX + id, getExpression(panel));
   }
 
   /**
@@ -81,7 +81,7 @@ public class TemplateUtilsTest extends SwingModelTest {
             "}");
     String id = ObjectInfoUtils.getId(panel);
     {
-      String expected = "j:" + id + ".setEnabled(false)";
+      String expected = TemplateUtils.ID_PREFIX + id + ".setEnabled(false)";
       assertEquals(expected, format("{0}.setEnabled({1})", panel, "false"));
     }
   }
@@ -104,7 +104,7 @@ public class TemplateUtilsTest extends SwingModelTest {
             "}");
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
-    String template = "foo(j:" + ObjectInfoUtils.getId(panel) + ")";
+    String template = "foo(" + TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ")";
     assertEquals("foo(this)", resolve(nodeTarget, template));
   }
 
@@ -121,7 +121,7 @@ public class TemplateUtilsTest extends SwingModelTest {
             "}");
     StatementTarget target = getStatementTarget(panel, false, 0);
     // do resolve
-    String template = "foo(j:" + ObjectInfoUtils.getId(panel) + ")";
+    String template = "foo(" + TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ")";
     assertEquals("foo(this)", resolve(target, template));
   }
 
@@ -138,7 +138,7 @@ public class TemplateUtilsTest extends SwingModelTest {
             "}");
     BodyDeclarationTarget target = getBodyDeclarationTarget(panel, false, 0);
     // do resolve
-    String template = "foo(j:" + ObjectInfoUtils.getId(panel) + ")";
+    String template = "foo(" + TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ")";
     assertEquals("foo(this)", resolve(target, template));
   }
 
@@ -155,7 +155,7 @@ public class TemplateUtilsTest extends SwingModelTest {
             "}");
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
-    String template = "j:" + ObjectInfoUtils.getId(panel) + ".setEnabled(false)";
+    String template = TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ".setEnabled(false)";
     assertEquals("setEnabled(false)", resolve(nodeTarget, template));
   }
 
@@ -174,7 +174,8 @@ public class TemplateUtilsTest extends SwingModelTest {
     ComponentInfo button = panel.getChildrenComponents().get(0);
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
-    String template = "j:" + ObjectInfoUtils.getId(button) + ".setEnabled(false)";
+    String template =
+        TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(button) + ".setEnabled(false)";
     assertEquals("button.setEnabled(false)", resolve(nodeTarget, template));
   }
 

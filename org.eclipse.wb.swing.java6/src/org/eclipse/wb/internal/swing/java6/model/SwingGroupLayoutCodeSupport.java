@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.util.MorphingSupport;
+import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutCodeSupport;
@@ -138,7 +139,7 @@ public final class SwingGroupLayoutCodeSupport extends GroupLayoutCodeSupport
       ComponentInfo component = (ComponentInfo) abstractComponent;
       SwingLayoutCodeGenerator.ComponentInfo info = new SwingLayoutCodeGenerator.ComponentInfo();
       info.id = ObjectInfoUtils.getId(component);
-      info.variableName = "j:" + info.id;
+      info.variableName = TemplateUtils.ID_PREFIX + info.id;
       info.clazz = component.getDescription().getComponentClass();
       Property minProp = component.getPropertyByTitle("minimumSize");
       Property prefProp = component.getPropertyByTitle("preferredSize");

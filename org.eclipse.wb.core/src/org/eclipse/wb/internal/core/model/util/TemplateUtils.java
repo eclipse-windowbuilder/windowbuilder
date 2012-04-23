@@ -36,6 +36,8 @@ import java.util.Map;
  * @coverage core.model.util
  */
 public final class TemplateUtils {
+  public static final String ID_PREFIX = "__wbpId:";
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Low level expression utils
@@ -45,13 +47,13 @@ public final class TemplateUtils {
    * @return the deferred reference on given {@link JavaInfo}.
    */
   public static String getExpression(JavaInfo javaInfo) {
-    return "j:" + ObjectInfoUtils.getId(javaInfo);
+    return ID_PREFIX + ObjectInfoUtils.getId(javaInfo);
   }
 
   /**
    * Formats text using {@link MessageFormat}, and replaces {@link JavaInfo} references with
-   * "delayed" references, in form <code>"j:id"</code>. These references should be resolved later,
-   * when {@link NodeTarget} will be known.
+   * "delayed" references, in form <code>"__wbpId:id"</code>. These references should be resolved
+   * later, when {@link NodeTarget} will be known.
    * 
    * @return the formatted text.
    */
@@ -87,19 +89,19 @@ public final class TemplateUtils {
   }
 
   /**
-   * Replaces "delayed" {@link JavaInfo} references in form <code>"j:id"</code> with real
+   * Replaces "delayed" {@link JavaInfo} references in form <code>"__wbpId:id"</code> with real
    * references, good in given {@link NodeTarget}.
    * 
    * @return the text with resolved {@link JavaInfo} references.
    */
   public static String resolve(NodeTarget target, String text) throws Exception {
     while (true) {
-      int jIndex = text.indexOf("j:");
+      int jIndex = text.indexOf(ID_PREFIX);
       if (jIndex == -1) {
         break;
       }
       // prepare ID range
-      int idBegin = jIndex + "j:".length();
+      int idBegin = jIndex + ID_PREFIX.length();
       int idEnd = idBegin;
       while (idEnd < text.length() && Character.isDigit(text.charAt(idEnd))) {
         idEnd++;
