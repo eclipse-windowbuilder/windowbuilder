@@ -216,6 +216,10 @@
 			class="org.eclipse.wb.internal.core.model.property.converter.StringConverter"/>
 		<converter type="java.lang.String[]"
 			class="org.eclipse.wb.internal.core.model.property.converter.StringArrayConverter"/>
+		<converter type="boolean[]"
+			class="org.eclipse.wb.internal.core.model.property.converter.BooleanArrayConverter"/>
+		<converter type="int[]"
+			class="org.eclipse.wb.internal.core.model.property.converter.IntegerArrayConverter"/>
 		<converter type="java.util.Locale"
 			class="org.eclipse.wb.internal.core.model.property.converter.LocaleConverter"/>
 	</extension>

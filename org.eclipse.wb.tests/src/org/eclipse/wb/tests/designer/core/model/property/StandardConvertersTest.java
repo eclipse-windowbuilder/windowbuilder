@@ -13,6 +13,7 @@ package org.eclipse.wb.tests.designer.core.model.property;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionPropertiesHelper;
 import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.model.property.converter.BooleanArrayConverter;
 import org.eclipse.wb.internal.core.model.property.converter.BooleanConverter;
 import org.eclipse.wb.internal.core.model.property.converter.BooleanObjectConverter;
 import org.eclipse.wb.internal.core.model.property.converter.ByteConverter;
@@ -22,6 +23,7 @@ import org.eclipse.wb.internal.core.model.property.converter.DoubleConverter;
 import org.eclipse.wb.internal.core.model.property.converter.DoubleObjectConverter;
 import org.eclipse.wb.internal.core.model.property.converter.ExpressionConverter;
 import org.eclipse.wb.internal.core.model.property.converter.FloatConverter;
+import org.eclipse.wb.internal.core.model.property.converter.IntegerArrayConverter;
 import org.eclipse.wb.internal.core.model.property.converter.IntegerConverter;
 import org.eclipse.wb.internal.core.model.property.converter.IntegerObjectConverter;
 import org.eclipse.wb.internal.core.model.property.converter.LocaleConverter;
@@ -198,6 +200,26 @@ public class StandardConvertersTest extends SwingModelTest {
     assertEquals(
         "new String[] {\"a\", \"b\"}",
         converter.toJavaSource(null, new String[]{"a", "b"}));
+  }
+
+  public void test_BooleanArrayConverter() throws Exception {
+    assertNotNull(DescriptionPropertiesHelper.getConverterForType(boolean[].class));
+    ExpressionConverter converter = BooleanArrayConverter.INSTANCE;
+    assertEquals("(boolean[]) null", converter.toJavaSource(null, null));
+    assertEquals("new boolean[] {}", converter.toJavaSource(null, new boolean[]{}));
+    assertEquals("new boolean[] {true}", converter.toJavaSource(null, new boolean[]{true}));
+    assertEquals(
+        "new boolean[] {false, true}",
+        converter.toJavaSource(null, new boolean[]{false, true}));
+  }
+
+  public void test_IntegerArrayConverter() throws Exception {
+    assertNotNull(DescriptionPropertiesHelper.getConverterForType(int[].class));
+    ExpressionConverter converter = IntegerArrayConverter.INSTANCE;
+    assertEquals("(int[]) null", converter.toJavaSource(null, null));
+    assertEquals("new int[] {}", converter.toJavaSource(null, new int[]{}));
+    assertEquals("new int[] {1}", converter.toJavaSource(null, new int[]{1}));
+    assertEquals("new int[] {1, 2, 3}", converter.toJavaSource(null, new int[]{1, 2, 3}));
   }
 
   public void test_LocaleConverter() throws Exception {
