@@ -107,7 +107,10 @@ public final class AwtComponentDialog extends ResizableDialog {
 
   @Override
   protected Point getDefaultSize() {
-    return new Point(450, 300);
+    //return new Point(450, 300);
+    // User asked to use Customizer.getPreferredSize()
+    // http://www.eclipse.org/forums/index.php/t/339421/
+    return super.getDefaultSize();
   }
 
   @Override
