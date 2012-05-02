@@ -61,9 +61,9 @@ public abstract class AbstractBrandingDescription implements IBrandingDescriptio
    * If not overridden, then this is the default behavior.
    */
   public void paintBrandingOnCanvas(Rectangle clientArea, Graphics graphics) {
-    String text = getProductName();
+    //String text = getProductName();
     String version = PluginUtilities.getVersionString("org.eclipse.wb.core");
-    paintBrandingOnCanvas_grayText(clientArea, graphics, text + "\n" + version);
+    paintBrandingOnCanvas_grayText(clientArea, graphics, /*text + "\n" +*/version);
   }
 
   /**
