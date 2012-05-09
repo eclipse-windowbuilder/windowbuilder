@@ -66,7 +66,8 @@ public final class RcpDescriptionVersionsProviderFactory
     }
     // OK, RCP project
     String version = getSWTVersion();
-    List<String> allVersions = ImmutableList.of("3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8");
+    List<String> allVersions =
+        ImmutableList.of("3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "4.2");
     return new FromListDescriptionVersionsProvider(allVersions, version) {
       @Override
       protected boolean validate(Class<?> componentClass) throws Exception {
