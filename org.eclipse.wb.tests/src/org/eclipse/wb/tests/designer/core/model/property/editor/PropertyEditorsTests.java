@@ -27,6 +27,8 @@ public class PropertyEditorsTests extends DesignerSuiteTests {
     // primitives
     suite.addTest(createSingleSuite(BooleanPropertyEditorTest.class));
     suite.addTest(createSingleSuite(IntegerPropertyEditorTest.class));
+    // arrays
+    suite.addTest(createSingleSuite(IntegerArrayPropertyEditorTest.class));
     // wrappers
     suite.addTest(createSingleSuite(BooleanObjectPropertyEditorTest.class));
     suite.addTest(createSingleSuite(ByteObjectPropertyEditorTest.class));

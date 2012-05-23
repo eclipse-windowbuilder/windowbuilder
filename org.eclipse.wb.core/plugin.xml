@@ -240,6 +240,8 @@
 			class="org.eclipse.wb.internal.core.model.property.editor.ShortPropertyEditor"/>
 		<editor type="int"
 			class="org.eclipse.wb.internal.core.model.property.editor.IntegerPropertyEditor"/>
+		<editor type="int[]"
+		    class="org.eclipse.wb.internal.core.model.property.editor.IntegerArrayPropertyEditor"/>
 		<editor type="long"
 			class="org.eclipse.wb.internal.core.model.property.editor.LongPropertyEditor"/>
 		<editor type="float"
