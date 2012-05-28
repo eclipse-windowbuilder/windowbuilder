@@ -38,7 +38,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
     store.setDefault(ADD_INVOKE_INITDB_TO_COMPOSITE_CONSTRUCTOR, true);
     store.setDefault(DONT_USE_DEPRECATED_METHODS, true);
     store.setDefault(INITDB_TRY_CATCH, false);
-    store.setDefault(GENERATE_CODE_FOR_VERSION_1_3, false);
+    store.setDefault(GENERATE_CODE_FOR_VERSION_1_3, true);
     store.setDefault(USE_VIEWER_SUPPORT, false);
     store.setDefault(UPDATE_VALUE_STRATEGY_DEFAULT, "POLICY_UPDATE");
     store.setDefault(UPDATE_LIST_STRATEGY_DEFAULT, "POLICY_UPDATE");
