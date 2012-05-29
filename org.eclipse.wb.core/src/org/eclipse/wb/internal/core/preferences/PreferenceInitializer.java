@@ -33,7 +33,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
     preferences.setDefault(P_COMMON_PALETTE_ADD_CHOSEN, true);
     preferences.setDefault(P_COMMON_ACCEPT_NON_VISUAL_BEANS, true);
     preferences.setDefault(P_COMMON_SHOW_DEBUG_INFO, false);
-    preferences.setDefault(P_COMMON_SHOW_VERSION_WARNING, true);
+    preferences.setDefault(P_COMMON_SHOW_VERSION_WARNING, false);
     // linux only
     preferences.setDefault(P_COMMON_LINUX_DISABLE_SCREENSHOT_WORKAROUNDS, false);
     // editor layout
