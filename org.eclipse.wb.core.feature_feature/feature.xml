@@ -19,10 +19,6 @@
       %license
    </license>
 
-   <url>
-      <discovery label="WindowBuilderCore Discovery" url="http://download.eclipse.org/windowbuilder/WB/integration/3.7"/>
-   </url>
-
    <plugin
          id="org.eclipse.wb.os"
          download-size="0"
