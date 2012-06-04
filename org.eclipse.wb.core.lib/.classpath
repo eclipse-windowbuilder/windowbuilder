@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry exported="true" kind="lib" path="lib/guava-11.0.jar" sourcepath="lib/guava-11.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/guava-10.0.jar" sourcepath="lib/guava-10.0-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/MVEL-fork.jar" sourcepath="lib/MVEL-fork.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.5.jar" sourcepath="lib/commons-lang-2.5-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-primitives-1.0.jar" sourcepath="lib/commons-primitives-1.0-sources.zip"/>

@@ -6,7 +6,7 @@ Bundle-Version: 0.0.0
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ClassPath: lib/guava-11.0.jar,
+Bundle-ClassPath: lib/guava-10.0.jar,
  lib/MVEL-fork.jar,
  lib/commons-lang-2.5.jar,
  lib/commons-primitives-1.0.jar,
