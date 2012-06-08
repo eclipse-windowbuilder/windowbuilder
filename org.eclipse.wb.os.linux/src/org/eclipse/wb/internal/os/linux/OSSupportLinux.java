@@ -23,6 +23,7 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -33,6 +34,7 @@ import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -127,12 +129,9 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
    * Tries to get the <code>handleName</code> {@link Field} from <code>control</code>. If the field
    * exists, fills <code>m_needsImage</code>.
    */
-  /**
-   * Tries to get the <code>handleName</code> {@link Field} from <code>control</code>. If the field
-   * exists, fills <code>m_needsImage</code>.
-   */
   private void registerByHandle(Control control, String handleName) throws Exception {
     H handle = getHandleValue(control, handleName);
+Debug.println("Control = " + control.getClass() + " " + handleName + " = " + handle);
     if (handle != null) {
       m_controlsRegistry.put(handle, control);
     }
@@ -233,6 +232,12 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
       public void storeImage(H handle, H pixmap) {
         // get the registered control by handle 
         Control imageForControl = m_controlsRegistry.get(handle);
+Debug.println("binding: "
+            + (imageForControl == null ? "<null>" : imageForControl.getClass())
+            + " h = "
+            + handle
+            + " with "
+            + pixmap);
         if (imageForControl == null || !bindImage(imageForControl, pixmap)) {
           // this means given pixmap used to draw the gtk widget internally
           disposePixmaps.add(pixmap);
@@ -249,9 +254,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
       public Boolean runObject() throws Exception {
         if (control.getData(WBP_NEED_IMAGE) != null && control.getData(WBP_IMAGE) == null) {
-          Rectangle bounds = control.getBounds();
-          Image image = new Image(control.getDisplay(), bounds);
-          setPixmapField(image, pixmap);
+          Image image = createImage(pixmap);
           control.setData(WBP_IMAGE, image);
           return true;
         }
@@ -274,7 +277,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     if (controlBounds.width == 0 || controlBounds.height == 0) {
       return null;
     }
-    Image shotImage = new Image(null, controlBounds);
     try {
       H widgetHandle = getHandleValue(shell, "fixedHandle");
       if (widgetHandle == null) {
@@ -283,12 +285,11 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
       }
       // apply shot magic
       H pixmap = _makeShot(widgetHandle, null);
-      setPixmapField(shotImage, pixmap);
+      return createImage(pixmap);
     } finally {
       shell.setVisible(false);
       restoreTitle(shell);
     }
-    return shotImage;
   }
 
   /**
@@ -400,17 +401,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   }
 
   /**
-   * Replaces the pixmap field in given {@link Image}. Disposes the old pixmap field.
-   */
-  private void setPixmapField(Image image, H pixmap) throws Exception {
-    if (pixmap != null) {
-      H oldPixmap = getHandleValue(image, "pixmap");
-      _g_object_unref(oldPixmap);
-      ReflectionUtils.setField(image, "pixmap", pixmap);
-    }
-  }
-
-  /**
    * @return the handle value of the {@link Shell} using reflection.
    */
   private H getShellHandle(Shell shell) {
@@ -428,6 +418,12 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
    */
   protected abstract H getHandleValue(Object widget, String fieldName);
 
+  /**
+   * @return the Image instance created by SWT internal method Image.gtk_new which uses external
+   *         GtkPixmap* pointer.
+   */
+  protected abstract Image createImage(H pixmap) throws Exception;
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Menu
@@ -435,14 +431,11 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception {
-    // create fake image
-    Image image = new Image(Display.getCurrent(), 1, 1);
     // create new image and fetch item sizes
     H handle = getHandleValue(menu, "handle");
     H pixmap = _fetchMenuVisualData(handle, bounds);
     // set new handle to image
-    setPixmapField(image, pixmap);
-    return image;
+    return createImage(pixmap);
   }
 
   /**
@@ -623,6 +616,21 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
       }
       return null;
     }
+
+    @Override
+    protected Image createImage(Long pixmap) throws Exception {
+      return (Image) ReflectionUtils.invokeMethod2(
+          Image.class,
+          "gtk_new",
+          Device.class,
+          int.class,
+          long.class,
+          long.class,
+          null,
+          SWT.BITMAP,
+          pixmap.longValue(),
+          0);
+    }
   }
   private static final class Impl32 extends OSSupportLinux<Integer> {
     @Override
@@ -632,6 +640,21 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
         return value;
       }
       return null;
+    }
+
+    @Override
+    protected Image createImage(Integer pixmap) throws Exception {
+      return (Image) ReflectionUtils.invokeMethod2(
+          Image.class,
+          "gtk_new",
+          Device.class,
+          int.class,
+          int.class,
+          int.class,
+          null,
+          SWT.BITMAP,
+          pixmap.intValue(),
+          0);
     }
   }
 }
