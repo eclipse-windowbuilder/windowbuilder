@@ -23,7 +23,6 @@ import com.google.common.collect.Sets;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
-import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -131,7 +130,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
    */
   private void registerByHandle(Control control, String handleName) throws Exception {
     H handle = getHandleValue(control, handleName);
-Debug.println("Control = " + control.getClass() + " " + handleName + " = " + handle);
     if (handle != null) {
       m_controlsRegistry.put(handle, control);
     }
@@ -232,12 +230,6 @@ Debug.println("Control = " + control.getClass() + " " + handleName + " = " + han
       public void storeImage(H handle, H pixmap) {
         // get the registered control by handle 
         Control imageForControl = m_controlsRegistry.get(handle);
-Debug.println("binding: "
-            + (imageForControl == null ? "<null>" : imageForControl.getClass())
-            + " h = "
-            + handle
-            + " with "
-            + pixmap);
         if (imageForControl == null || !bindImage(imageForControl, pixmap)) {
           // this means given pixmap used to draw the gtk widget internally
           disposePixmaps.add(pixmap);
@@ -422,7 +414,24 @@ Debug.println("binding: "
    * @return the Image instance created by SWT internal method Image.gtk_new which uses external
    *         GtkPixmap* pointer.
    */
-  protected abstract Image createImage(H pixmap) throws Exception;
+  protected abstract Image createImage0(H pixmap) throws Exception;
+
+  private Image createImage(H pixmap) throws Exception {
+    Image image = createImage0(pixmap);
+    {
+      // BUG in SWT: Cairo surface is not fully initialized. 
+      // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=382175
+      try {
+        Number surfaceValue = (Number) ReflectionUtils.getFieldObject(image, "surface");
+        if (surfaceValue.longValue() != 0) {
+          image.getImageData();
+        }
+      } catch (Throwable e) {
+        // ignore
+      }
+    }
+    return image;
+  }
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -618,7 +627,7 @@ Debug.println("binding: "
     }
 
     @Override
-    protected Image createImage(Long pixmap) throws Exception {
+    protected Image createImage0(Long pixmap) throws Exception {
       return (Image) ReflectionUtils.invokeMethod2(
           Image.class,
           "gtk_new",
@@ -643,7 +652,7 @@ Debug.println("binding: "
     }
 
     @Override
-    protected Image createImage(Integer pixmap) throws Exception {
+    protected Image createImage0(Integer pixmap) throws Exception {
       return (Image) ReflectionUtils.invokeMethod2(
           Image.class,
           "gtk_new",
