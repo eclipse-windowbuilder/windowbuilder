@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.parser;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils2;
@@ -52,6 +53,7 @@ import org.eclipse.jdt.core.dom.ThisExpression;
 import org.eclipse.jdt.core.dom.TypeLiteral;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Mapper of {@link ASTNode} into {@link JavaInfo}.
@@ -66,6 +68,7 @@ public final class JavaInfoResolver {
   private boolean m_thisJavaInfoReady = false;
   private JavaInfo m_thisJavaInfo = null;
   private JavaInfo m_rootJavaInfo = null;
+  private final Set<Expression> m_expressions = Sets.newHashSet();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -127,10 +130,18 @@ public final class JavaInfoResolver {
    *         {@link Expression} does not represent {@link JavaInfo}.
    */
   public JavaInfo getJavaInfo(Expression expression) {
+    // prevent infinite recursion
+    if (m_expressions.contains(expression)) {
+      return null;
+    }
+    // analyze expression
     try {
+      m_expressions.add(expression);
       return getJavaInfo0(expression);
     } catch (Throwable e) {
       throw ReflectionUtils.propagate(e);
+    } finally {
+      m_expressions.remove(expression);
     }
   }
 
