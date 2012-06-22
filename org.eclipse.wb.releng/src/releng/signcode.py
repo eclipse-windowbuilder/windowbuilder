@@ -44,8 +44,7 @@ class SignCode(object):
 
     signed_location = os.path.join(files_location, 'signed')
     os.makedirs(signed_location)
-    signed_files = self._sign_method(self,
-                                     self._CollectFiles(files_location,
+    signed_files = self._sign_method(self._CollectFiles(files_location,
                                                         selection_method), 
                                      signed_location)
     return signed_location
@@ -96,28 +95,11 @@ class SignCode(object):
     log.debug('_EclipseSign({0}, {1}'.format(files_to_sign, sign_location))
     if files_to_sign:
       for zip_path in files_to_sign:
-        cmd = ['/usr/local/bin/sign', zip_path, 'mail', 'signed']
+        cmd = ['/usr/local/bin/sign', zip_path, 'now', 'signed']
         if log.debug:
           log.debug(' '.join(cmd))
         subprocess.check_call(cmd)
   
-      log.info('waiting for files to get processed')
-      found = False
-      while not found:
-        found = True
-        for x in range(60):
-          time.sleep(1)
-        for f in files_to_sign:
-          if os.path.exists(f):
-            log.debug(f + ' exists')
-            signed_files.append(f)
-          else:
-            found = False
-            log.debug(f + ' does not exists')
-            continue
-        log.info('all files are not processed yet')
-  
-      time.sleep(10)
       log.info('all files have been signed')
     else:
       log.warning('no files to process')
