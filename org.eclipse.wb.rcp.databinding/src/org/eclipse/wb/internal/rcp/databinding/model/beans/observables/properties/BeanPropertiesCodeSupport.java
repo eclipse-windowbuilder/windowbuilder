@@ -26,6 +26,8 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeConta
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanPropertyBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.PropertyBindableInfo;
+import org.eclipse.wb.internal.rcp.databinding.model.beans.direct.DirectObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBeanObservableInfo;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -134,6 +136,19 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
     } else if (m_observeDetailSignature.equals(signature)) {
       ObservableInfo masterObservable =
           BeansObserveTypeContainer.getMasterObservable(editor, resolver, arguments[0]);
+      if (masterObservable == null) {
+        // try find in bean observes...
+        BeanBindableInfo bindableInfo = container.getBindableObject(arguments[0]);
+        PropertyBindableInfo detailProperty = null;
+        for (PropertyBindableInfo property : bindableInfo.getProperties()) {
+          if (DirectObservableInfo.DETAIL_PROPERTY_NAME.equals(property.getPresentation().getText())) {
+            detailProperty = property;
+            break;
+          }
+        }
+        Assert.isNotNull(detailProperty);
+        masterObservable = new DirectObservableInfo(bindableInfo, detailProperty);
+      }
       Assert.isNotNull(masterObservable);
       //
       return createDetailObservable(masterObservable);
