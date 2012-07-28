@@ -486,6 +486,9 @@ public final class GenericPropertyImpl extends GenericProperty {
    *         {@link GenericPropertyImpl}, or <code>null</code> if no such source can be provided.
    */
   public String getClipboardSource() throws Exception {
+    if (m_description.hasTrueTag("noClipboard")) {
+      return null;
+    }
     if (m_editor instanceof IClipboardSourceProvider) {
       return ((IClipboardSourceProvider) m_editor).getClipboardSource(this);
     }

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.beans;
 
+import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
+import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.AbstractTextPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.IValueSourcePropertyEditor;
@@ -28,7 +30,8 @@ import org.eclipse.swt.graphics.Point;
  */
 public final class TextPropertyEditor extends AbstractTextPropertyEditor
     implements
-      IValueSourcePropertyEditor {
+      IValueSourcePropertyEditor,
+      IClipboardSourceProvider {
   private final PropertyEditorWrapper m_editorWrapper;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -84,6 +87,15 @@ public final class TextPropertyEditor extends AbstractTextPropertyEditor
   ////////////////////////////////////////////////////////////////////////////
   public String getValueSource(Object value) throws Exception {
     return m_editorWrapper.getSource(value);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // IClipboardSourceProvider
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public String getClipboardSource(GenericProperty property) throws Exception {
+    return m_editorWrapper.getSource(property.getValue());
   }
 
   ////////////////////////////////////////////////////////////////////////////
