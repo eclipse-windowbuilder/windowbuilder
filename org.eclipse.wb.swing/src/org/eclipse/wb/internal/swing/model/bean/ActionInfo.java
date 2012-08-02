@@ -115,11 +115,13 @@ public class ActionInfo extends JavaInfo {
   private void refreshIconImage() throws IOException {
     m_smallIconImage = null;
     // if Action has icon, convert it into SWT image
-    javax.swing.Icon smallIcon = (Icon) ((Action) getObject()).getValue(Action.SMALL_ICON);
-    if (smallIcon != null) {
-      m_smallIconImage = ImageUtils.convertToSWT(smallIcon);
-      // schedule SWT image for disposing
-      JavaInfoUtils.getState(this).addDisposableImage(m_smallIconImage);
+    if (getObject() instanceof Action) {
+      javax.swing.Icon smallIcon = (Icon) ((Action) getObject()).getValue(Action.SMALL_ICON);
+      if (smallIcon != null) {
+        m_smallIconImage = ImageUtils.convertToSWT(smallIcon);
+        // schedule SWT image for disposing
+        JavaInfoUtils.getState(this).addDisposableImage(m_smallIconImage);
+      }
     }
   }
 

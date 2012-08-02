@@ -1372,6 +1372,40 @@ public class ActionTest extends SwingModelTest {
         "}");
   }
 
+  /**
+   * Test that we can parse inner-class {@link AbstractAction}.
+   */
+  public void test_inner_inGeneric() throws Exception {
+    m_waitForAutoBuild = true;
+    ContainerInfo panel =
+        parseContainer(
+            "public class Test<T> extends JPanel {",
+            "  private class Action_1 extends AbstractAction {",
+            "    public Action_1() {",
+            "      putValue(NAME, 'My name');",
+            "    }",
+            "    public void actionPerformed(ActionEvent e) {",
+            "    }",
+            "  }",
+            "  private Action_1 action_1 = new Action_1();",
+            "  public Test() {",
+            "  }",
+            "}");
+    panel.refresh();
+    assertNoErrors(panel);
+    // test for Action's
+    {
+      List<ActionInfo> actions = ActionContainerInfo.getActions(panel);
+      assertEquals(1, actions.size());
+      ActionInfo actionInfo = actions.get(0);
+      // check values
+      {
+        Action action = (Action) actionInfo.getObject();
+        assertEquals("My name", action.getValue(Action.NAME));
+      }
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // External

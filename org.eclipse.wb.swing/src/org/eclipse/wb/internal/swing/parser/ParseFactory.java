@@ -178,7 +178,7 @@ public class ParseFactory extends AbstractParseFactory {
     if (AstNodeUtils.isSuccessorOf(creation, "javax.swing.AbstractAction")) {
       // ... as named class
       {
-        ITypeBinding declaringClassBinding = typeBinding.getDeclaringClass();
+        ITypeBinding declaringClassBinding = AstNodeUtils.getGenericDeclaringClass(typeBinding);
         if (declaringClassBinding != null) {
           // ... as inner class
           ITypeBinding topTypeBinding = AstNodeUtils.getEnclosingTypeTop(creation).resolveBinding();

@@ -428,6 +428,14 @@ public class AstNodeUtils {
     }
   }
 
+  public static ITypeBinding getGenericDeclaringClass(ITypeBinding typeBinding) {
+    ITypeBinding declaringClass = typeBinding.getDeclaringClass();
+    if (declaringClass != null) {
+      return declaringClass.getTypeDeclaration();
+    }
+    return declaringClass;
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Type binding operations
@@ -815,8 +823,7 @@ public class AstNodeUtils {
             if (_typeName.equals(typeName)) {
               AnonymousClassDeclaration anonymousClassDeclaration =
                   creation.getAnonymousClassDeclaration();
-              typeDeclaration[0] =
-                  AnonymousTypeDeclaration.create(anonymousClassDeclaration);
+              typeDeclaration[0] = AnonymousTypeDeclaration.create(anonymousClassDeclaration);
             }
           }
         }
