@@ -1206,6 +1206,63 @@ public class JavaInfoTest extends SwingModelTest {
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
   }
 
+  /**
+   * Test that "false" from "canDelete" script disables delete.
+   */
+  public void test_canDelete_script_false() throws Exception {
+    check_canDelete_script("false", false);
+  }
+
+  /**
+   * Test that "true" from "canDelete" script enables delete.
+   */
+  public void test_canDelete_script_true() throws Exception {
+    check_canDelete_script("true", true);
+  }
+
+  /**
+   * Test that not boolean value from "canDelete" script disables delete.
+   */
+  public void test_canDelete_script_notBoolean() throws Exception {
+    check_canDelete_script("42", false);
+  }
+
+  /**
+   * Test that we can use "canDelete" script to disable delete.
+   */
+  private void check_canDelete_script(String script, boolean expected) throws Exception {
+    setFileContentSrc(
+        "test/MyButton.java",
+        getTestSource(
+            "// filler filler filler filler filler",
+            "// filler filler filler filler filler",
+            "public class MyButton extends JButton {",
+            "}"));
+    setFileContentSrc(
+        "test/MyButton.wbp-component.xml",
+        getSourceDQ(
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <parameters>",
+            "    <parameter name='canDelete'>" + script + "</parameter>",
+            "  </parameters>",
+            "</component>"));
+    waitForAutoBuild();
+    //
+    parseContainer(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public class Test {",
+        "  public static void main(String[] args) {",
+        "    MyButton button = new MyButton();",
+        "    new JPanel().add(button);",
+        "  }",
+        "}");
+    ComponentInfo button = getJavaInfoByName("button");
+    // ask canDelete()
+    assertEquals(expected, button.canDelete());
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // canBeRoot

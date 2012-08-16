@@ -745,6 +745,21 @@ public class JavaInfo extends ObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public final boolean canDelete() {
+    // try "canDelete" script
+    {
+      boolean canDeleteBoolean = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+        public Boolean runObject() throws Exception {
+          Object canDeleteObject = JavaInfoUtils.executeScriptParameter(m_this, "canDelete");
+          if (canDeleteObject instanceof Boolean) {
+            return ((Boolean) canDeleteObject).booleanValue();
+          }
+          return false;
+        }
+      }, false);
+      if (!canDeleteBoolean) {
+        return false;
+      }
+    }
     // check if creation support can delete
     if (!m_creationSupport.canDelete()) {
       return false;
