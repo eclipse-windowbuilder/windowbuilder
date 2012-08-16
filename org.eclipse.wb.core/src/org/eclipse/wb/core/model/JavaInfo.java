@@ -750,6 +750,9 @@ public class JavaInfo extends ObjectInfo {
       boolean canDeleteBoolean = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
         public Boolean runObject() throws Exception {
           Object canDeleteObject = JavaInfoUtils.executeScriptParameter(m_this, "canDelete");
+          if (canDeleteObject == null) {
+            return true;
+          }
           if (canDeleteObject instanceof Boolean) {
             return ((Boolean) canDeleteObject).booleanValue();
           }
