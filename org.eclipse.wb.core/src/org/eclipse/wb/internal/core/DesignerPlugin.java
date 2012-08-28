@@ -65,8 +65,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
     super.start(context);
     m_plugin = this;
     BundleResourceProvider.configureCleanUp(context);
-    setupEventFilters();
-    addMouseWheelRedirector();
     addLogListener();
     if (EnvironmentUtils.IS_LINUX) {
       installPreferenceForwarder();
@@ -443,20 +441,22 @@ public class DesignerPlugin extends AbstractUIPlugin {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Early start up
+  // Set-up during first editor
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static boolean m_cachesLoaded = false;
+  private static boolean m_preEditorConfigured = false;
 
   /**
-   * This is fast method which scheduled jobs for pre-loading caches. If jobs where already
-   * scheduled in this Eclipse session, second and following invocations are ignored.
+   * This is fast method which performs configuration directly before first use of editor.
    */
-  public static synchronized void scheduleCachesLoading() {
-    if (m_cachesLoaded) {
+  public static synchronized void configurePreEditor() {
+    if (m_preEditorConfigured) {
       return;
     }
-    m_cachesLoaded = true;
+    m_preEditorConfigured = true;
+    // add listeners
+    setupEventFilters();
+    addMouseWheelRedirector();
     // pre-load palette
     if (System.getProperty(DesignerPalette.FLAG_NO_PALETTE) == null) {
       ExecutionUtils.runLog(new RunnableEx() {

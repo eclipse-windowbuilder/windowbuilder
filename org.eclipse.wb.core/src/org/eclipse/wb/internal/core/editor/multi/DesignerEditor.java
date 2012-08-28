@@ -68,7 +68,7 @@ public final class DesignerEditor extends CompilationUnitEditor
   //
   ////////////////////////////////////////////////////////////////////////////
   public DesignerEditor() {
-    DesignerPlugin.scheduleCachesLoading();
+    DesignerPlugin.configurePreEditor();
     if (isPagesMode()) {
       m_multiMode = new MultiPagesMode(this);
     } else {
