@@ -62,6 +62,9 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
    *         toolkits.
    */
   private static boolean isGUISource(String source) {
+    if (DesignerPlugin.getDefault() == null) {
+      return false;
+    }
     if (!DesignerPlugin.getPreferences().getBoolean(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI)) {
       return false;
     }

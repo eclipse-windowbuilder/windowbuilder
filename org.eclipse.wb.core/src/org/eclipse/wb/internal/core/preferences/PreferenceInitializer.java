@@ -14,8 +14,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.swt.graphics.RGB;
 
 /**
  * Initializer for default Designer preferences.
@@ -47,7 +45,8 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
     preferences.setDefault(P_EDITOR_TREE_DBL_CLICK_ACTION, V_EDITOR_TREE_OPEN_WIDGET_IN_EDITOR);
     // highlight visited/executed lines
     preferences.setDefault(P_HIGHLIGHT_VISITED, false);
-    PreferenceConverter.setDefault(preferences, P_HIGHLIGHT_VISITED_COLOR, new RGB(235, 255, 235));
+    //PreferenceConverter.setDefault(preferences, P_HIGHLIGHT_VISITED_COLOR, new RGB(235, 255, 235));
+    preferences.setDefault(P_HIGHLIGHT_VISITED_COLOR, "235,255,235");
     // code parsing
     preferences.setDefault(P_CODE_HIDE_BEGIN, "$hide>>$");
     preferences.setDefault(P_CODE_HIDE_END, "$hide<<$");
