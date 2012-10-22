@@ -903,6 +903,9 @@ public class GridLayoutInfo extends LayoutInfo
    * <code>null</code> in many places.
    */
   public void fixGrid() throws Exception {
+    if (JavaInfoUtils.isImplicitlyCreated(this)) {
+      return;
+    }
     ControlInfo[][] grid = getControlsGrid();
     for (int row = 0; row < grid.length; row++) {
       for (int column = 0; column < grid[row].length; column++) {
