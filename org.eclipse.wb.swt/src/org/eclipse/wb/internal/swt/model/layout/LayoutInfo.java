@@ -305,9 +305,12 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 
   public final List<ControlInfo> getControls() {
     List<ControlInfo> controls = Lists.newArrayList();
-    for (ControlInfo control : getComposite().getChildrenControls()) {
-      if (isManagedObject(control)) {
-        controls.add(control);
+    CompositeInfo composite = getComposite();
+    if (isActiveOnComposite(composite)) {
+      for (ControlInfo control : composite.getChildrenControls()) {
+        if (isManagedObject(control)) {
+          controls.add(control);
+        }
       }
     }
     return controls;
