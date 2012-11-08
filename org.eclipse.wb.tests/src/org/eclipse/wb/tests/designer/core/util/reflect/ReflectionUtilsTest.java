@@ -262,35 +262,59 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     Constructor<?>[] declaredConstructors = Foo.class.getDeclaredConstructors();
     // public
     {
-      Constructor<?> constructor = declaredConstructors[0];
-      assertTrue(ReflectionUtils.isPublic(constructor));
-      assertFalse(ReflectionUtils.isProtected(constructor));
-      assertFalse(ReflectionUtils.isPrivate(constructor));
-      assertFalse(ReflectionUtils.isPackagePrivate(constructor));
+      boolean seenPublic = false;
+      for (Constructor<?> constructor : declaredConstructors) {
+        if (ReflectionUtils.isPublic(constructor)) {
+          seenPublic = true;
+          assertTrue(ReflectionUtils.isPublic(constructor));
+          assertFalse(ReflectionUtils.isProtected(constructor));
+          assertFalse(ReflectionUtils.isPrivate(constructor));
+          assertFalse(ReflectionUtils.isPackagePrivate(constructor));
+        }
+      }
+      assertTrue(seenPublic);
     }
     // protected
     {
-      Constructor<?> constructor = declaredConstructors[1];
-      assertFalse(ReflectionUtils.isPublic(constructor));
-      assertTrue(ReflectionUtils.isProtected(constructor));
-      assertFalse(ReflectionUtils.isPrivate(constructor));
-      assertFalse(ReflectionUtils.isPackagePrivate(constructor));
+      boolean seenProtected = false;
+      for (Constructor<?> constructor : declaredConstructors) {
+        if (ReflectionUtils.isProtected(constructor)) {
+          seenProtected = true;
+          assertFalse(ReflectionUtils.isPublic(constructor));
+          assertTrue(ReflectionUtils.isProtected(constructor));
+          assertFalse(ReflectionUtils.isPrivate(constructor));
+          assertFalse(ReflectionUtils.isPackagePrivate(constructor));
+        }
+      }
+      assertTrue(seenProtected);
     }
     // private
     {
-      Constructor<?> constructor = declaredConstructors[2];
-      assertFalse(ReflectionUtils.isPublic(constructor));
-      assertFalse(ReflectionUtils.isProtected(constructor));
-      assertTrue(ReflectionUtils.isPrivate(constructor));
-      assertFalse(ReflectionUtils.isPackagePrivate(constructor));
+      boolean seenPrivate = false;
+      for (Constructor<?> constructor : declaredConstructors) {
+        if (ReflectionUtils.isPrivate(constructor)) {
+          seenPrivate = true;
+          assertFalse(ReflectionUtils.isPublic(constructor));
+          assertFalse(ReflectionUtils.isProtected(constructor));
+          assertTrue(ReflectionUtils.isPrivate(constructor));
+          assertFalse(ReflectionUtils.isPackagePrivate(constructor));
+        }
+      }
+      assertTrue(seenPrivate);
     }
     // package private
     {
-      Constructor<?> constructor = declaredConstructors[3];
-      assertFalse(ReflectionUtils.isPublic(constructor));
-      assertFalse(ReflectionUtils.isProtected(constructor));
-      assertFalse(ReflectionUtils.isPrivate(constructor));
-      assertTrue(ReflectionUtils.isPackagePrivate(constructor));
+      boolean seenPackagePrivate = false;
+      for (Constructor<?> constructor : declaredConstructors) {
+        if (ReflectionUtils.isPackagePrivate(constructor)) {
+          seenPackagePrivate = true;
+          assertFalse(ReflectionUtils.isPublic(constructor));
+          assertFalse(ReflectionUtils.isProtected(constructor));
+          assertFalse(ReflectionUtils.isPrivate(constructor));
+          assertTrue(ReflectionUtils.isPackagePrivate(constructor));
+        }
+      }
+      assertTrue(seenPackagePrivate);
     }
   }
 

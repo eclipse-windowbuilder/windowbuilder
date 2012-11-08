@@ -42,12 +42,18 @@ public class ExecutionUtils {
   /**
    * Sleeps given number of milliseconds, ignoring exceptions.
    */
-  public static void sleep(final int millis) {
-    runIgnore(new RunnableEx() {
-      public void run() throws Exception {
-        Thread.sleep(millis);
+  public static void sleep(int millis) {
+    long end = System.currentTimeMillis() + millis;
+    do {
+      final long leftMillis = end - System.currentTimeMillis();
+      if (leftMillis >= 0) {
+        runIgnore(new RunnableEx() {
+          public void run() throws Exception {
+            Thread.sleep(leftMillis);
+          }
+        });
       }
-    });
+    } while (System.currentTimeMillis() < end);
   }
 
   /**
