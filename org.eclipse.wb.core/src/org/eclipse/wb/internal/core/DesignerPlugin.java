@@ -10,14 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core;
 
-import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
-import org.eclipse.wb.internal.core.model.description.helpers.ComponentPresentationHelper;
-import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.preferences.PreferenceToSystemForwarder;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.product.ProductInfo;
 import org.eclipse.wb.os.OSSupport;
 
@@ -149,7 +143,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
     }
     return null;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Events
@@ -289,7 +282,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
       }
     });
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Logging
@@ -363,7 +355,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
       }
     };
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Track last log entry
@@ -398,7 +389,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
     }
     return null;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Resources
@@ -438,7 +428,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
         IPreferenceConstants.P_COMMON_LINUX_DISABLE_SCREENSHOT_WORKAROUNDS,
         "__wbp.linux.disableScreenshotWorkarounds");
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Set-up during first editor
@@ -457,17 +446,5 @@ public class DesignerPlugin extends AbstractUIPlugin {
     // add listeners
     setupEventFilters();
     addMouseWheelRedirector();
-    // pre-load palette
-    if (System.getProperty(DesignerPalette.FLAG_NO_PALETTE) == null) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          ToolkitDescription[] toolkits = DescriptionHelper.getToolkits();
-          for (ToolkitDescription toolkitDescription : toolkits) {
-            String toolkitId = toolkitDescription.getId();
-            ComponentPresentationHelper.scheduleFillingPresentationCache(toolkitId);
-          }
-        }
-      });
-    }
   }
 }

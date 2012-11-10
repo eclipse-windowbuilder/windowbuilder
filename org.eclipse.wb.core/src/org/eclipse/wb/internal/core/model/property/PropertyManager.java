@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.base64.Base64Utils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
+import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,7 +34,6 @@ import java.util.Map;
  */
 public final class PropertyManager {
   private static final String P_CATEGORIES = "org.eclipse.wb.core.model.property.PropertyManager";
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -51,7 +51,6 @@ public final class PropertyManager {
     }
     return property.getCategory();
   }
-
   /**
    * @return the forced {@link PropertyCategory} of given Property, may be <code>null</code>.
    */
@@ -63,7 +62,6 @@ public final class PropertyManager {
     }
     return null;
   }
-
   /**
    * Sets the forced {@link PropertyCategory} of given Property. If <code>null</code> then default
    * category should be used.
@@ -77,7 +75,6 @@ public final class PropertyManager {
       saveCategories(toolkit, categories);
     }
   }
-
   /**
    * Sets the forced {@link PropertyCategory} for all properties with given title.
    */
@@ -88,19 +85,19 @@ public final class PropertyManager {
       saveCategories(toolkit, categories);
     }
   }
-
   /**
    * @return the {@link ToolkitDescription} for component of given {@link Property}, may be
    *         <code>null</code> if no corresponding component.
    */
   private static ToolkitDescription getToolkit(Property property) {
-    if (property instanceof JavaProperty) {
-      JavaProperty javaProperty = (JavaProperty) property;
-      return javaProperty.getJavaInfo().getDescription().getToolkit();
-    }
-    return null;
+    return GlobalState.getToolkit();
+    // TODO(scheglov)
+//    if (property instanceof JavaProperty) {
+//      JavaProperty javaProperty = (JavaProperty) property;
+//      return javaProperty.getJavaInfo().getDescription().getToolkit();
+//    }
+//    return null;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Toolkit specific categories
@@ -108,11 +105,9 @@ public final class PropertyManager {
   ////////////////////////////////////////////////////////////////////////////
   private static final Map<ToolkitDescription, Map<String, PropertyCategory>> m_toolkitCategories =
       Maps.newHashMap();
-
   public static void flushCache() {
     m_toolkitCategories.clear();
   }
-
   private static Map<String, PropertyCategory> getCategories(ToolkitDescription toolkit) {
     Map<String, PropertyCategory> categories = m_toolkitCategories.get(toolkit);
     if (categories == null) {
@@ -121,7 +116,6 @@ public final class PropertyManager {
     }
     return categories;
   }
-
   private static Map<String, PropertyCategory> loadCategories(final ToolkitDescription toolkit) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Map<String, PropertyCategory>>() {
       public Map<String, PropertyCategory> runObject() throws Exception {
@@ -129,7 +123,6 @@ public final class PropertyManager {
       }
     }, Maps.<String, PropertyCategory>newTreeMap());
   }
-
   private static void saveCategories(final ToolkitDescription toolkit,
       final Map<String, PropertyCategory> categories) {
     ExecutionUtils.runLog(new RunnableEx() {
@@ -138,7 +131,6 @@ public final class PropertyManager {
       }
     });
   }
-
   @SuppressWarnings("unchecked")
   private static Map<String, PropertyCategory> loadCategories0(ToolkitDescription toolkit)
       throws Exception {
@@ -148,7 +140,6 @@ public final class PropertyManager {
     Map<String, Integer> categoriesIndex = (Map<String, Integer>) stream.readObject();
     return toCategoriesObject(categoriesIndex);
   }
-
   private static void saveCategories0(ToolkitDescription toolkit,
       Map<String, PropertyCategory> categories) throws Exception {
     byte[] bytes;
@@ -164,7 +155,6 @@ public final class PropertyManager {
     String encoded = Base64Utils.encode(bytes);
     toolkit.getPreferences().setValue(P_CATEGORIES, encoded);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Conversion for PropertyCategory
@@ -177,7 +167,6 @@ public final class PropertyManager {
     }
     return target;
   }
-
   private static Map<String, PropertyCategory> toCategoriesObject(Map<String, Integer> source) {
     Map<String, PropertyCategory> target = Maps.newTreeMap();
     for (Map.Entry<String, Integer> entry : source.entrySet()) {
@@ -185,7 +174,6 @@ public final class PropertyManager {
     }
     return target;
   }
-
   private static int getCategoryIndex(PropertyCategory category) {
     if (category == PropertyCategory.PREFERRED) {
       return 0;
@@ -197,7 +185,6 @@ public final class PropertyManager {
       return 2;
     }
   }
-
   private static PropertyCategory getCategoryByIndex(int index) {
     if (index == 0) {
       return PropertyCategory.PREFERRED;

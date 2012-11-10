@@ -18,7 +18,8 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
@@ -292,7 +293,7 @@ public abstract class SnapPoint {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public String toString() {
-    String name = CodeUtils.getShortClass(getClass().getName());
+    String name = StringUtils.substringAfterLast(getClass().getName(), ".");
     return name
         + "(side="
         + sideToString(m_side)

@@ -285,8 +285,7 @@ public final class ComponentsPropertiesPage implements IPage {
       IStructuredSelection structuredSelection = (IStructuredSelection) selection;
       m_objects.clear();
       //
-      int i = 0;
-      for (Iterator<?> I = structuredSelection.iterator(); I.hasNext(); i++) {
+      for (Iterator<?> I = structuredSelection.iterator(); I.hasNext();) {
         ObjectInfo objectInfo = (ObjectInfo) I.next();
         if (objectInfo instanceof ObjectReferenceInfo) {
           objectInfo = ((ObjectReferenceInfo) objectInfo).getObject();

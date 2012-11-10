@@ -10,11 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.preferences;
 
-import org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo;
-import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
-import org.eclipse.wb.internal.core.model.description.LayoutDescription;
-import org.eclipse.wb.internal.core.nls.model.AbstractSource;
-
 import org.eclipse.swt.graphics.Color;
 
 /**

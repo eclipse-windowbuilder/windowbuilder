@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.Action;
@@ -45,7 +44,6 @@ public final class LayoutAssistantAction extends Action {
   private final IEditPartViewer m_viewer;
   private LayoutAssistantWindow m_assistantWindow;
   private final IWorkbenchWindow m_workbenchWindow;
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -67,14 +65,13 @@ public final class LayoutAssistantAction extends Action {
       }
     });
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * Sets the root {@link ObjectInfo} on {@link DesignPage}.
+   * Sets the root {@link ObjectInfo} on design page.
    */
   public void setRoot(ObjectInfo rootObject) {
     rootObject.addBroadcastListener(new ObjectEventListener() {
@@ -84,7 +81,6 @@ public final class LayoutAssistantAction extends Action {
       }
     });
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Window part listener
@@ -96,26 +92,21 @@ public final class LayoutAssistantAction extends Action {
         m_assistantWindow.open();
       }
     }
-
     public void partDeactivated(IWorkbenchPart part) {
       if (m_editor == part && m_assistantWindow != null) {
         m_assistantWindow.hide();
       }
     }
-
     public void partClosed(IWorkbenchPart part) {
       if (m_editor == part) {
         closeWindow();
       }
     }
-
     public void partOpened(IWorkbenchPart part) {
     }
-
     public void partBroughtToTop(IWorkbenchPart part) {
     }
   };
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Action
@@ -133,7 +124,6 @@ public final class LayoutAssistantAction extends Action {
       closeWindow();
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Window
@@ -151,14 +141,12 @@ public final class LayoutAssistantAction extends Action {
       });
     }
   }
-
   public void hideWindow() {
     if (m_assistantWindow != null) {
       m_workbenchWindow.getPartService().removePartListener(m_windowPartListener);
       m_assistantWindow.hide();
     }
   }
-
   public void closeWindow() {
     if (m_assistantWindow != null) {
       hideWindow();
@@ -166,7 +154,6 @@ public final class LayoutAssistantAction extends Action {
       m_assistantWindow = null;
     }
   }
-
   private void updateWindow() {
     if (m_assistantWindow != null) {
       // prepare selection object's

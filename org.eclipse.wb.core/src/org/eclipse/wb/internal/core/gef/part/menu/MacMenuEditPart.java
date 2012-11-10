@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -27,7 +26,6 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
  */
 public final class MacMenuEditPart extends MenuEditPart {
   private final IMenuInfo m_menu;
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -37,7 +35,6 @@ public final class MacMenuEditPart extends MenuEditPart {
     super(toolkitModel, menu);
     m_menu = menu;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Figure
@@ -47,13 +44,12 @@ public final class MacMenuEditPart extends MenuEditPart {
   public Figure createFigure() {
     return new MacMenuImageFigure(m_menu);
   }
-
   @Override
   protected void refreshVisuals() {
     if (!isSubMenu()) {
       Rectangle bounds = m_menu.getBounds();
       getFigure().setBounds(
-          new Rectangle(AbstractComponentEditPart.TOP_LOCATION.x,
+          new Rectangle(TOP_LOCATION.x,
               MenuEditPartFactory.MENU_Y_LOCATION,
               bounds.width,
               bounds.height));
@@ -61,10 +57,8 @@ public final class MacMenuEditPart extends MenuEditPart {
       super.refreshVisuals();
     }
   }
-
   private boolean m_addedSelf = false;
   private Figure m_fakeFigure;
-
   @Override
   protected boolean addSelfVisual(int index) {
     if (!isSubMenu()) {
@@ -77,7 +71,6 @@ public final class MacMenuEditPart extends MenuEditPart {
     }
     return false;
   }
-
   @Override
   protected boolean removeSelfVisual() {
     if (m_addedSelf) {
@@ -88,7 +81,6 @@ public final class MacMenuEditPart extends MenuEditPart {
     }
     return false;
   }
-
   private Figure getFakeFigure() {
     if (m_fakeFigure == null) {
       m_fakeFigure = new Figure();

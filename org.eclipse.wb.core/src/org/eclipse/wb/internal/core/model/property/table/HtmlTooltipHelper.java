@@ -14,7 +14,6 @@ import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.PixelConverter;
@@ -37,6 +36,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.StringReader;
 import java.net.URL;
 import java.text.MessageFormat;
@@ -51,7 +52,6 @@ public final class HtmlTooltipHelper {
   public static Control createTooltipControl(Composite parent, String header, String details) {
     return createTooltipControl(parent, header, details, 0);
   }
-
   public static Control createTooltipControl(Composite parent,
       String header,
       String details,
@@ -82,7 +82,6 @@ public final class HtmlTooltipHelper {
     // done
     return control;
   }
-
   /**
    * Creates {@link Browser} for displaying tooltip.
    */
@@ -109,7 +108,7 @@ public final class HtmlTooltipHelper {
               ? "    <a href='' style='position:absolute;right:1em;' id=_wbp_close>Close</a>"
               : "";
       wrappedHtml =
-          CodeUtils.getSource(
+          StringUtils.join(new String[]{
               "<html>",
               "  <style CHARSET='ISO-8859-1' TYPE='text/css'>",
               styles,
@@ -118,7 +117,7 @@ public final class HtmlTooltipHelper {
               closeElement,
               html,
               "  </body>",
-              "</html>");
+              "</html>"}, "\n");
     }
     // prepare Browser
     final Browser browser = new Browser(parent, SWT.NONE);
@@ -166,7 +165,6 @@ public final class HtmlTooltipHelper {
     // done
     return browser;
   }
-
   private static void tweakBrowserSize(Browser browser, int heightLimitChars) {
     GridDataFactory.create(browser).grab().fill();
     // limit height
@@ -180,7 +178,6 @@ public final class HtmlTooltipHelper {
       expandShellToShowFullPage_Height(browser, Integer.MAX_VALUE);
     }
   }
-
   private static void expandShellToShowFullPage_Height(Browser browser, int maxHeight) {
     try {
       Shell shell = browser.getShell();
@@ -220,43 +217,35 @@ public final class HtmlTooltipHelper {
     } catch (Throwable e) {
     }
   }
-
   private static int getContentOffsetWidth(Browser browser) throws Exception {
     return evaluateScriptInt(
         browser,
         "return document.getElementById('_wbp_tooltip_body').offsetWidth;");
   }
-
   private static int getContentOffsetHeight(Browser browser) throws Exception {
     return evaluateScriptInt(
         browser,
         "return document.getElementById('_wbp_tooltip_body').offsetHeight;");
   }
-
   private static int getContentScrollHeight(Browser browser) throws Exception {
     return evaluateScriptInt(
         browser,
         "return document.getElementById('_wbp_tooltip_body').scrollHeight;");
   }
-
   private static int getBodyOffsetHeight(Browser browser) throws Exception {
     return evaluateScriptInt(browser, "return document.body.offsetHeight;");
   }
-
   private static int getBodyScrollHeight(Browser browser) throws Exception {
     return evaluateScriptInt(browser, "return document.body.scrollHeight;");
   }
-
   private static int evaluateScriptInt(Browser browser, String script) throws Exception {
     Object o = ReflectionUtils.invokeMethod(browser, "evaluate(java.lang.String)", script);
     return ((Number) o).intValue();
   }
-
   private static void hideCloseElement(Browser browser) throws Exception {
     String script = "document.getElementById('_wbp_close').style.display = 'none'";
     ReflectionUtils.invokeMethod(browser, "evaluate(java.lang.String)", script);
   }
-
   /**
    * @return the length of text in given HTML. Uses internal class, so may fail, in this case
    *         returns length on HTML.
@@ -274,7 +263,6 @@ public final class HtmlTooltipHelper {
       return html.length();
     }
   }
-
   /**
    * Returns a string representation of {@link Color} suitable for web pages.
    * 
@@ -288,7 +276,6 @@ public final class HtmlTooltipHelper {
     colorString += Integer.toHexString(color.getBlue());
     return colorString;
   }
-
   /**
    * Creates {@link Label} if {@link Browser} can not be used.
    */
@@ -311,7 +298,6 @@ public final class HtmlTooltipHelper {
     });
     return label;
   }
-
   private static void hideTooltip(Control tooltip) {
     tooltip.getShell().dispose();
   }

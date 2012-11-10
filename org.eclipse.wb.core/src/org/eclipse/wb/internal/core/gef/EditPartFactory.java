@@ -11,17 +11,10 @@
 package org.eclipse.wb.internal.core.gef;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
-import org.eclipse.wb.core.model.IWrapper;
-import org.eclipse.wb.core.model.IWrapperInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
-import org.eclipse.wb.internal.core.gef.part.AbstractWrapperEditPart;
-import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gef.part.menu.MenuReference;
-import org.eclipse.wb.internal.core.gef.part.nonvisual.ArrayObjectEditPart;
-import org.eclipse.wb.internal.core.model.DesignRootObject;
-import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import java.util.List;
@@ -35,7 +28,6 @@ import java.util.List;
  */
 public final class EditPartFactory implements IEditPartFactory {
   public static final EditPartFactory INSTANCE = new EditPartFactory();
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -43,7 +35,6 @@ public final class EditPartFactory implements IEditPartFactory {
   ////////////////////////////////////////////////////////////////////////////
   private EditPartFactory() {
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // IEditPartFactory
@@ -54,10 +45,11 @@ public final class EditPartFactory implements IEditPartFactory {
       return null;
     }
     // designer root
-    if (model instanceof DesignRootObject) {
-      DesignRootObject designRootObject = (DesignRootObject) model;
-      return new DesignRootEditPart(designRootObject);
-    }
+    // TODO(scheglov)
+//    if (model instanceof DesignRootObject) {
+//      DesignRootObject designRootObject = (DesignRootObject) model;
+//      return new DesignRootEditPart(designRootObject);
+//    }
     // menu
     if (model instanceof MenuReference) {
       MenuReference reference = (MenuReference) model;
@@ -66,12 +58,13 @@ public final class EditPartFactory implements IEditPartFactory {
       return editPart;
     }
     // child array
-    if (model instanceof AbstractArrayObjectInfo) {
-      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
-      ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
-      configureEditPart(context, editPart);
-      return editPart;
-    }
+    // TODO(scheglov)
+//    if (model instanceof AbstractArrayObjectInfo) {
+//      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+//      ArrayObjectEditPart editPart = new ArrayObjectEditPart(arrayInfo);
+//      configureEditPart(context, editPart);
+//      return editPart;
+//    }
     // check each external factory
     for (IEditPartFactory factory : getFactories()) {
       EditPart editPart = factory.createEditPart(context, model);
@@ -81,16 +74,16 @@ public final class EditPartFactory implements IEditPartFactory {
       }
     }
     // IWrapperInfo
-    if (model instanceof IWrapperInfo) {
-      IWrapper wrapper = ((IWrapperInfo) model).getWrapper();
-      AbstractWrapperEditPart editPart = new AbstractWrapperEditPart(wrapper);
-      configureEditPart(context, editPart);
-      return editPart;
-    }
+    // TODO(scheglov)
+//    if (model instanceof IWrapperInfo) {
+//      IWrapper wrapper = ((IWrapperInfo) model).getWrapper();
+//      AbstractWrapperEditPart editPart = new AbstractWrapperEditPart(wrapper);
+//      configureEditPart(context, editPart);
+//      return editPart;
+//    }
     // no EditPart found
     return null;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Extensions
@@ -105,7 +98,6 @@ public final class EditPartFactory implements IEditPartFactory {
         "org.eclipse.wb.core.editPartFactories",
         "factory");
   }
-
   /**
    * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
    */

@@ -14,16 +14,13 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.model.JavaInfoUtils;
-import org.eclipse.wb.internal.core.model.description.GenericPropertyDescription;
-import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -45,7 +42,6 @@ public final class PropertyUtils {
   ////////////////////////////////////////////////////////////////////////////
   private PropertyUtils() {
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -62,7 +58,6 @@ public final class PropertyUtils {
     }
     return titles;
   }
-
   /**
    * @return the titles of given {@link Property}'s.
    */
@@ -73,7 +68,6 @@ public final class PropertyUtils {
     }
     return titles;
   }
-
   /**
    * @return the text presentation of {@link Property} value, may be <code>null</code>.
    */
@@ -88,7 +82,6 @@ public final class PropertyUtils {
       }
     }, null);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // getPropertyByTitle()
@@ -102,7 +95,6 @@ public final class PropertyUtils {
     }
     return null;
   }
-
   public static Property getByTitle(List<Property> properties, String title) {
     for (Property property : properties) {
       if (StringUtils.equals(title, property.getTitle())) {
@@ -111,7 +103,6 @@ public final class PropertyUtils {
     }
     return null;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // getPropertyByPath()
@@ -123,7 +114,6 @@ public final class PropertyUtils {
   public static Property getByPath(ObjectInfo object, String path) throws Exception {
     return getByPath(object.getProperties(), path);
   }
-
   /**
    * @return the {@link Property} using "/" separated path.
    */
@@ -131,7 +121,6 @@ public final class PropertyUtils {
     Property[] propertiesArray = properties.toArray(new Property[properties.size()]);
     return getByPath(propertiesArray, path);
   }
-
   /**
    * @return the {@link Property} using "/" separated path.
    */
@@ -143,14 +132,12 @@ public final class PropertyUtils {
     }
     return property;
   }
-
   /**
    * @return the {@link Property} using "/" separated path.
    */
   public static Property getByPath(Property property, String path) throws Exception {
     return getByPath(getChildren(property), path);
   }
-
   /**
    * @return sub-properties of given {@link Property}, may be empty array, but not <code>null</code>
    *         .
@@ -163,7 +150,6 @@ public final class PropertyUtils {
     }
     return new Property[0];
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Filter
@@ -172,9 +158,9 @@ public final class PropertyUtils {
   /**
    * @return the {@link Property}'s that satisfy given {@link Predicate}.
    */
-  public static List<Property> getProperties(JavaInfo javaInfo, Predicate<Property> predicate)
+  public static List<Property> getProperties(ObjectInfo objectInfo, Predicate<Property> predicate)
       throws Exception {
-    Property[] properties = javaInfo.getProperties();
+    Property[] properties = objectInfo.getProperties();
     List<Property> filteredProperties = Lists.newArrayList();
     for (Property property : properties) {
       if (predicate.apply(property)) {
@@ -183,17 +169,15 @@ public final class PropertyUtils {
     }
     return filteredProperties;
   }
-
   /**
    * @return the {@link Property}'s of given {@link JavaInfo} that are not listed in parameter with
    *         given name. We use this to filter out some properties of layout/layoutData.
    */
-  public static List<Property> getProperties_excludeByParameter(JavaInfo javaInfo,
+  public static List<Property> getProperties_excludeByParameter(ObjectInfo objectInfo,
       String parameterName) throws Exception {
-    Predicate<Property> predicate = getExcludeByTitlePredicate(javaInfo, parameterName);
-    return getProperties(javaInfo, predicate);
+    Predicate<Property> predicate = getExcludeByTitlePredicate(objectInfo, parameterName);
+    return getProperties(objectInfo, predicate);
   }
-
   /**
    * Keeps in {@link List} only {@link Property}'s that satisfy given {@link Predicate}.
    */
@@ -206,22 +190,21 @@ public final class PropertyUtils {
       }
     }
   }
-
   /**
    * @return the {@link Predicate} for {@link Property} that does not accept properties with titles
    *         listed in parameter value.
    */
-  public static Predicate<Property> getExcludeByTitlePredicate(JavaInfo javaInfo,
+  public static Predicate<Property> getExcludeByTitlePredicate(ObjectInfo objectInfo,
       String parameterName) {
     Predicate<Property> predicate = Predicates.alwaysTrue();
-    String propertiesExcludeString = JavaInfoUtils.getParameter(javaInfo, parameterName);
+    String propertiesExcludeString =
+        GlobalState.getParametersProvider().getParameter(objectInfo, parameterName);
     if (propertiesExcludeString != null) {
       String[] propertiesExclude = StringUtils.split(propertiesExcludeString);
       predicate = getExcludeByTitlePredicate(propertiesExclude);
     }
     return predicate;
   }
-
   /**
    * @return the {@link Predicate} for {@link Property} that does not accept properties given
    *         titles.
@@ -233,7 +216,6 @@ public final class PropertyUtils {
       }
     };
   }
-
   /**
    * @return the {@link Predicate} for {@link Property} that does accept properties given titles.
    */
@@ -243,24 +225,5 @@ public final class PropertyUtils {
         return ArrayUtils.contains(includeTitles, t.getTitle());
       }
     };
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Create
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public static GenericPropertyImpl createGenericPropertyImpl(JavaInfo javaInfo,
-      GenericPropertyDescription description) {
-    GenericPropertyImpl property =
-        new GenericPropertyImpl(javaInfo,
-            description.getTitle(),
-            description.getAccessorsArray(),
-            description.getDefaultValue(),
-            description.getConverter(),
-            description.getEditor());
-    property.setDescription(description);
-    property.setCategory(description.getCategory());
-    return property;
   }
 }

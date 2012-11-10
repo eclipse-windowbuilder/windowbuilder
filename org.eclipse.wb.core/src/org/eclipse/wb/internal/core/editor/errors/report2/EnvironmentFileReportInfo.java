@@ -17,12 +17,9 @@ import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.platform.PlatformInfo;
 import org.eclipse.wb.internal.core.utils.platform.PluginUtilities;
 import org.eclipse.wb.internal.core.utils.product.ProductInfo;
-import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.Device;
@@ -47,7 +44,6 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
   // constants
   private static final String CR = "\n";
   private final IProject m_project;
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -57,7 +53,6 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     super("environment.txt");
     m_project = project;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Contents
@@ -68,7 +63,6 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     String contents = createContents(m_project);
     return IOUtils.toInputStream(contents);
   }
-
   private static String createContents(IProject project) {
     String c = "";
     c += "Product Name: " + BrandingUtils.getBranding().getProductName() + CR;
@@ -114,26 +108,25 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     c += "Project Class Path: " + CR + getClassPath(project) + CR;
     return c;
   }
-
   private static String getClassPath(IProject project) {
     // java classpath
     String classPath = "";
-    try {
-      IJavaProject javaProject = JavaCore.create(project);
-      if (javaProject.exists()) {
-        String[] entries = ProjectClassLoader.getClasspath(javaProject);
-        for (String entry : entries) {
-          classPath += entry + File.pathSeparator;
-        }
-      }
-      // remove trailing path separator
-      classPath = StringUtils.removeEnd(classPath, File.pathSeparator);
-    } catch (Throwable e) {
-      // ignore
-    }
+    // TODO(scheglov)
+//    try {
+//      IJavaProject javaProject = JavaCore.create(project);
+//      if (javaProject.exists()) {
+//        String[] entries = ProjectClassLoader.getClasspath(javaProject);
+//        for (String entry : entries) {
+//          classPath += entry + File.pathSeparator;
+//        }
+//      }
+//      // remove trailing path separator
+//      classPath = StringUtils.removeEnd(classPath, File.pathSeparator);
+//    } catch (Throwable e) {
+//      // ignore
+//    }
     return classPath;
   }
-
   private static String getInstallationPath() {
     URL installUrl = PluginUtilities.getInstallUrl(ProductInfo.getProduct().getPluginId());
     String installationPath = "Unknown";
@@ -150,7 +143,6 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     }
     return installationPath;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Utils
@@ -166,7 +158,6 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     String propValue = System.getProperty(prop);
     return propValue == null ? "" : propValue;
   }
-
   /**
    * Returns the contents of '/etc/lsb-release' (and/or others).
    */
@@ -202,7 +193,6 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
     }
     return result.toString();
   }
-
   private static String tryCreateMozilla() {
     if (EnvironmentUtils.IS_LINUX) {
       boolean oldDebug = Device.DEBUG;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property;
 
+import org.eclipse.wb.internal.core.model.property.editor.BooleanPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
-import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyEditor;
 
 /**
  * Empty {@link Property}, that has no title or value.
@@ -26,13 +26,11 @@ public class EmptyProperty extends Property {
   //
   ////////////////////////////////////////////////////////////////////////////
   public EmptyProperty() {
-    super(StringPropertyEditor.INSTANCE);
+    super(BooleanPropertyEditor.INSTANCE);
   }
-
   public EmptyProperty(PropertyEditor editor) {
     super(editor);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Property
@@ -42,17 +40,14 @@ public class EmptyProperty extends Property {
   public String getTitle() {
     return null;
   }
-
   @Override
   public boolean isModified() throws Exception {
     return false;
   }
-
   @Override
   public Object getValue() throws Exception {
     return UNKNOWN_VALUE;
   }
-
   @Override
   public void setValue(Object value) throws Exception {
   }

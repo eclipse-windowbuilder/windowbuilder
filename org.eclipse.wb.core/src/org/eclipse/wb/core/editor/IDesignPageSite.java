@@ -11,14 +11,13 @@
 package org.eclipse.wb.core.editor;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 /**
- * Provides access to the {@link DesignPage}.
+ * Provides access to the {@link IDesignPage}.
  * 
  * @author scheglov_ke
  * @coverage core.editor
@@ -49,7 +48,6 @@ public interface IDesignPageSite {
    * this {@link IDesignPageSite} and in this {@link ObjectInfo} hierarchy.
    */
   void reparse();
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Helper

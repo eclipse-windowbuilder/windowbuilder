@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 
 import com.google.common.collect.Lists;
 
-import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -24,7 +23,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuLayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
@@ -40,8 +39,11 @@ import java.util.List;
  * @coverage core.gef.menu
  */
 public class MenuEditPart extends MenuObjectEditPart {
+  // TODO(scheglov) move TOP_LOCATION to shared location
+  public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
+      ? new Point(20, 28)
+      : new Point(20, 20);
   private final IMenuInfo m_menu;
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructors
@@ -51,7 +53,6 @@ public class MenuEditPart extends MenuObjectEditPart {
     super(toolkitModel, menu);
     m_menu = menu;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -63,7 +64,6 @@ public class MenuEditPart extends MenuObjectEditPart {
   public IMenuInfo getMenu() {
     return m_menu;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Figure
@@ -79,7 +79,6 @@ public class MenuEditPart extends MenuObjectEditPart {
       return new Figure();
     }
   }
-
   @Override
   protected void refreshVisuals() {
     // edit parts hierarchy:
@@ -88,7 +87,7 @@ public class MenuEditPart extends MenuObjectEditPart {
     // 3. component -> popup -> menu container -> menu item -> ...
     if (isStandaloneMenu()) {
       Rectangle bounds = m_menu.getBounds();
-      bounds = bounds.getCopy().setLocation(AbstractComponentEditPart.TOP_LOCATION);
+      bounds = bounds.getCopy().setLocation(TOP_LOCATION);
       getFigure().setBounds(bounds);
     } else if (isSubMenu()) {
       Dimension size = m_menu.getBounds().getSize();
@@ -122,15 +121,14 @@ public class MenuEditPart extends MenuObjectEditPart {
       getFigure().setBounds(m_menu.getBounds());
     }
   }
-
   private boolean isStandaloneMenu() {
-    return getParent() instanceof DesignRootEditPart;
+    return false;
+    // TODO(scheglov)
+    //    return getParent() instanceof DesignRootEditPart;
   }
-
   protected final boolean isSubMenu() {
     return getParent() instanceof MenuObjectEditPart;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Edit policies
@@ -142,7 +140,6 @@ public class MenuEditPart extends MenuObjectEditPart {
     installEditPolicy(EditPolicy.LAYOUT_ROLE, new MenuLayoutEditPolicy(m_menu));
     installEditPolicy(EditPolicy.SELECTION_ROLE, new MenuSelectionEditPolicy());
   }
-
   @Override
   public Tool getDragTrackerTool(Request request) {
     // we don't need any move/resize for menu edit part!
@@ -152,7 +149,6 @@ public class MenuEditPart extends MenuObjectEditPart {
     // top level
     return super.getDragTrackerTool(request);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Children

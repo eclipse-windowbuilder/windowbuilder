@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
-import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -37,7 +36,8 @@ public class DotsFeedback<C extends IAbstractComponentInfo> extends Figure {
     // prepare bounds to draw on client-area only
     Rectangle bounds = hostFigure.getBounds().getCopy();
     FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
-    AbstractComponentInfo container = (AbstractComponentInfo) layoutEditPolicy.getHost().getModel();
+    IAbstractComponentInfo container =
+        (IAbstractComponentInfo) layoutEditPolicy.getHost().getModel();
     bounds.crop(container.getClientAreaInsets());
     // set bounds
     setBounds(bounds);

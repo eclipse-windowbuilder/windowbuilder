@@ -42,7 +42,6 @@ public abstract class AbstractMenuObject implements IMenuObjectInfo {
   public Object getToolkitModel() {
     return m_component;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Listener

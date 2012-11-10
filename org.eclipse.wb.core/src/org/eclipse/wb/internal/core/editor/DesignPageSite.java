@@ -16,10 +16,7 @@ import org.eclipse.wb.internal.core.editor.structure.components.IComponentsTree;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.viewers.TreeViewer;
-
-import java.util.Collection;
 
 /**
  * Provides access to the {@link DesignPage}.
@@ -48,12 +45,12 @@ public abstract class DesignPageSite implements IDesignPageSite {
   public void openSourcePosition(int position) {
   }
 
-  /**
-   * Highlight in editor lines with visited {@link ASTNode}s.
-   */
-  public void highlightVisitedNodes(Collection<ASTNode> nodes) {
-  }
-
+  // TODO(scheglov)
+//  /**
+//   * Highlight in editor lines with visited {@link ASTNode}s.
+//   */
+//  public void highlightVisitedNodes(Collection<ASTNode> nodes) {
+//  }
   /**
    * Handles any unexpected {@link Exception}.
    */
@@ -66,33 +63,6 @@ public abstract class DesignPageSite implements IDesignPageSite {
    */
   public void reparse() {
   }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Progress
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private static final IProgressMonitor NULL_PROGRESS_MONITOR = new NullProgressMonitor();
-  private static IProgressMonitor m_progressMonitor;
-
-  /**
-   * Implementation for {@link IDesignPageSite.Helper#getProgressMonitor()}.
-   */
-  public static IProgressMonitor getProgressMonitor() {
-    return m_progressMonitor != null ? m_progressMonitor : NULL_PROGRESS_MONITOR;
-  }
-
-  /**
-   * Sets the {@link IProgressMonitor} to return from
-   * {@link IDesignPageSite.Helper#getProgressMonitor()}.
-   * 
-   * @param progressMonitor
-   *          the {@link IProgressMonitor} to use, may be <code>null</code>.
-   */
-  public static void setProgressMonitor(IProgressMonitor progressMonitor) {
-    m_progressMonitor = progressMonitor;
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Components tree
@@ -113,7 +83,6 @@ public abstract class DesignPageSite implements IDesignPageSite {
   public final void setComponentsTree(IComponentsTree componentTree) {
     m_componentTree = componentTree;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Helper
@@ -140,5 +109,32 @@ public abstract class DesignPageSite implements IDesignPageSite {
     public static void setSite(ObjectInfo objectInfo, IDesignPageSite site) {
       objectInfo.getRoot().putArbitraryValue(KEY, site);
     }
+  }
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Progress
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  private static final IProgressMonitor NULL_PROGRESS_MONITOR = new NullProgressMonitor();
+  private static IProgressMonitor m_progressMonitor;
+
+  /**
+   * @return the {@link IProgressMonitor} to use for displaying progress during parsing (initiated
+   *         by {@link IDesignPage}). If parsing was complete, or we run tests, then
+   *         {@link NullProgressMonitor} will be returned. Never returns <code>null</code>.
+   */
+  public static IProgressMonitor getProgressMonitor() {
+    return m_progressMonitor != null ? m_progressMonitor : NULL_PROGRESS_MONITOR;
+  }
+
+  /**
+   * Sets the {@link IProgressMonitor} to return from
+   * {@link IDesignPageSite.Helper#getProgressMonitor()}.
+   * 
+   * @param progressMonitor
+   *          the {@link IProgressMonitor} to use, may be <code>null</code>.
+   */
+  public static void setProgressMonitor(IProgressMonitor progressMonitor) {
+    m_progressMonitor = progressMonitor;
   }
 }

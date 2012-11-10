@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
-import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.IColorConstants;
@@ -41,7 +40,6 @@ public final class ViewersComposite extends Composite {
   private final HeaderGraphicalViewer m_verticalViewer;
   private HeadersContainerEditPart m_headersContainerHorizontal;
   private HeadersContainerEditPart m_headersContainerVertical;
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Composite
@@ -77,7 +75,6 @@ public final class ViewersComposite extends Composite {
       m_verticalViewer.setContextMenu(new HeadersContextMenuProvider(m_verticalViewer));
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -99,9 +96,8 @@ public final class ViewersComposite extends Composite {
     m_headersContainerVertical = new HeadersContainerEditPart(m_viewer, false);
     m_verticalViewer.setInput(m_headersContainerVertical);
   }
-
   /**
-   * Sets the root {@link JavaInfo}.
+   * Sets the root {@link ObjectInfo}.
    */
   public void setRoot(ObjectInfo rootObject) {
     rootObject.addBroadcastListener(new ObjectEventListener() {
@@ -112,28 +108,24 @@ public final class ViewersComposite extends Composite {
       }
     });
   }
-
   /**
    * @return the main {@link GraphicalViewer}
    */
   public GraphicalViewer getViewer() {
     return m_viewer;
   }
-
   /**
    * @return the horizontal {@link HeaderGraphicalViewer}
    */
   public HeaderGraphicalViewer getHorizontalViewer() {
     return m_horizontalViewer;
   }
-
   /**
    * @return the vertical {@link HeaderGraphicalViewer}.
    */
   public HeaderGraphicalViewer getVerticalViewer() {
     return m_verticalViewer;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Control
@@ -143,7 +135,6 @@ public final class ViewersComposite extends Composite {
   public boolean setFocus() {
     return m_viewer.getControl().setFocus();
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Layout

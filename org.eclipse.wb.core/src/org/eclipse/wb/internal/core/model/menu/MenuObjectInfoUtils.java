@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.menu;
 
-import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.core.utils.IAdaptable;
 import org.eclipse.wb.internal.core.utils.IAdaptableFactory;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
+import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import java.util.List;
 
@@ -137,11 +136,7 @@ public final class MenuObjectInfoUtils {
    *         reference.
    */
   public static boolean isImplicitObject(Object reference) {
-    if (reference instanceof JavaInfo) {
-      JavaInfo model = (JavaInfo) reference;
-      return model.getCreationSupport() instanceof IImplicitCreationSupport;
-    }
-    return false;
+    return !GlobalState.getValidatorHelper().canReference(reference);
   }
 
   ////////////////////////////////////////////////////////////////////////////

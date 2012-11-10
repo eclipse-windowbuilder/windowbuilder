@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.osgi.framework.Bundle;
@@ -32,34 +30,20 @@ public abstract class ToolkitDescription {
    * @return the ID of toolkit.
    */
   public abstract String getId();
-
   /**
    * @return the name of toolkit.
    */
   public abstract String getName();
-
   /**
    * @return the name of toolkit.
    */
   public abstract String getProductName();
-
   /**
    * @return the {@link Bundle} that provides this toolkit.
    */
   public abstract Bundle getBundle();
-
   /**
    * @return the {@link IPreferenceStore} for this toolkit.
    */
   public abstract IPreferenceStore getPreferences();
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Code generation
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * @return the {@link GenerationSettings}.
-   */
-  public abstract GenerationSettings getGenerationSettings();
 }

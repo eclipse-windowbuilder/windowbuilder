@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util.grid;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
 
@@ -46,7 +45,6 @@ public final class GridAlignmentHelper {
    * can be used in combination with {@link #V_RIGHT_LABEL}.
    */
   public static final String V_RIGHT_TARGET = "gridLayout.rightAlignment.isTarget";
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -54,7 +52,6 @@ public final class GridAlignmentHelper {
   ////////////////////////////////////////////////////////////////////////////
   private GridAlignmentHelper() {
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Alignment
@@ -102,7 +99,6 @@ public final class GridAlignmentHelper {
       }
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // IAlignmentProcessor
@@ -116,27 +112,22 @@ public final class GridAlignmentHelper {
      * @return <code>true</code> if automatic grab/fill can be performed.
      */
     boolean grabEnabled();
-
     /**
      * @return <code>true</code> if automatic right alignment can be performed.
      */
     boolean rightEnabled();
-
     /**
      * @return the component located directly on the left to given one, on same row.
      */
     C getComponentAtLeft(C component);
-
     /**
      * @return the component located directly on the right to given one, on same row.
      */
     C getComponentAtRight(C component);
-
     /**
      * Sets grab/fill for given component.
      */
     void setGrabFill(C component, boolean horizontal) throws Exception;
-
     /**
      * Sets right alignment for given component.
      */

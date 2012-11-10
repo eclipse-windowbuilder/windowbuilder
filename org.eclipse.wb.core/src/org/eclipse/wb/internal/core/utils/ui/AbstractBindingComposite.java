@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.ui;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import org.eclipse.wb.internal.core.model.generation.GenerationPropertiesComposite;
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.binding.IDataEditor;
 import org.eclipse.wb.internal.core.utils.binding.editors.controls.CheckButtonEditor;
@@ -50,7 +49,6 @@ import java.util.Map;
 public abstract class AbstractBindingComposite extends Composite {
   protected final DataBindManager m_bindManager;
   protected final IPreferenceStore m_preferences;
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -64,14 +62,12 @@ public abstract class AbstractBindingComposite extends Composite {
     m_preferences = preferences;
     GridLayoutFactory.create(this);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Listener
   //
   ////////////////////////////////////////////////////////////////////////////
   private final List<Runnable> m_updateListeners = Lists.newArrayList();
-
   /**
    * Adds new {@link Runnable} for update of bounds preferences.
    */
@@ -80,14 +76,12 @@ public abstract class AbstractBindingComposite extends Composite {
       m_updateListeners.add(listener);
     }
   }
-
   /**
    * Removes {@link Runnable} for update of bounds preferences.
    */
   public final void removeUpdateListener(Runnable listener) {
     m_updateListeners.remove(listener);
   }
-
   /**
    * Sends notification that one of the bound preferences was changes.
    */
@@ -105,14 +99,12 @@ public abstract class AbstractBindingComposite extends Composite {
       listener.run();
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
   private IValidationListener m_validationListener;
-
   /**
    * Listener for validness status.
    */
@@ -123,14 +115,12 @@ public abstract class AbstractBindingComposite extends Composite {
      */
     void update(String message);
   }
-
   /**
    * Sets the single {@link IValidationListener}.
    */
   public void setValidationListener(IValidationListener validationListener) {
     m_validationListener = validationListener;
   }
-
   /**
    * @return the <code>null</code> if OK, or error message to show.
    */
@@ -141,21 +131,18 @@ public abstract class AbstractBindingComposite extends Composite {
       return e.getMessage();
     }
   }
-
   /**
    * @return the <code>null</code> if OK, or error message to show.
    */
   protected String validate() throws Exception {
     return null;
   }
-
   /**
    * Forces validation right now, for example to show error directly after opening UI.
    */
   public void updateValidate() {
     notifyUpdateListeners();
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // State
@@ -170,14 +157,12 @@ public abstract class AbstractBindingComposite extends Composite {
   public boolean performOk() {
     return true;
   }
-
   /**
    * Notifies this {@link AbstractBindingComposite} that user wants to rollback to the default
    * state.
    */
   public void performDefaults() {
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Binding
@@ -194,7 +179,6 @@ public abstract class AbstractBindingComposite extends Composite {
       notifyUpdateListeners();
     }
   };
-
   /**
    * Binds <code>boolean</code> value using given check {@link Button}.
    * 
@@ -210,7 +194,6 @@ public abstract class AbstractBindingComposite extends Composite {
     button.addListener(SWT.Selection, m_controlModifyListener);
     return editor;
   }
-
   /**
    * Binds <code>String</code> value using given {@link Text}.
    */
@@ -223,7 +206,6 @@ public abstract class AbstractBindingComposite extends Composite {
     m_bindManager.bind(editor, new StringPreferenceProvider(m_preferences, key), true);
     text.addListener(SWT.Modify, m_controlModifyListener);
   }
-
   /**
    * Binds <code>int</code> value using text of given {@link Text}.
    */
@@ -236,7 +218,6 @@ public abstract class AbstractBindingComposite extends Composite {
     m_bindManager.bind(editor, new IntegerPreferenceProvider(m_preferences, key), true);
     text.addListener(SWT.Modify, m_controlModifyListener);
   }
-
   /**
    * Binds <code>integer</code> value of selection in given {@link Combo}.
    */
@@ -248,7 +229,6 @@ public abstract class AbstractBindingComposite extends Composite {
     m_bindManager.bind(editor, new IntegerPreferenceProvider(m_preferences, key), true);
     combo.addListener(SWT.Selection, m_controlModifyListener);
   }
-
   /**
    * Binds <code>String</code> value using given {@link Combo}.
    */
@@ -260,7 +240,6 @@ public abstract class AbstractBindingComposite extends Composite {
     m_bindManager.bind(editor, new StringPreferenceProvider(m_preferences, key), true);
     combo.addListener(SWT.Modify, m_controlModifyListener);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Binding access
@@ -268,27 +247,25 @@ public abstract class AbstractBindingComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the <code>boolean</code> value for given key, selected currently in this
-   *         {@link GenerationPropertiesComposite}.
+   *         {@link AbstractBindingComposite}.
    */
   public final boolean getBoolean(String key) {
     IDataEditor editor = m_booleanEditors.get(key);
     Assert.isNotNull(editor, "Can not find boolean editor for: " + key);
     return ((Boolean) editor.getValue()).booleanValue();
   }
-
   /**
    * @return the <code>String</code> value for given key, selected currently in this
-   *         {@link GenerationPropertiesComposite}.
+   *         {@link AbstractBindingComposite}.
    */
   public final String getString(String key) {
     IDataEditor editor = m_stringEditors.get(key);
     Assert.isNotNull(editor, "Can not find String editor for: " + key);
     return (String) editor.getValue();
   }
-
   /**
    * @return the <code>int</code> value for given key, selected currently in this
-   *         {@link GenerationPropertiesComposite}.
+   *         {@link AbstractBindingComposite}.
    */
   public final int getInteger(String key) {
     IDataEditor editor = m_integerEditors.get(key);
@@ -301,7 +278,6 @@ public abstract class AbstractBindingComposite extends Composite {
       return Integer.parseInt(value.toString());
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Binding controls
@@ -318,7 +294,6 @@ public abstract class AbstractBindingComposite extends Composite {
   protected final Button checkButton(Composite parent, String text, String key) {
     return checkButton(parent, 1, text, key);
   }
-
   /**
    * Creates check {@link Button} for editing boolean preference with given key.
    * 
@@ -338,7 +313,6 @@ public abstract class AbstractBindingComposite extends Composite {
     bindBoolean(button, key);
     return button;
   }
-
   /**
    * Creates {@link Text} for editing string value.
    */
@@ -355,7 +329,6 @@ public abstract class AbstractBindingComposite extends Composite {
     //
     return new Control[]{labelWidget, text};
   }
-
   /**
    * Creates {@link Text} for editing integer value.
    */

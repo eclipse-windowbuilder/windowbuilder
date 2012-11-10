@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.editor.errors;
 
 import org.eclipse.wb.core.editor.errors.IExceptionRewriter;
-import org.eclipse.wb.internal.core.eval.evaluators.AnonymousEvaluationError;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
@@ -43,9 +42,6 @@ public class CoreExceptionRewriter implements IExceptionRewriter {
     Throwable rootException = DesignerExceptionUtils.getRootCause(e);
     if (rootException instanceof OSSupportError) {
       return new DesignerException(OSSupportError.ERROR_CODE, e);
-    }
-    if (rootException instanceof AnonymousEvaluationError) {
-      return new DesignerException(ICoreExceptionConstants.EVAL_ANONYMOUS, e, e.getMessage());
     }
     if (isIncompleteProductException(rootException)) {
       return new DesignerException(ICoreExceptionConstants.INCOMPLETE_PRODUCT, e);

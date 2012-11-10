@@ -11,21 +11,15 @@
 package org.eclipse.wb.internal.core.gefTree;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
-import org.eclipse.wb.core.gefTree.part.JavaEditPart;
 import org.eclipse.wb.core.gefTree.part.ObjectEditPart;
-import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
-import org.eclipse.wb.internal.core.gefTree.part.ArrayObjectEditPart;
-import org.eclipse.wb.internal.core.gefTree.part.FlowContainerGroupEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuItemEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
-import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
-import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
@@ -40,7 +34,6 @@ import java.util.List;
  */
 public final class EditPartFactory implements IEditPartFactory {
   public static final EditPartFactory INSTANCE = new EditPartFactory();
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -48,7 +41,6 @@ public final class EditPartFactory implements IEditPartFactory {
   ////////////////////////////////////////////////////////////////////////////
   private EditPartFactory() {
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // IEditPartFactory
@@ -67,7 +59,6 @@ public final class EditPartFactory implements IEditPartFactory {
     // no EditPart found
     return null;
   }
-
   private EditPart createEditPartPure(EditPart context, Object model) {
     // menu
     if (model instanceof ObjectInfo) {
@@ -93,26 +84,26 @@ public final class EditPartFactory implements IEditPartFactory {
       }
     }
     // flow container group
-    if (model instanceof FlowContainerGroupInfo) {
-      FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
-      return new FlowContainerGroupEditPart(groupInfo);
-    }
-    // child array
-    if (model instanceof AbstractArrayObjectInfo) {
-      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
-      return new ArrayObjectEditPart(arrayInfo);
-    }
-    // use default EditPart for JavaInfo and ObjectInfo
-    if (model instanceof JavaInfo) {
-      return new JavaEditPart((JavaInfo) model);
-    }
+    // TODO(scheglov)
+//    if (model instanceof FlowContainerGroupInfo) {
+//      FlowContainerGroupInfo groupInfo = (FlowContainerGroupInfo) model;
+//      return new FlowContainerGroupEditPart(groupInfo);
+//    }
+//    // child array
+//    if (model instanceof AbstractArrayObjectInfo) {
+//      AbstractArrayObjectInfo arrayInfo = (AbstractArrayObjectInfo) model;
+//      return new ArrayObjectEditPart(arrayInfo);
+//    }
+//    // use default EditPart for JavaInfo and ObjectInfo
+//    if (model instanceof JavaInfo) {
+//      return new JavaEditPart((JavaInfo) model);
+//    }
     if (model instanceof ObjectInfo) {
       return new ObjectEditPart((ObjectInfo) model);
     }
     // no EditPart found
     return null;
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Extensions
@@ -127,7 +118,6 @@ public final class EditPartFactory implements IEditPartFactory {
         "org.eclipse.wb.core.treeEditPartFactories",
         "factory");
   }
-
   /**
    * Configures given {@link EditPart} using externally contributed {@link IEditPartConfigurator}'s.
    */

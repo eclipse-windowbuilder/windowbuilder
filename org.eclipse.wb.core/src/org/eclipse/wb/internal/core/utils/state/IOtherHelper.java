@@ -12,8 +12,6 @@ package org.eclipse.wb.internal.core.utils.state;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 
-import org.eclipse.jdt.core.IJavaProject;
-
 import java.util.List;
 
 /**
@@ -31,7 +29,7 @@ public interface IOtherHelper {
   /**
    * @return the context {@link IJavaProject}.
    */
-  IJavaProject getJavaProject();
+  Object getJavaProject();
 
   ////////////////////////////////////////////////////////////////////////////
   //
