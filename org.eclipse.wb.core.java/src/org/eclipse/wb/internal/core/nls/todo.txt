@@ -1,0 +1,40 @@
+
+1. показывать не только существующие, но и требуемые ключи
+2. когда выбирают существующий accessor, показывать в property его свойства (редактирование запрещено)
+
+4. проверить, возможно createEditableSource() в NewComposite нужно создавать на основе parameters
+	DRY - don't repeat yourself
+	
+5. не забыть доделать код в VariableNameProperty
+
+6. Проверить изменения в NLS_Dialog (title) и SourceComposite (New locale layout data).
+
+-------------------------
+	Possible NLS cases.
+	See model.nls package in DesignerTestCases2 project.
+
+1. Eclipse messages class.
+
+2. Direct ResourceBundle usage
+
+3. ResourceBundle instance from field.
+
+4. NLS sublcass.
+
+5. ListResourceBundle.
+
+
+	Operations:
+
+0. we should support more than one source of strings in each unit, for example one can be used for user
+	messages and second - for system messages (log);
+	
+1. convert Expression to String value;
+
+2. change value of StringProperty - change .properties file or ListResourceBundle, or something else;
+
+3. get list of all keys used in CompilationUnit;
+
+4. get list of all locales;
+
+5. change value for given key and locale.

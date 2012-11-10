@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wb.core" id="classLoaderInitializers" name="Initializer for classes from project ClassLoader"/>
+      </appInfo>
+      <documentation>
+         In RCP we use ResourceManager to load images from plugin, using code like this: ResourceManager.getPluginImage(bundleName, path). When we parse code, we can use special ExpressionEvaluator to load image. However when we use this code at design time (for example use some Composite), Platform.getBundle(bundleName) will return null, because plugin is not really loaded. To solve this problem, we have in ResourceManager following code:
+
+ /**
+  * Provider for plugin resources, used by WindowBuilder at design time.
+  */
+ public interface PluginResourceProvider {
+  URL getEntry(String symbolicName, String path);
+ }
+ /**
+  * Instance of {@link PluginResourceProvider}, used by WindowBuilder at design time.
+  */
+ private static PluginResourceProvider m_designTimePluginResourceProvider = null;
+ 
+  // try design time provider
+  if (m_designTimePluginResourceProvider != null) {
+   return m_designTimePluginResourceProvider.getEntry(symbolicName, path);
+  }
+
+
+So, we need some special way to initialize field m_designTimePluginResourceProvider and this extension point is used to initialize ClassLoader - load ResourceManager and initialize this field.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="initializer"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="initializer">
+      <complexType>
+         <attribute name="toolkit" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.wb.core.toolkits/toolkit/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.utils.reflect.IClassLoadingListener"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         1.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2012 Google, Inc.&lt;br&gt;
+All rights reserved. This program and the accompanying materials are made
+available under the terms of the Eclipse Public License v1.0 which accompanies
+this distribution, and is available at &lt;a 
+href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+      </documentation>
+   </annotation>
+
+
+</schema>

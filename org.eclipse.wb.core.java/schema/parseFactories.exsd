@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wb.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wb.core" id="parseFactories" name="Factories for parsing support"/>
+      </appInfo>
+      <documentation>
+         [Enter description of this extension point.]
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <choice>
+            <element ref="validator" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="factory" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="noModel" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="simpleModel_CIC" minOccurs="0" maxOccurs="unbounded"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="factory">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.wb.internal.core.parser.IParseFactory"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Optional priority to sort &quot;factory&quot; elements (bigger - at biginning of list). See case 37805.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="noModel">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.parser.ParseFactory_noModel"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="simpleModel_CIC">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.parser.IParseFactory_simple_CIC"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="validator">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.parser.IParseValidator"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         1.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2012 Google, Inc.&lt;br&gt;
+All rights reserved. This program and the accompanying materials are made
+available under the terms of the Eclipse Public License v1.0 which accompanies
+this distribution, and is available at &lt;a 
+href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+      </documentation>
+   </annotation>
+
+
+</schema>
