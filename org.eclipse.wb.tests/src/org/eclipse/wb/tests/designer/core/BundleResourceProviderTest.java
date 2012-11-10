@@ -91,7 +91,7 @@ public class BundleResourceProviderTest extends DesignerTestCase {
     // good file
     {
       String content = provider.getFileString("plugin.xml");
-      assertThat(content).contains("evaluators.BooleanEvaluator");
+      assertThat(content).contains("<!-- Extension points -->");
     }
   }
 

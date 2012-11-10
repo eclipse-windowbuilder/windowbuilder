@@ -145,7 +145,6 @@ public final class Expectations {
         keyOS,
         timeZone);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // via Arrays
@@ -172,7 +171,6 @@ public final class Expectations {
   public static <V> V get(KeyValue<V> values[]) {
     return get((V) null, values);
   }
-
   public static class IntValue extends KeyValue<Integer> {
     public IntValue(String _key, Integer _value) {
       super(_key, _value);
@@ -221,7 +219,6 @@ public final class Expectations {
     }
     return get(default_value, map);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Fluent interface

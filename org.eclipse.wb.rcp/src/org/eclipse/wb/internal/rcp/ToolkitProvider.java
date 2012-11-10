@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.rcp;
 
 import org.eclipse.wb.internal.core.model.description.IToolkitProvider;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 
 /**
  * Implementation of {@link IToolkitProvider} for RCP.
@@ -20,7 +21,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
  * @coverage rcp
  */
 public final class ToolkitProvider implements IToolkitProvider {
-  public static final ToolkitDescription DESCRIPTION = RcpToolkitDescription.INSTANCE;
+  public static final ToolkitDescriptionJava DESCRIPTION = RcpToolkitDescription.INSTANCE;
   static {
     ((RcpToolkitDescription) DESCRIPTION).initialize();
   }

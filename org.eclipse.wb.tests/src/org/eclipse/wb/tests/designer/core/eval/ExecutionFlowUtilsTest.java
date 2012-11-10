@@ -22,10 +22,10 @@ import static org.eclipse.wb.core.eval.ExecutionFlowUtils.hasVariableStamp;
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.visit;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
-import org.eclipse.wb.core.eval.ExecutionFlowProvider;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.VisitingContext;
+import org.eclipse.wb.internal.core.eval.ExecutionFlowProvider;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
@@ -164,7 +164,6 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
       assertSame(null, e.getTypeDeclaration());
     }
   }
-
   /**
    * {@link ExecutionFlowProvider} that selects constructor with single <code>int</code> parameter
    * as default.
@@ -191,9 +190,9 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     try {
       Class<?> providerClass = ExecutionFlowProvider_forDefaultConstructor.class;
       testBundle.addClass(providerClass);
-      testBundle.addExtension("org.eclipse.wb.core.executionFlowProviders", "<provider class='"
-          + providerClass.getName()
-          + "'/>");
+      testBundle.addExtension(
+          "org.eclipse.wb.core.java.executionFlowProviders",
+          "<provider class='" + providerClass.getName() + "'/>");
       testBundle.install();
       try {
         TypeDeclaration typeDeclaration =
@@ -825,7 +824,6 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     String expectedNodes[] = {threadCode};
     check_visitNodes(code, expectedNodes, "root()");
   }
-
   /**
    * {@link ExecutionFlowProvider} that allows visiting anonymous {@link Runnable} as argument of
    * {@link Thread} creation.
@@ -858,9 +856,9 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     try {
       Class<?> providerClass = ExecutionFlowProvider_RunnableInThread.class;
       testBundle.addClass(providerClass);
-      testBundle.addExtension("org.eclipse.wb.core.executionFlowProviders", "<provider class='"
-          + providerClass.getName()
-          + "'/>");
+      testBundle.addExtension(
+          "org.eclipse.wb.core.java.executionFlowProviders",
+          "<provider class='" + providerClass.getName() + "'/>");
       testBundle.install();
       try {
         String threadCode = "new Thread(new Runnable() {public void run() {foo();}});";
@@ -1449,7 +1447,6 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     ASTNode lastAssignment = getLastAssignment(flowDescription, shellArgument);
     assertSame(shellAssignment, lastAssignment);
   }
-
   private interface I_findLastAssignment {
     ASTNode getExpected(TypeDeclaration typeDeclaration,
         MethodDeclaration methodDeclaration,

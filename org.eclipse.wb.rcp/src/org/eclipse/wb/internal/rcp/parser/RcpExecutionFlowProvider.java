@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.parser;
 
-import org.eclipse.wb.core.eval.ExecutionFlowProvider;
+import org.eclipse.wb.internal.core.eval.ExecutionFlowProvider;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 
 import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;

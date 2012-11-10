@@ -20,7 +20,7 @@
 	<!-- ======================================================== -->
 	<!-- Java parser validator -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.parseFactories">
+	<extension point="org.eclipse.wb.core.java.parseFactories">
 		<validator class="org.eclipse.wb.internal.xwt.parser.XwtJavaParseValidator"/>
 	</extension>
 

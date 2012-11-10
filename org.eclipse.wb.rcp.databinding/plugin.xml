@@ -66,7 +66,7 @@
 	<!-- ======================================================== -->
 	<!-- Class loader -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.classLoaderInitializers">
+    <extension point="org.eclipse.wb.core.java.classLoaderInitializers">
 		<initializer
 			class="org.eclipse.wb.internal.rcp.databinding.parser.BindingContextClassLoaderInitializer"
 			toolkit="org.eclipse.wb.rcp"/>

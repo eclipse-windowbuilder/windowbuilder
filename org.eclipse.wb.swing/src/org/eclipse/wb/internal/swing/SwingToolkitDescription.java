@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
 import org.eclipse.wb.internal.core.model.generation.preview.GenerationPreview;
 import org.eclipse.wb.internal.core.model.generation.preview.GenerationPreviewFieldInitializerBlock;
@@ -48,8 +49,8 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage swing
  */
-public final class SwingToolkitDescription extends ToolkitDescription {
-  public static final ToolkitDescription INSTANCE = new SwingToolkitDescription();
+public final class SwingToolkitDescription extends ToolkitDescriptionJava {
+  public static final ToolkitDescriptionJava INSTANCE = new SwingToolkitDescription();
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields

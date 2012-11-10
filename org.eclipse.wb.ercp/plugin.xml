@@ -11,11 +11,11 @@
 	<!-- ======================================================== -->
 	<!-- Class loader -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.classLoadingContributor">
+    <extension point="org.eclipse.wb.core.classLoadingContributor">
 		<contributor namespace="org.eclipse.wb.internal.ercp."/>
 	</extension>
 
-	<extension point="org.eclipse.wb.core.classLoaderInitializers">
+    <extension point="org.eclipse.wb.core.java.classLoaderInitializers">
 		<initializer class="org.eclipse.wb.internal.swt.utils.ResourceManagerClassLoaderInitializer"
 			toolkit="org.eclipse.wb.ercp"/>
 	</extension>
@@ -24,7 +24,7 @@
 	<!-- ======================================================== -->
 	<!-- Parser -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.parseFactories">
+    <extension point="org.eclipse.wb.core.java.parseFactories">
 		<factory class="org.eclipse.wb.internal.ercp.parser.ParseFactory"/>
 	</extension>
 
@@ -295,7 +295,7 @@
 	<!-- ======================================================== -->
 	<!-- Device -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+    <extension point="org.eclipse.wb.core.java.javaInfoInitializationParticipators">
 		<participator class="org.eclipse.wb.internal.ercp.devices.DeviceSelectionJavaInfoParticipator"/>
 	</extension>
 	<extension point="org.eclipse.wb.ercp.devices">

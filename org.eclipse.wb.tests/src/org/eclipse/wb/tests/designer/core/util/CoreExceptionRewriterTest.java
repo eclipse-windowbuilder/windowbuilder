@@ -11,6 +11,7 @@
 package org.eclipse.wb.tests.designer.core.util;
 
 import org.eclipse.wb.internal.core.editor.errors.CoreExceptionRewriter;
+import org.eclipse.wb.internal.core.editor.errors.CoreExceptionRewriter2;
 import org.eclipse.wb.internal.core.eval.evaluators.AnonymousEvaluationError;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
@@ -47,14 +48,14 @@ public class CoreExceptionRewriterTest extends DesignerTestCase {
     // rewrite as is
     {
       DesignerException rewritten =
-          (DesignerException) CoreExceptionRewriter.INSTANCE.rewrite(anError);
+          (DesignerException) CoreExceptionRewriter2.INSTANCE.rewrite(anError);
       assertEquals(ICoreExceptionConstants.EVAL_ANONYMOUS, rewritten.getCode());
     }
     // rewrite when wrapped into Error
     {
       Throwable wrapper = new Error("msg", anError);
       DesignerException rewritten =
-          (DesignerException) CoreExceptionRewriter.INSTANCE.rewrite(wrapper);
+          (DesignerException) CoreExceptionRewriter2.INSTANCE.rewrite(wrapper);
       assertEquals(ICoreExceptionConstants.EVAL_ANONYMOUS, rewritten.getCode());
       assertThat(rewritten.getParameters()).isEqualTo(new String[]{"msg"});
     }

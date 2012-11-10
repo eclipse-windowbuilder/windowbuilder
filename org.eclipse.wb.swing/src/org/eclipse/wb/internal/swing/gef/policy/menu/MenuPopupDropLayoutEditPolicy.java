@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.swing.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
-import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
-import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils.IPasteProcessor;
+import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2;
+import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2.IPasteProcessor;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.Command;
@@ -102,7 +102,7 @@ public class MenuPopupDropLayoutEditPolicy extends LayoutEditPolicy {
       return null;
     }
     // OK, we can paste "popup"
-    return LayoutPolicyUtils.getPasteCommand(
+    return LayoutPolicyUtils2.getPasteCommand(
         m_component,
         request,
         JPopupMenuInfo.class,
@@ -132,7 +132,6 @@ public class MenuPopupDropLayoutEditPolicy extends LayoutEditPolicy {
       }
     };
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Validator instance

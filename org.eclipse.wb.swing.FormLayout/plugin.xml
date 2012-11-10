@@ -6,7 +6,7 @@
 	<!-- ======================================================== -->
 	<!-- Parser -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.parseFactories">
+    <extension point="org.eclipse.wb.core.java.parseFactories">
 		<factory class="org.eclipse.wb.internal.swing.FormLayout.parser.ParseFactory"/>
 	</extension>
 

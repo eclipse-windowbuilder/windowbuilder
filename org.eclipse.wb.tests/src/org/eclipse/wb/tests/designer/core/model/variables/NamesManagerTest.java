@@ -16,7 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
 import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.model.variable.NamesManager.ComponentNameDescription;
@@ -41,7 +41,7 @@ import javax.swing.JTextField;
  * @author scheglov_ke
  */
 public class NamesManagerTest extends AbstractVariableTest {
-  private static final ToolkitDescription TOOLKIT = ToolkitProvider.DESCRIPTION;
+  private static final ToolkitDescriptionJava TOOLKIT = ToolkitProvider.DESCRIPTION;
 
   ////////////////////////////////////////////////////////////////////////////
   //

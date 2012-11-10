@@ -288,7 +288,7 @@ public class SimpleParserTest extends SwingModelTest {
     }
   }
 
-  private static String PARSE_FACTORIES_POINT_ID = "org.eclipse.wb.core.parseFactories";
+  private static String PARSE_FACTORIES_POINT_ID = "org.eclipse.wb.core.java.parseFactories";
 
   public static final class TestParseFactory_noModel extends ParseFactoryNoModel {
     @Override

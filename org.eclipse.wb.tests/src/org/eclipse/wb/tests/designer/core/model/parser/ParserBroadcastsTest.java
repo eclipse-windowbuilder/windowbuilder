@@ -124,7 +124,7 @@ public class ParserBroadcastsTest extends SwingModelTest {
   // Dynamic IJavaInfoInitializationParticipator extension support
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final String POINT_ID = "org.eclipse.wb.core.javaInfoInitializationParticipators";
+  private static final String POINT_ID = "org.eclipse.wb.core.java.javaInfoInitializationParticipators";
 
   /**
    * Adds dynamic {@link IJavaInfoInitializationParticipator} extension.

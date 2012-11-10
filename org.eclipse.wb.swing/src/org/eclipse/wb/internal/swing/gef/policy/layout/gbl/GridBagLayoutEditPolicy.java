@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.swing.gef.policy.layout.gbl;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
-import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
-import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils.IPasteProcessor;
+import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2;
+import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2.IPasteProcessor;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.geometry.Interval;
@@ -128,7 +128,7 @@ public final class GridBagLayoutEditPolicy extends AbstractGridLayoutEditPolicy 
   protected Command getPasteCommand(PasteRequest request) {
     List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
     if (m_target.m_valid && mementos.size() == 1) {
-      return LayoutPolicyUtils.getPasteCommand(
+      return LayoutPolicyUtils2.getPasteCommand(
           m_layout,
           request,
           ComponentInfo.class,

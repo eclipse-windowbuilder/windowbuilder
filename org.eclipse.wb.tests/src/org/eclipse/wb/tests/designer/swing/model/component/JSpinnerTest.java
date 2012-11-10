@@ -137,12 +137,15 @@ public class JSpinnerTest extends SwingModelTest {
     String expectedText =
         Expectations.get(
             "01.01.1970 03:00:00, null, null, SECOND",
-            new StrValue("America/New_York", "31.12.1969 19:00:00, null, null, SECOND"));
+            new StrValue("America/New_York", "31.12.1969 19:00:00, null, null, SECOND"),
+            new StrValue("America/Los_Angeles", "31.12.1969 16:00:00, null, null, SECOND"));
     String expectedTooltip =
         Expectations.get(
             "value=01.01.1970 03:00:00\nstart=null\nend=null\nstep=SECOND",
             new StrValue("America/New_York",
-                "value=31.12.1969 19:00:00\nstart=null\nend=null\nstep=SECOND"));
+                "value=31.12.1969 19:00:00\nstart=null\nend=null\nstep=SECOND"),
+            new StrValue("America/Los_Angeles",
+                "value=31.12.1969 16:00:00\nstart=null\nend=null\nstep=SECOND"));
     assertEditorTextTooltip(source, expectedText, expectedTooltip);
   }
 

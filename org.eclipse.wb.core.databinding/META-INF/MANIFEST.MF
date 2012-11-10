@@ -9,7 +9,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui.forms;visibility:=reexport,
  org.eclipse.core.runtime,
- org.eclipse.wb.core
+ org.eclipse.wb.core,
+ org.eclipse.wb.core.java
 Export-Package: org.eclipse.wb.internal.core.databinding,
  org.eclipse.wb.internal.core.databinding.model,
  org.eclipse.wb.internal.core.databinding.model.presentation,

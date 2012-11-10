@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.ThisCreationSupport;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
 import org.eclipse.wb.internal.core.model.generation.statement.block.BlockStatementGeneratorDescription;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -82,7 +83,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
   /**
    * Configures given {@link ToolkitDescription} for tests.
    */
-  public static void configureDefaults(ToolkitDescription toolkit) {
+  public static void configureDefaults(ToolkitDescriptionJava toolkit) {
     IPreferenceStore preferences = toolkit.getPreferences();
     // variable name
     preferences.setValue(
@@ -465,7 +466,6 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
         "openDialog(org.eclipse.wb.internal.core.model.property.Property)",
         property);
   }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Combo property editor

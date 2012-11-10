@@ -11,7 +11,7 @@
 package org.eclipse.wb.internal.rcp.databinding.wizards.autobindings;
 
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.IAutomaticDatabindingProvider;
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.utils.dialogfields.CheckDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.Separator;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
@@ -68,7 +68,7 @@ public final class AutomaticDatabindingFirstPage
   }
 
   @Override
-  protected ToolkitDescription getToolkitDescription() {
+  protected ToolkitDescriptionJava getToolkitDescription() {
     return ToolkitProvider.DESCRIPTION;
   }
 

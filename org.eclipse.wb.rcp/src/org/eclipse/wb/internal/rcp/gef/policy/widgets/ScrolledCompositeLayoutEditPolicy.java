@@ -12,8 +12,8 @@ package org.eclipse.wb.internal.rcp.gef.policy.widgets;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
-import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
-import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils.IPasteProcessor;
+import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2;
+import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2.IPasteProcessor;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -91,7 +91,7 @@ public final class ScrolledCompositeLayoutEditPolicy extends LayoutEditPolicy {
 
   @Override
   protected Command getPasteCommand(PasteRequest request) {
-    return LayoutPolicyUtils.getPasteCommand(
+    return LayoutPolicyUtils2.getPasteCommand(
         m_composite,
         request,
         ControlInfo.class,

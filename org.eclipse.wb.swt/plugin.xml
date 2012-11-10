@@ -27,7 +27,7 @@
 	<!-- ======================================================== -->
 	<!-- Bundle class loading -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.classLoadingContributor">
+    <extension point="org.eclipse.wb.core.classLoadingContributor">
 		<contributor namespace="org.eclipse.wb.internal.swt."/>
 	</extension>
 
@@ -53,7 +53,7 @@
 	<!-- ======================================================== -->
 	<!-- Description driven features -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.rootProcessors">
+    <extension point="org.eclipse.wb.core.java.rootProcessors">
 		<processor class="org.eclipse.wb.internal.swt.utils.AsyncMessagesSupport"/>
 		<processor class="org.eclipse.wb.internal.swt.model.jface.resource.ResourceRegistryRootProcessor"/>
 	</extension>
@@ -73,11 +73,11 @@
 		/>
 	</extension>
 
-	<extension point="org.eclipse.wb.core.unknownParameterEvaluators">
+    <extension point="org.eclipse.wb.core.java.unknownParameterEvaluators">
 		<evaluator class="org.eclipse.wb.internal.swt.model.widgets.SwtMethodParameterEvaluator"/>
 	</extension>
 	
-	<extension point="org.eclipse.wb.core.rootProcessors">
+    <extension point="org.eclipse.wb.core.java.rootProcessors">
 		<processor class="org.eclipse.wb.internal.swt.model.widgets.SwtShellParameterDisposer"/>
 	</extension>
 	
@@ -126,7 +126,7 @@
 	<!-- ======================================================== -->
 	<!-- Surround with -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+    <extension point="org.eclipse.wb.core.java.javaInfoInitializationParticipators">
 		<participator class="org.eclipse.wb.internal.swt.model.layout.LayoutJavaInfoParticipator"/>
 	</extension>
 

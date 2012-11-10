@@ -13,6 +13,7 @@ package org.eclipse.wb.tests.designer.core.model.description;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
 import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
@@ -38,7 +39,7 @@ public class ToolkitDescriptionTest extends DesignerTestCase {
    * Test for {@link ToolkitDescription}.
    */
   public void test_ToolkitDescription() throws Exception {
-    ToolkitDescription toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
+    ToolkitDescriptionJava toolkit = org.eclipse.wb.internal.swing.ToolkitProvider.DESCRIPTION;
     assertEquals(
         org.eclipse.wb.internal.swing.preferences.IPreferenceConstants.TOOLKIT_ID,
         toolkit.getId());

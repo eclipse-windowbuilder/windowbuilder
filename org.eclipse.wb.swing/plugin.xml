@@ -21,7 +21,7 @@
 	<!-- ======================================================== -->
 	<!-- Bundle class loading -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.classLoadingContributor">
+    <extension point="org.eclipse.wb.core.classLoadingContributor">
 		<contributor namespace="org.eclipse.wb.internal.swing."/>
 	</extension>
 
@@ -46,7 +46,7 @@
 	<!-- ======================================================== -->
 	<!-- Description driven features -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.rootProcessors">
+    <extension point="org.eclipse.wb.core.java.rootProcessors">
 		<processor class="org.eclipse.wb.internal.swing.model.bean.ActionRootProcessor"/>
 		<processor class="org.eclipse.wb.internal.swing.model.bean.ButtonGroupRootProcessor"/>
 	</extension>
@@ -55,23 +55,23 @@
 	<!-- ======================================================== -->
 	<!-- Parser -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.parseFactories">
+    <extension point="org.eclipse.wb.core.java.parseFactories">
 		<factory class="org.eclipse.wb.internal.swing.parser.ParseFactory"/>
 		<simpleModel_CIC class="org.eclipse.wb.internal.swing.parser.ParseFactorySimpleModelCic"/>
 	</extension>
 
-	<extension point="org.eclipse.wb.core.executionFlowProviders">
+    <extension point="org.eclipse.wb.core.java.executionFlowProviders">
 		<provider class="org.eclipse.wb.internal.swing.parser.SwingExecutionFlowProvider"/>
 	</extension>
 
-	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+    <extension point="org.eclipse.wb.core.java.javaInfoInitializationParticipators">
 		<participator class="org.eclipse.wb.internal.swing.model.bean.ActionJavaInfoParticipator"/>
 		<participator
 			class="org.eclipse.wb.internal.swing.model.bean.ButtonGroupJavaInfoParticipator"/>
 		<participator class="org.eclipse.wb.internal.swing.customize.CustomizerSupport"/>
 	</extension>
 	
-	<extension point="org.eclipse.wb.core.rootProcessors">
+    <extension point="org.eclipse.wb.core.java.rootProcessors">
 		<processor class="org.eclipse.wb.internal.swing.laf.ui.LafRootProcessor"/>
 	</extension>
 	
@@ -414,7 +414,7 @@
 	<!-- ======================================================== -->
 	<!-- Surround with -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.javaInfoInitializationParticipators">
+    <extension point="org.eclipse.wb.core.java.javaInfoInitializationParticipators">
 		<participator class="org.eclipse.wb.internal.swing.model.layout.LayoutJavaInfoParticipator"
 		/>
 	</extension>

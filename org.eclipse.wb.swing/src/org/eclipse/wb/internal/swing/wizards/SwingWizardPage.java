@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.wizards;
 
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.wizards.TemplateDesignWizardPage;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
 
@@ -50,7 +50,7 @@ public class SwingWizardPage extends TemplateDesignWizardPage {
   }
 
   @Override
-  protected ToolkitDescription getToolkitDescription() {
+  protected ToolkitDescriptionJava getToolkitDescription() {
     return ToolkitProvider.DESCRIPTION;
   }
 

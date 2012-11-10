@@ -45,6 +45,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.pde.core,
  org.eclipse.wb.core,
  org.eclipse.wb.core.ui,
+ org.eclipse.wb.core.java,
+ org.eclipse.jdt.launching,
  org.eclipse.wb.swt
 Bundle-ActivationPolicy: lazy
 Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32) (osgi.arch=x86))

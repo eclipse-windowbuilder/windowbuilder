@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.swing;
 
 import org.eclipse.wb.internal.core.model.description.IToolkitProvider;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 
 /**
  * Implementation of {@link IToolkitProvider} for Swing.
@@ -20,7 +21,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
  * @coverage swing
  */
 public final class ToolkitProvider implements IToolkitProvider {
-  public static final ToolkitDescription DESCRIPTION = SwingToolkitDescription.INSTANCE;
+  public static final ToolkitDescriptionJava DESCRIPTION = SwingToolkitDescription.INSTANCE;
   static {
     ((SwingToolkitDescription) DESCRIPTION).initialize();
   }

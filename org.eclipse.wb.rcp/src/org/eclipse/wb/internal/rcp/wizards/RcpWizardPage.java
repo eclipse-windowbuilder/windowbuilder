@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.wizards;
 
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.wizards.TemplateDesignWizardPage;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
 
@@ -63,7 +63,7 @@ public class RcpWizardPage extends TemplateDesignWizardPage {
   }
 
   @Override
-  protected ToolkitDescription getToolkitDescription() {
+  protected ToolkitDescriptionJava getToolkitDescription() {
     return ToolkitProvider.DESCRIPTION;
   }
 

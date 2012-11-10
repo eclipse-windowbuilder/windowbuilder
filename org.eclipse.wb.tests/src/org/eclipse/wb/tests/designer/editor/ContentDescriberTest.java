@@ -228,7 +228,7 @@ public class ContentDescriberTest extends AbstractJavaTest {
   ////////////////////////////////////////////////////////////////////////////
   private static boolean isDesignerType(IFile file) {
     IContentType contentType = IDE.getContentType(file);
-    return "org.eclipse.wb.core.javaSourceGUI".equals(contentType.getId());
+    return "org.eclipse.wb.core.java.javaSourceGUI".equals(contentType.getId());
   }
 
   private void waitForContentType() throws Exception {

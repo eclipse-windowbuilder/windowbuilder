@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.ercp;
 
 import org.eclipse.wb.internal.core.model.description.IToolkitProvider;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 
 /**
  * Implementation of {@link IToolkitProvider} for eRCP.
@@ -20,7 +21,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
  * @coverage ercp
  */
 public final class ToolkitProvider implements IToolkitProvider {
-  public static final ToolkitDescription DESCRIPTION = ErcpToolkitDescription.INSTANCE;
+  public static final ToolkitDescriptionJava DESCRIPTION = ErcpToolkitDescription.INSTANCE;
   static {
     ((ErcpToolkitDescription) DESCRIPTION).initialize();
   }

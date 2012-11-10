@@ -14,7 +14,7 @@
 	<!-- ======================================================== -->
 	<!-- Description driven features -->
 	<!-- ======================================================== -->
-	<extension point="org.eclipse.wb.core.rootProcessors">
+    <extension point="org.eclipse.wb.core.java.rootProcessors">
 		<processor class="org.eclipse.wb.internal.swing.jsr296.model.Jsr296RootProcessor"/>
 	</extension>
 	

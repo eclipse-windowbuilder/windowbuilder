@@ -7,7 +7,7 @@
    <!-- ======================================================== -->
    <!-- Parser -->
    <!-- ======================================================== -->
-   <extension point="org.eclipse.wb.core.parseFactories">
+   <extension point="org.eclipse.wb.core.java.parseFactories">
       <noModel
          class="org.eclipse.wb.internal.core.databinding.parser.ParseFactoryNoModelDatabindings"
       />
@@ -17,7 +17,7 @@
    <!-- ======================================================== -->
    <!-- IRootProcessor -->
    <!-- ======================================================== -->
-   <extension point="org.eclipse.wb.core.rootProcessors">
+   <extension point="org.eclipse.wb.core.java.rootProcessors">
       <processor
          class="org.eclipse.wb.internal.core.databinding.parser.DatabindingRootProcessor"/>
    </extension>

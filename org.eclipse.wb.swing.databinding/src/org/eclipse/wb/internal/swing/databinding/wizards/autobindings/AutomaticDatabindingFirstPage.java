@@ -11,7 +11,7 @@
 package org.eclipse.wb.internal.swing.databinding.wizards.autobindings;
 
 import org.eclipse.wb.internal.core.databinding.wizards.autobindings.IAutomaticDatabindingProvider;
-import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
+import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
 import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
@@ -47,7 +47,7 @@ public final class AutomaticDatabindingFirstPage
   }
 
   @Override
-  protected ToolkitDescription getToolkitDescription() {
+  protected ToolkitDescriptionJava getToolkitDescription() {
     return ToolkitProvider.DESCRIPTION;
   }
 }
