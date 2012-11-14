@@ -17,9 +17,9 @@
       %license
    </license>
 
-   <includes
-         id="org.eclipse.wb.core.feature"
-         version="0.0.0"/>
+   <requires>
+      <import feature="org.eclipse.wb.core.feature" version="0.0.0"/>
+   </requires>
 
    <plugin
          id="org.eclipse.wb.core.java"
