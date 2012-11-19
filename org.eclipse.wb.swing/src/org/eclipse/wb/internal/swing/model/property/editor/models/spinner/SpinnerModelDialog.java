@@ -35,7 +35,7 @@ import javax.swing.JComponent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 
-import swingintegration.example.EmbeddedSwingComposite;
+import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * The dialog for editing {@link SpinnerModel}.
@@ -132,13 +132,14 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
     {
       // two clicks needed to focus AWT component, see:
       // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6523306
-      EmbeddedSwingComposite spinnerComposite = new EmbeddedSwingComposite(previewGroup, SWT.NONE) {
-        @Override
-        protected JComponent createSwingComponent() {
-          m_spinner = new JSpinner();
-          return m_spinner;
-        }
-      };
+      EmbeddedSwingComposite2 spinnerComposite =
+          new EmbeddedSwingComposite2(previewGroup, SWT.NONE) {
+            @Override
+            protected JComponent createSwingComponent() {
+              m_spinner = new JSpinner();
+              return m_spinner;
+            }
+          };
       spinnerComposite.populate();
       GridDataFactory.create(spinnerComposite).grab().fill();
     }
