@@ -5753,11 +5753,11 @@ public class AstEditorTest extends AbstractJavaTest {
         DefaultCodeFormatterConstants.NEXT_LINE);
     assertEquals(Expectations.get(
         "\r\n\t",
-        new StrValue("flanker-linux", "\n\t"),
+        new StrValue("flanker-desktop", "\n\t"),
         new StrValue("scheglov-macpro", "\n\t")), generation.getMethodBraceSeparator("\t"));
     assertEquals(Expectations.get(
         "\r\n\t\t",
-        new StrValue("flanker-linux", "\n\t\t"),
+        new StrValue("flanker-desktop", "\n\t\t"),
         new StrValue("scheglov-macpro", "\n\t\t")), generation.getMethodBraceSeparator("\t\t"));
   }
 

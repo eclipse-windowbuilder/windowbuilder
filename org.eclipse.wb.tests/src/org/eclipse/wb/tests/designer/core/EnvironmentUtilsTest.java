@@ -44,7 +44,7 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
       isWindows =
           ImmutableSet.of("SCHEGLOV-KE", "SCHEGLOV-WIN", "FLANKER-WINDOWS", "SABLIN-AA").contains(
               hostName);
-      isLinux = ImmutableSet.of("FLANKER-LINUX").contains(hostName);
+      isLinux = ImmutableSet.of("FLANKER-DESKTOP").contains(hostName);
       isMac = ImmutableSet.of("MITIN-AA").contains(hostName);
     }
     assertEquals(isWindows, EnvironmentUtils.IS_WINDOWS);

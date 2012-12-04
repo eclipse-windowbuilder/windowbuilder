@@ -851,7 +851,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
             new StrValue("scheglov-macpro", "/" + expectedLocation),
             new StrValue("sablin-aa", ".wbp-tt/Core/" + expectedLocation),
             new StrValue("flanker-windows", "-Core.TWS/" + expectedLocation),
-            new StrValue("flanker-linux", ".wbp-tt/Core/" + expectedLocation)});
+            new StrValue("flanker-desktop", ".wbp-tt/Core/" + expectedLocation)});
     assertThat(osLocation).endsWith(pathEnds);
   }
 
