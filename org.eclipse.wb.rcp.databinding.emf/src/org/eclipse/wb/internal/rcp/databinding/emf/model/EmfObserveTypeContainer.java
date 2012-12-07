@@ -51,6 +51,7 @@ import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.designer.Em
 import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.designer.EmfTreeObservableLabelProviderInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.properties.EmfListPropertyCodeSupport;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.observables.properties.EmfValuePropertyCodeSupport;
+import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.direct.DirectFieldModelSupport;
@@ -672,6 +673,19 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
   public boolean ensureDBLibraries(IJavaProject javaProject) throws Exception {
     String testClass;
     String pluginName;
+    {
+      // CASE-385522 do not add dependences if no bindings exists
+      int bindingsCount = 0;
+      for (IObserveInfo observeInfo : getObservables()) {
+        if (observeInfo instanceof BindableInfo) {
+          BindableInfo bindableInfo = (BindableInfo) observeInfo;
+          bindingsCount += bindableInfo.getBindings().size();
+        }
+      }
+      if (bindingsCount == 0) {
+        return false;
+      }
+    }
     if (m_propertiesSupport.isEditingDomainMode()) {
       testClass = "org.eclipse.emf.databinding.edit.EMFEditObservables";
       pluginName = "org.eclipse.emf.databinding.edit";
