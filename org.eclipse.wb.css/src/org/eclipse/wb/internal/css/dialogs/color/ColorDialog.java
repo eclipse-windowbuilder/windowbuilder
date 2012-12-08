@@ -73,8 +73,10 @@ public final class ColorDialog extends AbstractColorDialog {
       for (String color : NamedColorsComposite.getColorNames()) {
         colorNames.add(color);
       }
-      for (String color : SystemColorsComposite.getColorNames()) {
-        colorNames.add(color);
+      if (SystemUtils.IS_OS_WINDOWS) {
+        for (String color : SystemColorsComposite.getColorNames()) {
+          colorNames.add(color);
+        }
       }
       COLOR_NAMES = colorNames.toArray(new String[colorNames.size()]);
     }
@@ -87,7 +89,7 @@ public final class ColorDialog extends AbstractColorDialog {
   public static RGB getRGB(String name) {
     RGB rgb;
     rgb = NamedColorsComposite.getRGB(name);
-    if (rgb == null) {
+    if (rgb == null && SystemUtils.IS_OS_WINDOWS) {
       rgb = SystemColorsComposite.getRGB(name);
     }
     if (rgb == null && name.length() == 7) {
