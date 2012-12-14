@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -1003,6 +1002,7 @@ public class JavaInfoUtils {
    * Binds any not bound yet components to the given root {@link JavaInfo} or any of its children.
    */
   public static void bindBinaryComponents(List<JavaInfo> components) throws Exception {
+    List<JavaInfo> reverseComponents = ImmutableList.copyOf(components).reverse();
     // prepare map (object -> JavaInfo)
     final Map<Object, JavaInfo> objectToModel;
     {
@@ -1041,13 +1041,13 @@ public class JavaInfoUtils {
       }
     }
     // check still not bound component, it may be alias for some other component
-    for (JavaInfo component : Iterables.reverse(components)) {
+    for (JavaInfo component : reverseComponents) {
       if (component.getParent() == null) {
         bindBinaryComponent_asAlias(components, component);
       }
     }
     // check still not bound component, flow to depth
-    for (JavaInfo component : Iterables.reverse(components)) {
+    for (JavaInfo component : reverseComponents) {
       if (component.getParent() == null
           && component.getDescription().hasTrueParameter("bindBinary.toDepth")) {
         bindBinaryComponent_toDepth(objectToModel, component);
