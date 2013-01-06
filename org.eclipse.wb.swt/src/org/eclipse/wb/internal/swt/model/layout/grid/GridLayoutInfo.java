@@ -41,7 +41,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
@@ -549,7 +548,7 @@ public class GridLayoutInfo extends LayoutInfo
     if (getObject() == null) {
       return 1;
     } else {
-      return ReflectionUtils.getFieldInt(getObject(), "numColumns");
+      return GridLayoutSupport.getNumColumns(getObject());
     }
   }
 

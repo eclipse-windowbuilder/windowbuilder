@@ -14,6 +14,8 @@ import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.swt.layout.GridLayout;
+
 import java.util.Map;
 
 /**
@@ -29,6 +31,13 @@ public class GridLayoutSupport extends AbstractSupport {
   // GridLayout
   //
   ////////////////////////////////////////////////////////////////////////////
+  /**
+   * @return the {@link GridLayout#numColumns} value.
+   */
+  public static int getNumColumns(Object layout) {
+    return ReflectionUtils.getFieldInt(layout, "numColumns");
+  }
+
   /**
    * @return the {@link Point} with column/row for given {@link org.eclipse.swt.widgets.Control} and
    *         {@link org.eclipse.swt.layout.GridLayout} objects.

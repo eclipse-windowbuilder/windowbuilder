@@ -10,10 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.xml.model.property.accessor;
 
+import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.accessor.AccessorUtils;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
+import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import java.lang.reflect.Field;
 
@@ -44,6 +47,13 @@ public final class FieldExpressionAccessor extends ExpressionAccessor {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public Object getDefaultValue(XmlObjectInfo object) throws Exception {
+    if (XmlObjectUtils.isImplicit(object) && object.getParent() instanceof XmlObjectInfo) {
+      XmlObjectInfo xmlParent = (XmlObjectInfo) object.getParent();
+      DocumentElement objectElement = getExistingElement(object);
+      if (objectElement == getExistingElement(xmlParent)) {
+        return Property.UNKNOWN_VALUE;
+      }
+    }
     return object.getArbitraryValue(this);
   }
 

@@ -570,7 +570,7 @@ public class GridLayoutInfo extends LayoutInfo
     if (getObject() == null) {
       return 1;
     } else {
-      return (Integer) getPropertyByTitle("numColumns").getValue();
+      return GridLayoutSupport.getNumColumns(getObject());
     }
   }
 
