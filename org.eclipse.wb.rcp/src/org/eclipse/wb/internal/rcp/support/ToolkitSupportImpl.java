@@ -161,6 +161,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
     };
     shell.setVisible(true);
     shell.setActive();
+    shell.setFocus();
     try {
       if (EnvironmentUtils.IS_LINUX) {
         mainShell.addShellListener(shellAdapter);
