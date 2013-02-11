@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.ercp.doc.user.feature"
       label="%featureName"
-      version="1.5.1"
+      version="1.5.2"
       provider-name="%providerName"
       plugin="org.eclipse.wb.ercp.doc.user"
       image="eclipse_update_120.jpg">
