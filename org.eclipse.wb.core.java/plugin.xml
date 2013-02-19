@@ -380,16 +380,6 @@
     <!-- ======================================================== -->
     <!-- Perspectives and views -->
     <!-- ======================================================== -->
-    <extension point="org.eclipse.ui.views">
-        <category id="org.eclipse.wb.core.category" name="WindowBuilder"/>
-        <view category="org.eclipse.wb.core.category" id="org.eclipse.wb.core.StructureView"
-            class="org.eclipse.wb.internal.core.views.StructureView"
-            icon="icons/structure/properties_view.gif" name="Structure"/>
-        <view category="org.eclipse.wb.core.category" id="org.eclipse.wb.core.PaletteView"
-            class="org.eclipse.wb.internal.core.views.PaletteView"
-            icon="icons/structure/palette.png" name="Palette"/>
-    </extension>
-
     <extension point="org.eclipse.ui.perspectiveExtensions">
         <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
             <viewShortcut id="org.eclipse.wb.core.StructureView"/>
