@@ -180,8 +180,10 @@ public abstract class AbstractBundleSource extends AbstractSource {
   protected final void setValueInBundle(String key, String value) throws Exception {
     LocaleInfo localeInfo = getLocaleInfo();
     BundleInfo bundleInfo = getBundleInfo(localeInfo);
-    bundleInfo.setValue(key, value);
-    saveBundle(bundleInfo);
+    if (bundleInfo != null) {
+      bundleInfo.setValue(key, value);
+      saveBundle(bundleInfo);
+    }
   }
 
   @Override
