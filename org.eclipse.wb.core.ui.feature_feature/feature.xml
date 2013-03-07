@@ -31,20 +31,4 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!-- $if eclipse.version >= 3.6 $ -->
-   <plugin
-         id="org.eclipse.wb.discovery.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wb.discovery.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-   <!-- $endif $ -->
-
 </feature>

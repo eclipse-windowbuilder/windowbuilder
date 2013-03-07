@@ -31,6 +31,8 @@ import java.util.List;
 
 /**
  * The activator class controls the plug-in life cycle.
+ * <p>
+ * Note: this plugin has been disabled.
  */
 public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
   /** The plugin identifier. */
