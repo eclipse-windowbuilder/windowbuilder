@@ -76,13 +76,14 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
    * shot, and restore drawing order after this.
    */
   private static void reverseDrawingOrder(Control control) {
-    if (control instanceof Composite) {
-      Composite composite = (Composite) control;
-      for (Control child : composite.getChildren()) {
-        child.moveAbove(null);
-        reverseDrawingOrder(child);
-      }
-    }
+// 20130423(scheglov) disabled because of http://www.eclipse.org/forums/index.php/t/476687/
+//    if (control instanceof Composite) {
+//      Composite composite = (Composite) control;
+//      for (Control child : composite.getChildren()) {
+//        child.moveAbove(null);
+//        reverseDrawingOrder(child);
+//      }
+//    }
   }
 
   /**
