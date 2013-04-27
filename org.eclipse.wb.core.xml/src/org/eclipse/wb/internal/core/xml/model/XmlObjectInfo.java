@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.xml.model;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoAddProperties;
@@ -48,7 +49,7 @@ import java.util.Map;
  * @author scheglov_ke
  * @coverage XML.model
  */
-public class XmlObjectInfo extends ObjectInfo {
+public class XmlObjectInfo extends ObjectInfo implements HasSourcePosition {
   /**
    * We mark components that user drops from palette with this flag to be able distinguish them from
    * objects that created as consequence of user operation.
@@ -161,6 +162,15 @@ public class XmlObjectInfo extends ObjectInfo {
    */
   public final List<XmlObjectInfo> getChildrenXML() {
     return getChildren(XmlObjectInfo.class);
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // HasSourcePosition
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public int getSourcePosition() {
+    return getCreationSupport().getElement().getOffset();
   }
 
   ////////////////////////////////////////////////////////////////////////////

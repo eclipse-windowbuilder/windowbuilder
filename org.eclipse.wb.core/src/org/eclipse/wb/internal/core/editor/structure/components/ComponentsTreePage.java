@@ -12,6 +12,8 @@ package org.eclipse.wb.internal.core.editor.structure.components;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.core.editor.IDesignPageSite;
+import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -21,6 +23,7 @@ import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.structure.IPage;
 import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
+import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider;
@@ -30,6 +33,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -49,6 +53,7 @@ public final class ComponentsTreePage implements IPage {
   private TreeViewer m_viewer;
   private IEditPartViewer m_graphicalViewer;
   private ObjectInfo m_rootObject;
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // IPage
@@ -60,16 +65,20 @@ public final class ComponentsTreePage implements IPage {
       control.dispose();
     }
   }
+
   public void createControl(Composite parent) {
     m_viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
     m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
   }
+
   public Control getControl() {
     return m_viewer.getControl();
   }
+
   public void setFocus() {
     getControl().setFocus();
   }
+
   public void setToolBar(IToolBarManager toolBarManager) {
     {
       IAction action = new Action() {
@@ -95,6 +104,7 @@ public final class ComponentsTreePage implements IPage {
     }
     toolBarManager.update(false);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Selection (internal)
@@ -118,6 +128,7 @@ public final class ComponentsTreePage implements IPage {
           selectTreeViewer();
         }
       };
+
   /**
    * Selects {@link ObjectInfo}'s in {@link #m_viewer} using selection in {@link #m_graphicalViewer}
    * .
@@ -127,6 +138,7 @@ public final class ComponentsTreePage implements IPage {
     setSelection(m_viewer, m_selectionListener_Tree, selectedEditParts);
     showComponentDefinition(selectedEditParts);
   }
+
   /**
    * Selects {@link EditPart}'s in {@link #m_graphicalViewer} using selection in {@link #m_viewer}.
    */
@@ -162,6 +174,7 @@ public final class ComponentsTreePage implements IPage {
     setSelection(m_graphicalViewer, m_selectionListener_Graphical, selectedEditParts);
     showComponentDefinition(selectedEditParts);
   }
+
   /**
    * Sets selection in given {@link IEditPartViewer} using {@link List} of selected {@link EditPart}
    * 's.
@@ -197,22 +210,26 @@ public final class ComponentsTreePage implements IPage {
       targetViewer.addSelectionChangedListener(selectionListener);
     }
   }
+
   /**
-   * Shows definition in source for primary selected {@link EditPart} with {@link JavaInfo} model.
+   * Shows definition in source for primary selected {@link EditPart} with {@link ObjectInfo} model.
    */
   private static void showComponentDefinition(List<EditPart> sourceEditParts) {
-    // TODO(scheglov)
-//    IPreferenceStore preferences = DesignerPlugin.getPreferences();
-//    if (preferences.getBoolean(IPreferenceConstants.P_EDITOR_GOTO_DEFINITION_ON_SELECTION)
-//        && !sourceEditParts.isEmpty()) {
-//      EditPart primaryEditPart = sourceEditParts.get(sourceEditParts.size() - 1);
-//      if (primaryEditPart.getModel() instanceof JavaInfo) {
-//        JavaInfo javaInfo = (JavaInfo) primaryEditPart.getModel();
-//        int position = javaInfo.getCreationSupport().getNode().getStartPosition();
-//        IDesignPageSite.Helper.getSite(javaInfo).showSourcePosition(position);
-//      }
-//    }
+    IPreferenceStore preferences = DesignerPlugin.getPreferences();
+    if (preferences.getBoolean(IPreferenceConstants.P_EDITOR_GOTO_DEFINITION_ON_SELECTION)
+        && !sourceEditParts.isEmpty()) {
+      EditPart primaryEditPart = sourceEditParts.get(sourceEditParts.size() - 1);
+      if (primaryEditPart.getModel() instanceof ObjectInfo) {
+        ObjectInfo objectInfo = (ObjectInfo) primaryEditPart.getModel();
+        if (objectInfo instanceof HasSourcePosition) {
+          HasSourcePosition hasSourcePosition = (HasSourcePosition) primaryEditPart.getModel();
+          int position = hasSourcePosition.getSourcePosition();
+          IDesignPageSite.Helper.getSite(objectInfo).showSourcePosition(position);
+        }
+      }
+    }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -224,6 +241,7 @@ public final class ComponentsTreePage implements IPage {
   public TreeViewer getTreeViewer() {
     return m_viewer;
   }
+
   /**
    * Sets the {@link IEditPartViewer} and root {@link ObjectInfo} that should be bound to components
    * tree.
@@ -259,6 +277,7 @@ public final class ComponentsTreePage implements IPage {
       m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
     }
   }
+
   /**
    * @return the <em>models</em> {@link ISelectionProvider} for this {@link Composite}.
    */

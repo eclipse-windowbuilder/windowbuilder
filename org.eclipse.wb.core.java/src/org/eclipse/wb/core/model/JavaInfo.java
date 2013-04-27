@@ -104,7 +104,7 @@ import java.util.Map.Entry;
  * @author scheglov_ke
  * @coverage core.model
  */
-public class JavaInfo extends ObjectInfo {
+public class JavaInfo extends ObjectInfo implements HasSourcePosition {
   private final JavaInfo m_this = this;
   /**
    * We mark components that user drops from palette with this flag to be able distinguish them from
@@ -244,6 +244,7 @@ public class JavaInfo extends ObjectInfo {
     // done
     return sourceNode;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Editor
@@ -289,6 +290,7 @@ public class JavaInfo extends ObjectInfo {
   public boolean canBeRoot() {
     return false;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Templates
@@ -351,6 +353,7 @@ public class JavaInfo extends ObjectInfo {
   public final List<JavaInfo> getChildrenJava() {
     return getChildren(JavaInfo.class);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Association
@@ -395,6 +398,7 @@ public class JavaInfo extends ObjectInfo {
       }
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Initializing
@@ -481,6 +485,7 @@ public class JavaInfo extends ObjectInfo {
       });
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Object-ready
@@ -516,6 +521,7 @@ public class JavaInfo extends ObjectInfo {
     m_objectReady = true;
     m_description.visit(m_this, AbstractDescription.STATE_OBJECT_READY);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Properties
@@ -605,6 +611,7 @@ public class JavaInfo extends ObjectInfo {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Creation support
@@ -634,6 +641,16 @@ public class JavaInfo extends ObjectInfo {
   public void bindToExpression(Expression expression) {
     EditorState.get(m_editor).getJavaInfoResolver().bind(this, expression);
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // HasSourcePosition
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  public int getSourcePosition() {
+    return getCreationSupport().getNode().getStartPosition();
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Variable support
@@ -661,6 +678,7 @@ public class JavaInfo extends ObjectInfo {
         oldVariable,
         m_variableSupport);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Presentation
@@ -672,6 +690,7 @@ public class JavaInfo extends ObjectInfo {
   public IObjectPresentation getPresentation() {
     return m_presentation;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Related nodes
@@ -1067,6 +1086,7 @@ public class JavaInfo extends ObjectInfo {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Refresh
@@ -1228,6 +1248,7 @@ public class JavaInfo extends ObjectInfo {
       JavaInfoUtils.executeScriptParameter(this, "refresh_afterCreate");
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Object
