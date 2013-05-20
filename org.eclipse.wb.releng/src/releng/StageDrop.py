@@ -50,9 +50,10 @@ def main():
   dirs2save = data['dirstosave']
   mirrorprod = data['mirrorprod']
   mocksign = data['mocksign']
+  base_dir = data['basedir']
 
-  base_dir = os.path.join(os.sep + 'shared', 'tools', 'windowbuilder', 'stage')
   product_dir = os.path.join(base_dir, subproduct)
+  log.info('product Dir ' + product_dir)
 
   if not do_deploy:
     log.info('Initialize ' + sign_dir)
@@ -157,7 +158,7 @@ def _ProcessArgs():
   usage = 'usage: %prog [options] drop subproduct'
   parser = optparse.OptionParser(usage=usage)
   parser.set_defaults(debug=False)
-  parser.set_defaults(eclipseversion='3.7')
+  parser.set_defaults(eclipseversion='3.8')
   parser.set_defaults(optimizesite=True)
   parser.set_defaults(packsite=False)
   parser.set_defaults(signfiles=True)
@@ -165,6 +166,7 @@ def _ProcessArgs():
   parser.set_defaults(dirstosave='3')
   parser.set_defaults(mirrorprod=False)
   parser.set_defaults(mocksign=False)
+  parser.set_defaults(basedir=os.path.join(os.sep + 'shared', 'tools', 'windowbuilder', 'stage'))
   parser.add_option('--signdir', action='store', dest='signdir')
   parser.add_option('-e', '--eclipseversion', action='store',
                     dest='eclipseversion')
@@ -178,11 +180,13 @@ def _ProcessArgs():
   parser.add_option('--deploydir', action='store', dest='deploydir')
   parser.add_option('--dirstosave', action='store', dest='dirstosave')
   parser.add_option('--mirrorprod', action='store_true', dest='mirrorprod')
+  parser.add_option('--basedir', action='store', dest='basedir')
   (options, args) = parser.parse_args()
 
   if len(args) != 2:
     parser.error('incorrect number of arguments')
 
+  base_dir = options.basedir
   optimize_site = options.optimizesite
   pack_site = options.packsite
   sign_files = options.signfiles
@@ -226,7 +230,8 @@ def _ProcessArgs():
               'optimizesite': optimize_site, 'packsite': pack_site,
               'signfiles': sign_files, 'dodeploy': do_deploy,
               'deploydir': deploy_dir, 'dirstosave': dirs2save,
-              'mirrorprod': mirrorprod, 'mocksign': options.mocksign})
+              'mirrorprod': mirrorprod, 'mocksign': options.mocksign,
+              'basedir': base_dir})
   log.debug('out of processArgs')
   return ret
 

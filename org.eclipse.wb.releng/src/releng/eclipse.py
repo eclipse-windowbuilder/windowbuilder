@@ -70,6 +70,9 @@ def _FindEclipseArchive(eclipse_version):
           saved_ts = eclipse_ts
           search_dir = os.path.join(eclipse_archive_dir, d)
 
+    if not search_dir:
+      raise Exception('can not find eclipse {0} in {1}'.format(eclipse_version, found_eclipse_dirs))
+
     log.debug('search_dir = ' + search_dir)
     if search_dir is None:
       msg = 'could not find any Eclipse directories with ' + eclipse_version
