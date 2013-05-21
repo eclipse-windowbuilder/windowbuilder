@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.swing.feature"
       label="%featureName"
-      version="1.5.2"
+      version="1.6.0"
       provider-name="%providerName"
       plugin="org.eclipse.wb.swing"
       image="eclipse_update_120.jpg">
