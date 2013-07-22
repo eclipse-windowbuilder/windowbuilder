@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 
 import java.awt.EventQueue;
@@ -420,6 +421,28 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
     if (awtContext != null) {
       Frame oldFrame = awtContext.getFrame();
       oldFrame.dispose();
+    }
+  }
+
+  /**
+   * There is problem with running SWT_AWT on OSX with Java 1.7
+   * <p>
+   * https://bugs.eclipse.org/bugs/show_bug.cgi?id=374199
+   * <p>
+   * It is marked "fixed", but still does not work.
+   */
+  public static boolean canUseAwt() {
+    Shell shell = new Shell();
+    try {
+      try {
+        Frame frame = SWT_AWT.new_Frame(shell);
+        frame.dispose();
+        return true;
+      } catch (Throwable e) {
+        return false;
+      }
+    } finally {
+      shell.dispose();
     }
   }
 }

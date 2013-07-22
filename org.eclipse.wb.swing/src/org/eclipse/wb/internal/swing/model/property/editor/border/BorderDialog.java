@@ -57,6 +57,8 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.swing.border.Border;
 
+import swingintegration.example.EmbeddedSwingComposite2;
+
 /**
  * Dialog for {@link Border} editing.
  * 
@@ -172,8 +174,10 @@ public final class BorderDialog extends ResizableDialog {
       GridLayoutFactory.create(previewGroup);
       previewGroup.setText(ModelMessages.BorderDialog_preview);
       //
-      m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
-      GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
+      if (EmbeddedSwingComposite2.canUseAwt()) {
+        m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
+        GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
+      }
     }
     //
     updateGUI();
@@ -219,7 +223,9 @@ public final class BorderDialog extends ResizableDialog {
       m_typeCombo.select(m_pages.indexOf(m_pagesLayout.topControl));
     }
     // update preview
-    m_previewCanvas.setBorder(m_border);
+    if (m_previewCanvas != null) {
+      m_previewCanvas.setBorder(m_border);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
