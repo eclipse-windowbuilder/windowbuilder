@@ -99,7 +99,8 @@ public final class BindingContentProvider implements IUiContentProvider {
   public void createContent(final Composite parent, int columns) {
     // expand composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setText(Messages.BindingContentProvider_bindingDots);
+    m_expandableComposite.setText(Messages.BindingContentProvider_binding);
+    m_expandableComposite.setExpanded(true);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
       public void expansionStateChanging(ExpansionEvent e) {

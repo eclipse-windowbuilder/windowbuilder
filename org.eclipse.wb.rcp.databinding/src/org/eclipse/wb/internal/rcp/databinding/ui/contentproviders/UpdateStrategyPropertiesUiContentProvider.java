@@ -108,6 +108,7 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
+    m_expandableComposite.setExpanded(true);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new ExpansionAdapter() {
       @Override
@@ -128,11 +129,6 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
     //
     for (IUiContentProvider provider : m_providers) {
       provider.createContent(clientComposite, subColumns);
-    }
-    // init controls state
-    if (m_settings.getBoolean(m_settingKey)) {
-      m_expandableComposite.setExpanded(true);
-      parent.layout();
     }
     compositeExpansionStateChanging();
   }

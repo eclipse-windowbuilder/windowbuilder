@@ -47,7 +47,7 @@ public abstract class ChooseClassAndTreePropertiesUiContentProvider2
   public void createContent(Composite parent, int columns) {
     super.createContent(parent, columns);
     GridDataFactory.modify(m_propertiesViewer.getViewer().getControl()).grab(true, false).minV(0).hintVC(
-        20);
+        10);
   }
 
   @Override

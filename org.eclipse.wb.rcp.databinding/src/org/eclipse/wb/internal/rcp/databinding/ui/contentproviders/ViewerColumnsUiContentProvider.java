@@ -87,7 +87,8 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
-    m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumnsDots);
+    m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumns);
+    m_expandableComposite.setExpanded(true);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
       public void expansionStateChanging(ExpansionEvent e) {
@@ -158,12 +159,6 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     factory.newColumn().text(Messages.ViewerColumnsUiContentProvider_cellEditorColumn).width(300);
     factory.newColumn().text(Messages.ViewerColumnsUiContentProvider_elementPropertyColumn).width(
         300);
-    // initial state
-    if (m_settings.getBoolean(SETTING_KEY)) {
-      m_expandableComposite.setExpanded(true);
-      m_expandableComposite.setText(Messages.ViewerColumnsUiContentProvider_viewerColumns);
-      parent.layout();
-    }
   }
 
   private void calculateButtons() {

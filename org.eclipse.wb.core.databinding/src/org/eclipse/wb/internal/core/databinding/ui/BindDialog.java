@@ -24,6 +24,11 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableTitleAreaDialog;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -72,7 +77,9 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
   @Override
   protected Control createDialogArea(Composite parent) {
     // dialog area
-    Composite container = (Composite) super.createDialogArea(parent);
+    final ScrolledComposite container =
+        new ScrolledComposite((Composite) super.createDialogArea(parent), SWT.BORDER | SWT.V_SCROLL);
+    container.setExpandHorizontal(true);
     //
     List<IUiContentProvider> providers =
         ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
@@ -81,7 +88,16 @@ public final class BindDialog extends ResizableTitleAreaDialog implements IPageL
           }
         }, Collections.<IUiContentProvider>emptyList());
     m_providerComposite = new UiContentProviderComposite(this, providers, container, SWT.NONE);
-    GridDataFactory.create(m_providerComposite).fill().grab();
+    container.setContent(m_providerComposite);
+    container.addControlListener(new ControlAdapter() {
+      @Override
+      public void controlResized(ControlEvent e) {
+        Rectangle bounds = container.getClientArea();
+        Point size = m_providerComposite.computeSize(bounds.width, SWT.DEFAULT);
+        m_providerComposite.setBounds(bounds.x, bounds.y, size.x, size.y);
+      }
+    });
+    GridDataFactory.create(container).fill().grab();
     //
     return container;
   }
