@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.ercp.feature"
       label="%featureName"
-      version="1.6.0"
+      version="1.6.1"
       provider-name="%providerName"
       plugin="org.eclipse.wb.ercp"
       os="win32"
