@@ -158,7 +158,9 @@ def _ProcessArgs():
   usage = 'usage: %prog [options] drop subproduct'
   parser = optparse.OptionParser(usage=usage)
   parser.set_defaults(debug=False)
-  parser.set_defaults(eclipseversion='3.8')
+  parser.set_defaults(eclipseversion='4.3')
+  parser.set_defaults(eclipsearchivedir='/home/data/httpd/download.eclipse.org'
+                      '/eclipse/downloads/drops4')
   parser.set_defaults(optimizesite=True)
   parser.set_defaults(packsite=False)
   parser.set_defaults(signfiles=True)
