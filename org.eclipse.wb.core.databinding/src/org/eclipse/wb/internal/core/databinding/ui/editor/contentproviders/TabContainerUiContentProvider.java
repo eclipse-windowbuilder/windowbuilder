@@ -211,7 +211,6 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
       }
       //
       m_folder.setTopRight(buttonsComposite);
-      m_folder.setTabHeight(buttonsBar.getBounds().height);
     }
   }
 
