@@ -28,6 +28,8 @@ import org.eclipse.wb.internal.core.xml.model.utils.GlobalStateXml;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
+import org.eclipse.core.filesystem.URIUtil;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.e4.xwt.DefaultLoadingContext;
 import org.eclipse.e4.xwt.ILoadingContext;
 import org.eclipse.e4.xwt.IXWTLoader;
@@ -51,6 +53,7 @@ import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 import java.util.Set;
@@ -252,7 +255,10 @@ public final class XwtRenderer {
     ILoadingContext _loadingContext = XWT.getLoadingContext();
     XWT.setLoadingContext(new DefaultLoadingContext(m_context.getClassLoader()));
     try {
-      URL url = m_context.getFile().getLocationURI().toURL();
+      URI uri = m_context.getFile().getLocationURI();
+      IPath localPath = URIUtil.toPath(uri);
+      String host = uri.getHost();
+      URL url = (host != null && localPath == null ? uri : URIUtil.toURI(localPath)).toURL();
       String content = m_context.getContent();
       Map<String, Object> options = Maps.newHashMap();
       options.put(IXWTLoader.DESIGN_MODE_PROPERTY, Boolean.TRUE);

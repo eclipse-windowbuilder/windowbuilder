@@ -33,7 +33,9 @@ import org.eclipse.wb.internal.xwt.model.util.XwtStaticFieldSupport;
 import org.eclipse.wb.internal.xwt.model.util.XwtStringArraySupport;
 import org.eclipse.wb.internal.xwt.model.util.XwtTagResolver;
 
+import org.eclipse.core.filesystem.URIUtil;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.e4.xwt.DefaultLoadingContext;
 import org.eclipse.e4.xwt.ILoadingContext;
 import org.eclipse.e4.xwt.IXWTLoader;
@@ -54,6 +56,7 @@ import org.eclipse.swt.widgets.Button;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 import java.util.Set;
@@ -188,7 +191,10 @@ public final class XwtParser {
     ILoadingContext _loadingContext = XWT.getLoadingContext();
     XWT.setLoadingContext(new DefaultLoadingContext(m_context.getClassLoader()));
     try {
-      URL url = m_file.getLocationURI().toURL();
+      URI uri = m_file.getLocationURI();
+      IPath localPath = URIUtil.toPath(uri);
+      String host = uri.getHost();
+      URL url = (host != null && localPath == null ? uri : URIUtil.toURI(localPath)).toURL();
       String content = m_document.get();
       Map<String, Object> options = Maps.newHashMap();
       options.put(IXWTLoader.DESIGN_MODE_PROPERTY, Boolean.TRUE);
