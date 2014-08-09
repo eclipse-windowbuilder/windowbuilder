@@ -303,6 +303,7 @@ public class MenuIntersector {
       action.setImageDescriptor(original.getImageDescriptor());
       action.setHoverImageDescriptor(original.getHoverImageDescriptor());
       action.setDisabledImageDescriptor(original.getDisabledImageDescriptor());
+      action.setEnabled(original.isEnabled());
       // add to menu
       menu.add(action);
     }
