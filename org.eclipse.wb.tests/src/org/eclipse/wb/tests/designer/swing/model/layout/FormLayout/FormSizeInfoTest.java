@@ -138,7 +138,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
       double expected =
           Expectations.get(39.0, new DblValue[]{
               new DblValue("kosta-home", 31.0),
-              new DblValue("scheglov-win", 39.0)});
+              new DblValue("scheglov-win", 38.0)});
       check_convertFromPixels(50, ConstantSize.POINT, expected);
     }
     {
@@ -325,7 +325,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_FormSize_boundedLower() throws Exception {
-    FormSizeInfo size = new FormSizeInfo(new ColumnSpec("max(4cm;default)").getSize(), true);
+    FormSizeInfo size = new FormSizeInfo(ColumnSpec.decode("max(4cm;default)").getSize(), true);
     assertTrue(size.isString());
     assertEquals("max(4cm;default)", size.getSource());
     assertSame(Sizes.DEFAULT, size.getComponentSize());
@@ -340,7 +340,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_FormSize_boundedUpper() throws Exception {
-    FormSizeInfo size = new FormSizeInfo(new ColumnSpec("min(3cm;default)").getSize(), true);
+    FormSizeInfo size = new FormSizeInfo(ColumnSpec.decode("min(3cm;default)").getSize(), true);
     assertTrue(size.isString());
     assertEquals("min(3cm;default)", size.getSource());
     assertSame(Sizes.DEFAULT, size.getComponentSize());

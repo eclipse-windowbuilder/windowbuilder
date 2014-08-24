@@ -20,14 +20,14 @@ import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
-import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.FormSpecs;
 
 import java.text.MessageFormat;
 import java.util.List;
 
 /**
  * Dialog for editing {@link List} of {@link FormColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */
@@ -98,6 +98,6 @@ public final class ColumnsDialog extends DimensionsDialog<FormColumnInfo> {
 
   @Override
   protected FormColumnInfo createNewDimension() throws Exception {
-    return new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
+    return new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
   }
 }

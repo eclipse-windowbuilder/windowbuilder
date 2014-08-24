@@ -22,10 +22,10 @@ import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.Compone
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 import com.jgoodies.forms.layout.ConstantSize;
+import com.jgoodies.forms.layout.FormSpecs;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -147,11 +147,11 @@ public class FormLayoutConverter {
       // create new "default" dimension
       FormDimensionInfo dimension;
       if (horizontal) {
-        FormColumnInfo column = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
+        FormColumnInfo column = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
         layout.getColumns().add(column);
         dimension = column;
       } else {
-        FormRowInfo row = new FormRowInfo(FormFactory.DEFAULT_ROWSPEC);
+        FormRowInfo row = new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC);
         layout.getRows().add(row);
         dimension = row;
       }

@@ -48,8 +48,10 @@ public class AbstractFormLayoutTest extends AbstractLayoutTest {
 
   static void do_configureNewProject() throws Exception {
     Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
-    String path = FileLocator.toFileURL(libBundle.getEntry("/forms-1.3.0.jar")).getPath();
-    m_testProject.addExternalJar(path);
+    m_testProject.addExternalJar(FileLocator.toFileURL(
+        libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
+    m_testProject.addExternalJar(FileLocator.toFileURL(
+        libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
   }
 
   ////////////////////////////////////////////////////////////////////////////

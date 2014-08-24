@@ -14,12 +14,12 @@ import org.eclipse.wb.internal.swing.FormLayout.Activator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.FormSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 
 /**
  * Description for {@link FormSpec} template.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -47,7 +47,7 @@ public final class FormDimensionTemplate {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * @return the name of field in {@link FormFactory}.
+   * @return the name of field in {@link FormSpecs}.
    */
   public String getFieldName() {
     return m_fieldName;

@@ -33,8 +33,13 @@
 				<component class="com.jgoodies.forms.layout.FormLayout"
 					category="org.eclipse.wb.swing.layouts">
 					<library type="com.jgoodies.forms.layout.FormLayout"
-						bundle="org.eclipse.wb.swing.FormLayout.lib" jar="forms-1.3.0.jar"
-						src="forms-1.3.0-src.zip"/>
+						bundle="org.eclipse.wb.swing.FormLayout.lib" jar="jgoodies-forms-1.8.0.jar"
+						src="jgoodies-forms-1.8.0-sources.jar"/>
+					<library
+           				bundle="org.eclipse.wb.swing.FormLayout.lib" jar="jgoodies-common-1.8.0.jar"
+           				src="jgoodies-common-1.8.0-sources.jar"
+           				type="com.jgoodies.forms.layout.FormLayout">
+    				</library>	
 				</component>
 				<category id="org.eclipse.wb.swing.JGoodies" name="JGoodies" optional="true"
 					description="JGoodies components">
@@ -60,8 +65,8 @@
 		<layout toolkit="org.eclipse.wb.swing" id="JGoodies.FormLayout"
 			name="JGoodies FormLayout" class="com.jgoodies.forms.layout.FormLayout">
 			<library type="com.jgoodies.forms.layout.FormLayout"
-				bundle="org.eclipse.wb.swing.FormLayout.lib" jar="forms-1.3.0.jar"
-				src="forms-1.3.0-src.zip"/>
+				bundle="org.eclipse.wb.swing.FormLayout.lib" jar="jgoodies-forms-1.8.0.jar"
+				src="jgoodies-forms-1.8.0-sources.jar"/>
 		</layout>
 	</extension>
 

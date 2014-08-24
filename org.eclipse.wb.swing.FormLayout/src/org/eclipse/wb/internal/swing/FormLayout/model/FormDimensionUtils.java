@@ -15,8 +15,8 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.FormSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Utilities for {@link FormSpec} objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -57,12 +57,13 @@ public class FormDimensionUtils {
   }
 
   /**
-   * @return the array of {@link Field}'s from {@link FormFactory} with {@link FormSpec} values.
+   * @return the array of {@link Field}'s from {@link com.jgoodies.forms.layout.FormSpecs} with
+   *         {@link FormSpec} values.
    */
   public static Field[] getTemplateFields() {
     if (m_templateFields == null) {
       List<Field> templateFieldsList = Lists.newArrayList();
-      Field[] fields = FormFactory.class.getFields();
+      Field[] fields = com.jgoodies.forms.layout.FormSpecs.class.getFields();
       for (int i = 0; i < fields.length; i++) {
         Field field = fields[i];
         if (Modifier.isStatic(field.getModifiers())
@@ -76,8 +77,8 @@ public class FormDimensionUtils {
   }
 
   /**
-   * @return the {@link FormSpec} {@link Field} from {@link FormFactory} that has same value as
-   *         given or <code>null</code> if there are not such field.
+   * @return the {@link FormSpec} {@link Field} from {@link FormSpecs} that has same value as given
+   *         or <code>null</code> if there are not such field.
    */
   public static Field getFormFactoryTemplate(final FormSpec o) {
     return ExecutionUtils.runObject(new RunnableObjectEx<Field>() {

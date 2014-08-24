@@ -3,9 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.swing.FormLayout.lib;singleton:=true
 Bundle-Version: 0.0.0
-Bundle-ClassPath: forms-1.3.0.jar
+Bundle-ClassPath: jgoodies-common-1.8.0.jar,
+ jgoodies-forms-1.8.0.jar
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Export-Package: com.jgoodies.forms.builder,
  com.jgoodies.forms.debug,

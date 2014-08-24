@@ -20,14 +20,14 @@ import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
 
 import org.eclipse.swt.widgets.Shell;
 
-import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.FormSpecs;
 
 import java.text.MessageFormat;
 import java.util.List;
 
 /**
  * Dialog for editing {@link List} of {@link FormRowInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */
@@ -98,6 +98,6 @@ public final class RowsDialog extends DimensionsDialog<FormRowInfo> {
 
   @Override
   protected FormRowInfo createNewDimension() throws Exception {
-    return new FormRowInfo(FormFactory.DEFAULT_ROWSPEC);
+    return new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC);
   }
 }

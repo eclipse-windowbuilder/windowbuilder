@@ -14,11 +14,11 @@ import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormSpec;
 import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import java.lang.reflect.Field;
@@ -259,7 +259,7 @@ public abstract class FormDimensionInfo {
    * Uses given template as value for {@link FormDimensionInfo}.
    */
   public final void setTemplate(FormDimensionTemplate template) throws Exception {
-    Field field = FormFactory.class.getField(template.getFieldName());
+    Field field = FormSpecs.class.getField(template.getFieldName());
     setFormSpec((FormSpec) field.get(null));
   }
 
@@ -325,7 +325,7 @@ public abstract class FormDimensionInfo {
     {
       Field field = getTemplateField();
       if (field != null) {
-        return "com.jgoodies.forms.factories.FormFactory." + field.getName();
+        return "com.jgoodies.forms.layout.FormSpecs." + field.getName();
       }
     }
     // new instance
@@ -397,7 +397,7 @@ public abstract class FormDimensionInfo {
   }
 
   /**
-   * @return the {@link Field} from {@link FormFactory} that has same value.
+   * @return the {@link Field} from {@link FormSpecs} that has same value.
    */
   private Field getTemplateField() {
     FormSpec formSpec = getFormSpec();

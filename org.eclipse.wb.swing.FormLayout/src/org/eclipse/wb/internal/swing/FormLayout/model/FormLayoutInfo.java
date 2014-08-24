@@ -60,11 +60,11 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.util.DefaultUnitConverter;
 
@@ -81,7 +81,7 @@ import javax.swing.JTextField;
 
 /**
  * Model for JGoodies FormLayout.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -674,16 +674,16 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     moveComponentsForInsert(1 + targetIndex, true, -1, false);
     moveComponentsForInsert(1 + targetIndex, true, -1, false);
     if (targetGap) {
-      m_columns.add(targetIndex, new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
-      m_columns.add(targetIndex + 1, new FormColumnInfo(FormFactory.DEFAULT_COLSPEC));
+      m_columns.add(targetIndex, new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC));
+      m_columns.add(targetIndex + 1, new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC));
     } else if (targetLast) {
       if (!m_columns.isEmpty() && !m_columns.get(targetIndex - 1).isGap()) {
-        m_columns.add(targetIndex++, new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
+        m_columns.add(targetIndex++, new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC));
       }
-      m_columns.add(targetIndex, new FormColumnInfo(FormFactory.DEFAULT_COLSPEC));
+      m_columns.add(targetIndex, new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC));
     } else {
-      m_columns.add(targetIndex, new FormColumnInfo(FormFactory.DEFAULT_COLSPEC));
-      m_columns.add(targetIndex + 1, new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
+      m_columns.add(targetIndex, new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC));
+      m_columns.add(targetIndex + 1, new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC));
     }
     writeDimensions();
   }
@@ -750,7 +750,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
    */
   public void splitColumn(final int index) throws Exception {
     FormColumnInfo column = m_columns.get(index);
-    m_columns.add(index + 1, new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
+    m_columns.add(index + 1, new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC));
     m_columns.add(index + 2, column.copy());
     writeDimensions();
     // update constraints
@@ -895,16 +895,16 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
     moveComponentsForInsert(-1, false, 1 + targetIndex, true);
     moveComponentsForInsert(-1, false, 1 + targetIndex, true);
     if (targetGap) {
-      m_rows.add(targetIndex, new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
-      m_rows.add(targetIndex + 1, new FormRowInfo(FormFactory.DEFAULT_ROWSPEC));
+      m_rows.add(targetIndex, new FormRowInfo(FormSpecs.RELATED_GAP_ROWSPEC));
+      m_rows.add(targetIndex + 1, new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC));
     } else if (targetLast) {
       if (!m_rows.isEmpty() && !m_rows.get(targetIndex - 1).isGap()) {
-        m_rows.add(targetIndex++, new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
+        m_rows.add(targetIndex++, new FormRowInfo(FormSpecs.RELATED_GAP_ROWSPEC));
       }
-      m_rows.add(targetIndex, new FormRowInfo(FormFactory.DEFAULT_ROWSPEC));
+      m_rows.add(targetIndex, new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC));
     } else {
-      m_rows.add(targetIndex, new FormRowInfo(FormFactory.DEFAULT_ROWSPEC));
-      m_rows.add(targetIndex + 1, new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
+      m_rows.add(targetIndex, new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC));
+      m_rows.add(targetIndex + 1, new FormRowInfo(FormSpecs.RELATED_GAP_ROWSPEC));
     }
     writeDimensions();
   }
@@ -971,7 +971,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
    */
   public void splitRow(final int index) throws Exception {
     FormRowInfo row = m_rows.get(index);
-    m_rows.add(index + 1, new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
+    m_rows.add(index + 1, new FormRowInfo(FormSpecs.RELATED_GAP_ROWSPEC));
     m_rows.add(index + 2, row.copy());
     writeDimensions();
     // update constraints
@@ -1108,7 +1108,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ComponentInfo} in given cell.
-   * 
+   *
    * @param newComponent
    *          the new {@link ComponentInfo} to create.
    * @param column
@@ -1183,7 +1183,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 
   /**
    * @return the {@link ComponentInfo} that should be used as reference of adding into given cell.
-   * 
+   *
    * @param exclude
    *          the {@link ComponentInfo} that should not be checked, for example because we move it
    *          now.
@@ -1215,13 +1215,13 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       }
       // insert gap and empty column/row
       if (insertColumn) {
-        m_columns.add(column - 1, new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
-        m_columns.add(column - 1 + 1, new FormColumnInfo(FormFactory.DEFAULT_COLSPEC));
+        m_columns.add(column - 1, new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC));
+        m_columns.add(column - 1 + 1, new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC));
         column += 1;
       }
       if (insertRow) {
-        m_rows.add(row - 1, new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
-        m_rows.add(row - 1 + 1, new FormRowInfo(FormFactory.DEFAULT_ROWSPEC));
+        m_rows.add(row - 1, new FormRowInfo(FormSpecs.RELATED_GAP_ROWSPEC));
+        m_rows.add(row - 1 + 1, new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC));
         row += 1;
       }
       // write dimensions
@@ -1235,8 +1235,8 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
             addColumns % 2 == 0,
             MessageFormat.format(ModelMessages.FormLayoutInfo_evenDiffNumColumns, addColumns));
         for (int i = 0; i < addColumns / 2; i++) {
-          m_columns.add(new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC));
-          m_columns.add(new FormColumnInfo(FormFactory.DEFAULT_COLSPEC));
+          m_columns.add(new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC));
+          m_columns.add(new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC));
         }
         writeDimensions = true;
       }
@@ -1249,8 +1249,8 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
             addRows % 2 == 0,
             MessageFormat.format(ModelMessages.FormLayoutInfo_evenDiffNumRows, addRows));
         for (int i = 0; i < addRows / 2; i++) {
-          m_rows.add(new FormRowInfo(FormFactory.RELATED_GAP_ROWSPEC));
-          m_rows.add(new FormRowInfo(FormFactory.DEFAULT_ROWSPEC));
+          m_rows.add(new FormRowInfo(FormSpecs.RELATED_GAP_ROWSPEC));
+          m_rows.add(new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC));
         }
         writeDimensions = true;
       }
@@ -1430,9 +1430,9 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       m_defaultColumnSize = converter.millimeterAsPixel(DEFAULT_SIZE, container);
       m_defaultRowSize = converter.millimeterAsPixel(DEFAULT_SIZE, container);
       m_gapColumnSize =
-          new FormSizeInfo(FormFactory.RELATED_GAP_COLSPEC.getSize(), true).getConstantSize().getAsPixels();
+          new FormSizeInfo(FormSpecs.RELATED_GAP_COLSPEC.getSize(), true).getConstantSize().getAsPixels();
       m_gapRowSize =
-          new FormSizeInfo(FormFactory.RELATED_GAP_ROWSPEC.getSize(), false).getConstantSize().getAsPixels();
+          new FormSizeInfo(FormSpecs.RELATED_GAP_ROWSPEC.getSize(), false).getConstantSize().getAsPixels();
     }
     // set constant size for empty columns/rows
     {
@@ -1627,7 +1627,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final BiMap<GeneralLayoutData.HorizontalAlignment, CellConstraints.Alignment> m_horizontalAlignmentMap =

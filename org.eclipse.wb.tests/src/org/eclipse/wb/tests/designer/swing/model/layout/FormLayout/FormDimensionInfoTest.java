@@ -17,9 +17,9 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
 import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.StrValue;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
@@ -38,7 +38,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_accessors() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
+    FormColumnInfo column = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
     assertEquals("default", column.getDisplayString());
     // check initial state
     assertSame(Sizes.DEFAULT, column.getSize().getSize());
@@ -53,16 +53,16 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_equals2() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
-    FormColumnInfo column2 = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
-    FormColumnInfo column3 = new FormColumnInfo(FormFactory.PREF_COLSPEC);
+    FormColumnInfo column = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
+    FormColumnInfo column2 = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
+    FormColumnInfo column3 = new FormColumnInfo(FormSpecs.PREF_COLSPEC);
     assertTrue(column.equals2(column2));
     assertFalse(column.equals2(column3));
   }
 
   public void test_assign() throws Exception {
-    FormColumnInfo target = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
-    FormColumnInfo source = new FormColumnInfo(FormFactory.GROWING_BUTTON_COLSPEC);
+    FormColumnInfo target = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
+    FormColumnInfo source = new FormColumnInfo(FormSpecs.GROWING_BUTTON_COLSPEC);
     // check initial state
     assertEquals("default", target.getDisplayString());
     assertEquals("50dlu<preferred:grow", source.getDisplayString());
@@ -93,7 +93,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
    */
   private void check_FormDimensionInfo_sourceParse(String toParse, String expected)
       throws Exception {
-    FormColumnInfo column = new FormColumnInfo(new ColumnSpec(toParse));
+    FormColumnInfo column = new FormColumnInfo(ColumnSpec.decode(toParse));
     assertEquals(
         "com.jgoodies.forms.layout.ColumnSpec.decode(\"" + expected + "\")",
         column.getSource());
@@ -102,13 +102,13 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_source_row() throws Exception {
-    FormRowInfo row = new FormRowInfo(new RowSpec("4cm"));
+    FormRowInfo row = new FormRowInfo(RowSpec.decode("4cm"));
     assertEquals("com.jgoodies.forms.layout.RowSpec.decode(\"4cm\")", row.getSource());
   }
 
   public void test_source_columnTemplate() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(FormFactory.GLUE_COLSPEC);
-    assertEquals("com.jgoodies.forms.factories.FormFactory.GLUE_COLSPEC", column.getSource());
+    FormColumnInfo column = new FormColumnInfo(FormSpecs.GLUE_COLSPEC);
+    assertEquals("com.jgoodies.forms.layout.FormSpecs.GLUE_COLSPEC", column.getSource());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -158,11 +158,11 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_toolTip() throws Exception {
-    assertEquals("default", new FormColumnInfo(FormFactory.DEFAULT_COLSPEC).getToolTip());
-    assertEquals("minimum", new FormColumnInfo(FormFactory.MIN_COLSPEC).getToolTip());
+    assertEquals("default", new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC).getToolTip());
+    assertEquals("minimum", new FormColumnInfo(FormSpecs.MIN_COLSPEC).getToolTip());
     assertEquals(
         "100dlu<preferred",
-        new FormColumnInfo(new ColumnSpec("max(100dlu;pref)")).getToolTip());
+        new FormColumnInfo(ColumnSpec.decode("max(100dlu;pref)")).getToolTip());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -171,12 +171,12 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_copyColumn() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(new ColumnSpec("min(100dlu;default)"));
+    FormColumnInfo column = new FormColumnInfo(ColumnSpec.decode("min(100dlu;default)"));
     assertEquals("default<100dlu", column.copy().getToolTip());
   }
 
   public void test_copyRow() throws Exception {
-    FormRowInfo row = new FormRowInfo(new RowSpec("min(100dlu;default)"));
+    FormRowInfo row = new FormRowInfo(RowSpec.decode("min(100dlu;default)"));
     assertEquals("default<100dlu", row.copy().getToolTip());
   }
 
@@ -186,7 +186,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_columnTemplates() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
+    FormColumnInfo column = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
     // similar templates - components because column is component
     {
       FormDimensionTemplate[] templates = column.getTemplates(true);
@@ -212,7 +212,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_columnTemplates2() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(FormFactory.RELATED_GAP_COLSPEC);
+    FormColumnInfo column = new FormColumnInfo(FormSpecs.RELATED_GAP_COLSPEC);
     // similar templates - gaps, becuase column is gap
     {
       FormDimensionTemplate[] templates = column.getTemplates(true);
@@ -227,7 +227,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_columnTemplates_set() throws Exception {
-    FormColumnInfo column = new FormColumnInfo(FormFactory.DEFAULT_COLSPEC);
+    FormColumnInfo column = new FormColumnInfo(FormSpecs.DEFAULT_COLSPEC);
     assertEquals("default", column.getToolTip());
     //
     column.setTemplate(column.getTemplates(true)[1]);
@@ -235,9 +235,9 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_rowTemplates() throws Exception {
-    FormRowInfo row = new FormRowInfo(FormFactory.DEFAULT_ROWSPEC);
+    FormRowInfo row = new FormRowInfo(FormSpecs.DEFAULT_ROWSPEC);
     assertEquals(4, row.getTemplates(true).length);
-    assertEquals(5, row.getTemplates(false).length);
+    assertEquals(6, row.getTemplates(false).length);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -247,7 +247,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   ////////////////////////////////////////////////////////////////////////////
   public void test_convertToNearestGap_columns() throws Exception {
     check_convertToNearestGap_column("4px", 5, "LABEL_COMPONENT_GAP_COLSPEC");
-    check_convertToNearestGap_column("4px", 0, null);
+    check_convertToNearestGap_column("3px", 0, null);
     check_convertToNearestGap_column("5px", 1, "LABEL_COMPONENT_GAP_COLSPEC");
     {
       String desc =
@@ -262,7 +262,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   }
 
   public void test_convertToNearestGap_rows() throws Exception {
-    check_convertToNearestGap_row("4px", 5, "NARROW_LINE_GAP_ROWSPEC");
+    check_convertToNearestGap_row("4px", 5, "LABEL_COMPONENT_GAP_ROWSPEC");
     check_convertToNearestGap_row("5px", 5, "LINE_GAP_ROWSPEC");
     check_convertToNearestGap_row("6px", 5, "RELATED_GAP_ROWSPEC");
   }
@@ -270,13 +270,13 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
   private void check_convertToNearestGap_column(String desc,
       int maxDelta,
       String expectedTemplateField) throws Exception {
-    FormColumnInfo dimension = new FormColumnInfo(new ColumnSpec(desc));
+    FormColumnInfo dimension = new FormColumnInfo(ColumnSpec.decode(desc));
     check_convertToNearestGap(dimension, maxDelta, expectedTemplateField);
   }
 
   private void check_convertToNearestGap_row(String desc, int maxDelta, String expectedTemplateField)
       throws Exception {
-    FormRowInfo dimension = new FormRowInfo(new RowSpec(desc));
+    FormRowInfo dimension = new FormRowInfo(RowSpec.decode(desc));
     check_convertToNearestGap(dimension, maxDelta, expectedTemplateField);
   }
 

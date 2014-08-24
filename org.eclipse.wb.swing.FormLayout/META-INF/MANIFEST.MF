@@ -25,4 +25,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.swing,
  org.eclipse.wb.swing.FormLayout.lib
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
