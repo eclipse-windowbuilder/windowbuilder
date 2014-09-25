@@ -787,7 +787,7 @@ public class FactoryDescriptionHelper {
       String title) {
     for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
       // prepare setter
-      Method setMethod = propertyDescriptor.getWriteMethod();
+      Method setMethod = ReflectionUtils.getWriteMethod(propertyDescriptor);
       if (setMethod == null) {
         continue;
       }

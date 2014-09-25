@@ -57,7 +57,7 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
 
   private void addSingleProperty(ComponentDescription componentDescription,
       PropertyDescriptor propertyDescriptor) throws Exception {
-    Method setMethod = propertyDescriptor.getWriteMethod();
+    Method setMethod = ReflectionUtils.getWriteMethod(propertyDescriptor);
     if (setMethod == null) {
       return;
     }
@@ -67,7 +67,7 @@ public final class CreatePropertiesPropertyDescriptorRule extends Rule {
     // prepare description parts
     String title = propertyDescriptor.getName();
     String attribute = StringUtils.substringBeforeLast(StringUtils.uncapitalize(title), "(");
-    Method getMethod = propertyDescriptor.getReadMethod();
+    Method getMethod = ReflectionUtils.getReadMethod(propertyDescriptor);
     Class<?> propertyType = resolvePropertyType(componentDescription, setMethod);
     // prepare property parts
     String id =

@@ -29,6 +29,7 @@ import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -60,6 +61,37 @@ public class ReflectionUtils {
   //
   ////////////////////////////////////////////////////////////////////////////
   private ReflectionUtils() {
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Access
+  //
+  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Java 8 uses "MethodRef" that uses {@link SoftReference} to a {@link Method}. But this means
+   * that when it looses a reference to a <em>protected</em> {@link Method}, it cannot restore it. I
+   * wish we had done it differently, not by using {@link PropertyDescriptor}.
+   */
+  public static Method getWriteMethod(PropertyDescriptor propertyDescriptor) {
+    try {
+      return propertyDescriptor.getWriteMethod();
+    } catch (Throwable e) {
+      return null;
+    }
+  }
+
+  /**
+   * Java 8 uses "MethodRef" that uses {@link SoftReference} to a {@link Method}. But this means
+   * that when it looses a reference to a <em>protected</em> {@link Method}, it cannot restore it. I
+   * wish we had done it differently, not by using {@link PropertyDescriptor}.
+   */
+  public static Method getReadMethod(PropertyDescriptor propertyDescriptor) {
+    try {
+      return propertyDescriptor.getReadMethod();
+    } catch (Throwable e) {
+      return null;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -1419,8 +1451,8 @@ public class ReflectionUtils {
     Map<String, Method> propertyToSetter = Maps.newTreeMap();
     // append existing getters/setters
     for (PropertyDescriptor propertyDescriptor : descriptors) {
-      Method readMethod = propertyDescriptor.getReadMethod();
-      Method writeMethod = propertyDescriptor.getWriteMethod();
+      Method readMethod = getReadMethod(propertyDescriptor);
+      Method writeMethod = getWriteMethod(propertyDescriptor);
       if (readMethod != null) {
         String propertyName = getQualifiedPropertyName(readMethod);
         propertyToGetter.put(propertyName, readMethod);
@@ -1466,8 +1498,8 @@ public class ReflectionUtils {
 
   private static void makeMethodsAccessible(List<PropertyDescriptor> descriptors) {
     for (PropertyDescriptor propertyDescriptor : descriptors) {
-      Method getMethod = propertyDescriptor.getReadMethod();
-      Method setMethod = propertyDescriptor.getWriteMethod();
+      Method getMethod = getReadMethod(propertyDescriptor);
+      Method setMethod = getWriteMethod(propertyDescriptor);
       if (getMethod != null) {
         getMethod.setAccessible(true);
       }

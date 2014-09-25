@@ -444,9 +444,9 @@ public class JavaInfoUtils {
     List<PropertyDescriptor> propertyDescriptors = host.getDescription().getPropertyDescriptors();
     // check all PropertyDescriptor's
     for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
-      Method setMethod = propertyDescriptor.getWriteMethod();
+      Method setMethod = ReflectionUtils.getWriteMethod(propertyDescriptor);
       // prepare "getter"
-      Method getMethod = propertyDescriptor.getReadMethod();
+      Method getMethod = ReflectionUtils.getReadMethod(propertyDescriptor);
       if (getMethod == null) {
         continue;
       }

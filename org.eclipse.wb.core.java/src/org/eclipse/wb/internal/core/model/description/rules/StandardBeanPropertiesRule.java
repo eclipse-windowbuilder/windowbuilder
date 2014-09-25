@@ -51,8 +51,8 @@ public final class StandardBeanPropertiesRule extends Rule {
     for (PropertyDescriptor propertyDescriptor : descriptors) {
       // prepare property parts
       String propertyName = propertyDescriptor.getName();
-      Method setMethod = propertyDescriptor.getWriteMethod();
-      Method getMethod = propertyDescriptor.getReadMethod();
+      Method setMethod = ReflectionUtils.getWriteMethod(propertyDescriptor);
+      Method getMethod = ReflectionUtils.getReadMethod(propertyDescriptor);
       // add property
       if (setMethod != null) {
         GenericPropertyDescription propertyDescription =
