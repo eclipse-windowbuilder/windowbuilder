@@ -10,23 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import org.eclipse.wb.internal.core.model.description.resource.FromListDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProviderFactory;
 
+import org.eclipse.core.internal.preferences.ImmutableMap;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.swt.SWT;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * {@link IDescriptionVersionsProviderFactory} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp
  */
@@ -66,8 +63,7 @@ public final class RcpDescriptionVersionsProviderFactory
     }
     // OK, RCP project
     String version = getSWTVersion();
-    List<String> allVersions =
-        ImmutableList.of("3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "4.2", "4.3", "4.4");
+    List<String> allVersions = ImmutableList.of("3.8", "4.2", "4.3", "4.4", "4.5");
     return new FromListDescriptionVersionsProvider(allVersions, version) {
       @Override
       protected boolean validate(Class<?> componentClass) throws Exception {
