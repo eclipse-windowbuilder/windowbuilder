@@ -10,11 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+
+import org.eclipse.swt.SWT;
 import org.eclipse.wb.internal.core.model.description.resource.FromListDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProviderFactory;
 
-import org.eclipse.core.internal.preferences.ImmutableMap;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 
