@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.IVariableBinding;
  * We use our implementations of bindings because standard ones reference objects from internal
  * compiler's AST. This is not problem for Eclipse itself, but we parse very often, for every change
  * in editor, so we can end up with a lot of referenced objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -457,6 +457,14 @@ public final class DesignerTypeBinding implements ITypeBinding {
   }
 
   public ITypeBinding getGenericTypeOfWildcardType() {
+    throw new IllegalArgumentException();
+  }
+
+  public IMethodBinding getFunctionalInterfaceMethod() {
+    throw new IllegalArgumentException();
+  }
+
+  public IAnnotationBinding[] getTypeAnnotations() {
     throw new IllegalArgumentException();
   }
 }

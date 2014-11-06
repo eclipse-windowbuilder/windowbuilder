@@ -19,11 +19,11 @@ import org.eclipse.jdt.core.dom.IVariableBinding;
 
 /**
  * Implementation of {@link IVariableBinding}.
- * 
+ *
  * We use our implementations of bindings because standard ones reference objects from internal
  * compiler's AST. This is not problem for Eclipse itself, but we parse very often, for every change
  * in editor, so we can end up with a lot of referenced objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -148,6 +148,10 @@ final class DesignerVariableBinding implements IVariableBinding {
   }
 
   public boolean isRecovered() {
+    throw new IllegalArgumentException();
+  }
+
+  public boolean isEffectivelyFinal() {
     throw new IllegalArgumentException();
   }
 }
