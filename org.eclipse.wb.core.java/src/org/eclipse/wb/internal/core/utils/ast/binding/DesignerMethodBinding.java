@@ -20,11 +20,11 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Implementation of {@link IMethodBinding}.
- * 
+ *
  * We use our implementations of bindings because standard ones reference objects from internal
  * compiler's AST. This is not problem for Eclipse itself, but we parse very often, for every change
  * in editor, so we can end up with a lot of referenced objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -38,6 +38,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
   private ITypeBinding[] m_parameterTypes;
   private ITypeBinding[] m_exceptionTypes;
   private DesignerMethodBinding m_methodDeclaration;
+  private ITypeBinding m_methodRecieverType;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -73,6 +74,14 @@ public final class DesignerMethodBinding implements IMethodBinding {
         m_methodDeclaration = this;
       } else {
         m_methodDeclaration = context.get(methodDeclaration);
+      }
+    }
+    {
+      ITypeBinding methodRecieverType = binding.getReturnType();
+      if (m_constructor) {
+        m_methodRecieverType = null;
+      } else {
+        m_methodRecieverType = context.get(methodRecieverType);
       }
     }
   }
@@ -144,6 +153,10 @@ public final class DesignerMethodBinding implements IMethodBinding {
 
   public ITypeBinding getReturnType() {
     return m_returnType;
+  }
+
+  public ITypeBinding getDeclaredReceiverType() {
+    return m_methodRecieverType;
   }
 
   public ITypeBinding[] getTypeArguments() {
