@@ -38,7 +38,6 @@ public final class DesignerMethodBinding implements IMethodBinding {
   private ITypeBinding[] m_parameterTypes;
   private ITypeBinding[] m_exceptionTypes;
   private DesignerMethodBinding m_methodDeclaration;
-  private ITypeBinding m_methodRecieverType;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -74,14 +73,6 @@ public final class DesignerMethodBinding implements IMethodBinding {
         m_methodDeclaration = this;
       } else {
         m_methodDeclaration = context.get(methodDeclaration);
-      }
-    }
-    {
-      ITypeBinding methodRecieverType = binding.getReturnType();
-      if (m_constructor) {
-        m_methodRecieverType = null;
-      } else {
-        m_methodRecieverType = context.get(methodRecieverType);
       }
     }
   }
@@ -156,7 +147,7 @@ public final class DesignerMethodBinding implements IMethodBinding {
   }
 
   public ITypeBinding getDeclaredReceiverType() {
-    return m_methodRecieverType;
+    throw new IllegalArgumentException();
   }
 
   public ITypeBinding[] getTypeArguments() {
