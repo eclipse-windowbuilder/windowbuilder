@@ -126,7 +126,11 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
   ////////////////////////////////////////////////////////////////////////////
   private static final String DEF_functions = StringUtils.join(new String[]{
       "def isComponentType(model, c) {",
-      "  return ReflectionUtils.isSuccessorOf(model.description.componentClass, c);",
+      "  if (ReflectionUtils.isSuccessorOf(model, 'org.eclipse.wb.core.model.ObjectInfo')) {",
+      "    return ReflectionUtils.isSuccessorOf(model.description.componentClass, c);",
+      "  } else {",
+      "    return ReflectionUtils.isSuccessorOf(model.componentClass, c);",
+      "  }",
       "};",}, "\n");
 
   private static boolean executeScriptBoolean(String script, Object parent, Object child)
