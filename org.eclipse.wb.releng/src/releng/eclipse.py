@@ -295,5 +295,12 @@ def RunAnt(eclipse_install_dir, ant_script, prod_dir, eclipse_version):
 
 def SetArchiveDir(d):
   global eclipse_archive_dir
+  log.info('setting eclipse_archive_dir to |%s|', d)
+  if not os.path.exists(d):
+    log.critical('Aborting, directory %s does not exist', d)
+    raise Error('can not find %s' % d)
+  eclipse_archive_dir = d
+  log.info('setting eclipse_archive_dir to |%s|' % 
+           eclipse_archive_dir)
   eclipse_archive_dir = d
 

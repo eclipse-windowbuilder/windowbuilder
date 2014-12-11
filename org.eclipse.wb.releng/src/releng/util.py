@@ -109,6 +109,9 @@ def _VerifySite(directory, sign_files):
   processing_file = None
   error_list = []
   try:
+    jdk_dir = os.path.join(os.sep, 'shared', 'common', 'jdk1.7.0-latest',
+                           'bin')
+    unpack200_bin = os.path.join(jdk_dir, 'unpack200')
     os.chdir(working_dir)
     packed_files.sort()
     for f in packed_files:
