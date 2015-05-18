@@ -13,14 +13,14 @@ package org.eclipse.wb.internal.os.linux;
 /**
  * The callback interface for screen shot support. See details in
  * {@link OSSupportLinux#makeShots(Object)}.
- * 
+ *
  * @author mitin_aa
  * @coverage os.linux
  */
 public interface IScreenshotCallback<H extends Number> {
   /**
    * Called from native code when the <code>pixmap</code> available for <code>handle</code>.
-   * 
+   *
    * @param handle
    *          the handle of widget (GtkWidget*).
    * @param pixmap

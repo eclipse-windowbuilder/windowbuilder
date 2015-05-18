@@ -1,0 +1,28 @@
+project(wbp-libs C)
+cmake_minimum_required(VERSION 2.6)
+
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+	set(WBPLIBS_BITNESS_DEF "-DWBP_ARCH64")
+else()
+	set(WBPLIBS_BITNESS_DEF "-DWBP_ARCH32")
+endif()
+
+find_package(JNI REQUIRED)
+if (NOT JNI_FOUND)
+    message (FATAL_ERROR "Cannot found JNI dev files")
+endif()
+include_directories(${JNI_INCLUDE_DIRS})
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK2 REQUIRED "gtk+-2.0")
+if (GTK2_FOUND)
+	include_directories(${GTK2_INCLUDE_DIRS})
+	link_directories(${GTK2_LIBRARY_DIRS})
+	add_definitions(${GTK2_CFLAGS_OTHER})
+	add_definitions(${WBPLIBS_BITNESS_DEF})
+	add_library(wbp SHARED ../common/utils.c rcp.c)
+	target_link_libraries(wbp ${GTK2_LIBRARIES})
+else()
+	message (FATAL_ERROR "Cannot found dev libs for Gtk2")
+endif()
+

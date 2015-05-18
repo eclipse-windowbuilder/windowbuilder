@@ -12,9 +12,9 @@ package org.eclipse.wb.internal.os.linux;
 
 /**
  * OSSupport for Linux.
- * 
+ *
  * @author mitin_aa
- * 
+ *
  * @coverage os.linux
  */
 import com.google.common.collect.Maps;
@@ -56,7 +56,15 @@ import java.util.Set;
 
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   static {
-    System.loadLibrary("wbp");
+    String libName;
+    try {
+      Class<?> OSClass = Class.forName("org.eclipse.swt.internal.gtk.OS");
+      boolean isGtk3 = ReflectionUtils.getFieldBoolean(OSClass, "GTK3");
+      libName = isGtk3 ? "wbp3" : "wbp";
+    } catch (Throwable e) {
+      libName = "wbp";
+    }
+    System.loadLibrary(libName);
   }
   // constants
   private static final Color TITLE_BORDER_COLOR_DARKEST = DrawUtils.getShiftedColor(
@@ -101,7 +109,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * Registers the control to be checked in screen shot callback. Every control can be registered
-   * multiple times. The first pixmap received for this control in callback is "root" for this
+   * multiple times. The first image handle received for this control in callback is "root" for this
    * control and should be bound as {@link Image}.
    */
   private void registerControl(Control control) throws Exception {
@@ -137,7 +145,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * Gets the {@link Shell} of given {@link Control}.
-   * 
+   *
    * @return the found parent {@link Shell} or throws {@link AssertionFailedException} if the given
    *         <code>controlObject</code> is not instance of {@link Control}.
    */
@@ -156,9 +164,9 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
       // prepare
       _begin_shot(getShellHandle(shell));
       try {
-        // Bug/feature is SWT: since the widget is already shown, the Shell.setVisible() invocation 
+        // Bug/feature is SWT: since the widget is already shown, the Shell.setVisible() invocation
         // has no effect, so we've end up with wrong shell trimming.
-        // The workaround is to call adjustTrim() explicitly. 
+        // The workaround is to call adjustTrim() explicitly.
         ReflectionUtils.invokeMethod(shell, "adjustTrim()", new Object[0]);
       } catch (Throwable e) {
         DesignerPlugin.log(e);
@@ -208,45 +216,45 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * Screen shot algorithm is the following:
-   * 
+   *
    * <pre>
    * 1. Register controls which requires the image. See {@link #registerControl(Control)}.
    * 2. Create the callback, which should be passed into native code. See {@link #_makeShot(int, IScreenshotCallback)}.
-   * 3. While traversing the gtk widgets/gdk windows in native code, the callback returns native widget handle and the pixmap 
-   *    for it (see {@link IScreenshotCallback}). At this time if the control found in registry, the received pixmap converted 
-   *    into {@link Image} and bind to control (see {@link #bindImage(Display, Control, int)}). 
-   *    Otherwise, the pixmap is disposed later (because it may be used in drawing in native code).
-   * 4. Since its not possible to capture window decorations, it needs to be drawn manually. The root shell image replaced with 
-   *    the one with decorations (if applicable/available to draw). 
+   * 3. While traversing the gtk widgets/gdk windows in native code, the callback returns native widget handle and the image handle
+   *    for it (see {@link IScreenshotCallback}). At this time if the control found in registry, the received image handle converted
+   *    into {@link Image} and bound to control (see {@link #bindImage(Display, Control, int)}).
+   *    Otherwise, the image handle is disposed later (because it may be used in drawing in native code).
+   * 4. Since its not possible to capture window decorations, it needs to be drawn manually. The root shell image replaced with
+   *    the one with decorations (if applicable/available to draw).
    * </pre>
    */
   private void makeShots0(final Shell shell) throws Exception {
     prepareScreenshot(shell);
     // get the handle for the root window
     H shellHandle = getShellHandle(shell);
-    final Set<H> disposePixmaps = Sets.newHashSet();
+    final Set<H> disposeImageHandles = Sets.newHashSet();
     // apply shot magic
     _makeShot(shellHandle, new IScreenshotCallback<H>() {
-      public void storeImage(H handle, H pixmap) {
-        // get the registered control by handle 
+      public void storeImage(H handle, H imageHandle) {
+        // get the registered control by handle
         Control imageForControl = m_controlsRegistry.get(handle);
-        if (imageForControl == null || !bindImage(imageForControl, pixmap)) {
-          // this means given pixmap used to draw the gtk widget internally
-          disposePixmaps.add(pixmap);
+        if (imageForControl == null || !bindImage(imageForControl, imageHandle)) {
+          // this means given image handle used to draw the gtk widget internally
+          disposeImageHandles.add(imageHandle);
         }
       }
     });
-    // done, dispose pixmaps needed to draw internally.
-    for (H pixmap : disposePixmaps) {
-      _g_object_unref(pixmap);
+    // done, dispose image handles needed to draw internally.
+    for (H imageHandle : disposeImageHandles) {
+      _disposeImageHandle(imageHandle);
     }
   }
 
-  private boolean bindImage(final Control control, final H pixmap) {
+  private boolean bindImage(final Control control, final H imageHandle) {
     return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
       public Boolean runObject() throws Exception {
         if (control.getData(WBP_NEED_IMAGE) != null && control.getData(WBP_IMAGE) == null) {
-          Image image = createImage(pixmap);
+          Image image = createImage(imageHandle);
           control.setData(WBP_IMAGE, image);
           return true;
         }
@@ -276,8 +284,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
         widgetHandle = getHandleValue(shell, "handle");
       }
       // apply shot magic
-      H pixmap = _makeShot(widgetHandle, null);
-      return createImage(pixmap);
+      H imageHandle = _makeShot(widgetHandle, null);
+      return createImage(imageHandle);
     } finally {
       shell.setVisible(false);
       restoreTitle(shell);
@@ -291,9 +299,9 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     Rectangle shellBounds = shell.getBounds();
     Image shellImage = (Image) shell.getData(WBP_IMAGE);
     if (shellImage != null) {
-      // 27.02.2008: while using some window managers, such as compiz, the returned Shell 
+      // 27.02.2008: while using some window managers, such as compiz, the returned Shell
       // bounds are not include the window decorations geometry.
-      // 17.11.2008: compiz works fine with GTK 2.14 and later 
+      // 17.11.2008: compiz works fine with GTK 2.14 and later
       Rectangle imageBounds = shellImage.getBounds();
       if (imageBounds.width != shellBounds.width || imageBounds.height != shellBounds.height) {
         Point offset = shell.toControl(shell.getLocation());
@@ -382,7 +390,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   /**
    * Calls native code, pass there the handle of {@link Control} and returns widget's bounds as
    * {@link Rectangle}.
-   * 
+   *
    * @return the widget's bounds as {@link Rectangle}.
    */
   private Rectangle getWidgetBounds(Object widget) {
@@ -412,25 +420,17 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * @return the Image instance created by SWT internal method Image.gtk_new which uses external
-   *         GtkPixmap* pointer.
+   *         GtkPixmap* or cairo_surface_t* pointer.
    */
-  protected abstract Image createImage0(H pixmap) throws Exception;
+  protected abstract Image createImage0(H imageHandle) throws Exception;
 
-  private Image createImage(H pixmap) throws Exception {
-    Image image = createImage0(pixmap);
-    {
-      // BUG in SWT: Cairo surface is not fully initialized. 
-      // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=382175
-      try {
-        Number surfaceValue = (Number) ReflectionUtils.getFieldObject(image, "surface");
-        if (surfaceValue.longValue() != 0) {
-          image.getImageData();
-        }
-      } catch (Throwable e) {
-        // ignore
-      }
-    }
-    return image;
+  private Image createImage(H imageHandle) throws Exception {
+    Image image = createImage0(imageHandle);
+    // BUG in SWT: Image instance is not fully initialized
+    // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=382175
+    Image newImage = new Image(null, image.getImageData());
+    image.dispose();
+    return newImage;
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -442,9 +442,9 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   public Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception {
     // create new image and fetch item sizes
     H handle = getHandleValue(menu, "handle");
-    H pixmap = _fetchMenuVisualData(handle, bounds);
+    H imageHandle = _fetchMenuVisualData(handle, bounds);
     // set new handle to image
-    return createImage(pixmap);
+    return createImage(imageHandle);
   }
 
   /**
@@ -534,7 +534,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * Sets the <code>alpha</code> value for given <code>shell</code>.
-   * 
+   *
    * @param shellHandle
    *          the handle of {@link Shell}.
    * @param alpha
@@ -544,7 +544,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * Returns the current alpha value for given <code>shellHandle</code>.
-   * 
+   *
    * @param shellHandle
    *          the handle of {@link Shell}.
    * @return the alpha value.
@@ -553,7 +553,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   /**
    * Fills the given array of int with bounds as x, y, width, height sequence.
-   * 
+   *
    * @param widgetHandle
    *          the handle (GtkWidget*) of widget.
    * @param bounds
@@ -562,37 +562,37 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   private static native <H extends Number> void _getWidgetBounds(H widgetHandle, int[] bounds);
 
   /**
-   * Fetches the menu data: returns item bounds as plain array and the pixmap of menu image.
-   * 
+   * Fetches the menu data: returns item bounds as plain array and the image handle of menu image.
+   *
    * @param menuHandle
    *          the handle (GtkWidget*) of menu.
    * @param bounds
    *          the array of integer with size 4 * menu item count.
-   * @return the GdkPixmap* of menu widget.
+   * @return the GdkPixmap* or cairo_surface_t* of menu widget.
    */
   private static native <H extends Number> H _fetchMenuVisualData(H menuHandle, int[] bounds);
 
   /**
    * Causes taking the screen shot.
-   * 
+   *
    * @param windowHandle
    *          the handle (GtkWidget*) of root gtk widget of {@link Shell}.
    * @param callback
    *          the instance of {@link IScreenshotCallback}. Can be <code>null</code>.
-   * @return the GdkPixmap* of {@link Shell}.
+   * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
    */
   private static native <H extends Number> H _makeShot(H windowHandle,
       IScreenshotCallback<H> callback);
 
   /**
-   * Simply calls g_object_unref() for given <code>widgetHandle</code>.
+   * Do dispose for given <code>imageHandle</code>.
    */
-  private static native <H extends Number> void _g_object_unref(H widgetHandle);
+  private static native <H extends Number> void _disposeImageHandle(H imageHandle);
 
   /**
    * Toggles the "above" X Window property. If <code>forceToggle</code> is <code>false</code> then
    * no toggling if window already has the "above" property set.
-   * 
+   *
    * @param windowHandle
    *          the handle (GtkWidget*) of root gtk widget of {@link Shell}.
    * @param forceToggle
@@ -627,7 +627,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     }
 
     @Override
-    protected Image createImage0(Long pixmap) throws Exception {
+    protected Image createImage0(Long imageHandle) throws Exception {
       return (Image) ReflectionUtils.invokeMethod2(
           Image.class,
           "gtk_new",
@@ -637,7 +637,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
           long.class,
           null,
           SWT.BITMAP,
-          pixmap.longValue(),
+          imageHandle.longValue(),
           0);
     }
   }
@@ -652,7 +652,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     }
 
     @Override
-    protected Image createImage0(Integer pixmap) throws Exception {
+    protected Image createImage0(Integer imageHandle) throws Exception {
       return (Image) ReflectionUtils.invokeMethod2(
           Image.class,
           "gtk_new",
@@ -662,7 +662,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
           int.class,
           null,
           SWT.BITMAP,
-          pixmap.intValue(),
+          imageHandle.intValue(),
           0);
     }
   }
