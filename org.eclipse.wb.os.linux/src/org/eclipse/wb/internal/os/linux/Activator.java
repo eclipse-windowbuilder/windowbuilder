@@ -12,46 +12,27 @@ package org.eclipse.wb.internal.os.linux;
 
 import com.google.common.collect.Maps;
 
-import org.eclipse.wb.core.branding.BrandingUtils;
-import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.BundleContext;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
 /**
  * The activator class controls the plug-in life cycle.
- * 
+ *
  * @author mitin_aa
  * @coverage os.linux
  */
 public class Activator extends AbstractUIPlugin {
-  private static boolean gconfAvailable = false;
-  static {
-    try {
-      System.loadLibrary("wbp-compiz");
-      gconfAvailable = true;
-    } catch (Throwable e) {
-      // can't load gconf-related lib, skipping all compiz checks.
-    }
-  }
-  private static final String PK_ASK_FOR_WORKAROUND =
-      "org.eclipse.wb.os.linux.compizDontAskForWorkaround";
   public static final String PLUGIN_ID = "org.eclipse.wb.os.linux";
   //
   private static Activator m_plugin;
@@ -65,7 +46,6 @@ public class Activator extends AbstractUIPlugin {
   public void start(BundleContext context) throws Exception {
     super.start(context);
     m_plugin = this;
-    scheduleCompizCheck();
   }
 
   @Override
@@ -135,87 +115,4 @@ public class Activator extends AbstractUIPlugin {
     }
     return image;
   }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Start-up
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  private boolean isRunningCompiz() {
-    try {
-      File procs = new File("/proc");
-      File[] procFiles = procs.listFiles(new FileFilter() {
-        public boolean accept(File pathname) {
-          return pathname.isDirectory();
-        }
-      });
-      for (File procDir : procFiles) {
-        File cmdLineFile = new File(procDir, "cmdline");
-        if (cmdLineFile.exists()) {
-          String cmdLine = IOUtils2.readString(cmdLineFile);
-          if (cmdLine.indexOf("compiz") != -1) {
-            return true;
-          }
-        }
-      }
-    } catch (Throwable e) {
-      // ignore silently
-    }
-    return false;
-  }
-
-  private static Display getStandardDisplay() {
-    Display display = Display.getCurrent();
-    if (display == null) {
-      display = Display.getDefault();
-    }
-    return display;
-  }
-
-  private boolean askAgain() {
-    String value = getPreferenceStore().getString(PK_ASK_FOR_WORKAROUND);
-    return StringUtils.isEmpty(value);
-  }
-
-  private boolean isCompizSet() {
-    return _isCompizSet();
-  }
-
-  private void setupCompiz() {
-    _setupCompiz();
-  }
-
-  private void scheduleCompizCheck() {
-    if (!gconfAvailable) {
-      // no necessary gconf libs installed, skip checks.
-      return;
-    }
-    getStandardDisplay().asyncExec(new Runnable() {
-      public void run() {
-        try {
-          if (isRunningCompiz() && !isCompizSet() && askAgain()) {
-            MessageDialogWithToggle dialog =
-                MessageDialogWithToggle.openYesNoQuestion(
-                    null,
-                    BrandingUtils.getBranding().getProductName(),
-                    Messages.Activator_compizMessage,
-                    Messages.Activator_compizDontAsk,
-                    false,
-                    getPreferenceStore(),
-                    PK_ASK_FOR_WORKAROUND);
-            int returnCode = dialog.getReturnCode();
-            if (returnCode == IDialogConstants.YES_ID) {
-              setupCompiz();
-            }
-          }
-        } catch (Throwable e) {
-          DesignerPlugin.log(e);
-        }
-      }
-    });
-  }
-
-  private static native boolean _setupCompiz();
-
-  private static native boolean _isCompizSet();
 }
