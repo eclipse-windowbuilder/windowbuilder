@@ -58,14 +58,19 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   static {
     String libName;
     try {
-      Class<?> OSClass = Class.forName("org.eclipse.swt.internal.gtk.OS");
-      boolean isGtk3 = ReflectionUtils.getFieldBoolean(OSClass, "GTK3");
-      libName = isGtk3 ? "wbp3" : "wbp";
+      libName = isGtk3() ? "wbp3" : "wbp";
     } catch (Throwable e) {
       libName = "wbp";
     }
     System.loadLibrary(libName);
   }
+
+  private static boolean isGtk3() throws Exception {
+    Class<?> OSClass = Class.forName("org.eclipse.swt.internal.gtk.OS");
+    boolean isGtk3 = ReflectionUtils.getFieldBoolean(OSClass, "GTK3");
+    return isGtk3;
+  }
+
   // constants
   private static final Color TITLE_BORDER_COLOR_DARKEST = DrawUtils.getShiftedColor(
       IColorConstants.titleBackground,
@@ -426,6 +431,12 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   private Image createImage(H imageHandle) throws Exception {
     Image image = createImage0(imageHandle);
+    if (!isGtk3()) {
+      // for gtk2 it's required to return an image as is, because there is another bug in SWT:
+      // new Image(null, image.getImageData()) produces a garbage image if a source
+      // image is created using gtk_new().
+      return image;
+    }
     // BUG in SWT: Image instance is not fully initialized
     // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=382175
     Image newImage = new Image(null, image.getImageData());
