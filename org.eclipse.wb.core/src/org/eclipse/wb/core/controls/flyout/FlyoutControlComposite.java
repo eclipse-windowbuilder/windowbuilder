@@ -631,6 +631,9 @@ public final class FlyoutControlComposite extends Composite {
      */
     private void handlePaint(GC paintGC) {
       Rectangle clientArea = getClientArea();
+      if (clientArea.isEmpty()) {
+        return;
+      }
       // prepare back image
       GC gc;
       {
