@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2015 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Lars Vogel <Lars.Vogel@vogella.com> - Bug 481842
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp;
 
@@ -26,7 +27,7 @@ import java.util.Map;
 
 /**
  * {@link IDescriptionVersionsProviderFactory} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp
  */
@@ -66,7 +67,7 @@ public final class RcpDescriptionVersionsProviderFactory
     }
     // OK, RCP project
     String version = getSWTVersion();
-    List<String> allVersions = ImmutableList.of("3.7", "3.8", "4.2", "4.3", "4.4", "4.5");
+    List<String> allVersions = ImmutableList.of("3.7", "3.8", "4.2", "4.3", "4.4", "4.5", "4.6");
     return new FromListDescriptionVersionsProvider(allVersions, version) {
       @Override
       protected boolean validate(Class<?> componentClass) throws Exception {
