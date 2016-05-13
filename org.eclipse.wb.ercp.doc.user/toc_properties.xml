@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?NLS TYPE="org.eclipse.help.toc"?>
-<toc label="Properties" link_to="../org.eclipse.wb.doc.user/toc_userinterface.xml#properties"> 
-	<topic href="html/properties/property_editor_swt_style.html" label="SWT Style Editor"/>
-</toc>
