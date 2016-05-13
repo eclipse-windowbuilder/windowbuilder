@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2016 vogella GmbH Foundation and others.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Distribution License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/org/documents/edl-v10.php
+
+  Contributors:
+     Lars Vogel - initial implementation
+-->
+
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.eclipse.wb</groupId>
+    <artifactId>org.eclipse.wb.root</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>org.eclipse.wb</groupId>
+        <artifactId>org.eclipse.wb.releng</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>./org.eclipse.wb.releng</relativePath>
+    </parent>
+
+    <modules>
+       <!-- core bundles -->
+        <module>org.eclipse.wb.core</module>
+	<module>org.eclipse.wb.core.databinding</module>
+	<module>org.eclipse.wb.core.databinding.xml</module>
+	<module>org.eclipse.wb.core.java</module>
+	<module>org.eclipse.wb.core.lib</module>
+	<module>org.eclipse.wb.core.ui</module>
+	<module>org.eclipse.wb.core.xml</module>
+ 	
+	<!-- other bundles -->
+
+	<module>org.eclipse.wb.css</module>
+	<module>org.eclipse.wb.dev</module>
+	<module>org.eclipse.wb.discovery.core</module>
+	<module>org.eclipse.wb.discovery.ui</module>
+	<module>org.eclipse.wb.doc.user</module>
+	<module>org.eclipse.wb.jdt.fragment</module>
+	<module>org.eclipse.wb.layout.group</module>
+
+	<!-- OS specific bundles-->
+	<module>org.eclipse.wb.os</module>
+<!--
+	<module>org.eclipse.wb.os.linux</module> 
+	<module>org.eclipse.wb.os.macosx</module>
+	<module>org.eclipse.wb.os.win32</module>
+-->
+
+	<module>org.eclipse.wb.rcp</module>
+	<module>org.eclipse.wb.rcp.databinding</module>
+	<module>org.eclipse.wb.rcp.databinding.emf</module>
+	<module>org.eclipse.wb.rcp.databinding.xwt</module>
+	<module>org.eclipse.wb.rcp.doc.user</module>
+	<module>org.eclipse.wb.rcp.nebula</module>
+	<module>org.eclipse.wb.rcp.swing2swt</module>
+
+	
+	<module>org.eclipse.wb.rcp.SWT_AWT</module>
+	<module>org.eclipse.wb.releng</module>
+	<module>org.eclipse.wb.runtime</module>
+	<module>org.eclipse.wb.runtime.lib</module>
+	
+	<module>org.eclipse.wb.swing</module>
+	<module>org.eclipse.wb.swing.databinding</module>
+	<module>org.eclipse.wb.swing.doc.user</module>
+	<module>org.eclipse.wb.swing.FormLayout</module>
+	<module>org.eclipse.wb.swing.FormLayout.lib</module> 
+	<module>org.eclipse.wb.swing.java6</module> 
+	<module>org.eclipse.wb.swing.jsr296</module> 
+	<module>org.eclipse.wb.swing.MigLayout</module>
+	<module>org.eclipse.wb.swing.MigLayout.lib</module>
+	<module>org.eclipse.wb.swt</module>
+	<module>org.eclipse.wb.swt.widgets.baseline</module>
+<!--
+	<module>org.eclipse.wb.tests</module>
+-->
+	<module>org.eclipse.wb.xwt</module>
+	
+	
+	
+        <!-- Features-->
+	<module>org.eclipse.wb.core.feature_feature</module>
+	<module>org.eclipse.wb.core.java.feature_feature</module>
+	<module>org.eclipse.wb.core.ui.feature_feature</module>
+	<module>org.eclipse.wb.core.xml.feature_feature</module>
+	<module>org.eclipse.wb.css.feature_feature</module>
+	<module>org.eclipse.wb.doc.user.feature_feature</module>
+	<module>org.eclipse.wb.layout.group.feature_feature</module>
+	<module>org.eclipse.wb.rcp.doc.user.feature_feature</module>
+	<module>org.eclipse.wb.rcp.SWT_AWT_support_feature</module>
+	<module>org.eclipse.wb.rcp.feature_feature</module>
+	<module>org.eclipse.wb.swing.doc.user.feature_feature</module>
+	<module>org.eclipse.wb.swing.feature_feature</module>
+	<module>org.eclipse.wb.swt.feature_feature</module>
+	<module>org.eclipse.wb.xwt.feature_feature</module>
+    </modules>
+
+</project> 
+
