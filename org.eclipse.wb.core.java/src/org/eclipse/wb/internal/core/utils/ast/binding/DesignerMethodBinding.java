@@ -229,4 +229,8 @@ public final class DesignerMethodBinding implements IMethodBinding {
   public boolean isRecovered() {
     throw new IllegalArgumentException();
   }
+
+  public IBinding getDeclaringMember() {
+    return null;
+  }
 }

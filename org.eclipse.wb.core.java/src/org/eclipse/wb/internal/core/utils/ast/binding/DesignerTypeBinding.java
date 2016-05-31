@@ -467,4 +467,13 @@ public final class DesignerTypeBinding implements ITypeBinding {
   public IAnnotationBinding[] getTypeAnnotations() {
     throw new IllegalArgumentException();
   }
+
+  public IBinding getDeclaringMember() {
+    return null;
+  }
+
+  public boolean isIntersectionType() {
+    // TODO Auto-generated method stub
+    return false;
+  }
 }
