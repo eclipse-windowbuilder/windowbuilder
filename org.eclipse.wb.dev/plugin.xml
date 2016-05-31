@@ -23,8 +23,5 @@
 		<persistent value="true"/>
 	</extension>
 
-	<extension point="org.eclipse.ui.startup">
-		<startup class="org.eclipse.wb.internal.dev.tree.VistaTreeFixer"/>
-	</extension>
 
 </plugin>
