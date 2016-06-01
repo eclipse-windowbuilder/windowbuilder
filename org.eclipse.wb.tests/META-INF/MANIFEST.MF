@@ -6,8 +6,7 @@ Bundle-Version: 1.2.0
 Bundle-Activator: org.eclipse.wb.tests.designer.tests.Activator
 Bundle-Vendor: Google
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.junit;bundle-version="[3.8.2,4.0.0)",
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.expressions,
  org.eclipse.core.resources,
  org.eclipse.ui,
@@ -43,7 +42,8 @@ Require-Bundle: org.junit;bundle-version="[3.8.2,4.0.0)",
  org.eclipse.wb.core.xml,
  org.eclipse.wb.xwt,
  org.eclipse.wb.rcp.databinding.xwt,
- org.eclipse.wb.tests.support;visibility:=reexport
+ org.eclipse.wb.tests.support;visibility:=reexport,
+ org.junit;bundle-version="4.12.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/fest-util-1.1.4.jar,
  lib/fest-assert-1.3.jar,
