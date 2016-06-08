@@ -62,6 +62,7 @@
 	
 	<module>org.eclipse.wb.rcp.SWT_AWT</module>
 	<module>org.eclipse.wb.releng</module>
+	<module>org.eclipse.wb.releng.updatesite</module>
 	<module>org.eclipse.wb.runtime</module>
 	<module>org.eclipse.wb.runtime.lib</module>
 	
