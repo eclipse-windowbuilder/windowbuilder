@@ -42,7 +42,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wb.core.xml,
  org.eclipse.wb.xwt,
  org.eclipse.wb.rcp.databinding.xwt,
- org.eclipse.wb.tests.support;visibility:=reexport,
  org.junit;bundle-version="4.12.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/fest-util-1.1.4.jar,
