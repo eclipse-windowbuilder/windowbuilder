@@ -45,11 +45,9 @@
 
 	<!-- OS specific bundles-->
 	<module>org.eclipse.wb.os</module>
-<!--
-	<module>org.eclipse.wb.os.linux</module> 
+	<module>org.eclipse.wb.os.linux</module>
 	<module>org.eclipse.wb.os.macosx</module>
 	<module>org.eclipse.wb.os.win32</module>
--->
 
 	<module>org.eclipse.wb.rcp</module>
 	<module>org.eclipse.wb.rcp.databinding</module>
