@@ -20,12 +20,12 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.core.feature" version="0.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.feature" version="1.9.0" match="greaterOrEqual"/>
       <!-- $if eclipse.version >= 3.5$ -->
-      <import feature="org.eclipse.wb.core.xml.feature" version="0.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.xml.feature" version="1.9.0" match="greaterOrEqual"/>
       <!-- $endif$ -->
-      <import feature="org.eclipse.wb.swt.feature" version="0.0.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.rcp.feature" version="0.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.swt.feature" version="1.9.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.rcp.feature" version="1.9.0" match="greaterOrEqual"/>
    </requires>
 
    <!-- $if eclipse.version >= 3.5$ -->

@@ -20,7 +20,7 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.core.feature" version="0.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.feature" version="1.9.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
