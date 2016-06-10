@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
+   <feature url="features/org.eclipse.wb.rcp.feature_1.9.0.jar" id="org.eclipse.wb.rcp.feature" version="1.9.0">
+      <category name="org.eclipse.wb"/>
+   </feature>
    <feature url="features/org.eclipse.wb.core.feature_1.9.0.jar" id="org.eclipse.wb.core.feature" version="1.9.0">
       <category name="org.eclipse.wb"/>
    </feature>
@@ -21,10 +24,10 @@
    <feature url="features/org.eclipse.wb.layout.group.feature_1.9.0.jar" id="org.eclipse.wb.layout.group.feature" version="1.9.0">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.rcp.doc.user.feature_1.9.0.jar" id="org.eclipse.wb.rcp.doc.user.feature" version="1.9.0">
+   <feature url="features/org.eclipse.wb.rcp.SWT_AWT_support_1.9.0.jar" id="org.eclipse.wb.rcp.SWT_AWT_support" version="1.9.0">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.rcp.feature_1.9.0.jar" id="org.eclipse.wb.rcp.feature" version="1.9.0">
+   <feature url="features/org.eclipse.wb.rcp.doc.user.feature_1.9.0.jar" id="org.eclipse.wb.rcp.doc.user.feature" version="1.9.0">
       <category name="org.eclipse.wb"/>
    </feature>
    <feature url="features/org.eclipse.wb.swing.doc.user.feature_1.9.0.jar" id="org.eclipse.wb.swing.doc.user.feature" version="1.9.0">
