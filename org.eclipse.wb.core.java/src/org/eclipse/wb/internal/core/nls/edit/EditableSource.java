@@ -30,8 +30,10 @@ import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.nls.model.IKeyGeneratorStrategy;
 import org.eclipse.wb.internal.core.nls.model.KeyToComponentsSupport;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
+import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +46,7 @@ import java.util.Set;
 
 /**
  * Implementation for editable source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -58,6 +60,7 @@ public final class EditableSource implements IEditableSource {
   private String m_longTitle;
   private final Set<String> m_keys = Sets.newHashSet();
   private final Set<String> m_formKeys = Sets.newHashSet();
+  private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
   private KeyToComponentsSupport m_keyToComponentsSupport = new KeyToComponentsSupport(false); // initialize by default for case of new source
   private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newTreeMap();
 
@@ -88,6 +91,7 @@ public final class EditableSource implements IEditableSource {
   public void add(LocaleInfo locale, Map<String, String> keyToValue) {
     m_localeToInfo.put(locale, new EditableLocaleInfo(locale, keyToValue));
     m_keys.addAll(keyToValue.keySet());
+    m_keyToValue.putAll(keyToValue);
   }
 
   /**
@@ -220,11 +224,6 @@ public final class EditableSource implements IEditableSource {
     if (oldKey.equals(newKey)) {
       return;
     }
-    // check that changing key is used in current form, else
-    // we will break code, because other form will use not existing key
-    if (!m_formKeys.contains(oldKey)) {
-      return;
-    }
     // check, may be there is already such key in some bundle
     boolean containsNewKey = false;
     for (EditableLocaleInfo editableLocale : m_localeToInfo.values()) {
@@ -233,16 +232,15 @@ public final class EditableSource implements IEditableSource {
     // ask user, should we keep value of existing newKey or value of key that is renaming to newKey
     boolean keepNewKeyValue = false;
     if (containsNewKey) {
-      MessageDialog dialog =
-          new MessageDialog(DesignerPlugin.getShell(),
-              Messages.EditableSource_renameConfirmTitle,
-              null,
-              MessageFormat.format(Messages.EditableSource_renameConfirmKeepExistingValue, newKey),
-              MessageDialog.QUESTION,
-              new String[]{
-                  Messages.EditableSource_renameConfirmYesKeep,
-                  Messages.EditableSource_renameConfirmNoUseRenaming},
-              0);
+      MessageDialog dialog = new MessageDialog(DesignerPlugin.getShell(),
+          Messages.EditableSource_renameConfirmTitle,
+          null,
+          MessageFormat.format(Messages.EditableSource_renameConfirmKeepExistingValue, newKey),
+          MessageDialog.QUESTION,
+          new String[]{
+              Messages.EditableSource_renameConfirmYesKeep,
+              Messages.EditableSource_renameConfirmNoUseRenaming},
+          0);
       int openResult = dialog.open();
       if (openResult == SWT.DEFAULT) {
         // cancel pressed
@@ -263,9 +261,12 @@ public final class EditableSource implements IEditableSource {
     // replace key in form keys
     m_formKeys.remove(oldKey);
     m_formKeys.add(newKey);
-    // replace key in all keys 
+    // replace key in all keys
     m_keys.remove(oldKey);
     m_keys.add(newKey);
+    String valueOfRenamedKey = m_keyToValue.get(oldKey);
+    m_keyToValue.remove(oldKey);
+    m_keyToValue.put(newKey, valueOfRenamedKey);
     // replace key in key -> components
     m_keyToComponentsSupport.rename(oldKey, newKey);
     // notify listeners that key was renamed
@@ -278,14 +279,27 @@ public final class EditableSource implements IEditableSource {
     GenericProperty property = propertyInfo.getProperty();
     String value = propertyInfo.getValue();
     // prepare key
-    String key;
+    String baseKey = null;
+    String key = null;
     {
-      String baseKey = m_keyGeneratorStrategy.generateBaseKey(component, property);
-      key = AbstractSource.generateUniqueKey(m_keys, baseKey);
+      IPreferenceStore preferences = component.getDescription().getToolkit().getPreferences();
+      if (preferences.getBoolean(IPreferenceConstants.P_NLS_KEY_AS_STRING_VALUE_ONLY)) {
+        baseKey = AbstractSource.shrinkText(value);
+        if (baseKey == null) {
+          return;
+        }
+      } else {
+        baseKey = m_keyGeneratorStrategy.generateBaseKey(component, property);
+        if (preferences.getBoolean(IPreferenceConstants.P_NLS_KEY_HAS_STRING_VALUE)) {
+          baseKey += "_" + AbstractSource.shrinkText(value);
+        }
+      }
+      key = AbstractSource.generateUniqueKey(m_keyToValue, baseKey, value);
     }
     // add key to all/current key sets
     m_keys.add(key);
     m_formKeys.add(key);
+    m_keyToValue.put(key, value);
     m_keyToComponentsSupport.add(component, key);
     // add "externalize property" command
     m_commandQueue.addCommand(new ExternalizePropertyCommand(this, component, property, key));
@@ -302,6 +316,7 @@ public final class EditableSource implements IEditableSource {
   public void internalizeKey(String key) {
     m_formKeys.remove(key);
     m_keys.remove(key);
+    m_keyToValue.remove(key);
     m_keyToComponentsSupport.remove(key);
     // add "internalize key" command
     m_commandQueue.addCommand(new InternalizeKeyCommand(this, key));
@@ -320,6 +335,7 @@ public final class EditableSource implements IEditableSource {
   public void addKey(String key, String value) {
     // add key to set
     m_keys.add(key);
+    m_keyToValue.put(key, value);
     // add "add key" command
     m_commandQueue.addCommand(new AddKeyCommand(this, key));
     // add value to  all locales, this will also add "set values" command
@@ -372,9 +388,8 @@ public final class EditableSource implements IEditableSource {
    * Add "set values" command for given editable locale.
    */
   private void addLocaleValuesCommand(EditableLocaleInfo editableLocale) {
-    m_commandQueue.addCommand(new SetValuesCommand(this,
-        editableLocale.m_locale,
-        editableLocale.m_keyToValue));
+    m_commandQueue.addCommand(
+        new SetValuesCommand(this, editableLocale.m_locale, editableLocale.m_keyToValue));
   }
 
   ////////////////////////////////////////////////////////////////////////////

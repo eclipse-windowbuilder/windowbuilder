@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.nls.model.IKeyGeneratorStrategy;
 import org.eclipse.wb.internal.core.nls.model.IKeyRenameStrategy;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
+import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstVisitorEx;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -41,18 +42,20 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Abstract source for NLS information, based on *.properties files.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -63,6 +66,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   //
   ////////////////////////////////////////////////////////////////////////////
   protected static final String NLS_EXPRESSION_INFO = "NLS_EXPRESSION_INFO";
+  private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
   /**
    * Usual key generator for *.properties files based sources.
    */
@@ -132,7 +136,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return some comments line that should be used in .properties file.
-   * 
+   *
    *         We use this line later during finding "possible" sources, so this line should contain
    *         enough information for source to detect that this bundle is its one, plus may be some
    *         additional information (for example field name in case of "ResourceBundle in field").
@@ -207,9 +211,19 @@ public abstract class AbstractBundleSource extends AbstractSource {
   public void externalize(JavaInfo component, GenericProperty property, String value)
       throws Exception {
     // prepare key
-    Set<String> keys = getKeys();
-    String baseKey = getKeyGeneratorStrategy().generateBaseKey(component, property);
-    String key = generateUniqueKey(keys, baseKey);
+    String baseKey = null;
+    String key = null;
+    IPreferenceStore preferences = component.getDescription().getToolkit().getPreferences();
+    if (preferences.getBoolean(IPreferenceConstants.P_NLS_KEY_AS_STRING_VALUE_ONLY)) {
+      baseKey = shrinkText(value);
+    } else {
+      baseKey = getKeyGeneratorStrategy().generateBaseKey(component, property);
+      if (preferences.getBoolean(IPreferenceConstants.P_NLS_KEY_HAS_STRING_VALUE)) {
+        baseKey += "_" + shrinkText(value);
+      }
+    }
+    key = AbstractSource.generateUniqueKey(m_keyToValue, baseKey, value);
+    m_keyToValue.put(key, value);
     // externalize with prepared key
     apply_externalizeProperty(property, key);
   }
@@ -311,7 +325,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 
   /**
    * Replaces existing key {@link Expression} with new one, corresponding to new given new key.
-   * 
+   *
    * @return the new {@link Expression} for key.
    */
   protected abstract Expression apply_renameKey_replaceKeyExpression(AstEditor editor,
@@ -320,7 +334,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 
   /**
    * This method is invoked before keys rename in compilation unit.
-   * 
+   *
    * In most sources we don't need it. But for sources that should change some external compilation
    * units, we need composite rename method.
    */
@@ -328,7 +342,8 @@ public abstract class AbstractBundleSource extends AbstractSource {
   }
 
   @Override
-  public final void apply_setValues(LocaleInfo locale, Map<String, String> values) throws Exception {
+  public final void apply_setValues(LocaleInfo locale, Map<String, String> values)
+      throws Exception {
     BundleInfo bundleInfo = getBundleInfo(locale);
     bundleInfo.setMap(values);
     saveBundle(bundleInfo);
@@ -377,8 +392,8 @@ public abstract class AbstractBundleSource extends AbstractSource {
   /**
    * Replace given expression with externalized code.
    */
-  protected abstract BasicExpressionInfo apply_externalize_replaceExpression(GenericProperty property,
-      String key) throws Exception;
+  protected abstract BasicExpressionInfo apply_externalize_replaceExpression(
+      GenericProperty property, String key) throws Exception;
 
   @Override
   public final void apply_internalizeKeys(final Set<String> keys) throws Exception {
@@ -398,7 +413,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
           if (keys.contains(expressionInfo.m_key)) {
             // remove // comments for key and may be something else
             apply_removeNonNLSComments(expressionInfo);
-            // replace NLS expression with current value StringLiteral 
+            // replace NLS expression with current value StringLiteral
             String currentValue = getValue(expression);
             String code = StringConverter.INSTANCE.toJavaSource(m_root, currentValue);
             editor.replaceExpression(expression, code);
@@ -416,7 +431,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 
   /**
    * This method is invoked during keys internalizing.
-   * 
+   *
    * In most sources we don't need it. But for sources that should change some external compilation
    * units, we need composite internalize method.
    */
@@ -442,12 +457,11 @@ public abstract class AbstractBundleSource extends AbstractSource {
     Expression newExpression = m_root.getEditor().replaceExpression(expression, code);
     // call "private static getExpressionInfo()"
     {
-      Method getExpressionInfoMethod =
-          getClass().getDeclaredMethod(
-              "getExpressionInfo",
-              new Class[]{JavaInfo.class, Expression.class});
+      Method getExpressionInfoMethod = getClass().getDeclaredMethod(
+          "getExpressionInfo",
+          new Class[]{JavaInfo.class, Expression.class});
       getExpressionInfoMethod.setAccessible(true);
-      // side effect of this invocation is that ExpressionInfo placed in newExpression 
+      // side effect of this invocation is that ExpressionInfo placed in newExpression
       return getExpressionInfoMethod.invoke(null, new Object[]{m_root, newExpression});
     }
   }
@@ -459,9 +473,9 @@ public abstract class AbstractBundleSource extends AbstractSource {
     AstEditor editor = m_root.getEditor();
     if (stringLiteralExpression instanceof StringLiteral) {
       int index = editor.getStringLiteralNumberOnLine((StringLiteral) stringLiteralExpression);
-      editor.addEndOfLineComment(stringLiteralExpression.getStartPosition(), " //$NON-NLS-"
-          + (1 + index)
-          + "$");
+      editor.addEndOfLineComment(
+          stringLiteralExpression.getStartPosition(),
+          " //$NON-NLS-" + (1 + index) + "$");
     }
   }
 
@@ -505,7 +519,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 
   /**
    * Creates file with given name and contents in given package.
-   * 
+   *
    * @return new {@link IFile} or <code>null</code> if file already exists
    */
   protected static IFile createFileIfDoesNotExist(IFolder folder, String fileName, String contents)
@@ -532,7 +546,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
     getKeyToComponentsSupport().remove(property.getJavaInfo(), expressionInfo.m_key);
     // remove // comments for key and may be something else
     apply_removeNonNLSComments(expressionInfo);
-    // replace NLS expression with StringLiteral of given value 
+    // replace NLS expression with StringLiteral of given value
     String code = StringConverter.INSTANCE.toJavaSource(m_root, value);
     m_root.getEditor().replaceExpression(expression, code);
   }

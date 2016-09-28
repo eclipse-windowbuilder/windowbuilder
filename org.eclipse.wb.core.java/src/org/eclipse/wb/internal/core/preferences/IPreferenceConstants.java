@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Contains various preference constants.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences
  */
@@ -251,9 +251,18 @@ public interface IPreferenceConstants {
    */
   String P_NLS_AUTO_EXTERNALIZE = "nls.automaticallyExternalize";
   /**
+   * When <code>true</code>, then the string's value should be used ONLY for generating a key,
+   * ignoring any other set format on it.
+   */
+  String P_NLS_KEY_AS_STRING_VALUE_ONLY = "nls.useStringValueForKeyOnly";
+  /**
    * When <code>true</code>, then qualified type name should be used for generating key.
    */
   String P_NLS_KEY_QUALIFIED_TYPE_NAME = "nls.useQualifiedTypeNameForKey";
+  /**
+   * When <code>true</code>, then the string's value should be appended in the end of the key.
+   */
+  String P_NLS_KEY_HAS_STRING_VALUE = "nls.useStringValueForKey";
   /**
    * Use can enter into property value with this prefix, this should mean that NLS key from some
    * source should be used instead.

@@ -89,7 +89,9 @@ public class Messages extends NLS {
   public static String NlsPreferencePage_alwaysVisibleLocales;
   public static String NlsPreferencePage_alwaysVisibleLocalesHint;
   public static String NlsPreferencePage_autoExternalize;
+  public static String NlsPreferencePage_keyHasStringAsValueOnly;
   public static String NlsPreferencePage_keyHasQualifiedClassName;
+  public static String NlsPreferencePage_keyHasStringAsValue;
   public static String NlsPreferencePage_keyInValuePrefix;
   public static String NlsPreferencePage_renameWithVariable;
   public static String PropertiesComposite_copyButton;

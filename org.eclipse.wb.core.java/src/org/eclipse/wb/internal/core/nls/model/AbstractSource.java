@@ -27,12 +27,16 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Abstract source for NLS information.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -59,7 +63,7 @@ public abstract class AbstractSource {
   /**
    * This method is invoked when we externalize properties into "possible" source, i.e. source that
    * was not existed or added to compilation unit, but just existed in same package.
-   * 
+   *
    * For example "ResourceBundle in field" source can add field here.
    */
   public void attachPossible() throws Exception {
@@ -183,7 +187,7 @@ public abstract class AbstractSource {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the {@link IEditableSource} for this source.<br>
-   * 
+   *
    *         When we open dialog, we have "Ok" and "Cancel" buttons. So, we can not just change
    *         values directly in source using {@link #setValue(JavaInfo, Expression, String)},
    *         because user can cancel dialog and expect that this will cancel edit. So, we need some
@@ -301,20 +305,130 @@ public abstract class AbstractSource {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * Generate unique key for given base key and existing keys.
+   * Generate unique key for the given base key based on the existing keys.
+   * <p>
+   * <b>Note:</b> If the base key and its value are the same with an existing key and its value then
+   * the same key is returned and it is the users responsibility of managing them.
+   * </p>
+   *
+   * @param keyToValue
+   *          The hashmap containing all the previous keys and values
+   * @param baseKey
+   *          The current base key
+   * @param value
+   *          The value that corresponds to the base key
+   *
+   * @return Returns a unique key
    */
-  public static String generateUniqueKey(Set<String> keys, String baseKey) {
-    // check, may be base key is already unique
-    if (!keys.contains(baseKey)) {
+  public static String generateUniqueKey(HashMap<String, String> keyToValue,
+      String baseKey,
+      String value) {
+    if (keyToValue == null || keyToValue.isEmpty()) {
       return baseKey;
     }
-    // try keys base_1, base_2, etc
-    for (int index = 1;; index++) {
-      String key = baseKey + "_" + index;
-      if (!keys.contains(key)) {
-        return key;
-      }
+    // check, may be base key is already unique
+    if (!keyToValue.containsKey(baseKey)) {
+      return baseKey;
     }
+    // if the value of the new key is not equal to the value of the old key then create a different one
+    // else return the same and it will be the users responsibility if there are broken keys
+    if (!keyToValue.get(baseKey).equals(value)) {
+      // try keys base_1, base_2, etc
+      for (int index = 1;; index++) {
+        String key = baseKey + "_" + index;
+        if (!keyToValue.containsKey(key)) {
+          return key;
+        }
+      }
+    } else {
+      return baseKey;
+    }
+  }
+
+  /**
+   * Shrinks a string text, if its required, while keeping it descriptive as to its original value.
+   * This method "behaves" differently according to how many words (or how big) the parameter text
+   * has but it <b>always</b> strips any special chars and spaces from the original value. Any
+   * <i>carriage return and next line chars (in Windows, Mac and Linux OS) will also be stripped</i>
+   * and will be considered as word separators.
+   * <p>
+   * <b>Note:</b> The method considers a distinction between small words (<code>letters <= 3</code>)
+   * and normal words (<code>letters > 3</code>). If the text is too big (see scenarios below) then
+   * the small words will be omitted because probably they are of little importance (e.g. the, at
+   * etc).
+   * </p>
+   * <p>
+   * <b>Scenario 1:</b> If the text has up to 5 total words or up to 4 normal words then it is
+   * returned <i>stripped only</i>.
+   * </p>
+   * <p>
+   * <b> Scenario 2:</b> If the text has <code>4 < normal_words < 10</code> then any small words are
+   * omitted and only the normal ones are shown.
+   * </p>
+   * <p>
+   * <b> Scenario 3:</b> If the text has <code>normal_words >= 10</code> then the distinction
+   * between small and normal words ceases to exist and the first 4 words of the text are shown,
+   * followed by "..." and then the last 4 words.
+   * </p>
+   *
+   * @param text
+   *          The text's original value
+   * @return The shrinked text, stripped of any special chars and spaces that the original text
+   *         could have, with "_" as the word separator char. If the text is empty after it has been
+   *         stripped then <i>null</i> is returned.
+   */
+  public static String shrinkText(String text) {
+    // remove all special chars except spaces
+    text = text.replaceAll("[^a-zA-Z0-9\\s]", "");
+    // consider any enters, tabs and next lines as word separators and replace them with space
+    text = text.replaceAll("\\r\\n|\\r|\\n|\\t", " ");
+    // remove the spaces before and after the text (if any) but leave the in-between spaces
+    text = StringUtils.stripToEmpty(text);
+    // if there are many consecutive spaces in-between the words replace them with one space
+    String strippedOnlyText = text.replaceAll("\\s{2,}", " ");
+    String shrinkedText = strippedOnlyText;
+    if (strippedOnlyText == null || strippedOnlyText.isEmpty()) {
+      // string is empty after stripping
+      return null;
+    }
+    // This list will contain only normal words meaning the ones that have 4 letters or more
+    ArrayList<String> normalWords = new ArrayList<String>();
+    String[] words = strippedOnlyText.split(" ");
+    if (words.length > 5) {
+      for (int i = 0; i < words.length; i++) {
+        if (words[i].length() > 3) {
+          normalWords.add(words[i]);
+        }
+      }
+      if (normalWords.size() < 5) {
+        // the text contains 0 or no more than 4 normal words so it is returned stripped only
+        shrinkedText = strippedOnlyText.replace(" ", "_");
+      } else if (normalWords.size() < 10) {
+        // the text contains more than 4 and less than 10 normal words so only these are shown while the small ones are omitted
+        shrinkedText = StringUtils.join(normalWords, "_");
+      } else {
+        // the text contains 10 or more normal words so the first and the last 4 of the total words are shown
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+          sb.append(words[i]);
+          if (i < 3) {
+            sb.append("_");
+          }
+        }
+        sb.append("...");
+        for (int i = words.length - 4; i < words.length; i++) {
+          sb.append(words[i]);
+          if (i < words.length - 1) {
+            sb.append("_");
+          }
+        }
+        shrinkedText = sb.toString();
+      }
+    } else {
+      // the text contains no more than 5 words so it is returned stripped only
+      shrinkedText = strippedOnlyText.replace(" ", "_");
+    }
+    return shrinkedText;
   }
 
   /**
@@ -331,6 +445,15 @@ public abstract class AbstractSource {
     }
   }
 
+//  /**
+//   * Checks if the "Use the text's value as key" checkbox is checked.
+//   *
+//   * @return True if it is checked, false otherwise.
+//   */
+//  public static Boolean checkUseTextValueAsKeyOnly(JavaInfo component) {
+//    IPreferenceStore preferences = component.getDescription().getToolkit().getPreferences();
+//    return preferences.getBoolean(IPreferenceConstants.P_NLS_KEY_AS_TEXT_VALUE_ONLY);
+//  }
   /**
    * Ensures that given {@link GenericProperty} is not externalized and has some
    * {@link StringLiteral} as expression.

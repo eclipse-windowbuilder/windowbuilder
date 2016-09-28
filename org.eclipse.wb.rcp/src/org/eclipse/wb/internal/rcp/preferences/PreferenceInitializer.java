@@ -18,7 +18,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for RCP preferences.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage rcp.preferences
@@ -52,8 +52,10 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer {
     // NLS
     {
       preferences.setDefault(IPreferenceConstants.P_NLS_AUTO_EXTERNALIZE, true);
+      preferences.setDefault(IPreferenceConstants.P_NLS_KEY_AS_STRING_VALUE_ONLY, false);
       preferences.setDefault(IPreferenceConstants.P_NLS_KEY_QUALIFIED_TYPE_NAME, false);
       preferences.setDefault(IPreferenceConstants.P_NLS_KEY_RENAME_WITH_VARIABLE, false);
+      preferences.setDefault(IPreferenceConstants.P_NLS_KEY_HAS_STRING_VALUE, false);
       preferences.setDefault(IPreferenceConstants.P_NLS_KEY_AS_VALUE_PREFIX, "*");
     }
     // layout
