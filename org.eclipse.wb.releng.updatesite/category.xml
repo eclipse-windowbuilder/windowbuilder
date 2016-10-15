@@ -15,9 +15,6 @@
    <feature url="features/org.eclipse.wb.core.xml.feature_1.9.0.jar" id="org.eclipse.wb.core.xml.feature" version="1.9.0">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.css.feature_1.9.0.jar" id="org.eclipse.wb.css.feature" version="1.9.0">
-      <category name="org.eclipse.wb"/>
-   </feature>
    <feature url="features/org.eclipse.wb.doc.user.feature_1.9.0.jar" id="org.eclipse.wb.doc.user.feature" version="1.9.0">
       <category name="org.eclipse.wb"/>
    </feature>

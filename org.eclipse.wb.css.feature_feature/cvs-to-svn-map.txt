@@ -1,5 +1,0 @@
-org.eclipse.wb.css.feature -> org.eclipse.wb.css.feature_feature
-org.eclipse.wb.css -> org.eclipse.wb.css
-
-CVS: /usr/local/cvs/wbpro
-SVN: https://svn.instantiations.com:8443/repos/products/trunk/designer

@@ -35,7 +35,6 @@
  	
 	<!-- other bundles -->
 
-	<module>org.eclipse.wb.css</module>
 	<module>org.eclipse.wb.dev</module>
 	<module>org.eclipse.wb.discovery.core</module>
 	<module>org.eclipse.wb.discovery.ui</module>
@@ -87,7 +86,6 @@
 	<module>org.eclipse.wb.core.java.feature_feature</module>
 	<module>org.eclipse.wb.core.ui.feature_feature</module>
 	<module>org.eclipse.wb.core.xml.feature_feature</module>
-	<module>org.eclipse.wb.css.feature_feature</module>
 	<module>org.eclipse.wb.doc.user.feature_feature</module>
 	<module>org.eclipse.wb.layout.group.feature_feature</module>
 	<module>org.eclipse.wb.rcp.doc.user.feature_feature</module>
