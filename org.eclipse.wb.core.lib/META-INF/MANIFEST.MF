@@ -16,8 +16,8 @@ Bundle-ClassPath: lib/guava-13.0.1.jar,
  lib/commons-logging-1.1.1.jar,
  lib/commons-digester-2.0.jar,
  lib/asm-all-3.3.1.jar,
- lib/nebula-cdatetime.jar,
- lib/nebula-cwt.jar
+ lib/org.eclipse.nebula.cwt_1.0.0.201703081533.jar,
+ lib/org.eclipse.nebula.widgets.cdatetime_1.0.0.201703081533.jar
 Export-Package: com.google.common.annotations,
  com.google.common.base,
  com.google.common.base.internal,
