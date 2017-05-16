@@ -61,7 +61,7 @@ import java.util.Map;
 
 /**
  * Composite for viewers Beans or Widgets or other objects with properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface for visual presentation of {@link IObserveInfo} - title and image.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

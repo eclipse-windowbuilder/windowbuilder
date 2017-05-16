@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 /**
  * Decorator for bindings {@link JavaInfo} models.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

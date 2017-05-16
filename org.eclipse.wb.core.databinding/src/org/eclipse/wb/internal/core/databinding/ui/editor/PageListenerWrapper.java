@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link IPageListener} wrapper.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

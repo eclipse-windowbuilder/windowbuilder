@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor;
 /**
  * This adapter class provides default implementations for the non GUI methods described by the
  * {@link IUiContentProvider} interface.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

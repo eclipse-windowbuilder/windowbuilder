@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * Code generation utils.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

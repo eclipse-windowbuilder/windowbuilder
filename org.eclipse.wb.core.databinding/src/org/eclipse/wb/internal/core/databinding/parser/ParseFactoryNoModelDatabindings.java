@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 /**
  * {@link ParseFactoryNoModel} for data bindings support.
- * 
+ *
  * @author sablin_aa
  * @coverage bindings.parser
  */

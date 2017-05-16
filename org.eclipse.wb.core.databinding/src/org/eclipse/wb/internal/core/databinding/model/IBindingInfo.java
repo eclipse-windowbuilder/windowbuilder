@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.databinding.model;
 /**
  * Abstract model for any binding describing "target" + "target property" and "model" +
  * "model property".
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

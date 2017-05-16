@@ -13,9 +13,9 @@ package org.eclipse.wb.internal.core.databinding.model;
 import org.eclipse.wb.core.model.JavaInfo;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public interface IASTObjectInfo2 {
   boolean isField();

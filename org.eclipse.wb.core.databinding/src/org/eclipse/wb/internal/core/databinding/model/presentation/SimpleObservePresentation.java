@@ -13,9 +13,9 @@ package org.eclipse.wb.internal.core.databinding.model.presentation;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class SimpleObservePresentation extends ObservePresentation {
   private final String m_text;

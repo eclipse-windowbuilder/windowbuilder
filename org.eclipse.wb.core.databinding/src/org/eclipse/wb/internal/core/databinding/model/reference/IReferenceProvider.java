@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.databinding.model.reference;
 /**
  * Encapsulate reference on any object. Reference may be change, but {@link #getReference()} any
  * time provide right value.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

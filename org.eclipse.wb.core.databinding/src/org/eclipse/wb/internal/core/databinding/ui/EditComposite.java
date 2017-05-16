@@ -35,7 +35,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Bindings main editor container.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

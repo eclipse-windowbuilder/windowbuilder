@@ -14,7 +14,7 @@ import java.beans.PropertyDescriptor;
 
 /**
  * Independent adapter over any property object. Represented as name ant type.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

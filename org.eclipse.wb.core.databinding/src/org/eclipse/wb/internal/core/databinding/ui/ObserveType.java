@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Special marker for separate observable's and properties to categories: beans, widgets and others.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

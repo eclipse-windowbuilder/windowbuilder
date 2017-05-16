@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Dialog field containing a label a combo and a two button controls.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */
@@ -109,7 +109,7 @@ public class ComboButtonsDialogField extends ComboButtonDialogField {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Enable / disable management 
+  // Enable / disable management
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

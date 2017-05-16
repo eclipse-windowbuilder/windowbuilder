@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Wizard page for viewers Beans or Widgets or other objects with properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

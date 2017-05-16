@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor;
 
 /**
  * Interface for invocation calculate state.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

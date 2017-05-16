@@ -62,7 +62,7 @@ import java.util.List;
 
 /**
  * {@link Composite} for viewers {@link IBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

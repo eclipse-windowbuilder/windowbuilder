@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Label;
  * <p>
  * title <b>value</b>
  * </p>
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

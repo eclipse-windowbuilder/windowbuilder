@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Base class for binding properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

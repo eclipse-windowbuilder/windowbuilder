@@ -19,7 +19,7 @@ import java.util.List;
  * This class used for route choose class and properties events from <code>source</code>
  * {@link ChooseClassAndPropertiesUiContentProvider} to <code>target</code>
  * {@link ChooseClassUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

@@ -20,7 +20,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * Wizard for binding target and model observable's.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

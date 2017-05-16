@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link LabelProvider} for {@link IObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

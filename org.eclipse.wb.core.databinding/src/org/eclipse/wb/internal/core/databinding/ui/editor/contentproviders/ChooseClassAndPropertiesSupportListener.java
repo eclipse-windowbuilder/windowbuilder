@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
 /**
  * Change listener used by {@link ChooseClassAndPropertiesUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

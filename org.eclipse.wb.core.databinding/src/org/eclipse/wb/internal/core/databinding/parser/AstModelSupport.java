@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
  * Default {@link AstObjectInfo} resolver that work over variable (
  * {@link VariableDeclarationFragment}, {@link Assignment} and etc.) otherwise resolve only by
  * creation {@link Expression}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */

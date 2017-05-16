@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Automatic bindings wizard page.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

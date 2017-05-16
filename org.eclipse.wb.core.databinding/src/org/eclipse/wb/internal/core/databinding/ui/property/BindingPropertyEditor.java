@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEdit
 
 /**
  * Editor for single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

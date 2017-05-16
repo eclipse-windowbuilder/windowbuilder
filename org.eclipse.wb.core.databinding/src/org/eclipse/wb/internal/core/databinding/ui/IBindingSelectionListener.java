@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 
 /**
  * A listener which is notified when {@link IBindingInfo} viewer's selection changes.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

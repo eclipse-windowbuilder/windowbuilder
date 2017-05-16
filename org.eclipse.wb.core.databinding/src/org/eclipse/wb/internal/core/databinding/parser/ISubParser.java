@@ -21,14 +21,14 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 /**
  * Abstract parser for create {@link AstObjectInfo}'s for any {@link ClassInstanceCreation} and
  * {@link MethodInvocation}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */
 public interface ISubParser {
   /**
    * Informs {@link ISubParser} about {@link ClassInstanceCreation}.
-   * 
+   *
    * @return {@link AstObjectInfo} model corresponding to given {@link ClassInstanceCreation}.
    */
   AstObjectInfo parseExpression(AstEditor editor,
@@ -40,7 +40,7 @@ public interface ISubParser {
 
   /**
    * Informs {@link ISubParser} about {@link MethodInvocation}.
-   * 
+   *
    * @return {@link AstObjectInfo} model corresponding to given {@link MethodInvocation}.
    */
   AstObjectInfo parseExpression(AstEditor editor,

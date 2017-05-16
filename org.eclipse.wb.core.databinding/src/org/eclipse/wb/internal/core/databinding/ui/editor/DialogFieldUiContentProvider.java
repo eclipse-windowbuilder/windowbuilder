@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * Dialog field based {@link IUiContentProvider}. Subclasses need implement method
  * {@link #getDialogField()} for access to {@link DialogField}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

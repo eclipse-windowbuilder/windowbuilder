@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 /**
  * This class used for route choose class events from <code>source</code>
  * {@link ChooseClassUiContentProvider} to <code>target</code> {@link ChooseClassUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

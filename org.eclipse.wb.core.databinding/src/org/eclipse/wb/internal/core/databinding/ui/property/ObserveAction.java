@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 
 /**
  * Action for create new binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

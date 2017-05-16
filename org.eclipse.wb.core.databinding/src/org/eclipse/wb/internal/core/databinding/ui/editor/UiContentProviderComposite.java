@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * {@link Composite} container for all content providers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

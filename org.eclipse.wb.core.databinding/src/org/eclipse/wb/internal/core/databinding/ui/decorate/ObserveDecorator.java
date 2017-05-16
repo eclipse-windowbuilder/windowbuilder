@@ -15,7 +15,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * Base implementation for {@link IObserveDecorator}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

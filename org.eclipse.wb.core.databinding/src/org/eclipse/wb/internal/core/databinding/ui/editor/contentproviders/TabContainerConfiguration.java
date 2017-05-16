@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
 /**
  * Configuration for {@link TabContainerUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

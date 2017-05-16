@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Abstract descriptor.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

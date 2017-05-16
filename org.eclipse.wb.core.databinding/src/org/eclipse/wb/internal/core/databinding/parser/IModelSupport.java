@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Helper class that know as {@link AstObjectInfo} represented on AST.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */

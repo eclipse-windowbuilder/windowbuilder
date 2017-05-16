@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Abstract model for any bindings model object. It has some presentation in AST.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

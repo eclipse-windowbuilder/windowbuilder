@@ -30,7 +30,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Container for {@link AbstractDescriptor}'s.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */
@@ -90,7 +90,7 @@ public final class DescriptorContainer {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Parse descriptors XML file.
-   * 
+   *
    * @return {@link Map} with all descriptors.
    */
   public static Map<String, DescriptorContainer> parseDescriptors(InputStream stream,

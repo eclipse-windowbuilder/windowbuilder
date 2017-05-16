@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Abstract model for any observe object and observe object property.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

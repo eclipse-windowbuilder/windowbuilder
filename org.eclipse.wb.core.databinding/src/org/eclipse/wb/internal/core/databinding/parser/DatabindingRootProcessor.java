@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * {@link IRootProcessor} for bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */

@@ -16,7 +16,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Decorator with gray color.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

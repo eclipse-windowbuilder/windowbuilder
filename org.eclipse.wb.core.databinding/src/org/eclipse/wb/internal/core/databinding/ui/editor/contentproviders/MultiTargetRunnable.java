@@ -15,9 +15,9 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class MultiTargetRunnable implements Runnable {
   private final ChooseClassUiContentProvider m_source;

@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Image's loader.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

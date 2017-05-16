@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Selection and expanded state for {@link EditComposite}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

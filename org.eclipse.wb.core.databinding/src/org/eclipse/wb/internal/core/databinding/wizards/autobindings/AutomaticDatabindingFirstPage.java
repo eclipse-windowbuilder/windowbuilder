@@ -33,7 +33,7 @@ import java.io.InputStream;
 
 /**
  * Standard "New Java Class" wizard page.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

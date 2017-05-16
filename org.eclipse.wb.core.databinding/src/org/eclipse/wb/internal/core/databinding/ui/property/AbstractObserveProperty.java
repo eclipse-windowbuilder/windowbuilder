@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Property for {@link IObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

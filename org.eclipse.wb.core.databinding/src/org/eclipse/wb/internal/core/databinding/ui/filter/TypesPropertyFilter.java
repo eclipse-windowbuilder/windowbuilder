@@ -18,7 +18,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Filter for {@link IObserveInfo} properties over {@link Class} type.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

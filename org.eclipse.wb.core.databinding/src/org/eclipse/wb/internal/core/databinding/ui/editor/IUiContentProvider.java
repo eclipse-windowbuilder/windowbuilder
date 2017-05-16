@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Base class of all content providers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

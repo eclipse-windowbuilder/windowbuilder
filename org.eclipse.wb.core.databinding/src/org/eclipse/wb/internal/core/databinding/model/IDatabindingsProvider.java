@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Independent provider from any bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

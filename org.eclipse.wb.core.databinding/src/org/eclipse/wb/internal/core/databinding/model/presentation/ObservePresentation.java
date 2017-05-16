@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Base class for all observable presentations.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

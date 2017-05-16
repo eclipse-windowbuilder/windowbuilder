@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Content provider that represented horizontal separator line.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

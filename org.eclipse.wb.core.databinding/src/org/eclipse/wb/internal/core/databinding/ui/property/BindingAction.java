@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 
 /**
  * Action for editing single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

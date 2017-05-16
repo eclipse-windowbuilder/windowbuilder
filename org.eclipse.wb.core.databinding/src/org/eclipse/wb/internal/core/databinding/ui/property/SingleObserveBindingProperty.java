@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 /**
  * Property for single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

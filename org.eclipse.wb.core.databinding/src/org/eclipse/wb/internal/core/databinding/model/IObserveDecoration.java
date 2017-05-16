@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 
 /**
  * Decorator provider.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

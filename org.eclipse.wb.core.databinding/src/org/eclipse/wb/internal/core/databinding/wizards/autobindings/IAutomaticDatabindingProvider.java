@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Independent provider from any bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */
@@ -56,7 +56,7 @@ public interface IAutomaticDatabindingProvider {
 
   /**
    * Generate code.
-   * 
+   *
    * @return the source code with replace template patterns on life values.
    */
   String performSubstitutions(String code, ImportsManager imports) throws Exception;
@@ -119,7 +119,7 @@ public interface IAutomaticDatabindingProvider {
 
   /**
    * Calculate finish state.
-   * 
+   *
    * @return the error message or <code>null</code> otherwise.
    */
   String calculateFinish();

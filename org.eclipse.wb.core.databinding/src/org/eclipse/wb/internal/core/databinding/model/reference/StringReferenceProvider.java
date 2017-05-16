@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.model.reference;
 
 /**
  * {@link IReferenceProvider} for static (not changed) references.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * Color and font decorator for {@link IObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

@@ -17,7 +17,7 @@ import java.util.Comparator;
 
 /**
  * A comparison function for {@link IObserveInfo} objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

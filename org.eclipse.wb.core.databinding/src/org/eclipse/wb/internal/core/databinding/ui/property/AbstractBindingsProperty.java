@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Complex property for all info bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

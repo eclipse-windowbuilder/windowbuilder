@@ -15,7 +15,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 
 /**
  * Universal wrapper for checked Tree and Table viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

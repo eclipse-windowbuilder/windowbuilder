@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * Decorator with "Italic" font.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

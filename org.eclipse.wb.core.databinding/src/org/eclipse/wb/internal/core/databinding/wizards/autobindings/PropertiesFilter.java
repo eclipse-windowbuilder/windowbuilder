@@ -15,7 +15,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 /**
  * {@link ViewerFilter} for hide/show the properties which can't be bound.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

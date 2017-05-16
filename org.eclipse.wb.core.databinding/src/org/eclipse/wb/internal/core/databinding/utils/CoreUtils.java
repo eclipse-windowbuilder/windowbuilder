@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Various utilities for Bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.utils
  */
@@ -194,7 +194,7 @@ public final class CoreUtils {
 
   /**
    * XXX
-   * 
+   *
    * @param rootNode
    * @param methodName
    * @return
@@ -254,7 +254,7 @@ public final class CoreUtils {
 
   /**
    * XXX
-   * 
+   *
    * @param <T>
    * @param fragment
    * @param clearProperty
@@ -272,7 +272,7 @@ public final class CoreUtils {
 
   /**
    * XXX
-   * 
+   *
    * @param type
    * @return
    */
@@ -282,7 +282,7 @@ public final class CoreUtils {
 
   /**
    * XXX
-   * 
+   *
    * @param binding
    * @return
    */

@@ -25,7 +25,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Automatic bindings wizard.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

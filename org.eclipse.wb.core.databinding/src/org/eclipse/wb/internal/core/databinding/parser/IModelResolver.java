@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Interface for resolving {@link Expressions}'s into {@link AstObjectInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */

@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Font;
 /**
  * Implementation of LabelProvider with {@link IColorProvider} and {@link IFontProvider} for
  * {@link IObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.parser;
 
 /**
  * XXX
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */

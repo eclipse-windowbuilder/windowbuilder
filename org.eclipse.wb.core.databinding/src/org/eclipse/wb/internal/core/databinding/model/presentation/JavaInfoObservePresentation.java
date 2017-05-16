@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link IObservePresentation} for presentation {@link JavaInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

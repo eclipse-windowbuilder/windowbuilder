@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ITreeContentProvider} for {@link IObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

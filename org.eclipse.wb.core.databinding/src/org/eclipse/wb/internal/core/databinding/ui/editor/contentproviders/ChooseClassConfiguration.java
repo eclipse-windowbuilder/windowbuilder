@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Configuration for {@link ChooseClassUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

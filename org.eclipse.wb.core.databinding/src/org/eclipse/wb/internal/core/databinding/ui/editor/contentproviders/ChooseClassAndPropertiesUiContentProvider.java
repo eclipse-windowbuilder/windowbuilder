@@ -49,7 +49,7 @@ import java.util.List;
 /**
  * {@link ChooseClassUiContentProvider} with {@link CheckboxTableViewer} for represented properties
  * for chosen classes.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */
@@ -410,7 +410,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
 
   /**
    * Load properties for given {@link Class}.
-   * 
+   *
    * @see PropertyAdapter
    */
   protected abstract List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception;

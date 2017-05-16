@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link ObserveType} container: create {@link IObserveInfo}'s and parse observable's.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

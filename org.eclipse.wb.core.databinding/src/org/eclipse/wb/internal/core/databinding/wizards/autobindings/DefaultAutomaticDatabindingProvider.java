@@ -48,7 +48,7 @@ import java.util.Map;
 
 /**
  * Provider for bindings API based on bind property to property with update strategies.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.wizard.auto
  */

@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 
 /**
  * Implementation {@link ICheckboxViewerWrapper} for {@link CheckboxTableViewer}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

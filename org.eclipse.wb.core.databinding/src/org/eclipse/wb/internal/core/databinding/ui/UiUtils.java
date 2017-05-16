@@ -42,7 +42,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Internal UI utils.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

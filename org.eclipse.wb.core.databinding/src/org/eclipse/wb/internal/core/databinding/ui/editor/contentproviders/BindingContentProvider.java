@@ -43,7 +43,7 @@ import java.util.Set;
 
 /**
  * Content provider for edit binding variable.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

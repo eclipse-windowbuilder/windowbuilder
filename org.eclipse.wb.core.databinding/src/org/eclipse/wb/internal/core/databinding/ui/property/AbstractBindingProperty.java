@@ -20,7 +20,7 @@ import org.eclipse.jface.window.Window;
 
 /**
  * Property for single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

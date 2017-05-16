@@ -16,10 +16,10 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface for displaying messages.
- * 
+ *
  * We use it to separate GUI that edits anything and needs to display messages from concrete message
  * containers, such as {@link TitleAreaDialog} or {@link WizardPage}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

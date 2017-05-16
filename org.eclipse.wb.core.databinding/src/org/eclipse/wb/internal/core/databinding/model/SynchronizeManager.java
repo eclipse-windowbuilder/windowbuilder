@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Helper class for auto synchronize {@link JavaInfo}'s and observe, binding infos.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

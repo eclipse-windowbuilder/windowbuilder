@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * {@link IUiContentProvider} container as {@link CTabFolder}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

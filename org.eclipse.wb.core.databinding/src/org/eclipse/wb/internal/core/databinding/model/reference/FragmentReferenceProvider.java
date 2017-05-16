@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 /**
  * {@link IReferenceProvider} over {@link VariableDeclarationFragment}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

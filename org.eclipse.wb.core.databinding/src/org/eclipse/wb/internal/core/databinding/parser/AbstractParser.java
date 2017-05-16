@@ -31,9 +31,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public abstract class AbstractParser implements IModelResolver {
   protected final AstEditor m_editor;

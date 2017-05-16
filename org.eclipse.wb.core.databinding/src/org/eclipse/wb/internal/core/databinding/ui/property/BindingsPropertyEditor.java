@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexProper
 
 /**
  * Editor for complex bindings property.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.model;
 
 /**
  * Visitor for visiting {@link AstObjectInfo} hierarchy.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

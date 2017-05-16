@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.databinding.model.reference;
 /**
  * Implementation of {@link IReferenceProvider} that consists of two other
  * {@link IReferenceProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

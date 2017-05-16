@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Complex property for observe properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui.properties
  */

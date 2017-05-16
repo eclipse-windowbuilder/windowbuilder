@@ -13,9 +13,9 @@ package org.eclipse.wb.internal.core.databinding.model;
 import java.util.Map;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public interface ISynchronizeProcessor<T, V> {
   /**

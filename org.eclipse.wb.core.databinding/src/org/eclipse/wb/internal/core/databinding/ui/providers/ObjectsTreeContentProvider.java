@@ -24,7 +24,7 @@ import java.util.Collection;
 
 /**
  * Implementation of {@link ITreeContentProvider} for {@link ObjectInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * {@link IUiContentProvider} for choose class over "browse" button or combo items.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

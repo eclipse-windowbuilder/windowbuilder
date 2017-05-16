@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Filter for {@link IObserveInfo} properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

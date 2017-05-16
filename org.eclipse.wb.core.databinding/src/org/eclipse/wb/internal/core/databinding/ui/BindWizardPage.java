@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Wizard page for binding properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */

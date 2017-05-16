@@ -16,7 +16,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * The parse-wide state. It contains information about current parse session.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.parser
  */

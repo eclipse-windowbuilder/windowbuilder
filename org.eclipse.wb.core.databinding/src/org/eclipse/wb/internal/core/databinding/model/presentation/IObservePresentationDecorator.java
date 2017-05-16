@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.databinding.model.presentation;
 
 /**
  * Decorator facade.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.model
  */

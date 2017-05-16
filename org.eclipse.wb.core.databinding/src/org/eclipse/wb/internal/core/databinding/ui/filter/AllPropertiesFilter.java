@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * This filter accept any property.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.ui
  */
