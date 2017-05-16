@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Dialog for displaying errors using {@link IErrorPage}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

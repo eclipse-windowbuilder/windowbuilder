@@ -46,7 +46,7 @@ import java.util.Map;
 
 /**
  * Helper class for various refactoring utilities.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.refactoring
  */
@@ -232,7 +232,7 @@ public class RefactoringUtils {
       DocumentModelVisitor visitor,
       AbstractDocumentEditContext context) throws Exception {
     try {
-      // fetch initial information 
+      // fetch initial information
       String oldContents = context.getText();
       DocumentElement root = context.getRoot();
       // visit nodes

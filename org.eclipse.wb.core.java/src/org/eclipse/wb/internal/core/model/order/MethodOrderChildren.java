@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Base {@link MethodOrder} to add {@link MethodInvocation} relative to children {@link JavaInfo}'s
  * of specified types.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage core.model.description

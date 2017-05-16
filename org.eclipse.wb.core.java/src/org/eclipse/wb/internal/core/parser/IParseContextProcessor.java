@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Processor for {@link ParseRootContext}, used before parsing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */

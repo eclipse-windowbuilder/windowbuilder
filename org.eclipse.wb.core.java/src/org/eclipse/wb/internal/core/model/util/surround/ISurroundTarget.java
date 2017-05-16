@@ -22,7 +22,7 @@ import javax.swing.JSplitPane;
 
 /**
  * Target container to surround several {@link IAbstractComponentInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -68,7 +68,7 @@ public abstract class ISurroundTarget<C extends IAbstractComponentInfo, T extend
 
   /**
    * Initializes container after adding it to the components hierarchy.
-   * 
+   *
    * @param container
    *          the target container.
    * @param components
@@ -81,7 +81,7 @@ public abstract class ISurroundTarget<C extends IAbstractComponentInfo, T extend
   /**
    * Initializes container before moving components on this container using
    * {@link #move(AbstractComponentInfo, AbstractComponentInfo)}.
-   * 
+   *
    * @param container
    *          the target container.
    * @param components
@@ -93,7 +93,7 @@ public abstract class ISurroundTarget<C extends IAbstractComponentInfo, T extend
 
   /**
    * Moves component to target container.
-   * 
+   *
    * @param container
    *          the target container.
    * @param component

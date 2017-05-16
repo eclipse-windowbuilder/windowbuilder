@@ -18,10 +18,10 @@ import java.util.List;
 
 /**
  * Interface that allows editing of NLS support.
- * 
+ *
  * We separate this interface from {@link #EditableSupport} implementation to keep clean interface
  * for users (editors).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -106,7 +106,7 @@ public interface IEditableSupport {
 
   /**
    * Check that given component or any of its children has externalizable properties.
-   * 
+   *
    * For example if we don't have such properties, we don't need to display this component and its
    * children in tree of externalizable properties.
    */

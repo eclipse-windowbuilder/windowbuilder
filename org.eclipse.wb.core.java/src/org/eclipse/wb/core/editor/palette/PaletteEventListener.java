@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Listener for palette events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

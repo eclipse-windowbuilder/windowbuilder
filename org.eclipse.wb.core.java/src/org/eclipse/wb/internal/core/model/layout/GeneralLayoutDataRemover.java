@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Support for removing {@link GeneralLayoutData} when it is not needed anymore.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.layout
  */

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.clipboard.IClipboardImplicitCreationSu
 /**
  * Marker interface for components that don't have separate creation/association nodes in AST, but
  * are parts of their "host" components. For example: exposed components, implicit layouts, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

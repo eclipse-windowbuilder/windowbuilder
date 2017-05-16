@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Abstract description for code generation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

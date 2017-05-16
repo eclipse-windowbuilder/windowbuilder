@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * {@link VariableSupport} implementation for field variable.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

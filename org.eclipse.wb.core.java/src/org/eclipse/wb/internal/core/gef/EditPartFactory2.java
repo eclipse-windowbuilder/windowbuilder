@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 /**
  * Generic implementation of {@link IEditPartFactory} that redirects {@link EditPart}'s creation to
  * {@link IEditPartFactory}'s from extension point.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

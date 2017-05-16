@@ -23,7 +23,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 /**
  * Implementation of {@link StatementGenerator} that adds {@link Statement}'s directly in target
  * {@link Block}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

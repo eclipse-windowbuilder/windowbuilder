@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * We unable to find entry point (constructor or method) automatically.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

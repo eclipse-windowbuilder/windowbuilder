@@ -24,7 +24,7 @@ import java.io.Reader;
 
 /**
  * Helper needed get the content of a Javadoc comment.
- * 
+ *
  * @since 3.1
  * @coverage core.util.jdt
  */

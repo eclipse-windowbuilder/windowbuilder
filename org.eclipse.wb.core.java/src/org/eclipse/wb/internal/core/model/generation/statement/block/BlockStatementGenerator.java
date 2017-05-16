@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.Statement;
 /**
  * Implementation of {@link StatementGenerator} that adds {@link Statement}'s in new {@link Block}
  * inside of target {@link Block}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

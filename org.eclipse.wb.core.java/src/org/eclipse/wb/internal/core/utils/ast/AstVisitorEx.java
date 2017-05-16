@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 /**
  * Implementation of {@link ASTVisitor} that wraps methods {@link #preVisitEx(ASTNode)} and
  * {@link #postVisitEx(ASTNode)} in try/catch.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

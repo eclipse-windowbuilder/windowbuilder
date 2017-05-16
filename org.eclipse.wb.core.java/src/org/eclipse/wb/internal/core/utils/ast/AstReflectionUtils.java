@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 
 /**
  * Contains different AST & Java reflection utilities.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage core.util.ast
@@ -91,7 +91,7 @@ public class AstReflectionUtils {
 
   /**
    * Prepares "varArgs" arguments, re-packs existing values from "raw" values.
-   * 
+   *
    * @return the single "varArgs" argument as array.
    */
   private static Object getVarArgsArgument(ClassLoader classLoader,

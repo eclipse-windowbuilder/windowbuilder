@@ -45,7 +45,7 @@ import java.beans.PropertyChangeListener;
  * Dialog for asking new strings source parameters.
  * <p>
  * Dialog layout is different if there is one or more than one NLS source choice.
- * 
+ *
  * @author scheglov_ke
  * @author Jaime Wren
  * @coverage core.nls.ui

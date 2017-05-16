@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 
 /**
  * {@link EditPart} for <i>array objects</i> model.
- * 
+ *
  * @author sablin_aa
  * @coverage gef.graphical
  */

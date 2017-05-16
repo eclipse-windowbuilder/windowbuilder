@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.ImageInfo;
 
 /**
  * {@link IImageElement} for {@link ImageInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

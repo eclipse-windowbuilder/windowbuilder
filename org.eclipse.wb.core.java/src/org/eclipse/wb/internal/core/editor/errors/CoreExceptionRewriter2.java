@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 
 /**
  * {@link IExceptionRewriter} for core exceptions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.errors
  */

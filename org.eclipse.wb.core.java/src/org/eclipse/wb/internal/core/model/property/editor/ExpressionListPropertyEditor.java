@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * The {@link PropertyEditor} for selecting single custom expression from given set.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.editor
  */

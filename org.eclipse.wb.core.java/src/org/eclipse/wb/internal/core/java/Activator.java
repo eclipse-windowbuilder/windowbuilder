@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 /**
  * The activator class controls the plug-in life cycle.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML
  */

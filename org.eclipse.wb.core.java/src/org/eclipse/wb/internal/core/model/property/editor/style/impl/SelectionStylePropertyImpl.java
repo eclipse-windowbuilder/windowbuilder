@@ -25,7 +25,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * This class represent "select" property implementation.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

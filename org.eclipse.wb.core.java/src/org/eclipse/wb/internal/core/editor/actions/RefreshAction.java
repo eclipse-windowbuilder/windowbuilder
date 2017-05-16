@@ -18,7 +18,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 /**
  * Action for reparse/refresh {@link DesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */

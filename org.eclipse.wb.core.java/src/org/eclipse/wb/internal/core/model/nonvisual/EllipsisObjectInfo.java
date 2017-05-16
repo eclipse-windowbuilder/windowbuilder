@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Container for ellipsis-array of {@link ObjectInfo} in {@link MethodInvocation}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.nonvisual
  */

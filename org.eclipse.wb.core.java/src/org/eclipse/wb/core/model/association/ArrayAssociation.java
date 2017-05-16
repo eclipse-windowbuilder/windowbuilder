@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Association} for {@link ArrayCreation} item.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.association
  */

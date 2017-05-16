@@ -89,7 +89,7 @@ import java.util.Set;
 
 /**
  * Dialog for modifying palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

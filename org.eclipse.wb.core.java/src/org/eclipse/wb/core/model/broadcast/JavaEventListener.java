@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Listener for {@link JavaInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -43,7 +43,7 @@ public abstract class JavaEventListener {
   /**
    * Parsing was complete, but may be not all components already bound with parents.<br>
    * This is good place to perform any special parent/child associations.
-   * 
+   *
    * @param components
    *          all components, bound and not bound, that were created during parsing.
    */
@@ -58,7 +58,7 @@ public abstract class JavaEventListener {
   /**
    * When given <code>component</code> is adding, this listener can process source code, for example
    * replace template elements such as <code>%parent%</code>, <code>%child%</code>, etc.
-   * 
+   *
    * @param component
    *          the {@link JavaInfo} that is adding now, it already has parent.
    * @param source
@@ -75,7 +75,7 @@ public abstract class JavaEventListener {
   /**
    * When we check that {@link Statement} is may be terminal, i.e. all children should be placed
    * before it, so no other {@link Statement}'s on execution flow should be checked.
-   * 
+   *
    * @param parent
    *          the {@link JavaInfo} to which new child will be added. Note, that in
    *          {@link JavaInfoUtils} we check also related {@link Statement}'s of existing
@@ -97,7 +97,7 @@ public abstract class JavaEventListener {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Add 
+  // Add
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
@@ -114,7 +114,7 @@ public abstract class JavaEventListener {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Move 
+  // Move
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
@@ -128,7 +128,7 @@ public abstract class JavaEventListener {
 
   /**
    * Notifies that component is going to be moved to different parent.
-   * 
+   *
    * @param child
    *          that component to move.
    * @param oldParent
@@ -141,7 +141,7 @@ public abstract class JavaEventListener {
 
   /**
    * Notifies that component was moved to different parent.
-   * 
+   *
    * @param child
    *          that component to move.
    * @param oldParent
@@ -173,13 +173,13 @@ public abstract class JavaEventListener {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Properties 
+  // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Subscribers can use this method to update/validate expression during
    * {@link GenericPropertyImpl#setExpression(String, Object)}.
-   * 
+   *
    * @param property
    *          the {@link GenericPropertyImpl} that sends this event.
    * @param source
@@ -199,7 +199,7 @@ public abstract class JavaEventListener {
 
   /**
    * Notifies that {@link GenericProperty} was changed its value.
-   * 
+   *
    * @param property
    *          the {@link GenericPropertyImpl} that sends this event.
    */
@@ -213,7 +213,7 @@ public abstract class JavaEventListener {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Notifies that name of variable in {@link AbstractNamedVariableSupport} was changed to new.
-   * 
+   *
    * @param variableSupport
    *          the {@link AbstractNamedVariableSupport} that was changed the name.
    */
@@ -251,7 +251,7 @@ public abstract class JavaEventListener {
    * Gives subscribers possibility to participate in copy to clipboard process. For example
    * container can add command for installing layout, layout can commands for creating children,
    * etc.
-   * 
+   *
    * @param javaInfo
    *          the {@link JavaInfo} that is in process of copying.
    * @param commands
@@ -262,7 +262,7 @@ public abstract class JavaEventListener {
 
   /**
    * Notifies that {@link CreationSupport} needs source for given argument.
-   * 
+   *
    * @param javaInfo
    *          the {@link JavaInfo} that is in process of copying.
    * @param parameter
@@ -287,7 +287,7 @@ public abstract class JavaEventListener {
   /**
    * Asks subscribers if given {@link JavaInfo} can be moved in some way (may be just change bounds,
    * may be even reorder, but not reparent).
-   * 
+   *
    * @param javaInfo
    *          the {@link JavaInfo} to check.
    * @param forceMoveEnable

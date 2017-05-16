@@ -20,7 +20,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * Implementation of {@link GenericProperty} for composite property.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

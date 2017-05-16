@@ -51,7 +51,7 @@ import java.util.List;
 /**
  * Helper that can contributes action for exposing {@link JavaInfo} using <code>getXXX()</code>
  * method.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -63,7 +63,7 @@ public final class ExposeComponentSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * If possible, contributes "expose" action.
-   * 
+   *
    * @param component
    *          the {@link JavaInfo} that should be exposed.
    * @param manager
@@ -117,7 +117,7 @@ public final class ExposeComponentSupport {
 
   /**
    * Exposes component using <code>getXXX()</code> method.
-   * 
+   *
    * @param component
    *          the component to expose.
    * @param methodName

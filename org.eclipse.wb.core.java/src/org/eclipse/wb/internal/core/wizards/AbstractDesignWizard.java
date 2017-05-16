@@ -19,7 +19,7 @@ import org.eclipse.jface.wizard.WizardPage;
 
 /**
  * Base class for wizard responsible to create Java elements.
- * 
+ *
  * @author lobas_av
  * @coverage core.wizards.ui
  */

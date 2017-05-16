@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 /**
  * Notifies that some frame: {@link TypeDeclaration}, {@link MethodDeclaration} or {@link Block} is
  * going to be visited.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

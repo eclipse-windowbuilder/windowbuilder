@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Implementations of this interface can process {@link ComponentDescription}'s after loading them.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -23,7 +23,7 @@ public interface IDescriptionProcessor {
    * This method allows configure given {@link ComponentDescription} after loading.
    * <p>
    * For example in SWT we can mark first <code>Composite</code> parameter of constructor as parent.
-   * 
+   *
    * @param editor
    *          the {@link AstEditor} in which context {@link ComponentDescription} is loading.
    * @param componentDescription

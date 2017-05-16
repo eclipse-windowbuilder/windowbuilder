@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.Expression;
  * {@link ExpressionConverter} converts property value into Java source of {@link Expression}. It is
  * used as proxy between {@link PropertyEditor} and {@link GenericProperty}, if we want to use same
  * {@link PropertyEditor} with different presentations of value.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.converter
  */

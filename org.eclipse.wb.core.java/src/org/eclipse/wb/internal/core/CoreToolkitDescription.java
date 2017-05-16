@@ -37,7 +37,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * {@link ToolkitDescription} for generic Java object's.
- * 
+ *
  * @author scheglov_ke
  * @coverage code
  */

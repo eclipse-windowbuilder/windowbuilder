@@ -46,7 +46,7 @@ import javax.swing.UIManager;
 
 /**
  * Implementation of {@link URLClassLoader} for loading classes from {@link IJavaProject}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -359,7 +359,7 @@ public class ProjectClassLoader extends URLClassLoader {
 
   @Override
   public void addURL(URL url) {
-    // make addURL() method public 
+    // make addURL() method public
     super.addURL(url);
   }
 

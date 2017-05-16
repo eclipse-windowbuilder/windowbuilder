@@ -36,7 +36,7 @@ import java.text.MessageFormat;
 
 /**
  * {@link Composite} provides selecting argument for type parameter of creating generic component.
- * 
+ *
  * @author sablin_aa
  * @coverage core.editor.palette.ui
  */

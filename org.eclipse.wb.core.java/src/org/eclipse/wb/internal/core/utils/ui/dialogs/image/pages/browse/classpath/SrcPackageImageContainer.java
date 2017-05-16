@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Implementation od {@link IImageContainer} for {@link IPackageFragment}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

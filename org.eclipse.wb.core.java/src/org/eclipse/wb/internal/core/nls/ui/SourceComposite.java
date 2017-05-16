@@ -69,7 +69,7 @@ import java.util.Set;
 
 /**
  * {@link Composite}e for editing single {@link IEditableSource}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */
@@ -327,7 +327,7 @@ public final class SourceComposite extends Composite {
       String key = newLocaleDialog.getKey();
       String value = newLocaleDialog.getValue();
       m_source.addKey(key, value);
-      // update UI 
+      // update UI
       m_viewer.refresh();
     }
   }

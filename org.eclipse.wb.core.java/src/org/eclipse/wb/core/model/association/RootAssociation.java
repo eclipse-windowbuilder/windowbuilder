@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.association;
 
 /**
  * Implementation of {@link Association} for root component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

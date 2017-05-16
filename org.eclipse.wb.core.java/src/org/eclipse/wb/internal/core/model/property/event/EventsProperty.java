@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Property} for editing <code>addXXXListener</code> events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */
@@ -167,7 +167,7 @@ public final class EventsProperty extends AbstractEventProperty {
   /**
    * Creates and/or opens in editor listener method for specified <code>methodPath</code>. Used to
    * create and open listener with known info, for example on double click.
-   * 
+   *
    * @param methodPath
    *          the '/' separated name of listener method, for example <code>key/pressed</code>.
    */

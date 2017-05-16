@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * Implementation of {@link Association} for {@link ClassInstanceCreation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

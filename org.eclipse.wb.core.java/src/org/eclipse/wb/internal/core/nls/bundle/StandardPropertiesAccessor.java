@@ -29,7 +29,7 @@ import java.util.TreeSet;
 
 /**
  * Accessor that uses standard {@link Properties}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

@@ -60,7 +60,7 @@ import java.util.Set;
 
 /**
  * {@link VariableSupport} implementation for variable represented by {@link SimpleName}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -369,7 +369,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
    * <p>
    * Note, that we use {@link Statement}'s that will be moved to decide if moved
    * {@link VariableDeclaration} will shadow any subsequent variables or not.
-   * 
+   *
    * @param statementsToMove
    *          the {@link Statement}'s that will be moved.
    */
@@ -393,7 +393,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
   /**
    * @param target
    *          the target to move {@link Statement}'s to.
-   * 
+   *
    * @return {@link Statement}'s that should be move with this component.
    */
   private Statement[] getStatementsToMove(StatementTarget target) throws Exception {
@@ -431,7 +431,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
 
   /**
    * Adds {@link Statement}'s related to given {@link JavaInfo} and any of its children.
-   * 
+   *
    * @param target
    */
   private static void addStatementsToMove(Set<Statement> statements,
@@ -513,7 +513,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
 
   /**
    * @return the new name of variable decorated with prefix/suffix.
-   * 
+   *
    * @param newName
    *          the new name generate using "text" property.
    */

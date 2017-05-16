@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * Abstract superclass for all description objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

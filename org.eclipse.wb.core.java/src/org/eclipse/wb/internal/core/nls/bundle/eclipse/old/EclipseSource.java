@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Source for standard (may be old) Eclipse accessor class.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -67,7 +67,7 @@ public final class EclipseSource extends AbstractBundleSource {
 
   /**
    * Return "possible" sources that exist in given package.
-   * 
+   *
    * "Possible" source is source that exists in current package, but is not used in current unit. We
    * show "possible" sources only if there are no "real" sources.
    */

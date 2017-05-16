@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 /**
  * Implementation of {@link Association} for {@link ClassInstanceCreation} when <em>parent</em>
  * passed as argument.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

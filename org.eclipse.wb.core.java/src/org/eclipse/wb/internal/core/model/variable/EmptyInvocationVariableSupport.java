@@ -26,11 +26,11 @@ import org.apache.commons.lang.StringUtils;
  * Specific sub-class of {@link EmptyVariableSupport} that adds new {@link JavaInfo} using just
  * {@link MethodInvocation} in {@link ExpressionStatement}. For example in can be used to set
  * <code>Layout</code> using single {@link MethodInvocation} without any variables:
- * 
+ *
  * <pre>
  * 	composite.setLayout(new GridLayout(1, false));
  * </pre>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

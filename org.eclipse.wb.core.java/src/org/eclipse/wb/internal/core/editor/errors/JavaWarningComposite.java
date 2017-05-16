@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation for Java-related UI.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.editor.errors

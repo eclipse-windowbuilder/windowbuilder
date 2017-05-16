@@ -19,10 +19,10 @@ import java.util.Set;
 
 /**
  * Interface that allows editing of NLS source.
- * 
+ *
  * We separate this interface from EditableNLSSource implementation to keep clean interaface for
  * users (editors).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

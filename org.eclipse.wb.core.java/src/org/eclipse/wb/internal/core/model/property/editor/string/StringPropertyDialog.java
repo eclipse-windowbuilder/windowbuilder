@@ -45,7 +45,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * {@link Dialog} for editing value in {@link StringPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

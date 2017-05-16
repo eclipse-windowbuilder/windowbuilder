@@ -16,7 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 /**
  * An {@link DoubleClickLayoutEditPolicy} instance responsible to open the editor at widget creation
  * position.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gefTree.policy
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.description.resource;
 
 /**
  * {@link ResourceInfo} for some component {@link Class}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

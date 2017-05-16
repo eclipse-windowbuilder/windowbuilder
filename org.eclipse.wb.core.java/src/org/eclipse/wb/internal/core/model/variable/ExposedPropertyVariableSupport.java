@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * {@link VariableSupport} implementation for sub-components exposed using property.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

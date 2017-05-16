@@ -15,7 +15,7 @@ import org.eclipse.wb.core.model.association.Association;
 
 /**
  * Notification that new {@link Association} will be set for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

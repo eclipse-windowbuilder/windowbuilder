@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 /**
  * Implementation of {@link ExposingRule} that checks package of {@link Class} declaring given
  * {@link Method}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

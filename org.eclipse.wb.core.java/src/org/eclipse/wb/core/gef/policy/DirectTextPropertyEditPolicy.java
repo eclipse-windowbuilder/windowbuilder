@@ -38,7 +38,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link EditPolicy} that support direct editing for text {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

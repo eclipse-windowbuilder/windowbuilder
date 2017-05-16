@@ -42,7 +42,7 @@ import java.util.List;
  * properties and method invocations;</li>
  * <li>applying factory method on existing components (with compatible types).</li>
  * </ul>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -54,7 +54,7 @@ public final class FactoryActionsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * If possible, contributes actions for factory operations.
-   * 
+   *
    * @param component
    *          the {@link JavaInfo} the target component.
    * @param manager
@@ -101,7 +101,7 @@ public final class FactoryActionsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Contributes "factory" actions for this component.
-   * 
+   *
    * @param manager
    *          the {@link IContributionManager} to add action to.
    */
@@ -151,7 +151,7 @@ public final class FactoryActionsSupport {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Previous factory types 
+  // Previous factory types
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final QualifiedName KEY_PREVIOUS_FACTORIES =

@@ -63,7 +63,7 @@ import java.util.Set;
 
 /**
  * Helper for evaluating parts of AST related with some {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -373,7 +373,7 @@ public abstract class JavaInfoEvaluationHelper {
             return value;
           }
         }
-        // default handling - will throw exception 
+        // default handling - will throw exception
         return super.evaluateUnknownParameter(methodDeclaration, parameter);
       }
     };
@@ -634,7 +634,7 @@ public abstract class JavaInfoEvaluationHelper {
 
   /**
    * Evaluates given {@link JavaInfo} using its {@link CreationSupport}.
-   * 
+   *
    * @return the resulting object.
    */
   public final Object evaluateJavaInfoUsingCreationSupport(JavaInfo javaInfo) throws Exception {
@@ -707,9 +707,9 @@ public abstract class JavaInfoEvaluationHelper {
   //private static final String TAG_EVAL_PARAMETER = "@wbp.eval.method.parameter";
   /**
    * Evaluates value of expression specified in JavaDoc comments like this:
-   * 
+   *
    * @wbp.eval.method.parameter someName someExpression
-   * 
+   *
    * @param javadoc
    *          the {@link Javadoc} that should be checked.
    * @param tagName
@@ -757,7 +757,7 @@ public abstract class JavaInfoEvaluationHelper {
         }
       }
     }
-    // no value found 
+    // no value found
     return AstEvaluationEngine.UNKNOWN;
   }
 }

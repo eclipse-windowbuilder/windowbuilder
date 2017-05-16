@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * This interface is contributed via extension point and used for creating {@link IEditorPage} pages
  * for {@link IDesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

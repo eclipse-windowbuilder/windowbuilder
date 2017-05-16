@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Special {@link JavaInfo} for instance factories.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -69,7 +69,7 @@ public final class InstanceFactoryInfo extends JavaInfo {
    * Creates new instance of {@link InstanceFactoryInfo}. It is expected that
    * {@link #isFactory(AstEditor, Class)} returned <code>true</code> for given {@link Class}, i.e.
    * that it is really instance factory.
-   * 
+   *
    * @return new instance {@link InstanceFactoryInfo}.
    */
   public static InstanceFactoryInfo createFactory(AstEditor editor,
@@ -120,7 +120,7 @@ public final class InstanceFactoryInfo extends JavaInfo {
   /**
    * Creates new instance of {@link InstanceFactoryInfo} of given class and adds it to the
    * {@link InstanceFactoryContainerInfo}.
-   * 
+   *
    * @return the new added {@link InstanceFactoryInfo}.
    */
   public static InstanceFactoryInfo add(JavaInfo rootJavaInfo, Class<?> factoryClass)

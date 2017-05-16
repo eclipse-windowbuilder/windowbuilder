@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 
 /**
  * This interface is used to notify external listeners about editor life cycle.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */
@@ -42,7 +42,7 @@ public abstract class EditorLifeCycleListener {
   /**
    * Hierarchy was disposed in editor, so may be context of editor also should be disposed.
    * Sometimes however we don't want to throw away all information about editor.
-   * 
+   *
    * @param force
    *          is <code>true</code> if user closes editor, so context should be disposed.
    */

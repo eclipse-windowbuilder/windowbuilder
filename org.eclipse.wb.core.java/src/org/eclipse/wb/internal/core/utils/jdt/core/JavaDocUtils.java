@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Helper for accessing JavaDoc for Java elements.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt
  */

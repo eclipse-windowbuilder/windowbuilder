@@ -25,7 +25,7 @@ import java.lang.reflect.Modifier;
 
 /**
  * The {@link Rule} that adds standard properties for <code>.xxxx</code> public fields.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.description
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport;
 /**
  * Implementation of {@link GenerationPreview} for {@link LazyVariableSupport} and
  * {@link LazyStatementGenerator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation.ui
  */

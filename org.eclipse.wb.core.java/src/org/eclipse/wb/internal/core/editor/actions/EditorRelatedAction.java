@@ -21,7 +21,7 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * Abstract superclass for actions of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */

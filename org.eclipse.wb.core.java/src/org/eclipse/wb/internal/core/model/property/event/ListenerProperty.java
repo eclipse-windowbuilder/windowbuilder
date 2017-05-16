@@ -31,7 +31,7 @@ import java.text.MessageFormat;
 
 /**
  * Implementation of {@link Property} for single {@link ListenerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */
@@ -107,7 +107,7 @@ final class ListenerProperty extends AbstractListenerProperty {
     if (m_listener.isDeprecated()) {
       return;
     }
-    // add methods 
+    // add methods
     MenuManagerEx listenerMenuManager = null;
     for (ListenerMethodProperty methodProperty : getMethodProperties()) {
       // prepare listener menu manager
@@ -151,7 +151,7 @@ final class ListenerProperty extends AbstractListenerProperty {
 
   /**
    * For given {@link ListenerMethodProperty} creates two {@link Action}'s:
-   * 
+   *
    * [0] - for existing stub method, may be <code>null</code>;<br>
    * [1] - for creating new stub method.
    */

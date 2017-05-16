@@ -47,7 +47,7 @@ import java.util.Map;
 
 /**
  * Description of any {@link JavaInfo}, its constructors, methods, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -166,7 +166,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   }
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Model class 
+  // Model class
   //
   ////////////////////////////////////////////////////////////////////////////
   private Class<?> m_modelClass;
@@ -281,7 +281,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 
   /**
    * Note: supported generics.
-   * 
+   *
    * @return the {@link ConstructorDescription} for given {@link IMethodBinding}.
    */
   public ConstructorDescription getConstructor(IMethodBinding methodBinding) {
@@ -302,7 +302,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 
   /**
    * Note: not supported generics.
-   * 
+   *
    * @return the {@link ConstructorDescription} for given signature.
    */
   @Deprecated
@@ -437,7 +437,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
 
   /**
    * @return the {@link GenericPropertyDescription} with given id, can not return <code>null</code>.
-   * 
+   *
    * @throws RuntimeException
    *           if no {@link GenericPropertyDescription} with such id is registered.
    */
@@ -596,7 +596,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   /**
    * Adds new {@link ExposingRule} into beginning of rules {@link List}, so that it will be checked
    * first. Such order gives ability to fine-tune exposing rules in sub-classes.
-   * 
+   *
    * @param rule
    *          the {@link ExposingRule} to add.
    */

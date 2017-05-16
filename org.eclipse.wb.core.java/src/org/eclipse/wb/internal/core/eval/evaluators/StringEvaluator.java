@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link String}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

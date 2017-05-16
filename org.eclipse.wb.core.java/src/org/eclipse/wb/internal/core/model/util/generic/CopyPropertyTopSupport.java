@@ -22,11 +22,11 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * For example we may want to create top level copy of some property from <code>"Constructor"</code>.
  * <p>
  * Format:
- * 
+ *
  * <code><pre>
  *   &lt;parameter name="copyPropertyTop from=Constructor/columnWidth to=width category=system(7)"/&gt;
  * </pre></code>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

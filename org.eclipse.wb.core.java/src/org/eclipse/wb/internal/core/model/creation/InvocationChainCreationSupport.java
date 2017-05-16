@@ -24,7 +24,7 @@ import org.eclipse.ui.part.ViewPart;
  * For example in {@link ViewPart} code
  * <code>getViewSite().getActionBars().getToolBarManager()</code> to access instance of
  * {@link IToolBarManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

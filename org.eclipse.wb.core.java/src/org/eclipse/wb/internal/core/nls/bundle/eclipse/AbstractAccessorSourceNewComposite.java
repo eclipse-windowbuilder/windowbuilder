@@ -42,7 +42,7 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 
 /**
  * Composite for creating new accessor-based source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

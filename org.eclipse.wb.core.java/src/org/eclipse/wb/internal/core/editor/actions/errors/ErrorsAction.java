@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link Action} that shows errors during parsing, refresh, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

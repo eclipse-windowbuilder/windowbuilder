@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * Container for execution flow in AST.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

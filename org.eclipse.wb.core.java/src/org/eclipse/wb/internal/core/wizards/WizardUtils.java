@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Utils for {@link Wizard}s
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */

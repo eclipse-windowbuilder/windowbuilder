@@ -47,7 +47,7 @@ import javax.xml.validation.Validator;
 
 /**
  * Helper for accessing descriptions resources.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -129,7 +129,7 @@ public final class DescriptionHelper {
 
   /**
    * Attempts to load icon with one of the supported extensions from description resources.
-   * 
+   *
    * @param context
    *          the {@link EditorState} for accessing resource from {@link ClassLoader}.
    * @param componentClass
@@ -137,7 +137,7 @@ public final class DescriptionHelper {
    * @param suffix
    *          optional suffix, may be empty, but not <code>null</code>. We use it loading
    *          creation-specific icons.
-   * 
+   *
    * @return the icon {@link Image}, or <code>null</code>.
    */
   public static Image getIconImage(ILoadingContext context, Class<?> componentClass, String suffix)
@@ -148,12 +148,12 @@ public final class DescriptionHelper {
 
   /**
    * Attempt to load icon with one of the supported extensions from description resources.
-   * 
+   *
    * @param context
    *          the {@link EditorState} for accessing resource from {@link ClassLoader}.
    * @param iconPath
    *          the path to icon file, without extension.
-   * 
+   *
    * @return the icon {@link Image}, or <code>null</code>.
    */
   public static Image getIconImage(ILoadingContext context, String iconPath) throws Exception {
@@ -210,7 +210,7 @@ public final class DescriptionHelper {
   /**
    * Same as {@link #getResourceInfo0(EditorState, String)}, but tries first versions corresponding
    * to toolkit of given {@link Class}.
-   * 
+   *
    * @return the {@link ResourceInfo} for resource with given name or <code>null</code> if no such
    *         resource found.
    */
@@ -239,7 +239,7 @@ public final class DescriptionHelper {
    * <li>Project {@link ClassLoader} from {@link EditorState}.
    * <li>Plugins that contribute toolkits, from "wbp-meta".
    * </ol>
-   * 
+   *
    * @return the {@link ResourceInfo} for resource with given name or <code>null</code> if no such
    *         resource found.
    */
@@ -288,7 +288,7 @@ public final class DescriptionHelper {
 
   /**
    * Non-caching implementation of {@link #getResourceInfo0(EditorState, String)}.
-   * 
+   *
    * @param tryContext
    *          is <code>false</code> if {@link ILoadingContext} should not be used, because version
    *          was attached to the name, and custom components can not have version.

@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ClipboardCommand} for applying commands for implicit/exposed components.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */

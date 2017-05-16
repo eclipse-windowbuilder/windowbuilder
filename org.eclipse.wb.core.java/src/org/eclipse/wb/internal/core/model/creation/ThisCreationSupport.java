@@ -89,7 +89,7 @@ import java.util.Set;
 
 /**
  * Implementation of {@link CreationSupport} for subclasses.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

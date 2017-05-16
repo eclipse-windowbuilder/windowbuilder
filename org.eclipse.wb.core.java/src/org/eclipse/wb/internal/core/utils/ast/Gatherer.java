@@ -24,7 +24,7 @@ import java.util.Set;
  * Instances of the class <code>Gatherer</code> represent an AST visitor whose methods are expected
  * to add elements to a result collection.
  * <p>
- * 
+ *
  * @author Brian Wilkerson
  * @version $Revision: 1.5 $
  * @coverage core.util.ast
@@ -54,7 +54,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Return <code>true</code> if one or more values have been gathered.
-   * 
+   *
    * @return <code>true</code> if one or more values have been gathered
    */
   public final boolean hasResults() {
@@ -64,7 +64,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
   /**
    * Return the one result value that was gathered, or <code>null</code> if the were either more or
    * fewer values gathered.
-   * 
+   *
    * @return the one result value that was gathered
    */
   public final T getUniqueResult() {
@@ -76,7 +76,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
 
   /**
    * Return a list of the values that were gathered.
-   * 
+   *
    * @return a list of the values that were gathered
    */
   public final List<T> getResultList() {
@@ -88,7 +88,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
 
   /**
    * Return a set of the values that were gathered.
-   * 
+   *
    * @return a set of the values that were gathered
    */
   public final Set<T> getResultSet() {
@@ -101,7 +101,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
   /**
    * Assuming that all of the values that were gathered were {@link VariableDeclaration}'s, return
    * an array of the {@link VariableDeclaration}'s that were gathered.
-   * 
+   *
    * @return an array of the variable declarations that were gathered
    */
   @SuppressWarnings("unchecked")
@@ -117,7 +117,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Add the given result value to the collection of result values.
-   * 
+   *
    * @param value
    *          the result value to be added
    */
@@ -127,7 +127,7 @@ public abstract class Gatherer<T> extends ASTVisitor {
 
   /**
    * Create the collection to which result values will be added.
-   * 
+   *
    * @return the collection that was created
    */
   protected abstract Collection<T> createCollection();

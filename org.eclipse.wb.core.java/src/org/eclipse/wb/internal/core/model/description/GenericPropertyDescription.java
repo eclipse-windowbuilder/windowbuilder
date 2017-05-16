@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Description of single {@link GenericProperty} - its {@link ExpressionAccessor}'s,
  * {@link ExpressionConverter} and {@link PropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -18,11 +18,11 @@ import java.util.Locale;
 
 /**
  * Information about {@link Locale}.
- * 
+ *
  * We separate {@link LocaleInfo} from {@link BundleInfo} because {@link BundleInfo} is wrapper for
  * single *.properties file and we support more than one source of bundles in one
  * {@link CompilationUnit}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -138,7 +138,7 @@ public final class LocaleInfo implements Comparable<LocaleInfo> {
    * @return the "parent" {@link LocaleInfo} from given array.<br>
    *         Here "parent" is locale that is more general than current one.<br>
    *         For example "parent" locale for 'ru_RU' is 'ru'.
-   * 
+   *
    *         If there are no parent locale in array, return default locale.<br>
    */
   public LocaleInfo getParent(LocaleInfo locales[]) {
@@ -173,7 +173,7 @@ public final class LocaleInfo implements Comparable<LocaleInfo> {
         return new LocaleInfo(locale);
       }
     }
-    // try to create new, this constructor is since 1.4, so do this in try/catch 
+    // try to create new, this constructor is since 1.4, so do this in try/catch
     try {
       Locale locale;
       int separatorIndex = localeName.indexOf('_');

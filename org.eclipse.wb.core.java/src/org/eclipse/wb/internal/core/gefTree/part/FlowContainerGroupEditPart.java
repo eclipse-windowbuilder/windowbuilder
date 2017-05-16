@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * {@link TreeEditPart} for {@link FlowContainerGroupInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.gefTree
  */

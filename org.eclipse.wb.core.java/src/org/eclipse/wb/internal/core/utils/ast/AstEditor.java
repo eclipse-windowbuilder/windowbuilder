@@ -96,7 +96,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * {@link AstEditor} is central point for all AST and source editing operations, such as adding new
  * statements, method invocations, methods, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -305,7 +305,7 @@ public final class AstEditor {
   /**
    * @return the whitespace substring that ends at given <code>end</code> position and starts
    *         somewhere before it.
-   * 
+   *
    * @param includeEOL
    *          is <code>true</code> if characters '\r' and '\n' also should be skipped.
    */
@@ -368,7 +368,7 @@ public final class AstEditor {
 
   /**
    * @return the index of first non-whitespace character.
-   * 
+   *
    * @param includeEOL
    *          is <code>true</code> if characters '\r' and '\n' also should be skipped.
    */
@@ -440,7 +440,7 @@ public final class AstEditor {
 
   /**
    * @return single source {@link String} for given lines of source.
-   * 
+   *
    * @param lines
    *          the lines of source
    * @param indent
@@ -478,7 +478,7 @@ public final class AstEditor {
 
   /**
    * @return the first occurrence of given sub-string.
-   * 
+   *
    * @throws IllegalArgumentException
    *           if no such index can be found.
    */
@@ -488,7 +488,7 @@ public final class AstEditor {
 
   /**
    * @return the first occurrence of given sub-string.
-   * 
+   *
    * @throws IllegalArgumentException
    *           if no such index can be found.
    */
@@ -510,7 +510,7 @@ public final class AstEditor {
 
   /**
    * @return the first index of any character in the given set of characters.
-   * 
+   *
    * @throws IllegalArgumentException
    *           if no such index can be found.
    */
@@ -532,7 +532,7 @@ public final class AstEditor {
 
   /**
    * @return the first index of any character not in the given set of characters.
-   * 
+   *
    * @throws IllegalArgumentException
    *           if no such index can be found.
    */
@@ -555,7 +555,7 @@ public final class AstEditor {
 
   /**
    * @return the nearest index of character when move backward from given position.
-   * 
+   *
    * @throws IllegalArgumentException
    *           if no such index can be found.
    */
@@ -572,7 +572,7 @@ public final class AstEditor {
 
   /**
    * @return the first index of any character not in the given set of characters.
-   * 
+   *
    * @throws IllegalArgumentException
    *           if no such index can be found.
    */
@@ -726,12 +726,12 @@ public final class AstEditor {
 
   /**
    * Examples:
-   * 
+   *
    * <pre>
 	 * SWT.NONE = org.eclipse.swt.SWT.NONE
 	 * new JButton() = new javax.swing.JButton()
 	 * </pre>
-   * 
+   *
    * @param theNode
    *          the {@link ASTNode} to get the source.
    * @param transformer
@@ -740,7 +740,7 @@ public final class AstEditor {
    *          additional transformation required. If transformer returns not <code>null</code>, we
    *          use it instead of its original source; if <code>null</code> - we continue with
    *          original source.
-   * 
+   *
    * @return the source of {@link ASTNode} in "external form", i.e. with fully qualified types.
    */
   @SuppressWarnings("restriction")
@@ -826,7 +826,7 @@ public final class AstEditor {
   /**
    * Replaces the substring starting at the given start position with the given length by the given
    * replacement text, modifying the source ranges for the nodes in the AST in the process.
-   * 
+   *
    * @param oldStart
    *          the index of the first character being replaced
    * @param oldLength
@@ -1022,7 +1022,7 @@ public final class AstEditor {
   /**
    * Replaces given old {@link Expression} with new {@link Expression} corresponding to the given
    * Java source. If source contains EOL, it will be indented.
-   * 
+   *
    * @return the new {@link Expression}.
    */
   public Expression replaceExpression(Expression oldExpression, String source) throws Exception {
@@ -1038,7 +1038,7 @@ public final class AstEditor {
   /**
    * Replaces given old {@link Expression} with new {@link Expression} corresponding the Java source
    * given as array of lines.
-   * 
+   *
    * @return the new {@link Expression}.
    */
   public Expression replaceExpression(Expression oldExpression, List<String> lines)
@@ -1072,7 +1072,7 @@ public final class AstEditor {
   /**
    * Replaces given old {@link Expression} with new {@link Expression} corresponding to the given
    * Java source. Source used as is, without checks for EOL, indentation, etc.
-   * 
+   *
    * @return the new {@link Expression}.
    */
   private Expression replaceExpressionString(Expression oldExpression, String source)
@@ -1107,7 +1107,7 @@ public final class AstEditor {
   /**
    * Replaces {@link Type} in {@link VariableDeclarationStatement} with new type.<br>
    * We use this method in morphing.
-   * 
+   *
    * @param declaration
    *          the fragment from {@link VariableDeclarationStatement}. {@link FieldDeclaration}
    *          should have only one fragment.
@@ -1179,7 +1179,7 @@ public final class AstEditor {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the unique variable name (for local variable or field).
-   * 
+   *
    * @param position
    *          the position where new variable will be used, <code>-1</code> if all variables of
    *          {@link CompilationUnit} should be considered
@@ -1211,12 +1211,12 @@ public final class AstEditor {
 
   /**
    * Generates unique variable name that does not conflict with other variables.
-   * 
+   *
    * @param declarations
    *          the {@link VariableDeclaration}'s that can conflict with new variable.
    * @param baseName
    *          the base name for generating
-   * 
+   *
    * @return the unique variable name (for local variable or field).
    */
   public static String getUniqueVariableName(List<VariableDeclaration> declarations, String baseName) {
@@ -1445,7 +1445,7 @@ public final class AstEditor {
 
   /**
    * Encloses given {@link Statement} in {@link TryStatement}.
-   * 
+   *
    * @return the enclosing {@link TryStatement}.
    */
   public TryStatement encloseInTryStatement(Statement statement, String catchExceptionType)
@@ -1485,7 +1485,7 @@ public final class AstEditor {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Encloses given {@link Statement} in {@link Block}.
-   * 
+   *
    * @return the enclosing {@link Block}.
    */
   public Block encloseInBlock(Statement statement) throws Exception {
@@ -1567,7 +1567,7 @@ public final class AstEditor {
 
   /**
    * Adds new {@link Statement} with given source in given {@link StatementTarget}.
-   * 
+   *
    * @param source
    *          the source for new {@link Statement} (with trailing ';'). It can contains
    *          <code>\n</code>, so can be multi-line and will be indented.
@@ -1581,7 +1581,7 @@ public final class AstEditor {
 
   /**
    * Adds new {@link Statement} with given source in given {@link StatementTarget}.
-   * 
+   *
    * @param lines
    *          the lines of source (possible with empty lines) with single statement.
    * @param target
@@ -1761,7 +1761,7 @@ public final class AstEditor {
 
   /**
    * Move statement to given {@link StatementTarget}.
-   * 
+   *
    * @param target
    *          the new position for statement
    * @param statement
@@ -1914,7 +1914,7 @@ public final class AstEditor {
 
   /**
    * Moves piece of source with given start/length to target position.
-   * 
+   *
    * @return the new value of target
    */
   private int moveSource(int target, int start, int length) throws Exception {
@@ -2084,7 +2084,7 @@ public final class AstEditor {
   /**
    * Adds new {@link MethodDeclaration} with given source in location of given
    * {@link StatementTarget}.
-   * 
+   *
    * @param header
    *          the header of method without '{'
    * @param bodyLines
@@ -2101,7 +2101,7 @@ public final class AstEditor {
   /**
    * Adds new {@link MethodDeclaration} with given source in location of given
    * {@link StatementTarget}.
-   * 
+   *
    * @param bodyLines
    *          the lines of method JavaDoc and/or annotations
    * @param header
@@ -2138,7 +2138,7 @@ public final class AstEditor {
 
   /**
    * Adds new {@link MethodDeclaration} without body in location of given {@link StatementTarget}.
-   * 
+   *
    * @param header
    *          the header of method.
    * @param target
@@ -2152,7 +2152,7 @@ public final class AstEditor {
 
   /**
    * @return the source for parameters of given {@link MethodDeclaration}.<br>
-   * 
+   *
    *         <code>public void split(String s, int count)</code> -> <code>String s, int count</code>
    */
   public String getParametersSource(MethodDeclaration method) {
@@ -2168,7 +2168,7 @@ public final class AstEditor {
 
   /**
    * @return the array of parameter names of given {@link MethodDeclaration}.
-   * 
+   *
    *         <code>public void split(String s, int count)</code> -> <code>{"s", "count"}</code>
    */
   public String[] getParameterNames(MethodDeclaration method) {
@@ -2214,7 +2214,7 @@ public final class AstEditor {
 
   /**
    * Replaces the return {@link Type} in {@link MethodDeclaration} with new type.
-   * 
+   *
    * @param method
    *          the {@link MethodDeclaration} to replace return type.
    * @param newTypeName
@@ -2360,7 +2360,7 @@ public final class AstEditor {
   /**
    * Adds new {@link TypeDeclaration} with given source in location of given {@link StatementTarget}
    * .
-   * 
+   *
    * @param lines
    *          the lines of class
    * @param target
@@ -2373,7 +2373,7 @@ public final class AstEditor {
 
   /**
    * Ensures that given {@link TypeDeclaration} interface with given name.
-   * 
+   *
    * @return <code>false</code> if class already implements given interface and <code>true</code> in
    *         other case.
    */
@@ -2492,7 +2492,7 @@ public final class AstEditor {
   /**
    * Adds new {@link BodyDeclaration} with given source in location of given {@link StatementTarget}
    * .
-   * 
+   *
    * @param lines
    *          the lines of source for new {@link BodyDeclaration}.
    * @param target
@@ -2667,7 +2667,7 @@ public final class AstEditor {
   public void removeVariableDeclaration(VariableDeclaration declaration) throws Exception {
     ASTNode parent = declaration.getParent();
     if (parent instanceof FieldDeclaration) {
-      // field 
+      // field
       FieldDeclaration fieldDeclaration = (FieldDeclaration) parent;
       List<VariableDeclarationFragment> fragments = DomGenerics.fragments(fieldDeclaration);
       if (fragments.size() == 1) {
@@ -2745,7 +2745,7 @@ public final class AstEditor {
         int javadocBegin = source.lastIndexOf("/**");
         if (javadocBegin != -1) {
           int javadocEnd = source.indexOf("*/", javadocBegin) + "*/".length();
-          // if end of last JavaDoc is end of TypeDeclaration, i.e. no BodyDeclaration, remove it 
+          // if end of last JavaDoc is end of TypeDeclaration, i.e. no BodyDeclaration, remove it
           if (javadocEnd == trailingJavadocEnd) {
             javadocBegin = skipWhitespaceToLeft(javadocBegin, false);
             replaceSubstring(javadocBegin, typeEnd - javadocBegin, "");
@@ -2757,7 +2757,7 @@ public final class AstEditor {
 
   /**
    * Sets new text for JavaDoc {@link TagElement}, i.e. {@link TextElement}.
-   * 
+   *
    * @param declaration
    *          the {@link BodyDeclaration} to update {@link Javadoc}.
    * @param tagName
@@ -2765,7 +2765,7 @@ public final class AstEditor {
    * @param tagText
    *          the text to set for tag, with leading space, or <code>null</code> if tag should be
    *          removed.
-   * 
+   *
    * @return the {@link TagElement} that has single {@link TextElement} fragment with
    *         <code>tagText</code> as text; or <code>null</code> if tag was removed.
    */
@@ -2878,13 +2878,13 @@ public final class AstEditor {
 
   /**
    * Sets new {@link Javadoc} comment for {@link BodyDeclaration}.
-   * 
+   *
    * @param declaration
    *          the {@link BodyDeclaration} to adds comment to.
    * @param lines
    *          the lines for {@link Javadoc} comment, may be <code>null</code> if {@link Javadoc}
    *          should be removed.
-   * 
+   *
    * @return the added {@link Javadoc} object, or <code>null</code> if {@link Javadoc} was removed.
    */
   public Javadoc setJavadoc(BodyDeclaration declaration, String[] lines) throws Exception {
@@ -2953,10 +2953,10 @@ public final class AstEditor {
   /**
    * Ensure that the compilation unit includes an import for the given fully-qualified class name,
    * adding one if it does not already exist.
-   * 
+   *
    * @param className
    *          the fully qualified name of the class that must be imported
-   * 
+   *
    * @return the string that should be used as reference on class, can be short name (if import was
    *         successful) or fully qualified name (if there is already imported class with same short
    *         name).
@@ -3244,7 +3244,7 @@ public final class AstEditor {
   /**
    * Adds new argument {@link Expression} into {@link MethodInvocation} or
    * {@link ClassInstanceCreation}.
-   * 
+   *
    * @param parent
    *          the {@link MethodInvocation} or {@link ClassInstanceCreation}.
    * @param arguments
@@ -3253,7 +3253,7 @@ public final class AstEditor {
    *          the index for new argument.
    * @param source
    *          the source for new argument.
-   * 
+   *
    * @return the new argument {@link Expression}.
    */
   private Expression addInvocationArgument(Expression parent,
@@ -3273,7 +3273,7 @@ public final class AstEditor {
 
   /**
    * Add to invocation body of source new argument with given index.
-   * 
+   *
    * @return the start position of inserted code.
    */
   private int insertToInvocationBody(Expression parent,
@@ -3304,7 +3304,7 @@ public final class AstEditor {
 
   /**
    * Replaces the arguments of given {@link ClassInstanceCreation}.
-   * 
+   *
    * @param creation
    *          the {@link ClassInstanceCreation} to replace arguments.
    * @param lines
@@ -3318,7 +3318,7 @@ public final class AstEditor {
 
   /**
    * Replaces the arguments of given {@link MethodInvocation}.
-   * 
+   *
    * @param invocation
    *          the {@link MethodInvocation} to replace arguments.
    * @param lines
@@ -3341,7 +3341,7 @@ public final class AstEditor {
    */
   /**
    * Replaces arguments of {@link MethodInvocation} or {@link ClassInstanceCreation}.
-   * 
+   *
    * @param parent
    *          the {@link MethodInvocation} or {@link ClassInstanceCreation}.
    * @param arguments
@@ -3426,11 +3426,11 @@ public final class AstEditor {
   /**
    * Parses the source of given {@link MethodInvocation} or {@link ClassInstanceCreation} and
    * installs its {@link IMethodBinding} as binding for given invocation.
-   * 
+   *
    * @param invocation
    *          the {@link MethodInvocation} or {@link ClassInstanceCreation} to replace
    *          {@link IMethodBinding}.
-   * 
+   *
    * @return the parsed {@link ASTNode}.
    */
   public ASTNode replaceInvocationBinding(Expression invocation) throws Exception {
@@ -3488,7 +3488,7 @@ public final class AstEditor {
     AnonymousClassDeclaration newAnonymous = newCreation.getAnonymousClassDeclaration();
     newCreation.setAnonymousClassDeclaration(null);
     creation.setAnonymousClassDeclaration(newAnonymous);
-    // we append {}, so replaceSubstring() will not update length, so we should update it manually 
+    // we append {}, so replaceSubstring() will not update length, so we should update it manually
     {
       ASTNode enclosingNode = creation;
       while (AstNodeUtils.getSourceEnd(enclosingNode) == end) {
@@ -3589,7 +3589,7 @@ public final class AstEditor {
 
   /**
    * Add to array elements body of source new element with given index.
-   * 
+   *
    * @return the start position of inserted code.
    */
   private int insertToArrayBody(ArrayInitializer arrayInitializer, int index, String source)

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Container for assignments sequence such as <code>a.foo = b.bar = expr</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

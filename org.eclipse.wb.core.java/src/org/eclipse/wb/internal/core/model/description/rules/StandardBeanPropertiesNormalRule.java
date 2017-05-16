@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that sets {@link PropertyCategory#NORMAL} for standard bean properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -48,7 +48,7 @@ import java.util.List;
 
 /**
  * {@link VariableSupport} implementation for field that has initializer.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -293,7 +293,7 @@ public final class FieldInitializerVariableSupport extends FieldVariableSupport 
    *          {@link StatementTarget}.
    * @param initializer
    *          the optional (can be <code>null</code>) initializer of field
-   * 
+   *
    * @return {@link VariableDeclarationFragment} of new field with unique name and given
    *         initializer.
    */

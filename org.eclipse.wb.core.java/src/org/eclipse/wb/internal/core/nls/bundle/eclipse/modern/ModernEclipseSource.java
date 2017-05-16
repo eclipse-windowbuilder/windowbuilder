@@ -54,7 +54,7 @@ import java.util.Set;
 
 /**
  * Source for modern Eclipse accessor class (subclass of org.eclipse.osgi.util.NLS).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -85,7 +85,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
 
   /**
    * Return "possible" sources that exist in given package.
-   * 
+   *
    * "Possible" source is source that exists in current package, but is not used in current unit. We
    * show "possible" sources only if there are no "real" sources.
    */
@@ -278,7 +278,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
     Expression expression = property.getExpression();
     String source = m_accessorClassName + "." + key;
     Expression newExpression = m_root.getEditor().replaceExpression(expression, source);
-    // side effect of this invocation is that ExpressionInfo placed in newExpression 
+    // side effect of this invocation is that ExpressionInfo placed in newExpression
     return getExpressionInfo(newExpression);
   }
 

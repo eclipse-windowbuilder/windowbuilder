@@ -26,7 +26,7 @@ import java.util.Set;
 
 /**
  * Implementation of {@link IJavaSearchScope} that returns all sub-types of {@link IType}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt
  */

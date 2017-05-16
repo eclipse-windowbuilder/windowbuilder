@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Collector of {@link ObjectInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.nonvisual
  */

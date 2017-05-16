@@ -58,7 +58,7 @@ import java.util.Map;
 
 /**
  * Abstract composite for creating strings source using {@link DialogField}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

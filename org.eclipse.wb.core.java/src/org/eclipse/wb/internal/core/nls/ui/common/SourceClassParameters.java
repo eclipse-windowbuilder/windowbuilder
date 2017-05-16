@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 /**
  * Value object for class parameters selected using {@link ClassSelectionGroup}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

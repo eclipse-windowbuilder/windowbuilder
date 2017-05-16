@@ -45,7 +45,7 @@ import java.util.Map;
 
 /**
  * The {@link PropertyEditor} for {@link Date}. Using scripts for MVEL library.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.editor
  */
@@ -327,7 +327,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
         }
       });
       m_control.setSelection(m_value);
-      // 
+      //
       return area;
     }
   }

@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 
 /**
  * Information about single method in {@link ListenerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */
@@ -83,7 +83,7 @@ final class ListenerMethodInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Generics utils 
+  // Generics utils
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

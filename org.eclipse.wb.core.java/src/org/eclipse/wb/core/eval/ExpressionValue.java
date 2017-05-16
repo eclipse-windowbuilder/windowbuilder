@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Value of {@link Expression}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

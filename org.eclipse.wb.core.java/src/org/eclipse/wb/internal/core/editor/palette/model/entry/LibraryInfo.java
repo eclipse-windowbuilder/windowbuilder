@@ -22,7 +22,7 @@ import org.osgi.framework.Bundle;
 /**
  * Library is description of JAR and optional source ZIP that should be added when
  * {@link ComponentEntryInfo} selected from palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

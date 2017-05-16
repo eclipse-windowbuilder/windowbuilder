@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.variable.FieldVariableSupport;
 /**
  * Implementation of {@link GenerationPreview} for {@link FieldInitializerVariableSupport} and
  * {@link FlatStatementGenerator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation.ui
  */

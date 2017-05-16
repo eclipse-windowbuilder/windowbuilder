@@ -16,11 +16,11 @@ import java.util.List;
 
 /**
  * Abstract command for NLS editing.
- * 
+ *
  * After several attempts with "state only" editing for NLS I've decided that command approach for
  * editing is best solution. For example we can have commands like "set values", "rename keys",
  * "add locale", "remove locale", "externalize property", "internalize property", etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

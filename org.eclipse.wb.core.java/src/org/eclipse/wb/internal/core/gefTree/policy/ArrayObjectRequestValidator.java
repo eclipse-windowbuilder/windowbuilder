@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 /**
  * Implementation of {@link ILayoutRequestValidator} for validate items for <i>array object</i>.
- * 
+ *
  * @author sablin_aa
  * @coverage core.gefTree.policy
  */

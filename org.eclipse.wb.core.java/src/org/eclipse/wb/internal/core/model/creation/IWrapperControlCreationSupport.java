@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * Interface for "wrapper" {@link CreationSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

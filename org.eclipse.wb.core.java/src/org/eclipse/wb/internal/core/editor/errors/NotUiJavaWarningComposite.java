@@ -24,7 +24,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * {@link JavaWarningComposite} for {@link ICoreExceptionConstants#PARSER_NOT_GUI}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.errors
  */

@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 /**
  * This interface allows {@link JavaInfo} participate in evaluation of {@link MethodDeclaration}
  * parameter value.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -36,7 +36,7 @@ public interface IThisMethodParameterEvaluator {
    *          the parameter in {@link MethodDeclaration}.
    * @param index
    *          the index of parameter.
-   * 
+   *
    * @return the value of given parameter or {@link AstEvaluationEngine#UNKNOWN}.
    */
   Object evaluateParameter(EvaluationContext context,

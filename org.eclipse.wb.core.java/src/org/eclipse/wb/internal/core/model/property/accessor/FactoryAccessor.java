@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 /**
  * The implementation of {@link ExpressionAccessor} for argument of
  * {@link AbstractExplicitFactoryCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

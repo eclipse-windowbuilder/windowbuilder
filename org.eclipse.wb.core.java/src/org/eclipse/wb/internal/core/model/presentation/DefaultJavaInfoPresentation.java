@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Default {@link IObjectPresentation} for {@link JavaInfo}
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.presentation
  */
@@ -50,7 +50,7 @@ public class DefaultJavaInfoPresentation extends DefaultObjectPresentation {
         return icon;
       }
     }
-    // by default use "component type" specific icon 
+    // by default use "component type" specific icon
     return m_javaInfo.getDescription().getIcon();
   }
 

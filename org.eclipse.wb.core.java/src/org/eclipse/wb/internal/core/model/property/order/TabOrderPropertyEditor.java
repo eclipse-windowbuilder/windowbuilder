@@ -19,7 +19,7 @@ import org.eclipse.jface.window.Window;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link TabOrderProperty}.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.order
  */

@@ -53,7 +53,7 @@ import java.util.Map;
  * {@link PropertyEditor} that generates/uses instance of anonymous/inner {@link Class} or uses
  * instance of selected external {@link Class}. Source for class generated class is configured as
  * template.
- * 
+ *
  * <pre><xmp>
 	<property id="setLabelProvider(org.eclipse.jface.viewers.IBaseLabelProvider)">
 		<editor id="innerClass">
@@ -73,7 +73,7 @@ private class ${name} extends org.eclipse.jface.viewers.LabelProvider implements
 		</editor>
 	</property>
  * </xmp></pre>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

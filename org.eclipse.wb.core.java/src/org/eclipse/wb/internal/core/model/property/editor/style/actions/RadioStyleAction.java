@@ -17,7 +17,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * "Radio" action for {@link Property} context menu.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

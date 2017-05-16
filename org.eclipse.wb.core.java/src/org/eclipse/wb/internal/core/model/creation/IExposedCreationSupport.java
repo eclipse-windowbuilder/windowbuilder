@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * Interface for exposed {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

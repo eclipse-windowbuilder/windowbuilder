@@ -75,7 +75,7 @@ import java.util.Map;
 
 /**
  * Implementation of {@link Property} for single {@link ListenerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */
@@ -298,13 +298,13 @@ final class ListenerMethodProperty extends AbstractEventProperty
    * Removes the listener {@link TypeDeclaration} with all its methods and stubs (if enabled).
    */
   void removeListener() throws Exception {
-    // prepare listener TypeDeclaration now, when we have so reference on it via addXXXListener() 
+    // prepare listener TypeDeclaration now, when we have so reference on it via addXXXListener()
     TypeDeclaration listenerType = findListenerType();
     // delete inner or "simple"
     if (listenerType != null && listenerType.getParent() instanceof TypeDeclaration) {
       removeListener_inner(listenerType);
     } else {
-      // remove stubs 
+      // remove stubs
       if (m_preferences.getBoolean(P_DELETE_STUB)) {
         removeListenerStubs();
       }
@@ -338,7 +338,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
         }
       }
     }
-    // remove stubs 
+    // remove stubs
     if (m_preferences.getBoolean(P_DELETE_STUB) && removeAllListenerArtifacts) {
       removeListenerStubs();
     }
@@ -636,9 +636,9 @@ final class ListenerMethodProperty extends AbstractEventProperty
    * Sometimes we need to tweak it, for example in GWT for TabPanel and
    * TabListener.onBeforeTabSelected we should return <code>true</code>, not <code>false</code> as
    * we do in general case.
-   * 
+   *
    * @param methodInfo
-   * 
+   *
    * @return body of listener method
    */
   private static List<String> getListenerMethodBody(ListenerMethodInfo methodInfo) {
@@ -840,7 +840,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
 	 *     do_myComponent_keyPressed(event);
 	 *   }
 	 * </pre>
-   * 
+   *
    * @return lines for conditional stub invocation.
    */
   private List<String> getConditionalStubInvocationSource(MethodDeclaration listenerMethod,
@@ -967,7 +967,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
    * @param listenerStatement
    *          the {@link Statement} that invokes stub method, may be {@link Block} with single other
    *          {@link Statement}.
-   * 
+   *
    * @return the stub {@link MethodDeclaration}, invoked by given {@link Statement}, or
    *         <code>null</code> if no stub invocation found.
    */

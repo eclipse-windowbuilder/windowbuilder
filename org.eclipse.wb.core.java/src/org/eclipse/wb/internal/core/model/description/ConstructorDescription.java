@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.description;
 
 /**
  * Description for single constructor of {@link ComponentDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

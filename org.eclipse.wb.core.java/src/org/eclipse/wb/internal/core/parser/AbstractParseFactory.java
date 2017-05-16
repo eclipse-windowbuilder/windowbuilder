@@ -91,7 +91,7 @@ import java.util.List;
 
 /**
  * Abstract implementation of {@link IParseFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */
@@ -630,7 +630,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 
   /**
    * Processing instance factory
-   * 
+   *
    * @param methodBinding
    */
   protected JavaInfo createInstanceFactory(AstEditor editor,
@@ -757,7 +757,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
 
   protected void initializeClassLoader_parent(AstEditor editor,
       CompositeClassLoader parentClassLoader) throws Exception {
-    // add required 
+    // add required
     parentClassLoader.add(
         new BundleClassLoader("org.eclipse.wb.runtime"),
         ImmutableList.of("net.sf.cglib."));

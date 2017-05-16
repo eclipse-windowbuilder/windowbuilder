@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.utils.reflect;
 /**
  * This interface allows modifying classes byte code during loading it by {@link ProjectClassLoader}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

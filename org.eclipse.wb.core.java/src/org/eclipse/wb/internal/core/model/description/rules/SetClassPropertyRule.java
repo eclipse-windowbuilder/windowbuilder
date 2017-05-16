@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that sets {@link Class} property with given name.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

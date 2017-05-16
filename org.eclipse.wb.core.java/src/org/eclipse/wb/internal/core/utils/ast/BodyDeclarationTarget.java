@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 /**
  * {@link BodyDeclarationTarget} contains information about location for placing
  * {@link BodyDeclaration}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

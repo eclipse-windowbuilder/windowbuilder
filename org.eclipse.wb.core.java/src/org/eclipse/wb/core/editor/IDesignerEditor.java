@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 
 /**
  * Interface for multi-page GUI editor, where one of the pages in Java source editor.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.editor

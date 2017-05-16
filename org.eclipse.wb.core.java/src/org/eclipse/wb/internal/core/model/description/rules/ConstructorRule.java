@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} for parsing single constructor.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

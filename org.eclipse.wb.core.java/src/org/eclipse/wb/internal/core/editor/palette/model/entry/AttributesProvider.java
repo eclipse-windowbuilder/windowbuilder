@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.editor.palette.model.entry;
 
 /**
  * Provider for attributes (and may be other information) for palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

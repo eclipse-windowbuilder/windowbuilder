@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 
 /**
  * Interface for any Java-based wrapper model object (like a viewer in SWT).
- * 
+ *
  * @author sablin_aa
  * @coverage core.model
  */

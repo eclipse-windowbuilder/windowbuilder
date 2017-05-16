@@ -47,7 +47,7 @@ import java.lang.reflect.Method;
 
 /**
  * Helper class for various JDT UI utils.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.util.jdt.ui
@@ -145,10 +145,10 @@ public final class JdtUiUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Selects any {@link IType} (class or interface) in {@link IJavaProject}.
-   * 
+   *
    * @param superTypeName
    *          the name of superclass of {@link IType} to select.
-   * 
+   *
    * @return the selected {@link IType}, or <code>null</code> is no type selected.
    */
   public static IType selectSubType(final Shell shell,
@@ -165,7 +165,7 @@ public final class JdtUiUtils {
 
   /**
    * Selects any {@link IType} (class or interface) in {@link IJavaProject}.
-   * 
+   *
    * @return the selected {@link IType}, or <code>null</code> is no type selected.
    */
   public static IType selectType(Shell shell, IJavaProject javaProject) throws Exception {
@@ -175,7 +175,7 @@ public final class JdtUiUtils {
 
   /**
    * Selects any class (not interface) in {@link IJavaProject}.
-   * 
+   *
    * @return the selected {@link IType}, or <code>null</code> is no type selected.
    */
   public static IType selectClassType(Shell shell, IJavaProject javaProject) throws Exception {
@@ -185,7 +185,7 @@ public final class JdtUiUtils {
 
   /**
    * Selects any class (not interface) in inside of {@link IJavaSearchScope}.
-   * 
+   *
    * @return the selected {@link IType}, or <code>null</code> is no type selected.
    */
   public static IType selectType(Shell shell, IJavaSearchScope scope) throws Exception {
@@ -194,7 +194,7 @@ public final class JdtUiUtils {
 
   /**
    * Selects any class (not interface) in inside of {@link IJavaSearchScope}.
-   * 
+   *
    * @param shell
    *          the parent {@link Shell} for dialog.
    * @param scope
@@ -203,7 +203,7 @@ public final class JdtUiUtils {
    *          the style of the dialog, see
    *          {@link JavaUI#createTypeDialog(Shell, org.eclipse.jface.operation.IRunnableContext, IJavaSearchScope, int, boolean)}
    *          .
-   * 
+   *
    * @return the selected {@link IType}, or <code>null</code> is no type selected.
    */
   public static IType selectType(Shell shell, IJavaSearchScope scope, int style) throws Exception {
@@ -221,7 +221,7 @@ public final class JdtUiUtils {
 
   /**
    * Selects any class (not interface) in {@link IJavaProject}.
-   * 
+   *
    * @return the fully qualified name of selected {@link IType}.
    */
   public static String selectTypeName(Shell shell, IJavaProject javaProject) throws Exception {

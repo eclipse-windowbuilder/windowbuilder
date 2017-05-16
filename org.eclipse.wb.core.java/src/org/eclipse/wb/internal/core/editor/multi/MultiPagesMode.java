@@ -19,7 +19,7 @@ import org.eclipse.ui.IWorkbenchPage;
 
 /**
  * Implementation of {@link MultiMode} for pages mode.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * The {@link ExpressionConverter} for {@link Boolean}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.converter
  */

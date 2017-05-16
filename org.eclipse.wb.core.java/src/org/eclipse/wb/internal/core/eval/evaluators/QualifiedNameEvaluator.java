@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link QualifiedName}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

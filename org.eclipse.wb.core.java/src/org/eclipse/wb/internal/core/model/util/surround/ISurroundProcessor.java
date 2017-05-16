@@ -24,7 +24,7 @@ import javax.swing.JTabbedPane;
  * For example, when source container has absolute layout and target is plain container (for example
  * {@link JPanel}, in contrast to {@link JTabbedPane}), then we can set absolute layout for target
  * container too, and place components in s that their visual position will stay same.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

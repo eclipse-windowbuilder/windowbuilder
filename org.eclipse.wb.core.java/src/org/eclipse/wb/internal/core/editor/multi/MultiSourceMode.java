@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link MultiMode} for without "Design" page, only with "Source" page.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

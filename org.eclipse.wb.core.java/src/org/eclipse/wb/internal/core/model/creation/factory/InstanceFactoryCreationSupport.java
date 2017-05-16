@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link CreationSupport} for creating objects using instance methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -202,8 +202,8 @@ public final class InstanceFactoryCreationSupport extends AbstractExplicitFactor
         m_canBeEvaluated = true;
         return false;
       }
-      // next times return "true" to evaluate using ASTEvaluationEngine, 
-      // with our IExpressionEvaluator that evaluates "(our.factory.Type) null" 
+      // next times return "true" to evaluate using ASTEvaluationEngine,
+      // with our IExpressionEvaluator that evaluates "(our.factory.Type) null"
       return true;
     }
 

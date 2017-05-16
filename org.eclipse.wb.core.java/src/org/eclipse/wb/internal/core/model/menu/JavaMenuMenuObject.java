@@ -16,7 +16,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 
 /**
  * Abstract base for {@link IMenuInfo} implementation, for {@link JavaInfo} models.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.menu
  */

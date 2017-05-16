@@ -38,9 +38,9 @@ import java.util.ResourceBundle;
 
 /**
  * Source for direct {@link ResourceBundle} usage, for example:
- * 
+ *
  * ResourceBundle.getBundle("the.bundle.name").getString("key.for.property")
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -59,7 +59,7 @@ public final class DirectSource extends AbstractPureBundleSource {
 
   /**
    * Return "possible" sources that exist in given package.
-   * 
+   *
    * "Possible" source is source that exists in current package, but is not used in current unit. We
    * show "possible" sources only if there are no "real" sources.
    */
@@ -81,7 +81,7 @@ public final class DirectSource extends AbstractPureBundleSource {
         if (fileName.indexOf('_') != -1) {
           continue;
         }
-        // check first line for required comment 
+        // check first line for required comment
         InputStream is = file.getContents(true);
         String firstLine = IOUtils2.readFirstLine(is);
         if (firstLine == null || !firstLine.startsWith("#" + BUNDLE_COMMENT)) {

@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link EntryInfo} that activates {@link MarqueeSelectionTool}.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.palette
  */

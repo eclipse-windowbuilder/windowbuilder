@@ -15,7 +15,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that creates object using default constructor of given {@link Class}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

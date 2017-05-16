@@ -24,7 +24,7 @@ import javax.swing.JToolBar;
 /**
  * Implementation of {@link VariableSupport} for component without variable that created using
  * invocation of some method of other {@link JavaInfo}. For example {@link JToolBar#addSeparator()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

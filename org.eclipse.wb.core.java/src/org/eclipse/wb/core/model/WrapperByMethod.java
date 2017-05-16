@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
 
 /**
  * Implementation {@link AbstractWrapper} for wrapper accessing wrapped object by method getter.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model
  */

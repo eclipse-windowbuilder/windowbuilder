@@ -34,7 +34,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * Container for array of {@link ObjectInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.nonvisual
  */
@@ -170,7 +170,7 @@ public final class ArrayObjectInfo extends AbstractArrayObjectInfo {
     if (parentNode instanceof MethodInvocation) {
       return new InvocationChildArrayAssociation((MethodInvocation) parentNode, this);
     }
-    // FIXME 
+    // FIXME
     Assert.fail("ArrayObjectInfo supported association only for MethodInvocation.");
     return null;
   }

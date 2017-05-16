@@ -24,7 +24,7 @@ import java.lang.reflect.Field;
 
 /**
  * {@link VariableSupport} implementation for sub-component exposed using {@link Field}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

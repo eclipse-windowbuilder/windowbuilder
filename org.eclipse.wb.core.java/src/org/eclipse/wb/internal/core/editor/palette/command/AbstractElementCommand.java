@@ -16,7 +16,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Abstract {@link Command} that edits {@link AbstractElementInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

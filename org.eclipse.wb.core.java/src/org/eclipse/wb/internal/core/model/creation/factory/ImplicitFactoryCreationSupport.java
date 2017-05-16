@@ -33,7 +33,7 @@ import javax.swing.JToolBar;
  * For example {@link JToolBar#add(javax.swing.Action)} internally creates {@link JButton} and sets
  * given {@link Action} for it. It also returns created {@link JButton}, so we can assign it to
  * variable and set more properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -65,7 +65,7 @@ public final class ImplicitFactoryCreationSupport extends AbstractFactoryCreatio
 
   /**
    * Constructor for creating new {@link JavaInfo} using {@link ImplicitFactoryCreationSupport}.
-   * 
+   *
    * @param invocationTarget
    *          the {@link JavaInfo} which method should be invoked, may be <code>null</code> to use
    *          parent {@link JavaInfo}.

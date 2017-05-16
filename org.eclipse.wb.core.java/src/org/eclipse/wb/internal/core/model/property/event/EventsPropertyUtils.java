@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Events property utilities.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.property.events
  */

@@ -46,7 +46,7 @@ import java.util.Set;
 
 /**
  * {@link VariableSupport} implementation for unique field.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

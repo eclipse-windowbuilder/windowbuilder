@@ -56,7 +56,7 @@ import java.util.Set;
 
 /**
  * Helper for NLS support.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -84,7 +84,7 @@ public final class NlsSupport {
   /**
    * Supports conversion of {@link Expression} into NLS value during parsing, i.e. when no root
    * {@link JavaInfo} is known.
-   * 
+   *
    * @return the {@link String} value or <code>null</code> if given {@link Expression} does not
    *         represent any known NLS pattern.
    */

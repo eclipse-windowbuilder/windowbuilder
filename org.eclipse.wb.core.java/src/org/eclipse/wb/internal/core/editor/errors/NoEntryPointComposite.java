@@ -53,7 +53,7 @@ import java.util.List;
 
 /**
  * {@link Composite} for displaying {@link NoEntryPointError}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.errors
  */

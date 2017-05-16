@@ -45,9 +45,9 @@ import java.util.Set;
 
 /**
  * The utility class for handling execution flow in AST.
- * 
+ *
  * We use it in any place where we need visit AST - during parsing, components creation, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */
@@ -308,7 +308,7 @@ public final class ExecutionFlowUtils2 {
     public void endVisit(MethodInvocation node) {
       MethodDeclaration method = AstNodeUtils.getLocalMethodDeclaration(node);
       if (method != null) {
-        // may be "lazy" 
+        // may be "lazy"
         {
           LazyVariableInformation information = LazyVariableSupportUtils.getInformation(method);
           if (information != null) {

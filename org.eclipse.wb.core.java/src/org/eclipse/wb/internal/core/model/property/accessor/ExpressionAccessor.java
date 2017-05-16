@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.Expression;
 /**
  * {@link ExpressionAccessor} defines how to access {@link Expression} related with
  * {@link GenericProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */
@@ -53,11 +53,11 @@ public abstract class ExpressionAccessor extends AbstractDescription {
 
   /**
    * Sets new expression with given source to the given {@link JavaInfo}.
-   * 
+   *
    * @param source
    *          the source of new value, <code>null</code> means that value should be removed (if
    *          possible for this accessor)
-   * 
+   *
    * @return <code>true</code> if expression was successfully set.
    */
   public abstract boolean setExpression(JavaInfo javaInfo, String source) throws Exception;

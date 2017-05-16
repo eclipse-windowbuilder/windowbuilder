@@ -21,7 +21,7 @@ import java.io.ByteArrayInputStream;
 
 /**
  * Container for copy/paste information about {@link AbstractComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */

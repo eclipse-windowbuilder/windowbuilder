@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * {@link IDescriptionVersionsProvider} that does not return any version. It can be used for example
  * when {@link IJavaProject} does not include supported toolkit/library.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

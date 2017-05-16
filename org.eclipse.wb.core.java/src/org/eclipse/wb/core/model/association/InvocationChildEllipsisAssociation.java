@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Implementation of {@link Association} for ellipsis-array of child objects.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.association
  */

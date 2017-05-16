@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Abstract {@link Property} for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

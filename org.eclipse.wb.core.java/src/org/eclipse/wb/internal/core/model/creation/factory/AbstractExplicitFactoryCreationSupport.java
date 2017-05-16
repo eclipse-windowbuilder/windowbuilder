@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 /**
  * Implementation of {@link AbstractFactoryCreationSupport} for explicitly defined factory methods,
  * from some <code>*.wbp-factory.xml</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

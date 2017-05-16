@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Group item for {@link FlorContainer}s.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.nonvisual
  */

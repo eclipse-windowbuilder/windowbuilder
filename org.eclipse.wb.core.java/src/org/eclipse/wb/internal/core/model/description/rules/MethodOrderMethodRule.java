@@ -20,7 +20,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that {@link MethodOrder} for single {@link MethodDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -109,7 +109,7 @@ import java.util.List;
 
 /**
  * Helper for accessing descriptions of components - {@link ComponentDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -158,7 +158,7 @@ public final class ComponentDescriptionHelper {
    *          the {@link ComponentDescription} which child component we expose.
    * @param method
    *          the {@link Method} that exposes component.
-   * 
+   *
    * @return the {@link ComponentDescription} of component exposed using given {@link Method}.
    * @throws Exception
    *           if no {@link ComponentDescription} can be found.
@@ -184,7 +184,7 @@ public final class ComponentDescriptionHelper {
    *          the {@link ComponentDescription} that has method with given parameter.
    * @param parameter
    *          the {@link SingleVariableDeclaration} parameter that considered as component.
-   * 
+   *
    * @return the {@link ComponentDescription} of component represented by given
    *         {@link SingleVariableDeclaration}.
    * @throws Exception
@@ -246,7 +246,7 @@ public final class ComponentDescriptionHelper {
    *          the {@link AstEditor} in context of which we work now.
    * @param componentClass
    *          the {@link Class} of component to get description.
-   * 
+   *
    * @return the {@link ComponentDescription} of component with given {@link Class}.
    * @throws Exception
    *           if no {@link ComponentDescription} can be found.
@@ -294,7 +294,7 @@ public final class ComponentDescriptionHelper {
    *          the {@link AstEditor} in context of which we work now.
    * @param componentClassName
    *          the name of {@link Class} of component to get description.
-   * 
+   *
    * @return the {@link ComponentDescription} of component with given {@link Class}.
    * @throws Exception
    *           if no {@link ComponentDescription} can be found.
@@ -339,7 +339,7 @@ public final class ComponentDescriptionHelper {
    * @param additionalDescriptionInfos
    *          additional {@link ClassResourceInfo}'s to parse after {@link ClassResourceInfo}'s
    *          collected for component {@link Class}. May be empty, but not <code>null</code>.
-   * 
+   *
    * @return the {@link ComponentDescription} of component with given {@link Class}.
    * @throws Exception
    *           if no {@link ComponentDescription} can be found.
@@ -479,7 +479,7 @@ public final class ComponentDescriptionHelper {
 
   /**
    * TODO move into {@link ReflectionUtils}.
-   * 
+   *
    * @return the source for creating {@link Object} using given {@link Constructor} with values
    *         default for type of each argument.
    */
@@ -504,7 +504,7 @@ public final class ComponentDescriptionHelper {
 
   /**
    * Sets icon for {@link ComponentDescription}.
-   * 
+   *
    * @param context
    *          the {@link EditorState} to access environment.
    * @param componentDescription
@@ -879,11 +879,11 @@ public final class ComponentDescriptionHelper {
 
   /**
    * Checks if package of given class has marker file with given name.
-   * 
+   *
    * @param descriptionInfo
    *          the first {@link ClassResourceInfo} for <code>*.wbp-component.xml</code>, in
    *          "to superclass" direction. We look into its {@link Bundle} for caching marker.
-   * 
+   *
    * @return <code>true</code> if package with given class has "cache enabled" marker.
    */
   private static boolean hasMarkerFileForPackage(ClassResourceInfo descriptionInfo,

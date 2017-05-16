@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 
 /**
  * Description for single method of {@link ComponentDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * {@link MethodOrder} that targets {@link MethodInvocation}'s at relative of association.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

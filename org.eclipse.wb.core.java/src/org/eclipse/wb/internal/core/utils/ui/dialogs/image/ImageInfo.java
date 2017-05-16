@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Information about image.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

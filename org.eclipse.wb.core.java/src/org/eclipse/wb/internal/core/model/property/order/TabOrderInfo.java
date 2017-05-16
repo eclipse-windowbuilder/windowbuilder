@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Information about container child ordering: all components, ordered components and presentation
  * order value.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.order
  */

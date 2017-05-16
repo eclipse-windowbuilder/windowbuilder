@@ -26,7 +26,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * This class represent "selectUsingEqual" property implementation.
- * 
+ *
  * @author Jaime Wren
  * @author lobas_av
  * @coverage core.model.property.editor

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
 
 /**
  * Common interface for {@link ClasspathImageRoot} top level elements.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

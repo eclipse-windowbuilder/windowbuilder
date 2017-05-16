@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 
 /**
  * Notifies that {@link VariableSupport} for {@link JavaInfo} was changed.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

@@ -29,7 +29,7 @@ import java.util.List;
  * {@link ExpressionStatement}, when both, <em>parent</em> and <em>child</em> passed as arguments.
  * Can be used to establish some special parent/child link, used method that does not belong to
  * parent or child, but just separate method (sometimes used for {@link GridBagLayout}).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

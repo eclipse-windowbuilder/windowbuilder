@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Layout Edit Policy allowing reordering container children.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.gef.policy

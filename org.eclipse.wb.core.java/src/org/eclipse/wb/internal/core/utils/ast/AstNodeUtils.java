@@ -81,7 +81,7 @@ import java.util.WeakHashMap;
 
 /**
  * Contains different read-only AST operations.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -145,7 +145,7 @@ public class AstNodeUtils {
   /**
    * @param invocation
    *          the not <code>null</code> {@link SuperMethodInvocation}.
-   * 
+   *
    * @return not <code>null</code> {@link IMethodBinding} for given {@link SuperMethodInvocation}.
    */
   public static IMethodBinding getMethodBinding(SuperMethodInvocation invocation) {
@@ -165,7 +165,7 @@ public class AstNodeUtils {
   /**
    * @param methodDeclaration
    *          the not <code>null</code> {@link MethodDeclaration}
-   * 
+   *
    * @return the {@link IMethodBinding} for given {@link MethodDeclaration}, may be
    *         <code>null</code> if compilation errors.
    */
@@ -191,7 +191,7 @@ public class AstNodeUtils {
   /**
    * @param simpleName
    *          the not <code>null</code> {@link SimpleName}
-   * 
+   *
    * @return {@link IVariableBinding} or <code>null</code> for given {@link SimpleName}.
    */
   public static IVariableBinding getVariableBinding(ASTNode node) {
@@ -276,7 +276,7 @@ public class AstNodeUtils {
   /**
    * @param type
    *          the not <code>null</code> {@link Type}
-   * 
+   *
    * @return the {@link ITypeBinding} for given {@link Type}, may be <code>null</code> if unknown.
    */
   public static ITypeBinding getTypeBinding(Type type) {
@@ -295,7 +295,7 @@ public class AstNodeUtils {
   /**
    * @param type
    *          the not <code>null</code> {@link TypeDeclaration}
-   * 
+   *
    * @return not <code>null</code> {@link ITypeBinding} for given {@link TypeDeclaration}.
    */
   public static ITypeBinding getTypeBinding(TypeDeclaration typeDeclaration) {
@@ -305,7 +305,7 @@ public class AstNodeUtils {
   /**
    * @param type
    *          the not <code>null</code> {@link AbstractTypeDeclaration}
-   * 
+   *
    * @return not <code>null</code> {@link ITypeBinding} for given {@link AbstractTypeDeclaration}.
    */
   public static ITypeBinding getTypeBinding(AbstractTypeDeclaration typeDeclaration) {
@@ -331,7 +331,7 @@ public class AstNodeUtils {
   /**
    * @param parameter
    *          the not <code>null</code> {@link SingleVariableDeclaration}.
-   * 
+   *
    * @return not <code>null</code> {@link ITypeBinding} for given {@link SingleVariableDeclaration}.
    */
   public static ITypeBinding getTypeBinding(SingleVariableDeclaration parameter) {
@@ -346,7 +346,7 @@ public class AstNodeUtils {
   /**
    * @param variable
    *          the not <code>null</code> {@link VariableDeclaration}.
-   * 
+   *
    * @return not <code>null</code> {@link ITypeBinding} for given {@link VariableDeclaration}.
    */
   public static ITypeBinding getTypeBinding(VariableDeclaration variable) {
@@ -415,7 +415,7 @@ public class AstNodeUtils {
   /**
    * @param typeBinding
    *          the {@link ITypeBinding} of type variable.
-   * 
+   *
    * @return the declared type bounds, may be <code>null</code> if not specified.
    */
   private static ITypeBinding getTypeVariableBound(ITypeBinding typeBinding) {
@@ -465,7 +465,7 @@ public class AstNodeUtils {
   /**
    * For {@link AnonymousClassDeclaration} we can not get full name using only {@link ITypeBinding},
    * so we use AST to find necessary <code>$1</code>, <code>$2</code>, etc suffixes.
-   * 
+   *
    * @return the fully qualified name with anonymous suffix.
    */
   private static String getFullyQualifiedName_appendAnonymous(Expression expression,
@@ -537,13 +537,13 @@ public class AstNodeUtils {
   /**
    * Returns the fully qualified name of given {@link ITypeBinding}, or
    * {@link #NO_TYPE_BINDING_NAME} if <code>null</code> binding given.
-   * 
+   *
    * @param binding
    *          the binding representing the type.
    * @param runtime
    *          flag <code>true</code> if we need name for class loading, <code>false</code> if we
    *          need name for source generation.
-   * 
+   *
    * @return the fully qualified name of given {@link ITypeBinding}, or
    *         {@link #NO_TYPE_BINDING_NAME}.
    */
@@ -559,7 +559,7 @@ public class AstNodeUtils {
    *          need name for source generation.
    * @param withGenerics
    *          flag <code>true</code> if generics type arguments should be appended.
-   * 
+   *
    * @return the fully qualified name of given {@link ITypeBinding}, or
    *         {@link #NO_TYPE_BINDING_NAME}.
    */
@@ -705,7 +705,7 @@ public class AstNodeUtils {
 
   /**
    * Checks if given {@link ITypeBinding} is extends class or implements interface with given name.
-   * 
+   *
    * @param className
    *          the class name in source format (i.e. with '.' as packages separator)
    */
@@ -761,7 +761,7 @@ public class AstNodeUtils {
   /**
    * Checks if given {@link ITypeBinding} is extends one of the given classes or implements
    * interface with given name.
-   * 
+   *
    * @param classNames
    *          the array of class names in source format (i.e. with '.' as packages separator).
    */
@@ -782,7 +782,7 @@ public class AstNodeUtils {
   /**
    * @param typeName
    *          the simple type name.
-   * 
+   *
    * @return the top-level {@link TypeDeclaration} with given name from given
    *         {@link CompilationUnit}.
    */
@@ -803,7 +803,7 @@ public class AstNodeUtils {
   /**
    * @param typeName
    *          the fully qualified type name.
-   * 
+   *
    * @return the {@link TypeDeclaration} with given fully qualified name, or <code>null</code> if
    *         not found.
    */
@@ -927,12 +927,12 @@ public class AstNodeUtils {
   }
 
   /**
-   * 
+   *
    * @param methodBinding
    *          the method binding.
    * @param declaration
    *          set <code>true</code> if need type variables replaced with a base types.
-   * 
+   *
    * @return signature for given {@link IMethodBinding}.
    */
   private static String getMethodSignature(IMethodBinding methodBinding, boolean declaration) {
@@ -991,7 +991,7 @@ public class AstNodeUtils {
    * @param signature
    *          the signature of method in same format as
    *          {@link #getMethodSignature(MethodDeclaration)}.
-   * 
+   *
    * @return the {@link MethodDeclaration} for given signature or <code>null</code> if not method
    *         found.
    */
@@ -1007,7 +1007,7 @@ public class AstNodeUtils {
    * @param signature
    *          the signature of method in same format as
    *          {@link #getMethodSignature(MethodDeclaration)}.
-   * 
+   *
    * @return the {@link MethodDeclaration} for given signature or <code>null</code> if no method
    *         found.
    */
@@ -1031,13 +1031,13 @@ public class AstNodeUtils {
   /**
    * Returns that {@link IMethodBinding} of method declared in given {@link ITypeBinding} or any of
    * its super-classes.
-   * 
+   *
    * @param typeBinding
    *          the {@link ITypeBinding} to search methods in.
    * @param signature
    *          the signature of method in same format as
    *          {@link #getMethodSignature(MethodDeclaration)}.
-   * 
+   *
    * @return the {@link IMethodBinding} with given signature, or <code>null</code> if no method
    *         found.
    */
@@ -1171,7 +1171,7 @@ public class AstNodeUtils {
    * @param signature
    *          the signature of method in same format as
    *          {@link #getMethodSignature(MethodDeclaration)}.
-   * 
+   *
    * @return the {@link MethodDeclaration} for given signature or <code>null</code> if not method
    *         found.
    */
@@ -1460,7 +1460,7 @@ public class AstNodeUtils {
    *          the {@link ASTNode} to check.
    * @param signature
    *          the signature of {@link MethodInvocation}.
-   * 
+   *
    * @return <code>true</code> if given {@link ASTNode} is {@link MethodInvocation} with given
    *         signature. Note, no check for type, so use only when really required.
    */
@@ -1479,7 +1479,7 @@ public class AstNodeUtils {
    *          the type of {@link MethodInvocation} {@link Expression}.
    * @param signature
    *          the signature of {@link MethodInvocation}.
-   * 
+   *
    * @return <code>true</code> if given {@link ASTNode} is {@link MethodInvocation} of given
    *         {@link Expression} type and signature.
    */
@@ -1510,7 +1510,7 @@ public class AstNodeUtils {
    *          the type of {@link MethodInvocation} {@link Expression}.
    * @param signatures
    *          the array with signatures of {@link MethodInvocation}.
-   * 
+   *
    * @return <code>true</code> if given {@link ASTNode} is {@link MethodInvocation} of given
    *         {@link Expression} type and and one of the signatures.
    */
@@ -1548,7 +1548,7 @@ public class AstNodeUtils {
    *          the name of type instantiated by {@link ClassInstanceCreation}.
    * @param signature
    *          the signature of constructor, including "&lt;init&gt;".
-   * 
+   *
    * @return <code>true</code> if given {@link ASTNode} is the {@link ClassInstanceCreation} of
    *         given type using given constructor.
    */
@@ -1569,7 +1569,7 @@ public class AstNodeUtils {
    *          the name of type instantiated by {@link ClassInstanceCreation}.
    * @param signature
    *          the array of constructor signatures, including "&lt;init&gt;".
-   * 
+   *
    * @return <code>true</code> if given {@link ASTNode} is the {@link ClassInstanceCreation} of
    *         given type using one of the given constructor.
    */
@@ -1598,7 +1598,7 @@ public class AstNodeUtils {
    * example, if <code>modifiers</code> is <code>protected static final</code>, and and
    * <code>visibilityMask</code> is <code>public | protected</code>, then <code>true</code>
    * returned.
-   * 
+   *
    * @return <code>true</code> if given modifiers have one of the required visibility mask.
    */
   public static boolean hasVisibility(int modifiers, int visibilityMask) {
@@ -1673,7 +1673,7 @@ public class AstNodeUtils {
    *          the mask of JDT {@link Modifier} flags, to limit methods visibility. If
    *          {@link Modifier#PRIVATE} is included, it will be used only for given
    *          {@link ITypeBinding}, but not for its super classes.
-   * 
+   *
    * @return the {@link IMethodBinding} for all methods in given {@link ITypeBinding} and its super
    *         classes.
    */
@@ -1690,7 +1690,7 @@ public class AstNodeUtils {
    *          the mask of JDT {@link Modifier} flags, to limit fields visibility. If
    *          {@link Modifier#PRIVATE} is included, it will be used only for given
    *          {@link ITypeBinding}, but not for its super classes.
-   * 
+   *
    * @return the {@link IVariableBinding} for all fields in given {@link ITypeBinding} and its super
    *         classes.
    */
@@ -1709,7 +1709,7 @@ public class AstNodeUtils {
    *          the mask of JDT {@link Modifier} flags, to limit methods visibility. If
    *          {@link Modifier#PRIVATE} is included, it will be used only for given
    *          {@link ITypeBinding}, but not for its super classes.
-   * 
+   *
    * @return the {@link IMethodBinding} for all methods in given {@link ITypeBinding} and its super
    *         classes.
    */
@@ -1737,7 +1737,7 @@ public class AstNodeUtils {
    *          the mask of JDT {@link Modifier} flags, to limit fields visibility. If
    *          {@link Modifier#PRIVATE} is included, it will be used only for given
    *          {@link ITypeBinding}, but not for its super classes.
-   * 
+   *
    * @return the {@link IVariableBinding} for all fields in given {@link ITypeBinding} and its super
    *         classes.
    */
@@ -1764,7 +1764,7 @@ public class AstNodeUtils {
   /**
    * @param node
    *          the {@link ASTNode} that represents should be qualifier of field.
-   * 
+   *
    * @return the {@link Expression} ({@link QualifiedName} or {@link FieldAccess}) used as left side
    *         of {@link Assignment} to some field. May return <code>null</code>, if given node is not
    *         left part of {@link Assignment}.
@@ -1791,7 +1791,7 @@ public class AstNodeUtils {
   /**
    * @param fieldAccess
    *          the {@link QualifiedName} or {@link FieldAccess} used to access some field.
-   * 
+   *
    * @return the "qualifier" part of accessed field.
    */
   public static Expression getFieldAccessQualifier(Expression fieldAccess) {
@@ -1806,7 +1806,7 @@ public class AstNodeUtils {
   /**
    * @param fieldAccess
    *          the {@link QualifiedName} or {@link FieldAccess} used to access some field.
-   * 
+   *
    * @return the {@link SimpleName} part of accessed field.
    */
   public static SimpleName getFieldAccessName(Expression fieldAccess) {
@@ -1821,7 +1821,7 @@ public class AstNodeUtils {
   /**
    * @param fieldName
    *          the name of field.
-   * 
+   *
    * @return the {@link VariableDeclarationFragment} for given field name or <code>null</code> if
    *         not field found.
    */
@@ -2140,7 +2140,7 @@ public class AstNodeUtils {
   /**
    * Sets beginning of source range for given target node to same as position as given source node,
    * and length - same as length of source plus given "delta".
-   * 
+   *
    * @param delta
    *          is used mostly for {@link Statement} creation, when we should add ';' at the end.
    */
@@ -2151,7 +2151,7 @@ public class AstNodeUtils {
   /**
    * Sets beginning of source range for given target node to same as position as given begin node,
    * and length - same as length of source plus given "delta".
-   * 
+   *
    * @param delta
    *          is used mostly for {@link Statement} creation, when we should add ';' at the end.
    */
@@ -2172,7 +2172,7 @@ public class AstNodeUtils {
   /**
    * @param root
    *          the starting node
-   * 
+   *
    * @return all {@link VariableDeclaration}'s that exists in {@link ASTNode}'s hierarchy.
    */
   public static List<VariableDeclaration> getVariableDeclarationsAll(ASTNode root) {
@@ -2195,12 +2195,12 @@ public class AstNodeUtils {
    * Return {@link VariableDeclaration}'s such that at their positions they can see new
    * {@link VariableDeclaration} declared at given position. So, new {@link VariableDeclaration} can
    * be shadowed by existing one, if it will have same name.
-   * 
+   *
    * @param root
    *          the starting node
    * @param position
    *          the position to search visible variable declarations
-   * 
+   *
    * @return an possibly shadowing {@link VariableDeclaration}'s.
    */
   public static List<VariableDeclaration> getVariableDeclarationsAfter(ASTNode root, int position) {
@@ -2240,7 +2240,7 @@ public class AstNodeUtils {
    *          the starting node
    * @param position
    *          the position to search visible variable declarations
-   * 
+   *
    * @return the {@link VariableDeclaration}'s visible at given position.
    */
   public static List<VariableDeclaration> getVariableDeclarationsVisibleAt(ASTNode root,
@@ -2347,7 +2347,7 @@ public class AstNodeUtils {
 
   /**
    * Calculate actual value for reusable variables & fields.
-   * 
+   *
    * @param expression
    *          the {@link Expression} for actualization.
    * @return the {@link Expression} identified actual value for original expression.

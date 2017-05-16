@@ -47,7 +47,7 @@ import java.util.List;
  * Implementation of {@link Association} for {@link MethodInvocation} as separate
  * {@link ExpressionStatement}, when <em>child</em> passed as argument. Often used in Swing:
  * {@link Container#add(java.awt.Component, Object)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */
@@ -101,7 +101,7 @@ public final class InvocationChildAssociation extends InvocationAssociation {
           (ExpressionStatement) javaInfo.getEditor().addStatement(lines, target);
       m_invocation = (MethodInvocation) statement.getExpression();
     } else {
-      // we expect that JavaInfo has EmptyVariableSupport with argument in MethodInvocation 
+      // we expect that JavaInfo has EmptyVariableSupport with argument in MethodInvocation
       EmptyVariableSupport emptyVariableSupport =
           (EmptyVariableSupport) javaInfo.getVariableSupport();
       m_invocation = (MethodInvocation) emptyVariableSupport.getInitializer().getParent();

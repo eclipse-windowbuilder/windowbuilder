@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * The implementation of {@link ExpressionAccessor} for argument of {@link ClassInstanceCreation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

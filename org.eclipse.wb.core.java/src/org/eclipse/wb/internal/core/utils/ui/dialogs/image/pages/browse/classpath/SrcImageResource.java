@@ -25,7 +25,7 @@ import java.io.InputStream;
 /**
  * implementation of {@link IImageResource} for single {@link IResource} in {@link IPackageFragment}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

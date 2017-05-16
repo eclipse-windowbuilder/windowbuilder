@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Context for loading descriptions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

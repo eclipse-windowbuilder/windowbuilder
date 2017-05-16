@@ -20,7 +20,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that adds include/exclude rules for exposed children.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

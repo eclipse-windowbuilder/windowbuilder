@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link ArrayCreation} and
  * {@link ArrayInitializer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

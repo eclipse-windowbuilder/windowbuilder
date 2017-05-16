@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * {@link VariableSupport} implementation for local variable.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -96,7 +96,7 @@ public abstract class LocalVariableSupport extends AbstractSimpleVariableSupport
   /**
    * Ensures that variable has name (existing or re-generated) such that it does not conflict with
    * other variables related with given position (visible or can be shadowed).
-   * 
+   *
    * @param newPosition
    *          the position where this variable will be declared.
    * @param statementsToMove
@@ -104,7 +104,7 @@ public abstract class LocalVariableSupport extends AbstractSimpleVariableSupport
    */
   void ensureUniqueVariableDuringMove(int newPosition, Statement[] statementsToMove)
       throws Exception {
-    // prepare potentially conflicting declarations 
+    // prepare potentially conflicting declarations
     List<VariableDeclaration> existingDeclarations;
     {
       existingDeclarations = Lists.newArrayList();
@@ -155,7 +155,7 @@ public abstract class LocalVariableSupport extends AbstractSimpleVariableSupport
 
   /**
    * Adds new {@link FieldDeclaration} with name based on the name of this variable.
-   * 
+   *
    * @return the identifier of added field
    */
   protected final String addUniqueField(boolean isStatic, VariableDeclaration excludedVariable)

@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * The mode for presentation source/design parts of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

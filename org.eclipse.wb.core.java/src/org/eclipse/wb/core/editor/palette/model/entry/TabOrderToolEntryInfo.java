@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link EntryInfo} that activates {@link TabOrderTool}.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.palette
  */

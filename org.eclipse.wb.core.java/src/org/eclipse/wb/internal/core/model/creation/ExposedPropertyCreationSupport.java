@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
 /**
  * Implementation of {@link CreationSupport} for object exposed using property (
  * <code>getXXX()</code> method).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
  * <p>
  * For example in GWT <code>Tree.addItem(Widget)</code>, the <code>Widget</code> argument is
  * associated with created <code>TreeItem</code> using {@link ImplicitFactoryArgumentAssociation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */
@@ -74,7 +74,7 @@ public final class ImplicitFactoryArgumentAssociation extends InvocationAssociat
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public boolean remove() throws Exception {
-    // our JavaInfo is in delete/reparent process, so schedule delete m_factoryJavaInfo 		
+    // our JavaInfo is in delete/reparent process, so schedule delete m_factoryJavaInfo
     m_factoryJavaInfo.getRootJava().addBroadcastListener(new ObjectInfoDelete() {
       @Override
       public void after(ObjectInfo parent, ObjectInfo child) throws Exception {

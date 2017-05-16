@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IImageRoot} for browsing classpath.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

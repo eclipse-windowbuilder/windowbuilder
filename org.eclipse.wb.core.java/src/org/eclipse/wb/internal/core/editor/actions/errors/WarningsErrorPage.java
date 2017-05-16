@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Listener;
 /**
  * Implementation of {@link IErrorPage} for displaying {@link EditorWarning} from
  * {@link EditorState}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

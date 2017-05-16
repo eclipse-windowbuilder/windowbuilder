@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * Sub-property for {@link StylePropertyEditor}.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

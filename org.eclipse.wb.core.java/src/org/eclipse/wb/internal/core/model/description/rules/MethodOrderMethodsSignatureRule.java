@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * The {@link Rule} that adds single method signature for {@link MethodOrderMethodsRule}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

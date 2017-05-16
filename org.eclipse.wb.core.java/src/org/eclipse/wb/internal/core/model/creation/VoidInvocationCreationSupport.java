@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Abstract {@link CreationSupport} for components created by {@link MethodInvocation} that return
  * <code>void</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -54,7 +54,7 @@ public abstract class VoidInvocationCreationSupport extends AbstractFactoryCreat
 
   /**
    * Creates new {@link VoidInvocationCreationSupport} for adding new component.
-   * 
+   *
    * @param hostJavaInfo
    *          the {@link JavaInfo} for which {@link MethodInvocation} should be added.
    */
@@ -113,7 +113,7 @@ public abstract class VoidInvocationCreationSupport extends AbstractFactoryCreat
 
   /**
    * Void methods don't return any value, so we need so special way to access created object.
-   * 
+   *
    * @param hostObject
    *          the {@link Object} or host {@link JavaInfo}.
    * @return the object of this {@link JavaInfo}.

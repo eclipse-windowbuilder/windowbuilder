@@ -28,7 +28,7 @@ import java.lang.reflect.Modifier;
 
 /**
  * Utilities for {@link ExpressionAccessor}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

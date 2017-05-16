@@ -12,10 +12,10 @@ package org.eclipse.wb.internal.core.nls.edit;
 
 /**
  * Listener for changes in IEditableSource.
- * 
+ *
  * For example when we externalize new property, we should update composite that displays this
  * source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

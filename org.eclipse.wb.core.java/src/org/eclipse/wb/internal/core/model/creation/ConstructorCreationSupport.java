@@ -55,7 +55,7 @@ import java.util.Set;
 
 /**
  * Implementation of {@link CreationSupport} for creating objects using constructors.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -101,13 +101,13 @@ public final class ConstructorCreationSupport extends CreationSupport
 
   /**
    * Constructor for adding new {@link JavaInfo} using creation wit specified id.
-   * 
+   *
    * @param creationId
    *          the id of {@link CreationDescription} to use during add.
    * @param addInvocations
    *          is <code>true</code> if invocations from {@link CreationDescription} during
    *          {@link #add_setSourceExpression(Expression)}.
-   * 
+   *
    */
   public ConstructorCreationSupport(String creationId, boolean addInvocations) {
     m_creationId = creationId;

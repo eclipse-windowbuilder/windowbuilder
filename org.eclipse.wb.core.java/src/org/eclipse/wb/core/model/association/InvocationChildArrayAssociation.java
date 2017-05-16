@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Association} for array of child objects.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.association
  */

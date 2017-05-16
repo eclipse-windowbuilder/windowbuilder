@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * {@link VariableSupport} implementation for "lazy creation" pattern.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -325,7 +325,7 @@ public final class LazyVariableSupport extends AbstractSimpleVariableSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Holder for information about lazy creation variable.
-   * 
+   *
    * @author scheglov_ke
    */
   public static final class LazyVariableInformation {

@@ -29,10 +29,10 @@ import java.util.List;
 
 /**
  * Abstract {@link PropertyEditor} for editing "SWT Style"-like properties.
- * 
+ *
  * These properties are complex properties with sub-properties of special
  * {@link SubStylePropertyImpl} types.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage core.model.property.editor

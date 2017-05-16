@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Implementation of {@link Command} that adds new {@link ComponentEditCommand}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

@@ -33,7 +33,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Abstract {@link EntryInfo} for static/instance "factory-method" contribution.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */
@@ -116,7 +116,7 @@ public abstract class FactoryEntryInfo extends ToolEntryInfo {
 
   /**
    * This method exists mostly for tests.
-   * 
+   *
    * @return the {@link FactoryMethodDescription} or this {@link FactoryEntryInfo}.
    */
   public FactoryMethodDescription getMethodDescription() {

@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Implementation of {@link MultiMode} for split mode.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

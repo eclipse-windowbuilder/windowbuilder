@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Implementation of {@link CreationSupport} for creating objects using some
  * {@link MethodInvocation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

@@ -18,7 +18,7 @@ import org.eclipse.wb.core.editor.palette.model.EntryInfo;
  * We will use it for now, because I don't see that we need more flexible approach with
  * <code>default</code> attribute in palette definition, or <code>default</code> property in
  * {@link EntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

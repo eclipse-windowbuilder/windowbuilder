@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 
 /**
  * {@link MethodInterceptor} which returns default value for anonymous methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

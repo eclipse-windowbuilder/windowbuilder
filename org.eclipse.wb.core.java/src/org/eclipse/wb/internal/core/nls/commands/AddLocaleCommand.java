@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Command for adding new locale with some initial values.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

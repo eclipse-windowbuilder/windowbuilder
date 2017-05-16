@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * A figure that can display text and image.
- * 
+ *
  * @author lobas_av
  * @coverage core.gef.nonvisual
  */

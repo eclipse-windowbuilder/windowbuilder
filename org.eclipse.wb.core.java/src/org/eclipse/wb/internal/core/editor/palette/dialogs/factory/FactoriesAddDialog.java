@@ -47,7 +47,7 @@ import java.util.Map;
 
 /**
  * Abstract dialog for adding multiple {@link FactoryEntryInfo} for factory class.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

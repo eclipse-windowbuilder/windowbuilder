@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Support for binding {@link InstanceFactoryInfo}'s to hierarchy.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.creation
  */

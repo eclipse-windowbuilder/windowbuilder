@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 /**
  * The {@link Rule} that sets the default value of current {@link GenericPropertyDescription}. Right
  * now it supports fairly limited set of expressions: boolean literals.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

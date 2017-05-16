@@ -15,7 +15,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 /**
  * Value object for creating new source for bundle-based sources.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

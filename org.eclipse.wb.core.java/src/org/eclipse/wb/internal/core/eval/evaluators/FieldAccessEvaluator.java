@@ -29,7 +29,7 @@ import java.lang.reflect.Field;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link FieldAccess}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

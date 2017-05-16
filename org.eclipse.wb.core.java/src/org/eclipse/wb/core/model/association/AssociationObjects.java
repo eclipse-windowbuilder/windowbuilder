@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.NonVisualAssociation;
 
 /**
  * Helper for creating {@link AssociationObject}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

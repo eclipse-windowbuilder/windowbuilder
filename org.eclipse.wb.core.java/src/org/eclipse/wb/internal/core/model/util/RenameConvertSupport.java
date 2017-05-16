@@ -53,7 +53,7 @@ import java.util.Map;
 
 /**
  * Helper for rename/convert multiple {@link JavaInfo}'s as single operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -65,7 +65,7 @@ public final class RenameConvertSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * If possible, contributes "rename" action.
-   * 
+   *
    * @param objects
    *          The components that should be renamed/converted.
    * @param manager
@@ -88,7 +88,7 @@ public final class RenameConvertSupport {
 
   /**
    * Initiates the rename/convert operation for <code>objects</code> by bringing up rename dialog.
-   * 
+   *
    * @param objects
    *          The components that should be renamed/converted.
    */
@@ -195,7 +195,7 @@ public final class RenameConvertSupport {
   /**
    * Validates that all pending {@link RenameCommand}'s are valid.<br>
    * In particular we verify that variable names are valid and unique.
-   * 
+   *
    * @return the error message or <code>null</code>.
    */
   private String validateCommands() {

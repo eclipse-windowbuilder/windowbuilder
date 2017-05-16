@@ -21,7 +21,7 @@ import org.eclipse.jface.window.Window;
 
 /**
  * The {@link PropertyEditor} for {@link String}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for top level {@link AbstractComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

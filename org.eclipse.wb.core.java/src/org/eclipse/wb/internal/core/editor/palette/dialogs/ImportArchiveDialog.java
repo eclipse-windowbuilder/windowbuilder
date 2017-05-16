@@ -100,7 +100,7 @@ import java.util.jar.Manifest;
 
 /**
  * Dialog choose entries from JAR archives.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.palette.ui
  */
@@ -543,7 +543,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
         m_elements = extractElementsFromJarByManifest(jarStream);
         jarStream.close();
       }
-      // check load all elements 
+      // check load all elements
       if (ignoreManifest || m_elements.isEmpty()) {
         if (!ignoreManifest) {
           String message =

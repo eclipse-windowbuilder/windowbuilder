@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Configures generic simple/flow containers behavior.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree
  */

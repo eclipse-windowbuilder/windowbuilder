@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
  * {@link NodeTarget} contains information about location for placing {@link ASTNode}.
  * <p>
  * Currently it is "union" of {@link StatementTarget} and {@link BodyDeclarationTarget}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

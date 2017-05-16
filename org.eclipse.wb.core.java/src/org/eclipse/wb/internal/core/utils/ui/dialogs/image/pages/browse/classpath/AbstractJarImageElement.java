@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IPath;
 
 /**
  * Abstract implementation of {@link IImageElement} for single entry in jar.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

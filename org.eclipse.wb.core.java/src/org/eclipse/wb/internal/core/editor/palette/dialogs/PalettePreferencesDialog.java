@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Dialog for modifying palette settings.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

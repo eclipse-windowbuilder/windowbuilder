@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Description for location of {@link MethodInvocation} of method marked with this
  * {@link MethodOrder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -86,7 +86,7 @@ public abstract class MethodOrder {
   /**
    * @param javaInfo
    *          the {@link JavaInfo} that has invocation with such {@link MethodOrder}.
-   * 
+   *
    * @return <code>true</code> {@link MethodInvocation} of method with such {@link MethodOrder} can
    *         be used as reference for adding new {@link Statement} or {@link JavaInfo} child. This
    *         means also that such {@link MethodInvocation} should be added as last one, after all

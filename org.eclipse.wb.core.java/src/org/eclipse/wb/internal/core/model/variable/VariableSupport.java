@@ -29,11 +29,11 @@ import java.util.List;
 /**
  * Implementations of this class support different variants of storing instance of component in
  * variable/field.
- * 
+ *
  * We extract variable operations into separate class and and its subclasses for each case because
  * this makes {@link JavaInfo} itself easy and isolates each case in separate class instead of doing
  * checking each time.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -88,7 +88,7 @@ public abstract class VariableSupport {
   /**
    * This method should be implemented for variables that have related statements. For example,
    * virtual variables can not have related statements, so it can omit implementation.
-   * 
+   *
    * @return <code>true</code> if given {@link Statement} can be used as reference for adding new
    *         child.
    */
@@ -125,7 +125,7 @@ public abstract class VariableSupport {
 
   /**
    * @return the name of component. Usually this is the name of variable.<br>
-   * 
+   *
    *         Difference between {@link #getName()} is that this method can return not only name of
    *         variable, but also some other, specific string for special {@link VariableSupport}'s,
    *         for example "this" for {@link ThisVariableSupport}, or name of property for
@@ -161,7 +161,7 @@ public abstract class VariableSupport {
    * return different code depending on <code>target</code> argument, i.e. where it will be used.
    * For example, here is typical code:
    * <code>parentInfo.addMethodInvocation("add", info.getReferenceExpression(target));</code>
-   * 
+   *
    * @param target
    *          that {@link NodeTarget} that specifies position where expression will be used.
    */
@@ -213,10 +213,10 @@ public abstract class VariableSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the {@link StatementTarget} that describes default location for new {@link Statement}.<br>
-   * 
+   *
    * NOTE: in some cases it may change the {@link VariableSupport} instance of the {@link JavaInfo}.
    * So the example code below is wrong:
-   * 
+   *
    * <pre>
 	 * <code>
 	 * 		VariableSupport variableSupport = javaInfo.getVariableSupport();
@@ -225,7 +225,7 @@ public abstract class VariableSupport {
 	 * 		return variableSupport.getReferenceExpression(new NodeTarget(statementTarget));
 	 * </code>
 	 * </pre>
-   * 
+   *
    * @return the {@link StatementTarget} that describes default location for new {@link Statement}.
    */
   public abstract StatementTarget getStatementTarget() throws Exception;
@@ -237,7 +237,7 @@ public abstract class VariableSupport {
    * <p>
    * This method is used only when this {@link JavaInfo} has no related {@link Statement}'s, so such
    * special target should be prepared.
-   * 
+   *
    * @return the {@link StatementTarget} for new child {@link JavaInfo}.
    */
   public StatementTarget getChildTarget() throws Exception {
@@ -250,10 +250,10 @@ public abstract class VariableSupport {
    * creation" we can ask for instance from any place, and method will create it. But for "usual"
    * variables, for example local, we should move statements of {@link JavaInfo} and return new
    * {@link StatementTarget} , located after component instance assignment.
-   * 
+   *
    * @param target
    *          the {@link StatementTarget} where instance of component should be ready.
-   * 
+   *
    * @return the {@link StatementTarget} for adding association.
    */
   public void ensureInstanceReadyAt(StatementTarget target) throws Exception {
@@ -266,7 +266,7 @@ public abstract class VariableSupport {
    *          mode this is location where block of component should be placed, and association -
    *          somewhere inside of this block. For lazy mode this is directly location of
    *          association.
-   * 
+   *
    * @return the {@link StatementTarget} that describes location for adding association
    *         {@link Statement} during create/move operations. In many cases this is same as
    *         {@link #getStatementTarget()}, i.e. just any place where instance of component is
@@ -285,7 +285,7 @@ public abstract class VariableSupport {
   /**
    * @param associationTarget
    *          the {@link StatementTarget} where component association should be located
-   * 
+   *
    * @return the source of statement that should be added as part of new component adding. For local
    *         variables this is variable declaration, for field - assignment to field. This method
    *         should also do any operations required to make returned code correct, for example add

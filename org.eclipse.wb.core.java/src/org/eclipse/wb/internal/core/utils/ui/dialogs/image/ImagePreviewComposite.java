@@ -30,7 +30,7 @@ import java.text.MessageFormat;
 
 /**
  * {@link Composite} for displaying {@link ImageInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
 
 /**
  * This action does switching between "Source" and "Design" tabs of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */
@@ -46,7 +46,7 @@ public class SwitchAction extends EditorRelatedAction {
 
   /**
    * Shows "Source" page and at given source position.
-   * 
+   *
    * @param position
    *          the position to show in source, if <code>-1</code>, then ignored.
    */

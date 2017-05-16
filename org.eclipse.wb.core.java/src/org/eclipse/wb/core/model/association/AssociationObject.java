@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.association;
 
 /**
  * Container for {@link Association} and "requirement" flag.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

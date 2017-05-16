@@ -17,11 +17,11 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Listener for {@link GenericProperty} events.
- * 
+ *
  * Subscribers can use this interface to provide {@link Expression} value during
  * {@link GenericPropertyImpl#getValue()}. This is useful for case when we did not evaluate this
  * {@link Expression} using normal execution flow.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -30,7 +30,7 @@ public interface GenericPropertyGetValueEx {
    * Subscribers can use this method to provide {@link Expression} value during
    * {@link GenericPropertyImpl#getValue()}. This is useful for case when we did not evaluate this
    * {@link Expression} using normal execution flow.
-   * 
+   *
    * @param property
    *          the {@link GenericPropertyImpl} that sends this event.
    * @param expression

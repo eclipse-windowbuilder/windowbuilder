@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 
 /**
  * {@link TreeEditPart} for {@link AbstractArrayObjectInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.gefTree
  */

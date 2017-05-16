@@ -54,7 +54,7 @@ import java.util.Set;
 
 /**
  * Helper for morphing {@link JavaInfo} for one component class to another.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.util
@@ -134,7 +134,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
   ////////////////////////////////////////////////////////////////////////////
   /**
    * If possible, contributes "morph" actions.
-   * 
+   *
    * @param toolkitClassName
    *          the name of base class for "Other..." action, for example
    *          <code>"org.eclipse.swt.widgets.Control"</code> as SWT.

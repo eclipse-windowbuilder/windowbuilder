@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Implementations of {@link GlobalState} for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

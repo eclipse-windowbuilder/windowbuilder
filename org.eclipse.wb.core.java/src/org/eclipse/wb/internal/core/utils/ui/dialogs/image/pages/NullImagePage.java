@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link AbstractImagePage} that sets "null" as image.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

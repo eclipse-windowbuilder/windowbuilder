@@ -67,7 +67,7 @@ import java.util.Set;
 
 /**
  * This class contains different utilities for working with Java model elements.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt
  */
@@ -112,7 +112,7 @@ public class CodeUtils {
 
   /**
    * Replaces in given Java source hidden parts of code with spaces.
-   * 
+   *
    * @return the cleared Java source.
    */
   private static String clearHiddenCode(String source) throws Exception {
@@ -298,16 +298,16 @@ public class CodeUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the short name of fully qualified class name, or same name for simple type name.
-   * 
+   *
    * <pre>
 	 * CodeUtils.getShortClass("javax.swing.JPanel")  = "JPanel"
 	 * CodeUtils.getShortClass("test.MyPanel$Inner")  = "Inner"
 	 * CodeUtils.getShortClass("boolean")             = "boolean"
 	 * </pre>
-   * 
+   *
    * @param className
    *          the fully qualified class name.
-   * 
+   *
    * @return the short name of given class name.
    */
   public static String getShortClass(String className) {
@@ -341,7 +341,7 @@ public class CodeUtils {
 
   /**
    * @return the array of {@link String}'s that contains given strings plus on additional string.
-   * 
+   *
    * @param baseStrings
    *          optional base array of strings (can be <code>null</code>)
    * @param add
@@ -394,14 +394,14 @@ public class CodeUtils {
 
   /**
    * Generates unique name, checking name in following order:
-   * 
+   *
    * <ul>
    * <li>baseName;</li>
    * <li>baseName_1;</li>
    * <li>baseName_2;</li>
    * <li>etc...</li>
    * <ul>
-   * 
+   *
    * @param baseName
    *          the base name.
    * @param validator
@@ -550,7 +550,7 @@ public class CodeUtils {
   /**
    * @param signatures
    *          the array with signatures, can have <code>null</code> elements.
-   * 
+   *
    * @return the {@link IMethod}'s for given method signatures, with <code>null</code> elements if
    *         corresponding signature is <code>null</code>.
    */
@@ -563,7 +563,7 @@ public class CodeUtils {
   /**
    * @param signatures
    *          the array with signatures, can have <code>null</code> elements.
-   * 
+   *
    * @return the array of {@link IMethod} for given array of method signatures, with
    *         <code>null</code> elements if corresponding signature is <code>null</code>.
    */
@@ -670,7 +670,7 @@ public class CodeUtils {
   /**
    * Concatenates two names. Uses a dot for separation. Both strings can be empty or
    * <code>null</code>.
-   * 
+   *
    * @param name1
    *          the first name
    * @param name2
@@ -778,7 +778,7 @@ public class CodeUtils {
       return;
     }
     visitedProjects.add(javaProject);
-    // prepare information 
+    // prepare information
     IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     IProject project = javaProject.getProject();
     // add source folders

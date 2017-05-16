@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * Information about visited or evaluated {@link ASTNode}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

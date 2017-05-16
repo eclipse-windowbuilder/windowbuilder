@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Command} that edits {@link ComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

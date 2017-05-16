@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Implementation of {@link Command} that removes {@link EntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

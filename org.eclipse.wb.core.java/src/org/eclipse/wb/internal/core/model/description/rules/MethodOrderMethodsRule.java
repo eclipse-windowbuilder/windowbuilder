@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * The {@link Rule} that {@link MethodOrder} for multiple {@link MethodDescription}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

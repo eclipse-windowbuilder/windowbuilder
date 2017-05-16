@@ -25,11 +25,11 @@ import org.eclipse.wb.internal.core.model.property.Property;
  * that is copy of <code>"stackText"</code> argument of {@link InvocationChildAssociation}.
  * <p>
  * Format:
- * 
+ *
  * <code><pre>
  *   &lt;parameter name="copyChildPropertyTop from=Association/stackText to=StackText category=system(7)"/&gt;
  * </pre></code>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

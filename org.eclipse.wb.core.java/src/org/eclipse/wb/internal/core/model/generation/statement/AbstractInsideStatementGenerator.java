@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Abstract implementation of {@link StatementGenerator} that adds {@link Statement}'s in given
  * {@link StatementTarget}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */
@@ -42,7 +42,7 @@ public abstract class AbstractInsideStatementGenerator extends StatementGenerato
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Adds variable and association {@link Statement}'s into given {@link StatementTarget}.
-   * 
+   *
    * @param child
    *          the {@link JavaInfo} that should be added
    * @param target
@@ -54,7 +54,7 @@ public abstract class AbstractInsideStatementGenerator extends StatementGenerato
    *          the {@link Association} that asked for generating parent/child association in source
    *          code. For Swing/GWT there is usually some separate association code, in SWT parent is
    *          passed in constructor, so usually no additional association required.
-   * 
+   *
    * @return the {@link Statement} for given association source.
    */
   protected static void add(JavaInfo child,

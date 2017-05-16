@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Abstract {@link Rule} for parsing {@link ComponentDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

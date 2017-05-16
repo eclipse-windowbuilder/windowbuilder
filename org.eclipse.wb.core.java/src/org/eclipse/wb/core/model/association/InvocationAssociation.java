@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * {@link Association} for {@link MethodInvocation} as separate {@link ExpressionStatement}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

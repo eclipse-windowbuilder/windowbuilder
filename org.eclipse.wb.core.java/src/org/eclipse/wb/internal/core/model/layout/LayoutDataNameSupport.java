@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSu
 /**
  * Support for managing name of <code>LayoutData</code>, so that it corresponds to the name of its
  * parent <code>Control</code>.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.layout

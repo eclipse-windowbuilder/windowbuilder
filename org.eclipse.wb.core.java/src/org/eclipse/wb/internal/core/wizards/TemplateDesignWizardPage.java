@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Wizard page responsible to create Java elements use special template.
- * 
+ *
  * @author lobas_av
  * @coverage core.wizards.ui
  */

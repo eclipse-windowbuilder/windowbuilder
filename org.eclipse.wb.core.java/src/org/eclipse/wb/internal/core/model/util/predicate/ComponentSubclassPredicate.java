@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 /**
  * {@link Predicate} that checks that given {@link Object} is {@link JavaInfo} with compatible
  * component class.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

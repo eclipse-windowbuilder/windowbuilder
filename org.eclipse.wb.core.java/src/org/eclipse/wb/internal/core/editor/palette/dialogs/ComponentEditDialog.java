@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Dialog for editing {@link ComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link StatementGeneratorDescription} for {@link LazyStatementGenerator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

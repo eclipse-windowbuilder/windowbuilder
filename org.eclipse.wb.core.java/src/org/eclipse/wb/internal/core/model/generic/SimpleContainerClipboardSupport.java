@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Support for copying {@link SimpleContainer} child.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

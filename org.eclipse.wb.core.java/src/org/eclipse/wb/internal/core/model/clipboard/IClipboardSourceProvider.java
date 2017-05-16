@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Extension for {@link PropertyEditor} that can provide Java source for copy/paste operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */

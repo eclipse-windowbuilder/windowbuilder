@@ -22,7 +22,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * Action for displaying {@link AbstractComponentInfo} for test/preview.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */

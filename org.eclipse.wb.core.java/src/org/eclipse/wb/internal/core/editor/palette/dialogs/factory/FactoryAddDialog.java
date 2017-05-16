@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Dialog for adding new {@link FactoryEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

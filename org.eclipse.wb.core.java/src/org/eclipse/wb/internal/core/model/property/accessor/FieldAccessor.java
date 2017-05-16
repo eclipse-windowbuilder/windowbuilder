@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * The implementation of {@link ExpressionAccessor} for <code>.xxx = value</code> support public
  * field access.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.model.property.accessor

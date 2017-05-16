@@ -45,7 +45,7 @@ import java.util.Map;
 
 /**
  * Abstract dialog for {@link FactoryEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

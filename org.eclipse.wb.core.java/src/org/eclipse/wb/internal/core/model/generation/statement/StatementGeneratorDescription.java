@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.generation.GenerationDescription;
 
 /**
  * {@link StatementGeneratorDescription} describes some specific {@link StatementGenerator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

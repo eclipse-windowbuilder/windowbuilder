@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * Utility class that encapsulates information about keys and components that have properties with
  * these keys.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

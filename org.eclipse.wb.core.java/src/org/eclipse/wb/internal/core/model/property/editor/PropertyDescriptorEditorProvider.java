@@ -15,7 +15,7 @@ import java.beans.PropertyDescriptor;
 /**
  * {@link PropertyEditorProvider} that creates editors based on {@link PropertyDescriptor}
  * attributes, such as "enumerationValues".
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

@@ -60,7 +60,7 @@ import java.util.List;
 
 /**
  * Composite for externalizing properties of components tree.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */
@@ -309,7 +309,7 @@ public final class PropertiesComposite extends Composite {
     for (StringPropertyInfo propertyInfo : selectedProperties) {
       m_support.externalizeProperty(propertyInfo, source, copyToAllLocales);
     }
-    // refresh UI 
+    // refresh UI
     updateExternalizeButton();
   }
 

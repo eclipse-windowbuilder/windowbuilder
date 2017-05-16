@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 
 /**
  * Copy of <code>UndoCompilationUnitChange</code> from internal JDT.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.refactoring
  */

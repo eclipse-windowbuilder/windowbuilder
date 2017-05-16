@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Broadcasts based functionality for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage code.model

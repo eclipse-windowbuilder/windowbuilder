@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Implementation of {@link WrapperMethodCreationSupport} with {@link ILiveCreationSupport}.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage core.model.creation

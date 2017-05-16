@@ -46,7 +46,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 /**
  * Field editor for source folder selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt.ui
  */

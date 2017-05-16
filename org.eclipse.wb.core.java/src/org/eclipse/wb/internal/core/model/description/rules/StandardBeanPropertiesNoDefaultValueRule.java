@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 /**
  * The {@link Rule} that sets {@link ExpressionAccessor#NO_DEFAULT_VALUE_TAG} for standard bean
  * properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

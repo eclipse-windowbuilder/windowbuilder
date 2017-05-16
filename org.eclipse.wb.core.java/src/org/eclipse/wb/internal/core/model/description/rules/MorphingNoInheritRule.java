@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 /**
  * The {@link Rule} that remove all existed (inherited) {@link MorphingTargetDescription}'s from
  * {@link ComponentDescription}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.description
  */

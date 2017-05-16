@@ -31,7 +31,7 @@ import java.util.Map.Entry;
 
 /**
  * Dialog provides ability to select argument for type parameters of creating generic component.
- * 
+ *
  * @author sablin_aa
  * @coverage core.editor.palette.ui
  */
@@ -100,7 +100,7 @@ public final class TypeParametersDialog extends ResizableTitleAreaDialog {
     for (Entry<String, TypeParameterDescription> typeParameter : m_typeParameters.entrySet()) {
       String key = typeParameter.getKey();
       TypeParameterDescription paramenerInfo = typeParameter.getValue();
-      // create parameters composites 
+      // create parameters composites
       TypeParameterComposite parameterComposite =
           new TypeParameterComposite(container, SWT.NONE, m_javaProject, paramenerInfo);
       GridDataFactory.create(parameterComposite).grabH().fillH();

@@ -14,7 +14,7 @@ package org.eclipse.wb.core.model.association;
  * Implementation of {@link Association} that is unknown for Designer, for example established in
  * some custom binary code. This means that we can not remove it, or reparent. Practically we can
  * not do anything with it. But we still need some {@link Association} implementation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

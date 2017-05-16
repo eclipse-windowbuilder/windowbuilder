@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
 /**
  * Command for creating new strings source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -38,7 +38,7 @@ public final class CreateSourceCommand extends AbstractCommand {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Access 
+  // Access
   //
   ////////////////////////////////////////////////////////////////////////////
   public SourceDescription getSourceDescription() {

@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 /**
  * The implementation of {@link ExpressionAccessor} for <code>setXXX(value)</code> method that can
  * have corresponding <code>getXXX()</code>, usually for usual bean property.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

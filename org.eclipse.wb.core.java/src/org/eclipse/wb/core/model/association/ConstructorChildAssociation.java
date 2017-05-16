@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Implementation of {@link Association} for {@link ClassInstanceCreation} when <em>child</em>
  * passed as argument.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

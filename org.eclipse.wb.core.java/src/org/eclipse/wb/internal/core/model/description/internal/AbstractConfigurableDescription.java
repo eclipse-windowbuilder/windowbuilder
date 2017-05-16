@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * Abstract description for {@link IConfigurablePropertyObject}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} for <i>non-visual bean</i> model.
- * 
+ *
  * @author lobas_av
  * @coverage core.gef.nonvisual
  */

@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Concrete implementation of {@link GenericProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */
@@ -325,7 +325,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 
   /**
    * Sets the source/value using given {@link ExpressionAccessor}.
-   * 
+   *
    * @return <code>true</code> if expression was successfully set.
    */
   private boolean setExpressionUsingAccessor(ExpressionAccessor accessor,
@@ -386,7 +386,7 @@ public final class GenericPropertyImpl extends GenericProperty {
    * accessors prepared directly in {@link JavaInfo} during {@link GenericPropertyImpl} creation.
    * However we can not do this because {@link CreationSupport} can be changed during life of
    * {@link JavaInfo}, so it can contribute different {@link ExpressionAccessor}'s.
-   * 
+   *
    * @return the current {@link ExpressionAccessor}'s.
    */
   public List<ExpressionAccessor> getAccessors() throws Exception {
@@ -430,7 +430,7 @@ public final class GenericPropertyImpl extends GenericProperty {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Holder of information about {@link Expression} and {@link ExpressionAccessor} that provided it.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ExpressionInfo {

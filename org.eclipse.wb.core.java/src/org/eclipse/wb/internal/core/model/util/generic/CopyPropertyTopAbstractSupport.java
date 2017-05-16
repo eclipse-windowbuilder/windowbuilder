@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * This helper allows to create top-level {@link Property} as copy of other {@link Property}
  * (usually part of complex property).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -76,7 +76,7 @@ public abstract class CopyPropertyTopAbstractSupport {
   /**
    * @param javaInfo
    *          the {@link JavaInfo} passed into {@link #install(JavaInfo, String)}.
-   * 
+   *
    * @return the {@link Predicate} to check if property of some {@link JavaInfo} should be copied to
    *         its top properties.
    */

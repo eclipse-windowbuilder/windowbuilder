@@ -14,14 +14,14 @@ import java.util.List;
 
 /**
  * Processor for root {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
 public interface IRootProcessor {
   /**
    * Last step before building tree {@link JavaInfo} complete.
-   * 
+   *
    * @param root
    *          the {@link JavaInfo} that is root of build component hierarchy.
    * @param components

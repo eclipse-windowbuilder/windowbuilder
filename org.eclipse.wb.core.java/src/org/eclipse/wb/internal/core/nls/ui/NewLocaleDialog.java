@@ -30,7 +30,7 @@ import java.text.MessageFormat;
 
 /**
  * Dialog for selecting new locale.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

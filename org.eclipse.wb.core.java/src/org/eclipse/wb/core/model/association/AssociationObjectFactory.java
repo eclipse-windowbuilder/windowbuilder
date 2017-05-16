@@ -15,7 +15,7 @@ package org.eclipse.wb.core.model.association;
  * <p>
  * We need it for example for generic containers, where we should create new instances of
  * {@link AssociationObject} for each new component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

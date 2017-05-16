@@ -14,14 +14,14 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Listener for {@link IJavaProject} classpath changes.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt
  */
 public interface IProjectClasspathListener {
   /**
    * Adding JAR with ZIP source attachment to the {@link IJavaProject}.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add JAR to.
    * @param jarPathString

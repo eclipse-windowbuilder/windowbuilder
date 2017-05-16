@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 /**
  * {@link MethodOrder} to add {@link MethodInvocation} after parent children {@link JavaInfo}'s of
  * specified types.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.description
  */

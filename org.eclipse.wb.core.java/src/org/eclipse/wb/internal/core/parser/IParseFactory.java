@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 /**
  * This interface is contributed via extension point and used by {@link JavaInfoParser} for creating
  * {@link JavaInfo}'s for root and any {@link ClassInstanceCreation} and {@link MethodInvocation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */
@@ -38,14 +38,14 @@ public interface IParseFactory {
 
   /**
    * Informs {@link IParseFactory} about some {@link Expression}.
-   * 
+   *
    * @return {@link JavaInfo} model corresponding to given {@link Expression}, or <code>null</code>.
    */
   JavaInfo create(AstEditor editor, Expression expression) throws Exception;
 
   /**
    * Informs {@link IParseFactory} about {@link ClassInstanceCreation}.
-   * 
+   *
    * @return {@link JavaInfo} model corresponding to given {@link ClassInstanceCreation}.
    */
   JavaInfo create(AstEditor editor,
@@ -58,7 +58,7 @@ public interface IParseFactory {
   /**
    * Informs {@link IParseFactory} about {@link MethodInvocation}. Factory can create new
    * {@link JavaInfo}, add new parent/child link, etc.
-   * 
+   *
    * @return {@link JavaInfo} model corresponding to given {@link ClassInstanceCreation}.
    */
   JavaInfo create(AstEditor editor,

@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
  * This interface is used to identify {@link ASTNode} which is definitely not {@link JavaInfo}. So
  * we throw it away right now, without checking using other {@link ParseFactoryNoModel} and
  * {@link IParseFactory}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.parser

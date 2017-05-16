@@ -46,7 +46,7 @@ import java.util.Map;
  * For example in GWT <code>ListBox</code> has only <code>addItem(String)</code> methods, and no
  * method to set all items as single invocation, like <code>setItems(String[])</code>. So, to edit
  * items, we need some artificial {@link Property} with this editor.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

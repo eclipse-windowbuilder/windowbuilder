@@ -33,7 +33,7 @@ import java.util.WeakHashMap;
 /**
  * Helper to create top-level {@link Property} as wrapper for pair of {@link ObjectInfo} get/set
  * methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

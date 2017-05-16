@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * {@link VariableSupport} implementation for local, reused variable.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

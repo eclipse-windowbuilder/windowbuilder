@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Command} that edits {@link FactoryEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

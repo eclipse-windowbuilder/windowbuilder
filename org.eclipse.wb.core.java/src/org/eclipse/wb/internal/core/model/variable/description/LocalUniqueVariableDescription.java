@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link IVariableSupportDescription} for {@link LocalUniqueVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

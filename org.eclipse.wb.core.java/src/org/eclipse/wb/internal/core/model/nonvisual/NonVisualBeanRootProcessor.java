@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Support for bind all non-visual beans ({@link JavaInfo}'s without parent) to container.
- * 
+ *
  * @author lobas_av
  * @author sablin_aa
  * @coverage core.model.nonvisual

@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * Utils for different Workspace related operations.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -43,7 +43,7 @@ public class WorkspaceUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Process UI input but do not return for the specified time interval.
-   * 
+   *
    * @param waitTimeMillis
    *          the number of milliseconds
    */

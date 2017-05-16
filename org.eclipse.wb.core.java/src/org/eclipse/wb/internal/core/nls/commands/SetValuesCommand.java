@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * Command for changing values for full locale.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * implementation of {@link IImageResource} for single file in jar.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

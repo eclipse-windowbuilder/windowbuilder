@@ -16,10 +16,10 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 /**
  * Implementations of this interface are used during evaluating of {@link Expression} by
  * {@link AstEvaluationEngine}.
- * 
+ *
  * They are contributed using extension point, so it is possible to extend set of supported
  * expressions.
- * 
+ *
  * @author scheglov_ke
  */
 public interface IExpressionEvaluator {

@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.Statement;
 /**
  * Implementation of {@link StatementGenerator} that adds {@link Statement}'s directly inside of
  * parent {@link Block} without any enclosing {@link Block}'s or comments.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.generation
  */

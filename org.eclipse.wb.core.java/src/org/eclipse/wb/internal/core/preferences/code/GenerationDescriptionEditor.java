@@ -26,7 +26,7 @@ import org.apache.commons.lang.ArrayUtils;
 /**
  * Implementation of {@link IDataEditor} for {@link TabFolder} with {@link GenerationDescription}
  * elements on {@link TabItem}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */
@@ -45,7 +45,7 @@ public final class GenerationDescriptionEditor implements IDataEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IDialogField 
+  // IDialogField
   //
   ////////////////////////////////////////////////////////////////////////////
   public void setValue(Object value) {

@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * External interface for palette access.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */
@@ -51,7 +51,7 @@ public interface IPaletteSite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Helper for accessing {@link IPaletteSite}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static class Helper {

@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * The {@link PropertyEditor} for selecting single field of class from given set.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

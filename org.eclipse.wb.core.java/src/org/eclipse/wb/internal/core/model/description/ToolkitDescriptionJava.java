@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.generation.GenerationSettings;
 
 /**
  * {@link ToolkitDescription} for Java.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

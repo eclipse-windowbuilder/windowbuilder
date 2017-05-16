@@ -16,11 +16,11 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
 /**
  * This interface helps in generating base keys for newly externalized properties.
- * 
+ *
  * We should have separate class because good place for it is {@link AbstractSource}, but we can not
  * use it because when we create add new source, we don't have yet instance of
  * {@link AbstractSource}, we have only instance of {@link IEditableSource}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

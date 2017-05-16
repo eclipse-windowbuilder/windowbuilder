@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 /**
  * Listener for {@link PackageRootSelectionDialogField}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt.ui
  */

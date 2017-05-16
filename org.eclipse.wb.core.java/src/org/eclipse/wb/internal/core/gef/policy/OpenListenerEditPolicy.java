@@ -24,15 +24,15 @@ import org.apache.commons.lang.StringUtils;
 /**
  * {@link EditPolicy} which adds listener code by handling "Open" request (double-clicking on its
  * {@link EditPart}). Component description should have lines like this:
- * 
+ *
  * <pre><code>
  * &lt;parameters&gt;
  *   &lt;parameter name="x.double-click.listener" value="selectionListener/widgetSelected"/&gt;
  * &lt;/parameters&gt; </code></pre>
- * 
+ *
  * Where parameter <code>double-click.listener</code> is '/' separated name of listener method to be
  * created.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy
  */

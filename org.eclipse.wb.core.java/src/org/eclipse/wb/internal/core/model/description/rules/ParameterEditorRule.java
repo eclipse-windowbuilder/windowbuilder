@@ -21,7 +21,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that sets {@link PropertyEditor} of current {@link ParameterDescription}.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.description
  */

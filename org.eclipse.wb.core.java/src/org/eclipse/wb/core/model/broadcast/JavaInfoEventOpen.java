@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * Allows subscribers to handle request to open some event listener.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

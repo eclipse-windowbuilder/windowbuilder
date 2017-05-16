@@ -36,7 +36,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Abstract dialog for {@link ComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */
@@ -179,7 +179,7 @@ public abstract class ComponentAbstractDialog extends AbstractPaletteElementDial
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // ComponentDescription utils 
+  // ComponentDescription utils
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

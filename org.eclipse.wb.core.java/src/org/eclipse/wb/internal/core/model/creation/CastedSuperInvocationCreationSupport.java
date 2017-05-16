@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
  * Implementation of {@link CreationSupport} for {@link CastExpression} that has
  * {@link SuperMethodInvocation} .<br>
  * Such pattern is used in JFace dialogs.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

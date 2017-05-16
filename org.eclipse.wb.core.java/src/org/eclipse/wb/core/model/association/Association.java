@@ -39,40 +39,40 @@ import javax.swing.JPanel;
  * argument), or {@link MethodInvocation} (for example
  * {@link Container#add(java.awt.Component, Object) in Swing, or factory method invocation in SWT).
  * <p> But in theory association can be something more complex, than just single
- * 
+ *
  * @link ClassInstanceCreation} or {@link MethodInvocation}, for example some object that should be
  *       created and configured initially, and only as one of the invocation parent/child link is
  *       established. For this reason and just to separate various variants of associations (so be
  *       more OOP), we introduce {@link Association} as class.
- * 
- * 
+ *
+ *
  *       <p>
  *       Here is list of possible associations and their implementations:
  *       <ol>
- * 
+ *
  *       <li>{@link ConstructorParentAssociation} - {@link ClassInstanceCreation} with
  *       <em>parent</em> argument. Association established on child creation. Child created after
  *       parent. This is usual association in SWT.</li>
- * 
+ *
  *       <li>{@link ConstructorChildAssociation} - {@link ClassInstanceCreation} with <em>child</em>
  *       argument. Association established on parent creation. Child created before parent. This is
  *       rarely used association, for example {@link JPanel} accepts {@link LayoutManager} in
  *       constructor.</li>
- * 
+ *
  *       <li>{@link FactoryParentAssociation} - factory {@link MethodInvocation} with
  *       <em>parent</em> argument. Used for factories, i.e. this is association on creation, it is
  *       different than separate association using for example invocation of child method with
  *       parent argument (like {@link Control#setParent(org.eclipse.swt.widgets.Composite)}).</li>
- * 
+ *
  *       <li>{@link InvocationChildAssociation} - {@link MethodInvocation} of parent with
  *       <em>child</em> argument. Often used in Swing -
  *       {@link Container#add(java.awt.Component, Object)}.</li>
- * 
+ *
  *       <li>{@link InvocationSecondaryAssociation} - {@link MethodInvocation} with both,
  *       <em>parent and child</em> arguments, marked as secondary. Can be used to establish some
  *       special parent/child link, used method that does not belong to parent or child, but just
  *       separate method (sometimes used for {@link GridBagLayout}).</li> </ul>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */
@@ -123,7 +123,7 @@ public abstract class Association {
 
   /**
    * This method is used in tests to simplify checking of {@link Association}'s.
-   * 
+   *
    * @return the source code of this {@link Association}.
    */
   public String getSource() {
@@ -155,7 +155,7 @@ public abstract class Association {
    * <p>
    * Not all {@link Association} implementations do something on this operation, for example in SWT
    * component associated with its parent on creation, so no separate association required.
-   * 
+   *
    * @param javaInfo
    *          the {@link JavaInfo} that should associated.
    * @param target
@@ -187,7 +187,7 @@ public abstract class Association {
    * for example update reference on parent in constructor, or in invocation.
    * <p>
    * Sequence of operations during is following:
-   * 
+   *
    * <pre>
 	 * 	oldAssociation.remove();
 	 * 	if (oldAssociation.isStillActive()) {
@@ -196,7 +196,7 @@ public abstract class Association {
 	 * 		newAssociation.add(...);
 	 * 	}
 	 * </pre>
-   * 
+   *
    * @param parent
    *          the new parent. We could use parent from {@link JavaInfo#getParentJava()}, but in SWT
    *          Viewer's Control association is delegated to Viewer that is implemented as
@@ -215,7 +215,7 @@ public abstract class Association {
    * will still return it even after "remove"). During {@link JavaInfo} "move" we check that if
    * {@link Association} is not removed, we ask it to move on new parent using
    * {@link #setParent(JavaInfo)}.
-   * 
+   *
    * @return <code>true</code> if {@link Association} was really removed.
    */
   public boolean remove() throws Exception {
@@ -227,7 +227,7 @@ public abstract class Association {
    * This method is used during morphing to transform existing association for source component into
    * association for target component. Here we create corresponding new instance of
    * {@link Association} for new component.
-   * 
+   *
    * @throws NotImplementedException
    *           if this {@link Association} does not supports morphing.
    */

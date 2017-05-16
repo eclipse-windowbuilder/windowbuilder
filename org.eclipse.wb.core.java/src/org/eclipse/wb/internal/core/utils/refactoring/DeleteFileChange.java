@@ -25,7 +25,7 @@ import java.text.MessageFormat;
  * need such behavior because in GWT participants it is possible that use deletes both Async and
  * RemoteService classes in single selection, so when we try to delete Async it is already deleted,
  * so we should ignore this.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.refactoring
  */

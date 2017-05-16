@@ -21,7 +21,7 @@ import java.util.ListIterator;
 
 /**
  * Implementation of {@link Command} that moves {@link EntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

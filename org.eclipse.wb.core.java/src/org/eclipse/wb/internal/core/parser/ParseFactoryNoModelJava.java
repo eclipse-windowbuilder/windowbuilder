@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * {@link ParseFactoryNoModel} for standard Java.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */

@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Abstract {@link Command} for {@link FactoryEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

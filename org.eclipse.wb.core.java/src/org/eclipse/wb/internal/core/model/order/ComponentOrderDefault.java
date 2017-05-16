@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.order;
 /**
  * Default implementation of {@link MethodOrder} - put component in requested position, without
  * changes.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

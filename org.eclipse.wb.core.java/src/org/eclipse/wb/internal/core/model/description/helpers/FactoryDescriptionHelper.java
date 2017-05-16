@@ -65,7 +65,7 @@ import java.util.Map;
 
 /**
  * Helper for accessing descriptions of factories - {@link FactoryMethodDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -88,7 +88,7 @@ public class FactoryDescriptionHelper {
 
   /**
    * Returns factory methods of given {@link Class} and its super classes.
-   * 
+   *
    * @return the {@link Map} signature -> {@link FactoryMethodDescription}.
    */
   @SuppressWarnings("unchecked")
@@ -129,7 +129,7 @@ public class FactoryDescriptionHelper {
 
   /**
    * Returns factory methods declared in given {@link Class} (but not in super classes).
-   * 
+   *
    * @return the {@link Map} signature -> {@link FactoryMethodDescription}.
    */
   private static Map<String, FactoryMethodDescription> getDescriptionsMap0(AstEditor editor,
@@ -362,10 +362,10 @@ public class FactoryDescriptionHelper {
 
   /**
    * Finds {@link ICompilationUnit}'s with factories.
-   * 
+   *
    * @param thePackage
    *          the {@link IPackageFragment} to find factories in.
-   * 
+   *
    * @return the {@link ICompilationUnit}'s with factories.
    */
   public static List<ICompilationUnit> getFactoryUnits(AstEditor editor, IPackageFragment thePackage)

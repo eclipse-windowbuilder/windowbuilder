@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Helper for accessing {@link Property}'s parts.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

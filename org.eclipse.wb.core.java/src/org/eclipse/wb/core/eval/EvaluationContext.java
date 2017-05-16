@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * The context that is used by {@link AstEvaluationEngine} during evaluating AST.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */
@@ -114,7 +114,7 @@ public class EvaluationContext {
    * This method is invoked when we need to evaluate {@link SingleVariableDeclaration}, i.e.
    * parameter of some {@link MethodDeclaration}, however we can not find single invocation of this
    * method.
-   * 
+   *
    * @return the evaluated value
    * @throws Exception
    *           if parameter can not be evaluated
@@ -145,7 +145,7 @@ public class EvaluationContext {
 
   /**
    * This method is invoked when evaluation of {@link Expression} was failed.
-   * 
+   *
    * @return the value to use instead of failed, or {@link AstEvaluationEngine#UNKNOWN} if exception
    *         should be thrown.
    */

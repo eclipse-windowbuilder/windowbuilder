@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * The {@link PropertyEditor} for selecting single class instance from given set.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.editor
  */
@@ -69,7 +69,7 @@ public final class InstanceListPropertyEditor extends AbstractListPropertyEditor
     // prepare m_types
     m_classes = new Class<?>[m_types.length];
     for (int i = 0; i < m_types.length; i++) {
-      // special "null" expression 
+      // special "null" expression
       if (m_types[i].equalsIgnoreCase("null")) {
         m_classes[i] = null;
       } else {

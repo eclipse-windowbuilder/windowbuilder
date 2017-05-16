@@ -15,7 +15,7 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * Contributor for {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

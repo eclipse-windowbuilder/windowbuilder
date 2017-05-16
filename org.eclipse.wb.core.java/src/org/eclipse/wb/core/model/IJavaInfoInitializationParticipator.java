@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model;
 
 /**
  * Participator of {@link JavaInfo} initialization, used from {@link JavaInfo#initialize()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

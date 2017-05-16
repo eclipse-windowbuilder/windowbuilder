@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
 
 /**
  * The mode for presentation source/design parts of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

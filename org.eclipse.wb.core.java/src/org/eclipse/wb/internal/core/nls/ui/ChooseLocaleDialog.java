@@ -48,7 +48,7 @@ import java.util.Locale;
 
 /**
  * Dialog for choosing locale.
- * 
+ *
  * @author sablin_aa
  * @coverage core.nls.ui
  */

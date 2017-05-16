@@ -33,7 +33,7 @@ import org.eclipse.ui.dialogs.ListDialog;
 
 /**
  * {@link FieldEditor} for {@link IJavaProject} selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt.ui
  */

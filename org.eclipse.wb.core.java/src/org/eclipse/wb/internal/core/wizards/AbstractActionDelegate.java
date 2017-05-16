@@ -20,7 +20,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 /**
  * Abstract {@link IWorkbenchWindowActionDelegate} that performs some operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */

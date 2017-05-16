@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link EntryInfo} for "instance-factory-method" contribution.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * This class supports different patterns of object creation, for example: constructors, accessors,
  * static factories, instance factories, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */
@@ -67,7 +67,7 @@ public abstract class CreationSupport {
    * If this {@link CreationSupport} form an association during creation (for example in SWT all
    * constructors accept parent), the return corresponding {@link Association}, and
    * <code>null</code> in other case.
-   * 
+   *
    * @return the {@link Association} for this {@link CreationSupport} or <code>null</code>.
    */
   public Association getAssociation() throws Exception {
@@ -138,12 +138,12 @@ public abstract class CreationSupport {
 
   /**
    * If needed, creates object for this {@link JavaInfo} manually.
-   * 
+   *
    * Sometimes we need this ("this", "exposed").
-   * 
+   *
    * Sometimes - no (constructor) because {@link AstEvaluationEngine} can evaluate creation node
    * without our assistance.
-   * 
+   *
    * @param context
    *          the {@link EvaluationContext} in which we should evaluate other {@link Expression}'s.
    * @param visitor
@@ -164,7 +164,7 @@ public abstract class CreationSupport {
    * @param target
    *          the {@link NodeTarget} that specifies location where this returned source will be
    *          used.
-   * 
+   *
    * @return the Java source that should be used for adding new component. This method should also
    *         do any operations required to make returned code correct, for example add imports
    *         (almost always), fields (for instance factories).

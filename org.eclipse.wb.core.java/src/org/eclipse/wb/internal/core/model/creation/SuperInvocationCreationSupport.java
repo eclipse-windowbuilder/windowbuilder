@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 /**
  * Implementation of {@link CreationSupport} for {@link SuperMethodInvocation}.<br>
  * Such pattern is used in JFace <code>ApplicationWindow</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

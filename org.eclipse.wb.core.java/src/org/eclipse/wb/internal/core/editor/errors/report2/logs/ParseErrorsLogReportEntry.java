@@ -29,7 +29,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Adds parser errors/warnings into report.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

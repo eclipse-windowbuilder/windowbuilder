@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.association;
 
 /**
  * Implementation of {@link Association} that does not have presentation in source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

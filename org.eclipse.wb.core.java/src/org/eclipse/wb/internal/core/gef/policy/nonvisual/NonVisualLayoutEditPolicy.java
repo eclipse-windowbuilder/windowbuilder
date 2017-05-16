@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for placing <i>non-visual beans</i>.
- * 
+ *
  * @author lobas_av
  * @coverage core.gef.policy.nonvisual
  */

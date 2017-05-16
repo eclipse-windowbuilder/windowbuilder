@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for externalized {@link String}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

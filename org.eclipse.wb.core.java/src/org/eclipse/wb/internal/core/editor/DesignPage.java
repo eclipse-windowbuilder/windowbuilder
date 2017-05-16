@@ -68,7 +68,7 @@ import java.util.Map;
 
 /**
  * "Design" page of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.editor
@@ -90,7 +90,7 @@ public final class DesignPage implements IDesignPage {
   /**
    * Listener for reparsing on external modifications, when our editor is activated.<br>
    * Checks for that really THIS editor instance activated.
-   * 
+   *
    * Sets active JavaInfo.
    */
   private final IPartListener m_partListener = new PartListenerAdapter() {
@@ -370,7 +370,7 @@ public final class DesignPage implements IDesignPage {
 
   /**
    * Notifies listeners that hierarchy is disposed or editor is closing.
-   * 
+   *
    * @param force
    *          is <code>true</code> if user closes editor or explicitly requests re-parsing.
    */
@@ -402,7 +402,7 @@ public final class DesignPage implements IDesignPage {
 
   /**
    * Parses {@link ICompilationUnit} and displays it in GEF.
-   * 
+   *
    * @return <code>true</code> if parsing was successful.
    */
   boolean internal_refreshGEF() {
@@ -472,13 +472,13 @@ public final class DesignPage implements IDesignPage {
 
   /**
    * Displays the error information on Design Pane.
-   * 
+   *
    * @param e
    *          the {@link Throwable} to display.
    * @param screenshot
    *          the {@link Image} of entire shell just before error. Can be <code>null</code> in case
    *          of parse error when no screenshot needed.
-   * 
+   *
    */
   private void showExceptionOnDesignPane(Throwable e, Image screenshot) {
     m_designerState = DesignerState.Error;

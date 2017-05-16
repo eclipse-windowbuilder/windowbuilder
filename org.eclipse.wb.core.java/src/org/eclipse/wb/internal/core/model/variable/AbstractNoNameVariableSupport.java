@@ -15,7 +15,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 /**
  * Implementation of {@link VariableSupport} for cases when there are no variable name, so no
  * implementation of methods that operates this name.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

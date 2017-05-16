@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Dialog for editing components order.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.order
  */

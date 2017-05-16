@@ -53,7 +53,7 @@ import org.eclipse.ui.dialogs.SearchPattern;
 
 /**
  * {@link Dialog} for editing key in some NLS source for {@link StringPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

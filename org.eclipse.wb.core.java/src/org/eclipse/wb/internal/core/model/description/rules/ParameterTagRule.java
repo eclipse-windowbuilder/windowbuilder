@@ -17,7 +17,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that adds some tag for {@link ParameterDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

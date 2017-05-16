@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * The {@link Rule} to set "getter" for {@link SetterAccessor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

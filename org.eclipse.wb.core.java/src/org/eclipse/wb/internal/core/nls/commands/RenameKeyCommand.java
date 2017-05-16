@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * Command for renaming key.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
 /**
  * Implementation of {@link GenerationPreview} for {@link LocalUniqueVariableSupport} and
  * {@link BlockStatementGenerator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation.ui
  */

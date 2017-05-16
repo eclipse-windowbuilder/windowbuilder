@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * Implementation of {@link AbstractImagePage} that selects image from file system.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

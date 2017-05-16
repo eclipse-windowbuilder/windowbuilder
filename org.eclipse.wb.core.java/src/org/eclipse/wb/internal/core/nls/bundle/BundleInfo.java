@@ -26,7 +26,7 @@ import java.util.Set;
 
 /**
  * Information/accessor for single .properties file.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -183,7 +183,7 @@ public final class BundleInfo {
 
   /**
    * Saves current map key -> value into host {@link IFile}.
-   * 
+   *
    * @param comments
    *          the parameters for add in file headers.
    */

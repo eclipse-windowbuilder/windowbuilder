@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 /**
  * {@link MethodOrder} for single {@link MethodDescription} that redirects into default
  * {@link MethodOrder} of {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

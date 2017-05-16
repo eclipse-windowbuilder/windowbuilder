@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.model.util.live.AbstractLiveManager;
  * in temporary hierarchy. So, we should also create copy of {@link CreationSupport} that also
  * should be aware, that it will be used for "live component".
  * </p>
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.model.creation

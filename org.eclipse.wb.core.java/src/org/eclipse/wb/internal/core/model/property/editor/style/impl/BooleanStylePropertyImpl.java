@@ -22,7 +22,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * This class represent "set" property implementation.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

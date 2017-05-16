@@ -25,7 +25,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Abstract object for any GUI component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -109,7 +109,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
 
   /**
    * Sets preferred size of this component.
-   * 
+   *
    * This method should be used by subclasses during fetching visual information.
    */
   public final void setPreferredSize(Dimension preferredSize) {

@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Dialog that show important (preferred and system) properties.<br>
  * We use it directly after adding new {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util.ui
  */

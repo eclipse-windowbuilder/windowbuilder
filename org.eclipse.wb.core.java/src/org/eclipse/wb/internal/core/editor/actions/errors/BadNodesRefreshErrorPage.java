@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
 
 /**
  * Implementation of {@link BadNodesErrorPage} for {@link JavaInfoParser} errors.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

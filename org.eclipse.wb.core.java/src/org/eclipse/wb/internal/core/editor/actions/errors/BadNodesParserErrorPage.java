@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState.BadNodesCollection;
 
 /**
  * Implementation of {@link BadNodesErrorPage} for errors during refresh.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

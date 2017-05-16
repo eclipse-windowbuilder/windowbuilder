@@ -17,7 +17,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that sets a tag for current {@link GenericPropertyDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

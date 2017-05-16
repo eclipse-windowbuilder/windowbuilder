@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link ListenerMethodProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * {@link ILoadingContext} for {@link EditorState}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.association.Association;
 
 /**
  * {@link Association} for non visual object (NVO).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

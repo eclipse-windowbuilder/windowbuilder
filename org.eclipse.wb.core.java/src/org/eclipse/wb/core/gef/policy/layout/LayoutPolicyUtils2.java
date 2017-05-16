@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Contains utilities for {@link LayoutEditPolicy}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * {@link Composite} for displaying {@link MultipleConstructorsError}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.errors
  */

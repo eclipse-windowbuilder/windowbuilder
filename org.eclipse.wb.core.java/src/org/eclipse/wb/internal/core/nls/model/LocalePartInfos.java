@@ -22,7 +22,7 @@ import java.util.Set;
 
 /**
  * Utilities for {@link LocaleInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

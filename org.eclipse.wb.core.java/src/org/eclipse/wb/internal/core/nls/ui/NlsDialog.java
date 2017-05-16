@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * Main dialog for editing NLS information.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

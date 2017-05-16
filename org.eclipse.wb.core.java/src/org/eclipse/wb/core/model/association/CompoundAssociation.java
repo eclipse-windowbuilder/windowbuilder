@@ -31,7 +31,7 @@ import java.util.List;
  * two {@link Association}'s - for creation and for {@link MenuItem#setMenu(Menu)}. Note, that
  * instead of constructor we may have also some factory, so we can not use just
  * {@link ConstructorParentAssociation} for creation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */
@@ -86,7 +86,7 @@ public final class CompoundAssociation extends Association {
     super.setJavaInfo(javaInfo);
     // set JavaInfo for sub-associations
     for (Association association : m_associations) {
-      // when CompoundAssociation is mutated from single Association, it may already have JavaInfo 
+      // when CompoundAssociation is mutated from single Association, it may already have JavaInfo
       if (association.getJavaInfo() != null) {
         Assert.isTrue(association.getJavaInfo() == javaInfo);
       } else {
@@ -165,7 +165,7 @@ public final class CompoundAssociation extends Association {
         association.add(m_javaInfo, target, null);
         m_associations.add(association);
       }
-      // new associations are accepted 
+      // new associations are accepted
       m_newAssociations.clear();
     }
   }

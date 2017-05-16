@@ -27,7 +27,7 @@ import org.eclipse.jface.window.Window;
  * </ol>
  * <p>
  * Interface {@link IJavaInfoRendering} is general presentation for rendering such components.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

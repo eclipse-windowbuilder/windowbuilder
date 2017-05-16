@@ -40,7 +40,7 @@ import java.util.Calendar;
 
 /**
  * Implementation of {@link ContributionItem} for working with NLS.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

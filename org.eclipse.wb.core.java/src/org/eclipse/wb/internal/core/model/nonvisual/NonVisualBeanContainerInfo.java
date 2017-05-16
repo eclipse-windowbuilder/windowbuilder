@@ -36,7 +36,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Container for <i>non-visual beans</i>, direct child of root {@link JavaInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.nonvisual
  */

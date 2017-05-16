@@ -32,7 +32,7 @@ import javax.swing.JToolBar;
  * Special case of {@link InvocationAssociation} when child is <em>created</em> and associated with
  * parent using {@link MethodInvocation} of parent {@link JavaInfo}. For example
  * {@link JToolBar#addSeparator()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

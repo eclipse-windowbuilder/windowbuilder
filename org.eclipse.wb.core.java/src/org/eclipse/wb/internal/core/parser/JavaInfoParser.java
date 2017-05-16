@@ -122,7 +122,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Parser converts given model {@link ICompilationUnit} into tree of {@link JavaInfo} objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */
@@ -232,7 +232,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 
   /**
    * Parses compilation unit.
-   * 
+   *
    * @return single root {@link JavaInfo}.
    */
   private JavaInfo parse() throws Exception {
@@ -530,7 +530,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
   }
   /**
    * Visitor for parsing {@link ASTNode}'s on execution flow.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class ExecutionFlowParseVisitor extends ExecutionFlowFrameVisitor {

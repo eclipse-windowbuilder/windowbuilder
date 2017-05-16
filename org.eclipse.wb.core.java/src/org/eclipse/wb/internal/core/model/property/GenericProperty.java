@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.Expression;
 /**
  * {@link GenericProperty} provides universal access to the {@link Expression}'s and values using
  * {@link ExpressionAccessor} and {@link ExpressionConverter}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

@@ -18,7 +18,7 @@ import java.io.Serializable;
 /**
  * {@link CreationSupport} return implementation of this class to create {@link CreationSupport} for
  * pasting its {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */
@@ -28,7 +28,7 @@ public abstract class IClipboardCreationSupport implements Serializable {
   /**
    * @param rootObject
    *          the root {@link JavaInfo} to which new {@link JavaInfo} will be added.
-   * 
+   *
    * @return the {@link CreationSupport} for creating {@link JavaInfo}.
    */
   public abstract CreationSupport create(JavaInfo rootObject) throws Exception;

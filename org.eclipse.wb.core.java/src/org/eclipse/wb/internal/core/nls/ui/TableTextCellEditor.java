@@ -33,13 +33,13 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * <code>TableTextCellEditor</code> is a copy of TextCellEditor, with the following changes:
- * 
+ *
  * <ul>
  * <li>modify events are sent out as the text is changed, and not only after editing is done</li>
- * 
+ *
  * <li>the <code>Control</code> from <code>getControl(Composite)</code> does not notify registered
  * FocusListeners. This is a workaround for bug 58777.</li>
- * 
+ *
  * <li>the user can go to the next/previous row with up and down keys</li>
  * </ul>
  */
@@ -148,7 +148,7 @@ public class TableTextCellEditor extends CellEditor {
       }
     });
     m_text.addKeyListener(new KeyAdapter() {
-      // hook key pressed - see PR 14201  
+      // hook key pressed - see PR 14201
       @Override
       public void keyPressed(KeyEvent e) {
         keyReleaseOccured(e);
@@ -203,7 +203,7 @@ public class TableTextCellEditor extends CellEditor {
   /**
    * The <code>TextCellEditor</code> implementation of this <code>CellEditor</code> framework method
    * returns the text string.
-   * 
+   *
    * @return the text string
    */
   @Override
@@ -225,7 +225,7 @@ public class TableTextCellEditor extends CellEditor {
   /**
    * The <code>TextCellEditor2</code> implementation of this <code>CellEditor</code> framework
    * method accepts a text string (type <code>String</code>).
-   * 
+   *
    * @param value
    *          a text string (type <code>String</code>)
    */
@@ -252,11 +252,11 @@ public class TableTextCellEditor extends CellEditor {
       // Enter is handled in handleDefaultSelection.
       // Do not apply the editor value in response to an Enter key event
       // since this can be received from the IME when the intent is -not-
-      // to apply the value.  
+      // to apply the value.
       // See bug 39074 [CellEditors] [DBCS] canna input mode fires bogus event from Text Control
       //
       // An exception is made for Ctrl+Enter for multi-line texts, since
-      // a default selection event is not sent in this case. 
+      // a default selection event is not sent in this case.
       if (m_text != null && !m_text.isDisposed() && (m_text.getStyle() & SWT.MULTI) != 0) {
         if ((keyEvent.stateMask & SWT.CTRL) != 0) {
           super.keyReleaseOccured(keyEvent);

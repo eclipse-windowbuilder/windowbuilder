@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.Statement;
 /**
  * {@link MethodOrder} to add {@link MethodInvocation} as last {@link Statement}, after all other
  * invocations and {@link JavaInfo} children.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

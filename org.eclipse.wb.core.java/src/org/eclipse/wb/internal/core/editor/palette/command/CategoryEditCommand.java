@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Command} that edits {@link CategoryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

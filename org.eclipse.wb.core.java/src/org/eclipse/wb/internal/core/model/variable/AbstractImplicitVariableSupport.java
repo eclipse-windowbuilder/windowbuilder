@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.Statement;
 /**
  * Implementation of {@link VariableSupport} for some implicit variable for child on other
  * {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

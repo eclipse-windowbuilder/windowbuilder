@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.PrefixExpression;
 
 /**
  * Copy from Eclipse 3.5, Build id: I20081030-1917.
- * 
+ *
  * @author scheglov_ke
  */
 public class OperatorPrecedence {
@@ -50,7 +50,7 @@ public class OperatorPrecedence {
    * Returns the precedence of the expression. Expression with higher precedence are executed before
    * expressions with lower precedence. i.e. in: <br>
    * <code> int a= ++3--;</code></br>
-   * 
+   *
    * the precedence order is
    * <ul>
    * <li>3</li>
@@ -61,7 +61,7 @@ public class OperatorPrecedence {
    * 1. 3 -(++)-> 4<br>
    * 2. 4 -(--)-> 3<br>
    * 3. 3 -(=)-> a<br>
-   * 
+   *
    * @param expression
    *          the expression to determine the precedence for
    * @return the precedence the higher to stronger the binding to its operand(s)
@@ -107,7 +107,7 @@ public class OperatorPrecedence {
    * 1. 5,6 -(*)-> 30<br>
    * 2. 3,4 -(+)-> 7<br>
    * 3. 7,30 -(-)-> -23<br>
-   * 
+   *
    * @param operator
    *          the expression to determine the precedence for
    * @return the precedence the higher to stronger the binding to its operands

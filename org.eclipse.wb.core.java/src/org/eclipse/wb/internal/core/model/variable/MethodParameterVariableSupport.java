@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Implementation of {@link VariableSupport} for {@link SingleVariableDeclaration} parameter of
  * {@link MethodDeclaration}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

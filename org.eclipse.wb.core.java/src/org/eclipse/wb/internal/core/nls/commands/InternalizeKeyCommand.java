@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * Command for internalizing (removing) key, i.e. replace externalized {@link Expression} with
  * {@link StringLiteral}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

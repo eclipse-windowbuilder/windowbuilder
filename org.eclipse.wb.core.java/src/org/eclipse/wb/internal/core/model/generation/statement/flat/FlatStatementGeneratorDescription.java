@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Implementation of {@link StatementGeneratorDescription} for {@link FlatStatementGenerator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

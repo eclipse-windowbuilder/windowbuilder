@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 /**
  * The {@link Rule} for including/excluding methods. For example sometimes we want prevent execution
  * of some methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

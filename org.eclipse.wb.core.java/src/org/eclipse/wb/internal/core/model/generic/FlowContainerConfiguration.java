@@ -16,7 +16,7 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 
 /**
  * Configuration for {@link FlowContainerConfigurable}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

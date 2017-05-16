@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Display;
 /**
  * Adapts {@link org.eclipse.core.runtime.Preferences} to
  * {@link org.eclipse.jface.preference.IPreferenceStore}
- * 
+ *
  * @since 3.0
  * @coverage core.util.jdt.ui
  */
@@ -60,7 +60,7 @@ public class PreferencesAdapter implements IPreferenceStore {
 
   /**
    * Initialize with the given Preferences.
-   * 
+   *
    * @param preferences
    *          The preferences to wrap.
    */

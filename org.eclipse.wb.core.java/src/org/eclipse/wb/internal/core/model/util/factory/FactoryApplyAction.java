@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * {@link Action} for applying factory for creating component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -139,7 +139,7 @@ public final class FactoryApplyAction extends Action {
    * @param oldArguments
    *          the arguments of old {@link ClassInstanceCreation} or {@link MethodInvocation} that
    *          was used to create component.
-   * 
+   *
    * @return the arguments for factory method invocation.
    */
   private List<String> getFactoryArguments(List<Expression> oldArguments) throws Exception {

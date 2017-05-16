@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * This class represents "macroUsingEquals" property implementation.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage core.model.property.editor

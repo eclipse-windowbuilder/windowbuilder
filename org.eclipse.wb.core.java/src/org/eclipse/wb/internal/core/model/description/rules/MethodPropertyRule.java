@@ -41,7 +41,7 @@ import java.util.List;
  * <code>setText(String,boolean,boolean)</code>. So, we need some way to describe in
  * <code>*.wbp-component.xml</code> that we need to create property for this method with
  * sub-properties for each parameter.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

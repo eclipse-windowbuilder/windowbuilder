@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * {@link MethodOrder} to add {@link MethodInvocation} after invocation of some other method.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

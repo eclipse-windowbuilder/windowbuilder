@@ -18,7 +18,7 @@ import java.util.Collections;
 /**
  * An instance of {@link DoubleClickLayoutEditPolicy} which opens rename/convert dialog by
  * double-clicking in widgets tree.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gefTree.policy
  */

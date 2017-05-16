@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * The engine for interpreting AST {@link Expression}'s into values.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */
@@ -100,7 +100,7 @@ public final class AstEvaluationEngine {
   /**
    * @param methodBinding
    *          the {@link IMethodBinding} of constructor.
-   * 
+   *
    * @return the instance of anonymous {@link ClassInstanceCreation}, intercepting methods using
    *         given {@link Callback}.
    */

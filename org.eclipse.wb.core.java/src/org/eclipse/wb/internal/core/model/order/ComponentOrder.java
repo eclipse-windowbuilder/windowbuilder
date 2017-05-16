@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * Description for location of {@link JavaInfo} in list of parent children and statements.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -51,7 +51,7 @@ public abstract class ComponentOrder {
    * This method is used when requested to add component with this {@link ComponentOrder} as "last".
    * Usually this means - after all existing {@link JavaInfo} children. However sometimes we want to
    * group children by class and "last" means "after last child of same class".
-   * 
+   *
    * @return the {@link JavaInfo} before which component should be added, may be <code>null</code>,
    *         so component will be added as last child of parent.
    */

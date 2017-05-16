@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Special {@link Request} for information about container child ordering.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.gef
@@ -40,7 +40,7 @@ public final class TabOrderContainerRequest extends Request {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Access 
+  // Access
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

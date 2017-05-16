@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Configurable {@link FlowContainer} for {@link JavaInfo} children.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

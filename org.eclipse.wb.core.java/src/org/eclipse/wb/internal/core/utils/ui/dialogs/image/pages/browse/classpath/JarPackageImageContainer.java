@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IImageContainer} for package in jar.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

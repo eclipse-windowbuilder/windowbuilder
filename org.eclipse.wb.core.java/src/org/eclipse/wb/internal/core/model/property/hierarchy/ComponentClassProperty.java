@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Property that shows class name for component and hierarchy as value hint.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property
  */

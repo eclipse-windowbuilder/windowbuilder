@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.ConfigurablePropertyDescri
 
 /**
  * Factory for creating configurable {@link Property}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

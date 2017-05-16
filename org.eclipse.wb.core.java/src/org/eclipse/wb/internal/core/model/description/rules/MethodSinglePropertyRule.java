@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 /**
  * The {@link Rule} that adds property for method with single parameter. We need this for cases when
  * method is not "setXXX".
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

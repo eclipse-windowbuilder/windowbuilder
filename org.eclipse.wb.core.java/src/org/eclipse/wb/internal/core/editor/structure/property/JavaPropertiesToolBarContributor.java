@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * {@link IPropertiesToolBarContributor} for Java.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

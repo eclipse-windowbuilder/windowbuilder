@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Model of entry on palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */
@@ -38,7 +38,7 @@ public abstract class EntryInfo extends AbstractElementInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Initializes this {@link EntryInfo}, prepares it for future calls of methods.
-   * 
+   *
    * @return <code>true</code> if this {@link EntryInfo} is successfully activated.
    */
   public boolean initialize(IEditPartViewer editPartViewer, JavaInfo rootJavaInfo) {
@@ -52,7 +52,7 @@ public abstract class EntryInfo extends AbstractElementInfo {
 
   /**
    * Sometimes we want to show entry, but don't allow to select it.
-   * 
+   *
    * @return <code>true</code> if this {@link EntryInfo} is enabled.
    */
   public boolean isEnabled() {
@@ -71,10 +71,10 @@ public abstract class EntryInfo extends AbstractElementInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Performs operation when user selects this entry on palette.
-   * 
+   *
    * @param reload
    *          is <code>true</code> if entry should be automatically reloaded after successful using.
-   * 
+   *
    * @return <code>true</code> if entry was successfully activated.
    */
   public abstract boolean activate(boolean reload);

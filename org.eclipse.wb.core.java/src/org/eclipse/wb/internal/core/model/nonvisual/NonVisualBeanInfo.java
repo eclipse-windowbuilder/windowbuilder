@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 
 /**
  * Abstract <i>non-visual bean</i> support model.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.nonvisual
  */
@@ -39,7 +39,7 @@ public abstract class NonVisualBeanInfo {
 
   /**
    * Changes bean visual location.
-   * 
+   *
    * @param moveDelta
    *          is move delta for new location.
    */

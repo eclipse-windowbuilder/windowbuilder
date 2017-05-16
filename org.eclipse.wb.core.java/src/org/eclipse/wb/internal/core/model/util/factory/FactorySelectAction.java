@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * {@link Action} for selecting factory type in other package (not in current).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -69,7 +69,7 @@ public final class FactorySelectAction extends Action {
       if (factoryType == null) {
         return;
       }
-      // prepare factory methods 
+      // prepare factory methods
       Map<String, FactoryMethodDescription> descriptionsMap =
           FactoryDescriptionHelper.getDescriptionsMap(m_editor, factoryType, true);
       // prepare factory method selection dialog
@@ -105,7 +105,7 @@ public final class FactorySelectAction extends Action {
 
   /**
    * Asks user about factory type.
-   * 
+   *
    * @return the loaded factory type, or <code>null</code> is selection was cancelled.
    */
   private Class<?> selectFactoryType() throws Exception {

@@ -16,14 +16,14 @@ import java.util.List;
 
 /**
  * Listener for {@link JavaInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
 public interface JavaInfoTreeAlmostComplete {
   /**
    * Last step before building tree {@link JavaInfo} complete.
-   * 
+   *
    * @param root
    *          the {@link JavaInfo} that is root of build component hierarchy.
    * @param components

@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
  * applicable for cases when property should unconditionally return certain value without using any
  * expression evaluating related to this property. For example, the property may return value of
  * another property.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -30,7 +30,7 @@ public interface GenericPropertyGetValue {
    * applicable for cases when property should unconditionally return certain value without using
    * any expression evaluating related to this property. For example, the property may return value
    * of another property.
-   * 
+   *
    * @param property
    *          the {@link GenericPropertyImpl} that sends this event.
    * @param value

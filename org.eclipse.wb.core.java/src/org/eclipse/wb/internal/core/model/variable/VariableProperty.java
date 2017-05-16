@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 /**
  * Implementation of {@link Property} for editing name of variable.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

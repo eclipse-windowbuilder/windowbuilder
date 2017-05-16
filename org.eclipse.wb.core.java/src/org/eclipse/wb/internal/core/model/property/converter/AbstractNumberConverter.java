@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.JavaCore;
 
 /**
  * The {@link ExpressionConverter} for {@link Number} types.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.converter
  */

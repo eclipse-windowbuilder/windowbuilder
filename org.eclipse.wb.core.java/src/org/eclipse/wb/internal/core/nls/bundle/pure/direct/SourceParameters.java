@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSourceParameters;
 
 /**
  * Value object for creating new strings source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

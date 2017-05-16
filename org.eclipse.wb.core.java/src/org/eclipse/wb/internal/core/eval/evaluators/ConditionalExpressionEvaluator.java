@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link ConditionalExpression}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

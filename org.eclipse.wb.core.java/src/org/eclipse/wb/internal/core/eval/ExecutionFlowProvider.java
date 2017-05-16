@@ -21,7 +21,7 @@ import java.awt.EventQueue;
  * <p>
  * For example in Swing we should visit {@link EventQueue#invokeAndWait(Runnable)}, even if
  * {@link Runnable} is {@link AnonymousClassDeclaration}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

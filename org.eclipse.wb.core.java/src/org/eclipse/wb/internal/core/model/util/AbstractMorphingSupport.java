@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Helper for morphing for one component class to another.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.util
@@ -83,7 +83,7 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Add "Morph" sub-menu to context {@link IContributionManager}.
-   * 
+   *
    * @return the "Morph" sub-menu manager.
    */
   protected static MenuManagerEx createMorphManager(IContributionManager manager) {
@@ -95,7 +95,7 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
 
   /**
    * Contributes "morph" actions.
-   * 
+   *
    * @param morphingSupport
    *          the {@link AbstractMorphingSupport<T>} that should be contributed.
    * @param manager
@@ -132,7 +132,7 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Validates if given {@link MorphingTargetDescription} can be used.
-   * 
+   *
    * @return the error message or <code>null</code>.
    */
   protected String validate(MorphingTargetDescription target) throws Exception {

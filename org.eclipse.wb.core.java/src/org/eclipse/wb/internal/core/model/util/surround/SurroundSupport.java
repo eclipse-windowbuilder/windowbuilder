@@ -36,7 +36,7 @@ import java.util.Set;
 
 /**
  * Helper for surrounding {@link AbstractComponentInfo}'s with some container.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -235,7 +235,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
 
   /**
    * Performs validation for selected/sorted components.
-   * 
+   *
    * @return <code>true</code> if components are valid and can be used to extract from source
    *         container.
    */

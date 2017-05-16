@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
 /**
  * Command for externalizing property.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

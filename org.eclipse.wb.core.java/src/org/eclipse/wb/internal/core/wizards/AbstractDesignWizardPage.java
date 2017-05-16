@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Base class for wizard page responsible to create Java elements.
- * 
+ *
  * @author lobas_av
  * @coverage core.wizards.ui
  */

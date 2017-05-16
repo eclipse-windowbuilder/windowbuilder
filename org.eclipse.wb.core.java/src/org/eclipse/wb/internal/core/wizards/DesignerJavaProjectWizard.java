@@ -27,7 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * Non internal version for org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.
- * 
+ *
  * @author lobas_av
  * @coverage core.wizards.ui
  */

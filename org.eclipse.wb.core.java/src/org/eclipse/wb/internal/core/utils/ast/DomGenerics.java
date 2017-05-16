@@ -58,7 +58,7 @@ import java.util.List;
  * Helper that "generifies" JDT Core DOM API.
  * <p>
  * It allows to have all unsafe casts in single place.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

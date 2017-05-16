@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 
 /**
  * An abstract descendant of {@link LayoutEditPolicy} for double-click handling in widgets tree.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gefTree.policy
  */

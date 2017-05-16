@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Factory for {@link AttributesProvider} implementations.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

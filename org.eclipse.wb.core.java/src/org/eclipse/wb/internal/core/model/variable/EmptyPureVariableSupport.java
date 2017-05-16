@@ -23,13 +23,13 @@ import javax.swing.JButton;
 /**
  * Specific sub-class of {@link EmptyVariableSupport} that adds new {@link JavaInfo} using just
  * creation source as {@link ExpressionStatement}. For example for {@link JButton}:
- * 
+ *
  * <pre>
  * 	new JButton("My button");
  * </pre>
- * 
+ *
  * Note that there are no assignment to variable, just pure {@link Expression}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

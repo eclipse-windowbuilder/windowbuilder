@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 
 /**
  * Utility for any Java-based wrapper object with {@link IWrapperInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model
  */

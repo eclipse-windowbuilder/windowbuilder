@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSu
 /**
  * Support for managing name of <code>Layout</code>, so that it corresponds to the name of its
  * <code>Container</code>.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.layout
  */

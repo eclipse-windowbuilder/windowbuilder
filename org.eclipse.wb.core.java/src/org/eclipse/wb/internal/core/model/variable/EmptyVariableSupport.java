@@ -36,16 +36,16 @@ import java.util.List;
 /**
  * {@link VariableSupport} implementation for case when it is possible to have variable for this
  * component, but currently there are no variable. For example:
- * 
+ *
  * <pre>
  * 	add(new JButton("My button"), BorderLayout.NORTH);
  * </pre>
- * 
+ *
  * Here expression/initializer for JButton is <code>new JButton("My button")</code>.
  * <p>
  * {@link EmptyVariableSupport} itself does not supports adding new {@link JavaInfo}, but there are
  * specific sub-classes that generate one or other {@link Statement}'s with initializer expressions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

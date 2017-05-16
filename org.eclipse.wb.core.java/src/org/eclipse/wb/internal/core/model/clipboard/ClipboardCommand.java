@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * Abstract command for copy/paste operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */

@@ -67,7 +67,7 @@ import java.util.Map;
 
 /**
  * Parser for {@link ASTNode}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -124,7 +124,7 @@ public final class AstParser {
 
   /**
    * @return the new {@link Statement} for given source and position.
-   * 
+   *
    * @param position
    *          the position when given <code>src</code> should start
    * @param src
@@ -165,7 +165,7 @@ public final class AstParser {
 
   /**
    * @return the new {@link BodyDeclaration} for given source and position.
-   * 
+   *
    * @param position
    *          the position when given <code>src</code> should start
    * @param src
@@ -241,7 +241,7 @@ public final class AstParser {
 
   /**
    * @return the {@link SimpleName} for given identifier.
-   * 
+   *
    *         NB! This method should not be used directly, use for example
    *         {@link #parseVariable(int, String, ITypeBinding, boolean, int)} instead.
    */
@@ -749,7 +749,7 @@ public final class AstParser {
   /**
    * Finds in {@link CompilationUnit} with given source an {@link ASTNode} at given position with
    * given class.
-   * 
+   *
    * @param source
    *          the source of {@link CompilationUnit} to parse
    * @param targetPosition

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * {@link PropertyEditor} may implement this interface to contribute additional {@link Property}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

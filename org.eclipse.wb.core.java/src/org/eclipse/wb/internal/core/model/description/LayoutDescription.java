@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Description for layout manager existing in toolkit.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

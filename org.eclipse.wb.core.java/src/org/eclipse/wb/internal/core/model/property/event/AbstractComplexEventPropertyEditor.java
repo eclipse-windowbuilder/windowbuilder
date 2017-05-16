@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.property.editor.complex.IComplexProper
 /**
  * Abstract implementation of {@link PropertyEditor} and {@link IComplexPropertyEditor} for event
  * properties .
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */

@@ -48,7 +48,7 @@ import java.util.List;
 
 /**
  * Contributes "Expose property..." action for Java properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -170,7 +170,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 
     /**
      * Validates the currently entered by user name of exposed property.
-     * 
+     *
      * @return the error message, or <code>null</code> if given name is valid.
      */
     private String validate(String exposedName) {
@@ -206,7 +206,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 
     /**
      * Prepares source for preview.
-     * 
+     *
      * @param isPublic
      *          is <code>true</code> if <code>public</code> modifier should be used and
      *          <code>false</code> for <code>protected</code> modifier.

@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * {@link IDescriptionVersionsProvider} that returns versions from {@link List}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

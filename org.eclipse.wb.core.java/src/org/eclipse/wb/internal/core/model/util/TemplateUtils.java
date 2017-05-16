@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * Utils for evaluating simple {@link JavaInfo} based expressions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -54,7 +54,7 @@ public final class TemplateUtils {
    * Formats text using {@link MessageFormat}, and replaces {@link JavaInfo} references with
    * "delayed" references, in form <code>"__wbpId:id"</code>. These references should be resolved
    * later, when {@link NodeTarget} will be known.
-   * 
+   *
    * @return the formatted text.
    */
   public static String format(String pattern, Object... arguments) {
@@ -91,7 +91,7 @@ public final class TemplateUtils {
   /**
    * Replaces "delayed" {@link JavaInfo} references in form <code>"__wbpId:id"</code> with real
    * references, good in given {@link NodeTarget}.
-   * 
+   *
    * @return the text with resolved {@link JavaInfo} references.
    */
   public static String resolve(NodeTarget target, String text) throws Exception {
@@ -208,14 +208,14 @@ public final class TemplateUtils {
    * <code>"${expression}"</code> expressions.
    * <p>
    * Typical expression is <code>"${parent.firstChild[java.awt.LayoutManager].expression}"</code>.
-   * 
+   *
    * @param source
    *          the source {@link String} to evaluate.
    * @param javaInfo
    *          the starting {@link JavaInfo}, relative to which expressions should be evaluated.
    * @param templateVariables
    *          the {@link Map} to variable names into values, may be <code>null</code>.
-   * 
+   *
    * @return the source with replaced template variables/expressions.
    */
   public static String evaluate(String source,

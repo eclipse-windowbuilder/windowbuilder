@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
 /**
  * Implementation of {@link VariableSupport} for control of {@link WrapperByMethod}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.variable

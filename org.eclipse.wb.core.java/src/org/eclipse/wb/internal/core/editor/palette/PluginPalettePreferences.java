@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * Implementation of {@link IPalettePreferences} for {@link IPreferenceStore}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

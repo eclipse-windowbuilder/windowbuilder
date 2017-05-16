@@ -17,7 +17,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Implementation of {@link Command} that removes {@link CategoryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Implementations of this class provide preview for code generation using combination of
  * {@link VariableSupportDescription} and {@link StatementGeneratorDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation.ui
  */

@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that sets value of {@link AbstractConfigurableDescription} parameter.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 /**
  * This helper allows to create top-level {@link Property} that as wrapper for some
  * {@link ObjectInfo} method.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

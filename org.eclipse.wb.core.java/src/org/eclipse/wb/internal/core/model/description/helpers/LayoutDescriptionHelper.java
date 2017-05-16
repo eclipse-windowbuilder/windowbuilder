@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * Helper for accessing {@link LayoutDescription}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

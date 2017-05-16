@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * Listener for force {@link Association} as terminal target for child adding.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model
  */

@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
  * Implementations of this class support different modes for size of top level
  * {@link AbstractComponentInfo}. <li>From properties of file.</li> <li>From source - using existing
  * setSize()/setBounds() or may be pack().</li>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -63,7 +63,7 @@ public abstract class TopBoundsSupport implements ITopBoundsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Shows component for testing/preview.
-   * 
+   *
    * @return <code>true</code> if something really was shown, so reparse required.
    */
   public abstract boolean show() throws Exception;

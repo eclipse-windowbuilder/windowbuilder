@@ -20,7 +20,7 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * Abstract superclass for composite's that should be used for adding new string sources.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */
@@ -70,7 +70,7 @@ public abstract class AbstractSourceNewComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns editable source that will be used later for editing new source.
-   * 
+   *
    * @param o
    *          the parameters created using {@link #createParametersObject()}
    */

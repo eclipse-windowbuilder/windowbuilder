@@ -36,7 +36,7 @@ import java.io.StringWriter;
 /**
  * Implementation of {@link IErrorPage} for displaying {@link BadNodesCollection} from
  * {@link EditorState}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

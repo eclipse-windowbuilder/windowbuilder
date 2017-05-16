@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Descriptor for {@link AbstractSource}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

@@ -58,7 +58,7 @@ import java.util.List;
 
 /**
  * {@link PreferencePage} for variables options.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

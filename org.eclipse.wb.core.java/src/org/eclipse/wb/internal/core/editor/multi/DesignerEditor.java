@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Multi page editor with Java editor and {@link DesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.editor

@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.Statement;
 /**
  * Target {@link MethodInvocation}'s at place where instance of component become accessible (in
  * simple case - where component created and assigned to variable).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -39,7 +39,7 @@ public final class MethodOrderAfterCreation extends MethodOrder {
   @Override
   protected StatementTarget getSpecificTarget(JavaInfo javaInfo, String newSignature)
       throws Exception {
-    // check for "first" 
+    // check for "first"
     {
       Statement lastFirstStatement = getLastFirstStatement(javaInfo);
       if (lastFirstStatement != null) {

@@ -23,9 +23,9 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * This class represent "setUsingEqual" property implementation.
- * 
+ *
  * Note: Java only.
- * 
+ *
  * @author Jaime Wren
  * @author lobas_av
  * @coverage core.model.property.editor
@@ -156,7 +156,7 @@ public final class BooleanUsingEqualsStylePropertyImpl extends SubStylePropertyI
     // 4 cases
     if (boolValue && !isFlagInSource) {
       // if: the user checked the style & it is not in the current source
-      // then: append it to the current source and 
+      // then: append it to the current source and
       if (addClassAndDefault) {
         return currentSource + separator + m_className + '.' + m_sFlag;
       } else {

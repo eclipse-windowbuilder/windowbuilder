@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * {@link PropertyEditor} that displays source of {@link Expression} from {@link GenericProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

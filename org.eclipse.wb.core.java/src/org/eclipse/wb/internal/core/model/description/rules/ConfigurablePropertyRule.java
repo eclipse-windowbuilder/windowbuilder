@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} for adding new {@link ConfigurablePropertyDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

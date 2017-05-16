@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Command} that adds new {@link CategoryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

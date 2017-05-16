@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Any page for {@link IDesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

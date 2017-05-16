@@ -18,7 +18,7 @@ import java.net.URL;
 
 /**
  * Information about single resource file.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

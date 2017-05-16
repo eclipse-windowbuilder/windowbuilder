@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Utilities for migrate to {@link LazyVariableSupport}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.variable
  */
@@ -131,7 +131,7 @@ public final class LazyVariableSupportUtils {
     {
       // check
       Assert.isTrue(canMoveNode(target, javaInfo, creation));
-      // remove creation at old location 
+      // remove creation at old location
       String replacementSource = editor.getSource(creation);
       {
         // replace by "null" and remove statement
@@ -320,10 +320,10 @@ public final class LazyVariableSupportUtils {
   /**
    * We are going to create/access field and need to know if at position of assignment we work
    * within static or instance context (for example in <code>main</code>).
-   * 
+   *
    * @param position
    *          the position in source where we are going to access field.
-   * 
+   *
    * @return <code>true</code> if we work within static context.
    */
   public static boolean isStaticContext(JavaInfo javaInfo, int position) {

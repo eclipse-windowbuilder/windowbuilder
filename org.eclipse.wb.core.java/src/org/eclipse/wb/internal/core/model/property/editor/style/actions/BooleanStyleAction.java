@@ -17,7 +17,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * "Checked" action for {@link Property} context menu.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

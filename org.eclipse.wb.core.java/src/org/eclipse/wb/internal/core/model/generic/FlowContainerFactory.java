@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Factory for accessing {@link FlowContainer} for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

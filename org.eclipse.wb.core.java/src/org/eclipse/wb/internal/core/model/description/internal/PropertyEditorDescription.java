@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 /**
  * Description of {@link PropertyEditor}, can be {@link IConfigurablePropertyObject}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

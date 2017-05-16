@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for "long" type.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

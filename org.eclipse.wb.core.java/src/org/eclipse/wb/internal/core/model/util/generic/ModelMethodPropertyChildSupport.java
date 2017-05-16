@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This helper allows to create top-level {@link Property} that as wrapper for some
  * {@link ObjectInfo} method.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Implementation of {@link IVariableSupportDescription} for {@link FieldUniqueVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

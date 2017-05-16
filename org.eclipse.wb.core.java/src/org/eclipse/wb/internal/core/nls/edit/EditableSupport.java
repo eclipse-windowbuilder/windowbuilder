@@ -40,7 +40,7 @@ import java.util.Map;
 
 /**
  * Implementation for editable NLS support.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -162,7 +162,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   // Possible sources
   //
   // "Possible" source is source that exists in current package, but is not used
-  // in current unit. We show "possible" sources only if there are no "real" sources. 
+  // in current unit. We show "possible" sources only if there are no "real" sources.
   //
   ////////////////////////////////////////////////////////////////////////////
   private final Map<AbstractSource, IEditableSource> m_possibleSourceToEditableSource =
@@ -304,7 +304,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the {@link IEditableSource} for given {@link AbstractSource}.
-   * 
+   *
    *         We can not just ask {@link IEditableSource} from {@link AbstractSource} because it
    *         creates new {@link IEditableSource} each time, but we want use only one editable for
    *         each source during single editing session.

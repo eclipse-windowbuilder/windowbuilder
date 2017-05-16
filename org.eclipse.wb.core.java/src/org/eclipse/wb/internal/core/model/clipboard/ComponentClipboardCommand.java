@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * Generic version of {@link ClipboardCommand}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */

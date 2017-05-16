@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * Preference constants for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */

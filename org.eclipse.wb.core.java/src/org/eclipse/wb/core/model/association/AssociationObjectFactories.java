@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.association;
 
 /**
  * Helper for creating {@link AssociationObjectFactory}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

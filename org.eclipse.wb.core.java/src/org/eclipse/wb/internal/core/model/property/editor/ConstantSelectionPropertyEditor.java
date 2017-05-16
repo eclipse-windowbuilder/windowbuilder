@@ -86,7 +86,7 @@ import java.util.Set;
 /**
  * The {@link PropertyEditor} for selecting single constant (<code>public static final</code> field
  * in class, or field of interface).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */
@@ -207,7 +207,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Opens dialog to select {@link IField}. XXX
-   * 
+   *
    * @return the selected {@link IField}, or <code>null</code> if selection was cancelled.
    */
   public static IField selectField(Shell parentShell,
@@ -333,7 +333,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
    *          the {@link JavaInfo} to specify context.
    * @param field
    *          the {@link IField} to get code for.
-   * 
+   *
    * @return the code that should be used to specify reference of given {@link IField}.
    */
   public static String getFieldCode(JavaInfo javaInfo, IField field) throws Exception {

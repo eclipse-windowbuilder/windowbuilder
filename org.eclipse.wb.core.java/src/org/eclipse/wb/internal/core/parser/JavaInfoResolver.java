@@ -57,7 +57,7 @@ import java.util.Set;
 
 /**
  * Mapper of {@link ASTNode} into {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */
@@ -115,7 +115,7 @@ public final class JavaInfoResolver {
   /**
    * @param someJavaInfo
    *          some {@link JavaInfo} in same hierarchy.
-   * 
+   *
    * @return the {@link JavaInfo} for given {@link Expression}, may be <code>null</code>.
    */
   public static JavaInfo getJavaInfo(JavaInfo someJavaInfo, Expression expression) {

@@ -32,7 +32,7 @@ import java.text.MessageFormat;
 
 /**
  * Composite for creating new source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

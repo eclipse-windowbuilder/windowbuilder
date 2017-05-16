@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for <i>non-visual model</i> described over Javadoc-style doc comment.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.nonvisual
  */

@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 
 /**
  * The {@link Rule} for parsing single {@link Method} into {@link MethodDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

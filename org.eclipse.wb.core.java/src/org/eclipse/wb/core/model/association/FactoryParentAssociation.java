@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Control;
  * this is association on creation, for example <code>MyStaticFactory.createSWTButton(parent)</code>
  * . It is different than separate association using for example invocation of child method with
  * parent argument (like {@link Control#setParent(org.eclipse.swt.widgets.Composite)}).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

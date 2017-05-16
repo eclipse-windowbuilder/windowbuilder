@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Command for removing locale.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

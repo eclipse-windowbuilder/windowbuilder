@@ -61,7 +61,7 @@ import java.util.Map;
 
 /**
  * {@link PropertyEditor} for editing class instance as complex property (like Layouts).
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.editor
  */

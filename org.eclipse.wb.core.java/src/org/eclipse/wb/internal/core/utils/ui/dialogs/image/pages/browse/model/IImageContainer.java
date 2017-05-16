@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model;
 
 /**
  * Container for children {@link IImageElement}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

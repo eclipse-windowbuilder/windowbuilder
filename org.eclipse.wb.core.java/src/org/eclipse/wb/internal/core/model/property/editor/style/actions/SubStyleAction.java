@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 
 /**
  * Abstract action for {@link Property} context menu.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

@@ -100,7 +100,7 @@ import java.util.Map.Entry;
 
 /**
  * Abstract model for any Java-based model object. It has some presentation in AST.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -370,7 +370,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 
   /**
    * Sets the {@link Association} between this {@link JavaInfo} and its parent.
-   * 
+   *
    * @param association
    *          the {@link Association} instance, or <code>null</code> if existing {@link Association}
    *          should be removed.
@@ -847,7 +847,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
   /**
    * @param relatedNode
    *          the {@link ASTNode} that represents this {@link JavaInfo}.
-   * 
+   *
    * @return the {@link MethodInvocation} of this {@link JavaInfo} where given related
    *         {@link ASTNode} is expression of this {@link MethodInvocation}. May return
    *         <code>null</code>, if given related node is not part of {@link MethodInvocation}.
@@ -912,9 +912,9 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    * {@link #addExpressionStatement(String)} it uses {@link MethodDescription}'s to find correct
    * position for this method. For example for {@link javax.swing.JProgressBar} "setMaximum" should
    * be before "setValue".
-   * 
+   *
    * @return the new added {@link MethodInvocation}.
-   * 
+   *
    * @param signature
    *          the signature of method, to find correct position
    * @param arguments
@@ -928,9 +928,9 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 
   /**
    * Adds new {@link MethodInvocation} for this {@link JavaInfo} into given target.
-   * 
+   *
    * @return the new added {@link MethodInvocation}.
-   * 
+   *
    * @param target
    *          the {@link StatementTarget} that specifies where to add {@link MethodInvocation}.
    * @param signature

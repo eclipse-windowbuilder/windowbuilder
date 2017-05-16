@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * Abstract dialog for image choosing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 
 /**
  * Filter for checking that some {@link Method} can be used to expose child.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -23,7 +23,7 @@ public abstract class ExposingRule {
   /**
    * @param method
    *          the {@link Method} to filter.
-   * 
+   *
    * @return <code>true</code> if given {@link Method} can be used to expose child,
    *         <code>false</code> - if can not be exposed, or <code>null</code> if given
    *         {@link Method} does not fall into this rule.
@@ -35,7 +35,7 @@ public abstract class ExposingRule {
   /**
    * @param method
    *          the {@link Field} to filter.
-   * 
+   *
    * @return <code>true</code> if given {@link Field} can be used to expose child,
    *         <code>false</code> - if can not be exposed, or <code>null</code> if given {@link Field}
    *         does not fall into this rule.

@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Description of single method that should be considered as factory.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

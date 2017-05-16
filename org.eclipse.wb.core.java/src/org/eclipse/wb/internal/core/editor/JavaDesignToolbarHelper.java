@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.ToolBar;
 
 /**
  * Helper for managing actions on internal {@link ToolBarManager} of {@link DesignPage}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  * @coverage core.editor

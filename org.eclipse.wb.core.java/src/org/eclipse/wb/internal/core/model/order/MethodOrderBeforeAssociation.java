@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Target {@link MethodInvocation}'s at directly before association.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Abstract {@link Composite} for editing properties of {@link GenerationDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

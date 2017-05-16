@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */

@@ -27,11 +27,11 @@ import java.util.List;
 
 /**
  * Container for copy/paste information about {@link JavaInfo}.
- * 
+ *
  * <p>
  * During "copy" operation method {@link #createMemento(JavaInfo)} should be used to create instance
  * of {@link JavaInfoMemento} with all information about {@link JavaInfo}.
- * 
+ *
  * <p>
  * Later, during "paste", following methods should be invoked (only one time and only in this
  * sequence):
@@ -41,7 +41,7 @@ import java.util.List;
  * <li> {@link #apply()}, after adding {@link JavaInfo} to the hierarchy, to apply all
  * {@link ClipboardCommand}'s and do other things for configuring created {@link JavaInfo}.</li>
  * </ul>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */
@@ -70,7 +70,7 @@ public class JavaInfoMemento implements Serializable {
   /**
    * Checks that component can be copy/paste, i.e. {@link JavaInfoMemento} can be created, but don't
    * really create it. We use this to enable/disable copy/cut actions on selection change.
-   * 
+   *
    * @return <code>true</code> if {@link JavaInfoMemento} can be created for given {@link JavaInfo}.
    */
   public static boolean hasMemento(JavaInfo javaInfo) {
@@ -125,7 +125,7 @@ public class JavaInfoMemento implements Serializable {
   /**
    * Adds {@link ClipboardCommand}'s for restoring properties, children, etc for given
    * {@link JavaInfo}.
-   * 
+   *
    * @param javaInfo
    *          the {@link JavaInfo} to add commands for.
    * @param commands
@@ -179,10 +179,10 @@ public class JavaInfoMemento implements Serializable {
 
   /**
    * Creates new {@link JavaInfo} using remembered values.
-   * 
+   *
    * @param existingHierarchyObject
    *          some {@link JavaInfo} in model hierarchy.
-   * 
+   *
    * @return the new {@link JavaInfo}.
    */
   public JavaInfo create(JavaInfo existingHierarchyObject) throws Exception {

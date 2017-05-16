@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Description for adding {@link MethodInvocation} during creation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
  * <p>
  * Subscribers can use this method to update/validate value during
  * {@link GenericPropertyImpl#setValue(Object)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

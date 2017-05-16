@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
 /**
  * Same as {@link MethodOrderAfterCreation}, but before it.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -31,7 +31,7 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * {@link Composite} with GUI for visual design, i.e. properties table, palette, GEF.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

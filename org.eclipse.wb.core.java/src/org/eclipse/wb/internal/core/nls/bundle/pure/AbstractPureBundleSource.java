@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Abstract source that uses only ResourceBundle.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

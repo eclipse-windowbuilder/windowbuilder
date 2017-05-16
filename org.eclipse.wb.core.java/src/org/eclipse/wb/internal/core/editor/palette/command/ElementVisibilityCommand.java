@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Command} that update "visible" property of {@link AbstractElementInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

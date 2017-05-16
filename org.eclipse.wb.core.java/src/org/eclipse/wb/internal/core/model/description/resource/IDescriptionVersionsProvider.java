@@ -21,7 +21,7 @@ import java.util.List;
  * <p>
  * This class provides possible sub-folders with versions of component resources that should be
  * checked.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

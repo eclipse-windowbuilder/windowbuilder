@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Support for sync managing name of child {@link JavaInfo}, so that it corresponds to the name of
  * its parent {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.layout

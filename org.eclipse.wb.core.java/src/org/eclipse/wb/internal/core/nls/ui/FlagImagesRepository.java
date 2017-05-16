@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * Repository of flags for locale/country.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */
@@ -83,7 +83,7 @@ public class FlagImagesRepository {
     init();
     String localeCountry = locale.getCountry();
     String localeLanguage = locale.getLanguage();
-    // if locale has no assosiated country set, try to find the locale with the same language but with the country set  
+    // if locale has no assosiated country set, try to find the locale with the same language but with the country set
     if (localeCountry.length() == 0) {
       // special cases
       if (localeLanguage.equals("ar")) {
@@ -93,7 +93,7 @@ public class FlagImagesRepository {
       } else if (localeLanguage.equals("en")) {
         localeCountry = "US";
       } else {
-        // try to guess 
+        // try to guess
         String localeCountryCandidate = "";
         for (int i = 0; i < m_locales.length; i++) {
           Locale lookupLocale = m_locales[i];

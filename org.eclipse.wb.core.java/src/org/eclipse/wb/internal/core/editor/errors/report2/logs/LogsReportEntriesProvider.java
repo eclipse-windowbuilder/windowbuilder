@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.editor.errors.report2.IReportEntriesProvider
 
 /**
  * Provider for Eclipse .log report entry and parse error log entries.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

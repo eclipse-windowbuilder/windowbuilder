@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 
 /**
  * Implementation of {@link ExposingRule} that name of given {@link Method}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

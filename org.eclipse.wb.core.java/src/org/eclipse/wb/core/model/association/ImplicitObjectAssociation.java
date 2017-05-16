@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.Statement;
  * components.
  * <p>
  * Examples: exposed components, implicit layouts, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */
@@ -46,7 +46,7 @@ public final class ImplicitObjectAssociation extends Association {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public Statement getStatement() {
-    // implicit components are associated by the fact of creation, so use creation Statement 
+    // implicit components are associated by the fact of creation, so use creation Statement
     ASTNode creationNode = m_hostJavaInfo.getCreationSupport().getNode();
     return AstNodeUtils.getEnclosingStatement(creationNode);
   }

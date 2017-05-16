@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.GenericProperty;
 
 /**
  * Container class for StringProperty information - property itself, its component and value.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

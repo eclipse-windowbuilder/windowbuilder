@@ -18,7 +18,7 @@ import java.util.Locale;
 
 /**
  * The {@link ExpressionConverter} for {@link Locale}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.converter
  */

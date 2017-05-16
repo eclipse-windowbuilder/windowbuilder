@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Dialog for adding new key with value.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

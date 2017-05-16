@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 
 /**
  * {@link VariableSupportDescription} describes some specific {@link VariableSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

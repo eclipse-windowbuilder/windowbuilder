@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * {@link ILayoutEditPolicyFactory} for generic simple/flow policies.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree
  */

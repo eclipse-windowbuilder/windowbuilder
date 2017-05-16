@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
  * <p>
  * Sometimes we know that we don't support some specific pattern of Java source. So, instead of
  * failing with generic message, we validate source/AST and show specific message.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */

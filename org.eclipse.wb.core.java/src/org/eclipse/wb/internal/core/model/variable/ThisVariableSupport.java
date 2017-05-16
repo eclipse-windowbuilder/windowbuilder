@@ -46,7 +46,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * {@link VariableSupport} implementation for "this" component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -164,11 +164,11 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
    * <p>
    * Preconditions: all components and their related {@link ASTNode}'s are located in
    * {@link #m_constructor}.
-   * 
+   *
    * @param javaInfo
    *          the parent to which new component should be added, should be "this" component, or any
    *          exposed child of "this" component.
-   * 
+   *
    * @return the {@link StatementTarget} in "forced" method, or <code>null</code> if "forced" method
    *         can not be used because preconditions are not satisfied.
    */
@@ -216,7 +216,7 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
    * </ol>
    * <p>
    * In other cases, we return <code>null</code>, so usual constructor handling should be used.
-   * 
+   *
    * @return the "forced" {@link MethodDeclaration}, or <code>null</code>.
    */
   private static MethodDeclaration forced_getMethod(JavaInfo javaInfo) throws Exception {
@@ -292,7 +292,7 @@ public final class ThisVariableSupport extends AbstractNoNameVariableSupport {
    * "forced" method and move all related nodes into it. If there is already "forced" method,
    * <code>null</code> will be returned, we recognize here only one situation - when there are no
    * forced method.
-   * 
+   *
    * @return the new "forced" method.
    */
   private static MethodDeclaration forced_getNewMethod(JavaInfo parent, String forcedMethodName)

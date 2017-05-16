@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 
 /**
  * Listener for events during evaluating AST, in {@link JavaInfoParser} and {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

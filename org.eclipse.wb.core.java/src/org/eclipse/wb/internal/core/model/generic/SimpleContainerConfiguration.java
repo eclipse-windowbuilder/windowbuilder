@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 
 /**
  * Configuration for {@link SimpleContainerConfigurable}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

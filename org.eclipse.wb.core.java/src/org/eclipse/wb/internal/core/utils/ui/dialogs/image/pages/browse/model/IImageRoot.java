@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.Abstract
 
 /**
  * The root for browsing using {@link AbstractBrowseImagePage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

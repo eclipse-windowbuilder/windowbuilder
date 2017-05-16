@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Abstract super class for any event property.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */

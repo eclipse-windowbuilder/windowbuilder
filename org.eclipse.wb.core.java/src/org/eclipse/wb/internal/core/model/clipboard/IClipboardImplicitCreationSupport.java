@@ -25,14 +25,14 @@ import java.io.Serializable;
  * already created during initialization of container. We just ask clipboard-sensitive
  * {@link IImplicitCreationSupport} find <code>JButton</code> in container for us, it can use method
  * name/signature to do this.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */
 public abstract interface IClipboardImplicitCreationSupport extends Serializable {
   /**
    * Returns the child of given host, that corresponds to this {@link IImplicitCreationSupport}.
-   * 
+   *
    * @param host
    *          the host {@link JavaInfo} to find children in.
    */

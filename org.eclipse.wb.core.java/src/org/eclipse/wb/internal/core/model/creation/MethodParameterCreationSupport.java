@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 /**
  * Implementation of {@link CreationSupport} for {@link SingleVariableDeclaration} parameter of
  * {@link MethodDeclaration}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

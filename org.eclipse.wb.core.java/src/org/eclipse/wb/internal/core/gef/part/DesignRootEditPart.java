@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for Designer root object.
- * 
+ *
  * @author lobas_av
  * @coverage core.gef
  */

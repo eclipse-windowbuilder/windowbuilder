@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Abstract description for some invocation (method or constructor).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

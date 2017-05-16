@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 /**
  * Exception class that should be used when we can not choose automatically single constructor from
  * multiple.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
  *     }
  *   }
  * </pre><code>
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */

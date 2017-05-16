@@ -17,7 +17,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that adds type parameter (generic) descriptions for {@link CreationDescription}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.description
  */

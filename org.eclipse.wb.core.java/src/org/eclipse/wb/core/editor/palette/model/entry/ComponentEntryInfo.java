@@ -63,7 +63,7 @@ import java.util.WeakHashMap;
 
 /**
  * Implementation of {@link EntryInfo} for "component" contribution.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.editor.palette

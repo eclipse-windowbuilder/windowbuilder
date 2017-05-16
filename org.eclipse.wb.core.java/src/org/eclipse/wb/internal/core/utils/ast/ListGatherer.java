@@ -18,7 +18,7 @@ import java.util.Collection;
  * Instances of the class <code>ListGatherer</code> implement a gatherer that maintains the order in
  * which the values were found.
  * <p>
- * 
+ *
  * @author Brian Wilkerson
  * @version $Revision: 1.3 $
  * @coverage core.util.ast

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * The {@link PropertyEditor} for complex method-based property, created by
  * {@link MethodPropertyRule}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

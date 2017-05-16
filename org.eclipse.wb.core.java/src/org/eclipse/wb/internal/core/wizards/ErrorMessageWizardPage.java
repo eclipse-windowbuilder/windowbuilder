@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Page that displays some message and does not allow wizard finish.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */

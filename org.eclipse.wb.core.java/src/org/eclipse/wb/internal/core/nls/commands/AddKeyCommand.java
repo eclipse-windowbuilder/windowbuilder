@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
 /**
  * Command for adding new key into source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

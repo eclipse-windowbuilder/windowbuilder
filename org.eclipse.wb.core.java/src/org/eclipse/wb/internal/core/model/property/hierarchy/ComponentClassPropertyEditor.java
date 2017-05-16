@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Property editor that shows class name for component and hierarchy as value hint.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @author lobas_av

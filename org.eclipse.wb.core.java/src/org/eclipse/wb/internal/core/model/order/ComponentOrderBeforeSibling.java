@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 /**
  * {@link ComponentOrder} for component that should be added before siblings of some type.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

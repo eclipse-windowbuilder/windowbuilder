@@ -38,7 +38,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * {@link PreferencePage} for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

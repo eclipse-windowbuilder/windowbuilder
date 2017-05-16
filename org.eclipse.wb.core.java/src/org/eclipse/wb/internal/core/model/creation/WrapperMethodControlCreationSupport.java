@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Implementation of {@link CreationSupport} for {@link ControlInfo} of {@link WrapperMethodInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.creation

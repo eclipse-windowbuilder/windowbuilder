@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Information about single event listener.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */
@@ -78,7 +78,7 @@ final class ListenerInfo {
    */
   private static String _getListenerName(Method addListenerMethod) {
     String name = _getListenerSimpleName(addListenerMethod);
-    // use qualified name, turn into simple later 
+    // use qualified name, turn into simple later
     String parameterName = "(" + addListenerMethod.getParameterTypes()[0].getName() + ")";
     return name + parameterName;
   }

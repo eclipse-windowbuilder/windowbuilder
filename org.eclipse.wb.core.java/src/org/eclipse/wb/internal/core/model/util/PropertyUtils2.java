@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * Utils for {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

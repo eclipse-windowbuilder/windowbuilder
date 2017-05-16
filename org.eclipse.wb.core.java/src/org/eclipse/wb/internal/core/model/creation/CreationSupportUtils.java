@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Utils for {@link CreationSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

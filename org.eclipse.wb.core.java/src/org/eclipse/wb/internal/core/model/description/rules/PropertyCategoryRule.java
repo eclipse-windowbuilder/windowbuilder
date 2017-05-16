@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 /**
  * The {@link Rule} that sets {@link PropertyCategory} of current {@link GenericPropertyDescription}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

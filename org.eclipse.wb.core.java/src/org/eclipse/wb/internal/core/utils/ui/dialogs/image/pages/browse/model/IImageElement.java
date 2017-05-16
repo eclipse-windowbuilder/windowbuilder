@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Generic resource in image browsing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

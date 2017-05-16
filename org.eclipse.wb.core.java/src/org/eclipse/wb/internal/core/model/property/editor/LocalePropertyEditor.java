@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * {@link PropertyEditor} for {@link Locale}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.editor
  */

@@ -36,7 +36,7 @@ import java.util.Set;
 
 /**
  * Field editor for package selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt.ui
  */

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Container for {@link InstanceFactoryInfo}, direct child of root {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

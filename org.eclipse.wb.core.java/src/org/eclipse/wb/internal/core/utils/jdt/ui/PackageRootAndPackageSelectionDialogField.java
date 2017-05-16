@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Composite dialog field for source folder (package root) and package selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.jdt.ui
  */

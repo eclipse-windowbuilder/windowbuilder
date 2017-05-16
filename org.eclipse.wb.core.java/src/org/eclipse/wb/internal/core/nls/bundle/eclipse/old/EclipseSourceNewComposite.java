@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Composite for creating new source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

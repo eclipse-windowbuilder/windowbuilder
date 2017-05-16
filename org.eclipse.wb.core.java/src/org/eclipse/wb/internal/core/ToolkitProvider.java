@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 
 /**
  * Implementation of {@link IToolkitProvider} for generic Java object's.
- * 
+ *
  * @author scheglov_ke
  * @coverage core
  */

@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.core.nls.model;
 /**
  * This interface helps in renaming keys for externalized properties, when name of component is
  * changing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

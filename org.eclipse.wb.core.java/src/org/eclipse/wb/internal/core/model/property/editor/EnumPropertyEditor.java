@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * The {@link PropertyEditor} for selecting single value of type {@link Enum<?>}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.property.editor

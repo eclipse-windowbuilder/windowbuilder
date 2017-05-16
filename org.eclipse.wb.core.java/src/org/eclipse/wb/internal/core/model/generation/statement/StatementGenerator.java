@@ -21,14 +21,14 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * "flat mode" statements should be added directly in given position, in block mode - they should be
  * wrapped in block and added only then as single block, in "lazy creation mode" - wrapped in
  * method.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */
 public abstract class StatementGenerator {
   /**
    * Adds given statements according rules of this {@link StatementGenerator}.
-   * 
+   *
    * @param child
    *          the child {@link JavaInfo} that will be added to the given parent
    * @param target

@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Abstract {@link Composite} for {@link ImageInfo} selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

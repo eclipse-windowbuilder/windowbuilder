@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that sets {@link ComponentDescription#setDefaultMethodOrder(MethodOrder)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

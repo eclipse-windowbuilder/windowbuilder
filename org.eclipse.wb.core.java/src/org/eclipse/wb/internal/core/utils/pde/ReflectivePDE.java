@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Access for PDE functions using reflection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.pde
  */

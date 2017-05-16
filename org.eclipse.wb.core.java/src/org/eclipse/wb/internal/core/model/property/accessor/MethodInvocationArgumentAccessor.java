@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * The implementation of {@link ExpressionAccessor} for accessing argument of some
  * {@link MethodInvocation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

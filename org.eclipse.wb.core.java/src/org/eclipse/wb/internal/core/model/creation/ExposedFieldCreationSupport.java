@@ -32,7 +32,7 @@ import java.lang.reflect.Field;
 
 /**
  * Implementation of {@link CreationSupport} for object exposed using field.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

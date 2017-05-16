@@ -57,7 +57,7 @@ import java.util.Map;
 
 /**
  * {@link PreferencePage} for code generation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

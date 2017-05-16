@@ -48,7 +48,7 @@ import javax.swing.UIManager;
 
 /**
  * The editor-wide state. It contains information about current editor.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -134,7 +134,7 @@ public final class EditorState {
 
   /**
    * Sets the {@link BroadcastSupport} for this editor.<br>
-   * 
+   *
    * Usually we don't need this method, however when we create "live image", we should use separate
    * {@link BroadcastSupport}.
    */
@@ -443,7 +443,7 @@ public final class EditorState {
   /**
    * Specifies that this {@link EditorState} created for some toolkit and given {@link ClassLoader}
    * should be used to load classes.
-   * 
+   *
    * @param toolkitId
    *          the id of "main" toolkit.
    * @param loader
@@ -503,7 +503,7 @@ public final class EditorState {
 
   /**
    * @return the cached map: signature -> {@link FactoryMethodDescription}.
-   * 
+   *
    * @param factoryClass
    *          the name of class that contains factory method
    */
@@ -515,7 +515,7 @@ public final class EditorState {
 
   /**
    * Sets the cached map: signature -> {@link FactoryMethodDescription}.
-   * 
+   *
    * @param factoryClass
    *          the class with factory methods
    * @param signaturesMap
@@ -567,7 +567,7 @@ public final class EditorState {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Information about "bad" {@link ASTNode} and exception that caused marking it as "bad".
-   * 
+   *
    * @author scheglov_ke
    */
   public static final class BadNodeInformation {

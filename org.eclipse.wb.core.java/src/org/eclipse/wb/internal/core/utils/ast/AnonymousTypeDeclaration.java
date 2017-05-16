@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * Support for using {@link AnonymousClassDeclaration} as {@link TypeDeclaration}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

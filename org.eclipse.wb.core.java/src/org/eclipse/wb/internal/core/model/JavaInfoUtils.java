@@ -109,7 +109,7 @@ import java.util.Set;
 
 /**
  * Utilities for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -265,7 +265,7 @@ public class JavaInfoUtils {
    * Returns the value of {@link JavaInfo} parameter.<br>
    * Usually returns just {@link ComponentDescription#getParameter(String)}, but factory components
    * we should also check this parameters in {@link FactoryMethodDescription}.
-   * 
+   *
    * @return the value of {@link JavaInfo} parameter.
    */
   public static String getParameter(JavaInfo javaInfo, String name) {
@@ -798,7 +798,7 @@ public class JavaInfoUtils {
   /**
    * Interface for retrieving parent/child information using widget instances of specific toolkit.
    * Used to build hierarchy of exposed children.
-   * 
+   *
    * @author scheglov_ke
    * @author mitin_aa
    */
@@ -820,7 +820,7 @@ public class JavaInfoUtils {
 
     /**
      * @return the children of given toolkit object.
-     * 
+     *
      * @param object
      *          the object to get children from
      */
@@ -904,7 +904,7 @@ public class JavaInfoUtils {
 
   /**
    * @return the parent object of given object according to toolkit which object belongs to
-   * 
+   *
    * @param childObject
    *          the object to get parent for
    */
@@ -954,7 +954,7 @@ public class JavaInfoUtils {
   /**
    * Traverse hierarchy starting from given objects and fill {@link List} of {@link JavaInfo} models
    * in top-down order.
-   * 
+   *
    * @param children
    *          the {@link List} to add ordered {@link JavaInfo} models
    * @param object
@@ -1147,7 +1147,7 @@ public class JavaInfoUtils {
   /**
    * Traverse hierarchy starting from given objects and fill {@link List} with toolkit
    * {@link Object}'s in top-down order.
-   * 
+   *
    * @param objects
    *          the {@link List} to add ordered toolkit objects.
    * @param object
@@ -1205,7 +1205,7 @@ public class JavaInfoUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Adds new component to container before some existing component.
-   * 
+   *
    * @param component
    *          the component to add.
    * @param associationObject
@@ -1227,7 +1227,7 @@ public class JavaInfoUtils {
 
   /**
    * Adds new component to container into given {@link StatementTarget}.
-   * 
+   *
    * @param component
    *          the component to add.
    * @param associationObject
@@ -1263,7 +1263,7 @@ public class JavaInfoUtils {
 
   /**
    * Adds new component to container before some existing component.
-   * 
+   *
    * @param component
    *          the component to add.
    * @param variableSupport
@@ -1322,7 +1322,7 @@ public class JavaInfoUtils {
 
   /**
    * Adds new component to container as first child.
-   * 
+   *
    * @param component
    *          the component to add.
    * @param associationObject
@@ -1351,7 +1351,7 @@ public class JavaInfoUtils {
 
   /**
    * Adds new component to container before some existing component.
-   * 
+   *
    * @param component
    *          the component to add.
    * @param variableSupport
@@ -1447,7 +1447,7 @@ public class JavaInfoUtils {
   /**
    * Moves component to new container.<br>
    * Move can be inner (i.e. move association) or adding from other container.
-   * 
+   *
    * @param component
    *          the component to move.
    * @param associationObject
@@ -1519,7 +1519,7 @@ public class JavaInfoUtils {
   /**
    * Moves component to new container.<br>
    * Move can be inner (i.e. move association) or adding from other container.
-   * 
+   *
    * @param component
    *          the component to move.
    * @param associationObject
@@ -1609,7 +1609,7 @@ public class JavaInfoUtils {
   /**
    * @return new {@link StatementTarget} where {@link Statement}'s for new {@link JavaInfo} should
    *         be added to place them before given <code>nextChild</code>.
-   * 
+   *
    * @param parent
    *          the parent to which {@link JavaInfo} should be added.
    * @param child
@@ -1627,7 +1627,7 @@ public class JavaInfoUtils {
   /**
    * @return new {@link StatementTarget} where {@link Statement}'s should be added to place them
    *         before given <code>nextChild</code>.
-   * 
+   *
    * @param parent
    *          the parent to which {@link JavaInfo} should be added.
    * @param nextChild
@@ -1641,7 +1641,7 @@ public class JavaInfoUtils {
 
   /**
    * @return new {@link StatementTarget} where {@link Statement}'s should be added.
-   * 
+   *
    * @param parent
    *          the parent to which {@link JavaInfo} should be added.
    */
@@ -1708,7 +1708,7 @@ public class JavaInfoUtils {
   /**
    * Sorts {@link ASTNode}'s by the time when they are visited on execution flow. {@link ASTNode}'s
    * not included into execution flow should be removed.
-   * 
+   *
    * @param onEnter
    *          is <code>true</code> if {@link ASTNode} considered as visited on enter, use
    *          <code>false</code> to consider as visited on exit.
@@ -1948,7 +1948,7 @@ public class JavaInfoUtils {
    * <p>
    * This method should specify that this rendering is performed for some active {@link Statement}
    * in {@link ExecutionFlowDescription}. We use constructor body as such {@link Statement}.
-   * 
+   *
    * @see IJavaInfoRendering IJavaInfoRendering for more information.
    */
   public static void scheduleSpecialRendering(JavaInfo javaInfo) {
@@ -1963,7 +1963,7 @@ public class JavaInfoUtils {
    * <p>
    * This method should specify that this rendering is performed for some active {@link Statement}
    * in {@link ExecutionFlowDescription}. We use constructor body as such {@link Statement}.
-   * 
+   *
    * @see IJavaInfoRendering IJavaInfoRendering for more information.
    */
   public static void scheduleSpecialRendering(JavaInfo javaInfo, final IJavaInfoRendering rendering) {
@@ -2002,7 +2002,7 @@ public class JavaInfoUtils {
    * {@link Control}. We should drop {@link Viewer} in code, but layout policies should see that we
    * drop {@link Control}. So we should "extract" {@link Control} {@link JavaInfo} from
    * {@link Viewer} {@link JavaInfo}.
-   * 
+   *
    * @return the wrapped {@link JavaInfo} or original {@link JavaInfo} if there are no wrapping.
    */
   public static JavaInfo getWrapped(JavaInfo original) throws Exception {
@@ -2020,7 +2020,7 @@ public class JavaInfoUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Deletes children and related nodes of given {@link JavaInfo}.<br>
-   * 
+   *
    * @param removeFromParent
    *          is <code>true</code>, also removes from from parent. Usually it is <code>true</code>,
    *          but exposed components can not be really deleted, because they belong to its host, so

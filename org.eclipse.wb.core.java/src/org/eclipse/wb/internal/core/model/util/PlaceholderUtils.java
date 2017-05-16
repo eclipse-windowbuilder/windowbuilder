@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Utils for "placeholders" - components created instead of real ones, when exception happens.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

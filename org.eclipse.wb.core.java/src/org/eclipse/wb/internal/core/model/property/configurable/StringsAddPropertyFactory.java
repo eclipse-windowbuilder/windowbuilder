@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 /**
  * Implementation of {@link IConfigurablePropertyFactory} to create property with
  * {@link StringsAddPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

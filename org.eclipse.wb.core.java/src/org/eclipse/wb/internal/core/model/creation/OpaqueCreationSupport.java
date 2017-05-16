@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.Expression;
  * {@link OpaqueCreationSupport} is very generic, so itself can not know if it is possible to
  * perform some operations. {@link ICreationSupportPermissions} is used to access operations
  * enablement/implementation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

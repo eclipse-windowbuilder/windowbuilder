@@ -61,7 +61,7 @@ import java.util.Set;
 
 /**
  * The class implements utility methods that operate on {@link IProject} and {@link IJavaProject}.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.util.jdt
@@ -149,7 +149,7 @@ public final class ProjectUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Ensures that {@link IJavaProject} has type with given name.
-   * 
+   *
    * @param javaProject
    *          the target {@link IJavaProject} to add resource type to.
    * @param bundle
@@ -240,7 +240,7 @@ public final class ProjectUtils {
 
   /**
    * Adds JAR and (optional) attached source to the {@link IJavaProject}.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add JAR to.
    * @param bundle
@@ -276,7 +276,7 @@ public final class ProjectUtils {
   /**
    * Adds JAR and (optional) attached source to the {@link IJavaProject} using JAR file anywhere at
    * file system. The JAR file would be copied to project's folder if needed.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add JAR to.
    * @param jarPathString
@@ -310,7 +310,7 @@ public final class ProjectUtils {
 
   /**
    * Adds given external JAR into classpath. Does not copy it into {@link IProject}.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add JAR to.
    * @param jarPathString
@@ -329,7 +329,7 @@ public final class ProjectUtils {
 
   /**
    * Adds {@link IClasspathEntry} to the {@link IJavaProject}.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add JAR to.
    * @param entry
@@ -344,7 +344,7 @@ public final class ProjectUtils {
 
   /**
    * Adds {@link IClasspathEntry} to the {@link IJavaProject}.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add JAR to.
    * @param jarPathString
@@ -380,7 +380,7 @@ public final class ProjectUtils {
 
   /**
    * Add libraries of given plugin to the classpath of {@link IJavaProject}.
-   * 
+   *
    * @param javaProject
    *          the {@link IJavaProject} to add libraries to.
    * @param pluginId
@@ -495,7 +495,7 @@ public final class ProjectUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Resolves workspace relative {@link IPath} into absolute file system {@link IPath}.
-   * 
+   *
    * @return the resolved {@link IPath}, may be <code>null</code> if no such resource.
    */
   public static IPath getOSPath(IPath path) {

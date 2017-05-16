@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 
 /**
  * Allows listening for {@link AstEditor#commitChanges()} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

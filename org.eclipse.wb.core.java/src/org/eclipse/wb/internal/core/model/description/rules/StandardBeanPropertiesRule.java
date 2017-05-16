@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * The {@link Rule} that adds standard properties for <code>set/getXXX</code> methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

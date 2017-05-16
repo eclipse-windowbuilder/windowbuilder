@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link IEditPartConfigurator} for any {@link EditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

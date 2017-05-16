@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Calculator for {@link StatementTarget} to add child {@link JavaInfo} to parent.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model
@@ -309,7 +309,7 @@ public final class ChildTargetCalculator {
    *         should be related with {@link #m_parent}.
    */
   private boolean isTargetStatement(Statement statement) {
-    // check for "last" method invocation, 
+    // check for "last" method invocation,
     //   for all JavaInfo starting from given and its parents
     {
       JavaInfo javaInfo = m_parent;
@@ -398,7 +398,7 @@ public final class ChildTargetCalculator {
    *          the {@link JavaInfo} which related {@link ASTNode}'s we should check.
    * @param statement
    *          the {@link Statement} to check for being related.
-   * 
+   *
    * @return <code>true</code> if given {@link Statement} contains {@link ASTNode} related with
    *         given {@link JavaInfo} or any of its children.
    */

@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * Description for creating (adding) new component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

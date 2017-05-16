@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * Command for applying properties of {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.clipboard
  */

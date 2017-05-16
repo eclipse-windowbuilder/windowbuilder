@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * {@link EditPart} for wrapper {@link IWrapperInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

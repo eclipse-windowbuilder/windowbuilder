@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 
 /**
  * Value object for creating new strings source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

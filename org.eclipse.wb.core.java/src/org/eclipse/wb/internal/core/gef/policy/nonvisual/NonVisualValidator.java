@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Implementation of {@link ILayoutRequestValidator} for validate only <i>non-visual bean</i>
  * objects.
- * 
+ *
  * @author lobas_av
  * @coverage core.gef.policy.nonvisual
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * {@link MethodOrder} for component that should be added last, after all other children.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

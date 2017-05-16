@@ -47,11 +47,11 @@ import java.util.List;
 
 /**
  * Source for ResourceBundle field usage, for example:
- * 
+ *
  * private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("the.bundle.name");
- * 
+ *
  * m_button.setText( BUNDLE.getString("key.for.property") );
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */
@@ -70,7 +70,7 @@ public final class FieldSource extends AbstractPureBundleSource {
 
   /**
    * Return "possible" sources that exist in given package.
-   * 
+   *
    * "Possible" source is source that exists in current package, but is not used in current unit. We
    * show "possible" sources only if there are no "real" sources.
    */
@@ -272,7 +272,7 @@ public final class FieldSource extends AbstractPureBundleSource {
       StringLiteral bundleNameLiteral = (StringLiteral) invocation.arguments().get(0);
       return bundleNameLiteral.getLiteralValue();
     }
-    // no, this is not ResourceBundle.getBundle(bundleName) or ResourceBundle.getBundle(bundleName,Locale) 
+    // no, this is not ResourceBundle.getBundle(bundleName) or ResourceBundle.getBundle(bundleName,Locale)
     return null;
   }
 

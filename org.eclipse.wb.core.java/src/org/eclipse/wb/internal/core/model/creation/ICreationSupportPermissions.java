@@ -16,7 +16,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Provides for {@link CreationSupport} delete/reorder/reparent permissions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

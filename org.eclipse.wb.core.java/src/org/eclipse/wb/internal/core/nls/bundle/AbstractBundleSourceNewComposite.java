@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Abstract composite for creating new bundle-based source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

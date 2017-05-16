@@ -12,10 +12,10 @@ package org.eclipse.wb.internal.core.nls.edit;
 
 /**
  * Listener for changes in IEditableSupport.
- * 
+ *
  * For example when we externalize new property to some existing source, we should update tree that
  * displays not yet externalized properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

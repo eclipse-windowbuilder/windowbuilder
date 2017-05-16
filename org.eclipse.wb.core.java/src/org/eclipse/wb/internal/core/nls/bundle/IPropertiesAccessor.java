@@ -17,10 +17,10 @@ import java.util.Properties;
 
 /**
  * This interface is used to load and save *.properties files.
- * 
+ *
  * We need it because GWT supports *.properties files in UTF-8, but standard {@link Properties}
  * class supports only ISO-8859-1.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

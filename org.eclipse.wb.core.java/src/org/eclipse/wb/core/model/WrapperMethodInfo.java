@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Implementation {@link AbstractWrapper} for wrappers object accessing wrapped object by method
  * getter.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model
  */

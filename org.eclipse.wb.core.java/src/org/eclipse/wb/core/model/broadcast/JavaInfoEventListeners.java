@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Allows subscribers contribute event properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

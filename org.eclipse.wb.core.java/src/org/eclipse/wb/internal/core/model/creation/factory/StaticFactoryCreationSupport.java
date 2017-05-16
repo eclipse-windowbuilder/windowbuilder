@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Implementation of {@link CreationSupport} for creating objects using static methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

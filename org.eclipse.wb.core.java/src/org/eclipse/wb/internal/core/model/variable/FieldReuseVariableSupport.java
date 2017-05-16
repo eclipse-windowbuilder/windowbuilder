@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * {@link VariableSupport} implementation for field, reused variable.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */

@@ -87,9 +87,9 @@ import java.util.Set;
 
 /**
  * The utility class for handling execution flow in AST.
- * 
+ *
  * We use it in any place where we need visit AST - during parsing, components creation, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */
@@ -111,7 +111,7 @@ public final class ExecutionFlowUtils {
   /**
    * The extension of {@link ASTVisitor} for visiting {@link TypeDeclaration},
    * {@link MethodDeclaration} and {@link Block}, i.e. AST nodes that form frames.
-   * 
+   *
    * @author scheglov_ke
    */
   public static class ExecutionFlowFrameVisitor extends ASTVisitor {
@@ -135,7 +135,7 @@ public final class ExecutionFlowUtils {
     /**
      * Enter into frame.<br>
      * Frame is {@link TypeDeclaration}, {@link MethodDeclaration} or {@link Block}.
-     * 
+     *
      * @return <code>true</code> if we should enter into given frame.
      */
     public boolean enterFrame(ASTNode node) {
@@ -175,7 +175,7 @@ public final class ExecutionFlowUtils {
 
   /**
    * Tracks execution flow along given {@link ExecutionFlowDescription}.
-   * 
+   *
    * @param flowDescription
    *          the {@link ExecutionFlowDescription} with starting methods and binary flow
    *          information.
@@ -193,7 +193,7 @@ public final class ExecutionFlowUtils {
 
   /**
    * Visit nodes starting from given methods.
-   * 
+   *
    * @param flowDescription
    *          the {@link ExecutionFlowDescription} with starting methods and binary flow
    *          information.
@@ -485,7 +485,7 @@ public final class ExecutionFlowUtils {
   /**
    * Visits {@link MethodDeclaration} that should be visited as part of binary execution flow for
    * given {@link Statement}.
-   * 
+   *
    * @param beforeStatement
    *          is <code>true</code> if we should visit {@link MethodDeclaration}'s executed before
    *          {@link Statement}, and <code>false</code>, if {@link MethodDeclaration}'s are visited
@@ -684,7 +684,7 @@ public final class ExecutionFlowUtils {
   /**
    * @return {@link Assignment} or {@link VariableDeclarationFragment} where value was assignment
    *         for given variable; or <code>null</code> if no assignment found.
-   * 
+   *
    * @param flowDescription
    *          the {@link ExecutionFlowDescription} from which we should start searching.
    */
@@ -758,7 +758,7 @@ public final class ExecutionFlowUtils {
   /**
    * When variable {@link ASTNode} is dangling, we will not able to visit it on execution flow, so
    * have to clear cached information manually.
-   * 
+   *
    * @return <code>true</code> if node is dangling, so no need to visit execution flow.
    */
   private static boolean clearCachedValuesForDanglingNode(ASTNode variable) {
@@ -865,7 +865,7 @@ public final class ExecutionFlowUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract visitor that tracks frames and variables.
-   * 
+   *
    * @author scheglov_ke
    */
   private static abstract class AbstractVariablesExecutionFlowVisitor
@@ -925,7 +925,7 @@ public final class ExecutionFlowUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Holder of information about execution - frames and variables.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ExecutionFlowContext {
@@ -1063,7 +1063,7 @@ public final class ExecutionFlowUtils {
   /**
    * Holder of variables, declared in single frame: {@link TypeDeclaration},
    * {@link MethodDeclaration} or {@link Block}.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ExecutionFlowFrame {

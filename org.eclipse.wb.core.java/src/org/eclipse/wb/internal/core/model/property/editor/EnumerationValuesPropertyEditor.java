@@ -23,7 +23,7 @@ import java.beans.PropertyDescriptor;
  * {@link PropertyEditor} for "enumerationValues" attribute of {@link PropertyDescriptor}.
  * <p>
  * See http://javadude.com/articles/javabeanattributes.html for attributes.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

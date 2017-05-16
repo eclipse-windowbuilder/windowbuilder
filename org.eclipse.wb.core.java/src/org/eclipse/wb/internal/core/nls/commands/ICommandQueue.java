@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.nls.commands;
 
 /**
  * Command queue for NLS editing commands.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

@@ -19,7 +19,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * The {@link ExpressionConverter} for {@link String}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.converter
  */

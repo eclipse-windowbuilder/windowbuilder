@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.Statement;
 /**
  * {@link Association} for {@link JavaInfo} wrapped in {@link AbstractWrapper}. It delegates all
  * operations to the {@link Association} of {@link AbstractWrapper}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.association

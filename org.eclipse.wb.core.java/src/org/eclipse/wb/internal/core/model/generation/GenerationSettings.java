@@ -49,7 +49,7 @@ import java.util.Set;
 
 /**
  * Code generation settings for adding new {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */
@@ -89,7 +89,7 @@ public final class GenerationSettings {
   /**
    * Adds {@link VariableSupportDescription} supported for this toolkit and compatible
    * {@link StatementGeneratorDescription}'s.
-   * 
+   *
    * @param variable
    *          the {@link VariableSupportDescription}
    * @param statements
@@ -171,7 +171,7 @@ public final class GenerationSettings {
    * "Forced" methods are used by "this" components without children because sometimes placing GUI
    * code is not desirable, for example to keep constructor shot, or because there are several
    * constructors and they may call single "initialize" method.
-   * 
+   *
    * @return the name of "forced" method or <code>null</code> if there are no such method
    *         configured.
    */
@@ -203,11 +203,11 @@ public final class GenerationSettings {
   /**
    * Returns default {@link VariableSupportDescription} from {@link ToolkitDescription} or from type
    * specific information.
-   * 
+   *
    * Sometimes we have exceptions for some components, for example "text fields" should be generated
    * as fields instead of locals, so this method analyzes given {@link JavaInfo} component and can
    * return different {@link VariableSupportDescription}.
-   * 
+   *
    * @return the {@link VariableSupportDescription} for given {@link JavaInfo}.
    */
   public VariableSupportDescription getVariable(JavaInfo javaInfo) {

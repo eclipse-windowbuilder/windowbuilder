@@ -19,7 +19,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 
 /**
  * Abstract {@link IWorkbenchWindowActionDelegate} that opens {@link IWizard}.
- * 
+ *
  * @coverage core.wizards.ui
  */
 public abstract class AbstractOpenWizardDelegate extends AbstractActionDelegate {

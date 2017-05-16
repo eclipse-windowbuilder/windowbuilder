@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Contributes palette {@link CategoryInfo} with name <code>"Local Factories"</code> to palette, so
  * allows to use them easily.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.util

@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 /**
  * The {@link Rule} that adds some tag for standard bean property, created by
  * {@link StandardBeanPropertiesRule}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

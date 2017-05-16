@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * The {@link ExpressionConverter} for array of {@link int}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.converter
  */

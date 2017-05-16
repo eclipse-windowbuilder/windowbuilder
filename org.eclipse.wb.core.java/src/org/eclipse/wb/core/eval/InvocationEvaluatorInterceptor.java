@@ -20,14 +20,14 @@ import java.lang.reflect.Method;
 
 /**
  * Sometimes we don't want to evaluate {@link ClassInstanceCreation} as is.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */
 public class InvocationEvaluatorInterceptor {
   /**
    * Evaluates {@link ClassInstanceCreation}.
-   * 
+   *
    * @return some value to use instead of real, or {@link AstEvaluationEngine#UNKNOWN} if
    *         {@link ClassInstanceCreation} should be evaluated as is.
    */
@@ -42,7 +42,7 @@ public class InvocationEvaluatorInterceptor {
 
   /**
    * Evaluates anonymous {@link ClassInstanceCreation}.
-   * 
+   *
    * @return some value to use instead of real, or {@link AstEvaluationEngine#UNKNOWN} if
    *         {@link ClassInstanceCreation} should be evaluated as is.
    */
@@ -57,7 +57,7 @@ public class InvocationEvaluatorInterceptor {
 
   /**
    * Evaluates {@link MethodInvocation}.
-   * 
+   *
    * @return some value to use instead of real, or {@link AstEvaluationEngine#UNKNOWN} if
    *         {@link MethodInvocation} should be evaluated as is.
    */
@@ -76,7 +76,7 @@ public class InvocationEvaluatorInterceptor {
    * For example in GWT subclasses of <code>JavaScriptObject</code> are rewritten by GWT hosted mode
    * {@link ClassLoader} so that all their methods are moved into <code>ClassName$</code>. So, we
    * can not find {@link Method} using normal way.
-   * 
+   *
    * @return the {@link Method} of {@link Class}, with required signature, or <code>null</code> if
    *         default resolving should be used.
    */
@@ -87,7 +87,7 @@ public class InvocationEvaluatorInterceptor {
   /**
    * Sometimes we known that some pieces of code in Internet or samples are not compatible with
    * WindowBuilder and we want to show specific exception/message for them.
-   * 
+   *
    * @return the {@link Throwable} to use instead of original one, or <code>null</code> if original
    *         one should be used.
    */

@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * Helper for creating all {@link DesignPage} {@link IAction}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */
@@ -56,7 +56,7 @@ public final class DesignPageActions {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Initializes new {@link DesignPageActions}.
-   * 
+   *
    * @param viewer
    *          the {@link IEditPartViewer} of {@link DesignPage}.
    * @param actionBars

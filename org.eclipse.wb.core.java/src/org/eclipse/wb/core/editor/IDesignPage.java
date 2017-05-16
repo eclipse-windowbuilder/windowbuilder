@@ -14,7 +14,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 
 /**
  * "Design" page of {@link IDesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

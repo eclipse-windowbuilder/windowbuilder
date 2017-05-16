@@ -39,7 +39,7 @@ import java.util.Set;
 
 /**
  * Abstract {@link VariableSupport} implementation for variable with name.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -141,7 +141,7 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
   /**
    * We are going to create/access field and need to know if at position of component creation (so
    * assignment) we work within static or instance context (for example in <code>main</code>).
-   * 
+   *
    * @return <code>true</code> if we work within static context.
    */
   protected final boolean isStaticContext() {
@@ -152,10 +152,10 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
   /**
    * We are going to create/access field and need to know if at position of assignment we work
    * within static or instance context (for example in <code>main</code>).
-   * 
+   *
    * @param position
    *          the position in source where we are going to access field.
-   * 
+   *
    * @return <code>true</code> if we work within static context.
    */
   protected final boolean isStaticContext(int position) {
@@ -206,16 +206,16 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
    * XXX Kosta.20072024. Note, that this method was implemented (partly, without toLocal/toField),
    * but then I've decided that such strong validation is not a feature, as it will make user
    * operations harder.
-   * 
+   *
    * Validates that given combination of variables and their new names is valid.
-   * 
+   *
    * @param variablesNames
    *          the map: variable -> new name.
    * @param toLocalVariables
    *          the set variables that are currently fields, but will be converted to locals.
    * @param toFieldVariables
    *          the set variables that are currently locales, but will be converted to fields.
-   * 
+   *
    * @return the message with problem description, or <code>null</code> is variable name is valid.
    */
   public static String validateVariables(Map<AbstractNamedVariableSupport, String> variablesNames,
@@ -276,12 +276,12 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
   /**
    * Returns that name of {@link VariableDeclaration} when we know that some
    * {@link VariableDeclaration} will be requested to change name.
-   * 
+   *
    * @param declaration
    *          the {@link VariableDeclaration} to get name.
    * @param declarationsNames
    *          the {@link Map} of variables into new names.
-   * 
+   *
    * @return the actual name of {@link VariableDeclaration}.
    */
   private static String getDeclarationName(VariableDeclaration declaration,
@@ -292,7 +292,7 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
 
   /**
    * Validates that given name is valid for this {@link VariableSupport}.
-   * 
+   *
    * @return the message with problem description, or <code>null</code> is variable name is valid.
    */
   public final String validateName(String name) throws Exception {

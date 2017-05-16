@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.gefTree.policy.dblclick.DoubleClickLayoutEdi
 
 /**
  * {@link TreeEditPart} for {@link JavaInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gefTree
  */

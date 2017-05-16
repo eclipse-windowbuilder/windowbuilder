@@ -14,10 +14,10 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * Listener for {@link JavaInfo} events.
- * 
+ *
  * Used to get notified before object of {@link JavaInfo} becomes set using
  * {@link JavaInfo#setObject(Object)}
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

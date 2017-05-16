@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 
 /**
  * Various utilities for {@link Association}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.association
  */
@@ -71,7 +71,7 @@ public final class AssociationUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the source with replaced templates. Following templates are supported:
-   * 
+   *
    * <ol>
    * <li>%parent% - replaced with
    * <code>parent.getVariableSupport().getReferenceExpression(target).</code></li>
@@ -87,7 +87,7 @@ public final class AssociationUtils {
 
   /**
    * Returns the source with replaced templates. Following templates are supported:
-   * 
+   *
    * <ol>
    * <li>%parent% - replaced with
    * <code>parent.getVariableSupport().getReferenceExpression(target).</code></li>

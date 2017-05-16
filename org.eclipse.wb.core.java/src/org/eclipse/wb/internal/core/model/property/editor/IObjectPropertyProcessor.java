@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 
 /**
  * Helper for working {@link ObjectPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.property.editor
  */

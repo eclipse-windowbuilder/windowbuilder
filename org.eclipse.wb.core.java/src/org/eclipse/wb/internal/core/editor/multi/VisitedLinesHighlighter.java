@@ -9,7 +9,7 @@
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.eclipse.wb.internal.core.editor.multi;
 
@@ -46,7 +46,7 @@ import java.util.Set;
 
 /**
  * Helper for highlighting lines visited during rendering.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

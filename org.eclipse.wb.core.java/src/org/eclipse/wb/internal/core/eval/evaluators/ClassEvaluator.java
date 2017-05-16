@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.TypeLiteral;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link TypeLiteral} and {@link #getClass()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

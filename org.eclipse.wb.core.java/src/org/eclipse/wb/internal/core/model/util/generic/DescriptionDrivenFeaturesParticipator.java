@@ -16,7 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 /**
  * Helper to configure any {@link JavaInfo} to support configuration based features (from
  * <code>parameter</code> tags).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

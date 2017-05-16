@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 /**
  * The base {@link PropertyEditor} for selecting single value of type {@link Enum}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage core.model.property.editor

@@ -15,9 +15,9 @@ import org.eclipse.wb.internal.core.model.description.MethodDescription;
 
 /**
  * Before associating new {@link JavaInfo} child using some method.
- * 
+ *
  * We use it on parse to handle "setContentPane(myCustomPane)".
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

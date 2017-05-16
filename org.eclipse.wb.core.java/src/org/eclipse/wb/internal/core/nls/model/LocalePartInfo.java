@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Information about part of Locale - language or country.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls
  */

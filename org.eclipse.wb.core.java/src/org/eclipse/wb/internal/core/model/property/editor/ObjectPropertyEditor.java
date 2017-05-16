@@ -46,7 +46,7 @@ import java.util.List;
 /**
  * {@link PropertyEditor} for selecting model of {@link Object}, for example in
  * {@link javax.swing.JLabel#setLabelFor(java.awt.Component)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */
@@ -163,7 +163,7 @@ public final class ObjectPropertyEditor extends TextDialogPropertyEditor
 
   /**
    * Sets new {@link JavaInfo} value.
-   * 
+   *
    * @param component
    *          new {@link JavaInfo}, or <code>null</code>, if property should be removed.
    */

@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Event;
 
 /**
  * The default mode for presentation source/design parts of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

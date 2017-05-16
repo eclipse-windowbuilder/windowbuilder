@@ -25,7 +25,7 @@ import org.apache.commons.lang.ObjectUtils;
  * <p>
  * It is supposed that <code>host</code> is key of host {@link JavaInfo} description, and
  * <code>suffix</code> is method/field use for exposing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

@@ -43,7 +43,7 @@ import java.util.Map;
 
 /**
  * Helper for working with variable names and acronyms in {@link VariableSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -294,7 +294,7 @@ public final class NamesManager {
 
   /**
    * @return the default acronym of the given component class.
-   * 
+   *
    * <pre>
 	 * org.eclipse.swt.widgets.Button    = btn
 	 * javax.swing.JButton               = btn
@@ -386,7 +386,7 @@ public final class NamesManager {
 
   /**
    * @return the {@link List} of component specific {@link ComponentNameDescription}'s.
-   * 
+   *
    * @param def
    *          is <code>true</code> if default descriptions should be returned
    */

@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.variable.description.VariableSupportDe
 
 /**
  * Provides access to {@link VariableSupport}'s and {@link StatementGenerator}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * {@link StatementTarget} contains information about location for placing {@link Statement}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */

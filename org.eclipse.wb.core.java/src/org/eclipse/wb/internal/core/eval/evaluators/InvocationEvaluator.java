@@ -54,7 +54,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IExpressionEvaluator} for {@link MethodInvocation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */
@@ -328,7 +328,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
   /**
    * @param methodBinding
    *          the {@link IMethodBinding} of constructor.
-   * 
+   *
    * @return the instance of anonymous {@link ClassInstanceCreation}, intercepting methods using
    *         given {@link Callback}.
    */
@@ -341,7 +341,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
     Class<?> creationClass = getTypeBindingClass(context, typeBinding.getSuperclass());
     Class<?>[] creationInterfaces = getClasses(context, typeBinding.getInterfaces());
     Class<?>[] argumentTypes = getClasses(context, methodBinding.getParameterTypes());
-    // create object using Enhancer 
+    // create object using Enhancer
     Enhancer enhancer = new Enhancer();
     enhancer.setClassLoader(context.getClassLoader());
     enhancer.setSuperclass(creationClass);
@@ -353,7 +353,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
   /**
    * Sometimes we known that some pieces of code in Internet or samples are not compatible with
    * WindowBuilder and we want to show specific exception/message for them.
-   * 
+   *
    * @throws Error
    *           to show instead of original {@link Throwable}.
    */
@@ -515,7 +515,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
         return method;
       }
     }
-    // 
+    //
     method = AstReflectionUtils.getMethod(clazz, binding);
     // done
     Assert.isNotNull2(method, "Method {0} not found in {1}", signature, clazz);

@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreation
 
 /**
  * Implementation of {@link EntryInfo} for "static-factory-method" contribution.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

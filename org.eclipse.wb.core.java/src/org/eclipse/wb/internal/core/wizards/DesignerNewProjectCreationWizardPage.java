@@ -51,7 +51,7 @@ import java.util.Set;
  * As addition to the JavaCapabilityConfigurationPage, the wizard does an early project creation (so
  * that linked folders can be defined) and, if an existing external location was specified, offers
  * to do a classpath detection.
- * 
+ *
  * @author lobas_av
  * @coverage core.wizards.ui
  */

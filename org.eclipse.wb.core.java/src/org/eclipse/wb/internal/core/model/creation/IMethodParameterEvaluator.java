@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
  * <p>
  * For example, in SWT we know that any unknown {@link Composite} parameter may be handled as
  * {@link Shell}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.creation
  */

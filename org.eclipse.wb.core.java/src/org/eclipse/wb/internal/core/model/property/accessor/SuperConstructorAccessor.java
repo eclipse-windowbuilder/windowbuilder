@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 /**
  * The implementation of {@link ExpressionAccessor} for argument of
  * {@link SuperConstructorInvocation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

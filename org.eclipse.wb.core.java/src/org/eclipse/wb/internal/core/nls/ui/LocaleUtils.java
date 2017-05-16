@@ -19,7 +19,7 @@ import java.util.Comparator;
 
 /**
  * UI utils for {@link LocaleInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.nls.ui
  */

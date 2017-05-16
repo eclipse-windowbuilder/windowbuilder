@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 
 /**
  * {@link MethodOrder} for component that should be added before other children.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

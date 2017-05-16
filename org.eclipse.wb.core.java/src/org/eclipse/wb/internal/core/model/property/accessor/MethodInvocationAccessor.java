@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  * <p>
  * It returns {@link MethodInvocation} from {@link #getExpression(JavaInfo)}.<br>
  * It expects comma separated arguments are source in {@link #setExpression(JavaInfo, String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.accessor
  */

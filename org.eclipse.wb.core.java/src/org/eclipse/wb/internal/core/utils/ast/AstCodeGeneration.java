@@ -28,7 +28,7 @@ import java.util.Set;
 
 /**
  * Separate class for accessing code generation constants/options for {@link AstEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.ast
  */
@@ -72,10 +72,10 @@ public final class AstCodeGeneration {
 
   /**
    * Return the string of characters that is to be used to indent code the given number of levels.
-   * 
+   *
    * @param levels
    *          the number of levels of indentation to be returned
-   * 
+   *
    * @return the string of characters that is to be used to indent code
    */
   public String getIndentation(int levels) {
@@ -158,7 +158,7 @@ public final class AstCodeGeneration {
   /**
    * Return <code>true</code> if the user wants to have an end-of-line marker inserted before each
    * opening brace.
-   * 
+   *
    * @return <code>true</code> if an end-of-line marker should be inserted before each opening brace
    */
   public boolean getInsertEndOfLineBeforeOpeningBrace() {
@@ -171,7 +171,7 @@ public final class AstCodeGeneration {
   /**
    * Return a string indicating the number of spaces the user wants to use to indent their code. The
    * value is either <code>"space"</code> or <code>"tab"</code>.
-   * 
+   *
    * @return a string indicating the number of spaces the user wants to use
    */
   public String getTabChar() {
@@ -182,7 +182,7 @@ public final class AstCodeGeneration {
   /**
    * Return a string indicating whether the user wants to use spaces or tabs to indent their code.
    * The value is a sequence of digits encoding a positive integer value.
-   * 
+   *
    * @return a string indicating whether the user wants to use spaces or tabs
    */
   public String getTabSize() {
@@ -193,7 +193,7 @@ public final class AstCodeGeneration {
   /**
    * Return <code>true</code> if the user wants to have assignments formatted without a space before
    * the assignment operator.
-   * 
+   *
    * @return <code>true</code> assignments should be formatted without a space before the assignment
    *         operator
    */

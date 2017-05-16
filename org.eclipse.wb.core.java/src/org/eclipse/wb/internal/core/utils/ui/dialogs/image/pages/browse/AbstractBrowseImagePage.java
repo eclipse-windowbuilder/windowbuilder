@@ -40,7 +40,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Implementation of {@link AbstractImagePage} that supports browsing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */
@@ -129,7 +129,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * {@link ITreeContentProvider} for {@link IImageElement}.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ImageContentProvider implements ITreeContentProvider {
@@ -178,7 +178,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * {@link LabelProvider} for {@link IImageElement}.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ImageLabelProvider extends LabelProvider {

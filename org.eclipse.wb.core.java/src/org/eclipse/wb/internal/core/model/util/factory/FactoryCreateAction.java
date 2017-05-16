@@ -91,7 +91,7 @@ import java.util.Set;
 
 /**
  * {@link Action} for creating new factory method for this component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -283,7 +283,7 @@ public final class FactoryCreateAction extends Action {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns first {@link ICompilationUnit} that can contains factory.
-   * 
+   *
    * @return the first {@link ICompilationUnit} with factory, or <code>null</code> if not factories
    *         found in current package.
    */
@@ -352,7 +352,7 @@ public final class FactoryCreateAction extends Action {
 
   /**
    * Generates new factory method, replaces component creation and remove extracted invocations.
-   * 
+   *
    * @param replaceWithFactory
    *          is <code>true</code> if existing component creation should be replace with factory
    *          creation.
@@ -431,7 +431,7 @@ public final class FactoryCreateAction extends Action {
   /**
    * Generates factory method in given {@link AstEditor} and returns arguments for using this method
    * for creation.
-   * 
+   *
    * @param factoryEditor
    *          the {@link AstEditor} to generate factory method.
    * @return the arguments for component creation using factory method.
@@ -559,7 +559,7 @@ public final class FactoryCreateAction extends Action {
   /**
    * Generates new identifier based on given name, and not present in used identifiers. After
    * generation adds new identifier into {@link Set} of used identifiers.
-   * 
+   *
    * @return the new generated identifier.
    */
   private static String generateUniqueIdentifier(final Set<String> usedIdentifiers, String baseName) {
@@ -610,7 +610,7 @@ public final class FactoryCreateAction extends Action {
 
   /**
    * Validates the currently entered source folder, package and factory class name.
-   * 
+   *
    * @return the error message, or <code>null</code> if values are valid.
    */
   private String validate() throws Exception {

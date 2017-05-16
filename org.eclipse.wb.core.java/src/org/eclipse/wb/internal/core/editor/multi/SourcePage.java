@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * "Source" page of {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

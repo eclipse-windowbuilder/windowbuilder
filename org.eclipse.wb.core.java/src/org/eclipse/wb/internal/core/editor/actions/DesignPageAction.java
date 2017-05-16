@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.editor.multi.DesignerEditor;
 
 /**
  * Action for {@link DesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */

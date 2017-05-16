@@ -20,24 +20,24 @@ package org.eclipse.wb.internal.core.model.description;
  * other ones. For example, morphing SWT <code>Button</code> into <code>Text</code> will look so:
  * <p>
  * Before:
- * 
+ *
  * <pre>
  *   Button button = new Button(parent, SWT.NONE);
  *   button.setText("my button");
  *   button.setSelection(true);
  * </pre>
- * 
+ *
  * <p>
  * After:
- * 
+ *
  * <pre>
  *   Text button = new Text(parent, SWT.NONE);
  *   button.setText("my button");
  * </pre>
- * 
+ *
  * Note that <code>setSelection(true)</code> was removed because in <code>Text</code> this method
  * has different signature.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

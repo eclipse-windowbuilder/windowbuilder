@@ -20,7 +20,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * Description for single parameter of {@link MethodDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */
@@ -202,7 +202,7 @@ public final class ParameterDescription extends AbstractDescription {
   /**
    * @return <code>true</code> if this parameter contains (optional) reference of parent
    *         {@link JavaInfo}.
-   * 
+   *
    *         We use {@link #isParent2()} and {@link #isChild2()} to create parent/child link between
    *         components because they appear as parameters of this method invocation.
    */
@@ -227,7 +227,7 @@ public final class ParameterDescription extends AbstractDescription {
   /**
    * @return <code>true</code> if this parameter contains (optional) reference of child
    *         {@link JavaInfo}.
-   * 
+   *
    *         We use {@link #isParent2()} and {@link #isChild2()} to create parent/child link between
    *         components because they appear as parameters of this method invocation.
    */

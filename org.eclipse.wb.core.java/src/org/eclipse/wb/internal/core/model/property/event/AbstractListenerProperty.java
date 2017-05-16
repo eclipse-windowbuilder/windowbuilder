@@ -18,7 +18,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * Implementation of single listener {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.events
  */

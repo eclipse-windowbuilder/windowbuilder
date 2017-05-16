@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * Extends object with ability to be configured.
- * 
+ *
  * @author scheglov_ke
  */
 public interface IConfigurablePropertyObject {

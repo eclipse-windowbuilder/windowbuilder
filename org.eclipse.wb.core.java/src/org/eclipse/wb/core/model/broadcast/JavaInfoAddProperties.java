@@ -17,9 +17,9 @@ import java.util.List;
 
 /**
  * Listener for {@link JavaInfo} events.
- * 
+ *
  * Used to get notified while preparing {@link Property} list for {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

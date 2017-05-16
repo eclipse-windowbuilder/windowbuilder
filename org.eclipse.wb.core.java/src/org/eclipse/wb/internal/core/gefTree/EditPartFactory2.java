@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 /**
  * Generic implementation of {@link IEditPartFactory} for {@link TreeViewer} that redirects
  * {@link EditPart}'s creation to {@link IEditPartFactory}'s from extension point.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree
  */

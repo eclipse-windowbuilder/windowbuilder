@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * {@link GenericTypeResolver} for {@link JavaInfo} creation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Abstract command for modifying {@link PaletteInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette
  */

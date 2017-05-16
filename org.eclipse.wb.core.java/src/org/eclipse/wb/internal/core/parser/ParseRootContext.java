@@ -15,7 +15,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 
 /**
  * The context that is used by {@link JavaInfoParser} as information about root.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */

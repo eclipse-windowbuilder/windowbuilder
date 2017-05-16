@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * {@link VariableSupport} implementation for local, unique variable.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -195,7 +195,7 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
 
   /**
    * Inlines this {@link LocalUniqueVariableSupport} into its single use.
-   * 
+   *
    * @throws IllegalStateException
    *           if variable is used in more than one place.
    */
@@ -223,7 +223,7 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
   private void replaceReferenceWithInitializer(Expression reference, Expression initializer)
       throws Exception {
     AstEditor editor = m_javaInfo.getEditor();
-    // check if initializer should be wrapped with ParenthesizedExpression 
+    // check if initializer should be wrapped with ParenthesizedExpression
     if (reference.getParent() instanceof Expression) {
       Expression parent = (Expression) reference.getParent();
       int parentPrecedence = OperatorPrecedence.getExpressionPrecedence(parent);

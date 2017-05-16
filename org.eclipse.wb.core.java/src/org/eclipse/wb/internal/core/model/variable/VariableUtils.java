@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * Utils for using in {@link VariableSupport} implementations.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.variable
  */
@@ -89,7 +89,7 @@ public final class VariableUtils {
 
   /**
    * @return the name with added prefix/suffix.
-   * 
+   *
    * @param keyPrefixes
    *          the key of prefixes in {@link IJavaProject} options.
    * @param keySuffixes
@@ -122,7 +122,7 @@ public final class VariableUtils {
 
   /**
    * @return the name with removed prefix/suffix.
-   * 
+   *
    * @param keyPrefixes
    *          the key of prefixes in {@link IJavaProject} options.
    * @param keySuffixes

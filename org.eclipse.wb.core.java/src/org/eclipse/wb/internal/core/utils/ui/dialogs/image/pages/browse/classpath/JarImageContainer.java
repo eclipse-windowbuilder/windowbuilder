@@ -33,7 +33,7 @@ import java.util.zip.ZipEntry;
 
 /**
  * Implementation of {@link IImageContainer} for jar file in classpath.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Interface for resolving {@link Expressions}'s into {@link JavaInfo} objects.
- * 
+ *
  * @author scheglov_ke
  */
 public interface IJavaInfoParseResolver {

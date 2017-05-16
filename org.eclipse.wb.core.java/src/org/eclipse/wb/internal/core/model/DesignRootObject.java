@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Designer root object for GEF. It contains root {@link JavaInfo} and more <i>non visual beans</i>
  * for this root.
- * 
+ *
  * @author lobas_av
  * @coverage core.model
  */

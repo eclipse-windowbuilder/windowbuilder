@@ -74,7 +74,7 @@ import java.util.Set;
 
 /**
  * Palette implementation for {@link DesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

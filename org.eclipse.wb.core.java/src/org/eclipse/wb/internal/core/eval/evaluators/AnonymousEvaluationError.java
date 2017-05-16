@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 
 /**
  * We don't want to evaluate anonymous {@link ClassInstanceCreation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.evaluation
  */

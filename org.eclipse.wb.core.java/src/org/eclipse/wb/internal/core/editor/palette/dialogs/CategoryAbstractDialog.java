@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Abstract dialog for {@link CategoryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.palette.ui
  */

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link AbstractArrayObjectInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.gefTree.policy
  */

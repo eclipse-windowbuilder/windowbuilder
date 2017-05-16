@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 /**
  * This interface is used to create {@link JavaInfo} for simple cases, when we know this it is just
  * simple component, not factory, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.parser
  */

@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * Implementation of {@link StatementGenerator} that works with {@link LazyVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generation
  */

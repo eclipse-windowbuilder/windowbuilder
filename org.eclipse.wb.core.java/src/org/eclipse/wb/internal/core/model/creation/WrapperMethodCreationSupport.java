@@ -29,7 +29,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 /**
  * Implementation of {@link CreationSupport} for creating {@link WrapperMethodInfo} during creating
  * corresponding {@link ControlInfo}.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage core.model.creation

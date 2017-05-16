@@ -26,7 +26,7 @@ import org.eclipse.text.edits.UndoEdit;
 
 /**
  * Copy of <code>CompilationUnitChange</code> from internal JDT.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.refactoring
  */
@@ -35,7 +35,7 @@ public class CompilationUnitChange extends TextFileChange {
 
   /**
    * Creates a new <code>CompilationUnitChange</code>.
-   * 
+   *
    * @param name
    *          the change's name mainly used to render the change in the UI
    * @param cunit
@@ -62,7 +62,7 @@ public class CompilationUnitChange extends TextFileChange {
 
   /**
    * Returns the compilation unit this change works on.
-   * 
+   *
    * @return the compilation unit this change works on
    */
   public ICompilationUnit getCompilationUnit() {

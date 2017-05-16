@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 
 /**
  * The {@link Rule} that allows to set options for standard bean properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

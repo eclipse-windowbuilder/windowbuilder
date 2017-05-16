@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation for Java-related UI.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors
  */
@@ -49,7 +49,7 @@ public final class JavaExceptionComposite extends ExceptionComposite {
   /**
    * Sets the {@link Throwable} to display with additional information which may be included into
    * problem report.
-   * 
+   *
    * @param e
    *          the {@link Throwable} to display.
    * @param screenshot

@@ -44,19 +44,19 @@ import java.util.Map;
 
 /**
  * Java implementation for {@link AbstractStylePropertyEditor}.
- * 
+ *
  * This is configurable editor which supports the following property editor parameters usually
  * defined in *.wbp-component.xml files:
- * 
+ *
  * <pre>
  * 1. "set": as boolean (flag) values (BooleanStylePropertyImpl);
  * 2. "setUsingEqual": (BooleanUsingEqualsStylePropertyImpl);
  * 3. "select": as single-selected item (SelectionStylePropertyImpl);
- * 4. "selectUsingEqual": (SelectionUsingEqualsStylePropertyImpl); 
+ * 4. "selectUsingEqual": (SelectionUsingEqualsStylePropertyImpl);
  * 5. "macro": (MacroStylePropertyImpl);
  * 6. "enum": (EnumerationStylePropertyImpl);
  * </pre>
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage core.model.property.editor

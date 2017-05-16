@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Tool allowing reordering container children.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.gef

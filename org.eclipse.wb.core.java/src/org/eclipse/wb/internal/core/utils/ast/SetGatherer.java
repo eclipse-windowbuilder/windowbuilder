@@ -18,7 +18,7 @@ import java.util.Collection;
  * Instances of the class <code>SetGatherer</code> implement a gatherer that ensures that there are
  * no duplications among the values that are found.
  * <p>
- * 
+ *
  * @author Brian Wilkerson
  * @version $Revision: 1.3 $
  * @coverage core.util.ast

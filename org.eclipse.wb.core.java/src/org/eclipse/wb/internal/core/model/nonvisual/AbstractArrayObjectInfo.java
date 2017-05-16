@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Abstract container for array of {@link ObjectInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.nonvisual
  */
