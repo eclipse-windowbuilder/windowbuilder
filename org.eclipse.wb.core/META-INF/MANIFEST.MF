@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wb.core;singleton:=true
-Bundle-Version: 1.9.1.qualifier
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Version: 1.10.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.core.DesignerPlugin
 Bundle-Vendor: %providerName

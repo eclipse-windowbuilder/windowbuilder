@@ -143,7 +143,8 @@ public class DesignerPlugin extends AbstractUIPlugin {
     }
     return null;
   }
-  ////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////1.10.1.qualifier///////////////////////
   //
   // Events
   //
@@ -282,6 +283,7 @@ public class DesignerPlugin extends AbstractUIPlugin {
       }
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Logging
@@ -329,11 +331,13 @@ public class DesignerPlugin extends AbstractUIPlugin {
       }
       String versionString = ProductInfo.getProduct().getVersion().toString();
       String buildString = ProductInfo.getProduct().getBuild();
-      log("Designer ["
-          + versionString
-          + (versionString.endsWith(buildString) ? "" : "." + buildString)
-          + "]: "
-          + message, e);
+      log(
+          "Designer ["
+              + versionString
+              + (versionString.endsWith(buildString) ? "" : "." + buildString)
+              + "]: "
+              + message,
+          e);
     }
   }
 
@@ -355,6 +359,7 @@ public class DesignerPlugin extends AbstractUIPlugin {
       }
     };
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Track last log entry
@@ -389,6 +394,7 @@ public class DesignerPlugin extends AbstractUIPlugin {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Resources
@@ -428,6 +434,7 @@ public class DesignerPlugin extends AbstractUIPlugin {
         IPreferenceConstants.P_COMMON_LINUX_DISABLE_SCREENSHOT_WORKAROUNDS,
         "__wbp.linux.disableScreenshotWorkarounds");
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Set-up during first editor
