@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 
 /**
  * Helper for {@link ILayoutRequestValidator}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

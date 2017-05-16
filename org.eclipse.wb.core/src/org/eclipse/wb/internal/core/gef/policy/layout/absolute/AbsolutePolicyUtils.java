@@ -16,7 +16,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Utilities related to absolute layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy
  */

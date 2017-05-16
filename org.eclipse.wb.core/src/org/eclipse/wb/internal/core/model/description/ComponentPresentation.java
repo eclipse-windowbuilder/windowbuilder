@@ -16,7 +16,7 @@ import java.io.ByteArrayInputStream;
 
 /**
  * Information for component on palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

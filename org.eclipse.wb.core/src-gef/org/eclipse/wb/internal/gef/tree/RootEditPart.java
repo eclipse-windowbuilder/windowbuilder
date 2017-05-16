@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 /**
- * 
+ *
  * @author lobas_av
  * @coverage gef.tree
  */

@@ -60,7 +60,7 @@ import java.util.ArrayList;
 
 /**
  * Extended ComboBox control for {@link PropertyTable} and combo property editors.
- * 
+ *
  * @author sablin_aa
  * @coverage core.control
  */

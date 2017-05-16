@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Listener for {@link ObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -109,7 +109,7 @@ public abstract class ObjectEventListener {
   /**
    * After {@link ObjectInfo#refresh()} cycle executed and also all {@link #refreshed()}
    * notifications finished.
-   * 
+   *
    * Sometimes one level of "refresh" is not enough, for example menu performs GEF refresh in
    * {@link #refreshed()}, but temporary initializes static variables that should be cleared after
    * GEF refresh. So we have choice - do this in "async", or add one more "refreshed" notification.
@@ -148,7 +148,7 @@ public abstract class ObjectEventListener {
 
   /**
    * After moving child in parent.
-   * 
+   *
    * @param oldIndex
    *          the index in children of <code>parent</code>.
    * @param newIndex
@@ -180,7 +180,7 @@ public abstract class ObjectEventListener {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * This method is invoked during selecting {@link ObjectInfo}.
-   * 
+   *
    * @param object
    *          the selecting {@link ObjectInfo}, may be <code>null</code>.
    * @param refreshFlag
@@ -193,7 +193,7 @@ public abstract class ObjectEventListener {
   /**
    * This method can be used from model code to notify that it wants to select given
    * {@link ObjectInfo}'s.
-   * 
+   *
    * @param objects
    *          the {@link ObjectInfo}'s to select.
    */
@@ -207,7 +207,7 @@ public abstract class ObjectEventListener {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * This method is invoked during building context menu for given {@link ObjectInfo}.
-   * 
+   *
    * @param objects
    *          the selected {@link ObjectInfo}'s, one of them is passed as <code>object</code>.
    * @param object
@@ -229,7 +229,7 @@ public abstract class ObjectEventListener {
    * This method is invoked during editor toolbar refresh for building special actions, related with
    * full components hierarchy, in contrast to {@link #addSelectionActions(List, List)} that is used
    * for selection sensitive actions.
-   * 
+   *
    * @param actions
    *          the {@link List} of {@link IAction}'s or {@link IContributionItem}'s to display for
    *          user.
@@ -239,7 +239,7 @@ public abstract class ObjectEventListener {
 
   /**
    * This method is invoked during selecting {@link ObjectInfo}'s for building special actions.
-   * 
+   *
    * @param objects
    *          the List of selected {@link ObjectInfo}'s.
    * @param actions

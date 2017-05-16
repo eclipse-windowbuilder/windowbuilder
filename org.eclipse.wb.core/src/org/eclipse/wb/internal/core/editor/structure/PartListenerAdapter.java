@@ -15,7 +15,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 /**
  * Adapter for {@link IPartListener}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

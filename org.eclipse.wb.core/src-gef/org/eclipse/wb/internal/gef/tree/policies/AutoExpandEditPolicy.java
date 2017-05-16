@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.TreeItem;
  * Implementation of {@link EditPolicy} for {@link TreeViewer} and {@link TreeEditPart}'s, that
  * automatically expands {@link TreeItem}'s, when {@link Request#REQ_CREATE} or
  * {@link Request#REQ_PASTE} are received.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.tree
  */

@@ -14,7 +14,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * Provider for context menu of header.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

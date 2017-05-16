@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 
 /**
  * Listener for {@link Tool} activation in {@link EditDomain}.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

@@ -39,7 +39,7 @@ import org.eclipse.swt.graphics.Color;
 /**
  * Implementation of {@link LayoutEditPolicy} for "grid based" layouts, i.e. layouts where each
  * {@link EditPart} located in some cell - intersection of column and row.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy.grid
  */
@@ -235,7 +235,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
   /**
    * Allows to show feedback for occupied cells, for example cell split for MigLayout. By default we
    * show "invalid" feedback.
-   * 
+   *
    * @return <code>true</code> if request was processed, so "invalid" feedback should not be
    *         displayed.
    */
@@ -271,11 +271,11 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
 
   /**
    * Shows the column/row insertion feedbacks.
-   * 
+   *
    * @param columnBounds
    *          the column insertion rectangle (in model coordinates), if <code>null</code> no column
    *          feedback will be displayed.
-   * 
+   *
    * @param rowBounds
    *          the row insertion rectangle (in model coordinates), if <code>null</code> no row
    *          feedback will be displayed.
@@ -329,7 +329,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
 
   /**
    * Description for target cell.
-   * 
+   *
    * @author scheglov_ke
    */
   protected static class GridTarget {
@@ -361,7 +361,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
 
   /**
    * Updates the current {@link GridTarget}.
-   * 
+   *
    * @param mouseLocation
    *          the location of mouse in absolute coordinates.
    */

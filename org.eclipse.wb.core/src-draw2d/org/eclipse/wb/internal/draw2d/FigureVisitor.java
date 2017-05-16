@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 
 /**
  * Visitor for visiting {@link Figure} hierarchy.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

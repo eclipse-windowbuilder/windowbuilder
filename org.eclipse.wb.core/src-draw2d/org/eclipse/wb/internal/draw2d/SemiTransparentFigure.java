@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.PaletteData;
 
 /**
  * {@link Figure} that fill its client area with semi-transparent background color with given alpha.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.draw2d
  */

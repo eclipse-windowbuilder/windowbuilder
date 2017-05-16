@@ -22,7 +22,7 @@ import java.util.Map;
  * An Object used to communicate with {@link EditPart}s. {@link Request} encapsulates the
  * information {@link EditPart}s need to perform various functions. {@link Request}s are used for
  * obtaining commands, showing feedback, and performing generic operations.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */
@@ -118,7 +118,7 @@ public class Request {
   /**
    * Returns the new target that caused sending this {@link Request}.<br>
    * It may be useful to know in old target why it receives "erase target feedback" notification.
-   * 
+   *
    * @return the new target {@link EditPart}.
    */
   public EditPart getTarget() {

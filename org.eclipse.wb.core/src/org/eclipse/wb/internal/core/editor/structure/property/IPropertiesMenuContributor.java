@@ -16,7 +16,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * Contributes entries into {@link Property} context menu.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

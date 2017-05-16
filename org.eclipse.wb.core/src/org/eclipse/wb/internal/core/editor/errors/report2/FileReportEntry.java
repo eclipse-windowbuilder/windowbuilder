@@ -20,7 +20,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Abstract report entry dealing with single file.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

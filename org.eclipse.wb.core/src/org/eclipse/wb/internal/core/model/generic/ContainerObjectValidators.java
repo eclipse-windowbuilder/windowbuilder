@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Factory for {@link ContainerObjectValidator} objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

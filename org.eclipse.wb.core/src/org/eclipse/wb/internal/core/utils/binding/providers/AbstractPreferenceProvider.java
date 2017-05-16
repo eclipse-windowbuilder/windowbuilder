@@ -16,7 +16,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public abstract class AbstractPreferenceProvider implements IDataProvider {
   protected final IPreferenceStore m_store;

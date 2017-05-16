@@ -19,7 +19,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
 /**
  * Utilities for Designer {@link Action}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */

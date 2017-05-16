@@ -22,10 +22,10 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Simple control for displaying image and text.
- * 
+ *
  * For unknown reason CLabel shows such things not very good - vertical text alignment is strange
  * (bottom?).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

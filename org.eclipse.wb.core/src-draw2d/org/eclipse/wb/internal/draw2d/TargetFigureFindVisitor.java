@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 
 /**
  * This class use to find {@link Figure} under mouse.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

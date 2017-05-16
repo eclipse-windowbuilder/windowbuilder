@@ -25,7 +25,7 @@ import java.util.WeakHashMap;
  * Helper for setting properties for {@link ClassLoader}.
  * <p>
  * http://java.dzone.com/articles/classloaderlocal-how-avoid
- * 
+ *
  * @author Jevgeni Kabanov
  * @author scheglov_ke
  * @coverage core.util

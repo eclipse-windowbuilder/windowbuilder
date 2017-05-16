@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Spinner;
 
 /**
  * {@link DialogField} containing a {@link Label} and a {@link Spinner}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpinnerDialogField extends DialogField {
@@ -98,7 +98,7 @@ public class SpinnerDialogField extends DialogField {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates or returns the created {@link Spinner} control.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> when the widget has already been created.
    */

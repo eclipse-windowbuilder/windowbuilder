@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.xml.parser;
 
 /**
  * Description for single attribute.
- * 
+ *
  * @author lobas_av
  * @coverage core.util.xml
  */

@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link SimpleContainer_Support}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

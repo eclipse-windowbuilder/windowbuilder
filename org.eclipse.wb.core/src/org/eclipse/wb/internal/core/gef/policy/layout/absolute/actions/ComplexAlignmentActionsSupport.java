@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 
 /**
  * Alignment actions which uses {@link PlacementsSupport}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gef.policy
  */

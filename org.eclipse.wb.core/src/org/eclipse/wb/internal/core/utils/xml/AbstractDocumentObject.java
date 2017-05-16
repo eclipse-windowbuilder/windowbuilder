@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.xml;
 
 /**
  * Abstract superclass for all XML model objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

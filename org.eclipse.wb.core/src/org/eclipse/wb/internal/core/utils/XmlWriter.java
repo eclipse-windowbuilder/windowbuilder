@@ -24,7 +24,7 @@ import java.util.Stack;
 
 /**
  * Intended to write xml file using {@link PrintWriter}.
- * 
+ *
  * <pre>Sample usage:<code>
  * XMLWriter writer = new XMLWriter(stringWriter);
  * writer.openTag("tag1");
@@ -36,7 +36,7 @@ import java.util.Stack;
  * writer.closeTag();
  * writer.close();
  * </code></pre>
- * 
+ *
  * <pre>This will produce the following:<code>
  * &lt;?xml version="1.0" encoding="UTF-8"?&gt;
  * &lt;tag1&gt;
@@ -44,7 +44,7 @@ import java.util.Stack;
  * cdata contents]]&gt;&lt;/tag2&gt;
  * &lt;/tag1&gt;
  * </code></pre>
- * 
+ *
  * @author mitin_aa
  * @coverage core.util
  */
@@ -70,7 +70,7 @@ public final class XmlWriter {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Constructs {@link XmlWriter} and directs it into file with given {@link File}.
-   * 
+   *
    * @param file
    *          the file to store xml contents.
    */
@@ -80,7 +80,7 @@ public final class XmlWriter {
 
   /**
    * Constructs {@link XmlWriter} and directs it into file with given <code>filePath</code>.
-   * 
+   *
    * @param filePath
    *          the path to file.
    */
@@ -91,7 +91,7 @@ public final class XmlWriter {
   /**
    * Constructs {@link XmlWriter} and directs it into <code>writer</code> {@link Writer}. This
    * {@link Writer} would be closed during {@link XmlWriter#close()} invocation.
-   * 
+   *
    * @param writer
    *          the {@link OutputStream} into which {@link XmlWriter} would be directed to.
    */
@@ -109,7 +109,7 @@ public final class XmlWriter {
    * Open tag with given <code>tagName</code> for further adding tag attribute. Ex. calling
    * beginTag("tag1") will results writing "&lt;tag1" into underlying {@link PrintWriter}. After
    * calling this method only adding attributes and ending tag operations are possible.
-   * 
+   *
    * @param tagName
    *          the tag name with which tag would be made.
    */
@@ -151,9 +151,9 @@ public final class XmlWriter {
    * Adds an attribute to tag with given <code>attrName</code> and <code>attrValue</code>. Calling
    * this method results writing " attr="value"" into underlying {@link PrintWriter}. After this
    * operation is possible to add another attribute or end tag, all other operations prohibited.
-   * 
+   *
    * Performs escaping the <code>attrValue</code> before writing.
-   * 
+   *
    * @param attrName
    *          the attribute name to add. Cannot be empty or <code>null</code>.
    * @param attrValue
@@ -191,7 +191,7 @@ public final class XmlWriter {
    * Open tag with given <code>tagName</code>. Calling openTag("tag1") will results writing
    * "&lt;tag1&gt;" into underlying {@link PrintWriter}. After calling this method its able to write
    * tag value but not adding attributes.
-   * 
+   *
    * @param tagName
    *          the tag name with which tag would be made.
    */
@@ -236,7 +236,7 @@ public final class XmlWriter {
   /**
    * Writes tag value into underlying {@link PrintWriter}. Tag should be open (but not for adding
    * attributes).
-   * 
+   *
    * @param tagValue
    *          the {@link String} of tag value. Can be <code>null</code>, in which case the ""
    *          written.
@@ -258,7 +258,7 @@ public final class XmlWriter {
 
   /**
    * Opens tag, writes tag value and closes the tag.
-   * 
+   *
    * @param tagName
    *          the tag name with which tag would be made.
    * @param tagValue
@@ -275,7 +275,7 @@ public final class XmlWriter {
    * Opens CDATA section and returns the {@link OutputStream} to write data to it. The user
    * responsible to close the stream before any other operations with {@link XmlWriter}. Closing
    * stream automatically closes CDATA section.
-   * 
+   *
    * @return the {@link OutputStream} to write CDATA values.
    */
   public OutputStream streamCDATA() {
@@ -335,7 +335,7 @@ public final class XmlWriter {
 
   /**
    * Check the stack for any open tag.
-   * 
+   *
    * @return currently open tag or throws assertion exception.
    */
   private TagInfo peek() {

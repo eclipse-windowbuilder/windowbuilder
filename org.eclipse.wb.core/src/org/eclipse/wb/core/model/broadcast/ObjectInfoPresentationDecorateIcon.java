@@ -16,14 +16,14 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Listener for {@link ObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
 public interface ObjectInfoPresentationDecorateIcon {
   /**
    * This method is used to support external decoration of "default" object icon.
-   * 
+   *
    * @param object
    *          the {@link ObjectInfo} to decorate icon.
    * @param icon

@@ -33,7 +33,7 @@ import java.util.List;
  * <p>
  * This implementation of {@link ILayoutRequestValidator} checks that if container is selected, then
  * border around its children is considered as transparent.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

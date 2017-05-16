@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
 /**
  * {@link LayoutEditPolicy} for placing children on fixed areas on parent.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

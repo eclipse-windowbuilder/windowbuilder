@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * A lightweight graphical representation. Figures are rendered to a {@link Graphics} object.
  * Figures can be composed to create complex renderings.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -419,7 +419,7 @@ public class Figure {
 
   /**
    * Sets capture to the given figure.
-   * 
+   *
    * @noreference @nooverride
    */
   public void setCapture(Figure figure) {
@@ -493,7 +493,7 @@ public class Figure {
 
   /**
    * Paints this Figure and its children.
-   * 
+   *
    * @noreference @nooverride
    */
   public final void paint(Graphics graphics) {

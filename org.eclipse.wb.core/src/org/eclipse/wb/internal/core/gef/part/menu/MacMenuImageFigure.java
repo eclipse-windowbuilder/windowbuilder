@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Figure to represent menu on MacOSX.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.menu
  */

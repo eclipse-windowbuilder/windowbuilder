@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Manager for installing/unistalling global handlers for {@link Control} actions commands.
- * 
+ *
  * @author sablin_aa
  * @author mitin_aa
  */
@@ -100,8 +100,8 @@ public abstract class AbstractControlActionsManager {
 
     @Override
     public boolean isHandled() {
-      // we do not handle the actions; since action not handled, its' underlying SWT event 
-      // would not be filtered by workbench, so it get a chance to be handled by SWT code 
+      // we do not handle the actions; since action not handled, its' underlying SWT event
+      // would not be filtered by workbench, so it get a chance to be handled by SWT code
       // or to be passed to the OS; see WorkbenchKeyboard.press() method.
       return false;
     }
@@ -156,7 +156,7 @@ public abstract class AbstractControlActionsManager {
       IHandlerService service,
       IHandler handler,
       Expression highPriorityExpression) {
-    // activate handler and store it into a collection for further deactivation 
+    // activate handler and store it into a collection for further deactivation
     m_activations.add(service.activateHandler(actionName, handler, highPriorityExpression));
   }
 

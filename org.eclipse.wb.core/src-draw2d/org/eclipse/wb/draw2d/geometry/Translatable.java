@@ -12,7 +12,7 @@ package org.eclipse.wb.draw2d.geometry;
 
 /**
  * A translatable object can be translated (or moved) vertically and/or horizontally.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

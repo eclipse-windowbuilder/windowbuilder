@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 
 /**
  * Convenient class for {@link AbsoluteBasedSelectionEditPolicy}.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy
  */

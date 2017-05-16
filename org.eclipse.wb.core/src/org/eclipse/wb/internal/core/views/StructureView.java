@@ -17,7 +17,7 @@ import org.eclipse.ui.part.ViewPart;
 
 /**
  * {@link ViewPart} for displaying "Structure" from {@link DesignComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.views
  */

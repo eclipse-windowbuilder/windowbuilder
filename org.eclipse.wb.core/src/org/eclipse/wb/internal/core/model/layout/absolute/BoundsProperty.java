@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * Property representing item of complex "Bounds" property.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.layout.absolute
  */

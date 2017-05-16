@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * A drag tracker that moves {@link EditPart EditParts} only inside parent.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

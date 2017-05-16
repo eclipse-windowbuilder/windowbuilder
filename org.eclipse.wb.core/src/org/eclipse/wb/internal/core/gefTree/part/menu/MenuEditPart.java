@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 /**
  * {@link TreeEditPart} for {@link IMenuInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree.menu
  */

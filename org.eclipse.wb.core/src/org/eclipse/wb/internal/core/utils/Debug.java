@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 
 /**
  * Debug output support.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

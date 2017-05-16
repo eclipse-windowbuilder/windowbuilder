@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Typical implementation of {@link ILayoutRequestValidator} for performing check for separate
  * objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

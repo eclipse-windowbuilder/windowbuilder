@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * The {@link PropertyEditor} for selecting single {@link String} value from given array.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

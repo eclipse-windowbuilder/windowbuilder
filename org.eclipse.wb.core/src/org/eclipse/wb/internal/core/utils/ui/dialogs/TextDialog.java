@@ -25,7 +25,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * The dialog for editing multiline text.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

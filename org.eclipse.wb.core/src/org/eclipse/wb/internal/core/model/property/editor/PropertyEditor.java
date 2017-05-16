@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Abstract editor for {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */
@@ -57,13 +57,13 @@ public abstract class PropertyEditor implements IAdaptable {
    * Activates editor for given {@link Property} at given place of {@link Composite}. Activation
    * happens when user selects property in {@link PropertyTable}. {@link PropertyEditor} should
    * create here any {@link Control}'s required to edit {@link Property}.
-   * 
+   *
    * If any exception happens, {@link PropertyEditor} will be deactivated.
-   * 
+   *
    * @param location
    *          the mouse location, if editor is activated using mouse click, or <code>null</code> if
    *          it is activated using keyboard.
-   * 
+   *
    * @return <code>true</code> if editor should be remembered as active for future
    *         {@link #setBounds(Rectangle)} and {@link #deactivate(boolean)} invocation. Some editors
    *         need such local activation (for example for String), some - not (for boolean).
@@ -82,10 +82,10 @@ public abstract class PropertyEditor implements IAdaptable {
   /**
    * Deactivates editor for current {@link Property}. {@link PropertyEditor} should dispose any
    * {@link Control}'s created before in {@link #activate(PropertyTable, Property, Point)}.
-   * 
+   *
    * If any exception happened during activation, editor still should be able to deactivate
    * correctly.
-   * 
+   *
    * @param save
    *          is <code>true</code> if property should save value to {@link Property}.
    */
@@ -94,7 +94,7 @@ public abstract class PropertyEditor implements IAdaptable {
 
   /**
    * Handles double click on {@link Property} value in {@link PropertyTable}.
-   * 
+   *
    * @param location
    *          the mouse location, relative to editor
    */

@@ -22,7 +22,7 @@ import java.util.WeakHashMap;
 /**
  * Helper for replacing {@link EditPolicy#SELECTION_ROLE} during child {@link EditPart} decoration
  * and restoring original {@link SelectionEditPolicy} during undecoration.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

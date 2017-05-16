@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
 /**
  * Abstract {@link LayoutEditPolicy} for typical {@link ObjectInfo} flow container.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

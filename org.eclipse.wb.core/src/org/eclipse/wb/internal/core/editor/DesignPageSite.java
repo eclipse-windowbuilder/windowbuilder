@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 
 /**
  * Provides access to the {@link DesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */
@@ -90,7 +90,7 @@ public abstract class DesignPageSite implements IDesignPageSite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Helper for accessing {@link DesignPageSite}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static class Helper {
@@ -130,7 +130,7 @@ public abstract class DesignPageSite implements IDesignPageSite {
   /**
    * Sets the {@link IProgressMonitor} to return from
    * {@link IDesignPageSite.Helper#getProgressMonitor()}.
-   * 
+   *
    * @param progressMonitor
    *          the {@link IProgressMonitor} to use, may be <code>null</code>.
    */

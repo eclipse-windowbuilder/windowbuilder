@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Utilities for {@link ObjectInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.model

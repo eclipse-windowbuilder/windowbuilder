@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IPage} for displaying hierarchy of {@link ObjectInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */
@@ -178,7 +178,7 @@ public final class ComponentsTreePage implements IPage {
   /**
    * Sets selection in given {@link IEditPartViewer} using {@link List} of selected {@link EditPart}
    * 's.
-   * 
+   *
    * @param targetViewer
    *          the {@link IEditPartViewer} to set selection.
    * @param selectionListener

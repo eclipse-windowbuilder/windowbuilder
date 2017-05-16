@@ -22,19 +22,19 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * {@link EditPart}'s, but nor {@link Tool} nor {@link EditPart} know about this. So, we use
  * external {@link RequestProcessor}'s to modify {@link Request}.For example, in Swing we can drop
  * {@link javax.swing.Action} on {@link javax.swing.JMenu}.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */
 public abstract class RequestProcessor {
   /**
    * Processes given {@link Request}.
-   * 
+   *
    * @param editPart
    *          the {@link EditPart} which initiates {@link Request} processing.
    * @param request
    *          the {@link Request} to process.
-   * 
+   *
    * @return a new {@link Request}, or same {@link Request}.
    */
   public abstract Request process(EditPart editPart, Request request) throws Exception;

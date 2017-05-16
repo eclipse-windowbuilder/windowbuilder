@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class BooleanArrayPreferenceProvider implements IDataProvider {
   private final IPreferenceStore m_store;

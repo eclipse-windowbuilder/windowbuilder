@@ -27,7 +27,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 /**
  * Sometimes we want to make {@link EditPolicy} work only inside of inner part of
  * {@link GraphicalEditPart}. So, we want to exclude some insets on borders.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

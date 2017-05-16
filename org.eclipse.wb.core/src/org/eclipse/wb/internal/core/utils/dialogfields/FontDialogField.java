@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Implementation of {@link DialogField} for {@link Font} selecting.
- * 
+ *
  * @author scheglov_ke
  */
 public class FontDialogField extends DialogField {

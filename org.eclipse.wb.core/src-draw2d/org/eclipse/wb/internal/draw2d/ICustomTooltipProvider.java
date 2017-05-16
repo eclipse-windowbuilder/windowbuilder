@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Provider for tooltip's controls.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

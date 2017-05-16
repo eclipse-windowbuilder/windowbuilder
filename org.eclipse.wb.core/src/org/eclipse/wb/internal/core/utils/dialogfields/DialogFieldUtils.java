@@ -17,13 +17,13 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Utilities for dialog fields.
- * 
+ *
  * @author scheglov_ke
  */
 public class DialogFieldUtils {
   /**
    * Utility method for creating field control and tweaking layout properties.
-   * 
+   *
    * @return the created {@link Control}s.
    */
   public static Control[] fillControls(Composite parent,

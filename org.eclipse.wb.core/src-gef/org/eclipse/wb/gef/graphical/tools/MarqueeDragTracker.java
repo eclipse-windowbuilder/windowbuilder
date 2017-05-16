@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 
 /**
  * A {@link MarqueeSelectionTool} that used as drag tracker {@link Tool}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

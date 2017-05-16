@@ -116,7 +116,7 @@ public class SelectionButtonDialogFieldGroup extends DialogField {
 
   /**
    * Returns the group widget. When called the first time, the widget will be created.
-   * 
+   *
    * @param parent
    *          The parent composite when called the first time, or <code>null</code> after.
    */
@@ -225,7 +225,7 @@ public class SelectionButtonDialogFieldGroup extends DialogField {
 
   /**
    * Returns the selection state of a button contained in the group.
-   * 
+   *
    * @param index
    *          The index of the button
    */

@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Model for XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

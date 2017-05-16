@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link ContextMenuProvider} with supporting merge menu action's for multi selection.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

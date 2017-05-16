@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation
 
 /**
  * Listener for {@link ObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -23,7 +23,7 @@ public interface ObjectInfoChildTree {
   /**
    * This method is invoked from {@link DefaultObjectPresentation#getChildrenTree()} to check if
    * given {@link ObjectInfo} can be displayed in components tree.
-   * 
+   *
    * @param object
    *          the {@link ObjectInfo} to check.
    * @param visible

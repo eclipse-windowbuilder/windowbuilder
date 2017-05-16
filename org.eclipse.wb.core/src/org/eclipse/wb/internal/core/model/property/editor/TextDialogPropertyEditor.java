@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * Abstract {@link PropertyEditor} that displays text and button to open dialog.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

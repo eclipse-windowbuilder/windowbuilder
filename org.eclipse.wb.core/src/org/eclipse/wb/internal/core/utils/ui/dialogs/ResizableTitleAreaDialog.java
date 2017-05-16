@@ -23,7 +23,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * {@link TitleAreaDialog} that remembers location/size between usage sessions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

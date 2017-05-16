@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Utils class use for receiving changes in the ancestor hierarchy of the listening {@link Figure}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -39,7 +39,7 @@ import java.util.Set;
 
 /**
  * Support for "Select" sub-menu in context menu, plus hot keys for same actions.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */

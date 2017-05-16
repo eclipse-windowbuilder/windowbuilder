@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link LabelProvider} for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

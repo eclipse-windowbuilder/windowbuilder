@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.binding;
 
 /**
  * This interface describe storage for abstract data.
- * 
+ *
  * @author lobas_av
  */
 public interface IDataProvider {

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Contributes items to the {@link ComponentsPropertiesPage} toolbar.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

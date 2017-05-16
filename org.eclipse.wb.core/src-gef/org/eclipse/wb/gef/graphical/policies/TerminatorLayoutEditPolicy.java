@@ -23,7 +23,7 @@ import org.eclipse.wb.gef.core.requests.Request;
  * not handled by {@link EditPart} at all, this {@link EditPart} will become "transparent", so this
  * will for example look like we drop new object on parent {@link EditPart}. This is not good in
  * most cases.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.graphical
  */

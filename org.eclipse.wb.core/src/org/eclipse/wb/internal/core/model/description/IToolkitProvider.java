@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.description;
 
 /**
  * Provider for {@link ToolkitDescription}.
- * 
+ *
  * @author scheglov_ke
  */
 public interface IToolkitProvider {

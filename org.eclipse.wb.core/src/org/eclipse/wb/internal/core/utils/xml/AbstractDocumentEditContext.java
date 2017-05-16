@@ -30,7 +30,7 @@ import java.io.StringReader;
 
 /**
  * Wrapper for {@link IDocument} and tree of {@link DocumentElement}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */
@@ -417,7 +417,7 @@ public abstract class AbstractDocumentEditContext {
           break;
         }
       }
-      // check previous 
+      // check previous
       offset--;
     }
     return offset;

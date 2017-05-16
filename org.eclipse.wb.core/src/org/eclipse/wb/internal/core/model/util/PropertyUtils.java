@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Utils for {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

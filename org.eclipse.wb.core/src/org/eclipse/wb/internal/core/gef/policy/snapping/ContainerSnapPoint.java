@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Snap point suitable to snap component to parent container's side.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */

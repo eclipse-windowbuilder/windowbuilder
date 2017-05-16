@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 /**
  * Listener for {@link Display} or GEF (but we avoid this word in name of this listener, because in
  * theory we could use any presentation for model) events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Class which contributes actions for components ordering in same parent.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.model.layout.absolute

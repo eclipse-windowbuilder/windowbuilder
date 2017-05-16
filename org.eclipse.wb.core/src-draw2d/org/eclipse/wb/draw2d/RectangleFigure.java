@@ -12,7 +12,7 @@ package org.eclipse.wb.draw2d;
 
 /**
  * Draws a rectangle whose size is determined by the bounds set to it.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.draw2d
  */

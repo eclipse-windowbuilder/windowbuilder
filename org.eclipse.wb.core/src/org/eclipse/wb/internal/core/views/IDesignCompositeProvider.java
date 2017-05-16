@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.editor.DesignComposite;
 
 /**
  * GUI editors implement this interface to provide inner {@link DesignComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.views
  */

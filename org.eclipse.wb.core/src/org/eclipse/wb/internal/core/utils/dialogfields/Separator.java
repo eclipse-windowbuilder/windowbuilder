@@ -39,7 +39,7 @@ public class Separator extends DialogField {
   // ------- layout helpers
   /**
    * Creates the separator and fills it in a MGridLayout.
-   * 
+   *
    * @param height
    *          The height of the separator
    */
@@ -75,10 +75,10 @@ public class Separator extends DialogField {
     return gd;
   }
 
-  // ------- ui creation	
+  // ------- ui creation
   /**
    * Creates or returns the created separator.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> if the widget has already been created.
    */

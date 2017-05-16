@@ -21,7 +21,7 @@ import java.util.Comparator;
 
 /**
  * Helper for adding selection actions for absolute layouts.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @author lobas_av
@@ -242,7 +242,7 @@ public abstract class SimpleAlignmentActionsSupport<C extends IAbstractComponent
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Replicate width/height 
+  // Replicate width/height
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
@@ -271,13 +271,13 @@ public abstract class SimpleAlignmentActionsSupport<C extends IAbstractComponent
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Change bounds 
+  // Change bounds
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
    * "setLocation", "setSize", "setBounds" arguments.
-   * 
+   *
    * @param component
    *          the component which modifications applies to.
    * @param location

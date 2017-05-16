@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TabItem;
 
 /**
  * This class provides a convenient shorthand for creating and initializing {@link TabItem}.
- * 
+ *
  * @author lobas_av
  */
 public class TabFactory {

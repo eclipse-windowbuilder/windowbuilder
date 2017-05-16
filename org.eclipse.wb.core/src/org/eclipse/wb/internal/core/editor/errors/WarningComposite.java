@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * {@link Composite} for displaying non-error {@link Exception} on design pane.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.editor.errors
@@ -123,7 +123,7 @@ public abstract class WarningComposite extends Composite {
 
   /**
    * Handles the 'switch to source' action.
-   * 
+   *
    * @param sourcePosition
    *          the position in the source code to switch to.
    */

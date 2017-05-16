@@ -31,7 +31,7 @@ import org.eclipse.swt.graphics.Rectangle;
  * The {@link PropertyEditor} for selecting single value using {@link CComboBox}. This editor has
  * in-line search-feature and is more suitable (vs {@link AbstractComboPropertyEditor}) for
  * properties with large lists of value items.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage core.model.property.editor

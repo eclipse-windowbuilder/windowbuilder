@@ -12,7 +12,7 @@ package org.eclipse.wb.draw2d;
 
 /**
  * Controls the location of an {@link Figure}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -96,10 +96,10 @@ public class SelectionButtonDialogField extends DialogField {
     return 1;
   }
 
-  // ------- ui creation			
+  // ------- ui creation
   /**
    * Returns the selection button widget. When called the first time, the widget will be created.
-   * 
+   *
    * @param group
    *          The parent composite when called the first time, or <code>null</code> after.
    */
@@ -159,7 +159,7 @@ public class SelectionButtonDialogField extends DialogField {
     }
   }
 
-  // ------ model access	
+  // ------ model access
   /**
    * Returns the selection state of the button.
    */

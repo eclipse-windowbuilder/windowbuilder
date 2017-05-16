@@ -14,7 +14,7 @@ import org.eclipse.jface.text.IDocument;
 
 /**
  * Context for editing XML in {@link IDocument}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Implementation of {@link Property} that shows given inner {@link Property}'s using
  * {@link IComplexPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Abstract {@link Composite} for color selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

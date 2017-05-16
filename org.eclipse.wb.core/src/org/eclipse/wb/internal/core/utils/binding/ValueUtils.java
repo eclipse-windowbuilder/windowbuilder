@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public final class ValueUtils {
   ////////////////////////////////////////////////////////////////////////////

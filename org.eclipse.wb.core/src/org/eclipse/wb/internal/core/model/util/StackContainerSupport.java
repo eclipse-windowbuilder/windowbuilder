@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Helper for managing stack like containers, where only one child can be displayed.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

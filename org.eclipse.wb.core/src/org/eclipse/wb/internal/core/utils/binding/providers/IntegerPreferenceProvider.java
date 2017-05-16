@@ -14,7 +14,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Implementation of {@link AbstractPreferenceProvider} for integer values.
- * 
+ *
  * @author scheglov_ke
  */
 public final class IntegerPreferenceProvider extends AbstractPreferenceProvider {

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * A {@link Request} from multiple {@link EditPart}s.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

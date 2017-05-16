@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Display;
 /**
  * Refresh manager handle the job of repainting figures.<br>
  * Asynchronously updates the affected figures.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

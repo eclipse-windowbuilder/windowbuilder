@@ -32,7 +32,7 @@ import java.util.TimerTask;
 
 /**
  * Abstract super class for policies supporting children moving with keyboard arrow keys.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage core.gef.policy
@@ -152,7 +152,7 @@ public abstract class KeyboardMovingLayoutEditPolicy extends LayoutEditPolicy {
    */
   private void handleKeyReleased() {
     if (!m_isKeyboardMoving) {
-      // previous 'keypressed' request was cancelled, so cancel 'release' too.  
+      // previous 'keypressed' request was cancelled, so cancel 'release' too.
       return;
     }
     // start drag timer

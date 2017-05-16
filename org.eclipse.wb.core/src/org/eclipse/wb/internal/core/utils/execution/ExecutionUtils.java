@@ -21,7 +21,7 @@ import java.beans.Beans;
 
 /**
  * Utilities for executing actions, such as {@link RunnableEx}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -84,7 +84,7 @@ public class ExecutionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Runs given {@link RunnableEx} and ignores exceptions.
-   * 
+   *
    * @return <code>true</code> if execution was finished without exception.
    */
   public static boolean runIgnore(RunnableEx runnable) {
@@ -98,7 +98,7 @@ public class ExecutionUtils {
 
   /**
    * Runs given {@link RunnableEx} and logs exceptions using {@link DesignerPlugin#log(Throwable)}.
-   * 
+   *
    * @return <code>true</code> if execution was finished without exception.
    */
   public static boolean runLog(RunnableEx runnable) {
@@ -169,7 +169,7 @@ public class ExecutionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Runs given {@link RunnableEx} inside of UI thread, using {@link Display#syncExec(Runnable)}.
-   * 
+   *
    * @return <code>true</code> if {@link RunnableEx} was executed without any {@link Exception}.
    */
   public static boolean runLogUI(final RunnableEx runnable) {
@@ -238,7 +238,7 @@ public class ExecutionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Runs given {@link RunnableEx} and re-throws exceptions using {@link RuntimeException}.
-   * 
+   *
    * @return the {@link Object} returned by {@link RunnableEx#run()}.
    */
   public static <T> T runObject(RunnableObjectEx<T> runnable) {
@@ -251,7 +251,7 @@ public class ExecutionUtils {
 
   /**
    * Runs given {@link RunnableEx} and re-throws exceptions using {@link RuntimeException}.
-   * 
+   *
    * @return the {@link Object} returned by {@link RunnableObjectEx#run()}.
    */
   @SuppressWarnings("unchecked")
@@ -267,7 +267,7 @@ public class ExecutionUtils {
 
   /**
    * Runs given {@link RunnableEx} and re-throws exceptions using {@link RuntimeException}.
-   * 
+   *
    * @return the {@link Object} returned by {@link RunnableEx#run()}.
    */
   public static <T> T runObject(RunnableObjectEx<T> runnable, String format, Object... args) {
@@ -281,7 +281,7 @@ public class ExecutionUtils {
 
   /**
    * Runs given {@link RunnableEx} and ignores exceptions.
-   * 
+   *
    * @return the {@link Object} returned by {@link RunnableEx#run()} or <code>defaultValue</code> if
    *         exception happened.
    */
@@ -295,7 +295,7 @@ public class ExecutionUtils {
 
   /**
    * Runs given {@link RunnableEx} and logs exceptions using {@link DesignerPlugin#log(Throwable)}.
-   * 
+   *
    * @return the {@link Object} returned by {@link RunnableEx#run()} or <code>defaultValue</code> if
    *         exception was logged.
    */
@@ -315,7 +315,7 @@ public class ExecutionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Runs given {@link RunnableEx} inside of edit operation.
-   * 
+   *
    * @return <code>true</code> if execution was finished without exception.
    */
   public static boolean run(ObjectInfo objectInfo, RunnableEx runnable) {

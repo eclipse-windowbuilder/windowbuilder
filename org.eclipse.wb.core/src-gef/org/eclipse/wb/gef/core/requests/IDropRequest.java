@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 
 /**
  * A {@link Request} that requires a location in order to drop an item.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

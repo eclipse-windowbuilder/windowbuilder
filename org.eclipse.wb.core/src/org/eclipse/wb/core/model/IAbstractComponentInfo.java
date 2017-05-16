@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface model for any GUI component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -87,75 +87,75 @@ public interface IAbstractComponentInfo extends IObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the "shot" bounds.
-   * 
+   *
    * The "shot" bounds is the bounds relative top-left corner of the parent including top and left
    * border size, i.e. parent insets left and insets top. The transformation between "model" bounds
    * and "shot" bounds is:
-   * 
+   *
    * <pre><code>
 	 * shotBounds.x = modelBounds.x + parentInsets.left;
 	 * shotBounds.y = modelBounds.y + parentInsets.top;
 	 * </code></pre>
-   * 
+   *
    * If this {@link AbstractComponentInfo} is in process of "paste", absolute bounds of source
    * component will be returned (i.e. bounds relative top-left corner of source root component).
-   * 
+   *
    * @return the "shot" bounds.
    */
   Rectangle getBounds();
 
   /**
    * Sets new "shot" bounds of this component.
-   * 
+   *
    * The "shot" bounds is the bounds relative to top-left corner of the parent including top and
    * left border size, i.e. parent insets left and insets top.
-   * 
+   *
    * The transformation between "model" bounds and "shot" bounds is:
-   * 
+   *
    * <pre><code>
 	 * shotBounds.x = modelBounds.x + parentInsets.left;
 	 * shotBounds.y = modelBounds.y + parentInsets.top;
 	 * </code></pre>
-   * 
+   *
    * This method should be used by subclasses during fetching visual information.
    */
   void setBounds(Rectangle bounds);
 
   /**
    * Return the bounds in terms of GUI toolkit ("model" bounds).
-   * 
+   *
    * The "model" bounds is the bounds relative to top-left corner of parent's client area. This
    * bounds value is usually the bounds of component object, placed on parent container.
-   * 
+   *
    * The transformation between "shot" bounds and "model" bounds is:
-   * 
+   *
    * <pre><code>
 	 * modelBounds.x = shotBounds.x - parentInsets.left;
 	 * modelBounds.y = shotBounds.y - parentInsets.top;
 	 * </code></pre>
-   * 
+   *
    * During paste process this bounds is not actually a "model" bounds, but same as "shot" bounds
    * during paste. See {@link #getBounds(Rectangle)}.
-   * 
+   *
    * @return the bounds in terms of GUI toolkit ("model" bounds).
    */
   Rectangle getModelBounds();
 
   /**
    * Sets new "model" bounds of this component.
-   * 
+   *
    * The "model" bounds is the bounds relative to top-left corner of parent's client area. This
    * bounds value is usually the bounds of component object, placed on parent container.
-   * 
+   *
    * The transformation between "shot" bounds and "model" bounds is:
-   * 
+   *
    * <pre><code>
 	 * modelBounds.x = shotBounds.x - parentInsets.left;
 	 * modelBounds.y = shotBounds.y - parentInsets.top;
 	 * </code></pre>
-   * 
+   *
    * This method should be used by subclasses during fetching visual information.
-   * 
+   *
    * During paste process this bounds is not actually a "model" bounds, but same as "shot" bounds
    * during paste. See {@link #getBounds(Rectangle)}.
    */

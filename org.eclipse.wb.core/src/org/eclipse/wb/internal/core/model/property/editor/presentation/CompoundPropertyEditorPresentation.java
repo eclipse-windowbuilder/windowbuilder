@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Implementation of {@link PropertyEditorPresentation} that contains zero or more other
  * {@link PropertyEditorPresentation}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

@@ -16,7 +16,7 @@ import org.eclipse.swt.graphics.ImageData;
 
 /**
  * Implementation of {@link ImageDescriptor} for {@link Image} instance.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

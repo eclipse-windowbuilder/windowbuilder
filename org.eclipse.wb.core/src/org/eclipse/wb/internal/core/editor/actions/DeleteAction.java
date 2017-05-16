@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Action} for {@link ActionFactory#DELETE}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action
  */
@@ -96,7 +96,7 @@ public class DeleteAction extends Action {
       }
       // Check that object is not deleted.
       // When we refresh GEF viewer after "delete", temporary there is situation when selection
-      // contains already deleted objects. 
+      // contains already deleted objects.
       if (object.isDeleted()) {
         return null;
       }

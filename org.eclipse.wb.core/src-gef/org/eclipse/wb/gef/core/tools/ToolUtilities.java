@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Utilities for {@link Tool}'s.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Selection policy for complex absolute layouts: SWT FormLayout, Swing SpringLayout.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComponentInfo>
@@ -74,7 +74,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  //	Selection 
+  //	Selection
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
@@ -349,7 +349,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Popup figures 
+  // Popup figures
   //
   ////////////////////////////////////////////////////////////////////////////
   protected class HorizontalPopupFigure extends AbstractPopupFigure {

@@ -38,7 +38,7 @@ import java.util.Map;
  * changes to the model. EditParts typically control a single model object or a coupled set of
  * object. Model objects are often composed of other objects that the User will interact with.
  * Similarly, EditParts can be composed of or have references to other EditParts.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */
@@ -235,7 +235,7 @@ public abstract class EditPart {
   /**
    * Returns the selected state of this {@link EditPart}. This method should only be called
    * internally or by helpers such as EditPolicies.
-   * 
+   *
    * @return one of:
    *         <UL>
    *         <LI> {@link #SELECTED}
@@ -543,7 +543,7 @@ public abstract class EditPart {
    * Performs the addition of the child's <i>visual</i> to this EditPart's Visual. The provided
    * subclasses {@link GraphicalEditPart} and {@link TreeEditPart} already implement this method
    * correctly, so it is unlikely that this method should be overridden.
-   * 
+   *
    * @param childPart
    *          The EditPart being added.
    * @param index
@@ -555,7 +555,7 @@ public abstract class EditPart {
   /**
    * Removes the childs visual from this EditPart's visual. Subclasses should implement this method
    * to support the visual type they introduce, such as Figures or TreeItems.
-   * 
+   *
    * @param childPart
    *          the child EditPart
    */

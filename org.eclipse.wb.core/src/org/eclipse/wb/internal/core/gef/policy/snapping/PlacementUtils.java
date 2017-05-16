@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * Utility class for working with SWT FormLayout.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -73,7 +73,7 @@ public final class PlacementUtils {
 
   /**
    * Returns either of {@link PlacementInfo#LEADING} or {@link PlacementInfo#TRAILING}
-   * 
+   *
    * @param side
    *          the one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
    *          {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM}.

@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.property;
 
 /**
  * Interface for {@link Property} which has type.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

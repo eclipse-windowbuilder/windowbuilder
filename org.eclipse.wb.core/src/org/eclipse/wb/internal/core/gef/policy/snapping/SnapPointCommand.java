@@ -15,7 +15,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 /**
  * Special command belonging to SnapPoint.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class SnapPointCommand extends EditCommand {
@@ -25,7 +25,7 @@ public abstract class SnapPointCommand extends EditCommand {
   //
   // Constructor
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public SnapPointCommand(ObjectInfo objectInfo, SnapPoint snapPoint) {
     super(objectInfo);
     m_snapPoint = snapPoint;
@@ -33,7 +33,7 @@ public abstract class SnapPointCommand extends EditCommand {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Access 
+  // Access
   //
   ////////////////////////////////////////////////////////////////////////////
   public void setSnapPoint(SnapPoint snapPoint) {

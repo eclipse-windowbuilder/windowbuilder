@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 /**
  * Helper for re-displaying selection of {@link SelectionEditPolicy} on refresh broadcast in model.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

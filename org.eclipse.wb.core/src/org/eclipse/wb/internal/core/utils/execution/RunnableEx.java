@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.execution;
 
 /**
  * Analog of {@link Runnable} where method <code>run</code> can throw {@link Exception}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

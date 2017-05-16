@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Fired every time when bounds adjusted.
- * 
+ *
  * @author mitin_aa
  */
 public interface ISnapPointsListener {

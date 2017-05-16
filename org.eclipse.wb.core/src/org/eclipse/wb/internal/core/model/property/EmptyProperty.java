@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Empty {@link Property}, that has no title or value.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

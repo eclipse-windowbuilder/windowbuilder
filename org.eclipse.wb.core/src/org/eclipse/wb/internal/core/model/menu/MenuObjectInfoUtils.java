@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Utility method for {@link IMenuObjectInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.model.menu
@@ -149,7 +149,7 @@ public final class MenuObjectInfoUtils {
    *          the {@link Object} to adapt.
    * @param adapter
    *          the type of adapter.
-   * 
+   *
    * @return the adapter of required type.
    */
   private static <T> T getAdapter(Object object, Class<T> adapter) {

@@ -19,7 +19,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 
 /**
  * Factory for creating {@link ILayoutRequestValidator}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

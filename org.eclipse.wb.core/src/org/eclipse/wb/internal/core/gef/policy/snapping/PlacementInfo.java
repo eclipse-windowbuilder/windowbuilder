@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Structure class intended to keep information about occurred placement for one axis.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */

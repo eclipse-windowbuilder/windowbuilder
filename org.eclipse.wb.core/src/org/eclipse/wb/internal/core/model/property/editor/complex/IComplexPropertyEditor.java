@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Extension for {@link PropertyEditor} that specifies that it has sub-properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

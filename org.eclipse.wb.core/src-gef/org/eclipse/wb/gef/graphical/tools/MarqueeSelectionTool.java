@@ -38,7 +38,7 @@ import java.util.List;
  * <P>
  * By default, only {@link EditPart}'s whose figure's are on the primary layer will be considered
  * within the enclosed rectangle.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

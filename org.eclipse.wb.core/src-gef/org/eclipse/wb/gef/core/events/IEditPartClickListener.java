@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * Interface for listening to click on {@link EditPart}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

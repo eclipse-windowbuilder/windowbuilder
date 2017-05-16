@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * A {@link Request} to select an {@link EditPart}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

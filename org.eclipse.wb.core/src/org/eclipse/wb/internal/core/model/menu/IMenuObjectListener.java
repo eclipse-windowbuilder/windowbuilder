@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.menu;
 
 /**
  * Listener that can be notified that some {@link IMenuObjectInfo} was deleted.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.menu
  */

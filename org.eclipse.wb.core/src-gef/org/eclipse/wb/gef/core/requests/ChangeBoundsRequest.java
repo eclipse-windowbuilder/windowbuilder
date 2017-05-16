@@ -17,7 +17,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * A {@link Request} to change the bounds of the {@link EditPart}(s).
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */
@@ -111,7 +111,7 @@ public class ChangeBoundsRequest extends GroupRequest implements IDropRequest {
 
   /**
    * Sets the direction the figure is being resized.
-   * 
+   *
    * @see #getResizeDirection()
    */
   public void setResizeDirection(int direction) {

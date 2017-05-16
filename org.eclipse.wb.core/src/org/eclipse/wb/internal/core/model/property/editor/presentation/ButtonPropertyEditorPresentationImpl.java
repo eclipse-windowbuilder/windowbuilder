@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * Internal implementation of {@link PropertyEditorPresentation} for displaying {@link Button}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.model.property.editor

@@ -49,7 +49,7 @@ import java.util.List;
 /**
  * Abstract implementation of {@link ILayoutAssistantPage} with convenient function to create
  * property editors.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.action.assistant
  */

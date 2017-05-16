@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Helper for {@link IBrandingDescription}s.
- * 
+ *
  * @author Jaime Wren
  * @coverage core.util
  */

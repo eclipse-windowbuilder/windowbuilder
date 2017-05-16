@@ -358,7 +358,7 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
   /**
    * If arguments contain {@link TypedEvent} and target {@link Control} is disabled, then puts this
    * event into {@link List} with key {@link #KEY_DELAYED_EVENTS}.
-   * 
+   *
    * @return <code>true</code> if event was delayed.
    */
   private static boolean delayEvent(InvocationHandler handler,

@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Abstract {@link Composite} for color selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */
@@ -85,7 +85,7 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
   /**
    * Adds new {@link Group} with given title and fills it with {@link ColorsGridComposite} with
    * given colors.
-   * 
+   *
    * @return creates {@link ColorsGridComposite} to allow futher configuring it.
    */
   protected final ColorsGridComposite createColorsGroup(Composite parent,

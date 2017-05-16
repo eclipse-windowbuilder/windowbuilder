@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 
 /**
  * Abstract implementation of {@link ILayoutRequestValidator} for specific type of model objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

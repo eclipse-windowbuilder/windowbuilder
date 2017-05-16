@@ -14,7 +14,7 @@ import org.eclipse.core.resources.IProject;
 
 /**
  * Interface for working with error report.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
@@ -38,7 +38,7 @@ public interface IErrorReport {
 
   /**
    * Includes screenshot defined by <code>filePath</code> to being sent list.
-   * 
+   *
    * @param filePath
    *          the full path to file with screenshot.
    * @param include
@@ -60,7 +60,7 @@ public interface IErrorReport {
 
   /**
    * Includes file defined by <code>filePath</code> to being sent list.
-   * 
+   *
    * @param filePath
    *          the full path to file.
    * @param include

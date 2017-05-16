@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Interface for error reporting using zipped report files.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

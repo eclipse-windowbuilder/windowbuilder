@@ -19,7 +19,7 @@ import java.util.List;
  * Listener for {@link ObjectInfo} events.
  * <p>
  * Used to get notified while preparing {@link Property} list for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

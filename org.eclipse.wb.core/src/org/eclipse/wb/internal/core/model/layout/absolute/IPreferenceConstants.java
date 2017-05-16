@@ -13,11 +13,11 @@ package org.eclipse.wb.internal.core.model.layout.absolute;
 /**
  * Preference constants for absolute-based layouts. Descendants may extend this interface.
  * Preference initializers are concrete for every layout support.
- * 
+ *
  * FIXME use small, nice looking names for preferences, see for example
  * {@link org.eclipse.wb.internal.core.model.property.event.IPreferenceConstants} or even
  * IAntUIPreferenceConstants.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.layout.absolute
  */

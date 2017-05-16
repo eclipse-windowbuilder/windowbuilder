@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Standard palette tooltip: bold header and multi line details.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */

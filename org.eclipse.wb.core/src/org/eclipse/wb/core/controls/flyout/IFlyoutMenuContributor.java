@@ -14,7 +14,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * Contributes items into {@link IMenuManager} or {@link FlyoutControlComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

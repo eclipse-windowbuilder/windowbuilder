@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link IMenuInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu

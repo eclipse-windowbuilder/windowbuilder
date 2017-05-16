@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Abstract {@link Property} for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

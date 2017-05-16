@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 /**
  * {@link Predicate} that checks that given {@link Object} has compatible class.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.BooleanDialogField;
 
 /**
  * Implementation of {@link IDataEditor} for {@link BooleanDialogField}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BooleanEditor implements IDataEditor {

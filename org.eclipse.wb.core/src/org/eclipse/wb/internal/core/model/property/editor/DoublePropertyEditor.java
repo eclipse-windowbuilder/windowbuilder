@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for <code>double</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

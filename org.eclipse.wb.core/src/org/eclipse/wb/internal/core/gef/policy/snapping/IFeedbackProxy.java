@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * Feedback drawing proxy for snapping engine.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */

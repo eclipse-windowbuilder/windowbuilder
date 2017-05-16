@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Generic {@link SelectionEditPolicy} for absolute based layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy
  */

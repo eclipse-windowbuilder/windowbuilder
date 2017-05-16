@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.menu;
 
 /**
  * Interface for menu item.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.model.menu

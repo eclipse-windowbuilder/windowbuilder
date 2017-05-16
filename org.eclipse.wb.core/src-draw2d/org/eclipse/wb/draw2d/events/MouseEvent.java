@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.draw2d.FigureCanvas;
  * Instances of this class are sent whenever mouse related actions occur. This includes mouse
  * buttons being pressed and released, the mouse pointer being moved and the mouse pointer crossing
  * widget boundaries.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

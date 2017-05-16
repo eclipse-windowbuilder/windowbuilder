@@ -24,7 +24,7 @@ import java.util.TreeMap;
  * <p>
  * However it provides offset/length information for elements and attributes, which is very
  * important for parsing XML into AST-like model and keeping them later synchronized.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

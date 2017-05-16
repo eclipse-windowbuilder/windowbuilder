@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 
 /**
  * Implementation of {@link ILayoutRequestValidator} for specific type of model objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

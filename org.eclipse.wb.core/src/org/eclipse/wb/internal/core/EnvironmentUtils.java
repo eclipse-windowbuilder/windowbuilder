@@ -22,7 +22,7 @@ import java.util.Locale;
 
 /**
  * Helper for environment state access.
- * 
+ *
  * @author scheglov_ke
  * @coverage core
  */
@@ -186,7 +186,7 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 
   /**
    * Decides if the operating system matches.
-   * 
+   *
    * @param osNamePrefix
    *          the prefix for the OS name.
    * @param osVersionPrefix

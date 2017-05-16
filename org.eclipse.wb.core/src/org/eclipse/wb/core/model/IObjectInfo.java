@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * Interface model of any {@link Object}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

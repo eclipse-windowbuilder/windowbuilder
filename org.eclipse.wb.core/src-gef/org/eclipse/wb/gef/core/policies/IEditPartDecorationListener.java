@@ -15,7 +15,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
 /**
  * The listener interface for receiving decorate/undecorate events from {@link LayoutEditPolicy}.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 
 /**
  * Interface of {@link EditPart} for any {@link IMenuObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.menu
  */

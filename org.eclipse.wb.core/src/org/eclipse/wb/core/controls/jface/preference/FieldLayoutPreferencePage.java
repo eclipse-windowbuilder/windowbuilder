@@ -28,10 +28,10 @@ import java.util.List;
  * <p>
  * Subclasses must implement the <code>createPageContents</code>.
  * </p>
- * 
+ *
  * This class may be freely distributed as part of any application or plugin.
  * <p>
- * 
+ *
  * @version $Revision: 1.5 $
  * @author scheglov_ke
  * @coverage core.control
@@ -57,7 +57,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
 
   /**
    * Creates a new field editor preference page with the given title, but no image.
-   * 
+   *
    * @param title
    *          the title of this preference page
    */
@@ -67,7 +67,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
 
   /**
    * Creates a new field editor preference page with the given image, and style.
-   * 
+   *
    * @param title
    *          the title of this preference page
    * @param image
@@ -79,7 +79,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
 
   /**
    * Adds the given field editor to this page.
-   * 
+   *
    * @param editor
    *          the field editor
    */
@@ -93,7 +93,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
   protected void checkState() {
     boolean valid = true;
     invalidFieldEditor = null;
-    // The state can only be set to true if all field editors contain a valid value. 
+    // The state can only be set to true if all field editors contain a valid value.
     // So we must check them all.
     for (FieldEditor fieldEditor : fields) {
       valid = valid && fieldEditor.isValid();
@@ -121,7 +121,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
    * <code>GridLayout</code>) are expected to set the margins of this <code>Layout</code> to 0
    * pixels.
    * </p>
-   * 
+   *
    * @param parent
    *          the parent composite
    * @return the new control
@@ -173,7 +173,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
    * The field editor preference page implementation of this <code>PreferencePage</code> method
    * saves all field editors by calling <code>FieldEditor.store</code>. Note that this method does
    * not save the preference store itself; it just stores the values back into the preference store.
-   * 
+   *
    * @see FieldEditor#store()
    */
   @Override

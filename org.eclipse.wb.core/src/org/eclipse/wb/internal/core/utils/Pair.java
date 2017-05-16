@@ -14,7 +14,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * Pair of two objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

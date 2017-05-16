@@ -12,7 +12,7 @@ package org.eclipse.wb.core.editor;
 
 /**
  * Constants for context groups.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

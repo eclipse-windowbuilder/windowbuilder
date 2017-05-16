@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils;
 
 /**
  * Interface for classes which needs to release internal resources.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage core.model

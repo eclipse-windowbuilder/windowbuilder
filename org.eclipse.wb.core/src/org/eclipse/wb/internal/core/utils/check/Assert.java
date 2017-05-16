@@ -23,7 +23,7 @@ import java.text.MessageFormat;
  * Assertion failure exceptions, like most runtime exceptions, are thrown when something is
  * misbehaving. Assertion failures are invariably unspecified behavior; consequently, clients should
  * never rely on these being thrown (and certainly should not being catching them specifically).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -44,7 +44,7 @@ public final class Assert {
   /**
    * Asserts that an argument is legal. If the given boolean is not <code>true</code>, an
    * <code>IllegalArgumentException</code> is thrown.
-   * 
+   *
    * @param expression
    *          the boolean expression of the check
    * @return <code>true</code> if the check passes (does not return if the check fails)
@@ -59,7 +59,7 @@ public final class Assert {
    * Asserts that an argument is legal. If the given boolean is not <code>true</code>, an
    * <code>IllegalArgumentException</code> is thrown. The given message is included in that
    * exception, to aid debugging.
-   * 
+   *
    * @param expression
    *          the boolean expression of the check
    * @param message
@@ -83,7 +83,7 @@ public final class Assert {
   /**
    * Asserts that the given object is <code>null</code>. If this is not the case, some kind of
    * unchecked exception is thrown.
-   * 
+   *
    * @param object
    *          the value to test
    */
@@ -95,7 +95,7 @@ public final class Assert {
    * Asserts that the given object is <code>null</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param object
    *          the value to test
    * @param message
@@ -111,7 +111,7 @@ public final class Assert {
    * Asserts that the given object is not <code>null</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param object
    *          the value to test
    * @param errorFormat
@@ -151,7 +151,7 @@ public final class Assert {
   /**
    * Asserts that the given object is not <code>null</code>. If this is not the case, some kind of
    * unchecked exception is thrown.
-   * 
+   *
    * @param object
    *          the value to test
    */
@@ -163,7 +163,7 @@ public final class Assert {
    * Asserts that the given object is not <code>null</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param object
    *          the value to test
    * @param message
@@ -179,7 +179,7 @@ public final class Assert {
    * Asserts that the given object is not <code>null</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param object
    *          the value to test
    * @param errorFormat
@@ -217,7 +217,7 @@ public final class Assert {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Fails with given message.
-   * 
+   *
    * @param message
    *          the message to include in the exception
    */
@@ -243,7 +243,7 @@ public final class Assert {
   /**
    * Asserts that the given boolean is <code>true</code>. If this is not the case, some kind of
    * unchecked exception is thrown.
-   * 
+   *
    * @param expression
    *          the boolean expression of the check
    * @return <code>true</code> if the check passes (does not return if the check fails)
@@ -256,7 +256,7 @@ public final class Assert {
    * Asserts that the given boolean is <code>true</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param expression
    *          the boolean expression of the check
    * @param message
@@ -274,7 +274,7 @@ public final class Assert {
    * Asserts that the given boolean is <code>true</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param expression
    *          the boolean expression of the check
    * @param errorFormat
@@ -297,7 +297,7 @@ public final class Assert {
    * Asserts that the given boolean is <code>true</code>. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param expression
    *          the boolean expression to check.
    * @param errorFormat
@@ -319,7 +319,7 @@ public final class Assert {
   /**
    * Asserts that given actual value equals expected value. If this is not the case, some kind of
    * unchecked exception is thrown.
-   * 
+   *
    * @param expected
    *          the expected value
    * @param the
@@ -333,7 +333,7 @@ public final class Assert {
    * Asserts that given actual value equals expected value. If this is not the case, some kind of
    * unchecked exception is thrown. The given message is included in that exception, to aid
    * debugging.
-   * 
+   *
    * @param expected
    *          the expected value
    * @param the
@@ -372,7 +372,7 @@ public final class Assert {
   /**
    * Asserts that the given boolean is <code>true</code>. If this is not the case,
    * {@link DesignerException} is thrown.
-   * 
+   *
    * @param expression
    *          the boolean expression of the check
    * @param exceptionCode

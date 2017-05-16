@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Canvas;
 
 /**
  * VerticalScrollModel represents model for support vertical scrolling.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

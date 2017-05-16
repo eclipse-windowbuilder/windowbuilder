@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 /**
  * Helper for adding/removing {@link IEditPartSelectionListener} for host {@link EditPart} on
  * {@link EditPolicy} activate/deactivate.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

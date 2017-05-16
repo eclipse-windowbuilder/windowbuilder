@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.editor;
 /**
  * Extension for {@link PropertyEditor} that can be used to convert {@link Object} value into Java
  * source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

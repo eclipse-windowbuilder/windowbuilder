@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Factory for creating {@link Object}'s that does not create new instance each time, but returns
  * always same instance, from <code>public static final INSTANCE</code> field.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

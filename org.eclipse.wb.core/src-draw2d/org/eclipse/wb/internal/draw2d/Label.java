@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Insets;
 
 /**
  * A figure that can display text.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

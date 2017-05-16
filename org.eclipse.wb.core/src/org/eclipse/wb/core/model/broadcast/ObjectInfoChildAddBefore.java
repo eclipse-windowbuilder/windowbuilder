@@ -14,14 +14,14 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 /**
  * Listener for {@link ObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
 public interface ObjectInfoChildAddBefore {
   /**
    * Before adding child to parent.
-   * 
+   *
    * @param parent
    *          the parent to add to.
    * @param child

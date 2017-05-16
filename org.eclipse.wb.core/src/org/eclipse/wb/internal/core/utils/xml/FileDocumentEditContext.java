@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 
 /**
  * Context for editing XML in {@link IFile}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

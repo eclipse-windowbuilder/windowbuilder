@@ -58,7 +58,7 @@ import java.util.Set;
 
 /**
  * Control that can display {@link Property}'s and edit them using {@link PropertyEditor}'s.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.model.property.table
@@ -514,7 +514,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 
   /**
    * Tries to activate editor for {@link PropertyInfo} under cursor.
-   * 
+   *
    * @param location
    *          the mouse location, if editor is activated using mouse click, or <code>null</code> if
    *          it is activated using keyboard.
@@ -718,7 +718,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
    *          the {@link PropertyTable} relative coordinate.
    * @param y
    *          the {@link PropertyTable} relative coordinate.
-   * 
+   *
    * @return the location relative to the value part of property.
    */
   private Point getValueRelativeLocation(int x, int y) {
@@ -960,12 +960,12 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
   }
 
   /**
-   * Sets the new active {@link PropertyInfo} and sends event to {@link ISelectionChangedListener} 
+   * Sets the new active {@link PropertyInfo} and sends event to {@link ISelectionChangedListener}
    * 's.
    */
   private void setActivePropertyInfo(PropertyInfo activePropertyInfo) {
     m_activePropertyInfo = activePropertyInfo;
-    // update m_activePropertyId only when really select property, 
+    // update m_activePropertyId only when really select property,
     // not just remove selection because there are no corresponding property for old active
     // so, later for some other component, if we don't select other property, old active will be selected
     if (m_activePropertyInfo != null) {
@@ -1126,7 +1126,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
    * Shows {@link PropertyEditorPresentation}'s for all {@link Property}'s, i.e. updates also their
    * bounds. So, some {@link PropertyEditorPresentation}'s become invisible because they are moved
    * above or below visible client area.
-   * 
+   *
    * @return the array of width for each {@link PropertyEditorPresentation}'s, consumed on the
    *         right.
    */
@@ -1291,7 +1291,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Class with information about single {@link Property}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class PropertyInfo {
@@ -1413,7 +1413,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
     ////////////////////////////////////////////////////////////////////////////
     /**
      * Adds children properties.
-     * 
+     *
      * @return the index for new properties to add.
      */
     private int addChildren(int index) throws Exception {

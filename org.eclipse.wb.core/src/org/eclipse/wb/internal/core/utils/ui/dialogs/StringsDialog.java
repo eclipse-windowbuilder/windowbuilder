@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * The dialog for editing array of {@link String}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

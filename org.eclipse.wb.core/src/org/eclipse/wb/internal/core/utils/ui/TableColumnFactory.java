@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 /**
  * Helper for convenient creation/modification of {@link TableColumn}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Helper for accessing <code>ComponentDescription</code> and its parts.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

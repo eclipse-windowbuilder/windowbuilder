@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * {@link SelectionEditPolicy} for column objects. It has simple line selection and static resize
  * handle.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

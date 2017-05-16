@@ -19,7 +19,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
  * Special {@link Tool} for handle only double-click mouse event and route it to {@link EditPart}.
  * This need for tree edit part's that it's not contains special tools for handle selection (via
  * SelectEditPartTracker).
- * 
+ *
  * @author lobas_av
  * @coverage gef.tree
  */

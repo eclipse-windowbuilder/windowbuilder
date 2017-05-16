@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Default implementation of {@link IObjectPresentation}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.presentation
  */

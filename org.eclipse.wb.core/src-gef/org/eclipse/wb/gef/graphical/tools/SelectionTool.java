@@ -33,7 +33,7 @@ import java.util.List;
  * Tool to select and manipulate figures. A selection tool is in one of three states, e.g.,
  * background selection, figure selection, handle manipulation. The different states are handled by
  * different child tools.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */
@@ -172,7 +172,7 @@ public class SelectionTool extends TargetingTool {
   @Override
   protected void handleViewerExited() {
     if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
-      // send low level event to give current tracker a chance to process 'mouse up' event. 
+      // send low level event to give current tracker a chance to process 'mouse up' event.
       Event event = new Event();
       event.x = m_currentScreenX;
       event.y = m_currentScreenY;

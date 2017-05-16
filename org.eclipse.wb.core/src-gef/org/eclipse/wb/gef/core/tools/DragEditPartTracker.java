@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * A drag tracker that moves {@link EditPart EditParts}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Dialog field containing a single check box control.
- * 
+ *
  * @author lobas_av
  */
 public class CheckDialogField extends DialogField {
@@ -51,7 +51,7 @@ public class CheckDialogField extends DialogField {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates or returns the created check box control.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> when the widget has already been created.
    */

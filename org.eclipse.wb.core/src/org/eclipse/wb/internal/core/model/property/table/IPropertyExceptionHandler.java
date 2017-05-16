@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 /**
  * Handler for any {@link Exception} that happens in {@link PropertyTable}, i.e. exceptions during
  * {@link Property} modifications using {@link PropertyEditor}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.table
  */

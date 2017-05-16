@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.exception;
 
 /**
  * Constants for "core" {@link DesignerException}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

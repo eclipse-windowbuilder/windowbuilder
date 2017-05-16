@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * Visitor for visiting {@link EditPart} hierarchy.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 /**
  * Used for providing visual data for support of widget snapping while designing absolute-based
  * layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */
@@ -45,7 +45,7 @@ public interface IVisualDataProvider {
 
   /**
    * Returns gap value between two components.
-   * 
+   *
    * @param component1
    *          First component model, may not be null.
    * @param component2

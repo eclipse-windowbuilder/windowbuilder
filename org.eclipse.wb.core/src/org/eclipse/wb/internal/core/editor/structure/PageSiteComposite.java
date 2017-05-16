@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.ToolBar;
 
 /**
  * The site {@link Composite} for {@link IPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

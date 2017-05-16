@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.geometry.Dimension;
 
 /**
  * An interface to size providers for preferred-size-oriented figures.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

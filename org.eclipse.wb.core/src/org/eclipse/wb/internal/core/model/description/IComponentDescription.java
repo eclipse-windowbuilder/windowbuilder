@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface for component description.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

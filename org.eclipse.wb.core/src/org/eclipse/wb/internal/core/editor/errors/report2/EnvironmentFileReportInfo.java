@@ -36,7 +36,7 @@ import java.net.URL;
 
 /**
  * Intended to gather needed software and hardware info.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
@@ -150,7 +150,7 @@ public final class EnvironmentFileReportInfo extends FileReportEntry {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Get system property and return empty string if no such property.
-   * 
+   *
    * @param prop
    *          the property name.
    */

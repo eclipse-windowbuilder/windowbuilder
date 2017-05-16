@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Interface for menu policy: validation and performing operations.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.menu
  */
@@ -29,7 +29,7 @@ public interface IMenuPolicy {
   /**
    * @param newObject
    *          the new object to add.
-   * 
+   *
    * @return <code>true</code> if new object can be added.
    */
   boolean validateCreate(Object newObject);
@@ -37,7 +37,7 @@ public interface IMenuPolicy {
   /**
    * @param mementoObject
    *          some object that contains information about pasting.
-   * 
+   *
    * @return <code>true</code> paste operation can be performed.
    */
   boolean validatePaste(Object mementoObject);
@@ -45,7 +45,7 @@ public interface IMenuPolicy {
   /**
    * @param object
    *          the object that should be moved.
-   * 
+   *
    * @return <code>true</code> move operation can be performed.
    */
   boolean validateMove(Object object);
@@ -57,7 +57,7 @@ public interface IMenuPolicy {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Adds new object.
-   * 
+   *
    * @param newObject
    *          the new object to add.
    * @param nextObject
@@ -67,19 +67,19 @@ public interface IMenuPolicy {
 
   /**
    * Performs paste.
-   * 
+   *
    * @param mementoObject
    *          some object that contains information about pasting.
    * @param nextObject
    *          the existing object to paste object before.
-   * 
+   *
    * @return the {@link List} of pasted objects that should be selected after paste.
    */
   List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception;
 
   /**
    * Performs move of one "object" before other "object".
-   * 
+   *
    * @param object
    *          the toolkit object that should be moved.
    * @param nextObject

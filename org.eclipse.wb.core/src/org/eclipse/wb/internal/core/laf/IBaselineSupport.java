@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.laf;
 
 /**
  * Interface providing baseline offset in visual component.
- * 
+ *
  * @author mitin_aa
  * @coverage core.laf
  */
@@ -24,7 +24,7 @@ public interface IBaselineSupport {
 
   /**
    * Returns the baseline offset from top of component.
-   * 
+   *
    * @param component
    *          the visual element of some GUI toolkit.
    * @return the baseline offset from top of component.

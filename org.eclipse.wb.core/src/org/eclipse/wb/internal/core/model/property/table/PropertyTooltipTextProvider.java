@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Implementation of {@link PropertyTooltipProvider} for text.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.table
  */

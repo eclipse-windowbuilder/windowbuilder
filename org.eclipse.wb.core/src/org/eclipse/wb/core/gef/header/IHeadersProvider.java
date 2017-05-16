@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Provider for headers on {@link HeaderGraphicalViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 /**
  * Listener for {@link ObjectInfo} delete events.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model
  */

@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * {@link GraphicalEditPolicy} that supports direct edit for some {@link String} using {@link Text}
  * widget.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.graphical
  */
@@ -187,7 +187,7 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
    *          the absolute bounds of host {@link Figure}.
    * @param textSize
    *          the size of {@link Text} widget.
-   * 
+   *
    * @return the absolute location of {@link Text} widget.
    */
   protected abstract Point getTextWidgetLocation(Rectangle hostBounds, Dimension textSize);

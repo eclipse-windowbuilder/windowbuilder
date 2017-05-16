@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.editor.errors.report2;
 
 /**
  * Interface for extension point to provide additional report entries.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

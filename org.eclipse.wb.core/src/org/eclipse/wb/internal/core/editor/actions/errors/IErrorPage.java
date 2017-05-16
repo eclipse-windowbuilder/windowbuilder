@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Interface for displaying error in {@link ErrorsDialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.error
  */

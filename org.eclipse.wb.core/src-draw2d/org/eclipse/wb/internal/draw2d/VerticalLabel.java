@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * A Label which draws its text vertically.
- * 
+ *
  * @author mitin_aa
  */
 public final class VerticalLabel extends Label {
@@ -60,7 +60,7 @@ public final class VerticalLabel extends Label {
   /**
    * Draws text vertically (rotates plus or minus 90 degrees). Uses the current font, color, and
    * background.
-   * 
+   *
    * @param string
    *          the text to draw
    * @param x

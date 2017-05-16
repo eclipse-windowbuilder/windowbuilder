@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for {@link Long}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

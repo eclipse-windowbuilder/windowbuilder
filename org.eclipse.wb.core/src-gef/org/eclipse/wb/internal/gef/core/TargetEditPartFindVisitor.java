@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.draw2d.TargetFigureFindVisitor;
 
 /**
  * This class use to find {@link EditPart} under mouse.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

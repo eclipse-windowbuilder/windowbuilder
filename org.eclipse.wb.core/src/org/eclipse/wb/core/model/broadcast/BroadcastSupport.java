@@ -31,7 +31,7 @@ import java.util.Map;
  * send events that some object was added/removed from its parent. We send this event as broadcast
  * because there are cases when we need to know globally that some new object was added (for example
  * in Forms API for adapting each Composite).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -74,7 +74,7 @@ public final class BroadcastSupport {
 
   /**
    * Moves listeners from one target to another.
-   * 
+   *
    * @noreference
    */
   public void targetListener(ObjectInfo oldTarget, ObjectInfo newTarget) {
@@ -88,7 +88,7 @@ public final class BroadcastSupport {
    * When we remove {@link ObjectInfo}'s from their parent, so exclude them from hierarchy, or these
    * {@link ObjectInfo}'s are just not included into hierarchy during parsing; we should remove any
    * broadcast listeners, registered by these {@link ObjectInfo}'s.
-   * 
+   *
    * @noreference
    */
   public void cleanUpTargets(ObjectInfo root) {

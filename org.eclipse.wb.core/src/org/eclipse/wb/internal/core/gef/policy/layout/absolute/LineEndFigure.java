@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Figure to draw half-arc at the end of the drawn line. The default figure size is (7, 7).
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy
  */

@@ -39,7 +39,7 @@ import java.util.Set;
 
 /**
  * Intelligent component placement preparations.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */
@@ -194,7 +194,7 @@ public final class PlacementsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Prepares information for component placement.
-   * 
+   *
    * @param mouseMoveDirection
    *          the array containing mouse move directions for both dimensions
    * @param snappedPoints
@@ -879,7 +879,7 @@ public final class PlacementsSupport {
       IAbstractComponentInfo widget = widgets.get(i);
       int widgetSize = PlacementUtils.getSize(widget, isHorizontal);
       int resizeDelta = sampleSize - widgetSize;
-      // 
+      //
       int leadingSide = PlacementUtils.getSide(isHorizontal, true);
       int trailingSide = PlacementUtils.getSide(isHorizontal, false);
       boolean isAttachedLeadingSide = m_layoutCommands.isAttached(widget, leadingSide);
@@ -935,7 +935,7 @@ public final class PlacementsSupport {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Distribute space 
+  // Distribute space
   //
   ////////////////////////////////////////////////////////////////////////////
   public void distributeSpace(List<? extends IAbstractComponentInfo> widgets, boolean isHorizontal)
@@ -1007,7 +1007,7 @@ public final class PlacementsSupport {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Layout Actions 
+  // Layout Actions
   //
   ////////////////////////////////////////////////////////////////////////////
   public void setAlignment(IAbstractComponentInfo widget, int side) throws Exception {
@@ -1027,7 +1027,7 @@ public final class PlacementsSupport {
           PlacementUtils.getSidePosition(side));
     }
     if (attachedOppositeSide) {
-      // detach if both attached 
+      // detach if both attached
       m_layoutCommands.detach(widget, oppositeSide);
       // keep size
       m_layoutCommands.setExplicitSize(widget, side, oppositeSide, 0);
@@ -1072,7 +1072,7 @@ public final class PlacementsSupport {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Adjusting and optimizing layout 
+  // Adjusting and optimizing layout
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
@@ -1158,7 +1158,7 @@ public final class PlacementsSupport {
    */
   private List<ComponentAttachmentInfo> findAffectedWidgets() throws Exception {
     List<ComponentAttachmentInfo> attached = Lists.newArrayList();
-    // traverse through non-operating widgets. 
+    // traverse through non-operating widgets.
     List<IAbstractComponentInfo> remainingWidgets = getRemainingWidgets();
     for (IAbstractComponentInfo remainingWidget : remainingWidgets) {
       // check every remaining widget for to be attached in list of operating widget

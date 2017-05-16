@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Helper for remembering path and dump for objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

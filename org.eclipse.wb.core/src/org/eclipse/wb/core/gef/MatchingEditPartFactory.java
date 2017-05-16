@@ -25,7 +25,7 @@ import java.util.List;
  * It allows us just place models and {@link EditPart}'s into same sub-packages of specified
  * "prefix" packages, and then automatically find {@link EditPart}, without writing manually each
  * correspondence.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */
@@ -78,7 +78,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
    *          the model to get {@link EditPart}.
    * @param modelClass
    *          the current {@link Class} of model, of its super-class.
-   * 
+   *
    * @return the {@link EditPart} corresponding to <code>modelClass</code>, may be <code>null</code>
    *         , if no match found.
    */

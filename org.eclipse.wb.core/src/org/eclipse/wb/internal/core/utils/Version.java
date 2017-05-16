@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils;
 
 /**
  * Version identifier for bundles and packages.
- * 
+ *
  * @author sablin_aa
  * @coverage core.util
  */

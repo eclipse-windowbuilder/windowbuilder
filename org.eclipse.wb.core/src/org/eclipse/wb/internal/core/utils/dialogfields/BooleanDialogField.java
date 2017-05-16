@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Dialog field containing a label and a check box control.
- * 
+ *
  * @author scheglov_ke
  */
 public final class BooleanDialogField extends DialogField {
@@ -43,7 +43,7 @@ public final class BooleanDialogField extends DialogField {
   /**
    * Creates boolean field editor which looks like usual check-box if <code>leftToRight</code> is
    * <code>true</code>.
-   * 
+   *
    * @param leftToRight
    *          if <code>true</code> creates boolean field editor which looks like usual check-box.
    */
@@ -90,7 +90,7 @@ public final class BooleanDialogField extends DialogField {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates or returns the created check box control.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> when the widget has already been created.
    */

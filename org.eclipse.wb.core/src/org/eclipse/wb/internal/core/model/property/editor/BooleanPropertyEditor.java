@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * The {@link PropertyEditor} for <code>boolean</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

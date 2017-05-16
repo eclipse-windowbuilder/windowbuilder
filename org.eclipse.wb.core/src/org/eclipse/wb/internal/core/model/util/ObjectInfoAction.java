@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Abstract JFace {@link Action} for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -73,7 +73,7 @@ public abstract class ObjectInfoAction extends Action {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Run 
+  // Run
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

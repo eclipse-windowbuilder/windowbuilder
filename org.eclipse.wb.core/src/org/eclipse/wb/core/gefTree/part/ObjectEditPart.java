@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * {@link TreeEditPart} for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree
  */

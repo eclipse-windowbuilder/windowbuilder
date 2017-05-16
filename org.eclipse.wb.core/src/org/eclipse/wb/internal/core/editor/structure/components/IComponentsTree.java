@@ -5,7 +5,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 
 /**
  * Provider of information about visualizer for components tree.
- * 
+ *
  * @author scheglov_ke
  */
 public interface IComponentsTree {

@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.GC;
 /**
  * Abstract {@link PropertyEditor} for displaying text as {@link Property} value in
  * {@link PropertyTable}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

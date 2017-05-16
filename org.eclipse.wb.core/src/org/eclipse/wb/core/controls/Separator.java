@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * JGoodies like separator control.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

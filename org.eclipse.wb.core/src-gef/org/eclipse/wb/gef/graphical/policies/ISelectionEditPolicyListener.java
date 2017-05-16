@@ -12,7 +12,7 @@ package org.eclipse.wb.gef.graphical.policies;
 
 /**
  * Listener for {@link SelectionEditPolicy}.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.graphical
  */

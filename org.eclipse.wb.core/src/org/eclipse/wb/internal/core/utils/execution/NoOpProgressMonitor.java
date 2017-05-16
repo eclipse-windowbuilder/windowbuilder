@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * No-op implementation of {@link IProgressMonitor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

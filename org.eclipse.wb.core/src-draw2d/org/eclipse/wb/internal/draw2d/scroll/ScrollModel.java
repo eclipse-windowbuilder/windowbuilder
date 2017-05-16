@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * ScrollModel represents abstract model for support scrolling.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -67,7 +67,7 @@ public abstract class ScrollModel implements Listener {
 
   /**
    * Configure <code>ScrollBar</code> when change window size of figure's bounds.
-   * 
+   *
    * @param available
    *          real window size
    * @param preferred
@@ -109,7 +109,7 @@ public abstract class ScrollModel implements Listener {
   /**
    * Handle positive change <code>ScrollBar</code> selection. Scroll client area and repaint part of
    * area.
-   * 
+   *
    * @param delta
    *          is absolute distance between <i>newSelection</i> and <i>oldSelection</i>
    * @param newSelection
@@ -120,7 +120,7 @@ public abstract class ScrollModel implements Listener {
   /**
    * Handle negative change <code>ScrollBar</code> selection. Scroll client area and repaint part of
    * area.
-   * 
+   *
    * @param delta
    *          is absolute distance between <i>newSelection</i> and <i>oldSelection</i>
    * @param newSelection

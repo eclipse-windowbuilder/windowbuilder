@@ -49,7 +49,7 @@ import java.util.Map;
 
 /**
  * Utilities for UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class UiUtils {
@@ -229,7 +229,7 @@ public class UiUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Provider for {@link TableItem} tooltip control.
-   * 
+   *
    * @author scheglov_ke
    */
   public interface ITableTooltipProvider {
@@ -377,7 +377,7 @@ public class UiUtils {
   /**
    * Expands {@link TreeItem}'s for which {@link TreeItem#getData()} returns object contained in
    * given elements.
-   * 
+   *
    * @param tree
    *          the {@link Tree} to set expansion.
    * @param expandedElements

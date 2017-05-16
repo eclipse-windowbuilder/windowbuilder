@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.IStatus;
 
 /**
  * Container with information about single binding created by {@link DataBindManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class Binding {
@@ -38,7 +38,7 @@ public final class Binding {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Updates {@link IDataEditor} with value from {@link IDataProvider}.
-   * 
+   *
    * @param def
    *          is <code>true</code> if default value should be requested from {@link IDataProvider}.
    */
@@ -49,7 +49,7 @@ public final class Binding {
 
   /**
    * Updates {@link IDataProvider} with value from {@link IDataEditor}.
-   * 
+   *
    * @return {@link IStatus} that shows if result of update was successful.
    */
   IStatus updateProvider() {

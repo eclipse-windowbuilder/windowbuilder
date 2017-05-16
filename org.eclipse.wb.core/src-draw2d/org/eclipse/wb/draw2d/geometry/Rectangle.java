@@ -15,7 +15,7 @@ import java.io.Serializable;
 /**
  * Represents a Rectangle(x, y, width, height). This class provides various methods for manipulating
  * this Rectangle or creating new derived geometrical Objects.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -79,7 +79,7 @@ public final class Rectangle implements Translatable, Serializable {
 
   /**
    * Constructs the smallest Rectangle that contains the specified Points.
-   * 
+   *
    * @param point1
    *          Upper left hand corner
    * @param point2

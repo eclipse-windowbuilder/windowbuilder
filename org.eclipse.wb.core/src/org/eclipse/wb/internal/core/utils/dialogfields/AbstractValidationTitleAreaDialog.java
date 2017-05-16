@@ -25,7 +25,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Abstract {@link TitleAreaDialog} with {@link DialogField}'s validation.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractValidationTitleAreaDialog extends ResizableTitleAreaDialog {

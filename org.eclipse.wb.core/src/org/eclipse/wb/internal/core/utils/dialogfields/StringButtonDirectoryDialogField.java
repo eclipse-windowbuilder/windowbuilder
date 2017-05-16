@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 
 /**
  * Dialog field for selecting directory in file system.
- * 
+ *
  * @author scheglov_ke
  */
 public class StringButtonDirectoryDialogField extends StringButtonDialogField {

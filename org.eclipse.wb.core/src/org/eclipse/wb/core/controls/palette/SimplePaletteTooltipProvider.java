@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.draw2d.Label;
 
 /**
  * Simple Draw2d tooltip represented single line of text.
- * 
+ *
  * @author lobas_av
  * @coverage core.control.palette
  */

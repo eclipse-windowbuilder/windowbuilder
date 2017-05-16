@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Class for working with {@link Enum} using reflection. Ex., for cases of enum class not exists in
  * JDK.
- * 
+ *
  * @author mitin_aa
  * @coverage core.util
  */
@@ -52,7 +52,7 @@ public class EnumProxy {
   /**
    * Returns the constant of {@link Enum} by given <code>ordinal</code> value or <code>null</code>
    * if no such constant.
-   * 
+   *
    * @param ordinal
    *          the ordinal to search constant.
    * @return the constant of {@link Enum} by given <code>ordinal</code> value or <code>null</code>
@@ -71,7 +71,7 @@ public class EnumProxy {
 
   /**
    * Returns the ordinal of this {@link Enum} by given constant name string.
-   * 
+   *
    * @param name
    *          the name of constant to search.
    * @return the ordinal of this {@link Enum} by given constant name string.
@@ -85,7 +85,7 @@ public class EnumProxy {
 
   /**
    * Returns the ordinal of this {@link Enum} by given constant object.
-   * 
+   *
    * @param name
    *          the constant object.
    * @return the ordinal of this {@link Enum} by given constant object.

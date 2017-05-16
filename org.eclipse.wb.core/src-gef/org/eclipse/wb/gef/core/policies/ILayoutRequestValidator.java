@@ -22,7 +22,7 @@ import org.eclipse.wb.gef.core.requests.Request;
  * <p>
  * We use this validator as convenient way to check that layout {@link EditPolicy} understands given
  * {@link Request}, so this {@link Request} should not go to other {@link EditPolicy}'s.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage gef.core

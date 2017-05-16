@@ -34,7 +34,7 @@ import java.text.ParseException;
 
 /**
  * Custom implementation of {@link Spinner}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */
@@ -280,7 +280,7 @@ public class CSpinner extends Composite {
 
   /**
    * Sets the valid/invalid state.
-   * 
+   *
    * @param message
    *          the message to show, or <code>null</code> if valid.
    */

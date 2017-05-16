@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 /**
  * {@link MenuEditPart} for MacOSX which does special handling for OSX menu bar.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.menu
  */

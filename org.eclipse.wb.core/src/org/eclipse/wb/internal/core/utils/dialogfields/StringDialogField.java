@@ -99,10 +99,10 @@ public class StringDialogField extends DialogField {
     }
   }
 
-  // ------- ui creation			
+  // ------- ui creation
   /**
    * Creates or returns the created text control.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> when the widget has already been created.
    */
@@ -159,7 +159,7 @@ public class StringDialogField extends DialogField {
     }
   }
 
-  // ------ text access 
+  // ------ text access
   /**
    * Gets the text. Can not be <code>null</code>
    */

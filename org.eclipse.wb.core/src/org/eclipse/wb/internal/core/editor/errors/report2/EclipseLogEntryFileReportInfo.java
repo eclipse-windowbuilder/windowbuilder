@@ -34,9 +34,9 @@ import java.util.List;
 
 /**
  * Adds the last Eclipse log entry into report.
- * 
+ *
  * Working with IStatus mostly copied from the Eclipse code.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
@@ -90,7 +90,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
   /**
    * Writes the log entry to the log using the specified depth. A depth value of 0 idicates that the
    * log entry is the root entry. Any value greater than 0 indicates a sub-entry.
-   * 
+   *
    * @param depth
    *          the depth of th entry
    * @param entry
@@ -113,7 +113,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
   /**
    * Writes the ENTRY or SUBENTRY header for an entry. A depth value of 0 indicates that the log
    * entry is the root entry. Any value greater than 0 indicates a sub-entry.
-   * 
+   *
    * @param depth
    *          the depth of th entry
    * @param entry
@@ -141,7 +141,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Writes the MESSAGE header to the log for the given entry.
-   * 
+   *
    * @param entry
    *          the entry to write the message for
    * @throws IOException
@@ -155,7 +155,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Writes the STACK header to the log for the given entry.
-   * 
+   *
    * @param entry
    *          the entry to write the stacktrace for
    * @throws IOException
@@ -175,7 +175,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Writes the given message to the log.
-   * 
+   *
    * @param message
    *          the message
    * @throws IOException
@@ -189,7 +189,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Writes the given message to the log and a newline.
-   * 
+   *
    * @param s
    *          the message
    * @throws IOException
@@ -202,7 +202,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Writes a newline log.
-   * 
+   *
    * @throws IOException
    *           if any error occurs writing to the log
    */
@@ -212,7 +212,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Writes a space to the log.
-   * 
+   *
    * @throws IOException
    *           if any error occurs writing to the log
    */
@@ -224,7 +224,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
     Throwable t = status.getException();
     List<FrameworkLogEntry> childlist = Lists.newArrayList();
     int stackCode = t instanceof CoreException ? 1 : 0;
-    // ensure a substatus inside a CoreException is properly logged 
+    // ensure a substatus inside a CoreException is properly logged
     if (stackCode == 1) {
       IStatus coreStatus = ((CoreException) t).getStatus();
       if (coreStatus != null) {
@@ -250,7 +250,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   /**
    * Returns a stacktrace string using the correct format for the log
-   * 
+   *
    * @param t
    *          the Throwable to get the stacktrace for
    * @return a stacktrace string

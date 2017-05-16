@@ -50,7 +50,7 @@ import java.util.Map;
 
 /**
  * The palette control.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */
@@ -215,7 +215,7 @@ public final class PaletteComposite extends Composite {
 
   /**
    * Sets the selected {@link IEntry}.
-   * 
+   *
    * @param reload
    *          is <code>true</code> if after first using this {@link IEntry} should be loaded again,
    *          not switched to default entry (usually selection).
@@ -258,12 +258,12 @@ public final class PaletteComposite extends Composite {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // PaletteFigure 
+  // PaletteFigure
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Top level {@link Figure} for palette - container for {@link CategoryFigure}'s.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class PaletteFigure extends Layer {
@@ -342,7 +342,7 @@ public final class PaletteComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * {@link Figure} implementation for {@link ICategory}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class CategoryFigure extends Figure {
@@ -683,7 +683,7 @@ public final class PaletteComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * {@link Figure} implementation for {@link IEntry}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class EntryFigure extends Figure {
@@ -1068,7 +1068,7 @@ public final class PaletteComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Moving feedback {@link Figure}.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class FeedbackLine extends Figure {
@@ -1155,7 +1155,7 @@ public final class PaletteComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return {@link Figure} under given mouse location.
-   * 
+   *
    * @param source
    *          the source {@link Figure}
    * @param p

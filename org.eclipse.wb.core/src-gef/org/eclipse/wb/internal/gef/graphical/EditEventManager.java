@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 /**
  * A special event manager that will route events to the {@link EditDomain} when appropriate.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

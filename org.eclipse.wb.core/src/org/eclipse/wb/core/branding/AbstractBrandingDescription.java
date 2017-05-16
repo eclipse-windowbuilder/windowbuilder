@@ -19,9 +19,9 @@ import org.eclipse.wb.internal.core.utils.platform.PluginUtilities;
 /**
  * A generic {@link IBrandingDescription} that stores the product name on its creation, and returns
  * the value with {@link #getProductName()}.
- * 
+ *
  * @see BrandingUtils
- * 
+ *
  * @author Jaime Wren
  * @coverage core.util
  */

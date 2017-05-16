@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Describes category of {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */
@@ -72,7 +72,7 @@ public final class PropertyCategory {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Parses {@link PropertyCategory} from strings. Supported strings are:
-   * 
+   *
    * <ul>
    * <li><b>normal</b></li>
    * <li><b>preferred</b></li>
@@ -81,11 +81,11 @@ public final class PropertyCategory {
    * <li><b>hidden</b></li>
    * <li><b>system(number)</b></li>
    * </ul>
-   * 
+   *
    * @param defaultCategory
    *          the {@link PropertyCategory} to use if given string can not be parsed, or
    *          <code>null</code> if exception should be thrown.
-   * 
+   *
    * @return the parsed {@link PropertyCategory}.
    */
   public static PropertyCategory get(String text, PropertyCategory defaultCategory) {

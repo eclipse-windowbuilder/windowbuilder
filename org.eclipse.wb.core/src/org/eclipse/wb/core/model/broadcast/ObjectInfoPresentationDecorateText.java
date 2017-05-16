@@ -14,14 +14,14 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 /**
  * Listener for {@link ObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
 public interface ObjectInfoPresentationDecorateText {
   /**
    * This method is used to support external decoration of object text.
-   * 
+   *
    * @param object
    *          the {@link ObjectInfo} to decorate title.
    * @param text

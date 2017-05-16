@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 /**
  * {@link ILayoutRequestValidator} that checks that "child" has required component class.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

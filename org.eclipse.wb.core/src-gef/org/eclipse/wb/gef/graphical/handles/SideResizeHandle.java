@@ -20,7 +20,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 /**
  * Resize {@link Handle} located on left/top/right/bottom sides of owner {@link GraphicalEditPart}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

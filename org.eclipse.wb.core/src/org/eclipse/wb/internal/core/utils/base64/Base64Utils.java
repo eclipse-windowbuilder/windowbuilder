@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Utils to provide encode/decode base64.
- * 
+ *
  * @author mitin_aa
  * @coverage core.utils.base64
  */
@@ -29,7 +29,7 @@ public final class Base64Utils {
    * Returns the encoded form of the given unencoded string. The encoder uses the ISO-8859-1
    * (Latin-1) encoding to convert the string to bytes. For greater control over the encoding,
    * encode the string to bytes yourself and use encode(byte[]).
-   * 
+   *
    * @param unencoded
    *          the string to encode.
    * @return the encoded form of the unencoded string.
@@ -45,7 +45,7 @@ public final class Base64Utils {
 
   /**
    * Returns the encoded form of the given unencoded string.
-   * 
+   *
    * @param bytes
    *          the byte array to encode.
    * @return the encoded form of the unencoded string.
@@ -68,7 +68,7 @@ public final class Base64Utils {
    * Returns the decoded form of the given encoded string, as a String. Note that not all binary
    * data can be represented as a String, so this method should only be used for encoded String
    * data. Use decodeToBytes() otherwise.
-   * 
+   *
    * @param encoded
    *          the string to decode.
    * @return the decoded form of the encoded string.
@@ -79,7 +79,7 @@ public final class Base64Utils {
 
   /**
    * Returns the decoded form of the given encoded string as bytes.
-   * 
+   *
    * @param encoded
    *          the string to decode.
    * @return the decoded form of the encoded string.
@@ -96,7 +96,7 @@ public final class Base64Utils {
 
   /**
    * Returns the decoded form of the given encoded byte array.
-   * 
+   *
    * @param bytes
    *          the byte array to decode.
    * @return the decoded form of the encoded byte array.

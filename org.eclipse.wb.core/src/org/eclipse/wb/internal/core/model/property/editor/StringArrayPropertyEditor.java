@@ -22,7 +22,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link PropertyEditor} for array of {@link String}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

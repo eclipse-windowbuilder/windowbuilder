@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * The listener interface for receiving basic events from an {@link EditPart}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

@@ -14,7 +14,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Compact {@link ToStringStyle} - with short class name and field names.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompactToStringStyle extends ToStringStyle {

@@ -16,7 +16,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class BooleanPreferenceProvider extends AbstractPreferenceProvider {
   ////////////////////////////////////////////////////////////////////////////

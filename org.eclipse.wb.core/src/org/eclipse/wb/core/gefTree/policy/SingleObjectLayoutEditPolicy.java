@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link ObjectInfo} container which accepts only one child.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree.policy
  */

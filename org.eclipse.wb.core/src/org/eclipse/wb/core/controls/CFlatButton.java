@@ -27,9 +27,9 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Class representing flat push button as it looks in Mac OSX.
- * 
+ *
  * It doesn't draw text, not need for now. ;-)
- * 
+ *
  * @author mitin_aa
  */
 public final class CFlatButton extends Canvas {
@@ -81,13 +81,13 @@ public final class CFlatButton extends Canvas {
         // fill background
         gc.setBackground(faceColor);
         gc.fillRectangle(ca);
-        // draw face upper-half gradient 
+        // draw face upper-half gradient
         Rectangle ca1 = getClientArea();
         cropClientArea(ca1);
         gc.setForeground(faceColor);
         gc.setBackground(borderGradientColor1);
         gc.fillGradientRectangle(ca1.x, ca1.y, ca1.width, ca1.height / 4, true);
-        // draw face down-half gradient 
+        // draw face down-half gradient
         ca1.x += 1;
         ca1.width -= 2;
         gc.setForeground(borderGradientColor1);

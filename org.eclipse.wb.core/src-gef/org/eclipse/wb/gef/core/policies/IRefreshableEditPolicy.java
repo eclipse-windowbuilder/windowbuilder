@@ -15,7 +15,7 @@ package org.eclipse.wb.gef.core.policies;
  * something was changed, and even if it is still active, some changes may be should be performed.
  * <p>
  * For example layout {@link EditPolicy} may update selection {@link EditPolicy} of managed objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

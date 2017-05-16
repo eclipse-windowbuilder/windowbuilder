@@ -17,14 +17,14 @@ package org.eclipse.wb.internal.core.utils;
  * Adapters are created by adapter factories, which are in turn managed by type by adapter managers.
  * </p>
  * For example,
- * 
+ *
  * <pre>
  *     IAdaptable a = [some adaptable];
  *     IFoo x = a.getAdapter(IFoo.class);
  *     if (x != null)
  *         [do IFoo things with x]
  * </pre>
- * 
+ *
  * @author mitin_aa
  * @coverage core.util
  */
@@ -32,7 +32,7 @@ public interface IAdaptable {
   /**
    * @param adapter
    *          the type of adapter.
-   * 
+   *
    * @return the adapter of required type.
    */
   <T> T getAdapter(Class<T> adapter);

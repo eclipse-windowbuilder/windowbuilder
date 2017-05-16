@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Helper for sending single {@link SWT#Selection} event after some timeout.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage core.control

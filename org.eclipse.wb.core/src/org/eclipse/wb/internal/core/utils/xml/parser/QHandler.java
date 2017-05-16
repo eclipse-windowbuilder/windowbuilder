@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * Handler for event in {@link QParser}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */
@@ -32,7 +32,7 @@ public interface QHandler {
 
   /**
    * Notifies that element starts.
-   * 
+   *
    * @param offset
    *          the offset of <code>"&lt;"</code> character.
    * @param length
@@ -56,7 +56,7 @@ public interface QHandler {
 
   /**
    * Notifies that end of element was reached.
-   * 
+   *
    * @param offset
    *          the offset of <code>"&lt;"</code> character. May be <code>-1</code> if element closed
    *          directly at start.
@@ -69,7 +69,7 @@ public interface QHandler {
 
   /**
    * Notifies that some text between elements was processed.
-   * 
+   *
    * @param text
    *          the text.
    * @param isCDATA

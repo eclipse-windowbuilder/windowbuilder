@@ -15,7 +15,7 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
 
 /**
  * Implementation of {@link IEditPartFactory} for headers.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

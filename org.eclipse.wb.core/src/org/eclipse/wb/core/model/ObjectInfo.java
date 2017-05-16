@@ -36,7 +36,7 @@ import java.util.Map;
 
 /**
  * Abstract model for any object that should be handled by Designer.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -87,7 +87,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   /**
    * @param o
    *          the potential child.
-   * 
+   *
    * @return <code>true</code> if this object is direct/indirect parent of given object.
    */
   public final boolean isParentOf(ObjectInfo o) {
@@ -107,7 +107,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   /**
    * @param parents
    *          the list of possible parents.
-   * 
+   *
    * @return the direct/indirect parent of this object from the list of possible parents.
    */
   @SuppressWarnings("unchecked")
@@ -294,7 +294,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   /**
    * Returns the {@link BroadcastSupport} for this {@link ObjectInfo} hierarchy.<br>
    * Note that for add/get listeners the appropriate methods should be used instead of this method.
-   * 
+   *
    * @see #addBroadcastListener(Object)
    * @see #removeBroadcastListener(Object)
    * @see #targetBroadcastListener(ObjectInfo)
@@ -307,7 +307,7 @@ public abstract class ObjectInfo implements IObjectInfo {
 
   /**
    * Returns the broadcast listener of given class in this {@link ObjectInfo} hierarchy.
-   * 
+   *
    * @see BroadcastSupport#getListener(Class)
    * @return the broadcast listener of given class in this {@link ObjectInfo} hierarchy.
    */
@@ -470,7 +470,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Refreshes tree of model objects.
-   * 
+   *
    * Components can for example create components tree, fetch any visual information (image, bounds,
    * etc), and as last step dispose components tree to clean up resources.
    */

@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.property.table;
 /**
  * Interface that allows control of {@link PropertyTooltipProvider} interact with
  * {@link PropertyTableTooltipHelper}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.table
  */

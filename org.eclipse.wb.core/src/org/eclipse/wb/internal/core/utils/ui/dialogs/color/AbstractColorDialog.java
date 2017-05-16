@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.TabItem;
 
 /**
  * Abstract {@link Dialog} for color choosing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

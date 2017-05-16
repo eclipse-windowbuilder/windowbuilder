@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Combo;
 
 /**
  * Implementation of {@link IDataEditor} for text in {@link Combo}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class ComboTextEditor implements IDataEditor {

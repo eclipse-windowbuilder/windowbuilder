@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Provider for {@link PropertyCategoryProvider}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Combo control for {@link PropertyTable} and combo property editors.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

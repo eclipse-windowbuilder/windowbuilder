@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * Extension of {@link PropertyEditor} that can set value using its text presentation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

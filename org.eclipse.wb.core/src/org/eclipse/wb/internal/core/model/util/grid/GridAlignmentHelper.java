@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 /**
  * Helper for for performing automatic alignment in grid-based layouts.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

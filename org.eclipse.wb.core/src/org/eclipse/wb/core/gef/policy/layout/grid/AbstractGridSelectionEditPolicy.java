@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for "grid based" layouts.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy.grid
  */
@@ -523,7 +523,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
   /**
    * @return the fixed location for given axis, component cells and grid information, so that we
    *         don't intersect other components.
-   * 
+   *
    * @param locationStep
    *          the step for changing location, for example it is +1 for end and -1 for begin
    *          location.

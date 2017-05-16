@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link IMenuItemInfo}'s in {@link IMenuInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu

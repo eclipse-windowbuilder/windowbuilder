@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 /**
  * In Swing and eRCP same object can be at same time {@link IMenuItemInfo} and {@link IMenuInfo}, so
  * to distinguish them we need to use separate model, this reference.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.menu
  */

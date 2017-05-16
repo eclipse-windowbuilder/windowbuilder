@@ -28,7 +28,7 @@ import java.util.List;
  * This {@link EditPolicy} adds itself as an {@link IEditPartSelectionListener} so that it can
  * observe selection. When selection or focus changes, the EditPolicy will update itself and call
  * the appropriate methods.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

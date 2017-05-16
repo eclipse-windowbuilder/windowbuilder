@@ -15,7 +15,7 @@ import java.io.Serializable;
 /**
  * Stores an integer width and height. This class provides various methods for manipulating this
  * Dimension or creating new derived Objects.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -166,7 +166,7 @@ public final class Dimension implements Serializable {
   /**
    * This Dimension is intersected with the one specified. Intersection is performed by taking the
    * min() of the values from each dimension.
-   * 
+   *
    * @param dimension
    *          the Dimension used to perform the min()
    */
@@ -188,7 +188,7 @@ public final class Dimension implements Serializable {
   /**
    * Scales the width and height of this Dimension by the amount supplied, and returns this for
    * convenience.
-   * 
+   *
    * @param amount
    *          value by which this Dimension's width and height are to be scaled
    */

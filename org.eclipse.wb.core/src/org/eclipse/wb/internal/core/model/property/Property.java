@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * {@link Property} is used to display/change properties of {@link ObjectInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */
@@ -101,7 +101,7 @@ public abstract class Property implements IAdaptable {
 
   /**
    * Sets the new value of this {@link Property}.
-   * 
+   *
    * @param the
    *          new value of {@link Property} or {@link #UNKNOWN_VALUE} if {@link Property}
    *          modification should be removed.

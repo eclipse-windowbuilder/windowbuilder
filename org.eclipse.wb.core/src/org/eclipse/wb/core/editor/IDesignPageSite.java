@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 
 /**
  * Provides access to the {@link IDesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */
@@ -55,7 +55,7 @@ public interface IDesignPageSite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Helper for accessing {@link IDesignPageSite}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static class Helper {

@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.RGB;
 
 /**
  * Information about color.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */
@@ -165,7 +165,7 @@ public final class ColorInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Convert color from RGB to HSL.
-   * 
+   *
    * See http://130.113.54.154/~monger/hsl-rgb.html for algorithm.
    */
   private static float[] RGB_to_HSL(int r, int g, int b) {

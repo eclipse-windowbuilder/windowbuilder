@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.PropertyManager;
 
 /**
  * Factory for {@link PropertyCategoryProvider} instances.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

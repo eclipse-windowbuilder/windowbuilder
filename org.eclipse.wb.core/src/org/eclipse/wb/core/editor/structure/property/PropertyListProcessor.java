@@ -19,7 +19,7 @@ import java.util.List;
  * Processor for {@link Property}-s, used directly before displaying them.
  * <p>
  * Processor can for example reorder properties, or even wrap them into groups.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

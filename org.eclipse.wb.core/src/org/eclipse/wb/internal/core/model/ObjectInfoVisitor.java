@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 /**
  * Visitor for visiting {@link ObjectInfo} hierarchy.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

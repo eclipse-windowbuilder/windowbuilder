@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
 
 /**
  * Abstract {@link Dialog} for editing different toolkit geometry objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

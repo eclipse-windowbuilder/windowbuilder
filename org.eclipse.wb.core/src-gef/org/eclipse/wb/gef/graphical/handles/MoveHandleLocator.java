@@ -19,7 +19,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 /**
  * A Locator used to place {@link MoveHandle}s. By default, a MoveHandle's bounds are equal to its
  * owner figure's bounds, expanded by the handle's {@link Insets}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

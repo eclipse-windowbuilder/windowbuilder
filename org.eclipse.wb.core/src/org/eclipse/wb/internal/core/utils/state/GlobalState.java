@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 
 /**
  * Global context for active Java or XML based editor.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

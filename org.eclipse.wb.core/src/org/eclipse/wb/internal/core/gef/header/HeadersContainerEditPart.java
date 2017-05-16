@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Implementation of {@link EditPart} for displaying headers for selection in main
  * {@link GraphicalViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

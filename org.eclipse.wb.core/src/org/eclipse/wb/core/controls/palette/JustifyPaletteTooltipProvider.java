@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.draw2d.Label;
 
 /**
  * Standard palette tooltip: bold header and multi line details.
- * 
+ *
  * @author lobas_av
  * @coverage core.control.palette
  */

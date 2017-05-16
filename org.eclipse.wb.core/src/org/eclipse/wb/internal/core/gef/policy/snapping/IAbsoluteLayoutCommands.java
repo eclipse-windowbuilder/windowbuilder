@@ -15,12 +15,12 @@ import org.eclipse.wb.draw2d.IPositionConstants;
 
 /**
  * Intended for {@link PlacementsSupport} to operate with layout.
- * 
+ *
  * For every method containing <code>side</code> argument the valid <code>side</code> is one of the
  * following: {@link IPositionConstants#LEFT}, {@link IPositionConstants#RIGHT},
  * {@link IPositionConstants#TOP}, {@link IPositionConstants#BOTTOM},
  * {@link IPositionConstants#BASELINE}.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */
@@ -38,7 +38,7 @@ public interface IAbsoluteLayoutCommands {
 
   /**
    * Attaches the <code>widget</code> to another <code>attachToWidget</code> in sequential position.
-   * 
+   *
    * @param widget
    *          the source widget to be attached.
    * @param attachToWidget
@@ -58,7 +58,7 @@ public interface IAbsoluteLayoutCommands {
 
   /**
    * Attaches the <code>widget</code> to another <code>attachToWidget</code> in parallel position.
-   * 
+   *
    * @param widget
    *          the source widget to be attached.
    * @param attachToWidget
@@ -78,7 +78,7 @@ public interface IAbsoluteLayoutCommands {
 
   /**
    * Attaches the <code>widget</code> to another <code>attachToWidget</code> in baseline position.
-   * 
+   *
    * @param widget
    *          the source widget to be attached.
    * @param attachToWidget
@@ -100,7 +100,7 @@ public interface IAbsoluteLayoutCommands {
 
   /**
    * Binds the <code>widget</code> by <code>side</code> inside parent container.
-   * 
+   *
    * @param widget
    *          the widget to be bound.
    * @param side
@@ -114,7 +114,7 @@ public interface IAbsoluteLayoutCommands {
    * Returns sibling widget to which <code>widget</code> attached by given <code>side</code> to
    * another widget. Otherwise returns <code>null</code>. Parent container is not sibling, so also
    * <code>null</code> returned.
-   * 
+   *
    * @param widget
    *          the widget to check.
    * @param side
@@ -126,7 +126,7 @@ public interface IAbsoluteLayoutCommands {
   /**
    * Explicitly sets the side of the <code>widget</code>. In this case the size of the widget
    * wouldn't be ruled by the layout (in those layouts which allows is).
-   * 
+   *
    * @param widget
    *          the widget to set size.
    * @param side
@@ -135,17 +135,17 @@ public interface IAbsoluteLayoutCommands {
    *          the side of the widget currently dragged by.
    * @param resizeDelta
    *          the value to change the size of the widget.
-   * 
+   *
    */
   void setExplicitSize(IAbstractComponentInfo widget, int side, int draggingSide, int resizeDelta)
       throws Exception;
 
   /**
-   * 
+   *
    * TODO: comment on IAbsoluteLayoutCommands.performAction()
-   * 
+   *
    * Not implemented yet and subject to change.
-   * 
+   *
    * @param actionId
    */
   void performAction(int actionId);

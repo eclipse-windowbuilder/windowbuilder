@@ -16,7 +16,7 @@ import java.io.Serializable;
  * Represents a List of Points. This class is used for building an <code>int[]</code>. The array is
  * internal, and is constructed and queried by the client using {@link Point Points}. SWT uses
  * integer arrays when painting polylines and polygons.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -59,7 +59,7 @@ public final class PointList implements Translatable, Serializable {
 
   /**
    * Adds the input point values to this PointList.
-   * 
+   *
    * @param x
    *          X value of a point to add
    * @param y
@@ -81,7 +81,7 @@ public final class PointList implements Translatable, Serializable {
 
   /**
    * Inserts a given point at a specified index.
-   * 
+   *
    * @param p
    *          Point to be inserted.
    * @param index
@@ -117,7 +117,7 @@ public final class PointList implements Translatable, Serializable {
 
   /**
    * Removes the point at the specified index from the PointList, and returns it.
-   * 
+   *
    * @see #addPoint(Point)
    * @param index
    *          Index of the point to be removed.
@@ -190,7 +190,7 @@ public final class PointList implements Translatable, Serializable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the first Point in the list.
-   * 
+   *
    * @throws IndexOutOfBoundsException
    *           if the list is empty
    */
@@ -200,7 +200,7 @@ public final class PointList implements Translatable, Serializable {
 
   /**
    * Returns the last point in the list.
-   * 
+   *
    * @throws IndexOutOfBoundsException
    *           if the list is empty
    */
@@ -211,7 +211,7 @@ public final class PointList implements Translatable, Serializable {
   /**
    * Returns the midpoint of the list of Points. The midpoint is the median of the List, unless
    * there are 2 medians (size is even), then the middle of the medians is returned.
-   * 
+   *
    * @throws IndexOutOfBoundsException
    *           if the list is empty
    */
@@ -224,7 +224,7 @@ public final class PointList implements Translatable, Serializable {
 
   /**
    * Returns the Point in the list at the specified index.
-   * 
+   *
    * @throws IndexOutOfBoundsException
    *           If the specified index is out of range
    */
@@ -239,7 +239,7 @@ public final class PointList implements Translatable, Serializable {
   /**
    * Copies the x and y values at given index into a specified Point. This method exists to avoid
    * the creation of a new <code>Point</code>.
-   * 
+   *
    * @see #getPoint(int)
    * @param p
    *          The Point which will be set with the &lt;x, y&gt; values
@@ -259,7 +259,7 @@ public final class PointList implements Translatable, Serializable {
 
   /**
    * Overwrites a point at a given index in the list with the specified Point.
-   * 
+   *
    * @param pt
    *          Point which is to be stored at the index.
    * @param index
@@ -329,7 +329,7 @@ public final class PointList implements Translatable, Serializable {
   /**
    * Moves the origin (0,0) of the coordinate system of all the points to the Point (x,y). This
    * updates the position of all the points in this PointList.
-   * 
+   *
    * @param x
    *          Amount by which all the points will be shifted on the X axis.
    * @param y

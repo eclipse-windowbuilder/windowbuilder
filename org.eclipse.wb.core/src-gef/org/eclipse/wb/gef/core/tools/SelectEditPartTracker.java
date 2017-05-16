@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 /**
  * A drag tracker used to select {@link EditPart EditParts}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

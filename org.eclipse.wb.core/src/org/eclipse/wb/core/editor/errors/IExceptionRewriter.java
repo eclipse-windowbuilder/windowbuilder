@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 /**
  * Implementations of this interface may analyze given {@link Throwable} and replace it with
  * different, better {@link Throwable}, usually {@link DesignerException}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.errors
  */

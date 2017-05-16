@@ -37,7 +37,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Class gathering required (and enabled) error report data and then zip it into a single file.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report
  */
@@ -56,7 +56,7 @@ public final class ZipFileErrorReport implements IErrorReport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates the {@link ZipFileErrorReport}.
-   * 
+   *
    * @param defaultScreenShot
    *          the {@link Image} of screenshot. May be <code>null</code>.
    * @param project
@@ -170,7 +170,7 @@ public final class ZipFileErrorReport implements IErrorReport {
 
   /**
    * Adds user screenshot to be sent.
-   * 
+   *
    * @param filePath
    *          the full path to a file with screenshot.
    */
@@ -215,7 +215,7 @@ public final class ZipFileErrorReport implements IErrorReport {
 
   /**
    * Adds a file to be sent.
-   * 
+   *
    * @param filePath
    *          the full path to a file.
    */

@@ -41,7 +41,7 @@ import java.util.Map;
 
 /**
  * Helper for accessing external factories contributed via extension points.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -65,7 +65,7 @@ public class ExternalFactoriesHelper {
   /**
    * @param className
    *          the name of {@link Class} to load.
-   * 
+   *
    * @return the {@link Class} loaded from this {@link ClassLoader} or from {@link Bundle} that
    *         specifies that it can load class from some namespace.
    */
@@ -136,21 +136,21 @@ public class ExternalFactoriesHelper {
    * <p>
    * Objects are sorted by their optional "priority" attribute (descending). If "priority" is
    * absent, "0" is used.
-   * 
+   *
    * @param clazz
    *          the {@link Class} of elements instances.
    * @param pointId
    *          the qualified id of extension, e.g. <code>"org.eclipse.core.builders"</code>.
    * @param elementName
    *          the name of element inside of extension, e.g. <code>"builder"</code>.
-   * 
+   *
    * @return the instances for objects contributed to specified extension point.
    */
   @SuppressWarnings("unchecked")
   public static synchronized <T> List<T> getElementsInstances(Class<T> clazz,
       String pointId,
       String elementName) {
-    // prepare: elementName -> List<?> 
+    // prepare: elementName -> List<?>
     Map<String, List<?>> elementName_to_objects = m_configurationObjects.get(pointId);
     if (elementName_to_objects == null) {
       elementName_to_objects = Maps.newHashMap();
@@ -198,19 +198,19 @@ public class ExternalFactoriesHelper {
 
   /**
    * Returns {@link IConfigurationElement}'s, contributed to extension point.<br>
-   * 
+   *
    * @param pointId
    *          the qualified id of extension, e.g. <code>"org.eclipse.core.resources.builders"</code>
    *          .
    * @param elementName
    *          the name of element inside of extension, e.g. <code>"builder"</code>.
-   * 
+   *
    * @return {@link IConfigurationElement}'s of all elements for specified extension point and
    *         element name.
    */
   public static synchronized List<IConfigurationElement> getElements(String pointId,
       String elementName) {
-    // prepare: elementName -> List<IConfigurationElement> 
+    // prepare: elementName -> List<IConfigurationElement>
     Map<String, List<IConfigurationElement>> elementName_to_elements =
         m_configurationElements.get(pointId);
     if (elementName_to_elements == null) {
@@ -277,13 +277,13 @@ public class ExternalFactoriesHelper {
 
   /**
    * Finds extension with given point ID and extension ID.
-   * 
+   *
    * @param pointId
    *          the ID of extension point to find extension for.
    * @param extensionId
    *          the qualified ID of extension, such as
    *          <code>"com.google.gdt.eclipse.designer.GWTNature"</code>.
-   * 
+   *
    * @return the {@link IConfigurationElement} for found extension, or <code>null</code> if not
    *         found.
    */
@@ -304,7 +304,7 @@ public class ExternalFactoriesHelper {
 
   /**
    * @return extensions for given point ID.
-   * 
+   *
    * @param pointId
    *          the ID of extension point to get extensions for.
    */
@@ -360,7 +360,7 @@ public class ExternalFactoriesHelper {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the not-<code>null</code> value of {@link String} attribute.
-   * 
+   *
    * @exception IllegalArgumentException
    *              if no attribute with such name found.
    */
@@ -377,7 +377,7 @@ public class ExternalFactoriesHelper {
 
   /**
    * @return the value of <code>int</code> attribute.
-   * 
+   *
    * @exception IllegalArgumentException
    *              if no attribute with such name found.
    */

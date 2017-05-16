@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Helper for other features.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

@@ -21,7 +21,7 @@ import java.util.List;
  * {@link #unwrap() unwrapped}. Unwrapping returns the simplest equivalent form of the
  * {@link CompoundCommand}. So, if a {@link CompoundCommand} contains just one {@link Command}, that
  * {@link Command} is returned.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

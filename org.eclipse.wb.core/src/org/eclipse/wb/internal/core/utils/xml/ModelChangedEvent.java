@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.utils.xml;
 /**
  * Model change events are fired by the model when it is changed. Model change listeners can use
  * these events to update accordingly.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */
@@ -102,7 +102,7 @@ public class ModelChangedEvent {
   /**
    * When model change is of type <code>CHANGE</code>, this method is used to obtain the old value
    * of the property (before the change).
-   * 
+   *
    * @return the old value of the changed property
    */
   public Object getOldValue() {
@@ -112,7 +112,7 @@ public class ModelChangedEvent {
   /**
    * When model change is of type <code>CHANGE</code>, this method is used to obtain the new value
    * of the property (after the change).
-   * 
+   *
    * @return the new value of the changed property.
    */
   public Object getNewValue() {

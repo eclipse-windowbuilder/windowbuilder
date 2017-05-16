@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

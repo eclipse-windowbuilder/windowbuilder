@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * {@link SelectionEditPolicy} that shows {@link Handle}'s around {@link EditPart} but does not
  * support any resizing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

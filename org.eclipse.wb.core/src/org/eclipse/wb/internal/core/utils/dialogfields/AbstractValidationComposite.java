@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Abstract composite for {@link DialogField} based editing.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractValidationComposite extends Composite {

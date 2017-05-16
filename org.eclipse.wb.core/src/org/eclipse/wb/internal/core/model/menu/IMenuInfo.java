@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Interface for menu containers: drop-down, popup or bar menus.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.model.menu

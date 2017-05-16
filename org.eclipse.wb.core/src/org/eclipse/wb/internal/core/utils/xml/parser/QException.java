@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.xml.parser;
 
 /**
  * Exception to throw new {@link QParser}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

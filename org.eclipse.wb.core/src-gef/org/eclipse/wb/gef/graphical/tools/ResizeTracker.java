@@ -36,7 +36,7 @@ import java.util.ListIterator;
  * editparts in the viewer which understand request specified into constructor. A
  * {@link ChangeBoundsRequest} is sent to each member of the operation set. The tracker allows for
  * the resize direction to be specified in the constructor.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

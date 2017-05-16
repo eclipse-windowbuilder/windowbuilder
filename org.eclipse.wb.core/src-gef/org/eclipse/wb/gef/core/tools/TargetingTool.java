@@ -25,7 +25,7 @@ import java.util.Collections;
  * request. This request is used along with the mouse location to obtain an active target from the
  * current {@link IEditPartViewer}. This target is then asked for the <code>{@link Command}</code>
  * that performs the given request. The target is also asked to show target feedback.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

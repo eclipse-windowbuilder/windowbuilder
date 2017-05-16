@@ -14,7 +14,7 @@ import java.beans.PropertyDescriptor;
 
 /**
  * Provider for creating {@link PropertyEditor}'s.
- * 
+ *
  * @author lobas_av
  * @coverage core.model.property.editor
  */

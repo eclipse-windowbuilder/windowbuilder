@@ -19,14 +19,14 @@ import java.util.List;
 
 /**
  * Listener for {@link LayoutAssistantAction} events.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.action.assistant
  */
 public abstract class LayoutAssistantListener {
   /**
    * Adds pages based on selected {@link ObjectInfo}'s.
-   * 
+   *
    * @param objects
    *          the {@link List} of selected {@link ObjectInfo}.
    * @param folder

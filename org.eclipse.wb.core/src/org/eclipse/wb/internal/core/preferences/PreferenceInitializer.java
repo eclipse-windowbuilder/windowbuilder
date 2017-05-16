@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for default Designer preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences
  */

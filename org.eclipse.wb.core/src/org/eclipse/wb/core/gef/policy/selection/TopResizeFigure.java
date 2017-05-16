@@ -25,7 +25,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Figure used as feedback while resizing top-level edit parts.
- * 
+ *
  * @author mitin_aa
  */
 public class TopResizeFigure extends SemiTransparentFigure {

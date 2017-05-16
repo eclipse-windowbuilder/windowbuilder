@@ -59,7 +59,7 @@ import java.util.Map;
 
 /**
  * Helper for {@link DesignerException} manipulations.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.util
@@ -67,7 +67,7 @@ import java.util.Map;
 public final class DesignerExceptionUtils {
   /**
    * @return the HTML for displaying given {@link Throwable}.
-   * 
+   *
    * @param message
    *          the optional message (can be <code>null</code>).
    * @param e
@@ -112,7 +112,7 @@ public final class DesignerExceptionUtils {
 
   /**
    * @return the HTML for displaying given {@link Throwable} based on template html file.
-   * 
+   *
    * @param e
    *          the {@link Throwable} to display.
    */
@@ -349,7 +349,7 @@ public final class DesignerExceptionUtils {
 
   /**
    * Create error entry for other exceptions which are not instance of {@link DesignerException}.
-   * 
+   *
    * @return the {@link ErrorEntryInfo} instance.
    */
   private static ErrorEntryInfo getUnexpectedErrorEntryInfo(Throwable throwable) {
@@ -509,7 +509,7 @@ public final class DesignerExceptionUtils {
 
   /**
    * Returns a string representation of {@link Color} suitable for web pages.
-   * 
+   *
    * @param color
    *          the {@link Color} instance, not <code>null</code>.
    * @return a string representation of {@link Color} suitable for web pages.
@@ -528,7 +528,7 @@ public final class DesignerExceptionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates screen shot of entire Eclipse shell.
-   * 
+   *
    * @return an image of entire Eclipse.
    */
   public static Image makeScreenshot() {
@@ -552,7 +552,7 @@ public final class DesignerExceptionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Open given url in external browser.
-   * 
+   *
    * @param url
    *          the url string to open in external browser.
    */

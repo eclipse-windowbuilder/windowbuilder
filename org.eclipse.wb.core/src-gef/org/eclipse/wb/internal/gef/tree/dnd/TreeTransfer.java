@@ -17,7 +17,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Implementation of {@link ByteArrayTransfer} for tree elements.
- * 
+ *
  * @author lobas_av
  * @coverafe gef.tree
  */

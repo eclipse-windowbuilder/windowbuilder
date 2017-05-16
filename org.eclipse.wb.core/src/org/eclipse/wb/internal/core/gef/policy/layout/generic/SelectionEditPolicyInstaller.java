@@ -22,7 +22,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Helper for installing {@link SelectionEditPolicy} using "duck typing".
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

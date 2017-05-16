@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Category - collection of {@link IEntry}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */

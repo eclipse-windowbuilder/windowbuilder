@@ -14,7 +14,7 @@ import com.google.common.base.Predicate;
 
 /**
  * {@link Predicate} always returns same value.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

@@ -14,7 +14,7 @@ package org.eclipse.wb.draw2d.geometry;
  * Conditionally transposes geometrical objects based on an "enabled" flag. When enabled, the method
  * t(Object) will transpose the passed geometrical object. Otherwise, the object will be returned
  * without modification
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage gef.draw2d

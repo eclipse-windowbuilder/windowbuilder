@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Helper structure containing visual menu data: menu image, menu bounds, items bounds.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.menu
  */

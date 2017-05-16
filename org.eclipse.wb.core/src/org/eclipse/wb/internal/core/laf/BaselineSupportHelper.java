@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Helper class for baseline support. See {@link IBaselineSupport}.
- * 
+ *
  * @author mitin_aa
  * @coverage core.laf
  */
@@ -42,7 +42,7 @@ public final class BaselineSupportHelper {
   /**
    * Iterates through contributed {@link IBaselineSupport} instances and returns the baseline offset
    * from top of component.
-   * 
+   *
    * @param component
    *          the visual element of some GUI toolkit.
    * @return the baseline offset from top of component.

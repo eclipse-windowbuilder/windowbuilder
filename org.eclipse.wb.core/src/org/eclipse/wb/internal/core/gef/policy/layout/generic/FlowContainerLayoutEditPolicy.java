@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 
 /**
  * {@link LayoutEditPolicy} for {@link FlowContainer_Support}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

@@ -46,7 +46,7 @@ import java.util.List;
  * {@link FlyoutControlComposite} is container for two {@link Control}'s. One (client control) is
  * used to fill client area. Second (flyout control) can be docked to any enabled position or
  * temporary hidden.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */
@@ -275,7 +275,7 @@ public final class FlyoutControlComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Container for flyout {@link Control}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class FlyoutContainer extends Composite {

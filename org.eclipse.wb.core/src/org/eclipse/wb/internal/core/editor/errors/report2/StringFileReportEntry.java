@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 /**
  * Report entry for writing a string into a file.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

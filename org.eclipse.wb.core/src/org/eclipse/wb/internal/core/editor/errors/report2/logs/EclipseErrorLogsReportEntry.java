@@ -23,14 +23,14 @@ import java.util.List;
 
 /**
  * The provider of Eclipse log files.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
 public final class EclipseErrorLogsReportEntry extends FileListReportEntry {
   @Override
   protected List<File> getFiles() {
-    // get path to Eclipse .log file(s) and get it's directory 
+    // get path to Eclipse .log file(s) and get it's directory
     IPath logsPath = Platform.getLogFileLocation().makeAbsolute().removeLastSegments(1);
     File logsPathAsFile = logsPath.toFile();
     // get list of .log files

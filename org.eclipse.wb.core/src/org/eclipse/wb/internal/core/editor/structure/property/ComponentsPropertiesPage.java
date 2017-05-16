@@ -62,7 +62,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IPage} for displaying {@link Property}'s of {@link ObjectInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * General layout information for support convert layouts one to another.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.layout
  */
@@ -149,7 +149,7 @@ public final class GeneralLayoutData {
   /**
    * @param map
    *          the {@link BiMap} generic -> real.
-   * 
+   *
    * @return the real value that corresponds given generic one, may be <code>null</code>.
    */
   public static <K, T> T getRealValue(BiMap<K, T> map, K generic) {
@@ -159,7 +159,7 @@ public final class GeneralLayoutData {
   /**
    * @param map
    *          the {@link BiMap} generic -> real.
-   * 
+   *
    * @return the generic value that corresponds given real one, may be <code>null</code>.
    */
   public static <K, T> K getGeneralValue(BiMap<K, T> map, T real) {

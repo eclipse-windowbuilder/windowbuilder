@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * A field editor for a combo box that allows the drop-down selection of one of a list of items.
- * 
+ *
  * @since 3.3
  * @coverage core.control
  */
@@ -43,7 +43,7 @@ public class ComboFieldEditor extends FieldEditor {
 
   /**
    * Create the combo box field editor.
-   * 
+   *
    * @param name
    *          the name of the preference this field editor works on
    * @param labelText
@@ -66,7 +66,7 @@ public class ComboFieldEditor extends FieldEditor {
 
   /**
    * Checks whether given <code>String[][]</code> is of "type" <code>String[][2]</code>.
-   * 
+   *
    * @return <code>true</code> if it is ok, and <code>false</code> otherwise
    */
   private boolean checkArray(String[][] table) {

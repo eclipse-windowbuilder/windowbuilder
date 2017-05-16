@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link AbstractContainer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

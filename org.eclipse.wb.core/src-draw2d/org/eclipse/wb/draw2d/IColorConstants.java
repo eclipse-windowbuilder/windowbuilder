@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * A collection of color-related constants.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

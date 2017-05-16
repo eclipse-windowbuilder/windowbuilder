@@ -12,7 +12,7 @@ package org.eclipse.wb.core.controls.flyout;
 
 /**
  * Implementation of {@link IFlyoutPreferences} for keeping settings in memory.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

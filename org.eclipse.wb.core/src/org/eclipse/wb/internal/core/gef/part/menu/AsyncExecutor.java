@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Display;
  * Helper for executing given {@link Runnable} in {@link Display#asyncExec(Runnable)}, that takes
  * care about delaying execution if this was requested by
  * {@link DisplayEventListener#beforeMessagesLoop()}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.gef.menu

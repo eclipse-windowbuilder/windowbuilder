@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Application for testing {@link FlyoutControlComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.test
  */

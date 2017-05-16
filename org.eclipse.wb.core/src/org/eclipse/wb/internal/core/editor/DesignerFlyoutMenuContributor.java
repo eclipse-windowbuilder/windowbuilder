@@ -20,7 +20,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * {@link IFlyoutMenuContributor} for structure and palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

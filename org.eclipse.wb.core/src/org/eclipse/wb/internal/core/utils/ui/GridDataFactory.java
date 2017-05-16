@@ -17,55 +17,55 @@ import org.eclipse.swt.widgets.Control;
 /**
  * This class provides a convienient shorthand for creating and initializing GridData. This offers
  * several benefits over creating GridData normal way:
- * 
+ *
  * <ul>
  * <li>The same factory can be used many times to create several GridData instances</li>
  * <li>The setters on GridDataFactory all return "this", allowing them to be chained</li>
  * <li>GridDataFactory uses vector setters (it accepts Points), making it easy to set X and Y values
  * together</li>
  * </ul>
- * 
+ *
  * <p>
  * GridDataFactory instances are created using one of the static methods on this class.
  * </p>
- * 
+ *
  * <p>
  * Example usage:
  * </p>
  * <code>
- * 
+ *
  * ////////////////////////////////////////////////////////////
  * // Example 1: Typical grid data for a non-wrapping label
- * 
+ *
  *     // GridDataFactory version
  *     GridDataFactory.fillDefaults().applyTo(myLabel);
- * 
+ *
  *     // Equivalent SWT version
  *     GridData labelData = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
  *     myLabel.setLayoutData(labelData);
- * 
+ *
  * ///////////////////////////////////////////////////////////
  * // Example 2: Typical grid data for a wrapping label
- * 
+ *
  *     // GridDataFactory version
  *     GridDataFactory.fillDefaults()
  *          .align(SWT.FILL, SWT.CENTER)
  *    	    .hint(150, SWT.DEFAULT)
  *    	    .grab(true, false)
  *          .applyTo(wrappingLabel);
- *      
+ *
  *     // Equivalent SWT version
  *     GridData wrappingLabelData = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_CENTER);
  *     wrappingLabelData.minimumWidth = 1;
  *     wrappingLabelData.widthHint = 150;
  *     wrappingLabel.setLayoutData(wrappingLabelData);
- * 
+ *
  * //////////////////////////////////////////////////////////////
  * // Example 3: Typical grid data for a scrollable control (a list box, tree, table, etc.)
- * 
+ *
  *     // GridDataFactory version
  *     GridDataFactory.fillDefaults().grab(true, true).hint(150, 150).applyTo(listBox);
- * 
+ *
  *     // Equivalent SWT version
  *     GridData listBoxData = new GridData(GridData.FILL_BOTH);
  *     listBoxData.widthHint = 150;
@@ -73,29 +73,29 @@ import org.eclipse.swt.widgets.Control;
  *     listBoxData.minimumWidth = 1;
  *     listBoxData.minimumHeight = 1;
  *     listBox.setLayoutData(listBoxData);
- * 
+ *
  * /////////////////////////////////////////////////////////////
  * // Example 4: Typical grid data for a button
- * 
+ *
  *     // GridDataFactory version
  *     Point preferredSize = button.computeSize(SWT.DEFAULT, SWT.DEFAULT, false);
  *     Point hint = Geometry.max(LayoutConstants.getMinButtonSize(), preferredSize);
  *     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).hint(hint).applyTo(button);
- * 
+ *
  *     // Equivalent SWT version
  *     Point preferredSize = button.computeSize(SWT.DEFAULT, SWT.DEFAULT, false);
  *     Point hint = Geometry.max(LayoutConstants.getMinButtonSize(), preferredSize);
  *     GridData buttonData = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_CENTER);
  *     buttonData.widthHint = hint.x;
  *     buttonData.heightHint = hint.y;
- *     button.setLayoutData(buttonData); 
+ *     button.setLayoutData(buttonData);
  * </code>
- * 
+ *
  * <p>
  * IMPORTANT: WHEN ASSIGNING LAYOUT DATA TO A CONTROL, BE SURE TO USE
  * gridDataFactory.applyTo(control) AND NEVER control.setLayoutData(gridDataFactory).
  * </p>
- * 
+ *
  * @since 3.2
  */
 public final class GridDataFactory {
@@ -149,7 +149,7 @@ public final class GridDataFactory {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets the GridData span. The span controls how many cells are filled by the control.
-   * 
+   *
    * @param hSpan
    *          number of columns spanned by the control
    * @param vSpan
@@ -164,7 +164,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the GridData span. The span controls how many cells are filled by the control.
-   * 
+   *
    * @param hSpan
    *          number of columns spanned by the control
    * @return this
@@ -176,7 +176,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the GridData span. The span controls how many cells are filled by the control.
-   * 
+   *
    * @param vSpan
    *          number of rows spanned by the control
    * @return this
@@ -194,7 +194,7 @@ public final class GridDataFactory {
   /**
    * Sets the width and height hints. The width and height hints override the control's preferred
    * size. If either hint is set to SWT.DEFAULT, the control's preferred size is used.
-   * 
+   *
    * @param xHint
    *          horizontal hint (pixels), or SWT.DEFAULT to use the control's preferred size
    * @param yHint
@@ -218,7 +218,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the width hint.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintH(int xHint) {
@@ -228,7 +228,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the width hint to the minimum of current hint and given <code>otherHint</code>.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintHMin(int otherHint) {
@@ -238,7 +238,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the width hint in chars.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintHC(int hintInChars) {
@@ -247,7 +247,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the width hint.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintHU(int hintInDLU) {
@@ -256,7 +256,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the height hint.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintV(int yHint) {
@@ -266,7 +266,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the height hint in chars.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintVC(int hintInChars) {
@@ -275,7 +275,7 @@ public final class GridDataFactory {
 
   /**
    * Increments horizontal hint on given value.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintHAdd(int increment) {
@@ -284,7 +284,7 @@ public final class GridDataFactory {
 
   /**
    * Increments vertical hint on given value.
-   * 
+   *
    * @return this
    */
   public GridDataFactory hintVAdd(int increment) {
@@ -294,7 +294,7 @@ public final class GridDataFactory {
   /**
    * Sets the width and height hints. The width and height hints override the control's preferred
    * size. If either hint is set to SWT.DEFAULT, the control's preferred size is used.
-   * 
+   *
    * @param hint
    *          size (pixels) to be used instead of the control's preferred size. If the x or y values
    *          are set to SWT.DEFAULT, the control's computeSize() method will be used to obtain that
@@ -337,7 +337,7 @@ public final class GridDataFactory {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets the alignment of the control within its cell.
-   * 
+   *
    * @param hAlign
    *          horizontal alignment. One of SWT.BEGINNING, SWT.CENTER, SWT.END, or SWT.FILL.
    * @param vAlign
@@ -359,7 +359,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the horizontal alignment of the control within its cell.
-   * 
+   *
    * @param hAlign
    *          horizontal alignment. One of SWT.BEGINNING, SWT.CENTER, SWT.END, or SWT.FILL.
    * @return this
@@ -371,7 +371,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the horizontal alignment of the control to GridData.BEGINNING
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignHL() {
@@ -380,7 +380,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the horizontal alignment of the control to GridData.CENTER
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignHC() {
@@ -389,7 +389,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the horizontal alignment of the control to GridData.FILL
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignHF() {
@@ -398,7 +398,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the horizontal alignment of the control to GridData.FILL
-   * 
+   *
    * @return this
    */
   public GridDataFactory fillH() {
@@ -407,7 +407,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the horizontal alignment of the control to GridData.END
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignHR() {
@@ -416,7 +416,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the vertical alignment of the control within its cell.
-   * 
+   *
    * @param vAlign
    *          vertical alignment. One of SWT.BEGINNING, SWT.CENTER, SWT.END, or SWT.FILL.
    * @return this
@@ -428,7 +428,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the vertical alignment of the control to GridData.BEGINNING
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignVT() {
@@ -437,7 +437,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the vertical alignment of the control to GridData.CENTER
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignVM() {
@@ -446,7 +446,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the vertical alignment of the control to GridData.FILL
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignVF() {
@@ -455,7 +455,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the vertical alignment of the control to GridData.FILL
-   * 
+   *
    * @return this
    */
   public GridDataFactory fillV() {
@@ -464,7 +464,7 @@ public final class GridDataFactory {
 
   /**
    * Sets the vertical alignment of the control to GridData.END
-   * 
+   *
    * @return this
    */
   public GridDataFactory alignVB() {
@@ -502,7 +502,7 @@ public final class GridDataFactory {
    * column when the layout resizes. If any control in the column is set to grab horizontal then the
    * whole column will grab horizontal space. If any control in the row is set to grab vertical then
    * the whole row will grab vertical space.
-   * 
+   *
    * @param horizontal
    *          true if the control's column should grow horizontally
    * @param vertical

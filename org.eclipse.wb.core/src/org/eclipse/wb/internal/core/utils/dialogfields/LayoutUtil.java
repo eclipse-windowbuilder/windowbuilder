@@ -29,7 +29,7 @@ public class LayoutUtil {
 
   /**
    * Creates a composite and fills in the given editors.
-   * 
+   *
    * @param labelOnTop
    *          Defines if the label of all fields should be on top of the fields
    */
@@ -39,7 +39,7 @@ public class LayoutUtil {
 
   /**
    * Creates a composite and fills in the given editors.
-   * 
+   *
    * @param labelOnTop
    *          Defines if the label of all fields should be on top of the fields
    * @param marginWidth

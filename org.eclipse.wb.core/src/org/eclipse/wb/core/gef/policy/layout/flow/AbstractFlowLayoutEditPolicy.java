@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Implementation of {@link LayoutEditPolicy} for for "flow based" layouts, i.e. layouts where each
  * {@link EditPart} located in sequence one after other, in columns or rows, with possible wrapping.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */
@@ -70,7 +70,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Checks that given {@link EditPart} can be used as reference child.
-   * 
+   *
    * @param request
    *          the {@link Request} to check, may be <code>null</code>.
    * @param editPart

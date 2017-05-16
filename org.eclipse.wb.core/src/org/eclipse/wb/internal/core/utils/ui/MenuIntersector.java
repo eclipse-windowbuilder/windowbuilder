@@ -29,7 +29,7 @@ import java.util.List;
  * Instances compute the intersection of some menus; that is, items common to all the menus. It
  * produces composite menu items that can be added to a menu, and that when invoked simply run the
  * corresponding items from the original menus.
- * 
+ *
  * @author lobas_av
  * @coverage core.ui
  */

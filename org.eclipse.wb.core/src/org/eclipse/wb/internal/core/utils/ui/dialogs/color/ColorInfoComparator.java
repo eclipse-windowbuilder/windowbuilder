@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 /**
  * Comparator for {@link ColorInfo} object using different criteria.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

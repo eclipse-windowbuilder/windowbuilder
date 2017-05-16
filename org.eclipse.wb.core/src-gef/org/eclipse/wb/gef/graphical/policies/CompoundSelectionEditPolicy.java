@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} which consists of several other {@link SelectionEditPolicy}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.graphical
  */

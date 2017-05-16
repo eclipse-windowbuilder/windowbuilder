@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * A simple {@link Dialog} using {@link Browser} to render read-only info.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors
  */

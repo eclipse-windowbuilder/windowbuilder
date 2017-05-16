@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.core.gef.EditPartFactory;
  * in eRCP there is <code>Command</code> that can be dropped on <code>Control</code>. However we can
  * not install corresponding {@link EditPolicy} in <code>ControlEditPart</code> because at "shared"
  * SWT level we don't know anything about eRCP and <code>Command</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

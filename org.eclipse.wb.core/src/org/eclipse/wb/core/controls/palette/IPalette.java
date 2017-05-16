@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * The palette model interface. It provides access to the {@link ICategory}'s, {@link IEntry}'s and
  * operations on them.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */
@@ -35,7 +35,7 @@ public interface IPalette {
 
   /**
    * Adds {@link Action}'s to the popup menu.
-   * 
+   *
    * @param menuManager
    *          the {@link IMenuManager} for {@link Action}'s
    * @param target

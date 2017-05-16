@@ -103,7 +103,7 @@ public class ListDialogField extends DialogField {
 
   /**
    * Creates the <code>ListDialogField</code>.
-   * 
+   *
    * @param adapter
    *          A listener for button invocation, selection changes. Can be <code>null</code>.
    * @param buttonLabels
@@ -168,7 +168,7 @@ public class ListDialogField extends DialogField {
 
   /**
    * Sets the viewer comparator.
-   * 
+   *
    * @param viewerComparator
    *          The viewer comparator to set
    */
@@ -189,7 +189,7 @@ public class ListDialogField extends DialogField {
 
   /**
    * Checks if the button pressed is handled internally
-   * 
+   *
    * @return Returns true if button has been handled.
    */
   protected boolean managedButtonPressed(int index) {
@@ -264,7 +264,7 @@ public class ListDialogField extends DialogField {
   // ------ UI creation
   /**
    * Returns the list control. When called the first time, the control will be created.
-   * 
+   *
    * @param parent
    *          The parent composite when called the first time, or <code>null</code> after.
    */
@@ -370,7 +370,7 @@ public class ListDialogField extends DialogField {
   /**
    * Returns the composite containing the buttons. When called the first time, the control will be
    * created.
-   * 
+   *
    * @param parent
    *          The parent composite when called the first time, or <code>null</code> after.
    */

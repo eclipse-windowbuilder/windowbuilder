@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Manager for installing/unistalling global handlers for {@link Text} actions commands.
- * 
+ *
  * @author mitin_aa
  * @author sablin_aa
  * @coverage core.model.property.editor

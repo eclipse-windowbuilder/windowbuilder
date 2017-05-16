@@ -25,7 +25,7 @@ import java.util.GregorianCalendar;
 
 /**
  * Central place for Platform information
- * 
+ *
  * @author Dan Rubel
  */
 public class PlatformInfo {
@@ -103,7 +103,7 @@ public class PlatformInfo {
   // //////////////////////////////////////////////////////////////////////////
   /**
    * Answer the development environment full name
-   * 
+   *
    * @return the full name (not null, not empty, no leading or trailing spaces)
    */
   public static String getIDEName() {
@@ -134,7 +134,7 @@ public class PlatformInfo {
 
   /**
    * Answer the development environment version string
-   * 
+   *
    * @return the version string (not null, not empty, no leading or trailing spaces)
    */
   public static String getIDEVersionString() {
@@ -158,7 +158,7 @@ public class PlatformInfo {
   /**
    * Returns the string name of the current locale for use in finding files whose path starts with
    * <code>$nl$</code>.
-   * 
+   *
    * @return the national language being used (not null, not empty, no leading or trailing spaces)
    */
   public static String getIDENL() {
@@ -177,7 +177,7 @@ public class PlatformInfo {
 
   /**
    * Answer the version of Eclipse upon which the development environment is based.
-   * 
+   *
    * @return the version (not <code>null</code>)
    */
   public static Version getEclipseVersion() {
@@ -212,7 +212,7 @@ public class PlatformInfo {
   /**
    * Answer the build identifier for Eclipse (e.g. "200408122000"). This is read from the JDT plugin
    * about.properties file.
-   * 
+   *
    * @return the build id or {@link #UNKNOWN_BUILD_ID} if it cannot be determined
    */
   public static String getEclipseBuildId() {
@@ -233,7 +233,7 @@ public class PlatformInfo {
    * Answer the name for this particular Eclipse build (e.g. "M6", "M7", "RC1", "", etc). This may
    * return the same value as {@link #getEclipseBuildId()} if the build is not a milestone, release
    * candidate, or GA.
-   * 
+   *
    * @return the build name (not <code>null</code>, but may be empty if it is a GA)
    */
   public static String getEclipseBuildName() {
@@ -249,7 +249,7 @@ public class PlatformInfo {
   /**
    * Answer the build date for this particular instance of Eclipse as derived from
    * {@link #getEclipseBuildId()} or Jan 1, 2003 if it cannot be determined.
-   * 
+   *
    * @return the build date (not <code>null</code>)
    */
   public static Calendar getEclipseBuildDate() {
@@ -275,7 +275,7 @@ public class PlatformInfo {
 
   /**
    * Read the build identifier from the specified plugin file.
-   * 
+   *
    * @param pluginId
    *          the plugin's unique identifier
    * @param fileName

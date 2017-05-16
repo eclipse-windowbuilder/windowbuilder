@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 
 /**
  * Factory for "menu" {@link EditPart}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

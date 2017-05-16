@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 /**
  * Implementation of {@link CompoundCommand} for editing {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

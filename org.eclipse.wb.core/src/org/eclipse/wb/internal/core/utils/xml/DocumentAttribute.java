@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 
 /**
  * Node for attribute in XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

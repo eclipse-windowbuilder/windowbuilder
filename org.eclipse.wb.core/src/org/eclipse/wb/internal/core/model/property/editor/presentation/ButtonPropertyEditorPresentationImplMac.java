@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Control;
 /**
  * Internal implementation of {@link PropertyEditorPresentation} for displaying special owner-draw
  * button for Mac OSX.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.property.editor
  */

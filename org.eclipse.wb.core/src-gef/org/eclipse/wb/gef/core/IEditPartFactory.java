@@ -15,7 +15,7 @@ package org.eclipse.wb.gef.core;
  * <code>{@link IEditPartFactory}</code>. Whenever an <code>{@link EditPart}</code> in that viewer
  * needs to create another {@link EditPart}, it can use the Viewer's factory. The factory is also
  * used by the viewer whenever {@link EditPartViewer#setModel(Object)} is called.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

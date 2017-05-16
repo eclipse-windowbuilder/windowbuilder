@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Dialog field containing a label and a multi line text control.
- * 
+ *
  * @author scheglov_ke
  */
 public class StringAreaDialogField extends DialogField {
@@ -93,7 +93,7 @@ public class StringAreaDialogField extends DialogField {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates or returns the created text control.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> when the widget has already been created.
    */

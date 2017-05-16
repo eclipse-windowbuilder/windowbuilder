@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.reflect;
 
 /**
  * Initializer for created project {@link ClassLoader}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

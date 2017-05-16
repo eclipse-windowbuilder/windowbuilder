@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 /**
  * Dialog field containing label, text and tool item.
- * 
+ *
  * @author scheglov_ke
  */
 public class StringItemDialogField extends StringDialogField {
@@ -102,7 +102,7 @@ public class StringItemDialogField extends StringDialogField {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Change listener used by {@link StringItemDialogField}.
-   * 
+   *
    * @author scheglov_ke
    */
   public interface IStringItemAdapter {

@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Helper for converting coordinates of {@link IAbstractComponentInfo} children to grid-based
  * layout.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage core.model.util

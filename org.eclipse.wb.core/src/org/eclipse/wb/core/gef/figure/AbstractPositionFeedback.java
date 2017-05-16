@@ -17,9 +17,9 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * Abstract class for displaying feedback figures on given layer.
- * 
+ *
  * Usually we need also some hint that describes this position, so we keep it in this class.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.figure
  */
@@ -77,7 +77,7 @@ public abstract class AbstractPositionFeedback {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Updates state of feedback with mouse cursor in given location.
-   * 
+   *
    * @return <code>true</code> feedback contains given location
    */
   public final boolean update(Point location) {

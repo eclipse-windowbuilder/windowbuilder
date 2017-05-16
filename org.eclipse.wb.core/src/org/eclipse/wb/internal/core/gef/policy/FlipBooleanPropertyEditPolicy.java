@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
  * {@link EditPolicy} that flips some boolean property between <code>true/false</code> states, for
  * example <code>expanded</code> property in <code>TreeItem</code>, <code>ExpandableComposite</code>
  * , etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

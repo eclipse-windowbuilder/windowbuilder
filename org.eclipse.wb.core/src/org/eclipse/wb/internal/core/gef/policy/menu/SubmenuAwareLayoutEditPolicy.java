@@ -34,7 +34,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 /**
  * {@link LayoutEditPolicy} for {@link SubmenuAwareEditPart} that shows sub-menu when user targets
  * on host. It is useful for example to add item into inner sub-menu, without expanding it before.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu

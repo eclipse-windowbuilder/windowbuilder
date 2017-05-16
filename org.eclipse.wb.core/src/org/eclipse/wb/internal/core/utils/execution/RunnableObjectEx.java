@@ -12,14 +12,14 @@ package org.eclipse.wb.internal.core.utils.execution;
 
 /**
  * Analog of {@link Runnable} where method <code>run</code> can throw {@link Exception}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
 public interface RunnableObjectEx<T> {
   /**
    * Executes operation that can cause {@link Exception}.
-   * 
+   *
    * @return some {@link Object} result for caller.
    */
   T runObject() throws Exception;

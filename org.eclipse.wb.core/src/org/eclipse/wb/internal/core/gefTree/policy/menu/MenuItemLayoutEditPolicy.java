@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link IMenuItemInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gefTree.policy.menu
  */

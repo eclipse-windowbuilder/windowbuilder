@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * The {@link PropertyEditor} for selecting single value using {@link CCombo3}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

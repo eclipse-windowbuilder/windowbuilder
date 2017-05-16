@@ -50,7 +50,7 @@ import java.util.WeakHashMap;
 
 /**
  * Contains different Java reflection utilities.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -216,7 +216,7 @@ public class ReflectionUtils {
    * @param requiredClass
    *          the name of {@link Class} that should be extended, or name of interface that should be
    *          implemented.
-   * 
+   *
    * @return <code>true</code> if given {@link Class} extends <code>requiredClass</code> or
    *         implements interface with this name.
    */
@@ -481,7 +481,7 @@ public class ReflectionUtils {
    * @param runtime
    *          is <code>true</code> if we need name for class loading, <code>false</code> if we need
    *          name for source generation.
-   * 
+   *
    * @return the fully qualified name of given {@link Type}.
    */
   public static String getFullyQualifiedName(Type type, boolean runtime) {
@@ -565,12 +565,12 @@ public class ReflectionUtils {
 
   /**
    * Returns the short name of {@link Class}, or same name for simple type name.
-   * 
+   *
    * <pre>
 	 * getShortName("javax.swing.JPanel")  = "JPanel"
 	 * getShortName("boolean")             = "boolean"
 	 * </pre>
-   * 
+   *
    * @return the short name of given {@link Class}.
    */
   public static String getShortName(Class<?> clazz) {
@@ -725,12 +725,12 @@ public class ReflectionUtils {
    * Returns the signature of {@link Method} with given combination of name and parameter types.
    * This signature is not same signature as in JVM or JDT, just some string that unique identifies
    * method in its {@link Class}.
-   * 
+   *
    * @param name
    *          the name of {@link Method}.
    * @param parameterTypes
    *          the types of {@link Method} parameters.
-   * 
+   *
    * @return signature of {@link Method}.
    */
   public static String getMethodSignature(String name, Type... parameterTypes) {
@@ -756,7 +756,7 @@ public class ReflectionUtils {
 
   /**
    * Note: you should not use this method, using {@link #getMethodBySignature(Class, String)}.
-   * 
+   *
    * @return the {@link Method} for given name, or <code>null</code> if no such method found.
    */
   public static Method getMethodByName(Class<?> clazz, String name) {
@@ -776,12 +776,12 @@ public class ReflectionUtils {
    * Returns the {@link Method} defined in {@link Class}. This method can have any visibility, i.e.
    * we can find even protected/private methods. Can return <code>null</code> if no method with
    * given signature found.
-   * 
+   *
    * @param clazz
    *          the {@link Class} to get method from it, or its superclass.
    * @param signature
    *          the signature of method in same format as {@link #getMethodSignature(Method)}.
-   * 
+   *
    * @return the {@link Method} for given signature, or <code>null</code> if no such method found.
    */
   public static Method getMethodBySignature(Class<?> clazz, String signature) {
@@ -801,7 +801,7 @@ public class ReflectionUtils {
    * @param signature
    *          the generic signature of {@link Method} in same format as
    *          {@link #getMethodGenericSignature(Method)}.
-   * 
+   *
    * @return the {@link Method} for given signature. This constructor can have any visibility, i.e.
    *         we can find even protected/private constructors.
    */
@@ -822,14 +822,14 @@ public class ReflectionUtils {
    * Returns the {@link Method} defined in {@link Class}. This method can have any visibility, i.e.
    * we can find even protected/private methods. Can return <code>null</code> if no method with
    * given combination of name/parameters found.
-   * 
+   *
    * @param clazz
    *          the {@link Class} to get method from it, or its superclass.
    * @param name
    *          the name of method.
    * @param parameterTypes
    *          the array of parameter types.
-   * 
+   *
    * @return the {@link Method} for given name/parameters, or <code>null</code> if no such method
    *         found.
    */
@@ -906,7 +906,7 @@ public class ReflectionUtils {
 
   /**
    * Invokes method without parameters.
-   * 
+   *
    * @return the {@link Object} result of invoking method.
    */
   public static Object invokeMethod2(Object object, String name) throws Exception {
@@ -915,7 +915,7 @@ public class ReflectionUtils {
 
   /**
    * Invokes method with single parameter.
-   * 
+   *
    * @return the {@link Object} result of invoking method.
    */
   public static Object invokeMethod2(Object object,
@@ -929,7 +929,7 @@ public class ReflectionUtils {
 
   /**
    * Invokes method with two parameters.
-   * 
+   *
    * @return the {@link Object} result of invoking method.
    */
   public static Object invokeMethod2(Object object,
@@ -945,7 +945,7 @@ public class ReflectionUtils {
 
   /**
    * Invokes method with three parameters.
-   * 
+   *
    * @return the {@link Object} result of invoking method.
    */
   public static Object invokeMethod2(Object object,
@@ -963,7 +963,7 @@ public class ReflectionUtils {
 
   /**
    * Invokes method with four parameters.
-   * 
+   *
    * @return the {@link Object} result of invoking method.
    */
   public static Object invokeMethod2(Object object,
@@ -984,7 +984,7 @@ public class ReflectionUtils {
 
   /**
    * Invokes method by name and parameter types.
-   * 
+   *
    * @param object
    *          the object to call, may be {@link Class} for invoking static method.
    * @param name
@@ -993,7 +993,7 @@ public class ReflectionUtils {
    *          the types of parameters.
    * @param arguments
    *          the values of argument for invocation.
-   * 
+   *
    * @return the {@link Object} result of invoking method.
    */
   public static Object invokeMethod2(Object object,
@@ -1034,10 +1034,10 @@ public class ReflectionUtils {
    * Returns the signature of {@link Constructor} with given parameter types. This signature is not
    * same signature as in JVM or JDT, just some string that unique identifies constructor in its
    * {@link Class}.
-   * 
+   *
    * @param parameterTypes
    *          the types of {@link Constructor} parameters.
-   * 
+   *
    * @return signature of {@link Constructor}.
    */
   public static String getConstructorSignature(Type... parameterTypes) {
@@ -1053,7 +1053,7 @@ public class ReflectionUtils {
    * @param signature
    *          the signature of {@link Constructor} in same format as
    *          {@link #getConstructorSignature(Constructor)} .
-   * 
+   *
    * @return the {@link Constructor} for given signature. This constructor can have any visibility,
    *         i.e. we can find even protected/private constructors.
    */
@@ -1076,7 +1076,7 @@ public class ReflectionUtils {
    * @param signature
    *          the generic signature of {@link Constructor} in same format as
    *          {@link #getConstructorGenericSignature(Constructor)}.
-   * 
+   *
    * @return the {@link Constructor} for given signature. This constructor can have any visibility,
    *         i.e. we can find even protected/private constructors.
    */
@@ -1098,7 +1098,7 @@ public class ReflectionUtils {
   /**
    * @param parameterTypes
    *          the array of parameter types.
-   * 
+   *
    * @return the {@link Constructor} for given signature. This constructor can have any visibility,
    *         i.e. we can find even protected/private constructors.
    */
@@ -1358,7 +1358,7 @@ public class ReflectionUtils {
 
   /**
    * Propagates {@code throwable} as-is without any wrapping. This is trick.
-   * 
+   *
    * @return nothing will ever be returned; this return type is only for your convenience, to use
    *         this method in "throw" statement.
    */

@@ -40,7 +40,7 @@ import java.text.MessageFormat;
 
 /**
  * {@link Composite} for displaying {@link Exception} on design pane.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.editor.errors
@@ -190,7 +190,7 @@ public abstract class ExceptionComposite extends Composite {
 
   /**
    * Handles the 'switch to source' action.
-   * 
+   *
    * @param sourcePosition
    *          the position in the source code to switch to.
    */
@@ -213,7 +213,7 @@ public abstract class ExceptionComposite extends Composite {
   /**
    * Sets the {@link Throwable} to display with additional information which may be included into
    * problem report.
-   * 
+   *
    * @param e
    *          the {@link Throwable} to display.
    * @param screenshot

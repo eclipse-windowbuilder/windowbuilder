@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * Provider for preferences of {@link PaletteComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ITreeContentProvider} for GEF {@link IEditPartViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

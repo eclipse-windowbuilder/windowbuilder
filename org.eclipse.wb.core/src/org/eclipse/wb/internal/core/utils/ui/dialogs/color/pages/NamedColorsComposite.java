@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Composite for selecting named color (HTML or SVG).
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

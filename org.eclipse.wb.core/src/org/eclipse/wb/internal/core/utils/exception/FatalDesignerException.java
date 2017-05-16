@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.exception;
 
 /**
  * {@link DesignerException} that should be handled as fatal, which terminates current operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

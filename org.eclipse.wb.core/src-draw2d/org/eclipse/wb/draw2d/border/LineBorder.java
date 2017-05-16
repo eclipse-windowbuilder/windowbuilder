@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Provides for a line border with sides of equal widths.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

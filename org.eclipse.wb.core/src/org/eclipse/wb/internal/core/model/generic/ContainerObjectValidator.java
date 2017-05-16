@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.generic;
 
 /**
  * Validator for using some object as component/reference.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

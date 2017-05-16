@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * {@link ILayoutRequestValidator} that checks also that given parent/child objects are compatible.
  * See for details {@link LayoutRequestValidatorUtils}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */
@@ -112,7 +112,7 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
   /**
    * @param object
    *          the component or its description.
-   * 
+   *
    * @return the value of parameter with given name.
    */
   private static String getParameter(Object object, String name) {

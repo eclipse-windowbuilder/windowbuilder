@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * {@link Action} for displaying floating window with pages for convenient editing layout related
  * properties.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.action.assistant
  */

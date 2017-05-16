@@ -13,14 +13,14 @@ package org.eclipse.wb.internal.core.utils.xml;
 /**
  * Classes that need to be notified on model changes should implement this interface and add
  * themselves as listeners to the model they want to listen to.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */
 public interface IModelChangedListener {
   /**
    * Called when there is a change in the model this listener is registered with.
-   * 
+   *
    * @param event
    *          a change event that describes the kind of the model change
    */

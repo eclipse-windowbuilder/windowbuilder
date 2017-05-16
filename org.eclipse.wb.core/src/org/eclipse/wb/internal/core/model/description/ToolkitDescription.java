@@ -16,7 +16,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Description of GUI toolkit.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

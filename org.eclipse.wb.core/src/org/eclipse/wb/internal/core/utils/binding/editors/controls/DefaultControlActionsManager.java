@@ -19,7 +19,7 @@ import org.eclipse.ui.texteditor.IWorkbenchActionDefinitionIds;
 
 /**
  * Default manager for installing/unistalling global handlers for {@link Control} actions commands.
- * 
+ *
  * @author sablin_aa
  */
 public class DefaultControlActionsManager extends AbstractControlActionsManager {

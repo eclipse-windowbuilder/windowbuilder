@@ -19,7 +19,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 /**
  * {@link Handle} will add an {@link IAncestorListener} to the owner's figure, and will
  * automatically revalidate this handle whenever the owner's figure moves.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

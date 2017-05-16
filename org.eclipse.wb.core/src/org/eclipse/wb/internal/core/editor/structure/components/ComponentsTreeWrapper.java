@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 /**
  * Implementation of {@link IComponentsTree} for GEF {@link TreeViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

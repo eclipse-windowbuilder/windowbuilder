@@ -12,7 +12,7 @@ package org.eclipse.wb.core.editor.actions.assistant;
 
 /**
  * Pages created in {@link LayoutAssistantListener} add this interface to receive update events.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.action.assistant
  */

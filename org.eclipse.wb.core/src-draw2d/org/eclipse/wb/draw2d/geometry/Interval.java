@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 /**
  * Represents interval in 1-dimensional space.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @author scheglov_ke
@@ -28,7 +28,7 @@ public final class Interval implements Serializable {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Constructors 
+  // Constructors
   //
   ////////////////////////////////////////////////////////////////////////////
   public Interval() {
@@ -142,18 +142,18 @@ public final class Interval implements Serializable {
 
   /**
    * Calculates the distance to given <code>point</code>.
-   * 
+   *
    * Example:
-   * 
+   *
    * <pre>
-	 *  Let x=[10, 100]: 
+	 *  Let x=[10, 100]:
 	 *  	distance for point 3 is 7.
 	 *  	distance for point 10 is 0.
 	 *  	distance for point 50 is 0.
 	 *  	distance for point 110 is 0.
 	 *  	distance for point 150 is 40.
 	 *  </pre>
-   * 
+   *
    * @param point
    *          the point to calculate the distance to.
    * @return the calculated distance.
@@ -199,7 +199,7 @@ public final class Interval implements Serializable {
 
   /**
    * Increase the interval into leading direction (ex., grow left for horizontal interval).
-   * 
+   *
    * @param delta
    *          the value to increase the interval to.
    */
@@ -210,7 +210,7 @@ public final class Interval implements Serializable {
 
   /**
    * Increase the interval into trailing direction (ex., grow right for horizontal interval).
-   * 
+   *
    * @param delta
    *          the value to increase the interval to.
    */
@@ -220,7 +220,7 @@ public final class Interval implements Serializable {
 
   /**
    * Changes begin, but does not change end position of interval, so also changes length.
-   * 
+   *
    * @deprecated use {@link #setBegin(int)}.
    */
   @Deprecated
@@ -230,7 +230,7 @@ public final class Interval implements Serializable {
 
   /**
    * Moves begin with given delta. End point of interval does not move, so we change also length.
-   * 
+   *
    * @deprecated use {@link #growLeading(int)}.
    */
   @Deprecated
@@ -241,7 +241,7 @@ public final class Interval implements Serializable {
   /**
    * Moves end with given delta. Begin point of interval does not move, so practically we just
    * change length.
-   * 
+   *
    * @deprecated use {@link #growTrailing(int)}.
    */
   @Deprecated
@@ -268,9 +268,9 @@ public final class Interval implements Serializable {
   /**
    * @return index of rightmost interval that contains given value in its right half or
    *         <code>-1</code> if there is not such interval.
-   * 
+   *
    *         We can use this method for example for span support.
-   * 
+   *
    * @param intervals
    *          sorted, disjoint array of intervals
    */

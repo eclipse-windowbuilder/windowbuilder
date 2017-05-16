@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.tools.Tool;
 
 /**
  * Interface that allows external tweaking of {@link EditDomain} {@link Tool}'s operations.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

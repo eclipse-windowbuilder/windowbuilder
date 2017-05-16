@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 
 /**
  * Factory for creating {@link LayoutEditPolicy} for generic containers.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

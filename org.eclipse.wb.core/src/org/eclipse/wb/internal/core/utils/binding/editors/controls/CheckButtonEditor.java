@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IDataEditor} for SWT {@link Button} with {@link SWT#CHECK} style.
- * 
+ *
  * @author scheglov_ke
  */
 public final class CheckButtonEditor implements IDataEditor {

@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * A small square handle approximately 7x7 pixels in size, that is either black or white.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

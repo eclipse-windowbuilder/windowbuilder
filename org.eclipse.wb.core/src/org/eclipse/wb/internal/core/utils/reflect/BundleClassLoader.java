@@ -18,7 +18,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Implementation of {@link ClassLoader} for loading classes from OSGi {@link Bundle}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

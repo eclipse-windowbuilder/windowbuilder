@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 /**
  * A Handle used to resize a {@link EditPart}s.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

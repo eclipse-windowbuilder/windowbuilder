@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Implementation of {@link IDataEditor} for {@link Text} widget.
- * 
+ *
  * @author scheglov_ke
  */
 public final class TextSingleEditor implements IDataEditor {

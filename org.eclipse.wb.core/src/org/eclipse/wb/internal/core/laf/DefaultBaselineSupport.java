@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.laf;
 
 /**
  * Default implementation of {@link IBaselineSupport}.
- * 
+ *
  * @author mitin_aa
  * @coverage core.laf
  */

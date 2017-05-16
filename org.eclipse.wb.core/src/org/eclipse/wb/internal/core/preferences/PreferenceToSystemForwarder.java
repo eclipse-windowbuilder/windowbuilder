@@ -16,7 +16,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 
 /**
  * Maps given Eclipse boolean preference to System.property value.
- * 
+ *
  * @author mitin_aa
  */
 public final class PreferenceToSystemForwarder {

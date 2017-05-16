@@ -22,7 +22,7 @@ import java.io.InputStream;
 /**
  * Report entry for writing screenshot files. Does converting from 'bmp' format into 'png' to
  * preserve report size.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

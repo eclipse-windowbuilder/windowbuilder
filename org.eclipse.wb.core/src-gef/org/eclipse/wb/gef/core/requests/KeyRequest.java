@@ -14,7 +14,7 @@ import org.eclipse.swt.events.KeyEvent;
 
 /**
  * A {@link Request} that represented key event.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

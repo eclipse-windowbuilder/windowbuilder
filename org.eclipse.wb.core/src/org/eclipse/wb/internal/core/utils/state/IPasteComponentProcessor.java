@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.state;
 
 /**
  * Action for single component during paste.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

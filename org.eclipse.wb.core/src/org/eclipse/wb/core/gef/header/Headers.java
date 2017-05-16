@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Utils for headers.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Fetches WindowBuilder preferences.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

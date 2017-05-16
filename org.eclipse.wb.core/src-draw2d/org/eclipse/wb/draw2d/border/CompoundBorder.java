@@ -16,7 +16,7 @@ import org.eclipse.wb.draw2d.geometry.Insets;
 /**
  * {@link CompoundBorder} allows for the nesting of two borders. The nested borders are referred to
  * as the <i>inner</i> and <i>outer</i> borders.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -29,7 +29,7 @@ public final class ValidationStatus extends Status {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates a new validation status with the given severity, message, and exception.
-   * 
+   *
    * @param severity
    * @param message
    * @param exception
@@ -40,7 +40,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Creates a new validation status with the given severity and message.
-   * 
+   *
    * @param severity
    * @param message
    */
@@ -55,7 +55,7 @@ public final class ValidationStatus extends Status {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates a new validation error status with the given message.
-   * 
+   *
    * @param message
    * @return a new error status with the given message
    */
@@ -65,7 +65,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Creates a new validation cancel status with the given message.
-   * 
+   *
    * @param message
    * @return a new cancel status with the given message
    */
@@ -75,7 +75,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Creates a new validation error status with the given message and exception.
-   * 
+   *
    * @param message
    * @param exception
    * @return a new error status with the given message and exception
@@ -86,7 +86,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Creates a new validation warning status with the given message.
-   * 
+   *
    * @param message
    * @return a new warning status with the given message
    */
@@ -96,7 +96,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Creates a new validation info status with the given message.
-   * 
+   *
    * @param message
    * @return a new info status with the given message
    */
@@ -106,7 +106,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Returns an OK status.
-   * 
+   *
    * @return an OK status
    */
   public static IStatus ok() {
@@ -120,7 +120,7 @@ public final class ValidationStatus extends Status {
   ////////////////////////////////////////////////////////////////////////////
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#hashCode()
    */
   @Override
@@ -138,7 +138,7 @@ public final class ValidationStatus extends Status {
 
   /**
    * Equality is based upon instance equality rather than identity.
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override

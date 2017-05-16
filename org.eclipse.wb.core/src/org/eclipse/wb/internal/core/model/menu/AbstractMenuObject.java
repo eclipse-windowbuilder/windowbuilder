@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.draw2d.events.EventTable;
 
 /**
  * Abstract implementation of {@link IMenuObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.menu
  */

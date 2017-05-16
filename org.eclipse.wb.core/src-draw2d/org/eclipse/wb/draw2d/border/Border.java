@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 /**
  * A {@link Border} is a graphical decoration that is painted just inside the outer edge of a
  * {@link Figure}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.gef.core;
 
 /**
  * Pattern Command.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

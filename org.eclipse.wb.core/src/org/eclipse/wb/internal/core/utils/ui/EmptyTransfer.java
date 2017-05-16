@@ -19,7 +19,7 @@ import org.apache.commons.lang.ArrayUtils;
 /**
  * {@link Transfer} that can be used when we don't need to transfer real data, because, for example,
  * we track transferred object ourselves.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

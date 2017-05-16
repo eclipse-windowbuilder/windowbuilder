@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Resolver for type variables.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

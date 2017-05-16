@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 
 /**
  * A listener interface for receiving notification that an {@link Figure} has moved.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
  * between the {@link IEditPartViewer} and its contents. It does not correspond to anything in the
  * model, and typically can not be interacted with by the User. The Root provides a homogeneous
  * context for the applications "real" EditParts.
- * 
+ *
  * @author lobas_av
  * @coverage gef.graphical
  */

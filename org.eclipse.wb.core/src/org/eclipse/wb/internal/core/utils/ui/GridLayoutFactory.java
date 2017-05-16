@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Layout;
 
 /**
  * GridLayoutFactory provides a convienient shorthand for creating and initializing GridLayout.
- * 
+ *
  * @author scheglov_ke
  */
 public final class GridLayoutFactory {
@@ -24,7 +24,7 @@ public final class GridLayoutFactory {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Constructor 
+  // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
   private GridLayoutFactory(Composite composite, GridLayout layout) {

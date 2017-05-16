@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Helper for managing actions on internal {@link ToolBarManager} of {@link DesignPage}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  * @coverage core.editor
@@ -55,7 +55,7 @@ public class DesignToolbarHelper {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Initializes new {@link DesignToolbarHelper}.
-   * 
+   *
    * @param designPage
    *          the target {@link DesignPage}.
    * @param toolBar
@@ -149,7 +149,7 @@ public class DesignToolbarHelper {
 
   /**
    * Refresh all dynamic actions.
-   * 
+   *
    * @param refreshHierarchy
    *          is <code>true</code> if hierarchy actions should be refreshed.
    * @param refreshSelection

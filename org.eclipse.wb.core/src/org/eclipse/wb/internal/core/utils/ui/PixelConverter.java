@@ -17,9 +17,9 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Helper class for converting DLU and char size into pixels.
- * 
+ *
  * Based on code from JDT UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class PixelConverter {

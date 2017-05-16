@@ -15,7 +15,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 /**
  * A collection of cursors.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

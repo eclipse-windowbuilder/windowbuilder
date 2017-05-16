@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Figure which draws associated {@link Image} and outlines it with border.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy
  */

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * This class provides bounds snapping and drawing feedbacks based on defined SnapPoint list. See
  * also {@link IVisualDataProvider}.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */
@@ -91,7 +91,7 @@ public class SnapPoints {
    * modifies <code>snappedBounds</code> according to snap point which this bounds moves/resizes
    * around. If no snap point engaged then grid snapping applied to <code>snappedBounds</code>. Any
    * snapping may be disabled by {@link IVisualDataProvider#isSuppressingSnapping()}.
-   * 
+   *
    * @param location
    *          Current mouse pointer location. Used to calc mouse move direction.
    * @param beingSnappedList
@@ -203,13 +203,13 @@ public class SnapPoints {
 
   /**
    * Grid snapping magic.
-   * 
+   *
    * Widget move snapping depends on mouse move direction: when direction is leading then widget
    * left coordinate snapped to nearest to left grid-based coordinate, for trailing move direction
    * widget's right side snapped to nearest to right grid-based coordinate.
-   * 
+   *
    * Widget resizing snaps as usual, depending on value passed from request.
-   * 
+   *
    * @param bounds
    *          the transposed bounds to snap to grid.
    * @param resizeDirection

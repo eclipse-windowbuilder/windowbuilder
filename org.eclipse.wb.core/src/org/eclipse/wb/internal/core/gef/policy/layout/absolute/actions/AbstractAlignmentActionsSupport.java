@@ -29,7 +29,7 @@ import java.util.Set;
 
 /**
  * Abstract helper for adding selection actions for absolute based layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.layout.absolute
  */
@@ -231,7 +231,7 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Replicate width/height 
+  // Replicate width/height
   //
   ////////////////////////////////////////////////////////////////////////////
   protected abstract void commandReplicateHeight() throws Exception;

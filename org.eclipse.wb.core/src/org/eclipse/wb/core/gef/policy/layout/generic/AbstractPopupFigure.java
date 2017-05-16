@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Menu;
 
 /**
  * Abstract {@link Figure} that shows images of fixed size and open popup menu on click.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy.generic
  */
@@ -50,7 +50,7 @@ public abstract class AbstractPopupFigure extends Figure {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link AbstractPopupFigure}.
-   * 
+   *
    * @param width
    *          the width of the image.
    * @param height

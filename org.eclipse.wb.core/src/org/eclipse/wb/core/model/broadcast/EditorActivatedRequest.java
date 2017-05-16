@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.broadcast;
 
 /**
  * Request object for {@link EditorActivatedListener#invoke(EditorActivatedRequest)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

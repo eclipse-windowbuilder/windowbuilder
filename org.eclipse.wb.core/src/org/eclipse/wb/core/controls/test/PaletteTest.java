@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Application for testing {@link PaletteComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.test
  */

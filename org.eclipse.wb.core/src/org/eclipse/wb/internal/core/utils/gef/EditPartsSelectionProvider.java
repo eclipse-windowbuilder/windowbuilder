@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Implementation of {@link ISelectionProvider} for models of {@link EditPart}'s in GEF
  * {@link IEditPartViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

@@ -13,7 +13,7 @@ package org.eclipse.wb.core.model.broadcast;
 /**
  * This listener is invoked after activating editor.Implementations can specify that some external
  * change was happened (for example modification of used component), so reparse required.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

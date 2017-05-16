@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * View-like page.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

@@ -17,14 +17,14 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 /**
  * Implementations of {@link PropertyEditorPresentation} are used to show some presentation for
  * visible, but not activated yet {@link PropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */
 public abstract class PropertyEditorPresentation {
   /**
    * Shows presentation for given {@link Property}.
-   * 
+   *
    * @return the width that this presentation occupies on the right of given rectangle.
    */
   public abstract int show(PropertyTable propertyTable,

@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} that displays icon for its component.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

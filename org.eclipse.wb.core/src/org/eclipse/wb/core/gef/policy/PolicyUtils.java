@@ -39,7 +39,7 @@ import java.lang.reflect.Method;
 
 /**
  * Helper for {@link EditPolicy}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */
@@ -307,7 +307,7 @@ public abstract class PolicyUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Schedules selection of {@link EditPart} with given model.
-   * 
+   *
    * @param host
    *          the {@link EditPolicy} to get {@link IEditPartViewer} to select in.
    */
@@ -317,7 +317,7 @@ public abstract class PolicyUtils {
 
   /**
    * Schedules selection of {@link EditPart} with given model.
-   * 
+   *
    * @param host
    *          the {@link EditPart} to get {@link IEditPartViewer} to select in.
    */

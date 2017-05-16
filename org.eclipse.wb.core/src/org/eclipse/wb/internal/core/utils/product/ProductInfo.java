@@ -25,7 +25,7 @@ import java.util.GregorianCalendar;
 import java.util.Properties;
 
 /**
- * 
+ *
  */
 public final class ProductInfo {
   // product info
@@ -105,7 +105,7 @@ public final class ProductInfo {
   /**
    * Determine if the specified plugin is installed in the currently executing development
    * environment without actually loading or starting the plugin
-   * 
+   *
    * @param pluginId
    *          the plugin identifier
    * @return <code>true</code> if installed, else <code>false</code>
@@ -138,7 +138,7 @@ public final class ProductInfo {
   /**
    * Answer the build for the specified plugin. This method ASSUMES that we are executing inside an
    * Eclipse based application.
-   * 
+   *
    * @param id
    *          the unique plugin identifier (not <code>null</code>)
    * @return the build for the plugin or UNKNOWN if it could not be determined
@@ -176,7 +176,7 @@ public final class ProductInfo {
 
   /**
    * Answer a string in the format "yyyyMMddHHmm" indicating the session start time
-   * 
+   *
    * @return a string (not null)
    */
   public static String getStartDateTimeString() {
@@ -190,7 +190,7 @@ public final class ProductInfo {
 
   /**
    * Answer a string in the format "yyyyMMddHHmm" indicating the current time
-   * 
+   *
    * @return a string (not null)
    */
   public static String getCurrentDateTimeString() {

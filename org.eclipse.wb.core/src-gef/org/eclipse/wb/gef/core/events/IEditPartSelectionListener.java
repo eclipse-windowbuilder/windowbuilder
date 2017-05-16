@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * Interface for listening to selection changes.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

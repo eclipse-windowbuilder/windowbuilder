@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils;
 
 /**
  * External implementation of {@link IAdaptable}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -22,7 +22,7 @@ public interface IAdaptableFactory {
    *          the {@link Object} to adapt.
    * @param adapter
    *          the type of adapter.
-   * 
+   *
    * @return the adapter of required type.
    */
   <T> T getAdapter(Object object, Class<T> adapter);

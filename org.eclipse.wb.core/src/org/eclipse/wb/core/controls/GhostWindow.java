@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Special {@link Window} that sets "alpha" for its {@link Shell} depending on mouse location.
- * 
+ *
  * @author mitin_aa
  * @coverage core.control
  */
@@ -162,7 +162,7 @@ public abstract class GhostWindow extends Window {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Alpha helpers 
+  // Alpha helpers
   //
   ////////////////////////////////////////////////////////////////////////////
   private static void setAlpha(Shell shell, int alpha) {

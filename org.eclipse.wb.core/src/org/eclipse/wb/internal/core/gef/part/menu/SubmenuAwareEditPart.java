@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link IMenuObjectInfo} which may contain {@link IMenuInfo} as child.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu
@@ -112,7 +112,7 @@ public abstract class SubmenuAwareEditPart extends MenuObjectEditPart {
    * In Swing we can drop just any component on menu, for example strut/glue between items. But for
    * these components {@link EditPart} is not {@link MenuObjectEditPart}, so, we should climb up
    * until find {@link MenuObjectEditPart}.
-   * 
+   *
    * @return the {@link MenuObjectEditPart} that corresponds to given {@link EditPart}, or
    *         <code>null</code>, if {@link EditPart} does not belong to any
    *         {@link MenuObjectEditPart} hierarchy.

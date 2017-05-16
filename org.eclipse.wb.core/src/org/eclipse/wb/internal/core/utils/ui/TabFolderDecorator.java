@@ -29,7 +29,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Helper for decorating {@link CTabFolder} using same colors as for views/editors in Eclipse.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

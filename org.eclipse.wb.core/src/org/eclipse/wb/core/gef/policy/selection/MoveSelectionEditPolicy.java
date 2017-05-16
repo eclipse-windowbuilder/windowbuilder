@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Implementation of {@link SelectionEditPolicy} that shows only {@link MoveHandle} as selection
  * feedback.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

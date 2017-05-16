@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFiel
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class SelectionButtonEditor implements IDataEditor {
   private final SelectionButtonDialogField m_field;

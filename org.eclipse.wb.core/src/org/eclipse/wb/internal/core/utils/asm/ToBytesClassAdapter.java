@@ -16,7 +16,7 @@ import org.objectweb.asm.Opcodes;
 
 /**
  * {@link ClassAdapter} for visitors that transforms to byte array.
- * 
+ *
  * @author scheglov_ke
  */
 public class ToBytesClassAdapter extends ClassAdapter implements Opcodes {

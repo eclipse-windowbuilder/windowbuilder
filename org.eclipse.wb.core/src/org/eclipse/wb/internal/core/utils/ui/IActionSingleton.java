@@ -16,7 +16,7 @@ import org.eclipse.jface.action.IAction;
  * Marker for {@link IAction} that tells {@link MenuIntersector} that wrapper for such
  * {@link IAction}'s should execute only first {@link IAction}, for example because it performs
  * operation based on selection, not on single object.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.core.branding;
 
 /**
  * Interface providing info about bug-tracking system and discussion forum.
- * 
+ *
  * @author mitin_aa
  * @coverage core.util
  */

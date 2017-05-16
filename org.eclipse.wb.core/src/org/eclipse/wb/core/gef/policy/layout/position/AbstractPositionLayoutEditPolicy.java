@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for placing children on fixed areas on parent.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */
@@ -102,7 +102,7 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 
   /**
    * Adds single feedback with given parameters.
-   * 
+   *
    * @param bounds
    *          the host relative bounds of feedback, this method automatically will convert it into
    *          feedback layer coordinates.

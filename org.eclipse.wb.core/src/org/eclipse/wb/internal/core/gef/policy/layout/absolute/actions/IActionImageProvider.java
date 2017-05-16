@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Helper interface to provide the image for action.
- * 
+ *
  * @author mitin_aa
  */
 public interface IActionImageProvider {

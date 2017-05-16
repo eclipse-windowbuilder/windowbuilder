@@ -26,7 +26,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * {@link PreferencePage} with single {@link AbstractBindingComposite} as contents.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

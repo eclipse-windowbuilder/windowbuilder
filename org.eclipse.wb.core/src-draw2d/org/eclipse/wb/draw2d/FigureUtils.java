@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Collection of utilities for {@link Figure}'s.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

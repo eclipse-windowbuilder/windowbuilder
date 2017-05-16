@@ -12,7 +12,7 @@ package org.eclipse.wb.draw2d.events;
 
 /**
  * A listener interface for receiving mouse motion event.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

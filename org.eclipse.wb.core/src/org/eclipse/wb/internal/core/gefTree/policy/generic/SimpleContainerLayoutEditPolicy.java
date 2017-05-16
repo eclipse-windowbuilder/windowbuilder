@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 
 /**
  * {@link LayoutEditPolicy} for {@link SimpleContainer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree.policy
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.core.editor;
 
 /**
  * Designer parsing state.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor
  */

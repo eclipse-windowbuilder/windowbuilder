@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Feedback with opaque {@link Figure}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.figure
  */

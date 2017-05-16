@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.MenuItem;
 
 /**
  * Extends {@link MenuManager} to allow populating the menu directly from the manager itself.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * {@link EditPolicy} that runs given MVEL script on double click.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

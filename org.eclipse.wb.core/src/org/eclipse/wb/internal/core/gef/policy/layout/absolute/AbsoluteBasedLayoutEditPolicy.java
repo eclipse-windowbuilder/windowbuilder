@@ -68,7 +68,7 @@ import java.util.Map.Entry;
 
 /**
  * Generic {@link LayoutEditPolicy} for absolute based layouts.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage core.gef.policy
@@ -266,7 +266,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
    * just Integer.toString(), but some layouts, for example GWT AbsolutePanel support not only
    * pixels, but also inches, centimeters, etc. We keep size units for such layouts, so want to show
    * user size in current units, not in plain pixels.
-   * 
+   *
    * @param editPart
    *          An {@link EditPart} which is currently resizing
    * @param x
@@ -281,7 +281,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
 
   /**
    * Return string representing the current component location during moving
-   * 
+   *
    * @param editPart
    *          An {@link EditPart} which is currently moving
    * @param x
@@ -847,7 +847,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * This method does some toolkit-specific as well as applying memento to pasted widget. Executed
    * from command's {@link EditCommand#executeEdit()} method.
-   * 
+   *
    * @param location
    *          the pasting location.
    * @param widget

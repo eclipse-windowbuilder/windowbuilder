@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * {@link SelectionEditPolicy} that has no {@link Handle}'s, just shows line around {@link EditPart}
  * .
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu

@@ -22,7 +22,7 @@ import java.text.MessageFormat;
 
 /**
  * The {@link PropertyEditor} for <code>int[]</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */

@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * The default implementation of {@link IPalettePreferences}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */

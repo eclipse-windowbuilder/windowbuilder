@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.ImageData;
 
 /**
  * A shared collection of Cursors.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

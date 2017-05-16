@@ -28,7 +28,7 @@ import javax.swing.AbstractButton;
  * on the place of "visual" presentation.
  * <p>
  * So, we need some proxy/reference to use instead.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

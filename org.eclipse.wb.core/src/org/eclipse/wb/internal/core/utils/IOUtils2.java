@@ -40,7 +40,7 @@ import java.util.Properties;
 
 /**
  * Additional I/O utils for {@link IOUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class IOUtils2 {
@@ -234,7 +234,7 @@ public class IOUtils2 {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates or modifies given {@link IFile} with given {@link InputStream}.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContents(IFile file, InputStream inputStream) throws CoreException {

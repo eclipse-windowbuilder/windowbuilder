@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * Figure which draws dots upon host figure
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage core.gef.policy

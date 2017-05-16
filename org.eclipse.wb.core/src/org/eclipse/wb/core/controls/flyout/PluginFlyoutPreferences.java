@@ -14,7 +14,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Implementation of {@link IFlyoutPreferences} for {@link IPreferenceStore}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

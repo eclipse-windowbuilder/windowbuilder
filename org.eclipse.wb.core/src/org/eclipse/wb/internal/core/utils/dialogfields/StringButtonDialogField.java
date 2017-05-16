@@ -81,10 +81,10 @@ public class StringButtonDialogField extends StringDialogField {
     return gd;
   }
 
-  // ------- ui creation	
+  // ------- ui creation
   /**
    * Creates or returns the created button widget.
-   * 
+   *
    * @param parent
    *          The parent composite or <code>null</code> if the widget has already been created.
    */

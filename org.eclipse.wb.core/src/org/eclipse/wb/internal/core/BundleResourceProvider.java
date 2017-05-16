@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * Provider for resources of some {@link Bundle}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core
  */

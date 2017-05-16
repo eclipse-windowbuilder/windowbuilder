@@ -28,7 +28,7 @@ import java.util.Properties;
 
 /**
  * Dialog for set proxy settings.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors
  */

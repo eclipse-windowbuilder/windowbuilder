@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Helper class for displaying tooltips.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.table
  */
@@ -168,7 +168,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
       // for non-windows systems the tooltip may have invalid tooltip bounds
       // because some widget's API functions may fail if tooltip content is not visible
       // ex., on MacOSX tree widget's items has zero bounds since they are not yet visible.
-      // the workaround is to preset tooltip size to big values before any computeSize called. 
+      // the workaround is to preset tooltip size to big values before any computeSize called.
       if (!EnvironmentUtils.IS_WINDOWS) {
         m_tooltip.setSize(1000, 1000);
       }

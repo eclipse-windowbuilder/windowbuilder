@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.binding;
 
 /**
  * This interface describe editor for abstract data.
- * 
+ *
  * @author lobas_av
  */
 public interface IDataEditor {

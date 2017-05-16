@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Helper class for inspecting a JavaBean.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

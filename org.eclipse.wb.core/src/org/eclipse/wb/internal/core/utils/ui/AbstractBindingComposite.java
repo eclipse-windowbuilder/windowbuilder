@@ -42,7 +42,7 @@ import java.util.Map;
 /**
  * {@link Composite} with {@link DataBindManager} for convenient binding {@link Control}'s on
  * preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */
@@ -151,7 +151,7 @@ public abstract class AbstractBindingComposite extends Composite {
   /**
    * Notifies this {@link AbstractBindingComposite} that user commits changes, for example clicks
    * "OK" button.
-   * 
+   *
    * @return <code>true</code> if commit was successful
    */
   public boolean performOk() {
@@ -181,7 +181,7 @@ public abstract class AbstractBindingComposite extends Composite {
   };
   /**
    * Binds <code>boolean</code> value using given check {@link Button}.
-   * 
+   *
    * @return the {@link CheckButtonEditor} used for binding.
    */
   protected final CheckButtonEditor bindBoolean(Button button, String key) {
@@ -285,7 +285,7 @@ public abstract class AbstractBindingComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates check {@link Button} for editing boolean preference with given key.
-   * 
+   *
    * @param text
    *          the text for {@link Button}
    * @param key
@@ -296,7 +296,7 @@ public abstract class AbstractBindingComposite extends Composite {
   }
   /**
    * Creates check {@link Button} for editing boolean preference with given key.
-   * 
+   *
    * @param parent
    *          the parent for {@link Button} widget
    * @param horizontalSpan

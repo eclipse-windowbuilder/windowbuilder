@@ -20,7 +20,7 @@ import java.net.URL;
 
 /**
  * The class <code>PluginUtilities</code> defines utility methods for working with plug-ins.
- * 
+ *
  * @author Brian Wilkerson
  * @version $Revision$
  */
@@ -43,7 +43,7 @@ public class PluginUtilities {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Return the unique identifier of the given plug-in.
-   * 
+   *
    * @return the unique identifier of the given plug-in
    */
   public static String getId(Plugin plugin) {
@@ -53,7 +53,7 @@ public class PluginUtilities {
   /**
    * Return the name of the given plug-in. If the plug-in does not have a name, return the unique
    * identifier for the plug-in instead.
-   * 
+   *
    * @return the name of the given plug-in
    */
   public static String getName(Plugin plugin) {
@@ -73,10 +73,10 @@ public class PluginUtilities {
   /**
    * Return the version identifier associated with the plug-in with the given identifier, or
    * <code>null</code> if there is no such plug-in.
-   * 
+   *
    * @param pluginId
    *          the identifier of the plug-in
-   * 
+   *
    * @return the version identifier for the specified plug-in
    */
   public static Version getVersion(String pluginId) {
@@ -93,10 +93,10 @@ public class PluginUtilities {
   /**
    * Return the version identifier associated with the plug-in with the given identifier, or
    * <code>null</code> if there is no such plug-in.
-   * 
+   *
    * @param pluginId
    *          the identifier of the plug-in
-   * 
+   *
    * @return the version identifier for the specified plug-in
    */
   public static Version getVersion(Plugin plugin) {
@@ -112,10 +112,10 @@ public class PluginUtilities {
   /**
    * Return the version identifier associated with the plug-in with the given identifier, or
    * <code>null</code> if there is no such plug-in.
-   * 
+   *
    * @param pluginId
    *          the identifier of the plug-in
-   * 
+   *
    * @return the version identifier for the specified plug-in
    */
   public static String getVersionString(String pluginId) {
@@ -130,10 +130,10 @@ public class PluginUtilities {
   /**
    * Return the version identifier associated with the plug-in with the given identifier, or
    * <code>null</code> if there is no such plug-in.
-   * 
+   *
    * @param pluginId
    *          the identifier of the plug-in
-   * 
+   *
    * @return the version identifier for the specified plug-in
    */
   public static String getVersionString(Plugin plugin) {
@@ -151,10 +151,10 @@ public class PluginUtilities {
   /**
    * Return an URL representing the installation directory of the plug-in with the given identifier,
    * or <code>null</code> if there is no plug-in with the given identifier.
-   * 
+   *
    * @param pluginId
    *          the identifier of the plug-in
-   * 
+   *
    * @return the specified plug-in's installation directory
    */
   public static URL getInstallUrl(String pluginId) {
@@ -168,10 +168,10 @@ public class PluginUtilities {
 
   /**
    * Return an URL representing the given plug-in's installation directory.
-   * 
+   *
    * @param plugin
    *          the plug-in
-   * 
+   *
    * @return the given plug-in's installation directory
    */
   public static URL getInstallUrl(Plugin plugin) {
@@ -184,12 +184,12 @@ public class PluginUtilities {
   /**
    * Return an URL for the file located within the installation directory of the plug-in that has
    * the given identifier that has the given relative path.
-   * 
+   *
    * @param pluginId
    *          the identifier for the plug-in
    * @param relativePath
    *          the relative path of the file within the installation directory
-   * 
+   *
    * @return the URL for the specified file
    */
   public static URL getUrl(String pluginId, String relativePath) {
@@ -207,12 +207,12 @@ public class PluginUtilities {
   /**
    * Return an URL for the file located within the installation directory of the given plug-in that
    * has the given relative path.
-   * 
+   *
    * @param pluginId
    *          the identifier for the plug-in
    * @param relativePath
    *          the relative path of the file within the installation directory
-   * 
+   *
    * @return the URL for the specified file
    */
   public static URL getUrl(Plugin plugin, String relativePath) {

@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * {@link PropertyManager} is used to get/set attributes of {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

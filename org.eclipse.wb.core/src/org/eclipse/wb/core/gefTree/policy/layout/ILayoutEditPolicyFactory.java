@@ -15,7 +15,7 @@ import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 
 /**
  * Factory for creating {@link LayoutEditPolicy}'s for layout models.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gefTree.policy
  */

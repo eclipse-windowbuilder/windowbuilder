@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * The {@link PasteTool} creates new {@link EditPart EditParts} via from memento.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  * @coverage gef.core

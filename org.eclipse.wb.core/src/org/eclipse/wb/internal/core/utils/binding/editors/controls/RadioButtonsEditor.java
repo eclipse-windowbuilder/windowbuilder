@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IDataEditor} for group of radio {@link Button} widgets.
- * 
+ *
  * @author scheglov_ke
  */
 public final class RadioButtonsEditor implements IDataEditor {

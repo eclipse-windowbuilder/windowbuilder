@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model;
 
 /**
  * Optional interface of {@link ObjectInfo} for models which have position in source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

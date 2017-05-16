@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * {@link ILayoutRequestValidator} which caches results of validation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

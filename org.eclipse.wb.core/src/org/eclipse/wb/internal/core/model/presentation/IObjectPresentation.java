@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Interface for visual presentation of {@link ObjectInfo} - title, icon, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.presentation
  */

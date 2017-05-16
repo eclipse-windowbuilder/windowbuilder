@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Single entry on {@link PaletteComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control.palette
  */
@@ -51,10 +51,10 @@ public interface IEntry {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Activates this {@link IEntry}.
-   * 
+   *
    * @param reload
    *          is <code>true</code> if entry should be automatically reloaded after successful using.
-   * 
+   *
    * @return <code>true</code> if {@link IEntry} was successfully activated.
    */
   boolean activate(boolean reload);

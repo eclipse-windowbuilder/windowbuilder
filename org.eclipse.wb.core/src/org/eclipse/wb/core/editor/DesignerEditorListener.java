@@ -12,7 +12,7 @@ package org.eclipse.wb.core.editor;
 
 /**
  * Listener for {@link IDesignerEditor} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

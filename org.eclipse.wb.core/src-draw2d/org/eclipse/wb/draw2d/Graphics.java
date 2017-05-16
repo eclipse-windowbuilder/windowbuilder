@@ -29,7 +29,7 @@ import java.util.List;
  * The Graphics class allows you to draw to a surface. The drawXxx() methods that pertain to shapes
  * draw an outline of the shape, whereas the fillXxx() methods fill in the shape. Also provides for
  * drawing text, lines and images.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -76,7 +76,7 @@ public class Graphics {
    * Draws the outline of an arc located at (<i>x</i>,<i>y</i>) with width <i>w</i> and height
    * <i>h</i>. The starting angle of the arc (specified in degrees) is <i>offset</i> and
    * <i>length</i> is the arc's angle (specified in degrees).
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -99,7 +99,7 @@ public class Graphics {
    * Fills the interior of an arc located at (<i>x</i>,<i>y</i>) with width <i>w</i> and height
    * <i>h</i>. The starting angle of the arc (specified in degrees) is <i>offset</i> and
    * <i>length</i> is the arc's angle (specified in degrees).
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -140,7 +140,7 @@ public class Graphics {
    * Fills the the given rectangle with a gradient from the foreground color to the background
    * color. If <i>vertical</i> is <code>true</code>, the gradient will go from top to bottom.
    * Otherwise, it will go from left to right. background color.
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -167,7 +167,7 @@ public class Graphics {
 
   /**
    * Draws a focus rectangle.
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -192,7 +192,7 @@ public class Graphics {
 
   /**
    * Draws the given Image at the location (x,y).
-   * 
+   *
    * @param srcImage
    *          the Image
    * @param x
@@ -229,7 +229,7 @@ public class Graphics {
    * canvas. The section of the image bounded by the rectangle (x1,y1,w1,h1) is copied to the
    * section of the canvas bounded by the rectangle (x2,y2,w2,h2). If these two sizes are different,
    * scaling will occur.
-   * 
+   *
    * @param srcImage
    *          the image
    * @param x1
@@ -273,7 +273,7 @@ public class Graphics {
   /**
    * Draws a line between the points <code>(x1,y1)</code> and <code>(x2,y2)</code> using the
    * foreground color.
-   * 
+   *
    * @param x1
    *          the x coordinate for the first point
    * @param y1
@@ -294,7 +294,7 @@ public class Graphics {
    * <p>
    * Note that the receiver's line attributes do not affect this operation.
    * </p>
-   * 
+   *
    * @param x
    *          the point's x coordinate
    * @param y
@@ -316,7 +316,7 @@ public class Graphics {
   /**
    * Draws the outline of an ellipse that fits inside the rectangle with the given properties using
    * the foreground color.
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -342,7 +342,7 @@ public class Graphics {
   /**
    * Fills an ellipse that fits inside the rectangle with the given properties using the background
    * color.
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -360,7 +360,7 @@ public class Graphics {
   /**
    * Draws a closed polygon defined by the given <code>PointList</code> containing the vertices. The
    * first and last points in the list will be connected.
-   * 
+   *
    * @param points
    *          the vertices
    */
@@ -374,7 +374,7 @@ public class Graphics {
   /**
    * Fills a closed polygon defined by the given <code>PointList</code> containing the vertices. The
    * first and last points in the list will be connected.
-   * 
+   *
    * @param points
    *          the vertices
    */
@@ -388,7 +388,7 @@ public class Graphics {
   /**
    * Draws a polyline defined by the given <code>PointList</code> containing the vertices. The first
    * and last points in the list will <b>not</b> be connected.
-   * 
+   *
    * @param points
    *          the vertices
    */
@@ -416,7 +416,7 @@ public class Graphics {
   /**
    * Draws a rectangle whose top-left corner is located at the point (x,y) with the given width and
    * height.
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -442,7 +442,7 @@ public class Graphics {
   /**
    * Fills a rectangle whose top-left corner is located at the point (x,y) with the given width and
    * height.
-   * 
+   *
    * @param x
    *          the x coordinate
    * @param y
@@ -460,7 +460,7 @@ public class Graphics {
   /**
    * Draws a rectangle with rounded corners using the foreground color. <i>arcWidth</i> and
    * <i>arcHeight</i> represent the horizontal and vertical diameter of the corners.
-   * 
+   *
    * @param r
    *          the rectangle
    * @param arcWidth
@@ -482,7 +482,7 @@ public class Graphics {
   /**
    * Fills a rectangle with rounded corners using the background color. <i>arcWidth</i> and
    * <i>arcHeight</i> represent the horizontal and vertical diameter of the corners.
-   * 
+   *
    * @param r
    *          the rectangle
    * @param arcWidth
@@ -504,7 +504,7 @@ public class Graphics {
   /**
    * Draws the given string using the current font and foreground color. Tab expansion and carriage
    * return processing are performed. The background of the text will be transparent.
-   * 
+   *
    * @param s
    *          the text
    * @param x
@@ -520,7 +520,7 @@ public class Graphics {
   /**
    * Draws the given string using the current font and foreground color. No tab expansion or
    * carriage return processing will be performed. The background of the string will be transparent.
-   * 
+   *
    * @param s
    *          the string
    * @param x
@@ -562,7 +562,7 @@ public class Graphics {
    * Draws the given string using the current font and foreground color. No tab expansion or
    * carriage return processing will be performed. The background of the string will be filled with
    * the current background color.
-   * 
+   *
    * @param s
    *          the string
    * @param x
@@ -588,7 +588,7 @@ public class Graphics {
    * Draws the given string using the current font and foreground color. Tab expansion and carriage
    * return processing are performed. The background of the text will be filled with the current
    * background color.
-   * 
+   *
    * @param s
    *          the text
    * @param x
@@ -613,7 +613,7 @@ public class Graphics {
 
   /**
    * Returns the background color used for filling.
-   * 
+   *
    * @return the background color
    */
   public Color getBackgroundColor() {
@@ -622,7 +622,7 @@ public class Graphics {
 
   /**
    * Returns the font used to draw and fill text.
-   * 
+   *
    * @return the font
    */
   public Font getFont() {
@@ -631,7 +631,7 @@ public class Graphics {
 
   /**
    * Returns the font metrics for the current font.
-   * 
+   *
    * @return the font metrics
    */
   public FontMetrics getFontMetrics() {
@@ -641,7 +641,7 @@ public class Graphics {
 
   /**
    * Returns the foreground color used to draw lines and text.
-   * 
+   *
    * @return the foreground color
    */
   public Color getForegroundColor() {
@@ -650,7 +650,7 @@ public class Graphics {
 
   /**
    * Returns the line style.
-   * 
+   *
    * @return the line style
    */
   public int getLineStyle() {
@@ -659,7 +659,7 @@ public class Graphics {
 
   /**
    * Returns the current line width.
-   * 
+   *
    * @return the line width
    */
   public int getLineWidth() {
@@ -668,7 +668,7 @@ public class Graphics {
 
   /**
    * Returns <code>true</code> if this graphics object should use XOR mode with painting.
-   * 
+   *
    * @return whether XOR mode is turned on
    */
   public boolean getXORMode() {
@@ -677,7 +677,7 @@ public class Graphics {
 
   /**
    * Sets the background color.
-   * 
+   *
    * @param color
    *          the new background color
    */
@@ -689,7 +689,7 @@ public class Graphics {
 
   /**
    * Modifies the given rectangle to match the clip region and returns that rectangle.
-   * 
+   *
    * @param rectangle
    *          the rectangle to hold the clip region
    * @return the clip rectangle
@@ -711,7 +711,7 @@ public class Graphics {
 
   /**
    * Sets the font.
-   * 
+   *
    * @param font
    *          the new font
    */
@@ -723,7 +723,7 @@ public class Graphics {
 
   /**
    * Sets the foreground color.
-   * 
+   *
    * @param color
    *          the new foreground color
    */
@@ -735,7 +735,7 @@ public class Graphics {
 
   /**
    * Sets the line style.
-   * 
+   *
    * @param style
    *          the new style
    */
@@ -747,7 +747,7 @@ public class Graphics {
 
   /**
    * Sets the line width.
-   * 
+   *
    * @param width
    *          the new width
    */
@@ -759,7 +759,7 @@ public class Graphics {
 
   /**
    * Sets the XOR mode.
-   * 
+   *
    * @param b
    *          the new XOR mode
    */
@@ -780,7 +780,7 @@ public class Graphics {
   /**
    * Translates this graphics object so that its origin is offset horizontally by <i>dx</i> and
    * vertically by <i>dy</i>.
-   * 
+   *
    * @param dx
    *          the horizontal offset
    * @param dy
@@ -794,7 +794,7 @@ public class Graphics {
 
   /**
    * Sets the translation values of this to the given values
-   * 
+   *
    * @param x
    *          The x value
    * @param y
@@ -907,7 +907,7 @@ public class Graphics {
 
   /**
    * Sets all State information to that of the given State, called by restoreState()
-   * 
+   *
    * @param s
    *          the State
    */

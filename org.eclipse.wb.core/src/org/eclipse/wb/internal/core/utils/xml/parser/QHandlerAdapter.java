@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * Empty implementation of {@link QHandler}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

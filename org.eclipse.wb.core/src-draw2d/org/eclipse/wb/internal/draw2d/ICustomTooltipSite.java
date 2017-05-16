@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Listener;
 /**
  * Interface that allows control of {@link ICustomTooltipProvider} interact with
  * {@link CustomTooltipManager}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -15,9 +15,9 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Exception class that should be used each time when Designer wants to throw "expected" exception,
  * for known error situations.
- * 
+ *
  * For example, parser can throw exception if is can not find root methods for beginning parsing.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

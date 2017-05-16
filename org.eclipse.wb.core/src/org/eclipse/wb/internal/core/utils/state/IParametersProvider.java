@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * Provider for parameters of component, from description or instance specific.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

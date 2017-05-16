@@ -20,7 +20,7 @@ import org.objectweb.asm.Type;
 /**
  * {@link ClassAdapter} that "implements" abstract methods by replacing them with methods that throw
  * {@link Error}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

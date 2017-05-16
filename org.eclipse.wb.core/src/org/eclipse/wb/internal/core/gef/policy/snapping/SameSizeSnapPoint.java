@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Snapping size of component to same size as any of component on the same parent.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */

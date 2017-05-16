@@ -22,7 +22,7 @@ import java.util.Stack;
 /**
  * SAX handler class that supports {@link DocumentElement} objects reading with offset/length
  * tracking.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

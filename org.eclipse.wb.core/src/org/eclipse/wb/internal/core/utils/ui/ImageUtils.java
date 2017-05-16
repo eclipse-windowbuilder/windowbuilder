@@ -35,7 +35,7 @@ import javax.imageio.ImageIO;
 
 /**
  * Utilities for {@link Image} operations.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

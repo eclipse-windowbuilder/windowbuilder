@@ -20,7 +20,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * {@link ContextMenuProvider} for headers.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

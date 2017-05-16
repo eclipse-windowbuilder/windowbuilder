@@ -22,7 +22,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Abstract class adding multiple files under some directory.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */

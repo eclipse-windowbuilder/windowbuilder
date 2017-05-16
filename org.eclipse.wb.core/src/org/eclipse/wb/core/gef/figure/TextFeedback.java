@@ -26,7 +26,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Helper for displaying text on filled rectangle.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.figure
  */

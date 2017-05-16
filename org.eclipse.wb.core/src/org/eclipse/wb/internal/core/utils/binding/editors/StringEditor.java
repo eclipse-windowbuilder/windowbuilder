@@ -17,7 +17,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class StringEditor implements IDataEditor {
   private final StringDialogField m_field;

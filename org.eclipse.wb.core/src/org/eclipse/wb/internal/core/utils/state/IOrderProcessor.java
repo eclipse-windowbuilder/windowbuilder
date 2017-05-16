@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.state;
 
 /**
  * Helper for reorder operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

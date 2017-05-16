@@ -40,7 +40,7 @@ import java.util.List;
  * understands requests {@link Request#REQ_CREATE}, {@link Request#REQ_PASTE},
  * {@link Request#REQ_MOVE} or {@link Request#REQ_ADD} and asks corresponding methods for
  * {@link Command}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.tree
  */
@@ -321,7 +321,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
       boolean beforeLocation = isBeforeLocation(targetItem, location);
       if (EnvironmentUtils.IS_LINUX) {
         /*
-         * Feature in Linux: during DND dragOver() operation the 
+         * Feature in Linux: during DND dragOver() operation the
          * DropTargetEvent.feedback resets all previous tree insert marks.
          */
         request.setDNDFeedback(beforeLocation

@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 
 /**
  * A {@link Request} that needs to keep track of a location.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

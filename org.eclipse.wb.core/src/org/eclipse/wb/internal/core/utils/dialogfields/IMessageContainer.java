@@ -15,10 +15,10 @@ import org.eclipse.jface.wizard.WizardPage;
 
 /**
  * Interface for displaying messages.
- * 
+ *
  * We use it to separate GUI that edits anything and needs to display messages from concrete message
  * containers, such as {@link TitleAreaDialog} or {@link WizardPage}.
- * 
+ *
  * @author scheglov_ke
  */
 public interface IMessageContainer {

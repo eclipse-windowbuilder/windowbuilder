@@ -21,7 +21,7 @@ import org.eclipse.wb.gef.core.requests.Request;
  * This {@link EditPolicy} adds itself as an {@link IEditPartSelectionListener} so that it can
  * observe selection. When selection or focus changes, the {@link EditPolicy} will update itself and
  * call the appropriate methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.tree
  */

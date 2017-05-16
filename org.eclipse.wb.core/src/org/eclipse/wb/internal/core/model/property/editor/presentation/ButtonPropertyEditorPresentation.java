@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Implementation of {@link PropertyEditorPresentation} for displaying {@link Button}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage core.model.property.editor

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Support binding data sources and data editors.
- * 
+ *
  * @author lobas_av
  */
 public final class DataBindManager {
@@ -140,7 +140,7 @@ public final class DataBindManager {
 
   /**
    * Incorporates the provided <code>newStatus</code> into the <code>multiStatus</code>.
-   * 
+   *
    * @return <code>true</code> if the update should proceed.
    */
   private boolean mergeStatus(MultiStatus multiStatus, IStatus newStatus) {

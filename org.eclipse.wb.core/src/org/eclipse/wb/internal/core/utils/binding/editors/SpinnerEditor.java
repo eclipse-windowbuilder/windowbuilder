@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.dialogfields.SpinnerDialogField;
 
 /**
  * {@link IDataEditor} implementation for {@link SpinnerDialogField}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpinnerEditor implements IDataEditor {

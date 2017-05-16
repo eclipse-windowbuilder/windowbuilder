@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.draw2d.EventManager;
 /**
  * Special {@link Error} - signal that event handler in {@link EventManager} caused exception, that
  * was already handled, so should be ignored.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

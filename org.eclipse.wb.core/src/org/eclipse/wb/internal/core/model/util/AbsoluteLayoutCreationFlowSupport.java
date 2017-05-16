@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Helper for support correct creation flow for absolute layouts. In order according left-to-right
  * and top-to-bottom direction.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.util
  */
@@ -46,7 +46,7 @@ public final class AbsoluteLayoutCreationFlowSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Correct creation position according grid order.
-   * 
+   *
    * @param container
    *          the {@link IAbstractComponentInfo} container has absolute layout.
    * @param cildrenComponents

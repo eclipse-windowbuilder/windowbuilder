@@ -13,7 +13,7 @@ package org.eclipse.wb.gef.core;
 /**
  * {@link ICommandExceptionHandler} allows centralized exceptions handling for all executable
  * {@link Command}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.core
  */

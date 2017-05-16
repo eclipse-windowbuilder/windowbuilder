@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for any {@link IMenuObjectInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu

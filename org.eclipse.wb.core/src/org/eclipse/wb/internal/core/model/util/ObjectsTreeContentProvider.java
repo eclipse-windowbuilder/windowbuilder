@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ITreeContentProvider} for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

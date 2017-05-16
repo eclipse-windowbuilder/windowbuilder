@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Figure to display menu image.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.figure
  */

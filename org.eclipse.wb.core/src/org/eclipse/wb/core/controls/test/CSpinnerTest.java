@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Application for testing {@link CSpinner}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.test
  */

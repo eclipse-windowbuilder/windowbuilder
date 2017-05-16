@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * A {@link Request} from testing {@link EditPart} on move and reparenting.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

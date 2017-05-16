@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Supports snapping to baseline point (if any).
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */

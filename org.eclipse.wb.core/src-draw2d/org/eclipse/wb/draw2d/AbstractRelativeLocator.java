@@ -21,7 +21,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
  * <P>
  * Constants such as {@link IPositionConstants#NORTH NORTH} and {@link IPositionConstants#SOUTH
  * SOUTH} can be used to set the placement.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.draw2d
  */

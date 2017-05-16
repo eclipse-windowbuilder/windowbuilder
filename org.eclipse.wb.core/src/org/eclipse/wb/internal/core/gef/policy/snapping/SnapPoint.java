@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * This class used to provide snap point (horizontal or vertical).
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */
@@ -138,7 +138,7 @@ public abstract class SnapPoint {
 
   /**
    * Determines if resize direction is suitable for snapping.
-   * 
+   *
    * @param resizeDirection
    *          .
    */
@@ -158,7 +158,7 @@ public abstract class SnapPoint {
 
   /**
    * Shows a feedback for this point. Called when snapping for this point is occurred.
-   * 
+   *
    * @param snappedBounds
    *          the {@link Rectangle} of snapped bounds to make feedback drawing hint.
    * @param feedbackProxy
@@ -174,7 +174,7 @@ public abstract class SnapPoint {
 
   /**
    * Determines should we pay attention on mouse moving direction or not.
-   * 
+   *
    * @return true if mouse moving direction should be used otherwise return false.
    */
   protected boolean checkDirection() {
@@ -184,7 +184,7 @@ public abstract class SnapPoint {
   /**
    * Is current mouse move direction is valid for this snap point. When mouse move direction is not
    * valid then no snapping is occurred.
-   * 
+   *
    * @param direction
    *          A mouse move direction as it passed from <code>snap()</code>.
    */
@@ -195,7 +195,7 @@ public abstract class SnapPoint {
   /**
    * During process of snapping some snap points may disallow snapping for some reasons, for example
    * component snapping should not allow to snap to itself
-   * 
+   *
    * @param beingSnappedList
    *          A {@link List} of components' model being snapped.
    * @return <code>true</code> if snapping to this point is allowed.
@@ -231,7 +231,7 @@ public abstract class SnapPoint {
 
   /**
    * Calculate snap point position and setup additional required info.
-   * 
+   *
    * @param beingSnappedList
    *          .
    */

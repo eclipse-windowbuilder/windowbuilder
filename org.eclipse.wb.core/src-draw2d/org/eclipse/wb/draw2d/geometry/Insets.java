@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 /**
  * Stores four integers for top, left, bottom, and right measurements.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -81,7 +81,7 @@ public final class Insets implements Serializable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the height for this Insets, equal to <code>top</code> + <code>bottom</code>.
-   * 
+   *
    * @see #getWidth()
    */
   public int getHeight() {
@@ -90,7 +90,7 @@ public final class Insets implements Serializable {
 
   /**
    * Returns the width for this Insets, equal to <code>left</code> + <code>right</code>.
-   * 
+   *
    * @see #getHeight()
    */
   public int getWidth() {

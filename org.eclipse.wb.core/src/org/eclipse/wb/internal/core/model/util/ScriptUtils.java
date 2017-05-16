@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * Utils for using MVEL.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

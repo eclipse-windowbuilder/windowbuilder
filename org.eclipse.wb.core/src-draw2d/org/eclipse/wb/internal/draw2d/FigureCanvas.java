@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * A Canvas that contains {@link Figure Figures}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

@@ -18,7 +18,7 @@ import java.util.Locale;
 
 /**
  * Implements utility methods that operate on strings.
- * 
+ *
  * @author scheglov_ke
  * @coverage shared.utils.string
  */
@@ -97,10 +97,10 @@ public class StringUtilities {
 
   /**
    * Extract camel caps from specified string.
-   * 
+   *
    * <pre>
    * Example: NullPointException --> NPE
-   * 
+   *
    * <pre>
    */
   public static String extractCamelCaps(String string) {
@@ -120,11 +120,11 @@ public class StringUtilities {
 
   /**
    * Extract camel words from specified string.
-   * 
+   *
    * <pre>
 	 * Example: NullPointException --> [Null, Pointer, Exception]
 	 * Example: null --> []
-   * 
+   *
    * <pre>
    */
   public static String[] extractCamelWords(String string) {
@@ -164,7 +164,7 @@ public class StringUtilities {
 
   /**
    * @return the index of the first lowercase letter.
-   * 
+   *
    * <pre>
 	 * null      = -1
 	 * ""        = -1
@@ -190,7 +190,7 @@ public class StringUtilities {
 
   /**
    * Strip the leading uppercase characters from the string keeping n of them.
-   * 
+   *
    * <pre>
 	 * null, *        = null
 	 * "", *          = null
@@ -211,7 +211,7 @@ public class StringUtilities {
 
   /**
    * Strips all HTML tags if any.
-   * 
+   *
    * <pre>
 	 * null, *      = null
 	 * "", *        = null
@@ -267,7 +267,7 @@ public class StringUtilities {
   /**
    * Finds in each of two strings interval where they are different. Outside of these intervals, on
    * prefix and suffix these strings are equal. Interval has format <code>(begin, length)</code>.
-   * 
+   *
    * @return the <code>int[4]</code>, with two intervals.
    */
   public static int[] getDifferenceIntervals(String s1, String s2) {
@@ -328,7 +328,7 @@ public class StringUtilities {
 
   /**
    * Escapes {@link String} for Java source.
-   * 
+   *
    * @return the {@link String} that can be used in quotes in Java source. Note, that it is not
    *         converted into any encoding, i.e. still in UTF-8.
    */

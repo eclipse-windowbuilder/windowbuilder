@@ -44,7 +44,7 @@ import java.text.MessageFormat;
 
 /**
  * Helper for displaying HTML tooltips.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.table
  */
@@ -265,7 +265,7 @@ public final class HtmlTooltipHelper {
   }
   /**
    * Returns a string representation of {@link Color} suitable for web pages.
-   * 
+   *
    * @param color
    *          the {@link Color} instance, not <code>null</code>.
    * @return a string representation of {@link Color} suitable for web pages.

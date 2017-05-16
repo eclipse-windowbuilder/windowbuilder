@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface which provides the image by relative path. See the all of the our Activator instances.
- * 
+ *
  * @author mitin_aa
  */
 public interface IImageProvider {

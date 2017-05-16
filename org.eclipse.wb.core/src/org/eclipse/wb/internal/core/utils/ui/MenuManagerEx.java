@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.MenuItem;
 
 /**
  * Extended {@link MenuManager} that particularly supports image for this {@link MenuItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

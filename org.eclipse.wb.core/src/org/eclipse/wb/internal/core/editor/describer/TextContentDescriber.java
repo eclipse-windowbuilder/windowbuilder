@@ -20,12 +20,12 @@ import java.io.Reader;
 
 /**
  * This class provides internal basis for text-based content describers.
- * 
+ *
  * <p>
  * Note: do not add protected/public members to this class if you don't intend to make them public
  * API.
  * </p>
- * 
+ *
  * @see org.eclipse.core.runtime.content.XMLRootElementContentDescriber2
  * @since 3.0
  * @coverage core.editor
@@ -34,7 +34,7 @@ public class TextContentDescriber implements ITextContentDescriber {
   private final static QualifiedName[] SUPPORTED_OPTIONS = {IContentDescription.BYTE_ORDER_MARK};
 
   public int describe(Reader contents, IContentDescription description) throws IOException {
-    // we want to be pretty loose on detecting the text content type  
+    // we want to be pretty loose on detecting the text content type
     return INDETERMINATE;
   }
 
@@ -46,7 +46,7 @@ public class TextContentDescriber implements ITextContentDescriber {
     if (bom != null) {
       description.setProperty(IContentDescription.BYTE_ORDER_MARK, bom);
     }
-    // we want to be pretty loose on detecting the text content type  		
+    // we want to be pretty loose on detecting the text content type
     return INDETERMINATE;
   }
 

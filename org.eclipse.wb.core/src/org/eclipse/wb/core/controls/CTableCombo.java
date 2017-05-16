@@ -38,7 +38,7 @@ import java.util.Locale;
 /**
  * {@link Control} like {@link Combo} or {@link CCombo} that shows {@link Table} with image/text as
  * drop-down.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.control
@@ -514,7 +514,7 @@ public class CTableCombo extends Composite {
     //Rectangle tableRect = m_table.getBounds();
     //int width = Math.max(comboSize.x, tableRect.width + 2);
     int width = comboSize.x - 1;
-    // only one column 
+    // only one column
     m_table.getColumn(0).setWidth(width - 5);
     if (!(m_popup.getLayout() instanceof FillLayout)) {
       m_popup.setLayout(new FillLayout());

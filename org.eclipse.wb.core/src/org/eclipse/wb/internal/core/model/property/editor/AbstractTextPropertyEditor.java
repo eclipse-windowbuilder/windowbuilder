@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Abstract {@link PropertyEditor} for that uses {@link Text} as control.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.editor
  */
@@ -171,7 +171,7 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
 
   /**
    * Transfers data from widget to {@link Property}.
-   * 
+   *
    * @return <code>true</code> if transfer was successful.
    */
   private boolean toProperty(Property property) throws Exception {
@@ -213,7 +213,7 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
 
   /**
    * Modifies {@link Property} using given text.
-   * 
+   *
    * @return <code>true</code> if {@link Property} was successfully modified.
    */
   protected abstract boolean setEditorText(Property property, String text) throws Exception;

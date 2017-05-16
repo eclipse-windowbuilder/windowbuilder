@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * This interface is used to get {@link PropertyCategory} for {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property
  */

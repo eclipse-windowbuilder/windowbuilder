@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * A selection policy for every menu object.
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.menu
  */

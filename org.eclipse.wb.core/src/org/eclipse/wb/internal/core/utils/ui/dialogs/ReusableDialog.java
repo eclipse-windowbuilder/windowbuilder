@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Dialog that does not disposes itself after close, so can be opened again.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

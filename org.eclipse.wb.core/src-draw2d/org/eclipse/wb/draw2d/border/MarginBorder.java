@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Insets;
 
 /**
  * A border that provides blank padding.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

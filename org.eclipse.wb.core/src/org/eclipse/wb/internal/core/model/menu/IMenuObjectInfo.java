@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Common interface for any menu object.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.model.menu
@@ -35,7 +35,7 @@ public interface IMenuObjectInfo {
    * Usually we should register menu {@link EditPart}'s with original toolkit models, such as
    * {@link IAbstractComponentInfo}. At same time we don't want expose
    * {@link IAbstractComponentInfo} to the generic menu implementation.
-   * 
+   *
    * @return the model that should be associated with this {@link IMenuObjectInfo}.
    */
   Object getModel();

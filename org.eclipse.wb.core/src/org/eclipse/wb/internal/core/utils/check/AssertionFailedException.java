@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.utils.check;
 /**
  * <code>AssertionFailedException</code> is a runtime exception thrown by some of the methods in
  * <code>Assert</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -27,7 +27,7 @@ public final class AssertionFailedException extends RuntimeException {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Constructs a new exception with the given message.
-   * 
+   *
    * @param detail
    *          the message
    */

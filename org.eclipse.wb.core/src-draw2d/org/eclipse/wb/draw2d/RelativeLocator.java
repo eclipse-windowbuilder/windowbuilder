@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * Implementation of {@link AbstractRelativeLocator} that uses some {@link Figure} as reference.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

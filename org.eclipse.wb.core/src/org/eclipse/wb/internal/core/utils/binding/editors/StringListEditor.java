@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class StringListEditor implements IDataEditor {
   private final ListDialogField m_field;

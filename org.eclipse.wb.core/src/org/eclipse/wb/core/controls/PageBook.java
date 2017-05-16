@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Layout;
 /**
  * {@link PageBook} is a {@link Composite} where only a single {@link Control} is visible at a time.
  * It is similar to a notebook, but without tabs.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */
@@ -51,7 +51,7 @@ public final class PageBook extends Composite {
   /**
    * Shows the given page. This method has no effect if the given page is not contained in this
    * {@link PageBook}.
-   * 
+   *
    * @param page
    *          the page to show
    */

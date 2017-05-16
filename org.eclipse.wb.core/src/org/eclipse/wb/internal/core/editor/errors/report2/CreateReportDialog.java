@@ -57,7 +57,7 @@ import java.io.Writer;
 
 /**
  * Dialog to create zip-file with report.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
@@ -407,7 +407,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
 
   /**
    * Adds {@link BooleanDialogField} instance representing added screenshot.
-   * 
+   *
    * @param filePath
    *          a full path to screenshot file.
    * @return the {@link BooleanDialogField} representing added screenshot.
@@ -424,7 +424,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
 
   /**
    * Adds {@link BooleanDialogField} instance representing added file.
-   * 
+   *
    * @param filePath
    *          a full path to file.
    * @return the {@link BooleanDialogField} representing added file.
@@ -461,7 +461,7 @@ public final class CreateReportDialog extends AbstractValidationTitleAreaDialog 
 
   /**
    * Adds {@link BooleanDialogField} instance representing default post-mortem screenshot.
-   * 
+   *
    * @return the {@link BooleanDialogField} representing post-mortem screenshot.
    */
   private BooleanDialogField addDefaultScreenshotControl(Composite parent) {

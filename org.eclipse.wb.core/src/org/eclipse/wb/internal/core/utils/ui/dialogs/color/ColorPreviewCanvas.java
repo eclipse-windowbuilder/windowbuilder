@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Control for displaying {@link ColorInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */
@@ -134,7 +134,7 @@ public final class ColorPreviewCanvas extends Canvas {
 
   /**
    * Draws given text at center of given rectangle.
-   * 
+   *
    * @return the extent of given text
    */
   private static void drawCenteredText(GC gc, String text, int x, int y, int w, int h) {

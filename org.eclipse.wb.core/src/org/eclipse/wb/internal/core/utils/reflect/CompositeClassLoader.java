@@ -27,7 +27,7 @@ import java.util.Set;
  * {@link ClassLoader} that is composed of other {@link ClassLoader}s'. Each {@link ClassLoader}
  * will be used to try to load the particular class, until one of them succeeds. <b>Note:</b> The
  * loaders will always be called in the REVERSE order they were added in.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -50,7 +50,7 @@ public class CompositeClassLoader extends ClassLoader {
 
   /**
    * Adds new {@link ClassLoader} into composition.
-   * 
+   *
    * @param namespaces
    *          the {@link List} of {@link String} prefixes for package name (with '.' dots). May be
    *          <code>null</code>, in this case this {@link ClassLoader} will be always used for
@@ -62,7 +62,7 @@ public class CompositeClassLoader extends ClassLoader {
 
   /**
    * Adds new {@link ClassLoader} into composition.
-   * 
+   *
    * @param resourcePrefixes
    *          the {@link List} of {@link String} prefixes for package name (with '.' dots). May be
    *          <code>null</code>, in this case this {@link ClassLoader} will be always used for

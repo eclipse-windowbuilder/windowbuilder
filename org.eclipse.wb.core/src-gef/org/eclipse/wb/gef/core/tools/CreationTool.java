@@ -21,7 +21,7 @@ import org.eclipse.wb.gef.core.requests.Request;
  * If the user simply clicks on the viewer, the default sized {@link EditPart} will be created at
  * that point. If the user clicks and drags, the created {@link EditPart} will be sized based on
  * where the user clicked and dragged.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

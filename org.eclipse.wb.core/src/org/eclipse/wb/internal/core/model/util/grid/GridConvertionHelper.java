@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Helper for converting absolute bounds into grid.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */
@@ -158,7 +158,7 @@ public class GridConvertionHelper {
   /**
    * Sets min/max for each {@link ComponentGroup} in {@link List}.<br>
    * Optionally uses parent size as "max" for last {@link ComponentGroup}.
-   * 
+   *
    * Also creates gap {@link ComponentGroup}'s.
    */
   public static void updateBoundsGaps(List<ComponentGroup> groups, boolean addGaps) {
@@ -345,7 +345,7 @@ public class GridConvertionHelper {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Group of {@link ComponentInGroup}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static class ComponentGroup {

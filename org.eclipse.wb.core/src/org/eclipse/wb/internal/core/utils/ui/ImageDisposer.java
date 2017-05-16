@@ -30,7 +30,7 @@ import java.util.TimerTask;
 
 /**
  * Helper for automatic disposing {@link Image}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.description
  */

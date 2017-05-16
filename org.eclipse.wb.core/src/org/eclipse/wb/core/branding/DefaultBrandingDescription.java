@@ -12,9 +12,9 @@ package org.eclipse.wb.core.branding;
 
 /**
  * The {@link IBrandingDescription} used if there are no branding extensions.
- * 
+ *
  * @see BrandingUtils
- * 
+ *
  * @author Jaime Wren
  * @coverage core.util
  */

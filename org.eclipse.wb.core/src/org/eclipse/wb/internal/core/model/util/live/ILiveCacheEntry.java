@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.IDisposable;
 
 /**
  * Marker interface for live components manager cache entry.
- * 
+ *
  * @author mitin_aa
  * @coverage core.model.util.live
  */

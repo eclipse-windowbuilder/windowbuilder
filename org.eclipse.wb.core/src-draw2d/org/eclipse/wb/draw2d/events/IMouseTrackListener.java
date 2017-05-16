@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.Figure;
 
 /**
  * A listener interface for receiving mouse tracking events.
- * 
+ *
  * @author scheglov_ke
  * @coverage gef.draw2d
  */

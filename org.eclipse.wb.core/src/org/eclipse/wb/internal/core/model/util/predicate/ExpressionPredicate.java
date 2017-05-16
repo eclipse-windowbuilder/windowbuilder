@@ -16,7 +16,7 @@ import org.mvel2.MVEL;
 
 /**
  * {@link Predicate} that evaluates its value using some script expressions, currently using MVEL.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.util
  */

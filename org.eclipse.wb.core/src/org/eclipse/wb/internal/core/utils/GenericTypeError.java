@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils;
 
 /**
  * Resolver for type variables.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */

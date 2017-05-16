@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Helper with various generics related utilities.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util
  */
@@ -161,12 +161,12 @@ public final class GenericsUtils {
 
   /**
    * Joins array of elements with one more element.
-   * 
+   *
    * @param elements
    *          the elements, may be <code>null</code>.
    * @param element
    *          the one more element to add to the end.
-   * 
+   *
    * @return the {@link List} that contains given elements plus one more element.
    */
   public static <T> List<T> asList(T[] elements, T element) {

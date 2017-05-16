@@ -132,7 +132,7 @@ public abstract class Tool {
    * <P>
    * Subclasses should extend this method to first do whatever it is that the tool does, and then
    * call <code>super</code>.
-   * 
+   *
    * @see #unloadWhenFinished()
    */
   protected void handleFinished() {

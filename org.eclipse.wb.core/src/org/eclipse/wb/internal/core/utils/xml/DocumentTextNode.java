@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Node for text inside of some XML element.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

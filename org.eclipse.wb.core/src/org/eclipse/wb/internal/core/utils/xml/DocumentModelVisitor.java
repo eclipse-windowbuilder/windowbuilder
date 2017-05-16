@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.xml;
 
 /**
  * A visitor for {@link DocumentElement} model.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */

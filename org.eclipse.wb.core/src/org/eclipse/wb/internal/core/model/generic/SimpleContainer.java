@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.model.generic;
 
 /**
  * Interface of typical container with single child.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

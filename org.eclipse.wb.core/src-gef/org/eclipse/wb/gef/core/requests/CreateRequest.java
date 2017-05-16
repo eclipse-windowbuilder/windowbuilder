@@ -12,7 +12,7 @@ package org.eclipse.wb.gef.core.requests;
 
 /**
  * A {@link Request} to create a new object.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

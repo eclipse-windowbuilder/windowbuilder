@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 
 /**
  * Abstract attachment information while component attached to component.
- * 
+ *
  * @deprecated
  * @author mitin_aa
  * @coverage core.gef.policy.snapping

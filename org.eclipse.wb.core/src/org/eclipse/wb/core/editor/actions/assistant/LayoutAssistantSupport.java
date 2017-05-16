@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Abstract provider for layout assistant pages for this/parent layout and constraints.
- * 
+ *
  * @author lobas_av
  * @coverage core.editor.action.assistant
  */

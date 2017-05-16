@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.model.generic;
 
 /**
  * Interface of typical flow based container.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.generic
  */

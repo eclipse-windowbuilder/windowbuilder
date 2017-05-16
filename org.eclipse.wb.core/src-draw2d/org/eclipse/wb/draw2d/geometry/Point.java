@@ -15,7 +15,7 @@ import java.io.Serializable;
 /**
  * Represents a point (x, y) in 2-dimensional space. This class provides various methods for
  * manipulating this Point or creating new derived geometrical Objects.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */
@@ -108,7 +108,7 @@ public final class Point implements Translatable, Serializable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets the location of this Point to the provided x and y locations.
-   * 
+   *
    * @return <code>this</code> for convenience
    */
   public Point setLocation(int x, int y) {

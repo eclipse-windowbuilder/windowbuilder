@@ -71,7 +71,7 @@ public abstract class GraphicalEditPart extends EditPart {
 
   /**
    * Allows the child to manage graphical adding by itself.
-   * 
+   *
    * @return <code>true</code> if edit part added it's figure itself.
    */
   protected boolean addSelfVisual(int index) {
@@ -93,7 +93,7 @@ public abstract class GraphicalEditPart extends EditPart {
   /**
    * Allows the child to manage graphical removing by itself. In the most cases, edit part which
    * added itself should remove itself as well.
-   * 
+   *
    * @return <code>true</code> if edit part removed it's figure itself.
    */
   protected boolean removeSelfVisual() {

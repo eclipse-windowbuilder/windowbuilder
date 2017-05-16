@@ -42,7 +42,7 @@ import java.util.Map;
 /**
  * Abstract {@link ViewPart} for displaying in it some {@link IExtractableControl} from
  * {@link DesignComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.views
  */
@@ -61,7 +61,7 @@ public abstract class AbstractExtractableDesignView extends PageBookView {
   public void createPartControl(Composite parent) {
     super.createPartControl(parent);
     hookIntoWorkbench();
-    // simulate activation for all opened editors, 
+    // simulate activation for all opened editors,
     // because it is possible that more than one of them are visible
     parent.getDisplay().asyncExec(new Runnable() {
       public void run() {

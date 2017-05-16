@@ -25,7 +25,7 @@ import javax.print.attribute.DocAttribute;
 
 /**
  * Element in XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.util.xml
  */
@@ -344,7 +344,7 @@ public class DocumentElement extends AbstractDocumentObject {
 
   /**
    * @return the {@link DocumentElement} at given index.
-   * 
+   *
    * @throws IndexOutOfBoundsException
    *           if the index is out of range.
    */
@@ -431,12 +431,12 @@ public class DocumentElement extends AbstractDocumentObject {
 
   /**
    * Sets the value of attribute: adds new, updates or existing.
-   * 
+   *
    * @param name
    *          the name of attribute.
    * @param value
    *          new value of attribute, may be <code>null</code> to remove it.
-   * 
+   *
    * @return the handled attribute, may be <code>null</code>.
    */
   public DocumentAttribute setAttribute(String name, String value) {

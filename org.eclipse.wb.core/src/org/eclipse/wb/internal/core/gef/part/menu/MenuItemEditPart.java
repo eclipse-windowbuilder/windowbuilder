@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} for {@link IMenuItemInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage core.gef.menu

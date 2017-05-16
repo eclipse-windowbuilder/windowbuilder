@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} that does not show any selection feedback.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy
  */

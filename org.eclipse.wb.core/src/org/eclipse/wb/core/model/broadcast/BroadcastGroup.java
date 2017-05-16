@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model.broadcast;
 
 /**
  * TODO
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

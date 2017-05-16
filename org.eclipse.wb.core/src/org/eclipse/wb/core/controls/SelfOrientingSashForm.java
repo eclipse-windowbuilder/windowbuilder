@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Composite;
  * client area. This is done so that the sash form can be placed in a view that will sometimes be
  * tall and narrow and sometimes be short and wide and still lay out its children in a pleasing way.
  * <p>
- * 
+ *
  * @author unknown
  * @author Brian Wilkerson
  * @version $Revision: 1.2 $
@@ -44,12 +44,12 @@ public class SelfOrientingSashForm extends SashForm {
    * <code>SWT</code> style constants. The class description for all SWT widget classes should
    * include a comment which describes the style constants which are applicable to the class.
    * </p>
-   * 
+   *
    * @param parent
    *          a widget which will be the parent of the new instance (not null)
    * @param style
    *          the style of widget to construct
-   * 
+   *
    * @exception IllegalArgumentException
    *              <ul>
    *              <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
@@ -73,7 +73,7 @@ public class SelfOrientingSashForm extends SashForm {
   /**
    * Returns SWT.HORIZONTAL if the controls in the SashForm are laid out side by side or
    * SWT.VERTICAL if the controls in the SashForm are laid out top to bottom.
-   * 
+   *
    * @return SWT.HORIZONTAL or SWT.VERTICAL
    */
   @Override
@@ -108,11 +108,11 @@ public class SelfOrientingSashForm extends SashForm {
    * the layout may (potentially) simplify the work it is doing by assuming that the state of the
    * none of the receiver's children has changed since the last layout. If the receiver does not
    * have a layout, do nothing.
-   * 
+   *
    * @param changed
    *          <code>true</code> if the layout must flush its caches, and <code>false</code>
    *          otherwise
-   * 
+   *
    * @exception SWTException
    *              <ul>
    *              <li>ERROR_WIDGET_DISPOSED - if the receiver has been disposed</li>

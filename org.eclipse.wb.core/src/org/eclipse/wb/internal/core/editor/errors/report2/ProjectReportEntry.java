@@ -29,7 +29,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Attaches the entire project in which error happens.
- * 
+ *
  * @author mitin_aa
  * @coverage core.editor.errors.report2
  */
@@ -60,7 +60,7 @@ public final class ProjectReportEntry implements IReportEntry {
     m_project.accept(new IResourceVisitor() {
       public boolean visit(IResource resource) throws CoreException {
         try {
-          // skip non-local, unresolved files and files with size more than MAX_FILE_SIZE 
+          // skip non-local, unresolved files and files with size more than MAX_FILE_SIZE
           long fileSize = getResourceSize(resource);
           if (fileSize == 0 || fileSize > MAX_FILE_SIZE) {
             return true;

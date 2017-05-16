@@ -90,7 +90,7 @@ public abstract class EditPolicy {
 
   /**
    * Sets the host in which this {@link EditPolicy} is installed.
-   * 
+   *
    * @param editpart
    *          the host {@link EditPart}
    */

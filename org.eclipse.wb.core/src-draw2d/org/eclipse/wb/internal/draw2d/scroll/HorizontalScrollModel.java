@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Canvas;
 
 /**
  * HorizontalScrollModel represents model for support horizontal scrolling.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

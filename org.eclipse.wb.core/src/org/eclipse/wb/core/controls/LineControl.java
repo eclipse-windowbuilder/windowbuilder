@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Horizontal or vertical line.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.control
  */

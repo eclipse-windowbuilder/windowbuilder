@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Listener;
 /**
  * The {@link Composite} with horizontal/vertical {@link HeaderGraphicalViewer}'s and main
  * {@link GraphicalViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

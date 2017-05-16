@@ -21,7 +21,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Helper for saving/restoring {@link Shell} location to/from {@link IDialogSettings}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.action.assistant
  */

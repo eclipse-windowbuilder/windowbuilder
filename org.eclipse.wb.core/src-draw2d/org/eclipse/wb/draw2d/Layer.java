@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.draw2d.IRootFigure;
 
 /**
  * A transparent figure simple figure's container using into {@link IRootFigure}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

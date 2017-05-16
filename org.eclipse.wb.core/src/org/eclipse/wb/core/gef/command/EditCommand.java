@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 /**
  * Implementation of {@link Command} for editing {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef
  */

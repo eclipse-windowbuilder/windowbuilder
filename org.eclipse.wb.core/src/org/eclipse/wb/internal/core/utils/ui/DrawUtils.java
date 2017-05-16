@@ -30,7 +30,7 @@ import java.net.URL;
 
 /**
  * Utilities for drawing on {@link GC}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */
@@ -315,7 +315,7 @@ public class DrawUtils {
    * Returns a new Image that is the given Image rotated left by 90 degrees. The client is
    * responsible for disposing the returned Image. This method MUST be invoked from the
    * user-interface (Display) thread.
-   * 
+   *
    * @param srcImage
    *          the Image that is to be rotated left
    * @return the rotated Image (the client is responsible for disposing it)

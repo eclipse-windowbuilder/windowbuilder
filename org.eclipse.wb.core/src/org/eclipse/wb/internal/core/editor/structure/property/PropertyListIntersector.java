@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Helper for computing intersection of {@link Property} arrays.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

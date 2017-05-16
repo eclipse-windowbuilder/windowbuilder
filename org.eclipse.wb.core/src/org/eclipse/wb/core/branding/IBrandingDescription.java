@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.editor.DesignComposite;
 
 /**
  * The interface for branding information.
- * 
+ *
  * @author Jaime Wren
  * @coverage core.util
  */

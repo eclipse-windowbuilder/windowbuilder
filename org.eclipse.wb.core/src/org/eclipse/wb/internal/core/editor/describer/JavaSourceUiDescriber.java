@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ITextContentDescriber} that understands GUI source.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor
  */

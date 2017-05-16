@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Representation main draw2d figure, contains more layers. Layer representation simple object
  * (figure) container.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

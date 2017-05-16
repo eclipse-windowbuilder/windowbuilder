@@ -15,7 +15,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 
 /**
  * Abstract base for {@link IMenuInfo} implementation.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.menu
  */

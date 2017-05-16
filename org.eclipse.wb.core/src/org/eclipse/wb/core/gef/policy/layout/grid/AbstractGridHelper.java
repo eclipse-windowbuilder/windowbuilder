@@ -39,7 +39,7 @@ import java.lang.reflect.Field;
 
 /**
  * Helper for displaying grid for grid-based layouts.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy.grid
  */

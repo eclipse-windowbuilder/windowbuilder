@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Provider for tooltip controls.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model.property.table
  */

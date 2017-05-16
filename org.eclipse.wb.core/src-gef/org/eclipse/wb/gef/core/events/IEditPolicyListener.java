@@ -14,7 +14,7 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 
 /**
  * The listener interface for receiving basic events from an {@link EditPolicy}.
- * 
+ *
  * @author lobas_av
  * @coverage gef.core
  */

@@ -12,7 +12,7 @@ package org.eclipse.wb.core.model;
 
 /**
  * Interface for operations with size of top level {@link IAbstractComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

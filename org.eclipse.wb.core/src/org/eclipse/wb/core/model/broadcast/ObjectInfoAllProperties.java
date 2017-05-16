@@ -20,7 +20,7 @@ import java.util.List;
  * <p>
  * Used to get notified when all other methods for adding properties were already used so the
  * properties are gathered and {@link ObjectInfo#getProperties()} ready to sort and return result.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

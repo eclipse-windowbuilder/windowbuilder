@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Text;
 /**
  * Composite containing {@link Browser} widget or placeholder with {@link Label} if the
  * {@link Browser} can't be created.
- * 
+ *
  * @author mitin_aa
  * @coverage core.controls
  */

@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Composite for selecting of of the 216 web safe colors.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.ui
  */

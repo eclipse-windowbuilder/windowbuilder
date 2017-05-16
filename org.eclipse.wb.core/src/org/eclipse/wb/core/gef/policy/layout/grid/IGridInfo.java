@@ -17,7 +17,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * This interface provides information about grid.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.policy.grid
  */
@@ -81,7 +81,7 @@ public interface IGridInfo {
    * Container's client area may be only partly accessible for grid (for example in Swing "border"
    * can consume some insets inside of container), so this methods returns the {@link Insets} to
    * crop client area of container.
-   * 
+   *
    * @return the {@link Insets} of container.
    */
   Insets getInsets();

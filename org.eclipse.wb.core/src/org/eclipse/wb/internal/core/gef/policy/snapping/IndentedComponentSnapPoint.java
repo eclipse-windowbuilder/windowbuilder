@@ -20,10 +20,10 @@ import java.util.List;
 
 /**
  * Indented snap point to snap component under other component with indent
- * 
+ *
  * +-----------------+ | other component | +-----------------+ | +----------------+ | our component
  * | +----------------+
- * 
+ *
  * @author mitin_aa
  * @coverage core.gef.policy.snapping
  */

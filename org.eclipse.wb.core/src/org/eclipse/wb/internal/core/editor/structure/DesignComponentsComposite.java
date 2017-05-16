@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link Composite} for displaying {@link ComponentsTreePage} and {@link ComponentsPropertiesPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.editor.structure
  */

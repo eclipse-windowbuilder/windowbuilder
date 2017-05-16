@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.utils.state;
 
 /**
  * Information about some warning happened in editor.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */

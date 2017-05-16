@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * A figure that can display justify text.
- * 
+ *
  * @author lobas_av
  * @coverage gef.draw2d
  */

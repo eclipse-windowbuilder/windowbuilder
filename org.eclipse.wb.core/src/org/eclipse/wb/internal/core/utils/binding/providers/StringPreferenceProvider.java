@@ -16,7 +16,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class StringPreferenceProvider extends AbstractPreferenceProvider {
   ////////////////////////////////////////////////////////////////////////////

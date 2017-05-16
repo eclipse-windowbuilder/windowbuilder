@@ -17,7 +17,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class StringComboEditor implements IDataEditor {
   private final ComboDialogField m_field;

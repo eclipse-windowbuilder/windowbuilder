@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Listener for {@link ObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.model
  */
@@ -25,7 +25,7 @@ public interface ObjectInfoChildrenGraphical {
   /**
    * This method is invoked from {@link DefaultObjectPresentation#getChildrenGraphical()} to allow
    * processing all prepared children. Subscribers may, for example, reorder children.
-   * 
+   *
    * @param children
    *          the {@link ObjectInfo} children to process.
    */

@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 /**
  * Abstract implementation of {@link LayoutEditPolicy} for headers. It provides additional utilities
  * for interacting with main {@link LayoutEditPolicy} and main {@link IEditPartViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */

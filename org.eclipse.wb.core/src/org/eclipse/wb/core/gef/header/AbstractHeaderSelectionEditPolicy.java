@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 /**
  * Abstract implementation of {@link SelectionEditPolicy} for headers. It provides additional
  * utilities for interacting with main {@link LayoutEditPolicy} and main {@link IEditPartViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.gef.header
  */
