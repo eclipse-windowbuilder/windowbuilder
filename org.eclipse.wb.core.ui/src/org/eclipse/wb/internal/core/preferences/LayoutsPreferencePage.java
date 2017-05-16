@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Main {@link PreferencePage} for Layout Support.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

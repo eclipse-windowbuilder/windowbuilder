@@ -29,7 +29,7 @@ import java.io.ByteArrayInputStream;
 
 /**
  * {@link Wizard} that creates custom palette, i.e. "wbp-meta/*.wbp-palette.xml" file.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */

@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * {@link PreferencePage} for code parsing settings.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

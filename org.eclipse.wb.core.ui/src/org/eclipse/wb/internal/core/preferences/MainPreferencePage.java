@@ -30,7 +30,7 @@ import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 
 /**
  * {@link PreferencePage} for editor layout settings.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

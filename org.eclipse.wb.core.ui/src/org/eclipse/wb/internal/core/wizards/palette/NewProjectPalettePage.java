@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * {@link WizardPage} for configuring {@link NewProjectPaletteWizard}.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */

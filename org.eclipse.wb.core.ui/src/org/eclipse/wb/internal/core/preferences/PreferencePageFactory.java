@@ -27,7 +27,7 @@ import java.lang.reflect.Constructor;
 /**
  * Factory for creating {@link PreferencePage}'s that accept {@link ToolkitDescription} as single
  * parameter in constructor.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.preferences.ui
  */

@@ -14,7 +14,7 @@ import org.osgi.framework.Version;
 
 /**
  * Utilities to work with plugin elements - id, version, name, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */
@@ -27,7 +27,7 @@ public final class Utils {
   /**
    * Valid composite ID contains only alpha-numeric characters and <code>'.'</code> as parts
    * separator.
-   * 
+   *
    * @return <code>true</code> if given composite ID is valid or <code>false</code> in other case.
    */
   public static boolean isValidCompositeID(String id) {

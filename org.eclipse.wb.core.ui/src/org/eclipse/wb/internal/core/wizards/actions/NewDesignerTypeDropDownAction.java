@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * {@link Action} for displaying all WindowBuilder wizards in single drop-down menu.
- * 
+ *
  * @author scheglov_ke
  * @coverage core.wizards.ui
  */

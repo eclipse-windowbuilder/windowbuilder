@@ -20,7 +20,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Action} for for running {@link Wizard}
- * 
+ *
  * @author Dan Rubel
  * @coverage core.wizards.ui
  */

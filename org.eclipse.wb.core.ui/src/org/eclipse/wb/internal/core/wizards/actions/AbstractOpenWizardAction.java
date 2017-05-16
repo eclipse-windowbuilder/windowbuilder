@@ -46,7 +46,7 @@ public abstract class AbstractOpenWizardAction extends Action
 
   /**
    * Creates a AbstractOpenWizardAction.
-   * 
+   *
    * @param label
    *          The label of the action
    * @param acceptEmptySelection
@@ -58,7 +58,7 @@ public abstract class AbstractOpenWizardAction extends Action
 
   /**
    * Creates a AbstractOpenWizardAction.
-   * 
+   *
    * @param label
    *          The label of the action
    * @param activatedOnTypes
