@@ -18,7 +18,7 @@ method
 	 * @param parent
 	 */
 	public void createControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NULL);
+		Composite container = new Composite(parent, SWT.NONE);
 		%container.SWTLayout%
 		setControl(container);
 	}
