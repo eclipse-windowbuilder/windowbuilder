@@ -38,7 +38,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.editor.IDesignPageFactory"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.core.editor.IEditorPageFactory"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -93,6 +93,5 @@ this distribution, and is available at &lt;a
 href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
       </documentation>
    </annotation>
-
 
 </schema>
