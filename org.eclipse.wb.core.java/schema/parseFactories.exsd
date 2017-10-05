@@ -63,7 +63,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.parser.ParseFactory_noModel"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.wb.internal.core.parser.ParseFactoryNoModel:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -78,7 +78,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.parser.IParseFactory_simple_CIC"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wb.internal.core.parser.IParseFactorySimpleModelCic"/>
                </appInfo>
             </annotation>
          </attribute>
