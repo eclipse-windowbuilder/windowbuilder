@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.cwt_1.0.0.201703081533.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.widgets.cdatetime_1.0.0.201703081533.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-13.0.1.jar" sourcepath="lib/guava-13.0.1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/MVEL-fork.jar" sourcepath="lib/MVEL-fork.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.5.jar" sourcepath="lib/commons-lang-2.5-sources.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.apache.commons.lang_2.6.0.v201404270220.jar" sourcepath="lib/org.apache.commons.lang.source_2.6.0.v201404270220.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-primitives-1.0.jar" sourcepath="lib/commons-primitives-1.0-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.1.jar" sourcepath="lib/commons-collections-3.2.1-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.0.1.jar" sourcepath="lib/commons-io-2.0.1-sources.zip"/>
@@ -14,5 +12,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar" sourcepath="lib/commons-logging-1.1.1-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-digester-2.0.jar" sourcepath="lib/commons-digester-2.0-sources.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/asm-all-3.3.1.jar" sourcepath="lib/asm-all-3.3.1.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.cwt_1.0.0.201703081533.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.nebula.widgets.cdatetime_1.0.0.201703081533.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
