@@ -30,7 +30,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.part.ViewPart;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.NotImplementedException;
 

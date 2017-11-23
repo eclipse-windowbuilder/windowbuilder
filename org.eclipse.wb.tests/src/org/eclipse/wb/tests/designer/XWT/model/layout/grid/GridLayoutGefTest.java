@@ -26,7 +26,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link GridLayout} in GEF.

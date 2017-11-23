@@ -26,9 +26,9 @@ import org.eclipse.wb.internal.core.xml.model.utils.GlobalStateXml;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.tests.designer.XML.AbstractXmlObjectTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fest.assertions.Description;
+import org.assertj.core.description.Description;
 
 import java.util.List;
 
@@ -95,7 +95,7 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
         public String value() {
           return "Should not be visible it tree: " + child;
         }
-      }).excludes(child);
+      }).doesNotContain(child);
     }
   }
 
@@ -116,7 +116,7 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
         public String value() {
           return "Should not be visible on canvas: " + child;
         }
-      }).excludes(child);
+      }).doesNotContain(child);
     }
   }
 

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.nebula.gallery.GalleryInfo;
 import org.eclipse.wb.internal.rcp.nebula.gallery.GalleryItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link GalleryInfo}.

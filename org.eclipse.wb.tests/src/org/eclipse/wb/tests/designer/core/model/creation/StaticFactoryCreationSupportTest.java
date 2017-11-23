@@ -45,7 +45,7 @@ import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.eclipse.jdt.core.IMethod;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 import net.miginfocom.swing.MigLayout;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.GridBagLayout;
 import java.util.List;

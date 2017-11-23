@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FormInfo}.

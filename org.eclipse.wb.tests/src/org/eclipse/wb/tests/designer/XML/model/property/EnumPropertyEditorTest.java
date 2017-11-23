@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.xml.model.property.editor.EnumPropertyEditor
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 import org.eclipse.wb.tests.designer.tests.common.PropertyNoValue;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swt.support.FontSupport;
 
 import org.eclipse.swt.SWT;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FontSupport}.

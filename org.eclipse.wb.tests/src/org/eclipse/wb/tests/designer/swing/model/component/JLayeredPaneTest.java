@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.JLayeredPaneInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Container;
 import java.util.List;

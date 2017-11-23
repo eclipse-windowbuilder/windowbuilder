@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.model.forms.DetailsPageInfo;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IManagedForm;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DetailsPageInfo}.

@@ -25,9 +25,9 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 
 import java.util.List;
 

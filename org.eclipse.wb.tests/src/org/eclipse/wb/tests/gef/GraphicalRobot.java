@@ -40,10 +40,10 @@ import org.eclipse.swt.widgets.Text;
 
 import junit.framework.Assert;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ObjectUtils;
-import org.fest.assertions.Description;
+import org.assertj.core.description.Description;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -51,7 +51,7 @@ import java.util.List;
 
 /**
  * Fluent interface for performing create/move/resize operations on {@link GraphicalViewer}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class GraphicalRobot {
@@ -740,6 +740,7 @@ public final class GraphicalRobot {
   public GraphicalEditPart getEditPart(final Object object) {
     GraphicalEditPart editPart = getEditPartNull(object);
     assertThat(editPart).as(new Description() {
+      @Override
       public String value() {
         return "No EditPart for " + object;
       }
@@ -927,7 +928,7 @@ public final class GraphicalRobot {
   public void assertSelection(Object... objects) {
     List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
     GraphicalEditPart[] editParts = getEditParts(objects);
-    assertThat(selectedEditParts).containsExactly((Object[]) editParts);
+    assertThat(selectedEditParts).containsExactly(editParts);
   }
 
   public void assertChildrenCount(Object object, int count) {
@@ -1053,6 +1054,7 @@ public final class GraphicalRobot {
   public GraphicalRobot assertCommandNull() throws Exception {
     final Command command = getCommand();
     assertThat(command).describedAs(new Description() {
+      @Override
       public String value() {
         return "Unexpected command " + command;
       }
@@ -1142,7 +1144,7 @@ public final class GraphicalRobot {
   /**
    * @return the {@link Predicate} that checks if feedback is relative given
    *         {@link GraphicalEditPart}.
-   * 
+   *
    * @param part
    *          the {@link GraphicalEditPart} relative to which feedback is expected.
    * @param location

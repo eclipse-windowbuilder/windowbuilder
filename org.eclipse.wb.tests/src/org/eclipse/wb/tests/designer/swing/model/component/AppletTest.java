@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.applet.Applet;
 

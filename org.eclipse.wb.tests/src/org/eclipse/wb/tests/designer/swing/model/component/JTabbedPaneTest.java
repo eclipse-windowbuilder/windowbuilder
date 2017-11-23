@@ -31,7 +31,7 @@ import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -303,13 +303,13 @@ public class JTabbedPaneTest extends SwingModelTest {
     // active component
     {
       assertSame(button_1, tabbed.getActiveComponent());
-      assertThat(presentation.getChildrenGraphical()).contains(button_1).excludes(button_2);
+      assertThat(presentation.getChildrenGraphical()).contains(button_1).doesNotContain(button_2);
     }
     // set new active
     {
       tabbed.setActiveComponent(button_2);
       assertSame(button_2, tabbed.getActiveComponent());
-      assertThat(presentation.getChildrenGraphical()).contains(button_2).excludes(button_1);
+      assertThat(presentation.getChildrenGraphical()).contains(button_2).doesNotContain(button_1);
     }
   }
 

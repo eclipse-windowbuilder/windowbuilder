@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import static org.easymock.EasyMock.expect;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;

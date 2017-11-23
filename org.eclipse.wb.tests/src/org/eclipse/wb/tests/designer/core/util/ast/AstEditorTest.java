@@ -84,7 +84,7 @@ import org.eclipse.jdt.core.formatter.DefaultCodeFormatterConstants;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.ui.ide.IDE;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -2070,7 +2070,7 @@ public class AstEditorTest extends AbstractJavaTest {
         assertThat(parameters).hasSize(2);
         {
           String source = parameters[0];
-          assertThat(source).excludes("class Test");
+          assertThat(source).doesNotContain("class Test");
           assertThat(source).contains("void foo() {");
           assertThat(source).contains("somethingBadA();");
           assertThat(source).contains("somethingBadB();");

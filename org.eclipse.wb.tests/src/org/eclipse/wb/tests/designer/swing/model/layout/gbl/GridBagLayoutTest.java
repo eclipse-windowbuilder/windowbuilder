@@ -36,7 +36,7 @@ import org.eclipse.wb.tests.designer.swing.SwingTestUtils;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Component;
 import java.awt.Container;

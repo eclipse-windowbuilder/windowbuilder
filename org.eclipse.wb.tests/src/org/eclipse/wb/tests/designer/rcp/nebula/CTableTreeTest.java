@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.nebula.ctabletree.CTableTreeInfo;
 import org.eclipse.wb.internal.rcp.nebula.ctabletree.CTableTreeItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link CTableTree} items models.

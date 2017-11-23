@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DesignerExceptionUtils}.

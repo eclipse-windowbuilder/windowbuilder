@@ -62,9 +62,10 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
 
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
@@ -74,7 +75,7 @@ import java.util.Set;
 
 /**
  * Test for {@link AstNodeUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AstNodeUtilsTest extends AbstractJavaTest {
@@ -1289,7 +1290,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
       actualSignatures.add(getMethodSignature(methodBinding));
     }
     // expected
-    assertThat(actualSignatures).contains((Object[]) expectedSignatures);
+    assertThat(actualSignatures).contains(expectedSignatures);
     // un-expected
     for (String unExpectedSignature : unExpectedSignatures) {
       assertFalse("" + actualSignatures, actualSignatures.contains(unExpectedSignature));
@@ -1365,7 +1366,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
       actualNames.add(field.getName());
     }
     // expected
-    assertThat(actualNames).contains((Object[]) expectedNames);
+    assertThat(actualNames).contains(expectedNames);
     // un-expected
     for (String unExpectedSignature : unExpectedNames) {
       assertFalse("" + actualNames, actualNames.contains(unExpectedSignature));
@@ -2409,7 +2410,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
     //
     List<ClassInstanceCreation> invocations = AstNodeUtils.getClassInstanceCreations(methods[0]);
     assertThat(invocations).hasSize(2);
-    assertThat(invocations).containsOnly(
+    Assertions.<ASTNode>assertThat(invocations).containsOnly(
         m_lastEditor.getEnclosingNode("new Test(1)"),
         m_lastEditor.getEnclosingNode("new Test(2)"));
   }
@@ -2481,7 +2482,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
     //
     List<ClassInstanceCreation> invocations = AstNodeUtils.getClassInstanceCreations(foo);
     assertThat(invocations).hasSize(2);
-    assertThat(invocations).containsExactly(getNode("new Foo(1)"), getNode("new Foo(2)"));
+    Assertions.<ASTNode>assertThat(invocations).containsExactly(getNode("new Foo(1)"), getNode("new Foo(2)"));
   }
 
   ////////////////////////////////////////////////////////////////////////////

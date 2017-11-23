@@ -35,7 +35,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -106,11 +106,11 @@ public class GridLayoutTest extends XwtModelTest {
     IObjectPresentation presentation = shell.getPresentation();
     {
       List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-      assertThat(presentationChildren).contains(button).excludes(filler);
+      assertThat(presentationChildren).contains(button).doesNotContain(filler);
     }
     {
       List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-      assertThat(presentationChildren).contains(button).excludes(filler);
+      assertThat(presentationChildren).contains(button).doesNotContain(filler);
     }
   }
 

@@ -19,7 +19,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.internal.part.NullEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link AbstractXmlEditor}.

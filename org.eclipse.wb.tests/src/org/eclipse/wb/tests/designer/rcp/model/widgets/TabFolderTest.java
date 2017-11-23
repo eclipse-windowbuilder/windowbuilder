@@ -26,14 +26,16 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.assertj.core.api.Assertions;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Test for {@link TabFolderInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TabFolderTest extends RcpModelTest {
@@ -135,7 +137,7 @@ public class TabFolderTest extends RcpModelTest {
     item_2.doSelect();
     // check that "item_2" is selected in model and in GUI
     assertSame(item_2, tabFolder.getSelectedItem());
-    assertThat(((TabFolder) tabFolder.getObject()).getSelection()).containsOnly(item_2.getObject());
+    Assertions.<Object>assertThat(((TabFolder) tabFolder.getObject()).getSelection()).containsOnly(item_2.getObject());
     // check tree/graphical children
     {
       List<ObjectInfo> children = tabFolder.getPresentation().getChildrenTree();
@@ -293,7 +295,7 @@ public class TabFolderTest extends RcpModelTest {
     item_2.doSelect();
     // check that "item_2" is selected in model and in GUI
     assertSame(item_2, tabFolder.getSelectedItem());
-    assertThat(((TabFolder) tabFolder.getObject()).getSelection()).containsOnly(item_2.getObject());
+    Assertions.<Object>assertThat(((TabFolder) tabFolder.getObject()).getSelection()).containsOnly(item_2.getObject());
     // ...so, "button_2" is in graphical children and "button_1" is not
     {
       List<ObjectInfo> childrenGraphical = tabFolder.getPresentation().getChildrenGraphical();

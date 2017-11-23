@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccessor;
 import org.eclipse.wb.internal.core.xml.model.property.accessor.FieldExpressionAccessor;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FieldExpressionAccessor}.

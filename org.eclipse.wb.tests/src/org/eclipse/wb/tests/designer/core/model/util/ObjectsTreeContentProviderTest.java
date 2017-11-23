@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 
 /**
  * Test for {@link ObjectsTreeContentProvider}.

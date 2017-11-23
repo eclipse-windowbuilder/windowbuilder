@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

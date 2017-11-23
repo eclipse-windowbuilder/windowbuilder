@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
 

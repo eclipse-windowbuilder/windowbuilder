@@ -43,7 +43,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import static org.easymock.EasyMock.capture;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.easymock.Capture;
 import org.easymock.EasyMock;

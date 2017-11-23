@@ -21,15 +21,14 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.swt.graphics.Image;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-import org.fest.assertions.MapAssert;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.Map;
 
 /**
  * Tests for loading {@link CreationDescription} from *.wbp-component.xml files.
- * 
+ *
  * @author scheglov_ke
  */
 public class CreationDescriptionLoadingTest extends SwingModelTest {
@@ -324,9 +323,9 @@ public class CreationDescriptionLoadingTest extends SwingModelTest {
     assertEquals(id, creation.getId());
     assertEquals("MyButton", creation.getName());
     assertEquals("new test.MyButton()", creation.getSource());
-    assertThat(creation.getParameters()).includes(
-        MapAssert.entry("name_1", "value_1"),
-        MapAssert.entry("name_2", "value_2"));
+    assertThat(creation.getParameters()).contains(
+        entry("name_1", "value_1"),
+        entry("name_2", "value_2"));
   }
 
   /**

@@ -40,7 +40,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.widgets.Table;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.easymock.Capture;
 import org.easymock.EasyMock;

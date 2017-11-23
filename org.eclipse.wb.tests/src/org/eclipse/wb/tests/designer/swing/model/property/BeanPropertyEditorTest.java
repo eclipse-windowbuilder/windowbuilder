@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.beans.TextPropertyEdi
 import org.eclipse.wb.internal.swing.model.property.editor.color.ColorPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.beans.PropertyEditorSupport;
 import java.lang.reflect.Constructor;

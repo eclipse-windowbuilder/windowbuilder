@@ -34,9 +34,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fest.assertions.Description;
+import org.assertj.core.description.Description;
 
 import java.util.Collections;
 import java.util.List;
@@ -433,7 +433,7 @@ public final class TreeRobot {
    */
   public void assertNotExpandedObjects(ObjectInfo... objects) {
     Object[] expanded = getExpandedElements();
-    assertThat(expanded).excludes((Object[]) objects);
+    assertThat(expanded).doesNotContain((Object[]) objects);
   }
 
   /**
@@ -490,7 +490,7 @@ public final class TreeRobot {
   public TreeRobot assertFeedback_notOn(Object object) {
     TreeEditPart editPart = getEditPart(object);
     List<TreeItem> selectedItems = getFeedbackSelection();
-    assertThat(selectedItems).excludes(editPart.getWidget());
+    assertThat(selectedItems).doesNotContain(editPart.getWidget());
     return this;
   }
 

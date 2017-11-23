@@ -32,19 +32,19 @@ import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.graphics.Image;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.commons.lang.ArrayUtils;
-import org.fest.assertions.MapAssert;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * Test for {@link ComponentDescriptionHelper}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentDescriptionHelperTest extends AbstractCoreTest {
@@ -337,10 +337,10 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
     // parameters as Map
     {
       Map<String, String> parameters = description.getParameters();
-      assertThat(parameters).includes(
-          MapAssert.entry("parameter_1", "AAA"),
-          MapAssert.entry("parameter_2", "BBB"),
-          MapAssert.entry("parameter_3", ""));
+      assertThat(parameters).contains(
+          entry("parameter_1", "AAA"),
+          entry("parameter_2", "BBB"),
+          entry("parameter_3", ""));
     }
   }
 
@@ -498,9 +498,9 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
     ComponentDescription description = getMyDescription();
     // check
     CreationDescription creation = description.getCreation("withParameters");
-    assertThat(creation.getParameters()).includes(
-        MapAssert.entry("name_1", "value_1"),
-        MapAssert.entry("name_2", "value_2"));
+    assertThat(creation.getParameters()).contains(
+        entry("name_1", "value_1"),
+        entry("name_2", "value_2"));
   }
 
   /**

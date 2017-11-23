@@ -31,7 +31,7 @@ import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.ui.IPageLayout;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -332,7 +332,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
         "    <view id='id_1' name='name 1' class='C_1'/>",
         "  </extension>",
         "</plugin>"});
-    assertThat(getPluginXML()).excludes("newAttr");
+    assertThat(getPluginXML()).doesNotContain("newAttr");
     // set new attribute
     IPluginElement element =
         m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_1");

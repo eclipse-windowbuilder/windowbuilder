@@ -28,14 +28,16 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.assertj.core.api.Assertions;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 /**
  * Test {@link ArrayObjectInfo} and {@link InvocationChildArrayAssociation}.
- * 
+ *
  * @author sablin_aa
  */
 public class ArrayObjectTest extends SwingModelTest {
@@ -141,7 +143,7 @@ public class ArrayObjectTest extends SwingModelTest {
         "}");
     // no "localButton" in "array"
     assertThat(arrayInfo.getItems()).containsOnly(emptyButton);
-    assertThat(myPanel.getChildren()).excludes(localButton);
+    assertThat(myPanel.getChildren()).doesNotContain(localButton);
   }
 
   public void test_deleteItem_withEmpty() throws Exception {
@@ -162,7 +164,7 @@ public class ArrayObjectTest extends SwingModelTest {
         "}");
     // no "emptyButton" in "array"
     assertThat(arrayInfo.getItems()).containsOnly(localButton);
-    assertThat(myPanel.getChildren()).excludes(emptyButton);
+    assertThat(myPanel.getChildren()).doesNotContain(emptyButton);
   }
 
   public void test_deleteAllItems() throws Exception {
@@ -177,7 +179,7 @@ public class ArrayObjectTest extends SwingModelTest {
         "  public Test() {",
         "  }",
         "}");
-    assertThat(myPanel.getChildren()).excludes(arrayInfo, localButton, emptyButton);
+    assertThat(myPanel.getChildren()).doesNotContain(arrayInfo, localButton, emptyButton);
   }
 
   public void test_deleteArrayObjectInfo() throws Exception {
@@ -192,7 +194,7 @@ public class ArrayObjectTest extends SwingModelTest {
         "  public Test() {",
         "  }",
         "}");
-    assertThat(myPanel.getChildren()).excludes(arrayInfo, localButton, emptyButton);
+    assertThat(myPanel.getChildren()).doesNotContain(arrayInfo, localButton, emptyButton);
   }
 
   public void test_addItem() throws Exception {
@@ -213,7 +215,7 @@ public class ArrayObjectTest extends SwingModelTest {
         "  }",
         "}");
     assertThat(myPanel.getChildren(ArrayObjectInfo.class)).containsOnly(arrayInfo);
-    assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
+    Assertions.<JavaInfo>assertThat(myPanel.getChildrenComponents()).containsOnly(localButton, emptyButton, newButton);
     // check objects
     myPanel.refresh();
     assertThat(localButton.getObject()).isNotNull();
@@ -373,7 +375,7 @@ public class ArrayObjectTest extends SwingModelTest {
       assertThat(newButton.getObject()).isNotNull();
     }
     {
-      // check source on delete 
+      // check source on delete
       newButton.delete();
       assertEditor(
           "public class Test extends MyPanel {",
@@ -427,7 +429,7 @@ public class ArrayObjectTest extends SwingModelTest {
       assertThat(newButton.getObject()).isNotNull();
     }
     {
-      // check source on delete 
+      // check source on delete
       newButton.delete();
       assertEditor(
           "public class Test extends MyPanel {",
@@ -494,7 +496,7 @@ public class ArrayObjectTest extends SwingModelTest {
       assertThat(newButton.getObject()).isNotNull();
     }
     {
-      // check source on delete 
+      // check source on delete
       newButton.delete();
       assertEditor(
           "// filler filler filler",

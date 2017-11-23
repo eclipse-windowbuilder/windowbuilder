@@ -31,7 +31,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -109,11 +109,11 @@ public class TableWrapLayoutTest extends XwtModelTest {
     IObjectPresentation presentation = shell.getPresentation();
     {
       List<ObjectInfo> presentationChildren = presentation.getChildrenTree();
-      assertThat(presentationChildren).contains(button).excludes(filler);
+      assertThat(presentationChildren).contains(button).doesNotContain(filler);
     }
     {
       List<ObjectInfo> presentationChildren = presentation.getChildrenGraphical();
-      assertThat(presentationChildren).contains(button).excludes(filler);
+      assertThat(presentationChildren).contains(button).doesNotContain(filler);
     }
   }
 

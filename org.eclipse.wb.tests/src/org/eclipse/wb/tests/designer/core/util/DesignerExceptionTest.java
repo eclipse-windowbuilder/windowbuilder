@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 
 import junit.framework.TestCase;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
 

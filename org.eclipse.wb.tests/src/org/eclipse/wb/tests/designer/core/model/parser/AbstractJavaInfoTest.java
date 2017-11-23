@@ -51,9 +51,9 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fest.assertions.Description;
+import org.assertj.core.description.Description;
 
 import java.util.List;
 
@@ -503,7 +503,7 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
         public String value() {
           return "Should not be in children: " + child;
         }
-      }).excludes(child);
+      }).doesNotContain(child);
     }
   }
 
@@ -524,7 +524,7 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
         public String value() {
           return "Should not be in children: " + child;
         }
-      }).excludes(child);
+      }).doesNotContain(child);
     }
   }
 

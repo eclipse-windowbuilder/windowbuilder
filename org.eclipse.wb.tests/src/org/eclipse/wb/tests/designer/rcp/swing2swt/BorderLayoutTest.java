@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 
 import org.eclipse.swt.widgets.Control;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link BorderLayoutInfo}.

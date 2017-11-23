@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.widgets.Display;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.beans.Beans;
 import java.util.concurrent.atomic.AtomicBoolean;

@@ -21,9 +21,9 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import static org.easymock.EasyMock.expect;
-import static org.fest.assertions.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.assertj.core.api.Assertions;
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
 
@@ -33,7 +33,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Test for {@link StaticFieldPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StaticFieldPropertyEditorTest extends SwingModelTest {
@@ -221,8 +221,8 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
       Object[] e_values) throws Exception {
     assertSame(e_class, getFieldValue(editor, "m_class"));
     assertEquals(e_classSourceName, getFieldValue(editor, "m_classSourceName"));
-    assertThat((String[]) getFieldValue(editor, "m_names")).containsOnly(e_names);
-    assertThat((String[]) getFieldValue(editor, "m_titles")).containsOnly(e_titles);
+    Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_names")).containsOnly(e_names);
+    Assertions.<Object>assertThat((String[]) getFieldValue(editor, "m_titles")).containsOnly(e_titles);
     assertTrue(ArrayUtils.isEquals(e_values, getFieldValue(editor, "m_values")));
   }
 

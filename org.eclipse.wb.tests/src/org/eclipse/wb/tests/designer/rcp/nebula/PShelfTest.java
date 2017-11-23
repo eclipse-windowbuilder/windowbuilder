@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.nebula.pshelf.PShelfItemInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link PShelfInfo}.

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.rcp;
 
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.tests.designer.core.DesignerSuiteTests;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.CodeGenerationTest;
 import org.eclipse.wb.tests.designer.databinding.rcp.model.DatabindingsProviderTest;
@@ -30,7 +29,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class BindingTests extends DesignerSuiteTests {
   public static Test suite() {
@@ -50,10 +49,6 @@ public class BindingTests extends DesignerSuiteTests {
     suite.addTest(createSingleSuite(ViewerCodeGenerationTest.class));
     suite.addTest(createSingleSuite(UiConfigurationTest.class));
     suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestRcp.class));
-    if (EnvironmentUtils.IS_WINDOWS) {
-      suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestErcpDb.class));
-      suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestErcp.class));
-    }
     suite.addTest(createSingleSuite(JFaceDatabindingsFactoryTestSwing.class));
     return suite;
   }

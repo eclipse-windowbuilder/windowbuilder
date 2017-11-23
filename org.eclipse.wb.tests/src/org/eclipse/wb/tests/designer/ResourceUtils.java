@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.JavaModelException;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +32,7 @@ import java.util.Enumeration;
 
 /**
  * Resources utils for tests.
- * 
+ *
  * @author sablin_aa
  */
 public class ResourceUtils {

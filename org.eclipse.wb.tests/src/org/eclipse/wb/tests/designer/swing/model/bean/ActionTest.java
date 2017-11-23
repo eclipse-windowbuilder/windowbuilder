@@ -54,7 +54,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.graphics.Image;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 
 import java.util.List;
 

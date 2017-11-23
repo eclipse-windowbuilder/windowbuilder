@@ -37,13 +37,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
 /**
  * Test for editor layouts (pages or split) for {@link AbstractXmlEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditorLayoutTest extends XwtGefTest {

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.gef.policy.TopSelectionEditPolicy;
 import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link TopSelectionEditPolicy}.

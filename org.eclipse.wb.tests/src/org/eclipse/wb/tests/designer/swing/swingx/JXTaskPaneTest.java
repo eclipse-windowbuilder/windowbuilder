@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.swingx.JXTaskPaneInfo;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Component;
 import java.util.List;

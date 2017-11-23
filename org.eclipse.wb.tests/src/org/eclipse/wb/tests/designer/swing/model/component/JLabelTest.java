@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.DisplayedMnemonicKeyPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.swing.JLabel;
 

@@ -26,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for components from {@link DefaultComponentFactory}.

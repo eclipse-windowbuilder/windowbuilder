@@ -33,7 +33,7 @@ import net.sf.cglib.transform.ClassEmitterTransformer;
 import net.sf.cglib.transform.ClassTransformer;
 import net.sf.cglib.transform.TransformingClassGenerator;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.SystemUtils;
 
@@ -893,7 +893,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // invokeMethod2 
+  // invokeMethod2
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_invokeMethod2() throws Exception {
@@ -1300,7 +1300,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     class Foo {
       String m_value;
     }
-    // 
+    //
     Foo foo = new Foo();
     foo.m_value = "some value";
     assertEquals("some value", foo.m_value);
@@ -1667,7 +1667,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     {
       Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
       assertThat(names).contains("title");
-      assertThat(names).excludes("title(java.lang.String)");
+      assertThat(names).doesNotContain("title(java.lang.String)");
     }
     // both getter and setter should be accessible
     {
@@ -1698,7 +1698,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     {
       Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
       assertThat(names).contains("title");
-      assertThat(names).excludes("title(java.lang.String)");
+      assertThat(names).doesNotContain("title(java.lang.String)");
     }
     // both getter and setter should be accessible
     {
@@ -1736,7 +1736,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
       ReflectionUtils.flushPropertyDescriptorsCache(MyButton.class);
       try {
         Set<String> names = getPropertyDescriptorNames(MyButton.class).keySet();
-        assertThat(names).contains("enabled").excludes("a");
+        assertThat(names).contains("enabled").doesNotContain("a");
       } finally {
         EnvironmentUtils.setForcedIBM(false);
       }
@@ -1760,7 +1760,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     Map<String, PropertyDescriptor> propertiesMap = getPropertyDescriptorNames(MyButton.class);
     Set<String> names = propertiesMap.keySet();
     // no property for "get()"
-    assertThat(names).excludes("");
+    assertThat(names).doesNotContain("");
     // but usual JButton properties exist
     assertThat(names).contains("enabled", "text");
   }
@@ -1781,7 +1781,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     Map<String, PropertyDescriptor> propertiesMap = getPropertyDescriptorNames(MyButton.class);
     Set<String> names = propertiesMap.keySet();
     // no property for "getFoo()"
-    assertThat(names).excludes("foo");
+    assertThat(names).doesNotContain("foo");
     // but usual JButton properties exist
     assertThat(names).contains("enabled", "text");
   }
@@ -1838,7 +1838,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
         getPropertyDescriptorNames(MyButton_getPropertyDescriptors_ignoreStaticSetters.class);
     Set<String> names = propertiesMap.keySet();
     // no property for "setFoo()"
-    assertThat(names).excludes("foo");
+    assertThat(names).doesNotContain("foo");
     // but usual JButton properties exist
     assertThat(names).contains("enabled", "text");
   }
@@ -1848,7 +1848,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
    */
   private static void assertHasProperties(Class<?> clazz, String... expectedNames) throws Exception {
     List<PropertyDescriptor> descriptors = getPropertyDescriptors(clazz);
-    // prepare names/setters of all PropertyDescriptor's 
+    // prepare names/setters of all PropertyDescriptor's
     List<String> propertyNames = Lists.newArrayList();
     List<Method> propertySetters = Lists.newArrayList();
     for (PropertyDescriptor descriptor : descriptors) {
@@ -1861,7 +1861,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     assertThat(propertyNames).doesNotHaveDuplicates();
     assertThat(propertySetters).doesNotHaveDuplicates();
     // assert expected names
-    assertThat(propertyNames).contains((Object[]) expectedNames);
+    assertThat(propertyNames).contains(expectedNames);
   }
 
   /**

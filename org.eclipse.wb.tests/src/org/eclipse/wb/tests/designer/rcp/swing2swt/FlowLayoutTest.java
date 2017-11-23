@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainerFactory;
 import org.eclipse.wb.internal.rcp.swing2swt.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link FlowLayoutInfo}.

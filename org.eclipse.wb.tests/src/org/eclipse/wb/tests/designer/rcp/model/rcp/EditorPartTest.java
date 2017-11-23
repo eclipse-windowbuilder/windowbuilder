@@ -27,13 +27,13 @@ import org.eclipse.ui.menus.IMenuService;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.services.IServiceLocator;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Test for {@link EditorPartInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditorPartTest extends RcpModelTest {
@@ -295,7 +295,7 @@ public class EditorPartTest extends RcpModelTest {
     // sub-properties
     Property[] subProperties = getSubProperties(extensionProperty);
     assertThat(subProperties).hasSize(4);
-    assertThat(subProperties).hasAllElementsOfType(ExtensionElementProperty.class);
+    assertThat(subProperties).hasOnlyElementsOfType(ExtensionElementProperty.class);
     {
       Property nameProperty = subProperties[0];
       assertEquals("name", nameProperty.getTitle());

@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.SelectionActionsSupport;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

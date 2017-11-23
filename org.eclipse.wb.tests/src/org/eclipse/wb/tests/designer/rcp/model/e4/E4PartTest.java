@@ -13,7 +13,7 @@ package org.eclipse.wb.tests.designer.rcp.model.e4;
 import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link E4PartInfo}.

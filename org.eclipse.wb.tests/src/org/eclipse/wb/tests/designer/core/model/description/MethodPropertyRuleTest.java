@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link MethodPropertyRule}.

@@ -29,7 +29,7 @@ import org.eclipse.wb.internal.core.xml.model.property.editor.EnumPropertyEditor
 import org.eclipse.wb.internal.core.xml.model.property.editor.StaticFieldPropertyEditor;
 import org.eclipse.wb.tests.designer.XML.NoopConfigurablePropertyEditor;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link GenericPropertyDescription} loading.

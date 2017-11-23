@@ -47,8 +47,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.assertions.MapAssert.entry;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
@@ -61,7 +61,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for {@link ComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentEntryInfoTest extends AbstractPaletteTest {
@@ -1120,7 +1120,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
     // new component has "template arguments"
     {
       Map<String, String> templateArguments = newComponent.getTemplateArguments();
-      assertThat(templateArguments).includes(entry("rowType", "java.lang.String"));
+      assertThat(templateArguments).contains(entry("rowType", "java.lang.String"));
     }
   }
 

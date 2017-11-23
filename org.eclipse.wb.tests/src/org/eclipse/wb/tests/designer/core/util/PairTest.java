@@ -13,7 +13,7 @@ package org.eclipse.wb.tests.designer.core.util;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link Pair}.

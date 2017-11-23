@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.TabFolderInfo;
 import org.eclipse.wb.internal.xwt.model.widgets.TabItemInfo;
 import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

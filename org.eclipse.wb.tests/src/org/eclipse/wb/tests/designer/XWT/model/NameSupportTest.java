@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.xwt.model.util.NameSupport;
 import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

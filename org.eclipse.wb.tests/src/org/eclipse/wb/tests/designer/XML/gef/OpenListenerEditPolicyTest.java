@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.ui.IEditorPart;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link OpenListenerEditPolicy}.

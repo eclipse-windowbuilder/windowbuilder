@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringAttachmentInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.swing.SpringLayout;
 

@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import org.eclipse.wb.internal.rcp.model.forms.MasterDetailsBlockInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link MasterDetailsBlockInfo}.

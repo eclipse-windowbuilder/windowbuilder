@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.BorderLayout;
 

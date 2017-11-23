@@ -54,9 +54,10 @@ import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.api.Assertions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -64,7 +65,7 @@ import java.util.List;
 
 /**
  * Tests for {@link ExecutionFlowUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExecutionFlowUtilsTest extends AbstractEngineTest {
@@ -1959,10 +1960,10 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     {
       VariableDeclaration declaration = getDeclaration(flowDescription, fooNode);
       assertThat(declaration).isNotNull();
-      assertThat(getReferences(flowDescription, fooNode)).containsOnly(
+      Assertions.<ASTNode>assertThat(getReferences(flowDescription, fooNode)).containsOnly(
           declaration.getName(),
           fooNode);
-      assertThat(getAssignments(flowDescription, fooNode)).containsOnly(declaration);
+      Assertions.<ASTNode>assertThat(getAssignments(flowDescription, fooNode)).containsOnly(declaration);
       assertThat(getLastAssignment(flowDescription, fooNode)).isEqualTo(declaration);
     }
     // delete Statement for "fooNode", no more variables information

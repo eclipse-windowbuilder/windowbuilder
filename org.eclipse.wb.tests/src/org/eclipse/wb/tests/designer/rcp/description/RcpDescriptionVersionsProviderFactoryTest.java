@@ -16,15 +16,14 @@ import org.eclipse.wb.internal.rcp.RcpDescriptionVersionsProviderFactory;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-import org.fest.assertions.MapAssert;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.List;
 
 /**
  * Test for {@link RcpDescriptionVersionsProviderFactory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
@@ -96,8 +95,8 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
       assertThat(versions).isEmpty();
     }
     // check versions
-    assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).includes(
-        MapAssert.entry("rcp_version", "3.7"));
-    assertThat(m_lastState.getVersions()).includes(MapAssert.entry("rcp_version", "3.7"));
+    assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).contains(
+        entry("rcp_version", "3.7"));
+    assertThat(m_lastState.getVersions()).contains(entry("rcp_version", "3.7"));
   }
 }

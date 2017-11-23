@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -296,7 +296,7 @@ public class PropertyUtilsTest extends SwingModelTest {
       Predicate<Property> predicate = PropertyUtils.getExcludeByTitlePredicate("enabled");
       List<Property> properties = PropertyUtils.getProperties(panel, predicate);
       List<String> titles = PropertyUtils.getTitles(properties);
-      assertThat(titles).excludes("enabled").contains("background");
+      assertThat(titles).doesNotContain("enabled").contains("background");
     }
   }
 
@@ -385,7 +385,7 @@ public class PropertyUtilsTest extends SwingModelTest {
       List<Property> properties =
           PropertyUtils.getProperties_excludeByParameter(panel, "exclude-parameter");
       List<String> titles = PropertyUtils.getTitles(properties);
-      assertThat(titles).excludes("enabled", "visible").contains("background");
+      assertThat(titles).doesNotContain("enabled", "visible").contains("background");
     }
   }
 

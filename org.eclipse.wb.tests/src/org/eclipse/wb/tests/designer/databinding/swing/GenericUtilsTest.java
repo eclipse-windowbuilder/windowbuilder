@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.GenericTypeContai
 import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

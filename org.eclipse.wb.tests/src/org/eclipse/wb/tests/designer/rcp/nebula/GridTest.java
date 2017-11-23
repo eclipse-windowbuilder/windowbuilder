@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import net.miginfocom.layout.Grid;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link Grid} items models.

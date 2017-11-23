@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.swt.graphics.Font;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link SectionPartInfo}.

@@ -15,7 +15,6 @@ import com.google.common.collect.ImmutableList;
 
 import static org.eclipse.wb.internal.core.model.util.TemplateUtils.addStatement;
 import static org.eclipse.wb.internal.core.model.util.TemplateUtils.evaluate;
-import static org.eclipse.wb.internal.core.model.util.TemplateUtils.format;
 import static org.eclipse.wb.internal.core.model.util.TemplateUtils.getExpression;
 import static org.eclipse.wb.internal.core.model.util.TemplateUtils.resolve;
 
@@ -29,13 +28,13 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
 /**
  * Tests for {@link TemplateUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TemplateUtilsTest extends SwingModelTest {
@@ -59,11 +58,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_getExpression() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     String id = ObjectInfoUtils.getId(panel);
     assertEquals(TemplateUtils.ID_PREFIX + id, getExpression(panel));
   }
@@ -74,11 +73,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_format() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     String id = ObjectInfoUtils.getId(panel);
     {
       String expected = TemplateUtils.ID_PREFIX + id + ".setEnabled(false)";
@@ -97,11 +96,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_resolve_referenceExpression() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
     String template = "foo(" + TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ")";
@@ -114,11 +113,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_resolve_referenceExpression_usingStatementTarget() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     StatementTarget target = getStatementTarget(panel, false, 0);
     // do resolve
     String template = "foo(" + TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ")";
@@ -131,11 +130,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_resolve_referenceExpression_usingBodyDeclarationTarget() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     BodyDeclarationTarget target = getBodyDeclarationTarget(panel, false, 0);
     // do resolve
     String template = "foo(" + TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ")";
@@ -148,11 +147,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_resolve_thisAccessExpression() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
     String template = TemplateUtils.ID_PREFIX + ObjectInfoUtils.getId(panel) + ".setEnabled(false)";
@@ -165,12 +164,12 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_resolve_accessExpression() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
@@ -185,11 +184,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_resolve_StringList() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     NodeTarget nodeTarget = getNodeStatementTarget(panel, false, 0);
     // do resolve
     List<String> lines = ImmutableList.of(getExpression(panel) + " a", getExpression(panel) + " b");
@@ -208,11 +207,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_formatResolve_StatementTarget() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     StatementTarget target = getStatementTarget(panel, false, 0);
     // do resolve
     assertEquals("foo(this)", TemplateUtils.resolve(target, "foo({0})", panel));
@@ -224,11 +223,11 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_formatResolve_BodyDeclarationTarget() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int target;",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int target;",
+        "  }",
+        "}");
     BodyDeclarationTarget target = getBodyDeclarationTarget(panel, false, 0);
     // do resolve
     assertEquals("foo(this)", TemplateUtils.resolve(target, "foo({0})", panel));
@@ -245,14 +244,14 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_addStatement() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     StatementTarget target = getBlockTarget(panel, true);
     // do resolve
-    addStatement(panel, target, ImmutableList.of(format("{0}", panel), "\t.setEnabled(false);"));
+    addStatement(panel, target, ImmutableList.of(TemplateUtils.format("{0}", panel), "\t.setEnabled(false);"));
     assertEditor(
         "// filler filler filler",
         "public class Test extends JPanel {",
@@ -271,15 +270,15 @@ public class TemplateUtilsTest extends SwingModelTest {
   public void test_evaluate() throws Exception {
     ContainerInfo panel =
         parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JLabel myLabel = new JLabel();",
-            "    add(myLabel);",
-            "    //",
-            "    JButton myButton = new JButton();",
-            "    add(myButton);",
-            "  }",
-            "}");
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JLabel myLabel = new JLabel();",
+        "    add(myLabel);",
+        "    //",
+        "    JButton myButton = new JButton();",
+        "    add(myButton);",
+        "  }",
+        "}");
     ComponentInfo label = panel.getChildrenComponents().get(0);
     ComponentInfo button = panel.getChildrenComponents().get(1);
     // good variables

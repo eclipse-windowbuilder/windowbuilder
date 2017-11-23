@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.TestUtils;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -35,7 +35,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Tests for {@link AttributesProviders}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AttributesProvidersTest extends AbstractPaletteTest {

@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
 

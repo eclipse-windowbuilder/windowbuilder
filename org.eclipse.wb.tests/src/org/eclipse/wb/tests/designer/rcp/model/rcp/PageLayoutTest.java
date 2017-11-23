@@ -53,15 +53,15 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fest.assertions.DoubleAssert;
+import org.assertj.core.data.Offset;
 
 import java.util.List;
 
 /**
  * Test for {@link PageLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PageLayoutTest extends RcpModelTest {
@@ -706,7 +706,7 @@ public class PageLayoutTest extends RcpModelTest {
   private static void assertPartsSizes(int value_1, int value_2, double k_1, double k_2) {
     assertThat(Math.abs(value_1 / k_1 - value_2 / k_2) - SashLineInfo.SASH_SIZE).isEqualTo(
         0.0,
-        DoubleAssert.delta(2.0));
+        Offset.offset(2.0));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -1366,7 +1366,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, true, false);
     }
-    // standalone -> standalone + placeholder 
+    // standalone -> standalone + placeholder
     {
       setPlaceholder(view, true);
       assertEditor(
@@ -1380,7 +1380,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, true, true);
     }
-    // standalone + placeholder -> standalone 
+    // standalone + placeholder -> standalone
     {
       setPlaceholder(view, false);
       assertEditor(
@@ -1394,7 +1394,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, true, false);
     }
-    // standalone -> normal 
+    // standalone -> normal
     {
       setStandalone(view, false);
       assertEditor(
@@ -1408,7 +1408,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, false, false);
     }
-    // normal -> placeholder 
+    // normal -> placeholder
     {
       setPlaceholder(view, true);
       assertEditor(
@@ -1422,7 +1422,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, false, true);
     }
-    // placeholder -> placeholder + standalone 
+    // placeholder -> placeholder + standalone
     {
       setStandalone(view, true);
       assertEditor(
@@ -1436,7 +1436,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, true, true);
     }
-    // placeholder + standalone -> placeholder 
+    // placeholder + standalone -> placeholder
     {
       setStandalone(view, false);
       assertEditor(
@@ -1450,7 +1450,7 @@ public class PageLayoutTest extends RcpModelTest {
           "}");
       assertMorphView(view, false, true);
     }
-    // placeholder -> normal 
+    // placeholder -> normal
     {
       setPlaceholder(view, false);
       assertEditor(

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.forms.ScrolledFormInfo;
 
 import org.eclipse.ui.forms.editor.FormEditor;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FormPageInfo}.

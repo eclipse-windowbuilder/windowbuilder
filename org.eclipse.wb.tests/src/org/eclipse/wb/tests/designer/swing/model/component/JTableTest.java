@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableMod
 import org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

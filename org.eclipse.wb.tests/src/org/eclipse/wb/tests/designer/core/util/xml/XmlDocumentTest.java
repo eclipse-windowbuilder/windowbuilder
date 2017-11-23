@@ -27,7 +27,7 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.text.Document;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -1225,7 +1225,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     // hierarchy
     assertSame(target, element.getParent());
     assertThat(target.getChildren()).contains(element);
-    assertThat(source.getChildren()).excludes(element);
+    assertThat(source.getChildren()).doesNotContain(element);
     assertContext(
         "<?xml version='1.0' encoding='UTF-8'?>",
         "<!-- ==================================== -->",
@@ -1259,7 +1259,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     // hierarchy
     assertSame(target, element.getParent());
     assertThat(target.getChildren()).contains(element);
-    assertThat(source.getChildren()).excludes(element);
+    assertThat(source.getChildren()).doesNotContain(element);
     assertContext(
         "<?xml version='1.0' encoding='UTF-8'?>",
         "<!-- ==================================== -->",
@@ -1292,7 +1292,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     // hierarchy
     assertSame(target, element.getParent());
     assertThat(target.getChildren()).contains(element);
-    assertThat(source.getChildren()).excludes(element);
+    assertThat(source.getChildren()).doesNotContain(element);
     assertContext(
         "<?xml version='1.0' encoding='UTF-8'?>",
         "<!-- ==================================== -->",
@@ -1417,7 +1417,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     // hierarchy
     assertSame(target, element.getParent());
     assertThat(target.getChildren()).contains(element);
-    assertThat(source.getChildren()).excludes(element);
+    assertThat(source.getChildren()).doesNotContain(element);
     assertContext(
         "<?xml version='1.0' encoding='UTF-8'?>",
         "<!-- ==================================== -->",
@@ -1447,7 +1447,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     // hierarchy
     assertSame(target, element.getParent());
     assertThat(target.getChildren()).contains(element);
-    assertThat(source.getChildren()).excludes(element);
+    assertThat(source.getChildren()).doesNotContain(element);
     assertContext(
         "<?xml version='1.0' encoding='UTF-8'?>",
         "<!-- ==================================== -->",
@@ -1478,7 +1478,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     // hierarchy
     assertSame(target, element.getParent());
     assertThat(target.getChildren()).contains(element);
-    assertThat(source.getChildren()).excludes(element);
+    assertThat(source.getChildren()).doesNotContain(element);
     assertContext(
         "<?xml version='1.0' encoding='UTF-8'?>",
         "<!-- ==================================== -->",

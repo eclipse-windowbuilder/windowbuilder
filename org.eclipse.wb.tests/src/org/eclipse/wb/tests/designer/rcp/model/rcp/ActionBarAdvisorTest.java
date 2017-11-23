@@ -27,7 +27,7 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.NotImplementedException;
 

@@ -25,7 +25,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.wb.tests.designer.swt.model.menu.MenuFeedbackTester;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link MenuManagerInfo} in GEF.

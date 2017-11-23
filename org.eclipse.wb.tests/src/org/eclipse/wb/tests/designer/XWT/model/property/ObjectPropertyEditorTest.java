@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.TreeItem;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ObjectPropertyEditor}.

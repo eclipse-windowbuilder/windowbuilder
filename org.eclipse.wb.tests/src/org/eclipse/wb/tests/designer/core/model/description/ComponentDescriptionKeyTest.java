@@ -13,7 +13,7 @@ package org.eclipse.wb.tests.designer.core.model.description;
 import org.eclipse.wb.internal.core.model.description.ComponentDescriptionKey;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.Component;
 import java.awt.Container;

@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -29,7 +29,7 @@ import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 
 import static org.easymock.EasyMock.expect;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;

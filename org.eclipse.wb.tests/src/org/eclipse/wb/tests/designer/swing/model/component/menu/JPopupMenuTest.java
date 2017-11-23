@@ -33,7 +33,7 @@ import org.eclipse.wb.tests.designer.Expectations;
 import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.event.MouseListener;
 import java.util.List;

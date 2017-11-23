@@ -19,13 +19,12 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.swt.graphics.Image;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import static org.fest.assertions.Assertions.assertThat;
-
-import org.fest.assertions.MapAssert;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ import javax.swing.JButton;
 
 /**
  * Tests for {@link CreationDescription} as object.
- * 
+ *
  * @author scheglov_ke
  */
 public class CreationDescriptionTest extends DesignerTestCase {
@@ -280,9 +279,9 @@ public class CreationDescriptionTest extends DesignerTestCase {
     // put parameters
     creation.addParameter("name_1", "value_1");
     creation.addParameter("name_2", "value_2");
-    assertThat(creation.getParameters()).includes(
-        MapAssert.entry("name_1", "value_1"),
-        MapAssert.entry("name_2", "value_2"));
+    assertThat(creation.getParameters()).contains(
+        entry("name_1", "value_1"),
+        entry("name_2", "value_2"));
     // final verification
     verify(component);
   }

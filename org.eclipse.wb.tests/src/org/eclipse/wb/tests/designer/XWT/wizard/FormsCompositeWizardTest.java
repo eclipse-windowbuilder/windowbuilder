@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jface.viewers.StructuredSelection;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link FormsCompositeWizard}.

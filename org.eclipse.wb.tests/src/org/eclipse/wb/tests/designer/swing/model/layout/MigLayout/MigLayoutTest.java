@@ -43,7 +43,7 @@ import junit.framework.AssertionFailedError;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

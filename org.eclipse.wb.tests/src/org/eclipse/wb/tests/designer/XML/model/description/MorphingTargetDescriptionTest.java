@@ -13,7 +13,7 @@ package org.eclipse.wb.tests.designer.XML.model.description;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.xml.model.description.ComponentDescription;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
 

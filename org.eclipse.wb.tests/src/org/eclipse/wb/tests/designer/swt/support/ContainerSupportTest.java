@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ContainerSupport}.

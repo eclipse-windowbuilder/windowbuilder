@@ -25,7 +25,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.TabItem;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FontPropertyEditor}.

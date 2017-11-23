@@ -33,7 +33,7 @@ import org.eclipse.wb.tests.designer.tests.mock.MockRunnable;
 
 import static org.easymock.EasyMock.createStrictControl;
 import static org.easymock.EasyMock.expect;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.StringUtils;
 import org.easymock.IMocksControl;

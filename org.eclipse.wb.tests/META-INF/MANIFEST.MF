@@ -20,7 +20,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.launching,
  org.eclipse.jdt.core.manipulation,
  org.eclipse.ltk.core.refactoring,
- org.eclipse.wb.css,
  org.eclipse.wb.core,
  org.eclipse.wb.core.java,
  org.eclipse.wb.swing,
@@ -44,13 +43,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wb.rcp.databinding.xwt,
  org.junit;bundle-version="4.12.0"
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/fest-util-1.1.4.jar,
- lib/fest-assert-1.3.jar,
+Bundle-ClassPath: 
+ lib/org.assertj_1.7.1.v20170413-2026.jar,
  lib/objenesis-1.2.jar,
  lib/EasyMock-3.0.jar,
  .
 Export-Package: org.easymock,
- org.eclipse.wb.tests.css,
  org.eclipse.wb.tests.designer,
  org.eclipse.wb.tests.designer.XML,
  org.eclipse.wb.tests.designer.XML.editor,

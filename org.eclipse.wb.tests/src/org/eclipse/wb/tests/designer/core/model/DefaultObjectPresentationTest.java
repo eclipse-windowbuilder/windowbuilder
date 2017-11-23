@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 

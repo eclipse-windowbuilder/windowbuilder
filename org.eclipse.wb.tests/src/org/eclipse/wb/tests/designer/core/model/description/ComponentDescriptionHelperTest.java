@@ -43,10 +43,10 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.swt.graphics.Image;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
 
-import org.fest.assertions.Assertions;
-import org.fest.assertions.MapAssert;
+import org.assertj.core.api.Assertions;
 import org.osgi.framework.Bundle;
 import org.xml.sax.SAXParseException;
 
@@ -60,7 +60,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for {@link ComponentDescriptionHelper}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentDescriptionHelperTest extends SwingModelTest {
@@ -198,7 +198,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
           ComponentDescriptionHelper.getDescription(m_lastEditor, "test.Component_2");
       assertThat(description.getIcon().getBounds().width).isEqualTo(1);
     }
-    // MyComponent_1: special 3x3 icon 
+    // MyComponent_1: special 3x3 icon
     {
       ComponentDescription description =
           ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyComponent_1");
@@ -275,7 +275,7 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
             "  public Test() {",
             "  }",
             "}");
-    // check ComponentDescription 
+    // check ComponentDescription
     ComponentDescription description = panel.getDescription();
     Assertions.assertThat(description.getBeanInfo()).isNotNull();
     Image icon = description.getIcon();
@@ -1391,10 +1391,10 @@ public class ComponentDescriptionHelperTest extends SwingModelTest {
     // parameters as Map
     {
       Map<String, String> parameters = description.getParameters();
-      assertThat(parameters).includes(
-          MapAssert.entry("parameter_1", "AAA"),
-          MapAssert.entry("parameter_2", "BBB"),
-          MapAssert.entry("parameter_3", ""));
+      assertThat(parameters).contains(
+          entry("parameter_1", "AAA"),
+          entry("parameter_2", "BBB"),
+          entry("parameter_3", ""));
     }
   }
 

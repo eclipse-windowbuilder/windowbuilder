@@ -20,7 +20,7 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ObjectUtils;
 

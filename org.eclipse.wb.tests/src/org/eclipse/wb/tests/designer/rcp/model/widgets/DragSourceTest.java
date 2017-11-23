@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.DragSourceInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DragSourceInfo}.

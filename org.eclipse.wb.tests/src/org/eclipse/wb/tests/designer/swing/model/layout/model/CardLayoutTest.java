@@ -25,7 +25,7 @@ import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.StringLiteral;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.awt.CardLayout;
 import java.awt.Component;

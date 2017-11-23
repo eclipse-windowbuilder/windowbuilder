@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.part.ViewPart;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for RCP wizards, such as {@link ViewPart}.
