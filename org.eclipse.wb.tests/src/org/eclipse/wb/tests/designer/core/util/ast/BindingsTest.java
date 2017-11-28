@@ -47,7 +47,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for Designer*Binding - our lightweight implementations of bindings.
- * 
+ *
  * @author scheglov_ke
  */
 public class BindingsTest extends AbstractJavaTest {
@@ -322,6 +322,7 @@ public class BindingsTest extends AbstractJavaTest {
         "getMethodDeclaration",
         "isConstructor",
         "getModifiers",
+        "getDeclaringMember",
         "isVarargs"});
     assert_methodFails(ourBinding, "getParameterAnnotations", new Object[]{0});
     assert_methodFails(ourBinding, "isSubsignature", NULL_ARG);
@@ -534,7 +535,9 @@ public class BindingsTest extends AbstractJavaTest {
         "getTypeBounds",
         "getDeclaredMethods",
         "getModifiers",
-        "getDeclaredModifiers"});
+        "getDeclaredModifiers",
+        "getDeclaringMember",
+        "isIntersectionType"});
   }
 
   /**
