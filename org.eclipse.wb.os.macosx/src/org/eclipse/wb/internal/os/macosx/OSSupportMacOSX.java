@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    OPCoach, Olivier Prouvost - Bug 526091 - Display design upside down with MacosX High Sierra
  *******************************************************************************/
 package org.eclipse.wb.internal.os.macosx;
 
@@ -18,6 +19,7 @@ import org.eclipse.wb.os.OSSupport;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
@@ -33,7 +35,7 @@ import java.util.List;
 
 /**
  * Mac OS X implementation for {@link OSSupport}.
- * 
+ *
  * @author mitin_aa
  * @coverage os.macosx
  */
@@ -52,7 +54,17 @@ public abstract class OSSupportMacOSX extends OSSupport {
   protected static final OSSupport INSTANCE = EnvironmentUtils.IS_MAC_COCOA
       ? EnvironmentUtils.IS_64BIT_OS
           ? new OSSupportMacOSXCocoa.Cocoa64()
-          : new OSSupportMacOSXCocoa.Cocoa32() : new OSSupportMacOSXCarbon();
+          : new OSSupportMacOSXCocoa.Cocoa32()
+      : new OSSupportMacOSXCarbon();
+  ////////////////////////////////////////////////////////////////////////////
+  // Bug  526091 : must reverse image on Mac os X High Sierra (10.13.x)
+  //      getSystemProperties(OS_NAME)   returns  Mac OS X
+  //      getSystemProperties(OS_VERSION) returns v.10.13.1
+  ////////////////////////////////////////////////////////////////////////////
+  private static final String OS_VERSION = "os.version"; //$NON-NLS-1$
+  private static final String HIGH_SIERRA = "10.13";//$NON-NLS-1$
+  private static boolean isHighSierra =
+      System.getProperties().get(OS_VERSION).toString().contains(HIGH_SIERRA);
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -69,10 +81,10 @@ public abstract class OSSupportMacOSX extends OSSupport {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void beginShot(Object controlObject) {
-    // disabling shell redraw prevents painting events 
-    // to be dispatched to design canvas. These events can 
-    // cause painting already disposed images, ex., for action instances, 
-    // which are already disposed but image references are still alive 
+    // disabling shell redraw prevents painting events
+    // to be dispatched to design canvas. These events can
+    // cause painting already disposed images, ex., for action instances,
+    // which are already disposed but image references are still alive
     // in it's presentation in widgets tree (see Case 40141).
     DesignerPlugin.getShell().setRedraw(false);
     super.beginShot(controlObject);
@@ -90,11 +102,108 @@ public abstract class OSSupportMacOSX extends OSSupport {
     Control control = (Control) controlObject;
     try {
       //			reverseDrawingOrder(control);
-      makeShot(control);
+      Image sourceShot = makeShot(control);
+      if (isHighSierra) {
+        Image reverseShot = reverseImage(sourceShot);
+        sourceShot.dispose();
+        control.setData(WBP_IMAGE, reverseShot);
+      }
       control.getShell().setVisible(false);
     } finally {
       //			reverseDrawingOrder(control);
     }
+  }
+
+  /**
+   * Reverse image which is upside down on Macos X High Sierra See bug #526091
+   *
+   * @param image
+   * @return the reverse Image
+   */
+  public Image reverseImage(Image image) {
+    // Image must be flipped and then rotated twice ! BUT ONLY ON HIGH SIERRA
+    ImageData flip = flip(image.getImageData(), false);
+    ImageData rotate1 = rotate(flip, SWT.LEFT);
+    ImageData rotate = rotate(rotate1, SWT.LEFT);
+    final Image result = new Image(image.getDevice(), rotate);
+    return result;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  // The flip and rotate method have been copied from the Snippet139.
+  // They are needed to fix the bug #526091
+  ////////////////////////////////////////////////////////////////////////////
+  static ImageData rotate(ImageData srcData, int direction) {
+    int bytesPerPixel = srcData.bytesPerLine / srcData.width;
+    int destBytesPerLine =
+        direction == SWT.DOWN ? srcData.width * bytesPerPixel : srcData.height * bytesPerPixel;
+    byte[] newData = new byte[direction == SWT.DOWN
+        ? srcData.height * destBytesPerLine
+        : srcData.width * destBytesPerLine];
+    int width = 0, height = 0;
+    for (int srcY = 0; srcY < srcData.height; srcY++) {
+      for (int srcX = 0; srcX < srcData.width; srcX++) {
+        int destX = 0, destY = 0, destIndex = 0, srcIndex = 0;
+        switch (direction) {
+          case SWT.LEFT : // left 90 degrees
+            destX = srcY;
+            destY = srcData.width - srcX - 1;
+            width = srcData.height;
+            height = srcData.width;
+            break;
+          case SWT.RIGHT : // right 90 degrees
+            destX = srcData.height - srcY - 1;
+            destY = srcX;
+            width = srcData.height;
+            height = srcData.width;
+            break;
+          case SWT.DOWN : // 180 degrees
+            destX = srcData.width - srcX - 1;
+            destY = srcData.height - srcY - 1;
+            width = srcData.width;
+            height = srcData.height;
+            break;
+        }
+        destIndex = destY * destBytesPerLine + destX * bytesPerPixel;
+        srcIndex = srcY * srcData.bytesPerLine + srcX * bytesPerPixel;
+        System.arraycopy(srcData.data, srcIndex, newData, destIndex, bytesPerPixel);
+      }
+    }
+    // destBytesPerLine is used as scanlinePad to ensure that no padding is required
+    return new ImageData(width,
+        height,
+        srcData.depth,
+        srcData.palette,
+        srcData.scanlinePad,
+        newData);
+  }
+
+  static ImageData flip(ImageData srcData, boolean vertical) {
+    int bytesPerPixel = srcData.bytesPerLine / srcData.width;
+    int destBytesPerLine = srcData.width * bytesPerPixel;
+    byte[] newData = new byte[srcData.data.length];
+    for (int srcY = 0; srcY < srcData.height; srcY++) {
+      for (int srcX = 0; srcX < srcData.width; srcX++) {
+        int destX = 0, destY = 0, destIndex = 0, srcIndex = 0;
+        if (vertical) {
+          destX = srcX;
+          destY = srcData.height - srcY - 1;
+        } else {
+          destX = srcData.width - srcX - 1;
+          destY = srcY;
+        }
+        destIndex = destY * destBytesPerLine + destX * bytesPerPixel;
+        srcIndex = srcY * srcData.bytesPerLine + srcX * bytesPerPixel;
+        System.arraycopy(srcData.data, srcIndex, newData, destIndex, bytesPerPixel);
+      }
+    }
+    // destBytesPerLine is used as scanlinePad to ensure that no padding is required
+    return new ImageData(srcData.width,
+        srcData.height,
+        srcData.depth,
+        srcData.palette,
+        srcData.scanlinePad,
+        newData);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -160,7 +269,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
    * is to approximate separator location based on previous item.
    */
   protected void fixupSeparatorItems(Menu menu, int[] bounds, int[] menuSize, int[] itemsBounds) {
-    // for separator items there is no way to get item bounds because the separator item has no custom draw 
+    // for separator items there is no way to get item bounds because the separator item has no custom draw
     // flag and native part doesn't receive draw messages for to get item bounds.
     // the workaround is to approximate separator location based on previous item.
     MenuItem firstItem = menu.getItem(0);
@@ -212,21 +321,22 @@ public abstract class OSSupportMacOSX extends OSSupport {
       itemsWidth += itemSize.x;
     }
     gc.dispose();
-    return new Rectangle((folderSize.x / 2 - itemsWidth / 2 + thisItemOffsetX),
+    return new Rectangle(folderSize.x / 2 - itemsWidth / 2 + thisItemOffsetX,
         TAB_ITEM_OFFSET_Y,
         thisItemWidth,
         thisItemHeight);
   }
 
-/**
-	 * Returns the empiric size of this {@link TabItem}. Based on {@link TabItem#calculateWidth()) function.
-	 * 
-	 * @param item
-	 *            the instance of {@link TabItem}.
-	 * @param gc
-	 *            the GC of parent TabFolder.
-	 * @return the empiric size of this {@link TabItem}.
-	 */
+  /**
+   * Returns the empiric size of this {@link TabItem}. Based on {@link TabItem#calculateWidth())
+   * function.
+   *
+   * @param item
+   *          the instance of {@link TabItem}.
+   * @param gc
+   *          the GC of parent TabFolder.
+   * @return the empiric size of this {@link TabItem}.
+   */
   private Point calculateItemSize(TabItem item, GC gc) {
     int width = 0;
     int imageHeight = 0;
