@@ -18,6 +18,7 @@ sdist/
 var/
 *.egg-info/
 .installed.cfg
+.polyglot.build.properties
 *.egg
 
 # PyInstaller

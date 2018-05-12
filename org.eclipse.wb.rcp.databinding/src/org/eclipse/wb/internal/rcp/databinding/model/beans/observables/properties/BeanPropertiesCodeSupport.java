@@ -40,8 +40,8 @@ import java.text.MessageFormat;
 import java.util.List;
 
 /**
- * Abstract model for {@link org.eclipse.core.databinding.property.IProperty} based objects.
- * 
+ * Abstract model for org.eclipse.core.databinding.property.IProperty based objects.
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */
@@ -63,9 +63,8 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
     m_observeSignature0 = parseClass + ".observe(java.lang.Object)";
     m_observeSignature1 =
         parseClass + ".observe(org.eclipse.core.databinding.observable.Realm,java.lang.Object)";
-    m_observeDetailSignature =
-        parseClass
-            + ".observeDetail(org.eclipse.core.databinding.observable.value.IObservableValue)";
+    m_observeDetailSignature = parseClass
+        + ".observeDetail(org.eclipse.core.databinding.observable.value.IObservableValue)";
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -141,7 +140,8 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
         BeanBindableInfo bindableInfo = container.getBindableObject(arguments[0]);
         PropertyBindableInfo detailProperty = null;
         for (PropertyBindableInfo property : bindableInfo.getProperties()) {
-          if (DirectObservableInfo.DETAIL_PROPERTY_NAME.equals(property.getPresentation().getText())) {
+          if (DirectObservableInfo.DETAIL_PROPERTY_NAME.equals(
+              property.getPresentation().getText())) {
             detailProperty = property;
             break;
           }
@@ -171,7 +171,8 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
   /**
    * @return {@link ObservableInfo} detail model for given master {@link ObservableInfo}.
    */
-  protected ObservableInfo createDetailObservable(ObservableInfo masterObservable) throws Exception {
+  protected ObservableInfo createDetailObservable(ObservableInfo masterObservable)
+      throws Exception {
     throw new UnsupportedOperationException();
   }
 
@@ -179,18 +180,21 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
       throws Exception {
     // prepare property
     BeanPropertyBindableInfo bindableProperty =
-        (BeanPropertyBindableInfo) bindableObject.resolvePropertyReference(m_parserPropertyReference);
+        (BeanPropertyBindableInfo) bindableObject.resolvePropertyReference(
+            m_parserPropertyReference);
     if (bindableProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeanPropertiesCodeSupport_propertyNotFound,
-          m_parserPropertyReference,
-          bindableObject.getReference()), new Throwable());
-      bindableProperty =
-          new BeanPropertyBindableInfo(bindableObject.getBeanSupport(),
-              null,
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeanPropertiesCodeSupport_propertyNotFound,
               m_parserPropertyReference,
-              null,
-              m_parserPropertyReference);
+              bindableObject.getReference()),
+          new Throwable());
+      bindableProperty = new BeanPropertyBindableInfo(bindableObject.getBeanSupport(),
+          null,
+          m_parserPropertyReference,
+          null,
+          m_parserPropertyReference);
     }
     //
     ObservableInfo observable = createObservable(bindableObject, bindableProperty);
