@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.xwt.feature"
       label="%featureName"
-      version="1.9.0.qualifier"
+      version="1.9.1.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.xwt"
       image="eclipse_update_120.jpg">

@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.wb.core.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.core.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.core.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.core.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.core.java.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.core.java.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.core.java.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.core.java.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.core.ui.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.core.ui.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.core.ui.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.core.ui.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.core.xml.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.core.xml.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.core.xml.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.core.xml.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.doc.user.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.doc.user.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.doc.user.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.doc.user.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.layout.group.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.layout.group.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.layout.group.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.layout.group.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.rcp.SWT_AWT_support_1.9.0.qualifier.jar" id="org.eclipse.wb.rcp.SWT_AWT_support" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.rcp.SWT_AWT_support_1.9.1.qualifier.jar" id="org.eclipse.wb.rcp.SWT_AWT_support" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.rcp.doc.user.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.rcp.doc.user.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.rcp.doc.user.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.rcp.doc.user.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.rcp.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.rcp.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.rcp.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.rcp.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.swing.doc.user.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.swing.doc.user.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.swing.doc.user.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.swing.doc.user.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.swing.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.swing.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.swing.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.swing.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.swt.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.swt.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.swt.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.swt.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.xwt.feature_1.9.0.qualifier.jar" id="org.eclipse.wb.xwt.feature" version="1.9.0.qualifier">
+   <feature url="features/org.eclipse.wb.xwt.feature_1.9.1.qualifier.jar" id="org.eclipse.wb.xwt.feature" version="1.9.1.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
    <category-def name="org.eclipse.wb" label="WindowBuilder"/>
