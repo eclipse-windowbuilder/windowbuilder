@@ -33,6 +33,7 @@ import junit.framework.TestSuite;
 public class UtilTests extends DesignerSuiteTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.core.utils");
+    suite.addTestSuite(SystemUtilTest.class);
     suite.addTestSuite(AssertTest.class);
     suite.addTestSuite(Base64UtilsTest.class);
     suite.addTestSuite(XmlWriterTest.class);
