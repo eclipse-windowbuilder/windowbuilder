@@ -56,36 +56,35 @@ import java.util.Set;
 
 public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   static {
-    String libName;
+    boolean isGtk3;
     try {
-      libName = isGtk3() ? "wbp3" : "wbp";
+      isGtk3 = isGtk3();
     } catch (Throwable e) {
-      libName = "wbp";
+      Activator.logError("Error trying to find GTK version, GTK3 will be assumed", e);
+      isGtk3 = true;
     }
+    String libName = isGtk3 ? "wbp3" : "wbp";
     System.loadLibrary(libName);
   }
 
   private static boolean isGtk3() throws Exception {
-    Class<?> OSClass = Class.forName("org.eclipse.swt.internal.gtk.OS");
-    boolean isGtk3 = ReflectionUtils.getFieldBoolean(OSClass, "GTK3");
+    Class<?> GTKClass = Class.forName("org.eclipse.swt.internal.gtk.GTK");
+    boolean isGtk3 = ReflectionUtils.getFieldBoolean(GTKClass, "GTK3");
     return isGtk3;
   }
 
   // constants
-  private static final Color TITLE_BORDER_COLOR_DARKEST = DrawUtils.getShiftedColor(
-      IColorConstants.titleBackground,
-      -24);
-  private static final Color TITLE_BORDER_COLOR_DARKER = DrawUtils.getShiftedColor(
-      IColorConstants.titleBackground,
-      -16);
+  private static final Color TITLE_BORDER_COLOR_DARKEST =
+      DrawUtils.getShiftedColor(IColorConstants.titleBackground, -24);
+  private static final Color TITLE_BORDER_COLOR_DARKER =
+      DrawUtils.getShiftedColor(IColorConstants.titleBackground, -16);
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected static final OSSupport INSTANCE = EnvironmentUtils.IS_64BIT_OS
-      ? new Impl64()
-      : new Impl32();
+  protected static final OSSupport INSTANCE =
+      EnvironmentUtils.IS_64BIT_OS ? new Impl64() : new Impl32();
   private String m_oldShellText;
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -610,7 +609,8 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
    *          if <code>true</code> then toggling occurred without paying attention to current state.
    * @return <code>true</code> if toggling occurred.
    */
-  private static native <H extends Number> boolean _toggle_above(H windowHandle, boolean forceToggle);
+  private static native <H extends Number> boolean _toggle_above(H windowHandle,
+      boolean forceToggle);
 
   /**
    * Prepares the preview window to screen shot.

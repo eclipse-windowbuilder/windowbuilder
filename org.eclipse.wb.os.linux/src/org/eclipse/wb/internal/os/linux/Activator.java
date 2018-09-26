@@ -14,7 +14,9 @@ import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -59,6 +61,10 @@ public class Activator extends AbstractUIPlugin {
    */
   public static Activator getDefault() {
     return m_plugin;
+  }
+
+  public static void logError(String text, Throwable error) {
+    getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, text, error));
   }
 
   ////////////////////////////////////////////////////////////////////////////
