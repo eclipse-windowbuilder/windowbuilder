@@ -174,16 +174,14 @@ public abstract class TemplateDesignWizardPage extends AbstractDesignWizardPage 
   }
 
   protected static String performFieldPrefixesSubstitutions(String code) {
-    code =
-        StringUtils.replace(
-            code,
-            "%field-prefix%",
-            JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES));
-    code =
-        StringUtils.replace(
-            code,
-            "%static-field-prefix%",
-            JavaCore.getOption(JavaCore.CODEASSIST_STATIC_FIELD_PREFIXES));
+    code = StringUtils.replace(
+        code,
+        "%field-prefix%",
+        JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES));
+    code = StringUtils.replace(
+        code,
+        "%static-field-prefix%",
+        JavaCore.getOption(JavaCore.CODEASSIST_STATIC_FIELD_PREFIXES));
     return code;
   }
 
@@ -220,10 +218,9 @@ public abstract class TemplateDesignWizardPage extends AbstractDesignWizardPage 
 
   public final String getLayoutCode(String codePrefix, ImportsManager imports) {
     ToolkitDescription toolkit = getToolkitDescription();
-    LayoutDescription layoutDescription =
-        LayoutDescriptionHelper.get(
-            toolkit,
-            toolkit.getPreferences().getString(IPreferenceConstants.P_LAYOUT_DEFAULT));
+    LayoutDescription layoutDescription = LayoutDescriptionHelper.get(
+        toolkit,
+        toolkit.getPreferences().getString(IPreferenceConstants.P_LAYOUT_DEFAULT));
     if (layoutDescription != null) {
       imports.addImport(layoutDescription.getLayoutClassName());
       return codePrefix + "setLayout(" + layoutDescription.getSourceSmart() + ");";
