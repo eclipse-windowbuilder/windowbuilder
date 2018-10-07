@@ -8,6 +8,7 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *    OPCoach, Olivier Prouvost - Bug 526091 - Display design upside down with MacosX High Sierra
+ *    OPCoach, Olivier Prouvost - Bug 539850 - Display design upside down with MacosX Mojave
  *******************************************************************************/
 package org.eclipse.wb.internal.os.macosx;
 
@@ -59,12 +60,14 @@ public abstract class OSSupportMacOSX extends OSSupport {
   ////////////////////////////////////////////////////////////////////////////
   // Bug  526091 : must reverse image on Mac os X High Sierra (10.13.x)
   //      getSystemProperties(OS_NAME)   returns  Mac OS X
-  //      getSystemProperties(OS_VERSION) returns v.10.13.1
+  //      getSystemProperties(OS_VERSION) returns v.10.13.1, v10.14 ...
   ////////////////////////////////////////////////////////////////////////////
   private static final String OS_VERSION = "os.version"; //$NON-NLS-1$
-  private static final String HIGH_SIERRA = "10.13";//$NON-NLS-1$
-  private static boolean isHighSierra =
-      System.getProperties().get(OS_VERSION).toString().contains(HIGH_SIERRA);
+  private static final String HIGH_SIERRA = "10.13";
+  private static final String MOJAVE = "10.14";
+  private static final String version = System.getProperties().get(OS_VERSION).toString();
+  private static final boolean isHighSierraOrMore =
+      version.contains(HIGH_SIERRA) || version.contains(MOJAVE);
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -103,7 +106,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
     try {
       //			reverseDrawingOrder(control);
       Image sourceShot = makeShot(control);
-      if (isHighSierra) {
+      if (isHighSierraOrMore) {
         Image reverseShot = reverseImage(sourceShot);
         sourceShot.dispose();
         control.setData(WBP_IMAGE, reverseShot);
