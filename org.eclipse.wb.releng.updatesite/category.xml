@@ -9,7 +9,9 @@
    <feature url="features/org.eclipse.wb.core.ui.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.core.ui.feature" version="1.9.2.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.core.xml.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.core.xml.feature" version="1.9.2.qualifier"/>
+   <feature url="features/org.eclipse.wb.core.xml.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.core.xml.feature" version="1.9.2.qualifier">
+      <category name="org.eclipse.wb.xwt"/>
+   </feature>
    <feature url="features/org.eclipse.wb.doc.user.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.doc.user.feature" version="1.9.2.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
@@ -34,10 +36,17 @@
    <feature url="features/org.eclipse.wb.swt.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.swt.feature" version="1.9.2.qualifier">
       <category name="org.eclipse.wb"/>
    </feature>
-   <feature url="features/org.eclipse.wb.xwt.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.xwt.feature" version="1.9.2.qualifier"/>
+   <feature url="features/org.eclipse.wb.xwt.feature_1.9.2.qualifier.jar" id="org.eclipse.wb.xwt.feature" version="1.9.2.qualifier">
+      <category name="org.eclipse.wb.xwt"/>
+   </feature>
    <category-def name="org.eclipse.wb" label="WindowBuilder">
       <description>
          This is all of WindowBuilder. You can safely install all features of this section. If you are looking for XWT support, uncheck &quot;Group by category&quot;.
+      </description>
+   </category-def>
+   <category-def name="org.eclipse.wb.xwt" label="WindowBuilder XWT Support.">
+      <description>
+         Support for XML Widget Toolkit. Visit eclipse.org/xwt for more information.
       </description>
    </category-def>
 </site>
