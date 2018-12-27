@@ -11,7 +11,7 @@
 
     <groupId>org.eclipse.wb</groupId>
     <artifactId>org.eclipse.wb.os.linux</artifactId>
-    <version>1.9.1-SNAPSHOT</version>
+    <version>1.9.2-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
 
     <build>
