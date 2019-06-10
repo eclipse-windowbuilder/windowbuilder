@@ -54,7 +54,7 @@ import java.util.Set;
 
 /**
  * Main {@link PreferencePage} for RCP FormLayout Support.
- * 
+ *
  * @author mitin_aa
  * @coverage rcp.preferences.ui
  */
@@ -64,10 +64,10 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
       IPreferenceConstants {
   private static Image m_addImage = AbstractUIPlugin.imageDescriptorFromPlugin(
       "org.eclipse.ui",
-      "/icons/full/obj16/add_obj.gif").createImage();
+      "/icons/full/obj16/add_obj.png").createImage();
   private static Image m_removeImage = AbstractUIPlugin.imageDescriptorFromPlugin(
       "org.eclipse.ui",
-      "/icons/full/obj16/delete_obj.gif").createImage();
+      "/icons/full/obj16/delete_obj.png").createImage();
   private Composite m_prefsAutomatic;
   private Composite m_prefsClassic;
   private StackLayout m_stackLayout;
@@ -95,11 +95,10 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
   protected Control createPageContents(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(container);
-    m_modeEditor =
-        createComboFieldEditor(
-            PREF_FORMLAYOUT_MODE,
-            PreferencesMessages.FormLayoutPreferencePage_editingMode,
-            container);
+    m_modeEditor = createComboFieldEditor(
+        PREF_FORMLAYOUT_MODE,
+        PreferencesMessages.FormLayoutPreferencePage_editingMode,
+        container);
     {
       m_details = new Composite(container, SWT.NONE);
       GridDataFactory.create(m_details).grab().fill();
@@ -114,22 +113,20 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
           GridDataFactory.create(snapPoints).grab().fill();
           snapPoints.setText(PreferencesMessages.FormLayoutPreferencePage_snapPoints);
           {
-            m_verticalPercentsGroup =
-                new PercentsGroup(snapPoints,
-                    PreferencesMessages.FormLayoutPreferencePage_verticalPercents,
-                    PREF_V_WINDOW_MARGIN,
-                    PREF_V_PERCENT_OFFSET,
-                    PREF_V_WIDGET_OFFSET,
-                    PREF_V_PERCENTS);
+            m_verticalPercentsGroup = new PercentsGroup(snapPoints,
+                PreferencesMessages.FormLayoutPreferencePage_verticalPercents,
+                PREF_V_WINDOW_MARGIN,
+                PREF_V_PERCENT_OFFSET,
+                PREF_V_WIDGET_OFFSET,
+                PREF_V_PERCENTS);
           }
           {
-            m_horizontalPercentsGroup =
-                new PercentsGroup(snapPoints,
-                    PreferencesMessages.FormLayoutPreferencePage_horizontalPercents,
-                    PREF_H_WINDOW_MARGIN,
-                    PREF_H_PERCENT_OFFSET,
-                    PREF_H_WIDGET_OFFSET,
-                    PREF_H_PERCENTS);
+            m_horizontalPercentsGroup = new PercentsGroup(snapPoints,
+                PreferencesMessages.FormLayoutPreferencePage_horizontalPercents,
+                PREF_H_WINDOW_MARGIN,
+                PREF_H_PERCENT_OFFSET,
+                PREF_H_WIDGET_OFFSET,
+                PREF_H_PERCENTS);
           }
         }
       }
@@ -142,40 +139,36 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
           GridDataFactory.create(snapPoints).grab().fill();
           snapPoints.setText(PreferencesMessages.FormLayoutPreferencePage_snapPoints);
           {
-            m_verticalPercentsGroup =
-                new PercentsGroup(snapPoints,
-                    PreferencesMessages.FormLayoutPreferencePage_verticalPercents,
-                    PREF_V_WINDOW_MARGIN,
-                    PREF_V_PERCENT_OFFSET,
-                    PREF_V_WIDGET_OFFSET,
-                    PREF_V_PERCENTS);
+            m_verticalPercentsGroup = new PercentsGroup(snapPoints,
+                PreferencesMessages.FormLayoutPreferencePage_verticalPercents,
+                PREF_V_WINDOW_MARGIN,
+                PREF_V_PERCENT_OFFSET,
+                PREF_V_WIDGET_OFFSET,
+                PREF_V_PERCENTS);
           }
           {
-            m_horizontalPercentsGroup =
-                new PercentsGroup(snapPoints,
-                    PreferencesMessages.FormLayoutPreferencePage_horizontalPercents,
-                    PREF_H_WINDOW_MARGIN,
-                    PREF_H_PERCENT_OFFSET,
-                    PREF_H_WIDGET_OFFSET,
-                    PREF_H_PERCENTS);
+            m_horizontalPercentsGroup = new PercentsGroup(snapPoints,
+                PreferencesMessages.FormLayoutPreferencePage_horizontalPercents,
+                PREF_H_WINDOW_MARGIN,
+                PREF_H_PERCENT_OFFSET,
+                PREF_H_WIDGET_OFFSET,
+                PREF_H_PERCENTS);
           }
         }
         {
           Composite composite = new Composite(m_prefsClassic, SWT.NONE);
           GridDataFactory.create(composite).grabH().fillH();
-          IntegerFieldEditor sensitivity =
-              new IntegerFieldEditor(PREF_SNAP_SENS,
-                  PreferencesMessages.FormLayoutPreferencePage_spanSensetivity,
-                  composite);
+          IntegerFieldEditor sensitivity = new IntegerFieldEditor(PREF_SNAP_SENS,
+              PreferencesMessages.FormLayoutPreferencePage_spanSensetivity,
+              composite);
           addField(sensitivity);
         }
         {
           Composite composite = new Composite(m_prefsClassic, SWT.NONE);
           GridDataFactory.create(composite).grabH().fillH();
-          BooleanFieldEditor keepAttachments =
-              new BooleanFieldEditor(PREF_KEEP_ATTACHMENTS_STYLE,
-                  PreferencesMessages.FormLayoutPreferencePage_keepAttachmentStyle,
-                  composite);
+          BooleanFieldEditor keepAttachments = new BooleanFieldEditor(PREF_KEEP_ATTACHMENTS_STYLE,
+              PreferencesMessages.FormLayoutPreferencePage_keepAttachmentStyle,
+              composite);
           addField(keepAttachments);
         }
       }
@@ -228,17 +221,16 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
       final String text,
       final Composite parent) {
     final Composite composite = new Composite(parent, SWT.NONE);
-    ComboFieldEditor editor =
-        new ComboFieldEditor(key,
-            text,
-            new String[][]{
-                {
-                    PreferencesMessages.FormLayoutPreferencePage_modeAutoPlacement,
-                    VAL_FORMLAYOUT_MODE_AUTO},
-                {
-                    PreferencesMessages.FormLayoutPreferencePage_modeClassic,
-                    VAL_FORMLAYOUT_MODE_CLASSIC}},
-            composite);
+    ComboFieldEditor editor = new ComboFieldEditor(key,
+        text,
+        new String[][]{
+            {
+                PreferencesMessages.FormLayoutPreferencePage_modeAutoPlacement,
+                VAL_FORMLAYOUT_MODE_AUTO},
+            {
+                PreferencesMessages.FormLayoutPreferencePage_modeClassic,
+                VAL_FORMLAYOUT_MODE_CLASSIC}},
+        composite);
     addField(editor);
     return editor;
   }
@@ -264,15 +256,18 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
       GridDataFactory.create(this).grab().fill();
       setText(title);
       {
-        addField(new IntegerFieldEditor(keyMargin,
-            PreferencesMessages.FormLayoutPreferencePage_offsetWindow,
-            this));
-        addField(new IntegerFieldEditor(keyPercent,
-            PreferencesMessages.FormLayoutPreferencePage_offsetPercent,
-            this));
-        addField(new IntegerFieldEditor(keyWidget,
-            PreferencesMessages.FormLayoutPreferencePage_offsetWidget,
-            this));
+        addField(
+            new IntegerFieldEditor(keyMargin,
+                PreferencesMessages.FormLayoutPreferencePage_offsetWindow,
+                this));
+        addField(
+            new IntegerFieldEditor(keyPercent,
+                PreferencesMessages.FormLayoutPreferencePage_offsetPercent,
+                this));
+        addField(
+            new IntegerFieldEditor(keyWidget,
+                PreferencesMessages.FormLayoutPreferencePage_offsetWidget,
+                this));
         {
           Group percentsGroup = new Group(this, SWT.NONE);
           GridLayoutFactory.create(percentsGroup).columns(2);
@@ -303,24 +298,23 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
             itemAdd.addSelectionListener(new SelectionAdapter() {
               @Override
               public void widgetSelected(SelectionEvent e) {
-                InputDialog dialog =
-                    new InputDialog(getShell(),
-                        PreferencesMessages.FormLayoutPreferencePage_newPercentTitle,
-                        PreferencesMessages.FormLayoutPreferencePage_newPercentMessage,
-                        null,
-                        new IInputValidator() {
-                          public String isValid(String newText) {
-                            try {
-                              int value = Integer.parseInt(newText);
-                              if (value >= 0 && value <= 100) {
-                                return null;
-                              }
-                            } catch (Throwable e) {
-                              // ignore
-                            }
-                            return PreferencesMessages.FormLayoutPreferencePage_newPercentHint;
+                InputDialog dialog = new InputDialog(getShell(),
+                    PreferencesMessages.FormLayoutPreferencePage_newPercentTitle,
+                    PreferencesMessages.FormLayoutPreferencePage_newPercentMessage,
+                    null,
+                    new IInputValidator() {
+                      public String isValid(String newText) {
+                        try {
+                          int value = Integer.parseInt(newText);
+                          if (value >= 0 && value <= 100) {
+                            return null;
                           }
-                        });
+                        } catch (Throwable e) {
+                          // ignore
+                        }
+                        return PreferencesMessages.FormLayoutPreferencePage_newPercentHint;
+                      }
+                    });
                 if (dialog.open() == Window.OK) {
                   m_percentsSet.add(Integer.parseInt(dialog.getValue()));
                   m_listViewer.refresh();
