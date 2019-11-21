@@ -17,6 +17,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
+import org.eclipse.wb.internal.core.model.variable.NamesManager;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -99,6 +100,9 @@ public class JavaInfoMemento implements Serializable {
   private final String m_componentClassName;
   private final IClipboardCreationSupport m_creationSupport;
   private final List<ClipboardCommand> m_commands = Lists.newArrayList();
+  
+  //the variable.field name must be kept, it's not contained in javaInfo created during paste. 
+  private String m_variableName;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -110,6 +114,7 @@ public class JavaInfoMemento implements Serializable {
     // creation
     {
       m_creationSupport = javaInfo.getCreationSupport().getClipboard();
+      m_variableName = getVariableName(javaInfo);
       Assert.isNotNull(m_creationSupport, "No clipboard CreationSupport for %s", javaInfo);
       cleanUpAnonymous(m_creationSupport);
     }
@@ -197,6 +202,7 @@ public class JavaInfoMemento implements Serializable {
       // create JavaInfo
       m_javaInfo = JavaInfoUtils.createJavaInfo(editor, componentClass, creationSupport);
       m_javaInfo.putArbitraryValue(KEY_MEMENTO, this);
+      JavaInfoUtils.setParameter(m_javaInfo, NamesManager.NAME_PARAMETER, m_variableName);
     }
     return m_javaInfo;
   }
@@ -226,4 +232,18 @@ public class JavaInfoMemento implements Serializable {
       command.execute(m_javaInfo);
     }
   }
+  
+  /**
+   * Get the variable field name of the JavaInfo.
+   *
+   * @param javaInfo The JavaInfo will be queried.
+   * 
+   * @return The variable field name.
+   */
+    private String getVariableName(JavaInfo javaInfo) {
+        if (javaInfo != null) {
+            return javaInfo.getVariableSupport().getName();
+        }
+        return null;
+    }
 }
