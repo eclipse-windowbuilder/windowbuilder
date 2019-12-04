@@ -15,6 +15,7 @@ import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
+import org.eclipse.jdt.core.dom.IVariableBinding;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -231,6 +232,10 @@ public final class DesignerMethodBinding implements IMethodBinding {
   }
 
   public IBinding getDeclaringMember() {
+    return null;
+  }
+
+  public IVariableBinding[] getSyntheticOuterLocals() {
     return null;
   }
 }
