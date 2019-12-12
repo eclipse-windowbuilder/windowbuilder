@@ -42,6 +42,6 @@ Export-Package: org.eclipse.wb.internal.rcp.databinding,
  org.eclipse.wb.internal.rcp.databinding.ui.providers,
  org.eclipse.wb.internal.rcp.databinding.wizards.autobindings
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Bundle-Localization: plugin

@@ -28,7 +28,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface.databinding,
  org.eclipse.core.filesystem
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.wb.internal.xwt,
  org.eclipse.wb.internal.xwt.editor;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.xwt.model.forms,

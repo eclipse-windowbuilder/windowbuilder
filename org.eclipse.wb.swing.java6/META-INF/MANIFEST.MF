@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.wb.core,
  org.eclipse.ui.workbench,
  org.eclipse.core.runtime,
  org.eclipse.jface
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.eclipse.wb.internal.swing.java6.Activator
 Bundle-ActivationPolicy: lazy
 

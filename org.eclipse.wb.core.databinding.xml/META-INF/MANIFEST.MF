@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.core.xml,
  org.eclipse.wb.core.databinding
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.core.databinding.xml.model,
  org.eclipse.wb.internal.core.databinding.xml.ui

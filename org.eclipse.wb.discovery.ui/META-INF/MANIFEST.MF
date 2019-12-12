@@ -17,5 +17,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.equinox.p2.repository,
  org.eclipse.equinox.p2.engine
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.wb.internal.discovery.ui
