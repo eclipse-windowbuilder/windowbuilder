@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2020 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *    Google, Inc. - initial API and implementation
  *    OPCoach, Olivier Prouvost - Bug 526091 - Display design upside down with MacosX High Sierra
  *    OPCoach, Olivier Prouvost - Bug 539850 - Display design upside down with MacosX Mojave
+ *    OPCoach, Olivier Prouvost - Bug 559596 - Display design upside down with MacosX Catalina and following
  *******************************************************************************/
 package org.eclipse.wb.internal.os.macosx;
 
@@ -42,46 +43,32 @@ import java.util.List;
  */
 public abstract class OSSupportMacOSX extends OSSupport {
   // constants
+  private static final String FLIP_FLAG = "windowbuilder.osx.flip";//$NON-NLS-1$
   protected static final int DEFAULT_MENU_ITEM_OFFSET_X = 6;
   protected static final int DEFAULT_MENU_ITEM_OFFSET_Y = 5;
   protected static final int MENU_ITEM_SEPARATOR_HEIGHT = 11;
   private static final int TAB_ITEM_OFFSET_Y = 8;
   private static final int TAB_ITEM_EXTRA_WIDTH = 25;
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Instance
-  //
-  ////////////////////////////////////////////////////////////////////////////
   protected static final OSSupport INSTANCE = EnvironmentUtils.IS_MAC_COCOA
       ? EnvironmentUtils.IS_64BIT_OS
           ? new OSSupportMacOSXCocoa.Cocoa64()
           : new OSSupportMacOSXCocoa.Cocoa32()
       : new OSSupportMacOSXCarbon();
-  ////////////////////////////////////////////////////////////////////////////
-  // Bug  526091 : must reverse image on Mac os X High Sierra (10.13.x)
-  //      getSystemProperties(OS_NAME)   returns  Mac OS X
-  //      getSystemProperties(OS_VERSION) returns v.10.13.1, v10.14 ...
-  ////////////////////////////////////////////////////////////////////////////
-  private static final String OS_VERSION = "os.version"; //$NON-NLS-1$
-  private static final String HIGH_SIERRA = "10.13";
-  private static final String MOJAVE = "10.14";
-  private static final String version = System.getProperties().get(OS_VERSION).toString();
-  private static final boolean isHighSierraOrMore =
-      version.contains(HIGH_SIERRA) || version.contains(MOJAVE);
+  private static boolean mustFlipImage; // Initialized in static block below
+  static {
+    String osVersion = System.getProperties().get("os.version").toString();
+    Object flip_flag_is_set = System.getProperties().get(FLIP_FLAG);
+    // OS_VERSION IS composed of : version.mod.patch
+    int version = Integer.parseInt(osVersion.split("\\.")[0]);//$NON-NLS-1$
+    int mod = Integer.parseInt(osVersion.split("\\.")[1]);//$NON-NLS-1$
+    boolean isHighSierraOrMore = version > 10 || version == 10 && mod >= 13;
+    // Flip image for HighSierra, Mojave, Catalina and next OS X versions
+    mustFlipImage = flip_flag_is_set != null ? Boolean.getBoolean(FLIP_FLAG) : isHighSierraOrMore;
+  }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
   protected OSSupportMacOSX() {
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Screen shot
-  //
-  ////////////////////////////////////////////////////////////////////////////
   @Override
   public void beginShot(Object controlObject) {
     // disabling shell redraw prevents painting events
@@ -106,7 +93,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
     try {
       //			reverseDrawingOrder(control);
       Image sourceShot = makeShot(control);
-      if (isHighSierraOrMore) {
+      if (mustFlipImage) {
         Image reverseShot = reverseImage(sourceShot);
         sourceShot.dispose();
         control.setData(WBP_IMAGE, reverseShot);
@@ -132,10 +119,10 @@ public abstract class OSSupportMacOSX extends OSSupport {
     return result;
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  // The flip and rotate method have been copied from the Snippet139.
-  // They are needed to fix the bug #526091
-  ////////////////////////////////////////////////////////////////////////////
+  /*
+   The following 'flip' and 'rotate' methods have been copied from the Snippet139.
+   They are needed to fix the bug #526091, 539850 and 559596
+  */
   static ImageData rotate(ImageData srcData, int direction) {
     int bytesPerPixel = srcData.bytesPerLine / srcData.width;
     int destBytesPerLine =
@@ -209,11 +196,6 @@ public abstract class OSSupportMacOSX extends OSSupport {
         newData);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Menu
-  //
-  ////////////////////////////////////////////////////////////////////////////
   /**
    * @return <code>true</code> if the given menu item is the separator item.
    */
@@ -298,11 +280,6 @@ public abstract class OSSupportMacOSX extends OSSupport {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Tab Item
-  //
-  ////////////////////////////////////////////////////////////////////////////
   @Override
   public Rectangle getTabItemBounds(Object item) {
     TabItem tabItem = (TabItem) item;
@@ -359,11 +336,6 @@ public abstract class OSSupportMacOSX extends OSSupport {
     return new Point(width + TAB_ITEM_EXTRA_WIDTH, Math.max(imageHeight, textHeight));
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Misc
-  //
-  ////////////////////////////////////////////////////////////////////////////
   @Override
   public boolean isPlusMinusTreeClick(Tree tree, int x, int y) {
     return false;
