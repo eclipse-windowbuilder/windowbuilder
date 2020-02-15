@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.rcp.SWT_AWT_support"
       label="%featureName"
-      version="1.9.3.qualifier"
+      version="1.9.4.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.rcp.SWT_AWT"
       image="eclipse_update_120.jpg">
