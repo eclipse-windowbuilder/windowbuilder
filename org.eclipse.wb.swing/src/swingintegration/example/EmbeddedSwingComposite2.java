@@ -7,6 +7,7 @@
  *******************************************************************************/
 package swingintegration.example;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 
 import org.eclipse.swt.SWT;
@@ -432,17 +433,20 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * It is marked "fixed", but still does not work.
    */
   public static boolean canUseAwt() {
-    Shell shell = new Shell();
-    try {
+    if (EnvironmentUtils.IS_MAC) {
+      Shell shell = new Shell();
       try {
-        Frame frame = SWT_AWT.new_Frame(shell);
-        frame.dispose();
-        return true;
-      } catch (Throwable e) {
-        return false;
+        try {
+          Frame frame = SWT_AWT.new_Frame(shell);
+          frame.dispose();
+          return true;
+        } catch (Throwable e) {
+          return false;
+        }
+      } finally {
+        shell.dispose();
       }
-    } finally {
-      shell.dispose();
     }
+    return true;
   }
 }
