@@ -2,11 +2,12 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swing.utils.SwingImageUtils;
 
 import org.eclipse.swt.SWT;
@@ -48,7 +49,7 @@ import javax.swing.RootPaneContainer;
  * <p>
  * This is an abstract that is normally used by extending it and implementing the
  * {@link #createSwingComponent()} method. For example,
- * 
+ *
  * <pre>
  *        embeddedComposite = new EmbeddedSwingComposite(parent, SWT.NONE) {
  *            protected JComponent createSwingComponent() {
@@ -57,10 +58,10 @@ import javax.swing.RootPaneContainer;
  *                scrollPane.setViewportView(table);
  *                return scrollPane;
  *            }
- *        }; 
+ *        };
  *        embeddedComposite.populate();
  * </pre>
- * 
+ *
  * <p>
  * The Swing component is created inside a standard Swing containment hierarchy, rooted in a
  * {@link javax.swing.RootPaneContainer}. The root pane container is placed inside an AWT frame, as
@@ -87,7 +88,7 @@ import javax.swing.RootPaneContainer;
  * <li>{@link org.eclipse.swt.widgets.Display#asyncExec(Runnable)}
  * <li>{@link org.eclipse.swt.widgets.Display#syncExec(Runnable)}
  * </ul>
- * 
+ *
  * Of course, as in single-toolkit environments, long-running tasks should be offloaded from either
  * UI thread to a background thread. The Eclipse jobs API can be used for this purpose.
  */
@@ -140,12 +141,12 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * <p>
    * The styles SWT.EMBEDDED and SWT.NO_BACKGROUND will be added to the specified style. Usually, no
    * other style bits are needed.
-   * 
+   *
    * @param parent
    *          a widget which will be the parent of the new instance (cannot be null)
    * @param style
    *          the style of widget to construct
-   * 
+   *
    * @exception IllegalArgumentException
    *              <ul>
    *              <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
@@ -154,7 +155,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    *              <ul>
    *              <li>ERROR_THREAD_INVALID_ACCESS - if not called from the SWT event thread
    *              </ul>
-   * 
+   *
    * @see Widget#getStyle
    */
   public EmbeddedSwingComposite2(Composite parent, int style) {
@@ -183,11 +184,11 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * <p>
    * This method can be called multiple times for a single instance. If an embedded frame exists
    * from a previous call, it is disposed.
-   * 
+   *
    * @exception SWTException
    *              <ul>
-   *              <li>ERROR_WIDGET_DISPOSED - if the receiver has been disposed</li> <li>
-   *              ERROR_THREAD_INVALID_ACCESS - if not called from the SWT event thread
+   *              <li>ERROR_WIDGET_DISPOSED - if the receiver has been disposed</li>
+   *              <li>ERROR_THREAD_INVALID_ACCESS - if not called from the SWT event thread
    *              </ul>
    */
   public void populate() {
@@ -226,7 +227,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * Implement this method to provide the Swing component that will be shown inside this composite.
    * The returned component will be added to the Swing content pane. At least one component must be
    * created by this method; null is not a valid return value.
-   * 
+   *
    * @return a non-null Swing component
    */
   protected abstract JComponent createSwingComponent();
@@ -242,7 +243,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * heavyweight (AWT) component in the frame's containment hierarchy; otherwise, event processing
    * will not work correctly. See http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4982522 for
    * more information.
-   * 
+   *
    * @param frame
    *          the frame to which the root pane container is added
    * @return a non-null Swing component
@@ -251,17 +252,17 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
     assert EventQueue.isDispatchThread(); // On AWT event thread
     assert frame != null;
     // It is important to set up the proper top level components in the frame:
-    // 1) For Swing to work properly, Sun documents that there must be an implementor of 
-    // javax.swing.RootPaneContainer at the top of the component hierarchy. 
-    // 2) For proper event handling there must be a heavyweight 
-    // an AWT frame must contain a heavyweight component (see 
+    // 1) For Swing to work properly, Sun documents that there must be an implementor of
+    // javax.swing.RootPaneContainer at the top of the component hierarchy.
+    // 2) For proper event handling there must be a heavyweight
+    // an AWT frame must contain a heavyweight component (see
     // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4982522)
-    // 3) The Swing implementation further narrows the options by expecting that the 
+    // 3) The Swing implementation further narrows the options by expecting that the
     // top of the hierarchy be a JFrame, JDialog, JWindow, or JApplet. See javax.swing.PopupFactory.
-    // All this drives the choice of JApplet for the top level Swing component. It is the 
-    // only single component that satisfies all the above. This does not imply that 
+    // All this drives the choice of JApplet for the top level Swing component. It is the
+    // only single component that satisfies all the above. This does not imply that
     // we have a true applet; in particular, there is no notion of an applet lifecycle in this
-    // context. 
+    // context.
     //
     // We need to intercept call of "getInputContext" because it make native call
     // and causes dead-lock in SWT.
@@ -275,7 +276,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
     };
     // In JRE 1.4, the JApplet makes itself a focus cycle root. This
     // interferes with the focus handling installed on the parent frame, so
-    // change it back to a non-root here. 
+    // change it back to a non-root here.
     // TODO: consider moving the focus policy from the Frame down to the JApplet
     applet.setFocusCycleRoot(false);
     frame.add(applet);
@@ -292,7 +293,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * class will automatically propogate font changes to the embedded Swing components through
    * Swing's Look and Feel support. However, if additional special processing is necessary, it can
    * be done inside this method.
-   * 
+   *
    * @param newFont
    *          New AWT font
    */
@@ -302,11 +303,11 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
   /**
    * Returns the embedded AWT frame. The returned frame is the root of the AWT containment hierarchy
    * for the embedded Swing component. This method can be called from any thread.
-   * 
+   *
    * @return the embedded frame
    */
   public Frame getFrame() {
-    // Intentionally leaving out checkWidget() call. This may need to be called from within user's 
+    // Intentionally leaving out checkWidget() call. This may need to be called from within user's
     // createSwingComponent() method. Accessing from a non-SWT thread is OK, but we still check
     // for disposal
     if (getDisplay() == null || isDisposed()) {
@@ -317,15 +318,15 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 
   private void createFrame() {
     assert Display.getCurrent() != null; // On SWT event thread
-    // Make sure Awt environment is initialized. 
+    // Make sure Awt environment is initialized.
     //AwtEnvironment.getInstance(getDisplay());
     if (awtContext != null) {
       final Frame oldFrame = awtContext.getFrame();
       // Schedule disposal of old frame on AWT thread so that there are no problems with
       // already-scheduled operations that have not completed.
-      // Note: the implementation of Frame.dispose() would schedule the use of the AWT 
-      // thread even if it was not done here, but it uses invokeAndWait() which is 
-      // prone to deadlock (and not necessary for this case). 
+      // Note: the implementation of Frame.dispose() would schedule the use of the AWT
+      // thread even if it was not done here, but it uses invokeAndWait() which is
+      // prone to deadlock (and not necessary for this case).
       EventQueue.invokeLater(new Runnable() {
         public void run() {
           oldFrame.dispose();
@@ -338,7 +339,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
     // Glue the two frameworks together. Do this before anything is added to the frame
     // so that all necessary listeners are in place.
     createFocusHandlers();
-    // This listener clears garbage during resizing, making it looker much cleaner 
+    // This listener clears garbage during resizing, making it looker much cleaner
     addControlListener(new CleanResizeListener());
   }
 
@@ -358,7 +359,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
 
   private void scheduleComponentCreation() {
     assert awtContext != null;
-    // Create AWT/Swing components on the AWT thread. This is 
+    // Create AWT/Swing components on the AWT thread. This is
     // especially necessary to avoid an AWT leak bug (6411042).
     final AwtContext currentContext = awtContext;
     EventQueue.invokeLater(new Runnable() {
@@ -417,7 +418,7 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
   private void dispose_AWT() {
     // remove listeners
     getDisplay().removeFilter(SWT.Show, menuListener);
-    // dispose frame to avoid lock down in EventQueue.invokeAndWait() later 
+    // dispose frame to avoid lock down in EventQueue.invokeAndWait() later
     if (awtContext != null) {
       Frame oldFrame = awtContext.getFrame();
       oldFrame.dispose();
@@ -432,17 +433,20 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
    * It is marked "fixed", but still does not work.
    */
   public static boolean canUseAwt() {
-    Shell shell = new Shell();
-    try {
+    if (EnvironmentUtils.IS_MAC) {
+      Shell shell = new Shell();
       try {
-        Frame frame = SWT_AWT.new_Frame(shell);
-        frame.dispose();
-        return true;
-      } catch (Throwable e) {
-        return false;
+        try {
+          Frame frame = SWT_AWT.new_Frame(shell);
+          frame.dispose();
+          return true;
+        } catch (Throwable e) {
+          return false;
+        }
+      } finally {
+        shell.dispose();
       }
-    } finally {
-      shell.dispose();
     }
+    return true;
   }
 }
