@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.titledseparator.TitledSeparatorInfo"/>
+	<description>An enhanced separator, with a title and/or an image.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.opal.titledseparator.TitledSeparator(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New TitledSeparator"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">LEFT RIGHT CENTER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.opal.titledseparator"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="image text alignment"/>
+	<property-tag name="text" tag="isText" value="true"/>
+	<property-tag name="image" tag="isImage" value="true"/>
+	<property id="setAlignment(int)">
+		<editor id="staticField">
+			<parameter name="class">org.eclipse.swt.SWT</parameter>
+			<parameter name="fields">LEFT RIGHT CENTER</parameter>
+		</editor>
+	</property>
+</component>
