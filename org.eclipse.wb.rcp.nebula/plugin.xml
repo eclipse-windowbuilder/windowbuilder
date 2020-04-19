@@ -78,6 +78,12 @@
 					<component class="org.eclipse.nebula.widgets.tablecombo.TableCombo"/>
 					<!-- TableComboViewer -->
 					<component class="org.eclipse.nebula.jface.tablecomboviewer.TableComboViewer"/>
+					<!-- TitledSeparator -->
+					<component class="org.eclipse.nebula.widgets.opal.titledseparator.TitledSeparator"/>
+					<!-- HorizontalSpinner -->
+					<component class="org.eclipse.nebula.widgets.opal.horizontalspinner.HorizontalSpinner"/>
+					<!-- ProgressCircle -->
+					<component class="org.eclipse.nebula.widgets.progresscircle.ProgressCircle"/>
 				</category>
 			</palette>
 		</toolkit>

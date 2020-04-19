@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.horizontalspinner.HorizontalSpinnerInfo"/>
+	<description>Instances of this class are selectable user interface objects that allow the user to enter
+		and modify numeric values.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.opal.horizontalspinner.HorizontalSpinner(%parent%, org.eclipse.swt.SWT.BORDER)]]></source>
+		<x-attribute ns="http://www.eclipse.org/xwt" name="Style" value="BORDER"/>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">BORDER READ_ONLY FLAT</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- METHODS -->
+	<methods>
+		<method name="setMinimum" order="after setMaximum(int)">
+			<parameter type="int"/>
+		</method>
+		<method name="setSelection" order="after setMinimum(int)">
+			<parameter type="int"/>
+		</method>
+	</methods>
+	<!-- PROPERTIES -->
+	<properties-preferred names="minimum maximum selection"/>
+	<!-- MORPHING -->
+	<morphTargets>
+		<morphTarget class="org.eclipse.swt.widgets.Button"/>
+		<morphTarget class="org.eclipse.swt.widgets.Label"/>
+		<morphTarget class="org.eclipse.swt.widgets.Text"/>
+		<morphTarget class="org.eclipse.swt.widgets.Combo"/>
+		<morphTarget class="org.eclipse.swt.widgets.DateTime"/>
+		<morphTarget class="org.eclipse.swt.widgets.Spinner"/>
+	</morphTargets>
+	<!-- PARAMETERS -->
+	<parameters>
+		<parameter name="layout.has">false</parameter>
+		<!-- untyped events -->
+		<parameter name="RCP.untyped.events: org.eclipse.nebula.widgets.opal.horizontalspinner.HorizontalSpinner"><![CDATA[
+			Selection Modify
+		]]></parameter>
+	</parameters>
+</component>

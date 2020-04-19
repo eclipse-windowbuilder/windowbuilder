@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+	<model class="org.eclipse.wb.internal.rcp.nebula.progresscircle.ProgressCircleInfo"/>
+	<description>This widget is a graphical presentation of a ratio. It can be considered as another vision of the progress bar.</description>
+	<!-- CREATION -->
+	<creation>
+		<source><![CDATA[new org.eclipse.nebula.widgets.progresscircle.ProgressCircle(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+		<invocation signature="setText(java.lang.String)"><![CDATA["New Progress Circle"]]></invocation>
+	</creation>
+	<!-- CONSTRUCTORS -->
+	<constructors>
+		<constructor>
+			<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+			<parameter type="int" defaultSource="org.eclipse.swt.SWT.NONE">
+				<editor id="style">
+					<parameter name="class">org.eclipse.swt.SWT</parameter>
+					<parameter name="set">NONE BORDER</parameter>
+				</editor>
+			</parameter>
+		</constructor>
+	</constructors>
+	<!-- EXPOSING RULES -->
+	<exposing-rules>
+		<exclude package="org.eclipse.nebula.widgets.progresscircle"/>
+	</exposing-rules>
+	<!-- PROPERTIES -->
+	<properties-preferred names="minimum maximum selection"/>
+</component>

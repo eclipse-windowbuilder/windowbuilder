@@ -18,5 +18,8 @@ Export-Package: org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons,
  org.eclipse.wb.internal.rcp.nebula.gallery,
  org.eclipse.wb.internal.rcp.nebula.ganttchart,
  org.eclipse.wb.internal.rcp.nebula.grid,
- org.eclipse.wb.internal.rcp.nebula.pshelf
+ org.eclipse.wb.internal.rcp.nebula.horizontalspinner,
+ org.eclipse.wb.internal.rcp.nebula.pshelf,
+ org.eclipse.wb.internal.rcp.nebula.titledseparator,
+ org.eclipse.wb.internal.rcp.nebula.progresscircle
 Bundle-Localization: plugin
