@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.gef.core.CompoundCommand;
 import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IRootContainer;
 
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 
 import java.util.Collections;
 import java.util.List;
@@ -238,9 +238,9 @@ public abstract class EditPart {
    *
    * @return one of:
    *         <UL>
-   *         <LI> {@link #SELECTED}
-   *         <LI> {@link #SELECTED_NONE}
-   *         <LI> {@link #SELECTED_PRIMARY}
+   *         <LI>{@link #SELECTED}
+   *         <LI>{@link #SELECTED_NONE}
+   *         <LI>{@link #SELECTED_PRIMARY}
    *         </UL>
    */
   public int getSelected() {
@@ -499,7 +499,7 @@ public abstract class EditPart {
    * <OL>
    * <LI>The child is added to the {@link #children} List, and its parent is set to
    * <code>this</code>
-   * <LI> {@link EditPart#addNotify()} is called on the child.
+   * <LI>{@link EditPart#addNotify()} is called on the child.
    * <LI><code>activate()</code> is called if this part is active
    * </OL>
    * <P>

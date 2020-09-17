@@ -476,4 +476,9 @@ public final class DesignerTypeBinding implements ITypeBinding {
     // TODO Auto-generated method stub
     return false;
   }
+
+  public boolean isRecord() {
+    // TODO Auto-generated method stub
+    return false;
+  }
 }

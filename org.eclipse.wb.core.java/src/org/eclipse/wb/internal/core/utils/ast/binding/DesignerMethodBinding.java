@@ -238,4 +238,8 @@ public final class DesignerMethodBinding implements IMethodBinding {
   public IVariableBinding[] getSyntheticOuterLocals() {
     return null;
   }
+
+  public boolean isCompactConstructor() {
+    return false;
+  }
 }

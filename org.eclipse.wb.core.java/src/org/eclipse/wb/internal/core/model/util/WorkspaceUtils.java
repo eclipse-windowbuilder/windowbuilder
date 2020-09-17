@@ -15,7 +15,6 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
@@ -73,7 +72,7 @@ public class WorkspaceUtils {
    * Wait until all background tasks are complete
    */
   public static void waitForJobs() {
-    while (Platform.getJobManager().currentJob() != null) {
+    while (Job.getJobManager().currentJob() != null) {
       delay(10);
     }
   }
