@@ -13,11 +13,9 @@ package org.eclipse.wb.tests.designer.rcp.model.widgets;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.eclipse.swt.custom.TableTree;
-
 /**
  * Test for {@link TableTree}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableTreeTest extends RcpModelTest {
@@ -36,14 +34,13 @@ public class TableTreeTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_parse() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    TableTree tableTree = new TableTree(this, SWT.BORDER);",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    TableTree tableTree = new TableTree(this, SWT.BORDER);",
+        "  }",
+        "}");
     shell.refresh();
     assertHierarchy(
         "{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new TableTree(this, SWT.BORDER)/}",
