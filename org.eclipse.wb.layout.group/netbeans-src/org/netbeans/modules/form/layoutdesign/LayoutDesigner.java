@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -310,7 +310,7 @@ public class LayoutDesigner implements LayoutConstants {
    * in diferrent containers then no dragging is possible (returns empty list). Otherwise the
    * components that have the same parent and are under the same layout roots are returned.
    * Nonexisting or parent-less components are ignored.
-   * 
+   *
    * @param component
    *          Ids of components selected for dragging
    * @return List of Ids of components that can be dragged together
@@ -351,7 +351,7 @@ public class LayoutDesigner implements LayoutConstants {
    * Checks whether given component is "unplaced" - i.e. in other than default layer. Result of
    * adding without mouse positioning (e.g. copying). In current model such a component needs to be
    * moved additionally by the user to be placed in the default layer among other components.
-   * 
+   *
    * @param compId
    *          id of the component
    * @return true if the component is placed in an additional layer
@@ -397,10 +397,9 @@ public class LayoutDesigner implements LayoutConstants {
     }
     int[] edges = new int[DIM_COUNT];
     for (int i = 0; i < DIM_COUNT; i++) {
-      edges[i] =
-          resizeEdges[i] == LEADING || resizeEdges[i] == TRAILING
-              ? resizeEdges[i]
-              : LayoutRegion.NO_POINT;
+      edges[i] = resizeEdges[i] == LEADING || resizeEdges[i] == TRAILING
+          ? resizeEdges[i]
+          : LayoutRegion.NO_POINT;
     }
     prepareDragger(comps, bounds, hotspot, edges);
     if (inLayout) {
@@ -425,12 +424,11 @@ public class LayoutDesigner implements LayoutConstants {
       movingFormation[i] = new LayoutRegion();
       movingFormation[i].set(bounds[i], baselinePos);
     }
-    dragger =
-        new LayoutDragger(comps,
-            movingFormation,
-            new int[]{hotspot.x, hotspot.y},
-            edges,
-            visualMapper);
+    dragger = new LayoutDragger(comps,
+        movingFormation,
+        new int[]{hotspot.x, hotspot.y},
+        edges,
+        visualMapper);
   }
 
   /**
@@ -485,10 +483,9 @@ public class LayoutDesigner implements LayoutConstants {
     LayoutComponent prevContainer = dragger.getTargetContainer();
     LayoutInterval[] roots;
     if (targetContainer != null) {
-      roots =
-          resizing && movingComps.length > 0
-              ? movingComps[0].getParentRoots()
-              : getActiveLayoutRoots(targetContainer);
+      roots = resizing && movingComps.length > 0
+          ? movingComps[0].getParentRoots()
+          : getActiveLayoutRoots(targetContainer);
     } else {
       roots = null;
     }
@@ -505,10 +502,9 @@ public class LayoutDesigner implements LayoutConstants {
       boolean resizing,
       boolean draggingIn) {
     if (container != null) {
-      LayoutInterval[] targetRoots =
-          resizing && movingComps.length > 0
-              ? movingComps[0].getParentRoots()
-              : getActiveLayoutRoots(container);
+      LayoutInterval[] targetRoots = resizing && movingComps.length > 0
+          ? movingComps[0].getParentRoots()
+          : getActiveLayoutRoots(container);
       for (LayoutComponent comp : container.getSubcomponents()) {
         for (LayoutComponent m : movingComps) {
           if (m == comp) {
@@ -517,7 +513,8 @@ public class LayoutDesigner implements LayoutConstants {
           }
         }
         if (comp != null
-            && LayoutInterval.getRoot(comp.getLayoutInterval(HORIZONTAL)) != targetRoots[HORIZONTAL]) {
+            && LayoutInterval.getRoot(
+                comp.getLayoutInterval(HORIZONTAL)) != targetRoots[HORIZONTAL]) {
           visualMapper.setComponentVisibility(comp.getId(), !draggingIn);
         }
       }
@@ -563,10 +560,9 @@ public class LayoutDesigner implements LayoutConstants {
                   if (commonParents[dim] == null) {
                     commonParents[dim] = comp.getLayoutInterval(dim);
                   } else {
-                    commonParents[dim] =
-                        LayoutInterval.getCommonParent(
-                            commonParents[dim],
-                            comp.getLayoutInterval(dim));
+                    commonParents[dim] = LayoutInterval.getCommonParent(
+                        commonParents[dim],
+                        comp.getLayoutInterval(dim));
                   }
                 }
                 compMap.put(comp, comp); // moving the same components
@@ -759,7 +755,7 @@ public class LayoutDesigner implements LayoutConstants {
   /**
    * Creates copy of the given interval restricted to specified components and region (
    * <code>space</code>).
-   * 
+   *
    * @param interval
    *          interval whose restricted copy should be created.
    * @param componentMap
@@ -810,8 +806,8 @@ public class LayoutDesigner implements LayoutConstants {
             // to copy them.
             temp.add(subCopy);
             temp.add(copy);
-            temp.add(new Integer(subCopy.getRawAlignment()));
-            temp.add(new Integer(copy.getSubIntervalCount() + compCount));
+            temp.add(Integer.valueOf(subCopy.getRawAlignment()));
+            temp.add(Integer.valueOf(copy.getSubIntervalCount() + compCount));
             compCount++;
           } else {
             layoutModel.addInterval(subCopy, copy, -1);
@@ -824,10 +820,9 @@ public class LayoutDesigner implements LayoutConstants {
       }
       if (includeGap) {
         gapStart = Math.max(space.positions[dimension][LEADING], gapStart);
-        int gapEnd =
-            Math.min(
-                space.positions[dimension][TRAILING],
-                interval.getCurrentSpace().positions[dimension][TRAILING]);
+        int gapEnd = Math.min(
+            space.positions[dimension][TRAILING],
+            interval.getCurrentSpace().positions[dimension][TRAILING]);
         integrateGap(copy, gapEnd - gapStart, firstGapToInclude);
       }
       if (copy.getSubIntervalCount() + compCount > 0) {
@@ -943,7 +938,7 @@ public class LayoutDesigner implements LayoutConstants {
    * Helper method used by <code>restrictedCopy()</code> method. Replaces empty spaces at the end of
    * the sequential group by an empty space of the specified size. Only empty spaces with index >=
    * boundary are replaced.
-   * 
+   *
    * @param seqGroup
    *          sequential group.
    * @param size
@@ -965,7 +960,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Returns bounds (e.g. current space) of the empty space in the given dimension.
-   * 
+   *
    * @param emptySpace
    *          empty space.
    * @param dimenion
@@ -1013,7 +1008,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Paints layout information (alignment) for the selected component.
-   * 
+   *
    * @param g
    *          graphics object to use.
    * @param componentId
@@ -1029,7 +1024,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Paints layout information (alignment) for the selected component and specified dimension.
-   * 
+   *
    * @param g
    *          graphics object to use.
    * @param component
@@ -1095,7 +1090,11 @@ public class LayoutDesigner implements LayoutConstants {
         for (int i = start; i < end; i++) {
           LayoutInterval candidate = parent.getSubInterval(i);
           if (candidate.isEmptySpace()) {
-            paintAlignment(g, candidate, dimension, LayoutInterval.getEffectiveAlignment(candidate));
+            paintAlignment(
+                g,
+                candidate,
+                dimension,
+                LayoutInterval.getEffectiveAlignment(candidate));
           }
         }
       } else {
@@ -1113,8 +1112,8 @@ public class LayoutDesigner implements LayoutConstants {
     if (component.isLinkSized(HORIZONTAL) && component.isLinkSized(VERTICAL)) {
       Map<Integer, List<String>> linkGroupsH = layoutModel.getLinkSizeGroups(HORIZONTAL);
       Map<Integer, List<String>> linkGroupsV = layoutModel.getLinkSizeGroups(VERTICAL);
-      Integer linkIdH = new Integer(component.getLinkSizeId(HORIZONTAL));
-      Integer linkIdV = new Integer(component.getLinkSizeId(VERTICAL));
+      Integer linkIdH = Integer.valueOf(component.getLinkSizeId(HORIZONTAL));
+      Integer linkIdV = Integer.valueOf(component.getLinkSizeId(VERTICAL));
       List<String> lH = linkGroupsH.get(linkIdH);
       List<String> lV = linkGroupsV.get(linkIdV);
       Set<String> merged = new HashSet<String>();
@@ -1148,7 +1147,7 @@ public class LayoutDesigner implements LayoutConstants {
     } else {
       int dimension = component.isLinkSized(HORIZONTAL) ? HORIZONTAL : VERTICAL;
       Map map = layoutModel.getLinkSizeGroups(dimension);
-      Integer linkId = new Integer(component.getLinkSizeId(dimension));
+      Integer linkId = Integer.valueOf(component.getLinkSizeId(dimension));
       List l = (List) map.get(linkId);
       Iterator mergedIt = l.iterator();
       while (mergedIt.hasNext()) {
@@ -1364,7 +1363,7 @@ public class LayoutDesigner implements LayoutConstants {
    * are placed slightly shifted from the original ones. Otherwise placed in the center. This method
    * requires Ids for the copied components provided (LayoutComponent instances are cretated
    * automatically).
-   * 
+   *
    * @param sourceModel
    *          the source LayoutModel
    * @param sourceToTargetId
@@ -1413,7 +1412,8 @@ public class LayoutDesigner implements LayoutConstants {
         if (targetLC == null) {
           targetLC = new LayoutComponent(targetId, false);
         } else if (targetLC.getParent() == targetContainer) {
-          throw new IllegalArgumentException("The component is already placed in the target layout container"); // NOI18N
+          throw new IllegalArgumentException(
+              "The component is already placed in the target layout container"); // NOI18N
         }
         sourceToTargetComp.put(sourceLC, targetLC);
         targetComponents[i] = targetLC;
@@ -1438,12 +1438,11 @@ public class LayoutDesigner implements LayoutConstants {
             restrictedCopy(commonParents[dim], sourceToTargetComp, overallSpace, dim, null);
       }
       // place the copied intervals
-      int[] shift =
-          getCopyShift(
-              sourceComponents,
-              targetContainer,
-              overallSpace,
-              sourceContainer == targetContainer);
+      int[] shift = getCopyShift(
+          sourceComponents,
+          targetContainer,
+          overallSpace,
+          sourceContainer == targetContainer);
       if (shift != null) { // place near the original positions
         // in case components are moved (not copied) make sure both the
         // components and intervals are correctly removed from the original place
@@ -1480,7 +1479,7 @@ public class LayoutDesigner implements LayoutConstants {
    * layout) to a container, or for converting container's layout to this layout model. New
    * LayoutComponent instances are created as needed, added all to the specified target container
    * (centered, in separate layer of layout roots).
-   * 
+   *
    * @param idToBounds
    *          mapping component Ids to the visual bounds
    * @param targetContainerId
@@ -1507,7 +1506,8 @@ public class LayoutDesigner implements LayoutConstants {
       if (targetLC == null) {
         targetLC = new LayoutComponent(targetId, false);
       } else if (targetLC.getParent() != null) {
-        throw new IllegalArgumentException("Target component already exists and is placed in the layout"); // NOI18N
+        throw new IllegalArgumentException(
+            "Target component already exists and is placed in the layout"); // NOI18N
       }
       Rectangle r = new Rectangle(entry.getValue());
       compToBounds.put(targetLC, r);
@@ -1545,7 +1545,7 @@ public class LayoutDesigner implements LayoutConstants {
   /**
    * Duplicates layout of given components. Duplicated components are added sequentially along given
    * axis (dimension), in parallel in the orthogonal dimension.
-   * 
+   *
    * @param sourceIds
    *          Ids of the source components
    * @param targetIds
@@ -1557,7 +1557,10 @@ public class LayoutDesigner implements LayoutConstants {
    * @param direction
    *          the direction of addition - LEADING or TRAILING
    */
-  public void duplicateLayout(String[] sourceIds, String[] targetIds, int dimension, int direction) {
+  public void duplicateLayout(String[] sourceIds,
+      String[] targetIds,
+      int dimension,
+      int direction) {
     LayoutComponent[] sourceComps = new LayoutComponent[sourceIds.length];
     LayoutInterval[][] sourceIntervals = new LayoutInterval[DIM_COUNT][sourceIds.length];
     LayoutComponent[] targetComps = new LayoutComponent[targetIds.length];
@@ -1576,7 +1579,8 @@ public class LayoutDesigner implements LayoutConstants {
       if (targetLC == null) {
         targetLC = new LayoutComponent(targetIds[i], false);
       } else if (targetLC.getParent() != null) {
-        throw new IllegalArgumentException("Target component already exists and is placed in the layout"); // NOI18N
+        throw new IllegalArgumentException(
+            "Target component already exists and is placed in the layout"); // NOI18N
       }
       layoutModel.addComponent(targetLC, container, -1);
       compMap.put(sourceLC, targetLC);
@@ -1865,7 +1869,8 @@ public class LayoutDesigner implements LayoutConstants {
     if (enclosingCont == null) {
       enclosingCont = new LayoutComponent(contId, true);
     } else if (enclosingCont.getParent() != null) {
-      throw new IllegalArgumentException("Target container already exists and is placed in the layout"); // NOI18N
+      throw new IllegalArgumentException(
+          "Target container already exists and is placed in the layout"); // NOI18N
     } else if (enclosingCont.getSubComponentCount() > 0) {
       throw new IllegalArgumentException("Target container is not empty."); // NOI18N
     }
@@ -1921,7 +1926,7 @@ public class LayoutDesigner implements LayoutConstants {
         layoutModel.addComponent(comp, enclosingCont, -1);
       }
       for (int dim = 0; dim < DIM_COUNT; dim++) {
-        // make sure the root is empty (clear possible "offset" gap) 
+        // make sure the root is empty (clear possible "offset" gap)
         LayoutInterval root = enclosingCont.getDefaultLayoutRoot(dim);
         for (int n = root.getSubIntervalCount(); n > 0; n--) {
           root.remove(n - 1);
@@ -1942,9 +1947,10 @@ public class LayoutDesigner implements LayoutConstants {
     for (int dim = 0; dim < DIM_COUNT; dim++) {
       LayoutInterval interval = enclosingCont.getLayoutInterval(dim);
       addingInts[dim] = interval;
-      interval.setSizes(USE_PREFERRED_SIZE, DEFAULT, resizing[dim]
-          ? Short.MAX_VALUE
-          : USE_PREFERRED_SIZE);
+      interval.setSizes(
+          USE_PREFERRED_SIZE,
+          DEFAULT,
+          resizing[dim] ? Short.MAX_VALUE : USE_PREFERRED_SIZE);
     }
     // provisionally use dragger to position the container; maybe could be done better
     prepareDragger(
@@ -1966,7 +1972,7 @@ public class LayoutDesigner implements LayoutConstants {
    * within the container, in a separate layer of layout roots (not to interact with the rest of the
    * layout). The size of the component can be determined either by a "source" component (typically
    * if adding a copy of another component), or by provided Dimension object (compSize).
-   * 
+   *
    * @param targetId
    *          Id of the added component; may already be in the model, but not in a container;
    *          created automatically if needed
@@ -1991,7 +1997,8 @@ public class LayoutDesigner implements LayoutConstants {
       if (targetLC.getParent() != targetContainer && targetId.equals(sourceId)) { // move from other container
         layoutModel.removeComponentAndIntervals(targetLC, false);
       } else {
-        throw new IllegalArgumentException("Target component already exists and is placed in the layout"); // NOI18N
+        throw new IllegalArgumentException(
+            "Target component already exists and is placed in the layout"); // NOI18N
       }
     }
     LayoutComponent sourceLC = layoutModel.getLayoutComponent(sourceId);
@@ -2016,8 +2023,10 @@ public class LayoutDesigner implements LayoutConstants {
         }
       }
     }
-    addUnspecified(new LayoutComponent[]{targetLC}, targetContainer, /*getTargetRootsForCopy(targetContainer),*/
-    addingInts);
+    addUnspecified(
+        new LayoutComponent[]{targetLC},
+        targetContainer, /*getTargetRootsForCopy(targetContainer),*/
+        addingInts);
     visualStateUpToDate = false;
   }
 
@@ -2025,7 +2034,7 @@ public class LayoutDesigner implements LayoutConstants {
    * Add a new component to the target layout. No layout information is provided, so the component
    * is added to a default location. (This means centered within the container, in a separate layer
    * of layout roots - not to interact with the rest of the layout.)
-   * 
+   *
    * @param component
    *          the component to be added; may already exist in the model, but not placed in a
    *          container
@@ -2034,7 +2043,8 @@ public class LayoutDesigner implements LayoutConstants {
    */
   public void addUnspecifiedComponent(LayoutComponent component, String targetContainerId) {
     if (component.getParent() != null) {
-      throw new IllegalArgumentException("The component already exists and is placed in the layout"); // NOI18N
+      throw new IllegalArgumentException(
+          "The component already exists and is placed in the layout"); // NOI18N
     }
     LayoutComponent targetContainer = layoutModel.getLayoutComponent(targetContainerId);
     if (targetContainer == null) {
@@ -2076,11 +2086,9 @@ public class LayoutDesigner implements LayoutConstants {
       }
     } else {
       for (int dim = 0; dim < DIM_COUNT; dim++) {
-        move[dim] =
-            (contSpace.size(dim) - compSpace.size(dim))
-                / 2
-                - compSpace.positions[dim][LEADING]
-                + contSpace.positions[dim][LEADING];
+        move[dim] = (contSpace.size(dim) - compSpace.size(dim)) / 2
+            - compSpace.positions[dim][LEADING]
+            + contSpace.positions[dim][LEADING];
       }
     }
     return move;
@@ -2121,7 +2129,8 @@ public class LayoutDesigner implements LayoutConstants {
     LayoutInterval gap = LayoutInterval.getNeighbor(interval, alignment, false, true, false);
     if (gap != null && LayoutInterval.isFixedDefaultPadding(gap) && parent.isParentOf(gap)) {
       LayoutInterval back = LayoutInterval.getDirectNeighbor(gap, alignment ^ 1, true);
-      if ((back == interval || LayoutInterval.isPlacedAtBorder(interval, back, dimension, alignment))
+      if ((back == interval
+          || LayoutInterval.isPlacedAtBorder(interval, back, dimension, alignment))
           && LayoutInterval.getNeighbor(gap, alignment, true, true, false) == null
           && LayoutInterval.isPlacedAtBorder(gap.getParent(), parent, dimension, alignment)) {
         return true;
@@ -2220,7 +2229,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Changes global alignment of the layout component.
-   * 
+   *
    * @param comp
    *          component whose alignment should be changed.
    * @param dimension
@@ -2248,9 +2257,8 @@ public class LayoutDesigner implements LayoutConstants {
           int alg = interval.getAlignment();
           if (alg != alignment) {
             // Add fixed gap and change alignment
-            int size =
-                LayoutInterval.getIntervalCurrentSize(parent, dimension)
-                    - LayoutInterval.getIntervalCurrentSize(interval, dimension);
+            int size = LayoutInterval.getIntervalCurrentSize(parent, dimension)
+                - LayoutInterval.getIntervalCurrentSize(interval, dimension);
             if (size > 0) {
               if (!interval.isSequential()) {
                 LayoutInterval seq = new LayoutInterval(SEQUENTIAL);
@@ -2339,7 +2347,7 @@ public class LayoutDesigner implements LayoutConstants {
    * indicates whether the alignment can be changed to leading or trailing (e.g. if the current
    * value is not enforced by other resizable components). The returned alignment is global e.g. it
    * shows which edge of the container the component will track.
-   * 
+   *
    * @param comp
    *          component whose alignment should be determined.
    * @param dimension
@@ -2426,7 +2434,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Determines whether the component is resizing in the given direction.
-   * 
+   *
    * @param comp
    *          component whose resizability should be determined.
    * @param dimension
@@ -2441,7 +2449,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Returns preferred size of the given interval (in pixels).
-   * 
+   *
    * @param interval
    *          interval whose preferred size should be determined.
    * @return preferred size of the given interval.
@@ -2452,8 +2460,8 @@ public class LayoutDesigner implements LayoutConstants {
       LayoutComponent comp = interval.getComponent();
       dimension = interval == comp.getLayoutInterval(HORIZONTAL) ? HORIZONTAL : VERTICAL;
       if (comp.isLinkSized(dimension)) {
-        Collection linked =
-            layoutModel.getLinkSizeGroups(dimension).get(new Integer(comp.getLinkSizeId(dimension)));
+        Collection linked = layoutModel.getLinkSizeGroups(dimension).get(
+            Integer.valueOf(comp.getLinkSizeId(dimension)));
         Iterator iter = linked.iterator();
         int prefSize = 0;
         while (iter.hasNext()) {
@@ -2500,7 +2508,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Returns size of the empty space represented by the given layout interval.
-   * 
+   *
    * @param interval
    *          layout interval that represents padding.
    * @return size of the padding.
@@ -2511,7 +2519,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Sets component resizability. Makes the component resizing or fixed.
-   * 
+   *
    * @param comp
    *          component whose resizability should be set.
    * @param dimension
@@ -2524,8 +2532,8 @@ public class LayoutDesigner implements LayoutConstants {
     LayoutInterval interval = comp.getLayoutInterval(dimension);
     // Unset the same-size if we are making the component resizable
     if (resizing && comp.isLinkSized(dimension)) {
-      Collection linked =
-          layoutModel.getLinkSizeGroups(dimension).get(new Integer(comp.getLinkSizeId(dimension)));
+      Collection linked = layoutModel.getLinkSizeGroups(dimension).get(
+          Integer.valueOf(comp.getLinkSizeId(dimension)));
       Collection toChange;
       if (linked.size() == 2) { // The second component will be unlinked, too.
         toChange = linked;
@@ -2637,7 +2645,8 @@ public class LayoutDesigner implements LayoutConstants {
                   trailingGap = candidate;
                 } else {
                   if (afterDefining
-                      && (trailingGap == null || trailingGap.getPreferredSize() == NOT_EXPLICITLY_DEFINED)) {
+                      && (trailingGap == null
+                          || trailingGap.getPreferredSize() == NOT_EXPLICITLY_DEFINED)) {
                     trailingGap = candidate;
                   }
                 }
@@ -2646,10 +2655,12 @@ public class LayoutDesigner implements LayoutConstants {
                 leadingGap = candidate;
               } else {
                 if (wasFill
-                    && (leadingGap == null || !leadingGap.hasAttribute(LayoutInterval.ATTRIBUTE_FORMER_FILL))
+                    && (leadingGap == null
+                        || !leadingGap.hasAttribute(LayoutInterval.ATTRIBUTE_FORMER_FILL))
                     || glue
-                    && (leadingGap == null || !leadingGap.hasAttribute(LayoutInterval.ATTRIBUTE_FORMER_FILL)
-                        && leadingGap.getPreferredSize() == NOT_EXPLICITLY_DEFINED)) {
+                        && (leadingGap == null
+                            || !leadingGap.hasAttribute(LayoutInterval.ATTRIBUTE_FORMER_FILL)
+                                && leadingGap.getPreferredSize() == NOT_EXPLICITLY_DEFINED)) {
                   leadingGap = candidate;
                 }
               }
@@ -2662,9 +2673,9 @@ public class LayoutDesigner implements LayoutConstants {
         }
         if (resizableList.size() > 0) {
           iter = resizableList.iterator();
-          delta =
-              (LayoutInterval.getIntervalCurrentSize(par, dimension) - prefSizeOfInterval(par) + delta)
-                  / resizableList.size();
+          delta = (LayoutInterval.getIntervalCurrentSize(par, dimension)
+              - prefSizeOfInterval(par)
+              + delta) / resizableList.size();
           while (iter.hasNext()) {
             LayoutInterval candidate = (LayoutInterval) iter.next();
             if (candidate.isGroup()) {
@@ -2769,7 +2780,7 @@ public class LayoutDesigner implements LayoutConstants {
    * Checks if given components can be aligned together in a parallel group using the 'align'
    * method. For now it is enough if the components are in the same container and layer (under same
    * layout roots).
-   * 
+   *
    * @param componentIds
    *          IDs of components that should be aligned
    * @return true if the components can be aligned in a parallel group
@@ -2796,7 +2807,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Aligns given components in the specified direction.
-   * 
+   *
    * @param componentIds
    *          IDs of components that should be aligned.
    * @param closed
@@ -2865,7 +2876,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Destroys the given group if it is redundant in the layout model.
-   * 
+   *
    * @param group
    *          group whose necessity should be checked.
    * @param boundary
@@ -2894,7 +2905,7 @@ public class LayoutDesigner implements LayoutConstants {
 
   /**
    * Removes the given interval from the layout model. Consolidates parent groups if necessary.
-   * 
+   *
    * @param interval
    *          interval that should be removed.
    * @param boundary
@@ -2932,9 +2943,10 @@ public class LayoutDesigner implements LayoutConstants {
           for (int i = 0; i < 3; i++) {
             size += LayoutInterval.getIntervalCurrentSize(toRemove.get(i), VERTICAL);
           }
-          gap.setSizes(NOT_EXPLICITLY_DEFINED, size, alignment == TRAILING
-              ? Short.MAX_VALUE
-              : USE_PREFERRED_SIZE);
+          gap.setSizes(
+              NOT_EXPLICITLY_DEFINED,
+              size,
+              alignment == TRAILING ? Short.MAX_VALUE : USE_PREFERRED_SIZE);
         }
         layoutModel.addInterval(gap, parent, index);
       }
@@ -2952,7 +2964,7 @@ public class LayoutDesigner implements LayoutConstants {
   // [should change to operations.addGroupContent]
   /**
    * Creates a remainder parallel group (remainder to a main group of aligned intervals).
-   * 
+   *
    * @param list
    *          the content of the group, output from 'extract' method
    * @param seq
@@ -3103,9 +3115,11 @@ public class LayoutDesigner implements LayoutConstants {
 
   static boolean isFixedPadding(LayoutInterval interval) {
     return interval.isEmptySpace()
-        && (interval.getMinimumSize() == NOT_EXPLICITLY_DEFINED || interval.getMinimumSize() == USE_PREFERRED_SIZE)
+        && (interval.getMinimumSize() == NOT_EXPLICITLY_DEFINED
+            || interval.getMinimumSize() == USE_PREFERRED_SIZE)
         && interval.getPreferredSize() == NOT_EXPLICITLY_DEFINED
-        && (interval.getMaximumSize() == NOT_EXPLICITLY_DEFINED || interval.getMaximumSize() == USE_PREFERRED_SIZE);
+        && (interval.getMaximumSize() == NOT_EXPLICITLY_DEFINED
+            || interval.getMaximumSize() == USE_PREFERRED_SIZE);
   }
 
   // -----
@@ -3160,7 +3174,7 @@ public class LayoutDesigner implements LayoutConstants {
         LayoutInterval parent = group.getParent();
         int index = layoutModel.removeInterval(group);
         if (parent.isSequential() && interval.isSequential()) {
-          // dissolve the sequential group in its parent                    
+          // dissolve the sequential group in its parent
           for (int i = interval.getSubIntervalCount() - 1; i >= 0; i--) {
             LayoutInterval subInterval = interval.getSubInterval(i);
             layoutModel.removeInterval(subInterval);
@@ -3171,20 +3185,20 @@ public class LayoutDesigner implements LayoutConstants {
           layoutModel.addInterval(interval, parent, index);
         }
 /*                if (offsetGap != null) {
-                    // Reinsert/simulate behaviour of the removed offset gap.
-                    int size;
-                    if (parent.isSequential()) {
-                        size = LayoutInterval.getIntervalCurrentSize(group, dimension)
-                            - LayoutInterval.getIntervalCurrentSize(interval, dimension);
-                        if (alignment == LEADING) index++;
-                    } else {
-                        size = LayoutInterval.getIntervalCurrentSize(parent, dimension);
-                        index = -1;
-                    }
-                    layoutModel.setIntervalSize(offsetGap, offsetGap.getMinimumSize(), size, offsetGap.getMaximumSize());
-                    layoutModel.addInterval(offsetGap, parent, index);
-                    eliminateConsecutiveGaps(parent, 0, dimension);
-                } */
+    // Reinsert/simulate behaviour of the removed offset gap.
+    int size;
+    if (parent.isSequential()) {
+size = LayoutInterval.getIntervalCurrentSize(group, dimension)
+    - LayoutInterval.getIntervalCurrentSize(interval, dimension);
+if (alignment == LEADING) index++;
+    } else {
+size = LayoutInterval.getIntervalCurrentSize(parent, dimension);
+index = -1;
+    }
+    layoutModel.setIntervalSize(offsetGap, offsetGap.getMinimumSize(), size, offsetGap.getMaximumSize());
+    layoutModel.addInterval(offsetGap, parent, index);
+    eliminateConsecutiveGaps(parent, 0, dimension);
+} */
       }
       return -1;
     }
@@ -3194,7 +3208,7 @@ public class LayoutDesigner implements LayoutConstants {
   // -----
   /**
    * Sets interval resizability. Makes it resizing or fixed.
-   * 
+   *
    * @param interval
    *          layout interval whose resizability should be set.
    * @param resizable
@@ -3255,9 +3269,11 @@ public class LayoutDesigner implements LayoutConstants {
   private void setDefaultSizeInContainer(LayoutInterval interval) {
     if (!interval.isGroup()) {
       if (LayoutInterval.canResize(interval)) {
-        operations.resizeInterval(interval, interval.getMinimumSize() != USE_PREFERRED_SIZE
-            ? interval.getMinimumSize()
-            : NOT_EXPLICITLY_DEFINED);
+        operations.resizeInterval(
+            interval,
+            interval.getMinimumSize() != USE_PREFERRED_SIZE
+                ? interval.getMinimumSize()
+                : NOT_EXPLICITLY_DEFINED);
         interval.setAttribute(LayoutInterval.ATTR_FORCED_DEFAULT);
       }
     } else {
@@ -3302,7 +3318,8 @@ public class LayoutDesigner implements LayoutConstants {
 
   private void findContainerResizingGap(LayoutInterval rootInterval, int dimension) {
     if (!LayoutInterval.wantResize(rootInterval) && // See issue 66849
-        LayoutInterval.getIntervalCurrentSize(rootInterval, dimension) != prefSizeOfInterval(rootInterval)) {
+        LayoutInterval.getIntervalCurrentSize(rootInterval, dimension) != prefSizeOfInterval(
+            rootInterval)) {
       // Resizing gap would change the layout
       return;
     }
@@ -3333,8 +3350,8 @@ public class LayoutDesigner implements LayoutConstants {
       }
     }
     // mark the gap and all surrounding intervals
-    resGap.setAttribute(LayoutInterval.ATTR_DESIGN_CONTAINER_GAP
-        | LayoutInterval.ATTR_DESIGN_RESIZING);
+    resGap.setAttribute(
+        LayoutInterval.ATTR_DESIGN_CONTAINER_GAP | LayoutInterval.ATTR_DESIGN_RESIZING);
     LayoutInterval sub = resGap;
     LayoutInterval parent = resGap.getParent();
     do {
@@ -3388,7 +3405,8 @@ public class LayoutDesigner implements LayoutConstants {
         LayoutInterval li = seq.getSubInterval(alignment == LEADING ? 0 : n - 1);
         LayoutInterval gap;
         if (canBeContainerResizingGap(li)
-            && (LayoutInterval.wantResize(seq) || LayoutInterval.getEffectiveAlignment(li) == (alignment ^ 1))) { // making this gap resizing won't change the visual appearance of the sequence
+            && (LayoutInterval.wantResize(seq)
+                || LayoutInterval.getEffectiveAlignment(li) == (alignment ^ 1))) { // making this gap resizing won't change the visual appearance of the sequence
           gap = li;
         } else if (li.isParallel()) {
           gap = findContainerResizingGap(li, dimension, alignment);
@@ -3424,7 +3442,8 @@ public class LayoutDesigner implements LayoutConstants {
 
   private static boolean canBeContainerResizingGap(LayoutInterval li) {
     return li.isEmptySpace()
-        && (li.getPreferredSize() != NOT_EXPLICITLY_DEFINED || li.getMaximumSize() >= Short.MAX_VALUE);
+        && (li.getPreferredSize() != NOT_EXPLICITLY_DEFINED
+            || li.getMaximumSize() >= Short.MAX_VALUE);
   }
 
   /**
@@ -3538,12 +3557,10 @@ public class LayoutDesigner implements LayoutConstants {
           preferred = visualMapper.getComponentPreferredSize(component.getId());
         }
         int min = i == HORIZONTAL ? minimum.width : minimum.height;
-        boolean externalSize =
-            visualMapper.hasExplicitPreferredSize(component.getId())
-                && currentSize != (i == HORIZONTAL ? preferred.width : preferred.height)
-                || currentSize < min
-                || currentSize > min
-                && !LayoutInterval.wantResize(defaultRoot);
+        boolean externalSize = visualMapper.hasExplicitPreferredSize(component.getId())
+            && currentSize != (i == HORIZONTAL ? preferred.width : preferred.height)
+            || currentSize < min
+            || currentSize > min && !LayoutInterval.wantResize(defaultRoot);
         operations.resizeInterval(outer, externalSize ? currentSize : NOT_EXPLICITLY_DEFINED);
       }
     }
@@ -3617,10 +3634,9 @@ public class LayoutDesigner implements LayoutConstants {
       if (size == NOT_EXPLICITLY_DEFINED) {
         if (interval.isComponent()) {
           LayoutComponent comp = interval.getComponent();
-          Dimension dim =
-              min == USE_PREFERRED_SIZE
-                  ? visualMapper.getComponentPreferredSize(comp.getId())
-                  : visualMapper.getComponentMinimumSize(comp.getId());
+          Dimension dim = min == USE_PREFERRED_SIZE
+              ? visualMapper.getComponentPreferredSize(comp.getId())
+              : visualMapper.getComponentMinimumSize(comp.getId());
           size = interval == comp.getLayoutInterval(HORIZONTAL) ? dim.width : dim.height;
         } else { // gap
           size = LayoutUtils.getSizeOfDefaultGap(interval, visualMapper);
@@ -3681,8 +3697,8 @@ public class LayoutDesigner implements LayoutConstants {
         trailingNeighbor = null;
       }
       if (!wasResizing
-          && (leadingGap != null && LayoutInterval.canResize(leadingGap) || trailingGap != null
-              && LayoutInterval.canResize(trailingGap))) {
+          && (leadingGap != null && LayoutInterval.canResize(leadingGap)
+              || trailingGap != null && LayoutInterval.canResize(trailingGap))) {
         wasResizing = true;
       }
       LayoutInterval superParent = parent.getParent();
@@ -3705,19 +3721,18 @@ public class LayoutDesigner implements LayoutConstants {
             layoutModel.setIntervalAlignment(parent, LEADING);
           }
         }
-        int cutSize =
-            LayoutRegion.distance(
-                (leadingNeighbor != null ? leadingNeighbor : parent).getCurrentSpace(),
-                (trailingNeighbor != null ? trailingNeighbor : parent).getCurrentSpace(),
-                dimension,
-                leadingNeighbor != null ? TRAILING : LEADING,
-                trailingNeighbor != null ? LEADING : TRAILING);
+        int cutSize = LayoutRegion.distance(
+            (leadingNeighbor != null ? leadingNeighbor : parent).getCurrentSpace(),
+            (trailingNeighbor != null ? trailingNeighbor : parent).getCurrentSpace(),
+            dimension,
+            leadingNeighbor != null ? TRAILING : LEADING,
+            trailingNeighbor != null ? LEADING : TRAILING);
         if (leadingNeighbor != null && trailingNeighbor != null // inside a sequence
             || superParent.getParent() == null // in root parallel group
             || leadingNeighbor != null
-            && LayoutInterval.getEffectiveAlignment(leadingNeighbor, TRAILING) == TRAILING
+                && LayoutInterval.getEffectiveAlignment(leadingNeighbor, TRAILING) == TRAILING
             || trailingNeighbor != null
-            && LayoutInterval.getEffectiveAlignment(trailingNeighbor, LEADING) == LEADING) { // create a placeholder gap
+                && LayoutInterval.getEffectiveAlignment(trailingNeighbor, LEADING) == LEADING) { // create a placeholder gap
           int min, max;
           if (wasResizing && !restResizing) { // the gap should be resizing
             min = NOT_EXPLICITLY_DEFINED;
@@ -3735,10 +3750,12 @@ public class LayoutDesigner implements LayoutConstants {
             layoutModel.setIntervalAlignment(last, parent.getRawAlignment());
           } else { // adjust current space of the parent sequence
                    // (border interval at the open end removed)
-            int l =
-                (trailingNeighbor != null && leadingNeighbor == null ? trailingNeighbor : parent).getCurrentSpace().positions[dimension][LEADING];
-            int t =
-                (leadingNeighbor != null && trailingNeighbor == null ? leadingNeighbor : parent).getCurrentSpace().positions[dimension][TRAILING];
+            int l = (trailingNeighbor != null && leadingNeighbor == null
+                ? trailingNeighbor
+                : parent).getCurrentSpace().positions[dimension][LEADING];
+            int t = (leadingNeighbor != null && trailingNeighbor == null
+                ? leadingNeighbor
+                : parent).getCurrentSpace().positions[dimension][TRAILING];
             parent.getCurrentSpace().set(dimension, l, t);
           }
           maintainSize(
@@ -3857,10 +3874,14 @@ public class LayoutDesigner implements LayoutConstants {
         if (size > subSize) {
           subSize = size;
         }
-        l =
-            LayoutUtils.getOutermostComponent(li, dimension, LEADING).getCurrentSpace().positions[dimension][LEADING];
-        t =
-            LayoutUtils.getOutermostComponent(li, dimension, TRAILING).getCurrentSpace().positions[dimension][TRAILING];
+        l = LayoutUtils.getOutermostComponent(
+            li,
+            dimension,
+            LEADING).getCurrentSpace().positions[dimension][LEADING];
+        t = LayoutUtils.getOutermostComponent(
+            li,
+            dimension,
+            TRAILING).getCurrentSpace().positions[dimension][TRAILING];
       } else {
         if (excludedSize > subSize) {
           subSize = excludedSize;
@@ -3948,7 +3969,7 @@ public class LayoutDesigner implements LayoutConstants {
    * (which might be now possible when the big component is away). This is just a workaround
    * covering simple cases, mainly for old layouts. We now try to avoid components that are too high
    * to align on baseline at all.
-   * 
+   *
    * @param group
    *          The group from which an interval has just been deleted.
    * @param dimension
@@ -3985,8 +4006,12 @@ public class LayoutDesigner implements LayoutConstants {
                   && LayoutRegion.overlap(neighborSpace, groupSpace, dimension, 0)
                   && !LayoutRegion.overlap(neighborSpace, reducedSpace, dimension, 0)) {
                 // overlapped with original group but not with the reduced space without the removed interval
-                int dist =
-                    LayoutRegion.distance(neighborSpace, reducedSpace, dimension, TRAILING, LEADING);
+                int dist = LayoutRegion.distance(
+                    neighborSpace,
+                    reducedSpace,
+                    dimension,
+                    TRAILING,
+                    LEADING);
                 if (dist >= 0) {
                   if (seqListL == null) {
                     seqListL = new ArrayList<LayoutInterval>();
@@ -3996,13 +4021,12 @@ public class LayoutDesigner implements LayoutConstants {
                     minDistL = dist;
                   }
                 } else {
-                  dist =
-                      LayoutRegion.distance(
-                          reducedSpace,
-                          neighborSpace,
-                          dimension,
-                          TRAILING,
-                          LEADING);
+                  dist = LayoutRegion.distance(
+                      reducedSpace,
+                      neighborSpace,
+                      dimension,
+                      TRAILING,
+                      LEADING);
                   if (seqListT == null) {
                     seqListT = new ArrayList<LayoutInterval>();
                   }

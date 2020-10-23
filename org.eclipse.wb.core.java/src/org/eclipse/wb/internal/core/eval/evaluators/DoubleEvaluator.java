@@ -62,11 +62,11 @@ public final class DoubleEvaluator implements IExpressionEvaluator {
         double operandValue = getDoubleValue(context, operand);
         // +
         if (operator == PrefixExpression.Operator.PLUS) {
-          return new Double(operandValue);
+          return Double.valueOf(operandValue);
         }
         // -
         if (operator == PrefixExpression.Operator.MINUS) {
-          return new Double(-operandValue);
+          return Double.valueOf(-operandValue);
         }
       }
       // infix expression (+, -, *, /, %)
@@ -104,7 +104,7 @@ public final class DoubleEvaluator implements IExpressionEvaluator {
           }
         }
         // return final value as object
-        return new Double(value);
+        return Double.valueOf(value);
       }
     }
     // we don't understand given expression

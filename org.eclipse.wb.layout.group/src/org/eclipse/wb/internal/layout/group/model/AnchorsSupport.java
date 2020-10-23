@@ -52,14 +52,30 @@ public final class AnchorsSupport implements LayoutConstants {
     {
       IMenuManager anchorsManager = new MenuManager(Messages.AnchorsSupport_anchorsMenu);
       manager.appendToGroup(IContextMenuConstants.GROUP_CONSTRAINTS, anchorsManager);
-      anchorsManager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchorLeft, "h/menu/left.gif", true, LEADING));
-      anchorsManager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchorRight, "h/menu/right.gif", true, TRAILING));
-      anchorsManager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchorTop, "v/menu/top.gif", false, LEADING));
-      anchorsManager.add(new SetAnchorAction(component,
-          Messages.AnchorsSupport_anchorBottom,
-          "v/menu/bottom.gif",
-          false,
-          TRAILING));
+      anchorsManager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchorLeft,
+              "h/menu/left.gif",
+              true,
+              LEADING));
+      anchorsManager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchorRight,
+              "h/menu/right.gif",
+              true,
+              TRAILING));
+      anchorsManager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchorTop,
+              "v/menu/top.gif",
+              false,
+              LEADING));
+      anchorsManager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchorBottom,
+              "v/menu/bottom.gif",
+              false,
+              TRAILING));
     }
     {
       IMenuManager autoResigingManager = new MenuManager(Messages.AnchorsSupport_autoResizeMenu);
@@ -73,20 +89,32 @@ public final class AnchorsSupport implements LayoutConstants {
       IContributionManager manager,
       boolean isHorizontal) {
     if (isHorizontal) {
-      manager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchoredLeft, "h/menu/left.gif", true, LEADING));
-      manager.add(new SetAnchorAction(component,
-          Messages.AnchorsSupport_anchoredRight,
-          "h/menu/right.gif",
-          true,
-          TRAILING));
+      manager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchoredLeft,
+              "h/menu/left.gif",
+              true,
+              LEADING));
+      manager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchoredRight,
+              "h/menu/right.gif",
+              true,
+              TRAILING));
       manager.add(new MakeResizeableAction(component, "h/menu/both.gif", isHorizontal));
     } else {
-      manager.add(new SetAnchorAction(component, Messages.AnchorsSupport_anchoredTop, "v/menu/top.gif", false, LEADING));
-      manager.add(new SetAnchorAction(component,
-          Messages.AnchorsSupport_anchoredBottom,
-          "v/menu/bottom.gif",
-          false,
-          TRAILING));
+      manager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchoredTop,
+              "v/menu/top.gif",
+              false,
+              LEADING));
+      manager.add(
+          new SetAnchorAction(component,
+              Messages.AnchorsSupport_anchoredBottom,
+              "v/menu/bottom.gif",
+              false,
+              TRAILING));
       manager.add(new MakeResizeableAction(component, "v/menu/both.gif", isHorizontal));
     }
   }
@@ -133,9 +161,8 @@ public final class AnchorsSupport implements LayoutConstants {
       int direction) {
     LayoutInterval space = getEmptySpaceInterval(aroundComponent, dimension, direction);
     if (space != null) {
-      return new Integer(LayoutUtils.getSizeOfDefaultGap(
-          space,
-          m_layout.getAdapter(VisualMapper.class)));
+      return Integer.valueOf(
+          LayoutUtils.getSizeOfDefaultGap(space, m_layout.getAdapter(VisualMapper.class)));
     }
     return null;
   }
@@ -232,8 +259,11 @@ public final class AnchorsSupport implements LayoutConstants {
         String imageName,
         boolean isHorizontal,
         int alignment) {
-      super(component, text, new ImageImageDescriptor(getImageProvider().getImage(
-          "info/layout/groupLayout/" + imageName)), AS_CHECK_BOX);
+      super(component,
+          text,
+          new ImageImageDescriptor(
+              getImageProvider().getImage("info/layout/groupLayout/" + imageName)),
+          AS_CHECK_BOX);
       m_isHorizontal = isHorizontal;
       m_component = component;
       m_alignment = alignment;
@@ -261,8 +291,11 @@ public final class AnchorsSupport implements LayoutConstants {
     private MakeResizeableAction(AbstractComponentInfo component,
         String imageName,
         boolean isHorizontal) {
-      super(component, Messages.AnchorsSupport_autoResizable, new ImageImageDescriptor(getImageProvider().getImage(
-          "info/layout/groupLayout/" + imageName)), AS_CHECK_BOX);
+      super(component,
+          Messages.AnchorsSupport_autoResizable,
+          new ImageImageDescriptor(
+              getImageProvider().getImage("info/layout/groupLayout/" + imageName)),
+          AS_CHECK_BOX);
       m_component = component;
       m_isHorizontal = isHorizontal;
       setEnabled(component != null);
@@ -289,9 +322,11 @@ public final class AnchorsSupport implements LayoutConstants {
         String imageName,
         boolean isHorizontal) {
       super(component,
-          isHorizontal ? Messages.AnchorsSupport_resizableHorizontal : Messages.AnchorsSupport_resizableVertical,
-          new ImageImageDescriptor(getImageProvider().getImage(
-              "info/layout/groupLayout/" + imageName)),
+          isHorizontal
+              ? Messages.AnchorsSupport_resizableHorizontal
+              : Messages.AnchorsSupport_resizableVertical,
+          new ImageImageDescriptor(
+              getImageProvider().getImage("info/layout/groupLayout/" + imageName)),
           AS_CHECK_BOX);
       m_component = component;
       m_isHorizontal = isHorizontal;

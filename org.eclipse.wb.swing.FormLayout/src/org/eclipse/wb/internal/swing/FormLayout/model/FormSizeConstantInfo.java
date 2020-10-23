@@ -31,7 +31,7 @@ import javax.swing.JFrame;
 
 /**
  * Description for {@link ConstantSize}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -117,17 +117,17 @@ public final class FormSizeConstantInfo {
   // Object
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final DecimalFormat FORMAT = new DecimalFormat("#.#",
-      new DecimalFormatSymbols(Locale.ENGLISH));
+  private static final DecimalFormat FORMAT =
+      new DecimalFormat("#.#", new DecimalFormatSymbols(Locale.ENGLISH));
 
   /**
    * @param asString
    *          is <code>true</code> if string presentation should be used, and <code>false</code> if
    *          {@link Sizes} source should be used
-   * 
+   *
    * @param horizontal
    *          is <code>true</code> if source for horizontal size should be generated
-   * 
+   *
    * @return the source of this {@link FormSizeConstantInfo}.
    */
   public String getSource(boolean asString, boolean horizontal) {
@@ -256,8 +256,9 @@ public final class FormSizeConstantInfo {
         UnitConverter.class.getMethod(methodName, new Class[]{double.class, Component.class});
     double result = 0;
     while (true) {
-      Integer newPixelsValue =
-          (Integer) method.invoke(converter, new Object[]{new Double(result), m_toolkitComponent});
+      Integer newPixelsValue = (Integer) method.invoke(
+          converter,
+          new Object[]{Double.valueOf(result), m_toolkitComponent});
       int newPixels = newPixelsValue.intValue();
       if (newPixels > pixels) {
         return (int) (result * 10) / 10.0;
