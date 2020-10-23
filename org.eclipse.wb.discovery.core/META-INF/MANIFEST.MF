@@ -15,3 +15,4 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.wb.internal.discovery.core
+Automatic-Module-Name: org.eclipse.wb.discovery.core

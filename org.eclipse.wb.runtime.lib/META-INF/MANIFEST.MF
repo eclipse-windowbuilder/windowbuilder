@@ -15,3 +15,4 @@ Export-Package: net.sf.cglib.asm,
  net.sf.cglib.util
 Bundle-ClassPath: lib/cglib-nodep-2.2.jar
 Bundle-Localization: plugin
+Automatic-Module-Name: org.eclipse.wb.runtime.lib

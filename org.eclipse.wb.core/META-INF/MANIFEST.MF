@@ -146,3 +146,4 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.wb.runtime;visibility:=reexport,
  org.eclipse.wb.core.lib;visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.wb.core

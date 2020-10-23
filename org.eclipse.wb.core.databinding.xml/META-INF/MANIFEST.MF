@@ -15,3 +15,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.core.databinding.xml.model,
  org.eclipse.wb.internal.core.databinding.xml.ui
+Automatic-Module-Name: org.eclipse.wb.core.databinding.xml

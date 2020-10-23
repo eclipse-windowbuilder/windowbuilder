@@ -45,3 +45,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Bundle-Localization: plugin
+Automatic-Module-Name: org.eclipse.wb.rcp.databinding

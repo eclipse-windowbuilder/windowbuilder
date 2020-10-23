@@ -89,3 +89,4 @@ Export-Package: com.google.common.annotations,
  org.objectweb.asm.util
 Require-Bundle: org.eclipse.ui
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.wb.core.lib

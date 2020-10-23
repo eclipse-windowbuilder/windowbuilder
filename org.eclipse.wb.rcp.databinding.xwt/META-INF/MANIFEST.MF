@@ -20,3 +20,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.rcp.databinding.xwt.ui.property
+Automatic-Module-Name: org.eclipse.wb.rcp.databinding.xwt
