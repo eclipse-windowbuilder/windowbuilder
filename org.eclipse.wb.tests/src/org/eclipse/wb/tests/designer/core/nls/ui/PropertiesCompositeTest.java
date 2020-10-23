@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 /**
  * Tests for {@link PropertiesComposite}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertiesCompositeTest extends AbstractDialogTest {
@@ -40,17 +40,16 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_noSources() throws Exception {
-    String initialSource =
-        getTestSource(
-            "// filler filler filler",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "  }",
-            "}");
+    String initialSource = getTestSource(
+        "// filler filler filler",
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "  }",
+        "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"Properties"});
-        List sourcesList = context.findFirstWidget(tabItems[0], List.class);
+        List sourcesList = UiContext.findFirstWidget(tabItems[0], List.class);
         assertEquals(0, sourcesList.getItemCount());
       }
     });
@@ -66,22 +65,23 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
     setFileContentSrc(
         "test/messages2.properties",
         getSourceDQ("#Direct ResourceBundle", "frame.name=My name"));
-    String initialSource =
-        getTestSource(
-            "import java.util.ResourceBundle;",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "  }",
-            "}");
+    String initialSource = getTestSource(
+        "import java.util.ResourceBundle;",
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "  }",
+        "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems =
             assertItems(tabFolder, new String[]{"test.messages", "test.messages2", "Properties"});
-        List sourcesList = context.findFirstWidget(tabItems[2], List.class);
+        List sourcesList = UiContext.findFirstWidget(tabItems[2], List.class);
         //
-        assertItems(sourcesList, new String[]{
-            "test.messages (Direct ResourceBundle usage)",
-            "test.messages2 (Direct ResourceBundle usage)"});
+        assertItems(
+            sourcesList,
+            new String[]{
+                "test.messages (Direct ResourceBundle usage)",
+                "test.messages2 (Direct ResourceBundle usage)"});
       }
     });
   }
@@ -93,18 +93,17 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
     setFileContentSrc("test/messages_it.properties", getSourceDQ("frame.title=My JFrame IT"));
     waitForAutoBuild();
     //
-    String initialSource =
-        getTestSource(
-            "import java.util.ResourceBundle;",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
-            "  }",
-            "}");
+    String initialSource = getTestSource(
+        "import java.util.ResourceBundle;",
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setTitle(ResourceBundle.getBundle(\"test.messages\").getString(\"frame.title\")); //$NON-NLS-1$ //$NON-NLS-2$",
+        "  }",
+        "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
-        List sourcesList = context.findFirstWidget(tabItems[1], List.class);
+        List sourcesList = UiContext.findFirstWidget(tabItems[1], List.class);
         //
         assertItems(sourcesList, new String[]{"test.messages (Direct ResourceBundle usage)"});
       }
@@ -113,55 +112,54 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 
   public void test_properties() throws Exception {
     setFileContentSrc("test/messages.properties", getSourceDQ("#Direct ResourceBundle"));
-    String initialSource =
-        getTestSource(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setTitle(\"My JFrame\");",
-            "    {",
-            "      JButton button = new JButton(\"New button\");",
-            "      getContentPane().add(button, BorderLayout.NORTH);",
-            "    }",
-            "    {",
-            "      JTextField textField = new JTextField();",
-            "      getContentPane().add(textField, BorderLayout.SOUTH);",
-            "    }",
-            "  }",
-            "}");
+    String initialSource = getTestSource(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setTitle(\"My JFrame\");",
+        "    {",
+        "      JButton button = new JButton(\"New button\");",
+        "      getContentPane().add(button, BorderLayout.NORTH);",
+        "    }",
+        "    {",
+        "      JTextField textField = new JTextField();",
+        "      getContentPane().add(textField, BorderLayout.SOUTH);",
+        "    }",
+        "  }",
+        "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         PropertiesComposite propertiesComposite = (PropertiesComposite) tabItems[1].getControl();
         // sources list
-        List sourcesList = context.findFirstWidget(propertiesComposite, List.class);
+        List sourcesList = UiContext.findFirstWidget(propertiesComposite, List.class);
         assertNotNull(sourcesList);
         // properties tree
-        Tree propertiesTree = context.findFirstWidget(propertiesComposite, Tree.class);
+        Tree propertiesTree = UiContext.findFirstWidget(propertiesComposite, Tree.class);
         assertNotNull(propertiesTree);
         // "Externalize" button
         Button externalizeButton = context.getButtonByText("E&xternalize");
         assertNotNull(externalizeButton);
         // check content on properties tree
         {
-          assertNotNull(getItem(propertiesTree, new String[]{
-              "(javax.swing.JFrame)",
-              "title: My JFrame"}));
-          assertNotNull(getItem(propertiesTree, new String[]{
-              "(javax.swing.JFrame)",
-              "getContentPane()",
-              "button",
-              "text: New button"}));
-          assertNull(getItem(propertiesTree, new String[]{
-              "(javax.swing.JFrame)",
-              "getContentPane()",
-              "textField"}));
+          assertNotNull(
+              getItem(propertiesTree, new String[]{"(javax.swing.JFrame)", "title: My JFrame"}));
+          assertNotNull(
+              getItem(
+                  propertiesTree,
+                  new String[]{
+                      "(javax.swing.JFrame)",
+                      "getContentPane()",
+                      "button",
+                      "text: New button"}));
+          assertNull(
+              getItem(
+                  propertiesTree,
+                  new String[]{"(javax.swing.JFrame)", "getContentPane()", "textField"}));
         }
         // prepare TreeItem's
-        TreeItem buttonItem =
-            getItem(propertiesTree, new String[]{
-                "(javax.swing.JFrame)",
-                "getContentPane()",
-                "button"});
+        TreeItem buttonItem = getItem(
+            propertiesTree,
+            new String[]{"(javax.swing.JFrame)", "getContentPane()", "button"});
         TreeItem buttonTextItem = getItem(buttonItem, new String[]{"text: New button"}, 0);
         // set checked "button" item
         {
@@ -205,23 +203,24 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
           setChecked(buttonItem, true);
           context.clickButton("E&xternalize");
           // items for "button" and its "text" property should be removed
-          assertNull(getItem(propertiesTree, new String[]{
-              "(javax.swing.JFrame)",
-              "getContentPane()",
-              "button",
-              "text: New button"}));
-          assertNull(getItem(propertiesTree, new String[]{
-              "(javax.swing.JFrame)",
-              "getContentPane()",
-              "button"}));
-          assertNull(getItem(propertiesTree, new String[]{
-              "(javax.swing.JFrame)",
-              "getContentPane()"}));
+          assertNull(
+              getItem(
+                  propertiesTree,
+                  new String[]{
+                      "(javax.swing.JFrame)",
+                      "getContentPane()",
+                      "button",
+                      "text: New button"}));
+          assertNull(
+              getItem(
+                  propertiesTree,
+                  new String[]{"(javax.swing.JFrame)", "getContentPane()", "button"}));
+          assertNull(
+              getItem(propertiesTree, new String[]{"(javax.swing.JFrame)", "getContentPane()"}));
           // check IEditableSource
-          IEditableSource editableSource =
-              (IEditableSource) ReflectionUtils.invokeMethod(
-                  propertiesComposite,
-                  "getSelectedSource()");
+          IEditableSource editableSource = (IEditableSource) ReflectionUtils.invokeMethod(
+              propertiesComposite,
+              "getSelectedSource()");
           assertEquals(
               "New button",
               editableSource.getValue(LocaleInfo.DEFAULT, "Test.button.text"));
@@ -239,17 +238,16 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
    * Open {@link NewSourceDialog} from {@link PropertiesComposite}.
    */
   public void test_open_NewSourceDialog() throws Exception {
-    String initialSource =
-        getTestSource(
-            "// filler filler filler",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "  }",
-            "}");
+    String initialSource = getTestSource(
+        "// filler filler filler",
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "  }",
+        "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"Properties"});
-        List sourcesList = context.findFirstWidget(tabItems[0], List.class);
+        List sourcesList = UiContext.findFirstWidget(tabItems[0], List.class);
         assertEquals(0, sourcesList.getItemCount());
         //
         context.executeAndCheck(new UIRunnable() {
