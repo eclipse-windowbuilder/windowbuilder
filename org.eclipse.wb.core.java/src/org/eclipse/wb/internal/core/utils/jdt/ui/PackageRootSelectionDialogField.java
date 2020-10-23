@@ -31,8 +31,8 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.ui.JavaElementComparator;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
-import org.eclipse.jdt.ui.JavaElementSorter;
 import org.eclipse.jdt.ui.StandardJavaElementContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -247,7 +247,7 @@ public final class PackageRootSelectionDialogField extends StringButtonDialogFie
       //
       dialog.setTitle(Messages.PackageRootSelectionDialogField_dialogTitle);
       dialog.setMessage(Messages.PackageRootSelectionDialogField_dialogMessage);
-      dialog.setSorter(new JavaElementSorter());
+      dialog.setComparator(new JavaElementComparator());
       //
       dialog.setValidator(new ISelectionStatusValidator() {
         public IStatus validate(Object[] selection) {

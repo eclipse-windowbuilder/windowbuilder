@@ -41,7 +41,7 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -123,7 +123,7 @@ public final class PropertiesComposite extends Composite {
       m_sourcesViewer = new ListViewer(sourceGroup, SWT.BORDER);
       m_sourcesViewer.setContentProvider(new SourcesContentProvider());
       m_sourcesViewer.setLabelProvider(new SourcesLabelProvider());
-      m_sourcesViewer.setSorter(new ViewerSorter());
+      m_sourcesViewer.setComparator(new ViewerComparator());
       //
       m_sourcesList = m_sourcesViewer.getList();
       GridDataFactory.create(m_sourcesList).fill().grab().hintVC(5);

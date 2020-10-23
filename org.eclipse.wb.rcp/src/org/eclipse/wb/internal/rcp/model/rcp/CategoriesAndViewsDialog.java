@@ -38,8 +38,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.pde.core.plugin.IPluginElement;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -67,7 +67,7 @@ import java.util.List;
 
 /**
  * {@link Dialog} for editing categories and moving views between them.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -119,7 +119,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       m_contentProvider = new ViewsContentProvider();
       m_viewer.setContentProvider(m_contentProvider);
       m_viewer.setLabelProvider(new ViewsLabelProvider());
-      m_viewer.setSorter(new ViewerSorter());
+      m_viewer.setComparator(new ViewerComparator());
       setPluginElementComparer();
       m_viewer.setInput("myInput");
       // events
@@ -323,12 +323,11 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
   }
 
   private void newCategory() {
-    InputDialog inputDialog =
-        new InputDialog(getShell(),
-            ModelMessages.CategoriesAndViewsDialog_newCategoryTitle,
-            ModelMessages.CategoriesAndViewsDialog_newCategoryMessage,
-            "",
-            null);
+    InputDialog inputDialog = new InputDialog(getShell(),
+        ModelMessages.CategoriesAndViewsDialog_newCategoryTitle,
+        ModelMessages.CategoriesAndViewsDialog_newCategoryMessage,
+        "",
+        null);
     if (inputDialog.open() != OK) {
       return;
     }
@@ -351,12 +350,11 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     final String newName;
     {
       String oldName = PdeUtils.getAttribute(category, "name");
-      InputDialog inputDialog =
-          new InputDialog(getShell(),
-              ModelMessages.CategoriesAndViewsDialog_editCategoryTitle,
-              ModelMessages.CategoriesAndViewsDialog_editCategoryMessage,
-              oldName,
-              null);
+      InputDialog inputDialog = new InputDialog(getShell(),
+          ModelMessages.CategoriesAndViewsDialog_editCategoryTitle,
+          ModelMessages.CategoriesAndViewsDialog_editCategoryMessage,
+          oldName,
+          null);
       if (inputDialog.open() != OK) {
         return;
       }
@@ -377,10 +375,9 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     final IPluginElement element = (IPluginElement) selection.getFirstElement();
     // ask confirmation
     {
-      String messages =
-          MessageFormat.format(
-              ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationMessage,
-              PdeUtils.getAttribute(element, "name"));
+      String messages = MessageFormat.format(
+          ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationMessage,
+          PdeUtils.getAttribute(element, "name"));
       if (!MessageDialog.openConfirm(
           getShell(),
           ModelMessages.CategoriesAndViewsDialog_removeCategoryConfirmationText,
