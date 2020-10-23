@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link CTableTree} items models.
- * 
+ *
  * @author sablin_aa
  */
 public class CTableTreeTest extends AbstractNebulaTest {
@@ -46,32 +46,31 @@ public class CTableTreeTest extends AbstractNebulaTest {
    * General test for {@link CContainerColumnInfo} && {@link CTableTreeItemInfo}.
    */
   public void test_General() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
-            "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
-            "    {",
-            "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
-            "      column1.setText('Column 1');",
-            "      column1.setWidth(200);",
-            "    }",
-            "    {",
-            "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
-            "      item1.setExpanded(true);",
-            "      item1.setText('row 1');",
-            "      {",
-            "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
-            "        item11.setText('row 1 - 1');",
-            "      }",
-            "    }",
-            "    tableTree.setTreeColumn(0);",
-            "    tableTree.setHeaderVisible(true);",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
+        "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
+        "    {",
+        "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
+        "      column1.setText('Column 1');",
+        "      column1.setWidth(200);",
+        "    }",
+        "    {",
+        "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
+        "      item1.setExpanded(true);",
+        "      item1.setText('row 1');",
+        "      {",
+        "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
+        "        item11.setText('row 1 - 1');",
+        "      }",
+        "    }",
+        "    tableTree.setTreeColumn(0);",
+        "    tableTree.setHeaderVisible(true);",
+        "  }",
+        "}");
     // refresh() also should be successful
     shell.refresh();
     // info
@@ -85,7 +84,7 @@ public class CTableTreeTest extends AbstractNebulaTest {
       Rectangle bounds = column.getBounds();
       assertThat(bounds.width).isEqualTo(200);
       assertThat(bounds.height).isEqualTo(
-          (Integer) ReflectionUtils.invokeMethod(table.getObject(), "getHeaderHeight()"));
+          ReflectionUtils.invokeMethod(table.getObject(), "getHeaderHeight()"));
     }
     // row
     {
@@ -100,31 +99,30 @@ public class CTableTreeTest extends AbstractNebulaTest {
    * Test collapsed {@link CTableTreeItemInfo}.
    */
   public void test_Expanded() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
-            "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
-            "    {",
-            "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
-            "      column1.setText('Column 1');",
-            "      column1.setWidth(200);",
-            "    }",
-            "    tableTree.setTreeColumn(0);",
-            "    {",
-            "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
-            "      item1.setExpanded(false);",
-            "      item1.setText('row 1');",
-            "      {",
-            "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
-            "        item11.setText('row 1 - 1');",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
+        "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
+        "    {",
+        "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
+        "      column1.setText('Column 1');",
+        "      column1.setWidth(200);",
+        "    }",
+        "    tableTree.setTreeColumn(0);",
+        "    {",
+        "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
+        "      item1.setExpanded(false);",
+        "      item1.setText('row 1');",
+        "      {",
+        "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
+        "        item11.setText('row 1 - 1');",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     // refresh() also should be successful
     shell.refresh();
     // info
@@ -150,30 +148,29 @@ public class CTableTreeTest extends AbstractNebulaTest {
    * be placed directly before first {@link CTableTreeItem}).
    */
   public void test_addColumn_1() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
-            "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
-            "    {",
-            "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
-            "      column1.setText('Column 1');",
-            "      column1.setWidth(200);",
-            "    }",
-            "    {",
-            "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
-            "      item1.setExpanded(true);",
-            "      item1.setText('row 1');",
-            "      {",
-            "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
-            "        item11.setText('row 1 - 1');",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
+        "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
+        "    {",
+        "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
+        "      column1.setText('Column 1');",
+        "      column1.setWidth(200);",
+        "    }",
+        "    {",
+        "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
+        "      item1.setExpanded(true);",
+        "      item1.setText('row 1');",
+        "      {",
+        "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
+        "        item11.setText('row 1 - 1');",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     // refresh() also should be successful
     shell.refresh();
     // info
@@ -209,11 +206,10 @@ public class CTableTreeTest extends AbstractNebulaTest {
     }
     {
       // create new column
-      CContainerColumnInfo column =
-          (CContainerColumnInfo) JavaInfoUtils.createJavaInfo(
-              tree.getEditor(),
-              "org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn",
-              new ConstructorCreationSupport());
+      CContainerColumnInfo column = (CContainerColumnInfo) JavaInfoUtils.createJavaInfo(
+          tree.getEditor(),
+          "org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn",
+          new ConstructorCreationSupport());
       JavaInfoUtils.add(column, null, tree, null);
       assertEditor(
           "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
@@ -252,30 +248,29 @@ public class CTableTreeTest extends AbstractNebulaTest {
    * be placed directly before {@link CTableTreeItem#setTreeColumn(int)} invocation ).
    */
   public void test_addColumn_2() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
-            "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
-            "    {",
-            "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
-            "      column1.setText('Column 1');",
-            "      column1.setWidth(200);",
-            "    }",
-            "    {",
-            "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
-            "      item1.setExpanded(true);",
-            "      item1.setText('row 1');",
-            "      {",
-            "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
-            "        item11.setText('row 1 - 1');",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "import org.eclipse.swt.nebula.widgets.ctabletree.*;",
+        "import org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.*;",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    CTableTree tableTree = new CTableTree(this, SWT.NONE);",
+        "    {",
+        "      CContainerColumn column1 = new CContainerColumn(tableTree, SWT.NONE);",
+        "      column1.setText('Column 1');",
+        "      column1.setWidth(200);",
+        "    }",
+        "    {",
+        "      CTableTreeItem item1 = new CTableTreeItem(tableTree, SWT.NONE);",
+        "      item1.setExpanded(true);",
+        "      item1.setText('row 1');",
+        "      {",
+        "        CTableTreeItem item11 = new CTableTreeItem(item1, SWT.NONE);",
+        "        item11.setText('row 1 - 1');",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     // refresh() also should be successful
     shell.refresh();
     // info
@@ -311,11 +306,10 @@ public class CTableTreeTest extends AbstractNebulaTest {
     }
     {
       // create new column
-      CContainerColumnInfo column =
-          (CContainerColumnInfo) JavaInfoUtils.createJavaInfo(
-              tree.getEditor(),
-              "org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn",
-              new ConstructorCreationSupport());
+      CContainerColumnInfo column = (CContainerColumnInfo) JavaInfoUtils.createJavaInfo(
+          tree.getEditor(),
+          "org.eclipse.swt.nebula.widgets.ctabletree.ccontainer.CContainerColumn",
+          new ConstructorCreationSupport());
       JavaInfoUtils.add(column, null, tree, null);
       assertEditor(
           "import org.eclipse.swt.nebula.widgets.ctabletree.*;",

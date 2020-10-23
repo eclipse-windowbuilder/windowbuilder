@@ -21,8 +21,6 @@ import org.eclipse.core.expressions.Expression;
 import org.eclipse.core.expressions.ExpressionInfo;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Control;
@@ -61,22 +59,22 @@ public abstract class AbstractControlActionsManager {
   public AbstractControlActionsManager(final Control control) {
     m_control = control;
     m_control.addFocusListener(new FocusListener() {
+      @Override
       public void focusGained(FocusEvent e) {
         activateHandlers();
         m_active = true;
       }
 
+      @Override
       public void focusLost(FocusEvent e) {
         deactivateHandlers();
         m_active = false;
       }
     });
-    m_control.addDisposeListener(new DisposeListener() {
-      public void widgetDisposed(DisposeEvent e) {
-        if (m_active) {
-          // deactivate on dispose
-          deactivateHandlers();
-        }
+    m_control.addDisposeListener(e -> {
+      if (m_active) {
+        // deactivate on dispose
+        deactivateHandlers();
       }
     });
   }
@@ -87,6 +85,7 @@ public abstract class AbstractControlActionsManager {
   //
   ////////////////////////////////////////////////////////////////////////////
   protected static final IHandler EMPTY_HANDLER = new AbstractHandler() {
+    @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
       // do nothing
       return null;
@@ -111,7 +110,7 @@ public abstract class AbstractControlActionsManager {
    * @returns the global handler service.
    */
   public static IHandlerService getHandlerService() {
-    return (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
+    return PlatformUI.getWorkbench().getService(IHandlerService.class);
   }
 
   /**

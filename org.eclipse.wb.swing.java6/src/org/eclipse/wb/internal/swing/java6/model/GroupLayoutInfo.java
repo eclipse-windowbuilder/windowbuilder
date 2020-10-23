@@ -36,7 +36,7 @@ import javax.swing.GroupLayout;
 
 /**
  * Model for {@link GroupLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */
@@ -59,7 +59,6 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
       "setVerticalGroup(javax.swing.GroupLayout.Group)";
   // fields
   private final SpringInfo[] m_rootGroups = new SpringInfo[2];
-  @SuppressWarnings("unchecked")
   private final Map[] m_widgetMaps = new Map[2];
 
   ////////////////////////////////////////////////////////////////////////////
@@ -138,7 +137,8 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
       int resizeDelta) throws Exception {
   }
 
-  public ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget, int side) {
+  public ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
+      int side) {
     return null;
   }
 
