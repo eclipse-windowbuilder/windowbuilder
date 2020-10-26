@@ -25,16 +25,6 @@
    </extension>
 
    <!-- ======================================================== -->
-   <!-- Property Editor -->
-   <!-- ======================================================== -->
-   <extension point="org.eclipse.wb.core.xml.propertyEditors">
-   		<configurableEditor
-    		id="testEditor"
-            class="org.eclipse.wb.tests.designer.XML.NoopConfigurablePropertyEditor"/>
-   </extension>
-   
-   
-   <!-- ======================================================== -->
    <!-- NLS sources -->
    <!-- ======================================================== -->
    <extension point="org.eclipse.wb.core.nlsSources">

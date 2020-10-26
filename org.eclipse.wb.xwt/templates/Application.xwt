@@ -1,6 +1,0 @@
-<Shell xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" x:Class="%TypeName%" text="XWT Application">
-	<Shell.layout>
-		<RowLayout/>
-	</Shell.layout>
-	<Button text="Double click me!"/>
-</Shell>

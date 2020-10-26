@@ -1,7 +1,0 @@
-<Composite xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" x:Class="%TypeName%">
-	<Composite.layout>
-		<RowLayout/>
-	</Composite.layout>
-	<Button text="Double click me!"/>
-</Composite>
-<!-- Forms API -->

@@ -31,8 +31,7 @@
 	<module>org.eclipse.wb.core.java</module>
 	<module>org.eclipse.wb.core.lib</module>
 	<module>org.eclipse.wb.core.ui</module>
-	<module>org.eclipse.wb.core.xml</module>
- 	
+	
 	<!-- other bundles -->
 
 	<module>org.eclipse.wb.dev</module>
@@ -51,7 +50,6 @@
 	<module>org.eclipse.wb.rcp</module>
 	<module>org.eclipse.wb.rcp.databinding</module>
 	<module>org.eclipse.wb.rcp.databinding.emf</module>
-	<module>org.eclipse.wb.rcp.databinding.xwt</module>
 	<module>org.eclipse.wb.rcp.doc.user</module>
 	<module>org.eclipse.wb.rcp.nebula</module>
 	<module>org.eclipse.wb.rcp.swing2swt</module>
@@ -77,15 +75,11 @@
 <!--
 	<module>org.eclipse.wb.tests</module>
 -->
-	<module>org.eclipse.wb.xwt</module>
-	
-	
 	
         <!-- Features-->
 	<module>org.eclipse.wb.core.feature_feature</module>
 	<module>org.eclipse.wb.core.java.feature_feature</module>
 	<module>org.eclipse.wb.core.ui.feature_feature</module>
-	<module>org.eclipse.wb.core.xml.feature_feature</module>
 	<module>org.eclipse.wb.doc.user.feature_feature</module>
 	<module>org.eclipse.wb.layout.group.feature_feature</module>
 	<module>org.eclipse.wb.rcp.doc.user.feature_feature</module>
@@ -94,7 +88,6 @@
 	<module>org.eclipse.wb.swing.doc.user.feature_feature</module>
 	<module>org.eclipse.wb.swing.feature_feature</module>
 	<module>org.eclipse.wb.swt.feature_feature</module>
-	<module>org.eclipse.wb.xwt.feature_feature</module>
     </modules>
 
 </project> 
