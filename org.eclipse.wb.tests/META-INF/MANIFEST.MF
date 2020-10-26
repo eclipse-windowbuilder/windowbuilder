@@ -172,4 +172,5 @@ Export-Package: org.easymock,
  org.eclipse.wb.tests.draw2d,
  org.eclipse.wb.tests.gef,
  org.eclipse.wb.tests.utils
+Automatic-Module-Name: org.eclipse.wb.tests
 

@@ -52,7 +52,6 @@ public class ResourceUtils {
   /**
    * Copy test resources from specified subpath to test project.
    */
-  @SuppressWarnings("unchecked")
   public static void resources2project(TestProject project, String path, String[] skipEntries)
       throws IOException, CoreException, JavaModelException, Exception {
     Enumeration<URL> pathEntries = m_testBundle.findEntries(path, "*", true);
@@ -90,8 +89,8 @@ public class ResourceUtils {
     }
   }
 
-  public static void resources2project(TestProject project, String path) throws IOException,
-      CoreException, JavaModelException, Exception {
+  public static void resources2project(TestProject project, String path)
+      throws IOException, CoreException, JavaModelException, Exception {
     resources2project(project, path, new String[]{});
   }
 }

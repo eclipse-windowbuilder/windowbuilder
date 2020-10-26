@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -42,7 +42,7 @@ import java.util.Set;
 
 /**
  * Utilities for swing layout support.
- * 
+ *
  * @author Jan Stola
  */
 public class SwingLayoutUtils {
@@ -58,13 +58,16 @@ public class SwingLayoutUtils {
    */
   private static Set<String> nonResizableComponents = new HashSet<String>();
   static {
-    nonResizableComponents.addAll(Arrays.asList(new String[]{"javax.swing.JLabel", // NOI18N
-        "javax.swing.JButton", // NOI18N
-        "javax.swing.JToggleButton", // NOI18N
-        "javax.swing.JCheckBox", // NOI18N
-        "javax.swing.JRadioButton", // NOI18N
-        "javax.swing.JList", // NOI18N
-    }));
+    nonResizableComponents.addAll(
+        Arrays.asList(
+            new String[]{
+                "javax.swing.JLabel", // NOI18N
+                "javax.swing.JButton", // NOI18N
+                "javax.swing.JToggleButton", // NOI18N
+                "javax.swing.JCheckBox", // NOI18N
+                "javax.swing.JRadioButton", // NOI18N
+                "javax.swing.JList", // NOI18N
+            }));
   }
   /**
    * Contains class names of resizable components e.g. components that are resizable unless one (or
@@ -72,27 +75,30 @@ public class SwingLayoutUtils {
    */
   private static Set<String> resizableComponents = new HashSet<String>();
   static {
-    resizableComponents.addAll(Arrays.asList(new String[]{"javax.swing.JComboBox", // NOI18N
-        "javax.swing.JTextField", // NOI18N
-        "javax.swing.JTextArea", // NOI18N
-        "javax.swing.JTabbedPane", // NOI18N
-        "javax.swing.JScrollPane", // NOI18N
-        "javax.swing.JSplitPane", // NOI18N
-        "javax.swing.JFormattedTextField", // NOI18N
-        "javax.swing.JPasswordField", // NOI18N
-        "javax.swing.JSpinner", // NOI18N
-        "javax.swing.JSeparator", // NOI18N
-        "javax.swing.JTextPane", // NOI18N
-        "javax.swing.JEditorPane", // NOI18N
-        "javax.swing.JInternalFrame", // NOI18N
-        "javax.swing.JLayeredPane", // NOI18N
-        "javax.swing.JDesktopPane" // NOI18N
-    }));
+    resizableComponents.addAll(
+        Arrays.asList(
+            new String[]{
+                "javax.swing.JComboBox", // NOI18N
+                "javax.swing.JTextField", // NOI18N
+                "javax.swing.JTextArea", // NOI18N
+                "javax.swing.JTabbedPane", // NOI18N
+                "javax.swing.JScrollPane", // NOI18N
+                "javax.swing.JSplitPane", // NOI18N
+                "javax.swing.JFormattedTextField", // NOI18N
+                "javax.swing.JPasswordField", // NOI18N
+                "javax.swing.JSpinner", // NOI18N
+                "javax.swing.JSeparator", // NOI18N
+                "javax.swing.JTextPane", // NOI18N
+                "javax.swing.JEditorPane", // NOI18N
+                "javax.swing.JInternalFrame", // NOI18N
+                "javax.swing.JLayeredPane", // NOI18N
+                "javax.swing.JDesktopPane" // NOI18N
+            }));
   }
 
   /**
    * Determines whether the given class represents component that is resizable (by default) or not.
-   * 
+   *
    * @param componentClass
    *          <code>Class</code> object corresponding to component we are interested in.
    * @return <code>STATUS_RESIZABLE</code>, <code>STATUS_NON_RESIZABLE</code> or
@@ -117,7 +123,7 @@ public class SwingLayoutUtils {
         if (lc != null) {
           if (lc.isLinkSized(dimension)) {
             String cid = lc.getId();
-            Integer id = new Integer(lc.getLinkSizeId(dimension));
+            Integer id = Integer.valueOf(lc.getLinkSizeId(dimension));
             List<String> l = linkSizeGroup.get(id);
             if (l == null) {
               l = new ArrayList<String>();

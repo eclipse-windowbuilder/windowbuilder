@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FontPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FontPropertyEditorTest extends XwtModelTest {
@@ -157,7 +157,7 @@ public class FontPropertyEditorTest extends XwtModelTest {
         context.useShell("Font chooser");
         TabItem tabItem = context.getTabItem("Construction");
         // prepare widgets
-        java.util.List<List> listWidgets = context.findWidgets(tabItem, List.class);
+        java.util.List<List> listWidgets = UiContext.findWidgets(tabItem, List.class);
         List familyList = listWidgets.get(0);
         List styleList = listWidgets.get(1);
         List sizeList = listWidgets.get(2);

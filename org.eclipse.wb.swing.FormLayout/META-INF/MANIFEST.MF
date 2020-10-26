@@ -26,3 +26,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wb.swing.FormLayout.lib
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.eclipse.wb.swing.FormLayout

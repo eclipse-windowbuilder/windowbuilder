@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 
 /**
  * {@link Composite} for editing grow/shrink behavior.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */
@@ -208,7 +208,7 @@ public final class DimensionResizeComposite extends Composite {
         if (m_defaultWeightButton.getSelection()) {
           weight = null;
         } else {
-          weight = new Float(m_weightSpinner.getSelection());
+          weight = Float.valueOf(m_weightSpinner.getSelection());
         }
         String methodName = MessageFormat.format("set{0}", m_propertyName);
         ReflectionUtils.invokeMethod2(m_dimension, methodName, Float.class, weight);

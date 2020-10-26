@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 /**
  * Abstract test for {@link NlsDialog}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractDialogTest extends AbstractNlsUiTest {
@@ -76,7 +76,7 @@ public class AbstractDialogTest extends AbstractNlsUiTest {
 
   /**
    * Asserts that {@link TabFolder} has {@link TabItem}'s with given titles.
-   * 
+   *
    * @return the array of {@link TabItem}'s.
    */
   protected static TabItem[] assertItems(TabFolder tabFolder, String[] expectedTitles) {
@@ -132,7 +132,7 @@ public class AbstractDialogTest extends AbstractNlsUiTest {
    * @return the {@link SourceComposite} corresponding to given {@link TabItem}.
    */
   protected static SourceComposite getSourceComposite(UiContext context, TabItem tabItem) {
-    return context.findFirstWidget(tabItem, SourceComposite.class);
+    return UiContext.findFirstWidget(tabItem, SourceComposite.class);
   }
 
   /**
@@ -140,7 +140,7 @@ public class AbstractDialogTest extends AbstractNlsUiTest {
    */
   protected static Table getSourceTable(UiContext context, TabItem tabItem) {
     SourceComposite sourceComposite = getSourceComposite(context, tabItem);
-    return context.findFirstWidget(sourceComposite, Table.class);
+    return UiContext.findFirstWidget(sourceComposite, Table.class);
   }
 
   ////////////////////////////////////////////////////////////////////////////

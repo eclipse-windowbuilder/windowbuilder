@@ -242,4 +242,8 @@ public final class DesignerMethodBinding implements IMethodBinding {
   public boolean isCompactConstructor() {
     return false;
   }
+
+  public boolean isCanonicalConstructor() {
+    return false;
+  }
 }

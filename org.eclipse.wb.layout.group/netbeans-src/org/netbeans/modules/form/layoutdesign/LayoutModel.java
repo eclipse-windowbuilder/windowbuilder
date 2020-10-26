@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -52,7 +52,7 @@ import javax.swing.undo.UndoableEdit;
  * the layout, - allows to add/remove layout intervals and components, - allows to listen on
  * changes, - manages an undo/redo queue for the layout, provides undo/redo marks, and allows to
  * perform undo/redo to given mark.
- * 
+ *
  * @author Tomas Pavek, Jan Stola
  */
 public class LayoutModel implements LayoutConstants {
@@ -76,7 +76,7 @@ public class LayoutModel implements LayoutConstants {
   // -----
   /**
    * Basic mapping method. Returns LayoutComponent for given Id.
-   * 
+   *
    * @return LayoutComponent of given Id, null if there is no such component registered in the model
    */
   public LayoutComponent getLayoutComponent(String compId) {
@@ -110,7 +110,7 @@ public class LayoutModel implements LayoutConstants {
    * Changes a container to a component (that cannot contain sub-components). All its current
    * sub-components are removed. Those not being containers are also removed from the model -
    * containers remain in model.
-   * 
+   *
    * @return false if the component does not exist in the layout model
    */
   public boolean changeContainerToComponent(String componentId) {
@@ -186,7 +186,7 @@ public class LayoutModel implements LayoutConstants {
 
   public void changeComponentId(LayoutComponent comp, String newId) {
     for (int i = 0; i < DIM_COUNT; i++) {
-      Integer linkIdInt = new Integer(comp.getLinkSizeId(i));
+      Integer linkIdInt = Integer.valueOf(comp.getLinkSizeId(i));
       List<String> l = getLinkSizeGroups(i).get(linkIdInt);
       if (l != null) {
         int oldIndex = l.indexOf(comp.getId());
@@ -408,20 +408,20 @@ public class LayoutModel implements LayoutConstants {
       if (oldMin != min) {
         comp.firePropertyChange(
             horizontal ? PROP_HORIZONTAL_MIN_SIZE : PROP_VERTICAL_MIN_SIZE,
-            new Integer(oldMin),
-            new Integer(min));
+            Integer.valueOf(oldMin),
+            Integer.valueOf(min));
       }
       if (oldPref != pref) {
         comp.firePropertyChange(
             horizontal ? PROP_HORIZONTAL_PREF_SIZE : PROP_VERTICAL_PREF_SIZE,
-            new Integer(oldPref),
-            new Integer(pref));
+            Integer.valueOf(oldPref),
+            Integer.valueOf(pref));
       }
       if (oldMax != max) {
         comp.firePropertyChange(
             horizontal ? PROP_HORIZONTAL_MAX_SIZE : PROP_VERTICAL_MAX_SIZE,
-            new Integer(oldMax),
-            new Integer(max));
+            Integer.valueOf(oldMax),
+            Integer.valueOf(max));
       }
     }
     // record undo/redo (don't fire event)
@@ -446,7 +446,7 @@ public class LayoutModel implements LayoutConstants {
    * Does a non-recursive copy of components and layout of given source container. Assuming the
    * target container is empty (or does not exist yet). LayoutComponent instances are created
    * automatically as needed, using the provided IDs.
-   * 
+   *
    * @param sourceModel
    *          the source LayoutModel
    * @param sourceContainerId
@@ -500,7 +500,7 @@ public class LayoutModel implements LayoutConstants {
 
   private void copySubIntervals(LayoutInterval sourceInterval,
       LayoutInterval targetInterval,
-      Map/*<String,String>*/sourceToTargetIds) {
+      Map/*<String,String>*/ sourceToTargetIds) {
     Iterator iter = sourceInterval.getSubIntervals();
     while (iter.hasNext()) {
       LayoutInterval sourceSub = (LayoutInterval) iter.next();
@@ -508,10 +508,9 @@ public class LayoutModel implements LayoutConstants {
       if (sourceSub.isComponent()) {
         String compId = (String) sourceToTargetIds.get(sourceSub.getComponent().getId());
         LayoutComponent comp = getLayoutComponent(compId);
-        int dimension =
-            sourceSub == sourceSub.getComponent().getLayoutInterval(HORIZONTAL)
-                ? HORIZONTAL
-                : VERTICAL;
+        int dimension = sourceSub == sourceSub.getComponent().getLayoutInterval(HORIZONTAL)
+            ? HORIZONTAL
+            : VERTICAL;
         clone = comp.getLayoutInterval(dimension);
       }
       LayoutInterval targetSub = LayoutInterval.cloneInterval(sourceSub, clone);
@@ -675,9 +674,9 @@ public class LayoutModel implements LayoutConstants {
       for (Rectangle bounds : compToBounds.values()) {
         // Leading lines are sufficient
         int leading = dimension == HORIZONTAL ? bounds.x : bounds.y;
-        cutSet.add(new Integer(leading));
+        cutSet.add(Integer.valueOf(leading));
       }
-      cutSet.add(new Integer(dimension == HORIZONTAL ? maxx : maxy));
+      cutSet.add(Integer.valueOf(dimension == HORIZONTAL ? maxx : maxy));
       return cutSet;
     }
 
@@ -834,7 +833,7 @@ public class LayoutModel implements LayoutConstants {
   }
 
   public Object getChangeMark() {
-    return new Integer(changeMark);
+    return Integer.valueOf(changeMark);
   }
 
   public void endUndoableEdit() {
@@ -865,9 +864,9 @@ public class LayoutModel implements LayoutConstants {
       if (undoMap.size() == 0) {
         oldestMark = changeMark;
       }
-      undoMap.put(new Integer(changeMark++), change);
+      undoMap.put(Integer.valueOf(changeMark++), change);
       while (undoMap.size() > changeCountHardLimit) {
-        undoMap.remove(new Integer(oldestMark++));
+        undoMap.remove(Integer.valueOf(oldestMark++));
       }
     }
   }
@@ -881,7 +880,7 @@ public class LayoutModel implements LayoutConstants {
     int end = ((Integer) endMark).intValue();
     undoRedoInProgress = true;
     while (end > start) {
-      Integer key = new Integer(--end);
+      Integer key = Integer.valueOf(--end);
       LayoutEvent change = undoMap.remove(key);
       if (change != null) {
         change.undo();
@@ -901,7 +900,7 @@ public class LayoutModel implements LayoutConstants {
     int end = ((Integer) endMark).intValue();
     undoRedoInProgress = true;
     while (start < end) {
-      Integer key = new Integer(start++);
+      Integer key = Integer.valueOf(start++);
       LayoutEvent change = redoMap.remove(key);
       if (change != null) {
         change.redo();
@@ -916,7 +915,7 @@ public class LayoutModel implements LayoutConstants {
     int m1 = ((Integer) fromMark).intValue();
     int m2 = ((Integer) toMark).intValue();
     while (m1 < m2) {
-      Object m = new Integer(m1);
+      Object m = Integer.valueOf(m1);
       undoMap.remove(m);
       redoMap.remove(m);
       m1++;
@@ -965,7 +964,7 @@ public class LayoutModel implements LayoutConstants {
 
   /**
    * Returns dump of the layout model. For debugging and testing purposes only.
-   * 
+   *
    * @return dump of the layout model.
    */
   public String dump(final Map<String, String> idToNameMap) {
@@ -1041,7 +1040,7 @@ public class LayoutModel implements LayoutConstants {
 
   /**
    * Returns dump of the layout interval.
-   * 
+   *
    * @param interval
    *          interval whose dump should be returned.
    * @param dimension
@@ -1053,7 +1052,7 @@ public class LayoutModel implements LayoutConstants {
 
   /**
    * Saves given layout container into a String.
-   * 
+   *
    * @param container
    *          the layout container to be saved
    * @param idToNameMap
@@ -1078,7 +1077,7 @@ public class LayoutModel implements LayoutConstants {
 
   /**
    * Loads the layout of the given container.
-   * 
+   *
    * @param containerId
    *          ID of the layout container to be loaded
    * @param layoutNodeList
@@ -1096,7 +1095,7 @@ public class LayoutModel implements LayoutConstants {
    * Returns whether the model was repaired (because of some error found) or upgraded automatically
    * during loading. After loading, it might be a good idea to save the corrected state, so to mark
    * the loaded layout as modified.
-   * 
+   *
    * @return whether the model was changed during loading or saving
    */
   public boolean wasCorrected() {
@@ -1107,8 +1106,8 @@ public class LayoutModel implements LayoutConstants {
     corrected = true;
   }
 
-  /* 
-   * LINKSIZE 
+  /*
+   * LINKSIZE
    */
   // each object in the map is a List and contains list of components within the group
   private final Map<Integer, List<String>> linkSizeGroupsH = new HashMap<Integer, List<String>>();
@@ -1116,13 +1115,13 @@ public class LayoutModel implements LayoutConstants {
   private int maxLinkGroupId = 0;
 
   public void addComponentToLinkSizedGroup(int groupId, String compId, int dimension) {
-    if (NOT_EXPLICITLY_DEFINED == groupId) { // 
+    if (NOT_EXPLICITLY_DEFINED == groupId) { //
       return;
     }
     if (maxLinkGroupId < groupId) {
       maxLinkGroupId = groupId;
     }
-    Integer groupIdInt = new Integer(groupId);
+    Integer groupIdInt = Integer.valueOf(groupId);
     Map<Integer, List<String>> linkSizeGroups =
         dimension == HORIZONTAL ? linkSizeGroupsH : linkSizeGroupsV;
     List<String> l = linkSizeGroups.get(groupIdInt);
@@ -1134,7 +1133,7 @@ public class LayoutModel implements LayoutConstants {
 
   void addComponentToLinkSizedGroupImpl(int groupId, String compId, int dimension) {
     LayoutComponent lc = getLayoutComponent(compId);
-    Integer groupIdInt = new Integer(groupId);
+    Integer groupIdInt = Integer.valueOf(groupId);
     Map<Integer, List<String>> linkSizeGroups =
         dimension == HORIZONTAL ? linkSizeGroupsH : linkSizeGroupsV;
     List<String> l = linkSizeGroups.get(groupIdInt);
@@ -1168,7 +1167,7 @@ public class LayoutModel implements LayoutConstants {
     int linkId = comp.getLinkSizeId(dimension);
     if (linkId != NOT_EXPLICITLY_DEFINED) {
       Map<Integer, List<String>> map = dimension == HORIZONTAL ? linkSizeGroupsH : linkSizeGroupsV;
-      Integer linkIdInt = new Integer(linkId);
+      Integer linkIdInt = Integer.valueOf(linkId);
       List<String> l = map.get(linkIdInt);
       l.remove(comp.getId());
       comp.setLinkSizeId(NOT_EXPLICITLY_DEFINED, dimension);
@@ -1212,7 +1211,7 @@ public class LayoutModel implements LayoutConstants {
     while (i.hasNext()) {
       String cid = (String) i.next();
       LayoutComponent lc = getLayoutComponent(cid);
-      Integer linkSizeId = new Integer(lc.getLinkSizeId(dimension));
+      Integer linkSizeId = Integer.valueOf(lc.getLinkSizeId(dimension));
       if (!idsFound.contains(linkSizeId)) {
         idsFound.add(linkSizeId);
       }
@@ -1221,12 +1220,12 @@ public class LayoutModel implements LayoutConstants {
       }
     }
     if (idsFound.size() == 1) {
-      if (idsFound.contains(new Integer(NOT_EXPLICITLY_DEFINED))) {
+      if (idsFound.contains(Integer.valueOf(NOT_EXPLICITLY_DEFINED))) {
         return FALSE;
       }
       return TRUE;
     }
-    if (idsFound.contains(new Integer(NOT_EXPLICITLY_DEFINED))) { // == 2 elements
+    if (idsFound.contains(Integer.valueOf(NOT_EXPLICITLY_DEFINED))) { // == 2 elements
       return FALSE;
     } else {
       return INVALID;
@@ -1243,7 +1242,7 @@ public class LayoutModel implements LayoutConstants {
     return null; // incorrect dimension passed
   }
 
-  public void unsetSameSize(List/*<String>*/components, int dimension) {
+  public void unsetSameSize(List/*<String>*/ components, int dimension) {
     Iterator i = components.iterator();
     while (i.hasNext()) {
       String cid = (String) i.next();
@@ -1252,7 +1251,7 @@ public class LayoutModel implements LayoutConstants {
     }
   }
 
-  public void setSameSize(List/*<String>*/components, int dimension) {
+  public void setSameSize(List/*<String>*/ components, int dimension) {
     Iterator i = components.iterator();
     int groupId = findGroupId(components, dimension);
     while (i.hasNext()) {
@@ -1262,7 +1261,7 @@ public class LayoutModel implements LayoutConstants {
     }
   }
 
-  private int findGroupId(List/*<String*/components, int dimension) {
+  private int findGroupId(List/*<String*/ components, int dimension) {
     Iterator i = components.iterator();
     while (i.hasNext()) {
       String cid = (String) i.next();

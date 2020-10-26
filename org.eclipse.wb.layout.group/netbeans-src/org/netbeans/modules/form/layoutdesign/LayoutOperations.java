@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -37,7 +37,7 @@ import java.util.Set;
 
 /**
  * This class serves as a library of various useful and well-defined operations on the layout model.
- * 
+ *
  * @author Tomas Pavek
  */
 class LayoutOperations implements LayoutConstants {
@@ -101,13 +101,13 @@ class LayoutOperations implements LayoutConstants {
         if (idx < startIndex) {
           if (toRemainL == null) {
             toRemainL = new LinkedList<Object>();
-            toRemainL.add(new Integer(LayoutInterval.getEffectiveAlignment(li)));
+            toRemainL.add(Integer.valueOf(LayoutInterval.getEffectiveAlignment(li)));
           }
           toRemainL.add(li);
         } else if (idx > endIndex) {
           if (toRemainT == null) {
             toRemainT = new LinkedList<Object>();
-            toRemainT.add(new Integer(LayoutInterval.getEffectiveAlignment(li)));
+            toRemainT.add(Integer.valueOf(LayoutInterval.getEffectiveAlignment(li)));
           }
           toRemainT.add(li);
         }
@@ -135,7 +135,7 @@ class LayoutOperations implements LayoutConstants {
   /**
    * Adds parallel content of a group specified in List to given sequence. Used to create a
    * remainder parallel group to a group of aligned intervals.
-   * 
+   *
    * @param list
    *          the content of the group, output from 'extract' method
    * @param seq
@@ -294,7 +294,9 @@ class LayoutOperations implements LayoutConstants {
         }
       }
       if (sameAlign
-          && (LayoutInterval.canResize(interval) || !LayoutInterval.canResize(target) || !LayoutInterval.wantResize(target))) { // can dismantle the group
+          && (LayoutInterval.canResize(interval)
+              || !LayoutInterval.canResize(target)
+              || !LayoutInterval.wantResize(target))) { // can dismantle the group
         assert interval.getParent() == null;
         while (interval.getSubIntervalCount() > 0) {
           LayoutInterval li = interval.getSubInterval(0);
@@ -326,13 +328,11 @@ class LayoutOperations implements LayoutConstants {
 
   void resizeInterval(LayoutInterval interval, int size) {
     assert size >= 0 || size == NOT_EXPLICITLY_DEFINED;
-    int min =
-        interval.getMinimumSize() == interval.getPreferredSize()
-            && interval.getMaximumSize() < Short.MAX_VALUE ? size : interval.getMinimumSize();
-    int max =
-        interval.getMaximumSize() == interval.getPreferredSize() ? (size == NOT_EXPLICITLY_DEFINED
-            ? USE_PREFERRED_SIZE
-            : size) : interval.getMaximumSize();
+    int min = interval.getMinimumSize() == interval.getPreferredSize()
+        && interval.getMaximumSize() < Short.MAX_VALUE ? size : interval.getMinimumSize();
+    int max = interval.getMaximumSize() == interval.getPreferredSize()
+        ? size == NOT_EXPLICITLY_DEFINED ? USE_PREFERRED_SIZE : size
+        : interval.getMaximumSize();
     layoutModel.setIntervalSize(interval, min, size, max);
   }
 
@@ -371,7 +371,7 @@ class LayoutOperations implements LayoutConstants {
 
   /**
    * Dissolves given group to parent group in case it is redundant.
-   * 
+   *
    * @return true if the group was dissolved
    */
   boolean dissolveRedundantGroup(LayoutInterval group) {
@@ -417,7 +417,7 @@ class LayoutOperations implements LayoutConstants {
             if (neighbor != null
                 && neighbor.isEmptySpace()
                 && neighbor.getPreferredSize() == NOT_EXPLICITLY_DEFINED) { // default fixed padding means there is no space for
-                                                                            // independent size change, so the subgroup can be merged
+                                                                                                                            // independent size change, so the subgroup can be merged
               compatible = true;
             }
           }
@@ -457,7 +457,7 @@ class LayoutOperations implements LayoutConstants {
   /**
    * This method goes through a sequential group and moves each interval next to an open edge of a
    * parallel group into the group.
-   * 
+   *
    * @param parent
    *          sequential group to process
    * @param dimension
@@ -654,10 +654,8 @@ class LayoutOperations implements LayoutConstants {
     } else {
       LayoutInterval subParallel;
       if (singleOverlap.isSequential()) {
-        subParallel =
-            singleOverlap.getSubInterval(alignment == LEADING
-                ? 0
-                : singleOverlap.getSubIntervalCount() - 1);
+        subParallel = singleOverlap.getSubInterval(
+            alignment == LEADING ? 0 : singleOverlap.getSubIntervalCount() - 1);
         if (!subParallel.isParallel()) {
           subParallel = null;
         }
@@ -727,10 +725,9 @@ class LayoutOperations implements LayoutConstants {
         layoutModel.removeInterval(remainderGap);
         // [should check for last interval in parent]
         LayoutInterval neighbor = LayoutInterval.getDirectNeighbor(group, alignment, true);
-        outPos =
-            neighbor != null
-                ? neighbor.getCurrentSpace().positions[dimension][alignment ^ 1]
-                : group.getParent().getCurrentSpace().positions[dimension][alignment];
+        outPos = neighbor != null
+            ? neighbor.getCurrentSpace().positions[dimension][alignment ^ 1]
+            : group.getParent().getCurrentSpace().positions[dimension][alignment];
         int gapSize = alignment == LEADING ? remainderPos - outPos : outPos - remainderPos;
         resizeInterval(remainderGap, gapSize);
       } else {
@@ -894,10 +891,9 @@ class LayoutOperations implements LayoutConstants {
       if (leadingGap != null) {
         anyGapLeading = true;
         if (sameMinGapLeading) {
-          int size =
-              leadingAlign || leadingGap.getMinimumSize() == USE_PREFERRED_SIZE
-                  ? leadingGap.getPreferredSize()
-                  : leadingGap.getMinimumSize();
+          int size = leadingAlign || leadingGap.getMinimumSize() == USE_PREFERRED_SIZE
+              ? leadingGap.getPreferredSize()
+              : leadingGap.getMinimumSize();
           if (commonGapLeadingSize != Integer.MIN_VALUE) {
             if (size != commonGapLeadingSize) {
               sameMinGapLeading = false;
@@ -912,10 +908,9 @@ class LayoutOperations implements LayoutConstants {
       if (trailingGap != null) {
         anyGapTrailing = true;
         if (sameMinGapTrailing) {
-          int size =
-              trailingAlign || trailingGap.getMinimumSize() == USE_PREFERRED_SIZE
-                  ? trailingGap.getPreferredSize()
-                  : trailingGap.getMinimumSize();
+          int size = trailingAlign || trailingGap.getMinimumSize() == USE_PREFERRED_SIZE
+              ? trailingGap.getPreferredSize()
+              : trailingGap.getMinimumSize();
           if (commonGapTrailingSize != Integer.MIN_VALUE) {
             if (size != commonGapTrailingSize) {
               sameMinGapTrailing = false;
@@ -942,10 +937,14 @@ class LayoutOperations implements LayoutConstants {
     }
     int[] groupOuterPos = group.getCurrentSpace().positions[dimension];
     assert groupOuterPos[LEADING] > Short.MIN_VALUE && groupOuterPos[TRAILING] > Short.MIN_VALUE;
-    int groupInnerPosLeading =
-        LayoutUtils.getOutermostComponent(group, dimension, LEADING).getCurrentSpace().positions[dimension][LEADING];
-    int groupInnerPosTrailing =
-        LayoutUtils.getOutermostComponent(group, dimension, TRAILING).getCurrentSpace().positions[dimension][TRAILING];
+    int groupInnerPosLeading = LayoutUtils.getOutermostComponent(
+        group,
+        dimension,
+        LEADING).getCurrentSpace().positions[dimension][LEADING];
+    int groupInnerPosTrailing = LayoutUtils.getOutermostComponent(
+        group,
+        dimension,
+        TRAILING).getCurrentSpace().positions[dimension][TRAILING];
     PaddingType defaultPaddingLeading = null; // if not null, the leading padding has default preferred size
     PaddingType defaultPaddingTrailing = null; // if not null, the trailing padding has default preferred size
     boolean resizingGapLeading = false;
@@ -1123,10 +1122,9 @@ class LayoutOperations implements LayoutConstants {
       int prefDistance = LayoutUtils.getSizeOfDefaultGap(gap, visualMapper);
       int pos1 = neighbor.getCurrentSpace().positions[dimension][alignment];
       LayoutInterval outerNeighbor = LayoutInterval.getNeighbor(gap, alignment, true, true, false);
-      int pos2 =
-          outerNeighbor != null
-              ? outerNeighbor.getCurrentSpace().positions[dimension][alignment ^ 1]
-              : LayoutInterval.getRoot(seq).getCurrentSpace().positions[dimension][alignment];
+      int pos2 = outerNeighbor != null
+          ? outerNeighbor.getCurrentSpace().positions[dimension][alignment ^ 1]
+          : LayoutInterval.getRoot(seq).getCurrentSpace().positions[dimension][alignment];
       int currentDistance = (pos1 - pos2) * d;
       return currentDistance <= prefDistance;
     }
@@ -1151,13 +1149,12 @@ class LayoutOperations implements LayoutConstants {
       if (gap != null && gap.isEmptySpace() && neighbor != null) {
         int currentSize = gap.getPreferredSize();
         if (currentSize == NOT_EXPLICITLY_DEFINED) {
-          currentSize =
-              LayoutRegion.distance(
-                  group.getCurrentSpace(),
-                  neighbor.getCurrentSpace(),
-                  dimension,
-                  alignment,
-                  alignment) * (alignment == TRAILING ? -1 : 1);
+          currentSize = LayoutRegion.distance(
+              group.getCurrentSpace(),
+              neighbor.getCurrentSpace(),
+              dimension,
+              alignment,
+              alignment) * (alignment == TRAILING ? -1 : 1);
         }
         if (currentSize >= size) {
           if (currentSize > size) {
@@ -1176,7 +1173,7 @@ class LayoutOperations implements LayoutConstants {
    * Inserts a gap before or after specified interval. If in a sequence, the method takes care about
    * merging gaps if there is already some as neighbor. Expects the actual positions of the sequence
    * are up-to-date.
-   * 
+   *
    * @param gap
    *          the gap to be inserted
    * @param interval
@@ -1222,15 +1219,13 @@ class LayoutOperations implements LayoutConstants {
           interval = parent.getSubInterval(subIdx);
           if (interval.isEmptySpace()) {
             subIdx += alignment == LEADING ? 1 : -1;
-            LayoutInterval neighbor =
-                subIdx >= 0 && subIdx < parent.getSubIntervalCount()
-                    ? parent.getSubInterval(subIdx)
-                    : null;
+            LayoutInterval neighbor = subIdx >= 0 && subIdx < parent.getSubIntervalCount()
+                ? parent.getSubInterval(subIdx)
+                : null;
             int[] outerSpace = parent.getParent().getCurrentSpace().positions[dimension];
-            int otherPos =
-                neighbor != null
-                    ? neighbor.getCurrentSpace().positions[dimension][alignment]
-                    : outerSpace[alignment ^ 1];
+            int otherPos = neighbor != null
+                ? neighbor.getCurrentSpace().positions[dimension][alignment]
+                : outerSpace[alignment ^ 1];
             int mergedSize = (outerSpace[alignment] - otherPos) * (alignment == LEADING ? -1 : 1);
             eatGap(interval, gap, mergedSize);
             return neighbor != null ? neighbor : interval;
@@ -1255,10 +1250,9 @@ class LayoutOperations implements LayoutConstants {
       LayoutInterval neighbor = LayoutInterval.getDirectNeighbor(interval, alignment, false);
       if (neighbor != null && neighbor.isEmptySpace()) {
         LayoutInterval next = LayoutInterval.getDirectNeighbor(neighbor, alignment, false);
-        int otherPos =
-            next != null
-                ? next.getCurrentSpace().positions[dimension][alignment ^ 1]
-                : parent.getCurrentSpace().positions[dimension][alignment];
+        int otherPos = next != null
+            ? next.getCurrentSpace().positions[dimension][alignment ^ 1]
+            : parent.getCurrentSpace().positions[dimension][alignment];
         int mergedSize = (pos - otherPos) * (alignment == LEADING ? 1 : -1);
         eatGap(neighbor, gap, mergedSize);
       } else {
@@ -1303,15 +1297,13 @@ class LayoutOperations implements LayoutConstants {
     }
     int pos1, pos2;
     LayoutInterval neighbor = LayoutInterval.getDirectNeighbor(otherGap, alignment, true);
-    pos1 =
-        neighbor != null
-            ? neighbor.getCurrentSpace().positions[dimension][alignment ^ 1]
-            : seq.getCurrentSpace().positions[dimension][alignment];
+    pos1 = neighbor != null
+        ? neighbor.getCurrentSpace().positions[dimension][alignment ^ 1]
+        : seq.getCurrentSpace().positions[dimension][alignment];
     neighbor = LayoutInterval.getDirectNeighbor(otherGap, alignment ^ 1, true);
-    pos2 =
-        neighbor != null
-            ? neighbor.getCurrentSpace().positions[dimension][alignment]
-            : seq.getCurrentSpace().positions[dimension][alignment ^ 1];
+    pos2 = neighbor != null
+        ? neighbor.getCurrentSpace().positions[dimension][alignment]
+        : seq.getCurrentSpace().positions[dimension][alignment ^ 1];
     eatGap(otherGap, gap, Math.abs(pos2 - pos1));
     return alignment == LEADING ? index - 1 : index; // gap was eaten
   }
@@ -1349,10 +1341,9 @@ class LayoutOperations implements LayoutConstants {
     } else {
       pref = pref1 + pref2;
     }
-    int max =
-        main.getMaximumSize() >= Short.MAX_VALUE || eaten.getMaximumSize() >= Short.MAX_VALUE
-            ? Short.MAX_VALUE
-            : USE_PREFERRED_SIZE;
+    int max = main.getMaximumSize() >= Short.MAX_VALUE || eaten.getMaximumSize() >= Short.MAX_VALUE
+        ? Short.MAX_VALUE
+        : USE_PREFERRED_SIZE;
     layoutModel.setIntervalSize(main, min, pref, max);
     if (eaten.getParent() != null) {
       layoutModel.removeInterval(eaten);

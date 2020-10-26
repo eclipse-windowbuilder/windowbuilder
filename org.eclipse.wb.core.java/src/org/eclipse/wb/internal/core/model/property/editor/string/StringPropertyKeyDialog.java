@@ -36,8 +36,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
@@ -165,7 +165,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       }
     });
     m_sourcesViewer.setContentProvider(new ArrayContentProvider());
-    m_sourcesViewer.setSorter(new ViewerSorter());
+    m_sourcesViewer.setComparator(new ViewerComparator());
     m_sourcesViewer.setInput(m_editableSupport.getEditableSources());
     // selection listener
     m_sourcesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -189,7 +189,8 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     valuesGroup.setText(ModelMessages.StringPropertyKeyDialog_valuesGroup);
     // pattern
     {
-      new Label(valuesGroup, SWT.NONE).setText(ModelMessages.StringPropertyKeyDialog_valuesFilterLabel);
+      new Label(valuesGroup, SWT.NONE).setText(
+          ModelMessages.StringPropertyKeyDialog_valuesFilterLabel);
       //
       m_filterPatternText = new Text(valuesGroup, SWT.BORDER);
       GridDataFactory.create(m_filterPatternText).grabH().fill();
@@ -216,7 +217,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       setValuesFilter();
       m_valuesViewer.setContentProvider(new ArrayContentProvider());
       m_valuesViewer.setLabelProvider(new ValuesLabelProvider());
-      m_valuesViewer.setSorter(new ViewerSorter());
+      m_valuesViewer.setComparator(new ViewerComparator());
       // listeners
       m_valuesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
         public void selectionChanged(SelectionChangedEvent event) {
@@ -237,20 +238,18 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       GridDataFactory.create(optionsComposite).fill();
       GridLayoutFactory.create(optionsComposite).noMargins().columns(4);
       //
-      new Label(optionsComposite, SWT.NONE).setText(ModelMessages.StringPropertyKeyDialog_filterLabel);
+      new Label(optionsComposite, SWT.NONE).setText(
+          ModelMessages.StringPropertyKeyDialog_filterLabel);
       // create buttons
-      m_filterKeyButton =
-          createFilterOptionButton(
-              optionsComposite,
-              ModelMessages.StringPropertyKeyDialog_filterKeyButton);
-      m_filterValueButton =
-          createFilterOptionButton(
-              optionsComposite,
-              ModelMessages.StringPropertyKeyDialog_filterValueButton);
-      m_filterBothButton =
-          createFilterOptionButton(
-              optionsComposite,
-              ModelMessages.StringPropertyKeyDialog_filterBothButton);
+      m_filterKeyButton = createFilterOptionButton(
+          optionsComposite,
+          ModelMessages.StringPropertyKeyDialog_filterKeyButton);
+      m_filterValueButton = createFilterOptionButton(
+          optionsComposite,
+          ModelMessages.StringPropertyKeyDialog_filterValueButton);
+      m_filterBothButton = createFilterOptionButton(
+          optionsComposite,
+          ModelMessages.StringPropertyKeyDialog_filterBothButton);
       // by default select "key"
       if (!m_filterKeyButton.getSelection()
           && !m_filterValueButton.getSelection()

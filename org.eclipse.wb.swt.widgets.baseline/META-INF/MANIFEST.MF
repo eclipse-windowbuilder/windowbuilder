@@ -13,3 +13,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Export-Package: org.eclipse.wb.swt.widgets.baseline
+Automatic-Module-Name: org.eclipse.wb.swt.widgets.baseline

@@ -14,3 +14,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Localization: plugin
 Export-Package: org.eclipse.wb.internal.swing.jsr296;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.swing.jsr296.model;x-friends:="org.eclipse.wb.tests"
+Automatic-Module-Name: org.eclipse.wb.swing.jsr296

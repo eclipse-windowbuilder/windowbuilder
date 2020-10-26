@@ -198,7 +198,6 @@ public class TestProject {
    *          the path name in which to look. The path is always relative to the root of this bundle
    *          and may begin with "/". A path value of "/" indicates the root of this bundle.
    */
-  @SuppressWarnings("unchecked")
   public void addBundleJars(String bundleId, String path) throws Exception {
     Bundle bundle = Platform.getBundle(bundleId);
     Enumeration<URL> entries = bundle.findEntries(path, "*.jar", false);
@@ -287,9 +286,8 @@ public class TestProject {
     // may be fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=245008
     // leak of ProjectDescriptionReader
     try {
-      Class<?> readerClass =
-          getClass().getClassLoader().loadClass(
-              "org.eclipse.core.internal.resources.ProjectDescriptionReader");
+      Class<?> readerClass = getClass().getClassLoader().loadClass(
+          "org.eclipse.core.internal.resources.ProjectDescriptionReader");
       ReflectionUtils.setField(readerClass, "singletonParser", null);
     } catch (Throwable e) {
       e.printStackTrace();
@@ -332,7 +330,8 @@ public class TestProject {
   /**
    * Creates {@link IFile} (non Java resource) in given package.
    */
-  public IFile createFile(IPackageFragment pack, String fileName, String contents) throws Exception {
+  public IFile createFile(IPackageFragment pack, String fileName, String contents)
+      throws Exception {
     IFolder folder = (IFolder) pack.getUnderlyingResource();
     IFile file = folder.getFile(fileName);
     file.create(new ByteArrayInputStream(contents.getBytes()), true, null);

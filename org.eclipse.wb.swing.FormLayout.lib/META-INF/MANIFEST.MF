@@ -15,3 +15,4 @@ Export-Package: com.jgoodies.forms.builder,
  com.jgoodies.forms.util
 Require-Bundle: org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.wb.swing.FormLayout.lib

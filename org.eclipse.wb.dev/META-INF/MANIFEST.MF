@@ -18,3 +18,4 @@ Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
 Bundle-ClassPath: lib/commons-io-2.0.1.jar,
  .
+Automatic-Module-Name: org.eclipse.wb.dev

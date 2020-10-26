@@ -86,7 +86,7 @@ public class PluginUtilities {
     if (bundle == null) {
       return null;
     }
-    version = (String) bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+    version = bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
     return new Version(version);
   }
 
@@ -104,8 +104,7 @@ public class PluginUtilities {
     if (plugin == null) {
       return null;
     }
-    version =
-        (String) plugin.getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+    version = plugin.getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
     return new Version(version);
   }
 
@@ -124,7 +123,7 @@ public class PluginUtilities {
     if (bundle == null) {
       return null;
     }
-    return (String) bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+    return bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
   }
 
   /**
@@ -140,7 +139,7 @@ public class PluginUtilities {
     if (plugin == null) {
       return null;
     }
-    return (String) plugin.getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+    return plugin.getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
   }
 
   ////////////////////////////////////////////////////////////////////////////

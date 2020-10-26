@@ -13,11 +13,9 @@ package org.eclipse.wb.tests.designer.rcp.model.jface;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import org.eclipse.jface.viewers.TableTreeViewer;
-
 /**
  * Test for {@link TableTreeViewer}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableTreeViewerTest extends RcpModelTest {
@@ -36,14 +34,13 @@ public class TableTreeViewerTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_properties() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    TableTreeViewer tableTreeViewer = new TableTreeViewer(this, SWT.NONE);",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    TableTreeViewer tableTreeViewer = new TableTreeViewer(this, SWT.NONE);",
+        "  }",
+        "}");
     shell.refresh();
     assertHierarchy(
         "{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new TableTreeViewer(this, SWT.NONE)/}",

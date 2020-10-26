@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Support for MacOSX for SWT Carbon.
- * 
+ *
  * @author mitin_aa
  */
 public final class OSSupportMacOSXCarbon extends OSSupportMacOSX {
@@ -38,7 +38,7 @@ public final class OSSupportMacOSXCarbon extends OSSupportMacOSX {
 
   /**
    * Creates the {@link Image} by given native handles.
-   * 
+   *
    * @param imageHandle
    *          the native handle of the image.
    * @param width
@@ -50,15 +50,14 @@ public final class OSSupportMacOSXCarbon extends OSSupportMacOSX {
       throws Exception {
     if (imageHandle != 0) {
       // Create a temporary image using the captured image's handle
-      Image tempImage =
-          (Image) ReflectionUtils.invokeMethod(
-              Image.class,
-              "carbon_new(org.eclipse.swt.graphics.Device,int,int,int)",
-              new Object[]{
-                  Display.getCurrent(),
-                  new Integer(SWT.BITMAP),
-                  new Integer(imageHandle),
-                  new Integer(0)});
+      Image tempImage = (Image) ReflectionUtils.invokeMethod(
+          Image.class,
+          "carbon_new(org.eclipse.swt.graphics.Device,int,int,int)",
+          new Object[]{
+              Display.getCurrent(),
+              Integer.valueOf(SWT.BITMAP),
+              Integer.valueOf(imageHandle),
+              Integer.valueOf(0)});
       // Create the result image
       Image image = new Image(Display.getCurrent(), width, height);
       // Manually copy because the image's data handle isn't available
@@ -126,10 +125,10 @@ public final class OSSupportMacOSXCarbon extends OSSupportMacOSX {
     int handle = getHandleField(menu);
     int menuSize[] = new int[4];
     int itemsBounds[] = new int[bounds.length];
-    // mitin_aa: Sometimes calling fetchMenuVisualData native method results processing drawing updates, 
-    // causing NPEs while drawing menu figures, the possible solution is to call Display.readAndDispatch just before menu visual data cleanup 
+    // mitin_aa: Sometimes calling fetchMenuVisualData native method results processing drawing updates,
+    // causing NPEs while drawing menu figures, the possible solution is to call Display.readAndDispatch just before menu visual data cleanup
     int menuImageHandle = _fetchPopupMenuVisualData(handle, menuSize, itemsBounds);
-    // for separator items there is no way to get item bounds because the separator item has no custom draw 
+    // for separator items there is no way to get item bounds because the separator item has no custom draw
     // flag and native part doesn't receive draw messages for to get item bounds.
     // the workaround is to approximate separator location based on previous item.
     MenuItem firstItem = menu.getItem(0);
@@ -219,7 +218,7 @@ public final class OSSupportMacOSXCarbon extends OSSupportMacOSX {
 
   /**
    * Fetches the menu data: returns item bounds as plain array and the HBITMAP of menu image.
-   * 
+   *
    * @param menuHandle
    *          the handle of menu.
    * @param menuSize
@@ -233,14 +232,14 @@ public final class OSSupportMacOSXCarbon extends OSSupportMacOSX {
 
   /**
    * Simply calls HIViewGetRoot for given shell handle.
-   * 
+   *
    * @param shellHandle
    */
   private static native int _HIViewGetRoot(int shellHandle);
 
   /**
    * Creates the image of the control.
-   * 
+   *
    * @param controlHandle
    *          the native handle of control, <code>ControlRef</code>.
    * @param shellHandle
