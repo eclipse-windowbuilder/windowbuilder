@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
@@ -20,6 +18,7 @@ import org.eclipse.jface.viewers.Viewer;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +44,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
   // IStructuredContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object[] getElements(Object inputElement) {
     Object input = m_viewer.getRootContainer().getContent().getModel();
     return new Object[]{input};
@@ -55,14 +55,16 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
   // ITreeContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean hasChildren(Object parentElement) {
     return getChildren(parentElement).length != 0;
   }
 
+  @Override
   public Object[] getChildren(Object parentElement) {
     EditPart parentEditPart = m_viewer.getEditPartByModel(parentElement);
     if (parentEditPart != null) {
-      List<Object> children = Lists.newArrayList();
+      List<Object> children = new ArrayList<>();
       for (EditPart editPart : parentEditPart.getChildren()) {
         children.add(editPart.getModel());
       }
@@ -71,6 +73,7 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
     return ArrayUtils.EMPTY_OBJECT_ARRAY;
   }
 
+  @Override
   public Object getParent(Object element) {
     EditPart editPart = m_viewer.getEditPartByModel(element);
     if (editPart != null) {
@@ -84,9 +87,11 @@ public final class EditPartsContentProvider implements ITreeContentProvider {
   // IContentProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
   }
 
+  @Override
   public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
   }
 }

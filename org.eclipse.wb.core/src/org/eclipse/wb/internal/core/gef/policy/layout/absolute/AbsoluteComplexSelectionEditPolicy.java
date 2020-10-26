@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
@@ -34,8 +32,6 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
@@ -52,7 +48,9 @@ import java.util.List;
  */
 public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComponentInfo>
     extends
-      AbsoluteBasedSelectionEditPolicy<C> implements IActionImageProvider {
+      AbsoluteBasedSelectionEditPolicy<C>
+    implements
+      IActionImageProvider {
   // constants
   private static final int MIN_LEFT_SPACE = 10;
   private static final int INITIAL_RIGHT_SPACE = 10;
@@ -80,14 +78,12 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   @Override
   protected void showSelection() {
     super.showSelection();
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      public void run() throws Exception {
-        IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
-        drawFeedbacks(widget, IPositionConstants.LEFT);
-        drawFeedbacks(widget, IPositionConstants.RIGHT);
-        drawFeedbacks(widget, IPositionConstants.TOP);
-        drawFeedbacks(widget, IPositionConstants.BOTTOM);
-      }
+    ExecutionUtils.runRethrow(() -> {
+      IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
+      drawFeedbacks(widget, IPositionConstants.LEFT);
+      drawFeedbacks(widget, IPositionConstants.RIGHT);
+      drawFeedbacks(widget, IPositionConstants.TOP);
+      drawFeedbacks(widget, IPositionConstants.BOTTOM);
     });
     if (getHost().getSelected() == EditPart.SELECTED_PRIMARY) {
       showAlignmentFigures();
@@ -115,7 +111,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
     for (Figure figure : getFeedbacks()) {
       FigureUtils.removeFigure(figure);
     }
-    m_feedbacks = new ArrayList<Figure>();
+    m_feedbacks = new ArrayList<>();
     hideAlignmentFigures();
   }
 
@@ -129,12 +125,14 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
       IAbstractComponentInfo neighborWidget,
       int side,
       int neighborSide) {
-    Assert.isTrue((side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT)
-        && (neighborSide == IPositionConstants.LEFT || neighborSide == IPositionConstants.RIGHT)
-        || (side == IPositionConstants.TOP || side == IPositionConstants.BOTTOM)
-        && (neighborSide == IPositionConstants.TOP || neighborSide == IPositionConstants.BOTTOM)
-        || side == IPositionConstants.CENTER
-        || neighborSide == IPositionConstants.CENTER);
+    Assert.isTrue(
+        (side == IPositionConstants.LEFT || side == IPositionConstants.RIGHT)
+            && (neighborSide == IPositionConstants.LEFT || neighborSide == IPositionConstants.RIGHT)
+            || (side == IPositionConstants.TOP || side == IPositionConstants.BOTTOM)
+                && (neighborSide == IPositionConstants.TOP
+                    || neighborSide == IPositionConstants.BOTTOM)
+            || side == IPositionConstants.CENTER
+            || neighborSide == IPositionConstants.CENTER);
     // bounds, transposed
     Transposer t = new Transposer(!PlacementUtils.isHorizontalSide(side));
     Rectangle widgetBounds = t.t(widget.getModelBounds().getCopy());
@@ -150,10 +148,9 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
     addLineFeedback(p1, p2, PlacementUtils.isHorizontalSide(side));
     // draw the helper line
     int lineStartY = widgetBounds.y > neighborBounds.y ? neighborBounds.y : widgetBounds.y;
-    int lineEndY =
-        widgetBounds.bottom() < neighborBounds.bottom()
-            ? neighborBounds.bottom()
-            : widgetBounds.bottom();
+    int lineEndY = widgetBounds.bottom() < neighborBounds.bottom()
+        ? neighborBounds.bottom()
+        : widgetBounds.bottom();
     Point p3 = t.t(new Point(x1, lineStartY));
     Point p4 = t.t(new Point(x1, lineEndY));
     // convert to feedback
@@ -222,7 +219,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 
   private List<Figure> getFeedbacks() {
     if (m_feedbacks == null) {
-      m_feedbacks = Lists.newArrayList();
+      m_feedbacks = new ArrayList<>();
     }
     return m_feedbacks;
   }
@@ -243,7 +240,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
    */
   public final void showAlignmentFigures() {
     if (m_alignmentFigures == null) {
-      m_alignmentFigures = Lists.newArrayList();
+      m_alignmentFigures = new ArrayList<>();
       // show cell figures for all children of host's parent
       {
         Collection<EditPart> editParts = getHost().getParent().getChildren();
@@ -340,11 +337,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   //
   ////////////////////////////////////////////////////////////////////////////
   protected boolean isAttached(final IAbstractComponentInfo widget, final int side) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
-      public Boolean runObject() throws Exception {
-        return m_layout.isAttached(widget, side);
-      }
-    });
+    return ExecutionUtils.runObject(() -> m_layout.isAttached(widget, side));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -375,10 +368,8 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 
     @Override
     protected void fillMenu(IMenuManager manager) {
-      new AnchorsActionsSupport(getPlacementsSupport(), AbsoluteComplexSelectionEditPolicy.this).fillAnchorsActions(
-          manager,
-          m_widget,
-          true);
+      new AnchorsActionsSupport(getPlacementsSupport(),
+          AbsoluteComplexSelectionEditPolicy.this).fillAnchorsActions(manager, m_widget, true);
     }
   }
   protected class VerticalPopupFigure extends AbstractPopupFigure {
@@ -404,10 +395,8 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 
     @Override
     protected void fillMenu(IMenuManager manager) {
-      new AnchorsActionsSupport(getPlacementsSupport(), AbsoluteComplexSelectionEditPolicy.this).fillAnchorsActions(
-          manager,
-          m_widget,
-          false);
+      new AnchorsActionsSupport(getPlacementsSupport(),
+          AbsoluteComplexSelectionEditPolicy.this).fillAnchorsActions(manager, m_widget, false);
     }
   }
 
@@ -416,6 +405,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   // Abstract
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected abstract ComponentAttachmentInfo getComponentAttachmentInfo(IAbstractComponentInfo widget,
+  protected abstract ComponentAttachmentInfo getComponentAttachmentInfo(
+      IAbstractComponentInfo widget,
       int side) throws Exception;
 }

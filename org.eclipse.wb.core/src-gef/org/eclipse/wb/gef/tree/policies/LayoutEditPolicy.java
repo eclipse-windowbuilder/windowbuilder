@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.tree.policies;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.gef.core.Command;
@@ -33,6 +31,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -198,7 +197,7 @@ public abstract class LayoutEditPolicy extends EditPolicy {
    */
   private List<EditPart> getReferenceChildren(Request request) {
     List<EditPart> allChildren = getHost().getChildren();
-    List<EditPart> referenceChildren = Lists.newArrayList();
+    List<EditPart> referenceChildren = new ArrayList<>();
     //
     for (EditPart editPart : allChildren) {
       if (isGoodReferenceChild(request, editPart)) {
@@ -306,12 +305,10 @@ public abstract class LayoutEditPolicy extends EditPolicy {
       Object type = request.getType();
       if ((Request.REQ_CREATE.equals(type) || Request.REQ_PASTE.equals(type))
           && !hostItem.getExpanded()) {
-        tree.getShell().getDisplay().asyncExec(new Runnable() {
-          public void run() {
-            TreeItem hostWidget = getHostWidget();
-            if (hostWidget != null) {
-              hostWidget.setExpanded(true);
-            }
+        tree.getShell().getDisplay().asyncExec(() -> {
+          TreeItem hostWidget = getHostWidget();
+          if (hostWidget != null) {
+            hostWidget.setExpanded(true);
           }
         });
       }
@@ -324,9 +321,8 @@ public abstract class LayoutEditPolicy extends EditPolicy {
          * Feature in Linux: during DND dragOver() operation the
          * DropTargetEvent.feedback resets all previous tree insert marks.
          */
-        request.setDNDFeedback(beforeLocation
-            ? DND.FEEDBACK_INSERT_BEFORE
-            : DND.FEEDBACK_INSERT_AFTER);
+        request.setDNDFeedback(
+            beforeLocation ? DND.FEEDBACK_INSERT_BEFORE : DND.FEEDBACK_INSERT_AFTER);
       }
       setTreeInsertMark(targetItem, beforeLocation);
     }

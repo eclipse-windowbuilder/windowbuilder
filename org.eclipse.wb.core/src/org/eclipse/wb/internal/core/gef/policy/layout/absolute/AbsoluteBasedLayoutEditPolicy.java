@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
@@ -54,7 +53,6 @@ import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 import org.eclipse.wb.internal.gef.core.CompoundCommand;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -149,6 +147,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return a X grid step value for this layout.
    */
+  @Override
   public int getGridStepX() {
     return getPreferenceStore().getInt(P_GRID_STEP_X);
   }
@@ -156,6 +155,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return a Y grid step value for this layout.
    */
+  @Override
   public int getGridStepY() {
     return getPreferenceStore().getInt(P_GRID_STEP_Y);
   }
@@ -163,6 +163,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return <code>true</code> if "free mode" snapping enabled for the layout.
    */
+  @Override
   public boolean useFreeSnapping() {
     return getPreferenceStore().getBoolean(P_USE_FREE_MODE);
   }
@@ -170,6 +171,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return <code>true</code> if grid snapping enabled for the layout.
    */
+  @Override
   public boolean useGridSnapping() {
     return getPreferenceStore().getBoolean(P_USE_GRID);
   }
@@ -191,6 +193,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   /**
    * @return <code>true</code> when snapping should be disabled.
    */
+  @Override
   public boolean isSuppressingSnapping() {
     return DesignerPlugin.isShiftPressed();
   }
@@ -370,13 +373,13 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     Figure hostFigure = getHostFigure();
     if (m_dotsFeedback == null) {
       if ((useGridSnapping() || isKeyboardMoving()) && isShowGridFeedback()) {
-        m_dotsFeedback = new DotsFeedback<C>(this, hostFigure);
+        m_dotsFeedback = new DotsFeedback<>(this, hostFigure);
         addFeedback(m_dotsFeedback);
       }
     }
     // some preparations
     List<EditPart> editParts = request.getEditParts();
-    List<IAbstractComponentInfo> modelList = Lists.newArrayList();
+    List<IAbstractComponentInfo> modelList = new ArrayList<>();
     Rectangle[] relativeBounds = new Rectangle[editParts.size()];
     Rectangle widgetBounds;
     // calculate model bounds and create move feedback
@@ -392,8 +395,9 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
         widgetBounds.union(bounds);
         modelList.add(model);
         //
-        m_moveFeedback.add(new OutlineImageFigure(model.getImage(),
-            AbsolutePolicyUtils.COLOR_OUTLINE), bounds);
+        m_moveFeedback.add(
+            new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
+            bounds);
       }
       //
       List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
@@ -481,7 +485,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     getPlacementsSupport().cleanup();
     // prepare
     List<EditPart> editParts = request.getEditParts();
-    List<IAbstractComponentInfo> modelList = Lists.newArrayList();
+    List<IAbstractComponentInfo> modelList = new ArrayList<>();
     Rectangle[] relativeBounds = new Rectangle[editParts.size()];
     Rectangle widgetBounds;
     // calculate model bounds and create move feedback
@@ -497,8 +501,9 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
         widgetBounds.union(bounds);
         modelList.add(model);
         //
-        m_resizeFeedback.add(new OutlineImageFigure(model.getImage(),
-            AbsolutePolicyUtils.COLOR_OUTLINE), bounds);
+        m_resizeFeedback.add(
+            new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
+            bounds);
       }
       //
       List<Figure> moveFeedbackFigures = m_resizeFeedback.getChildren();
@@ -543,7 +548,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     // create dots feedback
     if (m_dotsFeedback == null) {
       if (useGridSnapping() || isKeyboardMoving) {
-        m_dotsFeedback = new DotsFeedback<C>(this, getHost().getFigure());
+        m_dotsFeedback = new DotsFeedback<>(this, getHost().getFigure());
         addFeedback(m_dotsFeedback);
       }
     }
@@ -620,10 +625,8 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
       m_resizeOnCreate = true;
       // size-on-drop info update
       topLeftPoint = new Point(m_startLocation.x, m_startLocation.y);
-      preferredSize =
-          new Dimension(size.width + location.x - m_startLocation.x, size.height
-              + location.y
-              - m_startLocation.y);
+      preferredSize = new Dimension(size.width + location.x - m_startLocation.x,
+          size.height + location.y - m_startLocation.y);
       // prevent axis fixing
       m_frozenYValue = 0;
     } else {
@@ -649,9 +652,11 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     m_createFeedback = new OutlineImageFigure(image);
     addFeedback(m_createFeedback);
     // process placement
-    placementsSupport.drag(location, newWidget, widgetBounds, size == null
-        ? 0
-        : IPositionConstants.SOUTH_EAST);
+    placementsSupport.drag(
+        location,
+        newWidget,
+        widgetBounds,
+        size == null ? 0 : IPositionConstants.SOUTH_EAST);
     widgetBounds = placementsSupport.getBounds();
     Rectangle widgetModelBounds = widgetBounds.getCopy();
     // store drag start location
@@ -663,7 +668,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     // create dots feedback
     if (m_dotsFeedback == null) {
       if (useGridSnapping() || isKeyboardMoving()) {
-        m_dotsFeedback = new DotsFeedback<C>(this, hostFigure);
+        m_dotsFeedback = new DotsFeedback<>(this, hostFigure);
         addFeedback(m_dotsFeedback);
       }
     }
@@ -681,16 +686,12 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
         m_sizeFeedback.add();
       }
       // update text feedbacks
-      m_locationFeedback.setText(getLocationHintString(
-          getHost(),
-          widgetModelBounds.x,
-          widgetModelBounds.y));
+      m_locationFeedback.setText(
+          getLocationHintString(getHost(), widgetModelBounds.x, widgetModelBounds.y));
       m_locationFeedback.setLocation(widgetBounds.getLocation().getTranslated(-30, -25));
       if (size != null) {
-        m_sizeFeedback.setText(getSizeHintString(
-            getHost(),
-            widgetModelBounds.width,
-            widgetModelBounds.height));
+        m_sizeFeedback.setText(
+            getSizeHintString(getHost(), widgetModelBounds.width, widgetModelBounds.height));
         m_sizeFeedback.setLocation(widgetBounds.getBottomRight().getTranslated(30, 25));
       }
     }
@@ -708,8 +709,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     List<IObjectInfo> pastingComponents =
         GlobalState.getPasteRequestProcessor().getPastingComponents(request);
     m_pastedComponents = Maps.newHashMap();
-    List<IAbstractComponentInfo> pastedModels =
-        new ArrayList<IAbstractComponentInfo>(pastingComponents.size());
+    List<IAbstractComponentInfo> pastedModels = new ArrayList<>(pastingComponents.size());
     try {
       // remove create feedback
       if (m_createFeedback != null) {
@@ -746,8 +746,10 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
           relativeBounds[i] =
               new Rectangle(bounds.x - offsetX, bounds.y - offsetY, bounds.width, bounds.height);
           widgetBounds.union(relativeBounds[i]);
-          m_createFeedback.add(new OutlineImageFigure(pastedComponent.getComponent().getImage(),
-              AbsolutePolicyUtils.COLOR_OUTLINE), relativeBounds[i]);
+          m_createFeedback.add(
+              new OutlineImageFigure(pastedComponent.getComponent().getImage(),
+                  AbsolutePolicyUtils.COLOR_OUTLINE),
+              relativeBounds[i]);
           pastedComponent.setBounds(relativeBounds[i]);
           i++;
         }
@@ -772,7 +774,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
       // create dots feedback
       if (m_dotsFeedback == null) {
         if (useGridSnapping() || isKeyboardMoving()) {
-          m_dotsFeedback = new DotsFeedback<C>(this, getHostFigure());
+          m_dotsFeedback = new DotsFeedback<>(this, getHostFigure());
           addFeedback(m_dotsFeedback);
         }
       }
@@ -793,14 +795,9 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
 
   @Override
   protected final Command getPasteCommand(PasteRequest request) {
-    Command pasteCommand =
-        GlobalState.getPasteRequestProcessor().getPasteCommand(
-            request,
-            new IPasteComponentProcessor() {
-              public void process(Object component) throws Exception {
-                doPasteComponent(m_pasteLocation, m_pastedComponents.get(component));
-              }
-            });
+    Command pasteCommand = GlobalState.getPasteRequestProcessor().getPasteCommand(
+        request,
+        component -> doPasteComponent(m_pasteLocation, m_pastedComponents.get(component)));
     EditCommand cleanupCommand = new EditCommand(m_layout) {
       @Override
       protected void executeEdit() throws Exception {
@@ -868,7 +865,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   @Override
   protected Command getOrphanCommand(GroupRequest request) {
     List<EditPart> editParts = request.getEditParts();
-    final List<IAbstractComponentInfo> widgets = Lists.newArrayList();
+    final List<IAbstractComponentInfo> widgets = new ArrayList<>();
     for (EditPart editPart : editParts) {
       widgets.add((IAbstractComponentInfo) editPart.getModel());
     }
@@ -885,6 +882,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   // IVisualDataProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getComponentGapValue(IAbstractComponentInfo component1,
       IAbstractComponentInfo component2,
       int direction) {
@@ -901,6 +899,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return 6;
   }
 
+  @Override
   public int getContainerGapValue(IAbstractComponentInfo component, int direction) {
     switch (direction) {
       case IPositionConstants.LEFT :
@@ -915,6 +914,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return 10;
   }
 
+  @Override
   public Point getClientAreaOffset() {
     return new Point();
   }
@@ -924,12 +924,14 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   // IFeedbackProxy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Figure addHorizontalFeedbackLine(int y, int x, int width) {
     Polyline line = createLineFeedback(x, y, x + width, y);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     return line;
   }
 
+  @Override
   public Figure addHorizontalMiddleLineFeedback(int y, int x, int width) {
     Polyline line = createLineFeedback(x, y, x + width, y);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
@@ -937,6 +939,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return line;
   }
 
+  @Override
   public Figure addOutlineFeedback(Rectangle bounds) {
     // prepare bounds
     Rectangle feedbackBounds = bounds.getCopy();
@@ -949,12 +952,14 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
     return outline;
   }
 
+  @Override
   public Figure addVerticalFeedbackLine(int x, int y, int height) {
     Polyline line = createLineFeedback(x, y, x, y + height);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     return line;
   }
 
+  @Override
   public Figure addVerticalMiddleLineFeedback(int x, int y, int height) {
     Polyline line = createLineFeedback(x, y, x, y + height);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -21,6 +20,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -114,7 +114,7 @@ public class GenericTypeResolver {
       return currentArguments;
     }
     // Prepare all super Types.
-    List<Type> superTypes = Lists.newArrayList();
+    List<Type> superTypes = new ArrayList<>();
     if (currentClass.getGenericSuperclass() != null) {
       superTypes.add(currentClass.getGenericSuperclass());
     }

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -29,6 +28,7 @@ import org.apache.commons.lang.time.DateFormatUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,7 @@ import java.util.zip.ZipOutputStream;
  */
 public final class ZipFileErrorReport implements IErrorReport {
   // fields
-  private final List<IReportEntry> m_entries = Lists.newArrayList();
+  private final List<IReportEntry> m_entries = new ArrayList<>();
   private final IProject m_project;
   private final IReportEntry m_sourceFileReport;
   private final ProjectReportEntry m_projectFileReport;
@@ -64,7 +64,9 @@ public final class ZipFileErrorReport implements IErrorReport {
    * @param sourceFileReport
    *          a report entry for current editing source contents. May be <code>null</code>.
    */
-  public ZipFileErrorReport(Image defaultScreenShot, IProject project, IReportEntry sourceFileReport) {
+  public ZipFileErrorReport(Image defaultScreenShot,
+      IProject project,
+      IReportEntry sourceFileReport) {
     m_defaultScreenShot = defaultScreenShot;
     m_project = project;
     m_sourceFileReport = sourceFileReport;
@@ -151,14 +153,17 @@ public final class ZipFileErrorReport implements IErrorReport {
   private Map<String, IReportEntry> m_screenshotsMap;
   private final Image m_defaultScreenShot;
 
+  @Override
   public boolean hasDefaultScreenshot() {
     return m_defaultScreenShot != null;
   }
 
+  @Override
   public boolean hasScreenshot(String filePath) {
     return m_screenshotsMap.get(filePath) != null;
   }
 
+  @Override
   public void includeScreenshot(String filePath, boolean include) {
     if (include) {
       addScreenshot(filePath);
@@ -200,10 +205,12 @@ public final class ZipFileErrorReport implements IErrorReport {
   ////////////////////////////////////////////////////////////////////////////
   private Map<String, IReportEntry> m_filesMap;
 
+  @Override
   public boolean hasFile(String filePath) {
     return m_filesMap.get(filePath) != null;
   }
 
+  @Override
   public void includeFile(String filePath, boolean include) {
     if (include) {
       addFile(filePath);
@@ -255,6 +262,7 @@ public final class ZipFileErrorReport implements IErrorReport {
     }
   }
 
+  @Override
   public boolean hasSourceFile() {
     return m_sourceFileReport != null && m_entries.indexOf(m_sourceFileReport) != -1;
   }
@@ -263,26 +271,28 @@ public final class ZipFileErrorReport implements IErrorReport {
    * @return adds extra {@link IReportEntry}s using extension point.
    */
   private void addExternalReportEntries() {
-    List<IReportEntriesProvider> providers =
-        ExternalFactoriesHelper.getElementsInstances(
-            IReportEntriesProvider.class,
-            "org.eclipse.wb.core.errorReportEntriesProviders",
-            "provider");
+    List<IReportEntriesProvider> providers = ExternalFactoriesHelper.getElementsInstances(
+        IReportEntriesProvider.class,
+        "org.eclipse.wb.core.errorReportEntriesProviders",
+        "provider");
     for (IReportEntriesProvider provider : providers) {
       provider.addEntries(this);
     }
   }
 
+  @Override
   public IProject getProject() {
     return m_project;
   }
 
+  @Override
   public void addEntry(IReportEntry entry) {
     if (m_entries.indexOf(entry) == -1) {
       m_entries.add(entry);
     }
   }
 
+  @Override
   public void removeEntry(IReportEntry entry) {
     m_entries.remove(entry);
   }

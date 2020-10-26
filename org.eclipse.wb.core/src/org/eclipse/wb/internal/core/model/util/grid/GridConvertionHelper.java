@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -44,7 +43,7 @@ public class GridConvertionHelper {
   ////////////////////////////////////////////////////////////////////////////
   public static List<ComponentGroup> buildGroups(List<? extends IAbstractComponentInfo> components,
       boolean horizontal) {
-    List<ComponentInGroup> groupComponents = Lists.newArrayList();
+    List<ComponentInGroup> groupComponents = new ArrayList<>();
     for (IAbstractComponentInfo component : components) {
       ComponentInGroup groupComponent =
           new ComponentInGroup(component, component.getModelBounds(), horizontal);
@@ -55,13 +54,9 @@ public class GridConvertionHelper {
 
   private static List<ComponentGroup> buildGroups(List<ComponentInGroup> components) {
     // sort by begins
-    Collections.sort(components, new Comparator<ComponentInGroup>() {
-      public int compare(ComponentInGroup o1, ComponentInGroup o2) {
-        return o1.getMin() - o2.getMin();
-      }
-    });
+    Collections.sort(components, (o1, o2) -> o1.getMin() - o2.getMin());
     // create groups
-    List<ComponentGroup> groups = Lists.newArrayList();
+    List<ComponentGroup> groups = new ArrayList<>();
     for (ComponentInGroup component : components) {
       // create group for this component
       ComponentGroup group = new ComponentGroup();
@@ -84,7 +79,8 @@ public class GridConvertionHelper {
     return groups;
   }
 
-  private static boolean isSubGroupInGroups(ComponentGroup subSetGroup, List<ComponentGroup> groups) {
+  private static boolean isSubGroupInGroups(ComponentGroup subSetGroup,
+      List<ComponentGroup> groups) {
     for (ComponentGroup superSetGroup : groups) {
       if (superSetGroup != subSetGroup
           && superSetGroup.getComponents().containsAll(subSetGroup.getComponents())) {
@@ -103,12 +99,10 @@ public class GridConvertionHelper {
    * Sorts given {@link List} of {@link ComponentGroup}'s by beginnings.
    */
   public static void sortGroups(final List<ComponentGroup> groups) {
-    Collections.sort(groups, new Comparator<ComponentGroup>() {
-      public int compare(ComponentGroup group_1, ComponentGroup group_2) {
-        int value_1 = group_1.getMinOfBegins(groups);
-        int value_2 = group_2.getMinOfBegins(groups);
-        return value_1 - value_2;
-      }
+    Collections.sort(groups, (group_1, group_2) -> {
+      int value_1 = group_1.getMinOfBegins(groups);
+      int value_2 = group_2.getMinOfBegins(groups);
+      return value_1 - value_2;
     });
   }
 
@@ -128,6 +122,7 @@ public class GridConvertionHelper {
   private static void sortGroupByTranspose(final ComponentGroup group,
       final List<ComponentGroup> t_groups) {
     Collections.sort(group.getComponents(), new Comparator<ComponentInGroup>() {
+      @Override
       public int compare(ComponentInGroup component_1, ComponentInGroup component_2) {
         return findTComponent(component_1).getMin() - findTComponent(component_2).getMin();
       }
@@ -162,7 +157,7 @@ public class GridConvertionHelper {
    * Also creates gap {@link ComponentGroup}'s.
    */
   public static void updateBoundsGaps(List<ComponentGroup> groups, boolean addGaps) {
-    List<ComponentGroup> newGroups = Lists.newArrayList();
+    List<ComponentGroup> newGroups = new ArrayList<>();
     //
     for (int i = 0; i < groups.size(); i++) {
       ComponentGroup group = groups.get(i);
@@ -256,7 +251,9 @@ public class GridConvertionHelper {
     // Constructor
     //
     ////////////////////////////////////////////////////////////////////////////
-    private ComponentInGroup(IAbstractComponentInfo component, Rectangle bounds, boolean horizontal) {
+    private ComponentInGroup(IAbstractComponentInfo component,
+        Rectangle bounds,
+        boolean horizontal) {
       m_component = component;
       int width = Math.max(1, bounds.width);
       int height = Math.max(1, bounds.height);
@@ -294,7 +291,9 @@ public class GridConvertionHelper {
 
     private String getComponentName() {
       try {
-        return (String) ScriptUtils.evaluate("getVariableSupport().getComponentName()", m_component);
+        return (String) ScriptUtils.evaluate(
+            "getVariableSupport().getComponentName()",
+            m_component);
       } catch (Throwable e) {
         return m_component.toString();
       }
@@ -349,7 +348,7 @@ public class GridConvertionHelper {
    * @author scheglov_ke
    */
   public static class ComponentGroup {
-    private final List<ComponentInGroup> m_components = Lists.newArrayList();
+    private final List<ComponentInGroup> m_components = new ArrayList<>();
     private int m_min;
     private int m_max;
 

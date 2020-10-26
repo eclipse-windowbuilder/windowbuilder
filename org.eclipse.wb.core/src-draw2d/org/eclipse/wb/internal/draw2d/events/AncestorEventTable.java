@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d.events;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.events.IAncestorListener;
 import org.eclipse.wb.draw2d.events.IFigureListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,12 +42,14 @@ public class AncestorEventTable implements IFigureListener {
   // IFigureListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void figureMoved(Figure source) {
     for (IAncestorListener listener : m_listeners) {
       listener.ancestorMoved(source);
     }
   }
 
+  @Override
   public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
     if (oldParent != null) {
       unhookFigure(oldParent);
@@ -100,7 +101,7 @@ public class AncestorEventTable implements IFigureListener {
    */
   public void addAncestorListener(IAncestorListener listener) {
     if (m_listeners == null) {
-      m_listeners = Lists.newArrayList();
+      m_listeners = new ArrayList<>();
     }
     m_listeners.add(listener);
   }

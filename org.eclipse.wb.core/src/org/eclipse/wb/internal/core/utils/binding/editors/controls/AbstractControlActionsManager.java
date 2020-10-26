@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.binding.editors.controls;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -30,6 +28,7 @@ import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.texteditor.IWorkbenchActionDefinitionIds;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -149,7 +148,7 @@ public abstract class AbstractControlActionsManager {
   /**
    * Activates handler and stores it into a collection for further deactivation.
    */
-  private final List<IHandlerActivation> m_activations = Lists.newLinkedList();
+  private final List<IHandlerActivation> m_activations = new LinkedList<>();
 
   private void activateHandler(String actionName,
       IHandlerService service,

@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +51,7 @@ public class CompoundSelectionEditPolicy extends SelectionEditPolicy {
 
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     for (SelectionEditPolicy policy : m_policies) {
       policy.createSelectionHandles();
     }

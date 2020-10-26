@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -20,6 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.draw2d.geometry.Transposer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class SnapPoints {
   protected int m_horizontalMouseMoveDirection;
   protected int m_verticalMouseMoveDirection;
   // feedbacks
-  protected List<Figure> m_feedbacks = Lists.newArrayList();
+  protected List<Figure> m_feedbacks = new ArrayList<>();
   private final IFeedbackProxy m_feedbackProxy;
   private SnapPoint m_horizontalSnappedPoint;
   private SnapPoint m_verticalSnappedPoint;
@@ -63,7 +62,7 @@ public class SnapPoints {
     m_feedbackProxy = feedbackProxy;
     m_snapPoints = snapPoints;
     m_listener = listener;
-    m_allWidgets = Lists.newArrayList(allWidgets);
+    m_allWidgets = new ArrayList<>(allWidgets);
   }
 
   /**
@@ -163,11 +162,11 @@ public class SnapPoints {
       }
     }
     if (m_listener != null) {
-      m_listener.boundsChanged(snappedBounds, beingSnappedList, new SnapPoint[]{
-          m_horizontalSnappedPoint,
-          m_verticalSnappedPoint}, new int[]{
-          m_horizontalMouseMoveDirection,
-          m_verticalMouseMoveDirection});
+      m_listener.boundsChanged(
+          snappedBounds,
+          beingSnappedList,
+          new SnapPoint[]{m_horizontalSnappedPoint, m_verticalSnappedPoint},
+          new int[]{m_horizontalMouseMoveDirection, m_verticalMouseMoveDirection});
     }
   }
 
@@ -193,11 +192,11 @@ public class SnapPoints {
     }
     Transposer t = new Transposer(!isHorizontal);
     Rectangle transposed = t.t(snappedBounds);
-    applyGrid(transposed, resizeDirection, isHorizontal
-        ? m_horizontalMouseMoveDirection
-        : m_verticalMouseMoveDirection, isHorizontal
-        ? m_visualDataProvider.getGridStepX()
-        : m_visualDataProvider.getGridStepY());
+    applyGrid(
+        transposed,
+        resizeDirection,
+        isHorizontal ? m_horizontalMouseMoveDirection : m_verticalMouseMoveDirection,
+        isHorizontal ? m_visualDataProvider.getGridStepX() : m_visualDataProvider.getGridStepY());
     snappedBounds.setBounds(t.t(transposed));
   }
 
@@ -277,7 +276,7 @@ public class SnapPoints {
    * Used to create snap points at whole.
    */
   private List<SnapPoint> getSnapPoints(boolean isHorizontal) {
-    List<SnapPoint> pts = Lists.newArrayList();
+    List<SnapPoint> pts = new ArrayList<>();
     for (IAbstractComponentInfo child : m_allWidgets) {
       pts.addAll(m_snapPoints.forComponent(child, isHorizontal));
     }
@@ -305,8 +304,9 @@ public class SnapPoints {
     // ISnapPointsProvider
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public List<SnapPoint> forContainer(boolean isHorizontal) {
-      List<SnapPoint> pts = Lists.newArrayList();
+      List<SnapPoint> pts = new ArrayList<>();
       int leadingSide = PlacementUtils.getSide(isHorizontal, true);
       int trailingSide = PlacementUtils.getSide(isHorizontal, false);
       // snap to parent at left side with gap
@@ -323,8 +323,9 @@ public class SnapPoints {
       return pts;
     }
 
+    @Override
     public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
-      List<SnapPoint> pts = Lists.newArrayList();
+      List<SnapPoint> pts = new ArrayList<>();
       int leadingSide = PlacementUtils.getSide(isHorizontal, true);
       int trailingSide = PlacementUtils.getSide(isHorizontal, false);
       if (isHorizontal) {
@@ -335,27 +336,28 @@ public class SnapPoints {
         pts.add(new BaselineComponentSnapPoint(m_visualDataProvider, target));
       }
       // snap to child on left side with gap
-      pts.add(new ComponentSnapPoint(m_visualDataProvider,
-          target,
-          leadingSide,
-          PlacementInfo.TRAILING,
-          true));
+      pts.add(
+          new ComponentSnapPoint(m_visualDataProvider,
+              target,
+              leadingSide,
+              PlacementInfo.TRAILING,
+              true));
       // snap to child on left side
-      pts.add(new ComponentSnapPoint(m_visualDataProvider,
-          target,
-          leadingSide,
-          PlacementInfo.LEADING));
+      pts.add(
+          new ComponentSnapPoint(m_visualDataProvider, target, leadingSide, PlacementInfo.LEADING));
       // snap to child on right side with gap
-      pts.add(new ComponentSnapPoint(m_visualDataProvider,
-          target,
-          trailingSide,
-          PlacementInfo.LEADING,
-          true));
+      pts.add(
+          new ComponentSnapPoint(m_visualDataProvider,
+              target,
+              trailingSide,
+              PlacementInfo.LEADING,
+              true));
       // snap to child on right side
-      pts.add(new ComponentSnapPoint(m_visualDataProvider,
-          target,
-          trailingSide,
-          PlacementInfo.TRAILING));
+      pts.add(
+          new ComponentSnapPoint(m_visualDataProvider,
+              target,
+              trailingSide,
+              PlacementInfo.TRAILING));
       return pts;
     }
   }
@@ -372,6 +374,6 @@ public class SnapPoints {
     for (Figure figure : m_feedbacks) {
       FigureUtils.removeFigure(figure);
     }
-    m_feedbacks = Lists.newArrayList();
+    m_feedbacks = new ArrayList<>();
   }
 }

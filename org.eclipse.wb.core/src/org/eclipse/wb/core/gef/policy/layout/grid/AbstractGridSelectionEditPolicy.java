@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
@@ -44,6 +42,7 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.swt.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -129,14 +128,12 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
    * @return the {@link MoveHandle} for host component.
    */
   protected final MoveHandle createMoveHandle() {
-    MoveHandle moveHandle = new MoveHandle(getHost(), new ILocator() {
-      public void relocate(Figure target) {
-        try {
-          Rectangle bounds = getComponentCellBounds_atFeedback();
-          target.setBounds(bounds);
-        } catch (Throwable e) {
-          DesignerPlugin.log(e);
-        }
+    MoveHandle moveHandle = new MoveHandle(getHost(), target -> {
+      try {
+        Rectangle bounds = getComponentCellBounds_atFeedback();
+        target.setBounds(bounds);
+      } catch (Throwable e) {
+        DesignerPlugin.log(e);
       }
     });
     moveHandle.setForeground(IColorConstants.red);
@@ -190,7 +187,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
    */
   public final void showAlignmentFigures() {
     if (m_alignmentFigures == null) {
-      m_alignmentFigures = Lists.newArrayList();
+      m_alignmentFigures = new ArrayList<>();
       // show cell figures for all children of host's parent
       {
         Collection<EditPart> editParts = getHost().getParent().getChildren();
@@ -372,9 +369,8 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
     bounds.translate(request.getMoveDelta());
     bounds.resize(request.getSizeDelta());
     // create command
-    boolean isHorizontal =
-        request.getResizeDirection() == IPositionConstants.WEST
-            || request.getResizeDirection() == IPositionConstants.EAST;
+    boolean isHorizontal = request.getResizeDirection() == IPositionConstants.WEST
+        || request.getResizeDirection() == IPositionConstants.EAST;
     m_sizeCommand = createSizeCommand(isHorizontal, bounds.getSize());
     // show feedback
     {

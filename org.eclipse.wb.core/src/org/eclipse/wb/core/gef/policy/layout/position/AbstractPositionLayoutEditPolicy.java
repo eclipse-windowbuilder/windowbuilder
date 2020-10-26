@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.position;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.figure.AbstractPositionFeedback;
 import org.eclipse.wb.core.gef.figure.GhostPositionFeedback;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
@@ -30,6 +28,7 @@ import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
     // create feedbacks
     if (m_feedbacks == null) {
       // create positions
-      m_feedbacks = Lists.newArrayList();
+      m_feedbacks = new ArrayList<>();
       try {
         addFeedbacks();
       } catch (Throwable e) {

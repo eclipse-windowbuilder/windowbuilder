@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.events.IAncestorListener;
 import org.eclipse.wb.draw2d.events.IFigureListener;
@@ -33,6 +31,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -291,12 +290,13 @@ public class Figure {
     // check figure
     for (Figure f = this; f != null; f = f.getParent()) {
       if (childFigure == f) {
-        throw new IllegalArgumentException("IWAG0002E Figure.add(...) Cycle created in figure heirarchy");
+        throw new IllegalArgumentException(
+            "IWAG0002E Figure.add(...) Cycle created in figure heirarchy");
       }
     }
     // check container
     if (m_children == null) {
-      m_children = Lists.newArrayList();
+      m_children = new ArrayList<>();
     }
     // check index
     if (index < -1 || index > m_children.size()) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.presentation;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildGraphical;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildTree;
@@ -20,6 +18,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoChildrenTree;
 
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,8 +44,9 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
   // IObjectPresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<ObjectInfo> getChildrenTree() throws Exception {
-    List<ObjectInfo> children = Lists.newArrayList();
+    List<ObjectInfo> children = new ArrayList<>();
     for (ObjectInfo child : m_object.getChildren()) {
       // ask listeners if child should be displayed
       boolean[] visible = new boolean[]{true};
@@ -61,8 +61,9 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
     return children;
   }
 
+  @Override
   public List<ObjectInfo> getChildrenGraphical() throws Exception {
-    List<ObjectInfo> children = Lists.newArrayList();
+    List<ObjectInfo> children = new ArrayList<>();
     for (ObjectInfo child : m_object.getChildren()) {
       // ask listeners if child should be displayed
       boolean[] visible = new boolean[]{true};
@@ -77,10 +78,12 @@ public abstract class DefaultObjectPresentation implements IObjectPresentation {
     return children;
   }
 
+  @Override
   public Image getIcon() throws Exception {
     return null;
   }
 
+  @Override
   public boolean isVisible() throws Exception {
     return true;
   }

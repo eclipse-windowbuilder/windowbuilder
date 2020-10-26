@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d.scroll;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -133,6 +132,7 @@ public abstract class ScrollModel implements Listener {
   // Handle scrolling
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void handleEvent(Event event) {
     if (m_scrollBar.getEnabled()) {
       int selection = Math.max(0, Math.min(m_extent, m_scrollBar.getSelection()));
@@ -168,7 +168,7 @@ public abstract class ScrollModel implements Listener {
    */
   public void addSelectionListener(ISelectionListener listener) {
     if (m_listeners == null) {
-      m_listeners = Lists.newArrayList();
+      m_listeners = new ArrayList<>();
     }
     m_listeners.add(listener);
   }

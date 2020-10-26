@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -30,8 +29,8 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +54,7 @@ public final class PlacementsSupport {
   private Rectangle m_bounds;
   private final Map<IAbstractComponentInfo, Rectangle> m_newModelBounds = Maps.newHashMap();
   private final Map<IAbstractComponentInfo, Rectangle> m_oldModelBounds = Maps.newHashMap();
-  private final Map<IAbstractComponentInfo, Integer[]> m_effectiveAlignments =
-      new HashMap<IAbstractComponentInfo, Integer[]>();
+  private final Map<IAbstractComponentInfo, Integer[]> m_effectiveAlignments = new HashMap<>();
   private final IAbsoluteLayoutCommands m_layoutCommands;
   private int m_resizeDirection;
   private boolean m_isCreating;
@@ -80,7 +78,7 @@ public final class PlacementsSupport {
     m_feedbackProxy = feedbackProxy;
     m_layoutCommands = layout;
     m_snapPoints = new SnapPoints(visualDataProvider, feedbackProxy, allWidgets);
-    m_allWidgets = Lists.newArrayList(allWidgets);
+    m_allWidgets = new ArrayList<>(allWidgets);
   }
 
   /**
@@ -232,8 +230,8 @@ public final class PlacementsSupport {
       int direction = placement.getDirection();
       // early fill the neighbor
       if (componentSnapPoint.getGap() != 0) {
-        boolean isNeighbor =
-            !PlacementUtils.isLeadingSide(componentSnapPoint.getSide()) == (direction == PlacementInfo.LEADING);
+        boolean isNeighbor = !PlacementUtils.isLeadingSide(
+            componentSnapPoint.getSide()) == (direction == PlacementInfo.LEADING);
         if (isNeighbor) {
           placement.getNeighbors()[direction] = componentSnapPoint.getComponent();
           placement.getDistances()[direction] = componentSnapPoint.getGap();
@@ -343,9 +341,9 @@ public final class PlacementsSupport {
           && placement.getAttachmentType() != AttachmentTypes.ComponentWithOffset) {
         // if no one wants to be our neighbor ;-) so get the distance to the container's boundary
         Dimension containerSize = t.t(m_visualDataProvider.getContainerSize());
-        distances[direction] =
-            direction == PlacementInfo.LEADING ? widgetsWidth.begin() : containerSize.width
-                - widgetsWidth.end();
+        distances[direction] = direction == PlacementInfo.LEADING
+            ? widgetsWidth.begin()
+            : containerSize.width - widgetsWidth.end();
       }
     }
   }
@@ -442,9 +440,8 @@ public final class PlacementsSupport {
     int direction = placementInfo.getDirection();
     int side = PlacementUtils.getSide(isHorizontal, direction == PlacementInfo.LEADING);
     int oppositeSide = PlacementUtils.getOppositeSide(side);
-    boolean isAttachedOpposite =
-        m_layoutCommands.isAttached(widget, side)
-            && m_layoutCommands.isAttached(widget, oppositeSide);
+    boolean isAttachedOpposite = m_layoutCommands.isAttached(widget, side)
+        && m_layoutCommands.isAttached(widget, oppositeSide);
     m_layoutCommands.detach(widget, side);
     if (attachedToWidget == placementInfo.getNeighbors()[direction]) {
       // sequential attachment
@@ -458,10 +455,9 @@ public final class PlacementsSupport {
       if (AttachmentTypes.Baseline == placementInfo.getAttachmentType()) {
         m_layoutCommands.attachWidgetBaseline(widget, attachedToWidget);
       } else {
-        int distance =
-            placementInfo.getAttachmentType() == AttachmentTypes.ComponentWithOffset
-                ? placementInfo.getDistances()[direction]
-                : 0;
+        int distance = placementInfo.getAttachmentType() == AttachmentTypes.ComponentWithOffset
+            ? placementInfo.getDistances()[direction]
+            : 0;
         m_layoutCommands.attachWidgetParallelly(widget, attachedToWidget, side, distance);
       }
     }
@@ -483,10 +479,9 @@ public final class PlacementsSupport {
       PlacementInfo placementInfo,
       boolean isHorizontal) throws Exception {
     int[] distances = placementInfo.getDistances();
-    int alignment =
-        distances[PlacementInfo.TRAILING] < distances[PlacementInfo.LEADING]
-            ? PlacementInfo.TRAILING
-            : PlacementInfo.LEADING;
+    int alignment = distances[PlacementInfo.TRAILING] < distances[PlacementInfo.LEADING]
+        ? PlacementInfo.TRAILING
+        : PlacementInfo.LEADING;
     placeFreelyUsingAlignment(widget, placementInfo, isHorizontal, alignment);
   }
 
@@ -497,15 +492,13 @@ public final class PlacementsSupport {
     int[] distances = placementInfo.getDistances();
     int side = PlacementUtils.getSide(isHorizontal, alignment == PlacementInfo.LEADING);
     int oppositeSide = PlacementUtils.getOppositeSide(side);
-    boolean isAttachedBothSides =
-        m_layoutCommands.isAttached(widget, side)
-            && m_layoutCommands.isAttached(widget, oppositeSide);
+    boolean isAttachedBothSides = m_layoutCommands.isAttached(widget, side)
+        && m_layoutCommands.isAttached(widget, oppositeSide);
     if (!isAttachedWithinOperatingWidgets(widget, side)) {
       m_layoutCommands.detach(widget, side);
       IAbstractComponentInfo[] neighbors = placementInfo.getNeighbors();
-      int distance =
-          distances[alignment]
-              + getWidgetRelativeDistance(widget, isHorizontal, alignment == PlacementInfo.LEADING);
+      int distance = distances[alignment]
+          + getWidgetRelativeDistance(widget, isHorizontal, alignment == PlacementInfo.LEADING);
       if (neighbors[alignment] == null) {
         m_layoutCommands.attachAbsolute(widget, side, distance);
       } else {
@@ -566,11 +559,10 @@ public final class PlacementsSupport {
   private boolean m_adjustingAttached;
 
   private PlacementInfo findNeighborsOfWidget(IAbstractComponentInfo widget, boolean isHorizontal) {
-    PlacementsSupport placementsSupport =
-        new PlacementsSupport(widget,
-            m_visualDataProvider,
-            m_layoutCommands,
-            getNonDeletedWidgets());
+    PlacementsSupport placementsSupport = new PlacementsSupport(widget,
+        m_visualDataProvider,
+        m_layoutCommands,
+        getNonDeletedWidgets());
     placementsSupport.findNeighbors();
     return placementsSupport.getPlacementInfo(isHorizontal);
   }
@@ -631,10 +623,9 @@ public final class PlacementsSupport {
           m_layoutCommands.attachWidgetSequientially(widget, attachedToWidget, side, distance);
         } else {
           // parallel attachment
-          distance =
-              placementInfo.getAttachmentType() == AttachmentTypes.ComponentWithOffset
-                  ? placementInfo.getDistances()[direction]
-                  : 0;
+          distance = placementInfo.getAttachmentType() == AttachmentTypes.ComponentWithOffset
+              ? placementInfo.getDistances()[direction]
+              : 0;
           m_layoutCommands.attachWidgetParallelly(widget, attachedToWidget, side, distance);
         }
         if (!isAttachedOppositeSide) {
@@ -666,9 +657,9 @@ public final class PlacementsSupport {
     Rectangle originalBounds = m_oldModelBounds.get(widget);//widget.getModelBounds();
     Dimension originalSize =
         originalBounds != null ? originalBounds.getSize() : widget.getPreferredSize();
-    int resizeDelta =
-        isHorizontal ? changedBounds.width - originalSize.width : changedBounds.height
-            - originalSize.height;
+    int resizeDelta = isHorizontal
+        ? changedBounds.width - originalSize.width
+        : changedBounds.height - originalSize.height;
     return resizeDelta;
   }
 
@@ -693,7 +684,9 @@ public final class PlacementsSupport {
       int vertical = findEffectiveAlignment(widget, false);
       m_effectiveAlignments.put(widget, new Integer[]{horizontal, vertical});
       // store model bounds (translated)
-      m_oldModelBounds.put(widget, PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget));
+      m_oldModelBounds.put(
+          widget,
+          PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget));
     }
   }
 
@@ -706,8 +699,9 @@ public final class PlacementsSupport {
       throws Exception {
     boolean isLeading =
         isAlignedToSide(widget, isHorizontal ? IPositionConstants.LEFT : IPositionConstants.TOP);
-    boolean isTrailing =
-        isAlignedToSide(widget, isHorizontal ? IPositionConstants.RIGHT : IPositionConstants.BOTTOM);
+    boolean isTrailing = isAlignedToSide(
+        widget,
+        isHorizontal ? IPositionConstants.RIGHT : IPositionConstants.BOTTOM);
     if (!(isLeading ^ isTrailing)) {
       // return direction to the nearest widget or parent boundary
       PlacementInfo placementInfo = findNeighborsOfWidget(widget, isHorizontal);
@@ -742,7 +736,9 @@ public final class PlacementsSupport {
    */
   @SuppressWarnings("unchecked")
   private List<IAbstractComponentInfo> getRemainingWidgets() {
-    return (List<IAbstractComponentInfo>) CollectionUtils.subtract(m_allWidgets, m_operatingWidgets);
+    return (List<IAbstractComponentInfo>) CollectionUtils.subtract(
+        m_allWidgets,
+        m_operatingWidgets);
   }
 
   /**
@@ -753,7 +749,7 @@ public final class PlacementsSupport {
     if (!CollectionUtils.isEmpty(m_operatingWidgets) && m_operatingWidgets.get(0).isDeleting()) {
       return getRemainingWidgets();
     }
-    return Lists.newArrayList(m_allWidgets);
+    return new ArrayList<>(m_allWidgets);
   }
 
   private PlacementInfo getPlacementInfoX() {
@@ -948,12 +944,11 @@ public final class PlacementsSupport {
       widgetsWidth += t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget)).width;
     }
     // sort objects by their left positions
-    Collections.sort(widgets, new Comparator<IAbstractComponentInfo>() {
-      public int compare(IAbstractComponentInfo widget1, IAbstractComponentInfo widget2) {
-        return t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget1)).x
-            - t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget2)).x;
-      }
-    });
+    Collections.sort(
+        widgets,
+        (widget1,
+            widget2) -> t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget1)).x
+                - t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widget2)).x);
     // distribute objects between:
     // 1. left-most and right-most objects (if Ctrl pressed);
     // 2. or in parents client area
@@ -964,10 +959,8 @@ public final class PlacementsSupport {
       // calculate space and start location (x)
       Rectangle leftBounds =
           t.t(PlacementUtils.getTranslatedBounds(m_visualDataProvider, widgets.get(0)));
-      Rectangle rightBounds =
-          t.t(PlacementUtils.getTranslatedBounds(
-              m_visualDataProvider,
-              widgets.get(widgetsLength - 1)));
+      Rectangle rightBounds = t.t(
+          PlacementUtils.getTranslatedBounds(m_visualDataProvider, widgets.get(widgetsLength - 1)));
       int totalWidth = rightBounds.right() - leftBounds.x;
       space = (totalWidth - widgetsWidth) / (widgetsLength - 1);
       x = leftBounds.x;
@@ -1157,7 +1150,7 @@ public final class PlacementsSupport {
    * @return the list of widgets which attached to given <code>widget</code> by any side.
    */
   private List<ComponentAttachmentInfo> findAffectedWidgets() throws Exception {
-    List<ComponentAttachmentInfo> attached = Lists.newArrayList();
+    List<ComponentAttachmentInfo> attached = new ArrayList<>();
     // traverse through non-operating widgets.
     List<IAbstractComponentInfo> remainingWidgets = getRemainingWidgets();
     for (IAbstractComponentInfo remainingWidget : remainingWidgets) {
@@ -1232,7 +1225,8 @@ public final class PlacementsSupport {
     return pair.getRight();
   }
 
-  private Pair<ComponentAttachmentInfo, ComponentAttachmentInfo> getCyclicPair(List<ComponentAttachmentInfo> cyclicList) {
+  private Pair<ComponentAttachmentInfo, ComponentAttachmentInfo> getCyclicPair(
+      List<ComponentAttachmentInfo> cyclicList) {
     ComponentAttachmentInfo first = cyclicList.get(0);
     ComponentAttachmentInfo second = null;
     for (int i = 1; i < cyclicList.size(); i++) {
@@ -1244,12 +1238,12 @@ public final class PlacementsSupport {
     }
     cyclicList.remove(first);
     cyclicList.remove(second);
-    return new Pair<ComponentAttachmentInfo, ComponentAttachmentInfo>(first, second);
+    return new Pair<>(first, second);
   }
 
   private List<ComponentAttachmentInfo> detectCyclicReferences(boolean isHorizontal)
       throws Exception {
-    List<ComponentAttachmentInfo> cyclicList = Lists.newArrayList();
+    List<ComponentAttachmentInfo> cyclicList = new ArrayList<>();
     List<IAbstractComponentInfo> widgets = getNonDeletedWidgets();
     for (IAbstractComponentInfo widget : widgets) {
       IAbstractComponentInfo attachedLeading =
@@ -1300,7 +1294,12 @@ public final class PlacementsSupport {
       cyclicList.add(new ComponentAttachmentInfo(widget, targetWidget, trailingSide));
       return;
     }
-    traverseAttachedWidgets(cyclicList, visitedWidgets, attachedLeading, targetWidget, isHorizontal);
+    traverseAttachedWidgets(
+        cyclicList,
+        visitedWidgets,
+        attachedLeading,
+        targetWidget,
+        isHorizontal);
     traverseAttachedWidgets(
         cyclicList,
         visitedWidgets,

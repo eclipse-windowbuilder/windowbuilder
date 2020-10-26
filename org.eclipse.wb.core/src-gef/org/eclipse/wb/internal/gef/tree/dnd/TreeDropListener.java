@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.dnd;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -26,6 +24,7 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.Transfer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,19 +54,23 @@ public class TreeDropListener implements DropTargetListener {
   // DropTargetListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dragEnter(DropTargetEvent event) {
     m_currentEvent = event;
   }
 
+  @Override
   public void dropAccept(DropTargetEvent event) {
     m_currentEvent = event;
   }
 
+  @Override
   public void dragLeave(DropTargetEvent event) {
     m_currentEvent = event;
     clearState();
   }
 
+  @Override
   public void dragOperationChanged(DropTargetEvent event) {
     m_currentEvent = event;
     eraseTargetFeedback();
@@ -77,6 +80,7 @@ public class TreeDropListener implements DropTargetListener {
     updateCommand();
   }
 
+  @Override
   public void dragOver(DropTargetEvent event) {
     boolean needUpdateFeedback =
         !m_isShowingFeedback || event.x != m_currentEvent.x || event.y != m_currentEvent.y;
@@ -92,6 +96,7 @@ public class TreeDropListener implements DropTargetListener {
         DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL | getTargetRequest().getDNDFeedback();
   }
 
+  @Override
   public void drop(DropTargetEvent event) {
     m_currentEvent = event;
     List<Object> models = getModels(getDragSource());
@@ -119,7 +124,7 @@ public class TreeDropListener implements DropTargetListener {
   }
 
   private List<Object> getModels(List<EditPart> editParts) {
-    List<Object> models = Lists.newArrayList();
+    List<Object> models = new ArrayList<>();
     for (EditPart editPart : editParts) {
       models.add(editPart.getModel());
     }
@@ -132,7 +137,7 @@ public class TreeDropListener implements DropTargetListener {
   private void resetSelectionFromModels(List<Object> models) {
     if (!models.isEmpty()) {
       // prepare new EditPart's
-      List<EditPart> newEditParts = Lists.newArrayList();
+      List<EditPart> newEditParts = new ArrayList<>();
       for (Object model : models) {
         EditPart newEditPart = m_viewer.getEditPartByModel(model);
         newEditParts.add(newEditPart);
@@ -203,12 +208,11 @@ public class TreeDropListener implements DropTargetListener {
    */
   private void updateTargetEditPart() {
     Point location = getDropLocation();
-    EditPart editPart =
-        m_viewer.findTargetEditPart(
-            location.x,
-            location.y,
-            includeChildren(getDragSource()),
-            getTargetingConditional());
+    EditPart editPart = m_viewer.findTargetEditPart(
+        location.x,
+        location.y,
+        includeChildren(getDragSource()),
+        getTargetingConditional());
     if (editPart != null) {
       editPart = editPart.getTargetEditPart(getTargetRequest());
     }
@@ -233,15 +237,11 @@ public class TreeDropListener implements DropTargetListener {
    * conditional fails, and the search continues.
    */
   private IConditional getTargetingConditional() {
-    return new IEditPartViewer.IConditional() {
-      public boolean evaluate(EditPart editPart) {
-        return editPart.getTargetEditPart(getTargetRequest()) != null;
-      }
-    };
+    return editPart -> editPart.getTargetEditPart(getTargetRequest()) != null;
   }
 
   private static List<EditPart> includeChildren(List<EditPart> parts) {
-    List<EditPart> result = Lists.newArrayList();
+    List<EditPart> result = new ArrayList<>();
     for (EditPart editPart : parts) {
       result.add(editPart);
       result.addAll(includeChildren(editPart.getChildren()));

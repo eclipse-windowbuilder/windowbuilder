@@ -10,11 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.swt.graphics.Image;
 
@@ -24,6 +21,7 @@ import java.security.AccessControlContext;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,17 +34,15 @@ import java.util.TimerTask;
  */
 public final class ImageDisposer {
   private static boolean DEBUG = false;
-  private static ReferenceQueue<Object> m_queue = new ReferenceQueue<Object>();
-  private static final List<ImageHolder> m_references = Lists.newArrayList();
+  private static ReferenceQueue<Object> m_queue = new ReferenceQueue<>();
+  private static final List<ImageHolder> m_references = new ArrayList<>();
   private static Timer m_timer;
   static {
     // create Timer (its TimerThread) with empty set of ProtectionDomain's,
     // so prevent holding reference on stack ProtectionDomain's, which include ClassLoader's
-    AccessController.doPrivileged(new PrivilegedAction<Object>() {
-      public Object run() {
-        m_timer = new Timer(true);
-        return null;
-      }
+    AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+      m_timer = new Timer(true);
+      return null;
     }, new AccessControlContext(new ProtectionDomain[]{}));
     // schedule time
     m_timer.schedule(new TimerTask() {
@@ -115,11 +111,9 @@ public final class ImageDisposer {
       }
       // dispose Image
       final Image image = reference.m_image;
-      ExecutionUtils.runAsync(new RunnableEx() {
-        public void run() throws Exception {
-          if (image != null && !image.isDisposed()) {
-            image.dispose();
-          }
+      ExecutionUtils.runAsync(() -> {
+        if (image != null && !image.isDisposed()) {
+          image.dispose();
         }
       });
     }

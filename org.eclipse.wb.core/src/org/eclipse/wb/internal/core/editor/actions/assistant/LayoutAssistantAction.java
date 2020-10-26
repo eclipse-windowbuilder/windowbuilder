@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.assistant;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
@@ -21,15 +19,12 @@ import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +39,7 @@ public final class LayoutAssistantAction extends Action {
   private final IEditPartViewer m_viewer;
   private LayoutAssistantWindow m_assistantWindow;
   private final IWorkbenchWindow m_workbenchWindow;
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -53,18 +49,16 @@ public final class LayoutAssistantAction extends Action {
     super(Messages.LayoutAssistantAction_text, IAction.AS_CHECK_BOX);
     setToolTipText(Messages.LayoutAssistantAction_toolTip);
     setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/assistant/assistant.png"));
-    setDisabledImageDescriptor(DesignerPlugin.getImageDescriptor("actions/assistant/assistant_disabled.png"));
+    setDisabledImageDescriptor(
+        DesignerPlugin.getImageDescriptor("actions/assistant/assistant_disabled.png"));
     // initialize editor
     m_editor = editor;
     m_workbenchWindow = m_editor.getEditorSite().getWorkbenchWindow();
     // initialize viewer
     m_viewer = viewer;
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      public void selectionChanged(SelectionChangedEvent event) {
-        updateWindow();
-      }
-    });
+    m_viewer.addSelectionChangedListener(event -> updateWindow());
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Access
@@ -81,32 +75,43 @@ public final class LayoutAssistantAction extends Action {
       }
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Window part listener
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IPartListener m_windowPartListener = new IPartListener() {
+    @Override
     public void partActivated(IWorkbenchPart part) {
       if (m_editor == part && m_assistantWindow != null) {
         m_assistantWindow.open();
       }
     }
+
+    @Override
     public void partDeactivated(IWorkbenchPart part) {
       if (m_editor == part && m_assistantWindow != null) {
         m_assistantWindow.hide();
       }
     }
+
+    @Override
     public void partClosed(IWorkbenchPart part) {
       if (m_editor == part) {
         closeWindow();
       }
     }
+
+    @Override
     public void partOpened(IWorkbenchPart part) {
     }
+
+    @Override
     public void partBroughtToTop(IWorkbenchPart part) {
     }
   };
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Action
@@ -124,6 +129,7 @@ public final class LayoutAssistantAction extends Action {
       closeWindow();
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Window
@@ -133,20 +139,20 @@ public final class LayoutAssistantAction extends Action {
     if (m_assistantWindow != null) {
       m_workbenchWindow.getPartService().addPartListener(m_windowPartListener);
       m_assistantWindow.open();
-      m_assistantWindow.getShell().addDisposeListener(new DisposeListener() {
-        public void widgetDisposed(DisposeEvent e) {
-          setChecked(false);
-          m_assistantWindow = null;
-        }
+      m_assistantWindow.getShell().addDisposeListener(e -> {
+        setChecked(false);
+        m_assistantWindow = null;
       });
     }
   }
+
   public void hideWindow() {
     if (m_assistantWindow != null) {
       m_workbenchWindow.getPartService().removePartListener(m_windowPartListener);
       m_assistantWindow.hide();
     }
   }
+
   public void closeWindow() {
     if (m_assistantWindow != null) {
       hideWindow();
@@ -154,10 +160,11 @@ public final class LayoutAssistantAction extends Action {
       m_assistantWindow = null;
     }
   }
+
   private void updateWindow() {
     if (m_assistantWindow != null) {
       // prepare selection object's
-      List<Object> selectedObjects = Lists.newArrayList();
+      List<Object> selectedObjects = new ArrayList<>();
       for (EditPart editPart : m_viewer.getSelectedEditParts()) {
         selectedObjects.add(editPart.getModel());
       }

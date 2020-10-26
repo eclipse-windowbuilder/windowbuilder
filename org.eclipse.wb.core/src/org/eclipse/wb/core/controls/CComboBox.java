@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.editor.TextControlActionsManager;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -27,14 +25,8 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -83,32 +75,26 @@ public class CComboBox extends Composite {
     createContents(this);
     m_wasFocused = isComboFocused();
     // add display hook
-    final Listener displayFocusInHook = new Listener() {
-      public void handleEvent(Event event) {
-        boolean focused = isComboFocused();
+    final Listener displayFocusInHook = event -> {
+      boolean focused = isComboFocused();
+      if (m_wasFocused && !focused) {
+        // close DropDown on focus out ComboBox
+        comboDropDown(false);
+      }
+      if (event.widget != CComboBox.this) {
+        // forward to ComboBox listeners
+        if (!m_wasFocused && focused) {
+          event.widget = CComboBox.this;
+          notifyListeners(SWT.FocusIn, event);
+        }
         if (m_wasFocused && !focused) {
-          // close DropDown on focus out ComboBox
-          comboDropDown(false);
+          event.widget = CComboBox.this;
+          notifyListeners(SWT.FocusOut, event);
         }
-        if (event.widget != CComboBox.this) {
-          // forward to ComboBox listeners
-          if (!m_wasFocused && focused) {
-            event.widget = CComboBox.this;
-            notifyListeners(SWT.FocusIn, event);
-          }
-          if (m_wasFocused && !focused) {
-            event.widget = CComboBox.this;
-            notifyListeners(SWT.FocusOut, event);
-          }
-        }
-        m_wasFocused = focused;
       }
+      m_wasFocused = focused;
     };
-    final Listener displayFocusOutHook = new Listener() {
-      public void handleEvent(Event event) {
-        m_wasFocused = isComboFocused();
-      }
-    };
+    final Listener displayFocusOutHook = event -> m_wasFocused = isComboFocused();
     {
       Display display = getDisplay();
       display.addFilter(SWT.FocusIn, displayFocusInHook);
@@ -121,16 +107,14 @@ public class CComboBox extends Composite {
         resizeInner();
       }
     });
-    addDisposeListener(new DisposeListener() {
-      public void widgetDisposed(DisposeEvent e) {
-        {
-          // remove Display hooks
-          Display display = getDisplay();
-          display.removeFilter(SWT.FocusIn, displayFocusInHook);
-          display.removeFilter(SWT.FocusOut, displayFocusOutHook);
-        }
-        disposeInner();
+    addDisposeListener(e -> {
+      {
+        // remove Display hooks
+        Display display = getDisplay();
+        display.removeFilter(SWT.FocusIn, displayFocusInHook);
+        display.removeFilter(SWT.FocusOut, displayFocusOutHook);
       }
+      disposeInner();
     });
   }
 
@@ -213,17 +197,15 @@ public class CComboBox extends Composite {
       }
     });
     // modifications processing
-    m_text.addModifyListener(new ModifyListener() {
-      public void modifyText(ModifyEvent e) {
-        if (isDroppedDown()) {
-          m_table.refresh();
-        } else {
-          // force drop down combo
-          if (m_text.isFocusControl()) {
-            comboDropDown(true);
-            // return focus to text
-            setFocus2Text(false);
-          }
+    m_text.addModifyListener(e -> {
+      if (isDroppedDown()) {
+        m_table.refresh();
+      } else {
+        // force drop down combo
+        if (m_text.isFocusControl()) {
+          comboDropDown(true);
+          // return focus to text
+          setFocus2Text(false);
         }
       }
     });
@@ -249,14 +231,12 @@ public class CComboBox extends Composite {
    */
   protected void createImage(Composite parent) {
     m_canvas = new Canvas(parent, SWT.BORDER);
-    m_canvas.addPaintListener(new PaintListener() {
-      public void paintControl(PaintEvent e) {
-        Image selectionImage = getSelectionImage();
-        if (selectionImage != null) {
-          e.gc.drawImage(selectionImage, 0, 0);
-        } else {
-          e.gc.fillRectangle(m_canvas.getClientArea());
-        }
+    m_canvas.addPaintListener(e -> {
+      Image selectionImage = getSelectionImage();
+      if (selectionImage != null) {
+        e.gc.drawImage(selectionImage, 0, 0);
+      } else {
+        e.gc.fillRectangle(m_canvas.getClientArea());
       }
     });
   }
@@ -344,13 +324,16 @@ public class CComboBox extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   protected IContentProvider getContentProvider() {
     return new IStructuredContentProvider() {
+      @Override
       public Object[] getElements(Object inputElement) {
         return m_items.toArray(new ComboBoxItem[m_items.size()]);
       }
 
+      @Override
       public void dispose() {
       }
 
+      @Override
       public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       }
     };
@@ -401,7 +384,7 @@ public class CComboBox extends Composite {
     }
   }
 
-  ArrayList<ComboBoxItem> m_items = Lists.newArrayList();
+  ArrayList<ComboBoxItem> m_items = new ArrayList<>();
 
   /**
    * Add new item.
@@ -580,20 +563,20 @@ public class CComboBox extends Composite {
       int remainingDisplayHeight = clientArea.height - comboLocation.y - comboSize.y - 10;
       int preferredHeight = Math.min(tableBounds.height, remainingDisplayHeight);
       int remainingDisplayWidth = clientArea.width - comboLocation.x - 10;
-      int preferredWidth =
-          isFullDropdownTableWidth()
-              ? Math.min(tableBounds.width, remainingDisplayWidth)
-              : comboSize.x;
-      Rectangle popupBounds =
-          new Rectangle(comboLocation.x,
-              comboLocation.y + comboSize.y,
-              preferredWidth,
-              preferredHeight);
+      int preferredWidth = isFullDropdownTableWidth()
+          ? Math.min(tableBounds.width, remainingDisplayWidth)
+          : comboSize.x;
+      Rectangle popupBounds = new Rectangle(comboLocation.x,
+          comboLocation.y + comboSize.y,
+          preferredWidth,
+          preferredHeight);
       Rectangle trimBounds =
           m_popup.computeTrim(popupBounds.x, popupBounds.y, popupBounds.width, popupBounds.height);
-      m_popup.setBounds(popupBounds.x, popupBounds.y, 2 * popupBounds.width - trimBounds.width, 2
-          * popupBounds.height
-          - trimBounds.height);
+      m_popup.setBounds(
+          popupBounds.x,
+          popupBounds.y,
+          2 * popupBounds.width - trimBounds.width,
+          2 * popupBounds.height - trimBounds.height);
       // adjust column size
       column.setWidth(table.getClientArea().width);
       // show popup
@@ -609,6 +592,7 @@ public class CComboBox extends Composite {
     getDisplay().asyncExec(new Runnable() {
       final boolean m_selectAll = selectAll;
 
+      @Override
       public void run() {
         if (!m_text.isDisposed()) {
           m_text.setFocus();

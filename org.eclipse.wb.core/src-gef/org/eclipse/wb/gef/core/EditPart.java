@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.gef.core.IRootContainer;
 
 import org.eclipse.core.runtime.Assert;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +61,8 @@ public abstract class EditPart {
   private EditPart m_parent;
   private List<EditPart> m_children;
   private boolean m_isActive;
-  private final List<EditPolicy> m_policies = Lists.newArrayList();
-  private final List<Object> m_keyPolicies = Lists.newArrayList();
+  private final List<EditPolicy> m_policies = new ArrayList<>();
+  private final List<Object> m_keyPolicies = new ArrayList<>();
   private int m_selected;
   private Object m_model;
 

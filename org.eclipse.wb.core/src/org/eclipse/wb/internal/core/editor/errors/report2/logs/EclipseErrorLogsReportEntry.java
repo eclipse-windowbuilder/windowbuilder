@@ -34,11 +34,8 @@ public final class EclipseErrorLogsReportEntry extends FileListReportEntry {
     IPath logsPath = Platform.getLogFileLocation().makeAbsolute().removeLastSegments(1);
     File logsPathAsFile = logsPath.toFile();
     // get list of .log files
-    File[] logFiles = logsPathAsFile.listFiles(new FilenameFilter() {
-      public boolean accept(File dir, String name) {
-        return name.endsWith(".log");
-      }
-    });
+    File[] logFiles =
+        logsPathAsFile.listFiles((FilenameFilter) (dir, name) -> name.endsWith(".log"));
     return Lists.newArrayList(logFiles);
   }
 

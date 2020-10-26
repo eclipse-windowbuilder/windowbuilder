@@ -10,19 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.external;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.IRegistryChangeListener;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -33,6 +30,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.osgi.framework.Bundle;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -110,15 +108,12 @@ public class ExternalFactoriesHelper {
   /**
    * {@link IRegistryChangeListener} for tracking changes for interesting extensions.
    */
-  private static final IRegistryChangeListener m_descriptionProcessorsListener =
-      new IRegistryChangeListener() {
-        public void registryChanged(IRegistryChangeEvent event) {
-          for (IExtensionDelta extensionDelta : event.getExtensionDeltas()) {
-            String pointId = extensionDelta.getExtensionPoint().getUniqueIdentifier();
-            clearCache(pointId);
-          }
-        }
-      };
+  private static final IRegistryChangeListener m_descriptionProcessorsListener = event -> {
+    for (IExtensionDelta extensionDelta : event.getExtensionDeltas()) {
+      String pointId = extensionDelta.getExtensionPoint().getUniqueIdentifier();
+      clearCache(pointId);
+    }
+  };
   /**
    * Install {@link IRegistryChangeListener}.
    */
@@ -159,7 +154,7 @@ public class ExternalFactoriesHelper {
     // check for cached: List<?>
     List<T> objects = (List<T>) elementName_to_objects.get(elementName);
     if (objects == null) {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       elementName_to_objects.put(elementName, objects);
       List<IConfigurationElement> elements = getElements(pointId, elementName);
       // create object
@@ -178,21 +173,19 @@ public class ExternalFactoriesHelper {
   @SuppressWarnings("unchecked")
   public static synchronized <T> T createExecutableExtension(final IConfigurationElement element,
       final String classAttributeName) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<T>() {
-      public T runObject() throws Exception {
-        Bundle extensionBundle = getExtensionBundle(element);
-        String className = getRequiredAttribute(element, classAttributeName);
-        Class<?> clazz = extensionBundle.loadClass(className);
-        // try to find singleton INSTANCE
-        {
-          Field instanceField = ReflectionUtils.getFieldByName(clazz, "INSTANCE");
-          if (instanceField != null && instanceField.getDeclaringClass() == clazz) {
-            return (T) instanceField.get(null);
-          }
+    return ExecutionUtils.runObject(() -> {
+      Bundle extensionBundle = getExtensionBundle(element);
+      String className = getRequiredAttribute(element, classAttributeName);
+      Class<?> clazz = extensionBundle.loadClass(className);
+      // try to find singleton INSTANCE
+      {
+        Field instanceField = ReflectionUtils.getFieldByName(clazz, "INSTANCE");
+        if (instanceField != null && instanceField.getDeclaringClass() == clazz) {
+          return (T) instanceField.get(null);
         }
-        // well, create new instance
-        return (T) element.createExecutableExtension(classAttributeName);
       }
+      // well, create new instance
+      return (T) element.createExecutableExtension(classAttributeName);
     });
   }
 
@@ -220,7 +213,7 @@ public class ExternalFactoriesHelper {
     // check for cached: List<IConfigurationElement>
     List<IConfigurationElement> elements = elementName_to_elements.get(elementName);
     if (elements == null) {
-      elements = Lists.newArrayList();
+      elements = new ArrayList<>();
       elementName_to_elements.put(elementName, elements);
       // load elements
       for (IExtension extension : getExtensions(pointId)) {
@@ -264,6 +257,7 @@ public class ExternalFactoriesHelper {
 
   private static void sortByPriority(List<IConfigurationElement> elements) {
     Collections.sort(elements, new Comparator<IConfigurationElement>() {
+      @Override
       public int compare(IConfigurationElement o1, IConfigurationElement o2) {
         return getPriority(o2) - getPriority(o1);
       }
@@ -311,7 +305,7 @@ public class ExternalFactoriesHelper {
   private static List<IExtension> getExtensions(String pointId) {
     List<IExtension> extensions = m_extensions.get(pointId);
     if (extensions == null) {
-      extensions = Lists.newArrayList();
+      extensions = new ArrayList<>();
       m_extensions.put(pointId, extensions);
       IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(pointId);
       if (extensionPoint != null) {
@@ -367,10 +361,8 @@ public class ExternalFactoriesHelper {
   public static String getRequiredAttribute(IConfigurationElement element, String attribute) {
     String value = element.getAttribute(attribute);
     if (value == null) {
-      throw new IllegalArgumentException("Attribute '"
-          + attribute
-          + "' expected, but not found in "
-          + element);
+      throw new IllegalArgumentException(
+          "Attribute '" + attribute + "' expected, but not found in " + element);
     }
     return value;
   }
@@ -409,7 +401,8 @@ public class ExternalFactoriesHelper {
    * @return the {@link getImageDescriptor} from extension {@link Bundle} with path in given
    *         attribute. May be <code>null</code> if no value for attribute.
    */
-  public static ImageDescriptor getImageDescriptor(IConfigurationElement element, String attribute) {
+  public static ImageDescriptor getImageDescriptor(IConfigurationElement element,
+      String attribute) {
     String path = element.getAttribute(attribute);
     if (path != null) {
       Bundle bundle = getExtensionBundle(element);

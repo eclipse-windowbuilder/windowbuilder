@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
@@ -30,10 +29,10 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -84,18 +83,16 @@ public final class SelectSupport {
   // Keyboard
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Listener m_keyListener = new Listener() {
-    public void handleEvent(Event event) {
-      int cmdModifierValue = getCommandModifierValue();
-      if (event.keyCode == 'a' && event.stateMask == cmdModifierValue) {
-        selectAll();
-      }
-      if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.SHIFT)) {
-        selectSameType();
-      }
-      if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.ALT)) {
-        selectSameParent();
-      }
+  private final Listener m_keyListener = event -> {
+    int cmdModifierValue = getCommandModifierValue();
+    if (event.keyCode == 'a' && event.stateMask == cmdModifierValue) {
+      selectAll();
+    }
+    if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.SHIFT)) {
+      selectSameType();
+    }
+    if (event.keyCode == 'a' && event.stateMask == (cmdModifierValue | SWT.ALT)) {
+      selectSameParent();
     }
   };
 
@@ -200,7 +197,7 @@ public final class SelectSupport {
    * Sets selection in {@link #m_graphicalViewer} using prepared {@link #m_selectingSet} models.
    */
   private void selectByModels() {
-    List<EditPart> editParts = Lists.newArrayList();
+    List<EditPart> editParts = new ArrayList<>();
     for (ObjectInfo object : m_selectingSet) {
       EditPart editPart = m_graphicalViewer.getEditPartByModel(object);
       if (editPart != null) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
@@ -22,6 +20,7 @@ import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.Compone
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,7 +104,7 @@ public abstract class AbstractGridConverter {
     reorderControls(container, rows);
     // set cell for controls
     int numColumns = columns.size();
-    List<IAbstractComponentInfo> appliedControls = Lists.newArrayList();
+    List<IAbstractComponentInfo> appliedControls = new ArrayList<>();
     for (ComponentGroup column : columns) {
       for (ComponentInGroup component : column.getComponents()) {
         IAbstractComponentInfo control = component.getComponent();
@@ -197,7 +196,7 @@ public abstract class AbstractGridConverter {
   protected static void reorderControls(IGridLayoutContainer container, List<ComponentGroup> rows)
       throws Exception {
     // prepare list of controls in reversed order
-    List<IAbstractComponentInfo> reversedControls = Lists.newArrayList();
+    List<IAbstractComponentInfo> reversedControls = new ArrayList<>();
     for (ComponentGroup row : rows) {
       for (ComponentInGroup componentInGroup : row.getComponents()) {
         IAbstractComponentInfo control = componentInGroup.getComponent();

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -28,6 +26,7 @@ import org.eclipse.wb.internal.gef.core.CompoundCommand;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Cursor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -59,7 +58,7 @@ public class ResizeTracker extends Tool {
     if (selectionEditPart == null) {
       m_operationSet = null;
     } else {
-      m_operationSet = Lists.newArrayList();
+      m_operationSet = new ArrayList<>();
       m_operationSet.add(selectionEditPart);
     }
     m_direction = direction;

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.broadcast;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -19,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -92,7 +90,7 @@ public final class BroadcastSupport {
    * @noreference
    */
   public void cleanUpTargets(ObjectInfo root) {
-    List<ObjectInfo> targets = new ArrayList<ObjectInfo>(m_targetToListeners.keySet());
+    List<ObjectInfo> targets = new ArrayList<>(m_targetToListeners.keySet());
     for (ObjectInfo target : targets) {
       if (!root.isItOrParentOf(target)) {
         cleanUpTarget(target);
@@ -140,7 +138,7 @@ public final class BroadcastSupport {
   private List<Object> getClassListeners(Class<?> listenerClass) {
     List<Object> listeners = m_classToListeners.get(listenerClass);
     if (listeners == null) {
-      listeners = Lists.newArrayList();
+      listeners = new ArrayList<>();
       m_classToListeners.put(listenerClass, listeners);
     }
     return listeners;
@@ -153,7 +151,7 @@ public final class BroadcastSupport {
   private List<Object> getTargetListeners(ObjectInfo target) {
     List<Object> listeners = m_targetToListeners.get(target);
     if (listeners == null) {
-      listeners = Lists.newArrayList();
+      listeners = new ArrayList<>();
       m_targetToListeners.put(target, listeners);
     }
     return listeners;
@@ -173,7 +171,7 @@ public final class BroadcastSupport {
    */
   private void cleanUpTarget(ObjectInfo target) {
     // remove separate listeners for target
-    List<Object> listeners = new ArrayList<Object>(getTargetListeners(target));
+    List<Object> listeners = new ArrayList<>(getTargetListeners(target));
     for (Object listenerImpl : listeners) {
       removeListener(target, listenerImpl);
     }
@@ -197,22 +195,17 @@ public final class BroadcastSupport {
     if (listenerMulticast == null) {
       Enhancer enhancer = new Enhancer();
       enhancer.setSuperclass(listenerClass);
-      enhancer.setCallback(new MethodInterceptor() {
-        public Object intercept(Object obj,
-            java.lang.reflect.Method method,
-            Object[] args,
-            MethodProxy proxy) throws Throwable {
-          List<Object> listeners = getClassListeners(listenerClass);
-          for (Object listener : listeners.toArray()) {
-            try {
-              method.invoke(listener, args);
-            } catch (InvocationTargetException e) {
-              throw e.getCause();
-            }
+      enhancer.setCallback((MethodInterceptor) (obj, method, args, proxy) -> {
+        List<Object> listeners = getClassListeners(listenerClass);
+        for (Object listener : listeners.toArray()) {
+          try {
+            method.invoke(listener, args);
+          } catch (InvocationTargetException e) {
+            throw e.getCause();
           }
-          // no result
-          return null;
         }
+        // no result
+        return null;
       });
       // remember multi-cast
       listenerMulticast = enhancer.create();

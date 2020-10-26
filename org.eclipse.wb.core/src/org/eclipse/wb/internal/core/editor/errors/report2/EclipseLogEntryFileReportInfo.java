@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.core.runtime.CoreException;
@@ -30,6 +28,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -222,7 +221,7 @@ public final class EclipseLogEntryFileReportInfo extends FileReportEntry {
 
   private FrameworkLogEntry getLog(IStatus status) {
     Throwable t = status.getException();
-    List<FrameworkLogEntry> childlist = Lists.newArrayList();
+    List<FrameworkLogEntry> childlist = new ArrayList<>();
     int stackCode = t instanceof CoreException ? 1 : 0;
     // ensure a substatus inside a CoreException is properly logged
     if (stackCode == 1) {

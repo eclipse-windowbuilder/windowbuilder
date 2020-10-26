@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.jface.preference;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -20,6 +18,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
   /**
    * The field editors.
    */
-  private final List<FieldEditor> fields = Lists.newArrayList();
+  private final List<FieldEditor> fields = new ArrayList<>();
   /**
    * The first invalid field editor, or <code>null</code> if all field editors are valid.
    */
@@ -189,6 +188,7 @@ public abstract class FieldLayoutPreferencePage extends PreferencePage
    * <code>IPropertyChangeListener</code>) method intercepts <code>IS_VALID</code> events but passes
    * other events on to its superclass.
    */
+  @Override
   public void propertyChange(PropertyChangeEvent event) {
     if (event.getProperty().equals(FieldEditor.IS_VALID)) {
       boolean newValue = ((Boolean) event.getNewValue()).booleanValue();
