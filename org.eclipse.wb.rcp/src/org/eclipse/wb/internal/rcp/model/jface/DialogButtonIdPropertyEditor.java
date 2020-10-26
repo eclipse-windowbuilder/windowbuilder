@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -74,6 +72,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -140,7 +139,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
    *         ID's.
    */
   private static List<FieldDeclaration> getCustomIDs(GenericProperty property) {
-    List<FieldDeclaration> idList = Lists.newArrayList();
+    List<FieldDeclaration> idList = new ArrayList<>();
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(property.getJavaInfo());
     for (FieldDeclaration fieldDeclaration : typeDeclaration.getFields()) {
       // check that field is "static final"

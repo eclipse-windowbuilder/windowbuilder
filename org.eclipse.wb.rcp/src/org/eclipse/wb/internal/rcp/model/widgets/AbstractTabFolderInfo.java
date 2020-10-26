@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -27,12 +25,13 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.TabFolder;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Model for {@link TabFolder} or {@link CTabFolder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */
@@ -81,7 +80,7 @@ public abstract class AbstractTabFolderInfo extends CompositeInfo {
   private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
     @Override
     public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+      List<ObjectInfo> children = new ArrayList<>(super.getChildrenTree());
       // don't show in tree any Control's
       for (Iterator<ObjectInfo> I = children.iterator(); I.hasNext();) {
         ObjectInfo child = I.next();
@@ -135,7 +134,8 @@ public abstract class AbstractTabFolderInfo extends CompositeInfo {
   /**
    * Moves {@link AbstractTabItemInfo}.
    */
-  public void command_MOVE(AbstractTabItemInfo item, AbstractTabItemInfo nextItem) throws Exception {
+  public void command_MOVE(AbstractTabItemInfo item, AbstractTabItemInfo nextItem)
+      throws Exception {
     JavaInfoUtils.move(item, null, this, nextItem);
   }
 
@@ -159,11 +159,10 @@ public abstract class AbstractTabFolderInfo extends CompositeInfo {
    * Adds new {@link AbstractTabItemInfo} to this {@link AbstractTabFolderInfo}.
    */
   private AbstractTabItemInfo createItem(AbstractTabItemInfo nextItem) throws Exception {
-    AbstractTabItemInfo item =
-        (AbstractTabItemInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            getItemClassName(),
-            new ConstructorCreationSupport());
+    AbstractTabItemInfo item = (AbstractTabItemInfo) JavaInfoUtils.createJavaInfo(
+        getEditor(),
+        getItemClassName(),
+        new ConstructorCreationSupport());
     command_CREATE(item, nextItem);
     return item;
   }

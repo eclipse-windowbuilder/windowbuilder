@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.controls.jface.preference.ComboFieldEditor;
@@ -57,13 +56,14 @@ import org.eclipse.swt.widgets.Text;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
  * {@link PropertyEditor} for labels/constants property of {@link RadioGroupFieldEditor} or
  * {@link ComboFieldEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -163,8 +163,8 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
       topTypeName = AstNodeUtils.getFullyQualifiedName(typeDeclaration, false);
     }
     // prepare containers
-    List<String> tmpLabels = Lists.newArrayList();
-    List<IField> tmpFields = Lists.newArrayList();
+    List<String> tmpLabels = new ArrayList<>();
+    List<IField> tmpFields = new ArrayList<>();
     resultLabels.clear();
     resultFields.clear();
     // analyze each line
@@ -242,8 +242,8 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
     private final GenericProperty m_property;
     private final JavaInfo m_javaInfo;
     private final String m_text;
-    private final List<String> m_resultLabels = Lists.newArrayList();
-    private final List<IField> m_resultFields = Lists.newArrayList();
+    private final List<String> m_resultLabels = new ArrayList<>();
+    private final List<IField> m_resultFields = new ArrayList<>();
     private final Set<IType> m_allTypes = Sets.newHashSet();
 
     ////////////////////////////////////////////////////////////////////////////
@@ -274,7 +274,8 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
     protected void createControls(Composite container) {
       GridLayoutFactory.create(container);
       // header
-      new Label(container, SWT.NONE).setText(ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogTextLabel);
+      new Label(container, SWT.NONE).setText(
+          ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogTextLabel);
       // Text widget
       {
         m_textWidget = new Text(container, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -300,7 +301,8 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
         });
       }
       // footer
-      new Label(container, SWT.NONE).setText(ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogFooter);
+      new Label(container, SWT.NONE).setText(
+          ModelMessages.FieldEditorLabelsConstantsPropertyEditor_dialogFooter);
     }
 
     /**
@@ -317,13 +319,12 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
       }
       // select new IField
       IField currentField = line < m_resultFields.size() ? m_resultFields.get(line) : null;
-      IField selectedField =
-          ConstantSelectionPropertyEditor.selectField(
-              getShell(),
-              "java.lang.String",
-              m_javaInfo,
-              m_allTypes,
-              currentField);
+      IField selectedField = ConstantSelectionPropertyEditor.selectField(
+          getShell(),
+          "java.lang.String",
+          m_javaInfo,
+          m_allTypes,
+          currentField);
       // update model
       if (selectedField != null) {
         String label;
@@ -333,10 +334,9 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
           label = m_resultLabels.get(line);
         }
         // replace line text
-        String newLineText =
-            label.trim()
-                + " "
-                + ConstantSelectionPropertyEditor.getFieldCode(m_javaInfo, selectedField);
+        String newLineText = label.trim()
+            + " "
+            + ConstantSelectionPropertyEditor.getFieldCode(m_javaInfo, selectedField);
         document.replace(lineOffset, lineLength, newLineText);
         // update Text widget
         m_textWidget.setText(document.get());

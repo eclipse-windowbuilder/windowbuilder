@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -21,11 +19,12 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract action for manipulating selected {@link TableWrapDimensionInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -79,7 +78,7 @@ public abstract class DimensionHeaderAction<C extends IControlInfo> extends Obje
   @Override
   protected final void runEx() throws Exception {
     // prepare selection
-    List<TableWrapDimensionInfo<C>> dimensions = Lists.newArrayList();
+    List<TableWrapDimensionInfo<C>> dimensions = new ArrayList<>();
     {
       for (EditPart editPart : m_viewer.getSelectedEditParts()) {
         if (editPart instanceof DimensionHeaderEditPart<?>) {

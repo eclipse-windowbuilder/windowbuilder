@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -26,11 +24,12 @@ import org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.edit.Dime
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDimensionInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract {@link SelectionEditPolicy} for {@link DimensionHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -53,7 +52,7 @@ abstract class DimensionSelectionEditPolicy<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // move handle
     {
       MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());

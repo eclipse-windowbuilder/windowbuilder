@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.Figure;
@@ -32,12 +31,13 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.AbstractPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.SashLineInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for {@link AbstractPartInfo}, that shows simple rectangle selection
  * around {@link EditPart} and "static" resize {@link Handle}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -63,7 +63,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // create move column handle
     MoveHandle moveHandle = new MoveHandle(getHost());
     moveHandle.setForeground(IColorConstants.red);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -41,11 +39,12 @@ import org.eclipse.jface.action.Separator;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model for any {@link IContributionManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -72,7 +71,7 @@ public abstract class ContributionManagerInfo extends AbstractComponentInfo {
    * @return the {@link IContributionItem} model children.
    */
   public final List<AbstractComponentInfo> getItems() {
-    List<AbstractComponentInfo> contributionItems = Lists.newArrayList();
+    List<AbstractComponentInfo> contributionItems = new ArrayList<>();
     for (ObjectInfo child : getChildren()) {
       if (child instanceof ContributionItemInfo || child instanceof MenuManagerInfo) {
         contributionItems.add((AbstractComponentInfo) child);
@@ -204,22 +203,21 @@ public abstract class ContributionManagerInfo extends AbstractComponentInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ContributionItemInfo} using given {@link ActionInfo}.
-   * 
+   *
    * @return the created {@link ActionContributionItemInfo}.
    */
-  public ActionContributionItemInfo command_CREATE(ActionInfo action, AbstractComponentInfo nextItem)
-      throws Exception {
+  public ActionContributionItemInfo command_CREATE(ActionInfo action,
+      AbstractComponentInfo nextItem) throws Exception {
     ActionContainerInfo.ensureInstance(getRootJava(), action);
     // prepare "item" for "action"
     ActionContributionItemInfo item;
     {
       AstEditor editor = getEditor();
       CreationSupport creationSupport = new ContributionManagerActionCreationSupport(this, action);
-      item =
-          (ActionContributionItemInfo) JavaInfoUtils.createJavaInfo(
-              editor,
-              "org.eclipse.jface.action.ActionContributionItem",
-              creationSupport);
+      item = (ActionContributionItemInfo) JavaInfoUtils.createJavaInfo(
+          editor,
+          "org.eclipse.jface.action.ActionContributionItem",
+          creationSupport);
     }
     // add "item" for "action"
     JavaInfoUtils.add(
@@ -282,10 +280,11 @@ public abstract class ContributionManagerInfo extends AbstractComponentInfo {
         // use new CreationSupport and Association
         MethodDescription description =
             getDescription().getMethod("add(org.eclipse.jface.action.IAction)");
-        item.setCreationSupport(new ContributionManagerActionCreationSupport(this,
-            description,
-            addInvocation,
-            new JavaInfo[]{action}));
+        item.setCreationSupport(
+            new ContributionManagerActionCreationSupport(this,
+                description,
+                addInvocation,
+                new JavaInfo[]{action}));
         item.setAssociation(new InvocationVoidAssociation(addInvocation));
       }
       // move model

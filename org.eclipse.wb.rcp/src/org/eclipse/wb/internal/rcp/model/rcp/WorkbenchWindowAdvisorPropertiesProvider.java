@@ -52,12 +52,13 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Provider for properties of {@link IWorkbenchWindowConfigurer} in
  * {@link WorkbenchWindowAdvisor#preWindowOpen()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -66,7 +67,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
   private boolean m_initialized;
   private AstEditor m_windowEditor;
   private TypeDeclaration m_windowType;
-  private final List<Property> m_properties = Lists.newArrayList();
+  private final List<Property> m_properties = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -134,10 +135,9 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
    * Fills {@link #m_properties} field.
    */
   private void createProperties() throws Exception {
-    ComponentDescription windowDescription =
-        ComponentDescriptionHelper.getDescription(
-            m_actionBar.getEditor(),
-            "org.eclipse.ui.application.IWorkbenchWindowConfigurer");
+    ComponentDescription windowDescription = ComponentDescriptionHelper.getDescription(
+        m_actionBar.getEditor(),
+        "org.eclipse.ui.application.IWorkbenchWindowConfigurer");
     for (GenericPropertyDescription description : windowDescription.getProperties()) {
       m_properties.add(createProperty(description));
     }
@@ -191,16 +191,16 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
    * @return <code>true</code> if given {@link ICompilationUnit} has {@link WorkbenchWindowAdvisor}
    *         that references {@link ActionBarAdvisor} with given name.
    */
-  private static boolean is_WorkbenchWindowAdvisor_thatReferences_ActionBarAdvisor(ICompilationUnit unit,
+  private static boolean is_WorkbenchWindowAdvisor_thatReferences_ActionBarAdvisor(
+      ICompilationUnit unit,
       String actionAdvisorName) throws Exception {
     IType type = CodeUtils.findPrimaryType(unit);
     if (CodeUtils.isSuccessorOf(type, "org.eclipse.ui.application.WorkbenchWindowAdvisor")) {
       CompilationUnit astUnit = CodeUtils.parseCompilationUnit(unit);
       TypeDeclaration astType = AstNodeUtils.getTypeByName(astUnit, type.getElementName());
-      MethodDeclaration createActionBarAdvisor =
-          AstNodeUtils.getMethodBySignature(
-              astType,
-              "createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer)");
+      MethodDeclaration createActionBarAdvisor = AstNodeUtils.getMethodBySignature(
+          astType,
+          "createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer)");
       if (createActionBarAdvisor != null) {
         List<Statement> statements = DomGenerics.statements(createActionBarAdvisor.getBody());
         for (Statement statement : statements) {
@@ -227,7 +227,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
   /**
    * {@link ExpressionAccessor} for {@link IWorkbenchWindowConfigurer} in
    * {@link WorkbenchWindowAdvisor#preWindowOpen()}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class Window_ExpressionAccessor extends ExpressionAccessor {
@@ -271,12 +271,11 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
         MethodDeclaration method = ensureTargetMethod();
         VariableDeclaration configurerDeclaration = getConfigurerDeclaration(method);
         if (configurerDeclaration != null) {
-          String statementSource =
-              MessageFormat.format(
-                  "{0}.{1}({2});",
-                  configurerDeclaration.getName().getIdentifier(),
-                  m_methodName,
-                  source);
+          String statementSource = MessageFormat.format(
+              "{0}.{1}({2});",
+              configurerDeclaration.getName().getIdentifier(),
+              m_methodName,
+              source);
           m_windowEditor.addStatement(statementSource, new StatementTarget(method, false));
         }
       }
@@ -332,11 +331,11 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
     private MethodDeclaration ensureTargetMethod() throws Exception {
       MethodDeclaration method = getTargetMethod();
       if (method == null) {
-        method =
-            m_windowEditor.addMethodDeclaration(
-                "public void preWindowOpen()",
-                Lists.newArrayList("org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();"),
-                new BodyDeclarationTarget(m_windowType, false));
+        method = m_windowEditor.addMethodDeclaration(
+            "public void preWindowOpen()",
+            Lists.newArrayList(
+                "org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();"),
+            new BodyDeclarationTarget(m_windowType, false));
       }
       return method;
     }

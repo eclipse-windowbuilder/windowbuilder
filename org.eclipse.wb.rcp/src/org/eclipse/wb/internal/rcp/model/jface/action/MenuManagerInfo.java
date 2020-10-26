@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.jface.action;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
@@ -41,11 +40,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model for {@link IMenuManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -163,7 +163,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -178,7 +178,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo} for "this" {@link MenuManagerInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuItemImpl extends AbstractMenuObject implements IMenuItemInfo {
@@ -238,7 +238,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo, IMenuPolicy {
@@ -274,7 +274,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     }
 
     public List<IMenuItemInfo> getItems() {
-      List<IMenuItemInfo> items = Lists.newArrayList();
+      List<IMenuItemInfo> items = new ArrayList<>();
       for (AbstractComponentInfo item : MenuManagerInfo.this.getItems()) {
         IMenuItemInfo itemObject = MenuObjectInfoUtils.getMenuItemInfo(item);
         items.add(itemObject);
