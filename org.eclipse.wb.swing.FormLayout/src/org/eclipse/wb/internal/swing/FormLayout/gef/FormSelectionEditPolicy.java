@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy;
@@ -38,11 +36,12 @@ import org.eclipse.swt.graphics.Image;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.policy
  */
@@ -84,7 +83,7 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handlesList = Lists.newArrayList();
+    List<Handle> handlesList = new ArrayList<>();
     // add move handle
     handlesList.add(createMoveHandle());
     // add span handles
