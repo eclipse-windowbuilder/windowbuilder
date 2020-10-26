@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 
 import org.eclipse.swt.widgets.Composite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ import java.util.List;
 public abstract class UIContentContainer<T> implements IUiContentProvider {
   protected final T m_binding;
   private final String m_errorPrefix;
-  protected final List<IUiContentProvider> m_providers = Lists.newArrayList();
+  protected final List<IUiContentProvider> m_providers = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -58,12 +57,14 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     for (IUiContentProvider provider : m_providers) {
       provider.setCompleteListener(listener);
     }
   }
 
+  @Override
   public String getErrorMessage() {
     for (IUiContentProvider provider : m_providers) {
       String errorMessage = provider.getErrorMessage();
@@ -79,6 +80,7 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     int columns = 0;
     for (IUiContentProvider provider : m_providers) {
@@ -87,6 +89,7 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
     return columns;
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     for (IUiContentProvider provider : m_providers) {
       provider.createContent(parent, columns);
@@ -98,12 +101,14 @@ public abstract class UIContentContainer<T> implements IUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     for (IUiContentProvider provider : m_providers) {
       provider.updateFromObject();
     }
   }
 
+  @Override
   public void saveToObject() throws Exception {
     for (IUiContentProvider provider : m_providers) {
       provider.saveToObject();

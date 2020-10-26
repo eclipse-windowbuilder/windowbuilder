@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +22,8 @@ import java.util.List;
  * @coverage bindings.wizard.auto
  */
 public abstract class AbstractDescriptor {
-  private final List<String> m_names = Lists.newArrayList();
-  private final List<Image> m_images = Lists.newArrayList();
+  private final List<String> m_names = new ArrayList<>();
+  private final List<Image> m_images = new ArrayList<>();
   private String m_name;
   private Image m_image;
   private boolean m_default;

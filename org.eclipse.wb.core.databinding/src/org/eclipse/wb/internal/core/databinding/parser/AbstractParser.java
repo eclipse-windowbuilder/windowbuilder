@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.parser;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -28,6 +26,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +37,8 @@ import java.util.List;
 public abstract class AbstractParser implements IModelResolver {
   protected final AstEditor m_editor;
   protected final IDatabindingsProvider m_provider;
-  protected final List<ISubParser> m_subParsers = Lists.newArrayList();
-  protected final List<IModelSupport> m_modelSupports = Lists.newArrayList();
+  protected final List<ISubParser> m_subParsers = new ArrayList<>();
+  protected final List<IModelSupport> m_modelSupports = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -70,14 +69,13 @@ public abstract class AbstractParser implements IModelResolver {
           }
           // ask each parser, maybe this creation is ASTObjectInfo creation
           for (ISubParser subParser : m_subParsers) {
-            AstObjectInfo model =
-                subParser.parseExpression(
-                    m_editor,
-                    signature,
-                    creation,
-                    arguments,
-                    AbstractParser.this,
-                    m_provider);
+            AstObjectInfo model = subParser.parseExpression(
+                m_editor,
+                signature,
+                creation,
+                arguments,
+                AbstractParser.this,
+                m_provider);
             //
             if (model != null) {
               addModel(model, creation);
@@ -108,14 +106,13 @@ public abstract class AbstractParser implements IModelResolver {
             AstObjectInfo model = getModel(expression);
             // ask expression model, maybe this invocation is ASTObjectInfo creation
             if (model != null) {
-              model =
-                  model.parseExpression(
-                      m_editor,
-                      signature,
-                      invocation,
-                      arguments,
-                      AbstractParser.this,
-                      m_provider);
+              model = model.parseExpression(
+                  m_editor,
+                  signature,
+                  invocation,
+                  arguments,
+                  AbstractParser.this,
+                  m_provider);
               //
               if (model != null) {
                 addModel(model, invocation);
@@ -125,13 +122,12 @@ public abstract class AbstractParser implements IModelResolver {
           }
           // ask each parser, maybe this invocation is ASTObjectInfo creation
           for (ISubParser subParser : m_subParsers) {
-            AstObjectInfo model =
-                subParser.parseExpression(
-                    m_editor,
-                    signature,
-                    invocation,
-                    arguments,
-                    AbstractParser.this);
+            AstObjectInfo model = subParser.parseExpression(
+                m_editor,
+                signature,
+                invocation,
+                arguments,
+                AbstractParser.this);
             //
             if (model != null) {
               addModel(model, invocation);
@@ -160,15 +156,18 @@ public abstract class AbstractParser implements IModelResolver {
   // IModelResolver
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addModel(AstObjectInfo model, Expression creation) throws Exception {
     addModelSupport(new AstModelSupport(model, creation));
   }
 
+  @Override
   public AstObjectInfo getModel(Expression expression) throws Exception {
     IModelSupport modelSupport = getModelSupport(expression);
     return modelSupport == null ? null : modelSupport.getModel();
   }
 
+  @Override
   public AstObjectInfo getModel(Expression expression, IModelResolverFilter filter)
       throws Exception {
     for (IModelSupport modelSupport : m_modelSupports) {
@@ -179,10 +178,12 @@ public abstract class AbstractParser implements IModelResolver {
     return null;
   }
 
+  @Override
   public void addModelSupport(IModelSupport modelSupport) {
     m_modelSupports.add(modelSupport);
   }
 
+  @Override
   public IModelSupport getModelSupport(Expression expression) throws Exception {
     Expression actualExpression = AstNodeUtils.getActualVariableExpression(expression);
     IModelSupport modelSupport = getModelSupport0(actualExpression);
