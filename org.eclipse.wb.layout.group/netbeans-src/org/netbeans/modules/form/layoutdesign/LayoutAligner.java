@@ -92,7 +92,8 @@ class LayoutAligner implements LayoutConstants {
     List<LayoutInterval> removedSeqs = new LinkedList<LayoutInterval>();
     parParent = splitByAlignAttrs(parParent, removedSeqs, alignment, closed, dimension, false);
     // Transfer the intervals into common parallel parent
-    List gapsToResize = transferToParallelParent(intervals, parParent, alignment, closed);
+    List<LayoutInterval> gapsToResize =
+        transferToParallelParent(intervals, parParent, alignment, closed);
     LayoutInterval returnPar = LayoutInterval.getFirstParent(parParent, PARALLEL);
     returnRemovedIntervals(returnPar == null ? parParent : returnPar, removedSeqs, dimension);
     if (alignment != CENTER) {
@@ -120,16 +121,16 @@ class LayoutAligner implements LayoutConstants {
       // Create arrays of leading/trailing intervals
       LayoutInterval[] leadingIntervals = new LayoutInterval[leadingMap.size()];
       LayoutInterval[] trailingIntervals = new LayoutInterval[trailingMap.size()];
-      Iterator iter = leadingMap.values().iterator();
+      Iterator<LayoutInterval> iter = leadingMap.values().iterator();
       int counter = 0;
       while (iter.hasNext()) {
-        LayoutInterval interval = (LayoutInterval) iter.next();
+        LayoutInterval interval = iter.next();
         leadingIntervals[counter++] = interval;
       }
       iter = trailingMap.values().iterator();
       counter = 0;
       while (iter.hasNext()) {
-        LayoutInterval interval = (LayoutInterval) iter.next();
+        LayoutInterval interval = iter.next();
         trailingIntervals[counter++] = interval;
       }
       // Perform alignment of the intervals transfered into common parallel parent
@@ -143,7 +144,7 @@ class LayoutAligner implements LayoutConstants {
       // Must be done after align() to keep original eff. alignment inside align() method
       iter = gapsToResize.iterator();
       while (iter.hasNext()) {
-        LayoutInterval gap = (LayoutInterval) iter.next();
+        LayoutInterval gap = iter.next();
         designer.setIntervalResizing(gap, true);
       }
     }
@@ -198,9 +199,9 @@ class LayoutAligner implements LayoutConstants {
   private void markByAlignAttribute(LayoutInterval interval, int attr) {
     layoutModel.changeIntervalAttribute(interval, attr, true);
     if (interval.isGroup()) {
-      Iterator iter = interval.getSubIntervals();
+      Iterator<LayoutInterval> iter = interval.getSubIntervals();
       while (iter.hasNext()) {
-        markByAlignAttribute((LayoutInterval) iter.next(), attr);
+        markByAlignAttribute(iter.next(), attr);
       }
     }
   }
@@ -232,9 +233,9 @@ class LayoutAligner implements LayoutConstants {
           int maxPre = Short.MIN_VALUE;
           int minPost = Short.MAX_VALUE;
           int maxMidWidth = 0;
-          Iterator iter = interval.getSubIntervals();
+          Iterator<LayoutInterval> iter = interval.getSubIntervals();
           while (iter.hasNext()) {
-            LayoutInterval subInterval = (LayoutInterval) iter.next();
+            LayoutInterval subInterval = iter.next();
             boolean preSub = subInterval.hasAttribute(LayoutInterval.ATTR_ALIGN_PRE);
             boolean postSub = subInterval.hasAttribute(LayoutInterval.ATTR_ALIGN_POST);
             LayoutInterval trailingPre = null;
@@ -242,9 +243,9 @@ class LayoutAligner implements LayoutConstants {
             LayoutInterval trailingMid = null;
             LayoutInterval leadingPost = null;
             if (subInterval.isSequential() && preSub && postSub) {
-              Iterator subIter = subInterval.getSubIntervals();
+              Iterator<LayoutInterval> subIter = subInterval.getSubIntervals();
               while (subIter.hasNext()) {
-                LayoutInterval subSubInterval = (LayoutInterval) subIter.next();
+                LayoutInterval subSubInterval = subIter.next();
                 boolean preSubSub = subSubInterval.hasAttribute(LayoutInterval.ATTR_ALIGN_PRE);
                 boolean postSubSub = subSubInterval.hasAttribute(LayoutInterval.ATTR_ALIGN_POST);
                 if (preSubSub) {
@@ -553,7 +554,7 @@ class LayoutAligner implements LayoutConstants {
    *          alignment.
    * @return <code>List</code> of intervals (gaps) that should become resizable.
    */
-  private List transferToParallelParent(LayoutInterval[] intervals,
+  private List<LayoutInterval> transferToParallelParent(LayoutInterval[] intervals,
       LayoutInterval parParent,
       int alignment,
       boolean closed) {
@@ -594,11 +595,11 @@ class LayoutAligner implements LayoutConstants {
     for (int i = 0; i < intervals.length; i++) {
       LayoutInterval interval = intervals[i];
       // Find intervals that should be in the same sequence with the transfered interval
-      List transferedComponents = transferedComponents(intervals, i, parParent);
+      List<LayoutInterval> transferedComponents = transferedComponents(intervals, i, parParent);
       LayoutInterval firstInterval = null;
       LayoutInterval lastInterval = null;
       for (int j = transferedComponents.size() - 1; j >= 0; j--) {
-        LayoutInterval trInterval = (LayoutInterval) transferedComponents.get(j);
+        LayoutInterval trInterval = transferedComponents.get(j);
         if (intervalList.contains(trInterval)) {
           firstInterval = trInterval;
           if (lastInterval == null) {
@@ -615,10 +616,10 @@ class LayoutAligner implements LayoutConstants {
       newSequences.add(newSequenceList);
       sequenceResizable = false;
       sequenceGapsToResize = new LinkedList<LayoutInterval>();
-      Iterator iter = transferedComponents.iterator();
+      Iterator<LayoutInterval> iter = transferedComponents.iterator();
       // Determine leading gap of the sequence
       LayoutRegion parentRegion = parParent.getCurrentSpace();
-      LayoutInterval leadingInterval = (LayoutInterval) iter.next();
+      LayoutInterval leadingInterval = iter.next();
       LayoutRegion leadingRegion = leadingInterval.getCurrentSpace();
       if (alignment == TRAILING && !closed) {
         int preGap = leadingRegion.positions[dimension][LEADING]
@@ -654,7 +655,7 @@ class LayoutAligner implements LayoutConstants {
         if (leadingInterval == interval) {
           afterDefiningInterval = true;
         }
-        LayoutInterval trailingInterval = (LayoutInterval) iter.next();
+        LayoutInterval trailingInterval = iter.next();
         if (alignment == TRAILING && (!afterDefiningInterval || leadingInterval == interval)
             || alignment == LEADING && afterDefiningInterval) {
           sequenceResizable = sequenceResizable || LayoutInterval.canResize(leadingInterval);
@@ -728,20 +729,20 @@ class LayoutAligner implements LayoutConstants {
     }
     // Modify transfered gaps adjacent to aligned components
     if (alignment != CENTER) {
-      Iterator listIter = newSequences.iterator();
+      Iterator<List<LayoutInterval>> listIter = newSequences.iterator();
       for (int i = 0; i < intervals.length; i++) {
-        List newSequenceList = (List) listIter.next();
-        Iterator iter = newSequenceList.iterator();
+        List<LayoutInterval> newSequenceList = listIter.next();
+        Iterator<LayoutInterval> iter = newSequenceList.iterator();
         LayoutInterval gapCandidate = null;
         while (iter.hasNext()) {
-          LayoutInterval interval = (LayoutInterval) iter.next();
+          LayoutInterval interval = iter.next();
           if (interval == firstIntervals[i] && alignment == LEADING
               || interval == lastIntervals[i] && alignment == TRAILING) {
             LayoutRegion region = interval.getCurrentSpace();
             int diff = 0;
             if (alignment == TRAILING) {
               if (iter.hasNext()) {
-                gapCandidate = (LayoutInterval) iter.next();
+                gapCandidate = iter.next();
                 diff = trailingPosition - region.positions[dimension][TRAILING];
               } else {
                 break;
@@ -787,17 +788,17 @@ class LayoutAligner implements LayoutConstants {
     }
     // The content of all new sequence groups is known.
     // We can update the layout model.
-    Iterator listIter = newSequences.iterator();
+    Iterator<List<LayoutInterval>> listIter = newSequences.iterator();
     while (listIter.hasNext()) {
-      List newSequenceList = (List) listIter.next();
+      List<LayoutInterval> newSequenceList = listIter.next();
       LayoutInterval newSequence = new LayoutInterval(SEQUENTIAL);
       if (alignment == CENTER) {
         newSequence.setAlignment(CENTER);
       }
-      Iterator iter = newSequenceList.iterator();
+      Iterator<LayoutInterval> iter = newSequenceList.iterator();
       int sequenceAlignment = DEFAULT;
       while (iter.hasNext()) {
-        LayoutInterval compInterval = (LayoutInterval) iter.next();
+        LayoutInterval compInterval = iter.next();
         if (compInterval.isComponent()) { // e.g. compInterval.getParent() != null
           if (sequenceAlignment == DEFAULT) {
             sequenceAlignment = LayoutInterval.getEffectiveAlignment(compInterval);
@@ -811,7 +812,7 @@ class LayoutAligner implements LayoutConstants {
         newSequence.setAlignment(sequenceAlignment);
       }
       if (newSequenceList.size() == 1) {
-        LayoutInterval compInterval = (LayoutInterval) newSequenceList.get(0);
+        LayoutInterval compInterval = newSequenceList.get(0);
         layoutModel.removeInterval(compInterval);
         if (newSequence.getAlignment() != DEFAULT) {
           layoutModel.setIntervalAlignment(compInterval, newSequence.getAlignment());
@@ -826,9 +827,9 @@ class LayoutAligner implements LayoutConstants {
     // Check resizability
     if (gapsToResize.size() > 0 && !resizable && alignment != CENTER) {
       operations.suppressGroupResizing(parParent);
-      Iterator iter = gapsToResize.iterator();
+      Iterator<LayoutInterval> iter = gapsToResize.iterator();
       while (iter.hasNext()) {
-        LayoutInterval gap = (LayoutInterval) iter.next();
+        LayoutInterval gap = iter.next();
         layoutModel.changeIntervalAttribute(gap, LayoutInterval.ATTRIBUTE_FORMER_FILL, false);
         layoutModel.changeIntervalAttribute(gap, LayoutInterval.ATTRIBUTE_FILL, true);
       }
@@ -858,9 +859,9 @@ class LayoutAligner implements LayoutConstants {
         if (i == index) continue;
         transferCandidates(interval, intervals[i], components);
     }*/
-    Iterator iter = components.iterator();
+    Iterator<LayoutInterval> iter = components.iterator();
     while (iter.hasNext()) {
-      LayoutInterval candidate = (LayoutInterval) iter.next();
+      LayoutInterval candidate = iter.next();
       LayoutInterval oppCandidate = oppositeComponentInterval(candidate);
       if (alignedIntervals(oppInterval, oppCandidate, BASELINE)
           || alignedIntervals(oppInterval, oppCandidate, LEADING)
@@ -899,9 +900,9 @@ class LayoutAligner implements LayoutConstants {
    *          collection of <code>LayoutInterval</code>s of layout components in the group.
    */
   private void componentsInGroup(LayoutInterval group, Collection<LayoutInterval> components) {
-    Iterator iter = group.getSubIntervals();
+    Iterator<LayoutInterval> iter = group.getSubIntervals();
     while (iter.hasNext()) {
-      LayoutInterval interval = (LayoutInterval) iter.next();
+      LayoutInterval interval = iter.next();
       if (interval.isGroup()) {
         componentsInGroup(interval, components);
       } else if (interval.isComponent() && !components.contains(interval)) {
@@ -1181,11 +1182,13 @@ class LayoutAligner implements LayoutConstants {
     }
   }
 
-  private void returnRemovedIntervals(LayoutInterval parParent, List removed, int dimension) {
+  private void returnRemovedIntervals(LayoutInterval parParent,
+      List<LayoutInterval> removed,
+      int dimension) {
     LayoutRegion parRegion = parParent.getCurrentSpace();
-    Iterator iter = removed.iterator();
+    Iterator<LayoutInterval> iter = removed.iterator();
     while (iter.hasNext()) {
-      LayoutInterval interval = (LayoutInterval) iter.next();
+      LayoutInterval interval = iter.next();
       LayoutRegion region = interval.getCurrentSpace();
       int pre = Math.max(
           0,

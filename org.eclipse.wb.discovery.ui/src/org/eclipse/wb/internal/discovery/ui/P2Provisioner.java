@@ -224,14 +224,14 @@ class P2Provisioner {
 
   private IProfile getCurrentProfile() {
     // get the agent
-    ServiceReference sr =
+    ServiceReference<IProvisioningAgentProvider> sr =
         WBDiscoveryCorePlugin.getBundleContext().getServiceReference(
-            IProvisioningAgentProvider.SERVICE_NAME);
+            IProvisioningAgentProvider.class);
     if (sr == null) {
       return null;
     }
     IProvisioningAgentProvider agentProvider =
-        (IProvisioningAgentProvider) WBDiscoveryCorePlugin.getBundleContext().getService(sr);
+        WBDiscoveryCorePlugin.getBundleContext().getService(sr);
     try {
       // null == the current Eclipse installation
       IProvisioningAgent agent = agentProvider.createAgent(null);

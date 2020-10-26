@@ -24,7 +24,6 @@ import org.apache.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class ComboDialogField extends DialogField {
   private String fText;
   private int fVisibleItemCount;
   private int fSelectionIndex;
-  private List/*<String>*/fItems = new ArrayList();
+  private List<String> fItems = new ArrayList<>();
   private Combo fComboControl;
   private ModifyListener fModifyListener;
   private final int fFlags;
@@ -109,16 +108,14 @@ public class ComboDialogField extends DialogField {
   public Combo getComboControl(Composite parent) {
     if (fComboControl == null) {
       assertCompositeNotNull(parent);
-      fModifyListener = new ModifyListener() {
-        public void modifyText(ModifyEvent e) {
-          doModifyText(e);
-        }
-      };
+      fModifyListener = e -> doModifyText(e);
       SelectionListener selectionListener = new SelectionListener() {
+        @Override
         public void widgetSelected(SelectionEvent e) {
           doSelectionChanged(e);
         }
 
+        @Override
         public void widgetDefaultSelected(SelectionEvent e) {
         }
       };
@@ -151,7 +148,7 @@ public class ComboDialogField extends DialogField {
 
   private void doSelectionChanged(SelectionEvent e) {
     if (isOkToUse(fComboControl)) {
-      fItems = new ArrayList();
+      fItems = new ArrayList<>();
       CollectionUtils.addAll(fItems, fComboControl.getItems());
       //
       fText = fComboControl.getText();
@@ -188,7 +185,7 @@ public class ComboDialogField extends DialogField {
   /**
    * Gets the combo items.
    */
-  public List getListItems() {
+  public List<String> getListItems() {
     return fItems;
   }
 
@@ -196,7 +193,7 @@ public class ComboDialogField extends DialogField {
    * Gets the combo items.
    */
   public String[] getItems() {
-    return (String[]) fItems.toArray(new String[fItems.size()]);
+    return fItems.toArray(new String[fItems.size()]);
   }
 
   /**
@@ -223,17 +220,15 @@ public class ComboDialogField extends DialogField {
   /**
    * Add the combo items.
    */
-  public void addItems(Collection newItems) {
-    for (Iterator I = newItems.iterator(); I.hasNext();) {
-      String item = (String) I.next();
+  public void addItems(Collection<String> newItems) {
+    for (String item : newItems) {
       addItem(item);
     }
   }
 
   private void doSetItems() {
     fComboControl.removeAll();
-    for (Iterator I = fItems.iterator(); I.hasNext();) {
-      String item = (String) I.next();
+    for (String item : fItems) {
       fComboControl.add(item);
     }
   }
@@ -242,7 +237,7 @@ public class ComboDialogField extends DialogField {
    * Sets the combo items. Triggers a dialog-changed event.
    */
   public void setItems(String[] items) {
-    fItems = new ArrayList();
+    fItems = new ArrayList<>();
     CollectionUtils.addAll(fItems, items);
     //
     if (isOkToUse(fComboControl)) {
@@ -295,7 +290,7 @@ public class ComboDialogField extends DialogField {
       success = fSelectionIndex == index;
     } else {
       if (index >= 0 && index < fItems.size()) {
-        fText = (String) fItems.get(index);
+        fText = fItems.get(index);
         fSelectionIndex = index;
         success = true;
       }

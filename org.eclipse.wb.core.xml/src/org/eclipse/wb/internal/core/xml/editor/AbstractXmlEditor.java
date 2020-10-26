@@ -52,7 +52,7 @@ import java.util.List;
 
 /**
  * Editor for any XML based UI.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */
@@ -167,10 +167,9 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  @SuppressWarnings("rawtypes")
-  public Object getAdapter(Class adapter) {
+  public <T> T getAdapter(Class<T> adapter) {
     if (adapter == StructuredTextEditor.class) {
-      return m_xmlEditor;
+      return adapter.cast(m_xmlEditor);
     }
     return super.getAdapter(adapter);
   }
@@ -472,7 +471,7 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
    * Activates context of our XML editor.
    */
   private void activateEditorContext() {
-    IContextService contextService = (IContextService) getSite().getService(IContextService.class);
+    IContextService contextService = getSite().getService(IContextService.class);
     if (contextService != null) {
       contextService.activateContext(CONTEXT_ID);
     }
@@ -519,11 +518,10 @@ public abstract class AbstractXmlEditor extends MultiPageEditorPart
    * Create additional pages.
    */
   private void createAdditionalPages() {
-    List<IXmlEditorPageFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            IXmlEditorPageFactory.class,
-            "org.eclipse.wb.core.xml.XMLEditorPageFactories",
-            "factory");
+    List<IXmlEditorPageFactory> factories = ExternalFactoriesHelper.getElementsInstances(
+        IXmlEditorPageFactory.class,
+        "org.eclipse.wb.core.xml.XMLEditorPageFactories",
+        "factory");
     for (IXmlEditorPageFactory factory : factories) {
       factory.createPages(this, m_additionalPages);
     }

@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -41,7 +41,7 @@ import java.util.Map;
 
 /**
  * Class responsible for loading and saving of layout model.
- * 
+ *
  * @author Jan Stola
  */
 class LayoutPersistenceManager implements LayoutConstants {
@@ -97,7 +97,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Creates new <code>LayoutPersistenceManager</code>.
-   * 
+   *
    * @param layoutModel
    *          layout model to load/save.
    */
@@ -107,7 +107,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Returns the layout model saved as XML in a String.
-   * 
+   *
    * @param layoutModel
    *          layout model to save
    * @param container
@@ -164,7 +164,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Returns dump of the layout interval.
-   * 
+   *
    * @param layoutModel
    *          layout model to dump
    * @param interval
@@ -190,7 +190,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Dumps the information about the given layout interval.
-   * 
+   *
    * @param interval
    *          layout interval to dump.
    */
@@ -221,9 +221,9 @@ class LayoutPersistenceManager implements LayoutConstants {
       saveAttributes(interval.getAttributes());
       sb.append(">\n"); // NOI18N
       indent++;
-      Iterator iter = interval.getSubIntervals();
+      Iterator<LayoutInterval> iter = interval.getSubIntervals();
       while (iter.hasNext()) {
-        LayoutInterval subInterval = (LayoutInterval) iter.next();
+        LayoutInterval subInterval = iter.next();
         saveInterval(subInterval);
       }
       if (interval.getParent() == null && rootIndex == 0 && layoutContainer != null) {
@@ -266,7 +266,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Saves linkSize group identifier
-   * 
+   *
    * @param linksizeid
    */
   private void saveLinkSize(int linkSizeId) {
@@ -277,7 +277,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Saves group/interval alignemnt.
-   * 
+   *
    * @param alignemnt
    *          alignment to save.
    * @param group
@@ -315,14 +315,14 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Saves size parameter of some layout interval.
-   * 
+   *
    * @param size
    *          value of the size parameter.
    * @param attr
    *          name of the size parameter.
    */
   private void saveSize(int size, String attr) {
-    String attrPrefix = " " + attr + "=\""; // NOI18N            
+    String attrPrefix = " " + attr + "=\""; // NOI18N
     if (humanReadable) {
       if (size != NOT_EXPLICITLY_DEFINED) {
         sb.append(attrPrefix);
@@ -368,7 +368,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Saves attributes of some layout interval.
-   * 
+   *
    * @param attributes
    *          attributes of some layout interval.
    */
@@ -382,7 +382,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Performs indentation.
-   * 
+   *
    * @return indented <code>StringBuffer</code>.
    */
   private StringBuilder indent() {
@@ -394,7 +394,7 @@ class LayoutPersistenceManager implements LayoutConstants {
   /**
    * Loads the layout of the given container. Does not load containers recursively, is called for
    * each container separately.
-   * 
+   *
    * @param layoutModel
    *          layout model to load
    * @param containerId
@@ -445,7 +445,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Loads layout of the given group.
-   * 
+   *
    * @param group
    *          group whose layout information should be loaded.
    * @param groupNode
@@ -511,7 +511,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Loads information about empty space.
-   * 
+   *
    * @param parent
    *          layout parent of the empty space.
    * @param spaceNode
@@ -527,7 +527,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Loads information about component.
-   * 
+   *
    * @param parent
    *          layout parent of the loaded layout interval.
    * @param componentNode
@@ -568,7 +568,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Loads size information of the given interval.
-   * 
+   *
    * @param interval
    *          layout interval whose size information should be loaded.
    * @param attrMap
@@ -582,9 +582,10 @@ class LayoutPersistenceManager implements LayoutConstants {
     int pref = prefNode == null ? NOT_EXPLICITLY_DEFINED : integerFromNode(prefNode);
     int max = maxNode == null ? NOT_EXPLICITLY_DEFINED : integerFromNode(maxNode);
     if (pref != NOT_EXPLICITLY_DEFINED && pref < 0) { // autocorrect invalid pref size (#159536)
-      System.err.println("WARNING: Invalid preferred size (" // NOI18N
-          + Integer.toString(pref)
-          + ") of a layout interval encountered, reset to default."); // NOI18N
+      System.err.println(
+          "WARNING: Invalid preferred size (" // NOI18N
+              + Integer.toString(pref)
+              + ") of a layout interval encountered, reset to default."); // NOI18N
       pref = NOT_EXPLICITLY_DEFINED;
       layoutModel.setCorrected();
     }
@@ -611,7 +612,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Loads attributes of the given interval.
-   * 
+   *
    * @param interval
    *          layout interval whose attributes should be loaded.
    * @param attrMap
@@ -629,7 +630,7 @@ class LayoutPersistenceManager implements LayoutConstants {
 
   /**
    * Extracts integer value from the given node.
-   * 
+   *
    * @param node
    *          node that has integer as its value.
    * @return integer value extracted from the given node.
@@ -655,9 +656,9 @@ class LayoutPersistenceManager implements LayoutConstants {
     if (group.isParallel()) {
       int groupAlign = group.getGroupAlignment();
       int baselineCount = 0;
-      Iterator iter = group.getSubIntervals();
+      Iterator<LayoutInterval> iter = group.getSubIntervals();
       while (iter.hasNext()) {
-        LayoutInterval subInterval = (LayoutInterval) iter.next();
+        LayoutInterval subInterval = iter.next();
         if (subInterval.getAlignment() == BASELINE) {
           if (!subInterval.isComponent()) {
             subInterval.setAlignment(groupAlign == BASELINE ? LEADING : DEFAULT);
@@ -748,9 +749,11 @@ class LayoutPersistenceManager implements LayoutConstants {
           continue;
         }
         layoutModel.setCorrected();
-        System.err.println("WARNING: Invalid component name in layout: " + missingNameH // NOI18N
-            + ", corrected automatically to: "
-            + e.getKey()); // NOI18N
+        System.err.println(
+            "WARNING: Invalid component name in layout: "
+                + missingNameH // NOI18N
+                + ", corrected automatically to: "
+                + e.getKey()); // NOI18N
         return;
       }
     }

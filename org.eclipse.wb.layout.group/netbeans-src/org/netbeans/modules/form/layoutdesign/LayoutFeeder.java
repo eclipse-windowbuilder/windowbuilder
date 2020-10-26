@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -42,7 +42,7 @@ import java.util.List;
  * 'add' method is called to add the intervals on desired place. It is responsibility of the caller
  * to remove the intervals/components from original locations before calling 'add'. Note this class
  * does not add LayoutComponent instances to model.
- * 
+ *
  * @author Tomas Pavek
  */
 class LayoutFeeder implements LayoutConstants {
@@ -90,7 +90,9 @@ class LayoutFeeder implements LayoutConstants {
   }
 
   // -----
-  LayoutFeeder(LayoutOperations operations, LayoutDragger dragger, LayoutInterval[] addingIntervals) {
+  LayoutFeeder(LayoutOperations operations,
+      LayoutDragger dragger,
+      LayoutInterval[] addingIntervals) {
     layoutModel = operations.getModel();
     this.operations = operations;
     this.dragger = dragger;
@@ -144,11 +146,11 @@ class LayoutFeeder implements LayoutConstants {
         originalLPosFixed = originalLPositionsFixed[dim];
         originalTPosFixed = originalTPositionsFixed[dim];
         if (dragger.isResizing(dim)) {
-          layoutModel.setIntervalSize(addingInterval, becomeResizing[dim]
-              ? NOT_EXPLICITLY_DEFINED
-              : USE_PREFERRED_SIZE, addingSpace.size(dim), becomeResizing[dim]
-              ? Short.MAX_VALUE
-              : USE_PREFERRED_SIZE);
+          layoutModel.setIntervalSize(
+              addingInterval,
+              becomeResizing[dim] ? NOT_EXPLICITLY_DEFINED : USE_PREFERRED_SIZE,
+              addingSpace.size(dim),
+              becomeResizing[dim] ? Short.MAX_VALUE : USE_PREFERRED_SIZE);
         }
       }
       LayoutDragger.PositionDef newPos = newPositions[dim];
@@ -231,10 +233,8 @@ class LayoutFeeder implements LayoutConstants {
             inclusion2 = found;
           }
           LayoutInterval origParent = originalPos1.parent;
-          if (found.parent == origParent
-              && found.newSubGroup
-              || origParent.isSequential()
-              && origParent.getParent() == found.parent) {
+          if (found.parent == origParent && found.newSubGroup
+              || origParent.isSequential() && origParent.getParent() == found.parent) {
             inclusion1.newSubGroup = true;
           }
         }
@@ -333,8 +333,8 @@ class LayoutFeeder implements LayoutConstants {
         parent = parent.getParent();
         if (parent.isSequential()) {
           boolean ortOverlap = false;
-          for (Iterator it = parent.getSubIntervals(); it.hasNext();) {
-            LayoutInterval li = (LayoutInterval) it.next();
+          for (Iterator<LayoutInterval> it = parent.getSubIntervals(); it.hasNext();) {
+            LayoutInterval li = it.next();
             if (!li.isEmptySpace()
                 && !li.isParentOf(interval)
                 && LayoutRegion.overlap(
@@ -373,7 +373,8 @@ class LayoutFeeder implements LayoutConstants {
           LayoutInterval next = LayoutInterval.getNeighbor(gap, alignment, true, true, false);
           if (next != null) {
             if (next.getParent() == gap.getParent()
-                || next.getCurrentSpace().positions[dimension][alignment ^ 1] == gap.getParent().getCurrentSpace().positions[dimension][alignment]) { // the next interval is really at preferred distance
+                || next.getCurrentSpace().positions[dimension][alignment
+                    ^ 1] == gap.getParent().getCurrentSpace().positions[dimension][alignment]) { // the next interval is really at preferred distance
               iDesc.snappedNextTo = next;
               iDesc.paddingType = gap.getPaddingType();
             }
@@ -437,11 +438,9 @@ class LayoutFeeder implements LayoutConstants {
     do {
       parent = LayoutInterval.getFirstParent(interval, PARALLEL);
       if (!indent) {
-        boolean aligned =
-            alignment == LEADING || alignment == TRAILING ? LayoutInterval.isAlignedAtBorder(
-                interval,
-                parent,
-                alignment) : interval.getParent() == parent && interval.getAlignment() == alignment;
+        boolean aligned = alignment == LEADING || alignment == TRAILING
+            ? LayoutInterval.isAlignedAtBorder(interval, parent, alignment)
+            : interval.getParent() == parent && interval.getAlignment() == alignment;
         if (!aligned) {
           return null;
         }
@@ -449,8 +448,8 @@ class LayoutFeeder implements LayoutConstants {
           return parent; // aligned with root group
         }
       }
-      for (Iterator it = parent.getSubIntervals(); it.hasNext();) {
-        LayoutInterval sub = (LayoutInterval) it.next();
+      for (Iterator<LayoutInterval> it = parent.getSubIntervals(); it.hasNext();) {
+        LayoutInterval sub = it.next();
         if (!sub.isEmptySpace() && sub != interval && !sub.isParentOf(interval)) {
           if (alignment == LEADING || alignment == TRAILING) {
             LayoutInterval li = LayoutUtils.getOutermostComponent(sub, dimension, alignment);
@@ -495,19 +494,18 @@ class LayoutFeeder implements LayoutConstants {
     if (dragger.isResizing(HORIZONTAL) && !dragger.isResizing(VERTICAL)) {
       return HORIZONTAL;
     }
-    if (dragger.isResizing(VERTICAL)
-        && !dragger.isResizing(HORIZONTAL)
+    if (dragger.isResizing(VERTICAL) && !dragger.isResizing(HORIZONTAL)
         || positions[HORIZONTAL] != null
-        && positions[HORIZONTAL].snapped
-        && (positions[VERTICAL] == null || !positions[VERTICAL].snapped)
+            && positions[HORIZONTAL].snapped
+            && (positions[VERTICAL] == null || !positions[VERTICAL].snapped)
         || positions[VERTICAL] != null
-        && !positions[VERTICAL].nextTo
-        && positions[VERTICAL].snapped
-        && positions[VERTICAL].interval.getParent() == null
-        && !existsComponentPlacedAtBorder(
-            positions[VERTICAL].interval,
-            VERTICAL,
-            positions[VERTICAL].alignment)) {
+            && !positions[VERTICAL].nextTo
+            && positions[VERTICAL].snapped
+            && positions[VERTICAL].interval.getParent() == null
+            && !existsComponentPlacedAtBorder(
+                positions[VERTICAL].interval,
+                VERTICAL,
+                positions[VERTICAL].alignment)) {
       return VERTICAL;
     }
     if (positions[VERTICAL] != null
@@ -536,7 +534,7 @@ class LayoutFeeder implements LayoutConstants {
 
   /**
    * Checks whether there is a component placed at the border of the specified interval.
-   * 
+   *
    * @param interval
    *          interval to check.
    * @param dimension
@@ -547,9 +545,9 @@ class LayoutFeeder implements LayoutConstants {
   private static boolean existsComponentPlacedAtBorder(LayoutInterval interval,
       int dimension,
       int alignment) {
-    Iterator iter = interval.getSubIntervals();
+    Iterator<LayoutInterval> iter = interval.getSubIntervals();
     while (iter.hasNext()) {
-      LayoutInterval subInterval = (LayoutInterval) iter.next();
+      LayoutInterval subInterval = iter.next();
       if (LayoutInterval.isPlacedAtBorder(interval, dimension, alignment)) {
         if (subInterval.isComponent()) {
           return true;
@@ -565,7 +563,7 @@ class LayoutFeeder implements LayoutConstants {
 
   /**
    * Fills the given list by components that overlap with the <code>region</code>.
-   * 
+   *
    * @param overlaps
    *          list that should be filled by overlapping components.
    * @param group
@@ -576,9 +574,9 @@ class LayoutFeeder implements LayoutConstants {
   private static void fillOverlappingComponents(List<LayoutComponent> overlaps,
       LayoutInterval group,
       LayoutRegion region) {
-    Iterator iter = group.getSubIntervals();
+    Iterator<LayoutInterval> iter = group.getSubIntervals();
     while (iter.hasNext()) {
-      LayoutInterval subInterval = (LayoutInterval) iter.next();
+      LayoutInterval subInterval = iter.next();
       if (subInterval.isGroup()) {
         fillOverlappingComponents(overlaps, subInterval, region);
       } else if (subInterval.isComponent()) {
@@ -593,7 +591,8 @@ class LayoutFeeder implements LayoutConstants {
   }
 
   // Helper method for getDimensionSolvingOverlap() method
-  private static boolean[] overlappingGapDimensions(LayoutInterval layoutRoot, LayoutRegion region) {
+  private static boolean[] overlappingGapDimensions(LayoutInterval layoutRoot,
+      LayoutRegion region) {
     boolean[] result = new boolean[2];
     int[][] overlapSides = overlappingGapSides(layoutRoot, region);
     for (int i = 0; i < DIM_COUNT; i++) {
@@ -631,7 +630,9 @@ class LayoutFeeder implements LayoutConstants {
   }
 
   // Helper method for overlappingGapSides() method
-  private static int[] overlappingSides(LayoutRegion compRegion, LayoutRegion region, int dimension) {
+  private static int[] overlappingSides(LayoutRegion compRegion,
+      LayoutRegion region,
+      int dimension) {
     int[] sides = new int[2];
     int compLeading = compRegion.positions[dimension][LEADING];
     int compTrailing = compRegion.positions[dimension][TRAILING];
@@ -673,11 +674,12 @@ class LayoutFeeder implements LayoutConstants {
       } else {
         LayoutInterval parent = LayoutInterval.getCommonParent(interval, newPos.interval);
         align1 = LayoutInterval.getEffectiveAlignmentInParent(interval, parent, fixedEdge);
-        align2 =
-            newPos.nextTo ? LayoutInterval.getEffectiveAlignmentInParent(
+        align2 = newPos.nextTo
+            ? LayoutInterval.getEffectiveAlignmentInParent(
                 newPos.interval,
                 parent,
-                newPos.alignment ^ 1) : resizingEdge;
+                newPos.alignment ^ 1)
+            : resizingEdge;
       }
       if (align1 != align2
           && (align1 == LEADING || align1 == TRAILING)
@@ -690,26 +692,26 @@ class LayoutFeeder implements LayoutConstants {
     //  isComponentResizable(interval.getComponent(), dimension)  ]
     return resizing;
 /*        if (pos2 != null) {
-            resizing = pos1.snapped && pos2.snapped;
-        }
-        else if (pos1.snapped) {
-            LayoutInterval parent = interval.getParent();
-            if (parent == null || parent.isParallel()) {
-                resizing = false;
-                // cannot decide this as we can't be sure about the actual visual position of the group
-                // [unless LayoutDragger provides two positions also for moving,
-                //  the resizing flag is always reset when the interval is moved]
-            }
-            else { // in sequence
-                int align = pos1.alignment ^ 1;
-                LayoutInterval gap = LayoutInterval.getNeighbor(interval, align, false, true, true);
-                resizing = gap != null && gap.isDefaultPadding() && !LayoutInterval.canResize(gap);
-                // [not catching situation when touching the root without gap]
-            }
-        }
-        else {
-            resizing = false;
-        } */
+resizing = pos1.snapped && pos2.snapped;
+}
+else if (pos1.snapped) {
+LayoutInterval parent = interval.getParent();
+if (parent == null || parent.isParallel()) {
+resizing = false;
+// cannot decide this as we can't be sure about the actual visual position of the group
+// [unless LayoutDragger provides two positions also for moving,
+//  the resizing flag is always reset when the interval is moved]
+}
+else { // in sequence
+int align = pos1.alignment ^ 1;
+LayoutInterval gap = LayoutInterval.getNeighbor(interval, align, false, true, true);
+resizing = gap != null && gap.isDefaultPadding() && !LayoutInterval.canResize(gap);
+// [not catching situation when touching the root without gap]
+}
+}
+else {
+resizing = false;
+} */
   }
 
   /**
@@ -797,8 +799,8 @@ class LayoutFeeder implements LayoutConstants {
   private void addToGroup(IncludeDesc iDesc1, IncludeDesc iDesc2, boolean definite) {
     assert iDesc2 == null
         || iDesc1.parent == iDesc2.parent
-        && iDesc1.newSubGroup == iDesc2.newSubGroup
-        && iDesc1.neighbor == iDesc2.neighbor;
+            && iDesc1.newSubGroup == iDesc2.newSubGroup
+            && iDesc1.neighbor == iDesc2.neighbor;
     LayoutInterval parent = iDesc1.parent;
     LayoutInterval seq = null;
     int index = 0;
@@ -864,13 +866,10 @@ class LayoutFeeder implements LayoutConstants {
         }
       }
       if (iDesc1.alignment < 0) { // no alignment known
-        centerDst[i] =
-            addingSpace.positions[dimension][CENTER]
-                - (neighbors[i] != null ? getPerceivedNeighborPosition(
-                    neighbors[i],
-                    addingSpace,
-                    dimension,
-                    i ^ 1) : getPerceivedParentPosition(seq, parent, addingSpace, dimension, i));
+        centerDst[i] = addingSpace.positions[dimension][CENTER]
+            - (neighbors[i] != null
+                ? getPerceivedNeighborPosition(neighbors[i], addingSpace, dimension, i ^ 1)
+                : getPerceivedParentPosition(seq, parent, addingSpace, dimension, i));
         if (i == TRAILING) {
           centerDst[i] *= -1;
         }
@@ -899,12 +898,9 @@ class LayoutFeeder implements LayoutConstants {
         aligned =
             centerDst[i] < centerDst[i ^ 1] || centerDst[i] == centerDst[i ^ 1] && i == LEADING;
       } else if (iDesc2 != null) { // both positions defined
-        aligned =
-            iiDesc.fixedPosition
-                || i == LEADING
-                && originalLPosFixed
-                || i == TRAILING
-                && originalTPosFixed;
+        aligned = iiDesc.fixedPosition
+            || i == LEADING && originalLPosFixed
+            || i == TRAILING && originalTPosFixed;
       } else { // single position only (either next to or parallel)
         if (iDesc1.snappedParallel == null || !seq.isParentOf(iDesc1.snappedParallel)) {
           aligned = i == iDesc1.alignment;
@@ -924,11 +920,8 @@ class LayoutFeeder implements LayoutConstants {
         if (outerNeighbor != null && outerNeighbor.isEmptySpace()) {
           continue; // unaligned ending gap not needed - there's a gap outside the parent
         } else { // minor gap if it does not need to define the parent size
-          minorGap =
-              parallel != null
-                  && parallel.getParent() != null
-                  || parent.getParent() != null
-                  && LayoutInterval.getCount(parent, i ^ 1, true) > 0;
+          minorGap = parallel != null && parallel.getParent() != null
+              || parent.getParent() != null && LayoutInterval.getCount(parent, i ^ 1, true) > 0;
         }
       }
       boolean fixedGap = aligned;
@@ -956,24 +949,18 @@ class LayoutFeeder implements LayoutConstants {
       if (!minorGap) {
         if (iiDesc == null || iiDesc.snappedNextTo == null) {
           // the gap possibly needs an explicit size
-          LayoutRegion space =
-              iiDesc != null && iiDesc.snappedParallel != null
-                  ? iiDesc.snappedParallel.getCurrentSpace()
-                  : addingSpace;
-          int distance =
-              neighbors[i] != null ? LayoutRegion.distance(
-                  neighbors[i].getCurrentSpace(),
-                  space,
-                  dimension,
-                  i ^ 1,
-                  i) : LayoutRegion.distance(parent.getCurrentSpace(), space, dimension, i, i);
+          LayoutRegion space = iiDesc != null && iiDesc.snappedParallel != null
+              ? iiDesc.snappedParallel.getCurrentSpace()
+              : addingSpace;
+          int distance = neighbors[i] != null
+              ? LayoutRegion.distance(neighbors[i].getCurrentSpace(), space, dimension, i ^ 1, i)
+              : LayoutRegion.distance(parent.getCurrentSpace(), space, dimension, i, i);
           if (i == TRAILING) {
             distance *= -1;
           }
           if (distance > 0) {
-            int pad =
-                neighbors[i] != null
-                    || LayoutInterval.getNeighbor(parent, i, false, true, false) == null
+            int pad = neighbors[i] != null
+                || LayoutInterval.getNeighbor(parent, i, false, true, false) == null
                     ? determineExpectingPadding(addingInterval, neighbors[i], seq, i)
                     : Short.MIN_VALUE; // has no neighbor, but is not related to container border
             if (distance > pad || fixedGap && distance != pad) {
@@ -1135,10 +1122,9 @@ class LayoutFeeder implements LayoutConstants {
       }
       LayoutInterval neighbor = null;
       while (neighbor == null && parent.getParent() != null) {
-        boolean significantEdge =
-            interval.getParent() != null
-                ? isSignificantGroupEdge(interval, alignment)
-                : LayoutInterval.isClosedGroup(parent, alignment);
+        boolean significantEdge = interval.getParent() != null
+            ? isSignificantGroupEdge(interval, alignment)
+            : LayoutInterval.isClosedGroup(parent, alignment);
         if (significantEdge) {
           break;
         }
@@ -1217,7 +1203,7 @@ class LayoutFeeder implements LayoutConstants {
       i += d;
       if (sub.isEmptySpace()
           || sub.isComponent()
-          && !LayoutRegion.overlap(space, sub.getCurrentSpace(), dimension ^ 1, 0)) {
+              && !LayoutRegion.overlap(space, sub.getCurrentSpace(), dimension ^ 1, 0)) {
         continue;
       }
       int pos = getPerceivedNeighborPosition(sub, space, dimension, alignment);
@@ -1257,10 +1243,9 @@ class LayoutFeeder implements LayoutConstants {
       }
       end += d;
     }
-    int endPos =
-        end >= 0 && end < n
-            ? parentSeq.getSubInterval(end).getCurrentSpace().positions[dimension][alignment ^ 1]
-            : parentSeq.getParent().getCurrentSpace().positions[dimension][alignment];
+    int endPos = end >= 0 && end < n
+        ? parentSeq.getSubInterval(end).getCurrentSpace().positions[dimension][alignment ^ 1]
+        : parentSeq.getParent().getCurrentSpace().positions[dimension][alignment];
     end -= d;
     operations.parallelizeWithParentSequence(seq, end, dimension);
     parentPar = seq.getParent();
@@ -1274,7 +1259,8 @@ class LayoutFeeder implements LayoutConstants {
    * current visual position of the interval - how it exceeds the current parent border. In the
    * simplest form the method tries to shorten the nearest gap in the parent sequence.
    */
-  private void accommodateOutPosition(LayoutInterval interval, /*int dimension,*/int alignment/*, boolean snapped*/) {
+  private void accommodateOutPosition(LayoutInterval interval,
+      /*int dimension,*/int alignment/*, boolean snapped*/) {
     if (alignment == CENTER || alignment == BASELINE) {
       return; // [but should consider these too...]
     }
@@ -1432,7 +1418,7 @@ class LayoutFeeder implements LayoutConstants {
   /**
    * This method aligns an interval (just simply added to the layout - so it is already placed
    * correctly where it should appear) in parallel with another interval.
-   * 
+   *
    * @return parallel group with aligned intervals if some aligning changes happened, null if
    *         addingInterval has already been aligned or could not be aligned
    */
@@ -1506,13 +1492,12 @@ class LayoutFeeder implements LayoutConstants {
     if (aligning != interval) {
       if (!LayoutInterval.isAlignedAtBorder(toAlignWith, alignment)) {
         // may have problems with S-layout
-        int dst =
-            LayoutRegion.distance(
-                aligning.getCurrentSpace(),
-                toAlignWith.getCurrentSpace(),
-                dimension,
-                alignment,
-                alignment) * (alignment == TRAILING ? -1 : 1);
+        int dst = LayoutRegion.distance(
+            aligning.getCurrentSpace(),
+            toAlignWith.getCurrentSpace(),
+            dimension,
+            alignment,
+            alignment) * (alignment == TRAILING ? -1 : 1);
         if (dst > 0) { // try to eliminate effect of avoiding S-layout
           // need to exclude 'interval' - remove it temporarily
           tempRemoved = interval;
@@ -1547,13 +1532,12 @@ class LayoutFeeder implements LayoutConstants {
     extract(aligning, alignedList, remainder, alignment);
     assert !alignWithParent || remainder.isEmpty();
     // add indent if needed
-    int indent =
-        LayoutRegion.distance(
-            toAlignWith.getCurrentSpace(),
-            interval.getCurrentSpace(),
-            dimension,
-            alignment,
-            alignment);
+    int indent = LayoutRegion.distance(
+        toAlignWith.getCurrentSpace(),
+        interval.getCurrentSpace(),
+        dimension,
+        alignment,
+        alignment);
     if (indent != 0) {
       LayoutInterval indentGap = new LayoutInterval(SINGLE);
       indentGap.setSize(Math.abs(indent));
@@ -1653,8 +1637,12 @@ class LayoutFeeder implements LayoutConstants {
       if (alignment == TRAILING) {
         index++;
       }
-      LayoutInterval sideGroup =
-          operations.addGroupContent(remainder, commonSeq, index, dimension, alignment/*, effAlign*/);
+      LayoutInterval sideGroup = operations.addGroupContent(
+          remainder,
+          commonSeq,
+          index,
+          dimension,
+          alignment/*, effAlign*/);
       if (sideGroup != null) {
         int pos1 = parParent.getCurrentSpace().positions[dimension][alignment];
         int pos2 = toAlignWith.getCurrentSpace().positions[dimension][alignment];
@@ -1676,13 +1664,12 @@ class LayoutFeeder implements LayoutConstants {
     int effAlign = LayoutInterval.getEffectiveAlignment(interval, alignment);
     LayoutInterval parent = interval.getParent();
     if (parent.isSequential()) {
-      int extractCount =
-          operations.extract(
-              interval,
-              alignment,
-              false,
-              alignment == LEADING ? toRemain : null,
-              alignment == LEADING ? null : toRemain);
+      int extractCount = operations.extract(
+          interval,
+          alignment,
+          false,
+          alignment == LEADING ? toRemain : null,
+          alignment == LEADING ? null : toRemain);
       if (extractCount == 1) { // the parent won't be reused
         if (effAlign == LEADING || effAlign == TRAILING) {
           layoutModel.setIntervalAlignment(interval, effAlign);
@@ -1698,7 +1685,9 @@ class LayoutFeeder implements LayoutConstants {
     return effAlign;
   }
 
-  private void checkParallelResizing(LayoutInterval interval, IncludeDesc iDesc1, IncludeDesc iDesc2) {
+  private void checkParallelResizing(LayoutInterval interval,
+      IncludeDesc iDesc1,
+      IncludeDesc iDesc2) {
     LayoutInterval parallelInt;
     LayoutInterval group = interval.getParent();
     if (group.isSequential()) {
@@ -1716,7 +1705,9 @@ class LayoutFeeder implements LayoutConstants {
     if (iDesc1.snappedNextTo != null && iDesc1.snappedNextTo.getParent() == null) {
       rootAlign = iDesc1.alignment;
     }
-    if (iDesc2 != null && iDesc2.snappedNextTo != null && iDesc2.snappedNextTo.getParent() == null) {
+    if (iDesc2 != null
+        && iDesc2.snappedNextTo != null
+        && iDesc2.snappedNextTo.getParent() == null) {
       rootAlign = rootAlign == DEFAULT ? iDesc2.alignment : LayoutRegion.ALL_POINTS;
     }
     if (rootAlign == LEADING || rootAlign == TRAILING) {
@@ -1730,7 +1721,10 @@ class LayoutFeeder implements LayoutConstants {
               LayoutInterval.getRoot(neighbor),
               rootAlign ^ 1)
           || neighbor == null
-          && LayoutInterval.isAlignedAtBorder(group, LayoutInterval.getRoot(group), rootAlign ^ 1)) { // the other group edge tied closely to root
+              && LayoutInterval.isAlignedAtBorder(
+                  group,
+                  LayoutInterval.getRoot(group),
+                  rootAlign ^ 1)) { // the other group edge tied closely to root
         rootAlign = LayoutRegion.ALL_POINTS;
       }
       group.add(parallelInt, remIdx);
@@ -1759,17 +1753,18 @@ class LayoutFeeder implements LayoutConstants {
       return;
     }
     if (!LayoutInterval.canResize(group)
-        && (iDesc1.snappedNextTo != null && !group.isParentOf(iDesc1.snappedNextTo) || iDesc2 != null
-            && iDesc2.snappedNextTo != null
-            && !group.isParentOf(iDesc2.snappedNextTo))) { // snapped out of the group - it might not want to be suppressed (will check right away)
+        && (iDesc1.snappedNextTo != null && !group.isParentOf(iDesc1.snappedNextTo)
+            || iDesc2 != null
+                && iDesc2.snappedNextTo != null
+                && !group.isParentOf(iDesc2.snappedNextTo))) { // snapped out of the group - it might not want to be suppressed (will check right away)
       operations.enableGroupResizing(group);
     }
     if (LayoutInterval.canResize(group) && group.getParent() != null) {
       // suppress par. group resizing if it is otherwise fixed
       boolean contentResizing = false;
       boolean samePosition = false;
-      for (Iterator it = group.getSubIntervals(); it.hasNext();) {
-        LayoutInterval li = (LayoutInterval) it.next();
+      for (Iterator<LayoutInterval> it = group.getSubIntervals(); it.hasNext();) {
+        LayoutInterval li = it.next();
         if (li != parallelInt) {
           if (LayoutInterval.wantResize(li)) {
             contentResizing = true;
@@ -1778,11 +1773,10 @@ class LayoutFeeder implements LayoutConstants {
           if (!samePosition) {
             int align = li.getAlignment();
             if (align == LEADING || align == TRAILING) {
-              samePosition =
-                  getExpectedBorderPosition(parallelInt, dimension, align ^ 1) == getExpectedBorderPosition(
-                      li,
-                      dimension,
-                      align ^ 1);
+              samePosition = getExpectedBorderPosition(
+                  parallelInt,
+                  dimension,
+                  align ^ 1) == getExpectedBorderPosition(li, dimension, align ^ 1);
             }
           }
         }
@@ -1803,17 +1797,20 @@ class LayoutFeeder implements LayoutConstants {
       } else if (interval.isComponent()) {
         java.awt.Dimension sizeLimit;
         LayoutComponent lc = interval.getComponent();
-        sizeLimit =
-            lc.isLayoutContainer()
-                ? operations.getMapper().getComponentMinimumSize(lc.getId())
-                : operations.getMapper().getComponentPreferredSize(lc.getId());
+        sizeLimit = lc.isLayoutContainer()
+            ? operations.getMapper().getComponentMinimumSize(lc.getId())
+            : operations.getMapper().getComponentPreferredSize(lc.getId());
         int pref = dimension == HORIZONTAL ? sizeLimit.width : sizeLimit.height;
         if (interval.getPreferredSize() < pref) {
           layoutModel.setIntervalSize(interval, 0, 0, interval.getMaximumSize());
         } else {
-          layoutModel.setIntervalSize(interval, interval.getMinimumSize() != USE_PREFERRED_SIZE
-              ? interval.getMinimumSize()
-              : NOT_EXPLICITLY_DEFINED, NOT_EXPLICITLY_DEFINED, interval.getMaximumSize());
+          layoutModel.setIntervalSize(
+              interval,
+              interval.getMinimumSize() != USE_PREFERRED_SIZE
+                  ? interval.getMinimumSize()
+                  : NOT_EXPLICITLY_DEFINED,
+              NOT_EXPLICITLY_DEFINED,
+              interval.getMaximumSize());
         }
       }
     }
@@ -1826,8 +1823,8 @@ class LayoutFeeder implements LayoutConstants {
 
   private void setParallelSameSize(LayoutInterval group, LayoutInterval aligned, int dimension) {
     LayoutInterval alignedComp = getOneNonEmpty(aligned);
-    for (Iterator it = group.getSubIntervals(); it.hasNext();) {
-      LayoutInterval li = (LayoutInterval) it.next();
+    for (Iterator<LayoutInterval> it = group.getSubIntervals(); it.hasNext();) {
+      LayoutInterval li = it.next();
       if (li != aligned) {
         if (li.isParallel()) {
           setParallelSameSize(li, alignedComp, dimension);
@@ -1837,15 +1834,18 @@ class LayoutFeeder implements LayoutConstants {
               && LayoutRegion.sameSpace(
                   alignedComp.getCurrentSpace(),
                   sub.getCurrentSpace(),
-                  dimension) && !LayoutInterval.wantResize(li)) { // viusally aligned subinterval
+                  dimension)
+              && !LayoutInterval.wantResize(li)) { // viusally aligned subinterval
             if (sub.isParallel()) {
               setParallelSameSize(sub, alignedComp, dimension);
             } else { // make this component filling the group - effectively keeping same size
               layoutModel.setIntervalAlignment(li, aligned.getAlignment());
               int min = sub.getMinimumSize();
-              layoutModel.setIntervalSize(sub, min != USE_PREFERRED_SIZE
-                  ? min
-                  : NOT_EXPLICITLY_DEFINED, sub.getPreferredSize(), Short.MAX_VALUE);
+              layoutModel.setIntervalSize(
+                  sub,
+                  min != USE_PREFERRED_SIZE ? min : NOT_EXPLICITLY_DEFINED,
+                  sub.getPreferredSize(),
+                  Short.MAX_VALUE);
               layoutModel.changeIntervalAttribute(sub, LayoutInterval.ATTRIBUTE_FILL, true);
             }
           }
@@ -1859,8 +1859,8 @@ class LayoutFeeder implements LayoutConstants {
       return interval;
     }
     LayoutInterval nonEmpty = null;
-    for (Iterator it = interval.getSubIntervals(); it.hasNext();) {
-      LayoutInterval li = (LayoutInterval) it.next();
+    for (Iterator<LayoutInterval> it = interval.getSubIntervals(); it.hasNext();) {
+      LayoutInterval li = it.next();
       if (!li.isEmptySpace()) {
         if (nonEmpty == null) {
           nonEmpty = li;
@@ -1904,7 +1904,7 @@ class LayoutFeeder implements LayoutConstants {
   /**
    * Finds padding for an interval (yet to be added) in relation to a base interval or a parent
    * interval border (base interval null)
-   * 
+   *
    * @param alignment
    *          LEADING or TRAILING point of addingInt
    */
@@ -1920,9 +1920,9 @@ class LayoutFeeder implements LayoutConstants {
 
   // -----
   private void analyzeParallel(LayoutInterval group, List<IncludeDesc> inclusions) {
-    Iterator it = group.getSubIntervals();
+    Iterator<LayoutInterval> it = group.getSubIntervals();
     while (it.hasNext()) {
-      LayoutInterval sub = (LayoutInterval) it.next();
+      LayoutInterval sub = it.next();
       if (sub.isEmptySpace()) {
         continue;
       }
@@ -1941,8 +1941,7 @@ class LayoutFeeder implements LayoutConstants {
           IncludeDesc origPos = originalPositions1[dimension];
           if (origPos == null
               || (aEdge ^ 1) != origPos.alignment
-              || origPos.parent != sub
-              && !sub.isParentOf(origPos.parent)) { // don't want to deal with the overlap here
+              || origPos.parent != sub && !sub.isParentOf(origPos.parent)) { // don't want to deal with the overlap here
             continue;
           }
           // otherwise overlapping enclosing space of 'sub' does not
@@ -1959,9 +1958,9 @@ class LayoutFeeder implements LayoutConstants {
           if (sub == aSnappedNextTo
               || sub.isParentOf(aSnappedNextTo)
               || aSnappedNextTo.getParent() == null
-              || (neighbor = LayoutInterval.getNeighbor(sub, aEdge, true, true, false)) == aSnappedNextTo
-              || neighbor != null
-              && neighbor.isParentOf(aSnappedNextTo)) { // nextTo snap is relevant to this position
+              || (neighbor =
+                  LayoutInterval.getNeighbor(sub, aEdge, true, true, false)) == aSnappedNextTo
+              || neighbor != null && neighbor.isParentOf(aSnappedNextTo)) { // nextTo snap is relevant to this position
             distance = -1; // IncludeDesc.snappedNextTo will be set if distance == -1
           }
         }
@@ -2028,8 +2027,7 @@ class LayoutFeeder implements LayoutConstants {
             IncludeDesc origPos = originalPositions1[dimension];
             if (origPos == null
                 || (aEdge ^ 1) != origPos.alignment
-                || origPos.parent != sub
-                && !sub.isParentOf(origPos.parent)) { // overlap will be solved in the other dimension
+                || origPos.parent != sub && !sub.isParentOf(origPos.parent)) { // overlap will be solved in the other dimension
               return;
             }
             // otherwise overlapping enclosing space of 'sub' does not
@@ -2107,25 +2105,22 @@ class LayoutFeeder implements LayoutConstants {
     }
     boolean leadingInside = LayoutRegion.pointInside(space, LEADING, groupSpace, dimension);
     boolean trailingInside = LayoutRegion.pointInside(space, TRAILING, groupSpace, dimension);
-    return leadingInside
-        && trailingInside
-        || leadingInside
-        && !LayoutInterval.isClosedGroup(group, TRAILING)
-        || trailingInside
-        && !LayoutInterval.isClosedGroup(group, LEADING);
+    return leadingInside && trailingInside
+        || leadingInside && !LayoutInterval.isClosedGroup(group, TRAILING)
+        || trailingInside && !LayoutInterval.isClosedGroup(group, LEADING);
 /*        int point = alignment < 0 ? CENTER : alignment;
-        LayoutRegion groupSpace = group.getCurrentSpace();
-        if (LayoutRegion.pointInside(space, point, groupSpace, dimension))
-            return true;
+LayoutRegion groupSpace = group.getCurrentSpace();
+if (LayoutRegion.pointInside(space, point, groupSpace, dimension))
+return true;
 
-        if (alignment < 0){
-            return (LayoutInterval.getCount(group, TRAILING, true) == 0
-                    && LayoutRegion.pointInside(space, LEADING, groupSpace, dimension))
-                ||
-                   (LayoutInterval.getCount(group, LEADING, true) == 0
-                    && LayoutRegion.pointInside(space, TRAILING, groupSpace, dimension));
-        }
-        return false; */
+if (alignment < 0){
+return (LayoutInterval.getCount(group, TRAILING, true) == 0
+&& LayoutRegion.pointInside(space, LEADING, groupSpace, dimension))
+||
+   (LayoutInterval.getCount(group, LEADING, true) == 0
+&& LayoutRegion.pointInside(space, TRAILING, groupSpace, dimension));
+}
+return false; */
   }
 
   private boolean orthogonalOverlap(LayoutInterval interval) {
@@ -2138,15 +2133,15 @@ class LayoutFeeder implements LayoutConstants {
           && dragger.isResizing(dimension)
           && !dragger.isResizing(dimension ^ 1)
           && originalPositions1[dimension] != null) { // there is overlap, but in case of resizing in one dimension
-                                                      // only we should not consider overlap that was not cared of
-                                                      // already before the resizing started (i.e. the resizing
-                                                      // interval was not in sequence with the interval in question)
+                                                                                                                                            // only we should not consider overlap that was not cared of
+                                                                                                                                            // already before the resizing started (i.e. the resizing
+                                                                                                                                            // interval was not in sequence with the interval in question)
         IncludeDesc original = originalPositions1[dimension];
         LayoutInterval parent = original.parent;
         if (parent.isParentOf(interval)) {
           if (parent.isParallel()
-              && (original.neighbor == null || original.neighbor != interval
-                  && !original.neighbor.isParentOf(interval))) {
+              && (original.neighbor == null
+                  || original.neighbor != interval && !original.neighbor.isParentOf(interval))) {
             ortOverlap = false;
           }
         } else if (parent == interval) {
@@ -2234,8 +2229,7 @@ class LayoutFeeder implements LayoutConstants {
       return null;
     }
     boolean compatibleFound = false;
-    for (Iterator it = inclusions.iterator(); it.hasNext();) {
-      IncludeDesc iDesc = (IncludeDesc) it.next();
+    for (IncludeDesc iDesc : inclusions) {
       if (canAlignWith(aSnappedParallel, iDesc.parent, aEdge)) {
         compatibleFound = true;
         break;
@@ -2243,10 +2237,9 @@ class LayoutFeeder implements LayoutConstants {
     }
     if (!compatibleFound) {
       IncludeDesc iDesc = new IncludeDesc();
-      iDesc.parent =
-          aSnappedParallel.getParent() != null ? LayoutInterval.getFirstParent(
-              aSnappedParallel,
-              PARALLEL) : aSnappedParallel;
+      iDesc.parent = aSnappedParallel.getParent() != null
+          ? LayoutInterval.getFirstParent(aSnappedParallel, PARALLEL)
+          : aSnappedParallel;
       iDesc.snappedParallel = aSnappedParallel;
       iDesc.alignment = aEdge;
       inclusions.add(0, iDesc);
@@ -2268,8 +2261,7 @@ class LayoutFeeder implements LayoutConstants {
     // 1st step - find representative (best) inclusion
     IncludeDesc best = null;
     boolean bestOriginal = false;
-    for (Iterator it = inclusions.iterator(); it.hasNext();) {
-      IncludeDesc iDesc = (IncludeDesc) it.next();
+    for (IncludeDesc iDesc : inclusions) {
       if (original == null || !preserveOriginal || canCombine(iDesc, original)) {
         if (best != null) {
           boolean originalCompatible =
@@ -2302,8 +2294,8 @@ class LayoutFeeder implements LayoutConstants {
     }
     LayoutInterval commonGroup = best.parent.isSequential() ? best.parent.getParent() : best.parent;
     // 2nd remove incompatible inclusions, move compatible ones to same level
-    for (Iterator it = inclusions.iterator(); it.hasNext();) {
-      IncludeDesc iDesc = (IncludeDesc) it.next();
+    for (Iterator<IncludeDesc> it = inclusions.iterator(); it.hasNext();) {
+      IncludeDesc iDesc = it.next();
       if (iDesc != best) {
         if (!compatibleInclusions(iDesc, best, dimension)) {
           it.remove();
@@ -2345,8 +2337,7 @@ class LayoutFeeder implements LayoutConstants {
     LayoutInterval nextTo = null;
     List<List> separatedLeading = new LinkedList<List>();
     List<List> separatedTrailing = new LinkedList<List>();
-    for (Iterator it = inclusions.iterator(); it.hasNext();) {
-      IncludeDesc iDesc = (IncludeDesc) it.next();
+    for (IncludeDesc iDesc : inclusions) {
       if (iDesc.parent.isSequential() && iDesc.newSubGroup) {
         LayoutInterval parSeq =
             extractParallelSequence(iDesc.parent, addingSpace, false, iDesc.alignment);
@@ -2377,8 +2368,8 @@ class LayoutFeeder implements LayoutConstants {
     //  of 'subGroup' next to the adding interval if in previous step some
     //  content was separated into a parallel subgroup of a sequence)
     LayoutInterval subsubGroup = null;
-    for (Iterator it = inclusions.iterator(); it.hasNext();) {
-      IncludeDesc iDesc = (IncludeDesc) it.next();
+    for (Iterator<IncludeDesc> it = inclusions.iterator(); it.hasNext();) {
+      IncludeDesc iDesc = it.next();
       if (iDesc.parent.isParallel() || !iDesc.newSubGroup) {
         addToGroup(iDesc, null, false);
         //                mainEffectiveAlign = getEffectiveAlignment(interval);
@@ -2455,7 +2446,10 @@ class LayoutFeeder implements LayoutConstants {
       index += commonSeq.getSubIntervalCount() - checkCount;
     }
     if (sideGroupTrailing != null) {
-      sideGroupTrailing.getCurrentSpace().set(dimension, neighborPos[TRAILING], borderPos[TRAILING]);
+      sideGroupTrailing.getCurrentSpace().set(
+          dimension,
+          neighborPos[TRAILING],
+          borderPos[TRAILING]);
       operations.optimizeGaps(sideGroupTrailing, dimension);
     }
     // 6th adjust the final inclusion
@@ -2499,9 +2493,10 @@ class LayoutFeeder implements LayoutConstants {
     // 7th resolve subgroup
     if (subGroup != null) {
       if (separatingGap != null
-          && (extractAlign == DEFAULT || extractAlign == LEADING && index > gapIdx || extractAlign == TRAILING
-              && index <= gapIdx)) { // subGroup goes next to a separating gap - which is likely superflous
-                                     // (the extracted parallel sequence in subGroup has its own gap)
+          && (extractAlign == DEFAULT
+              || extractAlign == LEADING && index > gapIdx
+              || extractAlign == TRAILING && index <= gapIdx)) { // subGroup goes next to a separating gap - which is likely superflous
+                                                                                                                                                                    // (the extracted parallel sequence in subGroup has its own gap)
         layoutModel.removeInterval(separatingGap);
         if (index >= gapIdx && index > 0) {
           index--;
@@ -2525,7 +2520,9 @@ class LayoutFeeder implements LayoutConstants {
     best.index = index;
   }
 
-  private static boolean compatibleInclusions(IncludeDesc iDesc1, IncludeDesc iDesc2, int dimension) {
+  private static boolean compatibleInclusions(IncludeDesc iDesc1,
+      IncludeDesc iDesc2,
+      int dimension) {
     LayoutInterval group1 =
         iDesc1.parent.isSequential() ? iDesc1.parent.getParent() : iDesc1.parent;
     LayoutInterval group2 =
@@ -2712,13 +2709,12 @@ class LayoutFeeder implements LayoutConstants {
           operations.addContent(ext1, extSeq, 0);
           if (ext2 != null) {
             LayoutInterval gap = new LayoutInterval(SINGLE);
-            int size =
-                LayoutRegion.distance(
-                    ext1.getCurrentSpace(),
-                    ext2.getCurrentSpace(),
-                    dimension,
-                    LEADING,
-                    TRAILING);
+            int size = LayoutRegion.distance(
+                ext1.getCurrentSpace(),
+                ext2.getCurrentSpace(),
+                dimension,
+                LEADING,
+                TRAILING);
             gap.setSize(size);
             layoutModel.addInterval(gap, extSeq, -1);
             iDesc1.index = iDesc2.index = extSeq.indexOf(gap);
@@ -2765,10 +2761,9 @@ class LayoutFeeder implements LayoutConstants {
           && (commonGroup == iDesc1.parent || commonGroup == iDesc2.parent)
           && iDesc1.neighbor == null
           && iDesc2.neighbor == null;
-      if (iDesc2.snappedNextTo == null
-          && iDesc2.snappedParallel == null
+      if (iDesc2.snappedNextTo == null && iDesc2.snappedParallel == null
           || iDesc2.snappedParallel != null
-          && canAlignWith(iDesc2.snappedParallel, iDesc1.parent, iDesc2.alignment)) { // iDesc2 can adapt to iDesc1
+              && canAlignWith(iDesc2.snappedParallel, iDesc1.parent, iDesc2.alignment)) { // iDesc2 can adapt to iDesc1
         iDesc2.parent = iDesc1.parent;
         return true;
       }
@@ -2825,7 +2820,7 @@ class LayoutFeeder implements LayoutConstants {
   /**
    * Moves a gap next to a parallel group into the parallel group - i.e. each interval in the group
    * gets extended by the gap. Sort of opposite to LayoutOperations.optimizeGaps.
-   * 
+   *
    * @param alignment
    *          which side of the group is extended
    */
@@ -2838,8 +2833,8 @@ class LayoutFeeder implements LayoutConstants {
       gapSize = -gapSize;
     }
     group.getCurrentSpace().positions[dimension][alignment] += gapSize;
-    for (Iterator it = group.getSubIntervals(); it.hasNext();) {
-      LayoutInterval sub = (LayoutInterval) it.next();
+    for (Iterator<LayoutInterval> it = group.getSubIntervals(); it.hasNext();) {
+      LayoutInterval sub = it.next();
       LayoutInterval gapClone = LayoutInterval.cloneInterval(gap, null);
       if (sub.isSequential()) {
         sub.getCurrentSpace().positions[dimension][alignment] += gapSize;
@@ -2930,14 +2925,13 @@ class LayoutFeeder implements LayoutConstants {
     if (!aligned
         && LayoutInterval.getDirectNeighbor(interval, alignment, false) == null
         && LayoutInterval.isPlacedAtBorder(interval, parent, dimension, alignment)) { // not aligned, but touching parallel group border
-      aligned =
-          placedAtBorderEnough
-              || LayoutInterval.getDirectNeighbor(parent, alignment, true) != null
-              || LayoutInterval.isClosedGroup(parent, alignment);
+      aligned = placedAtBorderEnough
+          || LayoutInterval.getDirectNeighbor(parent, alignment, true) != null
+          || LayoutInterval.isClosedGroup(parent, alignment);
       if (!aligned) { // check if the group can be considered "closed" at alignment edge
         boolean allTouching = true;
-        for (Iterator it = parent.getSubIntervals(); it.hasNext();) {
-          LayoutInterval li = (LayoutInterval) it.next();
+        for (Iterator<LayoutInterval> it = parent.getSubIntervals(); it.hasNext();) {
+          LayoutInterval li = it.next();
           if (li.getAlignment() == alignment || LayoutInterval.wantResize(li)) {
             aligned = true;
             break;
@@ -2998,10 +2992,8 @@ class LayoutFeeder implements LayoutConstants {
               dimension ^ 1);
     }
     return iDesc.neighbor == null
-        || iDesc.alignment == LEADING
-        && iDesc.index >= 1
-        || iDesc.alignment == TRAILING
-        && iDesc.index == 0;
+        || iDesc.alignment == LEADING && iDesc.index >= 1
+        || iDesc.alignment == TRAILING && iDesc.index == 0;
   }
 
   private static int getAddDirection(LayoutRegion adding,

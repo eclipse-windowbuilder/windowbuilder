@@ -116,10 +116,9 @@ public class CompilationUnitChange extends TextFileChange {
    * {@inheritDoc}
    */
   @Override
-  @SuppressWarnings("rawtypes")
-  public Object getAdapter(Class adapter) {
+  public <T> T getAdapter(Class<T> adapter) {
     if (ICompilationUnit.class.equals(adapter)) {
-      return fCUnit;
+      return adapter.cast(fCUnit);
     }
     return super.getAdapter(adapter);
   }
