@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -20,13 +18,14 @@ import org.eclipse.wb.internal.core.model.util.surround.ISurroundProcessor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link ISurroundProcessor} that places enclosing {@link ComponentInfo}'s into same relative
  * cells, as they were before enclosing. It works only if source {@link ContainerInfo} has
  * {@link MigLayoutInfo} and sets also {@link MigLayoutInfo} on target {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
@@ -63,11 +62,10 @@ public final class MigLayoutSurroundProcessor
     // set MigLayout for target
     MigLayoutInfo targetLayout;
     {
-      targetLayout =
-          (MigLayoutInfo) JavaInfoUtils.createJavaInfo(
-              targetContainer.getEditor(),
-              "net.miginfocom.swing.MigLayout",
-              new ConstructorCreationSupport());
+      targetLayout = (MigLayoutInfo) JavaInfoUtils.createJavaInfo(
+          targetContainer.getEditor(),
+          "net.miginfocom.swing.MigLayout",
+          new ConstructorCreationSupport());
       targetContainer.setLayout(targetLayout);
     }
     // prepare cells of "targetContainer"
@@ -78,7 +76,7 @@ public final class MigLayoutSurroundProcessor
       MigLayoutInfo sourceLayout = (MigLayoutInfo) sourceContainer.getLayout();
       // copy columns
       {
-        List<MigColumnInfo> targetColumns = Lists.newArrayList();
+        List<MigColumnInfo> targetColumns = new ArrayList<>();
         for (int columnIndex = targetBounds.x; columnIndex < targetBounds.right(); columnIndex++) {
           MigColumnInfo sourceColumn = sourceLayout.getColumns().get(columnIndex);
           MigColumnInfo targetColumn = new MigColumnInfo(targetLayout);
@@ -89,7 +87,7 @@ public final class MigLayoutSurroundProcessor
       }
       // copy rows
       {
-        List<MigRowInfo> targetRows = Lists.newArrayList();
+        List<MigRowInfo> targetRows = new ArrayList<>();
         for (int rowIndex = targetBounds.y; rowIndex < targetBounds.bottom(); rowIndex++) {
           MigRowInfo sourceRow = sourceLayout.getRows().get(rowIndex);
           MigRowInfo targetRow = new MigRowInfo(targetLayout);

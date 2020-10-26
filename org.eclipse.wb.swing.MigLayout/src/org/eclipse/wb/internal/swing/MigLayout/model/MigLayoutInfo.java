@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.MigLayout.model;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
@@ -69,6 +68,7 @@ import net.miginfocom.swing.MigLayout;
 
 import java.awt.Container;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -78,13 +78,13 @@ import javax.swing.JTextField;
 
 /**
  * Model for {@link MigLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
 public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConstants {
-  private final List<MigColumnInfo> m_columns = Lists.newArrayList();
-  private final List<MigRowInfo> m_rows = Lists.newArrayList();
+  private final List<MigColumnInfo> m_columns = new ArrayList<>();
+  private final List<MigRowInfo> m_rows = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -420,11 +420,12 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       ClassInstanceCreation creation = creationSupport.getCreation();
       getEditor().replaceCreationArguments(
           creation,
-          ImmutableList.of(MessageFormat.format(
-              "{0}, {1}, {2}",
-              layoutConstraintsSource,
-              columnsSource,
-              rowsSource)));
+          ImmutableList.of(
+              MessageFormat.format(
+                  "{0}, {1}, {2}",
+                  layoutConstraintsSource,
+                  columnsSource,
+                  rowsSource)));
       setCreationSupport(new ConstructorCreationSupport(creation));
     }
   }
@@ -761,7 +762,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
    */
   public void command_setCells(ComponentInfo component, Rectangle cells) throws Exception {
     // force dimensions in MigLayout creation, because in some cases MigLayout can "optimize"
-    // columns/rows, if these columns/rows contain only spanned parts of components 
+    // columns/rows, if these columns/rows contain only spanned parts of components
     writeDimensions();
     makeExplicitCell();
     // OK, now we can safely update constraints
@@ -777,7 +778,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   /**
    * Creates new {@link ComponentInfo} in given cell.
-   * 
+   *
    * @param newComponent
    *          the new {@link ComponentInfo} to create.
    * @param column
@@ -803,7 +804,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
     }
     // write all constraints (in ideal case - only this one)
     writeAllConstraints();
-    // 
+    //
     doAutomaticAlignment(newComponent);
   }
 
@@ -839,7 +840,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   /**
    * Forces explicit <code>cell</code> tags for all components.
-   * 
+   *
    * @see {@link CellConstraintsSupport#makeExplicitCell()}.
    */
   private void makeExplicitCell() {
@@ -861,7 +862,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   /**
    * @return the {@link ComponentInfo} that should be used as reference of adding into given cell.
-   * 
+   *
    * @param exclude
    *          the {@link ComponentInfo} that should not be checked, for example because we move it
    *          now.
@@ -995,7 +996,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
    *         in case of splitted cell - more than one).
    */
   public List<ComponentInfo> getCellComponents(final int column, final int row) {
-    final List<ComponentInfo> components = Lists.newArrayList();
+    final List<ComponentInfo> components = new ArrayList<>();
     visitGridComponents(new MigComponentVisitor() {
       public void visit(ComponentInfo component, CellConstraintsSupport constraints)
           throws Exception {
@@ -1014,7 +1015,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
   /**
    * Adds new component into cell that already has one or more (in case of already splitted cell)
    * components.
-   * 
+   *
    * @param column
    *          the target column for new component.
    * @param row
@@ -1037,7 +1038,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
   /**
    * Moves component into cell that already has one or more (in case of already splitted cell)
    * components.
-   * 
+   *
    * @param column
    *          the target column for moved component.
    * @param row
@@ -1440,7 +1441,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   //MigColumnInfo.Alignment
@@ -1481,12 +1482,12 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       generalLayoutData.horizontalGrab = null;
       generalLayoutData.verticalGrab = null;
       // alignments
-      generalLayoutData.horizontalAlignment =
-          GeneralLayoutData.getGeneralValue(
-              m_horizontalAlignmentMap,
-              gridData.getHorizontalAlignment());
-      generalLayoutData.verticalAlignment =
-          GeneralLayoutData.getGeneralValue(m_verticalAlignmentMap, gridData.getVerticalAlignment());
+      generalLayoutData.horizontalAlignment = GeneralLayoutData.getGeneralValue(
+          m_horizontalAlignmentMap,
+          gridData.getHorizontalAlignment());
+      generalLayoutData.verticalAlignment = GeneralLayoutData.getGeneralValue(
+          m_verticalAlignmentMap,
+          gridData.getVerticalAlignment());
       generalLayoutData.putToInfo(component);
     }
   }
@@ -1504,7 +1505,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
    */
   private static Interval[] getIntervalsForOrigins(int[][] sizes, int startOffset) {
     Assert.isTrue(sizes.length != 0);
-    List<Interval> intervals = Lists.newArrayList();
+    List<Interval> intervals = new ArrayList<>();
     // prepare number of "normal" dimensions
     int begin = startOffset;
     for (int index = 0; index < sizes[0].length; index++) {
