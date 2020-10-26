@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.wizards.palette;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.UiMessages;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionHelper;
@@ -20,7 +18,6 @@ import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.IDialogFieldListener;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.ui.ProjectSelectionDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -37,8 +34,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -76,13 +73,13 @@ public final class NewProjectPalettePage extends WizardPage {
       Object selectedElement = selection.getFirstElement();
       if (selectedElement instanceof IAdaptable) {
         IAdaptable adaptable = (IAdaptable) selectedElement;
-        javaElement = (IJavaElement) adaptable.getAdapter(IJavaElement.class);
+        javaElement = adaptable.getAdapter(IJavaElement.class);
         if (javaElement == null) {
-          IResource resource = (IResource) adaptable.getAdapter(IResource.class);
+          IResource resource = adaptable.getAdapter(IResource.class);
           if (resource != null && resource.getType() != IResource.ROOT) {
             while (javaElement == null && resource.getType() != IResource.PROJECT) {
               resource = resource.getParent();
-              javaElement = (IJavaElement) resource.getAdapter(IJavaElement.class);
+              javaElement = resource.getAdapter(IJavaElement.class);
             }
             if (javaElement == null) {
               javaElement = JavaCore.create(resource);
@@ -123,8 +120,9 @@ public final class NewProjectPalettePage extends WizardPage {
   ////////////////////////////////////////////////////////////////////////////
   private ProjectSelectionDialogField m_projectField;
   private ComboDialogField m_toolkitField;
-  private final List<ToolkitDescription> m_toolkits = Lists.newArrayList();
+  private final List<ToolkitDescription> m_toolkits = new ArrayList<>();
 
+  @Override
   public void createControl(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
     setControl(container);
@@ -140,19 +138,13 @@ public final class NewProjectPalettePage extends WizardPage {
     {
       m_toolkitField = new ComboDialogField(SWT.READ_ONLY);
       m_toolkitField.setVisibleItemCount(10);
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          Collections.addAll(m_toolkits, DescriptionHelper.getToolkits());
-          // sort by name
-          Collections.sort(m_toolkits, new Comparator<ToolkitDescription>() {
-            public int compare(ToolkitDescription o1, ToolkitDescription o2) {
-              return o1.getName().compareTo(o2.getName());
-            }
-          });
-          // add items
-          for (ToolkitDescription toolkit : m_toolkits) {
-            m_toolkitField.addItem(toolkit.getName());
-          }
+      ExecutionUtils.runLog(() -> {
+        Collections.addAll(m_toolkits, DescriptionHelper.getToolkits());
+        // sort by name
+        Collections.sort(m_toolkits, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+        // add items
+        for (ToolkitDescription toolkit : m_toolkits) {
+          m_toolkitField.addItem(toolkit.getName());
         }
       });
       m_toolkitField.selectItem(1); // select second, because first is "Core Java"
@@ -173,11 +165,7 @@ public final class NewProjectPalettePage extends WizardPage {
   /**
    * Implementation of {@link IDialogFieldListener} for {@link DialogField}'s validation.
    */
-  protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
-    public void dialogFieldChanged(DialogField field) {
-      validateAll();
-    }
-  };
+  protected final IDialogFieldListener m_validateListener = field -> validateAll();
 
   /**
    * Validate all and disable/enable page.
@@ -206,9 +194,8 @@ public final class NewProjectPalettePage extends WizardPage {
     {
       int toolkitIndex = m_toolkitField.getSelectionIndex();
       ToolkitDescription toolkit = m_toolkits.get(toolkitIndex);
-      IFile paletteFile =
-          javaProject.getProject().getFile(
-              new Path("wbp-meta/" + toolkit.getId() + ".wbp-palette.xml"));
+      IFile paletteFile = javaProject.getProject().getFile(
+          new Path("wbp-meta/" + toolkit.getId() + ".wbp-palette.xml"));
       if (paletteFile.exists()) {
         return MessageFormat.format(
             UiMessages.NewProjectPalettePage_validateHasToolkit,
