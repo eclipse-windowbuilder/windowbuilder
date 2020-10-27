@@ -15,7 +15,6 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
@@ -83,6 +82,7 @@ import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -442,7 +442,7 @@ public final class ThisCreationSupport extends CreationSupport {
    */
   private static Predicate<Method> createInterceptionPredicate_excludeByPackage(JavaInfo javaInfo) {
     class ExcludedPackage {
-      Set<String> exceptions = Sets.newHashSet();
+      Set<String> exceptions = new HashSet<>();
     }
     final Map<String, ExcludedPackage> excludedPackages = Maps.newHashMap();
     // prepare excluded packages

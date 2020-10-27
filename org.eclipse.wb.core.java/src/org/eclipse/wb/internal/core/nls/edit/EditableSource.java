@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.nls.edit;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -40,6 +39,7 @@ import org.apache.commons.lang.StringUtils;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -58,8 +58,8 @@ public final class EditableSource implements IEditableSource {
   ////////////////////////////////////////////////////////////////////////////
   private String m_shortTitle;
   private String m_longTitle;
-  private final Set<String> m_keys = Sets.newHashSet();
-  private final Set<String> m_formKeys = Sets.newHashSet();
+  private final Set<String> m_keys = new HashSet<>();
+  private final Set<String> m_formKeys = new HashSet<>();
   private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
   private KeyToComponentsSupport m_keyToComponentsSupport = new KeyToComponentsSupport(false); // initialize by default for case of new source
   private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newTreeMap();

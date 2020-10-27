@@ -18,7 +18,6 @@ package org.eclipse.wb.internal.os.linux;
  * @coverage os.linux
  */
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -50,6 +49,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -248,7 +248,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     prepareScreenshot(shell);
     // get the handle for the root window
     H shellHandle = getShellHandle(shell);
-    final Set<H> disposeImageHandles = Sets.newHashSet();
+    final Set<H> disposeImageHandles = new HashSet<>();
     // apply shot magic
     _makeShot(shellHandle, new IScreenshotCallback<H>() {
       public void storeImage(H handle, H imageHandle) {

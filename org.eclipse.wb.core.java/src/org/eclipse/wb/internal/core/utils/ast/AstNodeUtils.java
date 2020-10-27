@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.ast;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -73,10 +72,12 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 /**
@@ -1066,7 +1067,7 @@ public class AstNodeUtils {
       String key = "getLocalMethodDeclaration.allMethods";
       Set<String> allNames = getValue(unit, key, new RunnableObjectEx<Set<String>>() {
         public Set<String> runObject() throws Exception {
-          Set<String> names = Sets.newTreeSet();
+          Set<String> names = new TreeSet<>();
           TypeDeclaration typeDeclaration = getEnclosingType(invocation);
           MethodDeclaration[] methods = typeDeclaration.getMethods();
           for (MethodDeclaration method : methods) {
@@ -1968,7 +1969,7 @@ public class AstNodeUtils {
     Assert.isNotNull(node_1, "Null node_1");
     Assert.isNotNull(node_2, "Null node_2");
     // prepare path from node_1 to CompilationUnit
-    Set<ASTNode> ancestors = Sets.newHashSet();
+    Set<ASTNode> ancestors = new HashSet<>();
     {
       ASTNode node = node_1.getParent();
       while (node != null) {

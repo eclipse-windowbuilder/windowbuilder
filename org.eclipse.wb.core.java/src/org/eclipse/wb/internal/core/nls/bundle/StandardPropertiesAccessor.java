@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
-import com.google.common.collect.Sets;
-
 import org.apache.commons.lang.SystemUtils;
 
 import java.io.InputStream;
@@ -63,7 +61,8 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
     store0(sorted, os, charset, comments);
   }
 
-  private static void load0(Properties properties, InputStream is, String charset) throws Exception {
+  private static void load0(Properties properties, InputStream is, String charset)
+      throws Exception {
     if (charset.equals("UTF-8") && SystemUtils.isJavaVersionAtLeast(1.6f)) {
       Method loadMethod = Properties.class.getMethod("load", Reader.class);
       Reader reader = new InputStreamReader(is, charset);
@@ -73,8 +72,10 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
     }
   }
 
-  private static void store0(Properties properties, OutputStream os, String charset, String comments)
-      throws Exception {
+  private static void store0(Properties properties,
+      OutputStream os,
+      String charset,
+      String comments) throws Exception {
     if (charset.equals("UTF-8") && SystemUtils.isJavaVersionAtLeast(1.6f)) {
       Method loadMethod = Properties.class.getMethod("store", Writer.class, String.class);
       Writer reader = new OutputStreamWriter(os, charset);
@@ -111,7 +112,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
     @Override
     @SuppressWarnings("unchecked")
     public synchronized Enumeration keys() {
-      TreeSet<String> set = Sets.newTreeSet();
+      TreeSet<String> set = new TreeSet<>();
       for (Enumeration e = super.keys(); e.hasMoreElements();) {
         set.add((String) e.nextElement());
       }

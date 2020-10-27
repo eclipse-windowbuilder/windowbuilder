@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.description.helpers;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -34,6 +33,7 @@ import org.osgi.framework.Bundle;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -267,7 +267,7 @@ public final class DescriptionHelper {
       String key = "ComponentDescriptionHelper.getResourceInfo0.noResult";
       cacheNoResult = (Set<String>) context.getGlobalValue(key);
       if (cacheNoResult == null) {
-        cacheNoResult = Sets.newHashSet();
+        cacheNoResult = new HashSet<>();
         context.putGlobalValue(key, cacheNoResult);
       }
       if (cacheNoResult.contains(name)) {
@@ -480,7 +480,7 @@ public final class DescriptionHelper {
   public static ToolkitDescription[] getToolkits() throws Exception {
     List<ToolkitDescription> toolkits = new ArrayList<>();
     //
-    Set<String> addedToolkits = Sets.newHashSet();
+    Set<String> addedToolkits = new HashSet<>();
     for (IConfigurationElement toolkitElement : getToolkitElements()) {
       String id = toolkitElement.getAttribute("id");
       if (!addedToolkits.contains(id)) {

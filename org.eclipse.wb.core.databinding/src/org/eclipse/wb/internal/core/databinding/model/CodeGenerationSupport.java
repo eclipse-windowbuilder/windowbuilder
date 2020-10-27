@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,8 +26,8 @@ import java.util.Set;
  */
 public class CodeGenerationSupport {
   private final boolean m_useGenerics;
-  private final Set<String> m_variables = Sets.newHashSet();
-  private final Set<AstObjectInfo> m_models = Sets.newHashSet();
+  private final Set<String> m_variables = new HashSet<>();
+  private final Set<AstObjectInfo> m_models = new HashSet<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -39,7 +38,8 @@ public class CodeGenerationSupport {
     m_useGenerics = useGenerics;
   }
 
-  public CodeGenerationSupport(boolean useGenerics, AstObjectInfo rootModelObject) throws Exception {
+  public CodeGenerationSupport(boolean useGenerics, AstObjectInfo rootModelObject)
+      throws Exception {
     m_useGenerics = useGenerics;
     // store all exist variables
     rootModelObject.accept(new AstObjectInfoVisitor() {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -439,7 +437,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   private void chooseFromClasspath() {
     try {
       //prepare classpath projects
-      HashSet<IProject> includeObjects = Sets.newHashSet();
+      HashSet<IProject> includeObjects = new HashSet<>();
       IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
       IJavaProject javaProject = EditorState.getActiveJavaInfo().getEditor().getJavaProject();
       includeObjects.add(javaProject.getProject());

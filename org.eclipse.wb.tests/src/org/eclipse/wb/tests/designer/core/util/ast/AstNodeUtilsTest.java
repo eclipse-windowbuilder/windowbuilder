@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.util.ast;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
 
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodDeclarationSignature;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getMethodGenericSignature;
@@ -71,6 +70,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Test for {@link AstNodeUtils}.
@@ -1265,7 +1265,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
   private static void assertHasMethods(List<IMethodBinding> methods,
       String[] expectedSignatures,
       String[] unExpectedSignatures) {
-    Set<String> actualSignatures = Sets.newTreeSet();
+    Set<String> actualSignatures = new TreeSet<>();
     for (IMethodBinding methodBinding : methods) {
       actualSignatures.add(getMethodSignature(methodBinding));
     }
@@ -1337,7 +1337,7 @@ public class AstNodeUtilsTest extends AbstractJavaTest {
   private static void assertHasFields(List<IVariableBinding> actualFields,
       String[] expectedNames,
       String[] unExpectedNames) {
-    Set<String> actualNames = Sets.newTreeSet();
+    Set<String> actualNames = new TreeSet<>();
     for (IVariableBinding field : actualFields) {
       actualNames.add(field.getName());
     }

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.nls.bundle;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -49,6 +48,7 @@ import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -569,7 +569,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   }
 
   private LocaleInfo[] getLocales(IFile[] bundleFiles) {
-    Set<LocaleInfo> locales = Sets.newHashSet();
+    Set<LocaleInfo> locales = new HashSet<>();
     for (int i = 0; i < bundleFiles.length; i++) {
       IFile file = bundleFiles[i];
       locales.add(BundleInfo.getLocale(m_bundleName, file));
@@ -579,7 +579,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 
   @Override
   public Set<String> getKeys() throws Exception {
-    Set<String> keys = Sets.newHashSet();
+    Set<String> keys = new HashSet<>();
     for (LocaleInfo locale : getLocales()) {
       BundleInfo bundle = getBundleInfo(locale);
       keys.addAll(bundle.getKeys());

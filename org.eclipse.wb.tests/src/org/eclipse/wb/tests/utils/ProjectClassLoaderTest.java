@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -38,6 +36,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -528,7 +527,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
    */
   private List<String> getSourceLocations() throws Exception {
     List<String> locations = new ArrayList<>();
-    ProjectClassLoader.addSourceLocations(Sets.<IProject>newHashSet(), locations, m_project);
+    ProjectClassLoader.addSourceLocations(new HashSet<>(), locations, m_project);
     return locations;
   }
 
@@ -591,7 +590,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
    */
   private List<String> getOutputLocations() throws Exception {
     List<String> locations = new ArrayList<>();
-    ProjectClassLoader.addOutputLocations(Sets.<IProject>newHashSet(), locations, m_project);
+    ProjectClassLoader.addOutputLocations(new HashSet<>(), locations, m_project);
     return locations;
   }
 }

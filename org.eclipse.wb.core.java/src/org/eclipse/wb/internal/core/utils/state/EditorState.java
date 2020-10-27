@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.state;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.VisitingContext;
@@ -38,6 +37,7 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import java.beans.PropertyEditorManager;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -374,7 +374,7 @@ public final class EditorState {
   ////////////////////////////////////////////////////////////////////////////
   private VisitingContext m_tmp_visitingContext;
   private List<JavaInfo> m_tmp_Components;
-  private final Set<MethodDeclaration> m_tmp_InterceptedMethods = Sets.newHashSet();
+  private final Set<MethodDeclaration> m_tmp_InterceptedMethods = new HashSet<>();
 
   /**
    * Sets the parse/execution time {@link VisitingContext}.

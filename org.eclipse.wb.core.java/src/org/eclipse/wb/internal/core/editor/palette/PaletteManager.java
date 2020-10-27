@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.editor.palette;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -69,6 +68,7 @@ import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -337,7 +337,7 @@ public final class PaletteManager {
   // Extensions parsing
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Set<Pair<String, String>> m_categoryReorderRequests = Sets.newHashSet();
+  private final Set<Pair<String, String>> m_categoryReorderRequests = new HashSet<>();
 
   /**
    * Fills {@link #m_paletteInfo} using contributed extensions.

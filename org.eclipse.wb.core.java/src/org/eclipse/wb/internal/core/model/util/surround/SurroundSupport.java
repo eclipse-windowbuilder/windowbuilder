@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util.surround;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -31,6 +30,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jface.action.IMenuManager;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -86,7 +86,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
       return;
     }
     // prepare selected components
-    Set<T> selectedComponents = Sets.newHashSet();
+    Set<T> selectedComponents = new HashSet<>();
     for (ObjectInfo selectedObject : objects) {
       // only components of source container
       if (selectedObject.getParent() != m_sourceContainer) {

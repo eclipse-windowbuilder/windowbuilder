@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.model.property.editor.color;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.color.ColorInfo;
@@ -25,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -126,7 +126,7 @@ public final class AwtColors {
       {
         UIDefaults defaults = UIManager.getLookAndFeelDefaults();
         // prepare set of all String keys in UIManager
-        Set<String> allKeys = Sets.newTreeSet();
+        Set<String> allKeys = new TreeSet<>();
         for (Iterator<?> I = defaults.keySet().iterator(); I.hasNext();) {
           Object key = I.next();
           if (key instanceof String) {

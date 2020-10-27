@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
@@ -94,6 +92,7 @@ import java.beans.PropertyDescriptor;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -419,7 +418,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       }
     }
     // handle methods from super class
-    Set<String> methodNames = Sets.newHashSet();
+    Set<String> methodNames = new HashSet<>();
     //
     BeanInfo beanInfo = Introspector.getBeanInfo(superClass);
     for (PropertyDescriptor descriptor : beanInfo.getPropertyDescriptors()) {

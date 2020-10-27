@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.support;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -37,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Implementation of {@link IToolkitSupport} for RCP.
@@ -193,7 +192,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   	m_fontPreviewShell.updateFont((Font) font);
   }*/
   public String[] getFontFamilies(boolean scalable) throws Exception {
-    Set<String> families = Sets.newTreeSet();
+    Set<String> families = new TreeSet<>();
     //
     FontData[] fontList = Display.getDefault().getFontList(null, scalable);
     for (FontData fontData : fontList) {

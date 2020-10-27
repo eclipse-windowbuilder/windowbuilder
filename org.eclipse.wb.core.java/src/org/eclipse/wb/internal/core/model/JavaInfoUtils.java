@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -102,11 +101,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Utilities for {@link JavaInfo}.
@@ -547,7 +548,7 @@ public class JavaInfoUtils {
     String key = "JavaInfoUtils.alreadyExposed.Method";
     Set<Method> alreadyExposed = (Set<Method>) host.getArbitraryValue(key);
     if (alreadyExposed == null) {
-      alreadyExposed = Sets.newHashSet();
+      alreadyExposed = new HashSet<>();
       host.putArbitraryValue(key, alreadyExposed);
     }
     if (alreadyExposed.contains(getMethod)) {
@@ -645,7 +646,7 @@ public class JavaInfoUtils {
     String key = "JavaInfoUtils.alreadyExposed.Field";
     Set<Field> alreadyExposed = (Set<Field>) host.getArbitraryValue(key);
     if (alreadyExposed == null) {
-      alreadyExposed = Sets.newHashSet();
+      alreadyExposed = new HashSet<>();
       host.putArbitraryValue(key, alreadyExposed);
     }
     if (alreadyExposed.contains(field)) {
@@ -2099,7 +2100,7 @@ public class JavaInfoUtils {
     AstEditor editor = javaInfo.getEditor();
     // prepare dependencies
     Map<IResource, Long> dependencies = Maps.newHashMap();
-    addDependencies(dependencies, Sets.<String>newTreeSet(), editor.getModelUnit(), 0);
+    addDependencies(dependencies, new TreeSet<>(), editor.getModelUnit(), 0);
     // don't use this compilation unit resource
     dependencies.remove(editor.getModelUnit().getResource());
     // remember dependencies

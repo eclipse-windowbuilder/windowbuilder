@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.generation;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -43,6 +42,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -385,7 +385,7 @@ public final class GenerationSettings {
           // prepare list of components
           Set<AbstractComponentInfo> components = settingsToComponents.get(settings);
           if (components == null) {
-            components = Sets.newHashSet();
+            components = new HashSet<>();
             settingsToComponents.put(settings, components);
           }
           // add new component

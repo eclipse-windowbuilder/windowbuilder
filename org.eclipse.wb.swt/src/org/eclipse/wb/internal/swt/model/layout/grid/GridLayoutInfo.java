@@ -58,6 +58,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -154,7 +155,7 @@ public class GridLayoutInfo extends LayoutInfo
   // Refresh
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Set<Object> m_controlsImplicit = Sets.newHashSet();
+  private final Set<Object> m_controlsImplicit = new HashSet<>();
 
   @Override
   public void refresh_dispose() throws Exception {

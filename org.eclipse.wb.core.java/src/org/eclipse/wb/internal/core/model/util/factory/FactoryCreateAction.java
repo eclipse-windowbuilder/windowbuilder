@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.model.util.factory;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -88,6 +87,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * {@link Action} for creating new factory method for this component.
@@ -459,7 +459,7 @@ public final class FactoryCreateAction extends Action {
    */
   private void prepareFactoryMethod() {
     // prepare identifiers
-    final Set<String> usedIdentifiers = Sets.newTreeSet();
+    final Set<String> usedIdentifiers = new TreeSet<>();
     String componentTypeName = m_component.getDescription().getComponentClass().getName();
     String componentName =
         generateUniqueIdentifier(usedIdentifiers, NamesManager.getName(m_component));

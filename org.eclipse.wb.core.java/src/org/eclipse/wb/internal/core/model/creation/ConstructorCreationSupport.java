@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.creation;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
@@ -52,6 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Implementation of {@link CreationSupport} for creating objects using constructors.
@@ -249,8 +248,8 @@ public final class ConstructorCreationSupport extends CreationSupport
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Set<String> m_validParentSources = Sets.newTreeSet();
-  private final Set<String> m_invalidParentSources = Sets.newTreeSet();
+  private final Set<String> m_validParentSources = new TreeSet<>();
+  private final Set<String> m_invalidParentSources = new TreeSet<>();
 
   @Override
   public boolean canUseParent(JavaInfo parent) throws Exception {

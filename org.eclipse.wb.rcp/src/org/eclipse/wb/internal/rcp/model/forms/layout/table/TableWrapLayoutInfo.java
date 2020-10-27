@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -67,6 +66,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -662,8 +662,8 @@ public final class TableWrapLayoutInfo extends LayoutInfo
     // prepare grid
     fixGrid();
     ControlInfo[][] grid = getControlsGrid();
-    Set<Point> cellsToAddFillers = Sets.newHashSet();
-    Set<Point> cellsToRemoveFillers = Sets.newHashSet();
+    Set<Point> cellsToAddFillers = new HashSet<>();
+    Set<Point> cellsToRemoveFillers = new HashSet<>();
     // replace control with fillers
     if (forMove) {
       for (int x = layoutData.x; x < layoutData.x + layoutData.width; x++) {

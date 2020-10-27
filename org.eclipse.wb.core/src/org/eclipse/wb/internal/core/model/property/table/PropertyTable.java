@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.ICursorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -52,6 +50,7 @@ import org.apache.commons.lang.NotImplementedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Control that can display {@link Property}'s and edit them using {@link PropertyEditor}'s.
@@ -107,7 +106,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
   private boolean m_showAdvancedProperties;
   private Property[] m_rawProperties;
   private List<PropertyInfo> m_properties;
-  private final Set<String> m_expandedIds = Sets.newTreeSet();
+  private final Set<String> m_expandedIds = new TreeSet<>();
   private Image m_bufferedImage;
   private int m_rowHeight;
   private int m_selection;
