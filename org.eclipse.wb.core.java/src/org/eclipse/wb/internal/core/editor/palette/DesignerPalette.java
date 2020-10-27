@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.editor.palette;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
@@ -67,6 +66,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -224,13 +224,13 @@ public class DesignerPalette {
   // Palette displaying
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<CategoryInfo, ICategory> m_categoryInfoToVisual = Maps.newHashMap();
-  private final Map<ICategory, CategoryInfo> m_visualToCategoryInfo = Maps.newHashMap();
-  private final Map<String, Boolean> m_openCategories = Maps.newHashMap();
+  private final Map<CategoryInfo, ICategory> m_categoryInfoToVisual = new HashMap<>();
+  private final Map<ICategory, CategoryInfo> m_visualToCategoryInfo = new HashMap<>();
+  private final Map<String, Boolean> m_openCategories = new HashMap<>();
   private final Set<EntryInfo> m_knownEntryInfos = new HashSet<>();
   private final Set<EntryInfo> m_goodEntryInfos = new HashSet<>();
-  private final Map<EntryInfo, IEntry> m_entryInfoToVisual = Maps.newHashMap();
-  private final Map<IEntry, EntryInfo> m_visualToEntryInfo = Maps.newHashMap();
+  private final Map<EntryInfo, IEntry> m_entryInfoToVisual = new HashMap<>();
+  private final Map<IEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
 
   /**
    * Clears all caches for {@link EntryInfo}, {@link IEntry}, etc.

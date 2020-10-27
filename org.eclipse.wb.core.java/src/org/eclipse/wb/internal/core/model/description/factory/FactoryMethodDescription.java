@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.factory;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.CreationInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
@@ -23,6 +21,7 @@ import org.eclipse.swt.graphics.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description of single method that should be considered as factory.
@@ -151,7 +150,7 @@ public final class FactoryMethodDescription extends MethodDescription {
   // Parameters
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, String> m_parameters = Maps.newTreeMap();
+  private final Map<String, String> m_parameters = new TreeMap<>();
 
   /**
    * Adds new parameter.

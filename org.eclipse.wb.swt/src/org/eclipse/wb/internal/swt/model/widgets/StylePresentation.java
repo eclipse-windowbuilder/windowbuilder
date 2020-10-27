@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.presentation.DefaultJavaInfoPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
@@ -27,11 +25,12 @@ import org.osgi.framework.Bundle;
 
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Abstract class maintaining presentation which depends on SWT style set for SWT {@link Widget}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets.presentation
  */
@@ -82,7 +81,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
   private Map<Integer, Image> getImages() throws Exception {
     Map<Integer, Image> images = m_images.get(getClass());
     if (images == null) {
-      images = Maps.newHashMap();
+      images = new HashMap<>();
       m_images.put(getClass(), images);
       initImages();
     }
@@ -92,7 +91,7 @@ public abstract class StylePresentation extends DefaultJavaInfoPresentation {
   /**
    * Add an image into image map representing given <code>style</code> by given
    * <code>imagePath</code>. See {@link StylePresentation#addImage(int, String)}.
-   * 
+   *
    * @param style
    *          the SWT style value.
    * @param imagePath

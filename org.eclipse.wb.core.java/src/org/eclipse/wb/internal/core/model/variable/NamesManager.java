@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -40,6 +38,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for working with variable names and acronyms in {@link VariableSupport}.
@@ -153,7 +152,7 @@ public final class NamesManager {
     // use template
     String name;
     {
-      Map<String, String> valueMap = Maps.newTreeMap();
+      Map<String, String> valueMap = new TreeMap<>();
       {
         valueMap.put("class_name", classNameForVariable);
         valueMap.put("text", textPart);
@@ -180,7 +179,7 @@ public final class NamesManager {
    */
   public static String validate(String template) {
     // prepare empty variables
-    Map<String, String> valueMap = Maps.newTreeMap();
+    Map<String, String> valueMap = new TreeMap<>();
     {
       valueMap.put("class_name", "");
       valueMap.put("text", "");

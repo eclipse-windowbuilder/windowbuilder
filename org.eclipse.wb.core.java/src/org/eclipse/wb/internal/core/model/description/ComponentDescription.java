@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.order.ComponentOrder;
@@ -41,9 +39,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Description of any {@link JavaInfo}, its constructors, methods, etc.
@@ -333,7 +333,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   //
   ////////////////////////////////////////////////////////////////////////////
   private final List<MethodDescription> m_methods = new ArrayList<>();
-  private final Map<String, MethodDescription> m_methodsMap = Maps.newTreeMap();
+  private final Map<String, MethodDescription> m_methodsMap = new TreeMap<>();
 
   /**
    * @return the list of {@link MethodDescription}'s of this component.
@@ -440,7 +440,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   //
   ////////////////////////////////////////////////////////////////////////////
   private final List<GenericPropertyDescription> m_properties = new ArrayList<>();
-  private final Map<String, GenericPropertyDescription> m_idToProperty = Maps.newHashMap();
+  private final Map<String, GenericPropertyDescription> m_idToProperty = new HashMap<>();
 
   /**
    * @return the {@link GenericPropertyDescription}'s of this component.
@@ -496,7 +496,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   //
   ////////////////////////////////////////////////////////////////////////////
   private final Map<String, ConfigurablePropertyDescription> m_idToConfigurableProperty =
-      Maps.newHashMap();
+      new HashMap<>();
 
   /**
    * @return the {@link GenericPropertyDescription}'s of this component.
@@ -517,7 +517,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   // Parameters
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, String> m_parameters = Maps.newTreeMap();
+  private final Map<String, String> m_parameters = new TreeMap<>();
 
   /**
    * Adds new parameter.
@@ -554,7 +554,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   //
   ////////////////////////////////////////////////////////////////////////////
   private CreationDescription m_creationDefault;
-  private final Map<String, CreationDescription> m_creations = Maps.newHashMap();
+  private final Map<String, CreationDescription> m_creations = new HashMap<>();
 
   /**
    * @return all {@link CreationDescription}'s.

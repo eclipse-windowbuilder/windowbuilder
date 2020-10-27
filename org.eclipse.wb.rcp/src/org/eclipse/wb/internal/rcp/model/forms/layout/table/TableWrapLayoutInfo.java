@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -66,6 +65,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -945,8 +945,8 @@ public final class TableWrapLayoutInfo extends LayoutInfo
     final Interval[] columnIntervals = getIntervals(m_columnOrigins, m_columnWidths);
     final Interval[] rowIntervals = getIntervals(m_rowOrigins, m_rowHeights);
     // prepare cells
-    final Map<ControlInfo, Rectangle> componentToCells = Maps.newHashMap();
-    final Map<Point, ControlInfo> occupiedCells = Maps.newHashMap();
+    final Map<ControlInfo, Rectangle> componentToCells = new HashMap<>();
+    final Map<Point, ControlInfo> occupiedCells = new HashMap<>();
     {
       for (ControlInfo control : getComposite().getChildrenControls()) {
         // prepare cells

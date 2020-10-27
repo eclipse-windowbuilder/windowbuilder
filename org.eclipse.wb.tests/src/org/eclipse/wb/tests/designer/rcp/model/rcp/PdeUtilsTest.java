@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -36,13 +35,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Tests for {@link PdeUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PdeUtilsTest extends AbstractPdeTest {
@@ -84,14 +85,15 @@ public class PdeUtilsTest extends AbstractPdeTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_generateUniqueID() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <foo id='id'/>",
-        "    <bar id='id_1'/>",
-        "    <baz id='id_3'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <foo id='id'/>",
+            "    <bar id='id_1'/>",
+            "    <baz id='id_3'/>",
+            "  </extension>",
+            "</plugin>"});
     assertEquals("id_2", m_utils.generateUniqueID("id"));
   }
 
@@ -117,10 +119,11 @@ public class PdeUtilsTest extends AbstractPdeTest {
     do_projectCreate();
     try {
       ProjectUtils.addNature(m_project, "org.eclipse.pde.PluginNature");
-      createPluginXML(new String[]{
-          "<?xml version='1.0' encoding='UTF-8'?>",
-          "<?eclipse version='3.0'?>",
-          "<plugin/>"});
+      createPluginXML(
+          new String[]{
+              "<?xml version='1.0' encoding='UTF-8'?>",
+              "<?eclipse version='3.0'?>",
+              "<plugin/>"});
       waitForAutoBuild();
       // we can get IPluginModelBase using IProject, but it has no ID
       IPluginModelBase plugin = PluginRegistry.findModel(m_project);
@@ -152,13 +155,14 @@ public class PdeUtilsTest extends AbstractPdeTest {
       manifest += "Bundle-Localization: plugin\n";
       setFileContent("META-INF", "MANIFEST.MF", manifest);
     }
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' class='C_1'/>",
-        "    <view id='id_2' name='name 2' class='C_2'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' class='C_1'/>",
+            "    <view id='id_2' name='name 2' class='C_2'/>",
+            "  </extension>",
+            "</plugin>"});
     // getExtensionElements()
     {
       List<IPluginElement> elements = m_utils.getExtensionElements("org.eclipse.ui.views", "view");
@@ -207,13 +211,14 @@ public class PdeUtilsTest extends AbstractPdeTest {
           getSourceDQ("name_1 = First name", "name_2 = Second name"));
     }
     // prepare plugin.xml
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='%name_1' class='C_1'/>",
-        "    <view id='id_2' name='%name_2' class='C_2'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='%name_1' class='C_1'/>",
+            "    <view id='id_2' name='%name_2' class='C_2'/>",
+            "  </extension>",
+            "</plugin>"});
     // getAttribute()
     {
       IPluginElement element =
@@ -298,23 +303,25 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.
    */
   public void test_setAttribute_existingAttribute() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     // modify existing attribute
     IPluginElement element =
         m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_1");
     m_utils.setAttribute(element, "name", "New name");
     // plugin.xml updated
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='New name' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='New name' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     // "source" element is still same
     assertEquals("name 1", PdeUtils.getAttribute(element, "name"));
     // request element again, not we see updated attribute
@@ -326,12 +333,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.
    */
   public void test_setAttribute_newAttribute() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     assertThat(getPluginXML()).doesNotContain("newAttr");
     // set new attribute
     IPluginElement element =
@@ -345,24 +353,26 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * Test for {@link PdeUtils#setAttribute(IPluginElement, String, String)}.
    */
   public void test_setAttribute_removeAttribute() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     assertThat(getPluginXML()).contains("name=");
     // remove existing attribute
     IPluginElement element =
         m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_1");
     m_utils.setAttribute(element, "name", null);
     // plugin.xml updated
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
   }
 
   /**
@@ -370,12 +380,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * Set value with special (for XML) characters.
    */
   public void test_setAttribute_specialValue() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     assertThat(getPluginXML()).contains("name=");
     // update existing attribute
     {
@@ -384,12 +395,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
       m_utils.setAttribute(element, "name", "a > b && !c");
     }
     // plugin.xml updated
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='a &gt; b &amp;&amp; !c' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='a &gt; b &amp;&amp; !c' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     // try to read
     {
       IPluginElement element =
@@ -408,12 +420,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * Adds new {@link IPluginElement} into existing {@link IPluginExtension}.
    */
   public void test_createExtensionElement_1() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     // do create
     IPluginElement element;
     {
@@ -429,17 +442,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
     assertEquals("C_2", PdeUtils.getAttribute(element, "class"));
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "\t<extension point='org.eclipse.ui.views'>",
-        "\t\t<view id='id_1' name='name 1' class='C_1'/>",
-        "  <view",
-        "        class='C_2'",
-        "        id='id_2'",
-        "        name='name 2'>",
-        "  </view>",
-        "\t</extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "\t<extension point='org.eclipse.ui.views'>",
+            "\t\t<view id='id_1' name='name 1' class='C_1'/>",
+            "  <view",
+            "        class='C_2'",
+            "        id='id_2'",
+            "        name='name 2'>",
+            "  </view>",
+            "\t</extension>",
+            "</plugin>"});
   }
 
   /**
@@ -464,17 +478,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
     assertEquals("C_2", PdeUtils.getAttribute(element, "class"));
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.views'>",
-        "      <view",
-        "            class='C_2'",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </view>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.views'>",
+            "      <view",
+            "            class='C_2'",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </view>",
+            "   </extension>",
+            "</plugin>"});
   }
 
   /**
@@ -500,19 +515,20 @@ public class PdeUtilsTest extends AbstractPdeTest {
     // plugin.xml created
     assertTrue(getFile("plugin.xml").exists());
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-        "<?eclipse version=\"3.2\"?>",
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.views'>",
-        "      <view",
-        "            class='C_2'",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </view>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+            "<?eclipse version=\"3.2\"?>",
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.views'>",
+            "      <view",
+            "            class='C_2'",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </view>",
+            "   </extension>",
+            "</plugin>"});
   }
 
   /**
@@ -553,17 +569,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
     assertEquals("C_2", PdeUtils.getAttribute(element, "class"));
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.views'>",
-        "      <view",
-        "            class='C_2'",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </view>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.views'>",
+            "      <view",
+            "            class='C_2'",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </view>",
+            "   </extension>",
+            "</plugin>"});
   }
 
   /**
@@ -580,16 +597,17 @@ public class PdeUtilsTest extends AbstractPdeTest {
     }
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.views'>",
-        "      <category",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </category>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.views'>",
+            "      <category",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </category>",
+            "   </extension>",
+            "</plugin>"});
     {
       ViewCategoryInfo category = PdeUtils.getViewCategoryInfo("id_2");
       assertNotNull(category);
@@ -608,17 +626,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
     m_utils.waitExtensionElementById("org.eclipse.ui.views", "view", "id_2");
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.views'>",
-        "      <view",
-        "            class='C_2'",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </view>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.views'>",
+            "      <view",
+            "            class='C_2'",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </view>",
+            "   </extension>",
+            "</plugin>"});
     {
       ViewInfo view = PdeUtils.getViewInfo("id_2");
       assertNotNull(view);
@@ -637,17 +656,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
     m_utils.createEditorElement("id_2", "name 2", "C_2");
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.editors'>",
-        "      <editor",
-        "            class='C_2'",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </editor>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.editors'>",
+            "      <editor",
+            "            class='C_2'",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </editor>",
+            "   </extension>",
+            "</plugin>"});
   }
 
   /**
@@ -659,17 +679,18 @@ public class PdeUtilsTest extends AbstractPdeTest {
     m_utils.createPerspectiveElement("id_2", "name 2", "C_2");
     // plugin.xml updated
     m_getSource_ignoreSpaces = true;
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "   <extension",
-        "         point='org.eclipse.ui.perspectives'>",
-        "      <perspective",
-        "            class='C_2'",
-        "            id='id_2'",
-        "            name='name 2'>",
-        "      </perspective>",
-        "   </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "   <extension",
+            "         point='org.eclipse.ui.perspectives'>",
+            "      <perspective",
+            "            class='C_2'",
+            "            id='id_2'",
+            "            name='name 2'>",
+            "      </perspective>",
+            "   </extension>",
+            "</plugin>"});
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -681,27 +702,29 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * Test for {@link PdeUtils#removeElement(IPluginElement)}.
    */
   public void test_removeElement() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1'/>",
-        "    <view id='id_2'/>",
-        "    <view id='id_3'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1'/>",
+            "    <view id='id_2'/>",
+            "    <view id='id_3'/>",
+            "  </extension>",
+            "</plugin>"});
     // remove element
     IPluginElement element =
         m_utils.getExtensionElementById("org.eclipse.ui.views", "view", "id_2");
     assertNotNull(element);
     m_utils.removeElement(element);
     // plugin.xml updated
-    assertPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1'/>",
-        "    <view id='id_3'/>",
-        "  </extension>",
-        "</plugin>"});
+    assertPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1'/>",
+            "    <view id='id_3'/>",
+            "  </extension>",
+            "</plugin>"});
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -758,12 +781,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * From workspace plugin.
    */
   public void test_getViewInfo_workspace() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1' icon='icons/1.png' class='C_1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1' icon='icons/1.png' class='C_1'/>",
+            "  </extension>",
+            "</plugin>"});
     ensureFolderExists("icons");
     TestUtils.createImagePNG(m_testProject, "icons/1.png", 10, 20);
     // get ViewInfo
@@ -787,7 +811,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
    */
   public void test_getViews() throws Exception {
     List<ViewInfo> views = PdeUtils.getViews();
-    Map<String, ViewInfo> idToView = Maps.newTreeMap();
+    Map<String, ViewInfo> idToView = new TreeMap<>();
     for (ViewInfo viewInfo : views) {
       idToView.put(viewInfo.getId(), viewInfo);
     }
@@ -812,7 +836,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
    */
   public void test_getViewCategories() throws Exception {
     List<ViewCategoryInfo> categories = PdeUtils.getViewCategories();
-    Map<String, ViewCategoryInfo> idToCategory = Maps.newHashMap();
+    Map<String, ViewCategoryInfo> idToCategory = new HashMap<>();
     for (ViewCategoryInfo category : categories) {
       idToCategory.put(category.getId(), category);
     }
@@ -835,7 +859,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
       assertEquals("(org.eclipse.jdt.ui.java, Java)", category.toString());
       // views
       List<ViewInfo> views = category.getViews();
-      Map<String, ViewInfo> idToView = Maps.newTreeMap();
+      Map<String, ViewInfo> idToView = new TreeMap<>();
       for (ViewInfo viewInfo : views) {
         idToView.put(viewInfo.getId(), viewInfo);
       }
@@ -853,12 +877,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * category.
    */
   public void test_getViewCategories_otherViews() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <view id='id_1' name='name 1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <view id='id_1' name='name 1'/>",
+            "  </extension>",
+            "</plugin>"});
     ViewCategoryInfo otherCategory = PdeUtils.getViewCategories().get(0);
     assertEquals(null, otherCategory.getId());
     // check all views
@@ -879,12 +904,13 @@ public class PdeUtilsTest extends AbstractPdeTest {
    * From workspace plugin.
    */
   public void test_getViewCategoryInfo_workspace() throws Exception {
-    createPluginXML(new String[]{
-        "<plugin>",
-        "  <extension point='org.eclipse.ui.views'>",
-        "    <category id='id_1' name='name 1'/>",
-        "  </extension>",
-        "</plugin>"});
+    createPluginXML(
+        new String[]{
+            "<plugin>",
+            "  <extension point='org.eclipse.ui.views'>",
+            "    <category id='id_1' name='name 1'/>",
+            "  </extension>",
+            "</plugin>"});
     // get ViewCategoryInfo
     {
       ViewCategoryInfo category = PdeUtils.getViewCategoryInfo("id_1");
@@ -944,7 +970,9 @@ public class PdeUtilsTest extends AbstractPdeTest {
         perspectiveInfo.toString());
     // icon exists and is not default
     assertNotNull(perspectiveInfo.getIcon());
-    assertNotSame(Activator.getImage("info/perspective/perspective.gif"), perspectiveInfo.getIcon());
+    assertNotSame(
+        Activator.getImage("info/perspective/perspective.gif"),
+        perspectiveInfo.getIcon());
     // same PerspectiveInfo should be returned
     assertSame(perspectiveInfo, PdeUtils.getPerspectiveInfo(id));
     assertSame(perspectiveInfo, PdeUtils.getPerspectiveInfo(id));
@@ -955,7 +983,7 @@ public class PdeUtilsTest extends AbstractPdeTest {
    */
   public void test_getPerspectives() throws Exception {
     List<PerspectiveInfo> perspectives = PdeUtils.getPerspectives();
-    Map<String, PerspectiveInfo> idToPerspective = Maps.newTreeMap();
+    Map<String, PerspectiveInfo> idToPerspective = new TreeMap<>();
     for (PerspectiveInfo perspectiveInfo : perspectives) {
       idToPerspective.put(perspectiveInfo.getId(), perspectiveInfo);
     }

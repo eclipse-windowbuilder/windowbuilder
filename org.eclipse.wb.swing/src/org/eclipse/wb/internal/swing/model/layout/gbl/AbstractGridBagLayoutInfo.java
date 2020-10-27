@@ -15,7 +15,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -55,6 +54,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import java.awt.Container;
 import java.awt.GridBagLayout;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -705,8 +705,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
    */
   private void createGridInfo() throws Exception {
     // prepare cells
-    final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
-    final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
+    final Map<ComponentInfo, Rectangle> componentToCells = new HashMap<>();
+    final Map<Point, ComponentInfo> occupiedCells = new HashMap<>();
     visitComponents(new IComponentVisitor() {
       public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
           throws Exception {

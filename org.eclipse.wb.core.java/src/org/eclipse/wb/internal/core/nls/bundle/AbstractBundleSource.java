@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
@@ -623,7 +621,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   // Bundle access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<LocaleInfo, BundleInfo> m_localeToBundleMap = Maps.newHashMap();
+  private final Map<LocaleInfo, BundleInfo> m_localeToBundleMap = new HashMap<>();
 
   /**
    * Return existing or new information about resource bundle for given locale.

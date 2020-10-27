@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -77,6 +75,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.WeakHashMap;
 
@@ -720,7 +719,7 @@ public class AstNodeUtils {
     // use cache
     Map<String, Boolean> classNameResults = m_isSuccessorOf.get(binding);
     if (classNameResults == null) {
-      classNameResults = Maps.newTreeMap();
+      classNameResults = new TreeMap<>();
       m_isSuccessorOf.put(binding, classNameResults);
     }
     Boolean result = classNameResults.get(className);

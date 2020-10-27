@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -57,6 +55,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -463,7 +462,7 @@ public abstract class JavaInfoEvaluationHelper {
       return new HashSet<>();
     }
     if (AstNodeUtils.isSuccessorOf(binding, "java.util.Map")) {
-      return Maps.newHashMap();
+      return new HashMap<>();
     }
     // Object
     return null;

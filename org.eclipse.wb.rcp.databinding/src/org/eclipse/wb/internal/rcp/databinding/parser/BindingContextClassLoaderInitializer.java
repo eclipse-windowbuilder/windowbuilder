@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.parser;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.asm.ToBytesClassAdapter;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -32,17 +30,18 @@ import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Initialize class loader for use bindings on runtime.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.parser
  */
 public final class BindingContextClassLoaderInitializer implements IClassLoaderInitializer {
-  private static final Map<ClassLoader, Object> CLASS_LOADER_TO_THREAD_LOCAL = Maps.newHashMap();
+  private static final Map<ClassLoader, Object> CLASS_LOADER_TO_THREAD_LOCAL = new HashMap<>();
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructor
@@ -92,11 +91,10 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
     // create Realm
     Class<?> swtObservables =
         classLoader.loadClass("org.eclipse.jface.databinding.swt.SWTObservables");
-    Object realm =
-        ReflectionUtils.invokeMethod(
-            swtObservables,
-            "getRealm(org.eclipse.swt.widgets.Display)",
-            display);
+    Object realm = ReflectionUtils.invokeMethod(
+        swtObservables,
+        "getRealm(org.eclipse.swt.widgets.Display)",
+        display);
     // set default Realm
     Class<?> realmClass = classLoader.loadClass("org.eclipse.core.databinding.observable.Realm");
     ReflectionUtils.invokeMethod(
@@ -116,8 +114,8 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
   private void createDefaultBean(ProjectClassLoader projectClassLoader) throws Exception {
     // prepare DefaultBean bytes
     ClassLoader localClassLoader = getClass().getClassLoader();
-    InputStream stream =
-        localClassLoader.getResourceAsStream("org/eclipse/wb/internal/rcp/databinding/parser/DefaultBean.class");
+    InputStream stream = localClassLoader.getResourceAsStream(
+        "org/eclipse/wb/internal/rcp/databinding/parser/DefaultBean.class");
     byte[] bytes = IOUtils.toByteArray(stream);
     stream.close();
     // inject DefaultBean to project class loader
@@ -165,16 +163,16 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
   /**
    * Inject to all public static methods contains parameters {@code Object} bean and {@code String}
    * property:
-   * 
+   *
    * <pre>
-	 * public static %ReturnType% %method%(..., Object bean, ..., String property, ....) {
-	 *     if (bean == null) {
-	 *         bean = DefaultBean.INSTANCE;
-	 *         property = "foo"; // "fooList"; // "fooSet";
-	 *     }
-	 *     %FOO_BODY_PART%
-	 * }
-	 * </pre>
+   * public static %ReturnType% %method%(..., Object bean, ..., String property, ....) {
+   *     if (bean == null) {
+   *         bean = DefaultBean.INSTANCE;
+   *         property = "foo"; // "fooList"; // "fooSet";
+   *     }
+   *     %FOO_BODY_PART%
+   * }
+   * </pre>
    */
   private static byte[] transformBindings(byte[] bytes) {
     ClassReader classReader = new ClassReader(bytes);
@@ -238,15 +236,15 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
 
   /**
    * Inject to constructor with {@code methodDescriptor} signature additional code:
-   * 
+   *
    * <pre>
-	 * constructor(Realm, %Type% argument, Object) {
-	 *    if (argument == null) {
-	 *        argument = Collections.EMPTY_%field%;
-	 *    }
-	 *    %FOO_BODY_PART%
-	 * }
-	 * </pre>
+   * constructor(Realm, %Type% argument, Object) {
+   *    if (argument == null) {
+   *        argument = Collections.EMPTY_%field%;
+   *    }
+   *    %FOO_BODY_PART%
+   * }
+   * </pre>
    */
   private static byte[] transformObserves(byte[] bytes,
       final String methodDescriptor,

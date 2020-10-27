@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.InvocationEvaluatorInterceptor;
@@ -35,10 +33,11 @@ import java.awt.Component;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * For custom SWT {@link Component} try to find and use default constructor.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model
  */
@@ -156,27 +155,25 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
    */
   private static Object createPlaceholder(Class<?> clazz, Object parent, int style)
       throws Exception {
-    String message =
-        MessageFormat.format(
-            ModelMessages.SwtInvocationEvaluatorInterceptor_placeholderText,
-            CodeUtils.getShortClass(clazz.getName()));
+    String message = MessageFormat.format(
+        ModelMessages.SwtInvocationEvaluatorInterceptor_placeholderText,
+        CodeUtils.getShortClass(clazz.getName()));
     ClassLoader classLoader = parent.getClass().getClassLoader();
-    String script =
-        CodeUtils.getSource(
-            "import org.eclipse.swt.SWT;",
-            "import org.eclipse.swt.graphics.Color;",
-            "import org.eclipse.swt.widgets.*;",
-            "import org.eclipse.swt.layout.FillLayout;",
-            "",
-            "composite = new Composite(parent, SWT.NONE);",
-            "composite.setLayout(new FillLayout());",
-            "",
-            "label = new Label(composite, SWT.WRAP | SWT.CENTER);",
-            "label.setText(message);",
-            "label.setBackground(new Color(null, 0xFF, 0xCC, 0xCC));",
-            "",
-            "return composite;");
-    Map<String, Object> variables = Maps.newTreeMap();
+    String script = CodeUtils.getSource(
+        "import org.eclipse.swt.SWT;",
+        "import org.eclipse.swt.graphics.Color;",
+        "import org.eclipse.swt.widgets.*;",
+        "import org.eclipse.swt.layout.FillLayout;",
+        "",
+        "composite = new Composite(parent, SWT.NONE);",
+        "composite.setLayout(new FillLayout());",
+        "",
+        "label = new Label(composite, SWT.WRAP | SWT.CENTER);",
+        "label.setText(message);",
+        "label.setBackground(new Color(null, 0xFF, 0xCC, 0xCC));",
+        "",
+        "return composite;");
+    Map<String, Object> variables = new TreeMap<>();
     variables.put("parent", parent);
     variables.put("message", message);
     return ScriptUtils.evaluate(classLoader, script, variables);
@@ -206,7 +203,8 @@ public final class SwtInvocationEvaluatorInterceptor extends InvocationEvaluator
     return AstEvaluationEngine.UNKNOWN;
   }
 
-  private static boolean isViewerCreation_withControl(ITypeBinding typeBinding, Object[] arguments) {
+  private static boolean isViewerCreation_withControl(ITypeBinding typeBinding,
+      Object[] arguments) {
     return AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.viewers.Viewer")
         && arguments.length == 1
         && ReflectionUtils.isSuccessorOf(arguments[0], "org.eclipse.swt.widgets.Control");

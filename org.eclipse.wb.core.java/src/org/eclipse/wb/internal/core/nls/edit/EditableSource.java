@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -43,6 +41,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Implementation for editable source.
@@ -62,7 +61,7 @@ public final class EditableSource implements IEditableSource {
   private final Set<String> m_formKeys = new HashSet<>();
   private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
   private KeyToComponentsSupport m_keyToComponentsSupport = new KeyToComponentsSupport(false); // initialize by default for case of new source
-  private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newTreeMap();
+  private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = new TreeMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -192,7 +191,7 @@ public final class EditableSource implements IEditableSource {
       EditableLocaleInfo editableBaseLocale = getEditableLocale(baseLocale);
       keyToValue = new HashMap<String, String>(editableBaseLocale.m_keyToValue);
     } else {
-      keyToValue = Maps.newHashMap();
+      keyToValue = new HashMap<>();
     }
     // add new locale
     add(locale, keyToValue);

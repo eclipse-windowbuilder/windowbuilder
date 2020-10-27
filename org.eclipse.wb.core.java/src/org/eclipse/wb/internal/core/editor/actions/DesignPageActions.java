@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.DesignPage;
@@ -25,6 +23,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for creating all {@link DesignPage} {@link IAction}'s.
@@ -142,7 +141,7 @@ public final class DesignPageActions {
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, IAction> m_originalActions = Maps.newTreeMap();
+  private final Map<String, IAction> m_originalActions = new TreeMap<>();
 
   /**
    * Installs Designer handlers for global actions.

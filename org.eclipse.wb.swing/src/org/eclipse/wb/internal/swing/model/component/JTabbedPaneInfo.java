@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -53,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
@@ -267,7 +266,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
    */
   private Property[] getTabProperties(ComponentInfo component) throws Exception {
     // prepare GenericPropertyDescription's
-    Map<String, GenericPropertyDescription> idToProperty = Maps.newTreeMap();
+    Map<String, GenericPropertyDescription> idToProperty = new TreeMap<>();
     for (MethodDescription method : getDescription().getMethods()) {
       String signature = method.getSignature();
       //

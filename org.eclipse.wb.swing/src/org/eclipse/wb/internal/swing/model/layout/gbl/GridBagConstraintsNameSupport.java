@@ -10,18 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Support for managing name of {@link AbstractGridBagConstraintsInfo}, so that it corresponds to
  * the name of its parent {@link ComponentInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model.layout
  */
@@ -61,7 +60,7 @@ public final class GridBagConstraintsNameSupport
   @Override
   protected Map<String, String> getValueMap() {
     // prepare variables
-    Map<String, String> valueMap = Maps.newTreeMap();
+    Map<String, String> valueMap = new TreeMap<>();
     {
       valueMap.put("constraintsAcronym", getAcronym());
       valueMap.put("constraintsClassName", getClassName());

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.editor.ExpressionListPropertyEditor;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 
@@ -140,7 +138,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
    */
   public void test_imports() throws Exception {
     // prepare parameters
-    HashMap<String, Object> parameters = Maps.newHashMap();
+    HashMap<String, Object> parameters = new HashMap<>();
     parameters.put("functions", getSourceDQ("import java.util.ArrayList;"));
     parameters.put(
         "expressions",
@@ -192,7 +190,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
     //	<parameter-list name="titles">STR</parameter-list>
     //	<parameter-list name="titles">NIL</parameter-list>
     //</editor>
-    HashMap<String, Object> params = Maps.newHashMap();
+    HashMap<String, Object> params = new HashMap<>();
     params.put(
         "functions",
         getSourceDQ(

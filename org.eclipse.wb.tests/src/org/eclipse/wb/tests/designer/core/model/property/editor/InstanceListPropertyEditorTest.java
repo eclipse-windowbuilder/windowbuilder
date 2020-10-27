@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.editor.InstanceListPropertyEditor;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 
@@ -126,7 +124,7 @@ public class InstanceListPropertyEditorTest extends AbstractTextPropertyEditorTe
     //	<parameter-list name="types">java.lang.Integer</parameter-list>
     //	<parameter-list name="types">null</parameter-list>
     //</editor>
-    HashMap<String, Object> params = Maps.newHashMap();
+    HashMap<String, Object> params = new HashMap<>();
     params.put("types", Arrays.asList("java.lang.String", "java.lang.Integer", "null"));
     return params;
   }

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.VisitingContext;
 import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport.LazyVariableInformation;
@@ -38,6 +36,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -429,7 +428,7 @@ public final class ExecutionFlowUtils2 {
   private static class Frame {
     private final ASTNode m_node;
     private final Frame m_parent;
-    private final Map<String, ExpressionValue> m_variables = Maps.newHashMap();
+    private final Map<String, ExpressionValue> m_variables = new HashMap<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.nls.edit;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -35,6 +34,7 @@ import org.apache.commons.collections.map.MultiKeyMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,12 +47,11 @@ import java.util.Map;
 public final class EditableSupport implements IEditableSupport, ICommandQueue {
   private final JavaInfo m_root;
   private final List<IEditableSource> m_newEditableSources = new ArrayList<>();
-  private final Map<AbstractSource, IEditableSource> m_sourceToEditable = Maps.newHashMap();
-  private final Map<IEditableSource, AbstractSource> m_editableToSource = Maps.newHashMap();
+  private final Map<AbstractSource, IEditableSource> m_sourceToEditable = new HashMap<>();
+  private final Map<IEditableSource, AbstractSource> m_editableToSource = new HashMap<>();
   private final MultiKeyMap/*<IEditableSource, String, List<StringPropertyInfo>>*/ m_externalizedProperties =
       new MultiKeyMap();
-  private final Map<JavaInfo, List<StringPropertyInfo>> m_componentToPropertyList =
-      Maps.newHashMap();
+  private final Map<JavaInfo, List<StringPropertyInfo>> m_componentToPropertyList = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -166,9 +165,9 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final Map<AbstractSource, IEditableSource> m_possibleSourceToEditableSource =
-      Maps.newHashMap();
+      new HashMap<>();
   private final Map<IEditableSource, AbstractSource> m_possibleEditableSourceToSource =
-      Maps.newHashMap();
+      new HashMap<>();
 
   /**
    * Fill possible sources containers.

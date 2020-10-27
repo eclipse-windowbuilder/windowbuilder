@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.util.reflect;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
@@ -52,6 +51,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -1887,7 +1887,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
    */
   private static Map<String, PropertyDescriptor> getPropertyDescriptorNames(
       List<PropertyDescriptor> descriptors) throws Exception {
-    Map<String, PropertyDescriptor> propertiesMap = Maps.newTreeMap();
+    Map<String, PropertyDescriptor> propertiesMap = new TreeMap<>();
     for (PropertyDescriptor propertyDescriptor : descriptors) {
       propertiesMap.put(propertyDescriptor.getName(), propertyDescriptor);
     }

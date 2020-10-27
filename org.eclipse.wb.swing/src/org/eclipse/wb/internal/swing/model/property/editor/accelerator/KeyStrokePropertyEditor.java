@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.accelerator;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -44,7 +42,9 @@ import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.KeyStroke;
 
@@ -164,7 +164,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     private Text m_keyStrokeText;
     private List m_keyCodeList;
-    private final Map<Integer, Button> m_modifierToButton = Maps.newHashMap();
+    private final Map<Integer, Button> m_modifierToButton = new HashMap<>();
 
     @Override
     protected Control createDialogArea(Composite parent) {
@@ -437,8 +437,8 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
   private static synchronized void prepareKeyMaps() {
     if (m_keyCodeToName == null) {
       m_keyFields = new ArrayList<>();
-      m_keyCodeToName = Maps.newTreeMap();
-      m_keyNameToCode = Maps.newTreeMap();
+      m_keyCodeToName = new TreeMap<>();
+      m_keyNameToCode = new TreeMap<>();
       // add fields
       try {
         int expected_modifiers = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;

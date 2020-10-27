@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
@@ -34,11 +32,12 @@ import org.eclipse.ltk.core.refactoring.RefactoringCore;
 import org.eclipse.ltk.core.refactoring.RefactoringDescriptor;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Utils for testing/using refactorings.
- * 
+ *
  * @author scheglov_ke
  */
 public final class RefactoringTestUtils {
@@ -82,8 +81,8 @@ public final class RefactoringTestUtils {
     // prepare RefactoringDescriptor
     MoveDescriptor refactoringDescriptor;
     {
-      refactoringDescriptor =
-          (MoveDescriptor) RefactoringCore.getRefactoringContribution(IJavaRefactorings.MOVE).createDescriptor();
+      refactoringDescriptor = (MoveDescriptor) RefactoringCore.getRefactoringContribution(
+          IJavaRefactorings.MOVE).createDescriptor();
       refactoringDescriptor.setMoveResources(
           new IFile[]{},
           new IFolder[]{},
@@ -109,14 +108,14 @@ public final class RefactoringTestUtils {
     // prepare RefactoringDescriptor
     DeleteDescriptor refactoringDescriptor;
     {
-      Map<String, String> arguments = Maps.newHashMap();
+      Map<String, String> arguments = new HashMap<>();
       arguments.put(ATTRIBUTE_DELETE_SUBPACKAGES, "false");
       arguments.put(ATTRIBUTE_SUGGEST_ACCESSORS, "false");
       arguments.put(ATTRIBUTE_RESOURCES, "0");
       arguments.put(ATTRIBUTE_ELEMENTS, "1");
       arguments.put("element1", compilationUnit.getHandleIdentifier());
-      refactoringDescriptor =
-          (DeleteDescriptor) RefactoringCore.getRefactoringContribution(IJavaRefactorings.DELETE).createDescriptor(
+      refactoringDescriptor = (DeleteDescriptor) RefactoringCore.getRefactoringContribution(
+          IJavaRefactorings.DELETE).createDescriptor(
               IJavaRefactorings.DELETE,
               compilationUnit.getJavaProject().getElementName(),
               "Delete " + compilationUnit.getElementName(),

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.palette;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -26,16 +24,17 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * {@link EntryInfo} that drop new {@link ActionInfo} from {@link ActionFactory} using
  * {@link ActionDropTool}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */
 public final class ActionFactoryNewEntryInfo extends ToolEntryInfo {
-  private static final Map<String, Image> m_namedIcons = Maps.newTreeMap();
+  private static final Map<String, Image> m_namedIcons = new TreeMap<>();
   private final String m_name;
   private final Image m_icon;
 

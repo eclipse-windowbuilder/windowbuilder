@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
@@ -26,11 +24,12 @@ import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * The activator and utility class controls the Data Bindings plug-in life cycle.
- * 
+ *
  * @author lobas_av
  */
 public class Activator extends AbstractUIPlugin {
@@ -79,7 +78,7 @@ public class Activator extends AbstractUIPlugin {
   // Caches
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Map<String, Image> m_nameToIconMap = Maps.newHashMap();
+  private static final Map<String, Image> m_nameToIconMap = new HashMap<>();
 
   /**
    * Get image from "icons" directory.

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
@@ -24,6 +22,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +35,8 @@ import java.util.Map;
  */
 public final class ExecutionFlowDescription {
   private final List<MethodDeclaration> m_startMethods;
-  private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsAfter = Maps.newHashMap();
-  private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsBefore = Maps.newHashMap();
+  private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsAfter = new HashMap<>();
+  private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsBefore = new HashMap<>();
   private boolean m_binaryFlowLocked;
   private final LinkedList<Statement> m_traceStatements = new LinkedList<>();
   private int m_modificationCount;

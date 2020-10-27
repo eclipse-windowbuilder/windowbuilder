@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.CreationInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
@@ -59,9 +57,11 @@ import java.beans.PropertyDescriptor;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for accessing descriptions of factories - {@link FactoryMethodDescription}.
@@ -105,7 +105,7 @@ public class FactoryDescriptionHelper {
     int index = forStatic ? 0 : 1;
     Map<String, FactoryMethodDescription> signaturesMap = signaturesMaps[index];
     if (signaturesMap == null) {
-      signaturesMap = Maps.newTreeMap();
+      signaturesMap = new TreeMap<>();
       signaturesMaps[index] = signaturesMap;
       // this factory class methods
       {
@@ -140,7 +140,7 @@ public class FactoryDescriptionHelper {
     } catch (Throwable e) {
       EditorState.get(editor).addWarning(
           new EditorWarning("Can not get factory methods for " + factoryClass, e));
-      return Maps.newTreeMap();
+      return new TreeMap<>();
     }
   }
 
@@ -165,7 +165,7 @@ public class FactoryDescriptionHelper {
     String factoryClassName = factoryClass.getName();
     IType factoryType = editor.getJavaProject().findType(factoryClassName);
     if (factoryType == null) {
-      return Maps.newTreeMap();
+      return new TreeMap<>();
     }
     Boolean allMethodsAreFactories = null;
     List<FactoryMethodDescription> descriptions = new ArrayList<>();
@@ -175,7 +175,7 @@ public class FactoryDescriptionHelper {
       ResourceInfo resourceInfo =
           DescriptionHelper.getResourceInfo(context, factoryClass, descriptionName);
       if (resourceInfo != null) {
-        Map<Integer, FactoryMethodDescription> textualDescriptions = Maps.newHashMap();
+        Map<Integer, FactoryMethodDescription> textualDescriptions = new HashMap<>();
         Digester digester = prepareDigester(factoryClass, state, textualDescriptions);
         digester.push(allMethodsAreFactories);
         digester.push(descriptions);
@@ -184,7 +184,7 @@ public class FactoryDescriptionHelper {
       }
     }
     // prepare map: signature -> description
-    Map<String, FactoryMethodDescription> signaturesMap = Maps.newTreeMap();
+    Map<String, FactoryMethodDescription> signaturesMap = new TreeMap<>();
     for (FactoryMethodDescription description : descriptions) {
       signaturesMap.put(description.getSignature(), description);
     }
@@ -196,7 +196,7 @@ public class FactoryDescriptionHelper {
     if (!allMethodsAreFactories.booleanValue()
         && descriptions.isEmpty()
         && !hasFactoryTagSource(factoryType)) {
-      return Maps.newTreeMap();
+      return new TreeMap<>();
     }
     // add descriptions for all methods, using JavaDoc
     {

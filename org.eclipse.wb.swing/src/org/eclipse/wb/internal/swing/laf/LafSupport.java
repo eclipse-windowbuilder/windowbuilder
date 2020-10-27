@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.laf;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
@@ -74,9 +73,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
@@ -186,7 +187,7 @@ public final class LafSupport {
       return true;
     }
     // evaluate condition
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     {
       variables.put("isWindows", EnvironmentUtils.IS_WINDOWS);
     }
@@ -685,7 +686,7 @@ public final class LafSupport {
     try {
       // prepare mapping: id -> command class
       if (m_idToCommandClass == null) {
-        m_idToCommandClass = Maps.newTreeMap();
+        m_idToCommandClass = new TreeMap<>();
         for (Class<? extends Command> commandClass : m_commandClasses) {
           String id = (String) commandClass.getField("ID").get(null);
           m_idToCommandClass.put(id, commandClass);

@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.ast;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
@@ -85,11 +84,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -743,7 +744,7 @@ public final class AstEditor {
       final Function<ASTNode, String> transformer) {
     final StringBuffer buffer = new StringBuffer(getSource(theNode));
     // remember positions for all nodes
-    final Map<ASTNode, Integer> nodePositions = Maps.newHashMap();
+    final Map<ASTNode, Integer> nodePositions = new HashMap<>();
     theNode.accept(new ASTVisitor() {
       @Override
       public void postVisit(ASTNode _node) {
@@ -1145,7 +1146,7 @@ public final class AstEditor {
   // Global values
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, Object> m_globalMap = Maps.newTreeMap();
+  private final Map<String, Object> m_globalMap = new TreeMap<>();
 
   /**
    * @return the current global value for given key.

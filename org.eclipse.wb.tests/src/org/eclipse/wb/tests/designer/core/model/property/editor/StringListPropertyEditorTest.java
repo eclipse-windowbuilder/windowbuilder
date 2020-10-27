@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.StringListPropertyEditor;
@@ -211,7 +209,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
     //	<parameter-list name="strings">String_2</parameter-list>
     //	<parameter-list name="strings">String_3</parameter-list>
     //</editor>
-    HashMap<String, Object> params = Maps.newHashMap();
+    HashMap<String, Object> params = new HashMap<>();
     params.put("ignoreCase", new String("false"));
     params.put("strings", Arrays.asList("String_1", "String_2", "String_3"));
     return params;

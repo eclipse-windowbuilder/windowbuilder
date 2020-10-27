@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -22,6 +20,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,7 +95,7 @@ public final class DescriptorContainer {
   public static Map<String, DescriptorContainer> parseDescriptors(InputStream stream,
       final ClassLoader classLoader,
       final IImageLoader imageLoader) throws Exception {
-    final Map<String, DescriptorContainer> containers = Maps.newHashMap();
+    final Map<String, DescriptorContainer> containers = new HashMap<>();
     //
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     parser.parse(stream, new DefaultHandler() {

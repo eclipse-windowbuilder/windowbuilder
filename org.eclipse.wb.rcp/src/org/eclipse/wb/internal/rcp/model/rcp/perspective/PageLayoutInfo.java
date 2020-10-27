@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -76,6 +75,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -303,7 +303,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
   private Shell m_shell;
   private Composite m_composite;
   private Composite m_partsComposite;
-  private final Map<String, Control> m_idToControlMap = Maps.newHashMap();
+  private final Map<String, Control> m_idToControlMap = new HashMap<>();
 
   /**
    * Prepares widgets of this {@link IPageLayout} for filling.

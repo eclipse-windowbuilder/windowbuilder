@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.java6.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,8 +70,8 @@ public final class GroupLayoutInfo extends LayoutInfo implements IAbsoluteLayout
       ComponentDescription description,
       CreationSupport creationSupport) throws Exception {
     super(editor, description, creationSupport);
-    m_widgetMaps[0] = Maps.newHashMap();
-    m_widgetMaps[1] = Maps.newHashMap();
+    m_widgetMaps[0] = new HashMap();
+    m_widgetMaps[1] = new HashMap();
     addBroadcastListener(new JavaEventListener() {
       @Override
       public void bindComponents(List<JavaInfo> components) throws Exception {

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.generic;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
@@ -159,7 +158,7 @@ public final class ContainerObjectValidators {
   }
 
   private static boolean validateContainer(String expression, Object container) {
-    Map<String, Object> variables = Maps.newTreeMap();
+    Map<String, Object> variables = new TreeMap<>();
     variables.put("container", container);
     return evaluate(expression, variables);
   }

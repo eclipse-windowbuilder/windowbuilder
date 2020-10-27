@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -38,6 +36,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -51,7 +50,7 @@ import java.util.Set;
  * @coverage bindings.rcp.emf.model
  */
 public class PropertiesSupport {
-  private final Map<String, PackageInfo> m_packages = Maps.newHashMap();
+  private final Map<String, PackageInfo> m_packages = new HashMap<>();
   private final IJavaProject m_javaProject;
   private final ClassLoader m_classLoader;
   private final Class<?> m_EPackage;
@@ -363,7 +362,7 @@ public class PropertiesSupport {
       throws Exception {
     Class<?> literalsClass = m_classLoader.loadClass(literalsType.getFullyQualifiedName());
     String packageName = literalsClass.getPackage().getName();
-    Map<String, ClassInfo> packageClasses = Maps.newHashMap();
+    Map<String, ClassInfo> packageClasses = new HashMap<>();
     String literalsReference = literalsType.getFullyQualifiedName('.') + ".";
     List<Field> eClasses = new ArrayList<>();
     List<Field> eProperties = new ArrayList<>();
@@ -462,7 +461,7 @@ public class PropertiesSupport {
     final Map<String, ClassInfo> classes;
 
     PackageInfo(String packageName) {
-      this(packageName, Maps.<String, ClassInfo>newHashMap());
+      this(packageName, new HashMap<>());
     }
 
     PackageInfo(String packageName, Map<String, ClassInfo> classes) {

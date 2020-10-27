@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.description.IToolkitProvider;
@@ -33,11 +31,13 @@ import org.osgi.framework.Bundle;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -253,7 +253,7 @@ public final class DescriptionHelper {
       String key = "ComponentDescriptionHelper.getResourceInfo0.hasResult";
       cacheResult = (Map<String, ResourceInfo>) context.getGlobalValue(key);
       if (cacheResult == null) {
-        cacheResult = Maps.newHashMap();
+        cacheResult = new HashMap<>();
         context.putGlobalValue(key, cacheResult);
       }
       ResourceInfo result = cacheResult.get(name);
@@ -499,7 +499,7 @@ public final class DescriptionHelper {
     Assert.isNotNull(toolkitId);
     // prepare all toolkits
     if (m_idToToolkit == null) {
-      m_idToToolkit = Maps.newTreeMap();
+      m_idToToolkit = new TreeMap<>();
       for (IConfigurationElement toolkitElement : getToolkitElements()) {
         // ask each toolkit provider
         IConfigurationElement[] providerElements = toolkitElement.getChildren("provider");

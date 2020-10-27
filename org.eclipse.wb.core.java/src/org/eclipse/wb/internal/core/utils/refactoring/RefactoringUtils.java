@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.refactoring;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.xml.AbstractDocumentEditContext;
@@ -42,6 +40,7 @@ import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 import org.eclipse.text.edits.TextEdit;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -61,16 +60,16 @@ public class RefactoringUtils {
    */
   public static Change createRenameTypeChange(IType type, String newName, IProgressMonitor pm)
       throws CoreException {
-    int flags =
-        org.eclipse.jdt.core.refactoring.descriptors.JavaRefactoringDescriptor.JAR_MIGRATION
-            | org.eclipse.jdt.core.refactoring.descriptors.JavaRefactoringDescriptor.JAR_REFACTORING
-            | RefactoringDescriptor.STRUCTURAL_CHANGE;
+    int flags = org.eclipse.jdt.core.refactoring.descriptors.JavaRefactoringDescriptor.JAR_MIGRATION
+        | org.eclipse.jdt.core.refactoring.descriptors.JavaRefactoringDescriptor.JAR_REFACTORING
+        | RefactoringDescriptor.STRUCTURAL_CHANGE;
     if (!Flags.isPrivate(type.getFlags())) {
       flags |= RefactoringDescriptor.MULTI_CHANGE;
     }
     //
     org.eclipse.jdt.core.refactoring.descriptors.RenameJavaElementDescriptor descriptor =
-        new org.eclipse.jdt.core.refactoring.descriptors.RenameJavaElementDescriptor(org.eclipse.jdt.core.refactoring.IJavaRefactorings.RENAME_TYPE);
+        new org.eclipse.jdt.core.refactoring.descriptors.RenameJavaElementDescriptor(
+            org.eclipse.jdt.core.refactoring.IJavaRefactorings.RENAME_TYPE);
     descriptor.setProject(type.getJavaProject().getElementName());
     descriptor.setFlags(flags);
     descriptor.setJavaElement(type);
@@ -82,9 +81,9 @@ public class RefactoringUtils {
     RefactoringStatus refactoringStatus = new RefactoringStatus();
     Refactoring refactoring = descriptor.createRefactoring(refactoringStatus);
     // prepare Change
-    CreateChangeOperation createChangeOperation =
-        new CreateChangeOperation(new CheckConditionsOperation(refactoring,
-            CheckConditionsOperation.ALL_CONDITIONS), RefactoringStatus.FATAL);
+    CreateChangeOperation createChangeOperation = new CreateChangeOperation(
+        new CheckConditionsOperation(refactoring, CheckConditionsOperation.ALL_CONDITIONS),
+        RefactoringStatus.FATAL);
     createChangeOperation.run(new SubProgressMonitor(pm, 6));
     return createChangeOperation.getChange();
   }
@@ -200,7 +199,7 @@ public class RefactoringUtils {
    * @return map of all {@link TextFileChange}-s in given composite {@link Change}.
    */
   private static Map<IFile, TextFileChange> getTextFileChanges(Change change) {
-    Map<IFile, TextFileChange> textFileChanges = Maps.newHashMap();
+    Map<IFile, TextFileChange> textFileChanges = new HashMap<>();
     addTextFileChanges(textFileChanges, change);
     return textFileChanges;
   }
@@ -208,7 +207,8 @@ public class RefactoringUtils {
   /**
    * Adds entries for {@link TextFileChange}-s in given composite {@link Change}.
    */
-  private static void addTextFileChanges(Map<IFile, TextFileChange> textFileChanges, Change change) {
+  private static void addTextFileChanges(Map<IFile, TextFileChange> textFileChanges,
+      Change change) {
     if (change instanceof CompositeChange) {
       CompositeChange compositeChange = (CompositeChange) change;
       for (Change child : compositeChange.getChildren()) {
@@ -243,10 +243,9 @@ public class RefactoringUtils {
         // prepare TextEdit as minimal list of replace changes
         MultiTextEdit multiTextEdit = new MultiTextEdit();
         {
-          RangeDifference[] differences =
-              RangeDifferencer.findDifferences(
-                  new StringRangeComparator(oldContents),
-                  new StringRangeComparator(newContents));
+          RangeDifference[] differences = RangeDifferencer.findDifferences(
+              new StringRangeComparator(oldContents),
+              new StringRangeComparator(newContents));
           for (RangeDifference difference : differences) {
             int rightStart = difference.rightStart();
             int rightEnd = difference.rightEnd();

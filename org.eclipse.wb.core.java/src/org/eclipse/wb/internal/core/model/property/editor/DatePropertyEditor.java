@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -42,6 +40,7 @@ import org.apache.commons.lang.StringUtils;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The {@link PropertyEditor} for {@link Date}. Using scripts for MVEL library.
@@ -101,7 +100,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
       value = new Date(((Long) value).longValue());
     }
     if (value instanceof Date) {
-      Map<String, Object> variables = Maps.newTreeMap();
+      Map<String, Object> variables = new TreeMap<>();
       if (property instanceof GenericProperty) {
         GenericProperty genericProperty = (GenericProperty) property;
         variables.put("control", genericProperty.getJavaInfo().getObject());
@@ -132,7 +131,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
     } else {
       // prepare value
       try {
-        Map<String, Object> variables = Maps.newTreeMap();
+        Map<String, Object> variables = new TreeMap<>();
         variables.put("value", valueText);
         if (property instanceof GenericProperty) {
           GenericProperty genericProperty = (GenericProperty) property;
@@ -164,7 +163,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
       if (StringUtils.isEmpty(m_sourceTemplate)) {
         source = "new java.util.Date(%millisecs%)";
       } else {
-        Map<String, Object> variables = Maps.newTreeMap();
+        Map<String, Object> variables = new TreeMap<>();
         variables.put("value", value);
         String valueText = (String) evaluate(m_toStringScript, variables);
         source = StringUtils.replace(m_sourceTemplate, "%value%", valueText);
@@ -198,8 +197,8 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
         toStringScript = (String) parameters.get(TO_STRING_PARAM);
       }
       if (StringUtils.isEmpty(toStringScript)) {
-        toStringScript =
-            StringUtils.join(new String[]{
+        toStringScript = StringUtils.join(
+            new String[]{
                 "import java.text.SimpleDateFormat;",
                 m_functions,
                 "(new SimpleDateFormat()).format(value)"});
@@ -216,8 +215,8 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
         toDateScript = (String) parameters.get(TO_DATE_PARAM);
       }
       if (StringUtils.isEmpty(toDateScript)) {
-        toDateScript =
-            StringUtils.join(new String[]{
+        toDateScript = StringUtils.join(
+            new String[]{
                 "import java.text.SimpleDateFormat;",
                 m_functions,
                 "(new java.text.SimpleDateFormat()).parse(value)"});

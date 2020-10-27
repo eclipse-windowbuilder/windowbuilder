@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.context.strategies;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -39,21 +37,20 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Model for <code>org.eclipse.core.databinding.UpdateValueStrategy</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */
 public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
-  private static final String[] VALIDATORS = {
-      "setAfterConvertValidator",
-      "setAfterGetValidator",
-      "setBeforeSetValidator"};
-  private final Map<String, ValidatorInfo> m_validators = Maps.newHashMap();
+  private static final String[] VALIDATORS =
+      {"setAfterConvertValidator", "setAfterGetValidator", "setBeforeSetValidator"};
+  private final Map<String, ValidatorInfo> m_validators = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -61,8 +58,8 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public UpdateValueStrategyInfo() {
-    setStringValue(Activator.getStore().getString(
-        IPreferenceConstants.UPDATE_VALUE_STRATEGY_DEFAULT));
+    setStringValue(
+        Activator.getStore().getString(IPreferenceConstants.UPDATE_VALUE_STRATEGY_DEFAULT));
   }
 
   public UpdateValueStrategyInfo(ClassInstanceCreation creation, Expression[] arguments) {
@@ -97,9 +94,12 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
       Assert.isNull(m_validators.get(methodName));
       ValidatorInfo validator = (ValidatorInfo) resolver.getModel(arguments[0]);
       if (validator == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.UpdateValueStrategyInfo_validatorArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.UpdateValueStrategyInfo_validatorArgumentNotFound,
+                arguments[0]),
+            new Throwable());
       } else {
         m_validators.put(methodName, validator);
         //
@@ -219,18 +219,16 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
   protected ChooseClassConfiguration createConfiguration(BindingUiContentProviderContext context) {
     ChooseClassConfiguration configuration = super.createConfiguration(context);
     configuration.setDialogFieldLabel(Messages.UpdateValueStrategyInfo_title);
-    configuration.setDefaultValues(new String[]{
-        "POLICY_UPDATE",
-        "POLICY_NEVER",
-        "POLICY_ON_REQUEST",
-        "POLICY_CONVERT"});
+    configuration.setDefaultValues(
+        new String[]{"POLICY_UPDATE", "POLICY_NEVER", "POLICY_ON_REQUEST", "POLICY_CONVERT"});
     return configuration;
   }
 
   /**
    * Create configuration for edit strategy validator.
    */
-  private ChooseClassConfiguration createValidatorConfiguration(BindingUiContentProviderContext context,
+  private ChooseClassConfiguration createValidatorConfiguration(
+      BindingUiContentProviderContext context,
       String name,
       ValidatorInfo validator) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
@@ -239,14 +237,16 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
     configuration.setClearValue("N/S");
     configuration.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(MessageFormat.format(
-        Messages.UpdateValueStrategyInfo_validatorErrorMessage,
-        context.getDirection(),
-        name));
-    configuration.setErrorMessagePrefix(MessageFormat.format(
-        Messages.UpdateValueStrategyInfo_validatorErrorMessagePrefix,
-        context.getDirection(),
-        name));
+    configuration.setEmptyClassErrorMessage(
+        MessageFormat.format(
+            Messages.UpdateValueStrategyInfo_validatorErrorMessage,
+            context.getDirection(),
+            name));
+    configuration.setErrorMessagePrefix(
+        MessageFormat.format(
+            Messages.UpdateValueStrategyInfo_validatorErrorMessagePrefix,
+            context.getDirection(),
+            name));
     //
     if (validator != null
         && (validator.isAnonymous() || validator.getClassName().indexOf('(') != -1)) {
@@ -265,21 +265,24 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
     UpdateStrategyPropertiesUiContentProvider propertiesUIContentProvider =
         new UpdateStrategyPropertiesUiContentProvider(context.getDirection());
     // validators
-    propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
-        context,
-        "AfterConvertValidator",
-        m_validators.get(VALIDATORS[0])), this, VALIDATORS[0]));
-    propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
-        context,
-        "AfterGetValidator",
-        m_validators.get(VALIDATORS[1])), this, VALIDATORS[1]));
-    propertiesUIContentProvider.addProvider(new ValidatorUiContentProvider(createValidatorConfiguration(
-        context,
-        "BeforeSetValidator",
-        m_validators.get(VALIDATORS[2])), this, VALIDATORS[2]));
+    propertiesUIContentProvider.addProvider(
+        new ValidatorUiContentProvider(createValidatorConfiguration(
+            context,
+            "AfterConvertValidator",
+            m_validators.get(VALIDATORS[0])), this, VALIDATORS[0]));
+    propertiesUIContentProvider.addProvider(
+        new ValidatorUiContentProvider(createValidatorConfiguration(
+            context,
+            "AfterGetValidator",
+            m_validators.get(VALIDATORS[1])), this, VALIDATORS[1]));
+    propertiesUIContentProvider.addProvider(
+        new ValidatorUiContentProvider(createValidatorConfiguration(
+            context,
+            "BeforeSetValidator",
+            m_validators.get(VALIDATORS[2])), this, VALIDATORS[2]));
     // converter
-    propertiesUIContentProvider.addProvider(new ConverterUiContentProvider(createConverterConfiguration(context),
-        this));
+    propertiesUIContentProvider.addProvider(
+        new ConverterUiContentProvider(createConverterConfiguration(context), this));
     //
     providers.add(propertiesUIContentProvider);
   }
@@ -300,12 +303,13 @@ public final class UpdateValueStrategyInfo extends UpdateStrategyInfo {
     super.addSourceCodeForProperties(lines, generationSupport);
     // add validators
     for (Map.Entry<String, ValidatorInfo> entry : m_validators.entrySet()) {
-      lines.add(getVariableIdentifier()
-          + "."
-          + entry.getKey()
-          + "("
-          + entry.getValue().getSourceCode(lines, generationSupport)
-          + ");");
+      lines.add(
+          getVariableIdentifier()
+              + "."
+              + entry.getKey()
+              + "("
+              + entry.getValue().getSourceCode(lines, generationSupport)
+              + ");");
     }
   }
 

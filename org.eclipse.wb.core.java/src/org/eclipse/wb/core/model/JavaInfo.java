@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -93,6 +91,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -313,7 +312,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    */
   public void putTemplateArgument(String name, String value) {
     if (m_templateArguments == null) {
-      m_templateArguments = Maps.newHashMap();
+      m_templateArguments = new HashMap<>();
     }
     m_templateArguments.put(name, value);
   }

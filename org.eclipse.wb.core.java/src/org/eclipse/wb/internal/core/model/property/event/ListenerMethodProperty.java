@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.event;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -72,6 +71,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implementation of {@link Property} for single {@link ListenerInfo}.
@@ -446,7 +446,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
    * @return the unique name of inner {@link TypeDeclaration} for event listener.
    */
   private String createInnerClassName() {
-    Map<String, String> valueMap = Maps.newTreeMap();
+    Map<String, String> valueMap = new TreeMap<>();
     {
       String componentName = getComponentName(m_javaInfo);
       valueMap.put("component_name", componentName);
@@ -876,7 +876,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
    * @return the name of the stub method.
    */
   private String getStubMethodName(ListenerMethodInfo methodInfo) {
-    Map<String, String> valueMap = Maps.newTreeMap();
+    Map<String, String> valueMap = new TreeMap<>();
     {
       String componentName = getComponentName(m_javaInfo);
       valueMap.put("component_name", componentName);
