@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +56,7 @@ public abstract class MultiSelectionContextMenuProvider extends ContextMenuProvi
       return;
     }
     // handle multi selection
-    List<IMenuManager> managers = Lists.newArrayList();
+    List<IMenuManager> managers = new ArrayList<>();
     for (EditPart editPart : editParts) {
       IMenuManager manager = new MenuManager();
       buildContextMenu(editPart, manager);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
@@ -20,6 +18,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +61,7 @@ public class FormDimensionUtils {
    */
   public static Field[] getTemplateFields() {
     if (m_templateFields == null) {
-      List<Field> templateFieldsList = Lists.newArrayList();
+      List<Field> templateFieldsList = new ArrayList<>();
       Field[] fields = com.jgoodies.forms.layout.FormSpecs.class.getFields();
       for (int i = 0; i < fields.length; i++) {
         Field field = fields[i];

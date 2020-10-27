@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -33,13 +32,14 @@ import org.eclipse.swt.widgets.Composite;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Model for {@link Composite} that has methods like
  * <code>setContent(org.eclipse.swt.widgets.Control)</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */
@@ -117,7 +117,7 @@ public abstract class AbstractPositionCompositeInfo extends CompositeInfo {
   private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
     @Override
     public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+      List<ObjectInfo> children = new ArrayList<>(super.getChildrenTree());
       Set<ControlInfo> positionedControls = Sets.newHashSet();
       for (int i = 0; i < m_methods.length; i++) {
         String method = m_methods[i];

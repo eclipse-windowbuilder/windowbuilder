@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -24,12 +22,13 @@ import com.jgoodies.forms.layout.RowSpec;
 import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Description for {@link FormSpec}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -218,7 +217,7 @@ public abstract class FormDimensionInfo {
   public final FormDimensionTemplate[] getTemplates(boolean similar) {
     boolean isComponent = !isGap();
     boolean needComponent = similar ? isComponent : !isComponent;
-    List<FormDimensionTemplate> selectedTemplates = Lists.newArrayList();
+    List<FormDimensionTemplate> selectedTemplates = new ArrayList<>();
     //
     FormDimensionTemplate[] templates = getTemplates();
     for (int i = 0; i < templates.length; i++) {
@@ -409,8 +408,8 @@ public abstract class FormDimensionInfo {
   // FormSpec creation
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final DecimalFormat FORMAT = new DecimalFormat("#.##",
-      new DecimalFormatSymbols(Locale.ENGLISH));
+  private static final DecimalFormat FORMAT =
+      new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.ENGLISH));
 
   /**
    * @return the {@link FormSpec} instance according to the current alignment/size/weight.

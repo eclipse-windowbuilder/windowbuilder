@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -112,7 +110,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
   @Override
   protected Collection<EditPart> getExclusionSet() {
     if (m_exclusionSet == null) {
-      m_exclusionSet = new ArrayList<EditPart>(getOperationSet());
+      m_exclusionSet = new ArrayList<>(getOperationSet());
     }
     return m_exclusionSet;
   }
@@ -123,11 +121,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
   @Override
   protected IConditional getTargetingConditional() {
     if (!getViewer().getSelectedEditParts().isEmpty() && getOperationSet().isEmpty()) {
-      return new IConditional() {
-        public boolean evaluate(EditPart editPart) {
-          return false;
-        }
-      };
+      return editPart -> false;
     }
     return super.getTargetingConditional();
   }
@@ -233,7 +227,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
    * Return collection model's of operation set.
    */
   private List<Object> getOperationSetModels() {
-    List<Object> models = Lists.newArrayList();
+    List<Object> models = new ArrayList<>();
     for (EditPart part : getOperationSet()) {
       models.add(part.getModel());
     }
@@ -247,7 +241,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
     if (models != null) {
       IEditPartViewer viewer = getViewer();
       // prepare new EditPart's
-      List<EditPart> newEditParts = Lists.newArrayList();
+      List<EditPart> newEditParts = new ArrayList<>();
       for (Object model : models) {
         EditPart newEditPart = viewer.getEditPartByModel(model);
         if (newEditPart != null) {

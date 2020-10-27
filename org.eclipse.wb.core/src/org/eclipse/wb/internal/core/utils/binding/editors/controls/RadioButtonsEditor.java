@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2020 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,17 +45,17 @@ public final class RadioButtonsEditor implements IDataEditor {
   }
 
   public RadioButtonsEditor(Composite composite) {
-    List buttons = new ArrayList();
+    List<Button> buttons = new ArrayList<>();
     //
     Control[] children = composite.getChildren();
     for (int i = 0; i < children.length; i++) {
       Control control = children[i];
       if (control instanceof Button && (control.getStyle() & SWT.RADIO) != 0) {
-        buttons.add(control);
+        buttons.add((Button) control);
       }
     }
     //
-    m_buttons = (Button[]) buttons.toArray(new Button[buttons.size()]);
+    m_buttons = buttons.toArray(new Button[buttons.size()]);
     m_values = getDefaultValuesForButtons();
   }
 
@@ -64,6 +64,7 @@ public final class RadioButtonsEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     for (int i = 0; i < m_buttons.length; i++) {
       Button button = m_buttons[i];
@@ -74,6 +75,7 @@ public final class RadioButtonsEditor implements IDataEditor {
     return new Integer(m_values[0]);
   }
 
+  @Override
   public void setValue(Object value) {
     int intValue = ((Integer) value).intValue();
     for (int i = 0; i < m_buttons.length; i++) {

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.jface;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -50,12 +49,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Model for {@link FieldEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -83,7 +83,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
     });
     // remember Control's of FieldEditor
     addBroadcastListener(new EvaluationEventListener() {
-      private final List<Object> m_beforeControls = Lists.newArrayList();
+      private final List<Object> m_beforeControls = new ArrayList<>();
 
       @Override
       public void evaluateBefore(EvaluationContext context, ASTNode node) throws Exception {
@@ -131,21 +131,19 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
     String exposedMethodsString = JavaInfoUtils.getParameter(this, "FieldEditor.exposeMethods");
     if (exposedMethodsString != null) {
       for (String exposedMethodName : StringUtils.split(exposedMethodsString)) {
-        Method exposeMethod =
-            ReflectionUtils.getMethodBySignature(
-                getDescription().getComponentClass(),
-                exposedMethodName + "(org.eclipse.swt.widgets.Composite)");
+        Method exposeMethod = ReflectionUtils.getMethodBySignature(
+            getDescription().getComponentClass(),
+            exposedMethodName + "(org.eclipse.swt.widgets.Composite)");
         Assert.isNotNull(
             exposeMethod,
             "Unable to find expose method %s(Composite) for %s.",
             exposedMethodName,
             getDescription().getComponentClass());
         // create sub-component
-        ControlInfo subComponent =
-            (ControlInfo) JavaInfoUtils.createJavaInfo(
-                getEditor(),
-                exposeMethod.getReturnType(),
-                new FieldEditorSubComponentCreationSupport(this, exposeMethod));
+        ControlInfo subComponent = (ControlInfo) JavaInfoUtils.createJavaInfo(
+            getEditor(),
+            exposeMethod.getReturnType(),
+            new FieldEditorSubComponentCreationSupport(this, exposeMethod));
         {
           VariableSupport variableSupport =
               new FieldEditorSubComponentVariableSupport(subComponent, this, exposeMethod);
@@ -218,7 +216,7 @@ public final class FieldEditorInfo extends AbstractComponentInfo {
   // Refresh
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<Object> m_controls = Lists.newArrayList();
+  private final List<Object> m_controls = new ArrayList<>();
 
   /**
    * Appends direct/indirect children of given {@link Control}.

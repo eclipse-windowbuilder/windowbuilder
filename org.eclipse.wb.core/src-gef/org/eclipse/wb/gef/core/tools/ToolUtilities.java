@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ToolUtilities {
    * selection. If selection parents of edit parts is differed returns empty list.
    */
   public static List<EditPart> getSelectionWithoutDependants(IEditPartViewer viewer) {
-    List<EditPart> operationSet = Lists.newArrayList();
+    List<EditPart> operationSet = new ArrayList<>();
     // add selected EditPart's only if their parent is not added yet
     {
       List<EditPart> selectedParts = viewer.getSelectedEditParts();

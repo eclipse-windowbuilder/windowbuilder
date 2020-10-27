@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -23,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,19 +59,17 @@ public class StringsDialog extends TextDialog {
    * @return the edited items.
    */
   public String[] getItems() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
-      public String[] runObject() throws Exception {
-        List<String> strings = Lists.newArrayList();
-        BufferedReader br = new BufferedReader(new StringReader(getText()));
-        while (true) {
-          String s = br.readLine();
-          if (s == null) {
-            break;
-          }
-          strings.add(s);
+    return ExecutionUtils.runObjectLog(() -> {
+      List<String> strings = new ArrayList<>();
+      BufferedReader br = new BufferedReader(new StringReader(getText()));
+      while (true) {
+        String s = br.readLine();
+        if (s == null) {
+          break;
         }
-        return strings.toArray(new String[strings.size()]);
+        strings.add(s);
       }
+      return strings.toArray(new String[strings.size()]);
     }, ArrayUtils.EMPTY_STRING_ARRAY);
   }
 }

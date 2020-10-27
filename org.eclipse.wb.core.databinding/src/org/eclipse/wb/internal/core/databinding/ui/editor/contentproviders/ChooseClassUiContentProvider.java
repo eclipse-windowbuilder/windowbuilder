@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -30,6 +29,7 @@ import org.apache.commons.lang.ClassUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,21 +57,20 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
     // prepare value scope
     String valuesScope = m_configuration.getValuesScope();
     if (valuesScope == null) {
-      m_classes = Lists.newArrayList();
+      m_classes = new ArrayList<>();
     } else {
       List<String> classes = SCOPES.get(valuesScope);
       if (classes == null) {
-        classes = Lists.newArrayList();
+        classes = new ArrayList<>();
         SCOPES.put(valuesScope, classes);
       }
       m_classes = classes;
     }
     // create dialog field
-    m_dialogField =
-        new ComboButtonsDialogField(m_browseAdapter,
-            m_clearAdapter,
-            SWT.BORDER | SWT.READ_ONLY,
-            m_configuration.isUseClearButton());
+    m_dialogField = new ComboButtonsDialogField(m_browseAdapter,
+        m_clearAdapter,
+        SWT.BORDER | SWT.READ_ONLY,
+        m_configuration.isUseClearButton());
     // configure dialog field
     String dialogFieldLabel = m_configuration.getDialogFieldLabel();
     if (dialogFieldLabel != null) {
@@ -126,23 +125,16 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
   /**
    * Change selection item on combo.
    */
-  private final IDialogFieldListener m_fieldChangeListener = new IDialogFieldListener() {
-    public void dialogFieldChanged(DialogField field) {
-      calculateFinish();
-    }
-  };
+  private final IDialogFieldListener m_fieldChangeListener = field -> calculateFinish();
   /**
    * Press "browse" button.
    */
-  private final IStringButtonAdapter m_browseAdapter = new IStringButtonAdapter() {
-    public void changeControlPressed(DialogField field) {
-      handleChooseBrowse();
-    }
-  };
+  private final IStringButtonAdapter m_browseAdapter = field -> handleChooseBrowse();
   /**
    * Press "clear" button.
    */
   private final IStringButtonAdapter m_clearAdapter = new IStringButtonAdapter() {
+    @Override
     public void changeControlPressed(DialogField field) {
       m_dialogField.selectItem(m_configuration.getClearValue());
     }
@@ -150,12 +142,11 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
 
   private void handleChooseBrowse() {
     try {
-      String className =
-          UiUtils.chooseType(
-              getShell(),
-              getJavaProject(),
-              m_configuration.getBaseClassNames(),
-              m_configuration.getOpenTypeStyle());
+      String className = UiUtils.chooseType(
+          getShell(),
+          getJavaProject(),
+          m_configuration.getBaseClassNames(),
+          m_configuration.getOpenTypeStyle());
       if (className != null) {
         setClassName(className);
       }
@@ -196,13 +187,13 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
         // check permissions
         int modifiers = testClass.getModifiers();
         if (!Modifier.isPublic(modifiers)) {
-          setErrorMessage(errorMessagePrefix
-              + Messages.ChooseClassUiContentProvider_validateNotPublic);
+          setErrorMessage(
+              errorMessagePrefix + Messages.ChooseClassUiContentProvider_validateNotPublic);
           return;
         }
         if (!m_configuration.isChooseInterfaces() && Modifier.isAbstract(modifiers)) {
-          setErrorMessage(errorMessagePrefix
-              + Messages.ChooseClassUiContentProvider_validateAbstract);
+          setErrorMessage(
+              errorMessagePrefix + Messages.ChooseClassUiContentProvider_validateAbstract);
           return;
         }
         // check constructor
@@ -243,7 +234,8 @@ public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentP
           }
         }
       } catch (ClassNotFoundException e) {
-        setErrorMessage(errorMessagePrefix + Messages.ChooseClassUiContentProvider_validateNotExist);
+        setErrorMessage(
+            errorMessagePrefix + Messages.ChooseClassUiContentProvider_validateNotExist);
         return;
       }
       // prepare error message for constructor

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -37,11 +35,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The dialog for editing {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */
@@ -128,7 +127,8 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(MessageFormat.format(ModelMessages.DimensionEditDialog_title, m_dimensionName));
+    newShell.setText(
+        MessageFormat.format(ModelMessages.DimensionEditDialog_title, m_dimensionName));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -227,9 +227,8 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
     GridLayoutFactory.create(composite).noMargins().columns(4);
     // index
     {
-      new Label(composite, SWT.NONE).setText(MessageFormat.format(
-          ModelMessages.DimensionEditDialog_index,
-          m_dimensionName));
+      new Label(composite, SWT.NONE).setText(
+          MessageFormat.format(ModelMessages.DimensionEditDialog_index, m_dimensionName));
       // index
       {
         m_indexText = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
@@ -238,12 +237,14 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
       // prev button
       {
         m_prevButton = new Button(composite, SWT.NONE);
-        m_prevButton.setToolTipText(MessageFormat.format(
-            ModelMessages.DimensionEditDialog_previousButton,
-            m_dimensionName));
-        m_prevButton.setImage(m_horizontal
-            ? Activator.getImage("navigation/left.gif")
-            : Activator.getImage("navigation/up.gif"));
+        m_prevButton.setToolTipText(
+            MessageFormat.format(
+                ModelMessages.DimensionEditDialog_previousButton,
+                m_dimensionName));
+        m_prevButton.setImage(
+            m_horizontal
+                ? Activator.getImage("navigation/left.gif")
+                : Activator.getImage("navigation/up.gif"));
         m_prevButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex - 1));
@@ -254,12 +255,12 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
       // next button
       {
         m_nextButton = new Button(composite, SWT.NONE);
-        m_nextButton.setToolTipText(MessageFormat.format(
-            ModelMessages.DimensionEditDialog_nextButton,
-            m_dimensionName));
-        m_nextButton.setImage(m_horizontal
-            ? Activator.getImage("navigation/right.gif")
-            : Activator.getImage("navigation/down.gif"));
+        m_nextButton.setToolTipText(
+            MessageFormat.format(ModelMessages.DimensionEditDialog_nextButton, m_dimensionName));
+        m_nextButton.setImage(
+            m_horizontal
+                ? Activator.getImage("navigation/right.gif")
+                : Activator.getImage("navigation/down.gif"));
         m_nextButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex + 1));
@@ -294,7 +295,7 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
     GridDataFactory.create(composite).grabH().fill().indentHC(2);
     GridLayoutFactory.create(composite).noMargins().columns(4);
     //
-    m_alignmentButtons = Lists.newArrayList();
+    m_alignmentButtons = new ArrayList<>();
     for (final AlignmentDescription<A> description : m_alignments) {
       // create radio button
       Button button = new Button(composite, SWT.RADIO);
@@ -327,21 +328,18 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
           showDimension();
         }
       };
-      m_minField =
-          new DimensionUnitValueField(composite,
-              ModelMessages.DimensionEditDialog_minimumSize,
-              "minimumSize",
-              listener);
-      m_prefField =
-          new DimensionUnitValueField(composite,
-              ModelMessages.DimensionEditDialog_preferredSize,
-              "preferredSize",
-              listener);
-      m_maxField =
-          new DimensionUnitValueField(composite,
-              ModelMessages.DimensionEditDialog_maximumSize,
-              "maximumSize",
-              listener);
+      m_minField = new DimensionUnitValueField(composite,
+          ModelMessages.DimensionEditDialog_minimumSize,
+          "minimumSize",
+          listener);
+      m_prefField = new DimensionUnitValueField(composite,
+          ModelMessages.DimensionEditDialog_preferredSize,
+          "preferredSize",
+          listener);
+      m_maxField = new DimensionUnitValueField(composite,
+          ModelMessages.DimensionEditDialog_maximumSize,
+          "maximumSize",
+          listener);
     }
   }
 
@@ -356,28 +354,26 @@ abstract class DimensionEditDialog<T extends MigDimensionInfo, A extends Enum<?>
     };
     {
       createSeparator(parent, ModelMessages.DimensionEditDialog_growTitle);
-      m_growComposite =
-          new DimensionResizeComposite(parent,
-              SWT.NONE,
-              "no grow",
-              "grow",
-              0,
-              100,
-              "grow",
-              listener);
+      m_growComposite = new DimensionResizeComposite(parent,
+          SWT.NONE,
+          "no grow",
+          "grow",
+          0,
+          100,
+          "grow",
+          listener);
       GridDataFactory.create(m_growComposite).grabH().fill().indentHC(2);
     }
     {
       createSeparator(parent, ModelMessages.DimensionEditDialog_shrinkTitle);
-      m_shrinkComposite =
-          new DimensionResizeComposite(parent,
-              SWT.NONE,
-              "default shrink",
-              "shrink",
-              100,
-              100,
-              "shrink",
-              listener);
+      m_shrinkComposite = new DimensionResizeComposite(parent,
+          SWT.NONE,
+          "default shrink",
+          "shrink",
+          100,
+          100,
+          "shrink",
+          listener);
       GridDataFactory.create(m_shrinkComposite).grabH().fill().indentHC(2);
     }
   }

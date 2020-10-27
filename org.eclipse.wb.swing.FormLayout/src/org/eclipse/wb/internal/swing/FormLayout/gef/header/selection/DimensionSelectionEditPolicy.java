@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -36,11 +34,12 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.swt.SWT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract {@link SelectionEditPolicy} for {@link DimensionHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */
@@ -65,7 +64,7 @@ abstract class DimensionSelectionEditPolicy<T extends FormDimensionInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // move handle
     {
       MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
@@ -78,7 +77,7 @@ abstract class DimensionSelectionEditPolicy<T extends FormDimensionInfo>
 
   @Override
   protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     //
     DimensionHeaderEditPart<T> headerEditPart = getHostHeader();
     if (!headerEditPart.getDimension().isGap()) {
@@ -245,7 +244,7 @@ abstract class DimensionSelectionEditPolicy<T extends FormDimensionInfo>
   /**
    * @param inverse
    *          is <code>true</code> if constant size should be replaced with minimum and reverse.
-   * 
+   *
    * @return the size text for text feedback.
    */
   protected abstract String getTextFeedbackText(ChangeBoundsRequest request, boolean inverse);

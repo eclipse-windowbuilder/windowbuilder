@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2020 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,12 +12,9 @@ package org.eclipse.wb.internal.core.utils.binding;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,7 +23,7 @@ import java.util.List;
  * @author lobas_av
  */
 public final class DataBindManager {
-  private final List/*<Binding>*/m_bindings = new ArrayList();
+  private final List<Binding> m_bindings = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -56,7 +53,7 @@ public final class DataBindManager {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List/*<Runnable>*/m_updateRunnables = new ArrayList();
+  private final List<Runnable> m_updateRunnables = new ArrayList<>();
 
   /**
    * Adds {@link Runnable} that should be run after values modifications, for example during
@@ -71,19 +68,14 @@ public final class DataBindManager {
    * type in {@link Widget}.
    */
   public void addUpdateEvent(Widget widget, int eventType) {
-    widget.addListener(eventType, new Listener() {
-      public void handleEvent(Event event) {
-        runUpdateRunnables();
-      }
-    });
+    widget.addListener(eventType, event -> runUpdateRunnables());
   }
 
   /**
    * Runs {@link Runnable}'s.
    */
   private void runUpdateRunnables() {
-    for (Iterator I = m_updateRunnables.iterator(); I.hasNext();) {
-      Runnable runnable = (Runnable) I.next();
+    for (Runnable runnable : m_updateRunnables) {
       runnable.run();
     }
   }
@@ -121,8 +113,7 @@ public final class DataBindManager {
   ////////////////////////////////////////////////////////////////////////////
   private void updateProviders() {
     MultiStatus multiStatus = BindingStatus.ok();
-    for (Iterator I = m_bindings.iterator(); I.hasNext();) {
-      Binding binding = (Binding) I.next();
+    for (Binding binding : m_bindings) {
       IStatus status = binding.updateProvider();
       if (!mergeStatus(multiStatus, status)) {
         return;
@@ -131,8 +122,7 @@ public final class DataBindManager {
   }
 
   private void updateEditors(boolean def) {
-    for (Iterator I = m_bindings.iterator(); I.hasNext();) {
-      Binding binding = (Binding) I.next();
+    for (Binding binding : m_bindings) {
       binding.updateEditor(def);
     }
     runUpdateRunnables();

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.Figure;
@@ -32,11 +30,12 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.ISashFormInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for {@link IControlInfo} in {@link ISashFormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -62,7 +61,7 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // create move handle
     MoveHandle moveHandle = new MoveHandle(getHost());
     moveHandle.setForeground(IColorConstants.red);
@@ -73,21 +72,19 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 
   @Override
   protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // create resize handle (exclude last ControlInfo)
     boolean isLast = GenericsUtils.getLastOrNull(m_composite.getChildrenControls()) == m_control;
     if (!isLast) {
       SideResizeHandle resizeHandle;
       if (m_composite.isHorizontal()) {
         resizeHandle = new SideResizeHandle(getHost(), IPositionConstants.RIGHT, 10, true);
-        resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(),
-            IPositionConstants.EAST,
-            REQ_RESIZE));
+        resizeHandle.setDragTrackerTool(
+            new ResizeTracker(getHost(), IPositionConstants.EAST, REQ_RESIZE));
       } else {
         resizeHandle = new SideResizeHandle(getHost(), IPositionConstants.BOTTOM, 10, true);
-        resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(),
-            IPositionConstants.SOUTH,
-            REQ_RESIZE));
+        resizeHandle.setDragTrackerTool(
+            new ResizeTracker(getHost(), IPositionConstants.SOUTH, REQ_RESIZE));
       }
       handles.add(resizeHandle);
     }

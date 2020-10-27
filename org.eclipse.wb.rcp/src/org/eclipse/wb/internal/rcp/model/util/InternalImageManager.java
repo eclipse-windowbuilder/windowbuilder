@@ -15,20 +15,18 @@ import org.eclipse.swt.graphics.Image;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
  * Utility class for managing OS resources associated with SWT/JFace images. Used to manage images
  * which are loaded from the users {@code Activator}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.util
  */
-@SuppressWarnings("unchecked")
 public final class InternalImageManager {
-  private static final Map/*<String, Image>*/IMAGES = new HashMap();
-  private static final Map/*<String, Image>*/DESCRIPTORS = new HashMap();
+  private static final Map<String, Image> IMAGES = new HashMap<>();
+  private static final Map<String, ImageDescriptor> DESCRIPTORS = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -41,7 +39,7 @@ public final class InternalImageManager {
   public static ImageDescriptor getImageDescriptor(String projectPath, String imagePath) {
     // prepare descriptor
     imagePath = configurePath(imagePath);
-    ImageDescriptor descriptor = (ImageDescriptor) DESCRIPTORS.get(imagePath);
+    ImageDescriptor descriptor = DESCRIPTORS.get(imagePath);
     // check create descriptor
     if (descriptor == null) {
       // prepare file path
@@ -61,7 +59,7 @@ public final class InternalImageManager {
   public static Image getImage(String projectPath, String imagePath) {
     // prepare image
     imagePath = configurePath(imagePath);
-    Image image = (Image) IMAGES.get(imagePath);
+    Image image = IMAGES.get(imagePath);
     // check create image
     if (image == null) {
       // prepare file path
@@ -83,8 +81,7 @@ public final class InternalImageManager {
    * Dispose of cached objects and their underlying OS resources.
    */
   public static void dispose() {
-    for (Iterator/*Image*/I = IMAGES.values().iterator(); I.hasNext();) {
-      Image image = (Image) I.next();
+    for (Image image : IMAGES.values()) {
       try {
         if (!image.isDisposed()) {
           image.dispose();

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.table;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.IColorConstants;
@@ -37,7 +36,6 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
@@ -46,13 +44,12 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -72,9 +69,8 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
   private static final Color COLOR_BACKGROUND = IColorConstants.listBackground;
   private static final Color COLOR_NO_PROPERTIES = IColorConstants.gray;
   private static final Color COLOR_LINE = IColorConstants.lightGray;
-  private static final Color COLOR_COMPLEX_LINE = DrawUtils.getShiftedColor(
-      IColorConstants.lightGray,
-      -32);
+  private static final Color COLOR_COMPLEX_LINE =
+      DrawUtils.getShiftedColor(IColorConstants.lightGray, -32);
   private static final Color COLOR_PROPERTY_BG = DrawUtils.getShiftedColor(COLOR_BACKGROUND, -12);
   private static final Color COLOR_PROPERTY_BG_MODIFIED = COLOR_BACKGROUND;
   private static final Color COLOR_PROPERTY_FG_TITLE = IColorConstants.listForeground;
@@ -148,26 +144,12 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
    * Adds listeners for events.
    */
   private void hookControlEvents() {
-    addListener(SWT.Dispose, new Listener() {
-      public void handleEvent(Event event) {
-        disposeBufferedImage();
-      }
-    });
-    addListener(SWT.Resize, new Listener() {
-      public void handleEvent(Event event) {
-        handleResize();
-      }
-    });
-    addListener(SWT.Paint, new Listener() {
-      public void handleEvent(Event event) {
-        handlePaint(event.gc, event.x, event.y, event.width, event.height);
-      }
-    });
-    getVerticalBar().addListener(SWT.Selection, new Listener() {
-      public void handleEvent(Event event) {
-        handleVerticalScrolling();
-      }
-    });
+    addListener(SWT.Dispose, event -> disposeBufferedImage());
+    addListener(SWT.Resize, event -> handleResize());
+    addListener(
+        SWT.Paint,
+        event -> handlePaint(event.gc, event.x, event.y, event.width, event.height));
+    getVerticalBar().addListener(SWT.Selection, event -> handleVerticalScrolling());
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseDown(MouseEvent event) {
@@ -185,11 +167,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
         handleMouseDoubleClick(event);
       }
     });
-    addMouseMoveListener(new MouseMoveListener() {
-      public void mouseMove(MouseEvent event) {
-        handleMouseMove(event);
-      }
-    });
+    addMouseMoveListener(event -> handleMouseMove(event));
     // keyboard
     addKeyListener(new KeyAdapter() {
       @Override
@@ -576,14 +554,13 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
         {
           PropertyEditorPresentation presentation = m_activeEditor.getPresentation();
           if (presentation != null) {
-            int presentationWidth =
-                presentation.show(
-                    this,
-                    m_activePropertyInfo.m_property,
-                    bounds.x,
-                    bounds.y,
-                    bounds.width,
-                    bounds.height);
+            int presentationWidth = presentation.show(
+                this,
+                m_activePropertyInfo.m_property,
+                bounds.x,
+                bounds.y,
+                bounds.width,
+                bounds.height);
             bounds.width -= presentationWidth;
           }
         }
@@ -763,11 +740,11 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
     // set new properties
     if (m_rawProperties == null || m_rawProperties.length == 0) {
       deactivateEditor(false);
-      m_properties = Lists.newArrayList();
+      m_properties = new ArrayList<>();
     } else {
       try {
         // add PropertyInfo for each Property
-        m_properties = Lists.newArrayList();
+        m_properties = new ArrayList<>();
         for (Property property : m_rawProperties) {
           if (rawProperties_shouldShow(property)) {
             PropertyInfo propertyInfo = new PropertyInfo(property);
@@ -777,7 +754,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
         // expand properties using history
         while (true) {
           boolean expanded = false;
-          List<PropertyInfo> currentProperties = Lists.newArrayList(m_properties);
+          List<PropertyInfo> currentProperties = new ArrayList(m_properties);
           for (PropertyInfo propertyInfo : currentProperties) {
             expanded |= propertyInfo.expandFromHistory();
           }
@@ -935,18 +912,21 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
   // ISelectionProvider
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<ISelectionChangedListener> m_selectionListeners = Lists.newArrayList();
+  private final List<ISelectionChangedListener> m_selectionListeners = new ArrayList<>();
 
+  @Override
   public void addSelectionChangedListener(ISelectionChangedListener listener) {
     if (!m_selectionListeners.contains(listener)) {
       m_selectionListeners.add(listener);
     }
   }
 
+  @Override
   public void removeSelectionChangedListener(ISelectionChangedListener listener) {
     m_selectionListeners.add(listener);
   }
 
+  @Override
   public ISelection getSelection() {
     if (m_activePropertyInfo != null) {
       return new StructuredSelection(m_activePropertyInfo.getProperty());
@@ -955,6 +935,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
     }
   }
 
+  @Override
   public void setSelection(ISelection selection) {
     throw new NotImplementedException(PropertyTable.class);
   }
@@ -1100,8 +1081,12 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
         // draw single property
         {
           PropertyInfo propertyInfo = m_properties.get(i);
-          drawProperty(gc, propertyInfo, y + 1, m_rowHeight - 1, clientArea.width
-              - presentationsWidth[i]);
+          drawProperty(
+              gc,
+              propertyInfo,
+              y + 1,
+              m_rowHeight - 1,
+              clientArea.width - presentationsWidth[i]);
           y += m_rowHeight;
         }
         // draw row separator
@@ -1465,7 +1450,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
      */
     private void prepareChildren() throws Exception {
       if (m_children == null) {
-        m_children = Lists.newArrayList();
+        m_children = new ArrayList<>();
         for (Property subProperty : getSubProperties()) {
           PropertyInfo subPropertyInfo = createSubPropertyInfo(subProperty);
           m_children.add(subPropertyInfo);
@@ -1479,7 +1464,7 @@ public class PropertyTable extends Canvas implements ISelectionProvider {
 
     private Property[] getSubProperties() throws Exception {
       IComplexPropertyEditor complexEditor = (IComplexPropertyEditor) m_property.getEditor();
-      List<Property> subProperties = Lists.newArrayList();
+      List<Property> subProperties = new ArrayList<>();
       for (Property subProperty : complexEditor.getProperties(m_property)) {
         if (getCategory(subProperty).isHidden() && !subProperty.isModified()) {
           // skip hidden properties

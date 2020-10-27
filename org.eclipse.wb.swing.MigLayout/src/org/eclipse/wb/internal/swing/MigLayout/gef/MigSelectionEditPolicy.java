@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy;
@@ -37,11 +35,12 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.policy
  */
@@ -83,7 +82,7 @@ public final class MigSelectionEditPolicy extends AbstractGridSelectionEditPolic
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handlesList = Lists.newArrayList();
+    List<Handle> handlesList = new ArrayList<>();
     // add move handle
     handlesList.add(createMoveHandle());
     // add span handles

@@ -37,7 +37,7 @@ class TableLayoutComposite extends Composite {
    * pixels available for the content of the column, assign N+COLUMN_TRIM for the column width.
    */
   private static int COLUMN_TRIM = "carbon".equals(SWT.getPlatform()) ? 24 : 3;
-  private final List columns = new ArrayList();
+  private final List<ColumnLayoutData> columns = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -89,7 +89,7 @@ class TableLayoutComposite extends Composite {
     int width = 0;
     int size = columns.size();
     for (int i = 0; i < size; ++i) {
-      ColumnLayoutData layoutData = (ColumnLayoutData) columns.get(i);
+      ColumnLayoutData layoutData = columns.get(i);
       if (layoutData instanceof ColumnPixelData) {
         ColumnPixelData col = (ColumnPixelData) layoutData;
         width += col.width;
@@ -123,7 +123,7 @@ class TableLayoutComposite extends Composite {
     int totalWeight = 0;
     // first calculate space occupied by fixed columns
     for (int i = 0; i < size; i++) {
-      ColumnLayoutData col = (ColumnLayoutData) columns.get(i);
+      ColumnLayoutData col = columns.get(i);
       if (col instanceof ColumnPixelData) {
         ColumnPixelData cpd = (ColumnPixelData) col;
         int pixels = cpd.width;
@@ -147,7 +147,7 @@ class TableLayoutComposite extends Composite {
       int rest = width - fixedWidth;
       int totalDistributed = 0;
       for (int i = 0; i < size; ++i) {
-        ColumnLayoutData col = (ColumnLayoutData) columns.get(i);
+        ColumnLayoutData col = columns.get(i);
         if (col instanceof ColumnWeightData) {
           ColumnWeightData cw = (ColumnWeightData) col;
           int weight = cw.weight;
@@ -165,7 +165,7 @@ class TableLayoutComposite extends Composite {
         if (i == size) {
           i = 0;
         }
-        ColumnLayoutData col = (ColumnLayoutData) columns.get(i);
+        ColumnLayoutData col = columns.get(i);
         if (col instanceof ColumnWeightData) {
           ++widths[i];
           --diff;

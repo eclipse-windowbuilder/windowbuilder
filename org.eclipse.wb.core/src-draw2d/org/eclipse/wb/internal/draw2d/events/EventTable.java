@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d.events;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class EventTable {
   public <T extends Object> void addListener(Class<T> listenerClass, T listener) {
     List<T> listeners = getListenersImpl(listenerClass);
     if (listeners == null) {
-      listeners = Lists.newArrayList();
+      listeners = new ArrayList<>();
       m_listenerClassToListener.put(listenerClass, listeners);
     }
     if (!listeners.contains(listener)) {
@@ -62,7 +61,7 @@ public class EventTable {
     List<T> listeners = getListenersImpl(listenerClass);
     return listeners == null
         ? Collections.<T>emptyList()
-        : Collections.unmodifiableList(new ArrayList<T>(listeners));
+        : Collections.unmodifiableList(new ArrayList<>(listeners));
   }
 
   ////////////////////////////////////////////////////////////////////////////

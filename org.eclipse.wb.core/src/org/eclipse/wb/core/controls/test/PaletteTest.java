@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,10 +83,9 @@ public class PaletteTest implements IColorConstants {
     // create PaletteComposite
     PaletteComposite paletteComposite;
     {
-      IFlyoutPreferences preferences =
-          new MemoryFlyoutPreferences(IFlyoutPreferences.DOCK_WEST,
-              IFlyoutPreferences.STATE_OPEN,
-              200);
+      IFlyoutPreferences preferences = new MemoryFlyoutPreferences(IFlyoutPreferences.DOCK_WEST,
+          IFlyoutPreferences.STATE_OPEN,
+          200);
       FlyoutControlComposite flyoutControlComposite =
           new FlyoutControlComposite(shell, SWT.NONE, preferences);
       flyoutControlComposite.setTitleText("Palette");
@@ -151,7 +151,7 @@ public class PaletteTest implements IColorConstants {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final class PaletteImpl implements IPalette {
-    private final List<ICategory> m_categories = Lists.newArrayList();
+    private final List<ICategory> m_categories = new ArrayList<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -162,10 +162,12 @@ public class PaletteTest implements IColorConstants {
       m_categories.add(category);
     }
 
+    @Override
     public List<ICategory> getCategories() {
       return m_categories;
     }
 
+    @Override
     public void addPopupActions(IMenuManager menuManager, Object target) {
     }
 
@@ -174,12 +176,15 @@ public class PaletteTest implements IColorConstants {
     // Operations
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void selectDefault() {
     }
 
+    @Override
     public void moveCategory(ICategory category, ICategory nextCategory) {
     }
 
+    @Override
     public void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry) {
     }
   }
@@ -217,22 +222,27 @@ public class PaletteTest implements IColorConstants {
     // ICategory
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public String getText() {
       return m_text;
     }
 
+    @Override
     public String getToolTipText() {
       return null;
     }
 
+    @Override
     public boolean isOpen() {
       return m_open;
     }
 
+    @Override
     public void setOpen(boolean b) {
       m_open = b;
     }
 
+    @Override
     public List<IEntry> getEntries() {
       return m_entries;
     }
@@ -263,18 +273,22 @@ public class PaletteTest implements IColorConstants {
     // Access
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean isEnabled() {
       return m_enabled;
     }
 
+    @Override
     public Image getIcon() {
       return m_icon;
     }
 
+    @Override
     public String getText() {
       return m_text;
     }
 
+    @Override
     public String getToolTipText() {
       return null;
     }
@@ -284,6 +298,7 @@ public class PaletteTest implements IColorConstants {
     // Activation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean activate(boolean reload) {
       return true;
     }

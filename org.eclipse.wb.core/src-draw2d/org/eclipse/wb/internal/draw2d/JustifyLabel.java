@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Graphics;
@@ -25,6 +23,7 @@ import org.eclipse.swt.graphics.GC;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -158,7 +157,7 @@ public class JustifyLabel extends Figure {
   }
 
   private void updateContent() {
-    m_lines = Lists.newArrayList();
+    m_lines = new ArrayList<>();
     GC gc = FigureUtils.createGC();
     try {
       // prepare metrics

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.forms.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
@@ -33,11 +31,12 @@ import org.eclipse.wb.internal.rcp.model.forms.layout.column.IColumnLayoutDataIn
 import org.eclipse.wb.internal.rcp.model.forms.layout.column.IColumnLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link IColumnLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -65,7 +64,7 @@ public final class ColumnLayoutSelectionEditPolicy<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     handles.add(new MoveHandle(getHost()));
     handles.add(createHandle(IPositionConstants.EAST));
     handles.add(createHandle(IPositionConstants.SOUTH));
@@ -157,7 +156,8 @@ public final class ColumnLayoutSelectionEditPolicy<C extends IControlInfo>
     // update selection feedback
     m_resizeFeedback.setBounds(bounds);
     // update text feedback
-    m_textFeedback.setText(Integer.toString(bounds.width) + " x " + Integer.toString(bounds.height));
+    m_textFeedback.setText(
+        Integer.toString(bounds.width) + " x " + Integer.toString(bounds.height));
     m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
   }
 

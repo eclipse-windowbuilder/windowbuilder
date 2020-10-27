@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.color;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.Messages;
 
 import org.eclipse.swt.SWT;
@@ -22,10 +20,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Listener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,7 +77,7 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
   // Color grids
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<ColorsGridComposite> m_colorsGrids = Lists.newArrayList();
+  private final List<ColorsGridComposite> m_colorsGrids = new ArrayList<>();
 
   /**
    * Adds new {@link Group} with given title and fills it with {@link ColorsGridComposite} with
@@ -110,23 +107,15 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
     colorsGrid.setColors(colors);
     m_colorsGrids.add(colorsGrid);
     // add listeners
-    colorsGrid.addListener(SWT.DefaultSelection, new Listener() {
-      public void handleEvent(Event event) {
-        ColorInfo colorInfo = (ColorInfo) event.data;
-        m_colorHintCanvas.setColor(colorInfo);
-      }
+    colorsGrid.addListener(SWT.DefaultSelection, event -> {
+      ColorInfo colorInfo = (ColorInfo) event.data;
+      m_colorHintCanvas.setColor(colorInfo);
     });
-    colorsGrid.addListener(SWT.Selection, new Listener() {
-      public void handleEvent(Event event) {
-        ColorInfo colorInfo = (ColorInfo) event.data;
-        m_colorDialog.setResultColor(colorInfo);
-      }
+    colorsGrid.addListener(SWT.Selection, event -> {
+      ColorInfo colorInfo = (ColorInfo) event.data;
+      m_colorDialog.setResultColor(colorInfo);
     });
-    colorsGrid.addListener(SWT.MouseDoubleClick, new Listener() {
-      public void handleEvent(Event event) {
-        m_colorDialog.closeOk();
-      }
-    });
+    colorsGrid.addListener(SWT.MouseDoubleClick, event -> m_colorDialog.closeOk());
     //
     return colorsGrid;
   }

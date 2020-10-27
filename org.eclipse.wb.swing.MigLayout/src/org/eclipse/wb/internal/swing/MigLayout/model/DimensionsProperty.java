@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
@@ -21,11 +19,12 @@ import org.eclipse.wb.internal.swing.MigLayout.model.ui.RowsDialog;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link Property} to display/edit {@link List} of {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
@@ -93,7 +92,7 @@ public final class DimensionsProperty extends Property {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected String getText(Property property) throws Exception {
-      List<String> titles = Lists.newArrayList();
+      List<String> titles = new ArrayList<>();
       List<? extends MigDimensionInfo> dimensions =
           m_horizontal ? m_layout.getColumns() : m_layout.getRows();
       for (MigDimensionInfo dimension : dimensions) {

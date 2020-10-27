@@ -1461,7 +1461,7 @@ public class ParseTools {
     if (val == null) {
       return false;
     }
-    Class clz;
+    Class<? extends Object> clz;
     if (val instanceof Class) {
       clz = (Class) val;
     } else {
@@ -1748,14 +1748,14 @@ public class ParseTools {
     return -1;
   }
 
-  public static Class getBaseComponentType(Class cls) {
+  public static Class<?> getBaseComponentType(Class<?> cls) {
     while (cls.isArray()) {
       cls = cls.getComponentType();
     }
     return cls;
   }
 
-  public static Class getSubComponentType(Class cls) {
+  public static Class<?> getSubComponentType(Class<?> cls) {
     if (cls.isArray()) {
       cls = cls.getComponentType();
     }
@@ -1873,7 +1873,7 @@ public class ParseTools {
     return new FileWriter(new File(getDebuggingOutputFileName()), true);
   }
 
-  public static boolean isPrimitiveWrapper(Class clazz) {
+  public static boolean isPrimitiveWrapper(Class<?> clazz) {
     return clazz == Integer.class
         || clazz == Boolean.class
         || clazz == Long.class

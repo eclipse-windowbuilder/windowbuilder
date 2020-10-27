@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -58,7 +56,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -74,12 +72,13 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of {@link PropertyEditor} for ID of {@link Button} on {@link DialogInfo}
- * "button bar".
- * 
+ * Implementation of {@link PropertyEditor} for ID of {@link Button} on {@link DialogInfo} "button
+ * bar".
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -140,7 +139,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
    *         ID's.
    */
   private static List<FieldDeclaration> getCustomIDs(GenericProperty property) {
-    List<FieldDeclaration> idList = Lists.newArrayList();
+    List<FieldDeclaration> idList = new ArrayList<>();
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(property.getJavaInfo());
     for (FieldDeclaration fieldDeclaration : typeDeclaration.getFields()) {
       // check that field is "static final"
@@ -184,7 +183,9 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
       }
       // all checks were successful, so add this FieldDeclaration
       fieldDeclaration.setProperty(BUTTON_NAME_PROPERTY, fragment.getName().getIdentifier());
-      fieldDeclaration.setProperty(BUTTON_OFFSET_PROPERTY, Integer.valueOf(rightOperand.toString()));
+      fieldDeclaration.setProperty(
+          BUTTON_OFFSET_PROPERTY,
+          Integer.valueOf(rightOperand.toString()));
       idList.add(fieldDeclaration);
     }
     return idList;
@@ -231,7 +232,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 
   /**
    * {@link Dialog} for selecting ID of "button" on "button bar".
-   * 
+   *
    * @author scheglov_ke
    */
   private class SelectIdDialog extends ResizableDialog {
@@ -302,7 +303,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
           TableFactory.modify(table).newColumn().widthC(47).text(
               ModelMessages.DialogButtonIdPropertyEditor_columnId);
         }
-        m_viewer.setSorter(new IdSorter());
+        m_viewer.setComparator(new IdSorter());
         m_viewer.setLabelProvider(new IdLabelProvider());
         m_viewer.setContentProvider(new ArrayContentProvider());
         m_viewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -315,9 +316,8 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
           public void run() throws Exception {
             boolean showStandardIDs = isDialogConstantsQualifiedName(m_property.getExpression());
             // select standard/custom category
-            m_categoriesTree.setSelection(new TreeItem[]{showStandardIDs
-                ? m_standardItem
-                : m_customItem});
+            m_categoriesTree.setSelection(
+                new TreeItem[]{showStandardIDs ? m_standardItem : m_customItem});
             // show ID's
             showIDs(showStandardIDs);
             highlightID(getText(m_property));
@@ -407,12 +407,11 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
         public void run() throws Exception {
           AstEditor editor = javaInfo.getEditor();
           TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(javaInfo);
-          String code =
-              "private static final int "
-                  + newName
-                  + " = IDialogConstants.CLIENT_ID + "
-                  + newValue
-                  + ";";
+          String code = "private static final int "
+              + newName
+              + " = IDialogConstants.CLIENT_ID + "
+              + newValue
+              + ";";
           editor.addFieldDeclaration(code, new BodyDeclarationTarget(typeDeclaration, true));
         }
       });
@@ -427,7 +426,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
     // Viewer elements
     //
     ////////////////////////////////////////////////////////////////////////////
-    private class IdSorter extends ViewerSorter {
+    private class IdSorter extends ViewerComparator {
       @Override
       public int compare(Viewer viewer, Object e1, Object e2) {
         IdLabelProvider labelProvider = (IdLabelProvider) m_viewer.getLabelProvider();

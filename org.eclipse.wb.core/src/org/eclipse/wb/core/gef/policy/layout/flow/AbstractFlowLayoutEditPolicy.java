@@ -34,7 +34,6 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -288,15 +287,13 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
       }
     }
     // sort row by X
-    Collections.sort(rowChildren, new Comparator<EditPart>() {
-      public int compare(EditPart part_1, EditPart part_2) {
-        int x1 = getAbsoluteBounds(horizontal, part_1).x;
-        int x2 = getAbsoluteBounds(horizontal, part_2).x;
-        if (horizontal && rtl) {
-          return x2 - x1;
-        } else {
-          return x1 - x2;
-        }
+    Collections.sort(rowChildren, (part_1, part_2) -> {
+      int x1 = getAbsoluteBounds(horizontal, part_1).x;
+      int x2 = getAbsoluteBounds(horizontal, part_2).x;
+      if (horizontal && rtl) {
+        return x2 - x1;
+      } else {
+        return x1 - x2;
       }
     });
     // find reference

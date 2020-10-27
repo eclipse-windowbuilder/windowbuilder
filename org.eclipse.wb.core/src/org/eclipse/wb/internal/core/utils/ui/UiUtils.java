@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -44,6 +43,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,11 +115,7 @@ public class UiUtils {
     menu.addMenuListener(new MenuAdapter() {
       @Override
       public void menuHidden(MenuEvent e) {
-        e.display.asyncExec(new Runnable() {
-          public void run() {
-            menu.dispose();
-          }
-        });
+        e.display.asyncExec(() -> menu.dispose());
       }
     });
     menu.setVisible(true);
@@ -244,25 +240,23 @@ public class UiUtils {
     final String TAB_ITEM_KEY = "_TABLEITEM";
     final Shell tableShell = table.getShell();
     //
-    final Listener tipControlListener = new Listener() {
-      public void handleEvent(Event event) {
-        Control tipControl = (Control) event.widget;
-        Shell tipShell = tipControl.getShell();
-        switch (event.type) {
-          case SWT.MouseDown :
-            Event e = new Event();
-            e.item = (TableItem) tipControl.getData(TAB_ITEM_KEY);
-            // dispose tooltip
-            tipShell.dispose();
-            // Assuming table is single select, set the selection as if
-            // the mouse down event went through to the table
-            table.setSelection(new TableItem[]{(TableItem) e.item});
-            table.notifyListeners(SWT.Selection, e);
-            break;
-          case SWT.MouseExit :
-            tipShell.dispose();
-            break;
-        }
+    final Listener tipControlListener = event -> {
+      Control tipControl = (Control) event.widget;
+      Shell tipShell = tipControl.getShell();
+      switch (event.type) {
+        case SWT.MouseDown :
+          Event e = new Event();
+          e.item = (TableItem) tipControl.getData(TAB_ITEM_KEY);
+          // dispose tooltip
+          tipShell.dispose();
+          // Assuming table is single select, set the selection as if
+          // the mouse down event went through to the table
+          table.setSelection(new TableItem[]{(TableItem) e.item});
+          table.notifyListeners(SWT.Selection, e);
+          break;
+        case SWT.MouseExit :
+          tipShell.dispose();
+          break;
       }
     };
     //
@@ -270,6 +264,7 @@ public class UiUtils {
       private Shell m_tipShell = null;
       private Control m_tipControl = null;
 
+      @Override
       public void handleEvent(Event event) {
         switch (event.type) {
           case SWT.Dispose :
@@ -356,7 +351,7 @@ public class UiUtils {
    * @return the array of expanded {@link TreeItem}'s.
    */
   public static TreeItem[] getExpanded(Tree tree) {
-    List<TreeItem> expandedItems = Lists.newArrayList();
+    List<TreeItem> expandedItems = new ArrayList<>();
     addExpanded(expandedItems, tree.getItems());
     return expandedItems.toArray(new TreeItem[expandedItems.size()]);
   }
@@ -598,14 +593,13 @@ public class UiUtils {
    * Opens standard warning dialog.
    */
   public static void openWarning(Shell parent, String title, String message) {
-    MessageDialog dialog =
-        new MessageDialog(parent,
-            title,
-            null,
-            message,
-            MessageDialog.WARNING,
-            new String[]{IDialogConstants.OK_LABEL},
-            0);
+    MessageDialog dialog = new MessageDialog(parent,
+        title,
+        null,
+        message,
+        MessageDialog.WARNING,
+        new String[]{IDialogConstants.OK_LABEL},
+        0);
     dialog.open();
   }
 
@@ -613,14 +607,13 @@ public class UiUtils {
    * Opens standard error dialog.
    */
   public static void openError(Shell parent, String title, String message) {
-    MessageDialog dialog =
-        new MessageDialog(parent,
-            title,
-            null,
-            message,
-            MessageDialog.ERROR,
-            new String[]{IDialogConstants.OK_LABEL},
-            0);
+    MessageDialog dialog = new MessageDialog(parent,
+        title,
+        null,
+        message,
+        MessageDialog.ERROR,
+        new String[]{IDialogConstants.OK_LABEL},
+        0);
     dialog.open();
   }
 }

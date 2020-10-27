@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -18,11 +17,11 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.Separator;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -77,7 +76,7 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
       }
     }
     // prepare components
-    m_components = Lists.newArrayList();
+    m_components = new ArrayList<>();
     for (ObjectInfo object : objects) {
       if (!isComponentInfo(object)) {
         return;
@@ -113,59 +112,71 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
   protected void addAlignmentActions(List<Object> actions) {
     // create horizontal actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("h_left",
-        GefMessages.AbstractAlignmentActionsSupport_alignLeft,
-        ALIGN_H_LEFT));
-    actions.add(new SelectionAction("h_centers",
-        GefMessages.AbstractAlignmentActionsSupport_alighHorizontalCenters,
-        ALIGN_H_CENTERS));
-    actions.add(new SelectionAction("h_right",
-        GefMessages.AbstractAlignmentActionsSupport_alignRight,
-        ALIGN_H_RIGHT));
+    actions.add(
+        new SelectionAction("h_left",
+            GefMessages.AbstractAlignmentActionsSupport_alignLeft,
+            ALIGN_H_LEFT));
+    actions.add(
+        new SelectionAction("h_centers",
+            GefMessages.AbstractAlignmentActionsSupport_alighHorizontalCenters,
+            ALIGN_H_CENTERS));
+    actions.add(
+        new SelectionAction("h_right",
+            GefMessages.AbstractAlignmentActionsSupport_alignRight,
+            ALIGN_H_RIGHT));
     // create vertical actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("v_top",
-        GefMessages.AbstractAlignmentActionsSupport_alignTop,
-        ALIGN_V_TOP));
-    actions.add(new SelectionAction("v_centers",
-        GefMessages.AbstractAlignmentActionsSupport_alignVerticalCenters,
-        ALIGN_V_CENTERS));
-    actions.add(new SelectionAction("v_bottom",
-        GefMessages.AbstractAlignmentActionsSupport_alignBottom,
-        ALIGN_V_BOTTOM));
+    actions.add(
+        new SelectionAction("v_top",
+            GefMessages.AbstractAlignmentActionsSupport_alignTop,
+            ALIGN_V_TOP));
+    actions.add(
+        new SelectionAction("v_centers",
+            GefMessages.AbstractAlignmentActionsSupport_alignVerticalCenters,
+            ALIGN_V_CENTERS));
+    actions.add(
+        new SelectionAction("v_bottom",
+            GefMessages.AbstractAlignmentActionsSupport_alignBottom,
+            ALIGN_V_BOTTOM));
   }
 
   protected void addSpaceActions(List<Object> actions) {
     // create space actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("h_space",
-        GefMessages.AbstractAlignmentActionsSupport_spaceEquallyHorizontal,
-        ALIGN_H_SPACE));
-    actions.add(new SelectionAction("v_space",
-        GefMessages.AbstractAlignmentActionsSupport_spaceEquallyVertical,
-        ALIGN_V_SPACE));
+    actions.add(
+        new SelectionAction("h_space",
+            GefMessages.AbstractAlignmentActionsSupport_spaceEquallyHorizontal,
+            ALIGN_H_SPACE));
+    actions.add(
+        new SelectionAction("v_space",
+            GefMessages.AbstractAlignmentActionsSupport_spaceEquallyVertical,
+            ALIGN_V_SPACE));
   }
 
   protected void addSizeActions(List<Object> actions) {
     // create size actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("width",
-        GefMessages.AbstractAlignmentActionsSupport_replicateWidth,
-        ALIGN_WIDTH));
-    actions.add(new SelectionAction("height",
-        GefMessages.AbstractAlignmentActionsSupport_replicateHeight,
-        ALIGN_HEIGHT));
+    actions.add(
+        new SelectionAction("width",
+            GefMessages.AbstractAlignmentActionsSupport_replicateWidth,
+            ALIGN_WIDTH));
+    actions.add(
+        new SelectionAction("height",
+            GefMessages.AbstractAlignmentActionsSupport_replicateHeight,
+            ALIGN_HEIGHT));
   }
 
   protected void addCenterInContainerActions(List<Object> actions) {
     // create center actions
     actions.add(new Separator());
-    actions.add(new SelectionAction("h_center",
-        GefMessages.AbstractAlignmentActionsSupport_centerHorizontally,
-        ALIGN_H_CENTER));
-    actions.add(new SelectionAction("v_center",
-        GefMessages.AbstractAlignmentActionsSupport_centerVertically,
-        ALIGN_V_CENTER));
+    actions.add(
+        new SelectionAction("h_center",
+            GefMessages.AbstractAlignmentActionsSupport_centerHorizontally,
+            ALIGN_H_CENTER));
+    actions.add(
+        new SelectionAction("v_center",
+            GefMessages.AbstractAlignmentActionsSupport_centerVertically,
+            ALIGN_V_CENTER));
   }
 
   /**
@@ -269,48 +280,46 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
     ////////////////////////////////////////////////////////////////////////////
     @Override
     public void run() {
-      ExecutionUtils.run(m_components.get(0).getUnderlyingModel(), new RunnableEx() {
-        public void run() throws Exception {
-          switch (m_command) {
-            case ALIGN_H_CENTER :
-              commandCenterHorizontally();
-              break;
-            case ALIGN_HEIGHT :
-              commandReplicateHeight();
-              break;
-            case ALIGN_WIDTH :
-              commandReplicateWidth();
-              break;
-            case ALIGN_V_CENTERS :
-              commandAlignCenterVertically();
-              break;
-            case ALIGN_V_BOTTOM :
-              commandAlignBottom();
-              break;
-            case ALIGN_V_TOP :
-              commandAlignTop();
-              break;
-            case ALIGN_H_CENTERS :
-              commandAlignCenterHorizontally();
-              break;
-            case ALIGN_H_RIGHT :
-              commandAlignRight();
-              break;
-            case ALIGN_H_LEFT :
-              commandAlignLeft();
-              break;
-            case ALIGN_V_SPACE :
-              commandDistributeSpaceVertically();
-              break;
-            case ALIGN_H_SPACE :
-              commandDistributeSpaceHorizontally();
-              break;
-            case ALIGN_V_CENTER :
-              commandCenterVertically();
-              break;
-            default :
-              break;
-          }
+      ExecutionUtils.run(m_components.get(0).getUnderlyingModel(), () -> {
+        switch (m_command) {
+          case ALIGN_H_CENTER :
+            commandCenterHorizontally();
+            break;
+          case ALIGN_HEIGHT :
+            commandReplicateHeight();
+            break;
+          case ALIGN_WIDTH :
+            commandReplicateWidth();
+            break;
+          case ALIGN_V_CENTERS :
+            commandAlignCenterVertically();
+            break;
+          case ALIGN_V_BOTTOM :
+            commandAlignBottom();
+            break;
+          case ALIGN_V_TOP :
+            commandAlignTop();
+            break;
+          case ALIGN_H_CENTERS :
+            commandAlignCenterHorizontally();
+            break;
+          case ALIGN_H_RIGHT :
+            commandAlignRight();
+            break;
+          case ALIGN_H_LEFT :
+            commandAlignLeft();
+            break;
+          case ALIGN_V_SPACE :
+            commandDistributeSpaceVertically();
+            break;
+          case ALIGN_H_SPACE :
+            commandDistributeSpaceHorizontally();
+            break;
+          case ALIGN_V_CENTER :
+            commandCenterVertically();
+            break;
+          default :
+            break;
         }
       });
     }

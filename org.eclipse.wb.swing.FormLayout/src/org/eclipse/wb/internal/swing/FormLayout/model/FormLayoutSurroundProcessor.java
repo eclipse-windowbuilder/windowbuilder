@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -20,13 +18,14 @@ import org.eclipse.wb.internal.core.model.util.surround.ISurroundProcessor;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link ISurroundProcessor} that places enclosing {@link ComponentInfo}'s into same relative
  * cells, as they were before enclosing. It works only if source {@link ContainerInfo} has
  * {@link FormLayoutInfo} and sets also {@link FormLayoutInfo} on target {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -63,11 +62,10 @@ public final class FormLayoutSurroundProcessor
     // set FormLayout for target
     FormLayoutInfo targetLayout;
     {
-      targetLayout =
-          (FormLayoutInfo) JavaInfoUtils.createJavaInfo(
-              targetContainer.getEditor(),
-              "com.jgoodies.forms.layout.FormLayout",
-              new ConstructorCreationSupport());
+      targetLayout = (FormLayoutInfo) JavaInfoUtils.createJavaInfo(
+          targetContainer.getEditor(),
+          "com.jgoodies.forms.layout.FormLayout",
+          new ConstructorCreationSupport());
       targetContainer.setLayout(targetLayout);
     }
     // prepare cells of "targetContainer"
@@ -78,7 +76,7 @@ public final class FormLayoutSurroundProcessor
       FormLayoutInfo sourceLayout = (FormLayoutInfo) sourceContainer.getLayout();
       // copy columns
       {
-        List<FormColumnInfo> targetColumns = Lists.newArrayList();
+        List<FormColumnInfo> targetColumns = new ArrayList<>();
         for (int columnIndex = targetBounds.x; columnIndex < targetBounds.right(); columnIndex++) {
           FormColumnInfo sourceColumn = sourceLayout.getColumns().get(columnIndex - 1);
           targetColumns.add(sourceColumn.copy());
@@ -87,7 +85,7 @@ public final class FormLayoutSurroundProcessor
       }
       // copy rows
       {
-        List<FormRowInfo> targetRows = Lists.newArrayList();
+        List<FormRowInfo> targetRows = new ArrayList<>();
         for (int rowIndex = targetBounds.y; rowIndex < targetBounds.bottom(); rowIndex++) {
           FormRowInfo sourceRow = sourceLayout.getRows().get(rowIndex - 1);
           targetRows.add(sourceRow.copy());

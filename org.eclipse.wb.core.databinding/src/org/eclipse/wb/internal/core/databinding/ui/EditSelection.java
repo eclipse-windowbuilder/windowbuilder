@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 
@@ -22,6 +20,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.apache.commons.collections.primitives.ArrayIntList;
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,11 +94,10 @@ public final class EditSelection {
         (ITreeContentProvider) propertiesViewer.getContentProvider();
     Object[] propertiesInput = propertiesProvider.getElements(propertiesViewer.getInput());
     // store properties selection
-    page.propertiesSelection =
-        objectToPath(
-            propertiesProvider,
-            propertiesInput,
-            observeElementsComposite.getPropertyObserve());
+    page.propertiesSelection = objectToPath(
+        propertiesProvider,
+        propertiesInput,
+        observeElementsComposite.getPropertyObserve());
     // store properties expanded
     page.propertiesExpanded =
         objectsToPaths(propertiesProvider, propertiesInput, propertiesViewer.getExpandedElements());
@@ -234,7 +232,7 @@ public final class EditSelection {
   private static Object[] pathsToObjects(ITreeContentProvider provider,
       Object[] input,
       int[][] paths) {
-    List<Object> objects = Lists.newArrayList();
+    List<Object> objects = new ArrayList<>();
     for (int[] path : paths) {
       Object object = pathToObject(provider, input, path);
       if (object != null) {

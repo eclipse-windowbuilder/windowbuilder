@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,14 +48,14 @@ public abstract class JavaInfoDeleteManager {
   //
   ////////////////////////////////////////////////////////////////////////////
   public final void deleteJavaInfo(ObjectInfo javaInfo) throws Exception {
-    List<IBindingInfo> deleteList = Lists.newArrayList();
+    List<IBindingInfo> deleteList = new ArrayList<>();
     List<IBindingInfo> bindings = m_provider.getBindings();
     //
     if (!m_provider.getBindings().isEmpty() && accept(javaInfo)) {
       String reference = getReference(javaInfo);
       //
       if (reference != null) {
-        for (IBindingInfo binding : Lists.newArrayList(bindings)) {
+        for (IBindingInfo binding : new ArrayList<>(bindings)) {
           if (equals(javaInfo, reference, binding.getTarget())
               || equals(javaInfo, reference, binding.getModel())) {
             deleteList.add(binding);

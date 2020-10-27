@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -22,11 +20,12 @@ import org.eclipse.jface.action.Separator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link FormLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.FormLayout.model
  */
@@ -54,7 +53,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
       return;
     }
     // prepare constraints
-    List<CellConstraintsSupport> constraints = Lists.newArrayList();
+    List<CellConstraintsSupport> constraints = new ArrayList<>();
     for (ObjectInfo object : objects) {
       // check object
       if (!(object instanceof ComponentInfo) || object.getParent() != m_layout.getContainer()) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.structure.components;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -25,7 +23,6 @@ import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -36,11 +33,11 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +56,7 @@ public final class ComponentsTreePage implements IPage {
   // IPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
     Control control = getControl();
     if (control != null && !control.isDisposed()) {
@@ -66,19 +64,23 @@ public final class ComponentsTreePage implements IPage {
     }
   }
 
+  @Override
   public void createControl(Composite parent) {
     m_viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
     m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
   }
 
+  @Override
   public Control getControl() {
     return m_viewer.getControl();
   }
 
+  @Override
   public void setFocus() {
     getControl().setFocus();
   }
 
+  @Override
   public void setToolBar(IToolBarManager toolBarManager) {
     {
       IAction action = new Action() {
@@ -114,20 +116,12 @@ public final class ComponentsTreePage implements IPage {
    * Listener for selection in {@link #m_viewer}.
    */
   private final ISelectionChangedListener m_selectionListener_Tree =
-      new ISelectionChangedListener() {
-        public void selectionChanged(SelectionChangedEvent event) {
-          selectGraphicalViewer();
-        }
-      };
+      event -> selectGraphicalViewer();
   /**
    * Listener for selection in {@link #m_graphicalViewer}.
    */
   private final ISelectionChangedListener m_selectionListener_Graphical =
-      new ISelectionChangedListener() {
-        public void selectionChanged(SelectionChangedEvent event) {
-          selectTreeViewer();
-        }
-      };
+      event -> selectTreeViewer();
 
   /**
    * Selects {@link ObjectInfo}'s in {@link #m_viewer} using selection in {@link #m_graphicalViewer}
@@ -145,28 +139,26 @@ public final class ComponentsTreePage implements IPage {
   private void selectGraphicalViewer() {
     final List<EditPart> selectedEditParts = m_viewer.getSelectedEditParts();
     // refresh if necessary
-    ExecutionUtils.runLog(new RunnableEx() {
-      public void run() throws Exception {
-        boolean[] refreshFlag = new boolean[1];
-        if (!selectedEditParts.isEmpty()) {
-          for (EditPart editPart : selectedEditParts) {
-            ObjectInfo objectInfo = (ObjectInfo) editPart.getModel();
-            objectInfo.getBroadcastObject().selecting(objectInfo, refreshFlag);
-          }
-        } else {
-          m_rootObject.getBroadcastObject().selecting(null, refreshFlag);
+    ExecutionUtils.runLog(() -> {
+      boolean[] refreshFlag = new boolean[1];
+      if (!selectedEditParts.isEmpty()) {
+        for (EditPart editPart : selectedEditParts) {
+          ObjectInfo objectInfo = (ObjectInfo) editPart.getModel();
+          objectInfo.getBroadcastObject().selecting(objectInfo, refreshFlag);
         }
-        // Do refresh.
-        // We remove "graphical listener" because refresh can cause temporary selection changes,
-        // for example because of removing some graphical EditPart's. But we know, that we apply
-        // selection from "tree", it should stay as is, so no need to listen for "graphical listener".
-        if (refreshFlag[0]) {
-          m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
-          try {
-            m_rootObject.refresh();
-          } finally {
-            m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
-          }
+      } else {
+        m_rootObject.getBroadcastObject().selecting(null, refreshFlag);
+      }
+      // Do refresh.
+      // We remove "graphical listener" because refresh can cause temporary selection changes,
+      // for example because of removing some graphical EditPart's. But we know, that we apply
+      // selection from "tree", it should stay as is, so no need to listen for "graphical listener".
+      if (refreshFlag[0]) {
+        m_graphicalViewer.removeSelectionChangedListener(m_selectionListener_Graphical);
+        try {
+          m_rootObject.refresh();
+        } finally {
+          m_graphicalViewer.addSelectionChangedListener(m_selectionListener_Graphical);
         }
       }
     });
@@ -191,7 +183,7 @@ public final class ComponentsTreePage implements IPage {
       ISelectionChangedListener selectionListener,
       List<EditPart> sourceEditParts) {
     // prepare EditPart's in target viewer
-    List<EditPart> targetEditParts = Lists.newArrayList();
+    List<EditPart> targetEditParts = new ArrayList<>();
     for (EditPart sourceEditPart : sourceEditParts) {
       Object model = sourceEditPart.getModel();
       if (model instanceof ObjectReferenceInfo) {

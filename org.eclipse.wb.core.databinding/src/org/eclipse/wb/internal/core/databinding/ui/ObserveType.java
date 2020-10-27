@@ -28,8 +28,8 @@ public final class ObserveType {
   /**
    * Java Beans type.
    */
-  public static final ObserveType BEANS = new ObserveType("Beans",
-      Activator.getImage("Beans_ObserveType.gif"));
+  public static final ObserveType BEANS =
+      new ObserveType("Beans", Activator.getImage("Beans_ObserveType.gif"));
   /**
    * UI widgets type.
    */
@@ -37,9 +37,8 @@ public final class ObserveType {
       Activator.getImage("Widgets_ObserveType.gif"),
       ExpandedStrategy.ExpandedAll);
   //
-  public static final List<ObserveType> TYPES = Lists.newArrayList(
-      ObserveType.WIDGETS,
-      ObserveType.BEANS);
+  public static final List<ObserveType> TYPES =
+      Lists.newArrayList(ObserveType.WIDGETS, ObserveType.BEANS);
   //
   private final String m_name;
   private final Image m_image;

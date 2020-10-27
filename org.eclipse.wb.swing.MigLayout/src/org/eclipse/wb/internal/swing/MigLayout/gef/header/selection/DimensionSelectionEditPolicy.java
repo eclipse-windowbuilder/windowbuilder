@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
@@ -44,11 +42,12 @@ import net.miginfocom.layout.UnitValue;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract {@link SelectionEditPolicy} for {@link DimensionHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */
@@ -73,7 +72,7 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // move handle
     {
       MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
@@ -86,7 +85,7 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo>
 
   @Override
   protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     handles.add(createResizeHandle());
     return handles;
   }

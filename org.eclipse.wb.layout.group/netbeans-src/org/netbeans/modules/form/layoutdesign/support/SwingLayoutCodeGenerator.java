@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -49,7 +49,7 @@ import java.util.Map;
 
 /**
  * Generates Java layout code based on the passed layout model.
- * 
+ *
  * @author Jan Stola
  */
 public class SwingLayoutCodeGenerator {
@@ -64,7 +64,7 @@ public class SwingLayoutCodeGenerator {
 
   /**
    * Creates new <code>SwingLayoutCodeGenerator</code>.
-   * 
+   *
    * @param layoutModel
    *          layout model of the form.
    */
@@ -75,7 +75,7 @@ public class SwingLayoutCodeGenerator {
   /**
    * Generates Java layout code for the specified container. The generated code is written to the
    * <code>writer</code>.
-   * 
+   *
    * @param writer
    *          the writer to generate the code into.
    * @param container
@@ -127,10 +127,13 @@ public class SwingLayoutCodeGenerator {
           true,
           true,
           INDENT);
-      writer.write(layoutVarName
-          + (dim == LayoutConstants.HORIZONTAL ? ".setHorizontalGroup(\n" : ".setVerticalGroup(\n") // NOI18N
-          + sb.toString()
-          + "\n);\n"); // NOI18N
+      writer.write(
+          layoutVarName
+              + (dim == LayoutConstants.HORIZONTAL
+                  ? ".setHorizontalGroup(\n"
+                  : ".setVerticalGroup(\n") // NOI18N
+              + sb.toString()
+              + "\n);\n"); // NOI18N
       sb = new StringBuilder();
       composeLinks(sb, container, layoutVarName, dim);
       writer.write(sb.toString());
@@ -139,7 +142,7 @@ public class SwingLayoutCodeGenerator {
 
   /**
    * Fills the <code>componentIDMap</code>.
-   * 
+   *
    * @param infos
    *          information about components.
    */
@@ -161,7 +164,7 @@ public class SwingLayoutCodeGenerator {
 
   /**
    * Generates layout code for a group that corresponds to the <code>interval</code>.
-   * 
+   *
    * @param layout
    *          buffer to generate the code into.
    * @param interval
@@ -205,14 +208,14 @@ public class SwingLayoutCodeGenerator {
       for (LayoutInterval g : extraGroups) {
         layout.append("\n"); // NOI18N
         fillGroup(layout, g, first, last, groupAlignment, INDENT);
-        // assuming extra groups are always parallel 
+        // assuming extra groups are always parallel
       }
     }
   }
 
   /**
    * Generate layout code for one element in the group.
-   * 
+   *
    * @param layout
    *          buffer to generate the code into.
    * @param interval
@@ -250,10 +253,9 @@ public class SwingLayoutCodeGenerator {
         LayoutComponent layoutComp = interval.getComponent();
         ComponentInfo info = componentIDMap.get(layoutComp.getId());
         if (min == LayoutConstants.NOT_EXPLICITLY_DEFINED) {
-          int dimension =
-              layoutComp.getLayoutInterval(LayoutConstants.HORIZONTAL) == interval
-                  ? LayoutConstants.HORIZONTAL
-                  : LayoutConstants.VERTICAL;
+          int dimension = layoutComp.getLayoutInterval(LayoutConstants.HORIZONTAL) == interval
+              ? LayoutConstants.HORIZONTAL
+              : LayoutConstants.VERTICAL;
           if (dimension == LayoutConstants.HORIZONTAL
               && info.clazz.getName().equals("javax.swing.JComboBox")) { // Issue 68612 // NOI18N
             min = 0;
@@ -283,14 +285,17 @@ public class SwingLayoutCodeGenerator {
         }
         int status = SwingLayoutUtils.getResizableStatus(info.clazz);
         if (!(pref == LayoutConstants.NOT_EXPLICITLY_DEFINED
-            && (min == LayoutConstants.NOT_EXPLICITLY_DEFINED || min == LayoutConstants.USE_PREFERRED_SIZE
-                && !info.sizingChanged
-                && status == SwingLayoutUtils.STATUS_NON_RESIZABLE) && (max == LayoutConstants.NOT_EXPLICITLY_DEFINED
-            || max == LayoutConstants.USE_PREFERRED_SIZE
-            && !info.sizingChanged
-            && status == SwingLayoutUtils.STATUS_NON_RESIZABLE || max == Short.MAX_VALUE
-            && !info.sizingChanged
-            && status == SwingLayoutUtils.STATUS_RESIZABLE))) {
+            && (min == LayoutConstants.NOT_EXPLICITLY_DEFINED
+                || min == LayoutConstants.USE_PREFERRED_SIZE
+                    && !info.sizingChanged
+                    && status == SwingLayoutUtils.STATUS_NON_RESIZABLE)
+            && (max == LayoutConstants.NOT_EXPLICITLY_DEFINED
+                || max == LayoutConstants.USE_PREFERRED_SIZE
+                    && !info.sizingChanged
+                    && status == SwingLayoutUtils.STATUS_NON_RESIZABLE
+                || max == Short.MAX_VALUE
+                    && !info.sizingChanged
+                    && status == SwingLayoutUtils.STATUS_RESIZABLE))) {
           layout.append(", "); // NOI18N
           generateSizeParams(layout, min, pref, max);
         }
@@ -328,8 +333,8 @@ public class SwingLayoutCodeGenerator {
           }
           if (pref != LayoutConstants.NOT_EXPLICITLY_DEFINED
               || max != LayoutConstants.NOT_EXPLICITLY_DEFINED
-              // NOT_EXPLICITLY_DEFINED is the same as USE_PREFERRED_SIZE in this case
-              && max != LayoutConstants.USE_PREFERRED_SIZE) {
+                  // NOT_EXPLICITLY_DEFINED is the same as USE_PREFERRED_SIZE in this case
+                  && max != LayoutConstants.USE_PREFERRED_SIZE) {
             if (!first && !last) {
               layout.append(',').append(' ');
             }
@@ -365,7 +370,7 @@ public class SwingLayoutCodeGenerator {
 
   /**
    * Generates minimum/preferred/maximum size parameters..
-   * 
+   *
    * @param layout
    *          buffer to generate the code into.
    * @param min
@@ -383,7 +388,7 @@ public class SwingLayoutCodeGenerator {
 
   /**
    * Converts alignment from the layout model constants to <code>GroupLayout</code> constants.
-   * 
+   *
    * @param alignment
    *          layout model alignment constant.
    * @return <code>GroupLayout</code> alignment constant that corresponds to the given layout model
@@ -415,7 +420,7 @@ public class SwingLayoutCodeGenerator {
   /**
    * Converts minimum/preferred/maximums size from the layout model constants to
    * <code>GroupLayout</code> constants.
-   * 
+   *
    * @param size
    *          minimum/preferred/maximum size from layout model.
    * @return minimum/preferred/maximum size or <code>GroupLayout</code> constant that corresponds to
@@ -466,10 +471,10 @@ public class SwingLayoutCodeGenerator {
           layout.append(dimension == LayoutConstants.HORIZONTAL ? ".HORIZONTAL, " : ".VERTICAL, "); // NOI18N
         }
         layout.append("new java.awt.Component[] {"); //NOI18N
-        Iterator i = l.iterator();
+        Iterator<String> i = l.iterator();
         boolean first = true;
         while (i.hasNext()) {
-          String cid = (String) i.next();
+          String cid = i.next();
           ComponentInfo info = componentIDMap.get(cid);
           if (first) {
             first = false;
@@ -553,7 +558,8 @@ public class SwingLayoutCodeGenerator {
     } else {
       return null;
     }
-    return getLayoutStyleName() + (useLayoutLibrary ? "" : ".ComponentPlacement") // NOI18N
+    return getLayoutStyleName()
+        + (useLayoutLibrary ? "" : ".ComponentPlacement") // NOI18N
         + str;
   }
 }

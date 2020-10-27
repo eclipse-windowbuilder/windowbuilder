@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gefTree.policy;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.Command;
@@ -19,8 +17,8 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
-import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,11 +59,7 @@ public abstract class ObjectLayoutEditPolicy<C> extends LayoutEditPolicy {
     final C reference = getReferenceModel(referenceObject);
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
-        new IPasteComponentProcessor() {
-          public void process(Object component) throws Exception {
-            command_CREATE(getObjectModel(component), reference);
-          }
-        });
+        component -> command_CREATE(getObjectModel(component), reference));
   }
 
   @Override
@@ -133,7 +127,7 @@ public abstract class ObjectLayoutEditPolicy<C> extends LayoutEditPolicy {
   }
 
   private List<C> getModels(List<EditPart> editParts) {
-    List<C> objects = Lists.newArrayList();
+    List<C> objects = new ArrayList<>();
     for (EditPart editPart : editParts) {
       Object rawModel = editPart.getModel();
       C objectModel = getObjectModel(rawModel);

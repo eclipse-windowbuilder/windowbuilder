@@ -10,20 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.swt.SWT;
@@ -43,6 +37,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,7 +73,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public ChooseClassAndPropertiesUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
+  public ChooseClassAndPropertiesUiContentProvider(
+      ChooseClassAndPropertiesConfiguration configuration) {
     super(configuration);
     m_configuration = configuration;
   }
@@ -127,13 +123,11 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
     }
     // create properties viewer
     Control viewers = createViewers(parent);
-    m_propertiesViewer.getCheckable().addCheckStateListener(new ICheckStateListener() {
-      public void checkStateChanged(CheckStateChangedEvent event) {
-        if (!m_configuration.isPropertiesMultiChecked() && event.getChecked()) {
-          m_propertiesViewer.setCheckedElements(new Object[]{event.getElement()});
-        }
-        calculatePropertiesFinish();
+    m_propertiesViewer.getCheckable().addCheckStateListener(event -> {
+      if (!m_configuration.isPropertiesMultiChecked() && event.getChecked()) {
+        m_propertiesViewer.setCheckedElements(new Object[]{event.getElement()});
       }
+      calculatePropertiesFinish();
     });
     GridDataFactory.create(viewers).fill().grab().spanH(columns - 1).minVC(5);
     // check reorder mode
@@ -141,11 +135,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       GridDataFactory.modify(viewers).spanV(3);
       configureDND();
       m_propertiesViewer.getViewer().addPostSelectionChangedListener(
-          new ISelectionChangedListener() {
-            public void selectionChanged(SelectionChangedEvent event) {
-              calculateUpDowButtons();
-            }
-          });
+          event -> calculateUpDowButtons());
       // grid filler
       new Label(parent, SWT.NONE);
       // buttons
@@ -157,7 +147,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
         // select all button
         m_selectAllButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_selectAllButton).fillH();
-        m_selectAllButton.setText(Messages.ChooseClassAndPropertiesUiContentProvider_selectAllButton);
+        m_selectAllButton.setText(
+            Messages.ChooseClassAndPropertiesUiContentProvider_selectAllButton);
         m_selectAllButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -167,7 +158,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
         // deselect all button
         m_deselectAllButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(m_deselectAllButton).fillH();
-        m_deselectAllButton.setText(Messages.ChooseClassAndPropertiesUiContentProvider_deselectAllButton);
+        m_deselectAllButton.setText(
+            Messages.ChooseClassAndPropertiesUiContentProvider_deselectAllButton);
         m_deselectAllButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -210,11 +202,9 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   }
 
   protected ICheckboxViewerWrapper createPropertiesViewer(Composite parent) {
-    CheckboxTableViewer tableViewer =
-        CheckboxTableViewer.newCheckList(parent, SWT.BORDER
-            | SWT.FULL_SELECTION
-            | SWT.H_SCROLL
-            | SWT.V_SCROLL);
+    CheckboxTableViewer tableViewer = CheckboxTableViewer.newCheckList(
+        parent,
+        SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
     tableViewer.setContentProvider(new ArrayContentProvider());
     tableViewer.setLabelProvider(m_configuration.getPropertiesLabelProvider());
     return new CheckboxTableViewerWrapper(tableViewer);
@@ -234,14 +224,17 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
     Transfer[] transfers = new Transfer[]{TreeTransfer.INSTANCE};
     // prepare drag
     viewer.addDragSupport(DND.DROP_MOVE, transfers, new DragSourceListener() {
+      @Override
       public void dragStart(DragSourceEvent event) {
         event.doit = properties.size() > 1;
         m_dragObject = (PropertyAdapter) UiUtils.getSelection(viewer).getFirstElement();
       }
 
+      @Override
       public void dragSetData(DragSourceEvent event) {
       }
 
+      @Override
       public void dragFinished(DragSourceEvent event) {
       }
     });
@@ -326,7 +319,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
     if (m_configuration.isDefaultString(className)) {
       // default starts
       m_choosenClass = null;
-      m_properties = Lists.newArrayList();
+      m_properties = new ArrayList<>();
       m_properties.add(m_defaultProperty);
       m_propertiesViewer.getViewer().setInput(m_properties);
       m_propertiesViewer.setCheckedElements(new Object[]{m_defaultProperty});
@@ -353,7 +346,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
                 m_propertiesViewer.setCheckedElements(new Object[]{m_properties.get(0)});
                 break;
               case Last :
-                m_propertiesViewer.setCheckedElements(new Object[]{m_properties.get(m_properties.size() - 1)});
+                m_propertiesViewer.setCheckedElements(
+                    new Object[]{m_properties.get(m_properties.size() - 1)});
                 break;
               case All :
                 m_propertiesViewer.setCheckedElements(m_properties.toArray());
@@ -449,7 +443,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   /**
    * Select given class name and properties.
    */
-  protected final void setClassNameAndProperties(String className, List<PropertyAdapter> properties) {
+  protected final void setClassNameAndProperties(String className,
+      List<PropertyAdapter> properties) {
     setClassName(className);
     for (PropertyAdapter property : properties) {
       m_propertiesViewer.getCheckable().setChecked(property, true);
@@ -458,7 +453,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   }
 
   List<PropertyAdapter> getChoosenProperties0() {
-    List<PropertyAdapter> properties = Lists.newArrayList();
+    List<PropertyAdapter> properties = new ArrayList<>();
     CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
     return properties;
   }
@@ -472,6 +467,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void saveToObject() throws Exception {
     saveToObject(m_choosenClass, getChoosenProperties());
   }

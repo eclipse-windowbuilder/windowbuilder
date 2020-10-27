@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ICursorConstants;
@@ -27,11 +25,12 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.rcp.model.layout.IStackLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link SelectionLayoutEditPolicy} for {@link IStackLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -57,7 +56,7 @@ public final class StackLayoutSelectionEditPolicy<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     handles.add(new MoveHandle(getHost()));
     handles.add(createHandle(IPositionConstants.SOUTH_EAST));
     handles.add(createHandle(IPositionConstants.SOUTH_WEST));
@@ -90,10 +89,11 @@ public final class StackLayoutSelectionEditPolicy<C extends IControlInfo>
       {
         int x = bounds.right() - StackLayoutNavigationFigure.WIDTH * 2 - 3;
         int y = bounds.y - StackLayoutNavigationFigure.HEIGHT / 2;
-        m_navigationFigure.setBounds(new Rectangle(x,
-            y,
-            StackLayoutNavigationFigure.WIDTH * 2,
-            StackLayoutNavigationFigure.HEIGHT));
+        m_navigationFigure.setBounds(
+            new Rectangle(x,
+                y,
+                StackLayoutNavigationFigure.WIDTH * 2,
+                StackLayoutNavigationFigure.HEIGHT));
       }
       addFeedback(m_navigationFigure);
     }

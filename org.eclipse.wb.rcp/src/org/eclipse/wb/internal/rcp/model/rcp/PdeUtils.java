@@ -60,13 +60,14 @@ import org.osgi.framework.Bundle;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Helper for working with PDE model.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -160,12 +161,12 @@ public final class PdeUtils {
 
   /**
    * Adds a new plug-in import to this plugin.
-   * 
+   *
    * @param pluginId
    *          the id of plugin.
    */
   public void addPluginImport(final List<String> pluginIds) throws Exception {
-    final List<String> pluginIdsForAdding = Lists.newArrayList(pluginIds);
+    final List<String> pluginIdsForAdding = new ArrayList<>(pluginIds);
     // check exist imports
     for (IPluginImport pluginImport : getModel().getPluginBase().getImports()) {
       pluginIdsForAdding.remove(pluginImport.getId());
@@ -196,7 +197,7 @@ public final class PdeUtils {
 
   /**
    * Adds a new library to this plugin.
-   * 
+   *
    * @param name
    *          the name of library (i.e. jar) file.
    */
@@ -287,7 +288,7 @@ public final class PdeUtils {
    *          the {@link IPluginElement} to get attribute name.
    * @param attributeName
    *          the name of attribute to get value from.
-   * 
+   *
    * @return the value of attribute with given name.
    */
   public static String getAttribute(IPluginElement element, String attributeName) {
@@ -312,7 +313,7 @@ public final class PdeUtils {
    * <code>plugin.xml</code> is modified. Only after request of {@link IPluginElement} using for
    * example {@link #getExtensionElementById(String, String, String)} you will see updated
    * attributes.
-   * 
+   *
    * @param element
    *          the direct child of <code>extension</code>.
    * @param attributeName
@@ -365,7 +366,7 @@ public final class PdeUtils {
    *          the ID of extension point.
    * @param elementName
    *          the name of extension element.
-   * 
+   *
    * @return the {@link IPluginElement}'s for direct child of extension.
    */
   public List<IPluginElement> getExtensionElements(String pointId, String elementName) {
@@ -413,7 +414,7 @@ public final class PdeUtils {
    *          the name of attribute to check.
    * @param filterAttrValue
    *          the value of attribute to check.
-   * 
+   *
    * @return the {@link IPluginElement} of direct extension child that satisfies given filter on
    *         attribute value.
    */
@@ -432,11 +433,12 @@ public final class PdeUtils {
   /**
    * @param pointId
    *          the ID of extension point.
-   * 
+   *
    * @return the {@link IPluginExtension}'s for given extension point.
    */
-  private static List<IPluginExtension> getExtensions(IPluginModelBase pluginModel, String pointId) {
-    List<IPluginExtension> extensions = Lists.newArrayList();
+  private static List<IPluginExtension> getExtensions(IPluginModelBase pluginModel,
+      String pointId) {
+    List<IPluginExtension> extensions = new ArrayList<>();
     if (pluginModel != null) {
       for (IPluginExtension extension : getExtensions(pluginModel)) {
         if (extension.getPoint().equals(pointId)) {
@@ -466,7 +468,7 @@ public final class PdeUtils {
   private static List<IPluginElement> getExtensionElements(IPluginModelBase pluginModel,
       String pointId,
       String elementName) {
-    List<IPluginElement> elements = Lists.newArrayList();
+    List<IPluginElement> elements = new ArrayList<>();
     for (IPluginExtension extension : getExtensions(pluginModel, pointId)) {
       for (IPluginObject pluginObject : extension.getChildren()) {
         if (pluginObject instanceof IPluginElement) {
@@ -505,13 +507,12 @@ public final class PdeUtils {
   private void ensurePluginXML() throws Exception {
     IFile pluginXML = m_project.getFile("plugin.xml");
     if (!pluginXML.exists()) {
-      List<String> lines =
-          ImmutableList.of(
-              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-              "<?eclipse version=\"3.2\"?>",
-              "<plugin>",
-              "</plugin>",
-              "");
+      List<String> lines = ImmutableList.of(
+          "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+          "<?eclipse version=\"3.2\"?>",
+          "<plugin>",
+          "</plugin>",
+          "");
       String contents = StringUtils.join(lines.iterator(), "\n");
       IOUtils2.setFileContents(pluginXML, new ByteArrayInputStream(contents.getBytes()));
       // close existing ManifestEditor, because it has no page for plugin.xml so will
@@ -549,7 +550,7 @@ public final class PdeUtils {
       protected void modifyModel(IBaseModel model, IProgressMonitor monitor) throws CoreException {
         IPluginModelBase pluginModel = (IPluginModelBase) model;
         IExtensionsModelFactory extensionsFactory = pluginModel.getFactory();
-        // prepare IPluginExtension to create new IPluginElement 
+        // prepare IPluginExtension to create new IPluginElement
         boolean newExtension;
         IPluginExtension extension;
         {
@@ -641,7 +642,7 @@ public final class PdeUtils {
 
   /**
    * Returns icon from {@link IPluginElement}, attribute <code>"icon"</code>.
-   * 
+   *
    * @param element
    *          the {@link IPluginElement} to get attribute from.
    * @param defaultIconPath
@@ -764,7 +765,7 @@ public final class PdeUtils {
      * @return the {@link ViewInfo}'s for views in this category.
      */
     public List<ViewInfo> getViews() {
-      final List<ViewInfo> views = Lists.newArrayList();
+      final List<ViewInfo> views = new ArrayList<>();
       visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
         public boolean visit(IPluginElement element) {
           String categoryId = getAttribute(element, "category");
@@ -791,7 +792,7 @@ public final class PdeUtils {
    * @return the {@link ViewCategoryInfo}'s for each views category in Eclipse runtime/workspace.
    */
   public static List<ViewCategoryInfo> getViewCategories() {
-    final List<ViewCategoryInfo> categories = Lists.newArrayList();
+    final List<ViewCategoryInfo> categories = new ArrayList<>();
     categories.add(new ViewCategoryInfo(null, "Other"));
     visitExtensions("org.eclipse.ui.views", "category", new IExtensionVisitor() {
       public boolean visit(IPluginElement element) {
@@ -911,7 +912,7 @@ public final class PdeUtils {
    * @return the {@link ViewInfo}'s for each view in Eclipse runtime/workspace.
    */
   public static List<ViewInfo> getViews() {
-    final List<ViewInfo> views = Lists.newArrayList();
+    final List<ViewInfo> views = new ArrayList<>();
     visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
       public boolean visit(IPluginElement element) {
         views.add(createViewInfo(element));
@@ -1057,7 +1058,7 @@ public final class PdeUtils {
    * @return the {@link PerspectiveInfo}'s for each perspective in Eclipse runtime/workspace.
    */
   public static List<PerspectiveInfo> getPerspectives() {
-    final List<PerspectiveInfo> perspectives = Lists.newArrayList();
+    final List<PerspectiveInfo> perspectives = new ArrayList<>();
     visitExtensions("org.eclipse.ui.perspectives", "perspective", new IExtensionVisitor() {
       public boolean visit(IPluginElement element) {
         perspectives.add(createPerspectiveInfo(element));
@@ -1139,7 +1140,7 @@ public final class PdeUtils {
   private interface IExtensionVisitor {
     /**
      * Visits single extension {@link IPluginElement}.
-     * 
+     *
      * @return <code>true</code> if required result was found, so visiting should be terminated.
      */
     boolean visit(IPluginElement element);
@@ -1148,7 +1149,9 @@ public final class PdeUtils {
   /**
    * Visits extensions to the extension point with given ID and element name.
    */
-  private static void visitExtensions(String pointId, String elementName, IExtensionVisitor visitor) {
+  private static void visitExtensions(String pointId,
+      String elementName,
+      IExtensionVisitor visitor) {
     IPluginModelBase[] plugins = getAllModels();
     for (IPluginModelBase plugin : plugins) {
       List<IPluginElement> elements = getExtensionElements(plugin, pointId, elementName);

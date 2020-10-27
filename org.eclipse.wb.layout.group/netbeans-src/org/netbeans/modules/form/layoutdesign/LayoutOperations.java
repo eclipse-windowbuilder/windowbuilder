@@ -282,9 +282,9 @@ class LayoutOperations implements LayoutConstants {
         align = target.getGroupAlignment();
       }
       boolean sameAlign = true;
-      Iterator it = interval.getSubIntervals();
+      Iterator<LayoutInterval> it = interval.getSubIntervals();
       while (it.hasNext()) {
-        LayoutInterval li = (LayoutInterval) it.next();
+        LayoutInterval li = it.next();
         if (LayoutInterval.wantResize(li)) { // will span over whole target group
           sameAlign = true;
           break;
@@ -389,9 +389,9 @@ class LayoutOperations implements LayoutConstants {
       int align = group.getAlignment();
       boolean sameAlign = true;
       boolean subResizing = false;
-      Iterator it = group.getSubIntervals();
+      Iterator<LayoutInterval> it = group.getSubIntervals();
       while (it.hasNext()) {
-        LayoutInterval li = (LayoutInterval) it.next();
+        LayoutInterval li = it.next();
         if (!subResizing && LayoutInterval.wantResize(li)) {
           subResizing = true;
         }
@@ -405,7 +405,7 @@ class LayoutOperations implements LayoutConstants {
         if (LayoutInterval.canResize(group) || !LayoutInterval.canResize(parent)) {
           it = parent.getSubIntervals();
           while (it.hasNext()) {
-            LayoutInterval li = (LayoutInterval) it.next();
+            LayoutInterval li = it.next();
             if (li != group && LayoutInterval.wantResize(li)) {
               compatible = true;
               break;
@@ -612,9 +612,9 @@ class LayoutOperations implements LayoutConstants {
     LayoutInterval singleOverlap = null;
     List<LayoutInterval> overlapList = null;
     // looking for all intervals the given space is located next to
-    Iterator it = group.getSubIntervals();
+    Iterator<LayoutInterval> it = group.getSubIntervals();
     while (it.hasNext()) {
-      LayoutInterval li = (LayoutInterval) it.next();
+      LayoutInterval li = it.next();
       if (!li.isEmptySpace()) {
         if (LayoutUtils.contentOverlap(li, parent, startIndex, endIndex, dimension ^ 1)) {
           // interval overlaps orthogonally
@@ -1390,9 +1390,9 @@ class LayoutOperations implements LayoutConstants {
         }
       }
     }
-    Iterator iter = root.getSubIntervals();
+    Iterator<LayoutInterval> iter = root.getSubIntervals();
     while (iter.hasNext()) {
-      LayoutInterval subInterval = (LayoutInterval) iter.next();
+      LayoutInterval subInterval = iter.next();
       if (subInterval.isGroup()) {
         updated = updated || mergeAdjacentGaps(subInterval, dimension);
       }
@@ -1404,8 +1404,8 @@ class LayoutOperations implements LayoutConstants {
     LayoutInterval parent = interval.getParent();
     while (parent != null) {
       if (parent.isSequential()) {
-        for (Iterator it = parent.getSubIntervals(); it.hasNext();) {
-          LayoutInterval sub = (LayoutInterval) it.next();
+        for (Iterator<LayoutInterval> it = parent.getSubIntervals(); it.hasNext();) {
+          LayoutInterval sub = it.next();
           if (sub != interval && sub.isEmptySpace() && LayoutInterval.canResize(sub)) {
             int pref = sub.getPreferredSize();
             int min = sub.getMinimumSize() != pref ? USE_PREFERRED_SIZE : pref;

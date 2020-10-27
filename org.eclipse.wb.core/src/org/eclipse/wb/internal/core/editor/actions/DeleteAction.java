@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -20,10 +18,9 @@ import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.actions.ActionFactory;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -43,11 +40,8 @@ public class DeleteAction extends Action {
   ////////////////////////////////////////////////////////////////////////////
   public DeleteAction(IEditPartViewer viewer) {
     m_viewer = viewer;
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      public void selectionChanged(SelectionChangedEvent event) {
-        firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
-      }
-    });
+    m_viewer.addSelectionChangedListener(
+        event -> firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE));
     // copy presentation
     ActionUtils.copyPresentation(this, ActionFactory.DELETE);
   }
@@ -83,7 +77,7 @@ public class DeleteAction extends Action {
       return null;
     }
     // prepare ObjectInfo's to delete
-    List<ObjectInfo> objects = Lists.newArrayList();
+    List<ObjectInfo> objects = new ArrayList<>();
     for (EditPart editPart : editParts) {
       // prepare object
       ObjectInfo object;

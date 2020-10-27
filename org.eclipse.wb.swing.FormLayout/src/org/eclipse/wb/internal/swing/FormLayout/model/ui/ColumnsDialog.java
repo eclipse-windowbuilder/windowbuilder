@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
@@ -23,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import com.jgoodies.forms.layout.FormSpecs;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,12 +48,10 @@ public final class ColumnsDialog extends DimensionsDialog<FormColumnInfo> {
    * @return the deep copy of {@link List} with {@link FormColumnInfo}'s.
    */
   private static List<FormColumnInfo> createColumnsCopy(final FormLayoutInfo layout) {
-    final List<FormColumnInfo> columns = Lists.newArrayList();
-    ExecutionUtils.runRethrow(new RunnableEx() {
-      public void run() throws Exception {
-        for (FormColumnInfo column : layout.getColumns()) {
-          columns.add(column.copy());
-        }
+    final List<FormColumnInfo> columns = new ArrayList<>();
+    ExecutionUtils.runRethrow(() -> {
+      for (FormColumnInfo column : layout.getColumns()) {
+        columns.add(column.copy());
       }
     });
     return columns;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -22,11 +20,12 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.swt.widgets.ExpandBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model for {@link ExpandBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */
@@ -75,14 +74,14 @@ public final class ExpandBarInfo extends CompositeInfo {
   private final IObjectPresentation m_presentation = new DefaultJavaInfoPresentation(this) {
     @Override
     public List<ObjectInfo> getChildrenTree() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenTree());
+      List<ObjectInfo> children = new ArrayList<>(super.getChildrenTree());
       removeItemControls(children);
       return children;
     }
 
     @Override
     public List<ObjectInfo> getChildrenGraphical() throws Exception {
-      List<ObjectInfo> children = Lists.newArrayList(super.getChildrenGraphical());
+      List<ObjectInfo> children = new ArrayList<>(super.getChildrenGraphical());
       removeItemControls(children);
       return children;
     }

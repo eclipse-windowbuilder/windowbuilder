@@ -112,7 +112,7 @@ import swingintegration.example.EmbeddedSwingComposite;
 
 /**
  * The {@link PreferencePage} for managing Swing Look-n-Feel.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swing.preferences.laf
@@ -374,15 +374,14 @@ public class LafPreferencePage extends PreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
   private void handleAddCategory() {
-    InputDialog inputDialog =
-        new InputDialog(getShell(),
-            Messages.LafPreferencePage_addCategoryTitle,
-            Messages.LafPreferencePage_addCategoryMessage,
-            "",
-            null);
+    InputDialog inputDialog = new InputDialog(getShell(),
+        Messages.LafPreferencePage_addCategoryTitle,
+        Messages.LafPreferencePage_addCategoryMessage,
+        "",
+        null);
     if (inputDialog.open() == Window.OK) {
-      commands_add(new AddCategoryCommand("category_" + System.currentTimeMillis(),
-          inputDialog.getValue()));
+      commands_add(
+          new AddCategoryCommand("category_" + System.currentTimeMillis(), inputDialog.getValue()));
     }
   }
 
@@ -440,7 +439,7 @@ public class LafPreferencePage extends PreferencePage
 
   /**
    * Handles the selection changing in LAF table.
-   * 
+   *
    * @param event
    */
   protected void handleLAFSelectionChanged() {
@@ -472,7 +471,9 @@ public class LafPreferencePage extends PreferencePage
       if (MessageDialog.openConfirm(
           getShell(),
           Messages.LafPreferencePage_deleteConfirmTitle,
-          MessageFormat.format(Messages.LafPreferencePage_deleteConfirmMessage, selection.size()))) {
+          MessageFormat.format(
+              Messages.LafPreferencePage_deleteConfirmMessage,
+              selection.size()))) {
         for (Object entry : selection) {
           if (entry instanceof CategoryInfo) {
             commands_add(new RemoveCategoryCommand((CategoryInfo) entry));
@@ -519,12 +520,11 @@ public class LafPreferencePage extends PreferencePage
     Object entry = getSelectedEntries().get(0);
     if (entry instanceof CategoryInfo) {
       CategoryInfo category = (CategoryInfo) entry;
-      InputDialog inputDialog =
-          new InputDialog(getShell(),
-              Messages.LafPreferencePage_editCategoryTitle,
-              Messages.LafPreferencePage_editCategoryMessage,
-              category.getName(),
-              null);
+      InputDialog inputDialog = new InputDialog(getShell(),
+          Messages.LafPreferencePage_editCategoryTitle,
+          Messages.LafPreferencePage_editCategoryMessage,
+          category.getName(),
+          null);
       // execute dialog
       if (inputDialog.open() == Window.OK) {
         commands_add(new RenameCategoryCommand(category, inputDialog.getValue()));
@@ -744,11 +744,12 @@ public class LafPreferencePage extends PreferencePage
             rootPane.getContentPane().add(btnPushButton, gbc);
           }
           {
-            JComboBox comboBox = new JComboBox();
-            comboBox.setModel(new DefaultComboBoxModel(new String[]{
-                Messages.LafPreferencePage_previewCombo,
-                "ComboBox Item 1",
-                "ComboBox Item 2"}));
+            JComboBox<String> comboBox = new JComboBox<String>();
+            comboBox.setModel(
+                new DefaultComboBoxModel<String>(new String[]{
+                    Messages.LafPreferencePage_previewCombo,
+                    "ComboBox Item 1",
+                    "ComboBox Item 2"}));
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(0, 0, 5, 5);
             gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -927,7 +928,7 @@ public class LafPreferencePage extends PreferencePage
 
   /**
    * Implementation of {@link ByteArrayTransfer} for LAF entries.
-   * 
+   *
    * @author mitin_aa
    */
   private static final class LookAndFeelTransfer extends ByteArrayTransfer {
@@ -1012,10 +1013,9 @@ public class LafPreferencePage extends PreferencePage
     public String getText(Object element) {
       LafEntryInfo laf = (LafEntryInfo) element;
       String name = laf.getName();
-      boolean isDefault =
-          m_defaultLAF != null
-              && laf.getID().equals(m_defaultLAF.getID())
-              && name.equals(m_defaultLAF.getName());
+      boolean isDefault = m_defaultLAF != null
+          && laf.getID().equals(m_defaultLAF.getID())
+          && name.equals(m_defaultLAF.getName());
       return isDefault ? name + " [default]" : name;
     }
 
@@ -1029,7 +1029,7 @@ public class LafPreferencePage extends PreferencePage
   }
   /**
    * Content provider for LAF list.
-   * 
+   *
    * @author mitin_aa
    */
   private static class LAFItemsContentProvider implements ITreeContentProvider {

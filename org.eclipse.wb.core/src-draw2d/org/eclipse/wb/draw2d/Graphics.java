@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.PointList;
@@ -23,6 +21,7 @@ import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ public class Graphics {
   public int m_translateY;
   private final State m_appliedState = new State();
   private final State m_currentState = new State();
-  private final List<State> m_stack = Lists.newArrayList();
+  private final List<State> m_stack = new ArrayList<>();
   private int m_stackPointer = 0;
   private final Rectangle m_clipping;
 

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -29,11 +27,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link PropertyEditor} for {@link Cursor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.property.editor
  */
@@ -129,10 +128,9 @@ public final class CursorPropertyEditor extends AbstractComboPropertyEditor
       String source;
       {
         Field cursorField = getCursorFields().get(index);
-        source =
-            "org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT."
-                + cursorField.getName()
-                + ")";
+        source = "org.eclipse.wb.swt.SWTResourceManager.getCursor(org.eclipse.swt.SWT."
+            + cursorField.getName()
+            + ")";
       }
       // set source
       genericProperty.setExpression(source, Property.UNKNOWN_VALUE);
@@ -148,7 +146,7 @@ public final class CursorPropertyEditor extends AbstractComboPropertyEditor
    * @return the {@link Field}'s with cursor constants from {@link SWT}.
    */
   private static List<Field> getCursorFields() throws Exception {
-    List<Field> cursorFields = Lists.newArrayList();
+    List<Field> cursorFields = new ArrayList<>();
     Class<?> class_SWT = SwtSupport.getSwtClass();
     Field[] fields = class_SWT.getFields();
     for (Field field : fields) {

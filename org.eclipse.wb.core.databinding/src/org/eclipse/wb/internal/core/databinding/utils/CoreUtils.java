@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.utils;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -44,8 +42,8 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.osgi.framework.Version;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -202,7 +200,7 @@ public final class CoreUtils {
    */
   public static List<VariableDeclarationFragment> getLocalFragments(TypeDeclaration rootNode,
       String methodName) throws Exception {
-    final List<VariableDeclarationFragment> fragments = Lists.newArrayList();
+    final List<VariableDeclarationFragment> fragments = new ArrayList<>();
     MethodDeclaration initDataBindings =
         AstNodeUtils.getMethodBySignature(rootNode, methodName + "()");
     if (initDataBindings != null) {
@@ -226,7 +224,7 @@ public final class CoreUtils {
    */
   public static List<VariableDeclarationFragment> getFieldFragments(TypeDeclaration rootNode)
       throws Exception {
-    List<VariableDeclarationFragment> fragments = Lists.newArrayList();
+    List<VariableDeclarationFragment> fragments = new ArrayList<>();
     //
     for (FieldDeclaration fieldDeclaration : rootNode.getFields()) {
       Type type = fieldDeclaration.getType();
@@ -243,12 +241,9 @@ public final class CoreUtils {
       }
     }
     // sort fragments by position
-    Collections.sort(fragments, new Comparator<VariableDeclarationFragment>() {
-      public int compare(VariableDeclarationFragment fragment1,
-          VariableDeclarationFragment fragment2) {
-        return fragment1.getStartPosition() - fragment2.getStartPosition();
-      }
-    });
+    Collections.sort(
+        fragments,
+        (fragment1, fragment2) -> fragment1.getStartPosition() - fragment2.getStartPosition());
     return fragments;
   }
 
@@ -406,9 +401,8 @@ public final class CoreUtils {
       int index = className.lastIndexOf('.');
       if (index > 0) {
         try {
-          return classLoader.loadClass(className.substring(0, index)
-              + "$"
-              + className.substring(index + 1));
+          return classLoader.loadClass(
+              className.substring(0, index) + "$" + className.substring(index + 1));
         } catch (Throwable t) {
         }
       }

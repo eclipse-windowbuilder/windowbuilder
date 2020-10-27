@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -111,7 +111,7 @@ public final class IntrospectionHelper {
    */
   private List<BeanInfo> getBeanInfos() throws IntrospectionException {
     if (m_beanInfos == null) {
-      m_beanInfos = Lists.newArrayList();
+      m_beanInfos = new ArrayList<>();
       for (Class<?> cls = m_clazz; cls != null; cls = cls.getSuperclass()) {
         BeanInfo info = Introspector.getBeanInfo(cls);
         m_beanInfos.add(info);

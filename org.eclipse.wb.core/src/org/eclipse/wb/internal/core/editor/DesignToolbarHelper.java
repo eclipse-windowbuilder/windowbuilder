@@ -10,30 +10,24 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,11 +57,7 @@ public class DesignToolbarHelper {
    */
   public DesignToolbarHelper(ToolBar toolBar) {
     m_toolBarManager = new ToolBarManager(toolBar);
-    toolBar.addDisposeListener(new DisposeListener() {
-      public void widgetDisposed(DisposeEvent e) {
-        m_toolBarManager.dispose();
-      }
-    });
+    toolBar.addDisposeListener(e -> m_toolBarManager.dispose());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -106,11 +96,7 @@ public class DesignToolbarHelper {
     createHierarchyGroups();
     createSelectionGroups();
     // track dynamic actions
-    m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-      public void selectionChanged(SelectionChangedEvent event) {
-        refreshDynamicActions(false, true);
-      }
-    });
+    m_viewer.addSelectionChangedListener(event -> refreshDynamicActions(false, true));
     refreshDynamicActions(false, false);
   }
 
@@ -139,11 +125,7 @@ public class DesignToolbarHelper {
     @Override
     public void refreshed() throws Exception {
       // execute in async to let GEF refresh to update selection
-      DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
-        public void run() {
-          refreshDynamicActions(true, true);
-        }
-      });
+      DesignerPlugin.getStandardDisplay().asyncExec(() -> refreshDynamicActions(true, true));
     }
   };
 
@@ -180,7 +162,7 @@ public class DesignToolbarHelper {
   ////////////////////////////////////////////////////////////////////////////
   private static final String HIERARCHY_ACTIONS_GROUP = "HIERARCHY_ACTIONS_GROUP";
   private static final String HIERARCHY_ACTIONS_GROUP_END = "HIERARCHY_ACTIONS_GROUP_end";
-  private final List<IContributionItem> m_hierarchyItems = Lists.newArrayList();
+  private final List<IContributionItem> m_hierarchyItems = new ArrayList<>();
 
   /**
    * Creates group {@link Separator}'s for adding/removing actions based on components hierarchy.
@@ -194,33 +176,31 @@ public class DesignToolbarHelper {
    * Refreshes the actions based on components hierarchy.
    */
   private void refreshHierarchyActions() {
-    final List<IContributionItem> toRemove = Lists.newArrayList(m_hierarchyItems);
+    final List<IContributionItem> toRemove = new ArrayList<>(m_hierarchyItems);
     // add items for hierarchy
-    ExecutionUtils.runLog(new RunnableEx() {
-      public void run() throws Exception {
-        // prepare items
-        List<Object> items;
-        {
-          items = Lists.newArrayList();
-          m_rootObject.getBroadcastObject().addHierarchyActions(items);
+    ExecutionUtils.runLog(() -> {
+      // prepare items
+      List<Object> items;
+      {
+        items = new ArrayList<>();
+        m_rootObject.getBroadcastObject().addHierarchyActions(items);
+      }
+      // add items to toolbar
+      m_hierarchyItems.clear();
+      for (Object object : items) {
+        // prepare contribution item
+        IContributionItem item;
+        if (object instanceof IContributionItem) {
+          item = (IContributionItem) object;
+        } else {
+          IAction action = (IAction) object;
+          item = new ActionContributionItem(action);
         }
-        // add items to toolbar
-        m_hierarchyItems.clear();
-        for (Object object : items) {
-          // prepare contribution item
-          IContributionItem item;
-          if (object instanceof IContributionItem) {
-            item = (IContributionItem) object;
-          } else {
-            IAction action = (IAction) object;
-            item = new ActionContributionItem(action);
-          }
-          // add item
-          toRemove.remove(item);
-          m_hierarchyItems.add(item);
-          m_toolBarManager.remove(item);
-          m_toolBarManager.appendToGroup(HIERARCHY_ACTIONS_GROUP, item);
-        }
+        // add item
+        toRemove.remove(item);
+        m_hierarchyItems.add(item);
+        m_toolBarManager.remove(item);
+        m_toolBarManager.appendToGroup(HIERARCHY_ACTIONS_GROUP, item);
       }
     });
     // remove old items
@@ -237,7 +217,7 @@ public class DesignToolbarHelper {
   ////////////////////////////////////////////////////////////////////////////
   private static final String SELECTION_ACTIONS_GROUP = "SELECTION_ACTIONS_GROUP";
   private static final String SELECTION_ACTIONS_GROUP_END = "SELECTION_ACTIONS_GROUP_end";
-  private final List<IContributionItem> m_selectionItems = Lists.newArrayList();
+  private final List<IContributionItem> m_selectionItems = new ArrayList<>();
 
   /**
    * Creates group {@link Separator}'s for adding/removing actions based on selection in
@@ -252,9 +232,9 @@ public class DesignToolbarHelper {
    * Refreshes the actions based on selection.
    */
   private void refreshSelectionActions() {
-    final List<IContributionItem> toRemove = Lists.newArrayList(m_selectionItems);
+    final List<IContributionItem> toRemove = new ArrayList<>(m_selectionItems);
     // prepare selected ObjectInfo's
-    final List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    final List<ObjectInfo> selectedObjects = new ArrayList<>();
     for (EditPart editPart : m_viewer.getSelectedEditParts()) {
       Object model = editPart.getModel();
       if (model instanceof ObjectInfo) {
@@ -264,32 +244,30 @@ public class DesignToolbarHelper {
       }
     }
     // add items for selected objects
-    ExecutionUtils.runLog(new RunnableEx() {
-      public void run() throws Exception {
-        // prepare items
-        List<Object> items;
-        {
-          items = Lists.newArrayList();
-          m_rootObject.getBroadcastObject().addSelectionActions(selectedObjects, items);
+    ExecutionUtils.runLog(() -> {
+      // prepare items
+      List<Object> items;
+      {
+        items = new ArrayList<>();
+        m_rootObject.getBroadcastObject().addSelectionActions(selectedObjects, items);
+      }
+      // don't remove items that are added again
+      m_selectionItems.clear();
+      toRemove.removeAll(items);
+      // add items to toolbar
+      for (Object object : items) {
+        // prepare contribution item
+        IContributionItem item;
+        if (object instanceof IContributionItem) {
+          item = (IContributionItem) object;
+        } else {
+          IAction action = (IAction) object;
+          item = new ActionContributionItem(action);
         }
-        // don't remove items that are added again
-        m_selectionItems.clear();
-        toRemove.removeAll(items);
-        // add items to toolbar
-        for (Object object : items) {
-          // prepare contribution item
-          IContributionItem item;
-          if (object instanceof IContributionItem) {
-            item = (IContributionItem) object;
-          } else {
-            IAction action = (IAction) object;
-            item = new ActionContributionItem(action);
-          }
-          // add item
-          m_selectionItems.add(item);
-          m_toolBarManager.remove(item);
-          m_toolBarManager.appendToGroup(SELECTION_ACTIONS_GROUP, item);
-        }
+        // add item
+        m_selectionItems.add(item);
+        m_toolBarManager.remove(item);
+        m_toolBarManager.appendToGroup(SELECTION_ACTIONS_GROUP, item);
       }
     });
     // remove old items

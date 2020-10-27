@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gefTree.part;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
@@ -19,18 +17,16 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,12 +64,10 @@ public class ObjectEditPart extends TreeEditPart {
       final Tree tree = viewer.getTree();
       // update presentation only when EditPart become visible
       {
-        m_updatePresentationListener = new Listener() {
-          public void handleEvent(Event event) {
-            if (event.item.getData() instanceof ObjectEditPart) {
-              ObjectEditPart editPart = (ObjectEditPart) event.item.getData();
-              editPart.update();
-            }
+        m_updatePresentationListener = event -> {
+          if (event.item.getData() instanceof ObjectEditPart) {
+            ObjectEditPart editPart = (ObjectEditPart) event.item.getData();
+            editPart.update();
           }
         };
         tree.addListener(SWT.PaintItem, m_updatePresentationListener);
@@ -103,7 +97,7 @@ public class ObjectEditPart extends TreeEditPart {
           m_delayedSelectionObjects = null;
           // set selection now, or delay
           if (!setSelectionIfAllEditParts(objects)) {
-            m_delayedSelectionObjects = Lists.newArrayList(objects);
+            m_delayedSelectionObjects = new ArrayList<>(objects);
           }
         }
 
@@ -124,7 +118,7 @@ public class ObjectEditPart extends TreeEditPart {
           if (objects == null) {
             return null;
           }
-          List<EditPart> editParts = Lists.newArrayList();
+          List<EditPart> editParts = new ArrayList<>();
           for (ObjectInfo object : objects) {
             EditPart editPart = viewer.getEditPartByModel(object);
             if (editPart == null) {
@@ -163,11 +157,7 @@ public class ObjectEditPart extends TreeEditPart {
   private void update() {
     if (m_updateRequired) {
       m_updateRequired = false;
-      ExecutionUtils.runLogUI(new RunnableEx() {
-        public void run() throws Exception {
-          update0();
-        }
-      });
+      ExecutionUtils.runLogUI(() -> update0());
     }
   }
 
@@ -206,11 +196,9 @@ public class ObjectEditPart extends TreeEditPart {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<?> getModelChildren() {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
-      public List<?> runObject() throws Exception {
-        return m_object.getPresentation().getChildrenTree();
-      }
-    }, Collections.emptyList());
+    return ExecutionUtils.runObjectLog(
+        () -> m_object.getPresentation().getChildrenTree(),
+        Collections.emptyList());
   }
 
   ////////////////////////////////////////////////////////////////////////////
