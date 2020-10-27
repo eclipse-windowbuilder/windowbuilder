@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.utils.ast;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -2114,7 +2113,7 @@ public final class AstEditor {
       List<String> bodyLines,
       BodyDeclarationTarget target) throws Exception {
     // prepare full method lines
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     {
       lines.addAll(annotations);
       if (bodyLines != null) {

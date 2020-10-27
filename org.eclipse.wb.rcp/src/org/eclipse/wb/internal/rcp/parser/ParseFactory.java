@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.parser;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -222,7 +221,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
               ObjectInfoUtils.setNewId(javaInfo);
               javaInfo.bindToExpression(parameter.getName());
               // prepare root context
-              List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
+              List<MethodDeclaration> rootMethods = Arrays.asList(method);
               return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
             }
           }

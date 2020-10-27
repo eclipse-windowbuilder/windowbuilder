@@ -10,18 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.java6.model;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Base class for GroupLayout container elements.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */
 public abstract class GroupInfo extends SpringInfo {
-  protected List<SpringInfo> m_children = Lists.newArrayList();
+  protected List<SpringInfo> m_children = new ArrayList<SpringInfo>();
 
   /**
    * Adds a child spring.

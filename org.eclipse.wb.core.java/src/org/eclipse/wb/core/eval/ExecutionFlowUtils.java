@@ -11,7 +11,6 @@
 package org.eclipse.wb.core.eval;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -939,7 +938,7 @@ public final class ExecutionFlowUtils {
    */
   private static final class ExecutionFlowContext {
     private final boolean m_forExecutionFlow;
-    private final LinkedList<ExecutionFlowFrame> m_stack = Lists.newLinkedList();
+    private final LinkedList<ExecutionFlowFrame> m_stack = new LinkedList<>();
     private ExecutionFlowFrame m_currentFrame;
 
     ////////////////////////////////////////////////////////////////////////////
@@ -1202,7 +1201,7 @@ public final class ExecutionFlowUtils {
       String variableName = getVariableName(variable);
       List<ASTNode> assignments = m_variableToAssignments.get(variableName);
       if (assignments == null) {
-        assignments = Lists.newArrayList();
+        assignments = new ArrayList<>();
         m_variableToAssignments.put(variableName, assignments);
       }
       return assignments;
@@ -1232,7 +1231,7 @@ public final class ExecutionFlowUtils {
         String variableName = getVariableName(variable);
         references = m_variableToReferences.get(variableName);
         if (references == null) {
-          references = Lists.newArrayList();
+          references = new ArrayList<>();
           m_variableToReferences.put(variableName, references);
         }
       }
@@ -1256,7 +1255,7 @@ public final class ExecutionFlowUtils {
    */
   public static List<ASTNode> getInvocations(ExecutionFlowDescription flowDescription,
       MethodDeclaration methodDeclaration) {
-    final List<ASTNode> invocations = Lists.newArrayList();
+    final List<ASTNode> invocations = new ArrayList<>();
     // prepare required values
     IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
     if (requiredBinding == null) {

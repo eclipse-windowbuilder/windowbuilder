@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util.surround;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
@@ -273,7 +272,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
    * @return the {@link ISurroundProcessor}'s registered for source toolkit.
    */
   private List<ISurroundProcessor<C, T>> getSurroundProcessors() {
-    List<ISurroundProcessor<C, T>> typedProcessors = Lists.newArrayList();
+    List<ISurroundProcessor<C, T>> typedProcessors = new ArrayList<>();
     //
     List<IConfigurationElement> elements =
         ExternalFactoriesHelper.getElements(SURROUND_POINT, "processor");

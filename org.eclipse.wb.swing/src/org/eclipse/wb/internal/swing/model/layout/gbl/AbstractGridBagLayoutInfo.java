@@ -288,8 +288,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
   //
   ////////////////////////////////////////////////////////////////////////////
   private boolean m_dimensionsInitialized;
-  private final LinkedList<ColumnInfo> m_columns = Lists.newLinkedList();
-  private final LinkedList<RowInfo> m_rows = Lists.newLinkedList();
+  private final LinkedList<ColumnInfo> m_columns = new LinkedList<>();
+  private final LinkedList<RowInfo> m_rows = new LinkedList<>();
   private final DimensionOperations<ColumnInfo> m_columnOperations =
       new DimensionOperationsColumn(this);
   private final DimensionOperations<RowInfo> m_rowOperations = new DimensionOperationsRow(this);

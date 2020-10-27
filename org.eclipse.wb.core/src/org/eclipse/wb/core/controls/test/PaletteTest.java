@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.test;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.flyout.FlyoutControlComposite;
 import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.MemoryFlyoutPreferences;
@@ -196,7 +194,7 @@ public class PaletteTest implements IColorConstants {
   private static final class CategoryImpl implements ICategory {
     private final String m_text;
     private boolean m_open;
-    private final List<IEntry> m_entries = Lists.newArrayList();
+    private final List<IEntry> m_entries = new ArrayList<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //

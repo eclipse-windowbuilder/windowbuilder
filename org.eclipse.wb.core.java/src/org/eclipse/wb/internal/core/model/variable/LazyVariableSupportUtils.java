@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport.LazyVariableInformation;
@@ -304,7 +302,7 @@ public final class LazyVariableSupportUtils {
     }
     //
     String header = modifiers + className + " " + methodName + "()";
-    List<String> bodyLines = Lists.newArrayList();
+    List<String> bodyLines = new ArrayList<>();
     bodyLines.add("if (" + fieldName + " == null) {");
     bodyLines.add("\t" + fieldName + " = null;");
     bodyLines.add("}");
