@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -39,6 +38,7 @@ import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -66,6 +66,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
       m_componentClass = null;
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Key
@@ -96,6 +97,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
         + parameters_toString
         + ")";
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Cached
@@ -116,6 +118,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setCached(boolean cached) {
     m_cached = cached;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Caching presentation
@@ -137,6 +140,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setPresentationCached(boolean presentationCached) {
     m_presentationCached = presentationCached;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // GUI toolkit
@@ -154,6 +158,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setToolkit(ToolkitDescription toolkit) {
     m_toolkit = (ToolkitDescriptionJava) toolkit;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Component class
@@ -164,6 +169,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public Class<?> getComponentClass() {
     return m_componentClass;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Model class
@@ -182,6 +188,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setModelClass(Class<?> modelClass) {
     m_modelClass = modelClass;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // BeanInfo
@@ -203,6 +210,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     Assert.isNull(m_beanInfo);
     m_beanInfo = beanInfo;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // BeanDescriptor
@@ -223,6 +231,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setBeanDescriptor(BeanDescriptor beanDescriptor) {
     m_beanDescriptor = beanDescriptor;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // PropertyDescriptors
@@ -243,12 +252,13 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setPropertyDescriptors(List<PropertyDescriptor> propertyDescriptors) {
     m_propertyDescriptors = propertyDescriptors;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Constructors
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<ConstructorDescription> m_constructors = Lists.newArrayList();
+  private final List<ConstructorDescription> m_constructors = new ArrayList<>();
 
   /**
    * @return the list of {@link ConstructorDescription}'s of this component.
@@ -316,12 +326,13 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     // not found
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Methods
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<MethodDescription> m_methods = Lists.newArrayList();
+  private final List<MethodDescription> m_methods = new ArrayList<>();
   private final Map<String, MethodDescription> m_methodsMap = Maps.newTreeMap();
 
   /**
@@ -380,6 +391,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     // use cache
     return m_methodsMap.get(signature);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Method invocation order
@@ -400,6 +412,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setDefaultMethodOrder(MethodOrder defaultMethodOrder) {
     m_defaultMethodOrder = defaultMethodOrder;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Order
@@ -420,12 +433,13 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setOrder(String specification) {
     m_order = ComponentOrder.parse(specification);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Generic properties
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<GenericPropertyDescription> m_properties = Lists.newArrayList();
+  private final List<GenericPropertyDescription> m_properties = new ArrayList<>();
   private final Map<String, GenericPropertyDescription> m_idToProperty = Maps.newHashMap();
 
   /**
@@ -475,6 +489,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     String id = property.getId();
     m_idToProperty.put(id, property);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Configurable properties
@@ -496,6 +511,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void addConfigurableProperty(ConfigurablePropertyDescription property) {
     m_idToConfigurableProperty.put(property.getId(), property);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Parameters
@@ -531,6 +547,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     String parameter = getParameter(name);
     return "true".equals(parameter);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Creation
@@ -543,7 +560,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
    * @return all {@link CreationDescription}'s.
    */
   public List<CreationDescription> getCreations() {
-    List<CreationDescription> creations = Lists.newArrayList(m_creations.values());
+    List<CreationDescription> creations = new ArrayList<>(m_creations.values());
     creations.add(m_creationDefault);
     return creations;
   }
@@ -579,12 +596,13 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void clearCreations() {
     m_creations.clear();
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Exposed children
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<ExposingRule> m_exposingRules = Lists.newArrayList();
+  private final List<ExposingRule> m_exposingRules = new ArrayList<>();
 
   /**
    * @return the {@link List} of {@link ExposingRule}'s.
@@ -603,12 +621,13 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void addExposingRule(ExposingRule rule) {
     m_exposingRules.add(0, rule);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Morphing
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<MorphingTargetDescription> m_morphingTargets = Lists.newArrayList();
+  private final List<MorphingTargetDescription> m_morphingTargets = new ArrayList<>();
 
   /**
    * @return the {@link MorphingTargetDescription}'s registered for this component.
@@ -630,6 +649,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void clearMorphingTargets() {
     m_morphingTargets.clear();
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Description
@@ -727,10 +747,9 @@ public class ComponentDescription extends AbstractDescription implements ICompon
    */
   private static boolean isStandardMethod(Method setter) {
     String declaringClassName = setter.getDeclaringClass().getName();
-    List<IConfigurationElement> elements =
-        ExternalFactoriesHelper.getElements(
-            "org.eclipse.wb.core.standardToolkitPackages",
-            "package");
+    List<IConfigurationElement> elements = ExternalFactoriesHelper.getElements(
+        "org.eclipse.wb.core.standardToolkitPackages",
+        "package");
     for (IConfigurationElement element : elements) {
       String prefix = ExternalFactoriesHelper.getRequiredAttribute(element, "prefix");
       if (declaringClassName.startsWith(prefix)) {
@@ -739,6 +758,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
     }
     return false;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Current class
@@ -759,6 +779,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   public void setCurrentClass(Class<?> currentClass) {
     m_currentClass = currentClass;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Icon

@@ -43,6 +43,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -63,10 +64,9 @@ public final class LazyVariableSupportUtils {
     boolean canConvert = true;
     // check variable support
     VariableSupport variableSupport = javaInfo.getVariableSupport();
-    canConvert &=
-        variableSupport.canConvertLocalToField()
-            || variableSupport instanceof LazyVariableSupport
-            || variableSupport instanceof FieldVariableSupport;
+    canConvert &= variableSupport.canConvertLocalToField()
+        || variableSupport instanceof LazyVariableSupport
+        || variableSupport instanceof FieldVariableSupport;
     //
     return canConvert;
   }
@@ -121,8 +121,8 @@ public final class LazyVariableSupportUtils {
     AstEditor editor = javaInfo.getEditor();
     StatementTarget target = new StatementTarget(assignment, false);
     // process related nodes
-    List<Statement> moveStatements = Lists.newArrayList();
-    List<ASTNode> replaceNodes = Lists.newArrayList();
+    List<Statement> moveStatements = new ArrayList<>();
+    List<ASTNode> replaceNodes = new ArrayList<>();
     // prepare node lists...
     collectNodesToEdit(javaInfo, moveStatements, replaceNodes, target);
     moveStatements.remove(AstNodeUtils.getEnclosingStatement(creation));
@@ -149,7 +149,7 @@ public final class LazyVariableSupportUtils {
     // replace statements with blocks
     {
       // prepare unique list of blocks
-      List<Block> blocks = Lists.newArrayList();
+      List<Block> blocks = new ArrayList<>();
       for (Statement statement : moveStatements) {
         Block block = AstNodeUtils.getEnclosingBlock(statement);
         if (!blocks.contains(block)) {
@@ -170,7 +170,7 @@ public final class LazyVariableSupportUtils {
     {
       Statement[] statements = moveStatements.toArray(new Statement[moveStatements.size()]);
       Arrays.sort(statements, AstNodeUtils.SORT_BY_POSITION);
-      moveStatements = Lists.newArrayList(statements);
+      moveStatements = Arrays.asList(statements);
     }
     // move statements
     for (Statement moveStatement : moveStatements) {
@@ -213,7 +213,7 @@ public final class LazyVariableSupportUtils {
       }
     }
     // add children
-    List<JavaInfo> children = Lists.newArrayList(javaInfo.getChildrenJava());
+    List<JavaInfo> children = new ArrayList<>(javaInfo.getChildrenJava());
     javaInfo.getBroadcastJava().variable_addStatementsToMove(javaInfo, children);
     for (JavaInfo child : children) {
       collectNodesToEdit(child, moveStatements, replaceNodes, target);
@@ -335,11 +335,10 @@ public final class LazyVariableSupportUtils {
    * @return the name of method that corresponds to given name of field.
    */
   public static String getExpectedMethodName(JavaInfo javaInfo, String fieldName) {
-    String strippedFieldName =
-        new VariableUtils(javaInfo).stripPrefixSuffix(
-            fieldName,
-            JavaCore.CODEASSIST_FIELD_PREFIXES,
-            JavaCore.CODEASSIST_FIELD_SUFFIXES);
+    String strippedFieldName = new VariableUtils(javaInfo).stripPrefixSuffix(
+        fieldName,
+        JavaCore.CODEASSIST_FIELD_PREFIXES,
+        JavaCore.CODEASSIST_FIELD_SUFFIXES);
     return "get" + StringUtils.capitalize(strippedFieldName);
   }
 

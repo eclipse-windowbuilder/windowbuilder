@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -68,6 +67,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -166,7 +166,7 @@ public final class PaletteManager {
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final List<Class<? extends Command>> m_commandClasses = Lists.newArrayList();
+  private static final List<Class<? extends Command>> m_commandClasses = new ArrayList<>();
   static {
     m_commandClasses.add(ElementVisibilityCommand.class);
     m_commandClasses.add(CategoryAddCommand.class);
@@ -199,7 +199,7 @@ public final class PaletteManager {
   }
 
   private void commandsRead() throws Exception {
-    m_commands = Lists.newArrayList();
+    m_commands = new ArrayList<>();
     // read-only "wbp-meta" from classpath, for example from jar's
     {
       String commandsPath = "wbp-meta/" + m_toolkitId + ".wbp-palette-commands.xml";
@@ -344,7 +344,7 @@ public final class PaletteManager {
    */
   private void parseExtensionPalette() {
     // prepare <toolkit>/<palette> elements
-    List<IConfigurationElement> paletteElements = Lists.newArrayList();
+    List<IConfigurationElement> paletteElements = new ArrayList<>();
     for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(m_toolkitId)) {
       for (IConfigurationElement paletteElement : toolkitElement.getChildren("palette")) {
         if (isConditionTrue(paletteElement)) {
@@ -605,8 +605,10 @@ public final class PaletteManager {
         }
 
         private FactoryEntryInfo createFactoryEntry(CategoryInfo category, Attributes attributes) {
-          Assert.isNotNull(m_factoryClassName, "Attempt to use 'method' "
-              + "outside of <static-factory> or <instance-factory> tags.");
+          Assert.isNotNull(
+              m_factoryClassName,
+              "Attempt to use 'method' "
+                  + "outside of <static-factory> or <instance-factory> tags.");
           AttributesProvider attributesProvider = AttributesProviders.get(attributes);
           if (m_factoryStatic) {
             return new StaticFactoryEntryInfo(category, m_factoryClassName, attributesProvider);

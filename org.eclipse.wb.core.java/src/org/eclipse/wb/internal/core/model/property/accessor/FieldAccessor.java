@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.accessor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -31,6 +29,7 @@ import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.Statement;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -221,7 +220,7 @@ public final class FieldAccessor extends ExpressionAccessor {
   }
 
   private static AssignmentsSequence getAssignmentsSequence(Assignment targetAssignment) {
-    List<Assignment> assignments = Lists.newArrayList();
+    List<Assignment> assignments = new ArrayList<>();
     // add assignment's on left side
     {
       Assignment leftAssignment = targetAssignment;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -30,6 +28,7 @@ import org.eclipse.wb.internal.core.gef.tools.TabOrderContainerRequest;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.order.TabOrderInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +80,7 @@ public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
 
   private void showChildrenIndexes(List<?> children, Object selectedChild) {
     eraseChildrenIndexes();
-    m_indexFeedbacks = Lists.newArrayList();
+    m_indexFeedbacks = new ArrayList<>();
     Layer layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
     IEditPartViewer viewer = getHost().getViewer();
     for (int index = 0; index < children.size(); index++) {

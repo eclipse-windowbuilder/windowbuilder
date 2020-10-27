@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.creation;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -48,6 +47,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -272,7 +272,8 @@ public final class ConstructorCreationSupport extends CreationSupport
     return true;
   }
 
-  private boolean canUseParent_noDescription(JavaInfo parent, Class<?> parentType) throws Exception {
+  private boolean canUseParent_noDescription(JavaInfo parent, Class<?> parentType)
+      throws Exception {
     String source = add_getSource(null);
     // we don't care if there are no "parent" to check
     if (!source.contains("%parent%")) {
@@ -333,7 +334,7 @@ public final class ConstructorCreationSupport extends CreationSupport
       m_complexProperty.setCategory(PropertyCategory.system(3));
       m_complexProperty.setModified(true);
       // prepare list of sub-properties
-      List<Property> subPropertiesList = Lists.newArrayList();
+      List<Property> subPropertiesList = new ArrayList<>();
       for (ParameterDescription parameter : m_description.getParameters()) {
         Property property = m_utils.createProperty(parameter);
         if (property != null) {

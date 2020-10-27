@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerConfigurable;
@@ -29,7 +27,7 @@ import java.util.List;
  */
 public class FlowContainerGroupInfo extends CollectorObjectInfo {
   private final JavaInfo m_component;
-  ArrayList<FlowContainerConfigurable> m_containers = Lists.newArrayList();
+  ArrayList<FlowContainerConfigurable> m_containers = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -50,7 +48,7 @@ public class FlowContainerGroupInfo extends CollectorObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public List<ObjectInfo> getItems() {
-    List<ObjectInfo> list = Lists.newArrayList();
+    List<ObjectInfo> list = new ArrayList<>();
     List<JavaInfo> children = m_component.getChildrenJava();
     for (JavaInfo child : children) {
       for (FlowContainerConfigurable container : m_containers) {

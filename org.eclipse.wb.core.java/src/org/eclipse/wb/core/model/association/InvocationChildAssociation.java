@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.association;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -41,6 +39,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 
 import java.awt.Container;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -209,7 +208,7 @@ public final class InvocationChildAssociation extends InvocationAssociation {
       ComponentDescriptionHelper.ensureInitialized(m_javaProject, description);
     }
     // add properties
-    List<Property> associationProperties = Lists.newArrayList();
+    List<Property> associationProperties = new ArrayList<>();
     for (ParameterDescription parameter : description.getParameters()) {
       if (!parameter.isChild()) {
         Property property = createAssociationSubProperty(parameter);

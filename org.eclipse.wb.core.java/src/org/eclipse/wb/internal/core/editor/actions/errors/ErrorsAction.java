@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions.errors;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -19,6 +17,7 @@ import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.jface.action.Action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ import java.util.List;
  * @coverage core.editor.action.error
  */
 public class ErrorsAction extends Action {
-  private final List<IErrorPage> m_pages = Lists.newArrayList();
+  private final List<IErrorPage> m_pages = new ArrayList<>();
   private ObjectInfo m_rootObject;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -38,7 +37,8 @@ public class ErrorsAction extends Action {
   ////////////////////////////////////////////////////////////////////////////
   public ErrorsAction() {
     setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/errors/errors.gif"));
-    setDisabledImageDescriptor(DesignerPlugin.getImageDescriptor("actions/errors/errors_disabled.gif"));
+    setDisabledImageDescriptor(
+        DesignerPlugin.getImageDescriptor("actions/errors/errors_disabled.gif"));
     setToolTipText(Messages.ErrorsAction_toolTip);
     // add pages
     m_pages.add(new BadNodesRefreshErrorPage());

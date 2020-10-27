@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.eval;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -23,6 +22,8 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public final class ExecutionFlowDescription {
   private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsAfter = Maps.newHashMap();
   private final Map<ASTNode, List<MethodDeclaration>> m_binaryFlowMethodsBefore = Maps.newHashMap();
   private boolean m_binaryFlowLocked;
-  private final LinkedList<Statement> m_traceStatements = Lists.newLinkedList();
+  private final LinkedList<Statement> m_traceStatements = new LinkedList<>();
   private int m_modificationCount;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -47,7 +48,7 @@ public final class ExecutionFlowDescription {
   //
   ////////////////////////////////////////////////////////////////////////////
   public ExecutionFlowDescription(MethodDeclaration... startMethods) {
-    this(Lists.newArrayList(startMethods));
+    this(Arrays.asList(startMethods));
   }
 
   public ExecutionFlowDescription(List<MethodDeclaration> startMethods) {
@@ -193,7 +194,7 @@ public final class ExecutionFlowDescription {
     m_modificationCount++;
     List<MethodDeclaration> methods = m_binaryFlowMethodsBefore.get(currentStatement);
     if (methods == null) {
-      methods = Lists.newArrayList();
+      methods = new ArrayList<>();
       m_binaryFlowMethodsBefore.put(currentStatement, methods);
     }
     // appends new method
@@ -212,7 +213,7 @@ public final class ExecutionFlowDescription {
     Statement currentStatement = getCurrentStatement();
     List<MethodDeclaration> methods = m_binaryFlowMethodsAfter.get(currentStatement);
     if (methods == null) {
-      methods = Lists.newArrayList();
+      methods = new ArrayList<>();
       m_binaryFlowMethodsAfter.put(currentStatement, methods);
     }
     // appends new method
@@ -226,7 +227,7 @@ public final class ExecutionFlowDescription {
     m_modificationCount++;
     List<MethodDeclaration> methods = m_binaryFlowMethodsAfter.get(currentStatement);
     if (methods == null) {
-      methods = Lists.newArrayList();
+      methods = new ArrayList<>();
       m_binaryFlowMethodsAfter.put(currentStatement, methods);
     }
     // appends new method

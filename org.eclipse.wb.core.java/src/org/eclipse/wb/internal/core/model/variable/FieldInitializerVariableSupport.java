@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.VisitingContext;
@@ -43,6 +41,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -176,7 +175,7 @@ public final class FieldInitializerVariableSupport extends FieldVariableSupport 
    * @return the related {@link Statement}'s, that should be moved with component.
    */
   private List<Statement> getRelatedStatements() {
-    List<Statement> statements = Lists.newArrayList();
+    List<Statement> statements = new ArrayList<>();
     // add association statement (when we move component, association may not exist)
     if (m_javaInfo.getAssociation() != null) {
       Statement associationStatement = m_javaInfo.getAssociation().getStatement();

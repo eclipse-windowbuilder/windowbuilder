@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.jface.action.IMenuManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -101,7 +102,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
       selectedComponents.add(component);
     }
     // sort components to be in same order, as in source container
-    List<T> sortedComponents = Lists.newArrayList();
+    List<T> sortedComponents = new ArrayList<>();
     for (ObjectInfo component : m_sourceContainer.getChildren()) {
       if (selectedComponents.contains(component)) {
         sortedComponents.add((T) component);
@@ -131,7 +132,8 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
         ExternalFactoriesHelper.getElements(SURROUND_POINT, "target");
     String sourceToolkitID = m_sourceContainer.getDescription().getToolkit().getId();
     for (IConfigurationElement element : elements) {
-      if (ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit").equals(sourceToolkitID)) {
+      if (ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit").equals(
+          sourceToolkitID)) {
         ISurroundTarget<C, T> target =
             ExternalFactoriesHelper.createExecutableExtension(element, "class");
         if (target.validate(components)) {
@@ -277,7 +279,8 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
         ExternalFactoriesHelper.getElements(SURROUND_POINT, "processor");
     String sourceToolkitID = m_sourceContainer.getDescription().getToolkit().getId();
     for (IConfigurationElement element : elements) {
-      if (ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit").equals(sourceToolkitID)) {
+      if (ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit").equals(
+          sourceToolkitID)) {
         ISurroundProcessor<C, T> processor =
             ExternalFactoriesHelper.createExecutableExtension(element, "class");
         typedProcessors.add(processor);

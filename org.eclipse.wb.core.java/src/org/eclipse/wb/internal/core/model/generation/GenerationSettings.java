@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generation;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -43,6 +42,7 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,10 +66,10 @@ public final class GenerationSettings {
   private final IPreferenceStore m_store;
   private final Map<String, VariableSupportDescription> m_idToVariable = Maps.newTreeMap();
   private final Map<String, StatementGeneratorDescription> m_idToStatement = Maps.newTreeMap();
-  private final List<VariableSupportDescription> m_variables = Lists.newArrayList();
+  private final List<VariableSupportDescription> m_variables = new ArrayList<>();
   private final Map<VariableSupportDescription, StatementGeneratorDescription[]> m_variableToStatements =
       Maps.newHashMap();
-  private final MultiKeyMap/*<variable + statement -> GenerationPreview>*/m_previewMap =
+  private final MultiKeyMap/*<variable + statement -> GenerationPreview>*/ m_previewMap =
       new MultiKeyMap();
 
   ////////////////////////////////////////////////////////////////////////////
@@ -414,9 +414,9 @@ public final class GenerationSettings {
     IPreferenceStore editorPreferences;
     {
       editorPreferences = new PreferenceStore();
-      setPreferences(javaInfo, new ChainedPreferenceStore(new IPreferenceStore[]{
-          editorPreferences,
-          m_store}));
+      setPreferences(
+          javaInfo,
+          new ChainedPreferenceStore(new IPreferenceStore[]{editorPreferences, m_store}));
     }
     // do deduce
     deduceVariable(components, editorPreferences);
@@ -492,10 +492,9 @@ public final class GenerationSettings {
           multipleCount += count;
         }
       }
-      StatementGeneratorDescription statementDescription =
-          singleCount >= multipleCount
-              ? BlockStatementGeneratorDescription.INSTANCE
-              : FlatStatementGeneratorDescription.INSTANCE;
+      StatementGeneratorDescription statementDescription = singleCount >= multipleCount
+          ? BlockStatementGeneratorDescription.INSTANCE
+          : FlatStatementGeneratorDescription.INSTANCE;
       store.setValue(P_STATEMENT_GENERATOR_ID, statementDescription.getId());
     }
   }

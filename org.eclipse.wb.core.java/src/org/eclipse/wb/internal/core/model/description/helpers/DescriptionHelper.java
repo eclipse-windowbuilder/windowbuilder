@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -34,6 +33,7 @@ import org.osgi.framework.Bundle;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -354,7 +354,8 @@ public final class DescriptionHelper {
   /**
    * @return <code>true</code> if toolkit has "resourcePrefix" which matches given name.
    */
-  private static boolean hasMatchingResourcePrefix(IConfigurationElement toolkitElement, String name) {
+  private static boolean hasMatchingResourcePrefix(IConfigurationElement toolkitElement,
+      String name) {
     IConfigurationElement[] prefixElements = getResourcePrefixElements(toolkitElement);
     return hasMatchingResourcePrefix(prefixElements, name);
   }
@@ -362,7 +363,8 @@ public final class DescriptionHelper {
   /**
    * @return the "resourcePrefix" elements of given toolkit.
    */
-  private static IConfigurationElement[] getResourcePrefixElements(IConfigurationElement toolkitElement) {
+  private static IConfigurationElement[] getResourcePrefixElements(
+      IConfigurationElement toolkitElement) {
     IConfigurationElement[] prefixContainers = toolkitElement.getChildren("resourcePrefixes");
     for (IConfigurationElement containerElement : prefixContainers) {
       return containerElement.getChildren("resourcePrefix");
@@ -463,7 +465,7 @@ public final class DescriptionHelper {
    *         palette.
    */
   public static List<IConfigurationElement> getToolkitElements(String toolkitId) {
-    List<IConfigurationElement> toolkitElements = Lists.newArrayList();
+    List<IConfigurationElement> toolkitElements = new ArrayList<>();
     for (IConfigurationElement element : getToolkitElements()) {
       if (ExternalFactoriesHelper.getRequiredAttribute(element, "id").equals(toolkitId)) {
         toolkitElements.add(element);
@@ -476,7 +478,7 @@ public final class DescriptionHelper {
    * @return the {@link ToolkitDescription}'s for registered GUI toolkits.
    */
   public static ToolkitDescription[] getToolkits() throws Exception {
-    List<ToolkitDescription> toolkits = Lists.newArrayList();
+    List<ToolkitDescription> toolkits = new ArrayList<>();
     //
     Set<String> addedToolkits = Sets.newHashSet();
     for (IConfigurationElement toolkitElement : getToolkitElements()) {

@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.event;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -70,6 +69,7 @@ import org.apache.commons.lang.text.StrSubstitutor;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -326,10 +326,9 @@ final class ListenerMethodProperty extends AbstractEventProperty
       if (m_javaInfo.isDeleting()) {
         removeAllListenerArtifacts = false;
       } else {
-        String message =
-            MessageFormat.format(
-                ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesMessage,
-                m_listener.getName());
+        String message = MessageFormat.format(
+            ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesMessage,
+            m_listener.getName());
         if (!MessageDialog.openQuestion(
             DesignerPlugin.getShell(),
             ModelMessages.ListenerMethodProperty_deleteAllListenerUsagesTitle,
@@ -512,10 +511,9 @@ final class ListenerMethodProperty extends AbstractEventProperty
         } else if (eventCodeType == V_CODE_INTERFACE) {
           // prepare listener type
           listenerType = JavaInfoUtils.getTypeDeclaration(m_javaInfo);
-          implementInterfaceMethods =
-              m_javaInfo.getEditor().ensureInterfaceImplementation(
-                  listenerType,
-                  m_listener.getInterface().getCanonicalName());
+          implementInterfaceMethods = m_javaInfo.getEditor().ensureInterfaceImplementation(
+              listenerType,
+              m_listener.getInterface().getCanonicalName());
           // add listener
           m_javaInfo.addMethodInvocation(m_listener.getMethodSignature(), "this");
         }
@@ -565,7 +563,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
       ListenerMethodInfo methodInfo) throws Exception {
     AstEditor editor = m_javaInfo.getEditor();
     // prepare annotations
-    List<String> annotations = Lists.newArrayList();
+    List<String> annotations = new ArrayList<>();
     if (shouldAppendOverride(typeDeclaration, methodInfo)) {
       annotations.add("@Override");
     }
@@ -601,14 +599,13 @@ final class ListenerMethodProperty extends AbstractEventProperty
         }
       }
       // prepare full header code
-      headerCode =
-          "public "
-              + methodInfo.getMethod().getReturnType().getName()
-              + " "
-              + methodInfo.getName()
-              + "("
-              + parametersCode
-              + ")";
+      headerCode = "public "
+          + methodInfo.getMethod().getReturnType().getName()
+          + " "
+          + methodInfo.getName()
+          + "("
+          + parametersCode
+          + ")";
     }
     // prepare body
     List<String> bodyLines = getListenerMethodBody(methodInfo);
@@ -795,28 +792,25 @@ final class ListenerMethodProperty extends AbstractEventProperty
           }
         }
         // prepare header
-        String header =
-            modifiers
-                + "void "
-                + stubMethodName
-                + "("
-                + editor.getParametersSource(listenerMethod)
-                + ")";
+        String header = modifiers
+            + "void "
+            + stubMethodName
+            + "("
+            + editor.getParametersSource(listenerMethod)
+            + ")";
         // add stub method
-        stubMethod =
-            editor.addMethodDeclaration(
-                header,
-                ImmutableList.<String>of(),
-                new BodyDeclarationTarget(typeDeclaration, false));
+        stubMethod = editor.addMethodDeclaration(
+            header,
+            ImmutableList.<String>of(),
+            new BodyDeclarationTarget(typeDeclaration, false));
       }
     }
     // add invocation for stub method from listener method
     {
-      String lineInvoke =
-          stubMethodName
-              + "("
-              + StringUtils.join(editor.getParameterNames(listenerMethod), ", ")
-              + ");";
+      String lineInvoke = stubMethodName
+          + "("
+          + StringUtils.join(editor.getParameterNames(listenerMethod), ", ")
+          + ");";
       // prepare source for stub invocation Statement
       List<String> lines;
       if (m_preferences.getInt(P_CODE_TYPE) == V_CODE_INTERFACE) {
@@ -836,10 +830,10 @@ final class ListenerMethodProperty extends AbstractEventProperty
 
   /**
    * <pre>
-	 *   if (event.getSource() == m_myComponent) {
-	 *     do_myComponent_keyPressed(event);
-	 *   }
-	 * </pre>
+   *   if (event.getSource() == m_myComponent) {
+   *     do_myComponent_keyPressed(event);
+   *   }
+   * </pre>
    *
    * @return lines for conditional stub invocation.
    */
@@ -859,19 +853,17 @@ final class ListenerMethodProperty extends AbstractEventProperty
                   ReflectionUtils.getClassByName(editorLoader, parameterTypeName);
               return ComponentDescriptionHelper.getDescription(editor, parameterType);
             }
-          },
-              null);
+          }, null);
       // invoke stub only if we can check for our component
       if (eventClassDescription != null) {
         String componentAccess =
             eventClassDescription.getParameter("eventsProperty.componentAccess");
         if (componentAccess != null) {
-          String lineIf =
-              TemplateUtils.format(
-                  "if ({0}{1} == {2}) '{'",
-                  parameter.getName().getIdentifier(),
-                  componentAccess,
-                  m_javaInfo);
+          String lineIf = TemplateUtils.format(
+              "if ({0}{1} == {2}) '{'",
+              parameter.getName().getIdentifier(),
+              componentAccess,
+              m_javaInfo);
           return ImmutableList.of(lineIf, "\t" + lineInvoke, "}");
         }
       }

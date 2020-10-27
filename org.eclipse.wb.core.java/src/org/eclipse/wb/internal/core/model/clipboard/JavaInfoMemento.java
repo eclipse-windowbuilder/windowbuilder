@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.clipboard;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -24,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,9 +36,9 @@ import java.util.List;
  * Later, during "paste", following methods should be invoked (only one time and only in this
  * sequence):
  * <ul>
- * <li> {@link #create(JavaInfo)} to create {@link JavaInfo} that can be used to bind to the
+ * <li>{@link #create(JavaInfo)} to create {@link JavaInfo} that can be used to bind to the
  * {@link JavaInfo} hierarchy.</li>
- * <li> {@link #apply()}, after adding {@link JavaInfo} to the hierarchy, to apply all
+ * <li>{@link #apply()}, after adding {@link JavaInfo} to the hierarchy, to apply all
  * {@link ClipboardCommand}'s and do other things for configuring created {@link JavaInfo}.</li>
  * </ul>
  *
@@ -99,9 +98,8 @@ public class JavaInfoMemento implements Serializable {
   ////////////////////////////////////////////////////////////////////////////
   private final String m_componentClassName;
   private final IClipboardCreationSupport m_creationSupport;
-  private final List<ClipboardCommand> m_commands = Lists.newArrayList();
-  
-  //the variable.field name must be kept, it's not contained in javaInfo created during paste. 
+  private final List<ClipboardCommand> m_commands = new ArrayList<>();
+  //the variable.field name must be kept, it's not contained in javaInfo created during paste.
   private String m_variableName;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -232,18 +230,19 @@ public class JavaInfoMemento implements Serializable {
       command.execute(m_javaInfo);
     }
   }
-  
+
   /**
    * Get the variable field name of the JavaInfo.
    *
-   * @param javaInfo The JavaInfo will be queried.
-   * 
+   * @param javaInfo
+   *          The JavaInfo will be queried.
+   *
    * @return The variable field name.
    */
-    private String getVariableName(JavaInfo javaInfo) {
-        if (javaInfo != null) {
-            return javaInfo.getVariableSupport().getName();
-        }
-        return null;
+  private String getVariableName(JavaInfo javaInfo) {
+    if (javaInfo != null) {
+      return javaInfo.getVariableSupport().getName();
     }
+    return null;
+  }
 }

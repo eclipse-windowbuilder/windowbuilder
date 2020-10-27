@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -48,6 +47,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -91,7 +91,7 @@ public final class NlsSupport {
   public static String getValue(JavaInfo component, Expression expression) throws Exception {
     for (SourceDescription sourceDescription : getSourceDescriptions(component)) {
       try {
-        List<AbstractSource> sources = Lists.newArrayList();
+        List<AbstractSource> sources = new ArrayList<>();
         AbstractSource source = sourceDescription.getSource(component, null, expression, sources);
         if (source != null) {
           setSource(expression, source);
@@ -102,6 +102,7 @@ public final class NlsSupport {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // SourceDescription's
@@ -144,7 +145,7 @@ public final class NlsSupport {
     String toolkitId = component.getDescription().getToolkit().getId();
     SourceDescription[] descriptions = m_toolkitToDescriptions.get(toolkitId);
     if (descriptions == null) {
-      List<SourceDescription> descriptionList = Lists.newArrayList();
+      List<SourceDescription> descriptionList = new ArrayList<>();
       // check all binding's
       List<IConfigurationElement> elements =
           ExternalFactoriesHelper.getElements(POINT_NLS_SOURCES, "binding");
@@ -163,6 +164,7 @@ public final class NlsSupport {
     //
     return descriptions;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields
@@ -170,7 +172,7 @@ public final class NlsSupport {
   ////////////////////////////////////////////////////////////////////////////
   private final JavaInfo m_root;
   private final SourceDescription[] m_sourceDescriptions;
-  private final List<AbstractSource> m_sources = Lists.newArrayList();
+  private final List<AbstractSource> m_sources = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -532,6 +534,7 @@ public final class NlsSupport {
     }
     return source;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Expression source access
@@ -552,6 +555,7 @@ public final class NlsSupport {
   public static AbstractSource getSource(Expression expression) {
     return (AbstractSource) expression.getProperty(NLS_SOURCE);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Bad expression

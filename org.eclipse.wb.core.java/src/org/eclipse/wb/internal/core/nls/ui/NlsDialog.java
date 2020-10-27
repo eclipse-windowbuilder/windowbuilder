@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.nls.Messages;
@@ -120,7 +118,7 @@ public final class NlsDialog extends ResizableDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void createStringsTabs() throws Exception {
-    m_composites = Lists.newArrayList();
+    m_composites = new ArrayList<>();
     // create composite for each source
     List<IEditableSource> sources = getSortedSourcesList();
     for (IEditableSource editableSource : sources) {

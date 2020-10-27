@@ -14,7 +14,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -83,6 +82,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -248,11 +248,10 @@ public final class ThisCreationSupport extends CreationSupport {
       constructor = AstReflectionUtils.getConstructor(componentClass, m_invocation);
       List<Expression> arguments = DomGenerics.arguments(m_invocation);
       argumentValues = evaluateExpressions(context, arguments);
-      argumentValues =
-          AstReflectionUtils.updateForVarArgs(
-              context.getClassLoader(),
-              methodBinding,
-              argumentValues);
+      argumentValues = AstReflectionUtils.updateForVarArgs(
+          context.getClassLoader(),
+          methodBinding,
+          argumentValues);
     } else {
       signature = "<init>()";
       constructor = ReflectionUtils.getConstructorBySignature(componentClass, "<init>()");
@@ -500,11 +499,10 @@ public final class ThisCreationSupport extends CreationSupport {
     // try interceptor in model
     {
       String interceptorName = method.getName() + "_interceptor";
-      Method interceptor =
-          ReflectionUtils.getMethod(
-              m_javaInfo.getClass(),
-              interceptorName,
-              method.getParameterTypes());
+      Method interceptor = ReflectionUtils.getMethod(
+          m_javaInfo.getClass(),
+          interceptorName,
+          method.getParameterTypes());
       if (interceptor != null) {
         return interceptor.invoke(m_javaInfo, args);
       }
@@ -543,8 +541,9 @@ public final class ThisCreationSupport extends CreationSupport {
   /**
    * Try to apply validator from {@link JavaInfo}.
    */
-  private Object visitMethod_validator(java.lang.reflect.Method method, Object[] args, Object result)
-      throws Exception {
+  private Object visitMethod_validator(java.lang.reflect.Method method,
+      Object[] args,
+      Object result) throws Exception {
     Class<?>[] validatorParameterTypes =
         (Class<?>[]) ArrayUtils.add(method.getParameterTypes(), Object.class);
     String validatorName = method.getName() + "_validator";
@@ -651,11 +650,10 @@ public final class ThisCreationSupport extends CreationSupport {
           // prepare ComponentDescription, note that it may fail
           ComponentDescription componentDescription;
           try {
-            componentDescription =
-                ComponentDescriptionHelper.getDescription(
-                    editor,
-                    m_javaInfo.getDescription(),
-                    parameter);
+            componentDescription = ComponentDescriptionHelper.getDescription(
+                editor,
+                m_javaInfo.getDescription(),
+                parameter);
             // check if we can create JavaInfo
             if ("true".equals(componentDescription.getParameter("thisCreation.ignoreBind"))) {
               continue;
@@ -666,11 +664,10 @@ public final class ThisCreationSupport extends CreationSupport {
           // create JavaInfo for parameter
           JavaInfo javaInfo;
           {
-            javaInfo =
-                JavaInfoUtils.createJavaInfo(
-                    editor,
-                    componentDescription,
-                    new MethodParameterCreationSupport(parameter));
+            javaInfo = JavaInfoUtils.createJavaInfo(
+                editor,
+                componentDescription,
+                new MethodParameterCreationSupport(parameter));
             javaInfo.setVariableSupport(new MethodParameterVariableSupport(javaInfo, parameter));
             javaInfo.setObject(args[i]);
           }
@@ -741,7 +738,7 @@ public final class ThisCreationSupport extends CreationSupport {
       m_complexProperty.setCategory(PropertyCategory.system(3));
       m_complexProperty.setModified(true);
       //
-      List<Property> subPropertiesList = Lists.newArrayList();
+      List<Property> subPropertiesList = new ArrayList<>();
       if (m_invocation != null) {
         // add accessors for parameters bound to given property
         for (ParameterDescription parameter : m_description.getParameters()) {
@@ -769,9 +766,10 @@ public final class ThisCreationSupport extends CreationSupport {
     if (m_invocation != null) {
       for (ParameterDescription parameter : m_description.getParameters()) {
         if (propertyDescription.getId().equals(parameter.getProperty())) {
-          accessors.add(new SuperConstructorAccessor(m_invocation,
-              parameter.getIndex(),
-              parameter.getDefaultSource()));
+          accessors.add(
+              new SuperConstructorAccessor(m_invocation,
+                  parameter.getIndex(),
+                  parameter.getDefaultSource()));
         }
       }
     }

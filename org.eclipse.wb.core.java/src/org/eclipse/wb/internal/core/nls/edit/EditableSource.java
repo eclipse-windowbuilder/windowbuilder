@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -39,6 +38,7 @@ import org.eclipse.swt.SWT;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +133,7 @@ public final class EditableSource implements IEditableSource {
   // IEditableSource: listener
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<IEditableSourceListener> m_listeners = Lists.newArrayList();
+  private final List<IEditableSourceListener> m_listeners = new ArrayList<>();
 
   public void addListener(IEditableSourceListener listener) {
     if (!m_listeners.contains(listener)) {

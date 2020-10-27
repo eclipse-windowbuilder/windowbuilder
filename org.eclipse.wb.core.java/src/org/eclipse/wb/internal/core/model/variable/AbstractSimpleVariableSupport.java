@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -52,6 +51,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -254,7 +254,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
    *         invocations or <code>null</code> if there are no such special invocations.
    */
   private StatementTarget getAssociationTarget_beforeAssocitation() {
-    LinkedList<MethodInvocation> beforeAssociationInvocations = Lists.newLinkedList();
+    LinkedList<MethodInvocation> beforeAssociationInvocations = new LinkedList<>();
     for (ASTNode node : m_javaInfo.getRelatedNodes()) {
       MethodInvocation invocation = m_javaInfo.getMethodInvocation(node);
       if (invocation != null) {
@@ -406,7 +406,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
     // replace statements with blocks
     {
       // prepare unique list of blocks
-      List<Block> blocks = Lists.newArrayList();
+      List<Block> blocks = new ArrayList<>();
       for (Statement statement : statementSet) {
         Block block = AstNodeUtils.getEnclosingBlock(statement);
         if (!blocks.contains(block)) {
@@ -448,7 +448,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
       }
     }
     // add children
-    List<JavaInfo> children = Lists.newArrayList(javaInfo.getChildrenJava());
+    List<JavaInfo> children = new ArrayList<>(javaInfo.getChildrenJava());
     javaInfo.getBroadcastJava().variable_addStatementsToMove(javaInfo, children);
     for (JavaInfo child : children) {
       addStatementsToMove(statements, target, child);

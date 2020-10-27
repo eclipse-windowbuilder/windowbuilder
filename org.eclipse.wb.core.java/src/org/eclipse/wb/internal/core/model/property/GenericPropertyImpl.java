@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValue;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValueEx;
@@ -40,6 +38,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -222,9 +221,8 @@ public final class GenericPropertyImpl extends GenericProperty {
     // check if key name is used
     if (value instanceof String) {
       String stringValue = (String) value;
-      String keyPrefix =
-          m_javaInfo.getDescription().getToolkit().getPreferences().getString(
-              IPreferenceConstants.P_NLS_KEY_AS_VALUE_PREFIX);
+      String keyPrefix = m_javaInfo.getDescription().getToolkit().getPreferences().getString(
+          IPreferenceConstants.P_NLS_KEY_AS_VALUE_PREFIX);
       if (!StringUtils.isEmpty(keyPrefix) && stringValue.startsWith(keyPrefix)) {
         final String key = stringValue.substring(keyPrefix.length());
         final AbstractSource source = support.getKeySource(key);
@@ -390,7 +388,7 @@ public final class GenericPropertyImpl extends GenericProperty {
    * @return the current {@link ExpressionAccessor}'s.
    */
   public List<ExpressionAccessor> getAccessors() throws Exception {
-    List<ExpressionAccessor> accessors = Lists.newArrayList();
+    List<ExpressionAccessor> accessors = new ArrayList<>();
     // add "static" accessors
     Collections.addAll(accessors, m_accessors);
     // add accessors from CreationSupport
@@ -423,6 +421,7 @@ public final class GenericPropertyImpl extends GenericProperty {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // ExpressionInfo

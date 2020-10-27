@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.description.LayoutDescription;
@@ -19,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +52,12 @@ public final class LayoutDescriptionHelper {
   public static List<LayoutDescription> get(ToolkitDescription toolkit) {
     List<LayoutDescription> layouts = m_layouts.get(toolkit);
     if (layouts == null) {
-      layouts = Lists.newArrayList();
+      layouts = new ArrayList<>();
       m_layouts.put(toolkit, layouts);
       //
-      for (IConfigurationElement element : ExternalFactoriesHelper.getElements(POINT_ID, "layout")) {
+      for (IConfigurationElement element : ExternalFactoriesHelper.getElements(
+          POINT_ID,
+          "layout")) {
         String toolkitId = ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit");
         if (toolkitId.equals(toolkit.getId())) {
           layouts.add(new LayoutDescription(toolkit, element));

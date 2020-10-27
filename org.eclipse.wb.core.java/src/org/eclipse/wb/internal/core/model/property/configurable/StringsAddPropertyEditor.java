@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.configurable;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -37,6 +35,7 @@ import org.eclipse.jface.window.Window;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +85,7 @@ public final class StringsAddPropertyEditor extends TextDialogPropertyEditor
       JavaInfoUtils.sortNodesByFlow(flowDescription, false, invocations);
     }
     // fill items
-    List<String> items = Lists.newArrayList();
+    List<String> items = new ArrayList<>();
     for (MethodInvocation invocation : invocations) {
       Expression itemExpression = DomGenerics.arguments(invocation).get(0);
       String item = (String) JavaInfoEvaluationHelper.getValue(itemExpression);
@@ -129,12 +128,11 @@ public final class StringsAddPropertyEditor extends TextDialogPropertyEditor
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void openDialog(Property property) throws Exception {
-    StringsDialog itemsDialog =
-        new StringsDialog(DesignerPlugin.getShell(),
-            DesignerPlugin.getDefault(),
-            property.getTitle(),
-            "String items:",
-            "Each line in the above text field represents a single item.");
+    StringsDialog itemsDialog = new StringsDialog(DesignerPlugin.getShell(),
+        DesignerPlugin.getDefault(),
+        property.getTitle(),
+        "String items:",
+        "Each line in the above text field represents a single item.");
     itemsDialog.setItems(getItems(property));
     // open dialog
     if (itemsDialog.open() == Window.OK) {

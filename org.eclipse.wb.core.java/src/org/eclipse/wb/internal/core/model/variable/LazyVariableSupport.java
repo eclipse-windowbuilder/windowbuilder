@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -36,6 +34,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -246,7 +245,7 @@ public final class LazyVariableSupport extends AbstractSimpleVariableSupport {
         }
         //
         String header = modifiers + className + " " + methodName + "()";
-        List<String> bodyLines = Lists.newArrayList();
+        List<String> bodyLines = new ArrayList<>();
         bodyLines.add("if (" + fieldName + " == null) {");
         bodyLines.add("\t" + fieldName + " = " + initializer + ";");
         bodyLines.add("}");

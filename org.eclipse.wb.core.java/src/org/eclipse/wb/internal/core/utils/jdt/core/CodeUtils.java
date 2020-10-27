@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.jdt.core;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -61,6 +60,8 @@ import org.eclipse.osgi.service.resolver.BundleDescription;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -251,7 +252,7 @@ public class CodeUtils {
    */
   private static List<IJavaElement> searchReferences(IJavaSearchScope scope, IJavaElement element)
       throws Exception {
-    final List<IJavaElement> references = Lists.newArrayList();
+    final List<IJavaElement> references = new ArrayList<>();
     SearchRequestor requestor = new SearchRequestor() {
       @Override
       public void acceptSearchMatch(SearchMatch match) {
@@ -300,10 +301,10 @@ public class CodeUtils {
    * Returns the short name of fully qualified class name, or same name for simple type name.
    *
    * <pre>
-	 * CodeUtils.getShortClass("javax.swing.JPanel")  = "JPanel"
-	 * CodeUtils.getShortClass("test.MyPanel$Inner")  = "Inner"
-	 * CodeUtils.getShortClass("boolean")             = "boolean"
-	 * </pre>
+   * CodeUtils.getShortClass("javax.swing.JPanel")  = "JPanel"
+   * CodeUtils.getShortClass("test.MyPanel$Inner")  = "Inner"
+   * CodeUtils.getShortClass("boolean")             = "boolean"
+   * </pre>
    *
    * @param className
    *          the fully qualified class name.
@@ -557,7 +558,7 @@ public class CodeUtils {
   public static List<IMethod> findMethods(IType type, List<String> signatures)
       throws JavaModelException {
     IMethod[] methods = findMethods(type, signatures.toArray(new String[signatures.size()]));
-    return Lists.newArrayList(methods);
+    return Arrays.asList(methods);
   }
 
   /**
@@ -731,7 +732,8 @@ public class CodeUtils {
   /**
    * @return the {@link IField} with given name exactly in given {@link IType} or <code>null</code>.
    */
-  private static IField findFieldSingleType(IType type, String fieldName) throws JavaModelException {
+  private static IField findFieldSingleType(IType type, String fieldName)
+      throws JavaModelException {
     for (IField field : type.getFields()) {
       if (field.getElementName().equals(fieldName)) {
         return field;
@@ -752,7 +754,7 @@ public class CodeUtils {
    */
   public static List<IContainer> getSourceContainers(IJavaProject javaProject,
       boolean includeRequiredProjects) throws Exception {
-    List<IContainer> containers = Lists.newArrayList();
+    List<IContainer> containers = new ArrayList<>();
     addSourceContainers(
         containers,
         Sets.<IJavaProject>newHashSet(),

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.StringUtilities;
@@ -62,6 +61,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -803,7 +803,7 @@ public final class AstParser {
       final Class<? extends ASTNode> nodeClass,
       final int nodePosition) throws Exception {
     // find node
-    final List<ASTNode> nodes = Lists.newArrayList();
+    final List<ASTNode> nodes = new ArrayList<>();
     compilationUnit.accept(new ASTVisitor(true) {
       @Override
       public void preVisit(ASTNode node) {

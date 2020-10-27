@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -48,6 +47,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -286,7 +286,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
     // allow subclasses do preparing work
     apply_renameKeys_pre(oldToNew);
     // prepare list of expression information objects
-    final List<BasicExpressionInfo> expressionInformationList = Lists.newArrayList();
+    final List<BasicExpressionInfo> expressionInformationList = new ArrayList<>();
     editor.getAstUnit().accept(new ASTVisitor() {
       @Override
       public void postVisit(ASTNode node) {
@@ -393,7 +393,8 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Replace given expression with externalized code.
    */
   protected abstract BasicExpressionInfo apply_externalize_replaceExpression(
-      GenericProperty property, String key) throws Exception;
+      GenericProperty property,
+      String key) throws Exception;
 
   @Override
   public final void apply_internalizeKeys(final Set<String> keys) throws Exception {
@@ -661,7 +662,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Return list of IResource's that represent bundle files (*.properties) for given bundle name.
    */
   protected final IFile[] getBundleFiles() throws Exception {
-    List<IFile> bundleFiles = Lists.newArrayList();
+    List<IFile> bundleFiles = new ArrayList<>();
     String bundlePath = m_bundleName.replace('.', '/');
     String bundleFileName = new Path(bundlePath).lastSegment();
     // iterate over all source containers

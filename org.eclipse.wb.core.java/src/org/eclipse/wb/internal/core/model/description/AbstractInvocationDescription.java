@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,7 +119,7 @@ public abstract class AbstractInvocationDescription extends AbstractDescription 
   // Parameters
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<ParameterDescription> m_parameters = Lists.newArrayList();
+  private final List<ParameterDescription> m_parameters = new ArrayList<>();
 
   /**
    * @return the list of {@link ParameterDescription}'s of this
@@ -153,7 +152,7 @@ public abstract class AbstractInvocationDescription extends AbstractDescription 
    * @return the {@link List} of default source for each {@link ParameterDescription}.
    */
   public List<String> getDefaultArguments() {
-    List<String> defaultArguments = Lists.newArrayList();
+    List<String> defaultArguments = new ArrayList<>();
     for (ParameterDescription parameter : getParameters()) {
       String defaultArgument = parameter.getDefaultSource();
       defaultArguments.add(defaultArgument);

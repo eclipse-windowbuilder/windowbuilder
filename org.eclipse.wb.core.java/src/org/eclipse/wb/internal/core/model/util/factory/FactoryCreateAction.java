@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.core.model.util.factory;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -86,6 +85,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -124,7 +124,7 @@ public final class FactoryCreateAction extends Action {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final CreationInfo m_creationInfo = new CreationInfo();
-  private final List<InvocationInfo> m_invocations = Lists.newArrayList();
+  private final List<InvocationInfo> m_invocations = new ArrayList<>();
 
   /**
    * Information about single argument {@link Expression} in component creation or invocation.
@@ -142,7 +142,7 @@ public final class FactoryCreateAction extends Action {
    */
   private static abstract class AbstractInvocationInfo {
     Expression m_expression;
-    List<ArgumentInfo> m_arguments = Lists.newArrayList();
+    List<ArgumentInfo> m_arguments = new ArrayList<>();
   }
   /**
    * Information about component creation.
@@ -331,11 +331,9 @@ public final class FactoryCreateAction extends Action {
         }
       }
       // add empty class
-      source +=
-          StringUtils.join(new String[]{
-              "class " + className + " {",
-              "  private int ___filler___ = 0;",
-              "}"}, "\n");
+      source += StringUtils.join(
+          new String[]{"class " + className + " {", "  private int ___filler___ = 0;", "}"},
+          "\n");
       factoryUnit.getBuffer().setContents(source);
       // parse and generate
       AstEditor factoryEditor = new AstEditor(factoryUnit);
@@ -365,12 +363,13 @@ public final class FactoryCreateAction extends Action {
       factoryUnit = m_package.getCompilationUnit(factoryUnitName);
       if (!factoryUnit.exists()) {
         String eol = m_editor.getGeneration().getEndOfLine();
-        String factoryUnitSource =
-            StringUtils.join(new String[]{
+        String factoryUnitSource = StringUtils.join(
+            new String[]{
                 "package " + m_package.getElementName() + ";",
                 "",
                 "public final class " + m_className + " {",
-                "}"}, eol);
+                "}"},
+            eol);
         m_package.createCompilationUnit(factoryUnitName, factoryUnitSource, false, null);
       }
     }
@@ -442,8 +441,10 @@ public final class FactoryCreateAction extends Action {
       TypeDeclaration typeDeclaration =
           AstNodeUtils.getTypeByName(factoryEditor.getAstUnit(), className);
       BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, false);
-      MethodDeclaration methodDeclaration =
-          factoryEditor.addMethodDeclaration(m_generate_methodHeader, m_generate_methodBody, target);
+      MethodDeclaration methodDeclaration = factoryEditor.addMethodDeclaration(
+          m_generate_methodHeader,
+          m_generate_methodBody,
+          target);
       factoryEditor.setJavadoc(
           methodDeclaration,
           Iterables.toArray(m_generate_methodComments, String.class));
@@ -468,7 +469,7 @@ public final class FactoryCreateAction extends Action {
     m_generate_invocationArguments = "";
     {
       // prepare list of JavaDoc comments
-      m_generate_methodComments = Lists.newArrayList();
+      m_generate_methodComments = new ArrayList<>();
       m_generate_methodComments.add("@wbp.factory");
       // prepare method header
       {
@@ -480,7 +481,7 @@ public final class FactoryCreateAction extends Action {
         // prepare all parameters
         List<ArgumentInfo> parameters;
         {
-          parameters = Lists.newArrayList();
+          parameters = new ArrayList<>();
           for (ArgumentInfo argument : m_creationInfo.m_arguments) {
             if (argument.m_parameter) {
               parameters.add(argument);
@@ -522,10 +523,11 @@ public final class FactoryCreateAction extends Action {
             if (descriptionSource.equals("getClass()")) {
               descriptionSource = "{wbp_class}";
             }
-            m_generate_methodComments.add("@wbp.factory.parameter.source "
-                + argument.m_parameterName
-                + " "
-                + descriptionSource);
+            m_generate_methodComments.add(
+                "@wbp.factory.parameter.source "
+                    + argument.m_parameterName
+                    + " "
+                    + descriptionSource);
           }
           // add type to signature
           m_generate_methodSignature += argument.m_description.getType().getName();
@@ -540,7 +542,7 @@ public final class FactoryCreateAction extends Action {
       String creationSource = getFactorySource(m_creationInfo);
       // prepare body lines
       {
-        List<String> bodyLines = Lists.newArrayList();
+        List<String> bodyLines = new ArrayList<>();
         // create component
         bodyLines.add(componentTypeName + " " + componentName + " = " + creationSource + ";");
         // invocations
@@ -562,7 +564,8 @@ public final class FactoryCreateAction extends Action {
    *
    * @return the new generated identifier.
    */
-  private static String generateUniqueIdentifier(final Set<String> usedIdentifiers, String baseName) {
+  private static String generateUniqueIdentifier(final Set<String> usedIdentifiers,
+      String baseName) {
     String newIdentifier = CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
       public boolean apply(String t) {
         return !usedIdentifiers.contains(t);
@@ -727,12 +730,11 @@ public final class FactoryCreateAction extends Action {
     private void createParametersComposite(Composite parent) {
       // package
       {
-        m_packageField =
-            new PackageRootAndPackageSelectionDialogField(60,
-                ModelMessages.FactoryCreateAction_dialogPackageSourceFolder,
-                ModelMessages.FactoryCreateAction_dialogPackageSourceFolderBrowse,
-                ModelMessages.FactoryCreateAction_dialogPackagePackage,
-                ModelMessages.FactoryCreateAction_dialogPackagePackageBrowse);
+        m_packageField = new PackageRootAndPackageSelectionDialogField(60,
+            ModelMessages.FactoryCreateAction_dialogPackageSourceFolder,
+            ModelMessages.FactoryCreateAction_dialogPackageSourceFolderBrowse,
+            ModelMessages.FactoryCreateAction_dialogPackagePackage,
+            ModelMessages.FactoryCreateAction_dialogPackagePackageBrowse);
         m_packageField.setDialogFieldListener(m_validateListener);
         m_packageField.doFillIntoGrid(m_fieldsContainer, 3);
         // use current package
@@ -773,8 +775,10 @@ public final class FactoryCreateAction extends Action {
         m_methodField = new StringDialogField();
         doCreateField(m_methodField, ModelMessages.FactoryCreateAction_methodLabel);
         // use "createComponent" as initial name
-        m_methodField.setText("create"
-            + CodeUtils.getShortClass(m_component.getDescription().getComponentClass().getName()));
+        m_methodField.setText(
+            "create"
+                + CodeUtils.getShortClass(
+                    m_component.getDescription().getComponentClass().getName()));
       }
       // palette category
       {

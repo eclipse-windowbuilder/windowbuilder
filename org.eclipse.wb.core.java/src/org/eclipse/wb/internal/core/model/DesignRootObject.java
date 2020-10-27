@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanContainerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public final class DesignRootObject {
   }
 
   public List<?> getChildren() {
-    List<Object> children = Lists.newArrayList();
+    List<Object> children = new ArrayList<>();
     // add "info" root
     children.add(m_rootObject);
     // add exist non visual beans

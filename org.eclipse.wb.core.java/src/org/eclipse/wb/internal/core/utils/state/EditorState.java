@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.state;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -37,6 +36,7 @@ import org.eclipse.swt.graphics.Image;
 import org.apache.commons.collections.map.MultiKeyMap;
 
 import java.beans.PropertyEditorManager;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -466,7 +466,7 @@ public final class EditorState {
   ////////////////////////////////////////////////////////////////////////////
   private final Map<String, Object> m_versions = Maps.newHashMap();
   private final List<IDescriptionVersionsProvider> m_descriptionVersionsProviders =
-      Lists.newArrayList();
+      new ArrayList<>();
 
   /**
    * @return the {@link Map} of versions for toolkit in this {@link EditorState}.
@@ -498,7 +498,7 @@ public final class EditorState {
   // Static FactoryMethodDescription's cache
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final MultiKeyMap/*<Class,boolean,Map<String, FactoryMethodDescription>>*/m_staticSignatures =
+  private final MultiKeyMap/*<Class,boolean,Map<String, FactoryMethodDescription>>*/ m_staticSignatures =
       new MultiKeyMap();
 
   /**
@@ -532,7 +532,7 @@ public final class EditorState {
   // Icons
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<Image> m_disposableImages = Lists.newArrayList();
+  private final List<Image> m_disposableImages = new ArrayList<>();
 
   /**
    * Adds {@link Image} for further disposing during disposing the editor.
@@ -548,7 +548,7 @@ public final class EditorState {
   // Handling of IDisposable's
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<IDisposable> m_disposableList = Lists.newArrayList();
+  private final List<IDisposable> m_disposableList = new ArrayList<>();
 
   /**
    * Remembers the instances of {@link IDisposable} for further disposing during disposing the
@@ -613,7 +613,7 @@ public final class EditorState {
    * Collection of {@link BadNodeInformation}.
    */
   public static final class BadNodesCollection {
-    private final List<BadNodeInformation> m_nodes = Lists.newArrayList();
+    private final List<BadNodeInformation> m_nodes = new ArrayList<>();
 
     /**
      * Removes all nodes.
@@ -685,7 +685,7 @@ public final class EditorState {
   // Warnings
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<EditorWarning> m_warnings = Lists.newArrayList();
+  private final List<EditorWarning> m_warnings = new ArrayList<>();
 
   /**
    * @return the {@link List} of {@link EditorWarning}'s.

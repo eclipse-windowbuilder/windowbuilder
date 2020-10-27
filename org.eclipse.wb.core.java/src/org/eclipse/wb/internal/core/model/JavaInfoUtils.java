@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -99,6 +98,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -398,18 +399,12 @@ public class JavaInfoUtils {
     Constructor<?> modelConstructor;
     {
       Class<?> modelClass = componentDescription.getModelClass();
-      modelConstructor =
-          modelClass.getConstructor(new Class[]{
-              AstEditor.class,
-              ComponentDescription.class,
-              CreationSupport.class});
+      modelConstructor = modelClass.getConstructor(
+          new Class[]{AstEditor.class, ComponentDescription.class, CreationSupport.class});
     }
     // create model
-    JavaInfo javaInfo =
-        (JavaInfo) modelConstructor.newInstance(new Object[]{
-            editor,
-            componentDescription,
-            creationSupport});
+    JavaInfo javaInfo = (JavaInfo) modelConstructor.newInstance(
+        new Object[]{editor, componentDescription, creationSupport});
     ObjectInfoUtils.setNewId(javaInfo);
     return javaInfo;
   }
@@ -532,9 +527,8 @@ public class JavaInfoUtils {
       methodJavaInfo = createJavaInfo(editor, componentDescription, creationSupport);
     }
     // configure JavaInfo
-    methodJavaInfo.setVariableSupport(new ExposedPropertyVariableSupport(methodJavaInfo,
-        host,
-        getMethod));
+    methodJavaInfo.setVariableSupport(
+        new ExposedPropertyVariableSupport(methodJavaInfo, host, getMethod));
     methodJavaInfo.setAssociation(new ImplicitObjectAssociation(host));
     // add new child
     addExposedJavaInfo(host, methodJavaInfo);
@@ -856,7 +850,7 @@ public class JavaInfoUtils {
     // prepare sorted list of children, so we will add them to the logical parents in correct order
     final List<JavaInfo> sortedChildren;
     {
-      sortedChildren = Lists.newArrayList();
+      sortedChildren = new ArrayList<>();
       fillChildren(sortedChildren, host.getObject(), objectToChild);
     }
     // sort children in host JavaInfo (to reorder children that have host as logical parent)
@@ -973,7 +967,7 @@ public class JavaInfoUtils {
       }
     }
     // prepare children objects
-    List<Object> childrenObjects = Lists.newArrayList();
+    List<Object> childrenObjects = new ArrayList<>();
     for (HierarchyProvider provider : getHierarchyProviders()) {
       Collections.addAll(childrenObjects, provider.getChildrenObjects(object));
     }
@@ -1024,7 +1018,7 @@ public class JavaInfoUtils {
     // prepare toolkit objects for ALL hierarchies
     List<Object> objects;
     {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       for (JavaInfo component : components) {
         if (component.getParent() == null) {
           for (Object componentObject : getComponentObjects(component)) {
@@ -1157,7 +1151,7 @@ public class JavaInfoUtils {
     // add current object
     objects.add(object);
     // prepare children objects
-    List<Object> children = Lists.newArrayList();
+    List<Object> children = new ArrayList<>();
     for (HierarchyProvider provider : getHierarchyProviders()) {
       Collections.addAll(children, provider.getChildrenObjects(object));
     }
@@ -1222,7 +1216,13 @@ public class JavaInfoUtils {
       JavaInfo nextComponent) throws Exception {
     VariableSupport variableSupport = GenerationUtils.getVariableSupport(component);
     StatementGenerator statementGenerator = GenerationUtils.getStatementGenerator(component);
-    add(component, variableSupport, statementGenerator, associationObject, container, nextComponent);
+    add(
+        component,
+        variableSupport,
+        statementGenerator,
+        associationObject,
+        container,
+        nextComponent);
   }
 
   /**
@@ -1421,7 +1421,8 @@ public class JavaInfoUtils {
    * @return the given not null {@link AssociationObject} or {@link AssociationObject} with
    *         <code>null</code> as {@link Association}.
    */
-  private static AssociationObject getNotNullAssociationObject(AssociationObject associationObject) {
+  private static AssociationObject getNotNullAssociationObject(
+      AssociationObject associationObject) {
     if (associationObject == null) {
       associationObject = new AssociationObject(null, false);
     }
@@ -1680,7 +1681,7 @@ public class JavaInfoUtils {
       flowDescription = getState(someComponent).getFlowDescription();
     }
     // prepare new List, with components in execution flow order
-    final List<JavaInfo> sortedComponents = Lists.newArrayList();
+    final List<JavaInfo> sortedComponents = new ArrayList<>();
     ExecutionFlowUtils.visit(
         new VisitingContext(true),
         flowDescription,
@@ -1716,7 +1717,7 @@ public class JavaInfoUtils {
   public static void sortNodesByFlow(ExecutionFlowDescription flowDescription,
       final boolean onEnter,
       final List<? extends ASTNode> nodes) {
-    final List<ASTNode> sortedNodes = Lists.newArrayList();
+    final List<ASTNode> sortedNodes = new ArrayList<>();
     ExecutionFlowUtils.visit(
         new VisitingContext(true),
         flowDescription,
@@ -1813,7 +1814,7 @@ public class JavaInfoUtils {
     {
       Statement statement = target.getStatement();
       if (statement != null) {
-        List<ASTNode> nodes = Lists.newArrayList(statement, javaInfoNode);
+        List<ASTNode> nodes = Arrays.asList(statement, javaInfoNode);
         sortNodesByFlow(flowDescription, target.isBefore(), nodes);
         return nodes.get(0) == javaInfoNode;
       }
@@ -1821,7 +1822,7 @@ public class JavaInfoUtils {
     // Block
     {
       Block block = target.getBlock();
-      List<ASTNode> nodes = Lists.newArrayList(block, javaInfoNode);
+      List<ASTNode> nodes = Arrays.asList(block, javaInfoNode);
       sortNodesByFlow(flowDescription, target.isBefore(), nodes);
       return nodes.get(0) == javaInfoNode;
     }
@@ -1838,7 +1839,7 @@ public class JavaInfoUtils {
     {
       BodyDeclaration bodyDeclaration = target.getDeclaration();
       if (bodyDeclaration != null) {
-        List<ASTNode> nodes = Lists.newArrayList(bodyDeclaration, javaInfoNode);
+        List<ASTNode> nodes = Arrays.asList(bodyDeclaration, javaInfoNode);
         sortNodesByFlow(flowDescription, target.isBefore(), nodes);
         return nodes.get(0) == javaInfoNode;
       }
@@ -1846,7 +1847,7 @@ public class JavaInfoUtils {
     // TypeDeclaration
     {
       TypeDeclaration typeDeclaration = target.getType();
-      List<ASTNode> nodes = Lists.newArrayList(typeDeclaration, javaInfoNode);
+      List<ASTNode> nodes = Arrays.asList(typeDeclaration, javaInfoNode);
       sortNodesByFlow(flowDescription, target.isBefore(), nodes);
       return nodes.get(0) == javaInfoNode;
     }
@@ -1856,13 +1857,13 @@ public class JavaInfoUtils {
    * @return the {@link StatementTarget} such that all given {@link JavaInfo} are created at this
    *         target, so can be referenced.
    */
-  public static StatementTarget getStatementTarget_whenAllCreated(List<? extends JavaInfo> components)
-      throws Exception {
+  public static StatementTarget getStatementTarget_whenAllCreated(
+      List<? extends JavaInfo> components) throws Exception {
     Assert.isTrue(!components.isEmpty(), "Can not provide target for empty components list.");
     // prepare target after last component
     NodeTarget nodeTarget_afterLastComponent;
     {
-      List<JavaInfo> componentsCopy = Lists.newArrayList(components);
+      List<JavaInfo> componentsCopy = new ArrayList<>(components);
       sortComponentsByFlow(componentsCopy);
       JavaInfo lastComponent = componentsCopy.get(componentsCopy.size() - 1);
       nodeTarget_afterLastComponent = getNodeTarget_afterCreation(lastComponent);
@@ -1966,7 +1967,8 @@ public class JavaInfoUtils {
    *
    * @see IJavaInfoRendering IJavaInfoRendering for more information.
    */
-  public static void scheduleSpecialRendering(JavaInfo javaInfo, final IJavaInfoRendering rendering) {
+  public static void scheduleSpecialRendering(JavaInfo javaInfo,
+      final IJavaInfoRendering rendering) {
     if (!(javaInfo.getCreationSupport() instanceof ThisCreationSupport)) {
       return;
     }

@@ -80,6 +80,7 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +104,7 @@ public final class ExecutionFlowUtils {
   ////////////////////////////////////////////////////////////////////////////
   private ExecutionFlowUtils() {
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // ExecutionFlowFrameVisitor
@@ -166,6 +168,7 @@ public final class ExecutionFlowUtils {
       this.useBinaryFlow = useBinaryFlow;
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Visiting
@@ -354,6 +357,7 @@ public final class ExecutionFlowUtils {
       statement.accept(complexVisitor);
     }
   }
+
   private static final Map<ExecutionFlowFrameVisitor, ASTVisitor> m_interceptingVisitors =
       new MapMaker().weakKeys().weakValues().makeMap();
 
@@ -459,7 +463,8 @@ public final class ExecutionFlowUtils {
    * In general we should not visit anonymous classes, they are usually event handlers. However
    * there are special cases, such as <code>EventQueue.invokeLater(Runnable)</code> in Swing.
    */
-  private static boolean shouldVisitAnonymousClassDeclaration(final AnonymousClassDeclaration anonymous) {
+  private static boolean shouldVisitAnonymousClassDeclaration(
+      final AnonymousClassDeclaration anonymous) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
       public Boolean runObject() throws Exception {
         for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
@@ -499,10 +504,9 @@ public final class ExecutionFlowUtils {
       Statement statement,
       ExecutionFlowFrameVisitor visitor) {
     if (context.useBinaryFlow) {
-      List<MethodDeclaration> binaryFlowMethods =
-          beforeStatement
-              ? flowDescription.getBinaryFlowMethodsBefore(statement)
-              : flowDescription.getBinaryFlowMethodsAfter(statement);
+      List<MethodDeclaration> binaryFlowMethods = beforeStatement
+          ? flowDescription.getBinaryFlowMethodsBefore(statement)
+          : flowDescription.getBinaryFlowMethodsAfter(statement);
       if (binaryFlowMethods != null) {
         for (MethodDeclaration method : binaryFlowMethods) {
           visit(context, flowDescription, visitor, method);
@@ -584,7 +588,7 @@ public final class ExecutionFlowUtils {
    */
   public static MethodDeclaration getExecutionFlowConstructor(TypeDeclaration typeDeclaration) {
     // build list of constructors
-    List<MethodDeclaration> constructors = Lists.newArrayList();
+    List<MethodDeclaration> constructors = new ArrayList<>();
     for (MethodDeclaration methodDeclaration : typeDeclaration.getMethods()) {
       if (methodDeclaration.isConstructor()) {
         constructors.add(methodDeclaration);
@@ -627,6 +631,7 @@ public final class ExecutionFlowUtils {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Assignment
@@ -688,7 +693,8 @@ public final class ExecutionFlowUtils {
    * @param flowDescription
    *          the {@link ExecutionFlowDescription} from which we should start searching.
    */
-  public static ASTNode getLastAssignment(ExecutionFlowDescription flowDescription, ASTNode variable) {
+  public static ASTNode getLastAssignment(ExecutionFlowDescription flowDescription,
+      ASTNode variable) {
     if (EnvironmentUtils.isTestingTime()) {
       Assert.isTrue(isVariable(variable));
     }
@@ -781,33 +787,35 @@ public final class ExecutionFlowUtils {
   private static void prepareAssignmentInformation(ExecutionFlowDescription flowDescription) {
     final Long assignmentStamp = flowDescription.getAST().modificationCount();
     // visit execution flow, find declarations/assignments for all variables
-    visit(new VisitingContext(true), flowDescription, new AbstractVariablesExecutionFlowVisitor(
-        true) {
-      @Override
-      public void endVisit(Assignment node) {
-        Expression leftSide = node.getLeftHandSide();
-        if (isVariable(leftSide)) {
-          Expression variable = leftSide;
-          executionFlowContext.addAssignment(variable, node);
-          executionFlowContext.storeAssignments(variable);
-        }
-      }
+    visit(
+        new VisitingContext(true),
+        flowDescription,
+        new AbstractVariablesExecutionFlowVisitor(true) {
+          @Override
+          public void endVisit(Assignment node) {
+            Expression leftSide = node.getLeftHandSide();
+            if (isVariable(leftSide)) {
+              Expression variable = leftSide;
+              executionFlowContext.addAssignment(variable, node);
+              executionFlowContext.storeAssignments(variable);
+            }
+          }
 
-      ////////////////////////////////////////////////////////////////////////////
-      //
-      // Generic ASTNode pre/post visiting
-      //
-      ////////////////////////////////////////////////////////////////////////////
-      @Override
-      public void postVisit(ASTNode node) {
-        // store assignment for variable usage
-        if (node instanceof Expression && isVariable(node)) {
-          Expression variable = (Expression) node;
-          variable.setProperty(KEY_LAST_VARIABLE_STAMP, assignmentStamp);
-          executionFlowContext.storeAssignments(variable);
-        }
-      }
-    });
+          ////////////////////////////////////////////////////////////////////////////
+          //
+          // Generic ASTNode pre/post visiting
+          //
+          ////////////////////////////////////////////////////////////////////////////
+          @Override
+          public void postVisit(ASTNode node) {
+            // store assignment for variable usage
+            if (node instanceof Expression && isVariable(node)) {
+              Expression variable = (Expression) node;
+              variable.setProperty(KEY_LAST_VARIABLE_STAMP, assignmentStamp);
+              executionFlowContext.storeAssignments(variable);
+            }
+          }
+        });
     // visit CompilationUnit, find references for all variables
     flowDescription.getCompilationUnit().accept(new AbstractVariablesExecutionFlowVisitor(false) {
       @Override
@@ -858,6 +866,7 @@ public final class ExecutionFlowUtils {
       }
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // AbstractVariablesExecutionFlowVisitor
@@ -961,10 +970,9 @@ public final class ExecutionFlowUtils {
      * Creates new frame, all subsequent variable declarations will go into this frame.
      */
     public void enterFrame(ASTNode node) {
-      m_currentFrame =
-          new ExecutionFlowFrame(getNewFrameMethod(node),
-              m_forExecutionFlow,
-              node instanceof TypeDeclaration);
+      m_currentFrame = new ExecutionFlowFrame(getNewFrameMethod(node),
+          m_forExecutionFlow,
+          node instanceof TypeDeclaration);
       m_stack.addFirst(m_currentFrame);
     }
 
