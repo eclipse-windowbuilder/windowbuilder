@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<exceptions>
-	<exception id="3501" title="This Java file should be opened using normal Java editor." warning="true">You
-		are attempting to open <code>{0}</code> using the WindowBuilder Editor. However, this class is just
-		the companion of the corresponding XWT file, which you should open instead. You can navigate between
-		the corresponding XWT and Java files using the shortcut <b>Shift+F12</b> by default.</exception>
-	<exception id="3502" title="This Composite can not have a Layout.">You are attempting to get a Layout for
-			<code>{0}</code>. However, by its design, you should not do this.</exception>
-</exceptions>
