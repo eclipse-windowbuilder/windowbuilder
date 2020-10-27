@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -44,6 +43,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -53,7 +53,7 @@ import java.util.Set;
 
 /**
  * Properties provider for <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */
@@ -78,18 +78,15 @@ public final class BeanSupport {
     m_resolver = resolver;
     m_IObservable =
         CoreUtils.loadClass(classLoader, "org.eclipse.core.databinding.observable.IObservable");
-    m_IObservableValue =
-        CoreUtils.loadClass(
-            classLoader,
-            "org.eclipse.core.databinding.observable.value.IObservableValue");
-    m_IObservableList =
-        CoreUtils.loadClass(
-            classLoader,
-            "org.eclipse.core.databinding.observable.list.IObservableList");
-    m_IObservableSet =
-        CoreUtils.loadClass(
-            classLoader,
-            "org.eclipse.core.databinding.observable.set.IObservableSet");
+    m_IObservableValue = CoreUtils.loadClass(
+        classLoader,
+        "org.eclipse.core.databinding.observable.value.IObservableValue");
+    m_IObservableList = CoreUtils.loadClass(
+        classLoader,
+        "org.eclipse.core.databinding.observable.list.IObservableList");
+    m_IObservableSet = CoreUtils.loadClass(
+        classLoader,
+        "org.eclipse.core.databinding.observable.set.IObservableSet");
     m_ISelectionProvider =
         CoreUtils.loadClass(classLoader, "org.eclipse.jface.viewers.ISelectionProvider");
     m_ICheckable = CoreUtils.loadClass(classLoader, "org.eclipse.jface.viewers.ICheckable");
@@ -119,14 +116,13 @@ public final class BeanSupport {
    */
   public List<PropertyBindableInfo> getProperties(BeanBindableInfo beanObjectInfo) {
     try {
-      boolean topLevel =
-          beanObjectInfo instanceof FieldBeanBindableInfo
-              || beanObjectInfo instanceof MethodBeanBindableInfo
-              || beanObjectInfo instanceof LocalVariableBindableInfo;
+      boolean topLevel = beanObjectInfo instanceof FieldBeanBindableInfo
+          || beanObjectInfo instanceof MethodBeanBindableInfo
+          || beanObjectInfo instanceof LocalVariableBindableInfo;
       IObserveInfo parent = topLevel ? null : beanObjectInfo;
       Class<?> beanClass = beanObjectInfo.getObjectType();
       // load properties
-      List<PropertyBindableInfo> properties = Lists.newArrayList();
+      List<PropertyBindableInfo> properties = new ArrayList<>();
       boolean version_1_3 =
           Activator.getStore().getBoolean(IPreferenceConstants.GENERATE_CODE_FOR_VERSION_1_3);
       // load properties
@@ -154,12 +150,11 @@ public final class BeanSupport {
             properties.add(property);
             // add direct observable
             if (m_resolver != null) {
-              ObservableInfo directObservable =
-                  observableFactory.createObservable(
-                      beanObjectInfo,
-                      property,
-                      directType,
-                      version_1_3);
+              ObservableInfo directObservable = observableFactory.createObservable(
+                  beanObjectInfo,
+                  property,
+                  directType,
+                  version_1_3);
               m_resolver.addModelSupport(new DirectModelSupport(directObservable));
             }
           }
@@ -187,88 +182,100 @@ public final class BeanSupport {
             // create direct factory
             IObservableFactory observableFactory = DirectObservableFactory.forBean(directType);
             // create fake direct property
-            DirectPropertyBindableInfo property =
-                new DirectPropertyBindableInfo(this,
-                    parent,
-                    getDirectName(directType),
-                    beanClass,
-                    StringReferenceProvider.EMPTY,
-                    observableFactory);
+            DirectPropertyBindableInfo property = new DirectPropertyBindableInfo(this,
+                parent,
+                getDirectName(directType),
+                beanClass,
+                StringReferenceProvider.EMPTY,
+                observableFactory);
             //
             properties.add(0, property);
             // add direct observable
             if (m_resolver != null) {
-              ObservableInfo directObservable =
-                  observableFactory.createObservable(
-                      beanObjectInfo,
-                      property,
-                      directType,
-                      version_1_3);
+              ObservableInfo directObservable = observableFactory.createObservable(
+                  beanObjectInfo,
+                  property,
+                  directType,
+                  version_1_3);
               m_resolver.addModelSupport(new DirectFieldModelSupport(directObservable));
             }
             //
             if (directType == IObservableFactory.Type.OnlyValue) {
               // add fake direct detail property
-              properties.add(1, new DirectPropertyBindableInfo(this,
-                  parent,
-                  DirectObservableInfo.DETAIL_PROPERTY_NAME,
-                  beanClass,
-                  StringReferenceProvider.EMPTY,
-                  DirectObservableFactory.forDetailBean()));
+              properties.add(
+                  1,
+                  new DirectPropertyBindableInfo(this,
+                      parent,
+                      DirectObservableInfo.DETAIL_PROPERTY_NAME,
+                      beanClass,
+                      StringReferenceProvider.EMPTY,
+                      DirectObservableFactory.forDetailBean()));
             }
           }
         } else if (List.class.isAssignableFrom(beanClass)) {
           // bean class is List
-          properties.add(0, new CollectionPropertyBindableInfo(this,
-              parent,
-              "Collection as WritableList/Properties.selfList()",
-              beanClass,
-              beanObjectInfo.getReferenceProvider()));
+          properties.add(
+              0,
+              new CollectionPropertyBindableInfo(this,
+                  parent,
+                  "Collection as WritableList/Properties.selfList()",
+                  beanClass,
+                  beanObjectInfo.getReferenceProvider()));
         } else if (Set.class.isAssignableFrom(beanClass)) {
           // bean class is Set
-          properties.add(0, new CollectionPropertyBindableInfo(this,
-              parent,
-              "Collection as WritableSet/Properties.selfSet()",
-              beanClass,
-              beanObjectInfo.getReferenceProvider()));
+          properties.add(
+              0,
+              new CollectionPropertyBindableInfo(this,
+                  parent,
+                  "Collection as WritableSet/Properties.selfSet()",
+                  beanClass,
+                  beanObjectInfo.getReferenceProvider()));
         } else if (!CoreUtils.isAssignableFrom(m_Viewer, beanClass)) {
           boolean selection = false;
           if (CoreUtils.isAssignableFrom(m_ISelectionProvider, beanClass)) {
             selection = true;
-            properties.add(0, new ViewerObservablePropertyBindableInfo(this,
-                parent,
-                "single selection",
-                TypeImageProvider.OBJECT_IMAGE,
-                Object.class,
-                "observeSingleSelection",
-                ViewerObservableFactory.SINGLE_SELECTION,
-                IObserveDecorator.BOLD));
-            properties.add(1, new ViewerObservablePropertyBindableInfo(this,
-                parent,
-                PropertiesSupport.DETAIL_SINGLE_SELECTION_NAME,
-                TypeImageProvider.OBJECT_IMAGE,
-                Object.class,
-                "observeSingleSelection",
-                ViewerObservableFactory.DETAIL_SINGLE_SELECTION,
-                IObserveDecorator.BOLD));
-            properties.add(2, new ViewerObservablePropertyBindableInfo(this,
-                parent,
-                "multi selection",
-                TypeImageProvider.COLLECTION_IMAGE,
-                Object.class,
-                "observeMultiSelection",
-                ViewerObservableFactory.MULTI_SELECTION,
-                IObserveDecorator.BOLD));
+            properties.add(
+                0,
+                new ViewerObservablePropertyBindableInfo(this,
+                    parent,
+                    "single selection",
+                    TypeImageProvider.OBJECT_IMAGE,
+                    Object.class,
+                    "observeSingleSelection",
+                    ViewerObservableFactory.SINGLE_SELECTION,
+                    IObserveDecorator.BOLD));
+            properties.add(
+                1,
+                new ViewerObservablePropertyBindableInfo(this,
+                    parent,
+                    PropertiesSupport.DETAIL_SINGLE_SELECTION_NAME,
+                    TypeImageProvider.OBJECT_IMAGE,
+                    Object.class,
+                    "observeSingleSelection",
+                    ViewerObservableFactory.DETAIL_SINGLE_SELECTION,
+                    IObserveDecorator.BOLD));
+            properties.add(
+                2,
+                new ViewerObservablePropertyBindableInfo(this,
+                    parent,
+                    "multi selection",
+                    TypeImageProvider.COLLECTION_IMAGE,
+                    Object.class,
+                    "observeMultiSelection",
+                    ViewerObservableFactory.MULTI_SELECTION,
+                    IObserveDecorator.BOLD));
           }
           if (CoreUtils.isAssignableFrom(m_ICheckable, beanClass)) {
-            properties.add(selection ? 3 : 0, new ViewerObservablePropertyBindableInfo(this,
-                parent,
-                "checked elements",
-                TypeImageProvider.COLLECTION_IMAGE,
-                Object.class,
-                "observeCheckedElements",
-                ViewerObservableFactory.CHECKED_ELEMENTS,
-                IObserveDecorator.BOLD));
+            properties.add(
+                selection ? 3 : 0,
+                new ViewerObservablePropertyBindableInfo(this,
+                    parent,
+                    "checked elements",
+                    TypeImageProvider.COLLECTION_IMAGE,
+                    Object.class,
+                    "observeCheckedElements",
+                    ViewerObservableFactory.CHECKED_ELEMENTS,
+                    IObserveDecorator.BOLD));
           }
         }
       }
@@ -353,7 +360,7 @@ public final class BeanSupport {
    */
   public static List<PropertyDescriptor> getPropertyDescriptors(Class<?> beanClass)
       throws Exception {
-    List<PropertyDescriptor> descriptors = Lists.newArrayList();
+    List<PropertyDescriptor> descriptors = new ArrayList<>();
     // handle interfaces
     if (beanClass.isInterface() || Modifier.isAbstract(beanClass.getModifiers())) {
       List<Class<?>> interfaces = CoreUtils.cast(ClassUtils.getAllInterfaces(beanClass));

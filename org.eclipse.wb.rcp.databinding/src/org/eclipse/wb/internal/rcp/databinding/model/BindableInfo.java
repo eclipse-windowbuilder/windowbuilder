@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.presentation.IObservePresentationDecorator;
@@ -20,12 +18,13 @@ import org.eclipse.wb.internal.core.databinding.model.reference.StringReferenceP
 
 import org.apache.commons.collections.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Abstract model for any object and property that may be use for binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -131,7 +130,7 @@ public abstract class BindableInfo implements IObserveInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   private List<AbstractBindingInfo> m_bindings;
@@ -141,7 +140,7 @@ public abstract class BindableInfo implements IObserveInfo {
    */
   public void createBinding(AbstractBindingInfo binding) throws Exception {
     if (m_bindings == null) {
-      m_bindings = Lists.newArrayList();
+      m_bindings = new ArrayList<>();
     }
     m_bindings.add(binding);
     updateBindingDecoration();
@@ -172,9 +171,8 @@ public abstract class BindableInfo implements IObserveInfo {
       if (presentation instanceof IObservePresentationDecorator) {
         IObservePresentationDecorator presentationDecorator =
             (IObservePresentationDecorator) presentation;
-        presentationDecorator.setBindingDecorator(CollectionUtils.isEmpty(m_bindings)
-            ? 0
-            : m_bindingDecorationCorner);
+        presentationDecorator.setBindingDecorator(
+            CollectionUtils.isEmpty(m_bindings) ? 0 : m_bindingDecorationCorner);
       }
     }
   }

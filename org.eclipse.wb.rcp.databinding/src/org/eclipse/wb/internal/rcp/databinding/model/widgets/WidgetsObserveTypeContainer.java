@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
@@ -63,13 +61,14 @@ import org.eclipse.swt.widgets.Text;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Widgets container with type {@link ObserveType#WIDGETS}. Works on <code>SWT</code> widgets and
  * <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
@@ -86,46 +85,42 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       "org.eclipse.jface.databinding.swt.SWTObservables.observeText(org.eclipse.swt.widgets.Control)";
   private static final String ITEMS_OBSERVABLE_METHOD =
       "org.eclipse.jface.databinding.swt.SWTObservables.observeItems(org.eclipse.swt.widgets.Control)";
-  private static final String[] OBSERVABLE_METHODS =
-      {
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeEnabled(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeVisible(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeTooltipText(org.eclipse.swt.widgets.Widget)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeTooltipText(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeSelection(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeMin(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeMax(org.eclipse.swt.widgets.Control)",
-          TEXT_OBSERVABLE_METHOD_1,
-          TEXT_OBSERVABLE_METHOD_2,
-          TEXT_OBSERVABLE_METHOD_3,
-          TEXT_OBSERVABLE_METHOD_4,
-          ITEMS_OBSERVABLE_METHOD,
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeMessage(org.eclipse.swt.widgets.Widget)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeImage(org.eclipse.swt.widgets.Widget)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeSingleSelectionIndex(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeForeground(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeBackground(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeFont(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeSize(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeLocation(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeFocus(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeBounds(org.eclipse.swt.widgets.Control)",
-          "org.eclipse.jface.databinding.swt.SWTObservables.observeEditable(org.eclipse.swt.widgets.Control)"};
+  private static final String[] OBSERVABLE_METHODS = {
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeEnabled(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeVisible(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeTooltipText(org.eclipse.swt.widgets.Widget)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeTooltipText(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeSelection(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeMin(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeMax(org.eclipse.swt.widgets.Control)",
+      TEXT_OBSERVABLE_METHOD_1,
+      TEXT_OBSERVABLE_METHOD_2,
+      TEXT_OBSERVABLE_METHOD_3,
+      TEXT_OBSERVABLE_METHOD_4,
+      ITEMS_OBSERVABLE_METHOD,
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeMessage(org.eclipse.swt.widgets.Widget)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeImage(org.eclipse.swt.widgets.Widget)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeSingleSelectionIndex(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeForeground(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeBackground(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeFont(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeSize(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeLocation(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeFocus(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeBounds(org.eclipse.swt.widgets.Control)",
+      "org.eclipse.jface.databinding.swt.SWTObservables.observeEditable(org.eclipse.swt.widgets.Control)"};
   private static final String VIEWER_DELAY_OBSERVABLE_METHOD =
       "org.eclipse.jface.databinding.viewers.ViewersObservables.observeDelayedValue(int,org.eclipse.jface.databinding.viewers.IViewerObservableValue)";
-  private static final String[] OBSERVABLE_VIEWER_SINGLE_SELECTION_METHODS =
-      {
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeSingleSelection(org.eclipse.jface.viewers.ISelectionProvider)",
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeSingleSelection(org.eclipse.jface.viewers.Viewer)"};
-  private static final String[] OBSERVABLE_VIEWER_MULTI_SELECTION_METHODS =
-      {
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeMultiSelection(org.eclipse.jface.viewers.ISelectionProvider)",
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeMultiSelection(org.eclipse.jface.viewers.Viewer)"};
-  private static final String[] OBSERVABLE_VIEWER_CHECKED_ELEMENTS_METHODS =
-      {
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.ICheckable,java.lang.Object)",
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.CheckboxTableViewer,java.lang.Object)",
-          "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.CheckboxTreeViewer,java.lang.Object)"};
+  private static final String[] OBSERVABLE_VIEWER_SINGLE_SELECTION_METHODS = {
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeSingleSelection(org.eclipse.jface.viewers.ISelectionProvider)",
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeSingleSelection(org.eclipse.jface.viewers.Viewer)"};
+  private static final String[] OBSERVABLE_VIEWER_MULTI_SELECTION_METHODS = {
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeMultiSelection(org.eclipse.jface.viewers.ISelectionProvider)",
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeMultiSelection(org.eclipse.jface.viewers.Viewer)"};
+  private static final String[] OBSERVABLE_VIEWER_CHECKED_ELEMENTS_METHODS = {
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.ICheckable,java.lang.Object)",
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.CheckboxTableViewer,java.lang.Object)",
+      "org.eclipse.jface.databinding.viewers.ViewersObservables.observeCheckedElements(org.eclipse.jface.viewers.CheckboxTreeViewer,java.lang.Object)"};
   private static final String OBSERVABLE_VIEWER_FILTERS_METHOD =
       "org.eclipse.jface.databinding.viewers.ViewersObservables.observeFilters(org.eclipse.jface.viewers.StructuredViewer)";
   private static final String[] WIDGET_PROPERTIES_METHODS = {
@@ -228,7 +223,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       IModelResolver resolver,
       AstEditor editor,
       TypeDeclaration rootNode) throws Exception {
-    m_observables = Lists.newArrayList();
+    m_observables = new ArrayList<>();
     m_observables.add(new WidgetBindableInfo(root, m_provider));
   }
 
@@ -252,9 +247,12 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       // prepare widget
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.WidgetsObserveTypeContainer_widgetArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.WidgetsObserveTypeContainer_widgetArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare property
@@ -278,7 +276,8 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       }
       Class<?> objectType = bindableWidget.getObjectType();
       if ((TEXT_OBSERVABLE_METHOD_3.equals(signature) || TEXT_OBSERVABLE_METHOD_4.equals(signature))
-          && (Text.class.isAssignableFrom(objectType) || StyledText.class.isAssignableFrom(objectType))) {
+          && (Text.class.isAssignableFrom(objectType)
+              || StyledText.class.isAssignableFrom(objectType))) {
         TextSwtObservableInfo observable =
             new TextSwtObservableInfo(bindableWidget, bindableProperty, ArrayUtils.EMPTY_INT_ARRAY);
         observable.setCodeSupport(new SwtObservableTextCodeSupport());
@@ -303,9 +302,12 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       // prepare observable
       ObservableInfo observableInfo = (ObservableInfo) resolver.getModel(arguments[1]);
       if (observableInfo == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.WidgetsObserveTypeContainer_observableArgumentNotFound,
-            arguments[1]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.WidgetsObserveTypeContainer_observableArgumentNotFound,
+                arguments[1]),
+            new Throwable());
         return null;
       }
       Assert.isNull(observableInfo.getVariableIdentifier());
@@ -323,9 +325,12 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       //
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       SingleSelectionObservableInfo observable = new SingleSelectionObservableInfo(bindableWidget);
@@ -337,9 +342,12 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       //
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       MultiSelectionObservableInfo observable = new MultiSelectionObservableInfo(bindableWidget);
@@ -353,9 +361,12 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       // prepare viewer
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare element type
@@ -370,9 +381,12 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       //
       WidgetBindableInfo bindableWidget = getBindableWidget(arguments[0]);
       if (bindableWidget == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.WidgetsObserveTypeContainer_viewerArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       FiltersObservableInfo observable = new FiltersObservableInfo(bindableWidget);
@@ -380,7 +394,8 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
       return observable;
     } else if (ArrayUtils.contains(WIDGET_PROPERTIES_METHODS, signature)) {
       // WidgetProperties.XXXX()
-      return new WidgetPropertiesCodeSupport(SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(invocation.getName().getIdentifier()));
+      return new WidgetPropertiesCodeSupport(SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(
+          invocation.getName().getIdentifier()));
     } else if (ITEMS_WIDGET_PROPERTY.equals(signature)) {
       // WidgetProperties.items()
       return new WidgetPropertyItemsCodeSupport();

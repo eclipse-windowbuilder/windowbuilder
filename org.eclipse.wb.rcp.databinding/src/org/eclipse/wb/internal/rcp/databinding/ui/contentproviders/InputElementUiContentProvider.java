@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.PropertyAdapter;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -25,12 +23,13 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.Checked
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Content provider for edit (viewer input, content and label providers)
  * {@link ViewerInputBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
@@ -68,7 +67,7 @@ public final class InputElementUiContentProvider
       if (properties == null) {
         setClassName(CoreUtils.getClassName(elementType));
       } else {
-        List<String> checkedProperties = Lists.newArrayList();
+        List<String> checkedProperties = new ArrayList<>();
         for (int i = 0; i < properties.length; i++) {
           checkedProperties.add("\"" + properties[i] + "\"");
         }

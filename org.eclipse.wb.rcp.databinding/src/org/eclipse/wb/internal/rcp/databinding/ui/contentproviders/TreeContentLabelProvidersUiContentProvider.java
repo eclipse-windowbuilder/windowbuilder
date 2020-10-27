@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -39,13 +37,14 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * Content provider for choose properties (over checked tree): parent/children/has
  * children/text/image for content and label providers for tree viewer in Designer mode.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
@@ -157,10 +156,12 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
           elementType,
           descriptors);
       // prepare groups
-      List<PropertiesGroup> groups = Lists.newArrayList();
-      groups.add(new PropertiesGroup(PARENT_GROUP_NAME, filterProperties(descriptors, Object.class)));
+      List<PropertiesGroup> groups = new ArrayList<>();
+      groups.add(
+          new PropertiesGroup(PARENT_GROUP_NAME, filterProperties(descriptors, Object.class)));
       groups.add(new PropertiesGroup(CHILDREN_GROUP_NAME, filterCollectionProperties(descriptors)));
-      groups.add(new PropertiesGroup(HAS_CHILDREN_GROUP_NAME, filterBooleanProperties(descriptors)));
+      groups.add(
+          new PropertiesGroup(HAS_CHILDREN_GROUP_NAME, filterBooleanProperties(descriptors)));
       groups.add(new PropertiesGroup(TEXT_GROUP_NAME, filterProperties(descriptors, String.class)));
       groups.add(new PropertiesGroup(IMAGE_GROUP_NAME, filterProperties(descriptors, Image.class)));
       // fill viewer
@@ -178,7 +179,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
    */
   private static List<PropertyDescriptor> filterProperties(List<PropertyDescriptor> properties,
       Class<?> testType) {
-    List<PropertyDescriptor> newProperties = Lists.newArrayList();
+    List<PropertyDescriptor> newProperties = new ArrayList<>();
     for (PropertyDescriptor property : properties) {
       Class<?> type = property.getPropertyType();
       if (type != null && (testType == type || testType.isAssignableFrom(type))) {
@@ -191,8 +192,9 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
   /**
    * Helper method that filter given <code>properties</code> include only boolean properties.
    */
-  private static List<PropertyDescriptor> filterBooleanProperties(List<PropertyDescriptor> properties) {
-    List<PropertyDescriptor> newProperties = Lists.newArrayList();
+  private static List<PropertyDescriptor> filterBooleanProperties(
+      List<PropertyDescriptor> properties) {
+    List<PropertyDescriptor> newProperties = new ArrayList<>();
     for (PropertyDescriptor property : properties) {
       Class<?> type = property.getPropertyType();
       if (type == boolean.class || type == Boolean.class) {
@@ -206,8 +208,9 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
    * Helper method that filter given <code>properties</code> include only {@link Collection} and
    * array properties.
    */
-  private static List<PropertyDescriptor> filterCollectionProperties(List<PropertyDescriptor> properties) {
-    List<PropertyDescriptor> newProperties = Lists.newArrayList();
+  private static List<PropertyDescriptor> filterCollectionProperties(
+      List<PropertyDescriptor> properties) {
+    List<PropertyDescriptor> newProperties = new ArrayList<>();
     for (PropertyDescriptor property : properties) {
       Class<?> type = property.getPropertyType();
       if (type != null && (type.isArray() || Collection.class.isAssignableFrom(type))) {
@@ -229,13 +232,16 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
         // set element type
         setElementType(elementType);
         // prepare checked groups
-        List<Object> checkedObjects = Lists.newArrayList();
+        List<Object> checkedObjects = new ArrayList<>();
         // check parent/children/has children
         TreeBeanAdvisorInfo advisor =
             (TreeBeanAdvisorInfo) m_binding.getContentProvider().getAdvisorInfo();
         extractProperties(checkedObjects, PARENT_GROUP_NAME, advisor.getParentProperty());
         extractProperties(checkedObjects, CHILDREN_GROUP_NAME, advisor.getChildrenProperty());
-        extractProperties(checkedObjects, HAS_CHILDREN_GROUP_NAME, advisor.getHasChildrenProperty());
+        extractProperties(
+            checkedObjects,
+            HAS_CHILDREN_GROUP_NAME,
+            advisor.getHasChildrenProperty());
         // check text/image
         TreeObservableLabelProviderInfo labelProvider =
             (TreeObservableLabelProviderInfo) m_binding.getLabelProvider();

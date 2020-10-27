@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -41,12 +39,13 @@ import org.eclipse.swt.widgets.TrayItem;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Properties provider for <code>SWT</code> widgets and <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
@@ -58,38 +57,34 @@ public final class PropertiesSupport {
   //
   ////////////////////////////////////////////////////////////////////////////
   static {
-    WidgetPropertyBindableInfo tooltipText =
-        new WidgetPropertyBindableInfo("tooltipText",
-            String.class,
-            "observeTooltipText",
-            IObserveDecorator.DEFAULT);
+    WidgetPropertyBindableInfo tooltipText = new WidgetPropertyBindableInfo("tooltipText",
+        String.class,
+        "observeTooltipText",
+        IObserveDecorator.DEFAULT);
     //
     SwtProperties.createControlProperties(tooltipText);
     //
     SwtProperties.createDateTimeProperties();
     //
-    WidgetPropertyBindableInfo text_Text_StyledText =
-        new WidgetPropertyBindableInfo("text",
-            String.class,
-            "observeText",
-            SwtObservableFactory.SWT_TEXT,
-            IObserveDecorator.BOLD);
+    WidgetPropertyBindableInfo text_Text_StyledText = new WidgetPropertyBindableInfo("text",
+        String.class,
+        "observeText",
+        SwtObservableFactory.SWT_TEXT,
+        IObserveDecorator.BOLD);
     //
-    WidgetPropertyBindableInfo message =
-        new WidgetPropertyBindableInfo("message",
-            String.class,
-            "observeMessage",
-            IObserveDecorator.BOLD);
+    WidgetPropertyBindableInfo message = new WidgetPropertyBindableInfo("message",
+        String.class,
+        "observeMessage",
+        IObserveDecorator.BOLD);
     //
     SwtProperties.createTextProperties(text_Text_StyledText, message);
     SwtProperties.createStyledTextProperties(text_Text_StyledText);
     SwtProperties.createToolTipProperties(message);
     //
-    WidgetPropertyBindableInfo selectionInt =
-        new WidgetPropertyBindableInfo("selection",
-            int.class,
-            "observeSelection",
-            IObserveDecorator.BOLD);
+    WidgetPropertyBindableInfo selectionInt = new WidgetPropertyBindableInfo("selection",
+        int.class,
+        "observeSelection",
+        IObserveDecorator.BOLD);
     //
     WidgetPropertyBindableInfo min =
         new WidgetPropertyBindableInfo("minimum", int.class, "observeMin", IObserveDecorator.BOLD);
@@ -103,8 +98,10 @@ public final class PropertiesSupport {
     WidgetPropertyBindableInfo text =
         new WidgetPropertyBindableInfo("text", String.class, "observeText", IObserveDecorator.BOLD);
     //
-    WidgetPropertyBindableInfo image =
-        new WidgetPropertyBindableInfo("image", Image.class, "observeImage", IObserveDecorator.BOLD);
+    WidgetPropertyBindableInfo image = new WidgetPropertyBindableInfo("image",
+        Image.class,
+        "observeImage",
+        IObserveDecorator.BOLD);
     //
     SwtProperties.createButtonProperties(text, image);
     SwtProperties.createLabelProperties(text, image);
@@ -113,18 +110,16 @@ public final class PropertiesSupport {
     SwtProperties.createShellProperties(text);
     SwtProperties.createFormProperties(text);
     //
-    WidgetPropertyBindableInfo selectionString =
-        new WidgetPropertyBindableInfo("selection",
-            String.class,
-            "observeSelection",
-            IObserveDecorator.BOLD);
+    WidgetPropertyBindableInfo selectionString = new WidgetPropertyBindableInfo("selection",
+        String.class,
+        "observeSelection",
+        IObserveDecorator.BOLD);
     //
-    WidgetPropertyBindableInfo items =
-        new WidgetPropertyBindableInfo("items",
-            List.class,
-            "observeItems",
-            SwtObservableFactory.SWT_ITEMS,
-            IObserveDecorator.BOLD);
+    WidgetPropertyBindableInfo items = new WidgetPropertyBindableInfo("items",
+        List.class,
+        "observeItems",
+        SwtObservableFactory.SWT_ITEMS,
+        IObserveDecorator.BOLD);
     //
     WidgetPropertyBindableInfo selectionIndex =
         new WidgetPropertyBindableInfo("singleSelectionIndex",
@@ -283,8 +278,9 @@ public final class PropertiesSupport {
     return Collections.emptyList();
   }
 
-  private static List<WidgetPropertyBindableInfo> createBindables(List<WidgetPropertyBindableInfo> staticBindables) {
-    List<WidgetPropertyBindableInfo> bindables = Lists.newArrayList();
+  private static List<WidgetPropertyBindableInfo> createBindables(
+      List<WidgetPropertyBindableInfo> staticBindables) {
+    List<WidgetPropertyBindableInfo> bindables = new ArrayList<>();
     for (WidgetPropertyBindableInfo bindable : staticBindables) {
       bindables.add(new WidgetPropertyBindableInfo(bindable));
     }
