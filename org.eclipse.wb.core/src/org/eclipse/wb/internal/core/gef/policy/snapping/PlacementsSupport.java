@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -52,8 +51,8 @@ public final class PlacementsSupport {
   private final PlacementInfo m_x = new PlacementInfo();
   private final PlacementInfo m_y = new PlacementInfo();
   private Rectangle m_bounds;
-  private final Map<IAbstractComponentInfo, Rectangle> m_newModelBounds = Maps.newHashMap();
-  private final Map<IAbstractComponentInfo, Rectangle> m_oldModelBounds = Maps.newHashMap();
+  private final Map<IAbstractComponentInfo, Rectangle> m_newModelBounds = new HashMap<>();
+  private final Map<IAbstractComponentInfo, Rectangle> m_oldModelBounds = new HashMap<>();
   private final Map<IAbstractComponentInfo, Integer[]> m_effectiveAlignments = new HashMap<>();
   private final IAbsoluteLayoutCommands m_layoutCommands;
   private int m_resizeDirection;

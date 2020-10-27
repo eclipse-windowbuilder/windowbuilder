@@ -12,7 +12,6 @@ package org.eclipse.wb.core.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -637,7 +637,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    */
   public final void putArbitraryValue(Object key, Object value) {
     if (m_arbitraryMap == null) {
-      m_arbitraryMap = Maps.newHashMap();
+      m_arbitraryMap = new HashMap<>();
     }
     m_arbitraryMap.put(key, value);
   }
@@ -667,7 +667,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   public final Map<Object, Object> getArbitraries() {
     Map<Object, Object> arbitraries;
     if (m_arbitraryMap != null) {
-      arbitraries = Maps.newHashMap(m_arbitraryMap);
+      arbitraries = new HashMap<>(m_arbitraryMap);
     } else {
       arbitraries = ImmutableMap.of();
     }

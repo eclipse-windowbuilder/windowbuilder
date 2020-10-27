@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.exception;
 
 import com.google.common.collect.MapMaker;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.controls.BrowserComposite;
@@ -56,6 +55,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for {@link DesignerException} manipulations.
@@ -216,11 +216,10 @@ public final class DesignerExceptionUtils {
    * @return the {@link Throwable} may be rewritten by {@link IExceptionRewriter}.
    */
   public static Throwable rewriteException(Throwable throwable) {
-    List<IExceptionRewriter> rewriters =
-        ExternalFactoriesHelper.getElementsInstances(
-            IExceptionRewriter.class,
-            "org.eclipse.wb.core.exceptions",
-            "rewriter");
+    List<IExceptionRewriter> rewriters = ExternalFactoriesHelper.getElementsInstances(
+        IExceptionRewriter.class,
+        "org.eclipse.wb.core.exceptions",
+        "rewriter");
     for (IExceptionRewriter rewriter : rewriters) {
       throwable = rewriter.rewrite(throwable);
     }
@@ -359,7 +358,11 @@ public final class DesignerExceptionUtils {
     String desc = e.getDescription();
     desc += message != null ? "<p>" + throwable.getClass().getName() + ": " + message + "</p>" : "";
     // return updated
-    return new ErrorEntryInfo(e.getCode(), e.isWarning(), e.getTitle(), desc, e.getAltDescription());
+    return new ErrorEntryInfo(e.getCode(),
+        e.isWarning(),
+        e.getTitle(),
+        desc,
+        e.getAltDescription());
   }
 
   public static ErrorEntryInfo getErrorEntry(int exceptionCode, String... parameters) {
@@ -414,7 +417,9 @@ public final class DesignerExceptionUtils {
     return m_codeToDescription.get(exceptionCode);
   }
 
-  private static String includeExceptionParameter(String html, String searchString, String message) {
+  private static String includeExceptionParameter(String html,
+      String searchString,
+      String message) {
     String messageEscaped = StringEscapeUtils.escapeHtml(message);
     return StringUtils.replace(html, searchString, messageEscaped);
   }
@@ -423,7 +428,7 @@ public final class DesignerExceptionUtils {
    * Reads exception definitions (using extensions) and creates code->entry map for error entries.
    */
   private static void fillErrorEntries() {
-    m_codeToDescription = Maps.newTreeMap();
+    m_codeToDescription = new TreeMap<>();
     try {
       List<IConfigurationElement> fileElements =
           ExternalFactoriesHelper.getElements("org.eclipse.wb.core.exceptions", "file");
@@ -466,12 +471,11 @@ public final class DesignerExceptionUtils {
                 String description = xmlText.substring(m_descriptionStart, offset);
                 description = applyBranding(description);
                 // add entry
-                m_errorEntry =
-                    new ErrorEntryInfo(m_code,
-                        m_isWarning,
-                        m_description,
-                        description,
-                        m_altDescription);
+                m_errorEntry = new ErrorEntryInfo(m_code,
+                    m_isWarning,
+                    m_description,
+                    description,
+                    m_altDescription);
                 m_codeToDescription.put(m_errorEntry.getCode(), m_errorEntry);
               }
             }
@@ -483,11 +487,10 @@ public final class DesignerExceptionUtils {
               String productNameTemplate = "{product_name}";
               int index = description.indexOf(productNameTemplate);
               if (index != -1) {
-                description =
-                    includeExceptionParameter(
-                        description,
-                        productNameTemplate,
-                        BrandingUtils.getBranding().getProductName());
+                description = includeExceptionParameter(
+                    description,
+                    productNameTemplate,
+                    BrandingUtils.getBranding().getProductName());
               }
               return description;
             }

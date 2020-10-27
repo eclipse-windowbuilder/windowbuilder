@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.MapMaker;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -24,6 +23,7 @@ import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -53,7 +53,7 @@ public final class ScriptUtils {
       String script,
       String name_1,
       Object value_1) {
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     return evaluate(contextClassLoader, script, variables);
   }
@@ -67,7 +67,7 @@ public final class ScriptUtils {
       Object value_1,
       String name_2,
       Object value_2) {
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     variables.put(name_2, value_2);
     return evaluate(contextClassLoader, script, variables);
@@ -97,7 +97,7 @@ public final class ScriptUtils {
    * Evaluates given script.
    */
   public static Object evaluate(String script) {
-    return evaluate(script, Maps.<String, Object>newHashMap());
+    return evaluate(script, new HashMap<>());
   }
 
   /**
@@ -113,7 +113,7 @@ public final class ScriptUtils {
    */
   public static Object evaluate(String script, String name_1, Object value_1) {
     Object expression = compile(script);
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     return evaluate(expression, variables);
   }
@@ -127,7 +127,7 @@ public final class ScriptUtils {
       String name_2,
       Object value_2) {
     Object expression = compile(script);
-    Map<String, Object> variables = Maps.newHashMap();
+    Map<String, Object> variables = new HashMap<>();
     variables.put(name_1, value_1);
     variables.put(name_2, value_2);
     return evaluate(expression, variables);
@@ -142,7 +142,7 @@ public final class ScriptUtils {
   }
 
   private static Object evaluate(Object expression, Map<String, Object> _variables) {
-    Map<String, Object> variables = Maps.newHashMap(_variables);
+    Map<String, Object> variables = new HashMap<>(_variables);
     return MVEL.executeExpression(expression, variables);
   }
 
@@ -164,6 +164,7 @@ public final class ScriptUtils {
    */
   public static void clearMemoryLeaks() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         clearCaches(org.mvel2.util.ParseTools.class);
         clearCaches(org.mvel2.PropertyAccessor.class);
@@ -202,7 +203,7 @@ public final class ScriptUtils {
     Class<ScriptUtils> key = ScriptUtils.class;
     Map<String, Object> cache = (Map<String, Object>) ClassLoaderLocalMap.get(context, key);
     if (cache == null) {
-      cache = Maps.newHashMap();
+      cache = new HashMap<>();
       ClassLoaderLocalMap.put(context, key, cache);
     }
     return cache;

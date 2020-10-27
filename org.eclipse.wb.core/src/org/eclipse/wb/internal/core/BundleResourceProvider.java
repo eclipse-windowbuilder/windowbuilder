@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -28,10 +26,11 @@ import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
-import org.osgi.framework.BundleListener;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Provider for resources of some {@link Bundle}.
@@ -45,7 +44,7 @@ public final class BundleResourceProvider {
   // Instance access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Map<String, BundleResourceProvider> m_providers = Maps.newHashMap();
+  private static final Map<String, BundleResourceProvider> m_providers = new HashMap<>();
 
   /**
    * @return the {@link BundleResourceProvider} for {@link Bundle} with given id.
@@ -73,23 +72,17 @@ public final class BundleResourceProvider {
    * Configures automatic resources clean up on {@link Bundle} uninstalling.
    */
   public static void configureCleanUp(BundleContext context) {
-    context.addBundleListener(new BundleListener() {
-      public void bundleChanged(BundleEvent event) {
-        if (event.getType() == BundleEvent.UNINSTALLED) {
-          // prepare provider
-          final BundleResourceProvider provider;
-          synchronized (m_providers) {
-            String id = event.getBundle().getSymbolicName();
-            provider = m_providers.remove(id);
-          }
-          // clean up
-          if (provider != null) {
-            Display.getDefault().asyncExec(new Runnable() {
-              public void run() {
-                provider.disposeImages();
-              }
-            });
-          }
+    context.addBundleListener(event -> {
+      if (event.getType() == BundleEvent.UNINSTALLED) {
+        // prepare provider
+        final BundleResourceProvider provider;
+        synchronized (m_providers) {
+          String id = event.getBundle().getSymbolicName();
+          provider = m_providers.remove(id);
+        }
+        // clean up
+        if (provider != null) {
+          Display.getDefault().asyncExec(() -> provider.disposeImages());
         }
       }
     });
@@ -123,11 +116,9 @@ public final class BundleResourceProvider {
    * @return the {@link String} content of file from bundle directory.
    */
   public String getFileString(final String path) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<String>() {
-      public String runObject() throws Exception {
-        InputStream inputStream = getFile(path);
-        return IOUtils2.readString(inputStream);
-      }
+    return ExecutionUtils.runObject(() -> {
+      InputStream inputStream = getFile(path);
+      return IOUtils2.readString(inputStream);
     });
   }
 
@@ -140,11 +131,11 @@ public final class BundleResourceProvider {
   }
 
   private InputStream getFile0(final String path) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<InputStream>() {
-      public InputStream runObject() throws Exception {
-        return m_bundle.getEntry(path).openStream();
-      }
-    }, "Unable to open file %s from %s", path, m_id);
+    return ExecutionUtils.runObject(
+        (RunnableObjectEx<InputStream>) () -> m_bundle.getEntry(path).openStream(),
+        "Unable to open file %s from %s",
+        path,
+        m_id);
   }
 
   private static String normalizePath(String path) {
@@ -164,8 +155,8 @@ public final class BundleResourceProvider {
   // Images
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, Image> m_pathToImage = Maps.newTreeMap();
-  private final Map<String, ImageDescriptor> m_pathToImageDescriptor = Maps.newTreeMap();
+  private final Map<String, Image> m_pathToImage = new TreeMap<>();
+  private final Map<String, ImageDescriptor> m_pathToImageDescriptor = new TreeMap<>();
 
   /**
    * @return the {@link Image}, with caching.

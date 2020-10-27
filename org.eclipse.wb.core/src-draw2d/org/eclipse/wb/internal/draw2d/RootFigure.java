@@ -18,6 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class RootFigure extends Figure implements IRootFigure {
   private final RefreshManager m_refreshManager;
   private EventManager m_eventManager;
   private Dimension m_preferredSize;
-  private Map<String, Layer> m_nameToLayer = Maps.newHashMap();
+  private Map<String, Layer> m_nameToLayer = new HashMap<>();
   private IPreferredSizeProvider m_preferredSizeProvider;
 
   ////////////////////////////////////////////////////////////////////////////

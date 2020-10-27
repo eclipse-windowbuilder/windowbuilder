@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.reflect;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
@@ -41,11 +40,13 @@ import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.WeakHashMap;
 
 /**
@@ -205,7 +206,7 @@ public class ReflectionUtils {
       return new HashSet<>();
     }
     if (isSuccessorOf(clazz, "java.util.Map")) {
-      return Maps.newHashMap();
+      return new HashMap<>();
     }
     // Object
     return null;
@@ -263,7 +264,7 @@ public class ReflectionUtils {
   }
 
   private static final Map<String, WeakHashMap<Class<?>, IsSuccessorResult>> m_isSuccessorOfCache =
-      Maps.newHashMap();
+      new HashMap<>();
 
   private static void isSuccessorOf_addCache(Class<?> clazz,
       String requiredClass,
@@ -684,7 +685,7 @@ public class ReflectionUtils {
    * @return all declared {@link Method}'s, including protected and private.
    */
   public static Map<String, Method> getMethods(Class<?> clazz) {
-    Map<String, Method> methods = Maps.newHashMap();
+    Map<String, Method> methods = new HashMap<>();
     // process classes
     for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
       for (Method method : c.getDeclaredMethods()) {
@@ -1443,8 +1444,8 @@ public class ReflectionUtils {
       }
     }
     // prepare getters/setters
-    Map<String, Method> propertyToGetter = Maps.newTreeMap();
-    Map<String, Method> propertyToSetter = Maps.newTreeMap();
+    Map<String, Method> propertyToGetter = new TreeMap<>();
+    Map<String, Method> propertyToSetter = new TreeMap<>();
     // append existing getters/setters
     for (PropertyDescriptor propertyDescriptor : descriptors) {
       Method readMethod = getReadMethod(propertyDescriptor);

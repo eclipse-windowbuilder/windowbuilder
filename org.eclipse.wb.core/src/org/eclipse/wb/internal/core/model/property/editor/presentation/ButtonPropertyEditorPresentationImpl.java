@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.presentation;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.Pair;
@@ -20,9 +18,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -99,33 +96,21 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
     Control control = createControlImpl(propertyTable, property);
     m_propertyToControl.put(propertyTable, property, control);
     // when Control disposed, remove Control/Property from map to avoid memory leak
-    control.addListener(SWT.Dispose, new Listener() {
-      public void handleEvent(Event e) {
-        m_propertyToControl.remove(propertyTable, property);
-      }
-    });
+    control.addListener(SWT.Dispose, e -> m_propertyToControl.remove(propertyTable, property));
     // activate property on mouse down
-    control.addListener(SWT.MouseDown, new Listener() {
-      public void handleEvent(Event event) {
-        propertyTable.deactivateEditor(true);
-        propertyTable.setActiveProperty(property);
-      }
+    control.addListener(SWT.MouseDown, event -> {
+      propertyTable.deactivateEditor(true);
+      propertyTable.setActiveProperty(property);
     });
     // return focus on propertyTable after click
-    control.addListener(SWT.MouseUp, new Listener() {
-      public void handleEvent(Event event) {
-        propertyTable.forceFocus();
-      }
-    });
+    control.addListener(SWT.MouseUp, event -> propertyTable.forceFocus());
     // handle selection
-    control.addListener(SWT.Selection, new Listener() {
-      public void handleEvent(Event event) {
-        try {
-          getPresentation().onClick(propertyTable, property);
-        } catch (Throwable e) {
-          propertyTable.deactivateEditor(false);
-          propertyTable.handleException(e);
-        }
+    control.addListener(SWT.Selection, event -> {
+      try {
+        getPresentation().onClick(propertyTable, property);
+      } catch (Throwable e) {
+        propertyTable.deactivateEditor(false);
+        propertyTable.handleException(e);
       }
     });
     return control;
@@ -204,7 +189,7 @@ class ButtonPropertyEditorPresentationImpl extends PropertyEditorPresentation {
   //
   ////////////////////////////////////////////////////////////////////////////
   protected static final class PropertyToControlMap {
-    private final Map<Pair<PropertyTable, Property>, Control> m_map = Maps.newHashMap();
+    private final Map<Pair<PropertyTable, Property>, Control> m_map = new HashMap<>();
 
     void put(PropertyTable propertyTable, Property property, Control control) {
       m_map.put(Pair.create(propertyTable, property), control);

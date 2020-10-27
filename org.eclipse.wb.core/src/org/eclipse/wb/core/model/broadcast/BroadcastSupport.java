@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.broadcast;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -21,6 +19,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +36,11 @@ public final class BroadcastSupport {
   /**
    * {@link Map} for "listener class" -> "listener implementations".
    */
-  private final Map<Class<?>, List<Object>> m_classToListeners = Maps.newHashMap();
+  private final Map<Class<?>, List<Object>> m_classToListeners = new HashMap<>();
   /**
    * {@link Map} for "listener target" -> "listener implementations".
    */
-  private final Map<ObjectInfo, List<Object>> m_targetToListeners = Maps.newHashMap();
+  private final Map<ObjectInfo, List<Object>> m_targetToListeners = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -184,7 +183,7 @@ public final class BroadcastSupport {
   // Sending
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<Class<?>, Object> m_listenerToMulticast = Maps.newHashMap();
+  private final Map<Class<?>, Object> m_listenerToMulticast = new HashMap<>();
 
   /**
    * @return the implementation of given listener class (so it can be casted to it) that can be used
