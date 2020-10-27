@@ -10,34 +10,37 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The dialog for editing {@link ColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout.ui
  */
 public final class ColumnEditDialog extends DimensionEditDialog<ColumnInfo, ColumnInfo.Alignment> {
   private static final List<AlignmentDescription<ColumnInfo.Alignment>> ALIGNMENTS =
-      Lists.newArrayList();
+      new ArrayList<>();
   static {
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.LEFT,
-        ModelMessages.ColumnEditDialog_aLeft));
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.CENTER,
-        ModelMessages.ColumnEditDialog_aCenter));
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.RIGHT,
-        ModelMessages.ColumnEditDialog_aRight));
-    ALIGNMENTS.add(new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.FILL,
-        ModelMessages.ColumnEditDialog_aFill));
+    ALIGNMENTS.add(
+        new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.LEFT,
+            ModelMessages.ColumnEditDialog_aLeft));
+    ALIGNMENTS.add(
+        new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.CENTER,
+            ModelMessages.ColumnEditDialog_aCenter));
+    ALIGNMENTS.add(
+        new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.RIGHT,
+            ModelMessages.ColumnEditDialog_aRight));
+    ALIGNMENTS.add(
+        new AlignmentDescription<ColumnInfo.Alignment>(ColumnInfo.Alignment.FILL,
+            ModelMessages.ColumnEditDialog_aFill));
   }
 
   ////////////////////////////////////////////////////////////////////////////

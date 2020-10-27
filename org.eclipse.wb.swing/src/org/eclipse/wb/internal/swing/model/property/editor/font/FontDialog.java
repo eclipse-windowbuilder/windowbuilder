@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.font;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -28,11 +26,12 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Dialog for {@link Font} choosing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -75,7 +74,7 @@ public final class FontDialog extends ResizableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private FontPreviewCanvas m_previewCanvas;
   private TabFolder m_tabFolder;
-  private final List<AbstractFontPage> m_pages = Lists.newArrayList();
+  private final List<AbstractFontPage> m_pages = new ArrayList<>();
 
   @Override
   protected Control createDialogArea(Composite parent) {
@@ -153,7 +152,9 @@ public final class FontDialog extends ResizableDialog {
    * Adds pages with {@link AbstractFontPage}'s.
    */
   protected void addPages(Composite parent) {
-    addPage(ModelMessages.FontDialog_pageConstruction, new ExplicitFontPage(parent, SWT.NONE, this));
+    addPage(
+        ModelMessages.FontDialog_pageConstruction,
+        new ExplicitFontPage(parent, SWT.NONE, this));
     addPage(ModelMessages.FontDialog_pageDerived, new DerivedFontPage(parent, SWT.NONE, this));
     addPage(ModelMessages.FontDialog_pageSwing, new UiManagerFontPage(parent, SWT.NONE, this));
   }

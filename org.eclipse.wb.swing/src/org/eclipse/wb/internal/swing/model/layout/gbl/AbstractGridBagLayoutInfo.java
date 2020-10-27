@@ -67,7 +67,7 @@ import javax.swing.JTextField;
 
 /**
  * Model for abstraction of {@link GridBagLayout}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.model.layout
@@ -339,7 +339,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ComponentInfo} in given cell.
-   * 
+   *
    * @param newComponent
    *          the new {@link ComponentInfo} to create.
    * @param column
@@ -381,7 +381,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
   /**
    * Moves given {@link ComponentInfo} in new cell.
-   * 
+   *
    * @param component
    *          the new {@link ComponentInfo} to move.
    * @param column
@@ -449,7 +449,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
   /**
    * @return the {@link ComponentInfo} that should be used as reference of adding into given cell.
-   * 
+   *
    * @param exclude
    *          the {@link ComponentInfo} that should not be checked, for example because we move it
    *          now.
@@ -894,7 +894,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final BiMap<GeneralLayoutData.HorizontalAlignment, ColumnInfo.Alignment> m_horizontalAlignmentMap =
@@ -934,12 +934,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
       generalLayoutData.horizontalGrab = null;
       generalLayoutData.verticalGrab = null;
       // alignments
-      generalLayoutData.horizontalAlignment =
-          GeneralLayoutData.getGeneralValue(
-              m_horizontalAlignmentMap,
-              gridData.getHorizontalAlignment());
-      generalLayoutData.verticalAlignment =
-          GeneralLayoutData.getGeneralValue(m_verticalAlignmentMap, gridData.getVerticalAlignment());
+      generalLayoutData.horizontalAlignment = GeneralLayoutData.getGeneralValue(
+          m_horizontalAlignmentMap,
+          gridData.getHorizontalAlignment());
+      generalLayoutData.verticalAlignment = GeneralLayoutData.getGeneralValue(
+          m_verticalAlignmentMap,
+          gridData.getVerticalAlignment());
       generalLayoutData.putToInfo(component);
     }
   }

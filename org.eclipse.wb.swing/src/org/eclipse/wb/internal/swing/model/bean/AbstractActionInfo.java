@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.swing.model.bean;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
@@ -43,6 +42,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 import org.apache.commons.lang.SystemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -51,7 +51,7 @@ import javax.swing.Icon;
 
 /**
  * Model for {@link AbstractAction}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model
  */
@@ -99,31 +99,30 @@ public class AbstractActionInfo extends ActionInfo {
     CreationSupport creationSupport = getCreationSupport();
     // no additional properties available
     if (!(creationSupport instanceof IActionSupport)) {
-      return Lists.newArrayList();
+      return new ArrayList<>();
     }
     // create properties
-    List<Property> properties = Lists.newArrayList();
+    List<Property> properties = new ArrayList<>();
     properties.add(createStringProperty("name", "NAME"));
     properties.add(createStringProperty("short description", "SHORT_DESCRIPTION"));
     properties.add(createStringProperty("long description", "LONG_DESCRIPTION"));
     properties.add(createIconProperty("small icon", "SMALL_ICON"));
     properties.add(createStringProperty("action command", "ACTION_COMMAND_KEY"));
-    properties.add(createProperty(
-        "accelerator",
-        "ACCELERATOR_KEY",
-        null,
-        KeyStrokePropertyEditor.INSTANCE));
-    properties.add(createProperty(
-        "mnemonic",
-        "MNEMONIC_KEY",
-        null,
-        DisplayedMnemonicKeyPropertyEditor.INSTANCE));
+    properties.add(
+        createProperty("accelerator", "ACCELERATOR_KEY", null, KeyStrokePropertyEditor.INSTANCE));
+    properties.add(
+        createProperty(
+            "mnemonic",
+            "MNEMONIC_KEY",
+            null,
+            DisplayedMnemonicKeyPropertyEditor.INSTANCE));
     if (SystemUtils.JAVA_VERSION_FLOAT >= 1.6) {
-      properties.add(createProperty(
-          "displayed mnemonic index",
-          "DISPLAYED_MNEMONIC_INDEX_KEY",
-          IntegerConverter.INSTANCE,
-          IntegerPropertyEditor.INSTANCE));
+      properties.add(
+          createProperty(
+              "displayed mnemonic index",
+              "DISPLAYED_MNEMONIC_INDEX_KEY",
+              IntegerConverter.INSTANCE,
+              IntegerPropertyEditor.INSTANCE));
       properties.add(createIconProperty("large icon", "LARGE_ICON_KEY"));
     }
     // remove null-s
@@ -158,14 +157,17 @@ public class AbstractActionInfo extends ActionInfo {
       return null;
     }
     // create property
-    return new GenericPropertyImpl(this, title, Iterables.toArray(
-        accessors,
-        ExpressionAccessor.class), Property.UNKNOWN_VALUE, converter, editor);
+    return new GenericPropertyImpl(this,
+        title,
+        Iterables.toArray(accessors, ExpressionAccessor.class),
+        Property.UNKNOWN_VALUE,
+        converter,
+        editor);
   }
 
   private List<ExpressionAccessor> getAccessors(String keyName) throws Exception {
     IActionSupport creationInfo = (IActionSupport) getCreationSupport();
-    List<ExpressionAccessor> accessors = Lists.newArrayList();
+    List<ExpressionAccessor> accessors = new ArrayList<>();
     // <init>()
     {
       ExpressionAccessor constructorAccessor =
@@ -184,7 +186,8 @@ public class AbstractActionInfo extends ActionInfo {
     return accessors;
   }
 
-  private static ExpressionAccessor createConstructorArgumentAccessor(final IActionSupport creationInfo,
+  private static ExpressionAccessor createConstructorArgumentAccessor(
+      final IActionSupport creationInfo,
       String keyName) throws Exception {
     String keyValue = (String) ReflectionUtils.getFieldObject(Action.class, keyName);
     ConstructorDescription constructorDescription = creationInfo.getConstructorDescription();

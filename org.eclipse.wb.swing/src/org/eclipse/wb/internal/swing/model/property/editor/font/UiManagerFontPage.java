@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.font;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -27,6 +26,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +36,7 @@ import javax.swing.UIManager;
 
 /**
  * Implementation of {@link AbstractFontPage} for selecting {@link Font} from {@link UIManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -124,7 +124,7 @@ public final class UiManagerFontPage extends AbstractFontPage {
    */
   private static void prepareFonts() {
     if (m_fonts == null) {
-      m_fonts = Lists.newArrayList();
+      m_fonts = new ArrayList<>();
       UIDefaults defaults = UIManager.getLookAndFeelDefaults();
       // prepare set of all String keys in UIManager
       Set<String> allKeys = Sets.newTreeSet();

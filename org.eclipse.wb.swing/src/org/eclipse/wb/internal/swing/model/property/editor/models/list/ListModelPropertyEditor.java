@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.list;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -28,13 +26,14 @@ import org.eclipse.jface.window.Window;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ListModel;
 
 /**
  * {@link PropertyEditor} for {@link ListModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -67,12 +66,11 @@ public final class ListModelPropertyEditor extends TextDialogPropertyEditor {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void openDialog(Property property) throws Exception {
-    StringsDialog itemsDialog =
-        new StringsDialog(DesignerPlugin.getShell(),
-            Activator.getDefault(),
-            property.getTitle(),
-            ModelMessages.ListModelPropertyEditor_itemsDialogTitle,
-            ModelMessages.ListModelPropertyEditor_itemsDialogMessage);
+    StringsDialog itemsDialog = new StringsDialog(DesignerPlugin.getShell(),
+        Activator.getDefault(),
+        property.getTitle(),
+        ModelMessages.ListModelPropertyEditor_itemsDialogTitle,
+        ModelMessages.ListModelPropertyEditor_itemsDialogMessage);
     itemsDialog.setItems(getItems(property));
     // open dialog
     if (itemsDialog.open() == Window.OK) {
@@ -92,7 +90,7 @@ public final class ListModelPropertyEditor extends TextDialogPropertyEditor {
   public static String[] getItems(Property property) throws Exception {
     Object value = property.getValue();
     if (value instanceof ListModel) {
-      List<String> items = Lists.newArrayList();
+      List<String> items = new ArrayList<>();
       ListModel model = (ListModel) value;
       for (int i = 0; i < model.getSize(); i++) {
         Object element = model.getElementAt(i);
@@ -114,17 +112,16 @@ public final class ListModelPropertyEditor extends TextDialogPropertyEditor {
       GenericProperty genericProperty = (GenericProperty) property;
       JavaInfo javaInfo = genericProperty.getJavaInfo();
       // prepare source lines
-      String[] lines =
-          new String[]{
-              "new javax.swing.AbstractListModel() {",
-              "\tString[] values = new String[] {",
-              "\tpublic int getSize() {",
-              "\t\treturn values.length;",
-              "\t}",
-              "\tpublic Object getElementAt(int index) {",
-              "\t\treturn values[index];",
-              "\t}",
-              "}",};
+      String[] lines = new String[]{
+          "new javax.swing.AbstractListModel() {",
+          "\tString[] values = new String[] {",
+          "\tpublic int getSize() {",
+          "\t\treturn values.length;",
+          "\t}",
+          "\tpublic Object getElementAt(int index) {",
+          "\t\treturn values[index];",
+          "\t}",
+          "}",};
       // append items
       {
         String valuesLine = lines[1];

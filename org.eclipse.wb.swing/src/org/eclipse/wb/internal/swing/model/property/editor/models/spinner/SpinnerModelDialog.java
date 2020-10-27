@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.spinner;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAreaDialog;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -29,6 +27,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -39,7 +38,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * The dialog for editing {@link SpinnerModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -79,7 +78,7 @@ public final class SpinnerModelDialog extends AbstractValidationTitleAreaDialog 
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<AbstractSpinnerComposite> m_composites = Lists.newArrayList();
+  private final List<AbstractSpinnerComposite> m_composites = new ArrayList<>();
   private TabFolder m_tabFolder;
   private JSpinner m_spinner;
 

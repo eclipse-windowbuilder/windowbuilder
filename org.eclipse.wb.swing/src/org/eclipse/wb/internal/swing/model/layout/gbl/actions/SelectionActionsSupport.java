@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -26,11 +24,12 @@ import org.eclipse.jface.action.Separator;
 
 import org.apache.commons.lang.SystemUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.model.layout
  */
@@ -58,7 +57,7 @@ public class SelectionActionsSupport extends ObjectEventListener {
       return;
     }
     // prepare constraints
-    List<AbstractGridBagConstraintsInfo> constraints = Lists.newArrayList();
+    List<AbstractGridBagConstraintsInfo> constraints = new ArrayList<>();
     for (ObjectInfo object : objects) {
       // check object
       if (!m_layout.isManagedObject(object)) {

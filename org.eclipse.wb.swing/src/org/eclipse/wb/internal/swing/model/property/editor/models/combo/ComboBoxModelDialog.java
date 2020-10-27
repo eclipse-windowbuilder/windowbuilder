@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.combo;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
@@ -48,13 +46,14 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
 
 /**
  * The dialog for editing {@link ComboBoxModel}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.property.editor
  */
@@ -175,14 +174,13 @@ public class ComboBoxModelDialog extends ResizableDialog {
     try {
       Shell shell = DesignerPlugin.getShell();
       IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[]{javaProject});
-      SelectionDialog dialog =
-          JavaUI.createTypeDialog(
-              shell,
-              new ProgressMonitorDialog(shell),
-              scope,
-              IJavaElementSearchConstants.CONSIDER_ENUMS,
-              false,
-              enumText.getText());
+      SelectionDialog dialog = JavaUI.createTypeDialog(
+          shell,
+          new ProgressMonitorDialog(shell),
+          scope,
+          IJavaElementSearchConstants.CONSIDER_ENUMS,
+          false,
+          enumText.getText());
       dialog.setTitle(ModelMessages.ComboBoxModelDialog_typeDialogTitle);
       dialog.setMessage(ModelMessages.ComboBoxModelDialog_typeDialogMessage);
       // open dialog
@@ -267,11 +265,10 @@ public class ComboBoxModelDialog extends ResizableDialog {
   public String[] getItems() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
       public String[] runObject() throws Exception {
-        List<String> strings = Lists.newArrayList();
-        String stringItems =
-            itemsText != null && !itemsText.isDisposed()
-                ? itemsText.getText()
-                : ComboBoxModelDialog.this.stringItems;
+        List<String> strings = new ArrayList<>();
+        String stringItems = itemsText != null && !itemsText.isDisposed()
+            ? itemsText.getText()
+            : ComboBoxModelDialog.this.stringItems;
         BufferedReader br = new BufferedReader(new StringReader(stringItems));
         while (true) {
           String s = br.readLine();

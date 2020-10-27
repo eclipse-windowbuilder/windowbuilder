@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to
  * {@link AbstractGridBagLayoutInfo} constraints.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -81,7 +81,7 @@ public class GridBagLayoutConverter {
       }
     }
     // create constraints for each control
-    List<ComponentInfo> appliedControls = Lists.newArrayList();
+    List<ComponentInfo> appliedControls = new ArrayList<>();
     for (ComponentInGroup componentInGroup : componentsInGroups) {
       ComponentInfo component = (ComponentInfo) componentInGroup.getComponent();
       if (appliedControls.contains(component)) {
@@ -138,7 +138,7 @@ public class GridBagLayoutConverter {
     				generalLayoutData.gridY,
     				generalLayoutData.spanX,
     				generalLayoutData.spanY);
-    } else */{
+    } else */ {
       // calculate
       ComponentGroup beginColumn =
           GridConvertionHelper.getBeginForComponent(columns, componentInGroup);
@@ -162,10 +162,9 @@ public class GridBagLayoutConverter {
       GeneralLayoutData generalLayoutData) {
     if (generalLayoutData.horizontalAlignment != null) {
       // from general layout data
-      ColumnInfo.Alignment alignment =
-          GeneralLayoutData.getRealValue(
-              AbstractGridBagLayoutInfo.m_horizontalAlignmentMap,
-              generalLayoutData.horizontalAlignment);
+      ColumnInfo.Alignment alignment = GeneralLayoutData.getRealValue(
+          AbstractGridBagLayoutInfo.m_horizontalAlignmentMap,
+          generalLayoutData.horizontalAlignment);
       if (alignment != null && alignment != ColumnInfo.Alignment.UNKNOWN) {
         return alignment;
       }
@@ -186,9 +185,8 @@ public class GridBagLayoutConverter {
     int leftDelta = leftOffset + Math.abs(columnLeft + prefSize.width - bounds.right());
     int rightDelta = rightOffset + Math.abs(columnRight - prefSize.width - bounds.x);
     int fillDelta = leftOffset + rightOffset;
-    int centerDelta =
-        Math.abs(bounds.x - (columnCenter - prefSize.width / 2))
-            + Math.abs(bounds.right() - (columnCenter + prefSize.width / 2));
+    int centerDelta = Math.abs(bounds.x - (columnCenter - prefSize.width / 2))
+        + Math.abs(bounds.right() - (columnCenter + prefSize.width / 2));
     // prepare alignment
     return getAlignment(
         new int[]{leftDelta, centerDelta, rightDelta, fillDelta},
@@ -207,10 +205,9 @@ public class GridBagLayoutConverter {
       GeneralLayoutData generalLayoutData) {
     if (generalLayoutData.verticalAlignment != null) {
       // from general layout data
-      RowInfo.Alignment alignment =
-          GeneralLayoutData.getRealValue(
-              AbstractGridBagLayoutInfo.m_verticalAlignmentMap,
-              generalLayoutData.verticalAlignment);
+      RowInfo.Alignment alignment = GeneralLayoutData.getRealValue(
+          AbstractGridBagLayoutInfo.m_verticalAlignmentMap,
+          generalLayoutData.verticalAlignment);
       if (alignment != null && alignment != RowInfo.Alignment.UNKNOWN) {
         return alignment;
       }
@@ -230,9 +227,8 @@ public class GridBagLayoutConverter {
     int topDelta = topOffset + Math.abs(rowTop + prefSize.height - bounds.bottom());
     int bottomDelta = bottomOffset + Math.abs(rowBottom - prefSize.height - bounds.y);
     int fillDelta = topOffset + bottomOffset;
-    int centerDelta =
-        Math.abs(bounds.y - (rowCenter - prefSize.height / 2))
-            + Math.abs(bounds.bottom() - (rowCenter + prefSize.height / 2));
+    int centerDelta = Math.abs(bounds.y - (rowCenter - prefSize.height / 2))
+        + Math.abs(bounds.bottom() - (rowCenter + prefSize.height / 2));
     // prepare alignment
     return getAlignment(
         new int[]{topDelta, centerDelta, bottomDelta, fillDelta},
@@ -258,7 +254,8 @@ public class GridBagLayoutConverter {
   /**
    * Removes {@link DimensionInfo}'s without components, and small size.
    */
-  private static <T extends DimensionInfo> void removeEmptyDimensions(DimensionOperations<T> operations,
+  private static <T extends DimensionInfo> void removeEmptyDimensions(
+      DimensionOperations<T> operations,
       Set<Integer> filledDimensions) throws Exception {
     LinkedList<T> dimensions = operations.getDimensions();
     for (int i = dimensions.size() - 1; i >= 0; i--) {

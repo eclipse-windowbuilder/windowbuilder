@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.laf;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
@@ -74,6 +73,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +86,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Helper class to manage (enumerate, switching between) installed LAFs.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */
@@ -101,7 +102,7 @@ public final class LafSupport {
   public static final String SET_LOOK_AND_FEEL_LAF = "setLookAndFeel(javax.swing.LookAndFeel)";
   // fields
   private static List<CategoryInfo> m_lafList;
-  private static List<LafInfo> m_mruLAFList = Lists.newLinkedList();
+  private static List<LafInfo> m_mruLAFList = new LinkedList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -138,7 +139,7 @@ public final class LafSupport {
    */
   private static void createLAFList() {
     if (m_lafList == null) {
-      m_lafList = Lists.newArrayList();
+      m_lafList = new ArrayList<>();
       CategoryInfo rootCategory = new CategoryInfo(ROOT_ID, "<root>");
       m_lafList.add(rootCategory);
       // add "undefined" and "current system"
@@ -218,7 +219,7 @@ public final class LafSupport {
    * <code>main()</code> method. Then tries to get the LAF from underlying resource of CU of
    * <code>javaInfo</code>. At last if nothing found it returns the default LAF as it defined in
    * preferences.
-   * 
+   *
    * @return the {@link LafInfo} which selected currently in active editor.
    */
   public static LafInfo getSelectedLAF(JavaInfo javaInfo) {
@@ -254,8 +255,8 @@ public final class LafSupport {
    *         nothing found.
    */
   public static LafInfo getDefaultLAF() {
-    LafInfo lafInfo =
-        lookupLAFByID_ensureList(getPreferenceStore().getString(IPreferenceConstants.P_DEFAULT_LAF));
+    LafInfo lafInfo = lookupLAFByID_ensureList(
+        getPreferenceStore().getString(IPreferenceConstants.P_DEFAULT_LAF));
     return lafInfo == null ? getSettingsDefaultLAF() : lafInfo;
   }
 
@@ -264,9 +265,8 @@ public final class LafSupport {
    *         Returns system default LAF if nothing found.
    */
   public static LafInfo getSettingsDefaultLAF() {
-    LafInfo lafInfo =
-        lookupLAFByID_ensureList(getPreferenceStore().getDefaultString(
-            IPreferenceConstants.P_DEFAULT_LAF));
+    LafInfo lafInfo = lookupLAFByID_ensureList(
+        getPreferenceStore().getDefaultString(IPreferenceConstants.P_DEFAULT_LAF));
     return lafInfo == null ? getSystemDefaultLAF() : lafInfo;
   }
 
@@ -274,7 +274,7 @@ public final class LafSupport {
    * Returns system default LAF. For Linux it is 'Metal' LAF because of a bug in JVM, see
    * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6922280 For other system it is defined by
    * {@link UIManager#getSystemLookAndFeelClassName()}.
-   * 
+   *
    * @return system default LAF.
    */
   public static LafInfo getSystemDefaultLAF() {
@@ -322,7 +322,7 @@ public final class LafSupport {
 
   /**
    * Applies the selected LAF in Swing via UIManager.
-   * 
+   *
    * @param lafInfo
    *          the {@link LafInfo} to be applied.
    */
@@ -347,7 +347,7 @@ public final class LafSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Traverses through LAF list and looks up for LAF with given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of look-and-feel. Can be <code>null</code>.
    */
@@ -367,7 +367,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF list and looks up for LAF with
    * given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of look-and-feel. Can NOT be <code>null</code>.
    * @return the found look-and-feel or <code>null</code> if nothing found.
@@ -382,7 +382,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF categories and looks up for
    * category with given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of category. Can NOT be <code>null</code>.
    * @return the found category or <code>null</code>.
@@ -447,7 +447,7 @@ public final class LafSupport {
    * <code>setLookAndFeel</code> method invocation. If found, stores LAF id in passed
    * <code>javaInfo</code> 's underlying resource under <code>SWING_LAF_SELECTED</code> persistent
    * key.
-   * 
+   *
    * @return {@link LafInfo} which represents installed LAF or <code>null</code> if no
    *         <code>main</code> method found of no <code>setLookAndFeel</code> method invocation
    *         found.
@@ -456,7 +456,7 @@ public final class LafSupport {
     AstEditor editor = javaInfo.getEditor();
     MethodDeclaration mainMethod = getMainMethod(editor);
     if (mainMethod == null) {
-      // no main method 
+      // no main method
       return null;
     }
     // look up for setLookAndFeel method
@@ -468,9 +468,8 @@ public final class LafSupport {
     try {
       String className;
       // evaluate what we've got
-      EvaluationContext context =
-          new EvaluationContext(EditorState.get(editor).getEditorLoader(),
-              new ExecutionFlowDescription(mainMethod));
+      EvaluationContext context = new EvaluationContext(EditorState.get(editor).getEditorLoader(),
+          new ExecutionFlowDescription(mainMethod));
       final Object evaluateObject =
           AstEvaluationEngine.evaluate(context, DomGenerics.arguments(setLookAndFeelMethod).get(0));
       // it can be String or LookAndFeel only
@@ -498,7 +497,7 @@ public final class LafSupport {
    * Searches for main method declaration and looks for any
    * UIManager.setLookAndFeel(java.lang.String) and
    * UIManager.setLookAndFeel(javax.swing.LookAndFeel) method invocations in it.
-   * 
+   *
    * @return any of UIManager.setLookAndFeel(java.lang.String) or
    *         UIManager.setLookAndFeel(javax.swing.LookAndFeel) {@link MethodInvocation} instance if
    *         any. Otherwise returns <code>null</code>.
@@ -512,7 +511,8 @@ public final class LafSupport {
         // look for UIManager.setLookAndFeel(java.lang.String) and UIManager.setLookAndFeel(javax.swing.LookAndFeel)
         String methodSignature = AstNodeUtils.getMethodSignature(node);
         if (isUIManagerInvocation(node)
-            && (SET_LOOK_AND_FEEL_LAF.equals(methodSignature) || SET_LOOK_AND_FEEL_STRING.equals(methodSignature))) {
+            && (SET_LOOK_AND_FEEL_LAF.equals(methodSignature)
+                || SET_LOOK_AND_FEEL_STRING.equals(methodSignature))) {
           setLAFMethodInvocation[0] = node;
         }
         // not interested in children
@@ -534,7 +534,7 @@ public final class LafSupport {
   /**
    * Returns the {@link MethodDeclaration} for main method of primary type of the compilation unit
    * for given <code>editor</code>. Returns <code>null</code> if no main method found.
-   * 
+   *
    * @return the {@link MethodDeclaration} for main method of primary type of the compilation unit
    *         for given <code>editor</code> or <code>null</code> if no main method found.
    */
@@ -563,7 +563,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF categories and looks up for
    * category with given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of category. Can NOT be <code>null</code>.
    * @return the found category or assertion error if not found.
@@ -575,7 +575,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF list and looks up for LAF with
    * given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of look-and-feel. Can NOT be <code>null</code>.
    * @return the found look-and-feel or <code>null</code> if nothing found.
@@ -587,7 +587,7 @@ public final class LafSupport {
   /**
    * Removes the category specified by <code>id</code> if any. Note that root category cannot be
    * removed.
-   * 
+   *
    * @param id
    *          the id of category. Can NOT be <code>null</code>.
    */
@@ -607,7 +607,7 @@ public final class LafSupport {
   /**
    * Removes the LookAndFeel specified by <code>lafInfo</code> if any. Note: don't remove from
    * category directly.
-   * 
+   *
    * @param lafInfo
    *          the instance of {@link LafInfo} to remove. Can't be <code>null</code>.
    */
@@ -619,7 +619,7 @@ public final class LafSupport {
 
   /**
    * Adds the new category with <code>id</code> and <code>name</code>.
-   * 
+   *
    * @param id
    *          the id of category. Can not be <code>null</code>.
    * @param name
@@ -634,7 +634,7 @@ public final class LafSupport {
 
   /**
    * Moves given category within another categories. Root category can not be moved.
-   * 
+   *
    * @param moveCategoryID
    *          the id of moving category. Can not be <code>null</code>.
    * @param nextCategoryID
@@ -662,7 +662,7 @@ public final class LafSupport {
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final List<Class<? extends Command>> m_commandClasses = Lists.newArrayList();
+  private static final List<Class<? extends Command>> m_commandClasses = new ArrayList<>();
   static {
     m_commandClasses.add(SetVisibleCommand.class);
     m_commandClasses.add(AddCategoryCommand.class);
@@ -692,7 +692,7 @@ public final class LafSupport {
         }
       }
       // read commands
-      m_commands = Lists.newArrayList();
+      m_commands = new ArrayList<>();
       File commandsFile = commands_getFile();
       if (commandsFile.exists()) {
         FileInputStream inputStream = new FileInputStream(commandsFile);
@@ -788,7 +788,7 @@ public final class LafSupport {
   // LAF changing listener
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static List<ILookAndFeelsChangeListener> m_lafChangingListeners = Lists.newArrayList();
+  private static List<ILookAndFeelsChangeListener> m_lafChangingListeners = new ArrayList<>();
 
   public static void fireLookAndFeelsChanged() {
     for (ILookAndFeelsChangeListener listener : m_lafChangingListeners) {
@@ -806,7 +806,7 @@ public final class LafSupport {
 
   /**
    * Listener interface for changing LookAndFeel preferences.
-   * 
+   *
    * @author mitin_aa
    */
   public interface ILookAndFeelsChangeListener {

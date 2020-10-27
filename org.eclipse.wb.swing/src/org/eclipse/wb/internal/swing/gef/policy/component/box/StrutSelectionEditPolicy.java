@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.Figure;
@@ -30,13 +28,14 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.BoxSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
 
 /**
  * Abstract {@link SelectionEditPolicy} for any strut or rigid area from {@link Box}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */
@@ -60,7 +59,7 @@ abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // create move handle
     MoveHandle moveHandle = new MoveHandle(getHost());
     moveHandle.setForeground(IColorConstants.red);

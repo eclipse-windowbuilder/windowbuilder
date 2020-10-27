@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ConstructorDescription;
@@ -31,6 +29,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -39,7 +38,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Implementation of {@link CreationSupport} for {@link Action} as inner class.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -79,10 +78,9 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
   protected void setCreationEx() {
     super.setCreationEx();
     m_typeDeclaration = AstNodeUtils.getTypeDeclaration(m_creation);
-    m_typeConstructor =
-        AstNodeUtils.getMethodBySignature(
-            m_typeDeclaration,
-            AstNodeUtils.getCreationSignature(m_creation));
+    m_typeConstructor = AstNodeUtils.getMethodBySignature(
+        m_typeDeclaration,
+        AstNodeUtils.getCreationSignature(m_creation));
   }
 
   @Override
@@ -105,7 +103,11 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
 
       public void actionPerformed(ActionEvent e) {
         String message = "Action \"" + m_javaInfo.getVariableSupport().getName() + "\" performed.";
-        JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(
+            null,
+            message,
+            "Information",
+            JOptionPane.INFORMATION_MESSAGE);
       }
     };
   }
@@ -162,7 +164,7 @@ public final class ActionInnerCreationSupport extends ActionAbstractCreationSupp
     // add inner TypeDeclaration with Action
     String typeName = editor.getUniqueTypeName("SwingAction");
     {
-      List<String> lines = Lists.newArrayList();
+      List<String> lines = new ArrayList<>();
       lines.add("private class " + typeName + " extends javax.swing.AbstractAction {");
       lines.add("\tpublic " + typeName + "() {");
       lines.add("\t\tputValue(NAME, \"" + typeName + "\");");

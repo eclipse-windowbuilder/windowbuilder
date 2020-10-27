@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.ICursorConstants;
@@ -28,11 +26,12 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link SelectionLayoutEditPolicy} for {@link CardLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.gef.policy
  */
@@ -56,7 +55,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     handles.add(new MoveHandle(getHost()));
     handles.add(createHandle(IPositionConstants.SOUTH_EAST));
     handles.add(createHandle(IPositionConstants.SOUTH_WEST));
@@ -86,13 +85,11 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
       Figure hostFigure = getHostFigure();
       Rectangle bounds = hostFigure.getBounds().getCopy();
       FigureUtils.translateFigureToAbsolute(hostFigure, bounds);
-      m_navigationFigure.setBounds(new Rectangle(bounds.right()
-          - CardNavigationFigure.WIDTH
-          * 2
-          - 3,
-          bounds.y - CardNavigationFigure.HEIGHT / 2,
-          CardNavigationFigure.WIDTH * 2,
-          CardNavigationFigure.HEIGHT));
+      m_navigationFigure.setBounds(
+          new Rectangle(bounds.right() - CardNavigationFigure.WIDTH * 2 - 3,
+              bounds.y - CardNavigationFigure.HEIGHT / 2,
+              CardNavigationFigure.WIDTH * 2,
+              CardNavigationFigure.HEIGHT));
       addFeedback(m_navigationFigure);
     }
   }

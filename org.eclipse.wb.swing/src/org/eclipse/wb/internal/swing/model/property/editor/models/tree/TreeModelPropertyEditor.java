@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.tree;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -27,6 +25,7 @@ import org.eclipse.jface.window.Window;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -35,7 +34,7 @@ import javax.swing.tree.TreeNode;
 
 /**
  * {@link PropertyEditor} for {@link TreeModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -93,18 +92,20 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
     }
   }
 
-  private void setItems(Property property, int maxLevel, ItemInformation rootItem) throws Exception {
+  private void setItems(Property property, int maxLevel, ItemInformation rootItem)
+      throws Exception {
     if (property instanceof GenericProperty) {
       GenericProperty genericProperty = (GenericProperty) property;
       JavaInfo javaInfo = genericProperty.getJavaInfo();
       // prepare lines
-      List<String> lines = Lists.newArrayList();
+      List<String> lines = new ArrayList<>();
       // header
       {
         lines.add("new javax.swing.tree.DefaultTreeModel(");
-        lines.add("\tnew javax.swing.tree.DefaultMutableTreeNode("
-            + StringConverter.INSTANCE.toJavaSource(javaInfo, rootItem.getText())
-            + ") {");
+        lines.add(
+            "\tnew javax.swing.tree.DefaultMutableTreeNode("
+                + StringConverter.INSTANCE.toJavaSource(javaInfo, rootItem.getText())
+                + ") {");
         lines.add("\t\t{");
       }
       // items
@@ -138,10 +139,9 @@ public final class TreeModelPropertyEditor extends TextDialogPropertyEditor {
       String text = item.getText();
       String prefix = "\t\t\t" + StringUtils.repeat("\t", level - 1);
       // prepare node source
-      String nodeCreation =
-          "new javax.swing.tree.DefaultMutableTreeNode("
-              + StringConverter.INSTANCE.toJavaSource(javaInfo, text)
-              + ")";
+      String nodeCreation = "new javax.swing.tree.DefaultMutableTreeNode("
+          + StringConverter.INSTANCE.toJavaSource(javaInfo, text)
+          + ")";
       // prepare parent access
       String parentAccess;
       if (level == 1) {

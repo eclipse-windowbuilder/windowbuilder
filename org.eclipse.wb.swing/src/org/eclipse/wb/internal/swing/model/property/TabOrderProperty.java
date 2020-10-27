@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
@@ -28,11 +26,12 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Property for editing components tab order.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.order
  */
@@ -65,9 +64,8 @@ public class TabOrderProperty
       Object traversalPolicy = invocation.arguments().get(0);
       if (traversalPolicy instanceof ClassInstanceCreation) {
         ClassInstanceCreation traversalPolicyCreation = (ClassInstanceCreation) traversalPolicy;
-        if (FOCUS_TRAVERSAL_CLASS.equals(AstNodeUtils.getFullyQualifiedName(
-            traversalPolicyCreation,
-            false))) {
+        if (FOCUS_TRAVERSAL_CLASS.equals(
+            AstNodeUtils.getFullyQualifiedName(traversalPolicyCreation, false))) {
           Object focusTraversalOnArray = traversalPolicyCreation.arguments().get(0);
           if (focusTraversalOnArray instanceof ArrayCreation) {
             ArrayCreation creation = (ArrayCreation) focusTraversalOnArray;
@@ -108,7 +106,7 @@ public class TabOrderProperty
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<? extends AbstractComponentInfo> getTabPossibleChildren() throws Exception {
-    final List<AbstractComponentInfo> children = Lists.newArrayList();
+    final List<AbstractComponentInfo> children = new ArrayList<>();
     m_container.accept(new ObjectInfoVisitor() {
       @Override
       public boolean visit(ObjectInfo objectInfo) throws Exception {

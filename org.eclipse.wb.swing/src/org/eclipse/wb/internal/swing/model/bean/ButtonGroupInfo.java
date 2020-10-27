@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
@@ -38,7 +36,7 @@ import javax.swing.ButtonGroup;
 
 /**
  * Model for {@link ButtonGroup}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -65,7 +63,7 @@ public final class ButtonGroupInfo extends JavaInfo {
    */
   public List<ObjectReferenceInfo> getButtons() throws Exception {
     getChildren().clear();
-    List<ObjectReferenceInfo> buttons = Lists.newArrayList();
+    List<ObjectReferenceInfo> buttons = new ArrayList<>();
     for (MethodInvocation addInvocation : getMethodInvocations("add(javax.swing.AbstractButton)")) {
       Expression buttonReference = DomGenerics.arguments(addInvocation).get(0);
       ComponentInfo button = (ComponentInfo) getRootJava().getChildRepresentedBy(buttonReference);
@@ -126,7 +124,8 @@ public final class ButtonGroupInfo extends JavaInfo {
    * Asserts that given {@link ComponentInfo} is {@link AbstractButton}.
    */
   private static void assertIsButton(ComponentInfo button) {
-    Assert.isLegal(AbstractButton.class.isAssignableFrom(button.getDescription().getComponentClass()));
+    Assert.isLegal(
+        AbstractButton.class.isAssignableFrom(button.getDescription().getComponentClass()));
   }
 
   ////////////////////////////////////////////////////////////////////////////

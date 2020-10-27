@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -50,11 +48,12 @@ import org.eclipse.swt.widgets.Menu;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract model for {@link LayoutManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -178,7 +177,7 @@ public class LayoutInfo extends JavaInfo {
    * @return the {@link ComponentInfo} children of container.
    */
   public final List<ComponentInfo> getComponents() {
-    List<ComponentInfo> components = Lists.newArrayList();
+    List<ComponentInfo> components = new ArrayList<>();
     for (ObjectInfo child : getContainer().getChildren()) {
       if (isManagedObject(child)) {
         ComponentInfo component = (ComponentInfo) child;
@@ -262,7 +261,8 @@ public class LayoutInfo extends JavaInfo {
             }
 
             @Override
-            protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
+            protected void onClick(PropertyTable propertyTable, Property property)
+                throws Exception {
               MenuManager manager = new MenuManager();
               getContainer().fillLayoutsManager(manager);
               Menu menu = manager.createContextMenu(propertyTable);
@@ -333,7 +333,7 @@ public class LayoutInfo extends JavaInfo {
   /**
    * @return the {@link AssociationObject} for standard Swing parent/child association - using
    *         methods {@link Container#add(Component, Object)} or {@link Container#add(Component)}
-   * 
+   *
    * @param constraintsSource
    *          the source for constraints object for {@link Container#add(Component, Object)} or
    *          <code>null</code> if {@link Container#add(Component)} should be used.
@@ -374,7 +374,7 @@ public class LayoutInfo extends JavaInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

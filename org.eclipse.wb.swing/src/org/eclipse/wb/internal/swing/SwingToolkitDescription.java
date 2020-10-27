@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -41,11 +39,12 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link ToolkitDescription} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing
  */
@@ -116,10 +115,9 @@ public final class SwingToolkitDescription extends ToolkitDescriptionJava {
   }
 
   private void configureGenerators() {
-    StatementGeneratorDescription[] usualStatements =
-        new StatementGeneratorDescription[]{
-            FlatStatementGeneratorDescription.INSTANCE,
-            BlockStatementGeneratorDescription.INSTANCE};
+    StatementGeneratorDescription[] usualStatements = new StatementGeneratorDescription[]{
+        FlatStatementGeneratorDescription.INSTANCE,
+        BlockStatementGeneratorDescription.INSTANCE};
     // local unique
     settings.addGenerators(
         LocalUniqueVariableDescription.INSTANCE,
@@ -155,15 +153,11 @@ public final class SwingToolkitDescription extends ToolkitDescriptionJava {
   }
 
   private void configureTypeSpecific() {
-    List<ComponentNameDescription> descriptions = Lists.newArrayList();
-    descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
-        "textField",
-        "txt",
-        true));
-    descriptions.add(new ComponentNameDescription("javax.swing.JPasswordField",
-        "passwordField",
-        "pwd",
-        true));
+    List<ComponentNameDescription> descriptions = new ArrayList<>();
+    descriptions.add(
+        new ComponentNameDescription("javax.swing.JTextField", "textField", "txt", true));
+    descriptions.add(
+        new ComponentNameDescription("javax.swing.JPasswordField", "passwordField", "pwd", true));
     descriptions.add(new ComponentNameDescription("javax.swing.JTable", "table", "tbl", true));
     NamesManager.setDefaultNameDescriptions(this, descriptions);
   }
@@ -174,9 +168,9 @@ public final class SwingToolkitDescription extends ToolkitDescriptionJava {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void configureLAF() {
-    // forcibly set 'Metal' LAF under Linux, see the description 
+    // forcibly set 'Metal' LAF under Linux, see the description
     // of LAFSupport.getSystemDefaultLAF() for details.
-    // this is hack though because someone may already initialize Gtk LAF. 
+    // this is hack though because someone may already initialize Gtk LAF.
     if (EnvironmentUtils.IS_LINUX) {
       System.setProperty("swing.systemlaf", "javax.swing.plaf.metal.MetalLookAndFeel");
     }

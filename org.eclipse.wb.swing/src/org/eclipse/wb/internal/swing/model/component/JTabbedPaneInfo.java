@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -50,6 +49,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +59,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Model for {@link JTabbedPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -104,7 +104,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
     JTabbedPane pane = (JTabbedPane) getObject();
     int tabCount = pane.getTabCount();
     // fill tabs
-    List<JTabbedPaneTabInfo> tabs = Lists.newArrayList();
+    List<JTabbedPaneTabInfo> tabs = new ArrayList<>();
     for (int i = 0; i < tabCount; i++) {
       Component componentObject = pane.getComponentAt(i);
       ComponentInfo component = (ComponentInfo) getChildByObject(componentObject);
@@ -140,7 +140,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
   protected void refresh_afterCreate() throws Exception {
     super.refresh_afterCreate();
     JTabbedPane pane = (JTabbedPane) getObject();
-    // if for some reason tab Component is "null", for example we were not able to evaluate it, remove tab 
+    // if for some reason tab Component is "null", for example we were not able to evaluate it, remove tab
     {
       int tabCount = pane.getTabCount();
       for (int i = tabCount - 1; i >= 0; i--) {
@@ -289,18 +289,16 @@ public final class JTabbedPaneInfo extends ContainerInfo {
           // add accessor
           if (method.getName().endsWith("At")) {
             // setTitleAt(index,value), setIconAt(index,value), etc
-            description.addAccessor(new JTabbedPaneAtAccessor(signature,
-                this,
-                component,
-                defaultSource));
+            description.addAccessor(
+                new JTabbedPaneAtAccessor(signature, this, component, defaultSource));
           } else if (method.getName().startsWith("add")) {
-            // check for correct (invocation) association, with correct signature 
+            // check for correct (invocation) association, with correct signature
             if (component.getAssociation() instanceof InvocationChildAssociation) {
               InvocationChildAssociation association =
                   (InvocationChildAssociation) component.getAssociation();
               if (AstNodeUtils.getMethodSignature(association.getInvocation()).equals(signature)) {
-                description.addAccessor(new InvocationChildAssociationAccessor(parameter.getIndex(),
-                    defaultSource));
+                description.addAccessor(
+                    new InvocationChildAssociationAccessor(parameter.getIndex(), defaultSource));
               }
             }
           }
@@ -311,13 +309,12 @@ public final class JTabbedPaneInfo extends ContainerInfo {
     Property[] properties = new Property[idToProperty.size()];
     int index = 0;
     for (GenericPropertyDescription description : idToProperty.values()) {
-      properties[index++] =
-          new GenericPropertyImpl(component,
-              description.getTitle(),
-              description.getAccessorsArray(),
-              Property.UNKNOWN_VALUE,
-              description.getConverter(),
-              description.getEditor());
+      properties[index++] = new GenericPropertyImpl(component,
+          description.getTitle(),
+          description.getAccessorsArray(),
+          Property.UNKNOWN_VALUE,
+          description.getConverter(),
+          description.getEditor());
     }
     //
     return properties;
@@ -498,7 +495,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 
   /**
    * Processor for processing <code>set*At()</code> invocations.
-   * 
+   *
    * @author scheglov_ke
    */
   private interface AtInvocationProcessor {

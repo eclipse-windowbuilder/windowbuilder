@@ -2,12 +2,10 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
-
-import com.google.common.collect.Lists;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -21,6 +19,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPopupMenu;
@@ -105,8 +104,8 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
 
   public void focusLost(FocusEvent e) {
     // System.out.println("component focus lost (awt). opposite = " + e.getOppositeComponent());
-    // Intentionally leaving currentComponent set. When window focus is lost, 
-    // it will be needed. 
+    // Intentionally leaving currentComponent set. When window focus is lost,
+    // it will be needed.
   }
 
   public void componentAdded(ContainerEvent e) {
@@ -130,29 +129,30 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
   public void windowLostFocus(WindowEvent e) {
     assert e != null;
     assert swtHandler != null;
-    assert EventQueue.isDispatchThread(); // On AWT event thread
+    assert EventQueue.isDispatchThread();
+    // On AWT event thread
     // System.out.println("WindowFocusListener.windowLostFocus");
     // Dismiss any popup menus that are
     // open when losing focus. This prevents situations where
-    // multiple popup menus are visible at the same time. In JDK 1.4 and earlier, 
-    // the dismissal is not done automatically. In JDK 1.5, this code is 
-    // unnecessary, but it doesn't seem to hurt anything. 
+    // multiple popup menus are visible at the same time. In JDK 1.4 and earlier,
+    // the dismissal is not done automatically. In JDK 1.5, this code is
+    // unnecessary, but it doesn't seem to hurt anything.
     // TODO: verify this is OK on other windowing systems
     // TODO: disable in post-1.4 environments
     /* boolean popupShown = */hidePopups();
     // If focus is being lost to the parent SWT composite, then
     // grab it back for AWT and return. Normally the parent SWT composite will
-    // do this for us, but it will not see a focus gained event when focus 
-    // is transferred to it from its AWT frame child. 
-    // This happens, for example, if an AWT control has focus and the 
+    // do this for us, but it will not see a focus gained event when focus
+    // is transferred to it from its AWT frame child.
+    // This happens, for example, if an AWT control has focus and the
     // tab of a containing (already active) view is clicked.
     //
     // However, don't grab back focus if a popup was hidden above. The popup
-    // area will not be properly redrawn (the popup, or part of it, will 
-    // appear to be still there. 
+    // area will not be properly redrawn (the popup, or part of it, will
+    // appear to be still there.
     //if (!popupShown && swtHandler.hasFocus()) {
     // System.out.println("**** Taking back focus: " + e);
-    // This seems to have side effects, so it's commented out for now. 
+    // This seems to have side effects, so it's commented out for now.
     // (Sometimes, it forces the workbench window to the foreground when another
     // program's window is selected.)
     // TODO: find an alternate approach to reassert focus
@@ -175,12 +175,12 @@ class AwtFocusHandler implements FocusListener, ContainerListener, WindowFocusLi
   // Returns true if any popup has been hidden
   private boolean hidePopups() {
     boolean result = false;
-    List<JPopupMenu> popups = Lists.newArrayList();
+    List<JPopupMenu> popups = new ArrayList<>();
     assert EventQueue.isDispatchThread(); // On AWT event thread
-    // Look for popups inside the frame's component hierarchy. 
-    // Lightweight popups will be found here. 
+    // Look for popups inside the frame's component hierarchy.
+    // Lightweight popups will be found here.
     findContainedPopups(frame, popups);
-    // Also look for popups in the frame's window hierarchy. 
+    // Also look for popups in the frame's window hierarchy.
     // Heavyweight popups will be found here.
     findOwnedPopups(frame, popups);
     // System.out.println("Hiding popups, count=" + popups.size());

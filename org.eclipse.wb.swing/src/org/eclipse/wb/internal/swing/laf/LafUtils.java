@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.laf.model.LafInfo;
@@ -25,6 +23,7 @@ import java.io.File;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -34,7 +33,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Helper class to manage user-defined LAFs. Used by UI providing add/edit/delete operations.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */
@@ -56,7 +55,7 @@ public final class LafUtils {
    * Opens given <code>jarFile</code>, loads every class inside own {@link ClassLoader} and checks
    * loaded class for to be instance of {@link LookAndFeel}. Returns the array of {@link LafInfo}
    * containing all found {@link LookAndFeel} classes.
-   * 
+   *
    * @param jarFileName
    *          the absolute OS path pointing to source JAR file.
    * @param monitor
@@ -66,7 +65,7 @@ public final class LafUtils {
    */
   public static UserDefinedLafInfo[] scanJarForLookAndFeels(String jarFileName,
       IProgressMonitor monitor) throws Exception {
-    List<UserDefinedLafInfo> lafList = Lists.newArrayList();
+    List<UserDefinedLafInfo> lafList = new ArrayList<>();
     File jarFile = new File(jarFileName);
     URLClassLoader ucl = new URLClassLoader(new URL[]{jarFile.toURI().toURL()});
     JarFile jar = new JarFile(jarFile);
@@ -91,9 +90,10 @@ public final class LafUtils {
         String shortClassName = CodeUtils.getShortClass(className);
         // strip trailing "LookAndFeel"
         String lafName = StringUtils.chomp(shortClassName, "LookAndFeel");
-        lafList.add(new UserDefinedLafInfo(StringUtils.isEmpty(lafName) ? shortClassName : lafName,
-            className,
-            jarFileName));
+        lafList.add(
+            new UserDefinedLafInfo(StringUtils.isEmpty(lafName) ? shortClassName : lafName,
+                className,
+                jarFileName));
       }
       // check for Cancel button pressed
       if (monitor.isCanceled()) {

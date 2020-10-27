@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
@@ -23,11 +21,12 @@ import org.eclipse.wb.internal.core.model.menu.MenuVisualData;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Utilities for Swing menu.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -47,11 +46,11 @@ public final class MenuUtils {
   /**
    * @param container
    *          some menu container, {@link JMenuInfo} or {@link JPopupMenuInfo}.
-   * 
+   *
    * @return the {@link IMenuItemInfo}'s of given menu container.
    */
   public static List<IMenuItemInfo> getItems(ContainerInfo container) {
-    List<IMenuItemInfo> items = Lists.newArrayList();
+    List<IMenuItemInfo> items = new ArrayList<>();
     for (ComponentInfo component : container.getChildrenComponents()) {
       IMenuItemInfo item = getMenuItem(component);
       items.add(item);
@@ -62,7 +61,7 @@ public final class MenuUtils {
   /**
    * @param component
    *          some {@link ComponentInfo}, may be menu related, may be just generic.
-   * 
+   *
    * @return the {@link IMenuItemInfo} wrapper for given {@link ComponentInfo}.
    */
   public static IMenuItemInfo getMenuItem(ComponentInfo component) {
@@ -91,7 +90,7 @@ public final class MenuUtils {
 
   /**
    * Adds broadcast listener for copy/paste items of menu container.
-   * 
+   *
    * @param container
    *          some menu container, {@link JMenuInfo} or {@link JPopupMenuInfo}.
    */
