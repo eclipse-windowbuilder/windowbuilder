@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -20,11 +18,12 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import org.netbeans.modules.form.layoutdesign.LayoutComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Utility functions for work with GL.
- * 
+ *
  * @author mitin_aa
  */
 public final class GroupLayoutUtils {
@@ -54,8 +53,9 @@ public final class GroupLayoutUtils {
   /**
    * @return the {@link List} of ids corresponding to list of {@link AbstractComponentInfo}.
    */
-  public static <C extends IAbstractComponentInfo> List<String> getIdsList(final List<C> components) {
-    final List<String> idsList = Lists.newArrayList();
+  public static <C extends IAbstractComponentInfo> List<String> getIdsList(
+      final List<C> components) {
+    final List<String> idsList = new ArrayList<>();
     for (C component : components) {
       idsList.add(ObjectInfoUtils.getId(component.getUnderlyingModel()));
     }
@@ -65,7 +65,8 @@ public final class GroupLayoutUtils {
   /**
    * @return the draw2d rectangle by doing a union of AWT rectangles.
    */
-  public static org.eclipse.wb.draw2d.geometry.Rectangle getRectangleUnion(final java.awt.Rectangle[] boundsArray) {
+  public static org.eclipse.wb.draw2d.geometry.Rectangle getRectangleUnion(
+      final java.awt.Rectangle[] boundsArray) {
     org.eclipse.wb.draw2d.geometry.Rectangle unionBounds = get(boundsArray[0]);
     for (int i = 1; i < boundsArray.length; i++) {
       unionBounds.union(get(boundsArray[i]));

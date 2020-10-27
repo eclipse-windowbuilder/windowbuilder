@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
@@ -34,11 +32,12 @@ import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 import org.netbeans.modules.form.layoutdesign.LayoutInterval;
 import org.netbeans.modules.form.layoutdesign.LayoutModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Responsible to parse/save GroupLayout code.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class GroupLayoutCodeSupport implements LayoutConstants {
@@ -52,7 +51,7 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
   protected static final String ID_LINK_SIZE = "linkSize";
   protected static final String ID_ADD_CONTAINER_GAP = "addContainerGap";
   protected static final String ID_ADD_PREFERRED_GAP = "addPreferredGap";
-  // 
+  //
   protected String GROUP_LAYOUT_CLASS_NAME;
   protected String GROUP_LAYOUT_GROUP_CLASS_NAME;
   protected String ID_ADD_GAP;
@@ -159,7 +158,8 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
       }
       linkID++;
     }
-    for (MethodInvocation invocation : getJavaInfo().getMethodInvocations(SIGNATURE_LINK_SIZE_AXIS)) {
+    for (MethodInvocation invocation : getJavaInfo().getMethodInvocations(
+        SIGNATURE_LINK_SIZE_AXIS)) {
       List<Expression> arguments = DomGenerics.arguments(invocation);
       Expression axisArg = arguments.get(0);
       int componentsArgIndex = 1;
@@ -260,7 +260,7 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
   }
 
   private List<String> extractLinkSizeCode(String layoutCode) {
-    List<String> result = Lists.newArrayList();
+    List<String> result = new ArrayList<>();
     int beginIndex = 0;
     while (true) {
       beginIndex = layoutCode.indexOf(ID_LINK_SIZE, beginIndex);
