@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.support;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -35,12 +34,13 @@ import org.eclipse.swt.widgets.Widget;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Implementation of {@link IToolkitSupport} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage rcp.support
@@ -73,7 +73,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
     MenuVisualData menuInfo = new MenuVisualData();
     if ((menu.getStyle() & SWT.BAR) != 0) {
       // menu bar
-      List<org.eclipse.swt.graphics.Rectangle> itemBounds = Lists.newArrayList();
+      List<org.eclipse.swt.graphics.Rectangle> itemBounds = new ArrayList<>();
       menuInfo.m_menuImage = OSSupport.get().getMenuBarVisualData(menu, itemBounds);
       if (menuInfo.m_menuImage == null) {
         menuInfo.m_menuBounds = new Rectangle(OSSupport.get().getMenuBarBounds(menu));
@@ -88,14 +88,13 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
       // prepare returned data
       menuInfo.m_menuImage = OSSupport.get().getMenuPopupVisualData(menu, bounds);
       menuInfo.m_menuBounds = new Rectangle(menuInfo.m_menuImage.getBounds());
-      menuInfo.m_itemBounds = Lists.newArrayListWithCapacity(menu.getItemCount());
+      menuInfo.m_itemBounds = new ArrayList<>(menu.getItemCount());
       // create rectangles from array
       for (int i = 0; i < menu.getItemCount(); ++i) {
-        Rectangle itemRect =
-            new Rectangle(bounds[i * 4 + 0],
-                bounds[i * 4 + 1],
-                bounds[i * 4 + 2],
-                bounds[i * 4 + 3]);
+        Rectangle itemRect = new Rectangle(bounds[i * 4 + 0],
+            bounds[i * 4 + 1],
+            bounds[i * 4 + 2],
+            bounds[i * 4 + 3]);
         menuInfo.m_itemBounds.add(itemRect);
       }
     }
@@ -143,9 +142,9 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   public void showShell(Object shellObject) throws Exception {
     final Shell shell = (Shell) shellObject;
     final Shell mainShell = DesignerPlugin.getShell();
-    // [Linux] feature in SWT/GTK: since we cannot use Test/Preview shell as modal 
-    // and if the 'main' shell of the application is disabled, switching to other 
-    // application (and even to this Eclipse itself) and back will hide 
+    // [Linux] feature in SWT/GTK: since we cannot use Test/Preview shell as modal
+    // and if the 'main' shell of the application is disabled, switching to other
+    // application (and even to this Eclipse itself) and back will hide
     // Test/Preview shell behind the 'main' shell.
     // The workaround is to forcibly hide Test/Preview window.
     ShellAdapter shellAdapter = new ShellAdapter() {
@@ -219,7 +218,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
    * {@link org.eclipse.wb.draw2d.geometry.Rectangle}.
    */
   private List<Rectangle> convertRectangles(List<org.eclipse.swt.graphics.Rectangle> rectangles) {
-    List<Rectangle> result = Lists.newArrayListWithCapacity(rectangles.size());
+    List<Rectangle> result = new ArrayList<>(rectangles.size());
     for (org.eclipse.swt.graphics.Rectangle rectangle : rectangles) {
       result.add(new Rectangle(rectangle));
     }

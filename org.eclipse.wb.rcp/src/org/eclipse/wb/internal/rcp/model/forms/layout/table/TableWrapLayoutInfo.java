@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -67,13 +66,14 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Model for {@link TableWrapLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -324,10 +324,9 @@ public final class TableWrapLayoutInfo extends LayoutInfo
     ControlInfo[][] grid = getControlsGrid();
     boolean deleteOnlyIfIsRemovingColumn = false;
     for (int column = grid[0].length - 1; column >= 0; column--) {
-      boolean isRemovingColumn =
-          removingData != null
-              && removingData.x <= column
-              && column < removingData.x + removingData.width;
+      boolean isRemovingColumn = removingData != null
+          && removingData.x <= column
+          && column < removingData.x + removingData.width;
       // check if empty
       boolean isEmpty = true;
       for (int row = 0; row < grid.length; row++) {
@@ -350,10 +349,9 @@ public final class TableWrapLayoutInfo extends LayoutInfo
     ControlInfo[][] grid = getControlsGrid();
     boolean deleteOnlyIfIsRemovingRow = false;
     for (int row = grid.length - 1; row >= 0; row--) {
-      boolean isRemovingRow =
-          removingData != null
-              && removingData.y <= row
-              && row < removingData.y + removingData.height;
+      boolean isRemovingRow = removingData != null
+          && removingData.y <= row
+          && row < removingData.y + removingData.height;
       // check if empty
       boolean isEmpty = true;
       for (int column = 0; column < grid[row].length; column++) {
@@ -478,7 +476,10 @@ public final class TableWrapLayoutInfo extends LayoutInfo
       if (!isFiller(control)) {
         TableWrapDataInfo layoutData = getTableWrapData(control);
         if (layoutData.y == fromIndex) {
-          command_setCells(control, new Rectangle(layoutData.x, toIndex, layoutData.width, 1), true);
+          command_setCells(
+              control,
+              new Rectangle(layoutData.x, toIndex, layoutData.width, 1),
+              true);
         }
       }
     }
@@ -492,8 +493,8 @@ public final class TableWrapLayoutInfo extends LayoutInfo
   // Dimensions access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<TableWrapColumnInfo<ControlInfo>> m_columns = Lists.newArrayList();
-  private final List<TableWrapRowInfo<ControlInfo>> m_rows = Lists.newArrayList();
+  private final List<TableWrapColumnInfo<ControlInfo>> m_columns = new ArrayList<>();
+  private final List<TableWrapRowInfo<ControlInfo>> m_rows = new ArrayList<>();
 
   public List<TableWrapColumnInfo<ControlInfo>> getColumns() {
     Dimension size = getControlsGridSize();
@@ -792,7 +793,7 @@ public final class TableWrapLayoutInfo extends LayoutInfo
 
   /**
    * @return the {@link ControlInfo} that should be used as reference of adding into specified cell.
-   * 
+   *
    * @param exclude
    *          the {@link ControlInfo} that should not be checked, for example because we move it now
    */
@@ -817,11 +818,10 @@ public final class TableWrapLayoutInfo extends LayoutInfo
     // prepare creation support
     ConstructorCreationSupport creationSupport = new ConstructorCreationSupport(null, false);
     // prepare filler
-    ControlInfo filler =
-        (ControlInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            LabelSupport.getLabelClass(),
-            creationSupport);
+    ControlInfo filler = (ControlInfo) JavaInfoUtils.createJavaInfo(
+        getEditor(),
+        LabelSupport.getLabelClass(),
+        creationSupport);
     // add filler
     ControlInfo reference = getReferenceControl(row, column, null);
     JavaInfoUtils.add(
@@ -1147,7 +1147,7 @@ public final class TableWrapLayoutInfo extends LayoutInfo
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
@@ -1186,14 +1186,12 @@ public final class TableWrapLayoutInfo extends LayoutInfo
     generalLayoutData.verticalGrab =
         (Boolean) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "grabVertical");;
     // alignments
-    generalLayoutData.horizontalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_horizontalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "align"));
-    generalLayoutData.verticalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_verticalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "valign"));
+    generalLayoutData.horizontalAlignment = GeneralLayoutData.getGeneralValue(
+        m_horizontalAlignmentMap,
+        (Integer) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "align"));
+    generalLayoutData.verticalAlignment = GeneralLayoutData.getGeneralValue(
+        m_verticalAlignmentMap,
+        (Integer) GeneralLayoutData.getLayoutPropertyValue(tableLayoutData, "valign"));
     generalLayoutData.putToInfo(control);
   }
 }

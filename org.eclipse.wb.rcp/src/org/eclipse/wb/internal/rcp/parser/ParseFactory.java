@@ -75,11 +75,13 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.ui.PlatformUI;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * {@link IParseFactory} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.parser
  */
@@ -102,9 +104,8 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       "org.eclipse.ui.forms.IDetailsPage",
       "org.eclipse.ui.forms.MasterDetailsBlock",
       "org.eclipse.ui.splash.AbstractSplashHandler",};
-  public static final String[] NOT_EDITING_TYPES = {
-      "org.eclipse.swt.widgets.TabItem",
-      "org.eclipse.swt.custom.CTabItem",};
+  public static final String[] NOT_EDITING_TYPES =
+      {"org.eclipse.swt.widgets.TabItem", "org.eclipse.swt.custom.CTabItem",};
 
   @Override
   public ParseRootContext getRootContext(AstEditor editor,
@@ -139,17 +140,16 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
     {
       MethodDeclaration method = ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration);
       if (method != null) {
-        List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
+        List<MethodDeclaration> rootMethods = Arrays.asList(method);
         return new ParseRootContext(null, new ExecutionFlowDescription(rootMethods));
       }
     }
     // check for org.eclipse.ui.IPerspectiveFactory
     if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.IPerspectiveFactory")) {
       ClassLoader classLoader = EditorState.get(editor).getEditorLoader();
-      MethodDeclaration createMethod =
-          AstNodeUtils.getMethodBySignature(
-              typeDeclaration,
-              "createInitialLayout(org.eclipse.ui.IPageLayout)");
+      MethodDeclaration createMethod = AstNodeUtils.getMethodBySignature(
+          typeDeclaration,
+          "createInitialLayout(org.eclipse.ui.IPageLayout)");
       SingleVariableDeclaration pageLayoutParameter = DomGenerics.parameters(createMethod).get(0);
       Class<?> pageLayoutClass = classLoader.loadClass("org.eclipse.ui.IPageLayout");
       //
@@ -157,8 +157,8 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       JavaInfo javaInfo = JavaInfoUtils.createJavaInfo(editor, pageLayoutClass, creationSupport);
       if (javaInfo != null) {
         ExecutionFlowUtils2.ensurePermanentValue(pageLayoutParameter.getName()).setModel(javaInfo);
-        javaInfo.setVariableSupport(new MethodParameterVariableSupport(javaInfo,
-            pageLayoutParameter));
+        javaInfo.setVariableSupport(
+            new MethodParameterVariableSupport(javaInfo, pageLayoutParameter));
         // prepare root context
         List<MethodDeclaration> rootMethods = ImmutableList.of(createMethod);
         return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
@@ -190,7 +190,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       if (javaInfo != null) {
         javaInfo.setVariableSupport(new ThisVariableSupport(javaInfo, constructor));
         // prepare root context
-        List<MethodDeclaration> rootMethods = Lists.newArrayList();
+        List<MethodDeclaration> rootMethods = new ArrayList<>();
         rootMethods.add(constructor);
         if (javaInfo instanceof DialogInfo) {
           DialogInfo.contributeExecutionFlow(typeDeclaration, rootMethods);
@@ -209,16 +209,14 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
                 parameter.getType().resolveBinding(),
                 "org.eclipse.swt.widgets.Composite")) {
               // prepare ComponentDescription
-              ComponentDescription componentDescription =
-                  ComponentDescriptionHelper.getDescription(
-                      editor,
-                      "org.eclipse.swt.widgets.Composite");
+              ComponentDescription componentDescription = ComponentDescriptionHelper.getDescription(
+                  editor,
+                  "org.eclipse.swt.widgets.Composite");
               componentDescription.setToolkit(RcpToolkitDescription.INSTANCE);
               // prepare JavaInfo
-              JavaInfo javaInfo =
-                  new E4PartInfo(editor,
-                      componentDescription,
-                      new MethodParameterCreationSupport(parameter));
+              JavaInfo javaInfo = new E4PartInfo(editor,
+                  componentDescription,
+                  new MethodParameterCreationSupport(parameter));
               javaInfo.setVariableSupport(new MethodParameterVariableSupport(javaInfo, parameter));
               // register JavaInfo
               ObjectInfoUtils.setNewId(javaInfo);
@@ -251,11 +249,10 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
     // Forms API: SectionPart (wrapper)
     if (AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.forms.SectionPart")) {
       final Class<?> creationClass = getClass(editor, typeBinding);
-      SectionPartInfo javaInfo =
-          (SectionPartInfo) JavaInfoUtils.createJavaInfo(
-              editor,
-              creationClass,
-              new ConstructorCreationSupport(creation));
+      SectionPartInfo javaInfo = (SectionPartInfo) JavaInfoUtils.createJavaInfo(
+          editor,
+          creationClass,
+          new ConstructorCreationSupport(creation));
       AbstractInvocationDescription methodDescription =
           new RunnableObjectEx<AbstractInvocationDescription>() {
             public AbstractInvocationDescription runObject() throws Exception {
@@ -284,15 +281,14 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
     }
     // check "super"
     {
-      JavaInfo javaInfo =
-          super.create(
-              editor,
-              invocation,
-              methodBinding,
-              arguments,
-              expressionInfo,
-              argumentInfos,
-              javaInfoResolver);
+      JavaInfo javaInfo = super.create(
+          editor,
+          invocation,
+          methodBinding,
+          arguments,
+          expressionInfo,
+          argumentInfos,
+          javaInfoResolver);
       if (javaInfo != null) {
         return javaInfo;
       }
@@ -303,12 +299,15 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
       String signature = AstNodeUtils.getMethodSignature(methodBinding);
       if (signature.equals("addView(java.lang.String,int,float,java.lang.String)")
           || signature.equals("addPlaceholder(java.lang.String,int,float,java.lang.String)")
-          || signature.equals("addStandaloneView(java.lang.String,boolean,int,float,java.lang.String)")
-          || signature.equals("addStandaloneViewPlaceholder(java.lang.String,int,float,java.lang.String,boolean)")) {
+          || signature.equals(
+              "addStandaloneView(java.lang.String,boolean,int,float,java.lang.String)")
+          || signature.equals(
+              "addStandaloneViewPlaceholder(java.lang.String,int,float,java.lang.String,boolean)")) {
         return new PageLayoutAddViewInfo(pageLayout, invocation);
       }
       if (signature.equals("createFolder(java.lang.String,int,float,java.lang.String)")
-          || signature.equals("createPlaceholderFolder(java.lang.String,int,float,java.lang.String)")) {
+          || signature.equals(
+              "createPlaceholderFolder(java.lang.String,int,float,java.lang.String)")) {
         return new PageLayoutCreateFolderInfo(pageLayout, invocation);
       }
       if (signature.equals("addFastView(java.lang.String)")
@@ -339,11 +338,10 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
           "org.eclipse.ui.actions.ActionFactory")) {
         CreationSupport creationSupport =
             new ActionFactoryCreationSupport(invocation, qualifiedName.getName().getIdentifier());
-        JavaInfo component =
-            JavaInfoUtils.createJavaInfo(
-                editor,
-                getClass(editor, methodBinding.getReturnType()),
-                creationSupport);
+        JavaInfo component = JavaInfoUtils.createJavaInfo(
+            editor,
+            getClass(editor, methodBinding.getReturnType()),
+            creationSupport);
         return component;
       }
     }
@@ -354,11 +352,10 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
             "org.eclipse.ui.forms.IManagedForm",
             "getToolkit()")) {
       CreationSupport creationSupport = new OpaqueCreationSupport(invocation);
-      InstanceFactoryInfo toolkit =
-          InstanceFactoryInfo.createFactory(
-              editor,
-              getClass(editor, methodBinding.getReturnType()),
-              creationSupport);
+      InstanceFactoryInfo toolkit = InstanceFactoryInfo.createFactory(
+          editor,
+          getClass(editor, methodBinding.getReturnType()),
+          creationSupport);
       EditorState.get(editor).getTmp_Components().add(toolkit);
       return toolkit;
     }
@@ -414,7 +411,9 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
           || AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.preference.PreferencePage")
           || AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.jface.window.Window")
           || AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.IPerspectiveFactory")
-          || AstNodeUtils.isSuccessorOf(typeBinding, "org.eclipse.ui.application.ActionBarAdvisor")) {
+          || AstNodeUtils.isSuccessorOf(
+              typeBinding,
+              "org.eclipse.ui.application.ActionBarAdvisor")) {
         return true;
       }
     }

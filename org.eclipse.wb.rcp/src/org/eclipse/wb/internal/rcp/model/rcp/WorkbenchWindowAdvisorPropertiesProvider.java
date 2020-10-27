@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertyGetValueEx;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -53,6 +51,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -333,7 +332,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
       if (method == null) {
         method = m_windowEditor.addMethodDeclaration(
             "public void preWindowOpen()",
-            Lists.newArrayList(
+            Arrays.asList(
                 "org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer = getWindowConfigurer();"),
             new BodyDeclarationTarget(m_windowType, false));
       }
