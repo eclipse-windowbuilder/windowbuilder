@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Test for {@link StringListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest {
@@ -147,35 +147,38 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
    */
   public void test_defaultValue() throws Exception {
     // create contents
-    setJavaContentSrc("test", "MyButton", new String[]{
-        "import javax.swing.JButton;",
-        "class MyButton extends JButton {",
-        "  public void setSelect(java.lang.String value) {",
-        "  }",
-        "}"}, new String[]{
-        "<?xml version='1.0' encoding='UTF-8'?>",
-        "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-        "  <property id='setSelect(java.lang.String)'>",
-        "    <editor id='stringList'>",
-        "      <parameter name='ignoreCase'>false</parameter>",
-        "      <parameter-list name='strings'>default</parameter-list>",
-        "      <parameter-list name='strings'>string</parameter-list>",
-        "      <parameter-list name='strings'>value</parameter-list>",
-        "    </editor>",
-        "    <defaultValue value=\"'default'\"/>",
-        "  </property>",
-        "</component>"});
-    waitForAutoBuild();
-    // 
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    MyButton button = new MyButton();",
-            "    button.setSelect('string');",
-            "    add(button);",
+    setJavaContentSrc(
+        "test",
+        "MyButton",
+        new String[]{
+            "import javax.swing.JButton;",
+            "class MyButton extends JButton {",
+            "  public void setSelect(java.lang.String value) {",
             "  }",
-            "}");
+            "}"},
+        new String[]{
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <property id='setSelect(java.lang.String)'>",
+            "    <editor id='stringList'>",
+            "      <parameter name='ignoreCase'>false</parameter>",
+            "      <parameter-list name='strings'>default</parameter-list>",
+            "      <parameter-list name='strings'>string</parameter-list>",
+            "      <parameter-list name='strings'>value</parameter-list>",
+            "    </editor>",
+            "    <defaultValue value=\"'default'\"/>",
+            "  </property>",
+            "</component>"});
+    waitForAutoBuild();
+    //
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    MyButton button = new MyButton();",
+        "    button.setSelect('string');",
+        "    add(button);",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     Property property = button.getPropertyByTitle("select");
@@ -210,7 +213,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
     //</editor>
     HashMap<String, Object> params = Maps.newHashMap();
     params.put("ignoreCase", new String("false"));
-    params.put("strings", Lists.newArrayList("String_1", "String_2", "String_3"));
+    params.put("strings", Arrays.asList("String_1", "String_2", "String_3"));
     return params;
   }
 

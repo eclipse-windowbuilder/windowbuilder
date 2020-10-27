@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -48,11 +46,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Test for {@link FieldEditorPreferencePageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldEditorPreferencePageTest extends RcpModelTest {
@@ -88,17 +87,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Parse with implicit {@link FieldEditorPreferencePage#FLAT} flag.
    */
   public void test_FLATimplicit() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {"
@@ -137,18 +135,17 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Parse with explicit {@link FieldEditorPreferencePage#FLAT} flag.
    */
   public void test_FLATexplicit() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {"
@@ -170,18 +167,17 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Parse with {@link FieldEditorPreferencePage#GRID} flag.
    */
   public void test_GRID() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(GRID);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(GRID);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {"
@@ -221,18 +217,17 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * {@link Composite}. We should correctly handle this case.
    */
   public void test_complexFieldEditor_bounds() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(GRID);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "    addField(new RadioGroupFieldEditor('id', 'New RadioGroupFieldEditor', 1, new String[][]{{'name_1', 'value_1'}, {'name_2', 'value_2'}}, getFieldEditorParent(), false));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(GRID);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "    addField(new RadioGroupFieldEditor('id', 'New RadioGroupFieldEditor', 1, new String[][]{{'name_1', 'value_1'}, {'name_2', 'value_2'}}, getFieldEditorParent(), false));",
+        "  }",
+        "}");
     assertNoErrors(page);
     // prepare FieldEditor's
     FieldEditorInfo editor_1;
@@ -256,14 +251,13 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Test for {@link IntegerFieldEditor} properties.
    */
   public void test_IntegerFieldEditor_properties() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  protected void createFieldEditors() {",
-            "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  protected void createFieldEditors() {",
+        "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     FieldEditorInfo fieldEditor = page.getEditors().get(0);
     // "validRange" complex property
     {
@@ -292,19 +286,17 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * "System" and "FieldEditors" categories should be visible, and all other - invisible.
    */
   public void test_paletteTweaks_1() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  protected void createFieldEditors() {",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  protected void createFieldEditors() {",
+        "  }",
+        "}");
     CategoryInfo systemCategory = new CategoryInfo("org.eclipse.wb.rcp.system");
     CategoryInfo editorsCategory = new CategoryInfo("org.eclipse.wb.rcp.fieldEditors");
     CategoryInfo otherCategory = new CategoryInfo("some.other.category");
     // prepare categories
-    List<CategoryInfo> categories =
-        Lists.newArrayList(systemCategory, editorsCategory, otherCategory);
+    List<CategoryInfo> categories = Arrays.asList(systemCategory, editorsCategory, otherCategory);
     assertThat(categories).hasSize(3);
     {
       // all visible
@@ -329,20 +321,18 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * "FieldEditors" category should be NOT visible, and all other - untouched.
    */
   public void test_paletteTweaks_2() throws Exception {
-    JavaInfo javaInfo =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "  }",
-            "}");
+    JavaInfo javaInfo = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "  }",
+        "}");
     // create categories
     CategoryInfo systemCategory = new CategoryInfo("org.eclipse.wb.rcp.system");
     CategoryInfo editorsCategory = new CategoryInfo("org.eclipse.wb.rcp.fieldEditors");
     CategoryInfo otherCategory = new CategoryInfo("some.other.category");
     // prepare List of categories
-    List<CategoryInfo> categories =
-        Lists.newArrayList(systemCategory, editorsCategory, otherCategory);
+    List<CategoryInfo> categories = Arrays.asList(systemCategory, editorsCategory, otherCategory);
     assertThat(categories).hasSize(3);
     {
       // all visible
@@ -372,17 +362,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Before some existing {@link FieldEditorInfo}.
    */
   public void test_CREATE_1() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     FieldEditorInfo nextEditor = page.getEditors().get(0);
     // do create
     FieldEditorInfo newEditor = createJavaInfo("org.eclipse.jface.preference.IntegerFieldEditor");
@@ -406,17 +395,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * As last {@link FieldEditorInfo}.
    */
   public void test_CREATE_2() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     // do create
     FieldEditorInfo newEditor = createJavaInfo("org.eclipse.jface.preference.IntegerFieldEditor");
     page.command_CREATE(newEditor, null);
@@ -440,16 +428,15 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Users asked for "usual" code generation, with variables and fields
    */
   public void test_CREATE_withControlCodeStyle() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "  }",
+        "}");
     // do create
     FieldEditorInfo newEditor = createJavaInfo("org.eclipse.jface.preference.IntegerFieldEditor");
     preferences.setValue(IPreferenceConstants.PREF_FIELD_USUAL_CODE, true);
@@ -470,23 +457,23 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
   }
 
   /**
-   * Test for {@link FieldEditorPreferencePageInfo#command_MOVE(FieldEditorInfo, FieldEditorInfo)}.<br>
+   * Test for
+   * {@link FieldEditorPreferencePageInfo#command_MOVE(FieldEditorInfo, FieldEditorInfo)}.<br>
    * Move {@link FieldEditorInfo} with {@link EmptyVariableSupport}, should just move
    * {@link Statement}.
    */
   public void test_MOVE_1() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
-            "    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
+        "    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
+        "  }",
+        "}");
     FieldEditorInfo editor_1 = page.getEditors().get(0);
     FieldEditorInfo editor_2 = page.getEditors().get(1);
     // do move
@@ -505,25 +492,25 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
   }
 
   /**
-   * Test for {@link FieldEditorPreferencePageInfo#command_MOVE(FieldEditorInfo, FieldEditorInfo)}.<br>
+   * Test for
+   * {@link FieldEditorPreferencePageInfo#command_MOVE(FieldEditorInfo, FieldEditorInfo)}.<br>
    * Move {@link FieldEditorInfo} with "real" {@link VariableSupport}, should do general move.
    */
   public void test_MOVE_2() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    {",
-            "      IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor('id_1', 'Integer editor', getFieldEditorParent());",
-            "      addField(integerFieldEditor);",
-            "    }",
-            "    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    {",
+        "      IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor('id_1', 'Integer editor', getFieldEditorParent());",
+        "      addField(integerFieldEditor);",
+        "    }",
+        "    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
+        "  }",
+        "}");
     FieldEditorInfo editor_1 = page.getEditors().get(0);
     // do move
     page.command_MOVE(editor_1, null);
@@ -544,23 +531,23 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
   }
 
   /**
-   * Test for {@link FieldEditorPreferencePageInfo#command_MOVE(FieldEditorInfo, FieldEditorInfo)}.<br>
+   * Test for
+   * {@link FieldEditorPreferencePageInfo#command_MOVE(FieldEditorInfo, FieldEditorInfo)}.<br>
    * Move to last.
    */
   public void test_MOVE_3() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "    setTitle('Some related node');",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
-            "    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "    setTitle('Some related node');",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
+        "    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
+        "  }",
+        "}");
     FieldEditorInfo editor_1 = page.getEditors().get(0);
     // do move
     page.command_MOVE(editor_1, null);
@@ -585,17 +572,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * {@link Statement} into {@link Block}.
    */
   public void test_convertToBlock() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent()));",
+        "  }",
+        "}");
     FieldEditorInfo editor = page.getEditors().get(0);
     // set property
     editor.getPropertyByTitle("textLimit").setValue(5);
@@ -624,17 +610,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Test for {@link FieldEditorInfo} copy/paste.
    */
   public void test_copyPaste() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-            "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
+        "    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     page.refresh();
     FieldEditorInfo fieldEditor = page.getEditors().get(0);
     // do copy/paste
@@ -668,20 +653,19 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * {@link FieldEditorSubComponentVariableSupport}.
    */
   public void test_subComponents_0() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    {",
-            "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
-            "      addField(stringFieldEditor);",
-            "    }",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    {",
+        "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
+        "      addField(stringFieldEditor);",
+        "    }",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/new StringFieldEditor('id', 'String editor', getFieldEditorParent())/ /addField(stringFieldEditor)/}",
@@ -724,7 +708,8 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
       assertEquals("getLabelControl()", variableSupport.getTitle());
       assertEquals("stringFieldEditorLabelControl", variableSupport.getComponentName());
       // routing to "hostJavaInfo"
-      variableSupport.isValidStatementForChild(AstNodeUtils.getEnclosingStatement(fieldEditor.getCreationSupport().getNode()));
+      variableSupport.isValidStatementForChild(
+          AstNodeUtils.getEnclosingStatement(fieldEditor.getCreationSupport().getNode()));
       assertEquals(
           fieldEditor.getVariableSupport().getStatementTarget().toString(),
           variableSupport.getStatementTarget().toString());
@@ -749,20 +734,19 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Materializing sub-component on property change.
    */
   public void test_subComponents_1() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    {",
-            "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
-            "      addField(stringFieldEditor);",
-            "    }",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    {",
+        "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
+        "      addField(stringFieldEditor);",
+        "    }",
+        "  }",
+        "}");
     page.refresh();
     FieldEditorInfo fieldEditor = page.getEditors().get(0);
     ControlInfo labelControl = fieldEditor.getChildControls().get(0);
@@ -809,17 +793,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Even if {@link FieldEditor} is not in {@link Block}.
    */
   public void test_subComponents_2() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    addField(new StringFieldEditor('id', 'String editor', getFieldEditorParent()));",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    addField(new StringFieldEditor('id', 'String editor', getFieldEditorParent()));",
+        "  }",
+        "}");
     page.refresh();
     FieldEditorInfo fieldEditor = page.getEditors().get(0);
     ControlInfo labelControl = fieldEditor.getChildControls().get(0);
@@ -847,23 +830,22 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Parse materialized sub-components.
    */
   public void test_subComponents_3() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(FLAT);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    {",
-            "      Composite composite = getFieldEditorParent();",
-            "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-            "      stringFieldEditor.getLabelControl(composite).setToolTipText('Some tooltip');",
-            "      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-            "      addField(stringFieldEditor);",
-            "    }",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(FLAT);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    {",
+        "      Composite composite = getFieldEditorParent();",
+        "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
+        "      stringFieldEditor.getLabelControl(composite).setToolTipText('Some tooltip');",
+        "      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
+        "      addField(stringFieldEditor);",
+        "    }",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/getFieldEditorParent()/ /addField(stringFieldEditor)/}",
@@ -905,21 +887,20 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * Copy/paste materialized sub-components.
    */
   public void test_subComponents_4() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    {",
-            "      Composite composite = getFieldEditorParent();",
-            "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-            "      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-            "      addField(stringFieldEditor);",
-            "    }",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    {",
+        "      Composite composite = getFieldEditorParent();",
+        "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
+        "      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
+        "      addField(stringFieldEditor);",
+        "    }",
+        "  }",
+        "}");
     page.refresh();
     FieldEditorInfo fieldEditor = page.getEditors().get(0);
     // do copy/paste
@@ -965,20 +946,19 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
    * big problem right now, because we don't show these sub-component on design canvas...
    */
   public void test_subComponents_5() throws Exception {
-    FieldEditorPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "public class Test extends FieldEditorPreferencePage {",
-            "  public Test() {",
-            "    super(GRID);",
-            "  }",
-            "  protected void createFieldEditors() {",
-            "    {",
-            "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
-            "      addField(stringFieldEditor);",
-            "    }",
-            "  }",
-            "}");
+    FieldEditorPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "public class Test extends FieldEditorPreferencePage {",
+        "  public Test() {",
+        "    super(GRID);",
+        "  }",
+        "  protected void createFieldEditors() {",
+        "    {",
+        "      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
+        "      addField(stringFieldEditor);",
+        "    }",
+        "  }",
+        "}");
     page.refresh();
     FieldEditorInfo fieldEditor = page.getEditors().get(0);
     ControlInfo labelControl = fieldEditor.getChildControls().get(0);

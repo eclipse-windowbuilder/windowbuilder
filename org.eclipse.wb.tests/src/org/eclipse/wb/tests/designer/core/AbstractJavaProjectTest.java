@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
@@ -42,15 +40,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test with helpers for manipulating {@link IProject} and {@link IJavaProject}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractJavaProjectTest extends DesignerTestCase {
-  private static final List<IFile> m_createdResources = Lists.newArrayList();
+  private static final List<IFile> m_createdResources = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -211,26 +210,26 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
     // check for compilation problems
     String problemsText = "";
     for (IFile file : m_createdResources) {
-      // When we test refactorings, we may rename/move resources, so IFile may disappear. 
-      // Note, that after refactorings we dispose project to restore initial, clean state. 
+      // When we test refactorings, we may rename/move resources, so IFile may disappear.
+      // Note, that after refactorings we dispose project to restore initial, clean state.
       if (!file.exists()) {
         continue;
       }
       // check for problem markers
-      IMarker[] markers =
-          file.findMarkers(
-              IJavaModelMarker.JAVA_MODEL_PROBLEM_MARKER,
-              true,
-              IResource.DEPTH_INFINITE);
+      IMarker[] markers = file.findMarkers(
+          IJavaModelMarker.JAVA_MODEL_PROBLEM_MARKER,
+          true,
+          IResource.DEPTH_INFINITE);
       for (IMarker marker : markers) {
-        if (marker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR) == IMarker.SEVERITY_ERROR) {
-          problemsText +=
-              "\n"
-                  + file.getFullPath()
-                  + "\n\tline "
-                  + marker.getAttribute(IMarker.LINE_NUMBER)
-                  + "\n\t"
-                  + marker.getAttribute(IMarker.MESSAGE);
+        if (marker.getAttribute(
+            IMarker.SEVERITY,
+            IMarker.SEVERITY_ERROR) == IMarker.SEVERITY_ERROR) {
+          problemsText += "\n"
+              + file.getFullPath()
+              + "\n\tline "
+              + marker.getAttribute(IMarker.LINE_NUMBER)
+              + "\n\t"
+              + marker.getAttribute(IMarker.MESSAGE);
         }
       }
     }
@@ -254,7 +253,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates {@link ICompilationUnit} with given name and source.
-   * 
+   *
    * @return the main {@link IType}.
    */
   public final IType createModelType(String packageName, String unitName, String code)
@@ -382,7 +381,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given folder/name, relative to {@link IProject}.
-   * 
+   *
    * @return the created/updated {@link IFile}.
    */
   public static IFile setFileContent(IProject project,
@@ -410,7 +409,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given folder/name, relative to "src" folder.
-   * 
+   *
    * @return the created/updated {@link IFile}.
    */
   public static IFile setFileContentSrc(IProject project, String path, String content)
@@ -420,7 +419,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given folder/name, relative to {@link IProject}.
-   * 
+   *
    * @return the created/updated {@link IFile}.
    */
   public static IFile setFileContent(IProject project, String path, String content)
@@ -442,7 +441,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given content.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContent0(IFile file, String content) throws Exception {
@@ -451,7 +450,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given content.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContent(IFile file, byte[] bytes) throws CoreException {
@@ -460,7 +459,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given content.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContent(IFile file, InputStream inputStream) throws CoreException {

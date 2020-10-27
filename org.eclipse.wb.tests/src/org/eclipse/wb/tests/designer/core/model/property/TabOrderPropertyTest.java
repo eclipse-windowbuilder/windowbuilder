@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.property;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -32,11 +31,12 @@ import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link TabOrderProperty}.
- * 
+ *
  * @author lobas_av
  */
 public class TabOrderPropertyTest extends SwingModelTest {
@@ -46,26 +46,24 @@ public class TabOrderPropertyTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_common() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(null);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(null);",
+        "  }",
+        "}");
     TestTabOrderProperty property = new TestTabOrderProperty(panel, null, null, null, null);
     assertEquals("tab order", property.getTitle());
     assertFalse(property.isModified());
   }
 
   public void test_tooltip() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(null);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(null);",
+        "  }",
+        "}");
     // create property without tooltip
     TestTabOrderProperty property = new TestTabOrderProperty(panel, null, null, null, null);
     //
@@ -77,28 +75,28 @@ public class TabOrderPropertyTest extends SwingModelTest {
     assertNull(property.getAdapter(Object.class));
     PropertyTooltipProvider tooltipProvider = property.getAdapter(PropertyTooltipProvider.class);
     assertInstanceOf(PropertyTooltipTextProvider.class, tooltipProvider);
-    assertNotNull(ReflectionUtils.invokeMethod(
-        tooltipProvider,
-        "getText(org.eclipse.wb.internal.core.model.property.Property)",
-        property));
+    assertNotNull(
+        ReflectionUtils.invokeMethod(
+            tooltipProvider,
+            "getText(org.eclipse.wb.internal.core.model.property.Property)",
+            property));
   }
 
   public void test_noValue() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    JLabel label = new JLabel();",
-            "    add(label);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    JLabel label = new JLabel();",
+        "    add(label);",
+        "  }",
+        "}");
     panel.refresh();
     //
     assertEquals(2, panel.getChildrenComponents().size());
     // prepare defaults
-    List<AbstractComponentInfo> defaultControls = Lists.newArrayList();
+    List<AbstractComponentInfo> defaultControls = new ArrayList<>();
     defaultControls.add(panel.getChildrenComponents().get(0));
     // create property
     TestTabOrderProperty property =
@@ -121,21 +119,20 @@ public class TabOrderPropertyTest extends SwingModelTest {
   }
 
   public void test_value() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    JComboBox combo = new JComboBox();",
-            "    add(combo);",
-            "    JLabel label = new JLabel();",
-            "    add(label);",
-            "    setTabOrder(new JComponent[]{label, button});",
-            "  }",
-            "  public void setTabOrder(JComponent []orders) {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    JComboBox combo = new JComboBox();",
+        "    add(combo);",
+        "    JLabel label = new JLabel();",
+        "    add(label);",
+        "    setTabOrder(new JComponent[]{label, button});",
+        "  }",
+        "  public void setTabOrder(JComponent []orders) {",
+        "  }",
+        "}");
     panel.refresh();
     //
     assertEquals(3, panel.getChildrenComponents().size());
@@ -145,7 +142,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
     ComponentInfo label = panel.getChildrenComponents().get(2);
     //
     // prepare defaults
-    List<AbstractComponentInfo> defaultControls = Lists.newArrayList();
+    List<AbstractComponentInfo> defaultControls = new ArrayList<>();
     defaultControls.add(button);
     // prepare array
     TypeDeclaration type = (TypeDeclaration) m_lastEditor.getAstUnit().types().get(0);
@@ -154,12 +151,11 @@ public class TabOrderPropertyTest extends SwingModelTest {
     MethodInvocation invocation = (MethodInvocation) statement.getExpression();
     ArrayCreation creation = (ArrayCreation) invocation.arguments().get(0);
     // create property
-    TestTabOrderProperty property =
-        new TestTabOrderProperty(panel,
-            panel.getChildrenComponents(),
-            defaultControls,
-            creation.getInitializer(),
-            null);
+    TestTabOrderProperty property = new TestTabOrderProperty(panel,
+        panel.getChildrenComponents(),
+        defaultControls,
+        creation.getInitializer(),
+        null);
     assertTrue(property.isModified());
     // editor
     assertEquals("[label, button]", getPropertyText(property));
@@ -238,7 +234,7 @@ public class TabOrderPropertyTest extends SwingModelTest {
 
     ////////////////////////////////////////////////////////////////////////////
     //
-    // 
+    //
     //
     ////////////////////////////////////////////////////////////////////////////
     @Override

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.variables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -30,6 +28,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -37,7 +36,7 @@ import javax.swing.JTextField;
 
 /**
  * Test for {@link NamesManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NamesManagerTest extends AbstractVariableTest {
@@ -94,13 +93,12 @@ public class NamesManagerTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_getNameAcronym_default() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // for javax.swing.JPanel default name/acronym are used
     assertEquals("panel", NamesManager.getName(panel));
     assertEquals("pnl", NamesManager.getAcronym(panel));
@@ -127,14 +125,13 @@ public class NamesManagerTest extends AbstractVariableTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
-    // get name/acronym from description 
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
+    // get name/acronym from description
     assertEquals("pName", NamesManager.getName(panel));
     assertEquals("pAcr", NamesManager.getAcronym(panel));
   }
@@ -182,14 +179,13 @@ public class NamesManagerTest extends AbstractVariableTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel2 {",
-            "  public Test() {",
-            "  }",
-            "}");
-    // default names 
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel2 {",
+        "  public Test() {",
+        "  }",
+        "}");
+    // default names
     assertEquals("myPanel2", NamesManager.getName(panel));
     assertEquals("mpnl2", NamesManager.getAcronym(panel));
   }
@@ -202,7 +198,7 @@ public class NamesManagerTest extends AbstractVariableTest {
   public void test_getNameDescriptions_setNameDescriptions() throws Exception {
     // set descriptions
     {
-      List<ComponentNameDescription> descriptions = Lists.newArrayList();
+      List<ComponentNameDescription> descriptions = new ArrayList<>();
       descriptions.add(new ComponentNameDescription("javax.swing.JButton", "button", "btn"));
       descriptions.add(new ComponentNameDescription("javax.swing.JComboBox", "combo", "cmb"));
       NamesManager.setNameDescriptions(TOOLKIT, descriptions);
@@ -248,17 +244,16 @@ public class NamesManagerTest extends AbstractVariableTest {
         "}");
     // set description
     {
-      List<ComponentNameDescription> descriptions = Lists.newArrayList();
+      List<ComponentNameDescription> descriptions = new ArrayList<>();
       descriptions.add(new ComponentNameDescription("javax.swing.JButton", "b_name", "b_acronym"));
       NamesManager.setNameDescriptions(TOOLKIT, descriptions);
     }
     // get description
     {
-      JavaInfo button =
-          JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              JButton.class,
-              new ConstructorCreationSupport());
+      JavaInfo button = JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          JButton.class,
+          new ConstructorCreationSupport());
       // getNameDescription()
       {
         ComponentNameDescription nameDescription =
@@ -273,11 +268,10 @@ public class NamesManagerTest extends AbstractVariableTest {
     }
     // no name description
     {
-      JavaInfo textField =
-          JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              JTextField.class,
-              new ConstructorCreationSupport());
+      JavaInfo textField = JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          JTextField.class,
+          new ConstructorCreationSupport());
       assertNull(invoke_getNameDescription(textField.getDescription()));
     }
   }
@@ -324,39 +318,35 @@ public class NamesManagerTest extends AbstractVariableTest {
         "}");
     // set description for javax.swing.JTextField
     {
-      List<ComponentNameDescription> descriptions = Lists.newArrayList();
-      descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
-          "textField",
-          "txt",
-          true));
+      List<ComponentNameDescription> descriptions = new ArrayList<>();
+      descriptions.add(
+          new ComponentNameDescription("javax.swing.JTextField", "textField", "txt", true));
       NamesManager.setNameDescriptions(TOOLKIT, descriptions);
     }
     // check variable for javax.swing.JTextField
     {
-      JavaInfo component =
-          JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              m_lastLoader.loadClass("javax.swing.JTextField"),
-              new ConstructorCreationSupport());
+      JavaInfo component = JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          m_lastLoader.loadClass("javax.swing.JTextField"),
+          new ConstructorCreationSupport());
       assertSame(
           FieldUniqueVariableDescription.INSTANCE,
           TOOLKIT.getGenerationSettings().getVariable(component));
     }
     // check variable for javax.swing.JButton, default one expected
     {
-      JavaInfo component =
-          JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              m_lastLoader.loadClass("javax.swing.JButton"),
-              new ConstructorCreationSupport());
+      JavaInfo component = JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          m_lastLoader.loadClass("javax.swing.JButton"),
+          new ConstructorCreationSupport());
       assertSame(
           LocalUniqueVariableDescription.INSTANCE,
           TOOLKIT.getGenerationSettings().getVariable(component));
     }
   }
 
-  private static ComponentNameDescription invoke_getNameDescription(ComponentDescription componentDescription)
-      throws Exception {
+  private static ComponentNameDescription invoke_getNameDescription(
+      ComponentDescription componentDescription) throws Exception {
     return (ComponentNameDescription) ReflectionUtils.invokeMethod2(
         NamesManager.class,
         "getNameDescription",

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -72,11 +71,12 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link ActionInfo} and {@link ActionContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionTest extends RcpModelTest {
@@ -98,15 +98,14 @@ public class ActionTest extends RcpModelTest {
    * Test for {@link ActionContainerInfo}.
    */
   public void test_container() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "  }",
+        "}");
     // initially no container
     assertHierarchy("{this: org.eclipse.jface.window.ApplicationWindow} {this} {}");
     // ...so, no Action's
@@ -138,25 +137,24 @@ public class ActionTest extends RcpModelTest {
    * Just parsing for some {@link ApplicationWindow}.
    */
   public void test_0() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action('The text') {",
-            "        public void run() {",
-            "        }",
-            "      };",
-            "    }",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action('The text') {",
+        "        public void run() {",
+        "        }",
+        "      };",
+        "    }",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.jface.window.ApplicationWindow} {this} {}",
@@ -179,32 +177,30 @@ public class ActionTest extends RcpModelTest {
    * Presentation for {@link ActionInfo} should use image from {@link ImageDescriptor}.
    */
   public void test_iconImage_1() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action(null, null) {",
-            "      };",
-            "    }",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action(null, null) {",
+        "      };",
+        "    }",
+        "  }",
+        "}");
     window.refresh();
     // prepare "action"
     ActionInfo action = ActionContainerInfo.getActions(window).get(0);
     IObjectPresentation presentation = action.getPresentation();
     // initially generic icon of Action
-    Image genericActionIcon =
-        ComponentDescriptionHelper.getDescription(
-            m_lastEditor,
-            m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
+    Image genericActionIcon = ComponentDescriptionHelper.getDescription(
+        m_lastEditor,
+        m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
     assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
     // add ResourceManager and set ImageDescriptor
     {
@@ -212,10 +208,12 @@ public class ActionTest extends RcpModelTest {
       ClassInstanceCreation actionCreation =
           (ClassInstanceCreation) action.getCreationSupport().getNode();
       Expression imageDescriptionExpression = (Expression) actionCreation.arguments().get(1);
-      m_lastEditor.replaceExpression(imageDescriptionExpression, ImmutableList.of(
-          "org.eclipse.wb.swt.ResourceManager.getImageDescriptor(",
-          "getClass(),",
-          "\"/icons/full/etool16/delete_edit.gif\")"));
+      m_lastEditor.replaceExpression(
+          imageDescriptionExpression,
+          ImmutableList.of(
+              "org.eclipse.wb.swt.ResourceManager.getImageDescriptor(",
+              "getClass(),",
+              "\"/icons/full/etool16/delete_edit.gif\")"));
     }
     // now icon is got from ImageDescriptor, well at least not default one
     window.refresh();
@@ -226,33 +224,31 @@ public class ActionTest extends RcpModelTest {
    * Presentation for {@link ActionInfo} should also try to use {@link IActionIconProvider}.
    */
   public void test_iconImage_2() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action(null, null) {",
-            "      };",
-            "    }",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action(null, null) {",
+        "      };",
+        "    }",
+        "  }",
+        "}");
     window.refresh();
     // prepare "action"
     ActionInfo action = ActionContainerInfo.getActions(window).get(0);
     IObjectPresentation presentation = action.getPresentation();
     // initially generic icon of Action
     {
-      Image genericActionIcon =
-          ComponentDescriptionHelper.getDescription(
-              m_lastEditor,
-              m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
+      Image genericActionIcon = ComponentDescriptionHelper.getDescription(
+          m_lastEditor,
+          m_lastLoader.loadClass("org.eclipse.jface.action.Action")).getIcon();
       assertTrue(UiUtils.equals(genericActionIcon, presentation.getIcon()));
     }
     // set CreationSupport with IActionIconProvider
@@ -285,25 +281,24 @@ public class ActionTest extends RcpModelTest {
    * Parameters of constructor for {@link Action} have bindings on properties.
    */
   public void test_boundProperties() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      String text = null;",
-            "      ImageDescriptor imageDescriptor = null;",
-            "      m_action = new Action(text, imageDescriptor) {",
-            "      };",
-            "    }",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      String text = null;",
+        "      ImageDescriptor imageDescriptor = null;",
+        "      m_action = new Action(text, imageDescriptor) {",
+        "      };",
+        "    }",
+        "  }",
+        "}");
     window.refresh();
     // check "action"
     ActionInfo action = ActionContainerInfo.getActions(window).get(0);
@@ -340,18 +335,17 @@ public class ActionTest extends RcpModelTest {
    * No {@link ContributionManagerInfo} - no "Actions" palette category.
    */
   public void test_palette_noManager() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "  }",
+        "}");
     PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-    List<CategoryInfo> categories = Lists.newArrayList();
+    List<CategoryInfo> categories = new ArrayList<>();
     listener.categories(categories);
     assertThat(categories).isEmpty();
   }
@@ -362,33 +356,32 @@ public class ActionTest extends RcpModelTest {
    * because no "root" {@link MenuManager}.
    */
   public void test_palette_hasToolBarManager() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      String text = null;",
-            "      ImageDescriptor imageDescriptor = null;",
-            "      m_action = new Action(text, imageDescriptor) {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      String text = null;",
+        "      ImageDescriptor imageDescriptor = null;",
+        "      m_action = new Action(text, imageDescriptor) {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     // check for "Actions" category
     PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-    List<CategoryInfo> categories = Lists.newArrayList();
+    List<CategoryInfo> categories = new ArrayList<>();
     listener.categories(categories);
     assertThat(categories).hasSize(1);
     // check "Actions" category
@@ -412,24 +405,23 @@ public class ActionTest extends RcpModelTest {
    * "JFace Actions" before "Menu" category.
    */
   public void test_palette_actionsCategory_beforeMenu() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     // prepare categories
     List<CategoryInfo> categories;
     {
-      categories = Lists.newArrayList();
+      categories = new ArrayList<>();
       // add "Menu" category
       categories.add(new CategoryInfo("org.eclipse.wb.rcp.menu"));
       // ask for categories
@@ -447,33 +439,32 @@ public class ActionTest extends RcpModelTest {
    * {@link MenuManager}, because no "root" {@link MenuManager}.
    */
   public void test_palette_hasCoolBarManager() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addCoolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      String text = null;",
-            "      ImageDescriptor imageDescriptor = null;",
-            "      m_action = new Action(text, imageDescriptor) {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected CoolBarManager createCoolBarManager(int style) {",
-            "    CoolBarManager coolbarManager = super.createCoolBarManager(style);",
-            "    return coolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addCoolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      String text = null;",
+        "      ImageDescriptor imageDescriptor = null;",
+        "      m_action = new Action(text, imageDescriptor) {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected CoolBarManager createCoolBarManager(int style) {",
+        "    CoolBarManager coolbarManager = super.createCoolBarManager(style);",
+        "    return coolbarManager;",
+        "  }",
+        "}");
     // check for "Actions" category
     PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-    List<CategoryInfo> categories = Lists.newArrayList();
+    List<CategoryInfo> categories = new ArrayList<>();
     listener.categories(categories);
     assertThat(categories).hasSize(1);
     // check "Actions" category
@@ -502,33 +493,32 @@ public class ActionTest extends RcpModelTest {
    * because of "root" {@link MenuManager} presence.
    */
   public void test_palette_hasMenuBarManager() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addMenuBar();",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      String text = null;",
-            "      ImageDescriptor imageDescriptor = null;",
-            "      m_action = new Action(text, imageDescriptor) {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected MenuManager createMenuManager() {",
-            "    MenuManager menuManager = super.createMenuManager();",
-            "    return menuManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addMenuBar();",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      String text = null;",
+        "      ImageDescriptor imageDescriptor = null;",
+        "      m_action = new Action(text, imageDescriptor) {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected MenuManager createMenuManager() {",
+        "    MenuManager menuManager = super.createMenuManager();",
+        "    return menuManager;",
+        "  }",
+        "}");
     // check for "Actions" category
     PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
-    List<CategoryInfo> categories = Lists.newArrayList();
+    List<CategoryInfo> categories = new ArrayList<>();
     listener.categories(categories);
     assertThat(categories).hasSize(1);
     // check "Actions" category
@@ -564,28 +554,27 @@ public class ActionTest extends RcpModelTest {
             "public class MyAction extends Action {",
             "}"));
     waitForAutoBuild();
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(new MyAction());",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(new MyAction());",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     // prepare ActionUse_EntryInfo
     ActionUseEntryInfo entry;
     {
       PaletteEventListener listener = window.getBroadcast(PaletteEventListener.class);
       CategoryInfo category = new CategoryInfo("org.eclipse.wb.rcp.jface.actions");
-      List<EntryInfo> entries = Lists.newArrayList();
+      List<EntryInfo> entries = new ArrayList<>();
       listener.entries(category, entries);
       entry = (ActionUseEntryInfo) entries.get(0);
     }
@@ -605,29 +594,28 @@ public class ActionTest extends RcpModelTest {
    * {@link IContributionItem}.
    */
   public void test_IContributionItem_void() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action('Some text') {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(m_action);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action('Some text') {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(m_action);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     // check hierarchy
     assertHierarchy(
@@ -756,29 +744,28 @@ public class ActionTest extends RcpModelTest {
    * {@link IContributionItem}.
    */
   public void test_IContributionItem_explicit() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action('Some text') {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(new ActionContributionItem(m_action));",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action('Some text') {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(new ActionContributionItem(m_action));",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     // check hierarchy
     assertHierarchy(
@@ -819,28 +806,27 @@ public class ActionTest extends RcpModelTest {
    * have different objects.
    */
   public void test_IContributionItem_sameAction() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    m_action = new Action() {",
-            "    };",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(m_action);",
-            "    toolbarManager.add(m_action);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    m_action = new Action() {",
+        "    };",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(m_action);",
+        "    toolbarManager.add(m_action);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -856,28 +842,27 @@ public class ActionTest extends RcpModelTest {
    * don't create them. However in design mode we still want to see them.
    */
   public void test_IContributionItem_danglingSeparator() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    m_action = new Action() {",
-            "    };",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(new Separator());",
-            "    toolbarManager.add(new Separator());",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    m_action = new Action() {",
+        "    };",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(new Separator());",
+        "    toolbarManager.add(new Separator());",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -894,21 +879,20 @@ public class ActionTest extends RcpModelTest {
    * {@link GroupMarker}'s are not visible, but we still want to show them at design canvas.
    */
   public void test_GroupMarker() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(new GroupMarker('Some long GroupMarker id'));",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(new GroupMarker('Some long GroupMarker id'));",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -933,28 +917,27 @@ public class ActionTest extends RcpModelTest {
    * Add as last/only item.
    */
   public void test_CREATE_1() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action('Some text') {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action('Some text') {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -991,29 +974,28 @@ public class ActionTest extends RcpModelTest {
    * Add before existing item.
    */
   public void test_CREATE_2() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction m_action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    {",
-            "      m_action = new Action('Some text') {",
-            "      };",
-            "    }",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(new Separator());",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction m_action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    {",
+        "      m_action = new Action('Some text') {",
+        "      };",
+        "    }",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(new Separator());",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -1049,34 +1031,33 @@ public class ActionTest extends RcpModelTest {
 
   /**
    * Test for
-   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
+   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}.
+   * <br>
    * Add {@link Separator}.
    */
   public void test_CREATE_3() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
     ToolBarManagerInfo toolBarManager = window.getChildren(ToolBarManagerInfo.class).get(0);
     // perform command
-    ContributionItemInfo separator =
-        (ContributionItemInfo) JavaInfoUtils.createJavaInfo(
-            m_lastEditor,
-            m_lastLoader.loadClass("org.eclipse.jface.action.Separator"),
-            new ConstructorCreationSupport());
+    ContributionItemInfo separator = (ContributionItemInfo) JavaInfoUtils.createJavaInfo(
+        m_lastEditor,
+        m_lastLoader.loadClass("org.eclipse.jface.action.Separator"),
+        new ConstructorCreationSupport());
     toolBarManager.command_CREATE(separator, null);
     assertEditor(
         "import org.eclipse.jface.action.*;",
@@ -1101,7 +1082,8 @@ public class ActionTest extends RcpModelTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Test for
-   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
+   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}.
+   * <br>
    * Add external {@link ActionInfo}.
    */
   public void test_CREATE_externalAction_1() throws Exception {
@@ -1114,33 +1096,31 @@ public class ActionTest extends RcpModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
     ToolBarManagerInfo toolBarManager = window.getChildren(ToolBarManagerInfo.class).get(0);
     // perform command
-    ActionInfo action =
-        (ActionInfo) JavaInfoUtils.createJavaInfo(
-            m_lastEditor,
-            m_lastLoader.loadClass("test.MyAction"),
-            new ConstructorCreationSupport());
+    ActionInfo action = (ActionInfo) JavaInfoUtils.createJavaInfo(
+        m_lastEditor,
+        m_lastLoader.loadClass("test.MyAction"),
+        new ConstructorCreationSupport());
     toolBarManager.command_CREATE(action, null);
     assertEditor(
         "import org.eclipse.jface.action.*;",
@@ -1167,27 +1147,27 @@ public class ActionTest extends RcpModelTest {
 
   /**
    * Test for
-   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
+   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}.
+   * <br>
    * Add new {@link ActionInfo}.
    */
   public void test_CREATE_newAction_1() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     window.refresh();
     assertNoErrors(window);
     // prepare components
@@ -1228,25 +1208,25 @@ public class ActionTest extends RcpModelTest {
 
   /**
    * Test for
-   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}. <br>
+   * {@link ContributionManagerInfo#command_CREATE(ContributionItemInfo, ContributionItemInfo)}.
+   * <br>
    * Add new {@link ActionInfo}.<br>
    * In addition also creates <code>createActions()</code> method.
    */
   public void test_CREATE_newAction_2() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -1291,22 +1271,21 @@ public class ActionTest extends RcpModelTest {
    * {@link ContributionManagerInfo#command_MOVE(ContributionItemInfo, ContributionItemInfo)}.
    */
   public void test_MOVE_1() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(new Separator('0'));",
-            "    toolbarManager.add(new Separator('1'));",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(new Separator('0'));",
+        "    toolbarManager.add(new Separator('1'));",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -1354,31 +1333,30 @@ public class ActionTest extends RcpModelTest {
    * {@link ContributionManagerInfo#command_MOVE(ContributionItemInfo, ContributionItemInfo)}.
    */
   public void test_MOVE_2() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction action_1;",
-            "  private IAction action_2;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addToolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    action_1 = new Action() {",
-            "    };",
-            "    action_2 = new Action() {",
-            "    };",
-            "  }",
-            "  protected ToolBarManager createToolBarManager(int style) {",
-            "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
-            "    toolbarManager.add(action_1);",
-            "    toolbarManager.add(action_2);",
-            "    return toolbarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction action_1;",
+        "  private IAction action_2;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addToolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    action_1 = new Action() {",
+        "    };",
+        "    action_2 = new Action() {",
+        "    };",
+        "  }",
+        "  protected ToolBarManager createToolBarManager(int style) {",
+        "    ToolBarManager toolbarManager = super.createToolBarManager(style);",
+        "    toolbarManager.add(action_1);",
+        "    toolbarManager.add(action_2);",
+        "    return toolbarManager;",
+        "  }",
+        "}");
     assertNoErrors(window);
     window.refresh();
     // prepare components
@@ -1419,35 +1397,34 @@ public class ActionTest extends RcpModelTest {
    * Move {@link ActionContributionItemInfo} from one {@link ToolBarManagerInfo} into other.
    */
   public void test_IMenuInfo_MOVE_2() throws Exception {
-    ApplicationWindowInfo window =
-        parseJavaInfo(
-            "import org.eclipse.jface.action.*;",
-            "import org.eclipse.jface.window.*;",
-            "public class Test extends ApplicationWindow {",
-            "  private IAction action;",
-            "  public Test(Shell parentShell) {",
-            "    super(parentShell);",
-            "    createActions();",
-            "    addCoolBar(SWT.FLAT);",
-            "  }",
-            "  private void createActions() {",
-            "    action = new Action() {",
-            "    };",
-            "  }",
-            "  protected CoolBarManager createCoolBarManager(int style) {",
-            "    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-            "    {",
-            "      ToolBarManager toolBarManager_1 = new ToolBarManager();",
-            "      coolBarManager.add(toolBarManager_1);",
-            "      toolBarManager_1.add(action);",
-            "    }",
-            "    {",
-            "      ToolBarManager toolBarManager_2 = new ToolBarManager();",
-            "      coolBarManager.add(toolBarManager_2);",
-            "    }",
-            "    return coolBarManager;",
-            "  }",
-            "}");
+    ApplicationWindowInfo window = parseJavaInfo(
+        "import org.eclipse.jface.action.*;",
+        "import org.eclipse.jface.window.*;",
+        "public class Test extends ApplicationWindow {",
+        "  private IAction action;",
+        "  public Test(Shell parentShell) {",
+        "    super(parentShell);",
+        "    createActions();",
+        "    addCoolBar(SWT.FLAT);",
+        "  }",
+        "  private void createActions() {",
+        "    action = new Action() {",
+        "    };",
+        "  }",
+        "  protected CoolBarManager createCoolBarManager(int style) {",
+        "    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
+        "    {",
+        "      ToolBarManager toolBarManager_1 = new ToolBarManager();",
+        "      coolBarManager.add(toolBarManager_1);",
+        "      toolBarManager_1.add(action);",
+        "    }",
+        "    {",
+        "      ToolBarManager toolBarManager_2 = new ToolBarManager();",
+        "      coolBarManager.add(toolBarManager_2);",
+        "    }",
+        "    return coolBarManager;",
+        "  }",
+        "}");
     window.refresh();
     assertHierarchy(
         "{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}",

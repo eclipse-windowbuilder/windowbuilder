@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
@@ -22,11 +21,12 @@ import org.eclipse.jface.action.IAction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link FormLayoutInfo} selection action's.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
@@ -45,18 +45,17 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_selectionActions_ALL() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel implements IConstants {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "    add(new JButton(), 'cell 0 0');",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel implements IConstants {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "    add(new JButton(), 'cell 0 0');",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(button), actions);
     // check actions: 13 action's, 2 separator's
     assertEquals(15, actions.size());
@@ -73,32 +72,30 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
   }
 
   public void test_selectionActions_noSelection() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel implements IConstants {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel implements IConstants {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "  }",
+        "}");
     panel.refresh();
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(), actions);
     // no selection, so no actions
     assertThat(actions).isEmpty();
   }
 
   public void test_selectionActions_invalidSelection() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel implements IConstants {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel implements IConstants {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "  }",
+        "}");
     panel.refresh();
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(panel.getLayout());
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     // not Component on MigLayout selected, so no actions
@@ -106,18 +103,17 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
   }
 
   public void test_horizontalAlignment() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel implements IConstants {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "    add(new JButton(), 'cell 0 0,alignx leading');",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel implements IConstants {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "    add(new JButton(), 'cell 0 0,alignx leading');",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(button), actions);
     // "Leading" should be checked
     {
@@ -140,18 +136,17 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
   }
 
   public void test_verticalAlignment() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel implements IConstants {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "    add(new JButton(), 'cell 0 0,aligny top');",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel implements IConstants {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "    add(new JButton(), 'cell 0 0,aligny top');",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(ImmutableList.<ObjectInfo>of(button), actions);
     // "Top" should be checked
     {

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
@@ -23,11 +22,12 @@ import org.eclipse.jface.action.IAction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link TableWrapLayoutInfo} selection action's.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
@@ -56,21 +56,20 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
   }
 
   public void test_selectionActions_emptySelection() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    {",
-            "      TableWrapLayout layout = new TableWrapLayout();",
-            "      setLayout(layout);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    {",
+        "      TableWrapLayout layout = new TableWrapLayout();",
+        "      setLayout(layout);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     // prepare actions
     List<Object> actions;
     {
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of();
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
@@ -79,25 +78,24 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
   }
 
   public void test_selectionActions_invalidSelection() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    {",
-            "      TableWrapLayout layout = new TableWrapLayout();",
-            "      setLayout(layout);",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    {",
+        "      TableWrapLayout layout = new TableWrapLayout();",
+        "      setLayout(layout);",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(0);
     // prepare actions
     List<Object> actions;
     {
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button, shell);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
@@ -106,35 +104,34 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
   }
 
   public void test_selectionActions_state() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    {",
-            "      TableWrapLayout layout = new TableWrapLayout();",
-            "      layout.numColumns = 2;",
-            "      setLayout(layout);",
-            "    }",
-            "    {",
-            "      Label label = new Label(this, SWT.NONE);",
-            "      label.setText(\"Label:\");",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      {",
-            "        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-            "        tableWrapData.grabHorizontal = true;",
-            "        button.setLayoutData(tableWrapData);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    {",
+        "      TableWrapLayout layout = new TableWrapLayout();",
+        "      layout.numColumns = 2;",
+        "      setLayout(layout);",
+        "    }",
+        "    {",
+        "      Label label = new Label(this, SWT.NONE);",
+        "      label.setText(\"Label:\");",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      {",
+        "        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
+        "        tableWrapData.grabHorizontal = true;",
+        "        button.setLayoutData(tableWrapData);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo label = shell.getChildrenControls().get(0);
     ControlInfo button = shell.getChildrenControls().get(1);
     // actions for "button"
     {
-      List<Object> actions = Lists.newArrayList();
+      List<Object> actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
       // check actions
@@ -151,7 +148,7 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
     }
     // actions for "label", "button"
     {
-      List<Object> actions = Lists.newArrayList();
+      List<Object> actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(label, button);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
       // check actions
@@ -162,33 +159,32 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
   }
 
   public void test_grabAction() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    {",
-            "      TableWrapLayout layout = new TableWrapLayout();",
-            "      setLayout(layout);",
-            "    }",
-            "    {",
-            "      Label label = new Label(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      {",
-            "        TableWrapData tableWrapData = new TableWrapData();",
-            "        tableWrapData.grabHorizontal = true;",
-            "        button.setLayoutData(tableWrapData);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    {",
+        "      TableWrapLayout layout = new TableWrapLayout();",
+        "      setLayout(layout);",
+        "    }",
+        "    {",
+        "      Label label = new Label(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      {",
+        "        TableWrapData tableWrapData = new TableWrapData();",
+        "        tableWrapData.grabHorizontal = true;",
+        "        button.setLayoutData(tableWrapData);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(1);
     // prepare actions
     List<Object> actions;
     {
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
@@ -250,33 +246,32 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
   }
 
   public void test_alignmentAction() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    {",
-            "      TableWrapLayout layout = new TableWrapLayout();",
-            "      layout.numColumns = 2;",
-            "      setLayout(layout);",
-            "    }",
-            "    {",
-            "      Label label = new Label(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      {",
-            "        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-            "        button.setLayoutData(tableWrapData);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    {",
+        "      TableWrapLayout layout = new TableWrapLayout();",
+        "      layout.numColumns = 2;",
+        "      setLayout(layout);",
+        "    }",
+        "    {",
+        "      Label label = new Label(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      {",
+        "        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
+        "        button.setLayoutData(tableWrapData);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(1);
     // prepare actions
     List<Object> actions;
     {
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>of(button);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.util;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -42,11 +41,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Tests for {@link SwtSurroundSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SurroundSupportTest extends RcpModelTest {
@@ -68,13 +68,12 @@ public class SurroundSupportTest extends RcpModelTest {
    * Empty selection, so no "surround" menu.
    */
   public void test_emptySelection() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "// filler filler filler",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "  }",
+        "}");
     shell.refresh();
     //
     assertNoSurroundManager(shell, ImmutableList.<ObjectInfo>of());
@@ -84,13 +83,12 @@ public class SurroundSupportTest extends RcpModelTest {
    * Try to give {@link LayoutInfo} instead of {@link ControlInfo}, so no "surround" menu.
    */
   public void test_notControl() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "// filler filler filler",
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "// filler filler filler",
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "  }",
+        "}");
     shell.refresh();
     LayoutInfo layout = shell.getLayout();
     //
@@ -101,16 +99,15 @@ public class SurroundSupportTest extends RcpModelTest {
    * Components that have different parents, so none of these parents contribute "surround" menu.
    */
   public void test_notSameParent() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(10, 20, 100, 50);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(10, 20, 100, 50);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(0);
     //
@@ -126,16 +123,15 @@ public class SurroundSupportTest extends RcpModelTest {
    * Single {@link ControlInfo} on {@link FillLayoutInfo}.
    */
   public void test_flow_singleControl() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(0);
     // run action
@@ -159,22 +155,21 @@ public class SurroundSupportTest extends RcpModelTest {
    * Two adjacent controls, good case.
    */
   public void test_flow_twoControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_3 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_3 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_2 = shell.getChildrenControls().get(1);
@@ -205,22 +200,21 @@ public class SurroundSupportTest extends RcpModelTest {
    * Not an adjacent controls, so can not surround.
    */
   public void test_flow_notAdjacentControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_3 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_3 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_3 = shell.getChildrenControls().get(2);
@@ -237,16 +231,15 @@ public class SurroundSupportTest extends RcpModelTest {
    * Single {@link ControlInfo} on {@link AbsoluteLayoutInfo}.
    */
   public void test_absolute_singleControl() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(10, 20, 100, 50);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(10, 20, 100, 50);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(0);
     // run action
@@ -270,26 +263,27 @@ public class SurroundSupportTest extends RcpModelTest {
    * Single {@link ControlInfo} on {@link Group} with {@link AbsoluteLayoutInfo}.
    */
   public void test_absolute_singleControl_onGroup() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(10, 20, 100, 50);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(10, 20, 100, 50);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = shell.getChildrenControls().get(0);
     // run action
     runSurround("org.eclipse.swt.widgets.Group", button);
-    String expected1 =
-        Expectations.get("(7, 5, 106, 68)", new StrValue[]{
+    String expected1 = Expectations.get(
+        "(7, 5, 106, 68)",
+        new StrValue[]{
             new StrValue("flanker-win", "(7, 7, 106, 66)"),
             new StrValue("scheglov-win", "(7, 5, 106, 68)")});
-    String expected2 =
-        Expectations.get("(3, 15, 100, 50)", new StrValue[]{
+    String expected2 = Expectations.get(
+        "(3, 15, 100, 50)",
+        new StrValue[]{
             new StrValue("flanker-win", "(3, 13, 100, 50)"),
             new StrValue("scheglov-kwin", "(3, 15, 100, 50)")});
     assertEditor(
@@ -311,24 +305,23 @@ public class SurroundSupportTest extends RcpModelTest {
    * Two {@link ControlInfo}'s on {@link AbsoluteLayoutInfo}.
    */
   public void test_absolute_twoControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "      button_1.setBounds(150, 50, 100, 20);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "      button_2.setBounds(10, 10, 100, 20);",
-            "    }",
-            "    {",
-            "      Button button_3 = new Button(this, SWT.NONE);",
-            "      button_3.setBounds(160, 100, 110, 50);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "      button_1.setBounds(150, 50, 100, 20);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "      button_2.setBounds(10, 10, 100, 20);",
+        "    }",
+        "    {",
+        "      Button button_3 = new Button(this, SWT.NONE);",
+        "      button_3.setBounds(160, 100, 110, 50);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_3 = shell.getChildrenControls().get(2);
@@ -366,19 +359,18 @@ public class SurroundSupportTest extends RcpModelTest {
    * Test for {@link SashFormSurroundTarget}.
    */
   public void test_SashForm_twoControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_2 = shell.getChildrenControls().get(1);
@@ -411,19 +403,18 @@ public class SurroundSupportTest extends RcpModelTest {
    * Test for {@link TabFolderSurroundTarget}.
    */
   public void test_TabFolder_twoControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_2 = shell.getChildrenControls().get(1);
@@ -460,19 +451,18 @@ public class SurroundSupportTest extends RcpModelTest {
    * Test for {@link CTabFolderSurroundTarget}.
    */
   public void test_CTabFolder_twoControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_2 = shell.getChildrenControls().get(1);
@@ -515,16 +505,15 @@ public class SurroundSupportTest extends RcpModelTest {
    * Test for {@link ScrolledCompositeSurroundTarget}.
    */
   public void test_ScrolledComposite_oneComposite() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Composite composite = new Composite(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Composite composite = new Composite(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
     // run action
@@ -552,19 +541,18 @@ public class SurroundSupportTest extends RcpModelTest {
    * Test for {@link ScrolledCompositeSurroundTarget}.
    */
   public void test_ScrolledComposite_twoControls() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new FillLayout());",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new FillLayout());",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button_1 = shell.getChildrenControls().get(0);
     ControlInfo button_2 = shell.getChildrenControls().get(1);
@@ -650,23 +638,22 @@ public class SurroundSupportTest extends RcpModelTest {
    * Bad: two controls on diagonal, and other control in same rectangle.
    */
   public void test_GridLayout_0() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new GridLayout(2, false));",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_BAD = new Button(this, SWT.NONE);",
-            "    }",
-            "    new Label(this, SWT.NONE);",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new GridLayout(2, false));",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_BAD = new Button(this, SWT.NONE);",
+        "    }",
+        "    new Label(this, SWT.NONE);",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     List<ControlInfo> buttons = getButtons(shell);
     ControlInfo button_1 = buttons.get(0);
@@ -679,19 +666,18 @@ public class SurroundSupportTest extends RcpModelTest {
    * Good: two controls in single row, no other controls.
    */
   public void test_GridLayout_1() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new GridLayout(2, false));",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new GridLayout(2, false));",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     List<ControlInfo> buttons = getButtons(shell);
     ControlInfo button_1 = buttons.get(0);
@@ -721,21 +707,20 @@ public class SurroundSupportTest extends RcpModelTest {
    * Good: two controls on diagonal, no other controls.
    */
   public void test_GridLayout_2() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new GridLayout(2, false));",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "    }",
-            "    new Label(this, SWT.NONE);",
-            "    new Label(this, SWT.NONE);",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new GridLayout(2, false));",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "    }",
+        "    new Label(this, SWT.NONE);",
+        "    new Label(this, SWT.NONE);",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     List<ControlInfo> buttons = getButtons(shell);
     ControlInfo button_1 = buttons.get(0);
@@ -767,23 +752,22 @@ public class SurroundSupportTest extends RcpModelTest {
    * Good: three controls, one spanned horizontally.
    */
   public void test_GridLayout_3() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new GridLayout(2, false));",
-            "    {",
-            "      Button button_1 = new Button(this, SWT.NONE);",
-            "      button_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));",
-            "    }",
-            "    {",
-            "      Button button_2 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_3 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new GridLayout(2, false));",
+        "    {",
+        "      Button button_1 = new Button(this, SWT.NONE);",
+        "      button_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));",
+        "    }",
+        "    {",
+        "      Button button_2 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_3 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     List<ControlInfo> buttons = getButtons(shell);
     ControlInfo button_1 = buttons.get(0);
@@ -818,36 +802,35 @@ public class SurroundSupportTest extends RcpModelTest {
    * Good: two controls on diagonal, other controls on sides.
    */
   public void test_GridLayout_4() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new GridLayout(3, false));",
-            "    {",
-            "      Button button_00 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_10 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_20 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_01 = new Button(this, SWT.NONE);",
-            "    }",
-            "    {",
-            "      Button button_11 = new Button(this, SWT.NONE);",
-            "    }",
-            "    new Label(this, SWT.NONE);",
-            "    {",
-            "      Button button_02 = new Button(this, SWT.NONE);",
-            "    }",
-            "    new Label(this, SWT.NONE);",
-            "    {",
-            "      Button button_22 = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new GridLayout(3, false));",
+        "    {",
+        "      Button button_00 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_10 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_20 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_01 = new Button(this, SWT.NONE);",
+        "    }",
+        "    {",
+        "      Button button_11 = new Button(this, SWT.NONE);",
+        "    }",
+        "    new Label(this, SWT.NONE);",
+        "    {",
+        "      Button button_02 = new Button(this, SWT.NONE);",
+        "    }",
+        "    new Label(this, SWT.NONE);",
+        "    {",
+        "      Button button_22 = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     List<ControlInfo> buttons = getButtons(shell);
     ControlInfo button_11 = buttons.get(4);
@@ -908,17 +891,16 @@ public class SurroundSupportTest extends RcpModelTest {
    * {@link GridLayout} surround expected.
    */
   public void test_GridLayout_5() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends Shell {",
-            "  public Test() {",
-            "    setLayout(new GridLayout(1, false));",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setLayoutData(new GridData(150, 50));",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends Shell {",
+        "  public Test() {",
+        "    setLayout(new GridLayout(1, false));",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setLayoutData(new GridData(150, 50));",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ControlInfo button = getButtons(shell).get(0);
     // set absolute layout
@@ -972,15 +954,14 @@ public class SurroundSupportTest extends RcpModelTest {
             "}"));
     waitForAutoBuild();
     //
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test extends MyShell {",
-            "  public Test() {",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test extends MyShell {",
+        "  public Test() {",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
     List<ControlInfo> buttons = getButtons(shell);
@@ -1013,7 +994,7 @@ public class SurroundSupportTest extends RcpModelTest {
    * @return the {@link ControlInfo} models for {@link Button} controls.
    */
   private static List<ControlInfo> getButtons(CompositeInfo parent) {
-    List<ControlInfo> buttons = Lists.newArrayList();
+    List<ControlInfo> buttons = new ArrayList<>();
     for (ControlInfo control : parent.getChildrenControls()) {
       if (control.getDescription().getComponentClass().getName().equals(
           "org.eclipse.swt.widgets.Button")) {
@@ -1040,7 +1021,7 @@ public class SurroundSupportTest extends RcpModelTest {
     } else {
       resultMenuManager = new MenuManager();
       // handle multi selection
-      List<IMenuManager> managers = Lists.newArrayList();
+      List<IMenuManager> managers = new ArrayList<>();
       for (ObjectInfo object_ : objects) {
         IMenuManager manager = getDesignerMenuManager();
         object.getBroadcastObject().addContextMenu(objects, object_, manager);

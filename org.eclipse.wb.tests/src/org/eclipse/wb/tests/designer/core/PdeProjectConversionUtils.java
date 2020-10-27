@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.core.resources.IFile;
@@ -46,11 +44,12 @@ import org.eclipse.pde.internal.ui.wizards.tools.OrganizeManifest;
 
 import org.osgi.framework.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Utilities for operating with PDE projects.
- * 
+ *
  * @author scheglov_ke
  */
 public class PdeProjectConversionUtils {
@@ -64,7 +63,7 @@ public class PdeProjectConversionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Converts given {@link IProject} into PDE project.
-   * 
+   *
    * If <code>hostPluginId</code> is not <code>null</code>, fragment will be created.
    */
   public static void convertToPDE(IProject project, String hostPluginId) throws CoreException {
@@ -73,7 +72,7 @@ public class PdeProjectConversionUtils {
 
   /**
    * Converts given {@link IProject} into PDE project.
-   * 
+   *
    * If <code>hostPluginId</code> is not <code>null</code>, fragment will be created.
    */
   public static void convertToPDE(IProject project, String hostPluginId, String pluginActivator)
@@ -155,8 +154,8 @@ public class PdeProjectConversionUtils {
   private void loadClasspathEntries(IProject project, IProgressMonitor monitor) {
     IJavaProject javaProject = JavaCore.create(project);
     IClasspathEntry[] currentClassPath = new IClasspathEntry[0];
-    List<String> sources = Lists.newArrayList();
-    List<String> libraries = Lists.newArrayList();
+    List<String> sources = new ArrayList<>();
+    List<String> libraries = new ArrayList<>();
     try {
       currentClassPath = javaProject.getRawClasspath();
     } catch (JavaModelException e) {

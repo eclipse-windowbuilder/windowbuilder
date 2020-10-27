@@ -10,20 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.property.editor.ExpressionListPropertyEditor;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Test for {@link ExpressionListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditorTest {
@@ -144,12 +144,12 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
     parameters.put("functions", getSourceDQ("import java.util.ArrayList;"));
     parameters.put(
         "expressions",
-        Lists.newArrayList("new java.util.ArrayList()", "new java.lang.String()", "null"));
+        Arrays.asList("new java.util.ArrayList()", "new java.lang.String()", "null"));
     parameters.put(
         "conditions",
-        Lists.newArrayList("value is ArrayList", "value is String", "value == null"));
-    parameters.put("titles", Lists.newArrayList("AL", "STR", "NIL"));
-    //		
+        Arrays.asList("value is ArrayList", "value is String", "value == null"));
+    parameters.put("titles", Arrays.asList("AL", "STR", "NIL"));
+    //
     ExpressionListPropertyEditor editor =
         createEditor(ExpressionListPropertyEditor.class, parameters);
     assert_getText("AL", editor, new ArrayList<Object>());
@@ -205,13 +205,15 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
             "};"));
     params.put(
         "expressions",
-        Lists.newArrayList("new java.lang.Integer()", "new java.lang.String()", "null"));
-    params.put("conditions", Lists.newArrayList(
-        "valueType(\"java.lang.Integer\")",
-        "valueType(\"java.lang.String\")",
-        "value == null"));
-    params.put("titles", Lists.newArrayList("INT", "STR", "NIL"));
-    params.put("imports", Lists.newArrayList("com.google.common.collect.Lists"));
+        Arrays.asList("new java.lang.Integer()", "new java.lang.String()", "null"));
+    params.put(
+        "conditions",
+        Arrays.asList(
+            "valueType(\"java.lang.Integer\")",
+            "valueType(\"java.lang.String\")",
+            "value == null"));
+    params.put("titles", Arrays.asList("INT", "STR", "NIL"));
+    params.put("imports", Arrays.asList("com.google.common.collect.Lists"));
     return params;
   }
 }

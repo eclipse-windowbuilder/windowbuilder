@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -32,11 +30,12 @@ import org.eclipse.swt.SWT;
 
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class RequestsTest extends TestCase {
   ////////////////////////////////////////////////////////////////////////////
@@ -108,7 +107,7 @@ public class RequestsTest extends TestCase {
     assertSame(editPart2, request.getEditParts().get(1));
     //
     // check setEditParts
-    List<EditPart> editParts = Lists.newArrayList();
+    List<EditPart> editParts = new ArrayList<>();
     request.setEditParts(editParts);
     assertSame(editParts, request.getEditParts());
   }

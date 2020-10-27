@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.util.reflect;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -204,8 +203,9 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     check_getFullyQualifiedName(expected, expected, method.getGenericParameterTypes()[0]);
   }
 
-  private void check_getFullyQualifiedName(String expectedSource, String expectedRuntime, Type clazz)
-      throws Exception {
+  private void check_getFullyQualifiedName(String expectedSource,
+      String expectedRuntime,
+      Type clazz) throws Exception {
     assertEquals(expectedSource, ReflectionUtils.getFullyQualifiedName(clazz, false));
     assertEquals(expectedRuntime, ReflectionUtils.getFullyQualifiedName(clazz, true));
   }
@@ -831,10 +831,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
                 net.sf.cglib.asm.Type[] interfaces,
                 String sourceFile) {
               super.begin_class(version, access, className, superType, interfaces, sourceFile);
-              CodeEmitter emitter =
-                  begin_method(Opcodes.ACC_PUBLIC, new Signature("__foo__",
+              CodeEmitter emitter = begin_method(
+                  Opcodes.ACC_PUBLIC,
+                  new Signature("__foo__",
                       net.sf.cglib.asm.Type.VOID_TYPE,
-                      new net.sf.cglib.asm.Type[]{}), null);
+                      new net.sf.cglib.asm.Type[]{}),
+                  null);
               emitter.return_value();
               emitter.end_method();
             }
@@ -885,8 +887,9 @@ public class ReflectionUtilsTest extends DesignerTestCase {
       assertEquals("ArrayList(int)", ReflectionUtils.getShortConstructorString(constructor));
     }
     {
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorBySignature(String.class, "<init>(byte[],java.lang.String)");
+      Constructor<?> constructor = ReflectionUtils.getConstructorBySignature(
+          String.class,
+          "<init>(byte[],java.lang.String)");
       assertEquals("String(byte[],String)", ReflectionUtils.getShortConstructorString(constructor));
     }
   }
@@ -935,27 +938,33 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     // use variants with parameter types (0, 1, 2, 3 of them)
     assertEquals(0, ReflectionUtils.invokeMethod2(myObject, "method_0"));
     assertEquals(1, ReflectionUtils.invokeMethod2(myObject, "method_1", int.class, 0));
-    assertEquals(2, ReflectionUtils.invokeMethod2(myObject, "method_2", int.class, int.class, 0, 0));
-    assertEquals(3, ReflectionUtils.invokeMethod2(
-        myObject,
-        "method_3",
-        int.class,
-        int.class,
-        int.class,
-        0,
-        0,
-        0));
-    assertEquals(4, ReflectionUtils.invokeMethod2(
-        myObject,
-        "method_4",
-        int.class,
-        int.class,
-        int.class,
-        int.class,
-        0,
-        0,
-        0,
-        0));
+    assertEquals(
+        2,
+        ReflectionUtils.invokeMethod2(myObject, "method_2", int.class, int.class, 0, 0));
+    assertEquals(
+        3,
+        ReflectionUtils.invokeMethod2(
+            myObject,
+            "method_3",
+            int.class,
+            int.class,
+            int.class,
+            0,
+            0,
+            0));
+    assertEquals(
+        4,
+        ReflectionUtils.invokeMethod2(
+            myObject,
+            "method_4",
+            int.class,
+            int.class,
+            int.class,
+            int.class,
+            0,
+            0,
+            0,
+            0));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -964,7 +973,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_invokeMethod() throws Exception {
-    assertEquals(0, ReflectionUtils.invokeMethod(Lists.newArrayList(), "size()"));
+    assertEquals(0, ReflectionUtils.invokeMethod(new ArrayList<>(), "size()"));
   }
 
   public void test_invokeMethod_static() throws Exception {
@@ -975,7 +984,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
 
   public void test_invokeMethod_notFound() throws Exception {
     try {
-      assertEquals(0, ReflectionUtils.invokeMethod(Lists.newArrayList(), "size2()"));
+      assertEquals(0, ReflectionUtils.invokeMethod(new ArrayList<>(), "size2()"));
       fail();
     } catch (AssertionFailedException e) {
     }
@@ -1011,7 +1020,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   }
 
   public void test_invokeMethodEx_noException() {
-    assertEquals(0, ReflectionUtils.invokeMethodEx(Lists.newArrayList(), "size()"));
+    assertEquals(0, ReflectionUtils.invokeMethodEx(new ArrayList<>(), "size()"));
   }
 
   /**
@@ -1070,8 +1079,9 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     }
     // Integer != String
     {
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorByGenericSignature(Foo.class, "<init>(E,java.lang.Integer)");
+      Constructor<?> constructor = ReflectionUtils.getConstructorByGenericSignature(
+          Foo.class,
+          "<init>(E,java.lang.Integer)");
       assertNull(constructor);
     }
   }
@@ -1084,10 +1094,9 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     }
     // match
     {
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorByGenericSignature(
-              Foo.class,
-              "<init>(E[],java.lang.String)");
+      Constructor<?> constructor = ReflectionUtils.getConstructorByGenericSignature(
+          Foo.class,
+          "<init>(E[],java.lang.String)");
       assertNotNull(constructor);
     }
   }
@@ -1135,25 +1144,25 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     }
     // incompatible arguments
     {
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorForArguments(Foo_getConstructorForArguments.class, "a", "b");
+      Constructor<?> constructor = ReflectionUtils.getConstructorForArguments(
+          Foo_getConstructorForArguments.class,
+          "a",
+          "b");
       assertNull(constructor);
     }
     // compatible arguments
     {
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorForArguments(
-              Foo_getConstructorForArguments.class,
-              "a",
-              new Integer(1));
+      Constructor<?> constructor = ReflectionUtils.getConstructorForArguments(
+          Foo_getConstructorForArguments.class,
+          "a",
+          new Integer(1));
       assertNotNull(constructor);
     }
     // compatible arguments, but parameter type is primitive "int"
     {
-      Constructor<?> constructor =
-          ReflectionUtils.getConstructorForArguments(
-              Foo_getConstructorForArguments.class,
-              new Integer(1));
+      Constructor<?> constructor = ReflectionUtils.getConstructorForArguments(
+          Foo_getConstructorForArguments.class,
+          new Integer(1));
       assertNotNull(constructor);
     }
   }
@@ -1278,7 +1287,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_getFieldObject() throws Exception {
-    assertEquals(0, ReflectionUtils.getFieldObject(Lists.newArrayList(), "size"));
+    assertEquals(0, ReflectionUtils.getFieldObject(new ArrayList<>(), "size"));
   }
 
   public void test_getFieldObject_static() throws Exception {
@@ -1318,7 +1327,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   }
 
   public void test_getFieldInt() throws Exception {
-    assertEquals(0, ReflectionUtils.getFieldInt(Lists.newArrayList(), "size"));
+    assertEquals(0, ReflectionUtils.getFieldInt(new ArrayList<>(), "size"));
   }
 
   public void test_getFieldLong() throws Exception {
@@ -1458,16 +1467,15 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   public void test_getClassByName() throws Exception {
     ClassLoader classLoader = getClass().getClassLoader();
     // check primitive classes
-    Class<?>[] primitiveClasses =
-        {
-            boolean.class,
-            byte.class,
-            char.class,
-            short.class,
-            int.class,
-            long.class,
-            float.class,
-            double.class};
+    Class<?>[] primitiveClasses = {
+        boolean.class,
+        byte.class,
+        char.class,
+        short.class,
+        int.class,
+        long.class,
+        float.class,
+        double.class};
     for (Class<?> primitiveClass : primitiveClasses) {
       assertSame(
           primitiveClass,
@@ -1846,11 +1854,12 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   /**
    * Asserts that given {@link Class} has {@link PropertyDescriptor}'s with given names.
    */
-  private static void assertHasProperties(Class<?> clazz, String... expectedNames) throws Exception {
+  private static void assertHasProperties(Class<?> clazz, String... expectedNames)
+      throws Exception {
     List<PropertyDescriptor> descriptors = getPropertyDescriptors(clazz);
     // prepare names/setters of all PropertyDescriptor's
-    List<String> propertyNames = Lists.newArrayList();
-    List<Method> propertySetters = Lists.newArrayList();
+    List<String> propertyNames = new ArrayList<>();
+    List<Method> propertySetters = new ArrayList<>();
     for (PropertyDescriptor descriptor : descriptors) {
       propertyNames.add(descriptor.getName());
       if (descriptor.getWriteMethod() != null) {
@@ -1876,8 +1885,8 @@ public class ReflectionUtilsTest extends DesignerTestCase {
   /**
    * @return the {@link Map} of names for all {@link PropertyDescriptor}'s of given {@link Class}.
    */
-  private static Map<String, PropertyDescriptor> getPropertyDescriptorNames(List<PropertyDescriptor> descriptors)
-      throws Exception {
+  private static Map<String, PropertyDescriptor> getPropertyDescriptorNames(
+      List<PropertyDescriptor> descriptors) throws Exception {
     Map<String, PropertyDescriptor> propertiesMap = Maps.newTreeMap();
     for (PropertyDescriptor propertyDescriptor : descriptors) {
       propertiesMap.put(propertyDescriptor.getName(), propertyDescriptor);
@@ -1952,7 +1961,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     assertTrue(ReflectionUtils.isSuccessorOf(new String(), "java.lang.Object"));
     assertTrue(ReflectionUtils.isSuccessorOf(new String(), "java.lang.String"));
     //
-    assertTrue(ReflectionUtils.isSuccessorOf(Lists.newArrayList(), "java.util.List"));
+    assertTrue(ReflectionUtils.isSuccessorOf(new ArrayList<>(), "java.util.List"));
   }
 
   /**
@@ -1985,12 +1994,8 @@ public class ReflectionUtilsTest extends DesignerTestCase {
     // B
     {
       List<Class<?>> types = ReflectionUtils.getSuperHierarchy(B.class);
-      assertThat(types).containsExactly(
-          B.class,
-          Comparable.class,
-          A.class,
-          List.class,
-          Object.class);
+      assertThat(
+          types).containsExactly(B.class, Comparable.class, A.class, List.class, Object.class);
     }
   }
 }

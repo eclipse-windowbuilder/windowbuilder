@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -42,18 +41,19 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.NestableException;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Helper for testing SWT UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class UiContext {
   private final Display m_display;
   private Shell m_shell;
-  private final LinkedList<Shell> m_shells = Lists.newLinkedList();
+  private final LinkedList<Shell> m_shells = new LinkedList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -159,7 +159,7 @@ public class UiContext {
    * @return the {@link List} of {@link Widget}'s with compatible {@link Class}.
    */
   public static <T extends Widget> List<T> findWidgets(Widget start, final Class<T> classToFind) {
-    final List<T> widgets = Lists.newArrayList();
+    final List<T> widgets = new ArrayList<>();
     visit(start, new IWidgetsVisitor() {
       @Override
       @SuppressWarnings("unchecked")
@@ -698,7 +698,8 @@ public class UiContext {
         AssertionFailedError error = (AssertionFailedError) checkException[0];
         throw error;
       }
-      throw new NestableException("Exception during running 'check' UIRunnable.", checkException[0]);
+      throw new NestableException("Exception during running 'check' UIRunnable.",
+          checkException[0]);
     }
   }
 

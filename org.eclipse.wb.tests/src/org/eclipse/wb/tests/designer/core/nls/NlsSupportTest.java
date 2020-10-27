@@ -51,7 +51,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link NlsSupport} and basic NLS operations.
- * 
+ *
  * @author scheglov_ke
  */
 public class NlsSupportTest extends SwingModelTest {
@@ -96,14 +96,13 @@ public class NlsSupportTest extends SwingModelTest {
   }
 
   private void parseUsualJFrame() throws Exception {
-    m_frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName('Some name');",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName('Some name');",
+        "  }",
+        "}");
     //
     m_support = NlsSupport.get(m_frame);
     AbstractSource.setLocaleInfo(m_frame, LocaleInfo.DEFAULT);
@@ -176,13 +175,12 @@ public class NlsSupportTest extends SwingModelTest {
   public void test_getValue_removeResources() throws Exception {
     createUsualAccessor();
     //
-    m_frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title'));",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title'));",
+        "  }",
+        "}");
     m_frame.refresh();
     //
     m_support = NlsSupport.get(m_frame);
@@ -215,12 +213,11 @@ public class NlsSupportTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     //
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test extends MyPanel {",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public class Test extends MyPanel {",
+        "}");
     panel.refresh();
     // check that "name" is set
     assertEquals("My JFrame", panel.getComponent().getName());
@@ -335,13 +332,14 @@ public class NlsSupportTest extends SwingModelTest {
     GenericProperty nameProperty = (GenericProperty) m_frame.getPropertyByTitle("name");
     m_support.externalize(m_frame, nameProperty);
     // check source
-    assertEditor(new String[]{
-        "class Test extends JFrame {",
-        "  Test() {",
-        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-        "    setName(Messages.getString('Test.this.name')); //$NON-NLS-1$",
-        "  }",
-        "}"});
+    assertEditor(
+        new String[]{
+            "class Test extends JFrame {",
+            "  Test() {",
+            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+            "    setName(Messages.getString('Test.this.name')); //$NON-NLS-1$",
+            "  }",
+            "}"});
     // check *.properties file
     String newProperties = getFileContentSrc("test/messages.properties");
     assertTrue(newProperties.contains("Test.this.name=Some name"));
@@ -354,13 +352,12 @@ public class NlsSupportTest extends SwingModelTest {
     setFileContentSrc("test/messages.properties", getSourceDQ("#Field ResourceBundle: m_bundle"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "  }",
+        "}");
     NlsSupport support = NlsSupport.get(frame);
     IEditableSupport editableSupport = support.getEditable();
     // check that we have (possible) editable source
@@ -399,12 +396,13 @@ public class NlsSupportTest extends SwingModelTest {
     // check that JFrame was refreshed
     assertEquals("", ((JFrame) m_frame.getObject()).getTitle());
     // check source
-    assertEditor(new String[]{
-        "class Test extends JFrame {",
-        "  Test() {",
-        "    setName('Some name');",
-        "  }",
-        "}"});
+    assertEditor(
+        new String[]{
+            "class Test extends JFrame {",
+            "  Test() {",
+            "    setName('Some name');",
+            "  }",
+            "}"});
     // check *.properties file
     String newProperties = getFileContentSrc("test/messages.properties");
     assertFalse(newProperties.contains("Test.this.name=myName"));
@@ -427,13 +425,12 @@ public class NlsSupportTest extends SwingModelTest {
 
   public void test_GenericProperty_setValue_setKey_forNewProperty() throws Exception {
     createUsualAccessorProperties();
-    m_frame =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     m_frame.refresh();
     // set "name" property value
     {
@@ -443,14 +440,13 @@ public class NlsSupportTest extends SwingModelTest {
     }
     // check source
     {
-      String expectedSource =
-          getTestSource(
-              "public class Test extends JFrame {",
-              "  public Test() {",
-              "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-              "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-              "  }",
-              "}");
+      String expectedSource = getTestSource(
+          "public class Test extends JFrame {",
+          "  public Test() {",
+          "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+          "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+          "  }",
+          "}");
       assertEditor(expectedSource, m_lastEditor);
       assertEquals(expectedSource, m_lastEditor.getModelUnit().getSource());
     }
@@ -461,13 +457,12 @@ public class NlsSupportTest extends SwingModelTest {
 
   public void test_GenericProperty_setValue_setKey_forExistingProperty() throws Exception {
     createUsualAccessorProperties();
-    m_frame =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     m_frame.refresh();
     // set "name" property value
     {
@@ -477,13 +472,12 @@ public class NlsSupportTest extends SwingModelTest {
     }
     // check source
     {
-      String expectedSource =
-          getTestSource(
-              "public class Test extends JFrame {",
-              "  public Test() {",
-              "    setName(Messages.getString('frame.title')); //$NON-NLS-1$",
-              "  }",
-              "}");
+      String expectedSource = getTestSource(
+          "public class Test extends JFrame {",
+          "  public Test() {",
+          "    setName(Messages.getString('frame.title')); //$NON-NLS-1$",
+          "  }",
+          "}");
       assertEditor(expectedSource, m_lastEditor);
       assertEquals(expectedSource, m_lastEditor.getModelUnit().getSource());
     }
@@ -494,13 +488,12 @@ public class NlsSupportTest extends SwingModelTest {
 
   public void test_GenericProperty_setValue_autoExternalizeEnabled() throws Exception {
     createUsualAccessorProperties();
-    m_frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "  }",
+        "}");
     m_frame.refresh();
     // set "name" property value
     Property property = m_frame.getPropertyByTitle("name");
@@ -508,14 +501,13 @@ public class NlsSupportTest extends SwingModelTest {
     assertEquals("myName", property.getValue());
     // check source
     {
-      String expectedSource =
-          getTestSource(
-              "class Test extends JFrame {",
-              "  Test() {",
-              "    setName(Messages.getString('Test.this.name')); //$NON-NLS-1$",
-              "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-              "  }",
-              "}");
+      String expectedSource = getTestSource(
+          "class Test extends JFrame {",
+          "  Test() {",
+          "    setName(Messages.getString('Test.this.name')); //$NON-NLS-1$",
+          "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+          "  }",
+          "}");
       assertEditor(expectedSource, m_lastEditor);
       assertEquals(expectedSource, m_lastEditor.getModelUnit().getSource());
     }
@@ -526,13 +518,12 @@ public class NlsSupportTest extends SwingModelTest {
 
   public void test_GenericProperty_setValue_autoExternalizeDisable() throws Exception {
     createUsualAccessorProperties();
-    m_frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "  }",
+        "}");
     m_frame.refresh();
     // set "name" property value
     PreferencesRepairer preferences =
@@ -544,13 +535,14 @@ public class NlsSupportTest extends SwingModelTest {
       preferences.restore();
     }
     // check source
-    assertEditor(new String[]{
-        "class Test extends JFrame {",
-        "  Test() {",
-        "    setName('myName');",
-        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-        "  }",
-        "}"});
+    assertEditor(
+        new String[]{
+            "class Test extends JFrame {",
+            "  Test() {",
+            "    setName('myName');",
+            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+            "  }",
+            "}"});
     // check *.properties file
     String newProperties = getFileContentSrc("test/messages.properties");
     assertFalse(newProperties.contains("Test.this.name=myName"));
@@ -594,13 +586,12 @@ public class NlsSupportTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    m_frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    m_frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "  }",
+        "}");
     m_frame.refresh();
     // remember old NLS state
     String properties = getFileContentSrc("test/messages.properties");
@@ -646,16 +637,15 @@ public class NlsSupportTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "import java.util.ResourceBundle;",
-            "public class Test {",
-            "  private static final ResourceBundle m_bundle = ResourceBundle.getBundle('test.messages'); //$NON-NLS-1$",
-            "  public static void main(String[] args) {",
-            "    JFrame frame = new JFrame();",
-            "    frame.setTitle(m_bundle.getString('Test.frame.title')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "import java.util.ResourceBundle;",
+        "public class Test {",
+        "  private static final ResourceBundle m_bundle = ResourceBundle.getBundle('test.messages'); //$NON-NLS-1$",
+        "  public static void main(String[] args) {",
+        "    JFrame frame = new JFrame();",
+        "    frame.setTitle(m_bundle.getString('Test.frame.title')); //$NON-NLS-1$",
+        "  }",
+        "}");
     frame.refresh();
     // set "rename" preference flag
     PreferencesRepairer preferencesRepairer =

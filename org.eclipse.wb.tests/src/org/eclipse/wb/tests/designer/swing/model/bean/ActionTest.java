@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -56,6 +55,8 @@ import org.eclipse.swt.graphics.Image;
 
 import org.assertj.core.api.Assertions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -66,7 +67,7 @@ import javax.swing.JToolBar;
 
 /**
  * Test for {@link ActionInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionTest extends SwingModelTest {
@@ -105,13 +106,12 @@ public class ActionTest extends SwingModelTest {
    * No {@link AbstractAction}'s - no {@link ActionContainerInfo} and {@link ActionInfo}'s.
    */
   public void test_noActions() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // no ActionContainerInfo and ActionInfo's
     assertEquals(0, panel.getChildren(ActionContainerInfo.class).size());
@@ -149,16 +149,15 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_external_parse() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction action = new ExternalAction();",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    button.setAction(action);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction action = new ExternalAction();",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    button.setAction(action);",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // test ActionContainerInfo
@@ -204,18 +203,17 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_external_setProperty() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction action = new ExternalAction();",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "      button.setAction(action);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction action = new ExternalAction();",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "      button.setAction(action);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // test Action
@@ -244,13 +242,12 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_external_new_lazy() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // no Action's yet
@@ -258,11 +255,10 @@ public class ActionTest extends SwingModelTest {
     // add new ActionInfo
     ActionInfo newAction;
     {
-      newAction =
-          (ActionInfo) JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              m_lastLoader.loadClass("test.ExternalAction"),
-              new ConstructorCreationSupport());
+      newAction = (ActionInfo) JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          m_lastLoader.loadClass("test.ExternalAction"),
+          new ConstructorCreationSupport());
       SwingTestUtils.setGenerations(
           LazyVariableDescription.INSTANCE,
           LazyStatementGeneratorDescription.INSTANCE);
@@ -293,13 +289,12 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_external_new() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // no Action's yet
@@ -307,11 +302,10 @@ public class ActionTest extends SwingModelTest {
     // add new ActionInfo
     ActionInfo newAction;
     {
-      newAction =
-          (ActionInfo) JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              m_lastLoader.loadClass("test.ExternalAction"),
-              new ConstructorCreationSupport());
+      newAction = (ActionInfo) JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          m_lastLoader.loadClass("test.ExternalAction"),
+          new ConstructorCreationSupport());
       ActionContainerInfo.add(panel, newAction);
     }
     // check
@@ -330,21 +324,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_external_addOnJToolBar() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JToolBar bar = new JToolBar();",
-            "    add(bar);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    JToolBar bar = new JToolBar();",
+        "    add(bar);",
+        "  }",
+        "}");
     JToolBarInfo bar = (JToolBarInfo) panel.getChildrenComponents().get(0);
     // prepare new ActionInfo
-    ActionInfo newAction =
-        (ActionInfo) JavaInfoUtils.createJavaInfo(
-            m_lastEditor,
-            m_lastLoader.loadClass("test.ExternalAction"),
-            new ConstructorCreationSupport());
+    ActionInfo newAction = (ActionInfo) JavaInfoUtils.createJavaInfo(
+        m_lastEditor,
+        m_lastLoader.loadClass("test.ExternalAction"),
+        new ConstructorCreationSupport());
     // add new JButton using ActionInfo
     ComponentInfo newButton = bar.command_CREATE(newAction, null);
     assertEditor(
@@ -371,21 +363,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_external_setOnJButton() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // prepare new ActionInfo
-    ActionInfo newAction =
-        (ActionInfo) JavaInfoUtils.createJavaInfo(
-            m_lastEditor,
-            m_lastLoader.loadClass("test.ExternalAction"),
-            new ConstructorCreationSupport());
+    ActionInfo newAction = (ActionInfo) JavaInfoUtils.createJavaInfo(
+        m_lastEditor,
+        m_lastLoader.loadClass("test.ExternalAction"),
+        new ConstructorCreationSupport());
     // add new JButton using ActionInfo
     ActionInfo.setAction(button, newAction);
     assertEditor(
@@ -410,19 +400,18 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_notAttached_lazy() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction externalAction;",
-            "  public Test() {",
-            "  }",
-            "  private ExternalAction getExternalAction() {",
-            "    if (externalAction == null) {",
-            "      externalAction = new ExternalAction();",
-            "    }",
-            "    return externalAction;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction externalAction;",
+        "  public Test() {",
+        "  }",
+        "  private ExternalAction getExternalAction() {",
+        "    if (externalAction == null) {",
+        "      externalAction = new ExternalAction();",
+        "    }",
+        "    return externalAction;",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -438,22 +427,21 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_attached_lazy() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction externalAction;",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    button.setAction(getExternalAction());",
-            "  }",
-            "  private ExternalAction getExternalAction() {",
-            "    if (externalAction == null) {",
-            "      externalAction = new ExternalAction();",
-            "    }",
-            "    return externalAction;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction externalAction;",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    button.setAction(getExternalAction());",
+        "  }",
+        "  private ExternalAction getExternalAction() {",
+        "    if (externalAction == null) {",
+        "      externalAction = new ExternalAction();",
+        "    }",
+        "    return externalAction;",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(button)/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -484,13 +472,12 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_notAttached_fieldInitializer() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction action = new ExternalAction();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction action = new ExternalAction();",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -512,19 +499,18 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_contributeToPalette() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction action = new ExternalAction();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction action = new ExternalAction();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // prepare category/entries
     CategoryInfo category = new CategoryInfo();
     category.setId("org.eclipse.wb.internal.swing.actions");
-    List<EntryInfo> entries = Lists.newArrayList();
+    List<EntryInfo> entries = new ArrayList<>();
     // send palette broadcast
     PaletteEventListener listener = panel.getBroadcast(PaletteEventListener.class);
     listener.entries(category, entries);
@@ -538,18 +524,17 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_setAction() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction action_1 = new ExternalAction();",
-            "  private ExternalAction action_2 = new ExternalAction();",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction action_1 = new ExternalAction();",
+        "  private ExternalAction action_2 = new ExternalAction();",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // prepare components
@@ -609,13 +594,12 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_factory() throws Exception {
     prepare_ActionFactory();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private AbstractAction action = ActionFactory.createAction();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private AbstractAction action = ActionFactory.createAction();",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -651,21 +635,20 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_parse() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue(NAME, 'My name');",
-            "      putValue(SHORT_DESCRIPTION, 'My short description');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue(NAME, 'My name');",
+        "      putValue(SHORT_DESCRIPTION, 'My short description');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     assertHierarchy(
@@ -713,20 +696,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_parse2() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue('Name', 'My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue('Name', 'My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // test Action
@@ -745,20 +727,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_parse3() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue(Action.NAME, 'My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue(Action.NAME, 'My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // test Action
@@ -783,17 +764,16 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_parse_noConstructor() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // no properties
@@ -806,13 +786,12 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_new() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // no Action's yet
@@ -879,19 +858,18 @@ public class ActionTest extends SwingModelTest {
    * There is already other inner {@link Action}, so new one should be added after existing.
    */
   public void test_inner_new2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final Action action = new SwingAction();",
-            "  public Test() {",
-            "  }",
-            "  private class SwingAction extends AbstractAction {",
-            "    public SwingAction() {",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private final Action action = new SwingAction();",
+        "  public Test() {",
+        "  }",
+        "  private class SwingAction extends AbstractAction {",
+        "    public SwingAction() {",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // add new ActionInfo
@@ -929,19 +907,18 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_delete() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -951,18 +928,17 @@ public class ActionTest extends SwingModelTest {
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     assertTrue(action.canDelete());
     action.delete();
-    String[] lines =
-        {
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  public Test() {",
-            "  }",
-            "}"};
+    String[] lines = {
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  public Test() {",
+        "  }",
+        "}"};
     assertEditor(lines);
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
@@ -980,21 +956,20 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_ActionExpressionAccessor_1() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue(NAME, 'My name');",
-            "      putValue('ShortDescription', 'My short description');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue(NAME, 'My name');",
+        "      putValue('ShortDescription', 'My short description');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // prepare Action_1 constructor
@@ -1098,20 +1073,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_ActionExpressionAccessor_2() throws Exception {
     m_waitForAutoBuild = true;
-    final ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      super('My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    final ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      super('My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // check that "Name" is applied to Action object
@@ -1135,10 +1109,9 @@ public class ActionTest extends SwingModelTest {
             new ActionExpressionAccessor(new LazyActionSupport(constructor) {
               @Override
               public ConstructorDescription getConstructorDescription() throws Exception {
-                ComponentDescription description =
-                    ComponentDescriptionHelper.getDescription(
-                        panel.getEditor(),
-                        AbstractAction.class);
+                ComponentDescription description = ComponentDescriptionHelper.getDescription(
+                    panel.getEditor(),
+                    AbstractAction.class);
                 return description.getConstructor("<init>(java.lang.String)");
               }
             }, "NAME");
@@ -1153,10 +1126,9 @@ public class ActionTest extends SwingModelTest {
             new ActionExpressionAccessor(new LazyActionSupport(constructor) {
               @Override
               public ConstructorDescription getConstructorDescription() throws Exception {
-                ComponentDescription description =
-                    ComponentDescriptionHelper.getDescription(
-                        panel.getEditor(),
-                        AbstractAction.class);
+                ComponentDescription description = ComponentDescriptionHelper.getDescription(
+                    panel.getEditor(),
+                    AbstractAction.class);
                 return description.getConstructor("<init>(java.lang.String)");
               }
             }, "NAME");
@@ -1224,20 +1196,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_properties_putValue() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue(NAME, 'My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue(NAME, 'My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // check "name" property
@@ -1266,20 +1237,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_properties_putValue_inInitializer() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    {",
-            "      putValue(NAME, 'My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    {",
+        "      putValue(NAME, 'My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // check that NAME is applied
@@ -1315,20 +1285,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_properties_superConstructor() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      super('My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      super('My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // check "name" property
@@ -1377,20 +1346,19 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_inner_inGeneric() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test<T> extends JPanel {",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue(NAME, 'My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private Action_1 action_1 = new Action_1();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test<T> extends JPanel {",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue(NAME, 'My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private Action_1 action_1 = new Action_1();",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     // test for Action's
@@ -1479,19 +1447,18 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_anonymous_properties_inInitializer() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private AbstractAction action = new AbstractAction() {",
-            "    {",
-            "      putValue(NAME, 'My name');",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  };",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private AbstractAction action = new AbstractAction() {",
+        "    {",
+        "      putValue(NAME, 'My name');",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  };",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // check "name" property
@@ -1523,16 +1490,15 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_anonymous_properties_inConstructorArgument() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private AbstractAction action = new AbstractAction('My name') {",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  };",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private AbstractAction action = new AbstractAction('My name') {",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  };",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
     // check "name" property
@@ -1562,27 +1528,26 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_presentation() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private Action action_1 = new Action_1();",
-            "  private Action action_2 = new Action_2();",
-            "  private class Action_1 extends AbstractAction {",
-            "    public Action_1() {",
-            "      putValue(SMALL_ICON, new ImageIcon(Test.class.getResource('/javax/swing/plaf/basic/icons/JavaCup16.png')));",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  private class Action_2 extends AbstractAction {",
-            "    public Action_2() {",
-            "    }",
-            "    public void actionPerformed(ActionEvent e) {",
-            "    }",
-            "  }",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private Action action_1 = new Action_1();",
+        "  private Action action_2 = new Action_2();",
+        "  private class Action_1 extends AbstractAction {",
+        "    public Action_1() {",
+        "      putValue(SMALL_ICON, new ImageIcon(Test.class.getResource('/javax/swing/plaf/basic/icons/JavaCup16.png')));",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  private class Action_2 extends AbstractAction {",
+        "    public Action_2() {",
+        "    }",
+        "    public void actionPerformed(ActionEvent e) {",
+        "    }",
+        "  }",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     ActionInfo action_1 = ActionContainerInfo.getActions(panel).get(0);
@@ -1604,13 +1569,12 @@ public class ActionTest extends SwingModelTest {
    * <code>"Set Action"</code> menu.
    */
   public void test_contextMenu_notButton() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // no "Set Action" expected
     MenuManager designerMenu = getDesignerMenuManager();
@@ -1624,17 +1588,16 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_contextMenu_setAction_single() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction m_action = new ExternalAction();",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction m_action = new ExternalAction();",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     // prepare models
     ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -1668,21 +1631,20 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_contextMenu_setAction_multiple() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction m_action = new ExternalAction();",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction m_action = new ExternalAction();",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     // prepare models
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
@@ -1740,18 +1702,17 @@ public class ActionTest extends SwingModelTest {
    */
   public void test_contextMenu_noAction() throws Exception {
     createExternalAction();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private ExternalAction m_action = new ExternalAction();",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      button.setAction(m_action);",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private ExternalAction m_action = new ExternalAction();",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      button.setAction(m_action);",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     // prepare models
     ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -1780,16 +1741,15 @@ public class ActionTest extends SwingModelTest {
    * Set new {@link Action} for single {@link AbstractButton}.
    */
   public void test_contextMenu_newGroup() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     // prepare models
     ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -1842,7 +1802,7 @@ public class ActionTest extends SwingModelTest {
     }
 
     public List<Block> getInitializationBlocks() {
-      return Lists.newArrayList(m_constructor.getBody());
+      return Arrays.asList(m_constructor.getBody());
     }
 
     public ConstructorDescription getConstructorDescription() throws Exception {

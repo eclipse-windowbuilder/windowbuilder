@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.util;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -72,15 +71,17 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import static org.easymock.EasyMock.capture;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easymock.EasyMock.capture;
 
+import org.assertj.core.api.Assertions;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
-import org.assertj.core.api.Assertions;
 
 import java.awt.FlowLayout;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for {@link JavaInfoUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JavaInfoUtilsTest extends SwingModelTest {
@@ -112,13 +113,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_assertIsNotDeleted() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // initially all OK
     JavaInfoUtils.assertIsNotDeleted(button);
@@ -137,13 +137,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_getTypeDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertSame(m_lastEditor.getAstUnit().types().get(0), JavaInfoUtils.getTypeDeclaration(panel));
   }
 
@@ -153,26 +152,24 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_getMethodDeclaration_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(panel);
     assertSame(typeDeclaration.getMethods()[0], JavaInfoUtils.getMethodDeclaration(panel));
   }
 
   public void test_getMethodDeclaration_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton('button');",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton('button');",
+        "    add(button);",
+        "  }",
+        "}");
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(panel);
     assertSame(
         typeDeclaration.getMethods()[0],
@@ -188,13 +185,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getState(JavaInfo)}.
    */
   public void test_EditorState_getState() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertSame(m_lastState, JavaInfoUtils.getState(panel));
   }
 
@@ -202,13 +198,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getClassLoader(JavaInfo)}.
    */
   public void test_EditorState_getEditorLoader() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertSame(m_lastLoader, JavaInfoUtils.getClassLoader(panel));
   }
 
@@ -221,36 +216,33 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isLocalField(JavaInfo, IField)}.
    */
   public void test_isLocalField() throws Exception {
-    IType constants_1 =
-        createModelType(
-            "test",
-            "IConstants_1.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "package test;",
-                "public interface IConstants_1 {",
-                "  int field_1 = 1;",
-                "}"));
-    IType constants_2 =
-        createModelType(
-            "test",
-            "IConstants_2.java",
-            getSourceDQ(
-                "// filler filler filler filler filler",
-                "package test;",
-                "public interface IConstants_2 {",
-                "  int field_2 = 2;",
-                "}"));
+    IType constants_1 = createModelType(
+        "test",
+        "IConstants_1.java",
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "package test;",
+            "public interface IConstants_1 {",
+            "  int field_1 = 1;",
+            "}"));
+    IType constants_2 = createModelType(
+        "test",
+        "IConstants_2.java",
+        getSourceDQ(
+            "// filler filler filler filler filler",
+            "package test;",
+            "public interface IConstants_2 {",
+            "  int field_2 = 2;",
+            "}"));
     // parse
-    JavaInfo javaInfo =
-        parseSource(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test extends javax.swing.JPanel implements IConstants_1 {",
-                "  int field_3 = 3;",
-                "}"));
+    JavaInfo javaInfo = parseSource(
+        "test",
+        "Test.java",
+        getSourceDQ(
+            "package test;",
+            "public class Test extends javax.swing.JPanel implements IConstants_1 {",
+            "  int field_3 = 3;",
+            "}"));
     // check
     assertTrue(JavaInfoUtils.isLocalField(javaInfo, constants_1.getField("field_1")));
     assertFalse(JavaInfoUtils.isLocalField(javaInfo, constants_2.getField("field_2")));
@@ -269,14 +261,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isImplicitlyCreated(JavaInfo)}.
    */
   public void test_isImplicitlyCreated() throws Exception {
-    ContainerInfo frame =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    getContentPane().add(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    getContentPane().add(new JButton());",
+        "  }",
+        "}");
     ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
     ComponentInfo button = contentPane.getChildrenComponents().get(0);
     //
@@ -291,13 +282,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_scheduleSave() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     String source = m_lastEditor.getSource();
     // do change in ICompilationUnit
     m_lastEditor.getModelUnit().getBuffer().replace(0, 0, "   ");
@@ -318,13 +308,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#scheduleOpenNode(JavaInfo, ASTNode)}.
    */
   public void test_scheduleOpenNode() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     MethodDeclaration constructor = JavaInfoUtils.getTypeDeclaration(panel).getMethods()[0];
     // set mock for DesignPageSite
     IDesignPageSite pageSite;
@@ -358,14 +347,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Normal component, created using {@link ClassInstanceCreation}.
    */
   public void test_getParameter_normalComponent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     assertEquals("false", JavaInfoUtils.getParameter(button, "layout.has"));
   }
@@ -397,14 +385,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</factory>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = StaticFactory.createButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = StaticFactory.createButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // "parameter.1" exists for component...
     assertEquals("some value", JavaInfoUtils.getParameter(button, "parameter.1"));
@@ -434,13 +421,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertTrue(JavaInfoUtils.hasTrueParameter(panel, "trueParameter"));
     assertFalse(JavaInfoUtils.hasTrueParameter(panel, "falseParameter"));
     assertFalse(JavaInfoUtils.hasTrueParameter(panel, "noSuchParameter"));
@@ -450,13 +436,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#setParameter(JavaInfo, String, String)}.
    */
   public void test_setParameter() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     String parameterName = "noSuchParameter";
     String parameterValue = "the Value";
     // initially no such parameter
@@ -467,27 +452,26 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   }
 
   public void test_getParameters() throws Exception {
-    setJavaContentSrc("test", "MyPanel", new String[]{
-        "public class MyPanel extends JPanel {",
-        "  public MyPanel() {",
-        "  }",
-        "}"}, new String[]{
-        "<?xml version='1.0' encoding='UTF-8'?>",
-        "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-        "  <parameters>",
-        "    <parameter name='test.parameter.1'>value_1</parameter>",
-        "    <parameter name='test.parameter.2'>1000</parameter>",
-        "  </parameters>",
-        "</component>"});
+    setJavaContentSrc(
+        "test",
+        "MyPanel",
+        new String[]{"public class MyPanel extends JPanel {", "  public MyPanel() {", "  }", "}"},
+        new String[]{
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <parameters>",
+            "    <parameter name='test.parameter.1'>value_1</parameter>",
+            "    <parameter name='test.parameter.2'>1000</parameter>",
+            "  </parameters>",
+            "</component>"});
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // check single parameters
     {
       assertThat(JavaInfoUtils.getParameter(panel, "test.parameter.1")).isEqualTo("value_1");
@@ -522,13 +506,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#executeScriptParameter(JavaInfo, String)}.
    */
   public void test_executeScriptParameter() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // execute not existing script
     {
@@ -550,13 +533,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#executeScript(JavaInfo, String)}.
    */
   public void test_executeScript() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // use "model"
     assertSame(panel, JavaInfoUtils.executeScript(panel, "return model;"));
@@ -573,18 +555,17 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can leave block when move up.
    */
   public void test_getTarget_before_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(true);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      button.setText('ABC');",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(true);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      button.setText('ABC');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, button);
@@ -595,18 +576,17 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can go up after leaving block.
    */
   public void test_getTarget_before_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(true);",
-            "    JButton button = new JButton();",
-            "    {",
-            "      button.setText('ABC');",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(true);",
+        "    JButton button = new JButton();",
+        "    {",
+        "      button.setText('ABC');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, button);
@@ -617,19 +597,18 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we stop on not related statement.
    */
   public void test_getTarget_before_3() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(true);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      int a;",
-            "      button.setText('ABC');",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(true);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      int a;",
+        "      button.setText('ABC');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, button);
@@ -640,17 +619,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can stop at first statement of method.
    */
   public void test_getTarget_before_4() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      button.setText('ABC');",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      button.setText('ABC');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, button);
@@ -661,17 +639,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can add as last child.
    */
   public void test_getTarget_last_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      button.setText('ABC');",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      button.setText('ABC');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0), false);
@@ -681,15 +658,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can stop at last statement of method.
    */
   public void test_getTarget_last_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    button.setText('ABC');",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    button.setText('ABC');",
+        "    add(button);",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 2), false);
@@ -699,13 +675,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can add without any child in main().
    */
   public void test_getTarget_last_4() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test {",
-            "  public static void main(String[] args) {",
-            "    JPanel panel = new JPanel();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test {",
+        "  public static void main(String[] args) {",
+        "    JPanel panel = new JPanel();",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0), false);
@@ -715,13 +690,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can add without any child in constructor, but with parent statement.
    */
   public void test_getTarget_last_5() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(true);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(true);",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0), false);
@@ -732,16 +706,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * {@link Block}.
    */
   public void test_getTarget_last_parentStatementInBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      setEnabled(true);",
-            "      int foo;",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      setEnabled(true);",
+        "      int foo;",
+        "    }",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0, 0), false);
@@ -754,15 +727,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * We test also that "this." and "null" expressions are recognized as "this" component.
    */
   public void test_getTarget_last_6_ignoreNonExecutable() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(true);",
-            "    this.updateUI();",
-            "    removeNotify();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(true);",
+        "    this.updateUI();",
+        "    removeNotify();",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0), false);
@@ -772,13 +744,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can add without any child or statement in constructor.
    */
   public void test_getTarget_last_7() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, getMethod("<init>()").getBody(), null, true);
@@ -788,16 +759,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that we can add without any child and with statements in different method.
    */
   public void test_getTarget_last_8() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private void configurePanel() {",
-            "    setEnabled(true);",
-            "  }",
-            "  public Test() {",
-            "    configurePanel();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private void configurePanel() {",
+        "    setEnabled(true);",
+        "  }",
+        "  public Test() {",
+        "    configurePanel();",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     Statement expectedStatement = getStatement(panel, "configurePanel()", 0);
@@ -811,21 +781,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * This test: no components in configure(), but has component before configure().
    */
   public void test_getTarget_last_dontUseConfigure_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button;",
-            "  public Test() {",
-            "    {",
-            "      button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    configure();",
-            "  }",
-            "  private void configure() {",
-            "    button.setEnabled(true);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button;",
+        "  public Test() {",
+        "    {",
+        "      button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    configure();",
+        "  }",
+        "  private void configure() {",
+        "    button.setEnabled(true);",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0), false);
@@ -838,22 +807,21 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * This test: has component in configure().
    */
   public void test_getTarget_last_dontUseConfigure_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button;",
-            "  public Test() {",
-            "    {",
-            "      button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    configure();",
-            "  }",
-            "  private void configure() {",
-            "    add(new JButton('new'));",
-            "    button.setEnabled(true);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button;",
+        "  public Test() {",
+        "    {",
+        "      button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    configure();",
+        "  }",
+        "  private void configure() {",
+        "    add(new JButton('new'));",
+        "    button.setEnabled(true);",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, "configure()", 1), false);
@@ -866,16 +834,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * This test: component is only in configure().
    */
   public void test_getTarget_last_dontUseConfigure_3() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    configure();",
-            "  }",
-            "  private void configure() {",
-            "    add(new JButton('new'));",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    configure();",
+        "  }",
+        "  private void configure() {",
+        "    add(new JButton('new'));",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, "configure()", 0), false);
@@ -885,16 +852,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * If target is NVO, then its parent is not {@link JavaInfo}, but this should not cause problems.
    */
   public void test_getTarget_last_nonVisual() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  /**",
-            "  * @wbp.nonvisual location=10,20",
-            "  */",
-            "  private JButton m_button = new JButton();",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  /**",
+        "  * @wbp.nonvisual location=10,20",
+        "  */",
+        "  private JButton m_button = new JButton();",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -910,22 +876,21 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test target after container with children.
    */
   public void test_getTarget_afterContainer_withChildren() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JPanel panel2 = new JPanel();",
-            "      add(panel2);",
-            "      {",
-            "        JButton button = new JButton();",
-            "        button.setText('button');",
-            "        panel2.add(button);",
-            "      }",
-            "      panel2.setEnabled(true);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JPanel panel2 = new JPanel();",
+        "      add(panel2);",
+        "      {",
+        "        JButton button = new JButton();",
+        "        button.setText('button');",
+        "        panel2.add(button);",
+        "      }",
+        "      panel2.setEnabled(true);",
+        "    }",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, null, getStatement(panel, 0), false);
@@ -935,20 +900,19 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test target after {@link JFrame} with its "contentPane" and children.
    */
   public void test_getTarget_afterContainer_withImplicitChild() throws Exception {
-    ContainerInfo frame =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      getContentPane().add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      getContentPane().add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      getContentPane().add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      getContentPane().add(button_2);",
+        "    }",
+        "  }",
+        "}");
     //
     StatementTarget target = JavaInfoUtils.getTarget(frame, null);
     assertTarget(target, null, getStatement(frame, 1), false);
@@ -959,17 +923,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * will become invisible.
    */
   public void test_getTarget_10() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JPanel panel2 = new JPanel();",
-            "      add(panel2);",
-            "      panel2.setEnabled(true);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JPanel panel2 = new JPanel();",
+        "      add(panel2);",
+        "      panel2.setEnabled(true);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo panel2 = panel.getChildrenComponents().get(0);
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel2, null);
@@ -980,21 +943,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test target: as last child of lazy created panel2
    */
   public void test_getTarget_11() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(getPanel2());",
-            "  }",
-            "  private JPanel panel2;",
-            "  private JPanel getPanel2() {",
-            "    if (panel2 == null) {",
-            "      panel2 = new JPanel();",
-            "      panel2.setEnabled(true);",
-            "    }",
-            "    return panel2;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(getPanel2());",
+        "  }",
+        "  private JPanel panel2;",
+        "  private JPanel getPanel2() {",
+        "    if (panel2 == null) {",
+        "      panel2 = new JPanel();",
+        "      panel2.setEnabled(true);",
+        "    }",
+        "    return panel2;",
+        "  }",
+        "}");
     ComponentInfo panel2 = panel.getChildrenComponents().get(0);
     //
     StatementTarget target = JavaInfoUtils.getTarget(panel2, null);
@@ -1006,17 +968,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test that when parent has local variable, we don't leave method that defines it.
    */
   public void test_getTarget_12() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  Test() {",
-            "    add(createInnerPanel());",
-            "  }",
-            "  private JPanel createInnerPanel() {",
-            "    JPanel innerPanel = new JPanel();",
-            "    return innerPanel;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  Test() {",
+        "    add(createInnerPanel());",
+        "  }",
+        "  private JPanel createInnerPanel() {",
+        "    JPanel innerPanel = new JPanel();",
+        "    return innerPanel;",
+        "  }",
+        "}");
     // prepare inner panel
     assertEquals(1, panel.getChildrenComponents().size());
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -1029,16 +990,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test target: as last child of "panel", we should not leave block of "panel".
    */
   public void test_getTarget_13() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test {",
-            "  private static JPanel panel;",
-            "  public static void main(String args[]) {",
-            "    {",
-            "      panel = new JPanel();",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test {",
+        "  private static JPanel panel;",
+        "  public static void main(String args[]) {",
+        "    {",
+        "      panel = new JPanel();",
+        "    }",
+        "  }",
+        "}");
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     // check target
     Statement expectedStatement = getStatement(panel, "main(java.lang.String[])", 0, 0);
@@ -1051,16 +1011,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * block of child.
    */
   public void test_getTarget_14() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test {",
-            "  private static JPanel panel = new JPanel();",
-            "  public static void main(String args[]) {",
-            "    {",
-            "      panel.setEnabled(true);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test {",
+        "  private static JPanel panel = new JPanel();",
+        "  public static void main(String args[]) {",
+        "    {",
+        "      panel.setEnabled(true);",
+        "    }",
+        "  }",
+        "}");
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     // check target
     Statement expectedStatement = getStatement(panel, "main(java.lang.String[])", 0);
@@ -1073,21 +1032,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * that say that one of the {@link Statement}'s is terminal.
    */
   public void test_getTarget_15_broadcast() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JPanel panel2 = new JPanel();",
-            "    add(panel2);",
-            "    panel2.setEnabled(true);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      panel2.add(button);",
-            "    }",
-            "    panel2.setAutoscrolls(true);",
-            "    panel2.setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JPanel panel2 = new JPanel();",
+        "    add(panel2);",
+        "    panel2.setEnabled(true);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      panel2.add(button);",
+        "    }",
+        "    panel2.setAutoscrolls(true);",
+        "    panel2.setEnabled(false);",
+        "  }",
+        "}");
     final ComponentInfo panel2 = panel.getChildrenComponents().get(0);
     // don't allow "setAutoscrolls"
     panel.addBroadcastListener(new JavaEventListener() {
@@ -1114,13 +1072,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Target for {@link ExposedPropertyCreationSupport} is same as for its host {@link JavaInfo}.
    */
   public void test_getTarget_16_exposed() throws Exception {
-    ContainerInfo frame =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setEnabled(true);",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setEnabled(true);",
+        "  }",
+        "}");
     // target for "frame" is "after last statement"
     {
       StatementTarget target = JavaInfoUtils.getTarget(frame, null);
@@ -1156,17 +1113,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    int justSomeStatement;",
-            "  }",
-            "  protected Component createClient() {",
-            "    JButton clientButton = new JButton();",
-            "    return clientButton;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    int justSomeStatement;",
+        "  }",
+        "  protected Component createClient() {",
+        "    JButton clientButton = new JButton();",
+        "    return clientButton;",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: test.MyPanel} {this} {}",
@@ -1193,13 +1149,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * This is just basic test, see {@link ThisForcedMethodTest} for more tests.
    */
   public void test_getTarget_forcedMethod_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     //
     PreferencesRepairer preferencesRepairer = new PreferencesRepairer(PREFERENCES);
     try {
@@ -1226,14 +1181,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * This is just basic test, see {@link ThisForcedMethodTest} for more tests.
    */
   public void test_getTarget_forcedMethod_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    super();",
-            "    setBackground(Color.ORANGE);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    super();",
+        "    setBackground(Color.ORANGE);",
+        "  }",
+        "}");
     //
     PreferencesRepairer preferencesRepairer = new PreferencesRepairer(PREFERENCES);
     try {
@@ -1288,14 +1242,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   public void test_getTarget_order_last1() throws Exception {
     prepare_getTarget_last();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // check target
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     Statement expectedStatement = getStatement(panel, 0);
@@ -1308,14 +1261,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
   public void test_getTarget_order_last2() throws Exception {
     prepare_getTarget_last();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // check target
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     assertTarget(target, getMethod("<init>()").getBody(), null, true);
@@ -1347,15 +1299,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    processChildren(new Component[]{button});",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    processChildren(new Component[]{button});",
+        "  }",
+        "}");
     // check target
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     Statement expectedStatement = getStatement(panel, 1);
@@ -1388,15 +1339,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyPanel myPanel = new MyPanel();",
-            "    add(myPanel);",
-            "    myPanel.setExpanded(true);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyPanel myPanel = new MyPanel();",
+        "    add(myPanel);",
+        "    myPanel.setExpanded(true);",
+        "  }",
+        "}");
     // check target
     StatementTarget target = JavaInfoUtils.getTarget(panel, null);
     Statement expectedStatement = getStatement(panel, 2);
@@ -1432,28 +1382,27 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  private MyBar bar;",
-            "  private JButton button;",
-            "  Test() {",
-            "    add(getBar());",
-            "  }",
-            "  private MyBar getBar() {",
-            "    if (bar == null) {",
-            "      bar = new MyBar();",
-            "      getButton();",
-            "    }",
-            "    return bar;",
-            "  }",
-            "  private JButton getButton() {",
-            "    if (button == null) {",
-            "      button = getBar().addButton();",
-            "    }",
-            "    return button;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  private MyBar bar;",
+        "  private JButton button;",
+        "  Test() {",
+        "    add(getBar());",
+        "  }",
+        "  private MyBar getBar() {",
+        "    if (bar == null) {",
+        "      bar = new MyBar();",
+        "      getButton();",
+        "    }",
+        "    return bar;",
+        "  }",
+        "  private JButton getButton() {",
+        "    if (button == null) {",
+        "      button = getBar().addButton();",
+        "    }",
+        "    return button;",
+        "  }",
+        "}");
     ContainerInfo bar = (ContainerInfo) panel.getChildrenComponents().get(0);
     ComponentInfo existingButton = bar.getChildrenComponents().get(0);
     // check target
@@ -1472,14 +1421,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * By default target is "after last related statement".
    */
   public void test_add_target_defaultAfterLastStatement() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // add
     ComponentInfo button = createJButton();
     AssociationObject associationObject =
@@ -1517,17 +1465,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      ComplexPanel complexPanel = new ComplexPanel();",
-            "      add(complexPanel);",
-            "      complexPanel.getButton().setText('text');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      ComplexPanel complexPanel = new ComplexPanel();",
+        "      add(complexPanel);",
+        "      complexPanel.getButton().setText('text');",
+        "    }",
+        "  }",
+        "}");
     // add
     ComponentInfo button = createJButton();
     AssociationObject associationObject =
@@ -1554,14 +1501,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * We specify {@link StatementTarget} - after "setFont()".
    */
   public void test_add_target_explicitTarget() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // prepare target
     StatementTarget target;
     {
@@ -1592,14 +1538,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * No other components, so just add before all related statements.
    */
   public void test_addFirst_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     assertTrue(panel.getChildrenComponents().isEmpty());
     // add
     ComponentInfo button = createJButton();
@@ -1630,15 +1575,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Add before existing {@link JLabel}.
    */
   public void test_addFirst_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "    add(new JLabel());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "    add(new JLabel());",
+        "  }",
+        "}");
     // initially only JLabel in "components"
     ComponentInfo label;
     {
@@ -1701,13 +1645,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertTrue(panel.getChildrenComponents().isEmpty());
     FlowLayoutInfo layout = (FlowLayoutInfo) panel.getLayout();
     // add by default
@@ -1758,14 +1701,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    */
   public void test_add_association_noContainerAssociation() throws Exception {
     prepareMyButton();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // add
     ComponentInfo button = createComponent("test.MyButton");
     JavaInfoUtils.add(button, null, panel, null);
@@ -1788,14 +1730,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    */
   public void test_add_association_notRequiredContainerAssociation() throws Exception {
     prepareMyButton();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // add
     ComponentInfo button = createComponent("test.MyButton");
     AssociationObject associationObject =
@@ -1820,14 +1761,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    */
   public void test_add_association_requiredContainerAssociation() throws Exception {
     prepareMyButton();
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setFont(null);",
-            "    setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setFont(null);",
+        "    setEnabled(false);",
+        "  }",
+        "}");
     // add
     ComponentInfo button = createComponent("test.MyButton");
     AssociationObject associationObject =
@@ -1891,21 +1831,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Move inside of same parent.
    */
   public void test_move_inSameParent_local() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(false);",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(false);",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // do move
@@ -1931,28 +1870,27 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Move inside of same parent, {@link LazyVariableSupport}.
    */
   public void test_move_inSameParent_lazy() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button_1;",
-            "  private JButton button_2;",
-            "  public Test() {",
-            "    add(getButton_1());",
-            "    add(getButton_2());",
-            "  }",
-            "  private JButton getButton_1() {",
-            "    if (button_1 == null) {",
-            "      button_1 = new JButton();",
-            "    }",
-            "    return button_1;",
-            "  }",
-            "  private JButton getButton_2() {",
-            "    if (button_2 == null) {",
-            "      button_2 = new JButton();",
-            "    }",
-            "    return button_2;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button_1;",
+        "  private JButton button_2;",
+        "  public Test() {",
+        "    add(getButton_1());",
+        "    add(getButton_2());",
+        "  }",
+        "  private JButton getButton_1() {",
+        "    if (button_1 == null) {",
+        "      button_1 = new JButton();",
+        "    }",
+        "    return button_1;",
+        "  }",
+        "  private JButton getButton_2() {",
+        "    if (button_2 == null) {",
+        "      button_2 = new JButton();",
+        "    }",
+        "    return button_2;",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // do move
@@ -1986,17 +1924,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Bad attempt to move component before itself.
    */
   public void test_move_ignoreBecauseBeforeItself() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(false);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(false);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // do move
     JavaInfoUtils.move(button, null, panel, button);
@@ -2019,21 +1956,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * We implement {@link IMoveTargetProvider} and place component before <code>setEnabled()</code>.
    */
   public void test_move_IMoveTargetProvider() throws Exception {
-    final ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(false);",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    final ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(false);",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "  }",
+        "}");
     final ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     final ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // do move
@@ -2079,21 +2015,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Move into new parent, before other component.
    */
   public void test_move_otherParent_beforeComponent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(false);",
-            "    {",
-            "      JPanel innerPanel = new JPanel();",
-            "      add(innerPanel);",
-            "      {",
-            "        JButton button = new JButton();",
-            "        innerPanel.add(button);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(false);",
+        "    {",
+        "      JPanel innerPanel = new JPanel();",
+        "      add(innerPanel);",
+        "      {",
+        "        JButton button = new JButton();",
+        "        innerPanel.add(button);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
     ComponentInfo button = innerPanel.getChildrenComponents().get(0);
     // do move
@@ -2121,21 +2056,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Move into new parent, as last component.
    */
   public void test_move_otherParent_asLast() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setEnabled(false);",
-            "    {",
-            "      JPanel innerPanel = new JPanel();",
-            "      add(innerPanel);",
-            "      {",
-            "        JButton button = new JButton();",
-            "        innerPanel.add(button);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setEnabled(false);",
+        "    {",
+        "      JPanel innerPanel = new JPanel();",
+        "      add(innerPanel);",
+        "      {",
+        "        JButton button = new JButton();",
+        "        innerPanel.add(button);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
     ComponentInfo button = innerPanel.getChildrenComponents().get(0);
     // do move
@@ -2163,16 +2097,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * materialize "button" to avoid its removing with association.
    */
   public void test_move_otherParent_materialize() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JPanel inner = new JPanel();",
-            "    add(inner);",
-            "    inner.add(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JPanel inner = new JPanel();",
+        "    add(inner);",
+        "    inner.add(new JButton());",
+        "  }",
+        "}");
     ContainerInfo inner = getJavaInfoByName("inner");
     ComponentInfo button = inner.getChildrenComponents().get(0);
     // do reparent, causes materialize
@@ -2222,16 +2155,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      setHeader(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      setHeader(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // do move
     AssociationObject associationObject =
@@ -2299,16 +2231,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    {",
-            "      MyButton button = new MyButton(this);",
-            "      setHeader(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    {",
+        "      MyButton button = new MyButton(this);",
+        "      setHeader(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // do move
     AssociationObject associationObject =
@@ -2377,20 +2308,19 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    {",
-            "      MyButton button = new MyButton(this);",
-            "      setHeader(button);",
-            "    }",
-            "    {",
-            "      JPanel innerPanel = new JPanel();",
-            "      add(innerPanel);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    {",
+        "      MyButton button = new MyButton(this);",
+        "      setHeader(button);",
+        "    }",
+        "    {",
+        "      JPanel innerPanel = new JPanel();",
+        "      add(innerPanel);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
     // do move
@@ -2418,25 +2348,24 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Don't move {@link Statement} in "configure" method.
    */
   public void test_move_dontMoveStatementsInConfigure() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton button_2 = new JButton();",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      button_2.setEnabled(false);",
-            "      add(button_2);",
-            "    }",
-            "    configureButton_2();",
-            "  }",
-            "  public void configureButton_2() {",
-            "    button_2.setText('text');",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton button_2 = new JButton();",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      button_2.setEnabled(false);",
+        "      add(button_2);",
+        "    }",
+        "    configureButton_2();",
+        "  }",
+        "  public void configureButton_2() {",
+        "    button_2.setText('text');",
+        "  }",
+        "}");
     ComponentInfo button_1 = getJavaInfoByName("button_1");
     ComponentInfo button_2 = getJavaInfoByName("button_2");
     // do move
@@ -2587,25 +2516,24 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortComponentsByFlow(java.util.List)}.
    */
   public void test_sortComponentsByFlow() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JLabel());",
-            "    add(new JTextField());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new JLabel());",
+        "    add(new JTextField());",
+        "  }",
+        "}");
     ComponentInfo component_0 = panel.getChildrenComponents().get(0);
     ComponentInfo component_1 = panel.getChildrenComponents().get(1);
     // check 0: no components
     {
-      List<JavaInfo> components = Lists.<JavaInfo>newArrayList();
+      List<JavaInfo> components = new ArrayList<>();
       JavaInfoUtils.sortComponentsByFlow(components);
       assertThat(components).isEmpty();
     }
     // check 1: components already in correct order
     {
-      List<JavaInfo> components = Lists.<JavaInfo>newArrayList(component_0, component_1);
+      List<JavaInfo> components = Arrays.asList(component_0, component_1);
       JavaInfoUtils.sortComponentsByFlow(components);
       assertThat(components).hasSize(2);
       assertSame(component_0, components.get(0));
@@ -2613,7 +2541,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     }
     // check 2: components in reverse order
     {
-      List<JavaInfo> components = Lists.<JavaInfo>newArrayList(component_1, component_0);
+      List<JavaInfo> components = Arrays.asList(component_1, component_0);
       JavaInfoUtils.sortComponentsByFlow(components);
       assertThat(components).hasSize(2);
       assertSame(component_0, components.get(0));
@@ -2625,14 +2553,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int a;",
-            "    int b;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int a;",
+        "    int b;",
+        "  }",
+        "}");
     Statement statementA = getStatement(panel, 0);
     Statement statementB = getStatement(panel, 1);
     check_sortNodesByFlow2(statementA, statementB);
@@ -2642,16 +2569,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow_withBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int a;",
-            "    {",
-            "      int b;",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int a;",
+        "    {",
+        "      int b;",
+        "    }",
+        "  }",
+        "}");
     Statement statementA = getStatement(panel, 0);
     Statement statementBlock = getStatement(panel, 1);
     check_sortNodesByFlow2(statementA, statementBlock);
@@ -2661,15 +2587,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow_nestedBlockStatement() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      int a;",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      int a;",
+        "    }",
+        "  }",
+        "}");
     Statement blockA = getStatement(panel, 0);
     Statement statementA = getStatement(panel, 0, 0);
     check_sortNodesByFlow(blockA, statementA, true);
@@ -2680,13 +2605,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow_nestedBodyDeclarationParts() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private int value;",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private int value;",
+        "  public Test() {",
+        "  }",
+        "}");
     FieldDeclaration fieldDeclaration = (FieldDeclaration) getBodyDeclaration(panel, 0);
     SimpleName valueName = DomGenerics.fragments(fieldDeclaration).get(0).getName();
     check_sortNodesByFlow(fieldDeclaration, valueName, true);
@@ -2697,13 +2621,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow_nestedStatementParts() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int value;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int value;",
+        "  }",
+        "}");
     VariableDeclarationStatement statement = (VariableDeclarationStatement) getStatement(panel, 0);
     SimpleName valueName = DomGenerics.fragments(statement).get(0).getName();
     check_sortNodesByFlow(statement, valueName, true);
@@ -2716,19 +2639,18 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Nodes not included into execution flow should be removed.
    */
   public void test_sortNodesByFlow_nodeNotInExecutionFlow() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int value;",
-            "  }",
-            "  public void foo() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int value;",
+        "  }",
+        "  public void foo() {",
+        "  }",
+        "}");
     Statement statement = getStatement(panel, 0);
     MethodDeclaration fooMethod = JavaInfoUtils.getTypeDeclaration(panel).getMethods()[1];
     {
-      List<ASTNode> nodes = Lists.<ASTNode>newArrayList(statement, fooMethod);
+      List<ASTNode> nodes = Arrays.asList(statement, fooMethod);
       ExecutionFlowDescription flowDescription = m_lastState.getFlowDescription();
       JavaInfoUtils.sortNodesByFlow(flowDescription, true, nodes);
       assertThat(nodes).hasSize(1).containsOnly(statement);
@@ -2739,16 +2661,15 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow_withLocalMethodInvocation() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    foo();",
-            "  }",
-            "  public void foo() {",
-            "    int a;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    foo();",
+        "  }",
+        "  public void foo() {",
+        "    int a;",
+        "  }",
+        "}");
     Statement statementInv = getStatement(panel, 0);
     Statement statementVar = getStatement(panel, "foo()", 0);
     check_sortNodesByFlow(statementInv, statementVar, true);
@@ -2759,13 +2680,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#sortNodesByFlow(java.util.List)}.
    */
   public void test_sortNodesByFlow_Statement_itsNode() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "  }",
+        "}");
     Statement statement = getStatement(panel, 0);
     ClassInstanceCreation creation =
         (ClassInstanceCreation) m_lastEditor.getEnclosingNode("new JButton");
@@ -2788,7 +2708,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     ExecutionFlowDescription flowDescription = m_lastState.getFlowDescription();
     // check 1: nodes already in correct order
     {
-      List<ASTNode> nodes = Lists.<ASTNode>newArrayList(node_1, node_2);
+      List<ASTNode> nodes = Arrays.asList(node_1, node_2);
       JavaInfoUtils.sortNodesByFlow(flowDescription, onEnter, nodes);
       assertEquals(2, nodes.size());
       assertSame(node_1, nodes.get(0));
@@ -2796,7 +2716,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     }
     // check 2: nodes in reverse order
     {
-      List<ASTNode> nodes = Lists.<ASTNode>newArrayList(node_2, node_1);
+      List<ASTNode> nodes = Arrays.asList(node_2, node_1);
       JavaInfoUtils.sortNodesByFlow(flowDescription, onEnter, nodes);
       assertEquals(2, nodes.size());
       assertSame(node_1, nodes.get(0));
@@ -2813,21 +2733,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_afterStatement() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int foo;",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    int bar;",
-            "    {",
-            "      // empty block",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int foo;",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    int bar;",
+        "    {",
+        "      // empty block",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // after Statement that is before "button" Block
     {
@@ -2865,18 +2784,17 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_afterStatement_blocks() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      {",
-            "        JButton button = new JButton();",
-            "        add(button);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      {",
+        "        JButton button = new JButton();",
+        "        add(button);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // after inner Block
     {
@@ -2896,21 +2814,20 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_beforeStatement() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    int foo;",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    int bar;",
-            "    {",
-            "      // empty block",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    int foo;",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    int bar;",
+        "    {",
+        "      // empty block",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // before Statement that is before "button" Block
     {
@@ -2942,22 +2859,21 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_beginOfBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      // before block",
-            "    }",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      // after block",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      // before block",
+        "    }",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      // after block",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // begin of "before" Block
     {
@@ -2983,13 +2899,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_ifNodeIsConstructor() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
@@ -3006,22 +2921,21 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_endOfBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      // before block",
-            "    }",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      // after block",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      // before block",
+        "    }",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      // after block",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // end of "before" Block
     {
@@ -3047,18 +2961,17 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_afterBodyDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button_0 = new JButton();",
-            "  private final JButton button_1 = new JButton();",
-            "  private final JButton button_2 = new JButton();",
-            "  public Test() {",
-            "    add(button_0);",
-            "    add(button_1);",
-            "    add(button_2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private final JButton button_0 = new JButton();",
+        "  private final JButton button_1 = new JButton();",
+        "  private final JButton button_2 = new JButton();",
+        "  public Test() {",
+        "    add(button_0);",
+        "    add(button_1);",
+        "    add(button_2);",
+        "  }",
+        "}");
     // "button_0" is visible in any point of Test()
     {
       ComponentInfo button_0 = panel.getChildrenComponents().get(0);
@@ -3100,18 +3013,17 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_beforeBodyDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button_0 = new JButton();",
-            "  private final JButton button_1 = new JButton();",
-            "  private final JButton button_2 = new JButton();",
-            "  public Test() {",
-            "    add(button_0);",
-            "    add(button_1);",
-            "    add(button_2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private final JButton button_0 = new JButton();",
+        "  private final JButton button_1 = new JButton();",
+        "  private final JButton button_2 = new JButton();",
+        "  public Test() {",
+        "    add(button_0);",
+        "    add(button_1);",
+        "    add(button_2);",
+        "  }",
+        "}");
     // "button_1" is not visible "before button_0"
     {
       ComponentInfo button_1 = panel.getChildrenComponents().get(1);
@@ -3146,14 +3058,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_beginOfTypeDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button_0 = new JButton();",
-            "  public Test() {",
-            "    add(button_0);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private final JButton button_0 = new JButton();",
+        "  public Test() {",
+        "    add(button_0);",
+        "  }",
+        "}");
     // "button_0" is not visible "at begin of Test"
     {
       ComponentInfo button_0 = panel.getChildrenComponents().get(0);
@@ -3167,14 +3078,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isCreatedAtTarget(JavaInfo, NodeTarget)}.
    */
   public void test_isCreatedAtTarget_endOfTypeDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button_0 = new JButton();",
-            "  public Test() {",
-            "    add(button_0);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private final JButton button_0 = new JButton();",
+        "  public Test() {",
+        "    add(button_0);",
+        "  }",
+        "}");
     // "button_0" is visible "at end of Test"
     {
       ComponentInfo button_0 = panel.getChildrenComponents().get(0);
@@ -3204,17 +3114,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getStatementTarget_whenAllCreated(List)}.
    */
   public void test_getStatementTarget_whenAllCreated() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button_1 = new JButton();",
-            "    add(button_1);",
-            "    //",
-            "    JButton button_2 = new JButton();",
-            "    add(button_2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button_1 = new JButton();",
+        "    add(button_1);",
+        "    //",
+        "    JButton button_2 = new JButton();",
+        "    add(button_2);",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // fail if no components
@@ -3235,17 +3144,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getStatementTarget_whenAllCreated(List)}.
    */
   public void test_getStatementTarget_whenAllCreated_fieldInitializer_this() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  JButton button_1 = new JButton();",
-            "  JButton button_2 = new JButton();",
-            "  public Test() {",
-            "    super();",
-            "    add(button_1);",
-            "    add(button_2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  JButton button_1 = new JButton();",
+        "  JButton button_2 = new JButton();",
+        "  public Test() {",
+        "    super();",
+        "    add(button_1);",
+        "    add(button_2);",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // ask for "button_1" and "button_2"
@@ -3260,17 +3168,16 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getStatementTarget_whenAllCreated(List)}.
    */
   public void test_getStatementTarget_whenAllCreated_fieldInitializer_main() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test {",
-            "  static JButton button_1 = new JButton();",
-            "  static JButton button_2 = new JButton();",
-            "  public static void main(String[] args) {",
-            "    JPanel panel = new JPanel();",
-            "    panel.add(button_1);",
-            "    panel.add(button_2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test {",
+        "  static JButton button_1 = new JButton();",
+        "  static JButton button_2 = new JButton();",
+        "  public static void main(String[] args) {",
+        "    JPanel panel = new JPanel();",
+        "    panel.add(button_1);",
+        "    panel.add(button_2);",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // ask for "button_1" and "button_2"
@@ -3285,22 +3192,21 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getStatementTarget_whenAllCreated(List)}.
    */
   public void test_getStatementTarget_whenAllCreated_lazy() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private JButton m_button_2;",
-            "  public Test() {",
-            "    JButton button_1 = new JButton();",
-            "    add(button_1);",
-            "    add(getButton_2());",
-            "  }",
-            "  private JButton getButton_2() {",
-            "    if (m_button_2 == null) {",
-            "      m_button_2 = new JButton();",
-            "    }",
-            "    return m_button_2;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private JButton m_button_2;",
+        "  public Test() {",
+        "    JButton button_1 = new JButton();",
+        "    add(button_1);",
+        "    add(getButton_2());",
+        "  }",
+        "  private JButton getButton_2() {",
+        "    if (m_button_2 == null) {",
+        "      m_button_2 = new JButton();",
+        "    }",
+        "    return m_button_2;",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     // ask for "button_1" and "button_2"
@@ -3320,14 +3226,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getNodeTarget_relativeCreation(JavaInfo, boolean)}.
    */
   public void test_getNodeTarget_relativeCreation_relatedStatement() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // before
     {
@@ -3351,14 +3256,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#getNodeTarget_relativeCreation(JavaInfo, boolean)}.
    */
   public void test_getNodeTarget_relativeCreation_relativeFieldDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private final JButton button = new JButton();",
-            "  public Test() {",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private final JButton button = new JButton();",
+        "  public Test() {",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // before
     {
@@ -3380,14 +3284,13 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 
   public void test_getNodeTarget_relativeCreation_wrapperVariableExists() throws Exception {
     WrapperInfoTest.configureWrapperContents();
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    TestWrapper wrapper = new TestWrapper(this);",
-            "    JButton button = wrapper.getControl();",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    TestWrapper wrapper = new TestWrapper(this);",
+        "    JButton button = wrapper.getControl();",
+        "  }",
+        "}");
     ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
     NodeTarget nodeTarget = JavaInfoUtils.getNodeTarget_afterCreation(wrappedComponent);
     assertEquals("after JButton button=wrapper.getControl();", nodeTarget.toString().trim());
@@ -3395,13 +3298,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 
   public void test_getNodeTarget_relativeCreation_wrapperVariableNoExists() throws Exception {
     WrapperInfoTest.configureWrapperContents();
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    TestWrapper wrapper = new TestWrapper(this);",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    TestWrapper wrapper = new TestWrapper(this);",
+        "  }",
+        "}");
     ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
     NodeTarget nodeTarget = JavaInfoUtils.getNodeTarget_afterCreation(wrappedComponent);
     assertEditor(
@@ -3416,31 +3318,30 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 
   public void test_getNodeTarget_relativeCreation_wrapperVariableExistsAsField() throws Exception {
     WrapperInfoTest.configureWrapperContents();
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private TestWrapper wrapper;",
-            "  private JButton button;",
-            "  public Test() {",
-            "    wrapper = new TestWrapper(this);",
-            "    button = wrapper.getControl();",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends JPanel {",
+        "  private TestWrapper wrapper;",
+        "  private JButton button;",
+        "  public Test() {",
+        "    wrapper = new TestWrapper(this);",
+        "    button = wrapper.getControl();",
+        "  }",
+        "}");
     ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
     NodeTarget nodeTarget = JavaInfoUtils.getNodeTarget_afterCreation(wrappedComponent);
     assertEquals("after button=wrapper.getControl();", nodeTarget.toString().trim());
   }
 
-  public void test_getNodeTarget_relativeCreation_wrapperVariableNoExistsAsField() throws Exception {
+  public void test_getNodeTarget_relativeCreation_wrapperVariableNoExistsAsField()
+      throws Exception {
     WrapperInfoTest.configureWrapperContents();
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private TestWrapper wrapper;",
-            "  public Test() {",
-            "    wrapper = new TestWrapper(this);",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends JPanel {",
+        "  private TestWrapper wrapper;",
+        "  public Test() {",
+        "    wrapper = new TestWrapper(this);",
+        "  }",
+        "}");
     ContainerInfo wrappedComponent = container.getChildren(ContainerInfo.class).get(0);
     NodeTarget nodeTarget = JavaInfoUtils.getNodeTarget_afterCreation(wrappedComponent);
     assertEditor(
@@ -3483,13 +3384,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new MyContainer());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new MyContainer());",
+        "  }",
+        "}");
     panel.refresh();
     // initial hierarchy
     assertHierarchy(
@@ -3508,7 +3408,9 @@ public class JavaInfoUtilsTest extends SwingModelTest {
         "    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
         "    {method: public test.MyFactory test.MyContainer.getFactory()} {property} {}");
     // send broadcast to move "getFactory()" into InstanceFactoryContainerInfo
-    InstanceFactoryRootProcessor.INSTANCE.process(panel, ImmutableList.<JavaInfo>of(exposedFactory));
+    InstanceFactoryRootProcessor.INSTANCE.process(
+        panel,
+        ImmutableList.<JavaInfo>of(exposedFactory));
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(new MyContainer())/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -3597,13 +3499,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new MyPanel());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new MyPanel());",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(new MyPanel())/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -3634,13 +3535,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new MyPanel());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new MyPanel());",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(new MyPanel())/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -3661,13 +3561,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Test for {@link JavaInfoUtils#isIndirectlyExposed(JavaInfo)}.
    */
   public void test_isIndirectlyExposed_notExposed() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(new JButton())/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -3695,13 +3594,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: test.MyPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -3731,13 +3629,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: test.MyPanel} {this} {}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -3842,13 +3739,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // check permissions
     assertFalse(button.getCreationSupport().canReorder());
@@ -3877,13 +3773,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     final ComponentInfo button = panel.getChildrenComponents().get(0);
     // set listener to enable "move"
     button.addBroadcastListener(new JavaEventListener() {
@@ -3908,13 +3803,12 @@ public class JavaInfoUtilsTest extends SwingModelTest {
    * Force move disabled.
    */
   public void test_canMove_forceMoveDisable() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "  }",
+        "}");
     final ComponentInfo button = panel.getChildrenComponents().get(0);
     // check permissions: no listener, so default permissions
     {
@@ -3968,15 +3862,14 @@ public class JavaInfoUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    MyPanel myPanel = new MyPanel(button, true);",
-            "    add(myPanel);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    MyPanel myPanel = new MyPanel(button, true);",
+        "    add(myPanel);",
+        "  }",
+        "}");
     ContainerInfo myPanel = (ContainerInfo) panel.getChildrenComponents().get(0);
     ComponentInfo button = myPanel.getChildrenComponents().get(0);
     // check permissions: no listener, so default permissions

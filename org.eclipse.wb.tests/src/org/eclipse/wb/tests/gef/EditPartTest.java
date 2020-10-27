@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.Command;
 import org.eclipse.wb.gef.core.EditPart;
@@ -22,11 +20,12 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.Request;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class EditPartTest extends GefTestCase {
   private static final String ERROR_MESSAGE_NPE = "null argument;";
@@ -315,11 +314,10 @@ public class EditPartTest extends GefTestCase {
     testEditPart.eraseTargetFeedback(request);
     //
     RequestsLogger expectedLogger = new RequestsLogger();
-    expectedLogger.log(testEditPart, new String[]{
-        "understandsRequest",
-        "getCommand",
-        "understandsRequest",
-        "getTargetEditPart"}, request);
+    expectedLogger.log(
+        testEditPart,
+        new String[]{"understandsRequest", "getCommand", "understandsRequest", "getTargetEditPart"},
+        request);
     actualLogger.assertEquals(expectedLogger);
     actualLogger.clear();
     expectedLogger.clear();
@@ -333,26 +331,29 @@ public class EditPartTest extends GefTestCase {
     testEditPart.showTargetFeedback(request);
     testEditPart.eraseTargetFeedback(request);
     //
-    expectedLogger.log(testEditPart, new String[]{
-        //
-        "understandsRequest",
-        "getCommand",
-        //
-        "understandsRequest",
-        //
-        "getTargetEditPart",
-        //
-        "understandsRequest",
-        "showSourceFeedback",
-        //
-        "understandsRequest",
-        "eraseSourceFeedback",
-        //
-        "understandsRequest",
-        "showTargetFeedback",
-        //
-        "understandsRequest",
-        "eraseTargetFeedback"}, request);
+    expectedLogger.log(
+        testEditPart,
+        new String[]{
+            //
+            "understandsRequest",
+            "getCommand",
+            //
+            "understandsRequest",
+            //
+            "getTargetEditPart",
+            //
+            "understandsRequest",
+            "showSourceFeedback",
+            //
+            "understandsRequest",
+            "eraseSourceFeedback",
+            //
+            "understandsRequest",
+            "showTargetFeedback",
+            //
+            "understandsRequest",
+            "eraseTargetFeedback"},
+        request);
     actualLogger.assertEquals(expectedLogger);
     actualLogger.clear();
     expectedLogger.clear();
@@ -486,7 +487,7 @@ public class EditPartTest extends GefTestCase {
 
       @Override
       protected List<Object> getModelChildren() {
-        List<Object> modelList = Lists.newArrayList();
+        List<Object> modelList = new ArrayList<>();
         modelList.add("_child3_Model");
         modelList.add("_child1_Model");
         modelList.add("_child5_Model");
@@ -530,7 +531,7 @@ public class EditPartTest extends GefTestCase {
 
       @Override
       protected List<?> getModelChildren() {
-        List<Object> modelList = Lists.newArrayList();
+        List<Object> modelList = new ArrayList<>();
         modelList.add("_child2_Model");
         modelList.add("_child3_Model");
         modelList.add("_child5_Model");
@@ -572,7 +573,7 @@ public class EditPartTest extends GefTestCase {
 
       @Override
       protected List<?> getModelChildren() {
-        List<Object> modelList = Lists.newArrayList();
+        List<Object> modelList = new ArrayList<>();
         modelList.add("_child2_Model");
         modelList.add("_child3_Model");
         modelList.add("_child5_Model");
@@ -596,7 +597,7 @@ public class EditPartTest extends GefTestCase {
     assertSame(parent, child1.getParent());
     assertSame(parent, child2.getParent());
     assertSame(parent, child4.getParent());
-    // 
+    //
     parent.refresh();
     assertEquals(4, children.size());
     assertSame(child2, children.get(0));
