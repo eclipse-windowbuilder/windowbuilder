@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.beans;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -42,6 +41,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -50,7 +50,7 @@ import java.util.Map;
 
 /**
  * Properties provider for <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */
@@ -102,7 +102,7 @@ public final class BeanSupport {
       BeanDecorationInfo decorationInfo = DecorationUtils.getDecorationInfo(objectClass);
       IDecorationProvider decorationProvider =
           decorationInfo == null ? m_decorationProviderOverType : m_decorationProviderOverInfo;
-      List<ObserveInfo> properties = Lists.newArrayList();
+      List<ObserveInfo> properties = new ArrayList<>();
       // handle generic
       TypeVariable<?> superTypeParameter = null;
       Type superTypeParameterClass = null;
@@ -126,33 +126,40 @@ public final class BeanSupport {
         String name = descriptor.getName();
         IGenericType propertyType =
             GenericUtils.getObjectType(superTypeParameter, superTypeParameterClass, descriptor);
-        properties.add(new BeanPropertyObserveInfo(this,
-            parent,
-            name,
-            propertyType,
-            new StringReferenceProvider(name),
-            decorationProvider.getDecorator(decorationInfo, propertyType, name, descriptor)));
+        properties.add(
+            new BeanPropertyObserveInfo(this,
+                parent,
+                name,
+                propertyType,
+                new StringReferenceProvider(name),
+                decorationProvider.getDecorator(decorationInfo, propertyType, name, descriptor)));
       }
       // Swing properties
       if (javax.swing.text.JTextComponent.class.isAssignableFrom(objectClass)) {
-        replaceProperty(properties, "text", new PropertiesObserveInfo(this,
-            parent,
+        replaceProperty(
+            properties,
             "text",
-            ClassGenericType.STRING_CLASS,
-            new StringReferenceProvider("text"),
-            IObserveDecorator.BOLD,
-            new String[]{"text", "text_ON_ACTION_OR_FOCUS_LOST", "text_ON_FOCUS_LOST"}));
+            new PropertiesObserveInfo(this,
+                parent,
+                "text",
+                ClassGenericType.STRING_CLASS,
+                new StringReferenceProvider("text"),
+                IObserveDecorator.BOLD,
+                new String[]{"text", "text_ON_ACTION_OR_FOCUS_LOST", "text_ON_FOCUS_LOST"}));
       } else if (javax.swing.JTable.class.isAssignableFrom(objectClass)) {
         addElementProperties(properties, parent);
         Collections.sort(properties, ObserveComparator.INSTANCE);
       } else if (javax.swing.JSlider.class.isAssignableFrom(objectClass)) {
-        replaceProperty(properties, "value", new PropertiesObserveInfo(this,
-            parent,
+        replaceProperty(
+            properties,
             "value",
-            ClassGenericType.INT_CLASS,
-            new StringReferenceProvider("value"),
-            IObserveDecorator.BOLD,
-            new String[]{"value", "value_IGNORE_ADJUSTING"}));
+            new PropertiesObserveInfo(this,
+                parent,
+                "value",
+                ClassGenericType.INT_CLASS,
+                new StringReferenceProvider("value"),
+                IObserveDecorator.BOLD,
+                new String[]{"value", "value_IGNORE_ADJUSTING"}));
       } else if (javax.swing.JList.class.isAssignableFrom(objectClass)) {
         addElementProperties(properties, parent);
         Collections.sort(properties, ObserveComparator.INSTANCE);
@@ -175,20 +182,22 @@ public final class BeanSupport {
 
   private void addElementProperties(List<ObserveInfo> properties, ObserveInfo parent)
       throws Exception {
-    properties.add(new PropertiesObserveInfo(this,
-        parent,
-        "selectedElement",
-        ClassGenericType.OBJECT_CLASS,
-        new StringReferenceProvider("selectedElement"),
-        IObserveDecorator.BOLD,
-        new String[]{"selectedElement", "selectedElement_IGNORE_ADJUSTING"}));
-    properties.add(new PropertiesObserveInfo(this,
-        parent,
-        "selectedElements",
-        ClassGenericType.LIST_CLASS,
-        new StringReferenceProvider("selectedElements"),
-        IObserveDecorator.BOLD,
-        new String[]{"selectedElements", "selectedElements_IGNORE_ADJUSTING"}));
+    properties.add(
+        new PropertiesObserveInfo(this,
+            parent,
+            "selectedElement",
+            ClassGenericType.OBJECT_CLASS,
+            new StringReferenceProvider("selectedElement"),
+            IObserveDecorator.BOLD,
+            new String[]{"selectedElement", "selectedElement_IGNORE_ADJUSTING"}));
+    properties.add(
+        new PropertiesObserveInfo(this,
+            parent,
+            "selectedElements",
+            ClassGenericType.LIST_CLASS,
+            new StringReferenceProvider("selectedElements"),
+            IObserveDecorator.BOLD,
+            new String[]{"selectedElements", "selectedElements_IGNORE_ADJUSTING"}));
   }
 
   private static void replaceProperty(List<ObserveInfo> properties,
@@ -207,7 +216,8 @@ public final class BeanSupport {
       boolean isTarget,
       String property) throws Exception {
     IObserveInfo component = isTarget ? binding.getTarget() : binding.getModel();
-    for (IObserveInfo iobserve : component.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
+    for (IObserveInfo iobserve : component.getChildren(
+        ChildrenContext.ChildrenForPropertiesTable)) {
       ObserveInfo observe = (ObserveInfo) iobserve;
       if (property.equals(observe.getReference())) {
         return (BeanPropertyObserveInfo) observe;
@@ -221,7 +231,7 @@ public final class BeanSupport {
    */
   public static List<PropertyDescriptor> getPropertyDescriptors(Class<?> beanClass)
       throws Exception {
-    List<PropertyDescriptor> descriptors = Lists.newArrayList();
+    List<PropertyDescriptor> descriptors = new ArrayList<>();
     // handle interfaces
     if (beanClass.isInterface() || Modifier.isAbstract(beanClass.getModifiers())) {
       List<Class<?>> interfaces = CoreUtils.cast(ClassUtils.getAllInterfaces(beanClass));

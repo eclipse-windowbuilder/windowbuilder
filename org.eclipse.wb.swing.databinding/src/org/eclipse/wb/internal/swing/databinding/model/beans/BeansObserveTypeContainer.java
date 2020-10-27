@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.beans;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
@@ -49,13 +47,14 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Container with type {@link ObserveType#BEANS}. Works on <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */
@@ -112,11 +111,13 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             return beanObserve.getFragment();
           }
 
-          public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
+          public boolean equals(VariableDeclarationFragment key0,
+              VariableDeclarationFragment key1) {
             return key0 == key1;
           }
 
-          public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
+          public IObserveInfo findObject(
+              Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
@@ -135,8 +136,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
                   //
                   return new FieldBeanObserveInfo(beanSupport, fragment, beanObjectType, component);
                 } catch (ClassNotFoundException e) {
-                  AbstractParser.addError(m_javaInfoRoot.getEditor(), "ClassNotFoundException: "
-                      + fragment, new Throwable());
+                  AbstractParser.addError(
+                      m_javaInfoRoot.getEditor(),
+                      "ClassNotFoundException: " + fragment,
+                      new Throwable());
                 }
               }
             }
@@ -175,7 +178,8 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             return fragment0.getName().getIdentifier().equals(fragment1.getName().getIdentifier());
           }
 
-          public IObserveInfo findObject(Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
+          public IObserveInfo findObject(
+              Map<VariableDeclarationFragment, IObserveInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
@@ -188,8 +192,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
               //
               return new LocalVariableObserveInfo(beanSupport, fragment, beanObjectType);
             } catch (ClassNotFoundException e) {
-              AbstractParser.addError(m_javaInfoRoot.getEditor(), "ClassNotFoundException: "
-                  + fragment, new Throwable());
+              AbstractParser.addError(
+                  m_javaInfoRoot.getEditor(),
+                  "ClassNotFoundException: " + fragment,
+                  new Throwable());
               return null;
             }
           }
@@ -213,7 +219,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       TypeDeclaration rootNode) throws Exception {
     m_javaInfoRoot = root;
     //
-    m_observes = Lists.newArrayList();
+    m_observes = new ArrayList<>();
     // add virtual
     m_observes.add(new VirtualObserveInfo());
     // handle fields
@@ -229,10 +235,8 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             IGenericType beanObjectType = GenericUtils.getObjectType(editor, binding);
             // prepare association component
             JavaInfo component = getJavaInfoRepresentedBy(fragment.getName().getIdentifier());
-            m_observes.add(new FieldBeanObserveInfo(beanSupport,
-                fragment,
-                beanObjectType,
-                component));
+            m_observes.add(
+                new FieldBeanObserveInfo(beanSupport, fragment, beanObjectType, component));
           }
         }
       } catch (ClassNotFoundException e) {
@@ -293,9 +297,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
       PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
       if (baseProperty == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.BeansObserveTypeContainer_errArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.BeansObserveTypeContainer_errArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);
@@ -313,9 +320,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 2);
       PropertyInfo baseProperty = (PropertyInfo) resolver.getModel(arguments[0]);
       if (baseProperty == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.BeansObserveTypeContainer_errArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.BeansObserveTypeContainer_errArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       GenericUtils.assertEquals(baseProperty.getSourceObjectType(), types[0]);

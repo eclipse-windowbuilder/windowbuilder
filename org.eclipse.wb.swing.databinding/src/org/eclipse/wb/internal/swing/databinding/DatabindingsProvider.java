@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -68,13 +67,14 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
  * {@link IDatabindingsProvider} for support Swing beans bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */
@@ -83,7 +83,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   private final JavaInfo m_javaInfoRoot;
   private final DataBindingsRootInfo m_rootInfo = new DataBindingsRootInfo(this);
   private final List<ObserveTypeContainer> m_containers;
-  private final List<ObserveType> m_types = Lists.newArrayList();
+  private final List<ObserveType> m_types = new ArrayList<>();
   private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = Maps.newHashMap();
   private BindingDesignPage m_bindingPage;
   private ObserveType m_targetStartType;
@@ -98,11 +98,10 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   public DatabindingsProvider(JavaInfo javaInfoRoot) throws Exception {
     m_javaInfoRoot = javaInfoRoot;
     // load containers
-    m_containers =
-        ExternalFactoriesHelper.getElementsInstances(
-            ObserveTypeContainer.class,
-            "org.eclipse.wb.swing.databinding.observeTypeContainer",
-            "container");
+    m_containers = ExternalFactoriesHelper.getElementsInstances(
+        ObserveTypeContainer.class,
+        "org.eclipse.wb.swing.databinding.observeTypeContainer",
+        "container");
     // prepare containers
     for (ObserveTypeContainer container : m_containers) {
       ObserveType observeType = container.getObserveType();
@@ -239,45 +238,48 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 
   public List<PropertyFilter> getObservePropertyFilters() {
     if (m_filters == null) {
-      m_filters = Lists.newArrayList();
+      m_filters = new ArrayList<>();
       // advanced
       m_filters.add(new HideAdvancedPropertyFilter());
       m_filters.add(new ShowAdvancedPropertyFilter());
       // any type
-      m_filters.add(new AllPropertiesFilter(Messages.DatabindingsProvider_allTypes,
-          TypeImageProvider.OBJECT_IMAGE));
+      m_filters.add(
+          new AllPropertiesFilter(Messages.DatabindingsProvider_allTypes,
+              TypeImageProvider.OBJECT_IMAGE));
       // String, byte, char
-      m_filters.add(new TypesPropertyFilter("String",
-          TypeImageProvider.STRING_IMAGE,
-          String.class,
-          byte.class,
-          char.class));
+      m_filters.add(
+          new TypesPropertyFilter("String",
+              TypeImageProvider.STRING_IMAGE,
+              String.class,
+              byte.class,
+              char.class));
       // boolean
-      m_filters.add(new TypesPropertyFilter("Boolean",
-          TypeImageProvider.BOOLEAN_IMAGE,
-          boolean.class,
-          Boolean.class));
+      m_filters.add(
+          new TypesPropertyFilter("Boolean",
+              TypeImageProvider.BOOLEAN_IMAGE,
+              boolean.class,
+              Boolean.class));
       // int, short, long, float, double
-      m_filters.add(new TypesPropertyFilter("Numbers",
-          TypeImageProvider.NUMBER_IMAGE,
-          int.class,
-          short.class,
-          long.class,
-          float.class,
-          double.class));
+      m_filters.add(
+          new TypesPropertyFilter("Numbers",
+              TypeImageProvider.NUMBER_IMAGE,
+              int.class,
+              short.class,
+              long.class,
+              float.class,
+              double.class));
       // Swing Color
-      m_filters.add(new TypesPropertyFilter("Color",
-          TypeImageProvider.COLOR_IMAGE,
-          java.awt.Color.class));
+      m_filters.add(
+          new TypesPropertyFilter("Color", TypeImageProvider.COLOR_IMAGE, java.awt.Color.class));
       // Swing Font
-      m_filters.add(new TypesPropertyFilter("Font",
-          TypeImageProvider.FONT_IMAGE,
-          java.awt.Font.class));
+      m_filters.add(
+          new TypesPropertyFilter("Font", TypeImageProvider.FONT_IMAGE, java.awt.Font.class));
       // Swing Image
-      m_filters.add(new TypesPropertyFilter("Image",
-          TypeImageProvider.IMAGE_IMAGE,
-          java.awt.Image.class,
-          javax.swing.Icon.class));
+      m_filters.add(
+          new TypesPropertyFilter("Image",
+              TypeImageProvider.IMAGE_IMAGE,
+              java.awt.Image.class,
+              javax.swing.Icon.class));
     }
     return m_filters;
   }
@@ -293,7 +295,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     // prepare node
     TypeDeclaration rootNode = JavaInfoUtils.getTypeDeclaration(m_javaInfoRoot);
     if (rootNode == null) {
-      // use first type declaration from compilation unit 
+      // use first type declaration from compilation unit
       CompilationUnit astUnit = editor.getAstUnit();
       rootNode = (TypeDeclaration) astUnit.types().get(0);
     }
@@ -313,7 +315,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   ////////////////////////////////////////////////////////////////////////////
   public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
       throws Exception {
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     BindingInfo binding = (BindingInfo) ibinding;
     binding.createContentProviders(m_rootInfo.getBindings(), providers, listener, this);
     return providers;
@@ -381,7 +383,8 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     ObserveCreationType creationType = observe.getCreationType();
     return propertyObserve.getCreationType() == ObserveCreationType.SelfProperty
         && (creationType == ObserveCreationType.JListBinding
-            || creationType == ObserveCreationType.JTableBinding || creationType == ObserveCreationType.JComboBoxBinding);
+            || creationType == ObserveCreationType.JTableBinding
+            || creationType == ObserveCreationType.JComboBoxBinding);
   }
 
   public IBindingInfo createBinding(IObserveInfo target,
@@ -396,31 +399,30 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     // check virtual bindings
     if (targetObserve.getCreationType() == ObserveCreationType.VirtualBinding
         || modelObserve.getCreationType() == ObserveCreationType.VirtualBinding) {
-      return new VirtualBindingInfo(targetObserve, targetPropertyObserve, createProperty(
-          targetObserve,
-          targetPropertyObserve), modelObserve, modelPropertyObserve, createProperty(
+      return new VirtualBindingInfo(targetObserve,
+          targetPropertyObserve,
+          createProperty(targetObserve, targetPropertyObserve),
           modelObserve,
-          modelPropertyObserve));
+          modelPropertyObserve,
+          createProperty(modelObserve, modelPropertyObserve));
     }
     // check swing bindings
     if (targetObserve.getCreationType() != ObserveCreationType.AutoBinding) {
-      IBindingInfo binding =
-          createSwingBinding(
-              targetObserve,
-              targetPropertyObserve,
-              modelObserve,
-              modelPropertyObserve);
+      IBindingInfo binding = createSwingBinding(
+          targetObserve,
+          targetPropertyObserve,
+          modelObserve,
+          modelPropertyObserve);
       if (binding != null) {
         return binding;
       }
     }
     if (modelObserve.getCreationType() != ObserveCreationType.AutoBinding) {
-      IBindingInfo binding =
-          createSwingBinding(
-              modelObserve,
-              modelPropertyObserve,
-              targetObserve,
-              targetPropertyObserve);
+      IBindingInfo binding = createSwingBinding(
+          modelObserve,
+          modelPropertyObserve,
+          targetObserve,
+          targetPropertyObserve);
       if (binding != null) {
         return binding;
       }
@@ -496,8 +498,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
         // check target
         PropertyInfo targetAstProperty = binding.getTargetAstProperty();
         if (targetAstProperty.getClass() == astProperty.getClass()) {
-          if (binding.getTarget() == observe
-              && binding.getTargetProperty() == observeProperty
+          if (binding.getTarget() == observe && binding.getTargetProperty() == observeProperty
               || targetAstProperty.canShared(astProperty)) {
             return targetAstProperty;
           }
@@ -505,8 +506,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
         // check model
         PropertyInfo modelAstProperty = binding.getModelAstProperty();
         if (modelAstProperty.getClass() == astProperty.getClass()) {
-          if (binding.getModel() == observe
-              && binding.getModelProperty() == observeProperty
+          if (binding.getModel() == observe && binding.getModelProperty() == observeProperty
               || modelAstProperty.canShared(astProperty)) {
             return modelAstProperty;
           }
@@ -583,7 +583,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     if (binding instanceof DetailBindingInfo) {
       return false;
     }
-    // column binding can move only relative to column bindings 
+    // column binding can move only relative to column bindings
     IBindingInfo target = getBindings().get(targetIndex);
     if (binding instanceof ColumnBindingInfo) {
       return target instanceof ColumnBindingInfo;

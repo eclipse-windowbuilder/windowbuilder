@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.property;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -33,12 +31,13 @@ import org.eclipse.wb.internal.swing.databinding.ui.providers.BindingLabelProvid
 
 import org.eclipse.jface.action.IMenuManager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Complex property for all info bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui.properties
  */
@@ -73,8 +72,8 @@ public class BindingsProperty extends AbstractBindingsProperty {
       return new Property[0];
     }
     //
-    List<IObserveInfo> observes =
-        Lists.newArrayList(m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable));
+    List<IObserveInfo> observes = new ArrayList<>(
+        m_context.observeObject.getChildren(ChildrenContext.ChildrenForPropertiesTable));
     for (Iterator<IObserveInfo> I = observes.iterator(); I.hasNext();) {
       if (!includeProperty(I.next())) {
         I.remove();
@@ -85,7 +84,8 @@ public class BindingsProperty extends AbstractBindingsProperty {
     for (int i = 0; i < properties.length; i++) {
       ObserveInfo observeProperty = (ObserveInfo) observes.get(i);
       if (observeProperty.getCreationType() == ObserveCreationType.SelfProperty) {
-        switch (ComponentsObserveTypeContainer.getCreationType(m_context.javaInfo().getDescription().getComponentClass())) {
+        switch (ComponentsObserveTypeContainer.getCreationType(
+            m_context.javaInfo().getDescription().getComponentClass())) {
           case JListBinding :
             properties[i] = new JListSelfObserveProperty(m_context, observeProperty);
             continue;
@@ -126,9 +126,10 @@ public class BindingsProperty extends AbstractBindingsProperty {
       IObserveInfo observeProperty,
       boolean isTarget) throws Exception {
     BindingAction action = new BindingAction(m_context, binding);
-    action.setText(observeProperty.getPresentation().getText()
-        + ": "
-        + BindingLabelProvider.INSTANCE.getColumnText(binding, isTarget ? 2 : 1));
+    action.setText(
+        observeProperty.getPresentation().getText()
+            + ": "
+            + BindingLabelProvider.INSTANCE.getColumnText(binding, isTarget ? 2 : 1));
     action.setIcon(BindingLabelProvider.INSTANCE.getColumnImage(binding, 0));
     menu.add(action);
   }

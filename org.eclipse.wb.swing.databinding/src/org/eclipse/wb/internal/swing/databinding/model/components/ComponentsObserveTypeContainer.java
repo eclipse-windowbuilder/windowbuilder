@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.components;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
@@ -29,13 +27,14 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Components container with type {@link ObserveType#WIDGETS}. Works on <code>Swing</code>
  * components.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.components
  */
@@ -81,7 +80,7 @@ public final class ComponentsObserveTypeContainer extends ObserveTypeContainer {
       IModelResolver resolver,
       AstEditor editor,
       TypeDeclaration rootNode) throws Exception {
-    m_observes = Lists.newArrayList();
+    m_observes = new ArrayList<>();
     m_observes.add(new ComponentObserveInfo(new BeanSupport(), root));
   }
 

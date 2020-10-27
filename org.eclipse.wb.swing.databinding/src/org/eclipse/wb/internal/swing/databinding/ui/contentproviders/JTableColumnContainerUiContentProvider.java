@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerUiContentProvider;
@@ -24,11 +22,12 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JTableBindingInf
 import org.eclipse.swt.custom.CTabItem;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Editor for {@link JTableBindingInfo} columns.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */
@@ -67,9 +66,8 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
 
   @Override
   protected void configute(CTabItem tabItem, int index, IUiContentProvider provider) {
-    tabItem.setText(MessageFormat.format(
-        Messages.JTableColumnContainerUiContentProvider_columnIndex,
-        index));
+    tabItem.setText(
+        MessageFormat.format(Messages.JTableColumnContainerUiContentProvider_columnIndex, index));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -78,12 +76,13 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
   //
   ////////////////////////////////////////////////////////////////////////////
   public void updateFromObject() throws Exception {
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     for (ColumnBindingInfo binding : m_binding.getColumns()) {
-      providers.add(new UIContentContainer<ColumnBindingInfo>(binding,
-          m_bindings,
-          Messages.JTableColumnContainerUiContentProvider_column,
-          m_provider));
+      providers.add(
+          new UIContentContainer<ColumnBindingInfo>(binding,
+              m_bindings,
+              Messages.JTableColumnContainerUiContentProvider_column,
+              m_provider));
     }
     updateFromObject(providers);
   }
@@ -91,7 +90,7 @@ public class JTableColumnContainerUiContentProvider extends TabContainerUiConten
   @Override
   @SuppressWarnings("unchecked")
   protected void saveToObject(List<IUiContentProvider> providers) throws Exception {
-    List<ColumnBindingInfo> columns = Lists.newArrayList();
+    List<ColumnBindingInfo> columns = new ArrayList<>();
     for (IUiContentProvider provider : providers) {
       UIContentContainer<ColumnBindingInfo> container =
           (UIContentContainer<ColumnBindingInfo>) provider;
