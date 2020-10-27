@@ -44,7 +44,7 @@ import java.util.Set;
 
 /**
  * 'Old-school' implementation of the FromLayout.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayoutInfoImpl<C> {
@@ -79,7 +79,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
               return;
             }
           }
-          ArrayList<Object> actions = Lists.newArrayList();
+          ArrayList<Object> actions = new ArrayList<>();
           alignmentActions.addAlignmentActions(objects, actions);
           LayoutAssistantPageClassic<C> page =
               new LayoutAssistantPageClassic<C>(layout, folder, objects, actions);
@@ -287,7 +287,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
   //
   ////////////////////////////////////////////////////////////////////////////
   public List<C> getAlignControlInfos(C sourceControl, int sourceSide) throws Exception {
-    List<C> list = Lists.newArrayList();
+    List<C> list = new ArrayList<>();
     for (C info : layout.getControls()) {
       if (isRelative(info, sourceControl, sourceSide)) {
         continue;
@@ -390,13 +390,11 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       Rectangle parentBounds = getThisControl(attachment).getModelBounds();
       opposite.setDenominator(100);
       if (isLeft(attachment)) {
-        opposite.setOffset(parentBounds.x
-            + parentBounds.width
-            - FormUtils.getLayoutMarginLeft(layout));
+        opposite.setOffset(
+            parentBounds.x + parentBounds.width - FormUtils.getLayoutMarginLeft(layout));
       } else if (isTop(attachment)) {
-        opposite.setOffset(parentBounds.y
-            + parentBounds.height
-            - FormUtils.getLayoutMarginTop(layout));
+        opposite.setOffset(
+            parentBounds.y + parentBounds.height - FormUtils.getLayoutMarginTop(layout));
       } else if (isRight(attachment)) {
         opposite.setOffset(parentBounds.x - FormUtils.getLayoutMarginLeft(layout));
       } else if (isBottom(attachment)) {
@@ -467,12 +465,11 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
 
   public void anchor_bindToControl(C control, int controlSide, int targetSide) throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment0(control, controlSide);
-    WidgetSelectDialog<C> dialog =
-        new WidgetSelectDialog<C>(DesignerPlugin.getShell(),
-            getAlignControlInfos(control, controlSide),
-            ModelMessages.FormLayoutInfoImplClassic_widgetSelect_dialogTitle,
-            ModelMessages.FormLayoutInfoImplClassic_widgetSelect_listTitle,
-            ModelMessages.FormLayoutInfoImplClassic_widgetSelect_name);
+    WidgetSelectDialog<C> dialog = new WidgetSelectDialog<C>(DesignerPlugin.getShell(),
+        getAlignControlInfos(control, controlSide),
+        ModelMessages.FormLayoutInfoImplClassic_widgetSelect_dialogTitle,
+        ModelMessages.FormLayoutInfoImplClassic_widgetSelect_listTitle,
+        ModelMessages.FormLayoutInfoImplClassic_widgetSelect_name);
     if (dialog.open() != Window.OK) {
       return;
     }
@@ -537,8 +534,12 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       for (C control : m_components) {
         if (target != control) {
           int width = control.getModelBounds().width;
-          copyAttachmentPosition(clientWidth, getAttachment0(control, IPositionConstants.LEFT), x
-              + width, getAttachment0(target, IPositionConstants.LEFT), x);
+          copyAttachmentPosition(
+              clientWidth,
+              getAttachment0(control, IPositionConstants.LEFT),
+              x + width,
+              getAttachment0(target, IPositionConstants.LEFT),
+              x);
         }
       }
     }
@@ -551,8 +552,12 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       for (C control : m_components) {
         if (target != control) {
           int width = control.getModelBounds().width;
-          copyAttachmentPosition(clientWidth, getAttachment0(control, IPositionConstants.RIGHT), r
-              - width, getAttachment0(target, IPositionConstants.RIGHT), r);
+          copyAttachmentPosition(
+              clientWidth,
+              getAttachment0(control, IPositionConstants.RIGHT),
+              r - width,
+              getAttachment0(target, IPositionConstants.RIGHT),
+              r);
         }
       }
     }
@@ -565,8 +570,12 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       for (C control : m_components) {
         if (target != control) {
           int height = control.getModelBounds().height;
-          copyAttachmentPosition(clientHeight, getAttachment0(control, IPositionConstants.TOP), y
-              + height, getAttachment0(target, IPositionConstants.TOP), y);
+          copyAttachmentPosition(
+              clientHeight,
+              getAttachment0(control, IPositionConstants.TOP),
+              y + height,
+              getAttachment0(target, IPositionConstants.TOP),
+              y);
         }
       }
     }
@@ -599,12 +608,14 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       for (C control : m_components) {
         if (target != control) {
           int height = control.getModelBounds().height;
-          setAttachmentPosition(getAttachment0(control, IPositionConstants.TOP), clientHeight, c
-              - height
-              / 2);
-          setAttachmentPosition(getAttachment0(control, IPositionConstants.BOTTOM), clientHeight, c
-              + height
-              / 2);
+          setAttachmentPosition(
+              getAttachment0(control, IPositionConstants.TOP),
+              clientHeight,
+              c - height / 2);
+          setAttachmentPosition(
+              getAttachment0(control, IPositionConstants.BOTTOM),
+              clientHeight,
+              c + height / 2);
         }
       }
     }
@@ -619,12 +630,14 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       for (C control : m_components) {
         if (target != control) {
           int width = control.getModelBounds().width;
-          setAttachmentPosition(getAttachment0(control, IPositionConstants.LEFT), clientWidth, c
-              - width
-              / 2);
-          setAttachmentPosition(getAttachment0(control, IPositionConstants.RIGHT), clientWidth, c
-              + width
-              / 2);
+          setAttachmentPosition(
+              getAttachment0(control, IPositionConstants.LEFT),
+              clientWidth,
+              c - width / 2);
+          setAttachmentPosition(
+              getAttachment0(control, IPositionConstants.RIGHT),
+              clientWidth,
+              c + width / 2);
         }
       }
     }
@@ -674,8 +687,10 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
         if (target != control) {
           int x = control.getModelBounds().x - FormUtils.getLayoutMarginLeft(layout);
           setAttachmentPosition(getAttachment0(control, IPositionConstants.LEFT), clientWidth, x);
-          setAttachmentPosition(getAttachment0(control, IPositionConstants.RIGHT), clientWidth, x
-              + width);
+          setAttachmentPosition(
+              getAttachment0(control, IPositionConstants.RIGHT),
+              clientWidth,
+              x + width);
         }
       }
     }
@@ -689,8 +704,10 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
         if (target != control) {
           int y = control.getModelBounds().y - FormUtils.getLayoutMarginTop(layout);
           setAttachmentPosition(getAttachment0(control, IPositionConstants.TOP), clientHeight, y);
-          setAttachmentPosition(getAttachment0(control, IPositionConstants.BOTTOM), clientHeight, y
-              + height);
+          setAttachmentPosition(
+              getAttachment0(control, IPositionConstants.BOTTOM),
+              clientHeight,
+              y + height);
         }
       }
     }
@@ -709,10 +726,9 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       int leadingSide = isHorizontal ? IPositionConstants.LEFT : IPositionConstants.TOP;
       int trailingSide = isHorizontal ? IPositionConstants.RIGHT : IPositionConstants.BOTTOM;
       final Transposer t = new Transposer(!isHorizontal);
-      int margin =
-          isHorizontal
-              ? FormUtils.getLayoutMarginLeft(layout)
-              : FormUtils.getLayoutMarginTop(layout);
+      int margin = isHorizontal
+          ? FormUtils.getLayoutMarginLeft(layout)
+          : FormUtils.getLayoutMarginTop(layout);
       List<C> controlList = Lists.newArrayList(m_components);
       int clientSize = t.t(layout.getContainerSize()).width;
       boolean alternative = DesignerPlugin.isCtrlPressed() && m_components.size() > 2;

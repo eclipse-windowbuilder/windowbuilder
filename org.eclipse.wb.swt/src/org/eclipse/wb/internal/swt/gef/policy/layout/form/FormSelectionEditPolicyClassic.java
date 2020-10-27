@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
@@ -63,15 +62,17 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Selection Policy for 'Classic' version of the FormLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
@@ -123,7 +124,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
 
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     MoveHandle moveHandle = new MoveHandle(getHost());
     moveHandle.setBorder(new LineBorder(IColorConstants.lightBlue));
     handles.add(moveHandle);
@@ -151,8 +152,8 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
         return isPrimary() ? IColorConstants.lightBlue : IColorConstants.white;
       }
     };
-    handle.setDragTrackerTool(new ResizeTracker(direction,
-        AbsoluteBasedSelectionEditPolicy.REQ_RESIZE));
+    handle.setDragTrackerTool(
+        new ResizeTracker(direction, AbsoluteBasedSelectionEditPolicy.REQ_RESIZE));
     return handle;
   }
 
@@ -216,10 +217,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     bounds.translate(request.getMoveDelta());
     bounds.resize(request.getSizeDelta());
     Point requestLocation = request.getLocation();
-    Point location =
-        requestLocation == null
-            ? getControlModelBounds(control).getLocation()
-            : requestLocation.getCopy();
+    Point location = requestLocation == null
+        ? getControlModelBounds(control).getLocation()
+        : requestLocation.getCopy();
     // find attachable controls
     List<C> hAttachables = FormUtils.getAttachableControls(layoutInfo, control, true);
     List<C> vAttachables = FormUtils.getAttachableControls(layoutInfo, control, false);
@@ -230,7 +230,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     Rectangle clientArea = layoutInfo.getComposite().getClientArea();
     int parentClientAreaWidth = clientArea.width;
     int parentClientAreaHeight = clientArea.height;
-    // size hints feedback 
+    // size hints feedback
     String xText = "", yText = "";
     // West
     if (hasDirection(direction, IPositionConstants.WEST)) {
@@ -239,8 +239,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       boolean componentFound = false;
       if (useSnap()) {
         if (hwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
-              && !componentFound;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
+                  && !componentFound;) {
             C child = I.next();
             Rectangle childBounds = getControlModelBounds(child);
             if (FormUtils.between(x - (childBounds.right() + hwMargin), 0, sens)) {
@@ -248,28 +249,25 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
               setX(bounds, childBounds.right() + hwMargin);
               addVerticalResizeLine("12", child, childBounds.right(), IColorConstants.green);
               addVerticalResizeLine("2", childBounds.right() + hwMargin, offsetColor);
-              xText =
-                  (FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.right())
-                      : FormUtils.getVariableName(child)) + "+" + hwMargin;
+              xText = (FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.right())
+                  : FormUtils.getVariableName(child)) + "+" + hwMargin;
             } else if (FormUtils.between(x - childBounds.right(), -sens, hwMargin)) {
               componentFound = true;
               setX(bounds, childBounds.right());
               addVerticalResizeLine("11", childBounds.right(), offsetColor);
               addVerticalResizeLine("12", child, childBounds.right(), IColorConstants.green);
-              xText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.right())
-                      : FormUtils.getVariableName(child);
+              xText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.right())
+                  : FormUtils.getVariableName(child);
             } else if (FormUtils.between(x - childBounds.x, -sens, sens)) {
               componentFound = true;
               setX(bounds, childBounds.x);
               addVerticalResizeLine("11", childBounds.x, offsetColor);
               addVerticalResizeLine("12", child, childBounds.x, IColorConstants.green);
-              xText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.right())
-                      : FormUtils.getVariableName(child);
+              xText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.right())
+                  : FormUtils.getVariableName(child);
             }
           }
         }
@@ -317,8 +315,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       boolean componentFound = false;
       if (useSnap()) {
         if (hwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
-              && !componentFound;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
+                  && !componentFound;) {
             C child = I.next();
             Rectangle childBounds = getControlModelBounds(child);
             if (FormUtils.between(childBounds.x - hwMargin - x, 0, sens)) {
@@ -326,28 +325,25 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
               bounds.width = childBounds.x - hwMargin - bounds.x;
               addVerticalResizeLine("12", child, childBounds.x, IColorConstants.green);
               addVerticalResizeLine("2", childBounds.x - hwMargin, offsetColor);
-              xText =
-                  (FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.x)
-                      : FormUtils.getVariableName(child)) + "-" + hwMargin;
+              xText = (FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.x)
+                  : FormUtils.getVariableName(child)) + "-" + hwMargin;
             } else if (FormUtils.between(childBounds.x - x, -sens, hwMargin)) {
               componentFound = true;
               bounds.width = childBounds.x - bounds.x;
               addVerticalResizeLine("11", childBounds.x, offsetColor);
               addVerticalResizeLine("12", child, childBounds.x, IColorConstants.green);
-              xText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.x)
-                      : FormUtils.getVariableName(child);
+              xText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.x)
+                  : FormUtils.getVariableName(child);
             } else if (FormUtils.between(childBounds.right() - x, -sens, sens)) {
               componentFound = true;
               bounds.width = childBounds.right() - bounds.x;
               addVerticalResizeLine("11", childBounds.right(), offsetColor);
               addVerticalResizeLine("12", child, childBounds.right(), IColorConstants.green);
-              xText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.x)
-                      : FormUtils.getVariableName(child);
+              xText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.x)
+                  : FormUtils.getVariableName(child);
             }
           }
         }
@@ -395,8 +391,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       boolean componentFound = false;
       if (useSnap()) {
         if (vwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
-              && !componentFound;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
+                  && !componentFound;) {
             C child = I.next();
             Rectangle childBounds = getControlModelBounds(child);
             if (FormUtils.between(y - (childBounds.bottom() + vwMargin), 0, sens)) {
@@ -404,28 +401,25 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
               setY(bounds, childBounds.bottom() + vwMargin);
               addHorizontalResizeLine("12", child, childBounds.bottom(), IColorConstants.green);
               addHorizontalResizeLine("2", childBounds.bottom() + vwMargin, offsetColor);
-              yText =
-                  (FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.bottom())
-                      : FormUtils.getVariableName(child)) + "+" + vwMargin;
+              yText = (FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.bottom())
+                  : FormUtils.getVariableName(child)) + "+" + vwMargin;
             } else if (FormUtils.between(y - childBounds.bottom(), -sens, vwMargin)) {
               componentFound = true;
               setY(bounds, childBounds.bottom());
               addHorizontalResizeLine("11", childBounds.bottom(), offsetColor);
               addHorizontalResizeLine("12", child, childBounds.bottom(), IColorConstants.green);
-              yText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.bottom())
-                      : FormUtils.getVariableName(child);
+              yText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.bottom())
+                  : FormUtils.getVariableName(child);
             } else if (FormUtils.between(y - childBounds.y, -sens, sens)) {
               componentFound = true;
               setY(bounds, childBounds.y);
               addHorizontalResizeLine("11", childBounds.y, offsetColor);
               addHorizontalResizeLine("12", child, childBounds.y, IColorConstants.green);
-              yText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.bottom())
-                      : FormUtils.getVariableName(child);
+              yText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.bottom())
+                  : FormUtils.getVariableName(child);
             }
           }
         }
@@ -473,8 +467,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       boolean componentFound = false;
       if (useSnap()) {
         if (vwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
-              && !componentFound;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
+                  && !componentFound;) {
             C child = I.next();
             Rectangle childBounds = getControlModelBounds(child);
             if (FormUtils.between(childBounds.y - vwMargin - y, 0, sens)) {
@@ -482,28 +477,25 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
               bounds.height = childBounds.y - vwMargin - bounds.y;
               addHorizontalResizeLine("12", child, childBounds.y, IColorConstants.green);
               addHorizontalResizeLine("2", childBounds.y - vwMargin, offsetColor);
-              yText =
-                  (FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.y)
-                      : FormUtils.getVariableName(child)) + "-" + vwMargin;
+              yText = (FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.y)
+                  : FormUtils.getVariableName(child)) + "-" + vwMargin;
             } else if (FormUtils.between(childBounds.y - y, -sens, vwMargin)) {
               componentFound = true;
               bounds.height = childBounds.y - bounds.y;
               addHorizontalResizeLine("11", childBounds.y, offsetColor);
               addHorizontalResizeLine("12", child, childBounds.y, IColorConstants.green);
-              yText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.y)
-                      : FormUtils.getVariableName(child);
+              yText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.y)
+                  : FormUtils.getVariableName(child);
             } else if (FormUtils.between(childBounds.bottom() - y, -sens, sens)) {
               componentFound = true;
               bounds.height = childBounds.bottom() - bounds.y;
               addHorizontalResizeLine("11", childBounds.bottom(), offsetColor);
               addHorizontalResizeLine("12", child, childBounds.bottom(), IColorConstants.green);
-              yText =
-                  FormUtils.getVariableName(child) == null
-                      ? String.valueOf(childBounds.y)
-                      : FormUtils.getVariableName(child);
+              yText = FormUtils.getVariableName(child) == null
+                  ? String.valueOf(childBounds.y)
+                  : FormUtils.getVariableName(child);
             }
           }
         }
@@ -624,10 +616,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     bounds.translate(request.getMoveDelta());
     bounds.resize(request.getSizeDelta());
     Point requestLocation = request.getLocation();
-    Point location =
-        requestLocation == null
-            ? getControlModelBounds(control).getLocation()
-            : requestLocation.getCopy();
+    Point location = requestLocation == null
+        ? getControlModelBounds(control).getLocation()
+        : requestLocation.getCopy();
     //
     List<C> hAttachables = FormUtils.getAttachableControls(layoutInfo, control, true);
     List<C> vAttachables = FormUtils.getAttachableControls(layoutInfo, control, false);
@@ -644,8 +635,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.LEFT);
       if (useSnap()) {
         if (hwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
-              && cmd == null;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
+                  && cmd == null;) {
             C child = I.next();
             Rectangle componentBounds = getControlModelBounds(child);
             if (FormUtils.between(x - (componentBounds.right() + hwMargin), 0, sens)) {
@@ -675,9 +667,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
             if (hMargin > -1 && x < hMargin + layoutMarginLeft) {
               cmd = new ResizeToMarginCommand(attachment, IPositionConstants.LEFT, hMargin);
             } else {
-              cmd =
-                  new ResizeToOffsetCommand(attachment, parentWidth, FormUtils.snapGrid(x
-                      - layoutMarginLeft, sens));
+              cmd = new ResizeToOffsetCommand(attachment,
+                  parentWidth,
+                  FormUtils.snapGrid(x - layoutMarginLeft, sens));
             }
           }
         }
@@ -693,8 +685,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.RIGHT);
       if (useSnap()) {
         if (hwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
-              && cmd == null;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(hAttachables, false, location.y).iterator(); I.hasNext()
+                  && cmd == null;) {
             C child = I.next();
             Rectangle componentBounds = getControlModelBounds(child);
             if (FormUtils.between(componentBounds.x - hwMargin - x, 0, sens)) {
@@ -724,9 +717,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
             if (hMargin > -1 && x > parentWidth - hMargin + layoutMarginLeft) {
               cmd = new ResizeToMarginCommand(attachment, IPositionConstants.RIGHT, hMargin);
             } else {
-              cmd =
-                  new ResizeToOffsetCommand(attachment, parentWidth, FormUtils.snapGrid(x
-                      - layoutMarginLeft, sens));
+              cmd = new ResizeToOffsetCommand(attachment,
+                  parentWidth,
+                  FormUtils.snapGrid(x - layoutMarginLeft, sens));
             }
           }
         }
@@ -742,13 +735,16 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.TOP);
       if (useSnap()) {
         if (vwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
-              && cmd == null;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
+                  && cmd == null;) {
             C child = I.next();
             Rectangle componentBounds = getControlModelBounds(child);
             if (FormUtils.between(y - (componentBounds.bottom() + vwMargin), 0, sens)) {
-              cmd =
-                  new ResizeToControlCommand(attachment, child, IPositionConstants.BOTTOM, vwMargin);
+              cmd = new ResizeToControlCommand(attachment,
+                  child,
+                  IPositionConstants.BOTTOM,
+                  vwMargin);
             } else if (FormUtils.between(y - componentBounds.bottom(), -sens, vwMargin)) {
               cmd = new ResizeToControlCommand(attachment, child, IPositionConstants.BOTTOM, 0);
             } else if (FormUtils.between(y - componentBounds.y, -sens, sens)) {
@@ -773,9 +769,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
             if (vMargin > -1 && y < vMargin + layoutMarginTop) {
               cmd = new ResizeToMarginCommand(attachment, IPositionConstants.TOP, vMargin);
             } else {
-              cmd =
-                  new ResizeToOffsetCommand(attachment, parentHeight, FormUtils.snapGrid(y
-                      - layoutMarginTop, sens));
+              cmd = new ResizeToOffsetCommand(attachment,
+                  parentHeight,
+                  FormUtils.snapGrid(y - layoutMarginTop, sens));
             }
           }
         }
@@ -791,8 +787,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       IFormAttachmentInfo<C> attachment = formDataInfo.getAttachment(IPositionConstants.BOTTOM);
       if (useSnap()) {
         if (vwMargin > -1) {
-          for (Iterator<C> I = sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
-              && cmd == null;) {
+          for (Iterator<C> I =
+              sortControlsByAxisRange(vAttachables, true, location.x).iterator(); I.hasNext()
+                  && cmd == null;) {
             C child = I.next();
             Rectangle componentBounds = getControlModelBounds(child);
             if (FormUtils.between(componentBounds.y - vwMargin - y, 0, sens)) {
@@ -822,9 +819,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
             if (vMargin > -1 && y > parentHeight - vMargin + layoutMarginTop) {
               cmd = new ResizeToMarginCommand(attachment, IPositionConstants.BOTTOM, vMargin);
             } else {
-              cmd =
-                  new ResizeToOffsetCommand(attachment, parentHeight, FormUtils.snapGrid(y
-                      - layoutMarginTop, sens));
+              cmd = new ResizeToOffsetCommand(attachment,
+                  parentHeight,
+                  FormUtils.snapGrid(y - layoutMarginTop, sens));
             }
           }
         }
@@ -1145,7 +1142,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns model bounds of the control in parent client area coordinates
-   * 
+   *
    * @param control
    * @return
    */
@@ -1337,7 +1334,8 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
   @SuppressWarnings("unchecked")
   private FormLayoutEditPolicyClassic<C> getLayoutEditPolicy() {
     FormLayoutEditPolicyClassic<C> editPolicy =
-        (FormLayoutEditPolicyClassic<C>) getHost().getParent().getEditPolicy(EditPolicy.LAYOUT_ROLE);
+        (FormLayoutEditPolicyClassic<C>) getHost().getParent().getEditPolicy(
+            EditPolicy.LAYOUT_ROLE);
     return editPolicy;
   }
 
@@ -1355,7 +1353,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
   static <C extends IControlInfo> List<C> sortControlsByAxisRange(List<C> components,
       final boolean isX,
       final int value) {
-    List<C> newControls = Lists.newLinkedList();
+    List<C> newControls = new LinkedList<>();
     newControls.addAll(components);
     // proceed with sorting
     Collections.sort(newControls, new Comparator<C>() {
@@ -1425,7 +1423,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     private final IFormAttachmentInfo<C> attachment;
     private final int percent;
 
-    private ResizeToPercentOffsetCommand(IFormAttachmentInfo<C> attachment, int percent, int offset) {
+    private ResizeToPercentOffsetCommand(IFormAttachmentInfo<C> attachment,
+        int percent,
+        int offset) {
       super(attachment);
       this.attachment = attachment;
       this.percent = percent;
@@ -1442,7 +1442,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     private final IFormAttachmentInfo<C> attachment;
     private final int parentDimension;
 
-    private ResizeToOffsetCommand(IFormAttachmentInfo<C> attachment, int parentDimension, int offset) {
+    private ResizeToOffsetCommand(IFormAttachmentInfo<C> attachment,
+        int parentDimension,
+        int offset) {
       super(attachment);
       this.attachment = attachment;
       this.parentDimension = parentDimension;
@@ -1459,7 +1461,9 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     private final int marginValue;
     private final int direction;
 
-    private ResizeToMarginCommand(IFormAttachmentInfo<C> attachment, int direction, int marginValue) {
+    private ResizeToMarginCommand(IFormAttachmentInfo<C> attachment,
+        int direction,
+        int marginValue) {
       super(attachment);
       this.attachment = attachment;
       this.direction = direction;

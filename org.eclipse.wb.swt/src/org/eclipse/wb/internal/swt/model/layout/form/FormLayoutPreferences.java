@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
@@ -31,13 +30,14 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Class maintaining FromLayout support preferences (both Classic & Auto).
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -99,11 +99,11 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
   }
 
   public List<Integer> getVerticalPercents() {
-    return Lists.newArrayList(loadPercents(KEY_V_PERCENTS));
+    return new ArrayList<>(loadPercents(KEY_V_PERCENTS));
   }
 
   public List<Integer> getHorizontalPercents() {
-    return Lists.newArrayList(loadPercents(KEY_H_PERCENTS));
+    return new ArrayList<>(loadPercents(KEY_H_PERCENTS));
   }
 
   public int getSnapSensitivity() {
@@ -139,10 +139,10 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
   // Manage current layout percent offsets
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final QualifiedName KEY_H_PERCENTS = new QualifiedName(Activator.PLUGIN_ID,
-      IPreferenceConstants.PREF_H_PERCENTS);
-  private static final QualifiedName KEY_V_PERCENTS = new QualifiedName(Activator.PLUGIN_ID,
-      IPreferenceConstants.PREF_V_PERCENTS);
+  private static final QualifiedName KEY_H_PERCENTS =
+      new QualifiedName(Activator.PLUGIN_ID, IPreferenceConstants.PREF_H_PERCENTS);
+  private static final QualifiedName KEY_V_PERCENTS =
+      new QualifiedName(Activator.PLUGIN_ID, IPreferenceConstants.PREF_V_PERCENTS);
   private final IPreferenceStore m_preferences;
 
   /**
@@ -288,7 +288,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
   /**
    * Model for percents header edit part. Just Integer can't be used because equals int values are
    * equals Integer values.
-   * 
+   *
    * @author mitin_aa
    */
   public static final class PercentsInfo {

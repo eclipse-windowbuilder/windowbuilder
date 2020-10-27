@@ -10,19 +10,18 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.swt.model.property.editor.font.FontInfo;
 
 import org.eclipse.jface.resource.ResourceRegistry;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Stub class for using eRCP JFace classes in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */
@@ -64,7 +63,7 @@ public class JFaceSupport extends AbstractSupport {
    * @return all JFace fonts.
    */
   public static List<FontInfo> getJFaceFonts() throws Exception {
-    List<FontInfo> jfaceFonts = Lists.newArrayList();
+    List<FontInfo> jfaceFonts = new ArrayList<>();
     Method[] methods = getJFaceResourceClass().getMethods();
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
@@ -88,9 +87,11 @@ public class JFaceSupport extends AbstractSupport {
       }
       // create font info
       Object font = method.invoke(null);
-      jfaceFonts.add(new FontInfo(name + "()", font, "org.eclipse.jface.resource.JFaceResources."
-          + name
-          + "()", false));
+      jfaceFonts.add(
+          new FontInfo(name + "()",
+              font,
+              "org.eclipse.jface.resource.JFaceResources." + name + "()",
+              false));
     }
     return jfaceFonts;
   }

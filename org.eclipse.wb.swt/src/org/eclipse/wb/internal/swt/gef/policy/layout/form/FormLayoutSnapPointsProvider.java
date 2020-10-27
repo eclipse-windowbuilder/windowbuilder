@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -30,11 +28,12 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic
 import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Provides FormLayout-specific snap points for snapping engine.
- * 
+ *
  * @author mitin_aa
  */
 final class FormLayoutSnapPointsProvider<C extends IControlInfo>
@@ -48,7 +47,7 @@ final class FormLayoutSnapPointsProvider<C extends IControlInfo>
   //
   // Constructor
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public FormLayoutSnapPointsProvider(IFormLayoutInfo<C> layout,
       FormLayoutVisualDataProvider<C> visualDataProvider,
       List<? extends IAbstractComponentInfo> allWidgets) {
@@ -60,12 +59,12 @@ final class FormLayoutSnapPointsProvider<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // ISnapPointsProvider 
+  // ISnapPointsProvider
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public List<SnapPoint> forComponent(IAbstractComponentInfo target, boolean isHorizontal) {
-    List<SnapPoint> pts = Lists.newArrayList();
+    List<SnapPoint> pts = new ArrayList<>();
     int lSide = PlacementUtils.getSide(isHorizontal, true);
     int tSide = PlacementUtils.getSide(isHorizontal, false);
     if (isHorizontal) {
@@ -110,7 +109,7 @@ final class FormLayoutSnapPointsProvider<C extends IControlInfo>
 
   @Override
   public List<SnapPoint> forContainer(boolean isHorizontal) {
-    List<SnapPoint> pts = Lists.newArrayList();
+    List<SnapPoint> pts = new ArrayList<>();
     int leadingSide = PlacementUtils.getSide(isHorizontal, true);
     int trailingSide = PlacementUtils.getSide(isHorizontal, false);
     // snap to parent at leading side with gap
@@ -267,12 +266,11 @@ final class FormLayoutSnapPointsProvider<C extends IControlInfo>
     @Override
     protected void executeEdit() throws Exception {
       FormLayoutInfoImplAutomatic<C> impl = (FormLayoutInfoImplAutomatic<C>) m_layout.getImpl();
-      IAbstractComponentInfo nearestComponentToSide =
-          SnapPoint.getNearestComponentToSide(
-              m_components,
-              m_moveDirection,
-              m_isHorizontal,
-              m_visualDataProvider);
+      IAbstractComponentInfo nearestComponentToSide = SnapPoint.getNearestComponentToSide(
+          m_components,
+          m_moveDirection,
+          m_isHorizontal,
+          m_visualDataProvider);
       impl.command_moveFreely(
           m_bounds,
           m_components,

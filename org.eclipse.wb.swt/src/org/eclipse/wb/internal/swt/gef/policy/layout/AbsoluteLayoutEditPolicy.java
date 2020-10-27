@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.geometry.Point;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -30,11 +28,12 @@ import org.eclipse.wb.internal.swt.model.layout.absolute.IAbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.SelectionActionsSupport;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for absolute (null) layout.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage swt.gef.policy
@@ -67,7 +66,7 @@ public final class AbsoluteLayoutEditPolicy<C extends IControlInfo>
       @SuppressWarnings("unchecked")
       @Override
       protected void executeEdit() throws Exception {
-        List<C> models = Lists.newArrayList();
+        List<C> models = new ArrayList<>();
         for (EditPart editPart : editParts) {
           models.add((C) editPart.getModel());
         }
@@ -88,7 +87,7 @@ public final class AbsoluteLayoutEditPolicy<C extends IControlInfo>
       @SuppressWarnings("unchecked")
       @Override
       protected void executeEdit() throws Exception {
-        List<C> models = Lists.newArrayList();
+        List<C> models = new ArrayList<>();
         for (EditPart editPart : editParts) {
           models.add((C) editPart.getModel());
         }
@@ -174,7 +173,7 @@ public final class AbsoluteLayoutEditPolicy<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IHasChildren;
@@ -28,7 +26,7 @@ import java.util.List;
 
 /**
  * Implementation {@link IImageContainer} for file image resources into workspace plugin project.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */
@@ -59,7 +57,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
    */
   private void ensureResources() {
     if (m_resources == null) {
-      List<IImageElement> resources = Lists.newArrayList();
+      List<IImageElement> resources = new ArrayList<>();
       try {
         for (IResource resource : m_container.members()) {
           if (resource instanceof IContainer) {
