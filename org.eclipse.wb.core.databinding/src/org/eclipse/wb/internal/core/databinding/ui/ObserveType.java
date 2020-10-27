@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.Activator;
 
 import org.eclipse.swt.graphics.Image;
@@ -37,8 +35,7 @@ public final class ObserveType {
       Activator.getImage("Widgets_ObserveType.gif"),
       ExpandedStrategy.ExpandedAll);
   //
-  public static final List<ObserveType> TYPES =
-      Lists.newArrayList(ObserveType.WIDGETS, ObserveType.BEANS);
+  public static final List<ObserveType> TYPES = List.of(ObserveType.WIDGETS, ObserveType.BEANS);
   //
   private final String m_name;
   private final Image m_image;
