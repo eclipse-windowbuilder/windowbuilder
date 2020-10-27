@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
@@ -72,6 +70,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -79,13 +78,13 @@ import java.util.Map;
 
 /**
  * Container for EMF objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */
 public final class EmfObserveTypeContainer extends ObserveTypeContainer {
-  public static final ObserveType TYPE = new ObserveType("Eclipse Modeling Framework",
-      Activator.getImage("EMF_ObserveType2.png"));
+  public static final ObserveType TYPE =
+      new ObserveType("Eclipse Modeling Framework", Activator.getImage("EMF_ObserveType2.png"));
   private List<EObjectBindableInfo> m_observables = Collections.emptyList();
   private JavaInfo m_javaInfoRoot;
   private PropertiesSupport m_propertiesSupport;
@@ -149,7 +148,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
         //
         if (!eObjectClass.isInterface()
             || !m_propertiesSupport.getEObjectClass().isAssignableFrom(eObjectClass)
-            && !CoreUtils.isAssignableFrom(m_propertiesSupport.getIObservableValue(), eObjectClass)) {
+                && !CoreUtils.isAssignableFrom(
+                    m_propertiesSupport.getIObservableValue(),
+                    eObjectClass)) {
           I.remove();
         }
       } catch (ClassNotFoundException e) {
@@ -169,11 +170,13 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
             return eObject.getFragment();
           }
 
-          public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
+          public boolean equals(VariableDeclarationFragment key0,
+              VariableDeclarationFragment key1) {
             return key0 == key1;
           }
 
-          public EObjectBindableInfo findObject(Map<VariableDeclarationFragment, EObjectBindableInfo> keyObjectToObject,
+          public EObjectBindableInfo findObject(
+              Map<VariableDeclarationFragment, EObjectBindableInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
@@ -210,7 +213,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
       AstEditor editor,
       TypeDeclaration rootNode) throws Exception {
     m_javaInfoRoot = root;
-    m_observables = Lists.newArrayList();
+    m_observables = new ArrayList<>();
     //
     IJavaProject javaProject = editor.getJavaProject();
     ClassLoader classLoader = JavaInfoUtils.getClassLoader(m_javaInfoRoot);
@@ -226,13 +229,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
         Class<?> eObjectClass = loadClass(AstNodeUtils.getFullyQualifiedName(type, true));
         //
         if (eObjectClass.isInterface()
-            && (m_propertiesSupport.getEObjectClass().isAssignableFrom(eObjectClass) || CoreUtils.isAssignableFrom(
-                m_propertiesSupport.getIObservableValue(),
-                eObjectClass))) {
-          m_observables.add(new EObjectBindableInfo(eObjectClass,
-              fragment,
-              m_propertiesSupport,
-              resolver));
+            && (m_propertiesSupport.getEObjectClass().isAssignableFrom(eObjectClass)
+                || CoreUtils.isAssignableFrom(
+                    m_propertiesSupport.getIObservableValue(),
+                    eObjectClass))) {
+          m_observables.add(
+              new EObjectBindableInfo(eObjectClass, fragment, m_propertiesSupport, resolver));
         }
       } catch (ClassNotFoundException e) {
         AbstractParser.addError(editor, "ClassNotFoundException: " + fragment, new Throwable());
@@ -275,7 +277,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // TreeStructureAdvisor
     //
     if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.wb.rcp.databinding.EMFTreeBeanAdvisor")) {
-      Assert.isTrue(signature.endsWith("<init>(org.eclipse.emf.ecore.EStructuralFeature,org.eclipse.emf.ecore.EStructuralFeature,org.eclipse.emf.ecore.EStructuralFeature)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(org.eclipse.emf.ecore.EStructuralFeature,org.eclipse.emf.ecore.EStructuralFeature,org.eclipse.emf.ecore.EStructuralFeature)"));
       // create advisor
       EmfTreeBeanAdvisorInfo advisorInfo = new EmfTreeBeanAdvisorInfo(m_propertiesSupport);
       // prepare parent property
@@ -293,7 +297,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     if (AstNodeUtils.isSuccessorOf(
         binding,
         "org.eclipse.wb.rcp.databinding.EMFTreeObservableLabelProvider")) {
-      Assert.isTrue(signature.endsWith("<init>(org.eclipse.core.databinding.observable.set.IObservableSet,org.eclipse.emf.ecore.EStructuralFeature,org.eclipse.emf.ecore.EStructuralFeature)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(org.eclipse.core.databinding.observable.set.IObservableSet,org.eclipse.emf.ecore.EStructuralFeature,org.eclipse.emf.ecore.EStructuralFeature)"));
       // prepare allElements observable
       KnownElementsObservableInfo allElementsObservable =
           (KnownElementsObservableInfo) resolver.getModel(arguments[0]);
@@ -333,9 +339,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
       boolean editingDomain) throws Exception {
     if (editingDomain) {
       m_propertiesSupport.checkEditingDomain(arguments[1]);
-      Assert.isTrue(signature.endsWith("<init>(java.lang.Class,org.eclipse.emf.edit.domain.EditingDomain,org.eclipse.emf.ecore.EStructuralFeature)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(java.lang.Class,org.eclipse.emf.edit.domain.EditingDomain,org.eclipse.emf.ecore.EStructuralFeature)"));
     } else {
-      Assert.isTrue(signature.endsWith("<init>(java.lang.Class,org.eclipse.emf.ecore.EStructuralFeature)"));
+      Assert.isTrue(
+          signature.endsWith("<init>(java.lang.Class,org.eclipse.emf.ecore.EStructuralFeature)"));
     }
     // create factory
     EmfBeansObservableFactoryInfo observableFactory =
@@ -343,9 +352,8 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare element type
     observableFactory.setElementType(CoreUtils.evaluate(Class.class, editor, arguments[0]));
     // prepare property
-    observableFactory.setEMFPropertyReference(CoreUtils.getNodeReference(arguments[editingDomain
-        ? 2
-        : 1]));
+    observableFactory.setEMFPropertyReference(
+        CoreUtils.getNodeReference(arguments[editingDomain ? 2 : 1]));
     //
     return observableFactory;
   }
@@ -396,8 +404,9 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     return codeSupport;
   }
 
-  AstObjectInfo createValuePathPropertyEdit(AstEditor editor, Expression[] arguments, int startIndex)
-      throws Exception {
+  AstObjectInfo createValuePathPropertyEdit(AstEditor editor,
+      Expression[] arguments,
+      int startIndex) throws Exception {
     m_propertiesSupport.checkEditingDomain(arguments[startIndex]);
     return createValuePathProperty(editor, arguments, startIndex + 1);
   }
@@ -431,9 +440,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     EObjectBindableInfo eObject = getEObject(arguments[startIndex]);
     if (eObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.EmfObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
@@ -456,9 +468,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     EObjectBindableInfo eObject = getEObject(arguments[startIndex]);
     if (eObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.EmfObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
@@ -491,9 +506,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
           }
         });
     if (masterDetailObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfObserveTypeContainer_masterObservableNotFound,
-          expression), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.EmfObserveTypeContainer_masterObservableNotFound,
+              expression),
+          new Throwable());
       return null;
     }
     Assert.instanceOf(IMasterDetailProvider.class, masterDetailObservable);
@@ -520,9 +538,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfObserveTypeContainer_masterObservableArgumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.EmfObserveTypeContainer_masterObservableArgumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare detail property
@@ -552,9 +573,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfObserveTypeContainer_masterObservableArgumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.EmfObserveTypeContainer_masterObservableArgumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare detail property
@@ -584,9 +608,12 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare domain
     ObservableInfo domainObservable = (ObservableInfo) resolver.getModel(arguments[startIndex]);
     if (domainObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.EmfObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.EmfObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare reference properties
@@ -594,7 +621,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     ArrayCreation arrayReferenceProperties = (ArrayCreation) arguments[startIndex + 1];
     List<Expression> expressionReferenceProperties =
         DomGenerics.expressions(arrayReferenceProperties.getInitializer());
-    List<String> referenceProperties = Lists.newArrayList();
+    List<String> referenceProperties = new ArrayList<>();
     for (Expression expression : expressionReferenceProperties) {
       Assert.instanceOf(QualifiedName.class, expression);
       referenceProperties.add(CoreUtils.getNodeReference(expression));

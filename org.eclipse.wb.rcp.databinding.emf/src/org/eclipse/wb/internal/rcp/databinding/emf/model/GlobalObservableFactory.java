@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration.IPropertiesFilter;
@@ -69,12 +67,13 @@ import org.eclipse.swt.widgets.Composite;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * EMF implementation of {@link IGlobalObservableFactory}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */
@@ -145,13 +144,15 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
   public BeansObservableFactoryInfo createTreeObservableFactory(ObservableInfo inputObservable,
       boolean asList) throws Exception {
     if (asList
-        && (inputObservable instanceof ListEmfObservableInfo || inputObservable instanceof DetailListEmfObservableInfo)) {
+        && (inputObservable instanceof ListEmfObservableInfo
+            || inputObservable instanceof DetailListEmfObservableInfo)) {
       return EmfBeansObservableFactoryInfo.create(null, getPropertiesSupport(inputObservable));
     }
     return null;
   }
 
-  public TreeBeanAdvisorInfo createTreeBeanAdvisor(ObservableInfo inputObservable) throws Exception {
+  public TreeBeanAdvisorInfo createTreeBeanAdvisor(ObservableInfo inputObservable)
+      throws Exception {
     if (inputObservable instanceof ListEmfObservableInfo
         || inputObservable instanceof DetailListEmfObservableInfo) {
       return new EmfTreeBeanAdvisorInfo(getPropertiesSupport(inputObservable));
@@ -183,14 +184,15 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
       configuration.addPropertiesFilter(new IPropertiesFilter() {
         public List<PropertyAdapter> filterProperties(Class<?> choosenClass,
             List<PropertyAdapter> properties) throws Exception {
-          properties = Lists.newArrayList();
+          properties = new ArrayList<>();
           for (PropertyInfo emfPropertyInfo : propertiesSupport.getProperties(choosenClass)) {
-            properties.add(new ChooseClassAndTreePropertiesUiContentProvider.ObservePropertyAdapter(null,
-                new EPropertyBindableInfo(propertiesSupport,
-                    null,
-                    emfPropertyInfo.type,
-                    emfPropertyInfo.name,
-                    "\"" + emfPropertyInfo.name + "\"")));
+            properties.add(
+                new ChooseClassAndTreePropertiesUiContentProvider.ObservePropertyAdapter(null,
+                    new EPropertyBindableInfo(propertiesSupport,
+                        null,
+                        emfPropertyInfo.type,
+                        emfPropertyInfo.name,
+                        "\"" + emfPropertyInfo.name + "\"")));
           }
           return properties;
         }
@@ -272,7 +274,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
       ClassLoader classLoader,
       Class<?> eObjectClass) throws Exception {
     if (isEMFObject(classLoader, eObjectClass)) {
-      List<PropertyAdapter> properties = Lists.newArrayList();
+      List<PropertyAdapter> properties = new ArrayList<>();
       List<VariableDeclarationFragment> fragments = Collections.emptyList();
       PropertiesSupport propertiesSupport =
           new PropertiesSupport(javaProject, classLoader, fragments);
@@ -318,12 +320,14 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
       String modifier =
           Modifier.ModifierKeyword.fromFlagValue(fieldDeclaration.getModifiers()).toString();
       //
-      controllerEditor.addFieldDeclaration(modifier
-          + " "
-          + eObject.getObjectType().getName()
-          + " "
-          + fragment.getName().getIdentifier()
-          + ";", new BodyDeclarationTarget(controllerRootNode, true));
+      controllerEditor.addFieldDeclaration(
+          modifier
+              + " "
+              + eObject.getObjectType().getName()
+              + " "
+              + fragment.getName().getIdentifier()
+              + ";",
+          new BodyDeclarationTarget(controllerRootNode, true));
       //
       return true;
     }
