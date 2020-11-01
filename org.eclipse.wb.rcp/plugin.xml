@@ -218,7 +218,6 @@
 					<component class="org.eclipse.swt.custom.CLabel"/>
 					<component class="org.eclipse.swt.custom.CCombo"/>
 					<component class="org.eclipse.swt.custom.StyledText"/>
-					<component class="org.eclipse.swt.custom.TableTree" condition="!(isdef isXWT)"/>
 					<component class="org.eclipse.swt.dnd.DragSource"/>
 					<component class="org.eclipse.swt.dnd.DropTarget"/>
 					<component class="org.eclipse.swt.widgets.TrayItem" condition="!(isdef isXWT)"/>
@@ -235,8 +234,6 @@
 					<component class="org.eclipse.jface.viewers.TreeViewer"/>
 					<component class="org.eclipse.jface.viewers.TreeViewerColumn"/>
 					<component class="org.eclipse.jface.viewers.CheckboxTreeViewer"/>
-					<component class="org.eclipse.jface.viewers.TableTreeViewer"
-						condition="!(isdef isXWT)"/>
 					<entry id="org.eclipse.wb.rcp.jface.TableComposite"
 						class="org.eclipse.wb.internal.rcp.palette.TableCompositeEntryInfo"/>
 					<entry id="org.eclipse.wb.rcp.jface.TableViewerComposite"
