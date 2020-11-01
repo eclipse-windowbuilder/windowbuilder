@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.rcp.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.BindingContentProvider;
@@ -38,12 +36,13 @@ import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 @SuppressWarnings("unchecked")
 public class UiConfigurationTest extends AbstractBindingTest {
@@ -53,56 +52,55 @@ public class UiConfigurationTest extends AbstractBindingTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_ObservableInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(
-            this,
-            new String[]{
-                "import org.eclipse.core.databinding.Binding;",
-                "public class Test {",
-                "  protected Shell m_shell;",
-                "  private Text m_text;",
-                "  private CheckboxTableViewer m_viewer;",
-                "  private DataBindingContext m_bindingContext;",
-                "  public static void main(String[] args) {",
-                "    Test test = new Test();",
-                "    test.open();",
-                "  }",
-                "  public void open() {",
-                "    Display display = new Display();",
-                "    createContents();",
-                "    m_shell.open();",
-                "    m_shell.layout();",
-                "    while (!m_shell.isDisposed()) {",
-                "      if (!display.readAndDispatch()) {",
-                "        display.sleep();",
-                "      }",
-                "    }",
-                "  }",
-                "  protected void createContents() {",
-                "    m_shell = new Shell();",
-                "    m_text = new Text(m_shell, SWT.SINGLE);",
-                "    m_viewer = new CheckboxTableViewer(m_shell, SWT.BORDER);",
-                "    m_bindingContext = initDataBindings();",
-                "  }",
-                "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeDetailValue = BeansObservables.observeDetailValue(observeValue, \"empty\", boolean.class);",
-                "    IObservableValue observeWidget = SWTObservables.observeFont(m_shell);",
-                "    IObservableValue observeText = SWTObservables.observeText(m_text, SWT.Modify);",
-                "    IObservableSet observeSet = BeansObservables.observeSet(getClass(), \"name\");",
-                "    IObservableSet observeViewerSet = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
-                "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-                "    bindingContext.bindValue(observeText, observeDetailValue, null, null);",
-                "    bindingContext.bindSet(observeViewerSet, observeSet, null, null);",
-                "    return bindingContext;",
-                "  }",
-                "}"});
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
+            "import org.eclipse.core.databinding.Binding;",
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private Text m_text;",
+            "  private CheckboxTableViewer m_viewer;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_text = new Text(m_shell, SWT.SINGLE);",
+            "    m_viewer = new CheckboxTableViewer(m_shell, SWT.BORDER);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
+            "    IObservableValue observeDetailValue = BeansObservables.observeDetailValue(observeValue, \"empty\", boolean.class);",
+            "    IObservableValue observeWidget = SWTObservables.observeFont(m_shell);",
+            "    IObservableValue observeText = SWTObservables.observeText(m_text, SWT.Modify);",
+            "    IObservableSet observeSet = BeansObservables.observeSet(getClass(), \"name\");",
+            "    IObservableSet observeViewerSet = ViewersObservables.observeCheckedElements(m_viewer, String.class);",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
+            "    bindingContext.bindValue(observeText, observeDetailValue, null, null);",
+            "    bindingContext.bindSet(observeViewerSet, observeSet, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"});
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
     //
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     //
     BindingUiContentProviderContext context = new BindingUiContentProviderContext();
     context.setDirection("Target");
@@ -149,7 +147,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
     detailExpected.setDialogFieldLabel("Master bean class:");
     detailExpected.setValueScope("beans");
     detailExpected.setChooseInterfaces(true);
-    detailExpected.setEmptyClassErrorMessage("Choose a master bean class that contains properties.");
+    detailExpected.setEmptyClassErrorMessage(
+        "Choose a master bean class that contains properties.");
     detailExpected.setErrorMessagePrefix("Master bean class");
     detailExpected.setPropertiesLabel("Properties (for detail):");
     detailExpected.setPropertiesErrorMessage("Choose a detail property.");
@@ -179,41 +178,40 @@ public class UiConfigurationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateValueStrategy() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(
-            this,
-            new String[]{
-                "import org.eclipse.core.databinding.Binding;",
-                "public class Test {",
-                "  protected Shell m_shell;",
-                "  private DataBindingContext m_bindingContext;",
-                "  public static void main(String[] args) {",
-                "    Test test = new Test();",
-                "    test.open();",
-                "  }",
-                "  public void open() {",
-                "    Display display = new Display();",
-                "    createContents();",
-                "    m_shell.open();",
-                "    m_shell.layout();",
-                "    while (!m_shell.isDisposed()) {",
-                "      if (!display.readAndDispatch()) {",
-                "        display.sleep();",
-                "      }",
-                "    }",
-                "  }",
-                "  protected void createContents() {",
-                "    m_shell = new Shell();",
-                "    m_bindingContext = initDataBindings();",
-                "  }",
-                "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
-                "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-                "    return bindingContext;",
-                "  }",
-                "}"});
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
+            "import org.eclipse.core.databinding.Binding;",
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
+            "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"});
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -224,7 +222,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertNotNull(binding.getTargetStrategy());
     //
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     BindingUiContentProviderContext context = new BindingUiContentProviderContext();
     context.setDirection("Target");
     //
@@ -239,11 +237,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration expected = new ChooseClassConfiguration();
     expected.setDialogFieldLabel("UpdateValueStrategy:");
-    expected.setDefaultValues(new String[]{
-        "POLICY_UPDATE",
-        "POLICY_NEVER",
-        "POLICY_ON_REQUEST",
-        "POLICY_CONVERT"});
+    expected.setDefaultValues(
+        new String[]{"POLICY_UPDATE", "POLICY_NEVER", "POLICY_ON_REQUEST", "POLICY_CONVERT"});
     expected.setValueScope("org.eclipse.core.databinding.UpdateValueStrategy");
     expected.setRetargetClassName(
         "org.eclipse.core.databinding.UpdateValueStrategy",
@@ -269,14 +264,16 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration afterConvertValidatorExpected = new ChooseClassConfiguration();
     afterConvertValidatorExpected.setDialogFieldLabel("AfterConvertValidator:");
-    afterConvertValidatorExpected.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    afterConvertValidatorExpected.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterConvertValidatorExpected.setClearValue("N/S");
-    afterConvertValidatorExpected.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    afterConvertValidatorExpected.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterConvertValidatorExpected.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    afterConvertValidatorExpected.setEmptyClassErrorMessage(context.getDirection()
-        + " \"AfterConvertValidator\" class is empty.");
-    afterConvertValidatorExpected.setErrorMessagePrefix(context.getDirection()
-        + " \"AfterConvertValidator\"");
+    afterConvertValidatorExpected.setEmptyClassErrorMessage(
+        context.getDirection() + " \"AfterConvertValidator\" class is empty.");
+    afterConvertValidatorExpected.setErrorMessagePrefix(
+        context.getDirection() + " \"AfterConvertValidator\"");
     //
     assertEquals(afterConvertValidatorExpected, afterConvertValidatorActual);
     // ---------------------------------------------------------------------------
@@ -286,12 +283,13 @@ public class UiConfigurationTest extends AbstractBindingTest {
     afterGetValidatorExpected.setDialogFieldLabel("AfterGetValidator:");
     afterGetValidatorExpected.setValueScope("org.eclipse.core.databinding.validation.IValidator");
     afterGetValidatorExpected.setClearValue("N/S");
-    afterGetValidatorExpected.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    afterGetValidatorExpected.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterGetValidatorExpected.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    afterGetValidatorExpected.setEmptyClassErrorMessage(context.getDirection()
-        + " \"AfterGetValidator\" class is empty.");
-    afterGetValidatorExpected.setErrorMessagePrefix(context.getDirection()
-        + " \"AfterGetValidator\"");
+    afterGetValidatorExpected.setEmptyClassErrorMessage(
+        context.getDirection() + " \"AfterGetValidator\" class is empty.");
+    afterGetValidatorExpected.setErrorMessagePrefix(
+        context.getDirection() + " \"AfterGetValidator\"");
     //
     assertEquals(afterGetValidatorExpected, afterGetValidatorActual);
     // ---------------------------------------------------------------------------
@@ -301,12 +299,13 @@ public class UiConfigurationTest extends AbstractBindingTest {
     beforeSetValidatorExpected.setDialogFieldLabel("BeforeSetValidator:");
     beforeSetValidatorExpected.setValueScope("org.eclipse.core.databinding.validation.IValidator");
     beforeSetValidatorExpected.setClearValue("N/S");
-    beforeSetValidatorExpected.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    beforeSetValidatorExpected.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     beforeSetValidatorExpected.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    beforeSetValidatorExpected.setEmptyClassErrorMessage(context.getDirection()
-        + " \"BeforeSetValidator\" class is empty.");
-    beforeSetValidatorExpected.setErrorMessagePrefix(context.getDirection()
-        + " \"BeforeSetValidator\"");
+    beforeSetValidatorExpected.setEmptyClassErrorMessage(
+        context.getDirection() + " \"BeforeSetValidator\" class is empty.");
+    beforeSetValidatorExpected.setErrorMessagePrefix(
+        context.getDirection() + " \"BeforeSetValidator\"");
     //
     assertEquals(beforeSetValidatorExpected, beforeSetValidatorActual);
     // ---------------------------------------------------------------------------
@@ -325,41 +324,40 @@ public class UiConfigurationTest extends AbstractBindingTest {
   }
 
   public void test_BindingInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(
-            this,
-            new String[]{
-                "import org.eclipse.core.databinding.Binding;",
-                "public class Test {",
-                "  protected Shell m_shell;",
-                "  private DataBindingContext m_bindingContext;",
-                "  public static void main(String[] args) {",
-                "    Test test = new Test();",
-                "    test.open();",
-                "  }",
-                "  public void open() {",
-                "    Display display = new Display();",
-                "    createContents();",
-                "    m_shell.open();",
-                "    m_shell.layout();",
-                "    while (!m_shell.isDisposed()) {",
-                "      if (!display.readAndDispatch()) {",
-                "        display.sleep();",
-                "      }",
-                "    }",
-                "  }",
-                "  protected void createContents() {",
-                "    m_shell = new Shell();",
-                "    m_bindingContext = initDataBindings();",
-                "  }",
-                "  private DataBindingContext initDataBindings() {",
-                "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
-                "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
-                "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-                "    return bindingContext;",
-                "  }",
-                "}"});
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
+            "import org.eclipse.core.databinding.Binding;",
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableValue observeValue = BeansObservables.observeValue(getClass(), \"name\");",
+            "    IObservableValue observeWidget = SWTObservables.observeText(m_shell);",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindValue(observeWidget, observeValue, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"});
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -405,11 +403,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration expectedTargetStrategy = new ChooseClassConfiguration();
     expectedTargetStrategy.setDialogFieldLabel("UpdateValueStrategy:");
-    expectedTargetStrategy.setDefaultValues(new String[]{
-        "POLICY_UPDATE",
-        "POLICY_NEVER",
-        "POLICY_ON_REQUEST",
-        "POLICY_CONVERT"});
+    expectedTargetStrategy.setDefaultValues(
+        new String[]{"POLICY_UPDATE", "POLICY_NEVER", "POLICY_ON_REQUEST", "POLICY_CONVERT"});
     expectedTargetStrategy.setValueScope("org.eclipse.core.databinding.UpdateValueStrategy");
     expectedTargetStrategy.setRetargetClassName(
         "org.eclipse.core.databinding.UpdateValueStrategy",
@@ -436,11 +431,14 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration afterConvertValidatorExpectedTarget = new ChooseClassConfiguration();
     afterConvertValidatorExpectedTarget.setDialogFieldLabel("AfterConvertValidator:");
-    afterConvertValidatorExpectedTarget.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    afterConvertValidatorExpectedTarget.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterConvertValidatorExpectedTarget.setClearValue("N/S");
-    afterConvertValidatorExpectedTarget.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    afterConvertValidatorExpectedTarget.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterConvertValidatorExpectedTarget.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    afterConvertValidatorExpectedTarget.setEmptyClassErrorMessage("Target \"AfterConvertValidator\" class is empty.");
+    afterConvertValidatorExpectedTarget.setEmptyClassErrorMessage(
+        "Target \"AfterConvertValidator\" class is empty.");
     afterConvertValidatorExpectedTarget.setErrorMessagePrefix("Target \"AfterConvertValidator\"");
     //
     assertEquals(afterConvertValidatorExpectedTarget, afterConvertValidatorActualTarget);
@@ -450,11 +448,14 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration afterGetValidatorExpectedTarget = new ChooseClassConfiguration();
     afterGetValidatorExpectedTarget.setDialogFieldLabel("AfterGetValidator:");
-    afterGetValidatorExpectedTarget.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    afterGetValidatorExpectedTarget.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterGetValidatorExpectedTarget.setClearValue("N/S");
-    afterGetValidatorExpectedTarget.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    afterGetValidatorExpectedTarget.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterGetValidatorExpectedTarget.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    afterGetValidatorExpectedTarget.setEmptyClassErrorMessage("Target \"AfterGetValidator\" class is empty.");
+    afterGetValidatorExpectedTarget.setEmptyClassErrorMessage(
+        "Target \"AfterGetValidator\" class is empty.");
     afterGetValidatorExpectedTarget.setErrorMessagePrefix("Target \"AfterGetValidator\"");
     //
     assertEquals(afterGetValidatorExpectedTarget, afterGetValidatorActualTarget);
@@ -464,11 +465,14 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration beforeSetValidatorExpectedTarget = new ChooseClassConfiguration();
     beforeSetValidatorExpectedTarget.setDialogFieldLabel("BeforeSetValidator:");
-    beforeSetValidatorExpectedTarget.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    beforeSetValidatorExpectedTarget.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     beforeSetValidatorExpectedTarget.setClearValue("N/S");
-    beforeSetValidatorExpectedTarget.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    beforeSetValidatorExpectedTarget.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     beforeSetValidatorExpectedTarget.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    beforeSetValidatorExpectedTarget.setEmptyClassErrorMessage("Target \"BeforeSetValidator\" class is empty.");
+    beforeSetValidatorExpectedTarget.setEmptyClassErrorMessage(
+        "Target \"BeforeSetValidator\" class is empty.");
     beforeSetValidatorExpectedTarget.setErrorMessagePrefix("Target \"BeforeSetValidator\"");
     //
     assertEquals(beforeSetValidatorExpectedTarget, beforeSetValidatorActualTarget);
@@ -501,11 +505,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration expectedModelStrategy = new ChooseClassConfiguration();
     expectedModelStrategy.setDialogFieldLabel("UpdateValueStrategy:");
-    expectedModelStrategy.setDefaultValues(new String[]{
-        "POLICY_UPDATE",
-        "POLICY_NEVER",
-        "POLICY_ON_REQUEST",
-        "POLICY_CONVERT"});
+    expectedModelStrategy.setDefaultValues(
+        new String[]{"POLICY_UPDATE", "POLICY_NEVER", "POLICY_ON_REQUEST", "POLICY_CONVERT"});
     expectedModelStrategy.setValueScope("org.eclipse.core.databinding.UpdateValueStrategy");
     expectedModelStrategy.setRetargetClassName(
         "org.eclipse.core.databinding.UpdateValueStrategy",
@@ -532,11 +533,14 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration afterConvertValidatorExpectedModel = new ChooseClassConfiguration();
     afterConvertValidatorExpectedModel.setDialogFieldLabel("AfterConvertValidator:");
-    afterConvertValidatorExpectedModel.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    afterConvertValidatorExpectedModel.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterConvertValidatorExpectedModel.setClearValue("N/S");
-    afterConvertValidatorExpectedModel.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    afterConvertValidatorExpectedModel.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterConvertValidatorExpectedModel.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    afterConvertValidatorExpectedModel.setEmptyClassErrorMessage("Model \"AfterConvertValidator\" class is empty.");
+    afterConvertValidatorExpectedModel.setEmptyClassErrorMessage(
+        "Model \"AfterConvertValidator\" class is empty.");
     afterConvertValidatorExpectedModel.setErrorMessagePrefix("Model \"AfterConvertValidator\"");
     //
     assertEquals(afterConvertValidatorExpectedModel, afterConvertValidatorActualModel);
@@ -546,11 +550,14 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration afterGetValidatorExpectedModel = new ChooseClassConfiguration();
     afterGetValidatorExpectedModel.setDialogFieldLabel("AfterGetValidator:");
-    afterGetValidatorExpectedModel.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    afterGetValidatorExpectedModel.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterGetValidatorExpectedModel.setClearValue("N/S");
-    afterGetValidatorExpectedModel.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    afterGetValidatorExpectedModel.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     afterGetValidatorExpectedModel.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    afterGetValidatorExpectedModel.setEmptyClassErrorMessage("Model \"AfterGetValidator\" class is empty.");
+    afterGetValidatorExpectedModel.setEmptyClassErrorMessage(
+        "Model \"AfterGetValidator\" class is empty.");
     afterGetValidatorExpectedModel.setErrorMessagePrefix("Model \"AfterGetValidator\"");
     //
     assertEquals(afterGetValidatorExpectedModel, afterGetValidatorActualModel);
@@ -560,11 +567,14 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     ChooseClassConfiguration beforeSetValidatorExpectedModel = new ChooseClassConfiguration();
     beforeSetValidatorExpectedModel.setDialogFieldLabel("BeforeSetValidator:");
-    beforeSetValidatorExpectedModel.setValueScope("org.eclipse.core.databinding.validation.IValidator");
+    beforeSetValidatorExpectedModel.setValueScope(
+        "org.eclipse.core.databinding.validation.IValidator");
     beforeSetValidatorExpectedModel.setClearValue("N/S");
-    beforeSetValidatorExpectedModel.setBaseClassName("org.eclipse.core.databinding.validation.IValidator");
+    beforeSetValidatorExpectedModel.setBaseClassName(
+        "org.eclipse.core.databinding.validation.IValidator");
     beforeSetValidatorExpectedModel.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    beforeSetValidatorExpectedModel.setEmptyClassErrorMessage("Model \"BeforeSetValidator\" class is empty.");
+    beforeSetValidatorExpectedModel.setEmptyClassErrorMessage(
+        "Model \"BeforeSetValidator\" class is empty.");
     beforeSetValidatorExpectedModel.setErrorMessagePrefix("Model \"BeforeSetValidator\"");
     //
     assertEquals(beforeSetValidatorExpectedModel, beforeSetValidatorActualModel);
@@ -589,41 +599,40 @@ public class UiConfigurationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateListStrategy() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(
-            this,
-            new String[]{
-                "import org.eclipse.core.databinding.Binding;",
-                "public class Test {",
-                "  protected Shell m_shell;",
-                "  private DataBindingContext m_bindingContext;",
-                "  public static void main(String[] args) {",
-                "    Test test = new Test();",
-                "    test.open();",
-                "  }",
-                "  public void open() {",
-                "    Display display = new Display();",
-                "    createContents();",
-                "    m_shell.open();",
-                "    m_shell.layout();",
-                "    while (!m_shell.isDisposed()) {",
-                "      if (!display.readAndDispatch()) {",
-                "        display.sleep();",
-                "      }",
-                "    }",
-                "  }",
-                "  protected void createContents() {",
-                "    m_shell = new Shell();",
-                "    m_bindingContext = initDataBindings();",
-                "  }",
-                "  private DataBindingContext initDataBindings() {",
-                "    IObservableList observeList1 = BeansObservables.observeList(getClass(), \"name\");",
-                "    IObservableList observeList2 = BeansObservables.observeList(getClass(), \"modifiers\");",
-                "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    bindingContext.bindList(observeList1, observeList2, null, null);",
-                "    return bindingContext;",
-                "  }",
-                "}"});
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
+            "import org.eclipse.core.databinding.Binding;",
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableList observeList1 = BeansObservables.observeList(getClass(), \"name\");",
+            "    IObservableList observeList2 = BeansObservables.observeList(getClass(), \"modifiers\");",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindList(observeList1, observeList2, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"});
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -634,7 +643,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertNotNull(binding.getTargetStrategy());
     //
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     BindingUiContentProviderContext context = new BindingUiContentProviderContext();
     context.setDirection("Target");
     binding.getTargetStrategy().createContentProviders(providers, context);
@@ -683,41 +692,40 @@ public class UiConfigurationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateSetStrategy() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(
-            this,
-            new String[]{
-                "import org.eclipse.core.databinding.Binding;",
-                "public class Test {",
-                "  protected Shell m_shell;",
-                "  private DataBindingContext m_bindingContext;",
-                "  public static void main(String[] args) {",
-                "    Test test = new Test();",
-                "    test.open();",
-                "  }",
-                "  public void open() {",
-                "    Display display = new Display();",
-                "    createContents();",
-                "    m_shell.open();",
-                "    m_shell.layout();",
-                "    while (!m_shell.isDisposed()) {",
-                "      if (!display.readAndDispatch()) {",
-                "        display.sleep();",
-                "      }",
-                "    }",
-                "  }",
-                "  protected void createContents() {",
-                "    m_shell = new Shell();",
-                "    m_bindingContext = initDataBindings();",
-                "  }",
-                "  private DataBindingContext initDataBindings() {",
-                "    IObservableSet observeSet1 = BeansObservables.observeSet(getClass(), \"name\");",
-                "    IObservableSet observeSet2 = BeansObservables.observeSet(getClass(), \"modifiers\");",
-                "    DataBindingContext bindingContext = new DataBindingContext();",
-                "    bindingContext.bindSet(observeSet1, observeSet2, null, null);",
-                "    return bindingContext;",
-                "  }",
-                "}"});
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
+            "import org.eclipse.core.databinding.Binding;",
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableSet observeSet1 = BeansObservables.observeSet(getClass(), \"name\");",
+            "    IObservableSet observeSet2 = BeansObservables.observeSet(getClass(), \"modifiers\");",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindSet(observeSet1, observeSet2, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"});
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -728,7 +736,7 @@ public class UiConfigurationTest extends AbstractBindingTest {
     //
     assertNotNull(binding.getTargetStrategy());
     //
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     BindingUiContentProviderContext context = new BindingUiContentProviderContext();
     context.setDirection("Target");
     binding.getTargetStrategy().createContentProviders(providers, context);
@@ -745,7 +753,9 @@ public class UiConfigurationTest extends AbstractBindingTest {
     expected.setDialogFieldLabel("UpdateSetStrategy:");
     expected.setDefaultValues(new String[]{"POLICY_UPDATE", "POLICY_NEVER", "POLICY_ON_REQUEST"});
     expected.setValueScope("org.eclipse.core.databinding.UpdateSetStrategy");
-    expected.setRetargetClassName("org.eclipse.core.databinding.UpdateSetStrategy", "POLICY_UPDATE");
+    expected.setRetargetClassName(
+        "org.eclipse.core.databinding.UpdateSetStrategy",
+        "POLICY_UPDATE");
     expected.setBaseClassName("org.eclipse.core.databinding.UpdateSetStrategy");
     expected.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
     expected.setEmptyClassErrorMessage("Target strategy class is empty.");
@@ -786,9 +796,8 @@ public class UiConfigurationTest extends AbstractBindingTest {
         Arrays.toString(expected.getBaseClassNames()),
         Arrays.toString(actual.getBaseClassNames()));
     assertEquals(expected.isChooseInterfaces(), actual.isChooseInterfaces());
-    assertTrue(Arrays.equals(
-        expected.getConstructorsParameters(),
-        actual.getConstructorsParameters()));
+    assertTrue(
+        Arrays.equals(expected.getConstructorsParameters(), actual.getConstructorsParameters()));
     assertEquals(expected.getEmptyClassErrorMessage(), actual.getEmptyClassErrorMessage());
     assertEquals(expected.getErrorMessagePrefix(), actual.getErrorMessagePrefix());
     assertEquals(

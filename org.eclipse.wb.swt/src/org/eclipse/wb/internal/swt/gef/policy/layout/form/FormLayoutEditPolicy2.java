@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.OutlineImageFigure;
@@ -53,10 +51,11 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
@@ -248,7 +247,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     boolean isKeyboardMoving = isKeyboardMoving();
     // some preparations
     List<EditPart> editParts = request.getEditParts();
-    List<IAbstractComponentInfo> modelList = Lists.newArrayList();
+    List<IAbstractComponentInfo> modelList = new ArrayList<>();
     Rectangle[] relativeBounds = new Rectangle[editParts.size()];
     Rectangle widgetBounds;
     // calculate model bounds and create move feedback
@@ -264,8 +263,9 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
         widgetBounds.union(bounds);
         modelList.add(model);
         //
-        m_moveFeedback.add(new OutlineImageFigure(model.getImage(),
-            AbsolutePolicyUtils.COLOR_OUTLINE), bounds);
+        m_moveFeedback.add(
+            new OutlineImageFigure(model.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
+            bounds);
       }
       //
       List<Figure> moveFeedbackFigures = m_moveFeedback.getChildren();
@@ -317,7 +317,8 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     // update text feedback
     if (m_locationFeedback != null) {
       EditPart firstEditPart = editParts.get(0);
-      m_locationFeedback.setText(getLocationHintText(firstEditPart, widgetBounds.x, widgetBounds.y));
+      m_locationFeedback.setText(
+          getLocationHintText(firstEditPart, widgetBounds.x, widgetBounds.y));
       Point locationFeedbackLocation = getLocationHintLocation(feedbackBounds);
       m_locationFeedback.setLocation(locationFeedbackLocation);
     }
@@ -332,7 +333,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
    * just Integer.toString(), but some layouts, for example GWT AbsolutePanel support not only
    * pixels, but also inches, centimeters, etc. We keep size units for such layouts, so want to show
    * user size in current units, not in plain pixels.
-   * 
+   *
    * @param editPart
    *          An {@link EditPart} which is currently resizing
    * @param x
@@ -347,7 +348,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
 
   /**
    * Return string representing the current component location during moving
-   * 
+   *
    * @param editPart
    *          An {@link EditPart} which is currently moving
    * @param x
@@ -389,13 +390,12 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
         } else {
           final int moveDirection = directions[i];
           final boolean isHorizontal = i == 0;
-          EditCommand command =
-              new FormLayoutSnapPointsProvider.MoveFreelyCommand(m_layout,
-                  bounds,
-                  components,
-                  moveDirection,
-                  isHorizontal,
-                  m_visualDataProvider);
+          EditCommand command = new FormLayoutSnapPointsProvider.MoveFreelyCommand(m_layout,
+              bounds,
+              components,
+              moveDirection,
+              isHorizontal,
+              m_visualDataProvider);
           m_command.add(command);
         }
       }
@@ -415,7 +415,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
   }
 
   private List<IAbstractComponentInfo> getAllComponents() {
-    List<IAbstractComponentInfo> components = Lists.newArrayList();
+    List<IAbstractComponentInfo> components = new ArrayList<>();
     components.addAll(m_layout.getComposite().getChildrenControls());
     return components;
   }
@@ -463,7 +463,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     FormLayoutPreferences preferences = m_layout.getPreferences();
     List<Integer> values =
         isHorizontal ? preferences.getHorizontalPercents() : preferences.getVerticalPercents();
-    List<FormLayoutPreferences.PercentsInfo> results = Lists.newArrayList();
+    List<FormLayoutPreferences.PercentsInfo> results = new ArrayList<>();
     for (Integer percent : values) {
       results.add(new FormLayoutPreferences.PercentsInfo(percent));
     }

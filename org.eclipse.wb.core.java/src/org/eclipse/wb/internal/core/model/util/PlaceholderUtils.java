@@ -11,12 +11,12 @@
 package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,7 +87,7 @@ public final class PlaceholderUtils {
     // prepare List for exceptions
     List<Throwable> exceptions = getExceptions0(node);
     if (exceptions == null) {
-      exceptions = Lists.newArrayList();
+      exceptions = new ArrayList<>();
       node.setProperty(KEY_EXCEPTIONS, exceptions);
     }
     // add new exception

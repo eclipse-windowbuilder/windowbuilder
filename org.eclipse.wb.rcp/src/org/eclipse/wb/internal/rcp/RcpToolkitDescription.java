@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
@@ -35,11 +33,12 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link ToolkitDescription} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp
  */
@@ -109,10 +108,9 @@ public final class RcpToolkitDescription extends ToolkitDescriptionJava {
   }
 
   private void configureGenerators() {
-    StatementGeneratorDescription[] usualStatements =
-        new StatementGeneratorDescription[]{
-            FlatStatementGeneratorDescription.INSTANCE,
-            BlockStatementGeneratorDescription.INSTANCE};
+    StatementGeneratorDescription[] usualStatements = new StatementGeneratorDescription[]{
+        FlatStatementGeneratorDescription.INSTANCE,
+        BlockStatementGeneratorDescription.INSTANCE};
     // local unique
     settings.addGenerators(
         LocalUniqueVariableDescription.INSTANCE,
@@ -136,15 +134,11 @@ public final class RcpToolkitDescription extends ToolkitDescriptionJava {
   }
 
   private void configureTypeSpecific() {
-    List<ComponentNameDescription> descriptions = Lists.newArrayList();
-    descriptions.add(new ComponentNameDescription("org.eclipse.swt.widgets.Text",
-        "text",
-        "txt",
-        true));
-    descriptions.add(new ComponentNameDescription("org.eclipse.swt.widgets.Table",
-        "table",
-        "tbl",
-        true));
+    List<ComponentNameDescription> descriptions = new ArrayList<>();
+    descriptions.add(
+        new ComponentNameDescription("org.eclipse.swt.widgets.Text", "text", "txt", true));
+    descriptions.add(
+        new ComponentNameDescription("org.eclipse.swt.widgets.Table", "table", "tbl", true));
     NamesManager.setDefaultNameDescriptions(this, descriptions);
   }
 }

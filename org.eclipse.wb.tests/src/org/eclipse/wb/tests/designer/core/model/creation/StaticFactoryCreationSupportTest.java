@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.creation;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -47,6 +45,7 @@ import org.eclipse.jdt.core.IMethod;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -54,7 +53,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link StaticFactoryCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StaticFactoryCreationSupportTest extends SwingModelTest {
@@ -90,14 +89,13 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public final class Test extends JPanel {",
-            "  Test() {",
-            "    add(StaticFactory.createButton('button', null));",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public final class Test extends JPanel {",
+        "  Test() {",
+        "    add(StaticFactory.createButton('button', null));",
+        "  }",
+        "}");
     assertEquals(1, panel.getChildrenComponents().size());
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // check creation support
@@ -157,7 +155,9 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             new String[]{"add(StaticFactory.createButton(\"button\", null))"});
         // modify property and check source
         textProperty.setValue("12345");
-        assertRelatedNodes(button, new String[]{"add(StaticFactory.createButton(\"12345\", null))"});
+        assertRelatedNodes(
+            button,
+            new String[]{"add(StaticFactory.createButton(\"12345\", null))"});
         // set to default
         textProperty.setValue(Property.UNKNOWN_VALUE);
         assertRelatedNodes(
@@ -192,13 +192,12 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  Test() {",
-            "    add(StaticFactory.createButton('button'));",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public final class Test extends JPanel {",
+        "  Test() {",
+        "    add(StaticFactory.createButton('button'));",
+        "  }",
+        "}");
     assertEquals(1, panel.getChildrenComponents().size());
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // default value is not set, so "null" used as default "default" value
@@ -259,13 +258,12 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    add(StaticFactory_.createButton_noFactory());",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    add(StaticFactory_.createButton_noFactory());",
+        "  }",
+        "}");
     assertThat(panel.getChildrenComponents()).isEmpty();
   }
 
@@ -284,13 +282,12 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    StaticFactory.createButton(0);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    StaticFactory.createButton(0);",
+        "  }",
+        "}");
     // no component
     assertThat(panel.getChildrenComponents()).isEmpty();
     // warning was logged
@@ -339,33 +336,30 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             "</factory>"));
     waitForAutoBuild();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
     // prepare new component
     ComponentInfo newComponent;
     {
-      FactoryMethodDescription description =
-          FactoryDescriptionHelper.getDescription(
-              m_lastEditor,
-              m_lastLoader.loadClass("test.StaticFactory"),
-              "createButton2(java.lang.String,java.lang.String,java.lang.String,java.lang.String)",
-              true);
+      FactoryMethodDescription description = FactoryDescriptionHelper.getDescription(
+          m_lastEditor,
+          m_lastLoader.loadClass("test.StaticFactory"),
+          "createButton2(java.lang.String,java.lang.String,java.lang.String,java.lang.String)",
+          true);
       assertEquals("\"000\"", description.getParameter(0).getDefaultSource());
       assertEquals("\"111\"", description.getParameter(1).getDefaultSource());
       assertEquals("\"222\"", description.getParameter(2).getDefaultSource());
       assertEquals("(java.lang.String) null", description.getParameter(3).getDefaultSource());
       //
-      newComponent =
-          (ComponentInfo) JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              JButton.class,
-              new StaticFactoryCreationSupport(description));
+      newComponent = (ComponentInfo) JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          JButton.class,
+          new StaticFactoryCreationSupport(description));
     }
     // add component
     {
@@ -415,28 +409,25 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
             "</factory>"));
     waitForAutoBuild();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
     // prepare new component
     ComponentInfo newComponent;
     {
-      FactoryMethodDescription description =
-          FactoryDescriptionHelper.getDescription(
-              m_lastEditor,
-              m_lastLoader.loadClass("test.StaticFactory"),
-              "createButton()",
-              true);
-      newComponent =
-          (ComponentInfo) JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              JButton.class,
-              new StaticFactoryCreationSupport(description));
+      FactoryMethodDescription description = FactoryDescriptionHelper.getDescription(
+          m_lastEditor,
+          m_lastLoader.loadClass("test.StaticFactory"),
+          "createButton()",
+          true);
+      newComponent = (ComponentInfo) JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          JButton.class,
+          new StaticFactoryCreationSupport(description));
     }
     // add component
     flowLayout.add(newComponent, null);
@@ -462,35 +453,32 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
    */
   public void test_add_localFactoryMethod() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "  /**",
-            "  * @wbp.factory",
-            "  */",
-            "  private static JButton createButton() {",
-            "    return new JButton();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "  /**",
+        "  * @wbp.factory",
+        "  */",
+        "  private static JButton createButton() {",
+        "    return new JButton();",
+        "  }",
+        "}");
     panel.refresh();
     //
     FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
     // prepare new component
     ComponentInfo newComponent;
     {
-      FactoryMethodDescription description =
-          FactoryDescriptionHelper.getDescription(
-              m_lastEditor,
-              m_lastLoader.loadClass("test.Test"),
-              "createButton()",
-              true);
-      newComponent =
-          (ComponentInfo) JavaInfoUtils.createJavaInfo(
-              m_lastEditor,
-              JButton.class,
-              new StaticFactoryCreationSupport(description));
+      FactoryMethodDescription description = FactoryDescriptionHelper.getDescription(
+          m_lastEditor,
+          m_lastLoader.loadClass("test.Test"),
+          "createButton()",
+          true);
+      newComponent = (ComponentInfo) JavaInfoUtils.createJavaInfo(
+          m_lastEditor,
+          JButton.class,
+          new StaticFactoryCreationSupport(description));
     }
     // add component
     flowLayout.add(newComponent, null);
@@ -516,22 +504,21 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
    */
   public void test_parse_localFactoryMethod_contributeToPalette() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  Test() {",
-            "  }",
-            "  /**",
-            "  * @wbp.factory",
-            "  */",
-            "  private static JButton createButton(String text) {",
-            "    return new JButton(text);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public final class Test extends JPanel {",
+        "  Test() {",
+        "  }",
+        "  /**",
+        "  * @wbp.factory",
+        "  */",
+        "  private static JButton createButton(String text) {",
+        "    return new JButton(text);",
+        "  }",
+        "}");
     // prepare "Local Factories" category
     CategoryInfo factoriesCategory;
     {
-      List<CategoryInfo> categories = Lists.newArrayList();
+      List<CategoryInfo> categories = new ArrayList<>();
       panel.getBroadcast(PaletteEventListener.class).categories(categories);
       assertThat(categories).hasSize(1);
       factoriesCategory = categories.get(0);
@@ -557,13 +544,12 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
    */
   public void test_canUseParent_CREATE_false() throws Exception {
     canUseParent_prepare_createButton();
-    ContainerInfo frame =
-        parseContainer(
-            "// filler filler filler",
-            "public final class Test extends JFrame {",
-            "  Test() {",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "// filler filler filler",
+        "public final class Test extends JFrame {",
+        "  Test() {",
+        "  }",
+        "}");
     // createButton() requires JPanel, but we given JFrame
     ComponentInfo button = canUseParent_createButton();
     {
@@ -579,13 +565,12 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
   public void test_canUseParent_CREATE_true() throws Exception {
     canUseParent_prepare_createButton();
     // parse source
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public final class Test extends JPanel {",
-            "  Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public final class Test extends JPanel {",
+        "  Test() {",
+        "  }",
+        "}");
     // createButton() requires JPanel, we given it
     ComponentInfo button = canUseParent_createButton();
     {
@@ -601,21 +586,20 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
   public void test_canUseParent_MOVE_true() throws Exception {
     canUseParent_prepare_createButton();
     // parse source
-    ContainerInfo frame =
-        parseContainer(
-            "public final class Test extends JFrame {",
-            "  Test() {",
-            "    {",
-            "      JPanel panel_1 = new JPanel();",
-            "      getContentPane().add(panel_1);",
-            "      panel_1.add(StaticFactory.createButton(panel_1));",
-            "    }",
-            "    {",
-            "      JPanel panel_2 = new JPanel();",
-            "      getContentPane().add(panel_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "public final class Test extends JFrame {",
+        "  Test() {",
+        "    {",
+        "      JPanel panel_1 = new JPanel();",
+        "      getContentPane().add(panel_1);",
+        "      panel_1.add(StaticFactory.createButton(panel_1));",
+        "    }",
+        "    {",
+        "      JPanel panel_2 = new JPanel();",
+        "      getContentPane().add(panel_2);",
+        "    }",
+        "  }",
+        "}");
     ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
     ContainerInfo panel_1 = (ContainerInfo) contentPane.getChildrenComponents().get(0);
     ContainerInfo panel_2 = (ContainerInfo) contentPane.getChildrenComponents().get(1);
@@ -634,17 +618,16 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
   public void test_canUseParent_MOVE_false() throws Exception {
     canUseParent_prepare_createButton();
     // parse source
-    ContainerInfo frame =
-        parseContainer(
-            "public final class Test extends JFrame {",
-            "  Test() {",
-            "    {",
-            "      JPanel panel_1 = new JPanel();",
-            "      getContentPane().add(panel_1);",
-            "      panel_1.add(StaticFactory.createButton(panel_1));",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "public final class Test extends JFrame {",
+        "  Test() {",
+        "    {",
+        "      JPanel panel_1 = new JPanel();",
+        "      getContentPane().add(panel_1);",
+        "      panel_1.add(StaticFactory.createButton(panel_1));",
+        "    }",
+        "  }",
+        "}");
     ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
     ContainerInfo panel_1 = (ContainerInfo) contentPane.getChildrenComponents().get(0);
     ComponentInfo button = panel_1.getChildrenComponents().get(0);
@@ -669,12 +652,11 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
   }
 
   private ComponentInfo canUseParent_createButton() throws Exception {
-    FactoryMethodDescription description =
-        FactoryDescriptionHelper.getDescription(
-            m_lastEditor,
-            m_lastLoader.loadClass("test.StaticFactory"),
-            "createButton(javax.swing.JPanel)",
-            true);
+    FactoryMethodDescription description = FactoryDescriptionHelper.getDescription(
+        m_lastEditor,
+        m_lastLoader.loadClass("test.StaticFactory"),
+        "createButton(javax.swing.JPanel)",
+        true);
     return (ComponentInfo) JavaInfoUtils.createJavaInfo(
         m_lastEditor,
         JButton.class,
@@ -691,19 +673,18 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
    */
   public void test_parse_localFactoryMethod_singleInvocation() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  Test() {",
-            "    add(createButton('A'));",
-            "  }",
-            "  /**",
-            "  * @wbp.factory",
-            "  */",
-            "  private static JButton createButton(String text) {",
-            "    return new JButton(text);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public final class Test extends JPanel {",
+        "  Test() {",
+        "    add(createButton('A'));",
+        "  }",
+        "  /**",
+        "  * @wbp.factory",
+        "  */",
+        "  private static JButton createButton(String text) {",
+        "    return new JButton(text);",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(createButton('A'))/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -722,20 +703,19 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
    */
   public void test_parse_localFactoryMethod_twoInvocations() throws Exception {
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends JPanel {",
-            "  Test() {",
-            "    add(createButton('A'));",
-            "    add(createButton('B'));",
-            "  }",
-            "  /**",
-            "  * @wbp.factory",
-            "  */",
-            "  private static JButton createButton(String text) {",
-            "    return new JButton(text);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public final class Test extends JPanel {",
+        "  Test() {",
+        "    add(createButton('A'));",
+        "    add(createButton('B'));",
+        "  }",
+        "  /**",
+        "  * @wbp.factory",
+        "  */",
+        "  private static JButton createButton(String text) {",
+        "    return new JButton(text);",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(createButton('A'))/ /add(createButton('B'))/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
@@ -772,20 +752,19 @@ public class StaticFactoryCreationSupportTest extends SwingModelTest {
     waitForAutoBuild();
     // parse
     m_waitForAutoBuild = true;
-    ContainerInfo panel =
-        parseContainer(
-            "public final class Test extends BasePanel {",
-            "  protected void createContents() {",
-            "    add(createButton('A'));",
-            "    add(createButton('B'));",
-            "  }",
-            "  /**",
-            "  * @wbp.factory",
-            "  */",
-            "  private static JButton createButton(String text) {",
-            "    return new JButton(text);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public final class Test extends BasePanel {",
+        "  protected void createContents() {",
+        "    add(createButton('A'));",
+        "    add(createButton('B'));",
+        "  }",
+        "  /**",
+        "  * @wbp.factory",
+        "  */",
+        "  private static JButton createButton(String text) {",
+        "    return new JButton(text);",
+        "  }",
+        "}");
     assertHierarchy(
         "{this: test.BasePanel} {this} {/add(createButton('A'))/ /add(createButton('B'))/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",

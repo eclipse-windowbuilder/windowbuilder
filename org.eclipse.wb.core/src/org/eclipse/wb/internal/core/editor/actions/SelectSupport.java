@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -33,6 +31,8 @@ import org.eclipse.swt.widgets.Listener;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,8 +46,8 @@ public final class SelectSupport {
   private final ObjectInfo m_rootObject;
   private final IEditPartViewer m_graphicalViewer;
   private final IEditPartViewer m_treeViewer;
-  private final Set<ObjectInfo> m_selectedObjects = Sets.newHashSet();
-  private final Set<ObjectInfo> m_selectingSet = Sets.newLinkedHashSet();
+  private final Set<ObjectInfo> m_selectedObjects = new HashSet<>();
+  private final Set<ObjectInfo> m_selectingSet = new LinkedHashSet<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

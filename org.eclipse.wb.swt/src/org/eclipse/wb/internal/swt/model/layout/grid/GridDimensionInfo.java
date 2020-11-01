@@ -10,19 +10,18 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.grid;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.swt.layout.GridData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract dimension in {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */
@@ -217,7 +216,7 @@ public abstract class GridDimensionInfo<C extends IControlInfo> {
       }
 
       private List<C> getControlsToProcess() {
-        List<C> toProcess = Lists.newArrayList();
+        List<C> toProcess = new ArrayList<>();
         for (C control : m_layout.getControls()) {
           if (!m_layout.isFiller(control)) {
             IGridDataInfo gridData = m_layout.getGridData2(control);

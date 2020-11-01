@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -22,13 +20,14 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextField;
 
 /**
  * Tests for {@link StackContainerSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StackContainerSupportTest extends SwingModelTest {
@@ -59,26 +58,24 @@ public class StackContainerSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_noChildren() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "// filler filler filler filler filler",
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "// filler filler filler filler filler",
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // initially no "active"
     assertSame(null, panel.m_activeComponent);
   }
 
   public void test_notifySelecting_null() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "// filler filler filler filler filler",
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "// filler filler filler filler filler",
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // fire "null" selecting
     boolean[] refresh = new boolean[]{false};
@@ -89,14 +86,13 @@ public class StackContainerSupportTest extends SwingModelTest {
    * Test for {@link StackContainerSupport#setActive(JavaInfo)}.
    */
   public void test_setActiveInfo() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "    add(new JButton());",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -119,15 +115,14 @@ public class StackContainerSupportTest extends SwingModelTest {
    * Test for {@link StackContainerSupport#getNext()}.
    */
   public void test_getNext() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton('A'));",
-            "    add(new JButton('B'));",
-            "    add(new JButton('C'));",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton('A'));",
+        "    add(new JButton('B'));",
+        "    add(new JButton('C'));",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -153,15 +148,14 @@ public class StackContainerSupportTest extends SwingModelTest {
    * Test for {@link StackContainerSupport#getPrev()}.
    */
   public void test_getPrev() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton('A'));",
-            "    add(new JButton('B'));",
-            "    add(new JButton('C'));",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton('A'));",
+        "    add(new JButton('B'));",
+        "    add(new JButton('C'));",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -189,14 +183,13 @@ public class StackContainerSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_notifySelecting_directChild() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "    add(new JButton());",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -220,18 +213,17 @@ public class StackContainerSupportTest extends SwingModelTest {
   }
 
   public void test_notifySelecting_indirectChild() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "    {",
-            "      JPanel inner = new JPanel();",
-            "      add(inner);",
-            "      inner.add(new JButton());",
-            "    }",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "    {",
+        "      JPanel inner = new JPanel();",
+        "      add(inner);",
+        "      inner.add(new JButton());",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -259,15 +251,14 @@ public class StackContainerSupportTest extends SwingModelTest {
    * Not all children are "stack children", some of them may be not managed by "stack".
    */
   public void test_notifySelecting_notStackChild() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JTextField('not stack child'));",
-            "    add(new JButton('1'));",
-            "    add(new JButton('2'));",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JTextField('not stack child'));",
+        "    add(new JButton('1'));",
+        "    add(new JButton('2'));",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo textField = components.get(0);
@@ -297,15 +288,14 @@ public class StackContainerSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_deleteNotActive() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "    add(new JButton());",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "    add(new JButton());",
+        "    add(new JButton());",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_1 = components.get(1);
@@ -322,15 +312,14 @@ public class StackContainerSupportTest extends SwingModelTest {
   }
 
   public void test_deleteActive_selectFirst() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "    add(new JButton());",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "    add(new JButton());",
+        "    add(new JButton());",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -347,14 +336,13 @@ public class StackContainerSupportTest extends SwingModelTest {
   }
 
   public void test_deleteActive_noOther() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "// filler filler filler filler filler",
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "// filler filler filler filler filler",
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -375,13 +363,12 @@ public class StackContainerSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_addChild_andActivate() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "// filler filler filler filler filler",
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "// filler filler filler filler filler",
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     // initially no "active"
     assertSame(null, panel.m_activeComponent);
@@ -394,18 +381,17 @@ public class StackContainerSupportTest extends SwingModelTest {
   }
 
   public void test_moveChild_inner() throws Exception {
-    CardPanel_Info panel =
-        parseJavaInfo(
-            "public class Test extends CardPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_0 = new JButton('0');",
-            "      add(button_0);",
-            "    }",
-            "    add(new JButton('1'));",
-            "    add(new JButton('2'));",
-            "  }",
-            "}");
+    CardPanel_Info panel = parseJavaInfo(
+        "public class Test extends CardPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_0 = new JButton('0');",
+        "      add(button_0);",
+        "    }",
+        "    add(new JButton('1'));",
+        "    add(new JButton('2'));",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -430,22 +416,21 @@ public class StackContainerSupportTest extends SwingModelTest {
   }
 
   public void test_moveChild_fromOuter() throws Exception {
-    ContainerInfo panel =
-        parseJavaInfo(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_0 = new JButton('0');",
-            "      add(button_0);",
-            "    }",
-            "    {",
-            "      CardPanel cardPanel = new CardPanel();",
-            "      add(cardPanel);",
-            "      cardPanel.add(new JButton('1'));",
-            "      cardPanel.add(new JButton('2'));",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseJavaInfo(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_0 = new JButton('0');",
+        "      add(button_0);",
+        "    }",
+        "    {",
+        "      CardPanel cardPanel = new CardPanel();",
+        "      add(cardPanel);",
+        "      cardPanel.add(new JButton('1'));",
+        "      cardPanel.add(new JButton('2'));",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     ComponentInfo button_0 = components.get(0);
@@ -476,22 +461,21 @@ public class StackContainerSupportTest extends SwingModelTest {
   }
 
   public void test_moveChild_toOuter() throws Exception {
-    ContainerInfo panel =
-        parseJavaInfo(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      CardPanel cardPanel = new CardPanel();",
-            "      add(cardPanel);",
-            "      {",
-            "        JButton button_0 = new JButton('0');",
-            "        cardPanel.add(button_0);",
-            "      }",
-            "      cardPanel.add(new JButton('1'));",
-            "      cardPanel.add(new JButton('2'));",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseJavaInfo(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      CardPanel cardPanel = new CardPanel();",
+        "      add(cardPanel);",
+        "      {",
+        "        JButton button_0 = new JButton('0');",
+        "        cardPanel.add(button_0);",
+        "      }",
+        "      cardPanel.add(new JButton('1'));",
+        "      cardPanel.add(new JButton('2'));",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     List<ComponentInfo> components = panel.getChildrenComponents();
     CardPanel_Info cardPanel = (CardPanel_Info) components.get(0);
@@ -529,15 +513,19 @@ public class StackContainerSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void prepareCardPanel() throws Exception {
-    setJavaContentSrc("test", "CardPanel", new String[]{
-        "public class CardPanel extends JPanel {",
-        "  public CardPanel() {",
-        "  }",
-        "}"}, new String[]{
-        "<?xml version='1.0' encoding='UTF-8'?>",
-        "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-        "  <model class='" + CardPanel_Info.class.getName() + "'/>",
-        "</component>"});
+    setJavaContentSrc(
+        "test",
+        "CardPanel",
+        new String[]{
+            "public class CardPanel extends JPanel {",
+            "  public CardPanel() {",
+            "  }",
+            "}"},
+        new String[]{
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <model class='" + CardPanel_Info.class.getName() + "'/>",
+            "</component>"});
   }
 
   public static class CardPanel_Info extends ContainerInfo {
@@ -546,7 +534,7 @@ public class StackContainerSupportTest extends SwingModelTest {
         new StackContainerSupport<ComponentInfo>(this) {
           @Override
           protected List<ComponentInfo> getChildren() {
-            List<ComponentInfo> stackComponents = Lists.newArrayList();
+            List<ComponentInfo> stackComponents = new ArrayList<>();
             for (ComponentInfo component : getChildrenComponents()) {
               if (component.getDescription().getComponentClass() != JTextField.class) {
                 stackComponents.add(component);

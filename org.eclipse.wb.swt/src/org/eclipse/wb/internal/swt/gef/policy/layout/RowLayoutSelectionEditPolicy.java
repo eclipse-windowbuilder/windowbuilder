@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
@@ -34,15 +32,18 @@ import org.eclipse.wb.internal.swt.model.layout.IRowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for {@link RowLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.gef.policy
  */
-public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends SelectionEditPolicy {
+public final class RowLayoutSelectionEditPolicy<C extends IControlInfo>
+    extends
+      SelectionEditPolicy {
   private static final String REQ_RESIZE = "resize";
   private final IRowLayoutInfo<C> m_layout;
   private final C m_control;
@@ -64,7 +65,7 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     handles.add(new MoveHandle(getHost()));
     handles.add(createHandle(IPositionConstants.EAST));
     handles.add(createHandle(IPositionConstants.SOUTH));

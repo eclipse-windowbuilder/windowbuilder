@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.tree;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.IExpressionEvaluator;
@@ -29,6 +27,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -38,7 +37,7 @@ import javax.swing.tree.TreeModel;
 /**
  * Implementation of {@link IExpressionEvaluator} for evaluating {@link TreeModel} for {@link JTree}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -63,7 +62,7 @@ public final class TreeModelEvaluator implements IExpressionEvaluator {
         rootNode = new DefaultMutableTreeNode(rootTextLiteral.getLiteralValue());
       }
       // create nodes
-      final Map<String, DefaultMutableTreeNode> nameToNode = Maps.newTreeMap();
+      final Map<String, DefaultMutableTreeNode> nameToNode = new TreeMap<>();
       rootDeclaration.accept(new ASTVisitor() {
         private DefaultMutableTreeNode m_lastNode;
 

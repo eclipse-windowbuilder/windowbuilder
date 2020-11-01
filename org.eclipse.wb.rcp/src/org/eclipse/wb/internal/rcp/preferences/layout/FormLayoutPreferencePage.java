@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.preferences.layout;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.controls.jface.preference.ComboFieldEditor;
 import org.eclipse.wb.core.controls.jface.preference.FieldLayoutPreferencePage;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -51,6 +49,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Main {@link PreferencePage} for RCP FormLayout Support.
@@ -360,8 +359,7 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
 
     public void loadDefaults() {
       String percents = getPreferenceStore().getDefaultString(m_keyPercents);
-      m_percentsSet =
-          (Set<Integer>) FormLayoutPreferences.fillPercents(percents, Sets.<Integer>newTreeSet());
+      m_percentsSet = (Set<Integer>) FormLayoutPreferences.fillPercents(percents, new TreeSet<>());
       m_listViewer.refresh();
     }
 
@@ -373,7 +371,7 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
       if (m_percentsSet == null) {
         String percents = getPreferenceStore().getString(m_keyPercents);
         m_percentsSet =
-            (Set<Integer>) FormLayoutPreferences.fillPercents(percents, Sets.<Integer>newTreeSet());
+            (Set<Integer>) FormLayoutPreferences.fillPercents(percents, new TreeSet<>());
       }
     }
   }

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.order;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
@@ -29,6 +27,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -144,8 +143,9 @@ public abstract class MethodOrder {
   /**
    * @return the information about existing {@link MethodInvocation}s.
    */
-  protected static List<Pair<MethodInvocation, MethodOrder>> getInvocationOrders(JavaInfo javaInfo) {
-    List<Pair<MethodInvocation, MethodOrder>> invocationOrders = Lists.newArrayList();
+  protected static List<Pair<MethodInvocation, MethodOrder>> getInvocationOrders(
+      JavaInfo javaInfo) {
+    List<Pair<MethodInvocation, MethodOrder>> invocationOrders = new ArrayList<>();
     List<MethodInvocation> invocations = javaInfo.getMethodInvocations();
     for (MethodInvocation invocation : invocations) {
       String signature = AstNodeUtils.getMethodSignature(invocation);

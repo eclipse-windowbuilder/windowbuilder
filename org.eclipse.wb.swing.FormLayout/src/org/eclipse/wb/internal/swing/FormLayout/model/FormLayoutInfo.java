@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.FormLayout.model;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
@@ -70,6 +69,7 @@ import com.jgoodies.forms.util.DefaultUnitConverter;
 import java.awt.Container;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -240,7 +240,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
   // CellConstraintsSupport access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<ComponentInfo, CellConstraintsSupport> m_constraints = Maps.newHashMap();
+  private final Map<ComponentInfo, CellConstraintsSupport> m_constraints = new HashMap<>();
 
   /**
    * @return the {@link CellConstraintsSupport} for given {@link ComponentInfo}.
@@ -1505,8 +1505,8 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
       rowIntervals = getIntervalsForOrigins(rowOrigins);
     }
     // prepare cells
-    final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
-    final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
+    final Map<ComponentInfo, Rectangle> componentToCells = new HashMap<>();
+    final Map<Point, ComponentInfo> occupiedCells = new HashMap<>();
     visitComponents(new FormComponentVisitor() {
       public void visit(ComponentInfo component, CellConstraintsSupport support) throws Exception {
         Rectangle cells =

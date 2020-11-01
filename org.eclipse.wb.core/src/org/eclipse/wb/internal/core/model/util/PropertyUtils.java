@@ -12,7 +12,6 @@ package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -64,7 +63,7 @@ public final class PropertyUtils {
    * @return the titles of given {@link Property}'s.
    */
   public static List<String> getTitles(List<Property> properties) {
-    List<String> titles = Lists.newArrayList();
+    List<String> titles = new ArrayList<>();
     for (Property property : properties) {
       titles.add(property.getTitle());
     }

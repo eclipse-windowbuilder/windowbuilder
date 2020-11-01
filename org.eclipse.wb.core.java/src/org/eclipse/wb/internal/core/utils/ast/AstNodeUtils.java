@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -72,11 +68,15 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 /**
@@ -378,7 +378,8 @@ public class AstNodeUtils {
    * @return the {@link ITypeBinding} for argument (or bound) of generic type instance at specified
    *         index.
    */
-  public static ITypeBinding getTypeBindingArgument(ITypeBinding typeBinding, int typeArgumentIndex) {
+  public static ITypeBinding getTypeBindingArgument(ITypeBinding typeBinding,
+      int typeArgumentIndex) {
     ITypeBinding[] typeArgumentBindings = typeBinding.getTypeArguments();
     if (typeArgumentBindings.length != 0) {
       ITypeBinding typeArgumentBinding = typeArgumentBindings[typeArgumentIndex];
@@ -718,7 +719,7 @@ public class AstNodeUtils {
     // use cache
     Map<String, Boolean> classNameResults = m_isSuccessorOf.get(binding);
     if (classNameResults == null) {
-      classNameResults = Maps.newTreeMap();
+      classNameResults = new TreeMap<>();
       m_isSuccessorOf.put(binding, classNameResults);
     }
     Boolean result = classNameResults.get(className);
@@ -980,7 +981,7 @@ public class AstNodeUtils {
    *         {@link TypeDeclaration}.
    */
   public static List<String> getMethodSignatures(List<MethodDeclaration> methodDeclarations) {
-    List<String> signatures = Lists.newArrayList();
+    List<String> signatures = new ArrayList<>();
     for (MethodDeclaration methodDeclaration : methodDeclarations) {
       signatures.add(getMethodSignature(methodDeclaration));
     }
@@ -1065,7 +1066,7 @@ public class AstNodeUtils {
       String key = "getLocalMethodDeclaration.allMethods";
       Set<String> allNames = getValue(unit, key, new RunnableObjectEx<Set<String>>() {
         public Set<String> runObject() throws Exception {
-          Set<String> names = Sets.newTreeSet();
+          Set<String> names = new TreeSet<>();
           TypeDeclaration typeDeclaration = getEnclosingType(invocation);
           MethodDeclaration[] methods = typeDeclaration.getMethods();
           for (MethodDeclaration method : methods) {
@@ -1127,7 +1128,8 @@ public class AstNodeUtils {
   /**
    * @return {@link List} of {@link MethodInvocation}'s of given method.
    */
-  public static List<MethodInvocation> getMethodInvocations(final MethodDeclaration methodDeclaration) {
+  public static List<MethodInvocation> getMethodInvocations(
+      final MethodDeclaration methodDeclaration) {
     String key = "getMethodInvocations";
     return getValue(methodDeclaration, key, new RunnableObjectEx<List<MethodInvocation>>() {
       public List<MethodInvocation> runObject() throws Exception {
@@ -1140,7 +1142,7 @@ public class AstNodeUtils {
    * Implementation for {@link #getMethodInvocations(MethodDeclaration)}.
    */
   private static List<MethodInvocation> getMethodInvocations0(MethodDeclaration methodDeclaration) {
-    final List<MethodInvocation> invocations = Lists.newArrayList();
+    final List<MethodInvocation> invocations = new ArrayList<>();
     // prepare required values
     IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
     if (requiredBinding == null) {
@@ -1301,7 +1303,8 @@ public class AstNodeUtils {
    *         {@link TypeDeclaration}) that is invoked by given {@link ClassInstanceCreation} or
    *         <code>null</code> if this method is not local.
    */
-  public static MethodDeclaration getLocalConstructorDeclaration(final ClassInstanceCreation creation) {
+  public static MethodDeclaration getLocalConstructorDeclaration(
+      final ClassInstanceCreation creation) {
     String key = "getLocalConstructorDeclaration";
     return getValue(creation, key, new RunnableObjectEx<MethodDeclaration>() {
       public MethodDeclaration runObject() throws Exception {
@@ -1333,7 +1336,8 @@ public class AstNodeUtils {
   /**
    * @return {@link List} of {@link MethodInvocation}'s of given method.
    */
-  public static List<ConstructorInvocation> getConstructorInvocations(final MethodDeclaration methodDeclaration) {
+  public static List<ConstructorInvocation> getConstructorInvocations(
+      final MethodDeclaration methodDeclaration) {
     String key = "getConstructorInvocations";
     return getValue(methodDeclaration, key, new RunnableObjectEx<List<ConstructorInvocation>>() {
       public List<ConstructorInvocation> runObject() throws Exception {
@@ -1345,8 +1349,9 @@ public class AstNodeUtils {
   /**
    * Implementation for {@link #getConstructorInvocation2(MethodDeclaration)}.
    */
-  private static List<ConstructorInvocation> getConstructorInvocations0(MethodDeclaration methodDeclaration) {
-    final List<ConstructorInvocation> invocations = Lists.newArrayList();
+  private static List<ConstructorInvocation> getConstructorInvocations0(
+      MethodDeclaration methodDeclaration) {
+    final List<ConstructorInvocation> invocations = new ArrayList<>();
     // prepare required values
     IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
     if (requiredBinding == null) {
@@ -1375,8 +1380,9 @@ public class AstNodeUtils {
    * @return {@link List} of {@link ClassInstanceCreation}'s of given constructor in this
    *         {@link CompilationUnit}.
    */
-  public static List<ClassInstanceCreation> getClassInstanceCreations(MethodDeclaration constructor) {
-    final List<ClassInstanceCreation> creations = Lists.newArrayList();
+  public static List<ClassInstanceCreation> getClassInstanceCreations(
+      MethodDeclaration constructor) {
+    final List<ClassInstanceCreation> creations = new ArrayList<>();
     final IMethodBinding constructorBinding = getMethodBinding(constructor);
     constructor.getRoot().accept(new ASTVisitor() {
       @Override
@@ -1394,7 +1400,7 @@ public class AstNodeUtils {
    * @return constructor {@link MethodDeclaration}'s of given {@link TypeDeclaration}.
    */
   public static List<MethodDeclaration> getConstructors(TypeDeclaration typeDeclaration) {
-    List<MethodDeclaration> constructors = Lists.newArrayList();
+    List<MethodDeclaration> constructors = new ArrayList<>();
     for (MethodDeclaration method : typeDeclaration.getMethods()) {
       if (method.isConstructor()) {
         constructors.add(method);
@@ -1408,7 +1414,7 @@ public class AstNodeUtils {
    *         this {@link CompilationUnit}.
    */
   public static List<ClassInstanceCreation> getClassInstanceCreations(TypeDeclaration type) {
-    final List<ClassInstanceCreation> creations = Lists.newArrayList();
+    final List<ClassInstanceCreation> creations = new ArrayList<>();
     final String typeName = getFullyQualifiedName(type, false);
     type.getRoot().accept(new ASTVisitor() {
       @Override
@@ -1514,7 +1520,9 @@ public class AstNodeUtils {
    * @return <code>true</code> if given {@link ASTNode} is {@link MethodInvocation} of given
    *         {@link Expression} type and and one of the signatures.
    */
-  public static boolean isMethodInvocation(ASTNode node, String expressionType, String[] signatures) {
+  public static boolean isMethodInvocation(ASTNode node,
+      String expressionType,
+      String[] signatures) {
     if (node instanceof MethodInvocation) {
       MethodInvocation invocation = (MethodInvocation) node;
       // check Expression
@@ -1589,9 +1597,8 @@ public class AstNodeUtils {
   // Modifiers
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final int VISIBILITY_MASK = Modifier.PUBLIC
-      | Modifier.PROTECTED
-      | Modifier.PRIVATE;
+  private static final int VISIBILITY_MASK =
+      Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
 
   /**
    * Returns <code>true</code> if given modifiers have one of the required visibility mask. For
@@ -1677,8 +1684,9 @@ public class AstNodeUtils {
    * @return the {@link IMethodBinding} for all methods in given {@link ITypeBinding} and its super
    *         classes.
    */
-  public static List<IMethodBinding> getMethodBindings(ITypeBinding typeBinding, int visibilityMask) {
-    List<IMethodBinding> methods = Lists.newArrayList();
+  public static List<IMethodBinding> getMethodBindings(ITypeBinding typeBinding,
+      int visibilityMask) {
+    List<IMethodBinding> methods = new ArrayList<>();
     addMethodBindings(methods, typeBinding, visibilityMask);
     return methods;
   }
@@ -1694,8 +1702,9 @@ public class AstNodeUtils {
    * @return the {@link IVariableBinding} for all fields in given {@link ITypeBinding} and its super
    *         classes.
    */
-  public static List<IVariableBinding> getFieldBindings(ITypeBinding typeBinding, int visibilityMask) {
-    List<IVariableBinding> fields = Lists.newArrayList();
+  public static List<IVariableBinding> getFieldBindings(ITypeBinding typeBinding,
+      int visibilityMask) {
+    List<IVariableBinding> fields = new ArrayList<>();
     addFieldBindings(fields, typeBinding, visibilityMask);
     return fields;
   }
@@ -1959,7 +1968,7 @@ public class AstNodeUtils {
     Assert.isNotNull(node_1, "Null node_1");
     Assert.isNotNull(node_2, "Null node_2");
     // prepare path from node_1 to CompilationUnit
-    Set<ASTNode> ancestors = Sets.newHashSet();
+    Set<ASTNode> ancestors = new HashSet<>();
     {
       ASTNode node = node_1.getParent();
       while (node != null) {
@@ -2245,7 +2254,7 @@ public class AstNodeUtils {
    */
   public static List<VariableDeclaration> getVariableDeclarationsVisibleAt(ASTNode root,
       int position) {
-    List<VariableDeclaration> declarations = Lists.newArrayList();
+    List<VariableDeclaration> declarations = new ArrayList<>();
     ASTNode node = getEnclosingNode(root, position);
     // if we hit the empty space inside of block, process all statements before given position
     if (node instanceof Block) {
@@ -2355,10 +2364,9 @@ public class AstNodeUtils {
   public static Expression getActualVariableExpression(Expression expression) {
     if (AstNodeUtils.isVariable(expression)) {
       MethodDeclaration enclosingMethod = AstNodeUtils.getEnclosingMethod(expression);
-      ASTNode lastAssignment =
-          ExecutionFlowUtils.getLastAssignment(
-              new ExecutionFlowDescription(enclosingMethod),
-              expression);
+      ASTNode lastAssignment = ExecutionFlowUtils.getLastAssignment(
+          new ExecutionFlowDescription(enclosingMethod),
+          expression);
       if (lastAssignment != null) {
         MethodDeclaration method = AstNodeUtils.getEnclosingMethod(lastAssignment);
         // Note: we need assignment from enclosing method or field initializer

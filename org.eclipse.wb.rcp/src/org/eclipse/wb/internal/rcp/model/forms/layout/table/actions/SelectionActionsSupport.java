@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table.actions;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
@@ -24,11 +22,12 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link ITableWrapLayout_Info<C>}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -56,7 +55,7 @@ public final class SelectionActionsSupport<C extends IControlInfo> extends Objec
       return;
     }
     // prepare layout data info's
-    List<ITableWrapDataInfo> dataInfos = Lists.newArrayList();
+    List<ITableWrapDataInfo> dataInfos = new ArrayList<>();
     {
       List<C> controls = m_layout.getControls();
       for (ObjectInfo object : objects) {

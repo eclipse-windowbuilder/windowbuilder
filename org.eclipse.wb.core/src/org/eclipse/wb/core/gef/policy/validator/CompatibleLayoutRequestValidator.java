@@ -10,19 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.validator;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * {@link ILayoutRequestValidator} that checks also that given parent/child objects are compatible.
@@ -68,14 +66,11 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
    * @return <code>true</code> if given parent and child objects are compatible.
    */
   private static boolean areCompatible(final EditPart host, final Object child) {
-    return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
-      public Boolean runObject() throws Exception {
-        Object parent = host.getModel();
-        return parentAgreeToAcceptChild(parent, child)
-            && childAgreeToBeDroppedOnParent(parent, child);
-      }
-    },
-        false);
+    return ExecutionUtils.runObjectLog(() -> {
+      Object parent = host.getModel();
+      return parentAgreeToAcceptChild(parent, child)
+          && childAgreeToBeDroppedOnParent(parent, child);
+    }, false);
   }
 
   private static boolean parentAgreeToAcceptChild(Object parent, Object child) throws Exception {
@@ -124,18 +119,20 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
   // Scripts
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final String DEF_functions = StringUtils.join(new String[]{
-      "def isComponentType(model, c) {",
-      "  if (ReflectionUtils.isSuccessorOf(model, 'org.eclipse.wb.core.model.ObjectInfo')) {",
-      "    return ReflectionUtils.isSuccessorOf(model.description.componentClass, c);",
-      "  } else {",
-      "    return ReflectionUtils.isSuccessorOf(model.componentClass, c);",
-      "  }",
-      "};",}, "\n");
+  private static final String DEF_functions = StringUtils.join(
+      new String[]{
+          "def isComponentType(model, c) {",
+          "  if (ReflectionUtils.isSuccessorOf(model, 'org.eclipse.wb.core.model.ObjectInfo')) {",
+          "    return ReflectionUtils.isSuccessorOf(model.description.componentClass, c);",
+          "  } else {",
+          "    return ReflectionUtils.isSuccessorOf(model.componentClass, c);",
+          "  }",
+          "};",},
+      "\n");
 
   private static boolean executeScriptBoolean(String script, Object parent, Object child)
       throws Exception {
-    Map<String, Object> variables = Maps.newTreeMap();
+    Map<String, Object> variables = new TreeMap<>();
     variables.put("parent", parent);
     variables.put("child", child);
     return (Boolean) ScriptUtils.evaluate(DEF_functions + script, variables);

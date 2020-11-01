@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -38,12 +35,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Test for {@link ProjectClassLoader}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ProjectClassLoaderTest extends SwingModelTest {
@@ -77,13 +76,12 @@ public class ProjectClassLoaderTest extends SwingModelTest {
             "abstract public class SuperPanel extends JPanel {",
             "}"));
     waitForAutoBuild();
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "abstract class Test extends SuperPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "abstract class Test extends SuperPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     //
     Class<?> superPanelClass = panel.getDescription().getComponentClass();
     assertNotNull(superPanelClass.getPackage());
@@ -126,12 +124,11 @@ public class ProjectClassLoaderTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public abstract class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public abstract class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     assertEquals("<dynamic>", ReflectionUtils.getFieldObject(panel.getObject(), "m_foo"));
@@ -220,15 +217,14 @@ public class ProjectClassLoaderTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     //
-    ContainerInfo panel =
-        parseContainer(
-            "abstract class Test extends JPanel {",
-            "  public Test() {",
-            "  MyButton button = new MyButton();",
-            "    add( button );",
-            "    button.setHorizontalAlignment(0);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "abstract class Test extends JPanel {",
+        "  public Test() {",
+        "  MyButton button = new MyButton();",
+        "    add( button );",
+        "    button.setHorizontalAlignment(0);",
+        "  }",
+        "}");
     assertNoErrors(panel);
   }
 
@@ -501,7 +497,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 
   /**
    * Move existing {@link IProject} into "subFolder" in workspace.
-   * 
+   *
    * @return the new absolute location of project.
    */
   public static String moveProjectIntoWorkspaceSubFolder() throws Exception {
@@ -530,8 +526,8 @@ public class ProjectClassLoaderTest extends SwingModelTest {
    * @return result of {@link ProjectClassLoader#addSourceLocations(Set, List, IProject)}.
    */
   private List<String> getSourceLocations() throws Exception {
-    List<String> locations = Lists.newArrayList();
-    ProjectClassLoader.addSourceLocations(Sets.<IProject>newHashSet(), locations, m_project);
+    List<String> locations = new ArrayList<>();
+    ProjectClassLoader.addSourceLocations(new HashSet<>(), locations, m_project);
     return locations;
   }
 
@@ -593,8 +589,8 @@ public class ProjectClassLoaderTest extends SwingModelTest {
    * @return result of {@link ProjectClassLoader#addOutputLocations(Set, List, IProject)}.
    */
   private List<String> getOutputLocations() throws Exception {
-    List<String> locations = Lists.newArrayList();
-    ProjectClassLoader.addOutputLocations(Sets.<IProject>newHashSet(), locations, m_project);
+    List<String> locations = new ArrayList<>();
+    ProjectClassLoader.addOutputLocations(new HashSet<>(), locations, m_project);
     return locations;
   }
 }

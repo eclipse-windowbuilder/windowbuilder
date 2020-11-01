@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util.factory;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.FactoryParentAssociation;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -43,6 +41,7 @@ import org.eclipse.jface.action.Action;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,10 +70,11 @@ public final class FactoryApplyAction extends Action {
         ComponentDescription componentDescription =
             ComponentDescriptionHelper.getDescription(m_editor, m_description.getReturnClass());
         setImageDescriptor(new ImageImageDescriptor(componentDescription.getIcon()));
-        setText(CodeUtils.getShortClass(m_description.getDeclaringClass().getName())
-            + "."
-            + m_description.getName()
-            + "(...)");
+        setText(
+            CodeUtils.getShortClass(m_description.getDeclaringClass().getName())
+                + "."
+                + m_description.getName()
+                + "(...)");
       }
     });
   }
@@ -143,7 +143,7 @@ public final class FactoryApplyAction extends Action {
    * @return the arguments for factory method invocation.
    */
   private List<String> getFactoryArguments(List<Expression> oldArguments) throws Exception {
-    List<String> arguments = Lists.newArrayList();
+    List<String> arguments = new ArrayList<>();
     for (ParameterDescription parameter : m_description.getParameters()) {
       // check for "parent"
       if (parameter.isParent()) {
@@ -165,7 +165,8 @@ public final class FactoryApplyAction extends Action {
           if (expression.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY
               && (expression instanceof NullLiteral
                   || expression instanceof BooleanLiteral
-                  || expression instanceof NumberLiteral || expression instanceof StringLiteral)) {
+                  || expression instanceof NumberLiteral
+                  || expression instanceof StringLiteral)) {
             arguments.add(m_editor.getSource(expression));
             m_editor.removeEnclosingStatement(expression);
             continue;
@@ -183,7 +184,7 @@ public final class FactoryApplyAction extends Action {
   // Generic properties
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<GenericPropertyImpl> m_genericProperties = Lists.newArrayList();
+  private final List<GenericPropertyImpl> m_genericProperties = new ArrayList<>();
 
   /**
    * Prepares list of {@link GenericPropertyImpl}'s that can be bound to the arguments of factory

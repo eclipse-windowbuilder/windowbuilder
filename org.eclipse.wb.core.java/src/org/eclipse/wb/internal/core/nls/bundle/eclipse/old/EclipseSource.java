@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.eclipse.old;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -46,6 +44,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +72,7 @@ public final class EclipseSource extends AbstractBundleSource {
    */
   public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
       throws Exception {
-    List<AbstractSource> sources = Lists.newArrayList();
+    List<AbstractSource> sources = new ArrayList<>();
     IJavaElement[] packageElements = pkg.getChildren();
     for (int i = 0; i < packageElements.length; i++) {
       ICompilationUnit unit = (ICompilationUnit) packageElements[i];
@@ -91,8 +90,9 @@ public final class EclipseSource extends AbstractBundleSource {
           {
             IMethod method_getString_1 =
                 CodeUtils.findMethodSingleType(type, "getString(java.lang.String)");
-            IMethod method_getString_2 =
-                CodeUtils.findMethodSingleType(type, "getString(java.lang.String,java.lang.String)");
+            IMethod method_getString_2 = CodeUtils.findMethodSingleType(
+                type,
+                "getString(java.lang.String,java.lang.String)");
             if (method_getString_1 == null && method_getString_2 == null) {
               continue;
             }
@@ -162,10 +162,9 @@ public final class EclipseSource extends AbstractBundleSource {
       MethodInvocation getString_invocation = (MethodInvocation) expression;
       int argumentCount = getString_invocation.arguments().size();
       {
-        boolean is_getString =
-            getString_invocation.getName().getIdentifier().equals("getString")
-                && (argumentCount == 1 || argumentCount == 2)
-                && getString_invocation.arguments().get(0) instanceof StringLiteral;
+        boolean is_getString = getString_invocation.getName().getIdentifier().equals("getString")
+            && (argumentCount == 1 || argumentCount == 2)
+            && getString_invocation.arguments().get(0) instanceof StringLiteral;
         if (!is_getString) {
           return null;
         }
@@ -198,13 +197,12 @@ public final class EclipseSource extends AbstractBundleSource {
             def_argument instanceof StringLiteral ? (StringLiteral) def_argument : null;
         String defaultValue = defaultLiteral != null ? defaultLiteral.getLiteralValue() : null;
         // return information about expression
-        ExpressionInfo expressionInfo =
-            new ExpressionInfo(expression,
-                accessorClassName,
-                keyLiteral,
-                key,
-                defaultLiteral,
-                defaultValue);
+        ExpressionInfo expressionInfo = new ExpressionInfo(expression,
+            accessorClassName,
+            keyLiteral,
+            key,
+            defaultLiteral,
+            defaultValue);
         expression.setProperty(NLS_EXPRESSION_INFO, expressionInfo);
         return expressionInfo;
       }
@@ -296,7 +294,8 @@ public final class EclipseSource extends AbstractBundleSource {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public EclipseSource(JavaInfo root, String accessorClassName, String bundleName) throws Exception {
+  public EclipseSource(JavaInfo root, String accessorClassName, String bundleName)
+      throws Exception {
     super(root, bundleName != null ? bundleName : accessor_getBundleName(root, accessorClassName));
     // initialize fields
     if (accessorClassName != null) {
@@ -344,10 +343,9 @@ public final class EclipseSource extends AbstractBundleSource {
     // if locale is default, change default value in source
     if (localeInfo.isDefault() && expressionInfo.m_defaultExpression != null) {
       String code = StringConverter.INSTANCE.toJavaSource(m_root, value);
-      StringLiteral newDefaultLiteral =
-          (StringLiteral) m_root.getEditor().replaceExpression(
-              expressionInfo.m_defaultExpression,
-              code);
+      StringLiteral newDefaultLiteral = (StringLiteral) m_root.getEditor().replaceExpression(
+          expressionInfo.m_defaultExpression,
+          code);
       // change expression information
       expressionInfo.m_defaultExpression = newDefaultLiteral;
       expressionInfo.m_defaultValue = value;

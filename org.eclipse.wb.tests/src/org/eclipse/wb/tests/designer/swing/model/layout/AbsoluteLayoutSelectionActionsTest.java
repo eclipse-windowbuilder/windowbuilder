@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -24,13 +22,14 @@ import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
 
 /**
  * Test for {@link AbsoluteLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
@@ -49,44 +48,43 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_selectionActions() throws Exception {
-    final ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    setLayout(null);",
-            "    {",
-            "      JButton button = new JButton('New Button1');",
-            "      button.setBounds(70, 27, 83, 22);",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('New Button');",
-            "      button.setBounds(41, 129, 134, 84);",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      JPanel subPanel = new JPanel();",
-            "      subPanel.setLayout(null);",
-            "      subPanel.setBounds(286, 135, 134, 120);",
-            "      add(subPanel);",
-            "      {",
-            "        JLabel label = new JLabel('New Label');",
-            "        label.setBounds(41, 53, 51, 13);",
-            "        subPanel.add(label);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    final ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    setLayout(null);",
+        "    {",
+        "      JButton button = new JButton('New Button1');",
+        "      button.setBounds(70, 27, 83, 22);",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('New Button');",
+        "      button.setBounds(41, 129, 134, 84);",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JPanel subPanel = new JPanel();",
+        "      subPanel.setLayout(null);",
+        "      subPanel.setBounds(286, 135, 134, 120);",
+        "      add(subPanel);",
+        "      {",
+        "        JLabel label = new JLabel('New Label');",
+        "        label.setBounds(41, 53, 51, 13);",
+        "        subPanel.add(label);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(panel);
     ComponentInfo button = panel.getChildrenComponents().get(0);
     ContainerInfo subPanel = (ContainerInfo) panel.getChildrenComponents().get(2);
     ComponentInfo label = subPanel.getChildrenComponents().get(0);
     panel.refresh();
     // prepare "button" selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(button);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     // check actions
     assertEquals(17, actions.size()); // 12 action's, 5 separator's
@@ -173,28 +171,27 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    * of <em>component</em> to set required bounds.
    */
   public void test_rootComponentInSelection() throws Exception {
-    String[] lines =
-        {
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    setLayout(null);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      button.setBounds(10, 10, 150, 30);",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}"};
+    String[] lines = {
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    setLayout(null);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      button.setBounds(10, 10, 150, 30);",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}"};
     final ContainerInfo panel = parseContainer(lines);
     setupSelectionActions(panel);
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // bad selection: "button" and "panel" itself
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(button);
     selectedObjects.add(panel);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     // bad selection, so no actions
     assertThat(actions).isEmpty();
@@ -209,451 +206,507 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_left_edges_1a() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(20, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", true);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(20, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_left_edges_1b() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(10, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", false);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(10, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_left_edges_2a() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(30, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", true);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(30, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_left_edges_2b() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", false);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        false);
   }
 
   /**
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_right_edges_1a() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(70, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", true);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(70, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_right_edges_1b() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(-40, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", false);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(-40, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_right_edges_2a() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(80, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", true);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(80, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_right_edges_2b() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(-45, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", false);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(-45, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        false);
   }
 
   /**
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_horizontal_centers_1a() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(45, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", true);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(45, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_horizontal_centers_1b() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(-15, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", false);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(-15, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_horizontal_centers_2a() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(55, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", true);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(55, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_horizontal_centers_2b() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(-20, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", false);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(-20, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        false);
   }
 
   private void check_align_horizontal(String[] expectedSource, String action, boolean toUp)
       throws Exception {
-    check_align(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, expectedSource, action, toUp);
+    check_align(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        expectedSource,
+        action,
+        toUp);
   }
 
   private void check_align_horizontal2(String[] expectedSource, String action, boolean toUp)
       throws Exception {
-    check_align2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(5, 40, 300, 100);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, expectedSource, action, toUp);
+    check_align2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(5, 40, 300, 100);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        expectedSource,
+        action,
+        toUp);
   }
 
   ////////////////////////////////////////////////////////////////////////////
   //
   // Vertical
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   /**
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_top_edges_1a() throws Exception {
-    check_align_vertical(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 100, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", true);
+    check_align_vertical(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 100, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_top_edges_1b() throws Exception {
-    check_align_vertical(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 10, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", false);
+    check_align_vertical(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 10, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_top_edges_2a() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 100, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", true);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 100, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_top_edges_2b() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, 5, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", false);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, 5, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        false);
   }
 
   /**
@@ -661,22 +714,25 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    */
   public void test_align_bottom_edges_1a() throws Exception {
     // y2:100 + h2:80 - h1:40 = y1:140
-    check_align_vertical(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 140, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", true);
+    check_align_vertical(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 140, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        true);
   }
 
   /**
@@ -684,78 +740,87 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    */
   public void test_align_bottom_edges_1b() throws Exception {
     // y2:100 + h2:80 - h1:40 = y1:140
-    check_align_vertical(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, -30, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", false);
+    check_align_vertical(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, -30, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_bottom_edges_2a() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 140, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", true);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 140, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_bottom_edges_2b() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, -35, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", false);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, -35, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        false);
   }
 
   /**
@@ -763,22 +828,25 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    */
   public void test_align_vertical_centers_1a() throws Exception {
     // y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
-    check_align_vertical(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 120, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", true);
+    check_align_vertical(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 120, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        true);
   }
 
   /**
@@ -786,124 +854,141 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    */
   public void test_align_vertical_centers_1b() throws Exception {
     // y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
-    check_align_vertical(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, -10, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", false);
+    check_align_vertical(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, -10, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_vertical_centers_2a() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 120, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", true);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 120, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_vertical_centers_2b() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, -15, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", false);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, -15, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        false);
   }
 
   private void check_align_vertical(String[] newSource, String action, boolean toUp)
       throws Exception {
-    check_align(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, newSource, action, toUp);
+    check_align(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        newSource,
+        action,
+        toUp);
   }
 
   private void check_align_vertical2(String[] newSource, String action, boolean toUp)
       throws Exception {
-    check_align2(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JPanel subPanel = new JPanel();",
-        "      subPanel.setLayout(null);",
-        "      subPanel.setBounds(65, 5, 300, 300);",
-        "      add(subPanel);",
-        "      {",
-        "        JButton button = new JButton(\"111\");",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        subPanel.add(button);",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, newSource, action, toUp);
+    check_align2(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JPanel subPanel = new JPanel();",
+            "      subPanel.setLayout(null);",
+            "      subPanel.setBounds(65, 5, 300, 300);",
+            "      add(subPanel);",
+            "      {",
+            "        JButton button = new JButton(\"111\");",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        subPanel.add(button);",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        newSource,
+        action,
+        toUp);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -912,71 +997,79 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_align_replicate_width() throws Exception {
-    check_align(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 100, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Replicate width", true);
+    check_align(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 100, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Replicate width",
+        true);
   }
 
   public void test_align_replicate_height() throws Exception {
-    check_align(new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, new String[]{
-        "class Test extends JPanel {",
-        "  Test() {",
-        "    setLayout(null);",
-        "    {",
-        "      JButton button = new JButton(\"000\");",
-        "      button.setBounds(10, 10, 50, 80);",
-        "      add(button);",
-        "    }",
-        "    {",
-        "      JButton button = new JButton(\"111\");",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      add(button);",
-        "    }",
-        "  }",
-        "}"}, "Replicate height", true);
+    check_align(
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        new String[]{
+            "class Test extends JPanel {",
+            "  Test() {",
+            "    setLayout(null);",
+            "    {",
+            "      JButton button = new JButton(\"000\");",
+            "      button.setBounds(10, 10, 50, 80);",
+            "      add(button);",
+            "    }",
+            "    {",
+            "      JButton button = new JButton(\"111\");",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      add(button);",
+            "    }",
+            "  }",
+            "}"},
+        "Replicate height",
+        true);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -988,32 +1081,31 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    * Test for two object's without Ctrl pressed.
    */
   public void test_align_space_equally_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    setLayout(null);",
-            "    setSize(600, 400);",
-            "    {",
-            "      JButton button = new JButton('000');",
-            "      button.setBounds(30, 90, 100, 70);",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('111');",
-            "      button.setBounds(40, 200, 50, 30);",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    setLayout(null);",
+        "    setSize(600, 400);",
+        "    {",
+        "      JButton button = new JButton('000');",
+        "      button.setBounds(30, 90, 100, 70);",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('111');",
+        "      button.setBounds(40, 200, 50, 30);",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(panel);
     panel.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(panel.getChildrenComponents().get(0));
     selectedObjects.add(panel.getChildrenComponents().get(1));
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, "Space equally, horizontally").run();
@@ -1042,38 +1134,37 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    * Test for three object's with Ctrl pressed.
    */
   public void test_align_space_equally_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    setLayout(null);",
-            "    setSize(400, 400);",
-            "    {",
-            "      JButton button = new JButton('000');",
-            "      button.setBounds(10, 10, 50, 50);",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('111');",
-            "      button.setBounds(90, 90, 60, 60);",
-            "      add(button);",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('222');",
-            "      button.setBounds(220, 220, 70, 70);",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    setLayout(null);",
+        "    setSize(400, 400);",
+        "    {",
+        "      JButton button = new JButton('000');",
+        "      button.setBounds(10, 10, 50, 50);",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('111');",
+        "      button.setBounds(90, 90, 60, 60);",
+        "      add(button);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('222');",
+        "      button.setBounds(220, 220, 70, 70);",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(panel);
     panel.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(panel.getChildrenComponents().get(0));
     selectedObjects.add(panel.getChildrenComponents().get(1));
     selectedObjects.add(panel.getChildrenComponents().get(2));
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     try {
@@ -1114,26 +1205,25 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_align_center_in_window() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    setLayout(null);",
-            "    setSize(600, 400);",
-            "    {",
-            "      JButton button = new JButton('000');",
-            "      button.setBounds(10, 10, 60, 40);",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    setLayout(null);",
+        "    setSize(600, 400);",
+        "    {",
+        "      JButton button = new JButton('000');",
+        "      button.setBounds(10, 10, 60, 40);",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(panel);
     panel.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(panel.getChildrenComponents().get(0));
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, "Center horizontally in window").run();
@@ -1162,33 +1252,32 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
    * Container without layout on the way to root should not cause exceptions.
    */
   public void test_JTabbedPane_onWayToRoot() throws Exception {
-    ContainerInfo root =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JTabbedPane tabbed = new JTabbedPane();",
-            "    add(tabbed);",
-            "    {",
-            "      JPanel panel = new JPanel();",
-            "      tabbed.addTab('Tab', panel);",
-            "      panel.setLayout(null);",
-            "      {",
-            "        JButton button_1 = new JButton();",
-            "        panel.add(button_1);",
-            "        button_1.setBounds(10, 10, 100, 50);",
-            "      }",
-            "      {",
-            "        JButton button_2 = new JButton();",
-            "        panel.add(button_2);",
-            "        button_2.setBounds(20, 100, 100, 50);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo root = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JTabbedPane tabbed = new JTabbedPane();",
+        "    add(tabbed);",
+        "    {",
+        "      JPanel panel = new JPanel();",
+        "      tabbed.addTab('Tab', panel);",
+        "      panel.setLayout(null);",
+        "      {",
+        "        JButton button_1 = new JButton();",
+        "        panel.add(button_1);",
+        "        button_1.setBounds(10, 10, 100, 50);",
+        "      }",
+        "      {",
+        "        JButton button_2 = new JButton();",
+        "        panel.add(button_2);",
+        "        button_2.setBounds(20, 100, 100, 50);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     root.refresh();
     //
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     {
       selectedObjects.add(getJavaInfoByName("button_1"));
       selectedObjects.add(getJavaInfoByName("button_2"));
@@ -1198,7 +1287,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
     {
       ContainerInfo panel = getJavaInfoByName("panel");
       setupSelectionActions(panel);
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       root.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
     //
@@ -1240,7 +1329,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
     setupSelectionActions(panel);
     panel.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     if (toUp) {
       selectedObjects.add(panel.getChildrenComponents().get(1));
       selectedObjects.add(panel.getChildrenComponents().get(0));
@@ -1249,7 +1338,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
       selectedObjects.add(panel.getChildrenComponents().get(1));
     }
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, action).run();
@@ -1265,7 +1354,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
     setupSelectionActions(panel);
     panel.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     ContainerInfo subPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
     setupSelectionActions(subPanel);
     if (toUp) {
@@ -1276,7 +1365,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
       selectedObjects.add(subPanel.getChildrenComponents().get(0));
     }
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, action).run();

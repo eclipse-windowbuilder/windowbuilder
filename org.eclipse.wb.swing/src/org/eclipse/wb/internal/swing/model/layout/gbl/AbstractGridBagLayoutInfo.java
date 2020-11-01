@@ -15,8 +15,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -56,10 +54,12 @@ import org.eclipse.swt.widgets.Composite;
 
 import java.awt.Container;
 import java.awt.GridBagLayout;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -67,7 +67,7 @@ import javax.swing.JTextField;
 
 /**
  * Model for abstraction of {@link GridBagLayout}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.model.layout
@@ -179,8 +179,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
   // Refresh
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected final Set<Integer> m_refreshFilledColumns = Sets.newTreeSet();
-  protected final Set<Integer> m_refreshFilledRows = Sets.newTreeSet();
+  protected final Set<Integer> m_refreshFilledColumns = new TreeSet<>();
+  protected final Set<Integer> m_refreshFilledRows = new TreeSet<>();
 
   @Override
   public void refresh_dispose() throws Exception {
@@ -288,8 +288,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
   //
   ////////////////////////////////////////////////////////////////////////////
   private boolean m_dimensionsInitialized;
-  private final LinkedList<ColumnInfo> m_columns = Lists.newLinkedList();
-  private final LinkedList<RowInfo> m_rows = Lists.newLinkedList();
+  private final LinkedList<ColumnInfo> m_columns = new LinkedList<>();
+  private final LinkedList<RowInfo> m_rows = new LinkedList<>();
   private final DimensionOperations<ColumnInfo> m_columnOperations =
       new DimensionOperationsColumn(this);
   private final DimensionOperations<RowInfo> m_rowOperations = new DimensionOperationsRow(this);
@@ -339,7 +339,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ComponentInfo} in given cell.
-   * 
+   *
    * @param newComponent
    *          the new {@link ComponentInfo} to create.
    * @param column
@@ -381,7 +381,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
   /**
    * Moves given {@link ComponentInfo} in new cell.
-   * 
+   *
    * @param component
    *          the new {@link ComponentInfo} to move.
    * @param column
@@ -449,7 +449,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
   /**
    * @return the {@link ComponentInfo} that should be used as reference of adding into given cell.
-   * 
+   *
    * @param exclude
    *          the {@link ComponentInfo} that should not be checked, for example because we move it
    *          now.
@@ -705,8 +705,8 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
    */
   private void createGridInfo() throws Exception {
     // prepare cells
-    final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
-    final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
+    final Map<ComponentInfo, Rectangle> componentToCells = new HashMap<>();
+    final Map<Point, ComponentInfo> occupiedCells = new HashMap<>();
     visitComponents(new IComponentVisitor() {
       public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
           throws Exception {
@@ -894,7 +894,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final BiMap<GeneralLayoutData.HorizontalAlignment, ColumnInfo.Alignment> m_horizontalAlignmentMap =
@@ -934,12 +934,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
       generalLayoutData.horizontalGrab = null;
       generalLayoutData.verticalGrab = null;
       // alignments
-      generalLayoutData.horizontalAlignment =
-          GeneralLayoutData.getGeneralValue(
-              m_horizontalAlignmentMap,
-              gridData.getHorizontalAlignment());
-      generalLayoutData.verticalAlignment =
-          GeneralLayoutData.getGeneralValue(m_verticalAlignmentMap, gridData.getVerticalAlignment());
+      generalLayoutData.horizontalAlignment = GeneralLayoutData.getGeneralValue(
+          m_horizontalAlignmentMap,
+          gridData.getHorizontalAlignment());
+      generalLayoutData.verticalAlignment = GeneralLayoutData.getGeneralValue(
+          m_verticalAlignmentMap,
+          gridData.getVerticalAlignment());
       generalLayoutData.putToInfo(component);
     }
   }

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
 import org.eclipse.wb.core.model.association.AssociationUtils;
@@ -32,6 +30,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -39,7 +38,7 @@ import javax.swing.JPopupMenu;
 
 /**
  * Implementation of {@link Association} between {@link JPopupMenuInfo} and {@link ComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -104,7 +103,7 @@ public final class JPopupMenuAssociation extends InvocationAssociation {
         typeDeclaration,
         "addPopup(java.awt.Component,javax.swing.JPopupMenu)") == null) {
       // prepare method lines
-      List<String> lines = Lists.newArrayList();
+      List<String> lines = new ArrayList<>();
       {
         lines.add("component.addMouseListener(new java.awt.event.MouseAdapter() {");
         lines.add("  public void mousePressed(java.awt.event.MouseEvent e) {");
@@ -139,9 +138,8 @@ public final class JPopupMenuAssociation extends InvocationAssociation {
       }
       // add method
       {
-        String header =
-            "private static void addPopup(java.awt.Component component, "
-                + "final javax.swing.JPopupMenu popup)";
+        String header = "private static void addPopup(java.awt.Component component, "
+            + "final javax.swing.JPopupMenu popup)";
         BodyDeclarationTarget methodTarget = new BodyDeclarationTarget(typeDeclaration, false);
         editor.addMethodDeclaration(header, lines, methodTarget);
       }

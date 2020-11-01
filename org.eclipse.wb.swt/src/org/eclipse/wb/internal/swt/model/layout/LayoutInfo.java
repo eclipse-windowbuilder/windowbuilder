@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -57,11 +55,12 @@ import org.eclipse.swt.widgets.Menu;
 
 import org.apache.commons.lang.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract model for {@link Layout}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */
@@ -106,7 +105,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
     addBroadcastListener(new ObjectInfoChildAddBefore() {
       public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
           throws Exception {
-        // add new LayoutData - remove existing one 
+        // add new LayoutData - remove existing one
         if (parent instanceof ControlInfo
             && child instanceof LayoutDataInfo
             && isActiveOnComposite(parent.getParent())) {
@@ -304,7 +303,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
   }
 
   public final List<ControlInfo> getControls() {
-    List<ControlInfo> controls = Lists.newArrayList();
+    List<ControlInfo> controls = new ArrayList<>();
     CompositeInfo composite = getComposite();
     if (isActiveOnComposite(composite)) {
       for (ControlInfo control : composite.getChildrenControls()) {
@@ -440,7 +439,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
    * We may be {@link ControlInfo} that virtual {@link LayoutDataInfo} should not be created for it,
    * when we intentionally delete {@link LayoutDataInfo}, for example during process of moving this
    * {@link ControlInfo} from this {@link LayoutInfo} or deleting this {@link LayoutInfo}.
-   * 
+   *
    * @return <code>true</code> if for given {@link ControlInfo} we should create
    *         {@link LayoutDataInfo}.
    */
@@ -480,7 +479,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
    */
   public static LayoutDataInfo getLayoutData(ControlInfo control) {
     // select only layout data
-    List<LayoutDataInfo> objects = Lists.newArrayList();
+    List<LayoutDataInfo> objects = new ArrayList<>();
     for (ObjectInfo object : control.getChildren()) {
       if (object instanceof LayoutDataInfo) {
         objects.add((LayoutDataInfo) object);
@@ -539,8 +538,8 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
    * Creates implicit {@link LayoutDataInfo} for given {@link ControlInfo}.
    * <p>
    * "Implicit" {@link LayoutDataInfo} is wrapper for "layout data" object that exists for
-   * "implicit" {@link ControlInfo}, for example when exposed {@link Control} has already
-   * "layout data" set during creation of exposing container.
+   * "implicit" {@link ControlInfo}, for example when exposed {@link Control} has already "layout
+   * data" set during creation of exposing container.
    */
   private void createImplicitLayoutData(ControlInfo control) throws Exception {
     // create model
@@ -560,9 +559,9 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
    * Creates virtual {@link LayoutDataInfo} for given {@link ControlInfo}.
    * <p>
    * "Virtual" {@link LayoutDataInfo} is placeholder for "layout data" when "layout data" should
-   * exist, but does not exist yet in source code. Most layout managers in this case use
-   * "layout data" with some default values. So, we show these values in properties and allow to
-   * change them, at this moment we "materialize" {@link LayoutDataInfo} in source code.
+   * exist, but does not exist yet in source code. Most layout managers in this case use "layout
+   * data" with some default values. So, we show these values in properties and allow to change
+   * them, at this moment we "materialize" {@link LayoutDataInfo} in source code.
    */
   private void createVirtualLayoutData(ControlInfo control) throws Exception {
     Object dataObject = getDefaultVirtualDataObject();
@@ -672,7 +671,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

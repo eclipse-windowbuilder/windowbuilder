@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.rcp.model.rcp.perspective;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
@@ -77,13 +75,15 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Model for {@link IPageLayout}, used in {@link IPerspectiveFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -303,7 +303,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
   private Shell m_shell;
   private Composite m_composite;
   private Composite m_partsComposite;
-  private final Map<String, Control> m_idToControlMap = Maps.newHashMap();
+  private final Map<String, Control> m_idToControlMap = new HashMap<>();
 
   /**
    * Prepares widgets of this {@link IPageLayout} for filling.
@@ -363,33 +363,29 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
     // create line
     SashLineInfo sashLine = null;
     if (relation == IPageLayout.LEFT) {
-      sashLine =
-          new SashLineInfo(part,
-              partBounds,
-              refBounds,
-              IPositionConstants.EAST,
-              new Rectangle(partBounds.right(), partBounds.y, sashSize, partBounds.height));
+      sashLine = new SashLineInfo(part,
+          partBounds,
+          refBounds,
+          IPositionConstants.EAST,
+          new Rectangle(partBounds.right(), partBounds.y, sashSize, partBounds.height));
     } else if (relation == IPageLayout.RIGHT) {
-      sashLine =
-          new SashLineInfo(part,
-              partBounds,
-              refBounds,
-              IPositionConstants.WEST,
-              new Rectangle(partBounds.x - sashSize, partBounds.y, sashSize, partBounds.height));
+      sashLine = new SashLineInfo(part,
+          partBounds,
+          refBounds,
+          IPositionConstants.WEST,
+          new Rectangle(partBounds.x - sashSize, partBounds.y, sashSize, partBounds.height));
     } else if (relation == IPageLayout.TOP) {
-      sashLine =
-          new SashLineInfo(part,
-              partBounds,
-              refBounds,
-              IPositionConstants.SOUTH,
-              new Rectangle(partBounds.x, partBounds.bottom(), partBounds.width, sashSize));
+      sashLine = new SashLineInfo(part,
+          partBounds,
+          refBounds,
+          IPositionConstants.SOUTH,
+          new Rectangle(partBounds.x, partBounds.bottom(), partBounds.width, sashSize));
     } else if (relation == IPageLayout.BOTTOM) {
-      sashLine =
-          new SashLineInfo(part,
-              partBounds,
-              refBounds,
-              IPositionConstants.NORTH,
-              new Rectangle(partBounds.x, partBounds.y - sashSize, partBounds.width, sashSize));
+      sashLine = new SashLineInfo(part,
+          partBounds,
+          refBounds,
+          IPositionConstants.NORTH,
+          new Rectangle(partBounds.x, partBounds.y - sashSize, partBounds.width, sashSize));
     }
     // set line
     part.setLine(sashLine);
@@ -439,9 +435,11 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
         if (relationship == IPageLayout.LEFT) {
           int width = calculatePartSize(refBounds.width, ratio, takeFullEditorSize);
           partControl.setBounds(refBounds.x, refBounds.y, width, refBounds.height);
-          refControl.setBounds(refBounds.x + width + sashSize, refBounds.y, refBounds.width
-              - width
-              - sashSize, refBounds.height);
+          refControl.setBounds(
+              refBounds.x + width + sashSize,
+              refBounds.y,
+              refBounds.width - width - sashSize,
+              refBounds.height);
         } else if (relationship == IPageLayout.RIGHT) {
           int width = calculatePartSize(refBounds.width, 1 - ratio, takeFullEditorSize);
           partControl.setBounds(
@@ -469,9 +467,11 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
               refBounds.y + refBounds.height - height,
               refBounds.width,
               height);
-          refControl.setBounds(refBounds.x, refBounds.y, refBounds.width, refBounds.height
-              - height
-              - sashSize);
+          refControl.setBounds(
+              refBounds.x,
+              refBounds.y,
+              refBounds.width,
+              refBounds.height - height - sashSize);
         } else {
           throw new IllegalArgumentException("Unknown relationship: " + relationship);
         }
@@ -567,7 +567,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutAddViewInfo}.
-   * 
+   *
    * @param command
    *          the {@link IPageLayoutCommand} that performs operation using prepared parameters.
    * @param reference
@@ -580,13 +580,12 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
     // prepare "createInitialLayout" method
     MethodDeclaration layoutMethod;
     {
-      layoutMethod =
-          AstNodeUtils.getMethodBySignature(
-              JavaInfoUtils.getTypeDeclaration(this),
-              "createInitialLayout(org.eclipse.ui.IPageLayout)");
+      layoutMethod = AstNodeUtils.getMethodBySignature(
+          JavaInfoUtils.getTypeDeclaration(this),
+          "createInitialLayout(org.eclipse.ui.IPageLayout)");
       Assert.isNotNull(layoutMethod, "No createInitialLayout() method in %s.", editor.getSource());
     }
-    // prepare target for 
+    // prepare target for
     StatementTarget target;
     AbstractPartInfo prevChild;
     {
@@ -601,7 +600,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
           }
         }
       }
-      // prepare target relative to last AbstractPart_Info 
+      // prepare target relative to last AbstractPart_Info
       if (lastRefPart != null) {
         prevChild = lastRefPart;
         target = getTargetAfter(prevChild);
@@ -632,7 +631,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutAddViewInfo}.
-   * 
+   *
    * @return the created {@link PageLayoutAddViewInfo}.
    */
   public PageLayoutAddViewInfo command_CREATE(final String viewId,
@@ -648,19 +647,18 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
         // insert "addView" invocation
         MethodInvocation newInvocation;
         {
-          Statement newStatement =
-              editor.addStatement(
-                  layoutSource
-                      + ".addView("
-                      + StringConverter.INSTANCE.toJavaSource(page, viewId)
-                      + ", "
-                      + getRelationSource(relationship)
-                      + ", "
-                      + FloatConverter.INSTANCE.toJavaSource(page, ratio)
-                      + ", "
-                      + reference.getIdSource()
-                      + ");",
-                  target);
+          Statement newStatement = editor.addStatement(
+              layoutSource
+                  + ".addView("
+                  + StringConverter.INSTANCE.toJavaSource(page, viewId)
+                  + ", "
+                  + getRelationSource(relationship)
+                  + ", "
+                  + FloatConverter.INSTANCE.toJavaSource(page, ratio)
+                  + ", "
+                  + reference.getIdSource()
+                  + ");",
+              target);
           newInvocation = (MethodInvocation) ((ExpressionStatement) newStatement).getExpression();
         }
         // create new PageLayout_addView_Info
@@ -675,8 +673,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
         // OK, we have new view
         return newView;
       }
-    },
-        reference);
+    }, reference);
   }
 
   /**
@@ -737,7 +734,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutCreateFolderInfo}.
-   * 
+   *
    * @return the created {@link PageLayoutCreateFolderInfo}.
    */
   public PageLayoutCreateFolderInfo command_CREATE_folder(final int relationship,
@@ -754,13 +751,12 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
         // OK, we have new "folder"
         return newFolder;
       }
-    },
-        reference);
+    }, reference);
   }
 
   /**
    * Creates new {@link PageLayoutCreateFolderInfo}.
-   * 
+   *
    * @return the created {@link PageLayoutCreateFolderInfo}.
    */
   private PageLayoutCreateFolderInfo command_CREATE_folder(int relationship,
@@ -771,7 +767,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
     String folderId;
     {
       // prepare set of used ID's for all parts
-      final Set<String> usedIDs = Sets.newTreeSet();
+      final Set<String> usedIDs = new TreeSet<>();
       for (AbstractPartInfo part : getParts()) {
         usedIDs.add(part.getId());
       }
@@ -785,16 +781,15 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
     // prepare CreationSupport
     CreationSupport creationSupport;
     {
-      String source =
-          "createFolder("
-              + StringConverter.INSTANCE.toJavaSource(this, folderId)
-              + ", "
-              + getRelationSource(relationship)
-              + ", "
-              + FloatConverter.INSTANCE.toJavaSource(this, ratio)
-              + ", "
-              + referenceIdSource
-              + ")";
+      String source = "createFolder("
+          + StringConverter.INSTANCE.toJavaSource(this, folderId)
+          + ", "
+          + getRelationSource(relationship)
+          + ", "
+          + FloatConverter.INSTANCE.toJavaSource(this, ratio)
+          + ", "
+          + referenceIdSource
+          + ")";
       MethodDescription description =
           getDescription().getMethod("createFolder(java.lang.String,int,float,java.lang.String)");
       creationSupport = new PageLayoutAddCreationSupport(this, description, source);
@@ -846,12 +841,11 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
     PageLayoutCreateFolderInfo folder;
     {
       StatementTarget target = JavaInfoUtils.getTarget(this, view);
-      folder =
-          command_CREATE_folder(
-              view.getRelationship(),
-              view.getRatio(),
-              view.getRefIdSource(),
-              target);
+      folder = command_CREATE_folder(
+          view.getRelationship(),
+          view.getRatio(),
+          view.getRefIdSource(),
+          target);
       moveChild(folder, view);
     }
     // move "view" on "folder"

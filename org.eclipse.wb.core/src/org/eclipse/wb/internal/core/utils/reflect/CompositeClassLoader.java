@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.reflect;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -20,6 +19,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -133,7 +133,7 @@ public class CompositeClassLoader extends ClassLoader {
 
   @Override
   protected Enumeration<URL> findResources(String name) throws IOException {
-    Set<URL> allResources = Sets.newHashSet();
+    Set<URL> allResources = new HashSet<>();
     for (ClassLoader classLoader : m_classLoaders) {
       Enumeration<URL> resources = classLoader.getResources(name);
       CollectionUtils.addAll(allResources, resources);

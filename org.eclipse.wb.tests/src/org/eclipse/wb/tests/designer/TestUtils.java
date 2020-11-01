@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -57,6 +55,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -66,13 +65,13 @@ import java.util.zip.ZipEntry;
 
 /**
  * Some external utils for tests.
- * 
+ *
  * @author scheglov_ke
  */
 public final class TestUtils {
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Constructor 
+  // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
   private TestUtils() {
@@ -85,7 +84,7 @@ public final class TestUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates file with empty PNG image of given size.
-   * 
+   *
    * @param testProject
    *          the {@link TestProject} to access {@link IProject} where to create image.
    * @param path
@@ -190,7 +189,7 @@ public final class TestUtils {
 
   /**
    * Adds dynamic extension.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param contribution
@@ -203,7 +202,7 @@ public final class TestUtils {
 
   /**
    * Adds dynamic extension.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param extensionId
@@ -222,7 +221,7 @@ public final class TestUtils {
    * Adds dynamic extension.<br>
    * In contrast to {@link #addDynamicExtension(String, String)}, this method accepts full
    * contribution, that should have <code>"point", "id"</code> and other attributes.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param extensionId
@@ -264,7 +263,7 @@ public final class TestUtils {
   /**
    * Removes the test dynamic extension, added previously by
    * {@link #addDynamicExtension(String, String)}.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    */
@@ -284,7 +283,7 @@ public final class TestUtils {
   /**
    * Removes dynamic extension from registry and waits until it will be removed also from
    * {@link ExternalFactoriesHelper}.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param extensionId
@@ -354,7 +353,7 @@ public final class TestUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the path to the temporary "jar" file with single entry.
-   * 
+   *
    * @param entryName
    *          the name of entry, for example <code>"myFolder/subFolder/file.txt"</code>.
    * @param content
@@ -416,7 +415,7 @@ public final class TestUtils {
    * @return the names of methods declared in the given {@link Class}, in same order as in source.
    */
   private static List<String> getSourceMethodNames(Class<?> testClass) throws Exception {
-    final List<String> sourceMethodNames = Lists.newArrayList();
+    final List<String> sourceMethodNames = new ArrayList<>();
     String classPath = testClass.getName().replace('.', '/') + ".class";
     InputStream classStream = testClass.getClassLoader().getResourceAsStream(classPath);
     ClassReader classReader = new ClassReader(classStream);

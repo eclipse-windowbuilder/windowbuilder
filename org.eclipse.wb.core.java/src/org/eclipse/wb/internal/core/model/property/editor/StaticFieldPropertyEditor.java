@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.internal.core.model.clipboard.IClipboardSourceProvider;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -29,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -226,7 +225,7 @@ public class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
   private static String[] cleanUpFieldDescriptions(IWarningConsumer logger,
       Class<?> m_class,
       String[] fieldDescriptions) throws Exception {
-    List<String> newFieldDescriptions = Lists.newArrayList();
+    List<String> newFieldDescriptions = new ArrayList<>();
     // check all fields
     for (String fieldDescription : fieldDescriptions) {
       // skip special cases

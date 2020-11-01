@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.description.helpers;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.model.description.AbstractInvocationDescription;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -104,6 +103,8 @@ import org.xml.sax.SAXParseException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -209,11 +210,11 @@ public final class ComponentDescriptionHelper {
       suffix = signatureUnix + "." + parameterIndex;
     }
     // prepare DescriptionInfo's for parameter in inheritance hierarchy
-    List<ClassResourceInfo> additionalDescriptions = Lists.newArrayList();
+    List<ClassResourceInfo> additionalDescriptions = new ArrayList<>();
     {
       Class<?> hostComponentClass = hostDescription.getComponentClass();
       List<Class<?>> types = ReflectionUtils.getSuperHierarchy(hostComponentClass);
-      types = Lists.reverse(types);
+      Collections.reverse(types);
       for (Class<?> type : types) {
         ComponentDescriptionKey hostKey = new ComponentDescriptionKey(type);
         // prepare specific ResourceInfo
@@ -356,11 +357,12 @@ public final class ComponentDescriptionHelper {
       ComponentDescription componentDescription = new ComponentDescription(key);
       addConstructors(editor.getJavaProject(), componentDescription);
       componentDescription.setBeanInfo(ReflectionUtils.getBeanInfo(componentClass));
-      componentDescription.setBeanDescriptor(new IntrospectionHelper(componentClass).getBeanDescriptor());
+      componentDescription.setBeanDescriptor(
+          new IntrospectionHelper(componentClass).getBeanDescriptor());
       // prepare list of description resources, from generic to specific
       LinkedList<ClassResourceInfo> descriptionInfos;
       {
-        descriptionInfos = Lists.newLinkedList();
+        descriptionInfos = new LinkedList<>();
         DescriptionHelper.addDescriptionResources(descriptionInfos, context, componentClass);
         Assert.isTrueException(
             !descriptionInfos.isEmpty(),
@@ -552,11 +554,10 @@ public final class ComponentDescriptionHelper {
       // do initialize
       ExecutionUtils.runIgnore(new RunnableEx() {
         public void run() throws Exception {
-          IMethod method =
-              CodeUtils.findMethod(
-                  javaProject,
-                  methodDescription.getDeclaringClass().getName(),
-                  methodDescription.getSignature());
+          IMethod method = CodeUtils.findMethod(
+              javaProject,
+              methodDescription.getDeclaringClass().getName(),
+              methodDescription.getSignature());
           if (method != null) {
             String[] parameterNames = method.getParameterNames();
             for (ParameterDescription parameter : methodDescription.getParameters()) {
@@ -591,8 +592,8 @@ public final class ComponentDescriptionHelper {
     }
   }
 
-  private static void addParameter(AbstractInvocationDescription description, Class<?> parameterType)
-      throws Exception {
+  private static void addParameter(AbstractInvocationDescription description,
+      Class<?> parameterType) throws Exception {
     ParameterDescription parameterDescription = new ParameterDescription();
     parameterDescription.setType(parameterType);
     description.addParameter(parameterDescription);
@@ -633,7 +634,9 @@ public final class ComponentDescriptionHelper {
         digester.addRule(pattern, new MethodSinglePropertyRule());
         addPropertyConfigurationRules(digester, state, pattern);
       }
-      digester.addRule("component/method-property", new MethodPropertyRule(editor.getJavaProject()));
+      digester.addRule(
+          "component/method-property",
+          new MethodPropertyRule(editor.getJavaProject()));
     }
     // public field properties
     {
@@ -675,8 +678,9 @@ public final class ComponentDescriptionHelper {
     {
       String pattern = "component/methods/method";
       digester.addRule(pattern, new MethodRule());
-      digester.addRule(pattern, new SetListedPropertiesRule(new String[]{"order"},
-          new String[]{"orderSpecification"}));
+      digester.addRule(
+          pattern,
+          new SetListedPropertiesRule(new String[]{"order"}, new String[]{"orderSpecification"}));
       digester.addRule(pattern + "/tag", new MethodTagRule());
       addParametersRules(digester, pattern + "/parameter", state);
     }
@@ -837,14 +841,16 @@ public final class ComponentDescriptionHelper {
     //
     digester.addRule(pattern, new ObjectCreateRule(ParameterDescription.class));
     digester.addRule(pattern, new SetClassPropertyRule(classLoader, "type"));
-    digester.addRule(pattern, new SetListedPropertiesRule(new String[]{
-        "name",
-        "defaultSource",
-        "parent",
-        "child",
-        "property",
-        "parent2",
-        "child2"}));
+    digester.addRule(
+        pattern,
+        new SetListedPropertiesRule(new String[]{
+            "name",
+            "defaultSource",
+            "parent",
+            "child",
+            "property",
+            "parent2",
+            "child2"}));
     digester.addSetNext(pattern, "addParameter");
     // editors
     {
@@ -881,8 +887,8 @@ public final class ComponentDescriptionHelper {
    * Checks if package of given class has marker file with given name.
    *
    * @param descriptionInfo
-   *          the first {@link ClassResourceInfo} for <code>*.wbp-component.xml</code>, in
-   *          "to superclass" direction. We look into its {@link Bundle} for caching marker.
+   *          the first {@link ClassResourceInfo} for <code>*.wbp-component.xml</code>, in "to
+   *          superclass" direction. We look into its {@link Bundle} for caching marker.
    *
    * @return <code>true</code> if package with given class has "cache enabled" marker.
    */

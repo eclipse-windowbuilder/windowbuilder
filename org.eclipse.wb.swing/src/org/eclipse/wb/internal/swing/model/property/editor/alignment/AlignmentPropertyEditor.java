@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.alignment;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.FloatPropertyEditor;
@@ -30,6 +28,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
 import java.awt.Component;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JComponent;
@@ -37,13 +36,13 @@ import javax.swing.JComponent;
 /**
  * The {@link PropertyEditor} for {@link JComponent#setAlignmentX(float)} or
  * {@link JComponent#setAlignmentY(float)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
 abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
   private final Map<Float, ButtonPropertyEditorPresentation> m_valueToPresentation =
-      Maps.newHashMap();
+      new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -69,7 +68,8 @@ abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
             }
 
             @Override
-            protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
+            protected void onClick(PropertyTable propertyTable, Property property)
+                throws Exception {
               GenericProperty genericProperty = (GenericProperty) property;
               genericProperty.setExpression("java.awt.Component." + field, value);
             }
@@ -118,7 +118,8 @@ abstract class AlignmentPropertyEditor extends FloatPropertyEditor {
    * Selects {@link ButtonPropertyEditorPresentation} that corresponds to current value of
    * {@link Property}.
    */
-  private void selectButtonByValue(PropertyTable propertyTable, Property property) throws Exception {
+  private void selectButtonByValue(PropertyTable propertyTable, Property property)
+      throws Exception {
     Object value = property.getValue();
     for (Map.Entry<Float, ButtonPropertyEditorPresentation> entry : m_valueToPresentation.entrySet()) {
       ButtonPropertyEditorPresentation presentation = entry.getValue();

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -22,6 +20,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.Separator;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -85,7 +84,7 @@ public abstract class AbstractAlignmentActionsSupport<C extends IAbstractCompone
     }
     // selection should not include parent
     {
-      Set<ObjectInfo> parents = Sets.newHashSet();
+      Set<ObjectInfo> parents = new HashSet<>();
       for (IAbstractComponentInfo component : m_components) {
         parents.add(component.getParent());
       }

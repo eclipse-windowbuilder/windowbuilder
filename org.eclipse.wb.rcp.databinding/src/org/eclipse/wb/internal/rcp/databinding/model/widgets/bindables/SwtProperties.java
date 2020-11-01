@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.ObserveComparator;
 import org.eclipse.wb.internal.core.databinding.ui.decorate.IObserveDecorator;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
@@ -23,49 +20,51 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Properties container for <code>SWT</code> widgets and <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
 public final class SwtProperties {
-  static final List<WidgetPropertyBindableInfo> CONTROL = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> BUTTON = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> DATE_TIME = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TEXT = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> STYLED_TEXT = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TOOL_TIP = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> SPINNER = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> SCALE = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> LIST = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TABLE = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> LINK = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> SHELL = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> FORM = Lists.newArrayList();
+  static final List<WidgetPropertyBindableInfo> CONTROL = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> BUTTON = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> DATE_TIME = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TEXT = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> STYLED_TEXT = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TOOL_TIP = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> SPINNER = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> SCALE = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> LIST = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TABLE = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> LINK = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> SHELL = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> FORM = new ArrayList<>();
   //
-  static final List<WidgetPropertyBindableInfo> LABEL = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> CLABEL = Lists.newArrayList();
+  static final List<WidgetPropertyBindableInfo> LABEL = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> CLABEL = new ArrayList<>();
   //
-  static final List<WidgetPropertyBindableInfo> COMBO = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> CCOMBO = Lists.newArrayList();
+  static final List<WidgetPropertyBindableInfo> COMBO = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> CCOMBO = new ArrayList<>();
   //
-  static final List<WidgetPropertyBindableInfo> ITEM = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TABLE_COLUMN = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TREE_COLUMN = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TOOL_ITEM = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> TRAY_ITEM = Lists.newArrayList();
+  static final List<WidgetPropertyBindableInfo> ITEM = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TABLE_COLUMN = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TREE_COLUMN = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TOOL_ITEM = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> TRAY_ITEM = new ArrayList<>();
   //
-  static final List<WidgetPropertyBindableInfo> TAB_ITEM = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> CTAB_ITEM = Lists.newArrayList();
+  static final List<WidgetPropertyBindableInfo> TAB_ITEM = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> CTAB_ITEM = new ArrayList<>();
   //
-  static final List<WidgetPropertyBindableInfo> VIEWER = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> STRUCTURED_VIEWER = Lists.newArrayList();
-  static final List<WidgetPropertyBindableInfo> CHECKABLE_VIEWER = Lists.newArrayList();
+  static final List<WidgetPropertyBindableInfo> VIEWER = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> STRUCTURED_VIEWER = new ArrayList<>();
+  static final List<WidgetPropertyBindableInfo> CHECKABLE_VIEWER = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -73,43 +72,52 @@ public final class SwtProperties {
   //
   ////////////////////////////////////////////////////////////////////////////
   static void createControlProperties(WidgetPropertyBindableInfo tooltipText) {
-    CONTROL.add(new WidgetPropertyBindableInfo("enabled",
-        boolean.class,
-        "observeEnabled",
-        IObserveDecorator.DEFAULT));
-    CONTROL.add(new WidgetPropertyBindableInfo("visible",
-        boolean.class,
-        "observeVisible",
-        IObserveDecorator.DEFAULT));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("enabled",
+            boolean.class,
+            "observeEnabled",
+            IObserveDecorator.DEFAULT));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("visible",
+            boolean.class,
+            "observeVisible",
+            IObserveDecorator.DEFAULT));
     CONTROL.add(tooltipText);
-    CONTROL.add(new WidgetPropertyBindableInfo("foreground",
-        Color.class,
-        "observeForeground",
-        IObserveDecorator.ITALIC));
-    CONTROL.add(new WidgetPropertyBindableInfo("background",
-        Color.class,
-        "observeBackground",
-        IObserveDecorator.ITALIC));
-    CONTROL.add(new WidgetPropertyBindableInfo("font",
-        Font.class,
-        "observeFont",
-        IObserveDecorator.ITALIC));
-    CONTROL.add(new WidgetPropertyBindableInfo("size",
-        Point.class,
-        "observeSize",
-        IObserveDecorator.ITALIC));
-    CONTROL.add(new WidgetPropertyBindableInfo("location",
-        Point.class,
-        "observeLocation",
-        IObserveDecorator.ITALIC));
-    CONTROL.add(new WidgetPropertyBindableInfo("focused",
-        boolean.class,
-        "observeFocus",
-        IObserveDecorator.DEFAULT));
-    CONTROL.add(new WidgetPropertyBindableInfo("bounds",
-        Rectangle.class,
-        "observeBounds",
-        IObserveDecorator.ITALIC));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("foreground",
+            Color.class,
+            "observeForeground",
+            IObserveDecorator.ITALIC));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("background",
+            Color.class,
+            "observeBackground",
+            IObserveDecorator.ITALIC));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("font",
+            Font.class,
+            "observeFont",
+            IObserveDecorator.ITALIC));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("size",
+            Point.class,
+            "observeSize",
+            IObserveDecorator.ITALIC));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("location",
+            Point.class,
+            "observeLocation",
+            IObserveDecorator.ITALIC));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("focused",
+            boolean.class,
+            "observeFocus",
+            IObserveDecorator.DEFAULT));
+    CONTROL.add(
+        new WidgetPropertyBindableInfo("bounds",
+            Rectangle.class,
+            "observeBounds",
+            IObserveDecorator.ITALIC));
     //
     Collections.sort(CONTROL, ObserveComparator.INSTANCE);
   }
@@ -122,10 +130,11 @@ public final class SwtProperties {
   static void createButtonProperties(WidgetPropertyBindableInfo text,
       WidgetPropertyBindableInfo image) {
     BUTTON.addAll(CONTROL);
-    BUTTON.add(new WidgetPropertyBindableInfo("selection",
-        boolean.class,
-        "observeSelection",
-        IObserveDecorator.BOLD));
+    BUTTON.add(
+        new WidgetPropertyBindableInfo("selection",
+            boolean.class,
+            "observeSelection",
+            IObserveDecorator.BOLD));
     BUTTON.add(text);
     BUTTON.add(image);
     //
@@ -134,10 +143,11 @@ public final class SwtProperties {
 
   static void createDateTimeProperties() {
     DATE_TIME.addAll(CONTROL);
-    DATE_TIME.add(new WidgetPropertyBindableInfo("selection",
-        java.util.Date.class,
-        "observeSelection",
-        IObserveDecorator.BOLD));
+    DATE_TIME.add(
+        new WidgetPropertyBindableInfo("selection",
+            java.util.Date.class,
+            "observeSelection",
+            IObserveDecorator.BOLD));
     //
     Collections.sort(DATE_TIME, ObserveComparator.INSTANCE);
   }
@@ -150,10 +160,11 @@ public final class SwtProperties {
   static void createTextProperties(WidgetPropertyBindableInfo text,
       WidgetPropertyBindableInfo message) {
     TEXT.addAll(CONTROL);
-    TEXT.add(new WidgetPropertyBindableInfo("editable",
-        boolean.class,
-        "observeEditable",
-        IObserveDecorator.BOLD));
+    TEXT.add(
+        new WidgetPropertyBindableInfo("editable",
+            boolean.class,
+            "observeEditable",
+            IObserveDecorator.BOLD));
     TEXT.add(text);
     TEXT.add(message);
     //
@@ -348,7 +359,8 @@ public final class SwtProperties {
   // Item
   //
   ////////////////////////////////////////////////////////////////////////////
-  static void createItemProperties(WidgetPropertyBindableInfo text, WidgetPropertyBindableInfo image) {
+  static void createItemProperties(WidgetPropertyBindableInfo text,
+      WidgetPropertyBindableInfo image) {
     ITEM.add(text);
     ITEM.add(image);
     //
@@ -433,30 +445,34 @@ public final class SwtProperties {
   //
   ////////////////////////////////////////////////////////////////////////////
   static void createViewerProperties() {
-    VIEWER.add(new WidgetPropertyBindableInfo("single selection",
-        TypeImageProvider.OBJECT_IMAGE,
-        Object.class,
-        "observeSingleSelection",
-        ViewerObservableFactory.SINGLE_SELECTION,
-        IObserveDecorator.DEFAULT));
-    VIEWER.add(new WidgetPropertyBindableInfo(PropertiesSupport.DETAIL_SINGLE_SELECTION_NAME,
-        TypeImageProvider.OBJECT_IMAGE,
-        Object.class,
-        "observeSingleSelection",
-        ViewerObservableFactory.DETAIL_SINGLE_SELECTION,
-        IObserveDecorator.DEFAULT));
-    VIEWER.add(new WidgetPropertyBindableInfo("multi selection",
-        TypeImageProvider.COLLECTION_IMAGE,
-        Object.class,
-        "observeMultiSelection",
-        ViewerObservableFactory.MULTI_SELECTION,
-        IObserveDecorator.DEFAULT));
-    VIEWER.add(new WidgetPropertyBindableInfo("input",
-        TypeImageProvider.VIEWER_IMAGE,
-        Object.class,
-        "setInput",
-        ViewerInputObservableFactory.INSTANCE,
-        IObserveDecorator.BOLD));
+    VIEWER.add(
+        new WidgetPropertyBindableInfo("single selection",
+            TypeImageProvider.OBJECT_IMAGE,
+            Object.class,
+            "observeSingleSelection",
+            ViewerObservableFactory.SINGLE_SELECTION,
+            IObserveDecorator.DEFAULT));
+    VIEWER.add(
+        new WidgetPropertyBindableInfo(PropertiesSupport.DETAIL_SINGLE_SELECTION_NAME,
+            TypeImageProvider.OBJECT_IMAGE,
+            Object.class,
+            "observeSingleSelection",
+            ViewerObservableFactory.DETAIL_SINGLE_SELECTION,
+            IObserveDecorator.DEFAULT));
+    VIEWER.add(
+        new WidgetPropertyBindableInfo("multi selection",
+            TypeImageProvider.COLLECTION_IMAGE,
+            Object.class,
+            "observeMultiSelection",
+            ViewerObservableFactory.MULTI_SELECTION,
+            IObserveDecorator.DEFAULT));
+    VIEWER.add(
+        new WidgetPropertyBindableInfo("input",
+            TypeImageProvider.VIEWER_IMAGE,
+            Object.class,
+            "setInput",
+            ViewerInputObservableFactory.INSTANCE,
+            IObserveDecorator.BOLD));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -466,12 +482,14 @@ public final class SwtProperties {
   ////////////////////////////////////////////////////////////////////////////
   static void createStructuredViewerProperties() {
     STRUCTURED_VIEWER.addAll(VIEWER);
-    STRUCTURED_VIEWER.add(3, new WidgetPropertyBindableInfo("filters",
-        TypeImageProvider.COLLECTION_IMAGE,
-        ViewerFilter.class,
-        "observeFilters",
-        ViewerObservableFactory.FILTERS,
-        IObserveDecorator.DEFAULT));
+    STRUCTURED_VIEWER.add(
+        3,
+        new WidgetPropertyBindableInfo("filters",
+            TypeImageProvider.COLLECTION_IMAGE,
+            ViewerFilter.class,
+            "observeFilters",
+            ViewerObservableFactory.FILTERS,
+            IObserveDecorator.DEFAULT));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -481,12 +499,14 @@ public final class SwtProperties {
   ////////////////////////////////////////////////////////////////////////////
   static void createCheckableViewerProperties() {
     CHECKABLE_VIEWER.addAll(STRUCTURED_VIEWER);
-    CHECKABLE_VIEWER.add(3, new WidgetPropertyBindableInfo("checked elements",
-        TypeImageProvider.COLLECTION_IMAGE,
-        Object.class,
-        "observeCheckedElements",
-        ViewerObservableFactory.CHECKED_ELEMENTS,
-        IObserveDecorator.DEFAULT));
+    CHECKABLE_VIEWER.add(
+        3,
+        new WidgetPropertyBindableInfo("checked elements",
+            TypeImageProvider.COLLECTION_IMAGE,
+            Object.class,
+            "observeCheckedElements",
+            ViewerObservableFactory.CHECKED_ELEMENTS,
+            IObserveDecorator.DEFAULT));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -494,60 +514,58 @@ public final class SwtProperties {
   // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
-  public static final Map<String, String> SWT_OBSERVABLES_TO_WIDGET_PROPERTIES = Maps.newHashMap();
+  public static final Map<String, String> SWT_OBSERVABLES_TO_WIDGET_PROPERTIES = new HashMap<>();
   static {
-    String[] keys =
-        {
-            "observeEnabled",
-            "observeVisible",
-            "observeTooltipText",
-            "observeSelection",
-            "observeMin",
-            "observeMax",
-            "observeText",
-            "observeMessage",
-            "observeImage",
-            "observeItems",
-            "observeSingleSelectionIndex",
-            "observeForeground",
-            "observeBackground",
-            "observeFont",
-            "observeSize",
-            "observeLocation",
-            "observeFocus",
-            "observeBounds",
-            "observeEditable",
-            "observeSingleSelection",
-            "observeMultiSelection",
-            "observeInput",
-            "observeCheckedElements",
-            "observeFilters"};
-    String[] values =
-        {
-            "enabled",
-            "visible",
-            "tooltipText",
-            "selection",
-            "minimum",
-            "maximum",
-            "text",
-            "message",
-            "image",
-            "items",
-            "singleSelectionIndex",
-            "foreground",
-            "background",
-            "font",
-            "size",
-            "location",
-            "focused",
-            "bounds",
-            "editable",
-            "singleSelection",
-            "multipleSelection",
-            "input",
-            "checkedElements",
-            "filters"};
+    String[] keys = {
+        "observeEnabled",
+        "observeVisible",
+        "observeTooltipText",
+        "observeSelection",
+        "observeMin",
+        "observeMax",
+        "observeText",
+        "observeMessage",
+        "observeImage",
+        "observeItems",
+        "observeSingleSelectionIndex",
+        "observeForeground",
+        "observeBackground",
+        "observeFont",
+        "observeSize",
+        "observeLocation",
+        "observeFocus",
+        "observeBounds",
+        "observeEditable",
+        "observeSingleSelection",
+        "observeMultiSelection",
+        "observeInput",
+        "observeCheckedElements",
+        "observeFilters"};
+    String[] values = {
+        "enabled",
+        "visible",
+        "tooltipText",
+        "selection",
+        "minimum",
+        "maximum",
+        "text",
+        "message",
+        "image",
+        "items",
+        "singleSelectionIndex",
+        "foreground",
+        "background",
+        "font",
+        "size",
+        "location",
+        "focused",
+        "bounds",
+        "editable",
+        "singleSelection",
+        "multipleSelection",
+        "input",
+        "checkedElements",
+        "filters"};
     //
     for (int i = 0; i < keys.length; i++) {
       SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.put(keys[i], values[i]);

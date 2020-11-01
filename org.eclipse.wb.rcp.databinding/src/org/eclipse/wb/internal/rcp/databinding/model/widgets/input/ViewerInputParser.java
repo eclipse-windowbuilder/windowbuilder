@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.parser.AbstractParser;
@@ -47,12 +45,13 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Parser for bindings input for <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
@@ -72,8 +71,7 @@ public final class ViewerInputParser implements ISubParser {
   private static final String CELL_EDITOR_PROPERTIES_CONTROL =
       "org.eclipse.jface.databinding.viewers.CellEditorProperties.control()";
   //
-  private final Map<WidgetBindableInfo, AbstractViewerInputBindingInfo> m_viewers =
-      Maps.newHashMap();
+  private final Map<WidgetBindableInfo, AbstractViewerInputBindingInfo> m_viewers = new HashMap<>();
   private final DataBindingContextInfo m_contextInfo;
   private final BeansObserveTypeContainer m_beansContainer;
   private final WidgetsObserveTypeContainer m_widgetsContainer;
@@ -153,7 +151,9 @@ public final class ViewerInputParser implements ISubParser {
     //
     // new TreeBeanAdvisor(Class, String, String, String)
     if (AstNodeUtils.isSuccessorOf(binding, "org.eclipse.wb.rcp.databinding.TreeBeanAdvisor")) {
-      Assert.isTrue(signature.endsWith("<init>(java.lang.Class,java.lang.String,java.lang.String,java.lang.String)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(java.lang.Class,java.lang.String,java.lang.String,java.lang.String)"));
       // create advisor
       TreeBeanAdvisorInfo advisorInfo = new TreeBeanAdvisorInfo();
       // prepare element type
@@ -194,14 +194,19 @@ public final class ViewerInputParser implements ISubParser {
     if (AstNodeUtils.isSuccessorOf(
         binding,
         "org.eclipse.jface.databinding.viewers.ObservableListTreeContentProvider")) {
-      Assert.isTrue(signature.endsWith("<init>(org.eclipse.core.databinding.observable.masterdetail.IObservableFactory,org.eclipse.jface.databinding.viewers.TreeStructureAdvisor)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(org.eclipse.core.databinding.observable.masterdetail.IObservableFactory,org.eclipse.jface.databinding.viewers.TreeStructureAdvisor)"));
       // prepare factory
       ObservableFactoryInfo observableFactory =
           (ObservableFactoryInfo) resolver.getModel(arguments[0]);
       if (observableFactory == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_objectFactoryArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_objectFactoryArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare advisor
@@ -221,14 +226,19 @@ public final class ViewerInputParser implements ISubParser {
     if (AstNodeUtils.isSuccessorOf(
         binding,
         "org.eclipse.jface.databinding.viewers.ObservableSetTreeContentProvider")) {
-      Assert.isTrue(signature.endsWith("<init>(org.eclipse.core.databinding.observable.masterdetail.IObservableFactory,org.eclipse.jface.databinding.viewers.TreeStructureAdvisor)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(org.eclipse.core.databinding.observable.masterdetail.IObservableFactory,org.eclipse.jface.databinding.viewers.TreeStructureAdvisor)"));
       // prepare factory
       ObservableFactoryInfo observableFactory =
           (ObservableFactoryInfo) resolver.getModel(arguments[0]);
       if (observableFactory == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_objectFactoryArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_objectFactoryArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare advisor
@@ -253,8 +263,10 @@ public final class ViewerInputParser implements ISubParser {
         || AstNodeUtils.isSuccessorOf(
             binding,
             "org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider")) {
-      Assert.isTrue(signature.endsWith("<init>(org.eclipse.core.databinding.observable.map.IObservableMap[])")
-          || signature.endsWith("<init>(org.eclipse.core.databinding.observable.map.IObservableMap)"));
+      Assert.isTrue(
+          signature.endsWith("<init>(org.eclipse.core.databinding.observable.map.IObservableMap[])")
+              || signature.endsWith(
+                  "<init>(org.eclipse.core.databinding.observable.map.IObservableMap)"));
       // prepare maps observable
       MapsBeanObservableInfo mapsObservable =
           (MapsBeanObservableInfo) resolver.getModel(arguments[0]);
@@ -271,7 +283,9 @@ public final class ViewerInputParser implements ISubParser {
     if (AstNodeUtils.isSuccessorOf(
         binding,
         "org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider")) {
-      Assert.isTrue(signature.endsWith("<init>(org.eclipse.core.databinding.observable.set.IObservableSet,java.lang.Class,java.lang.String,java.lang.String)"));
+      Assert.isTrue(
+          signature.endsWith(
+              "<init>(org.eclipse.core.databinding.observable.set.IObservableSet,java.lang.Class,java.lang.String,java.lang.String)"));
       // prepare allElements observable
       KnownElementsObservableInfo allElementsObservable =
           (KnownElementsObservableInfo) resolver.getModel(arguments[0]);
@@ -346,7 +360,9 @@ public final class ViewerInputParser implements ISubParser {
         if (contentProvider == null) {
           AbstractParser.addError(
               editor,
-              MessageFormat.format(Messages.ViewerInputParser_contentProviderNotFound, arguments[0]),
+              MessageFormat.format(
+                  Messages.ViewerInputParser_contentProviderNotFound,
+                  arguments[0]),
               new Throwable());
           return null;
         }
@@ -359,7 +375,9 @@ public final class ViewerInputParser implements ISubParser {
         if (contentProvider == null) {
           AbstractParser.addError(
               editor,
-              MessageFormat.format(Messages.ViewerInputParser_contentProviderNotFound, arguments[0]),
+              MessageFormat.format(
+                  Messages.ViewerInputParser_contentProviderNotFound,
+                  arguments[0]),
               new Throwable());
           return null;
         }
@@ -372,7 +390,8 @@ public final class ViewerInputParser implements ISubParser {
             new Throwable());
         return null;
       }
-    } else if (signature.endsWith("setLabelProvider(org.eclipse.jface.viewers.IBaseLabelProvider)")) {
+    } else if (signature.endsWith(
+        "setLabelProvider(org.eclipse.jface.viewers.IBaseLabelProvider)")) {
       // prepare viewer
       WidgetBindableInfo viewerBindable =
           m_widgetsContainer.getBindableWidget(invocation.getExpression());
@@ -402,9 +421,12 @@ public final class ViewerInputParser implements ISubParser {
         ObservableMapLabelProviderInfo labelProvider =
             (ObservableMapLabelProviderInfo) resolver.getModel(arguments[0]);
         if (labelProvider == null) {
-          AbstractParser.addError(editor, MessageFormat.format(
-              Messages.ViewerInputParser_labelProviderArgumentNotFound,
-              arguments[0]), new Throwable());
+          AbstractParser.addError(
+              editor,
+              MessageFormat.format(
+                  Messages.ViewerInputParser_labelProviderArgumentNotFound,
+                  arguments[0]),
+              new Throwable());
           //
           m_viewers.remove(viewerBindable);
           m_contextInfo.getBindings().remove(viewerBinding);
@@ -419,9 +441,12 @@ public final class ViewerInputParser implements ISubParser {
         AbstractLabelProviderInfo labelProvider =
             (AbstractLabelProviderInfo) resolver.getModel(arguments[0]);
         if (labelProvider == null) {
-          AbstractParser.addError(editor, MessageFormat.format(
-              Messages.ViewerInputParser_labelProviderArgumentNotFound,
-              arguments[0]), new Throwable());
+          AbstractParser.addError(
+              editor,
+              MessageFormat.format(
+                  Messages.ViewerInputParser_labelProviderArgumentNotFound,
+                  arguments[0]),
+              new Throwable());
           //
           m_viewers.remove(viewerBindable);
           m_contextInfo.getBindings().remove(viewerBinding);
@@ -432,9 +457,12 @@ public final class ViewerInputParser implements ISubParser {
         TreeViewerInputBindingInfo viewerInputBinding = (TreeViewerInputBindingInfo) viewerBinding;
         viewerInputBinding.setLabelProvider(labelProvider);
       } else {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_labelProviderArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_labelProviderArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
     } else if (signature.endsWith("setInput(java.lang.Object)")) {
@@ -477,10 +505,9 @@ public final class ViewerInputParser implements ISubParser {
               BeansObservableFactoryInfo beansFactoryInfo =
                   (BeansObservableFactoryInfo) factoryInfo;
               String propertyName = beansFactoryInfo.getPropertyName();
-              PropertyBindableInfo propertyObject =
-                  propertyName == null
-                      ? null
-                      : bindableObject.resolvePropertyReference(propertyName);
+              PropertyBindableInfo propertyObject = propertyName == null
+                  ? null
+                  : bindableObject.resolvePropertyReference(propertyName);
               //
               if (propertyObject != null) {
                 inputObservable = new BeanFieldInputObservableInfo(bindableObject, propertyObject);
@@ -490,9 +517,12 @@ public final class ViewerInputParser implements ISubParser {
         }
         //
         if (inputObservable == null) {
-          AbstractParser.addError(editor, MessageFormat.format(
-              Messages.ViewerInputParser_viewerInputArgumentNotFound,
-              arguments[0]), new Throwable());
+          AbstractParser.addError(
+              editor,
+              MessageFormat.format(
+                  Messages.ViewerInputParser_viewerInputArgumentNotFound,
+                  arguments[0]),
+              new Throwable());
           //
           m_viewers.remove(viewerBindable);
           m_contextInfo.getBindings().remove(viewerBinding);
@@ -514,26 +544,33 @@ public final class ViewerInputParser implements ISubParser {
         return null;
       }
       if (m_viewers.get(viewerBindable) != null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_viewerDoubleInvocation,
-            invocation,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerDoubleInvocation,
+                invocation,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare input observable
       ObservableInfo inputObservable = (ObservableInfo) resolver.getModel(arguments[1]);
       if (inputObservable == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_viewerInputArgumentNotFound,
-            arguments[1]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_viewerInputArgumentNotFound,
+                arguments[1]),
+            new Throwable());
         return null;
       }
       // prepare label provider properties
       Assert.instanceOf(MethodInvocation.class, arguments[2]);
       MethodInvocation labelPropertiesMethod = (MethodInvocation) arguments[2];
       String labelPropertiesSignature = CoreUtils.getMethodSignature(labelPropertiesMethod);
-      Assert.isTrue(BEAN_PROPERTIES_VALUES.equals(labelPropertiesSignature)
-          || POJO_PROPERTIES_VALUES.equals(labelPropertiesSignature));
+      Assert.isTrue(
+          BEAN_PROPERTIES_VALUES.equals(labelPropertiesSignature)
+              || POJO_PROPERTIES_VALUES.equals(labelPropertiesSignature));
       List<Expression> labelPropertiesArguments = DomGenerics.arguments(labelPropertiesMethod);
       // prepare element type
       Class<?> elementType =
@@ -575,9 +612,12 @@ public final class ViewerInputParser implements ISubParser {
       DataBindingContextInfo bindingContextInfo =
           (DataBindingContextInfo) resolver.getModel(arguments[1]);
       if (bindingContextInfo != m_contextInfo) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_undefinedDataBindingContext,
-            arguments[1]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_undefinedDataBindingContext,
+                arguments[1]),
+            new Throwable());
         return null;
       }
       // prepare CellEditor
@@ -601,9 +641,12 @@ public final class ViewerInputParser implements ISubParser {
       }
       //
       if (cellEditorProperty == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.ViewerInputParser_cellEditorPropertyNotFound,
-            arguments[3]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.ViewerInputParser_cellEditorPropertyNotFound,
+                arguments[3]),
+            new Throwable());
         return null;
       }
       // prepare element property

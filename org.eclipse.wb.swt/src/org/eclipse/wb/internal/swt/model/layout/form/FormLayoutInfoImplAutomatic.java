@@ -29,17 +29,18 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation using automatic component placement.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
-public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
-    extends
-      FormLayoutInfoImpl<C> implements IAbsoluteLayoutCommands {
+public final class FormLayoutInfoImplAutomatic<C extends IControlInfo> extends FormLayoutInfoImpl<C>
+    implements
+      IAbsoluteLayoutCommands {
   private final IFormLayoutInfo<C> m_layout;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -55,7 +56,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   //
   // Move operations
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public void command_moveToContainer(List<? extends IAbstractComponentInfo> sourceSet,
       IAbstractComponentInfo nearestBeingSnapped,
       int side,
@@ -100,10 +101,9 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
         findNeighbor(bounds, sourceSet, PlacementInfo.LEADING, isHorizontal);
     NeighborInfo trailingNeighbor =
         findNeighbor(bounds, sourceSet, PlacementInfo.TRAILING, isHorizontal);
-    int newAlignmentHint =
-        leadingNeighbor.distance < trailingNeighbor.distance
-            ? PlacementInfo.LEADING
-            : PlacementInfo.TRAILING;
+    int newAlignmentHint = leadingNeighbor.distance < trailingNeighbor.distance
+        ? PlacementInfo.LEADING
+        : PlacementInfo.TRAILING;
     // single
     AlignmentInfo currentAlignment = getAlignment(singleSource, isHorizontal);
     // non-resizable
@@ -326,7 +326,8 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
             new Interval(possibleNeighborBounds.x, possibleNeighborBounds.width);
         if (!possibleNeighborWidth.intersects(widgetsWidth)) {
           // no overlapping, check the distances
-          if (direction == PlacementInfo.LEADING && possibleNeighborWidth.isLeadingOf(widgetsWidth)) {
+          if (direction == PlacementInfo.LEADING
+              && possibleNeighborWidth.isLeadingOf(widgetsWidth)) {
             // leading
             int distance = widgetsWidth.distance(possibleNeighborWidth.end());
             if (neighbor.distance > distance) {
@@ -350,9 +351,9 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     if (neighbor.neighbor == null) {
       // if no one wants to be our neighbor ;-) so get the distance to the container's boundary
       Dimension containerSize = t.t(m_layout.getContainerSize());
-      neighbor.distance =
-          direction == PlacementInfo.LEADING ? widgetsWidth.begin() : containerSize.width
-              - widgetsWidth.end();
+      neighbor.distance = direction == PlacementInfo.LEADING
+          ? widgetsWidth.begin()
+          : containerSize.width - widgetsWidth.end();
     }
     return neighbor;
   }
@@ -378,14 +379,13 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
         if (lAttachment.getNumerator() != tAttachment.getNumerator()) {
           return new AlignmentInfo(PlacementInfo.LEADING, true);
         }
-        // indirectly non-resizable 
+        // indirectly non-resizable
         return new AlignmentInfo(lEffectiveAlignment);
       }
     } else {
       // attached single side only
-      return new AlignmentInfo(getEffectiveAlignmentForSide(widget, attachedLeading
-          ? leadingSide
-          : trailingSide));
+      return new AlignmentInfo(
+          getEffectiveAlignmentForSide(widget, attachedLeading ? leadingSide : trailingSide));
     }
   }
 
@@ -418,8 +418,9 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   // Misc/Helpers
   //
   ////////////////////////////////////////////////////////////////////////////
-  private List<IAbstractComponentInfo> getRemainingComponents(List<? extends IAbstractComponentInfo> sourceSet) {
-    List<IAbstractComponentInfo> components = Lists.newArrayList();
+  private List<IAbstractComponentInfo> getRemainingComponents(
+      List<? extends IAbstractComponentInfo> sourceSet) {
+    List<IAbstractComponentInfo> components = new ArrayList<>();
     List<C> allControls = m_layout.getControls();
     for (C control : allControls) {
       if (!sourceSet.contains(control)) {
@@ -621,7 +622,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   /*public void setExplicitSize(IAbstractComponentInfo widget, int side, int draggingSide, int resizeDelta)
   		throws Exception {
-  	// set the size explicitly in layout data, if the resulting size is preferred size, remove the size set in layout data  
+  	// set the size explicitly in layout data, if the resulting size is preferred size, remove the size set in layout data
   	Rectangle modelBounds = widget.getModelBounds();
   	Dimension oldSize = modelBounds != null ? modelBounds.getSize() : widget.getPreferredSize();
   	FormDataInfo layoutData = (FormDataInfo) getLayoutData((ControlInfo) widget);
@@ -738,7 +739,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Layout-defined actions 
+  // Layout-defined actions
   //
   ////////////////////////////////////////////////////////////////////////////
   public void performAction(int actionId) {
@@ -786,7 +787,8 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     adjustAnchoredToMovedComponentSide(component, target, IPositionConstants.RIGHT);
   }
 
-  private void adjustAnchoredToMovedComponentSide(C component, C anchor, int side) throws Exception {
+  private void adjustAnchoredToMovedComponentSide(C component, C anchor, int side)
+      throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment(component, side);
     if (attachment.getControl() == anchor) {
       attachment.write();

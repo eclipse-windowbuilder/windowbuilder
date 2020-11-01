@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.order;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +23,8 @@ import java.util.List;
  * @coverage core.model.property.order
  */
 public final class TabOrderInfo {
-  private final List<AbstractComponentInfo> m_infos = Lists.newArrayList();
-  private final List<AbstractComponentInfo> m_orderedInfos = Lists.newArrayList();
+  private final List<AbstractComponentInfo> m_infos = new ArrayList<>();
+  private final List<AbstractComponentInfo> m_orderedInfos = new ArrayList<>();
   private boolean m_isDefault;
 
   ////////////////////////////////////////////////////////////////////////////

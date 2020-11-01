@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.beans;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
@@ -93,14 +90,16 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Widgets container with type {@link ObserveType#BEANS}. Works on <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */
@@ -166,11 +165,13 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             return bean.getFragment();
           }
 
-          public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
+          public boolean equals(VariableDeclarationFragment key0,
+              VariableDeclarationFragment key1) {
             return key0 == key1;
           }
 
-          public BeanBindableInfo findObject(Map<VariableDeclarationFragment, BeanBindableInfo> keyObjectToObject,
+          public BeanBindableInfo findObject(
+              Map<VariableDeclarationFragment, BeanBindableInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
@@ -186,8 +187,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
               //
               return new FieldBeanBindableInfo(beanSupport, fragment, beanClass, widget);
             } catch (ClassNotFoundException e) {
-              AbstractParser.addError(m_provider.getAstEditor(), "ClassNotFoundException: "
-                  + fragment, new Throwable());
+              AbstractParser.addError(
+                  m_provider.getAstEditor(),
+                  "ClassNotFoundException: " + fragment,
+                  new Throwable());
               return null;
             }
           }
@@ -303,7 +306,8 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             return fragment0.getName().getIdentifier().equals(fragment1.getName().getIdentifier());
           }
 
-          public BeanBindableInfo findObject(Map<VariableDeclarationFragment, BeanBindableInfo> keyObjectToObject,
+          public BeanBindableInfo findObject(
+              Map<VariableDeclarationFragment, BeanBindableInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
@@ -316,8 +320,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
               Class<?> beanClass = loadClass(AstNodeUtils.getFullyQualifiedName(typeBinding, true));
               return new LocalVariableBindableInfo(beanSupport, fragment, beanClass);
             } catch (ClassNotFoundException e) {
-              AbstractParser.addError(m_provider.getAstEditor(), "ClassNotFoundException: "
-                  + fragment, new Throwable());
+              AbstractParser.addError(
+                  m_provider.getAstEditor(),
+                  "ClassNotFoundException: " + fragment,
+                  new Throwable());
               return null;
             }
           }
@@ -333,7 +339,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
   //
   ////////////////////////////////////////////////////////////////////////////
   private List<JavaInfo> getLocalComposites() throws Exception {
-    final List<JavaInfo> composites = Lists.newArrayList();
+    final List<JavaInfo> composites = new ArrayList<>();
     final Class<?> compositeClass = loadClass("org.eclipse.swt.widgets.Composite");
     m_rootJavaInfo.accept(new ObjectInfoVisitor() {
       @Override
@@ -362,7 +368,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       AstEditor editor,
       TypeDeclaration rootNode) throws Exception {
     m_rootJavaInfo = root;
-    m_observables = Lists.newArrayList();
+    m_observables = new ArrayList<>();
     // handle fields
     ClassLoader classLoader = EditorState.get(m_rootJavaInfo.getEditor()).getEditorLoader();
     BeanSupport beanSupport = new BeanSupport(classLoader, resolver);
@@ -393,11 +399,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       FragmentReferenceProvider referenceProvider =
           new FragmentReferenceProvider(javaReferenceProvider);
       //
-      m_observables.add(new FieldBeanBindableInfo(beanSupport,
-          null,
-          componentClass,
-          referenceProvider,
-          javaInfo));
+      m_observables.add(
+          new FieldBeanBindableInfo(beanSupport,
+              null,
+              componentClass,
+              referenceProvider,
+              javaInfo));
     }
     // prepare super class
     Class<?> superClass = Object.class;
@@ -411,7 +418,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
       }
     }
     // handle methods from super class
-    Set<String> methodNames = Sets.newHashSet();
+    Set<String> methodNames = new HashSet<>();
     //
     BeanInfo beanInfo = Introspector.getBeanInfo(superClass);
     for (PropertyDescriptor descriptor : beanInfo.getPropertyDescriptors()) {
@@ -419,10 +426,11 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
         String methodName = descriptor.getReadMethod().getName();
         if (!DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME.equals(methodName)) {
           methodNames.add(methodName);
-          m_observables.add(new MethodBeanBindableInfo(beanSupport,
-              null,
-              descriptor.getPropertyType(),
-              methodName + "()"));
+          m_observables.add(
+              new MethodBeanBindableInfo(beanSupport,
+                  null,
+                  descriptor.getPropertyType(),
+                  methodName + "()"));
         }
       }
     }
@@ -440,12 +448,13 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
           try {
             Class<?> propertyClass = loadClass(className);
             //
-            m_observables.add(new MethodBeanBindableInfo(beanSupport,
-                null,
-                propertyClass,
-                methodName + "()"));
+            m_observables.add(
+                new MethodBeanBindableInfo(beanSupport, null, propertyClass, methodName + "()"));
           } catch (ClassNotFoundException e) {
-            AbstractParser.addError(editor, "ClassNotFoundException: " + className, new Throwable());
+            AbstractParser.addError(
+                editor,
+                "ClassNotFoundException: " + className,
+                new Throwable());
           }
         }
       }
@@ -505,9 +514,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
@@ -528,9 +540,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
@@ -551,9 +566,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
@@ -630,7 +648,8 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     String propertyName = CoreUtils.evaluate(String.class, editor, arguments[propertyIndex]);
     codeSupport.setParserPropertyReference("\"" + propertyName + "\"");
     // property class
-    codeSupport.setParserPropertyType(CoreUtils.evaluate(Class.class, editor, arguments, typeIndex));
+    codeSupport.setParserPropertyType(
+        CoreUtils.evaluate(Class.class, editor, arguments, typeIndex));
     // pojo
     codeSupport.setPojoBindable(isPojo);
     // bean class
@@ -650,9 +669,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[masterIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
-          arguments[masterIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
+              arguments[masterIndex]),
+          new Throwable());
       return null;
     }
     // prepare bean type
@@ -663,11 +685,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     Class<?> detailPropertyType =
         CoreUtils.evaluate(Class.class, editor, arguments[propertyIndex + 1]);
     // create observable
-    DetailValueBeanObservableInfo observable =
-        new DetailValueBeanObservableInfo(masterObservable,
-            beanType,
-            detailPropertyReference,
-            detailPropertyType);
+    DetailValueBeanObservableInfo observable = new DetailValueBeanObservableInfo(masterObservable,
+        beanType,
+        detailPropertyReference,
+        detailPropertyType);
     observable.setPojoBindable(isPojo);
     observable.setCodeSupport(new BeanObservableDetailValueCodeSupport());
     return observable;
@@ -684,9 +705,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare detail property
@@ -695,11 +719,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     Class<?> detailPropertyType =
         CoreUtils.evaluate(Class.class, editor, arguments[startIndex + 2]);
     // create observable
-    DetailListBeanObservableInfo observable =
-        new DetailListBeanObservableInfo(masterObservable,
-            null,
-            detailPropertyReference,
-            detailPropertyType);
+    DetailListBeanObservableInfo observable = new DetailListBeanObservableInfo(masterObservable,
+        null,
+        detailPropertyReference,
+        detailPropertyType);
     observable.setPojoBindable(isPojo);
     observable.setCodeSupport(new BeanObservableDetailListCodeSupport());
     return observable;
@@ -716,9 +739,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master
     ObservableInfo masterObservable = getMasterObservable(editor, resolver, arguments[startIndex]);
     if (masterObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_masterObservableArgumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare detail property
@@ -727,11 +753,10 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     Class<?> detailPropertyType =
         CoreUtils.evaluate(Class.class, editor, arguments[startIndex + 2]);
     // create observable
-    DetailSetBeanObservableInfo observable =
-        new DetailSetBeanObservableInfo(masterObservable,
-            null,
-            detailPropertyReference,
-            detailPropertyType);
+    DetailSetBeanObservableInfo observable = new DetailSetBeanObservableInfo(masterObservable,
+        null,
+        detailPropertyReference,
+        detailPropertyType);
     observable.setPojoBindable(isPojo);
     observable.setCodeSupport(new BeanObservableDetailSetCodeSupport());
     return observable;
@@ -745,9 +770,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare domain
     ObservableInfo domainObservable = (ObservableInfo) resolver.getModel(arguments[0]);
     if (domainObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_domainObservableArgumentNotFound,
-          arguments[0]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_domainObservableArgumentNotFound,
+              arguments[0]),
+          new Throwable());
       return null;
     }
     // prepare element type
@@ -766,9 +794,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare domain
     ObservableInfo domainObservable = (ObservableInfo) resolver.getModel(arguments[0]);
     if (domainObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_domainObservableArgumentNotFound,
-          arguments[0]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_domainObservableArgumentNotFound,
+              arguments[0]),
+          new Throwable());
       return null;
     }
     // prepare element type
@@ -789,14 +820,18 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
     CollectionPropertyBindableInfo bindableProperty =
-        (CollectionPropertyBindableInfo) bindableObject.resolvePropertyReference(bindableObject.getReference());
+        (CollectionPropertyBindableInfo) bindableObject.resolvePropertyReference(
+            bindableObject.getReference());
     Assert.isNotNull(bindableProperty);
     // prepare element type
     Class<?> elementType = CoreUtils.evaluate(Class.class, editor, arguments[startIndex + 1]);
@@ -817,14 +852,18 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare object
     BeanBindableInfo bindableObject = getBindableObject(arguments[startIndex]);
     if (bindableObject == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_argumentNotFound,
-          arguments[startIndex]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_argumentNotFound,
+              arguments[startIndex]),
+          new Throwable());
       return null;
     }
     // prepare property
     CollectionPropertyBindableInfo bindableProperty =
-        (CollectionPropertyBindableInfo) bindableObject.resolvePropertyReference(bindableObject.getReference());
+        (CollectionPropertyBindableInfo) bindableObject.resolvePropertyReference(
+            bindableObject.getReference());
     Assert.isNotNull(bindableProperty);
     // prepare element type
     Class<?> elementType = CoreUtils.evaluate(Class.class, editor, arguments[startIndex + 1]);
@@ -850,10 +889,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
   AstObjectInfo createSingleSelection(AstEditor editor,
       Expression[] arguments,
       IModelResolver resolver) throws Exception {
-    BeanBindableInfo bindableObject =
-        m_rootJavaInfo.getChildRepresentedBy(arguments[0]) == null
-            ? getBindableObject(arguments[0])
-            : null;
+    BeanBindableInfo bindableObject = m_rootJavaInfo.getChildRepresentedBy(arguments[0]) == null
+        ? getBindableObject(arguments[0])
+        : null;
     if (bindableObject != null) {
       SingleSelectionObservableInfo observable = new SingleSelectionObservableInfo(bindableObject);
       observable.setCodeSupport(new SingleSelectionObservableCodeSupport());
@@ -865,10 +903,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
   AstObjectInfo createMultiSelection(AstEditor editor,
       Expression[] arguments,
       IModelResolver resolver) throws Exception {
-    BeanBindableInfo bindableObject =
-        m_rootJavaInfo.getChildRepresentedBy(arguments[0]) == null
-            ? getBindableObject(arguments[0])
-            : null;
+    BeanBindableInfo bindableObject = m_rootJavaInfo.getChildRepresentedBy(arguments[0]) == null
+        ? getBindableObject(arguments[0])
+        : null;
     if (bindableObject != null) {
       MultiSelectionObservableInfo observable = new MultiSelectionObservableInfo(bindableObject);
       observable.setCodeSupport(new MultiSelectionObservableCodeSupport());
@@ -880,10 +917,9 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
   AstObjectInfo createCheckedElements(AstEditor editor,
       Expression[] arguments,
       IModelResolver resolver) throws Exception {
-    BeanBindableInfo bindableObject =
-        m_rootJavaInfo.getChildRepresentedBy(arguments[0]) == null
-            ? getBindableObject(arguments[0])
-            : null;
+    BeanBindableInfo bindableObject = m_rootJavaInfo.getChildRepresentedBy(arguments[0]) == null
+        ? getBindableObject(arguments[0])
+        : null;
     if (bindableObject != null) {
       // prepare element type
       Class<?> elementType = CoreUtils.evaluate(Class.class, editor, arguments[1]);
@@ -903,14 +939,11 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     BeansObservableListFactoryInfo observableFactory = new BeansObservableListFactoryInfo();
     observableFactory.setPojoBindable(isPojo);
     // prepare property
-    observableFactory.setPropertyName("\""
-        + CoreUtils.evaluate(String.class, editor, arguments[startIndex])
-        + "\"");
+    observableFactory.setPropertyName(
+        "\"" + CoreUtils.evaluate(String.class, editor, arguments[startIndex]) + "\"");
     // prepare element type
-    observableFactory.setElementType(CoreUtils.evaluate(
-        Class.class,
-        editor,
-        arguments[startIndex + 1]));
+    observableFactory.setElementType(
+        CoreUtils.evaluate(Class.class, editor, arguments[startIndex + 1]));
     //
     return observableFactory;
   }
@@ -922,14 +955,11 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     BeansObservableSetFactoryInfo observableFactory = new BeansObservableSetFactoryInfo();
     observableFactory.setPojoBindable(isPojo);
     // prepare property
-    observableFactory.setPropertyName("\""
-        + CoreUtils.evaluate(String.class, editor, arguments[startIndex])
-        + "\"");
+    observableFactory.setPropertyName(
+        "\"" + CoreUtils.evaluate(String.class, editor, arguments[startIndex]) + "\"");
     // prepare element type
-    observableFactory.setElementType(CoreUtils.evaluate(
-        Class.class,
-        editor,
-        arguments[startIndex + 1]));
+    observableFactory.setElementType(
+        CoreUtils.evaluate(Class.class, editor, arguments[startIndex + 1]));
     //
     return observableFactory;
   }
@@ -987,16 +1017,18 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     BeanPropertyBindableInfo bindableProperty =
         (BeanPropertyBindableInfo) bindableObject.resolvePropertyReference(propertyReference);
     if (bindableProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_beanPropertyNotFound,
-          expression,
-          bindableObject.getReference()), new Throwable());
-      bindableProperty =
-          new BeanPropertyBindableInfo(bindableObject.getBeanSupport(),
-              null,
-              propertyName,
-              null,
-              propertyReference);
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_beanPropertyNotFound,
+              expression,
+              bindableObject.getReference()),
+          new Throwable());
+      bindableProperty = new BeanPropertyBindableInfo(bindableObject.getBeanSupport(),
+          null,
+          propertyName,
+          null,
+          propertyReference);
     }
     return bindableProperty;
   }
@@ -1010,9 +1042,12 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     // prepare master detail observable
     ObservableInfo masterDetailObservable = (ObservableInfo) resolver.getModel(expression);
     if (masterDetailObservable == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.BeansObserveTypeContainer_masterObservableNotFound,
-          expression), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.BeansObserveTypeContainer_masterObservableNotFound,
+              expression),
+          new Throwable());
       return null;
     }
     Assert.instanceOf(IMasterDetailProvider.class, masterDetailObservable);

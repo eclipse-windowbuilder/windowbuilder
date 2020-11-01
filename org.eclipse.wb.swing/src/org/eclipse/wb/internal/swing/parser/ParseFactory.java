@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.parser;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -54,6 +52,8 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -61,7 +61,7 @@ import javax.swing.AbstractAction;
 
 /**
  * {@link IParseFactory} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.parser
  */
@@ -108,7 +108,7 @@ public class ParseFactory extends AbstractParseFactory {
     {
       MethodDeclaration method = ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration);
       if (method != null) {
-        List<MethodDeclaration> rootMethods = Lists.newArrayList(method);
+        List<MethodDeclaration> rootMethods = Arrays.asList(method);
         return new ParseRootContext(null, new ExecutionFlowDescription(rootMethods));
       }
     }
@@ -129,7 +129,7 @@ public class ParseFactory extends AbstractParseFactory {
       if (javaInfo != null) {
         javaInfo.setVariableSupport(new ThisVariableSupport(javaInfo, constructor));
         // prepare root context
-        List<MethodDeclaration> rootMethods = Lists.newArrayList();
+        List<MethodDeclaration> rootMethods = new ArrayList<>();
         rootMethods.add(constructor);
         addRootMethods(rootMethods, superClass, typeDeclaration);
         return new ParseRootContext(javaInfo, new ExecutionFlowDescription(rootMethods));
@@ -174,7 +174,7 @@ public class ParseFactory extends AbstractParseFactory {
     if (anonymousClassDeclaration != null) {
       typeBinding = typeBinding.getSuperclass();
     }
-    // special support for javax.swing.AbstractAction 
+    // special support for javax.swing.AbstractAction
     if (AstNodeUtils.isSuccessorOf(creation, "javax.swing.AbstractAction")) {
       // ... as named class
       {
@@ -233,15 +233,14 @@ public class ParseFactory extends AbstractParseFactory {
       IJavaInfoParseResolver javaInfoResolver) throws Exception {
     // check "super"
     {
-      JavaInfo javaInfo =
-          super.create(
-              editor,
-              invocation,
-              methodBinding,
-              arguments,
-              expressionInfo,
-              argumentInfos,
-              javaInfoResolver);
+      JavaInfo javaInfo = super.create(
+          editor,
+          invocation,
+          methodBinding,
+          arguments,
+          expressionInfo,
+          argumentInfos,
+          javaInfoResolver);
       if (javaInfo != null) {
         return javaInfo;
       }
@@ -290,7 +289,8 @@ public class ParseFactory extends AbstractParseFactory {
   /**
    * @return <code>true</code> if given {@link ITypeBinding} is Swing/AWT object.
    */
-  private static boolean isSwingObject(AstEditor editor, ITypeBinding typeBinding) throws Exception {
+  private static boolean isSwingObject(AstEditor editor, ITypeBinding typeBinding)
+      throws Exception {
     if (typeBinding == null) {
       return false;
     }

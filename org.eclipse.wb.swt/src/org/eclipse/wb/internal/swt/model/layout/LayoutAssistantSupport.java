@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * SWT provider for layout assistant pages.
- * 
+ *
  * @author lobas_av
  * @coverage swt.assistant
  */

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.tests;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -64,11 +63,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Superclass for all Designer test cases.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignerTestCase extends TestCase {
@@ -77,7 +77,7 @@ public class DesignerTestCase extends TestCase {
   ////////////////////////////////////////////////////////////////////////////
   //
   // XXX TestSuite creation, used only with patched
-  // org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader 
+  // org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader
   //
   ////////////////////////////////////////////////////////////////////////////
   public static TestSuite suite(Class<?> clazz) {
@@ -263,10 +263,9 @@ public class DesignerTestCase extends TestCase {
    */
   protected static void assertInstanceOf(Class<?> expectedClass, Object o) {
     assertNotNull(expectedClass.getName() + " class expected, but 'null' found.", o);
-    assertTrue(expectedClass.getName()
-        + " class expected, but "
-        + o.getClass().getName()
-        + " found.", expectedClass.isAssignableFrom(o.getClass()));
+    assertTrue(
+        expectedClass.getName() + " class expected, but " + o.getClass().getName() + " found.",
+        expectedClass.isAssignableFrom(o.getClass()));
   }
 
   /**
@@ -284,10 +283,9 @@ public class DesignerTestCase extends TestCase {
    */
   protected static void assertNotInstanceOf(Class<?> expectedClass, Object o) {
     assertNotNull(o);
-    assertFalse(expectedClass.getName()
-        + " class expected, but "
-        + o.getClass().getName()
-        + " found.", expectedClass.isAssignableFrom(o.getClass()));
+    assertFalse(
+        expectedClass.getName() + " class expected, but " + o.getClass().getName() + " found.",
+        expectedClass.isAssignableFrom(o.getClass()));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -433,7 +431,7 @@ public class DesignerTestCase extends TestCase {
 
   /**
    * Replaces each line in array that use single quotes, with double quotes.
-   * 
+   *
    * @return the updated array.
    */
   public static String[] getDoubleQuotes(String[] lines) {
@@ -585,7 +583,7 @@ public class DesignerTestCase extends TestCase {
    * @return the {@link IAction}-s children with given text.
    */
   protected static List<IAction> findChildActions(IContributionManager manager, String text) {
-    List<IAction> actions = Lists.newArrayList();
+    List<IAction> actions = new ArrayList<>();
     text = getNormalizedActionText(text);
     for (IContributionItem contributionItem : manager.getItems()) {
       if (contributionItem instanceof ActionContributionItem) {
@@ -653,7 +651,7 @@ public class DesignerTestCase extends TestCase {
    * @return the selection actions for empty selection.
    */
   public static List<Object> getSelectionActions_noSelection(ObjectInfo root) throws Exception {
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     ImmutableList<ObjectInfo> objects = ImmutableList.<ObjectInfo>of();
     root.getBroadcastObject().addSelectionActions(objects, actions);
     return actions;
@@ -663,7 +661,7 @@ public class DesignerTestCase extends TestCase {
    * @return the selection actions, displayed on editor toolbar.
    */
   public static List<Object> getSelectionActions(ObjectInfo... objectsArray) throws Exception {
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     if (objectsArray.length != 0) {
       ObjectInfo object = objectsArray[0];
       List<ObjectInfo> objects = ImmutableList.copyOf(objectsArray);
@@ -679,7 +677,7 @@ public class DesignerTestCase extends TestCase {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Notifies that given {@link ObjectInfo} is selecting.
-   * 
+   *
    * @return the refresh flag.
    */
   protected static boolean notifySelecting(ObjectInfo object) throws Exception {

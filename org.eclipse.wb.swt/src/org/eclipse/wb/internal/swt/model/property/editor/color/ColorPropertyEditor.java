@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.color;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -58,11 +56,12 @@ import org.eclipse.swt.widgets.Composite;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link org.eclipse.swt.graphics.Color}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */
@@ -97,7 +96,8 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
   }
 
   @Override
-  public void paint(Property property, GC gc, int x, int y, int width, int height) throws Exception {
+  public void paint(Property property, GC gc, int x, int y, int width, int height)
+      throws Exception {
     Object value = property.getValue();
     if (value != Property.UNKNOWN_VALUE && value != null) {
       Color color = ColorSupport.getColor(value);
@@ -176,10 +176,9 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
           Object keyArgument = invocation.arguments().get(0);
           if (keyArgument instanceof QualifiedName) {
             GenericProperty genericProperty = (GenericProperty) property;
-            ResourceRegistryInfo registry =
-                RegistryContainerInfo.getRegistry(
-                    genericProperty.getJavaInfo().getRootJava(),
-                    invocation.getExpression());
+            ResourceRegistryInfo registry = RegistryContainerInfo.getRegistry(
+                genericProperty.getJavaInfo().getRootJava(),
+                invocation.getExpression());
             //
             QualifiedName keyQualifiedName = (QualifiedName) keyArgument;
             //
@@ -204,7 +203,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
   /**
    * @param idExpression
    *          the {@link Expression} with "id" of system color.
-   * 
+   *
    * @return the name of "COLOR_XXX" field from <code>SWT</code>.
    */
   private static String getColorFieldName(Expression idExpression) throws Exception {
@@ -217,10 +216,8 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
       }
     }
     // no field, unexpected
-    throw new IllegalArgumentException(MessageFormat.format(
-        ModelMessages.ColorPropertyEditor_wrongSwtColor,
-        idExpression,
-        id));
+    throw new IllegalArgumentException(
+        MessageFormat.format(ModelMessages.ColorPropertyEditor_wrongSwtColor, idExpression, id));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -358,16 +355,15 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
     ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void addPages(Composite parent) {
-      addPage(ModelMessages.ColorPropertyEditor_systemColorsPage, new SystemColorsPage(parent,
-          SWT.NONE,
-          this,
-          m_javaInfo));
-      addPage(ModelMessages.ColorPropertyEditor_namedColorsPage, new NamedColorsComposite(parent,
-          SWT.NONE,
-          this));
-      addPage(ModelMessages.ColorPropertyEditor_webSafePage, new WebSafeColorsComposite(parent,
-          SWT.NONE,
-          this));
+      addPage(
+          ModelMessages.ColorPropertyEditor_systemColorsPage,
+          new SystemColorsPage(parent, SWT.NONE, this, m_javaInfo));
+      addPage(
+          ModelMessages.ColorPropertyEditor_namedColorsPage,
+          new NamedColorsComposite(parent, SWT.NONE, this));
+      addPage(
+          ModelMessages.ColorPropertyEditor_webSafePage,
+          new WebSafeColorsComposite(parent, SWT.NONE, this));
       try {
         List<ColorRegistryInfo> registries =
             RegistryContainerInfo.getRegistries(m_javaInfo.getRootJava(), ColorRegistryInfo.class);
@@ -440,7 +436,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
       for (ColorRegistryInfo registryInfo : registries) {
         // prepare color info's
         Object registry = registryInfo.getObject();
-        List<ColorInfo> infos = Lists.newArrayList();
+        List<ColorInfo> infos = new ArrayList<>();
         for (KeyFieldInfo keyInfo : registryInfo.getKeyFields()) {
           if (keyInfo.value == null) {
             keyInfo.value =
@@ -453,11 +449,10 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
           }
         }
         // create grid composite
-        ColorsGridComposite colorsGrid =
-            createColorsGroup(
-                this,
-                registryInfo.getVariableSupport().getTitle(),
-                infos.toArray(new ColorInfo[infos.size()]));
+        ColorsGridComposite colorsGrid = createColorsGroup(
+            this,
+            registryInfo.getVariableSupport().getTitle(),
+            infos.toArray(new ColorInfo[infos.size()]));
         colorsGrid.showNames(50);
         colorsGrid.setCellHeight(25);
         colorsGrid.setColumns(2);

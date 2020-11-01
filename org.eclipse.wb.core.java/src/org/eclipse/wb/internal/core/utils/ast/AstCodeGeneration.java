@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 
@@ -25,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Separate class for accessing code generation constants/options for {@link AstEditor}.
@@ -132,7 +131,7 @@ public final class AstCodeGeneration {
    */
   private static String getEndOfLineForBuffer(Document document) throws Exception {
     // prepare set of existing EOL's
-    Set<String> existingMarkers = Sets.newTreeSet();
+    Set<String> existingMarkers = new TreeSet<>();
     {
       int numberOfLines = document.getNumberOfLines();
       for (int i = 0; i < numberOfLines; i++) {
@@ -163,8 +162,8 @@ public final class AstCodeGeneration {
    */
   public boolean getInsertEndOfLineBeforeOpeningBrace() {
     Map<String, String> javaOptions = getJavaOptions();
-    String value =
-        javaOptions.get(DefaultCodeFormatterConstants.FORMATTER_BRACE_POSITION_FOR_METHOD_DECLARATION);
+    String value = javaOptions.get(
+        DefaultCodeFormatterConstants.FORMATTER_BRACE_POSITION_FOR_METHOD_DECLARATION);
     return value != null && value.equals(DefaultCodeFormatterConstants.NEXT_LINE);
   }
 
@@ -199,8 +198,8 @@ public final class AstCodeGeneration {
    */
   public boolean getUseCompactAssignment() {
     Map<String, String> javaOptions = getJavaOptions();
-    String value =
-        javaOptions.get(DefaultCodeFormatterConstants.FORMATTER_INSERT_SPACE_BEFORE_ASSIGNMENT_OPERATOR);
+    String value = javaOptions.get(
+        DefaultCodeFormatterConstants.FORMATTER_INSERT_SPACE_BEFORE_ASSIGNMENT_OPERATOR);
     return value != null && !value.equals(JavaCore.INSERT);
   }
 

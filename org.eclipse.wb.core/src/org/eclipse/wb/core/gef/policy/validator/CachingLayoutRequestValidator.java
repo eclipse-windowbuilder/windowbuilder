@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.validator;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -19,6 +17,7 @@ import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.requests.Request;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -44,6 +43,7 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
   // ILayoutRequestValidator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateCreateRequest(EditPart host, CreateRequest request) {
     Map<EditPart, Boolean> cache = getCache(request);
     Boolean cachedResult = cache.get(host);
@@ -54,6 +54,7 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
     return cachedResult;
   }
 
+  @Override
   public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
     Map<EditPart, Boolean> cache = getCache(request);
     Boolean cachedResult = cache.get(host);
@@ -64,6 +65,7 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
     return cachedResult;
   }
 
+  @Override
   public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
     Map<EditPart, Boolean> cache = getCache(request);
     Boolean cachedResult = cache.get(host);
@@ -74,6 +76,7 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
     return cachedResult;
   }
 
+  @Override
   public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
     Map<EditPart, Boolean> cache = getCache(request);
     Boolean cachedResult = cache.get(host);
@@ -96,7 +99,7 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
   private Map<EditPart, Boolean> getCache(Request request) {
     Map<EditPart, Boolean> cache = (Map<EditPart, Boolean>) request.getArbitraryValue(this);
     if (cache == null) {
-      cache = Maps.newHashMap();
+      cache = new HashMap<>();
       request.putArbitraryValue(this, cache);
     }
     return cache;

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.util;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
@@ -34,6 +33,7 @@ import org.eclipse.jface.action.MenuManager;
 
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -45,7 +45,7 @@ import javax.swing.JTable;
 
 /**
  * Tests for {@link SwingSurroundSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SurroundSupportTest extends SwingModelTest {
@@ -67,13 +67,12 @@ public class SurroundSupportTest extends SwingModelTest {
    * Empty selection, so no "surround" menu.
    */
   public void test_emptySelection() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     //
     assertNoSurroundManager(panel, ImmutableList.<ObjectInfo>of());
@@ -83,13 +82,12 @@ public class SurroundSupportTest extends SwingModelTest {
    * Try to give {@link LayoutInfo} instead of {@link ComponentInfo}, so no "surround" menu.
    */
   public void test_notComponent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     panel.refresh();
     LayoutInfo layout = panel.getLayout();
     //
@@ -100,17 +98,16 @@ public class SurroundSupportTest extends SwingModelTest {
    * Components that have different parents, so none of these parents contribute "surround" menu.
    */
   public void test_notSameParent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "      button.setBounds(10, 20, 100, 50);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "      button.setBounds(10, 20, 100, 50);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
@@ -126,16 +123,15 @@ public class SurroundSupportTest extends SwingModelTest {
    * Single {@link ComponentInfo} on {@link FlowLayoutInfo}.
    */
   public void test_flow_singleComponent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // run action
@@ -159,16 +155,15 @@ public class SurroundSupportTest extends SwingModelTest {
    * Single {@link ComponentInfo} on {@link FlowLayoutInfo}.
    */
   public void test_flow_singleComponent_onTitledJPanel() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // run action
@@ -193,24 +188,23 @@ public class SurroundSupportTest extends SwingModelTest {
    * Two adjacent components, good case.
    */
   public void test_flow_twoComponents() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "    {",
-            "      JButton button_3 = new JButton();",
-            "      add(button_3);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "    {",
+        "      JButton button_3 = new JButton();",
+        "      add(button_3);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -243,24 +237,23 @@ public class SurroundSupportTest extends SwingModelTest {
    * Not an adjacent components, so can not surround.
    */
   public void test_flow_notAdjacentComponents() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "    {",
-            "      JButton button_3 = new JButton();",
-            "      add(button_3);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "    {",
+        "      JButton button_3 = new JButton();",
+        "      add(button_3);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_3 = panel.getChildrenComponents().get(2);
@@ -277,18 +270,17 @@ public class SurroundSupportTest extends SwingModelTest {
    * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
    */
   public void test_absolute_singleControl() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(null);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "      button.setBounds(10, 20, 100, 50);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(null);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "      button.setBounds(10, 20, 100, 50);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // "button" is on absolute layout, so has "Bounds" property
@@ -320,28 +312,29 @@ public class SurroundSupportTest extends SwingModelTest {
    * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
    */
   public void test_absolute_singleControl_onTitledJPanel() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(null);",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "      button.setBounds(50, 50, 100, 50);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(null);",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "      button.setBounds(50, 50, 100, 50);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // run action
     runSurround("javax.swing.JPanel (border)", button);
-    String expectedPanelBounds =
-        Expectations.get("44, 28, 112, 79", new StrValue[]{
+    String expectedPanelBounds = Expectations.get(
+        "44, 28, 112, 79",
+        new StrValue[]{
             new StrValue("flanker-windows", "44, 30, 112, 77"),
             new StrValue("scheglov-win", "44, 30, 112, 77")});
-    String expectedButtonBounds =
-        Expectations.get("6, 22, 100, 50", new StrValue[]{
+    String expectedButtonBounds = Expectations.get(
+        "6, 22, 100, 50",
+        new StrValue[]{
             new StrValue("flanker-windows", "6, 20, 100, 50"),
             new StrValue("scheglov-win", "6, 20, 100, 50")});
     assertEditor(
@@ -368,28 +361,27 @@ public class SurroundSupportTest extends SwingModelTest {
    * Two {@link ComponentInfo}'s on {@link AbsoluteLayoutInfo}.
    */
   public void test_absolute_twoControls() throws Exception {
-    ContainerInfo shell =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(null);",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "      button_1.setBounds(150, 50, 100, 20);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "      button_2.setBounds(10, 10, 100, 20);",
-            "    }",
-            "    {",
-            "      JButton button_3 = new JButton();",
-            "      add(button_3);",
-            "      button_3.setBounds(160, 100, 110, 50);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo shell = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(null);",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "      button_1.setBounds(150, 50, 100, 20);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "      button_2.setBounds(10, 10, 100, 20);",
+        "    }",
+        "    {",
+        "      JButton button_3 = new JButton();",
+        "      add(button_3);",
+        "      button_3.setBounds(160, 100, 110, 50);",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     ComponentInfo button_1 = shell.getChildrenComponents().get(0);
     ComponentInfo button_3 = shell.getChildrenComponents().get(2);
@@ -434,16 +426,15 @@ public class SurroundSupportTest extends SwingModelTest {
    * Good: one component, placed as "left".
    */
   public void test_JSplitPane_oneComponent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     // run action
@@ -468,20 +459,19 @@ public class SurroundSupportTest extends SwingModelTest {
    * Good: exactly two components.
    */
   public void test_JSplitPane_twoComponents() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -511,24 +501,23 @@ public class SurroundSupportTest extends SwingModelTest {
    * Bad: at max two components can be placed on {@link JSplitPane}.
    */
   public void test_JSplitPane_threeComponents() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "    {",
-            "      JButton button_3 = new JButton();",
-            "      add(button_3);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "    {",
+        "      JButton button_3 = new JButton();",
+        "      add(button_3);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -547,16 +536,15 @@ public class SurroundSupportTest extends SwingModelTest {
    * One component, placed as "viewportView".
    */
   public void test_JScrollPane_oneComponent() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     // run action
@@ -581,20 +569,19 @@ public class SurroundSupportTest extends SwingModelTest {
    * Two components, placed on {@link JPanel}.
    */
   public void test_JScrollPane_twoComponents() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -633,20 +620,19 @@ public class SurroundSupportTest extends SwingModelTest {
    * Two components, placed on {@link JPanel}.
    */
   public void test_JTabbedPane_twoComponents() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button_1 = new JButton();",
-            "      add(button_1);",
-            "    }",
-            "    {",
-            "      JButton button_2 = new JButton();",
-            "      add(button_2);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button_1 = new JButton();",
+        "      add(button_1);",
+        "    }",
+        "    {",
+        "      JButton button_2 = new JButton();",
+        "      add(button_2);",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -680,8 +666,8 @@ public class SurroundSupportTest extends SwingModelTest {
    * Bad: two components on diagonal, and other component in same rectangle.
    */
   public void test_FormLayout_0() throws Exception {
-    ContainerInfo panel =
-        parseTestSourceJGFL(new String[]{
+    ContainerInfo panel = parseTestSourceJGFL(
+        new String[]{
             "public class Test extends JPanel {",
             "  public Test() {",
             "    setLayout(new FormLayout(new ColumnSpec[] {",
@@ -719,8 +705,8 @@ public class SurroundSupportTest extends SwingModelTest {
    * Wrap {@link JTable} with {@link JScrollPane}.
    */
   public void test_FormLayout_1() throws Exception {
-    ContainerInfo panel =
-        parseTestSourceJGFL(new String[]{
+    ContainerInfo panel = parseTestSourceJGFL(
+        new String[]{
             "public class Test extends JPanel {",
             "  public Test() {",
             "    setLayout(new FormLayout(new ColumnSpec[] {",
@@ -762,8 +748,8 @@ public class SurroundSupportTest extends SwingModelTest {
    * Good: two components in single row, no other components.
    */
   public void test_FormLayout_2() throws Exception {
-    ContainerInfo panel =
-        parseTestSourceJGFL(new String[]{
+    ContainerInfo panel = parseTestSourceJGFL(
+        new String[]{
             "public class Test extends JPanel {",
             "  public Test() {",
             "    setLayout(new FormLayout(new ColumnSpec[] {",
@@ -826,8 +812,8 @@ public class SurroundSupportTest extends SwingModelTest {
    * Good: two components on diagonal, no other components.
    */
   public void test_FormLayout_3() throws Exception {
-    ContainerInfo panel =
-        parseTestSourceJGFL(new String[]{
+    ContainerInfo panel = parseTestSourceJGFL(
+        new String[]{
             "public class Test extends JPanel {",
             "  public Test() {",
             "    setLayout(new FormLayout(new ColumnSpec[] {",
@@ -894,8 +880,8 @@ public class SurroundSupportTest extends SwingModelTest {
    * Good: three components, one spanned horizontally.
    */
   public void test_FormLayout_4() throws Exception {
-    ContainerInfo panel =
-        parseTestSourceJGFL(new String[]{
+    ContainerInfo panel = parseTestSourceJGFL(
+        new String[]{
             "public class Test extends JPanel {",
             "  public Test() {",
             "    setLayout(new FormLayout(new ColumnSpec[] {",
@@ -973,10 +959,11 @@ public class SurroundSupportTest extends SwingModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   private String getTestSourceJGFL(String... lines) throws Exception {
-    lines =
-        CodeUtils.join(new String[]{
+    lines = CodeUtils.join(
+        new String[]{
             "import com.jgoodies.forms.layout.*;",
-            "import com.jgoodies.forms.factories.*;"}, lines);
+            "import com.jgoodies.forms.factories.*;"},
+        lines);
     return getTestSource(lines);
   }
 
@@ -984,16 +971,17 @@ public class SurroundSupportTest extends SwingModelTest {
     // ensure FormLayout
     {
       Bundle libBundle = Platform.getBundle("org.eclipse.wb.swing.FormLayout.lib");
-      m_testProject.addExternalJar(FileLocator.toFileURL(
-          libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
-      m_testProject.addExternalJar(FileLocator.toFileURL(
-          libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
+      m_testProject.addExternalJar(
+          FileLocator.toFileURL(libBundle.getEntry("/jgoodies-common-1.8.0.jar")).getPath());
+      m_testProject.addExternalJar(
+          FileLocator.toFileURL(libBundle.getEntry("/jgoodies-forms-1.8.0.jar")).getPath());
     }
     // do parse
-    lines =
-        CodeUtils.join(new String[]{
+    lines = CodeUtils.join(
+        new String[]{
             "import com.jgoodies.forms.layout.*;",
-            "import com.jgoodies.forms.factories.*;"}, lines);
+            "import com.jgoodies.forms.factories.*;"},
+        lines);
     return parseContainer(lines);
   }
 
@@ -1001,7 +989,7 @@ public class SurroundSupportTest extends SwingModelTest {
    * @return the {@link ComponentInfo} models for {@link JButton} components.
    */
   private static List<ComponentInfo> getButtons(ContainerInfo parent) {
-    List<ComponentInfo> buttons = Lists.newArrayList();
+    List<ComponentInfo> buttons = new ArrayList<>();
     for (ComponentInfo control : parent.getChildrenComponents()) {
       if (control.getDescription().getComponentClass().getName().equals("javax.swing.JButton")) {
         buttons.add(control);
@@ -1027,7 +1015,7 @@ public class SurroundSupportTest extends SwingModelTest {
     } else {
       resultMenuManager = new MenuManager();
       // handle multi selection
-      List<IMenuManager> managers = Lists.newArrayList();
+      List<IMenuManager> managers = new ArrayList<>();
       for (ObjectInfo object_ : objects) {
         IMenuManager manager = getDesignerMenuManager();
         object.getBroadcastObject().addContextMenu(objects, object_, manager);

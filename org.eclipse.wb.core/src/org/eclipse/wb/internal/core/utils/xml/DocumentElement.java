@@ -11,13 +11,13 @@
 package org.eclipse.wb.internal.core.utils.xml;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.apache.commons.lang.StringUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -424,7 +424,7 @@ public class DocumentElement extends AbstractDocumentObject {
   // Attributes as values
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, DocumentAttribute> m_attributes = Maps.newLinkedHashMap();
+  private final Map<String, DocumentAttribute> m_attributes = new LinkedHashMap<>();
 
   /**
    * Sets the value of attribute: adds new, updates or existing.

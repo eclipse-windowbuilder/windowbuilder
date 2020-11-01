@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.TabContainerUiContentProvider;
@@ -23,11 +21,12 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JListBindingInfo
 
 import org.eclipse.swt.custom.CTabItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Editor for {@link JListBindingInfo} detail binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */
@@ -82,11 +81,12 @@ public class JListDetailContainerUiContentProvider extends TabContainerUiContent
   //
   ////////////////////////////////////////////////////////////////////////////
   public void updateFromObject() throws Exception {
-    List<IUiContentProvider> providers = Lists.newArrayList();
-    providers.add(new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),
-        m_bindings,
-        Messages.JListDetailContainerUiContentProvider_detail2,
-        m_provider));
+    List<IUiContentProvider> providers = new ArrayList<>();
+    providers.add(
+        new UIContentContainer<DetailBindingInfo>(m_binding.getDetailBinding(),
+            m_bindings,
+            Messages.JListDetailContainerUiContentProvider_detail2,
+            m_provider));
     updateFromObject(providers);
   }
 

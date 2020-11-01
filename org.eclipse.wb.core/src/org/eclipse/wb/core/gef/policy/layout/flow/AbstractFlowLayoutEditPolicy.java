@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.flow;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -82,7 +80,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
    */
   private List<EditPart> getReferenceChildren(Request request) {
     List<EditPart> allChildren = getHost().getChildren();
-    ArrayList<EditPart> referenceChildren = Lists.newArrayList();
+    ArrayList<EditPart> referenceChildren = new ArrayList<>();
     //
     for (EditPart editPart : allChildren) {
       if (isGoodReferenceChild(request, editPart)) {
@@ -238,7 +236,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
     transposer.setEnabled(!horizontal);
     Point p = transposer.t(getLocationFromRequest(request));
     // prepare children that belong same row
-    List<EditPart> rowChildren = Lists.newArrayList();
+    List<EditPart> rowChildren = new ArrayList<>();
     {
       // find child nearest to cursor
       EditPart nearestEditPart = null;

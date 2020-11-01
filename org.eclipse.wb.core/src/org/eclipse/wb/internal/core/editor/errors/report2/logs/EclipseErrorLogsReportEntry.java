@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors.report2.logs;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.editor.errors.report2.FileListReportEntry;
 
 import org.eclipse.core.runtime.IPath;
@@ -19,6 +17,8 @@ import org.eclipse.core.runtime.Platform;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,7 +36,9 @@ public final class EclipseErrorLogsReportEntry extends FileListReportEntry {
     // get list of .log files
     File[] logFiles =
         logsPathAsFile.listFiles((FilenameFilter) (dir, name) -> name.endsWith(".log"));
-    return Lists.newArrayList(logFiles);
+    List<File> list = new ArrayList<>();
+    Collections.addAll(list, logFiles);
+    return list;
   }
 
   @Override

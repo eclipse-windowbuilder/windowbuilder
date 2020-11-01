@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.accelerator;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -44,13 +41,16 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.KeyStroke;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link KeyStroke}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -59,8 +59,8 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
   private static final int ALT_MASK = InputEvent.ALT_MASK | InputEvent.ALT_DOWN_MASK;
   private static final int SHIFT_MASK = InputEvent.SHIFT_MASK | InputEvent.SHIFT_DOWN_MASK;
   private static final int META_MASK = InputEvent.META_MASK | InputEvent.META_DOWN_MASK;
-  private static final int ALT_GRAPH_MASK = InputEvent.ALT_GRAPH_MASK
-      | InputEvent.ALT_GRAPH_DOWN_MASK;
+  private static final int ALT_GRAPH_MASK =
+      InputEvent.ALT_GRAPH_MASK | InputEvent.ALT_GRAPH_DOWN_MASK;
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance
@@ -120,7 +120,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // KeyStrokeDialog 
+  // KeyStrokeDialog
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final class KeyStrokeDialog extends ResizableDialog {
@@ -164,7 +164,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     private Text m_keyStrokeText;
     private List m_keyCodeList;
-    private final Map<Integer, Button> m_modifierToButton = Maps.newHashMap();
+    private final Map<Integer, Button> m_modifierToButton = new HashMap<>();
 
     @Override
     protected Control createDialogArea(Composite parent) {
@@ -436,9 +436,9 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
    */
   private static synchronized void prepareKeyMaps() {
     if (m_keyCodeToName == null) {
-      m_keyFields = Lists.newArrayList();
-      m_keyCodeToName = Maps.newTreeMap();
-      m_keyNameToCode = Maps.newTreeMap();
+      m_keyFields = new ArrayList<>();
+      m_keyCodeToName = new TreeMap<>();
+      m_keyNameToCode = new TreeMap<>();
       // add fields
       try {
         int expected_modifiers = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;

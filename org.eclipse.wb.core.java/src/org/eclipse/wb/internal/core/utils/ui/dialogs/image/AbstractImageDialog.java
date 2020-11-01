@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -31,6 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Abstract dialog for image choosing.
@@ -150,8 +149,8 @@ public abstract class AbstractImageDialog extends ResizableDialog {
   // Pages
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, AbstractImagePage> m_idToPage = Maps.newTreeMap();
-  private final Map<String, Button> m_idToButton = Maps.newTreeMap();
+  private final Map<String, AbstractImagePage> m_idToPage = new TreeMap<>();
+  private final Map<String, Button> m_idToButton = new TreeMap<>();
 
   protected final void addPage(AbstractImagePage page) {
     String id = page.getId();

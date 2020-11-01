@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.components;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -33,13 +31,14 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.ClassGenericType;
 
 import org.eclipse.jdt.core.dom.Expression;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
  * {@link ObserveInfo} model for {@code Swing} components.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.components
  */
@@ -140,7 +139,8 @@ public class ComponentObserveInfo extends ObserveInfo {
             return key0 == key1;
           }
 
-          public ComponentObserveInfo findObject(Map<JavaInfo, ComponentObserveInfo> javaInfoToComponent,
+          public ComponentObserveInfo findObject(
+              Map<JavaInfo, ComponentObserveInfo> javaInfoToComponent,
               JavaInfo javaInfo) throws Exception {
             VariableSupport variableSupport = javaInfo.getVariableSupport();
             for (Map.Entry<JavaInfo, ComponentObserveInfo> entry : javaInfoToComponent.entrySet()) {
@@ -195,7 +195,7 @@ public class ComponentObserveInfo extends ObserveInfo {
     if (context == ChildrenContext.ChildrenForMasterTable) {
       if (m_children == null) {
         try {
-          m_children = Lists.newArrayList();
+          m_children = new ArrayList<>();
           List<JavaInfo> childrenInfos = SynchronizeManager.getChildren(m_javaInfo, JavaInfo.class);
           for (JavaInfo childInfo : childrenInfos) {
             m_children.add(new ComponentObserveInfo(m_beanSupport, this, childInfo));

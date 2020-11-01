@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -38,11 +36,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The dialog for editing {@link DimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout.ui
  */
@@ -123,7 +122,8 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(MessageFormat.format(ModelMessages.DimensionEditDialog_title, m_dimensionName));
+    newShell.setText(
+        MessageFormat.format(ModelMessages.DimensionEditDialog_title, m_dimensionName));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -224,12 +224,14 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
       // prev button
       {
         m_prevButton = new Button(composite, SWT.NONE);
-        m_prevButton.setToolTipText(MessageFormat.format(
-            ModelMessages.DimensionEditDialog_previousButton,
-            m_dimensionName));
-        m_prevButton.setImage(m_horizontal
-            ? AbstractGridBagLayoutInfo.getImage("navigation/left.gif")
-            : AbstractGridBagLayoutInfo.getImage("navigation/up.gif"));
+        m_prevButton.setToolTipText(
+            MessageFormat.format(
+                ModelMessages.DimensionEditDialog_previousButton,
+                m_dimensionName));
+        m_prevButton.setImage(
+            m_horizontal
+                ? AbstractGridBagLayoutInfo.getImage("navigation/left.gif")
+                : AbstractGridBagLayoutInfo.getImage("navigation/up.gif"));
         m_prevButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex - 1));
@@ -240,12 +242,12 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
       // next button
       {
         m_nextButton = new Button(composite, SWT.NONE);
-        m_nextButton.setToolTipText(MessageFormat.format(
-            ModelMessages.DimensionEditDialog_nextButton,
-            m_dimensionName));
-        m_nextButton.setImage(m_horizontal
-            ? AbstractGridBagLayoutInfo.getImage("navigation/right.gif")
-            : AbstractGridBagLayoutInfo.getImage("navigation/down.gif"));
+        m_nextButton.setToolTipText(
+            MessageFormat.format(ModelMessages.DimensionEditDialog_nextButton, m_dimensionName));
+        m_nextButton.setImage(
+            m_horizontal
+                ? AbstractGridBagLayoutInfo.getImage("navigation/right.gif")
+                : AbstractGridBagLayoutInfo.getImage("navigation/down.gif"));
         m_nextButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             setEditDimension(m_dimensions.get(m_currentIndex + 1));
@@ -266,7 +268,7 @@ abstract class DimensionEditDialog<T extends DimensionInfo, A extends Enum<?>>
     GridLayoutFactory.create(composite).noMargins().columns(1);
     //composite.setLayout(new RowLayout());
     //
-    m_alignmentButtons = Lists.newArrayList();
+    m_alignmentButtons = new ArrayList<>();
     for (final AlignmentDescription<A> description : m_alignments) {
       // create radio button
       Button button = new Button(composite, SWT.RADIO);

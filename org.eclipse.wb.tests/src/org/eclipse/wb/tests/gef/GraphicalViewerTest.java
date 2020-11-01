@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -25,11 +23,12 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GraphicalViewerTest extends GefTestCase {
   private Shell m_shell;
@@ -158,7 +157,7 @@ public class GraphicalViewerTest extends GefTestCase {
     assertTrue(m_viewer.getSelectedEditParts().isEmpty());
     //
     // check work multi selection
-    List<EditPart> selection = Lists.newArrayList();
+    List<EditPart> selection = new ArrayList<>();
     selection.add(part2);
     selection.add(part1);
     m_viewer.setSelection(selection);
@@ -196,18 +195,20 @@ public class GraphicalViewerTest extends GefTestCase {
     m_viewer.appendSelection(part1);
     //
     TestLogger expectedLogger = new TestLogger();
-    expectedLogger.log("selectionChanged("
-        + new SelectionChangedEvent(m_viewer, new StructuredSelection(part1))
-        + ")");
+    expectedLogger.log(
+        "selectionChanged("
+            + new SelectionChangedEvent(m_viewer, new StructuredSelection(part1))
+            + ")");
     actualLogger.assertEquals(expectedLogger);
     //
     // check invoke during select()
     TestEditPart part2 = new TestEditPart(m_viewer);
     m_viewer.select(part2);
     //
-    expectedLogger.log("selectionChanged("
-        + new SelectionChangedEvent(m_viewer, new StructuredSelection(part2))
-        + ")");
+    expectedLogger.log(
+        "selectionChanged("
+            + new SelectionChangedEvent(m_viewer, new StructuredSelection(part2))
+            + ")");
     actualLogger.assertEquals(expectedLogger);
     //
     // check not invoke during select() if argument part already selection
@@ -216,33 +217,33 @@ public class GraphicalViewerTest extends GefTestCase {
     //
     // check invoke during deselectAll()
     m_viewer.deselectAll();
-    expectedLogger.log("selectionChanged("
-        + new SelectionChangedEvent(m_viewer, new StructuredSelection())
-        + ")");
+    expectedLogger.log(
+        "selectionChanged(" + new SelectionChangedEvent(m_viewer, new StructuredSelection()) + ")");
     actualLogger.assertEquals(expectedLogger);
     //
     // check invoke during setSelection(List)
-    List<EditPart> selection = Lists.newArrayList();
+    List<EditPart> selection = new ArrayList<>();
     selection.add(part2);
     selection.add(part1);
     m_viewer.setSelection(selection);
-    expectedLogger.log("selectionChanged("
-        + new SelectionChangedEvent(m_viewer, new StructuredSelection(selection))
-        + ")");
+    expectedLogger.log(
+        "selectionChanged("
+            + new SelectionChangedEvent(m_viewer, new StructuredSelection(selection))
+            + ")");
     actualLogger.assertEquals(expectedLogger);
     //
     // check invoke during deselect()
     m_viewer.deselect(part1);
-    expectedLogger.log("selectionChanged("
-        + new SelectionChangedEvent(m_viewer, new StructuredSelection(part2))
-        + ")");
+    expectedLogger.log(
+        "selectionChanged("
+            + new SelectionChangedEvent(m_viewer, new StructuredSelection(part2))
+            + ")");
     actualLogger.assertEquals(expectedLogger);
     //
     // check invoke during setSelection(ISelection)
     m_viewer.setSelection(new StructuredSelection());
-    expectedLogger.log("selectionChanged("
-        + new SelectionChangedEvent(m_viewer, new StructuredSelection())
-        + ")");
+    expectedLogger.log(
+        "selectionChanged(" + new SelectionChangedEvent(m_viewer, new StructuredSelection()) + ")");
     actualLogger.assertEquals(expectedLogger);
   }
 

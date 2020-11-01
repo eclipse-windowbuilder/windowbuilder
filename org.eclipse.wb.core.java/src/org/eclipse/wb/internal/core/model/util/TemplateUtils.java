@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
@@ -26,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -135,7 +134,7 @@ public final class TemplateUtils {
    * @return the {@link List} with all resolved {@link String}'s.
    */
   public static List<String> resolve(NodeTarget target, List<String> lines) throws Exception {
-    List<String> resolvedLines = Lists.newArrayList();
+    List<String> resolvedLines = new ArrayList<>();
     for (String line : lines) {
       line = resolve(target, line);
       resolvedLines.add(line);
@@ -183,8 +182,9 @@ public final class TemplateUtils {
   /**
    * Adds {@link Statement} with template source.
    */
-  public static Statement addStatement(JavaInfo javaInfo, StatementTarget target, List<String> lines)
-      throws Exception {
+  public static Statement addStatement(JavaInfo javaInfo,
+      StatementTarget target,
+      List<String> lines) throws Exception {
     List<String> resolvedLines = resolve(new NodeTarget(target), lines);
     Statement statement = javaInfo.getEditor().addStatement(resolvedLines, target);
     javaInfo.addRelatedNodes(statement);
@@ -277,10 +277,8 @@ public final class TemplateUtils {
           }
         }
         // no such child found
-        throw new IllegalArgumentException(String.format(
-            "Can not find |%s| in |%s|.",
-            selectorClassName,
-            javaInfo));
+        throw new IllegalArgumentException(
+            String.format("Can not find |%s| in |%s|.", selectorClassName, javaInfo));
       } else if (expression.startsWith("expression")) {
         return getExpression(javaInfo);
       } else {
@@ -288,8 +286,7 @@ public final class TemplateUtils {
       }
     }
     // should not happen
-    throw new IllegalArgumentException(String.format(
-        "Expression have not evaluated |%s|.",
-        originalExpression));
+    throw new IllegalArgumentException(
+        String.format("Expression have not evaluated |%s|.", originalExpression));
   }
 }

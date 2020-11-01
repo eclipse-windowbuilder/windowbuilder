@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveDecoration;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
@@ -35,12 +33,13 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Model for EMF properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */
@@ -62,8 +61,9 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
       Class<?> objectType,
       String text,
       String reference) {
-    this(objectType, reference, new SimpleObservePresentation(text,
-        TypeImageProvider.getImage(objectType)));
+    this(objectType,
+        reference,
+        new SimpleObservePresentation(text, TypeImageProvider.getImage(objectType)));
     m_propertiesSupport = propertiesSupport;
     m_parent = parent;
     m_internalReference = reference;
@@ -135,14 +135,13 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
               reference.insert(0, "org.eclipse.emf.databinding.FeaturePath.fromList(");
               reference.append(", ");
               //
-              m_properties = Lists.newArrayList();
+              m_properties = new ArrayList<>();
               for (PropertyInfo propertyInfo : properties) {
-                EPropertyBindableInfo property =
-                    new EPropertyBindableInfo(m_propertiesSupport,
-                        this,
-                        propertyInfo.type,
-                        propertyInfo.name,
-                        reference.toString() + propertyInfo.reference + ")");
+                EPropertyBindableInfo property = new EPropertyBindableInfo(m_propertiesSupport,
+                    this,
+                    propertyInfo.type,
+                    propertyInfo.name,
+                    reference.toString() + propertyInfo.reference + ")");
                 property.m_internalReference = propertyInfo.reference;
                 m_properties.add(property);
               }

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.xml.AbstractDocumentHandler;
 import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.utils.xml.FileDocumentEditContext;
@@ -30,12 +28,13 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Special utils for union different code depending on Eclipse version (3.3.4).
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */
@@ -171,7 +170,7 @@ public final class WorkspacePluginInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static Map<String, String> parseBundleManifest(IFile manifestFile) throws Exception {
-    Map<String, String> headers = Maps.newHashMap();
+    Map<String, String> headers = new HashMap<>();
     BufferedReader reader;
     try {
       reader = new BufferedReader(new InputStreamReader(manifestFile.getContents(true), "UTF8"));

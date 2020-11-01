@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.draw2d.Figure;
@@ -31,12 +29,13 @@ import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.swt.model.widgets.ITableColumnInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} that shows simple rectangle selection around {@link EditPart} and one
  * column resize {@link Handle}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.gef.policy
  */
@@ -60,7 +59,7 @@ public final class TableTableColumnSelectionEditPolicy extends SelectionEditPoli
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // create move column handle
     MoveHandle moveHandle = new MoveHandle(getHost());
     moveHandle.setForeground(IColorConstants.red);
@@ -71,13 +70,12 @@ public final class TableTableColumnSelectionEditPolicy extends SelectionEditPoli
 
   @Override
   protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // create resize column handle
     SideResizeHandle resizeHandle =
         new SideResizeHandle(getHost(), IPositionConstants.RIGHT, 10, true);
-    resizeHandle.setDragTrackerTool(new ResizeTracker(getHost(),
-        IPositionConstants.EAST,
-        REQ_RESIZE));
+    resizeHandle.setDragTrackerTool(
+        new ResizeTracker(getHost(), IPositionConstants.EAST, REQ_RESIZE));
     handles.add(resizeHandle);
     //
     return handles;

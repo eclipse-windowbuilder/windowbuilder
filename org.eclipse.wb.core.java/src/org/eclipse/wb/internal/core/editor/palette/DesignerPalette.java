@@ -11,9 +11,6 @@
 package org.eclipse.wb.internal.core.editor.palette;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
@@ -68,6 +65,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -118,7 +118,9 @@ public class DesignerPalette {
   /**
    * Sets information about editor.
    */
-  public void setInput(IEditPartViewer editPartViewer, final JavaInfo rootJavaInfo, String toolkitId) {
+  public void setInput(IEditPartViewer editPartViewer,
+      final JavaInfo rootJavaInfo,
+      String toolkitId) {
     m_editPartViewer = editPartViewer;
     m_rootJavaInfo = rootJavaInfo;
     //
@@ -222,13 +224,13 @@ public class DesignerPalette {
   // Palette displaying
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<CategoryInfo, ICategory> m_categoryInfoToVisual = Maps.newHashMap();
-  private final Map<ICategory, CategoryInfo> m_visualToCategoryInfo = Maps.newHashMap();
-  private final Map<String, Boolean> m_openCategories = Maps.newHashMap();
-  private final Set<EntryInfo> m_knownEntryInfos = Sets.newHashSet();
-  private final Set<EntryInfo> m_goodEntryInfos = Sets.newHashSet();
-  private final Map<EntryInfo, IEntry> m_entryInfoToVisual = Maps.newHashMap();
-  private final Map<IEntry, EntryInfo> m_visualToEntryInfo = Maps.newHashMap();
+  private final Map<CategoryInfo, ICategory> m_categoryInfoToVisual = new HashMap<>();
+  private final Map<ICategory, CategoryInfo> m_visualToCategoryInfo = new HashMap<>();
+  private final Map<String, Boolean> m_openCategories = new HashMap<>();
+  private final Set<EntryInfo> m_knownEntryInfos = new HashSet<>();
+  private final Set<EntryInfo> m_goodEntryInfos = new HashSet<>();
+  private final Map<EntryInfo, IEntry> m_entryInfoToVisual = new HashMap<>();
+  private final Map<IEntry, EntryInfo> m_visualToEntryInfo = new HashMap<>();
 
   /**
    * Clears all caches for {@link EntryInfo}, {@link IEntry}, etc.
@@ -307,7 +309,7 @@ public class DesignerPalette {
         private boolean m_open;
 
         public List<IEntry> getEntries() {
-          final List<EntryInfo> entryInfoList = Lists.newArrayList(categoryInfo.getEntries());
+          final List<EntryInfo> entryInfoList = new ArrayList<>(categoryInfo.getEntries());
           // add new EntryInfo's using broadcast
           ExecutionUtils.runIgnore(new RunnableEx() {
             public void run() throws Exception {
@@ -315,7 +317,7 @@ public class DesignerPalette {
             }
           });
           // convert EntryInfo's into IEntry's
-          List<IEntry> entries = Lists.newArrayList();
+          List<IEntry> entries = new ArrayList<>();
           for (EntryInfo entryInfo : entryInfoList) {
             if (entryInfo.isVisible()) {
               IEntry entry = getVisualEntry(entryInfo);
@@ -372,7 +374,7 @@ public class DesignerPalette {
         final List<CategoryInfo> categoryInfoList;
         {
           List<CategoryInfo> pristineCategories = m_manager.getPalette().getCategories();
-          categoryInfoList = Lists.newArrayList(pristineCategories);
+          categoryInfoList = new ArrayList<>(pristineCategories);
         }
         // add new CategoryInfo's using broadcast
         ExecutionUtils.runLog(new RunnableEx() {
@@ -382,7 +384,7 @@ public class DesignerPalette {
           }
         });
         // convert CategoryInfo's into ICategory's
-        List<ICategory> categories = Lists.newArrayList();
+        List<ICategory> categories = new ArrayList<>();
         for (CategoryInfo categoryInfo : categoryInfoList) {
           if (shouldBeDisplayed(categoryInfo)) {
             ICategory category = getVisualCategory(categoryInfo);
@@ -476,10 +478,9 @@ public class DesignerPalette {
      * Edits palette using {@link PaletteManagerDialog}.
      */
     public void editPalette() {
-      PaletteManagerDialog dialog =
-          new PaletteManagerDialog(m_rootJavaInfo.getEditor(),
-              m_manager.getPalette(),
-              m_goodEntryInfos);
+      PaletteManagerDialog dialog = new PaletteManagerDialog(m_rootJavaInfo.getEditor(),
+          m_manager.getPalette(),
+          m_goodEntryInfos);
       // reload in any case
       reloadPalette();
       // add commands used to update palette in dialog
@@ -515,23 +516,21 @@ public class DesignerPalette {
     }
 
     public void addComponent(CategoryInfo category) {
-      ComponentAddDialog dialog =
-          new ComponentAddDialog(getShell(),
-              m_rootJavaInfo.getEditor(),
-              m_manager.getPalette(),
-              category);
+      ComponentAddDialog dialog = new ComponentAddDialog(getShell(),
+          m_rootJavaInfo.getEditor(),
+          m_manager.getPalette(),
+          category);
       if (dialog.open() == Window.OK) {
         commands_addWrite(dialog.getCommand());
       }
     }
 
     public void addFactory(CategoryInfo category, boolean forStatic) {
-      FactoryAddDialog dialog =
-          new FactoryAddDialog(getShell(),
-              m_rootJavaInfo.getEditor(),
-              forStatic,
-              m_manager.getPalette(),
-              category);
+      FactoryAddDialog dialog = new FactoryAddDialog(getShell(),
+          m_rootJavaInfo.getEditor(),
+          forStatic,
+          m_manager.getPalette(),
+          category);
       if (dialog.open() == Window.OK) {
         commands_addWrite(dialog.getCommand());
       }
@@ -539,12 +538,11 @@ public class DesignerPalette {
 
     public void addFactories(CategoryInfo category, boolean forStatic) {
       // prepare dialog
-      FactoriesAddDialog dialog =
-          new FactoriesAddDialog(getShell(),
-              m_rootJavaInfo.getEditor(),
-              m_manager.getPalette(),
-              category,
-              forStatic);
+      FactoriesAddDialog dialog = new FactoriesAddDialog(getShell(),
+          m_rootJavaInfo.getEditor(),
+          m_manager.getPalette(),
+          category,
+          forStatic);
       // open dialog
       if (dialog.open() == Window.OK) {
         commands_addWrite(dialog.getCommands());

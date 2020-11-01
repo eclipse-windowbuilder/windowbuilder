@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -31,6 +30,6 @@ public abstract class ListGatherer<T> extends Gatherer<T> {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected final Collection<T> createCollection() {
-    return Lists.newArrayList();
+    return new ArrayList<>();
   }
 }

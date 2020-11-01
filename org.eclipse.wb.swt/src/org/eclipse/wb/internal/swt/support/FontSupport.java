@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.swt.graphics.Font;
@@ -21,10 +19,11 @@ import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Stub class for using SWT {@link Font} in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */
@@ -45,10 +44,9 @@ public class FontSupport extends AbstractSupport {
    * Create new font <code>new Font(null, name, size, style)</code>.
    */
   public static Object createFont(String name, int size, Object style) throws Exception {
-    Constructor<?> constructor =
-        ReflectionUtils.getConstructorBySignature(
-            getFontClass(),
-            "<init>(org.eclipse.swt.graphics.Device,java.lang.String,int,int)");
+    Constructor<?> constructor = ReflectionUtils.getConstructorBySignature(
+        getFontClass(),
+        "<init>(org.eclipse.swt.graphics.Device,java.lang.String,int,int)");
     return constructor.newInstance(null, name, size, style);
   }
 
@@ -60,8 +58,8 @@ public class FontSupport extends AbstractSupport {
     return ReflectionUtils.getConstructorBySignature(
         getFontClass(),
         "<init>(org.eclipse.swt.graphics.Device,org.eclipse.swt.graphics.FontData[])").newInstance(
-        DisplaySupport.getCurrent(),
-        fontDataArray);
+            DisplaySupport.getCurrent(),
+            fontDataArray);
   }
 
   /**
@@ -84,7 +82,7 @@ public class FontSupport extends AbstractSupport {
    * @return names of all fonts into system.
    */
   public static String[] getFontFamilies() throws Exception {
-    Set<String> families = Sets.newTreeSet();
+    Set<String> families = new TreeSet<>();
     // add all font families
     Collections.addAll(families, ToolkitSupport.getFontFamilies(false));
     Collections.addAll(families, ToolkitSupport.getFontFamilies(true));
@@ -100,7 +98,7 @@ public class FontSupport extends AbstractSupport {
    * Invoke method <code>Font.getFontData()</code> for given font.
    */
   public static Object getFontData(Object font) throws Exception {
-    Object/*<FontData[]>*/fontData = ReflectionUtils.invokeMethod(font, "getFontData()");
+    Object/*<FontData[]>*/ fontData = ReflectionUtils.invokeMethod(font, "getFontData()");
     return Array.get(fontData, 0);
   }
 

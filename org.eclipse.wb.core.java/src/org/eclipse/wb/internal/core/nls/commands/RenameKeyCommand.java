@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.commands;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public final class RenameKeyCommand extends AbstractCommand {
   ////////////////////////////////////////////////////////////////////////////
   public Map<String, String> getOldToNewMap() {
     if (m_oldToNewMap == null) {
-      m_oldToNewMap = Maps.newHashMap();
+      m_oldToNewMap = new HashMap<>();
       m_oldToNewMap.put(m_oldKey, m_newKey);
     }
     return m_oldToNewMap;
@@ -55,7 +54,7 @@ public final class RenameKeyCommand extends AbstractCommand {
 
   private Map<String, String> getNewToOldMap() {
     if (m_newToOldMap == null) {
-      m_newToOldMap = Maps.newHashMap();
+      m_newToOldMap = new HashMap<>();
       m_newToOldMap.put(m_newKey, m_oldKey);
     }
     return m_newToOldMap;

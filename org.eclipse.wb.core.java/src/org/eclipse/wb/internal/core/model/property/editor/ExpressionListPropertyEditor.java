@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -21,6 +19,7 @@ import org.mvel2.MVEL;
 import org.mvel2.ParserContext;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The {@link PropertyEditor} for selecting single custom expression from given set.
@@ -48,7 +47,7 @@ public final class ExpressionListPropertyEditor extends AbstractListPropertyEdit
   @Override
   protected int getValueIndex(Object value) {
     for (int i = 0; i < getCount(); i++) {
-      Map<String, Object> variables = Maps.newTreeMap();
+      Map<String, Object> variables = new TreeMap<>();
       variables.put("value", value);
       setVariables(variables, i);
       if ((Boolean) MVEL.executeExpression(m_compiled[i], variables)) {
@@ -120,21 +119,23 @@ public final class ExpressionListPropertyEditor extends AbstractListPropertyEdit
   /**
    * Compiling conditions using MVEL library
    */
-  private static final String DEF_functions = StringUtils.join(new String[]{
-      "def isType(t, c) {",
-      "  if (c is String) {",
-      "    return ReflectionUtils.isSuccessorOf(t, c);",
-      "  } else {",
-      "    return c.isAssignableFrom(v);",
-      "  }",
-      "};",
-      "def isValueType(c) {",
-      "  if (value == null) {",
-      "    return false;",
-      "  } else {",
-      "    return isType(value.getClass(),c);",
-      "  }",
-      "};",}, "\n");
+  private static final String DEF_functions = StringUtils.join(
+      new String[]{
+          "def isType(t, c) {",
+          "  if (c is String) {",
+          "    return ReflectionUtils.isSuccessorOf(t, c);",
+          "  } else {",
+          "    return c.isAssignableFrom(v);",
+          "  }",
+          "};",
+          "def isValueType(c) {",
+          "  if (value == null) {",
+          "    return false;",
+          "  } else {",
+          "    return isType(value.getClass(),c);",
+          "  }",
+          "};",},
+      "\n");
 
   private void compileConditions() {
     ParserContext parseContext = getParseContext();

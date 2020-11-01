@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generic;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObjectFactories;
 import org.eclipse.wb.core.model.association.AssociationObjectFactory;
@@ -20,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +47,7 @@ public final class SimpleContainerFactory {
   //
   ////////////////////////////////////////////////////////////////////////////
   public List<SimpleContainer> get() {
-    List<SimpleContainer> containers = Lists.newArrayList();
+    List<SimpleContainer> containers = new ArrayList<>();
     addConfigurableContainers(containers);
     return containers;
   }
@@ -62,7 +61,7 @@ public final class SimpleContainerFactory {
   }
 
   public List<SimpleContainerConfiguration> getConfigurations() {
-    List<SimpleContainerConfiguration> configurations = Lists.newArrayList();
+    List<SimpleContainerConfiguration> configurations = new ArrayList<>();
     for (String prefix : getConfigurationPrefixes()) {
       SimpleContainerConfiguration configuration = createConfiguration(prefix);
       configurations.add(configuration);
@@ -71,7 +70,7 @@ public final class SimpleContainerFactory {
   }
 
   private List<String> getConfigurationPrefixes() {
-    List<String> prefixes = Lists.newArrayList();
+    List<String> prefixes = new ArrayList<>();
     addConfigurationPrefixes(prefixes, "simpleContainer");
     if (m_forCanvas) {
       addConfigurationPrefixes(prefixes, "simpleContainer.canvas");

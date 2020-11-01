@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
@@ -30,6 +28,7 @@ import org.apache.commons.lang.ClassUtils;
 import java.lang.reflect.Array;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +39,7 @@ import java.util.Map;
  * @coverage bindings.ui
  */
 public abstract class ChooseClassUiContentProvider extends DialogFieldUiContentProvider {
-  private static final Map<String, List<String>> SCOPES = Maps.newHashMap();
+  private static final Map<String, List<String>> SCOPES = new HashMap<>();
   private final List<String> m_classes;
   private final ChooseClassConfiguration m_configuration;
   private final ComboButtonsDialogField m_dialogField;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -47,6 +45,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -82,10 +81,8 @@ public final class NoEntryPointComposite extends Composite {
       }
       {
         m_titleLabel = new Label(titleComposite, SWT.NONE);
-        m_titleLabel.setFont(SwtResourceManager.getFont(
-            getFont().getFontData()[0].getName(),
-            14,
-            SWT.BOLD));
+        m_titleLabel.setFont(
+            SwtResourceManager.getFont(getFont().getFontData()[0].getName(), 14, SWT.BOLD));
       }
     }
     // Browser
@@ -100,9 +97,8 @@ public final class NoEntryPointComposite extends Composite {
       Table table = m_viewer.getTable();
       GridDataFactory.create(table).hintVC(10).grabH().fill();
       // providers
-      JavaElementLabelProvider labelProvider =
-          new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_PARAMETERS
-              | JavaElementLabelProvider.SHOW_OVERLAY_ICONS);
+      JavaElementLabelProvider labelProvider = new JavaElementLabelProvider(
+          JavaElementLabelProvider.SHOW_PARAMETERS | JavaElementLabelProvider.SHOW_OVERLAY_ICONS);
       m_viewer.setLabelProvider(labelProvider);
       m_viewer.setContentProvider(new ArrayContentProvider());
       // listeners
@@ -121,9 +117,10 @@ public final class NoEntryPointComposite extends Composite {
         Button selectButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(selectButton).fillH();
         selectButton.setText(Messages.NoEntryPointComposite_useButton);
-        selectButton.setImage(EnvironmentUtils.IS_MAC
-            ? null
-            : DesignerPlugin.getImage("actions/errors/entry_point.png"));
+        selectButton.setImage(
+            EnvironmentUtils.IS_MAC
+                ? null
+                : DesignerPlugin.getImage("actions/errors/entry_point.png"));
         selectButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -135,9 +132,10 @@ public final class NoEntryPointComposite extends Composite {
         Button switchButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(switchButton).fillH();
         switchButton.setText(Messages.NoEntryPointComposite_switchToCodeButton);
-        switchButton.setImage(EnvironmentUtils.IS_MAC
-            ? null
-            : DesignerPlugin.getImage("actions/errors/switch32.png"));
+        switchButton.setImage(
+            EnvironmentUtils.IS_MAC
+                ? null
+                : DesignerPlugin.getImage("actions/errors/switch32.png"));
         switchButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -176,7 +174,7 @@ public final class NoEntryPointComposite extends Composite {
   private List<IMethod> getPossibleEntryPoints() throws Exception {
     String typeName = AstNodeUtils.getFullyQualifiedName(m_typeDeclaration, false);
     IType type = m_editor.getJavaProject().findType(typeName);
-    List<IMethod> methods = Lists.newArrayList(type.getMethods());
+    List<IMethod> methods = Arrays.asList(type.getMethods());
     sortMethods(methods);
     return methods;
   }

@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -44,11 +41,14 @@ import org.eclipse.swt.widgets.Text;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implementation of {@link PropertyEditor} for SWT accelerator.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.property.editor
  */
@@ -106,7 +106,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // KeyStrokeDialog 
+  // KeyStrokeDialog
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final class KeyStrokeDialog extends ResizableDialog {
@@ -150,7 +150,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
     ////////////////////////////////////////////////////////////////////////////
     private Text m_keyStrokeText;
     private List m_keyCodeList;
-    private final Map<Integer, Button> m_modifierToButton = Maps.newHashMap();
+    private final Map<Integer, Button> m_modifierToButton = new HashMap<>();
 
     @Override
     protected Control createDialogArea(Composite parent) {
@@ -343,9 +343,9 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
    */
   private static void prepareKeyMaps() {
     if (m_keyCodeToName == null) {
-      m_keyFields = Lists.newArrayList();
-      m_keyCodeToName = Maps.newTreeMap();
-      m_keyNameToCode = Maps.newTreeMap();
+      m_keyFields = new ArrayList<>();
+      m_keyCodeToName = new TreeMap<>();
+      m_keyNameToCode = new TreeMap<>();
       // add fields
       ExecutionUtils.runLog(new RunnableEx() {
         public void run() throws Exception {

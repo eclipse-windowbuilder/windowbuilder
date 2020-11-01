@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.internal;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,15 +31,15 @@ public abstract class AbstractConfigurableDescription {
   // Parameters
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, Object> m_parameters = Maps.newHashMap();
+  private final Map<String, Object> m_parameters = new HashMap<>();
 
   /**
    * Adds new parameter.
    */
   public final void addParameter(String name, String value) {
-    Assert.isTrue(!m_parameters.containsKey(name), "Duplicate declaration of parameter '"
-        + name
-        + "'.");
+    Assert.isTrue(
+        !m_parameters.containsKey(name),
+        "Duplicate declaration of parameter '" + name + "'.");
     m_parameters.put(name, value);
   }
 
@@ -51,7 +50,7 @@ public abstract class AbstractConfigurableDescription {
   public final void addListParameter(String name, String value) {
     List<String> list = (List<String>) m_parameters.get(name);
     if (list == null) {
-      list = Lists.newArrayList();
+      list = new ArrayList<>();
       m_parameters.put(name, list);
     }
     list.add(value);

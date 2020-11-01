@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
@@ -42,6 +40,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -51,7 +50,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link IEditableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditableSupportTest extends AbstractNlsTest {
@@ -65,13 +64,12 @@ public class EditableSupportTest extends AbstractNlsTest {
     setFileContentSrc("test/messages.properties", getSourceDQ("# some comment"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setTitle('My JFrame');",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setTitle('My JFrame');",
+        "  }",
+        "}");
     //
     NlsSupport support = NlsSupport.get(frame);
     EditableSupport editableSupport = (EditableSupport) support.getEditable();
@@ -96,14 +94,13 @@ public class EditableSupportTest extends AbstractNlsTest {
         getSourceDQ("frame.title=My JFrame", "frame.name=My name"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     // prepare NLS
     NlsSupport support = NlsSupport.get(frame);
     EditableSupport editableSupport = (EditableSupport) support.getEditable();
@@ -153,14 +150,13 @@ public class EditableSupportTest extends AbstractNlsTest {
         getSourceDQ("frame.title=My JFrame", "frame.name=My name"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     // prepare NLS
     NlsSupport support = NlsSupport.get(frame);
     EditableSupport editableSupport = (EditableSupport) support.getEditable();
@@ -202,13 +198,12 @@ public class EditableSupportTest extends AbstractNlsTest {
     setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "  }",
+        "}");
     // prepare NLS
     NlsSupport support = NlsSupport.get(frame);
     EditableSupport editableSupport = (EditableSupport) support.getEditable();
@@ -251,13 +246,12 @@ public class EditableSupportTest extends AbstractNlsTest {
   public void test_addKey() throws Exception {
     m_testProject.addPlugin("org.eclipse.osgi");
     NlsTestUtils.create_EclipseModern_AccessorAndProperties();
-    String[] lines =
-        {
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.frame_title);",
-            "  }",
-            "}"};
+    String[] lines = {
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.frame_title);",
+        "  }",
+        "}"};
     ContainerInfo frame = parseContainer(lines);
     String frameSource = m_lastEditor.getSource();
     // prepare NLS
@@ -302,20 +296,19 @@ public class EditableSupportTest extends AbstractNlsTest {
     setFileContentSrc("test/messages.properties", getSourceDQ("frame.title=My JFrame"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName('Some name');",
-            "    //",
-            "    JButton button = new JButton('abc');",
-            "    getContentPane().add(button);",
-            "    //",
-            "    JButton button2 = new JButton();",
-            "    getContentPane().add(button2);",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName('Some name');",
+        "    //",
+        "    JButton button = new JButton('abc');",
+        "    getContentPane().add(button);",
+        "    //",
+        "    JButton button2 = new JButton();",
+        "    getContentPane().add(button2);",
+        "  }",
+        "}");
     ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
     ComponentInfo button = contentPane.getChildrenComponents().get(0);
     ComponentInfo button2 = contentPane.getChildrenComponents().get(1);
@@ -360,16 +353,15 @@ public class EditableSupportTest extends AbstractNlsTest {
 
   public void test_addSource() throws Exception {
     waitForAutoBuild();
-    ContainerInfo frame =
-        parseContainer(
-            "public class Test extends JFrame {",
-            "  public Test() {",
-            "    setTitle('My JFrame');",
-            "    //",
-            "    JButton button = new JButton('abc');",
-            "    getContentPane().add(button);",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "public class Test extends JFrame {",
+        "  public Test() {",
+        "    setTitle('My JFrame');",
+        "    //",
+        "    JButton button = new JButton('abc');",
+        "    getContentPane().add(button);",
+        "  }",
+        "}");
     ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
     ComponentInfo button = contentPane.getChildrenComponents().get(0);
     NlsSupport support = NlsSupport.get(frame);
@@ -419,7 +411,7 @@ public class EditableSupportTest extends AbstractNlsTest {
       }
       // externalize
       {
-        List<StringPropertyInfo> properties = Lists.newArrayList();
+        List<StringPropertyInfo> properties = new ArrayList<>();
         properties.addAll(editableSupport.getProperties(frame));
         properties.addAll(editableSupport.getProperties(button));
         for (StringPropertyInfo propertyInfo : properties) {
@@ -429,12 +421,12 @@ public class EditableSupportTest extends AbstractNlsTest {
       }
       // check keys
       {
-        assertStringSet(editableSource.getKeys(), new String[]{
-            "Test.this.title",
-            "Test.button.text"});
-        assertStringSet(editableSource.getFormKeys(), new String[]{
-            "Test.this.title",
-            "Test.button.text"});
+        assertStringSet(
+            editableSource.getKeys(),
+            new String[]{"Test.this.title", "Test.button.text"});
+        assertStringSet(
+            editableSource.getFormKeys(),
+            new String[]{"Test.this.title", "Test.button.text"});
         checkComponentsMap(
             editableSource,
             new String[]{"Test.this.title", "Test.button.text"},
@@ -469,12 +461,12 @@ public class EditableSupportTest extends AbstractNlsTest {
         assertTrue(buffer.length() == 0);
         // check keys
         {
-          assertStringSet(editableSource.getKeys(), new String[]{
-              "Test.this.title",
-              "Test.button.text2"});
-          assertStringSet(editableSource.getFormKeys(), new String[]{
-              "Test.this.title",
-              "Test.button.text2"});
+          assertStringSet(
+              editableSource.getKeys(),
+              new String[]{"Test.this.title", "Test.button.text2"});
+          assertStringSet(
+              editableSource.getFormKeys(),
+              new String[]{"Test.this.title", "Test.button.text2"});
           checkComponentsMap(
               editableSource,
               new String[]{"Test.this.title", "Test.button.text2"},
@@ -520,9 +512,9 @@ public class EditableSupportTest extends AbstractNlsTest {
       IEditableSource editableSource = getSingleExistingEditableSource(editableSupport, buffer);
       // internalize
       {
-        assertStringSet(editableSource.getKeys(), new String[]{
-            "Test.this.title",
-            "Test.button.text2"});
+        assertStringSet(
+            editableSource.getKeys(),
+            new String[]{"Test.this.title", "Test.button.text2"});
         //
         editableSource.internalizeKey("Test.button.text2");
         assertContains(buffer, "externalizedPropertiesChanged", false);
@@ -574,9 +566,9 @@ public class EditableSupportTest extends AbstractNlsTest {
         assertContains(buffer, "externalizedPropertiesChanged", false);
         assertContains(buffer, "keyAdded: Test.button.text");
         //
-        assertStringSet(editableSource.getKeys(), new String[]{
-            "Test.this.title",
-            "Test.button.text"});
+        assertStringSet(
+            editableSource.getKeys(),
+            new String[]{"Test.this.title", "Test.button.text"});
         checkComponentsMap(
             editableSource,
             new String[]{"Test.this.title", "Test.button.text"},
@@ -712,14 +704,13 @@ public class EditableSupportTest extends AbstractNlsTest {
     setFileContentSrc("test/messages_it.properties", getSourceDQ("frame.title=My JFrame IT"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title', 'My JFrame')); //$NON-NLS-1$ //$NON-NLS-2$",
-            "    setName('Some name');",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title', 'My JFrame')); //$NON-NLS-1$ //$NON-NLS-2$",
+        "    setName('Some name');",
+        "  }",
+        "}");
     AbstractSource.setLocaleInfo(frame, LocaleInfo.DEFAULT);
     //
     NlsSupport support = NlsSupport.get(frame);
@@ -757,14 +748,13 @@ public class EditableSupportTest extends AbstractNlsTest {
     setFileContentSrc("test/messages_it.properties", getSourceDQ("frame.title=My JFrame IT"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title', 'My JFrame')); //$NON-NLS-1$ //$NON-NLS-2$",
-            "    setName('Some name');",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title', 'My JFrame')); //$NON-NLS-1$ //$NON-NLS-2$",
+        "    setName('Some name');",
+        "  }",
+        "}");
     NlsSupport support = NlsSupport.get(frame);
     IEditableSupport editableSupport = support.getEditable();
     IEditableSource editableSource = editableSupport.getEditableSources().get(0);
@@ -802,21 +792,20 @@ public class EditableSupportTest extends AbstractNlsTest {
         getSourceDQ("#Some comment", "not-a-form-key=value"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle('My JFrame');",
-            "    {",
-            "      JButton button = new JButton('111');",
-            "      getContentPane().add(button);",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('222');",
-            "      getContentPane().add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle('My JFrame');",
+        "    {",
+        "      JButton button = new JButton('111');",
+        "      getContentPane().add(button);",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('222');",
+        "      getContentPane().add(button);",
+        "    }",
+        "  }",
+        "}");
     ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
     ComponentInfo button1 = contentPane.getChildrenComponents().get(0);
     ComponentInfo button2 = contentPane.getChildrenComponents().get(1);
@@ -867,13 +856,12 @@ public class EditableSupportTest extends AbstractNlsTest {
   }
 
   public void test_StringPropertyInfo() throws Exception {
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle('My JFrame');",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle('My JFrame');",
+        "  }",
+        "}");
     NlsSupport support = NlsSupport.get(frame);
     IEditableSupport editableSupport = support.getEditable();
     //
@@ -899,14 +887,13 @@ public class EditableSupportTest extends AbstractNlsTest {
         getSourceDQ("frame.title=title", "frame.name=name"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     NlsSupport support = NlsSupport.get(frame);
     IEditableSupport editableSupport = support.getEditable();
     final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
@@ -950,14 +937,13 @@ public class EditableSupportTest extends AbstractNlsTest {
         getSourceDQ("frame.title=title", "frame.name=name"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     NlsSupport support = NlsSupport.get(frame);
     IEditableSupport editableSupport = support.getEditable();
     final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
@@ -988,14 +974,13 @@ public class EditableSupportTest extends AbstractNlsTest {
         getSourceDQ("frame.title=title", "frame.name=name"));
     waitForAutoBuild();
     //
-    ContainerInfo frame =
-        parseContainer(
-            "class Test extends JFrame {",
-            "  Test() {",
-            "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
-            "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
-            "  }",
-            "}");
+    ContainerInfo frame = parseContainer(
+        "class Test extends JFrame {",
+        "  Test() {",
+        "    setTitle(Messages.getString('frame.title')); //$NON-NLS-1$",
+        "    setName(Messages.getString('frame.name')); //$NON-NLS-1$",
+        "  }",
+        "}");
     NlsSupport support = NlsSupport.get(frame);
     IEditableSupport editableSupport = support.getEditable();
     final IEditableSource editableSource = editableSupport.getEditableSources().get(0);

@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
@@ -23,6 +22,7 @@ import org.apache.commons.lang.SystemUtils;
 
 import java.text.MessageFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Helper for providing expected values in tests, it can return different values for different
  * platforms and computers.
- * 
+ *
  * @author scheglov_ke
  */
 public final class Expectations {
@@ -66,10 +66,8 @@ public final class Expectations {
     if (default_value != null) {
       return default_value;
     } else {
-      throw new IllegalArgumentException(MessageFormat.format(
-          "Unable to find value in {0}, using keys {1}",
-          values,
-          keys));
+      throw new IllegalArgumentException(
+          MessageFormat.format("Unable to find value in {0}, using keys {1}", values, keys));
     }
   }
 
@@ -82,7 +80,12 @@ public final class Expectations {
     return get(map);
   }
 
-  public static <V> V get(String key_1, V value_1, String key_2, V value_2, String key_3, V value_3) {
+  public static <V> V get(String key_1,
+      V value_1,
+      String key_2,
+      V value_2,
+      String key_3,
+      V value_3) {
     Map<String, V> map = ImmutableMap.of(key_1, value_1, key_2, value_2, key_3, value_3);
     return get(map);
   }
@@ -145,6 +148,7 @@ public final class Expectations {
         keyOS,
         timeZone);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // via Arrays
@@ -161,7 +165,7 @@ public final class Expectations {
   }
 
   public static <V> V get(V default_value, KeyValue<V>... values) {
-    Map<String, V> map = Maps.newHashMap();
+    Map<String, V> map = new HashMap<>();
     for (KeyValue<V> value : values) {
       map.put(value.key, value.value);
     }
@@ -171,6 +175,7 @@ public final class Expectations {
   public static <V> V get(KeyValue<V> values[]) {
     return get((V) null, values);
   }
+
   public static class IntValue extends KeyValue<Integer> {
     public IntValue(String _key, Integer _value) {
       super(_key, _value);
@@ -213,12 +218,13 @@ public final class Expectations {
   }
 
   public static String get(String default_value, StrValue... values) {
-    Map<String, String> map = Maps.newHashMap();
+    Map<String, String> map = new HashMap<>();
     for (StrValue value : values) {
       map.put(value.key, value.value);
     }
     return get(default_value, map);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Fluent interface
@@ -244,7 +250,7 @@ public final class Expectations {
   }
 
   public static <V> State<V> get(V def) {
-    Map<String, V> map = Maps.newHashMap();
+    Map<String, V> map = new HashMap<>();
     return new State<V>(def, map);
   }
 }

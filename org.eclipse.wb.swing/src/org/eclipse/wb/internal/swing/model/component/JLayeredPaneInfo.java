@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.component;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
@@ -35,6 +33,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +42,7 @@ import javax.swing.JLayeredPane;
 
 /**
  * Model for {@link JLayeredPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -122,7 +121,7 @@ public class JLayeredPaneInfo extends ContainerInfo {
       private List<Property> getContributedProperties(ComponentInfo component) {
         List<Property> properties = (List<Property>) component.getArbitraryValue(m_this);
         if (properties == null) {
-          properties = Lists.newArrayList();
+          properties = new ArrayList<>();
           properties.add(new LayerProperty(component));
           component.putArbitraryValue(m_this, properties);
         }

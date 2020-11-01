@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.SimpleBindDialog;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
@@ -47,11 +45,12 @@ import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Content provider for ViewerColumn's bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
@@ -132,11 +131,8 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
       }
     });
     // viewer for supports
-    m_tableViewer =
-        new TableViewer(clientComposite, SWT.BORDER
-            | SWT.FULL_SELECTION
-            | SWT.H_SCROLL
-            | SWT.V_SCROLL);
+    m_tableViewer = new TableViewer(clientComposite,
+        SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
     GridDataFactory.create(m_tableViewer.getTable()).fillH().grabH().hintVC(7);
     m_tableViewer.setContentProvider(new ArrayContentProvider());
     m_tableViewer.setLabelProvider(new EditingSupportLabelProvider());
@@ -186,16 +182,15 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
       VirtualEditingSupportInfo editingSupport =
           (VirtualEditingSupportInfo) selection.getFirstElement();
       // create providers
-      List<IUiContentProvider> providers = Lists.newArrayList();
+      List<IUiContentProvider> providers = new ArrayList<>();
       editingSupport.createContentProviders(providers);
       // open dialog
-      SimpleBindDialog dialog =
-          new SimpleBindDialog(m_editButton.getShell(),
-              Activator.getDefault(),
-              providers,
-              Messages.ViewerColumnsUiContentProvider_configureEditingSupportLabel,
-              Messages.ViewerColumnsUiContentProvider_configureEditingSupportProperties,
-              Messages.ViewerColumnsUiContentProvider_configureEditingSupportMessage);
+      SimpleBindDialog dialog = new SimpleBindDialog(m_editButton.getShell(),
+          Activator.getDefault(),
+          providers,
+          Messages.ViewerColumnsUiContentProvider_configureEditingSupportLabel,
+          Messages.ViewerColumnsUiContentProvider_configureEditingSupportProperties,
+          Messages.ViewerColumnsUiContentProvider_configureEditingSupportMessage);
       if (dialog.open() == Window.OK) {
         m_tableViewer.refresh();
       }

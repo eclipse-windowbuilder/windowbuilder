@@ -10,30 +10,29 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model.bindables;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport.ClassInfo;
 import org.eclipse.wb.internal.rcp.databinding.emf.model.bindables.PropertiesSupport.PropertyInfo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Helper class for build EMF classes hierarchy.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */
 public class HierarchySupport {
-  private final List<HierarchyElement> m_roots = Lists.newArrayList();
-  private final Map<String, HierarchyElement> m_nameToElement = Maps.newHashMap();
+  private final List<HierarchyElement> m_roots = new ArrayList<>();
+  private final Map<String, HierarchyElement> m_nameToElement = new HashMap<>();
   private final PropertiesSupport m_propertiesSupport;
   private final boolean m_addProperties;
 
@@ -158,8 +157,8 @@ public class HierarchySupport {
   ////////////////////////////////////////////////////////////////////////////
   private static class HierarchyElement {
     ClassInfo classInfo;
-    Set<PropertyInfo> properties = Sets.newHashSet();
-    List<HierarchyElement> elements = Lists.newArrayList();
+    Set<PropertyInfo> properties = new HashSet<>();
+    List<HierarchyElement> elements = new ArrayList<>();
     boolean sort;
   }
 }

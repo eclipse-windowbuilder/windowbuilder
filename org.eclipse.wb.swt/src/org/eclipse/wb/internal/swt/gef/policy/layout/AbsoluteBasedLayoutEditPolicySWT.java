@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
@@ -24,11 +22,12 @@ import org.eclipse.wb.internal.swt.gef.ControlsLayoutRequestValidator;
 import org.eclipse.wb.internal.swt.model.layout.ILayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Generic {@link LayoutEditPolicy} for absolute based SWT layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gef.policy
  */
@@ -64,7 +63,7 @@ public abstract class AbsoluteBasedLayoutEditPolicySWT<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public List<C> getAllComponents() {
-    List<C> components = Lists.newArrayList();
+    List<C> components = new ArrayList<>();
     components.addAll(m_layout.getControls());
     return components;
   }

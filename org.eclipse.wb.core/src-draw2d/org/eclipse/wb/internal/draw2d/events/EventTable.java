@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d.events;
 
-import com.google.common.collect.Maps;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import java.util.Map;
  * @coverage gef.draw2d
  */
 public class EventTable {
-  private final Map<Class<?>, List<?>> m_listenerClassToListener = Maps.newHashMap();
+  private final Map<Class<?>, List<?>> m_listenerClassToListener = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

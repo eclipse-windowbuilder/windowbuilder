@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.nls.ui.FlagImagesRepository;
 
 import org.eclipse.swt.graphics.Image;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -72,14 +71,13 @@ public final class LocalePartInfos {
     if (m_languages == null) {
       // languages
       {
-        Set<LocalePartInfo> languagesSet = Sets.newHashSet();
+        Set<LocalePartInfo> languagesSet = new HashSet<>();
         // fill
         for (String language : Locale.getISOLanguages()) {
           Locale locale = new Locale(language);
           Image flagImage = FlagImagesRepository.getFlagImage(locale);
-          languagesSet.add(new LocalePartInfo(locale.getLanguage(),
-              locale.getDisplayLanguage(),
-              flagImage));
+          languagesSet.add(
+              new LocalePartInfo(locale.getLanguage(), locale.getDisplayLanguage(), flagImage));
         }
         // remember as array
         m_languages = languagesSet.toArray(new LocalePartInfo[languagesSet.size()]);
@@ -87,15 +85,15 @@ public final class LocalePartInfos {
       }
       // countries
       {
-        Set<LocalePartInfo> countriesSet = Sets.newHashSet();
-        countriesSet.add(new LocalePartInfo("", "(none)", FlagImagesRepository.getEmptyFlagImage()));
+        Set<LocalePartInfo> countriesSet = new HashSet<>();
+        countriesSet.add(
+            new LocalePartInfo("", "(none)", FlagImagesRepository.getEmptyFlagImage()));
         // fill
         for (String country : Locale.getISOCountries()) {
           Locale locale = new Locale("", country);
           Image flagImage = FlagImagesRepository.getFlagImage(locale);
-          countriesSet.add(new LocalePartInfo(locale.getCountry(),
-              locale.getDisplayCountry(),
-              flagImage));
+          countriesSet.add(
+              new LocalePartInfo(locale.getCountry(), locale.getDisplayCountry(), flagImage));
         }
         // remember as array
         m_countries = countriesSet.toArray(new LocalePartInfo[countriesSet.size()]);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
@@ -32,11 +30,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class FigureTest extends Draw2dFigureTestCase {
   private static final String ERROR_MESSAGE_CYCLE =
@@ -785,7 +784,7 @@ public class FigureTest extends Draw2dFigureTestCase {
     testFigure1.add(testFigure2);
     testFigure1.add(testFigure3);
     //
-    final List<Figure> track = Lists.newArrayList();
+    final List<Figure> track = new ArrayList<>();
     FigureVisitor visitor = new FigureVisitor() {
       @Override
       public boolean visit(Figure figure) {

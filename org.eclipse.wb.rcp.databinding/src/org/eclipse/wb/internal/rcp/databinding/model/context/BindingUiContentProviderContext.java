@@ -10,23 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.context;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Context for set/get state during create provider contents.
- * 
+ *
  * @see BindingInfo#createContentProviders(java.util.List, IPageListener, DatabindingsProvider)
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */
 public final class BindingUiContentProviderContext {
-  private final Map<String, Object> m_values = Maps.newHashMap();
+  private final Map<String, Object> m_values = new HashMap<>();
   private String m_direction;
 
   ////////////////////////////////////////////////////////////////////////////

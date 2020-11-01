@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
@@ -37,6 +36,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.security.cert.Certificate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -69,8 +70,8 @@ public class ProjectClassLoader extends URLClassLoader {
    * @return {@link URL}s for each classpath entry of given {@link IJavaProject}.
    */
   public static URL[] getClasspathUrls(IJavaProject javaProject) throws Exception {
-    List<String> entries = Lists.newArrayList();
-    addRuntimeClassPathEntries(entries, javaProject, Sets.<IJavaProject>newHashSet(), true);
+    List<String> entries = new ArrayList<>();
+    addRuntimeClassPathEntries(entries, javaProject, new HashSet<>(), true);
     return toURLs(entries);
   }
 
@@ -175,7 +176,7 @@ public class ProjectClassLoader extends URLClassLoader {
    *         {@link IProject}. We need this to play safe in GWT.
    */
   public static String[] getClasspath(IJavaProject javaProject) throws Exception {
-    List<String> locations = Lists.newArrayList();
+    List<String> locations = new ArrayList<>();
     // prepare unresolved class path
     IRuntimeClasspathEntry[] unresolvedEntries =
         JavaRuntime.computeUnresolvedRuntimeClasspath(javaProject);
@@ -319,7 +320,7 @@ public class ProjectClassLoader extends URLClassLoader {
    * {@link List} of additional {@link IByteCodeProcessor}'s that should be applied to each loaded
    * class.
    */
-  private final List<IByteCodeProcessor> m_processors = Lists.newArrayList();
+  private final List<IByteCodeProcessor> m_processors = new ArrayList<>();
   /**
    * {@link Set} of classes names that should be made non-abstract.
    */

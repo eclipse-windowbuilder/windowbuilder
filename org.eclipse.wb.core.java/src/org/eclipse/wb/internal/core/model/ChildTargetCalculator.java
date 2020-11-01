@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -130,10 +128,9 @@ public final class ChildTargetCalculator {
         && m_nextChild.getAssociation() instanceof InvocationVoidAssociation
         && m_nextChild.getVariableSupport() instanceof LazyVariableSupport) {
       LazyVariableSupport lazy = (LazyVariableSupport) m_nextChild.getVariableSupport();
-      List<ASTNode> invocations =
-          ExecutionFlowUtils.getInvocations(
-              JavaInfoUtils.getState(m_parent).getFlowDescription(),
-              lazy.m_accessor);
+      List<ASTNode> invocations = ExecutionFlowUtils.getInvocations(
+          JavaInfoUtils.getState(m_parent).getFlowDescription(),
+          lazy.m_accessor);
       if (!invocations.isEmpty()) {
         ASTNode targetInvocation = invocations.get(0);
         Statement targetStatement = AstNodeUtils.getEnclosingStatement(targetInvocation);
@@ -203,7 +200,7 @@ public final class ChildTargetCalculator {
         new VisitingContext(true),
         flowDescription,
         new ExecutionFlowFrameVisitor() {
-          private final LinkedList<TargetMethodInformation> m_methodsStack = Lists.newLinkedList();
+          private final LinkedList<TargetMethodInformation> m_methodsStack = new LinkedList<>();
           private boolean m_anyChildFound = false;
           private boolean m_terminalFound = false;
 

@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -85,6 +82,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -385,14 +383,13 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
         }
       }
       if (addToClassPath) {
-        addToClassPath =
-            MessageDialog.openQuestion(
-                getShell(),
-                Messages.ImportArchiveDialog_JarNotInClasspathTitle,
-                MessageFormat.format(
-                    Messages.ImportArchiveDialog_JarNotInClasspathMessage,
-                    m_jarPath.toString(),
-                    m_jarPath.toString()));
+        addToClassPath = MessageDialog.openQuestion(
+            getShell(),
+            Messages.ImportArchiveDialog_JarNotInClasspathTitle,
+            MessageFormat.format(
+                Messages.ImportArchiveDialog_JarNotInClasspathMessage,
+                m_jarPath.toString(),
+                m_jarPath.toString()));
         if (addToClassPath) {
           // copy library to project and add to .classpath
           ProjectUtils.addJar(javaProject, m_jarPath, null);
@@ -404,7 +401,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   }
 
   private void createCommands() {
-    m_commands = Lists.newArrayList();
+    m_commands = new ArrayList<>();
     // handle category command
     int categoryIndex = m_categoryCombo.getSelectionIndex();
     CategoryInfo category = null;
@@ -423,25 +420,24 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     // handle components command
     for (Object checkedElement : m_classesViewer.getCheckedElements()) {
       PaletteElementInfo element = (PaletteElementInfo) checkedElement;
-      String description =
-          MessageFormat.format(
-              Messages.ImportArchiveDialog_newComponentDescription,
-              element.className);
-      m_commands.add(new ComponentAddCommand(element.className
-          + "_"
-          + Long.toString(System.currentTimeMillis()),
-          element.name,
-          description,
-          true,
-          element.className,
-          category));
+      String description = MessageFormat.format(
+          Messages.ImportArchiveDialog_newComponentDescription,
+          element.className);
+      m_commands.add(
+          new ComponentAddCommand(
+              element.className + "_" + Long.toString(System.currentTimeMillis()),
+              element.name,
+              description,
+              true,
+              element.className,
+              category));
     }
   }
 
   private void chooseFromClasspath() {
     try {
       //prepare classpath projects
-      HashSet<IProject> includeObjects = Sets.newHashSet();
+      HashSet<IProject> includeObjects = new HashSet<>();
       IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
       IJavaProject javaProject = EditorState.getActiveJavaInfo().getEditor().getJavaProject();
       includeObjects.add(javaProject.getProject());
@@ -463,10 +459,9 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 
   private void chooseFromWorkspace(String title, JarFileFilter filter) {
     // prepare dialog
-    JarSelectionDialog dialog =
-        new JarSelectionDialog(getShell(),
-            new WorkbenchLabelProvider(),
-            new WorkbenchContentProvider());
+    JarSelectionDialog dialog = new JarSelectionDialog(getShell(),
+        new WorkbenchLabelProvider(),
+        new WorkbenchContentProvider());
     dialog.setTitle(title);
     dialog.setMessage(Messages.ImportArchiveDialog_choosefromWorkspaceMessage);
     dialog.addFilter(filter);
@@ -548,17 +543,14 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
         if (!ignoreManifest) {
           String message =
               MessageFormat.format(Messages.ImportArchiveDialog_hasManifestMessage, m_jarPath);
-          ignoreManifest =
-              MessageDialog.openQuestion(
-                  getShell(),
-                  Messages.ImportArchiveDialog_hasManifestTitle,
-                  message);
+          ignoreManifest = MessageDialog.openQuestion(
+              getShell(),
+              Messages.ImportArchiveDialog_hasManifestTitle,
+              message);
         }
         if (ignoreManifest) {
-          JarInputStream jarStream =
-              new JarInputStream(canFile
-                  ? new FileInputStream(jarFile)
-                  : jarIFile.getContents(true));
+          JarInputStream jarStream = new JarInputStream(
+              canFile ? new FileInputStream(jarFile) : jarIFile.getContents(true));
           m_elements = extractElementsFromJarAllClasses(jarStream);
           jarStream.close();
         }
@@ -585,9 +577,8 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
       } else {
         // convert 'foo.jar' to 'foo'
         String categoryName = canFile ? jarFile.getName() : jarIFile.getName();
-        m_categoryText.setText(categoryName.substring(
-            0,
-            categoryName.length() - JAR_SUFFIX.length()));
+        m_categoryText.setText(
+            categoryName.substring(0, categoryName.length() - JAR_SUFFIX.length()));
       }
     } catch (Throwable t) {
       m_jarPath = null;
@@ -602,7 +593,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   private List<PaletteElementInfo> extractElementsFromJarAllClasses(JarInputStream jarStream)
       throws Exception {
     // load all classes
-    List<PaletteElementInfo> elements = Lists.newArrayList();
+    List<PaletteElementInfo> elements = new ArrayList<>();
     try {
       while (true) {
         JarEntry jarEntry = jarStream.getNextJarEntry();
@@ -635,7 +626,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
 
   private List<PaletteElementInfo> extractElementsFromJarByManifest(JarInputStream jarStream)
       throws Exception {
-    List<PaletteElementInfo> elements = Lists.newArrayList();
+    List<PaletteElementInfo> elements = new ArrayList<>();
     Manifest manifest = jarStream.getManifest();
     // check manifest, if null find it
     if (manifest == null) {
@@ -661,7 +652,8 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     }
     if (manifest != null) {
       // extract all "Java-Bean: True" classes
-      for (Iterator<Map.Entry<String, Attributes>> I = manifest.getEntries().entrySet().iterator(); I.hasNext();) {
+      for (Iterator<Map.Entry<String, Attributes>> I =
+          manifest.getEntries().entrySet().iterator(); I.hasNext();) {
         Map.Entry<String, Attributes> mapElement = I.next();
         Attributes attributes = mapElement.getValue();
         if (JAVA_BEAN_VALUE.equalsIgnoreCase(attributes.getValue(JAVA_BEAN_KEY))) {

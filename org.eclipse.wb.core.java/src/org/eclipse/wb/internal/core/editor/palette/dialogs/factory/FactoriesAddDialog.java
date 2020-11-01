@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs.factory;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -42,6 +40,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,11 +66,15 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
       PaletteInfo palette,
       CategoryInfo initialCategory,
       boolean forStatic) {
-    super(parentShell, forStatic
-        ? Messages.FactoriesAddDialog_shellTitleStatic
-        : Messages.FactoriesAddDialog_shellTitleInstance, forStatic
-        ? Messages.FactoriesAddDialog_titleStatic
-        : Messages.FactoriesAddDialog_titleInstance, null, Messages.FactoriesAddDialog_message);
+    super(parentShell,
+        forStatic
+            ? Messages.FactoriesAddDialog_shellTitleStatic
+            : Messages.FactoriesAddDialog_shellTitleInstance,
+        forStatic
+            ? Messages.FactoriesAddDialog_titleStatic
+            : Messages.FactoriesAddDialog_titleInstance,
+        null,
+        Messages.FactoriesAddDialog_message);
     m_editor = editor;
     m_palette = palette;
     m_initialCategory = initialCategory;
@@ -113,19 +116,20 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     }
     // method signatures
     {
-      m_signaturesField =
-          new CheckedListDialogField(new IListAdapter() {
-            public void selectionChanged(ListDialogField field) {
-            }
+      m_signaturesField = new CheckedListDialogField(new IListAdapter() {
+        public void selectionChanged(ListDialogField field) {
+        }
 
-            public void doubleClicked(ListDialogField field) {
-            }
+        public void doubleClicked(ListDialogField field) {
+        }
 
-            public void customButtonPressed(ListDialogField field, int index) {
-            }
-          }, new String[]{
+        public void customButtonPressed(ListDialogField field, int index) {
+        }
+      },
+          new String[]{
               Messages.FactoriesAddDialog_selectAllButton,
-              Messages.FactoriesAddDialog_deselectAllButton}, new LabelProvider());
+              Messages.FactoriesAddDialog_deselectAllButton},
+          new LabelProvider());
       m_signaturesField.setCheckAllButtonIndex(0);
       m_signaturesField.setUncheckAllButtonIndex(1);
       doCreateField(m_signaturesField, Messages.FactoriesAddDialog_methodsLabel);
@@ -197,7 +201,7 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     CategoryInfo category = m_palette.getCategories().get(m_categoryField.getSelectionIndex());
     //
     List<?> signatures = m_signaturesField.getCheckedElements();
-    List<Command> commands = Lists.newArrayList();
+    List<Command> commands = new ArrayList<>();
     for (int i = 0; i < signatures.size(); i++) {
       String signature = (String) signatures.get(i);
       //
@@ -205,14 +209,15 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
       String name = signature;
       String description = null;
       //
-      commands.add(new FactoryAddCommand(id,
-          name,
-          description,
-          true,
-          m_factoryClassName,
-          signature,
-          m_forStatic,
-          category));
+      commands.add(
+          new FactoryAddCommand(id,
+              name,
+              description,
+              true,
+              m_factoryClassName,
+              signature,
+              m_forStatic,
+              category));
     }
     //
     return commands;

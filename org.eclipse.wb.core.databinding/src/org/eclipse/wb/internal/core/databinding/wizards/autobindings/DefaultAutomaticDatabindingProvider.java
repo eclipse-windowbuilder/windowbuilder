@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.wizards.autobindings;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
@@ -28,11 +26,9 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
@@ -43,6 +39,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,8 +52,8 @@ import java.util.Map;
 public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticDatabindingProvider {
   private final DescriptorContainer m_widgetContainer;
   private final DescriptorContainer m_strategyContainer;
-  protected final Map<PropertyAdapter, AbstractDescriptor[]> m_propertyToEditor = Maps.newHashMap();
-  protected final Map<IJavaProject, ClassLoader> m_classLoaders = Maps.newHashMap();
+  protected final Map<PropertyAdapter, AbstractDescriptor[]> m_propertyToEditor = new HashMap<>();
+  protected final Map<IJavaProject, ClassLoader> m_classLoaders = new HashMap<>();
   protected ClassLoader m_classLoader;
   protected Class<?> m_beanClass;
   protected IJavaProject m_javaProject;
@@ -79,6 +76,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   // WizardPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCurrentWizardData(AutomaticDatabindingFirstPage firstPage,
       ICompleteListener pageListener) {
     m_javaProject = firstPage.getJavaProject();
@@ -96,6 +94,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     }
   }
 
+  @Override
   public Class<?> loadClass(String className) throws ClassNotFoundException {
     return CoreUtils.load(m_classLoader, className);
   }
@@ -105,6 +104,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
     m_beanClass = choosenClass;
     m_propertyToEditor.clear();
@@ -127,27 +127,28 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   protected CheckboxTableViewer m_editorsViewer;
   protected CheckboxTableViewer m_strategiesViewer;
 
+  @Override
   public void configurePropertiesViewer(CheckboxTableViewer viewer) {
     m_propertiesViewer = viewer;
-    m_propertiesViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
-      public void selectionChanged(SelectionChangedEvent event) {
-        handlePropertySelection();
-      }
-    });
+    m_propertiesViewer.addPostSelectionChangedListener(event -> handlePropertySelection());
   }
 
+  @Override
   public ViewerFilter getPropertiesViewerFilter() {
     return m_propertiesFilter;
   }
 
+  @Override
   public boolean getPropertiesViewerFilterInitState() {
     return true;
   }
 
+  @Override
   public void fillWidgetComposite(Composite widgetComposite) {
     // configure widget composite
     m_widgetComposite = widgetComposite;
-    GridLayoutFactory.create(widgetComposite).columns(m_strategyContainer == null ? 1 : 2).noMargins();
+    GridLayoutFactory.create(widgetComposite).columns(
+        m_strategyContainer == null ? 1 : 2).noMargins();
     // editor title
     m_editorLabel = new Label(widgetComposite, SWT.NONE);
     m_editorLabel.setText(Messages.DefaultAutomaticDatabindingProvider_editorLabel);
@@ -157,11 +158,9 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
       m_strategyLabel.setText(Messages.DefaultAutomaticDatabindingProvider_strategyLabel);
     }
     // editor viewer
-    m_editorsViewer =
-        CheckboxTableViewer.newCheckList(widgetComposite, SWT.BORDER
-            | SWT.FULL_SELECTION
-            | SWT.H_SCROLL
-            | SWT.V_SCROLL);
+    m_editorsViewer = CheckboxTableViewer.newCheckList(
+        widgetComposite,
+        SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
     // create columns
     GridDataFactory.create(m_editorsViewer.getControl()).hintVC(20).fill().grabH();
     TableFactory.modify(m_editorsViewer).standard().newColumn().width(170).text(
@@ -175,11 +174,9 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     new SingleCheckSelectionListener(m_editorsViewer, 0);
     // strategy viewer
     if (m_strategyContainer != null) {
-      m_strategiesViewer =
-          CheckboxTableViewer.newCheckList(widgetComposite, SWT.BORDER
-              | SWT.FULL_SELECTION
-              | SWT.H_SCROLL
-              | SWT.V_SCROLL);
+      m_strategiesViewer = CheckboxTableViewer.newCheckList(
+          widgetComposite,
+          SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
       GridDataFactory.create(m_strategiesViewer.getControl()).fill().grab();
       m_strategiesViewer.setContentProvider(new ArrayContentProvider());
       m_strategiesViewer.setLabelProvider(new DescriptorLabelProvider());
@@ -208,16 +205,16 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     m_widgetComposite.setEnabled(enabled);
   }
 
+  @Override
   public void handlePropertyChecked(PropertyAdapter property, boolean checked) {
     if (checked) {
       AbstractDescriptor[] editorData = m_propertyToEditor.get(property);
       if (editorData == null) {
-        editorData =
-            new AbstractDescriptor[]{
-                m_widgetContainer.getDefaultDescriptor(property, true),
-                m_strategyContainer == null ? null : m_strategyContainer.getDefaultDescriptor(
-                    property,
-                    true)};
+        editorData = new AbstractDescriptor[]{
+            m_widgetContainer.getDefaultDescriptor(property, true),
+            m_strategyContainer == null
+                ? null
+                : m_strategyContainer.getDefaultDescriptor(property, true)};
         m_propertyToEditor.put(property, editorData);
       }
     }
@@ -250,6 +247,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     m_pageListener.calculateFinish();
   }
 
+  @Override
   public String calculateFinish() {
     Object[] elements = m_propertiesViewer.getCheckedElements();
     //
@@ -296,6 +294,7 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
     // ICheckStateListener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void checkStateChanged(CheckStateChangedEvent event) {
       if (event.getChecked()) {
         Object selection = event.getElement();
@@ -334,11 +333,13 @@ public abstract class DefaultAutomaticDatabindingProvider implements IAutomaticD
   private static class DescriptorTableLabelProvider extends LabelProvider
       implements
         ITableLabelProvider {
+    @Override
     public String getColumnText(Object element, int columnIndex) {
       AbstractDescriptor descriptor = (AbstractDescriptor) element;
       return descriptor.getName(columnIndex);
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
       AbstractDescriptor descriptor = (AbstractDescriptor) element;
       return descriptor.getImage(columnIndex);

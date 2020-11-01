@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.property.event;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
@@ -20,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,7 +47,9 @@ final class ListenerInfo {
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public ListenerInfo(Method method, Class<?> componentClass, GenericTypeResolver externalResolver) {
+  public ListenerInfo(Method method,
+      Class<?> componentClass,
+      GenericTypeResolver externalResolver) {
     m_method = method;
     m_componentClass = componentClass;
     m_externalResolver = externalResolver;
@@ -208,11 +210,10 @@ final class ListenerInfo {
   }
 
   public GenericTypeResolver getResolver() {
-    GenericTypeResolver resolver_1 =
-        GenericTypeResolver.superClass(
-            m_externalResolver,
-            m_componentClass,
-            m_method.getDeclaringClass());
+    GenericTypeResolver resolver_1 = GenericTypeResolver.superClass(
+        m_externalResolver,
+        m_componentClass,
+        m_method.getDeclaringClass());
     GenericTypeResolver resolver_2 = GenericTypeResolver.argumentOfMethod(resolver_1, m_method, 0);
     return resolver_2;
   }
@@ -229,7 +230,7 @@ final class ListenerInfo {
    */
   public List<ListenerMethodInfo> getMethods() {
     if (m_methods == null) {
-      m_methods = Lists.newArrayList();
+      m_methods = new ArrayList<>();
       // prepare method information objects
       for (Method method : m_interfaceType.getMethods()) {
         if (isListenerMethod(method)) {

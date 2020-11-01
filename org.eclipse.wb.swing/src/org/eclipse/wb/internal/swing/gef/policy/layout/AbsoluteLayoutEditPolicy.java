@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -47,7 +45,7 @@ import javax.swing.UIManager;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for SWING absolute (null) layout.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gef.policy
  */
@@ -103,7 +101,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
   @Override
   public List<ComponentInfo> getAllComponents() {
     List<ComponentInfo> components = m_layout.getContainer().getChildrenComponents();
-    return Lists.newArrayList(components);
+    return new ArrayList<>(components);
   }
 
   public int getBaseline(IAbstractComponentInfo component) {
@@ -129,7 +127,10 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
     } else {
       JComponent componentObject1 = (JComponent) swingComponentInfo1.getComponent();
       JComponent componentObject2 = (JComponent) swingComponentInfo2.getComponent();
-      return m_layoutStyleSupport.getPreferredGap(componentObject1, componentObject2, 1, // use UNRELATED for AbsoluteLayout 
+      return m_layoutStyleSupport.getPreferredGap(
+          componentObject1,
+          componentObject2,
+          1, // use UNRELATED for AbsoluteLayout
           direction,
           componentObject1.getParent());
     }
@@ -187,7 +188,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
     return new EditCommand(m_layout) {
       @Override
       protected void executeEdit() throws Exception {
-        ArrayList<IAbstractComponentInfo> models = Lists.newArrayList();
+        ArrayList<IAbstractComponentInfo> models = new ArrayList<>();
         for (EditPart editPart : editParts) {
           models.add((IAbstractComponentInfo) editPart.getModel());
         }
@@ -207,7 +208,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
     return new EditCommand(m_layout) {
       @Override
       protected void executeEdit() throws Exception {
-        ArrayList<IAbstractComponentInfo> models = Lists.newArrayList();
+        ArrayList<IAbstractComponentInfo> models = new ArrayList<>();
         for (EditPart editPart : editParts) {
           models.add((IAbstractComponentInfo) editPart.getModel());
         }
@@ -265,7 +266,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
@@ -49,7 +47,7 @@ import java.util.List;
 
 /**
  * Abstract model for binding input to <code>JFace</code> viewer.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
@@ -81,8 +79,8 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
   }
 
   private static final boolean isColumnViewer(WidgetBindableInfo bindableWidget) throws Exception {
-    return bindableWidget.getClassLoader().loadClass("org.eclipse.jface.viewers.ColumnViewer").isAssignableFrom(
-        bindableWidget.getObjectType());
+    return bindableWidget.getClassLoader().loadClass(
+        "org.eclipse.jface.viewers.ColumnViewer").isAssignableFrom(bindableWidget.getObjectType());
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -209,14 +207,16 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
       IPageListener listener,
       DatabindingsProvider provider) throws Exception {
     if (m_isColumnViewer) {
-      List<WidgetBindableInfo> viewerColumns = Lists.newArrayList();
+      List<WidgetBindableInfo> viewerColumns = new ArrayList<>();
       // prepare viewer columns
       WidgetBindableInfo viewerControlBindable = (WidgetBindableInfo) m_viewerBindable.getParent();
-      for (IObserveInfo observe : viewerControlBindable.getChildren(ChildrenContext.ChildrenForMasterTable)) {
+      for (IObserveInfo observe : viewerControlBindable.getChildren(
+          ChildrenContext.ChildrenForMasterTable)) {
         WidgetBindableInfo widgetBindable = (WidgetBindableInfo) observe;
         // extract columns
         if (widgetBindable.getJavaInfo() instanceof ItemInfo) {
-          for (IObserveInfo subObserve : widgetBindable.getChildren(ChildrenContext.ChildrenForMasterTable)) {
+          for (IObserveInfo subObserve : widgetBindable.getChildren(
+              ChildrenContext.ChildrenForMasterTable)) {
             WidgetBindableInfo subWidgetBindable = (WidgetBindableInfo) subObserve;
             // extract viewer columns
             if (subWidgetBindable.getJavaInfo() instanceof ViewerColumnInfo) {
@@ -254,11 +254,10 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
           }
         }
         // prepare configuration
-        ViewerColumnsConfiguration configuration =
-            new ViewerColumnsConfiguration(this,
-                elementTypeProvider,
-                viewerColumns,
-                m_editingSupports);
+        ViewerColumnsConfiguration configuration = new ViewerColumnsConfiguration(this,
+            elementTypeProvider,
+            viewerColumns,
+            m_editingSupports);
         // prepare provider
         providers.add(new ViewerColumnsUiContentProvider(configuration));
       }
@@ -307,15 +306,17 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
       // define content provider
       contentProvider.addSourceCode(lines, generationSupport);
       // add set label provider code
-      lines.add(viewerReference
-          + ".setLabelProvider("
-          + labelProvider.getSourceCode(lines, generationSupport)
-          + ");");
+      lines.add(
+          viewerReference
+              + ".setLabelProvider("
+              + labelProvider.getSourceCode(lines, generationSupport)
+              + ");");
       // add set content provider code
-      lines.add(viewerReference
-          + ".setContentProvider("
-          + contentProvider.getVariableIdentifier()
-          + ");");
+      lines.add(
+          viewerReference
+              + ".setContentProvider("
+              + contentProvider.getVariableIdentifier()
+              + ");");
       lines.add("//");
       // add input source code
       generationSupport.addSourceCode(m_inputObservable, lines);

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.binding.DataBindManager;
 import org.eclipse.wb.internal.core.utils.binding.IDataEditor;
 import org.eclipse.wb.internal.core.utils.binding.editors.controls.CheckButtonEditor;
@@ -37,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * {@link Composite} with {@link DataBindManager} for convenient binding {@link Control}'s on
@@ -181,9 +180,9 @@ public abstract class AbstractBindingComposite extends Composite {
   // Binding
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, IDataEditor> m_booleanEditors = Maps.newTreeMap();
-  private final Map<String, IDataEditor> m_stringEditors = Maps.newTreeMap();
-  private final Map<String, IDataEditor> m_integerEditors = Maps.newTreeMap();
+  private final Map<String, IDataEditor> m_booleanEditors = new TreeMap<>();
+  private final Map<String, IDataEditor> m_stringEditors = new TreeMap<>();
+  private final Map<String, IDataEditor> m_integerEditors = new TreeMap<>();
   /**
    * Shared {@link Listener} used for listening various events in bounds {@link Control}'s.
    */

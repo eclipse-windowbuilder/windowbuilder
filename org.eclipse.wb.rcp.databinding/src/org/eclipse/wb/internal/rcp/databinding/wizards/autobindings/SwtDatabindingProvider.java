@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.wizards.autobindings;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
@@ -49,14 +46,16 @@ import org.apache.commons.lang.StringUtils;
 
 import java.beans.PropertyDescriptor;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Provider for support JFace bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.wizard.auto
  */
@@ -76,15 +75,14 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
       if (m_widgetContainer == null && m_strategyContainer == null) {
         // load containers
         InputStream stream = Activator.getFile("templates/SwtEditors.xml");
-        Map<String, DescriptorContainer> containers =
-            DescriptorContainer.parseDescriptors(
-                stream,
-                SwtDatabindingProvider.class.getClassLoader(),
-                new IImageLoader() {
-                  public Image getImage(String name) {
-                    return Activator.getImage(name);
-                  }
-                });
+        Map<String, DescriptorContainer> containers = DescriptorContainer.parseDescriptors(
+            stream,
+            SwtDatabindingProvider.class.getClassLoader(),
+            new IImageLoader() {
+              public Image getImage(String name) {
+                return Activator.getImage(name);
+              }
+            });
         IOUtils.closeQuietly(stream);
         // sets containers
         m_widgetContainer = containers.get("SWT.Widgets");
@@ -139,7 +137,8 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
-  public void setCurrentWizardData(org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingFirstPage firstPage,
+  public void setCurrentWizardData(
+      org.eclipse.wb.internal.core.databinding.wizards.autobindings.AutomaticDatabindingFirstPage firstPage,
       ICompleteListener pageListener) {
     super.setCurrentWizardData(firstPage, pageListener);
     m_firstPage = (AutomaticDatabindingFirstPage) firstPage;
@@ -152,12 +151,14 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<PropertyAdapter> getProperties0(Class<?> choosenClass) throws Exception {
-    List<PropertyAdapter> properties =
-        GlobalFactoryHelper.automaticWizardGetProperties(m_javaProject, m_classLoader, choosenClass);
+    List<PropertyAdapter> properties = GlobalFactoryHelper.automaticWizardGetProperties(
+        m_javaProject,
+        m_classLoader,
+        choosenClass);
     if (properties != null) {
       return properties;
     }
-    properties = Lists.newArrayList();
+    properties = new ArrayList<>();
     for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(choosenClass)) {
       properties.add(new PropertyAdapter(descriptor));
     }
@@ -171,15 +172,13 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
   ////////////////////////////////////////////////////////////////////////////
   public InputStream getTemplateFile(String superClassName) {
     String subName = m_firstPage.isCreateControlClass() ? "Controller" : "";
-    return Activator.getFile("templates/"
-        + ClassUtils.getShortClassName(superClassName)
-        + subName
-        + ".jvt");
+    return Activator.getFile(
+        "templates/" + ClassUtils.getShortClassName(superClassName) + subName + ".jvt");
   }
 
   public String performSubstitutions(String code, ImportsManager imports) throws Exception {
     // prepare properties
-    final List<PropertyAdapter> properties = Lists.newArrayList();
+    final List<PropertyAdapter> properties = new ArrayList<>();
     Display.getDefault().syncExec(new Runnable() {
       public void run() {
         CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
@@ -208,7 +207,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
       widgetStart = "\t";
     }
     // prepare imports
-    Collection<String> importList = Sets.newHashSet();
+    Collection<String> importList = new HashSet<>();
     importList.add(SWT.class.getName());
     importList.add("org.eclipse.jface.databinding.swt.SWTObservables");
     importList.add("org.eclipse.core.databinding.observable.value.IObservableValue");
@@ -282,55 +281,62 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
       String widgetFieldName = fieldPrefix + propertyName + widgetClassName;
       String widgetFieldAccess = accessPrefix + widgetFieldName;
       // field
-      widgetFields.append("\r\nfield\r\n\tprivate " + widgetClassName + " " + widgetFieldName + ";");
+      widgetFields.append(
+          "\r\nfield\r\n\tprivate " + widgetClassName + " " + widgetFieldName + ";");
       // widget
       widgets.append(begin);
-      widgets.append(widgetStart
-          + "\t\tnew Label("
-          + swtContainer
-          + ", SWT.NONE).setText(\""
-          + StringUtils.capitalize(propertyName)
-          + ":\");\r\n");
+      widgets.append(
+          widgetStart
+              + "\t\tnew Label("
+              + swtContainer
+              + ", SWT.NONE).setText(\""
+              + StringUtils.capitalize(propertyName)
+              + ":\");\r\n");
       widgets.append(end + "\r\n");
       //
       widgets.append(begin);
-      widgets.append("\t\t"
-          + widgetFieldAccess
-          + " = "
-          + widgetDescriptor.getCreateCode(swtContainer)
-          + ";\r\n");
-      widgets.append(widgetStart
-          + "\t\t"
-          + widgetFieldAccess
-          + ".setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));\r\n");
+      widgets.append(
+          "\t\t"
+              + widgetFieldAccess
+              + " = "
+              + widgetDescriptor.getCreateCode(swtContainer)
+              + ";\r\n");
+      widgets.append(
+          widgetStart
+              + "\t\t"
+              + widgetFieldAccess
+              + ".setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));\r\n");
       widgets.append(end);
       // observables
-      observables.append("\t\tIObservableValue "
-          + propertyName
-          + "ObserveWidget = "
-          + widgetDescriptor.getBindingCode(widgetFieldName)
-          + ";\r\n");
+      observables.append(
+          "\t\tIObservableValue "
+              + propertyName
+              + "ObserveWidget = "
+              + widgetDescriptor.getBindingCode(widgetFieldName)
+              + ";\r\n");
       if (automaticWizardStub == null) {
-        observables.append("\t\tIObservableValue "
-            + propertyName
-            + observeMethod
-            + fieldName
-            + ", \""
-            + propertyName
-            + "\");");
+        observables.append(
+            "\t\tIObservableValue "
+                + propertyName
+                + observeMethod
+                + fieldName
+                + ", \""
+                + propertyName
+                + "\");");
       } else {
         observables.append(automaticWizardStub.createSourceCode(fieldName, propertyName));
       }
       // bindings
-      bindings.append("\t\tbindingContext.bindValue("
-          + propertyName
-          + "ObserveWidget, "
-          + propertyName
-          + "ObserveValue, "
-          + getStrategyValue(strategyDescriptor.getTargetStrategyCode())
-          + ", "
-          + getStrategyValue(strategyDescriptor.getModelStrategyCode())
-          + ");");
+      bindings.append(
+          "\t\tbindingContext.bindValue("
+              + propertyName
+              + "ObserveWidget, "
+              + propertyName
+              + "ObserveValue, "
+              + getStrategyValue(strategyDescriptor.getTargetStrategyCode())
+              + ", "
+              + getStrategyValue(strategyDescriptor.getModelStrategyCode())
+              + ");");
       //
       if (I.hasNext()) {
         widgetFields.append("\r\n");

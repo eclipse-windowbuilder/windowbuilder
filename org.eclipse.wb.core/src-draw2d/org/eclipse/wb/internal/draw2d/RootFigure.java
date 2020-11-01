@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class RootFigure extends Figure implements IRootFigure {
   private final RefreshManager m_refreshManager;
   private EventManager m_eventManager;
   private Dimension m_preferredSize;
-  private Map<String, Layer> m_nameToLayer = Maps.newHashMap();
+  private Map<String, Layer> m_nameToLayer = new HashMap<>();
   private IPreferredSizeProvider m_preferredSizeProvider;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -216,7 +215,7 @@ public class RootFigure extends Figure implements IRootFigure {
    */
   @Override
   public void removeAll() {
-    m_nameToLayer = Maps.newHashMap();
+    m_nameToLayer = new HashMap<>();
     super.removeAll();
   }
 }

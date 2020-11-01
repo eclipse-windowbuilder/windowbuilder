@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.Association;
@@ -35,6 +33,7 @@ import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -91,7 +90,7 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
       @Override
       public List<ObjectInfo> getChildrenTree() throws Exception {
         if (isHideInTree()) {
-          return Lists.<ObjectInfo>newLinkedList();
+          return new LinkedList<>();
         } else {
           return getItems();
         }
@@ -151,11 +150,10 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
     // add source
     NodeTarget nodeTarget = getNodeTarget();
     String source = item.getCreationSupport().add_getSource(nodeTarget);
-    Expression element =
-        getCreateItemExpression(
-            item,
-            index,
-            AssociationUtils.replaceTemplates(item, source, nodeTarget));
+    Expression element = getCreateItemExpression(
+        item,
+        index,
+        AssociationUtils.replaceTemplates(item, source, nodeTarget));
     // set association
     item.setAssociation(getAssociation(element));
     // fire after event
@@ -239,8 +237,8 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
     // source
     String source = null;
     if (item.getVariableSupport() instanceof EmptyVariableSupport) {
-      source =
-          getEditor().getSource(((EmptyVariableSupport) item.getVariableSupport()).getInitializer());
+      source = getEditor().getSource(
+          ((EmptyVariableSupport) item.getVariableSupport()).getInitializer());
     }
     // remove from old place
     Association association = item.getAssociation();

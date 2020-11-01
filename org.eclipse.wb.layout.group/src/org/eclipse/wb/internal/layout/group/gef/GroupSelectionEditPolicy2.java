@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
@@ -50,6 +48,7 @@ import org.eclipse.swt.graphics.Image;
 import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 import org.netbeans.modules.form.layoutdesign.LayoutDesigner;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -92,7 +91,7 @@ public class GroupSelectionEditPolicy2 extends SelectionEditPolicy
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     MoveHandle moveHandle = new MoveHandle(getHost());
     handles.add(moveHandle);
     handles.add(createResizeHandle(IPositionConstants.NORTH));
@@ -306,7 +305,7 @@ public class GroupSelectionEditPolicy2 extends SelectionEditPolicy
    */
   public final void showAlignmentFigures() {
     if (m_alignmentFigures == null) {
-      m_alignmentFigures = Lists.newArrayList();
+      m_alignmentFigures = new ArrayList<>();
       // show cell figures for all children of host's parent
       {
         Collection<EditPart> editParts = getHost().getParent().getChildren();
@@ -398,7 +397,7 @@ public class GroupSelectionEditPolicy2 extends SelectionEditPolicy
   } ////////////////////////////////////////////////////////////////////////////
 
   //
-  // Popup figures 
+  // Popup figures
   //
   ////////////////////////////////////////////////////////////////////////////
   private class HorizontalPopupFigure extends AbstractPopupFigure {

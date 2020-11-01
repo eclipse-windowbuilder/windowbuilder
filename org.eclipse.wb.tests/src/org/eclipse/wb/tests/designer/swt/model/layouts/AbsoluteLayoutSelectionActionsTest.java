@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.layouts;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -23,11 +21,12 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.core.model.TestObjectInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link AbsoluteLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
@@ -46,31 +45,30 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_selectionActions() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(70, 27, 83, 22);",
-            "      button.setText('New Button1');",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(41, 129, 134, 84);",
-            "      button.setText('New Button');",
-            "    }",
-            "    {",
-            "      Composite composite = new Composite(this, SWT.NONE);",
-            "      composite.setBounds(286, 135, 134, 120);",
-            "        {",
-            "          Label label = new Label(composite, SWT.NONE);",
-            "          label.setBounds(41, 53, 51, 13);",
-            "          label.setText('New Label');",
-            "        }",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(70, 27, 83, 22);",
+        "      button.setText('New Button1');",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(41, 129, 134, 84);",
+        "      button.setText('New Button');",
+        "    }",
+        "    {",
+        "      Composite composite = new Composite(this, SWT.NONE);",
+        "      composite.setBounds(286, 135, 134, 120);",
+        "        {",
+        "          Label label = new Label(composite, SWT.NONE);",
+        "          label.setBounds(41, 53, 51, 13);",
+        "          label.setText('New Label');",
+        "        }",
+        "    }",
+        "  }",
+        "}");
     ControlInfo button = shell.getChildrenControls().get(0);
     CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(2);
     ControlInfo label = composite.getChildrenControls().get(0);
@@ -78,10 +76,10 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
     setupSelectionActions(composite);
     shell.refresh();
     // prepare "button" selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(button);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     // check actions
     assertEquals(17, actions.size()); // 12 action's, 5 separator's
@@ -170,415 +168,471 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_left_edges_1a() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(20, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", true);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(20, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_left_edges_1b() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", false);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_left_edges_2a() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(30, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", true);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(30, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_left_edges_2b() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align left edges", false);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align left edges",
+        false);
   }
 
   /**
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_right_edges_1a() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", true);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_right_edges_1b() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(-40, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", false);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(-40, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_right_edges_2a() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(80, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", true);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(80, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_right_edges_2b() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(-45, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align right edges", false);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(-45, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align right edges",
+        false);
   }
 
   /**
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_horizontal_centers_1a() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(45, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", true);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(45, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_horizontal_centers_1b() throws Exception {
-    check_align_horizontal(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(-15, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", false);
+    check_align_horizontal(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(-15, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_horizontal_centers_2a() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(55, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", true);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(55, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_horizontal_centers_2b() throws Exception {
-    check_align_horizontal2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(-20, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align horizontal centers", false);
+    check_align_horizontal2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(-20, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align horizontal centers",
+        false);
   }
 
   private void check_align_horizontal(String[] expectedSource, String action, boolean toUp)
       throws Exception {
-    check_align(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(20, 50, 150, 30);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, expectedSource, action, toUp);
+    check_align(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(20, 50, 150, 30);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        expectedSource,
+        action,
+        toUp);
   }
 
   private void check_align_horizontal2(String[] expectedSource, String action, boolean toUp)
       throws Exception {
-    check_align2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 20);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(5, 40, 300, 100);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(25, 55, 150, 30);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, expectedSource, action, toUp);
+    check_align2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 20);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(5, 40, 300, 100);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(25, 55, 150, 30);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        expectedSource,
+        action,
+        toUp);
   }
 
   ////////////////////////////////////////////////////////////////////////////
   //
   // Vertical
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   /**
    * One parent selection objects, order: Bottom-Up.
    */
   public void test_align_top_edges_1a() throws Exception {
-    check_align_vertical(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 100, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", true);
+    check_align_vertical(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 100, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        true);
   }
 
   /**
    * One parent selection objects, order: Top-Down.
    */
   public void test_align_top_edges_1b() throws Exception {
-    check_align_vertical(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 10, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", false);
+    check_align_vertical(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 10, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_top_edges_2a() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 100, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", true);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 100, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_top_edges_2b() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, 5, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align top edges", false);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, 5, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align top edges",
+        false);
   }
 
   /**
@@ -586,21 +640,24 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    */
   public void test_align_bottom_edges_1a() throws Exception {
     // y2:100 + h2:80 - h1:40 = y1:140
-    check_align_vertical(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 140, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", true);
+    check_align_vertical(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 140, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        true);
   }
 
   /**
@@ -608,71 +665,80 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    */
   public void test_align_bottom_edges_1b() throws Exception {
     // y2:100 + h2:80 - h1:40 = y1:140
-    check_align_vertical(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, -30, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", false);
+    check_align_vertical(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, -30, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_bottom_edges_2a() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 140, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", true);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 140, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_bottom_edges_2b() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, -35, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align bottom edges", false);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, -35, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align bottom edges",
+        false);
   }
 
   /**
@@ -680,21 +746,24 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    */
   public void test_align_vertical_centers_1a() throws Exception {
     // y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
-    check_align_vertical(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 120, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", true);
+    check_align_vertical(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 120, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        true);
   }
 
   /**
@@ -702,113 +771,130 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    */
   public void test_align_vertical_centers_1b() throws Exception {
     // y2:100 + (h2:80 / 2) - (h1:40 / 2) = y1:120
-    check_align_vertical(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, -10, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", false);
+    check_align_vertical(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, -10, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        false);
   }
 
   /**
    * Two parent's selection objects, order: Bottom-Up.
    */
   public void test_align_vertical_centers_2a() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 120, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", true);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 120, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        true);
   }
 
   /**
    * Two parent's selection objects, order: Top-Down.
    */
   public void test_align_vertical_centers_2b() throws Exception {
-    check_align_vertical2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, -15, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, "Align vertical centers", false);
+    check_align_vertical2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, -15, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        "Align vertical centers",
+        false);
   }
 
   private void check_align_vertical(String[] newSource, String action, boolean toUp)
       throws Exception {
-    check_align(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, newSource, action, toUp);
+    check_align(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        newSource,
+        action,
+        toUp);
   }
 
   private void check_align_vertical2(String[] newSource, String action, boolean toUp)
       throws Exception {
-    check_align2(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Composite composite = new Composite(this, SWT.NONE);",
-        "      composite.setBounds(65, 5, 300, 300);",
-        "      {",
-        "        Button button = new Button(composite, SWT.NONE);",
-        "        button.setBounds(5, 95, 100, 80);",
-        "        button.setText(\"111\");",
-        "      }",
-        "    }",
-        "  }",
-        "}"}, newSource, action, toUp);
+    check_align2(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Composite composite = new Composite(this, SWT.NONE);",
+            "      composite.setBounds(65, 5, 300, 300);",
+            "      {",
+            "        Button button = new Button(composite, SWT.NONE);",
+            "        button.setBounds(5, 95, 100, 80);",
+            "        button.setText(\"111\");",
+            "      }",
+            "    }",
+            "  }",
+            "}"},
+        newSource,
+        action,
+        toUp);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -817,67 +903,75 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_align_replicate_width() throws Exception {
-    check_align(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 100, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Replicate width", true);
+    check_align(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 100, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Replicate width",
+        true);
   }
 
   public void test_align_replicate_height() throws Exception {
-    check_align(new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 40);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, new String[]{
-        "class Test extends Shell {",
-        "  Test() {",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(10, 10, 50, 80);",
-        "      button.setText(\"000\");",
-        "    }",
-        "    {",
-        "      Button button = new Button(this, SWT.NONE);",
-        "      button.setBounds(70, 100, 100, 80);",
-        "      button.setText(\"111\");",
-        "    }",
-        "  }",
-        "}"}, "Replicate height", true);
+    check_align(
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 40);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        new String[]{
+            "class Test extends Shell {",
+            "  Test() {",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(10, 10, 50, 80);",
+            "      button.setText(\"000\");",
+            "    }",
+            "    {",
+            "      Button button = new Button(this, SWT.NONE);",
+            "      button.setBounds(70, 100, 100, 80);",
+            "      button.setText(\"111\");",
+            "    }",
+            "  }",
+            "}"},
+        "Replicate height",
+        true);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -889,31 +983,30 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    * Test for two object's without Ctrl pressed.
    */
   public void test_align_space_equally_1() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    setSize(600, 400);",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(30, 90, 100, 70);",
-            "      button.setText('000');",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(40, 200, 50, 30);",
-            "      button.setText('111');",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    setSize(600, 400);",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(30, 90, 100, 70);",
+        "      button.setText('000');",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(40, 200, 50, 30);",
+        "      button.setText('111');",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(shell);
     shell.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(shell.getChildrenControls().get(0));
     selectedObjects.add(shell.getChildrenControls().get(1));
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, "Space equally, horizontally").run();
@@ -941,37 +1034,36 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
    * Test for three object's with Ctrl pressed.
    */
   public void test_align_space_equally_2() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    setSize(400, 400);",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(10, 10, 50, 50);",
-            "      button.setText('000');",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(90, 90, 60, 60);",
-            "      button.setText('111');",
-            "    }",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(220, 220, 70, 70);",
-            "      button.setText('222');",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    setSize(400, 400);",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(10, 10, 50, 50);",
+        "      button.setText('000');",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(90, 90, 60, 60);",
+        "      button.setText('111');",
+        "    }",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(220, 220, 70, 70);",
+        "      button.setText('222');",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(shell);
     shell.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(shell.getChildrenControls().get(0));
     selectedObjects.add(shell.getChildrenControls().get(1));
     selectedObjects.add(shell.getChildrenControls().get(2));
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     try {
@@ -1011,25 +1103,24 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_align_center_in_window() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  Test() {",
-            "    setSize(600, 400);",
-            "    {",
-            "      Button button = new Button(this, SWT.NONE);",
-            "      button.setBounds(10, 10, 60, 40);",
-            "      button.setText('000');",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  Test() {",
+        "    setSize(600, 400);",
+        "    {",
+        "      Button button = new Button(this, SWT.NONE);",
+        "      button.setBounds(10, 10, 60, 40);",
+        "      button.setText('000');",
+        "    }",
+        "  }",
+        "}");
     setupSelectionActions(shell);
     shell.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(shell.getChildrenControls().get(0));
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, "Center horizontally in window").run();
@@ -1054,31 +1145,30 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_ScrolledComposite_onWayToRoot() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "class Test extends Shell {",
-            "  public Test() {",
-            "    ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.NONE);",
-            "    {",
-            "      Composite composite = new Composite(scrolledComposite, SWT.NONE);",
-            "      composite.setLayout(null);",
-            "      {",
-            "        Button button_1 = new Button(composite, SWT.NONE);",
-            "        button_1.setBounds(10, 10, 100, 20);",
-            "      }",
-            "      {",
-            "        Button button_2 = new Button(composite, SWT.NONE);",
-            "        button_2.setBounds(20, 100, 100, 20);",
-            "      }",
-            "      scrolledComposite.setContent(composite);",
-            "      scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
-            "    }",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "class Test extends Shell {",
+        "  public Test() {",
+        "    ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.NONE);",
+        "    {",
+        "      Composite composite = new Composite(scrolledComposite, SWT.NONE);",
+        "      composite.setLayout(null);",
+        "      {",
+        "        Button button_1 = new Button(composite, SWT.NONE);",
+        "        button_1.setBounds(10, 10, 100, 20);",
+        "      }",
+        "      {",
+        "        Button button_2 = new Button(composite, SWT.NONE);",
+        "        button_2.setBounds(20, 100, 100, 20);",
+        "      }",
+        "      scrolledComposite.setContent(composite);",
+        "      scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
+        "    }",
+        "  }",
+        "}");
     shell.refresh();
     //
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     {
       selectedObjects.add(getJavaInfoByName("button_1"));
       selectedObjects.add(getJavaInfoByName("button_2"));
@@ -1088,7 +1178,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
     {
       CompositeInfo composite = getJavaInfoByName("composite");
       setupSelectionActions(composite);
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
     //
@@ -1108,7 +1198,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
     setupSelectionActions(shell);
     shell.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     if (toUp) {
       selectedObjects.add(shell.getChildrenControls().get(1));
       selectedObjects.add(shell.getChildrenControls().get(0));
@@ -1117,7 +1207,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
       selectedObjects.add(shell.getChildrenControls().get(1));
     }
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, action).run();
@@ -1133,7 +1223,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
     setupSelectionActions(shell);
     shell.refresh();
     // prepare selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(1);
     setupSelectionActions(composite);
     if (toUp) {
@@ -1144,7 +1234,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
       selectedObjects.add(composite.getChildrenControls().get(0));
     }
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     //
     findAction(actions, action).run();

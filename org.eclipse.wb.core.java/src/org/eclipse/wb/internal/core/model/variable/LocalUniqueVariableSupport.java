@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.variable;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -29,6 +28,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -126,11 +126,10 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
     // prepare variable declaration statement
     NodeTarget creationTarget = new NodeTarget(associationTarget);
     String initializer = m_javaInfo.getCreationSupport().add_getSource(creationTarget);
-    String variableName =
-        editor.getUniqueVariableName(
-            associationTarget.getPosition(),
-            NamesManager.getName(m_javaInfo),
-            null);
+    String variableName = editor.getUniqueVariableName(
+        associationTarget.getPosition(),
+        NamesManager.getName(m_javaInfo),
+        null);
     initializer = StringUtils.replace(initializer, "%variable-name%", variableName);
     String modifiers = prefDeclareFinal() ? "final " : "";
     return modifiers + className + " " + variableName + " = " + initializer + ";";
@@ -188,7 +187,7 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
    *         can be inlined.
    */
   public boolean canInline() {
-    List<Expression> references = Lists.newArrayList(getReferences());
+    List<Expression> references = new ArrayList<>(getReferences());
     references.remove(m_variable);
     return references.size() == 1;
   }
@@ -204,7 +203,7 @@ public final class LocalUniqueVariableSupport extends LocalVariableSupport {
     // prepare single reference on component, that should be replaced with creation Expression
     Expression reference;
     {
-      List<Expression> references = Lists.newArrayList(getReferences());
+      List<Expression> references = new ArrayList<>(getReferences());
       references.remove(m_variable);
       Preconditions.checkState(references.size() == 1, references);
       reference = references.get(0);

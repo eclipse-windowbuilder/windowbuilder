@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAreaDialog;
 import org.eclipse.wb.internal.core.utils.dialogfields.DialogField;
@@ -59,16 +57,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract {@link Dialog} for working with Look-n-Feel.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.ui
  */
 public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidationTitleAreaDialog {
-  protected final List<Command> m_commands = Lists.newArrayList();
+  protected final List<Command> m_commands = new ArrayList<>();
   private final CategoryInfo m_targetCategory;
   // ui
   protected ComboViewer m_categoriesCombo;
@@ -137,19 +136,19 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
       newCategoryButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
-          InputDialog inputDialog =
-              new InputDialog(getShell(),
-                  LafMessages.AbstractCustomLookAndFeelDialog_newCategory,
-                  LafMessages.AbstractCustomLookAndFeelDialog_newCategoryEnterName,
-                  "",
-                  null);
+          InputDialog inputDialog = new InputDialog(getShell(),
+              LafMessages.AbstractCustomLookAndFeelDialog_newCategory,
+              LafMessages.AbstractCustomLookAndFeelDialog_newCategoryEnterName,
+              "",
+              null);
           if (inputDialog.open() == Window.OK) {
             String newCategoryID = "category_" + System.currentTimeMillis();
             AddCategoryCommand command =
                 new AddCategoryCommand(newCategoryID, inputDialog.getValue());
             command.execute();
             m_categoriesCombo.refresh();
-            m_categoriesCombo.setSelection(new StructuredSelection(LafSupport.getCategory(newCategoryID)));
+            m_categoriesCombo.setSelection(
+                new StructuredSelection(LafSupport.getCategory(newCategoryID)));
             // add command to be stored
             m_commands.add(command);
           }
@@ -226,7 +225,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 
   /**
    * Called when the user selects jar file either using workspace or file-system.
-   * 
+   *
    * @param jarFileName
    *          the path to selected jar file.
    */
@@ -239,7 +238,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 
   /**
    * Performs scanning of JAR file using progress monitor and performs the error handling.
-   * 
+   *
    * @param monitor
    *          the instance of {@link IProgressMonitor}, cannot be <code>null</code>.
    * @param jarFileName
@@ -262,9 +261,10 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
       } catch (Throwable e) {
         DesignerPlugin.log(e);
         handleJarScanningError();
-        return new String[]{MessageFormat.format(
-            LafMessages.AbstractCustomLookAndFeelDialog_jarError,
-            jarFileName)};
+        return new String[]{
+            MessageFormat.format(
+                LafMessages.AbstractCustomLookAndFeelDialog_jarError,
+                jarFileName)};
       }
     } finally {
       monitor.done();
@@ -273,7 +273,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Inner class 
+  // Inner class
   //
   ////////////////////////////////////////////////////////////////////////////
   private final class JarFileSelectionButtonAdapter implements IStringButtonAdapter {
@@ -308,7 +308,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
           item.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-              // open file system jar selection dialog 
+              // open file system jar selection dialog
               handleBrowseFileSystem();
             }
           });

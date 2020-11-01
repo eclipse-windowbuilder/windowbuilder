@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.Association;
@@ -49,6 +48,7 @@ import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -165,7 +165,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
   @Override
   protected String validate(MorphingTargetDescription target) throws Exception {
     // prepare signatures of methods used for children association
-    Set<String> associationSignatures = Sets.newHashSet();
+    Set<String> associationSignatures = new HashSet<>();
     for (JavaInfo child : m_component.getChildrenJava()) {
       if (child.getAssociation() instanceof InvocationChildAssociation) {
         InvocationChildAssociation association =
@@ -279,7 +279,9 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
         QualifiedName fieldAccess = (QualifiedName) node.getParent();
         if (fieldAccess.getLocationInParent() == Assignment.LEFT_HAND_SIDE_PROPERTY) {
           String fieldName = fieldAccess.getName().getIdentifier();
-          if (ReflectionUtils.getFieldByName(newComponentDescription.getComponentClass(), fieldName) == null) {
+          if (ReflectionUtils.getFieldByName(
+              newComponentDescription.getComponentClass(),
+              fieldName) == null) {
             m_editor.removeEnclosingStatement(node);
             continue;
           }

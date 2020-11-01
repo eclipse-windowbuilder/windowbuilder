@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils.ExecutionFlowFrameVisitor;
@@ -58,6 +54,10 @@ import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -154,7 +154,8 @@ public abstract class JavaInfoEvaluationHelper {
   /**
    * Specifies if {@link ReturnStatement} of given {@link MethodDeclaration} should be evaluated.
    */
-  public static void shouldEvaluateReturnValue(MethodDeclaration methodDeclaration, boolean evaluate) {
+  public static void shouldEvaluateReturnValue(MethodDeclaration methodDeclaration,
+      boolean evaluate) {
     methodDeclaration.setProperty(KEY_EVALUATE_RETURN_VALUE, evaluate ? Boolean.TRUE : null);
   }
 
@@ -175,8 +176,8 @@ public abstract class JavaInfoEvaluationHelper {
   private final EditorState m_state;
   private final ExecutionFlowFrameVisitor m_visitor;
   private final EvaluationContext m_context;
-  private final Set<MethodInvocation> m_impossibleJavaInfo = Sets.newHashSet();
-  private final Set<Expression> m_evaluatedExpressions = Sets.newHashSet();
+  private final Set<MethodInvocation> m_impossibleJavaInfo = new HashSet<>();
+  private final Set<Expression> m_evaluatedExpressions = new HashSet<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -387,13 +388,12 @@ public abstract class JavaInfoEvaluationHelper {
     }
     // check JavaDoc tags
     {
-      Object value =
-          evaluateJavadocTagExpression(
-              m_editor,
-              m_context,
-              method.getJavadoc(),
-              "@wbp.eval.method.parameter",
-              parameter.getName().getIdentifier());
+      Object value = evaluateJavadocTagExpression(
+          m_editor,
+          m_context,
+          method.getJavadoc(),
+          "@wbp.eval.method.parameter",
+          parameter.getName().getIdentifier());
       if (value != AstEvaluationEngine.UNKNOWN) {
         return value;
       }
@@ -414,11 +414,10 @@ public abstract class JavaInfoEvaluationHelper {
     }
     // use IMethodParameterEvaluator
     {
-      List<IMethodParameterEvaluator> evaluators =
-          ExternalFactoriesHelper.getElementsInstances(
-              IMethodParameterEvaluator.class,
-              "org.eclipse.wb.core.java.unknownParameterEvaluators",
-              "evaluator");
+      List<IMethodParameterEvaluator> evaluators = ExternalFactoriesHelper.getElementsInstances(
+          IMethodParameterEvaluator.class,
+          "org.eclipse.wb.core.java.unknownParameterEvaluators",
+          "evaluator");
       for (IMethodParameterEvaluator evaluator : evaluators) {
         Object value = evaluator.evaluateParameter(m_context, method, signature, parameter, index);
         if (value != AstEvaluationEngine.UNKNOWN) {
@@ -451,19 +450,19 @@ public abstract class JavaInfoEvaluationHelper {
     }
     // Collections
     if (AstNodeUtils.isSuccessorOf(binding, "java.util.LinkedList")) {
-      return Lists.newLinkedList();
+      return new LinkedList<>();
     }
     if (AstNodeUtils.isSuccessorOf(binding, "java.util.Vector")) {
       return new java.util.Vector<Object>();
     }
     if (AstNodeUtils.isSuccessorOf(binding, "java.util.List")) {
-      return Lists.newArrayList();
+      return new ArrayList<>();
     }
     if (AstNodeUtils.isSuccessorOf(binding, "java.util.Set")) {
-      return Sets.newHashSet();
+      return new HashSet<>();
     }
     if (AstNodeUtils.isSuccessorOf(binding, "java.util.Map")) {
-      return Maps.newHashMap();
+      return new HashMap<>();
     }
     // Object
     return null;

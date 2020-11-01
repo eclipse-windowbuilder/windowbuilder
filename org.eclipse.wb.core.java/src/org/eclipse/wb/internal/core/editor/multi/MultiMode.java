@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.core.editor.IEditorPageFactory;
 import org.eclipse.wb.core.editor.IMultiMode;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.swt.widgets.Composite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +32,7 @@ public abstract class MultiMode implements IMultiMode {
   protected final DesignerEditor m_editor;
   protected final SourcePage m_sourcePage;
   protected final DesignPage m_designPage;
-  protected final List<IEditorPage> m_additionalPages = Lists.newArrayList();
+  protected final List<IEditorPage> m_additionalPages = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -102,11 +101,10 @@ public abstract class MultiMode implements IMultiMode {
     m_sourcePage.initialize(m_editor);
     m_designPage.initialize(m_editor);
     // create additional pages
-    List<IEditorPageFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            IEditorPageFactory.class,
-            "org.eclipse.wb.core.designPageFactories",
-            "factory");
+    List<IEditorPageFactory> factories = ExternalFactoriesHelper.getElementsInstances(
+        IEditorPageFactory.class,
+        "org.eclipse.wb.core.designPageFactories",
+        "factory");
     for (IEditorPageFactory factory : factories) {
       factory.createPages(m_editor, m_additionalPages);
     }

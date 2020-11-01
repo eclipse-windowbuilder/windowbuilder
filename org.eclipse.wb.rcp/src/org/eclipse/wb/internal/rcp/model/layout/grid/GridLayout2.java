@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.layout.grid;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -27,6 +25,7 @@ import org.eclipse.swt.widgets.Scrollable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,7 +38,7 @@ import java.util.Map;
  * </p>
  * <p>
  * The following code creates a shell managed by a <code>GridLayout</code> with 3 columns:
- * 
+ *
  * <pre>
  * 		Display display = new Display();
  * 		Shell shell = new Shell(display);
@@ -47,12 +46,12 @@ import java.util.Map;
  * 		gridLayout.numColumns = 3;
  * 		shell.setLayout(gridLayout);
  * </pre>
- * 
+ *
  * The <code>numColumns</code> field is the most important field in a <code>GridLayout</code>.
  * Widgets are laid out in columns from left to right, and a new row is created when
  * <code>numColumns</code> + 1 controls are added to the <code>Composite<code>.
  * </p>
- * 
+ *
  * @see GridData2
  * @coverage rcp.model.layout.GridLayout.copy
  */
@@ -60,78 +59,78 @@ public final class GridLayout2 extends Layout {
   /**
    * numColumns specifies the number of cell columns in the layout. If numColumns has a value less
    * than 1, the layout will not set the size and position of any controls.
-   * 
+   *
    * The default value is 1.
    */
   public int numColumns = 1;
   /**
    * makeColumnsEqualWidth specifies whether all columns in the layout will be forced to have the
    * same width.
-   * 
+   *
    * The default value is false.
    */
   public boolean makeColumnsEqualWidth = false;
   /**
    * marginWidth specifies the number of pixels of horizontal margin that will be placed along the
    * left and right edges of the layout.
-   * 
+   *
    * The default value is 5.
    */
   public int marginWidth = 5;
   /**
    * marginHeight specifies the number of pixels of vertical margin that will be placed along the
    * top and bottom edges of the layout.
-   * 
+   *
    * The default value is 5.
    */
   public int marginHeight = 5;
   /**
    * marginLeft specifies the number of pixels of horizontal margin that will be placed along the
    * left edge of the layout.
-   * 
+   *
    * The default value is 0.
-   * 
+   *
    * @since 3.1
    */
   public int marginLeft = 0;
   /**
    * marginTop specifies the number of pixels of vertical margin that will be placed along the top
    * edge of the layout.
-   * 
+   *
    * The default value is 0.
-   * 
+   *
    * @since 3.1
    */
   public int marginTop = 0;
   /**
    * marginRight specifies the number of pixels of horizontal margin that will be placed along the
    * right edge of the layout.
-   * 
+   *
    * The default value is 0.
-   * 
+   *
    * @since 3.1
    */
   public int marginRight = 0;
   /**
    * marginBottom specifies the number of pixels of vertical margin that will be placed along the
    * bottom edge of the layout.
-   * 
+   *
    * The default value is 0.
-   * 
+   *
    * @since 3.1
    */
   public int marginBottom = 0;
   /**
    * horizontalSpacing specifies the number of pixels between the right edge of one cell and the
    * left edge of its neighbouring cell to the right.
-   * 
+   *
    * The default value is 5.
    */
   public int horizontalSpacing = 5;
   /**
    * verticalSpacing specifies the number of pixels between the bottom edge of one cell and the top
    * edge of its neighbouring cell underneath.
-   * 
+   *
    * The default value is 5.
    */
   public int verticalSpacing = 5;
@@ -144,7 +143,7 @@ public final class GridLayout2 extends Layout {
   int[] m_columnWidths;
   int[] m_rowOrigins;
   int[] m_rowHeights;
-  Map<Control, Point> m_controlToXY = Maps.newHashMap();
+  Map<Control, Point> m_controlToXY = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -161,12 +160,12 @@ public final class GridLayout2 extends Layout {
    * Constructs a new instance of this class given the number of columns, and whether or not the
    * columns should be forced to have the same width. If numColumns has a value less than 1, the
    * layout will not set the size and position of any controls.
-   * 
+   *
    * @param numColumns
    *          the number of columns in the grid
    * @param makeColumnsEqualWidth
    *          whether or not the columns will have equal width
-   * 
+   *
    * @since 2.0
    */
   public GridLayout2(int numColumns, boolean makeColumnsEqualWidth) {
@@ -237,10 +236,8 @@ public final class GridLayout2 extends Layout {
       int height,
       boolean flushCache) {
     if (numColumns < 1) {
-      return new Point(marginLeft + marginWidth * 2 + marginRight, marginTop
-          + marginHeight
-          * 2
-          + marginBottom);
+      return new Point(marginLeft + marginWidth * 2 + marginRight,
+          marginTop + marginHeight * 2 + marginBottom);
     }
     Control[] children = composite.getChildren();
     int count = 0;
@@ -258,10 +255,8 @@ public final class GridLayout2 extends Layout {
         m_rowOrigins = new int[0];
         m_rowHeights = new int[0];
       }
-      return new Point(marginLeft + marginWidth * 2 + marginRight, marginTop
-          + marginHeight
-          * 2
-          + marginBottom);
+      return new Point(marginLeft + marginWidth * 2 + marginRight,
+          marginTop + marginHeight * 2 + marginBottom);
     }
     for (int i = 0; i < count; i++) {
       Control child = children[i];
@@ -337,11 +332,9 @@ public final class GridLayout2 extends Layout {
       column += hSpan;
     }
     /* Column widths */
-    int availableWidth =
-        width
-            - horizontalSpacing
-            * (columnCount - 1)
-            - (marginLeft + marginWidth * 2 + marginRight);
+    int availableWidth = width
+        - horizontalSpacing * (columnCount - 1)
+        - (marginLeft + marginWidth * 2 + marginRight);
     int expandCount = 0;
     int[] widths = new int[columnCount];
     if (move) {
@@ -364,10 +357,9 @@ public final class GridLayout2 extends Layout {
               expandColumn[j] = true;
             }
             if (!data.grabExcessHorizontalSpace || data.minimumWidth != 0) {
-              w =
-                  !data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
-                      ? data.cacheWidth
-                      : data.minimumWidth;
+              w = !data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
+                  ? data.cacheWidth
+                  : data.minimumWidth;
               w += data.horizontalIndent;
               minWidths[j] = Math.max(minWidths[j], w);
             }
@@ -391,12 +383,10 @@ public final class GridLayout2 extends Layout {
               expandCount++;
               expandColumn[j] = true;
             }
-            int w =
-                data.cacheWidth
-                    + data.horizontalIndent
-                    - spanWidth
-                    - (hSpan - 1)
-                    * horizontalSpacing;
+            int w = data.cacheWidth
+                + data.horizontalIndent
+                - spanWidth
+                - (hSpan - 1) * horizontalSpacing;
             if (w > 0) {
               if (makeColumnsEqualWidth) {
                 int equalWidth = (w + spanWidth) / hSpan;
@@ -425,10 +415,9 @@ public final class GridLayout2 extends Layout {
               }
             }
             if (!data.grabExcessHorizontalSpace || data.minimumWidth != 0) {
-              w =
-                  !data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
-                      ? data.cacheWidth
-                      : data.minimumWidth;
+              w = !data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
+                  ? data.cacheWidth
+                  : data.minimumWidth;
               w += data.horizontalIndent - spanMinWidth - (hSpan - 1) * horizontalSpacing;
               if (w > 0) {
                 if (spanExpandCount == 0) {
@@ -458,10 +447,9 @@ public final class GridLayout2 extends Layout {
         minColumnWidth = Math.max(minColumnWidth, minWidths[i]);
         columnWidth = Math.max(columnWidth, widths[i]);
       }
-      columnWidth =
-          width == SWT.DEFAULT || expandCount == 0 ? columnWidth : Math.max(
-              minColumnWidth,
-              availableWidth / columnCount);
+      columnWidth = width == SWT.DEFAULT || expandCount == 0
+          ? columnWidth
+          : Math.max(minColumnWidth, availableWidth / columnCount);
       for (int i = 0; i < columnCount; i++) {
         expandColumn[i] = expandCount > 0;
         widths[i] = columnWidth;
@@ -505,10 +493,9 @@ public final class GridLayout2 extends Layout {
                         spanExpandCount++;
                       }
                     }
-                    int w =
-                        !data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
-                            ? data.cacheWidth
-                            : data.minimumWidth;
+                    int w = !data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
+                        ? data.cacheWidth
+                        : data.minimumWidth;
                     w += data.horizontalIndent - spanWidth - (hSpan - 1) * horizontalSpacing;
                     if (w > 0) {
                       if (spanExpandCount == 0) {
@@ -561,8 +548,7 @@ public final class GridLayout2 extends Layout {
                 currentWidth += widths[j - k];
               }
               currentWidth += (hSpan - 1) * horizontalSpacing - data.horizontalIndent;
-              if (currentWidth != data.cacheWidth
-                  && data.horizontalAlignment == SWT.FILL
+              if (currentWidth != data.cacheWidth && data.horizontalAlignment == SWT.FILL
                   || data.cacheWidth > currentWidth) {
                 int trim = 0;
                 if (child instanceof Scrollable) {
@@ -611,10 +597,9 @@ public final class GridLayout2 extends Layout {
               expandRow[i] = true;
             }
             if (!data.grabExcessVerticalSpace || data.minimumHeight != 0) {
-              h =
-                  !data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
-                      ? data.cacheHeight
-                      : data.minimumHeight;
+              h = !data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
+                  ? data.cacheHeight
+                  : data.minimumHeight;
               h += data.verticalIndent;
               minHeights[i] = Math.max(minHeights[i], h);
             }
@@ -657,10 +642,9 @@ public final class GridLayout2 extends Layout {
               }
             }
             if (!data.grabExcessVerticalSpace || data.minimumHeight != 0) {
-              h =
-                  !data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
-                      ? data.cacheHeight
-                      : data.minimumHeight;
+              h = !data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
+                  ? data.cacheHeight
+                  : data.minimumHeight;
               h += data.verticalIndent - spanMinHeight - (vSpan - 1) * verticalSpacing;
               if (h > 0) {
                 if (spanExpandCount == 0) {
@@ -721,10 +705,9 @@ public final class GridLayout2 extends Layout {
                       spanExpandCount++;
                     }
                   }
-                  int h =
-                      !data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
-                          ? data.cacheHeight
-                          : data.minimumHeight;
+                  int h = !data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
+                      ? data.cacheHeight
+                      : data.minimumHeight;
                   h += data.verticalIndent - spanHeight - (vSpan - 1) * verticalSpacing;
                   if (h > 0) {
                     if (spanExpandCount == 0) {
@@ -857,7 +840,7 @@ public final class GridLayout2 extends Layout {
 
   /**
    * Returns a string containing a concise, human-readable description of the receiver.
-   * 
+   *
    * @return a string representation of the layout
    */
   @Override

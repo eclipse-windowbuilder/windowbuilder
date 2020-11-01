@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.reflect;
 
-import com.google.common.collect.Maps;
-
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -20,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper class for inspecting a JavaBean.
@@ -57,7 +56,7 @@ public final class IntrospectionHelper {
         String displayName;
         String shortDescription;
         Class<?> customizerClass;
-        Map<String, Object> values = Maps.newTreeMap();
+        Map<String, Object> values = new TreeMap<>();
       }
       BeanDescData beanDescData = new BeanDescData();
       // collect the bean descriptor data from all classes in supertype hierarchy

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
@@ -26,6 +24,7 @@ import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -75,11 +74,10 @@ public final class Activator extends AbstractUIPlugin {
    * @return the {@link InputStream} for file from plugin directory.
    */
   public static InputStream getFile(final String path) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<InputStream>() {
-      public InputStream runObject() throws Exception {
-        return m_plugin.getBundle().getEntry(path).openStream();
-      }
-    }, "Unable to open plugin file %s", path);
+    return ExecutionUtils.runObject(
+        (RunnableObjectEx<InputStream>) () -> m_plugin.getBundle().getEntry(path).openStream(),
+        "Unable to open plugin file %s",
+        path);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -87,7 +85,7 @@ public final class Activator extends AbstractUIPlugin {
   // Caches
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Map<String, Image> m_nameToIconMap = Maps.newHashMap();
+  private static final Map<String, Image> m_nameToIconMap = new HashMap<>();
 
   /**
    * Get image from "icons" directory.

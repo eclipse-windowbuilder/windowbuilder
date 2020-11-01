@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets.menu;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -60,11 +58,13 @@ import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Model for SWT menu.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets.menu
  */
@@ -256,7 +256,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
       ClassInstanceCreation creation = creationSupport.getCreation();
       NodeTarget target = JavaInfoUtils.getNodeTarget_afterCreation(this);
       String parentReference = parent.getVariableSupport().getReferenceExpression(target);
-      getEditor().replaceCreationArguments(creation, Lists.newArrayList(parentReference));
+      getEditor().replaceCreationArguments(creation, Arrays.asList(parentReference));
     }
   }
 
@@ -296,7 +296,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -311,7 +311,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuPopupInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuPopupImpl extends MenuAbstractImpl implements IMenuPopupInfo {
@@ -367,7 +367,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo, IMenuPolicy {
@@ -403,7 +403,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
     }
 
     public List<IMenuItemInfo> getItems() {
-      List<IMenuItemInfo> items = Lists.newArrayList();
+      List<IMenuItemInfo> items = new ArrayList<>();
       for (MenuItemInfo item : getChildrenItems()) {
         items.add(MenuObjectInfoUtils.getMenuItemInfo(item));
       }
@@ -474,7 +474,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
 
     @SuppressWarnings("unchecked")
     public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
-      List<MenuItemInfo> pastedObjects = Lists.newArrayList();
+      List<MenuItemInfo> pastedObjects = new ArrayList<>();
       List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) mementoObject;
       for (JavaInfoMemento memento : mementos) {
         MenuItemInfo item = (MenuItemInfo) memento.create(m_this);

@@ -11,10 +11,10 @@
 package org.eclipse.wb.internal.core.model.description.resource;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ import java.util.List;
  * @coverage core.model.description
  */
 public abstract class FromListDescriptionVersionsProvider implements IDescriptionVersionsProvider {
-  private final List<String> m_versions = Lists.newArrayList();
+  private final List<String> m_versions = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

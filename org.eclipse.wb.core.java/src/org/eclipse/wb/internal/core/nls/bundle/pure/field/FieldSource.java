@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.pure.field;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -43,6 +41,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,7 +75,7 @@ public final class FieldSource extends AbstractPureBundleSource {
    */
   public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
       throws Exception {
-    List<AbstractSource> sources = Lists.newArrayList();
+    List<AbstractSource> sources = new ArrayList<>();
     //
     Object[] nonJavaResources = pkg.getNonJavaResources();
     for (Object o : nonJavaResources) {
@@ -103,10 +102,9 @@ public final class FieldSource extends AbstractPureBundleSource {
         }
         // OK, this is probably correct source
         try {
-          String bundleName =
-              pkg.getElementName()
-                  + "."
-                  + StringUtils.substring(fileName, 0, -".properties".length());
+          String bundleName = pkg.getElementName()
+              + "."
+              + StringUtils.substring(fileName, 0, -".properties".length());
           AbstractSource source = new FieldSource(root, bundleName, fieldName);
           sources.add(source);
         } catch (Throwable e) {
@@ -173,10 +171,9 @@ public final class FieldSource extends AbstractPureBundleSource {
       // check for getString(key)
       MethodInvocation getString_invocation = (MethodInvocation) expression;
       {
-        boolean is_getString =
-            getString_invocation.getName().getIdentifier().equals("getString")
-                && getString_invocation.arguments().size() == 1
-                && getString_invocation.arguments().get(0) instanceof StringLiteral;
+        boolean is_getString = getString_invocation.getName().getIdentifier().equals("getString")
+            && getString_invocation.arguments().size() == 1
+            && getString_invocation.arguments().get(0) instanceof StringLiteral;
         if (!is_getString) {
           return null;
         }
@@ -191,10 +188,9 @@ public final class FieldSource extends AbstractPureBundleSource {
           Expression fieldInitializer;
           {
             EditorState editorState = EditorState.get(component.getEditor());
-            ASTNode assignment =
-                ExecutionFlowUtils.getLastAssignment(
-                    editorState.getFlowDescription(),
-                    fieldExpression);
+            ASTNode assignment = ExecutionFlowUtils.getLastAssignment(
+                editorState.getFlowDescription(),
+                fieldExpression);
             if (!(assignment instanceof VariableDeclarationFragment)) {
               return null;
             }
@@ -210,12 +206,11 @@ public final class FieldSource extends AbstractPureBundleSource {
           StringLiteral keyLiteral = (StringLiteral) getString_invocation.arguments().get(0);
           String key = keyLiteral.getLiteralValue();
           // return information about expression
-          ExpressionInfo expressionInfo =
-              new ExpressionInfo(expression,
-                  bundleName,
-                  fieldExpression.getIdentifier(),
-                  keyLiteral,
-                  key);
+          ExpressionInfo expressionInfo = new ExpressionInfo(expression,
+              bundleName,
+              fieldExpression.getIdentifier(),
+              keyLiteral,
+              key);
           expression.setProperty(NLS_EXPRESSION_INFO, expressionInfo);
           return expressionInfo;
         }
@@ -245,17 +240,15 @@ public final class FieldSource extends AbstractPureBundleSource {
       MethodInvocation invocation = (MethodInvocation) expression;
       // check for: getBundle(bundleName)
       {
-        boolean is_getBundle =
-            invocation.getName().getIdentifier().equals("getBundle")
-                && invocation.arguments().size() == 1
-                && invocation.arguments().get(0) instanceof StringLiteral;
-        boolean is_getBundleWithLocale =
-            invocation.getName().getIdentifier().equals("getBundle")
-                && invocation.arguments().size() == 2
-                && invocation.arguments().get(0) instanceof StringLiteral
-                && AstNodeUtils.getFullyQualifiedName(
-                    (Expression) invocation.arguments().get(1),
-                    false).equals("java.util.Locale");
+        boolean is_getBundle = invocation.getName().getIdentifier().equals("getBundle")
+            && invocation.arguments().size() == 1
+            && invocation.arguments().get(0) instanceof StringLiteral;
+        boolean is_getBundleWithLocale = invocation.getName().getIdentifier().equals("getBundle")
+            && invocation.arguments().size() == 2
+            && invocation.arguments().get(0) instanceof StringLiteral
+            && AstNodeUtils.getFullyQualifiedName(
+                (Expression) invocation.arguments().get(1),
+                false).equals("java.util.Locale");
         if (!is_getBundle && !is_getBundleWithLocale) {
           return null;
         }
@@ -383,14 +376,14 @@ public final class FieldSource extends AbstractPureBundleSource {
   /**
    * Add field with ResourceBundle definition.
    */
-  private static void addField(JavaInfo root, String bundleName, String fieldName) throws Exception {
+  private static void addField(JavaInfo root, String bundleName, String fieldName)
+      throws Exception {
     // prepare code
-    String code =
-        "private static final java.util.ResourceBundle "
-            + fieldName
-            + " = java.util.ResourceBundle.getBundle("
-            + StringConverter.INSTANCE.toJavaSource(root, bundleName)
-            + "); //$NON-NLS-1$";
+    String code = "private static final java.util.ResourceBundle "
+        + fieldName
+        + " = java.util.ResourceBundle.getBundle("
+        + StringConverter.INSTANCE.toJavaSource(root, bundleName)
+        + "); //$NON-NLS-1$";
     // add field
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(root);
     root.getEditor().addFieldDeclaration(code, new BodyDeclarationTarget(typeDeclaration, true));

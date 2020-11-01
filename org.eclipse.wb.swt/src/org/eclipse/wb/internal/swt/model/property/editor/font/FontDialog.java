@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.font;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -32,11 +30,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Dialog for {@link Font} choosing.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */
@@ -89,7 +88,7 @@ public final class FontDialog extends ReusableDialog {
   ////////////////////////////////////////////////////////////////////////////
   private FontPreviewCanvas m_previewCanvas;
   private TabFolder m_tabFolder;
-  private final List<AbstractFontPage> m_pages = Lists.newArrayList();
+  private final List<AbstractFontPage> m_pages = new ArrayList<>();
 
   //
   @Override
@@ -165,10 +164,9 @@ public final class FontDialog extends ReusableDialog {
    * Adds pages with {@link AbstractFontPage}'s.
    */
   protected void addPages(Composite parent) {
-    addPage(ModelMessages.FontDialog_constructorPage, new ConstructionFontPage(m_javaInfo,
-        parent,
-        SWT.NONE,
-        this));
+    addPage(
+        ModelMessages.FontDialog_constructorPage,
+        new ConstructionFontPage(m_javaInfo, parent, SWT.NONE, this));
     if (JFaceSupport.isAvialable()) {
       // FIXME removed to avoid JVM crash in eswt-converged.dll
       // https://bugs.eclipse.org/bugs/show_bug.cgi?id=201442

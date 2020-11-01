@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.InstanceListPropertyEditor;
@@ -34,7 +32,7 @@ import java.util.Map;
 
 /**
  * Test for {@link InstanceListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class InstanceObjectPropertyEditorTest extends SwingModelTest {
@@ -92,13 +90,12 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
    */
   public void test_parse_noValue() throws Exception {
     configureContents();
-    ContainerInfo container =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends TestPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "// filler filler filler",
+        "public class Test extends TestPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // property
     Property property = container.getPropertyByTitle("property");
     assertThat(property).isNotNull();
@@ -115,13 +112,12 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
    */
   public void test_parse_withValue() throws Exception {
     configureContents();
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends TestPanel {",
-            "  public Test() {",
-            "    setProperty(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends TestPanel {",
+        "  public Test() {",
+        "    setProperty(new JButton());",
+        "  }",
+        "}");
     // property instance info
     assertThat(container.getChildrenComponents()).hasSize(1);
     ComponentInfo childInfo = container.getChildrenComponents().get(0);
@@ -145,13 +141,12 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
    */
   public void test_dialog() throws Exception {
     configureContents();
-    ContainerInfo container =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends TestPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "// filler filler filler",
+        "public class Test extends TestPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // property instance info
     assertThat(container.getChildrenComponents()).hasSize(0);
     // property
@@ -206,13 +201,12 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
    */
   public void test_doubleClick() throws Exception {
     configureContents();
-    ContainerInfo container =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends TestPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "// filler filler filler",
+        "public class Test extends TestPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // property instance info
     assertThat(container.getChildrenComponents()).hasSize(0);
     // property
@@ -240,14 +234,13 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
    */
   public void test_restore_default() throws Exception {
     configureContents();
-    ContainerInfo container =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends TestPanel {",
-            "  public Test() {",
-            "    setProperty(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "// filler filler filler",
+        "public class Test extends TestPanel {",
+        "  public Test() {",
+        "    setProperty(new JButton());",
+        "  }",
+        "}");
     // property instance info
     assertThat(container.getChildrenComponents()).hasSize(1);
     // property
@@ -275,13 +268,12 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
    */
   public void test_sub_properties() throws Exception {
     configureContents();
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends TestPanel {",
-            "  public Test() {",
-            "    setProperty(new JButton());",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends TestPanel {",
+        "  public Test() {",
+        "    setProperty(new JButton());",
+        "  }",
+        "}");
     // property
     Property property = container.getPropertyByTitle("property");
     //editor
@@ -315,7 +307,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
     //    }
     //  </parameter>
     //</editor>
-    HashMap<String, Object> params = Maps.newHashMap();
+    HashMap<String, Object> params = new HashMap<>();
     params.put("class", "");
     params.put("source", getSourceDQ("new javax.swing.AbstractButton() {", "}"));
     return params;
@@ -329,30 +321,34 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
   }
 
   private void configureContents() throws Exception {
-    setJavaContentSrc("test", "TestPanel", new String[]{
-        "public class TestPanel extends JPanel {",
-        "  public TestPanel(){",
-        "  }",
-        "  public void setProperty(AbstractButton value){",
-        "  }",
-        "}"}, new String[]{
-        "<?xml version='1.0' encoding='UTF-8'?>",
-        "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-        "  <methods>",
-        "    <method name='setProperty'>",
-        "      <parameter type='javax.swing.AbstractButton' child='true'/>",
-        "    </method>",
-        "  </methods>",
-        "  <property id='setProperty(javax.swing.AbstractButton)'>",
-        "    <editor id='instanceObject'>",
-        "      <parameter name='class'>javax.swing.AbstractButton</parameter>",
-        "      <parameter name='source'><![CDATA[",
-        "        new javax.swing.AbstractButton() {",
-        "        }",
-        "        ]]></parameter>",
-        "    </editor>",
-        "  </property>",
-        "</component>"});
+    setJavaContentSrc(
+        "test",
+        "TestPanel",
+        new String[]{
+            "public class TestPanel extends JPanel {",
+            "  public TestPanel(){",
+            "  }",
+            "  public void setProperty(AbstractButton value){",
+            "  }",
+            "}"},
+        new String[]{
+            "<?xml version='1.0' encoding='UTF-8'?>",
+            "<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
+            "  <methods>",
+            "    <method name='setProperty'>",
+            "      <parameter type='javax.swing.AbstractButton' child='true'/>",
+            "    </method>",
+            "  </methods>",
+            "  <property id='setProperty(javax.swing.AbstractButton)'>",
+            "    <editor id='instanceObject'>",
+            "      <parameter name='class'>javax.swing.AbstractButton</parameter>",
+            "      <parameter name='source'><![CDATA[",
+            "        new javax.swing.AbstractButton() {",
+            "        }",
+            "        ]]></parameter>",
+            "    </editor>",
+            "  </property>",
+            "</component>"});
     waitForAutoBuild();
   }
 }

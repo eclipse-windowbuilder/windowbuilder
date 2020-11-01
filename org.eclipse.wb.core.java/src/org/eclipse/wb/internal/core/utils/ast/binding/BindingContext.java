@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ast.binding;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 
 import org.eclipse.jdt.core.dom.IBinding;
@@ -20,6 +18,7 @@ import org.eclipse.jdt.core.dom.IPackageBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IVariableBinding;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,7 +32,7 @@ import java.util.Map;
  * @coverage core.util.ast
  */
 public final class BindingContext {
-  private final Map<String, DesignerTypeBinding> m_typeBindings = Maps.newHashMap();
+  private final Map<String, DesignerTypeBinding> m_typeBindings = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

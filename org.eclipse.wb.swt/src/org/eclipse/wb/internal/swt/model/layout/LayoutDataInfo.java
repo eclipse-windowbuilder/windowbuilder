@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swt.model.layout;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
@@ -56,12 +55,13 @@ import org.eclipse.swt.layout.RowData;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Model for layout data object, for example {@link GridData}, {@link RowData}, etc.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage swt.model.layout
@@ -286,7 +286,7 @@ public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo
             EditorState state = JavaInfoUtils.getState(m_this);
             EvaluationContext context =
                 new EvaluationContext(state.getEditorLoader(), state.getFlowDescription());
-            argumentValues = Lists.newArrayList();
+            argumentValues = new ArrayList<>();
             for (Expression argument : arguments) {
               Object value = AstEvaluationEngine.evaluate(context, argument);
               JavaInfoEvaluationHelper.setValue(argument, value);
@@ -368,7 +368,7 @@ public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo
     String propertiesExcludeString =
         JavaInfoUtils.getParameter(this, "layoutData.exclude-properties");
     if (propertiesExcludeString != null) {
-      List<Property> filteredProperties = Lists.newArrayList();
+      List<Property> filteredProperties = new ArrayList<>();
       String[] propertiesExclude = StringUtils.split(propertiesExcludeString);
       props : for (Property property : properties) {
         for (String propertyExclude : propertiesExclude) {

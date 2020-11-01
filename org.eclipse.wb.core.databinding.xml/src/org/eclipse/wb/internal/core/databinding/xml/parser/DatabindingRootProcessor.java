@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.xml.parser;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.parser.ParseState;
@@ -33,7 +31,7 @@ import java.util.Map;
  */
 public final class DatabindingRootProcessor implements IRootProcessor {
   public static final IRootProcessor INSTANCE = new DatabindingRootProcessor();
-  public static final Map<IDocument, ParseState> STATES = Maps.newHashMap();
+  public static final Map<IDocument, ParseState> STATES = new HashMap<>();
   private List<IDatabindingFactory> m_factories;
 
   ////////////////////////////////////////////////////////////////////////////

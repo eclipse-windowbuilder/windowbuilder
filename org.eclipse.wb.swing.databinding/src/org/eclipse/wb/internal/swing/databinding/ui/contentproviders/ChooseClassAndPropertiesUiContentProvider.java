@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
@@ -51,11 +49,12 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Content provider for choose properties from Tree (properties + sub properties).
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */
@@ -72,7 +71,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
-  public ChooseClassAndPropertiesUiContentProvider(ChooseClassAndPropertiesConfiguration configuration) {
+  public ChooseClassAndPropertiesUiContentProvider(
+      ChooseClassAndPropertiesConfiguration configuration) {
     super(configuration);
     m_configuration = configuration;
   }
@@ -107,11 +107,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
 
   @Override
   protected ICheckboxViewerWrapper createPropertiesViewer(Composite parent) {
-    m_treeViewer =
-        new CheckboxTreeViewer(parent, SWT.BORDER
-            | SWT.FULL_SELECTION
-            | SWT.H_SCROLL
-            | SWT.V_SCROLL);
+    m_treeViewer = new CheckboxTreeViewer(parent,
+        SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
     m_treeViewer.setContentProvider(new PropertyAdapterContentProvider());
     m_treeViewer.setLabelProvider(new PropertyAdapterLabelProvider(m_treeViewer));
     return new CheckboxTreeViewerWrapper(m_treeViewer);
@@ -148,10 +145,11 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
         if (elements.length == 1) {
           ObservePropertyAdapter adapter = (ObservePropertyAdapter) elements[0];
           if (adapter.getProperty() instanceof ElPropertyObserveInfo) {
-            m_elPropertyUIContentProvider.setProperty((ElPropertyInfo) convertAdapterToProperty(
-                new BeanSupport(),
-                m_choosenClass,
-                adapter));
+            m_elPropertyUIContentProvider.setProperty(
+                (ElPropertyInfo) convertAdapterToProperty(
+                    new BeanSupport(),
+                    m_choosenClass,
+                    adapter));
             return;
           }
         }
@@ -161,10 +159,11 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
         ObservePropertyAdapter adapter = (ObservePropertyAdapter) elements[0];
         if (adapter.getProperty() instanceof ElPropertyObserveInfo) {
           m_elProperty = true;
-          m_elPropertyUIContentProvider.setProperty((ElPropertyInfo) convertAdapterToProperty(
-              new BeanSupport(),
-              m_choosenClass,
-              adapter));
+          m_elPropertyUIContentProvider.setProperty(
+              (ElPropertyInfo) convertAdapterToProperty(
+                  new BeanSupport(),
+                  m_choosenClass,
+                  adapter));
         }
       }
     } catch (Throwable e) {
@@ -174,7 +173,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
 
   @Override
   protected List<PropertyAdapter> getProperties(Class<?> choosenClass) throws Exception {
-    List<PropertyAdapter> adapters = Lists.newArrayList();
+    List<PropertyAdapter> adapters = new ArrayList<>();
     BeanSupport beanSupport = new BeanSupport();
     beanSupport.doAddELProperty(m_configuration.isWorkWithELProperty());
     ClassGenericType objectType = new ClassGenericType(choosenClass, null, null);
@@ -197,11 +196,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       Class<?> objectClass,
       PropertyInfo property) throws Exception {
     ClassGenericType objectType = new ClassGenericType(objectClass, null, null);
-    ObserveInfo observe =
-        property.getObserveProperty(new SubBeanObserveInfo(beanSupport,
-            null,
-            objectType,
-            StringReferenceProvider.EMPTY));
+    ObserveInfo observe = property.getObserveProperty(
+        new SubBeanObserveInfo(beanSupport, null, objectType, StringReferenceProvider.EMPTY));
     Assert.isNotNull(observe);
     return convertObserveToAdapter(observe);
   }
@@ -229,10 +225,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       m_elProperty = property instanceof ElPropertyInfo;
       m_elPropertyUIContentProvider.setProperty(m_elProperty ? (ElPropertyInfo) property : null);
     }
-    setCheckedAdExpand(new Object[]{convertPropertyToAdapter(
-        new BeanSupport(),
-        loadClass(className),
-        property)});
+    setCheckedAdExpand(
+        new Object[]{convertPropertyToAdapter(new BeanSupport(), loadClass(className), property)});
     calculatePropertiesFinish();
   }
 
@@ -263,16 +257,17 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
   protected final void saveToObject(Class<?> choosenClass, List<PropertyAdapter> choosenAdapters)
       throws Exception {
     BeanSupport beanSupport = new BeanSupport();
-    List<PropertyInfo> choosenProperties = Lists.newArrayList();
+    List<PropertyInfo> choosenProperties = new ArrayList<>();
     if (m_elProperty) {
       m_elPropertyUIContentProvider.saveToObject();
       choosenProperties.add(m_elPropertyUIContentProvider.getProperty());
     } else {
       for (PropertyAdapter propertyAdapter : choosenAdapters) {
-        choosenProperties.add(convertAdapterToProperty(
-            beanSupport,
-            choosenClass,
-            (ObservePropertyAdapter) propertyAdapter));
+        choosenProperties.add(
+            convertAdapterToProperty(
+                beanSupport,
+                choosenClass,
+                (ObservePropertyAdapter) propertyAdapter));
       }
     }
     saveToObject0(choosenClass, choosenProperties);
@@ -321,7 +316,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
 
     public List<ObservePropertyAdapter> getChildren() {
       if (m_children == null) {
-        m_children = Lists.newArrayList();
+        m_children = new ArrayList<>();
         List<ObserveInfo> properties =
             CoreUtils.cast(m_property.getChildren(ChildrenContext.ChildrenForPropertiesTable));
         for (ObserveInfo property : properties) {
@@ -337,7 +332,7 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
 
     public void addToParent() {
       if (m_parent != null) {
-        m_parent.m_children = Lists.newArrayList();
+        m_parent.m_children = new ArrayList<>();
         m_parent.m_children.add(this);
       }
     }
@@ -363,10 +358,8 @@ public abstract class ChooseClassAndPropertiesUiContentProvider
       if (object instanceof ObservePropertyAdapter) {
         ObservePropertyAdapter adapter = (ObservePropertyAdapter) object;
         if (m_parent == null && adapter.m_parent == null) {
-        } else if (m_parent != null
-            && adapter.m_parent == null
-            || m_parent == null
-            && adapter.m_parent != null) {
+        } else if (m_parent != null && adapter.m_parent == null
+            || m_parent == null && adapter.m_parent != null) {
           return false;
         } else if (m_parent != null && adapter.m_parent != null) {
           if (!m_parent.equals(adapter.m_parent)) {

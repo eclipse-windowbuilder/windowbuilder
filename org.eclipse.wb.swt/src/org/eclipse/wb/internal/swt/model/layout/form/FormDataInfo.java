@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -36,13 +34,14 @@ import org.eclipse.swt.layout.FormLayout;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * SWT {@link FormData} model. This is related to {@link FormLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -74,7 +73,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
   /**
    * Initializes {@link FormAttachmentInfo} instances for all possible sides. Performs search for
    * existing and creates virtual new if found nothing.
-   * 
+   *
    * @param components
    *          the {@link List} of all components.
    * @throws Exception
@@ -89,7 +88,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
   /**
    * Initializes {@link FormAttachmentInfo} instance for <code>fieldName</code>. Performs search for
    * existing and creates virtual new if found nothing.
-   * 
+   *
    * @param side
    *          the {@link FormSide} that describes field of {@link FormData} in which this attachment
    *          may already assigned.
@@ -117,11 +116,10 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
   }
 
   private FormAttachmentInfo addVirtualAttachment(FormSide side) throws Exception {
-    FormAttachmentInfo attachment =
-        (FormAttachmentInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            FormLayoutSupport.getFormAttachmentClass(),
-            new VirtualFormAttachmentCreationSupport(this, FormLayoutSupport.createFormAttachment()));
+    FormAttachmentInfo attachment = (FormAttachmentInfo) JavaInfoUtils.createJavaInfo(
+        getEditor(),
+        FormLayoutSupport.getFormAttachmentClass(),
+        new VirtualFormAttachmentCreationSupport(this, FormLayoutSupport.createFormAttachment()));
     // configure
     attachment.setSide(side);
     attachment.setVariableSupport(new VirtualFormAttachmentVariableSupport(attachment, side));
@@ -204,7 +202,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
 
   @Override
   protected void sortPropertyList(List<Property> properties) {
-    List<Property> sorted = Lists.newArrayList();
+    List<Property> sorted = new ArrayList<>();
     Property variableProperty = PropertyUtils.getByTitle(properties, "Variable");
     if (variableProperty != null) {
       sorted.add(variableProperty);
@@ -241,7 +239,8 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
                 && !property.getTitle().equals("Constructor");
           }
         });
-    attachmentProperty.setProperties(selectedProperties.toArray(new Property[selectedProperties.size()]));
+    attachmentProperty.setProperties(
+        selectedProperties.toArray(new Property[selectedProperties.size()]));
     return attachmentProperty;
   }
 }

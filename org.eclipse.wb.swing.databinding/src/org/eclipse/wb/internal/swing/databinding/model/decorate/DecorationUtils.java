@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.decorate;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.swing.databinding.Activator;
 
 import org.apache.commons.io.IOUtils;
@@ -20,6 +18,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -30,7 +29,7 @@ import javax.xml.parsers.SAXParserFactory;
  * @coverage bindings.swing.model
  */
 public final class DecorationUtils {
-  private static final Map<String, BeanDecorationInfo> DECORATIONS = Maps.newHashMap();
+  private static final Map<String, BeanDecorationInfo> DECORATIONS = new HashMap<>();
   private static boolean m_loadDecorations;
 
   ////////////////////////////////////////////////////////////////////////////

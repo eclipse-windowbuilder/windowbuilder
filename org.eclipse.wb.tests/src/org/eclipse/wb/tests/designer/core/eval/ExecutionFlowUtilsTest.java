@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.eval;
 
-import com.google.common.collect.Lists;
-
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.getAssignments;
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.getDeclaration;
 import static org.eclipse.wb.core.eval.ExecutionFlowUtils.getExecutionFlowConstructor;
@@ -61,6 +59,7 @@ import org.assertj.core.api.Assertions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,13 +99,12 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlowConstructor(TypeDeclaration)}.
    */
   public void test_getExecutionFlowConstructor_single() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "// filler filler filler",
-            "public class Test {",
-            "  public Test() {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "// filler filler filler",
+        "public class Test {",
+        "  public Test() {",
+        "  }",
+        "}");
     assertSame(
         typeDeclaration.getMethods()[0],
         ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration));
@@ -116,12 +114,11 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlowConstructor(TypeDeclaration)}.
    */
   public void test_getExecutionFlowConstructor_noConstructors() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "// filler filler filler",
-            "public class Test {",
-            "  // filler",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "// filler filler filler",
+        "public class Test {",
+        "  // filler",
+        "}");
     assertSame(null, ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration));
   }
 
@@ -129,17 +126,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlowConstructor(TypeDeclaration)}.
    */
   public void test_getExecutionFlowConstructor_multipleWithTag() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test(int a) {",
-            "  }",
-            "  /**",
-            "  * @wbp.parser.constructor",
-            "  */",
-            "  public Test(double b) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test(int a) {",
+        "  }",
+        "  /**",
+        "  * @wbp.parser.constructor",
+        "  */",
+        "  public Test(double b) {",
+        "  }",
+        "}");
     assertSame(
         typeDeclaration.getMethods()[1],
         ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration));
@@ -149,14 +145,13 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlowConstructor(TypeDeclaration)}.
    */
   public void test_getExecutionFlowConstructor_multipleNoTag_noDefault() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test(int a) {",
-            "  }",
-            "  public Test(double b) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test(int a) {",
+        "  }",
+        "  public Test(double b) {",
+        "  }",
+        "}");
     try {
       ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration);
       fail();
@@ -165,6 +160,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
       assertSame(null, e.getTypeDeclaration());
     }
   }
+
   /**
    * {@link ExecutionFlowProvider} that selects constructor with single <code>int</code> parameter
    * as default.
@@ -196,14 +192,13 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
           "<provider class='" + providerClass.getName() + "'/>");
       testBundle.install();
       try {
-        TypeDeclaration typeDeclaration =
-            createTypeDeclaration_Test(
-                "public class Test {",
-                "  public Test() {",
-                "  }",
-                "  public Test(int a) {",
-                "  }",
-                "}");
+        TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+            "public class Test {",
+            "  public Test() {",
+            "  }",
+            "  public Test(int a) {",
+            "  }",
+            "}");
         assertSame(
             typeDeclaration.getMethods()[1],
             ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration));
@@ -224,14 +219,13 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlow_entryPoint(TypeDeclaration)}.
    */
   public void test_getExecutionFlow_entryPoint_forConstructor_0() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test(int a) {",
-            "  }",
-            "  public Test(double b) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test(int a) {",
+        "  }",
+        "  public Test(double b) {",
+        "  }",
+        "}");
     assertSame(null, ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration));
   }
 
@@ -239,17 +233,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlow_entryPoint(TypeDeclaration)}.
    */
   public void test_getExecutionFlow_entryPoint_forConstructor_1() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  /**",
-            "  * @wbp.parser.entryPoint",
-            "  */",
-            "  public Test(int a) {",
-            "  }",
-            "  public Test(double b) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  /**",
+        "  * @wbp.parser.entryPoint",
+        "  */",
+        "  public Test(int a) {",
+        "  }",
+        "  public Test(double b) {",
+        "  }",
+        "}");
     assertSame(
         typeDeclaration.getMethods()[0],
         ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration));
@@ -259,17 +252,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlow_entryPoint(TypeDeclaration)}.
    */
   public void test_getExecutionFlow_entryPoint_forConstructor_2() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test(int a) {",
-            "  }",
-            "  /**",
-            "  * @wbp.parser.entryPoint",
-            "  */",
-            "  public Test(double b) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test(int a) {",
+        "  }",
+        "  /**",
+        "  * @wbp.parser.entryPoint",
+        "  */",
+        "  public Test(double b) {",
+        "  }",
+        "}");
     assertSame(
         typeDeclaration.getMethods()[1],
         ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration));
@@ -279,17 +271,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test for {@link ExecutionFlowUtils#getExecutionFlow_entryPoint(TypeDeclaration)}.
    */
   public void test_getExecutionFlow_entryPoint_forMethod() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  /**",
-            "  * @wbp.parser.entryPoint",
-            "  */",
-            "  public void foo() {",
-            "  }",
-            "  public void bar() {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  /**",
+        "  * @wbp.parser.entryPoint",
+        "  */",
+        "  public void foo() {",
+        "  }",
+        "  public void bar() {",
+        "  }",
+        "}");
     assertSame(
         typeDeclaration.getMethods()[0],
         ExecutionFlowUtils.getExecutionFlow_entryPoint(typeDeclaration));
@@ -313,15 +304,14 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_TryStatement() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  try {",
-            "    int value = 5;",
-            "  } catch (Exception e) {",
-            "  } catch (Throwable e) {",
-            "  }",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  try {",
+        "    int value = 5;",
+        "  } catch (Exception e) {",
+        "  } catch (Throwable e) {",
+        "  }",
+        "}");
     String expectedNodes[] = {"int value = 5;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
@@ -334,43 +324,40 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_fields2() throws Exception {
-    String code =
-        getSourceDQ(
-            "Test() {",
-            "}",
-            "void root() {",
-            "  int value = 5;",
-            "}",
-            "int m_value = 1;",
-            "private String m_string;");
+    String code = getSourceDQ(
+        "Test() {",
+        "}",
+        "void root() {",
+        "  int value = 5;",
+        "}",
+        "int m_value = 1;",
+        "private String m_string;");
     String expectedNodes[] = {"int m_value = 1;", "private String m_string;", "int value = 5;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_initializers_static() throws Exception {
-    String code =
-        getSourceDQ(
-            "// filler filler filler filler filler",
-            "static int foo;",
-            "static {",
-            "  int bar;",
-            "}",
-            "void root() {",
-            "}");
+    String code = getSourceDQ(
+        "// filler filler filler filler filler",
+        "static int foo;",
+        "static {",
+        "  int bar;",
+        "}",
+        "void root() {",
+        "}");
     String expectedNodes[] = {"static int foo;", "int bar;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_initializers_instance() throws Exception {
-    String code =
-        getSourceDQ(
-            "// filler filler filler filler filler",
-            "int foo;",
-            "{",
-            "  int bar;",
-            "}",
-            "void root() {",
-            "}");
+    String code = getSourceDQ(
+        "// filler filler filler filler filler",
+        "int foo;",
+        "{",
+        "  int bar;",
+        "}",
+        "void root() {",
+        "}");
     String expectedNodes[] = {"int foo;", "int bar;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
@@ -406,49 +393,46 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_local_constructor() throws Exception {
-    String code =
-        getSourceDQ(
-            "public static void main(String[] args) {",
-            "  Test test = new Test();",
-            "}",
-            "public Test() {",
-            "  System.out.println();",
-            "}");
+    String code = getSourceDQ(
+        "public static void main(String[] args) {",
+        "  Test test = new Test();",
+        "}",
+        "public Test() {",
+        "  System.out.println();",
+        "}");
     String expectedNodes[] = {"System.out.println();", "Test test = new Test();"};
     check_visitNodes(code, expectedNodes, "main(java.lang.String[])");
   }
 
   public void test_visit_localMethod_fromMain() throws Exception {
-    String code =
-        getSourceDQ(
-            "private int field;",
-            "public static void main(String[] args) {",
-            "  Test test = new Test();",
-            "  test.open();",
-            "}",
-            "public Test() {",
-            "  int a;",
-            "}",
-            "public void open() {",
-            "  field = 0;",
-            "}");
+    String code = getSourceDQ(
+        "private int field;",
+        "public static void main(String[] args) {",
+        "  Test test = new Test();",
+        "  test.open();",
+        "}",
+        "public Test() {",
+        "  int a;",
+        "}",
+        "public void open() {",
+        "  field = 0;",
+        "}");
     String expectedNodes[] =
         {"private int field;", "int a;", "Test test = new Test();", "field = 0;", "test.open();"};
     check_visitNodes(code, expectedNodes, "main(java.lang.String[])");
   }
 
   public void test_visit_several_constructors_good() throws Exception {
-    String code =
-        getSourceDQ(
-            "/** @wbp.parser.constructor */",
-            "Test() {",
-            "  System.out.println();",
-            "}",
-            "Test(int foo) {",
-            "}",
-            "void root() {",
-            "  System.exit(0);",
-            "}");
+    String code = getSourceDQ(
+        "/** @wbp.parser.constructor */",
+        "Test() {",
+        "  System.out.println();",
+        "}",
+        "Test(int foo) {",
+        "}",
+        "void root() {",
+        "  System.exit(0);",
+        "}");
     String expectedNodes[] = {"System.out.println();", "System.exit(0);"};
     check_visitNodes(code, expectedNodes, "<init>", "root()");
   }
@@ -461,16 +445,15 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * declaration/assignment tracking, we should visit fields before.
    */
   public void test_visit_constructorInTheMiddle() throws Exception {
-    String code =
-        getSourceDQ(
-            "private int f;",
-            "Test() {",
-            "  int a;",
-            "}",
-            "void createContents() {",
-            "  int b;",
-            "  f = 1;",
-            "}");
+    String code = getSourceDQ(
+        "private int f;",
+        "Test() {",
+        "  int a;",
+        "}",
+        "void createContents() {",
+        "  int b;",
+        "  f = 1;",
+        "}");
     String expectedNodes[] = {"private int f;", "int b;", "f = 1;", "int a;"};
     check_visitNodes(code, expectedNodes, "createContents()", "<init>");
   }
@@ -488,120 +471,112 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_ifStatement_genericExpression() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  int a;",
-            "  if (1 == 2) {",
-            "    int b;",
-            "  } else {",
-            "    int c;",
-            "  }",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  int a;",
+        "  if (1 == 2) {",
+        "    int b;",
+        "  } else {",
+        "    int c;",
+        "  }",
+        "}");
     String expectedNodes[] = {"int a;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_true() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  if (true) {",
-            "    int a;",
-            "  } else {",
-            "    int b;",
-            "  }",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  if (true) {",
+        "    int a;",
+        "  } else {",
+        "    int b;",
+        "  }",
+        "}");
     String expectedNodes[] = {"int a;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_false() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  if (false) {",
-            "    int a;",
-            "  } else {",
-            "    int b;",
-            "  }",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  if (false) {",
+        "    int a;",
+        "  } else {",
+        "    int b;",
+        "  }",
+        "}");
     String expectedNodes[] = {"int b;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_Beans_isDesignTime() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  if (java.beans.Beans.isDesignTime()) {",
-            "    int a;",
-            "  } else {",
-            "    int b;",
-            "  }",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  if (java.beans.Beans.isDesignTime()) {",
+        "    int a;",
+        "  } else {",
+        "    int b;",
+        "  }",
+        "}");
     String expectedNodes[] = {"int a;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_Beans_isDesignTime_not() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  if (!java.beans.Beans.isDesignTime()) {",
-            "    int a;",
-            "  } else {",
-            "    int b;",
-            "  }",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  if (!java.beans.Beans.isDesignTime()) {",
+        "    int a;",
+        "  } else {",
+        "    int b;",
+        "  }",
+        "}");
     String expectedNodes[] = {"int b;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_local_isDesignTime() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  if (isDesignTime()) {",
-            "    int a;",
-            "  } else {",
-            "    int b;",
-            "  }",
-            "}",
-            "private static boolean isDesignTime() {",
-            "  return false;",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  if (isDesignTime()) {",
+        "    int a;",
+        "  } else {",
+        "    int b;",
+        "  }",
+        "}",
+        "private static boolean isDesignTime() {",
+        "  return false;",
+        "}");
     String expectedNodes[] = {"int a;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_local_isDesignTime_not() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  if (!isDesignTime()) {",
-            "    int a;",
-            "  } else {",
-            "    int b;",
-            "  }",
-            "}",
-            "private static boolean isDesignTime() {",
-            "  return false;",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  if (!isDesignTime()) {",
+        "    int a;",
+        "  } else {",
+        "    int b;",
+        "  }",
+        "}",
+        "private static boolean isDesignTime() {",
+        "  return false;",
+        "}");
     String expectedNodes[] = {"int b;"};
     check_visitNodes(code, expectedNodes, "root()");
   }
 
   public void test_visit_ifStatement_lazy() throws Exception {
-    String code =
-        getSourceDQ(
-            "Object lazy;",
-            "Object getLazy() {",
-            "  if (lazy == null) {",
-            "    lazy = null;",
-            "  }",
-            "  return lazy;",
-            "}");
+    String code = getSourceDQ(
+        "Object lazy;",
+        "Object getLazy() {",
+        "  if (lazy == null) {",
+        "    lazy = null;",
+        "  }",
+        "  return lazy;",
+        "}");
     String expectedNodes[] = {"Object lazy;", "lazy = null;", "return lazy;"};
     check_visitNodes(code, expectedNodes, "getLazy()");
   }
@@ -619,16 +594,15 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_invocation_recursion() throws Exception {
-    String code =
-        getSourceDQ(
-            "void root() {",
-            "  System.out.println(0);",
-            "  foo();",
-            "}",
-            "void foo() {",
-            "  System.out.println(1);",
-            "  foo();",
-            "}");
+    String code = getSourceDQ(
+        "void root() {",
+        "  System.out.println(0);",
+        "  foo();",
+        "}",
+        "void foo() {",
+        "  System.out.println(1);",
+        "  foo();",
+        "}");
     String expectedNodes[] =
         {"System.out.println(0);", "System.out.println(1);", "foo();", "foo();"};
     check_visitNodes(code, expectedNodes, "root()");
@@ -690,14 +664,13 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_abstractMethod() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public abstract class Test {",
-            "  public void root() {",
-            "    someAbstractMethod();",
-            "  }",
-            "  protected abstract void someAbstractMethod();",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public abstract class Test {",
+        "  public void root() {",
+        "    someAbstractMethod();",
+        "  }",
+        "  protected abstract void someAbstractMethod();",
+        "}");
     MethodDeclaration rootMethod = typeDeclaration.getMethods()[0];
     //
     MethodDeclaration[] rootMethods = new MethodDeclaration[]{rootMethod};
@@ -706,16 +679,15 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_ConstructorInvocation() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "    this(false);",
-            "  }",
-            "  public Test(boolean b) {",
-            "    int a;",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "    this(false);",
+        "  }",
+        "  public Test(boolean b) {",
+        "    int a;",
+        "  }",
+        "}");
     MethodDeclaration rootMethod = typeDeclaration.getMethods()[0];
     //
     MethodDeclaration[] rootMethods = new MethodDeclaration[]{rootMethod};
@@ -724,18 +696,17 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_visit_ConstructorInvocation_visitArgumentsFirst() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration(
-            "test",
-            "Test.java",
-            getSource(
-                "public class Test {",
-                "  public Test() {",
-                "    this(false);",
-                "  }",
-                "  public Test(boolean parameter) {",
-                "  }",
-                "}"));
+    TypeDeclaration typeDeclaration = createTypeDeclaration(
+        "test",
+        "Test.java",
+        getSource(
+            "public class Test {",
+            "  public Test() {",
+            "    this(false);",
+            "  }",
+            "  public Test(boolean parameter) {",
+            "  }",
+            "}"));
     // prepare flow
     ExecutionFlowDescription flowDescription;
     {
@@ -744,7 +715,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
       flowDescription = new ExecutionFlowDescription(rootMethods);
     }
     // visit
-    final List<String> nodes = Lists.newArrayList();
+    final List<String> nodes = new ArrayList<>();
     visit(new VisitingContext(true), flowDescription, new ExecutionFlowFrameVisitor() {
       @Override
       public void postVisit(ASTNode node) {
@@ -763,16 +734,15 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link InvocationTargetException}. This is not good, we should not expose this.
    */
   public void test_visit_unwrapInvocationTargetException() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration(
-            "test",
-            "Test.java",
-            getSource(
-                "public class Test {",
-                "  public Test() {",
-                "    System.out.println();",
-                "  }",
-                "}"));
+    TypeDeclaration typeDeclaration = createTypeDeclaration(
+        "test",
+        "Test.java",
+        getSource(
+            "public class Test {",
+            "  public Test() {",
+            "    System.out.println();",
+            "  }",
+            "}"));
     // prepare flow
     ExecutionFlowDescription flowDescription;
     {
@@ -825,6 +795,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     String expectedNodes[] = {threadCode};
     check_visitNodes(code, expectedNodes, "root()");
   }
+
   /**
    * {@link ExecutionFlowProvider} that allows visiting anonymous {@link Runnable} as argument of
    * {@link Thread} creation.
@@ -924,15 +895,14 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Variable in "right" side of assignment should see previous value.
    */
   public void test_findLastAssignment_variable_recursiveAssignment_rightSide() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "class Test {",
-            "  // filler filler filler",
-            "  void root() {",
-            "    int value = 0;",
-            "    value = value + 1;",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "class Test {",
+        "  // filler filler filler",
+        "  void root() {",
+        "    int value = 0;",
+        "    value = value + 1;",
+        "  }",
+        "}");
     MethodDeclaration rootMethod = AstNodeUtils.getMethodBySignature(typeDeclaration, "root()");
     // prepare variable
     ASTNode variable = m_lastEditor.getEnclosingNode("value + 1");
@@ -1008,20 +978,19 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Check for "this.fieldName" itself.
    */
   public void test_FieldDeclaration_this_1() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "package test;",
-                "class Test {",
-                "  int value;",
-                "  void root() {",
-                "    int value = 0;",
-                "    value = 1;",
-                "    System.out.println(this.value);",
-                "  }",
-                "}"));
+    CompilationUnit compilationUnit = createASTCompilationUnit(
+        "test",
+        "Test.java",
+        getSourceDQ(
+            "package test;",
+            "class Test {",
+            "  int value;",
+            "  void root() {",
+            "    int value = 0;",
+            "    value = 1;",
+            "    System.out.println(this.value);",
+            "  }",
+            "}"));
     TypeDeclaration typeDeclaration = (TypeDeclaration) compilationUnit.types().get(0);
     MethodDeclaration rootMethod = AstNodeUtils.getMethodBySignature(typeDeclaration, "root()");
     // prepare variable
@@ -1058,21 +1027,20 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Check for local variable that hides field with same name.
    */
   public void test_FieldDeclaration_this_2() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "package test;",
-                "class Test {",
-                "  int value;",
-                "  void root() {",
-                "    int value = 0;",
-                "    value = 1;",
-                "    this.value = 2;",
-                "    System.out.println(value);",
-                "  }",
-                "}"));
+    CompilationUnit compilationUnit = createASTCompilationUnit(
+        "test",
+        "Test.java",
+        getSourceDQ(
+            "package test;",
+            "class Test {",
+            "  int value;",
+            "  void root() {",
+            "    int value = 0;",
+            "    value = 1;",
+            "    this.value = 2;",
+            "    System.out.println(value);",
+            "  }",
+            "}"));
     TypeDeclaration typeDeclaration = (TypeDeclaration) compilationUnit.types().get(0);
     MethodDeclaration rootMeethod = AstNodeUtils.getMethodBySignature(typeDeclaration, "root()");
     // prepare variable
@@ -1204,12 +1172,11 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_findLastAssignment_parameterName() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public void foo(int value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public void foo(int value) {",
+        "  }",
+        "}");
     MethodDeclaration fooMethod = typeDeclaration.getMethods()[0];
     // prepare variable
     SingleVariableDeclaration valueDeclaration = DomGenerics.parameters(fooMethod).get(0);
@@ -1223,14 +1190,13 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   }
 
   public void test_findLastAssignment_parameterName_inBinaryFlowMethod() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "  }",
-            "  public void foo(int value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "  }",
+        "  public void foo(int value) {",
+        "  }",
+        "}");
     MethodDeclaration constructorMethod = typeDeclaration.getMethods()[0];
     MethodDeclaration fooMethod = typeDeclaration.getMethods()[1];
     // prepare variable
@@ -1260,13 +1226,12 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Test of last assignment for argument of {@link SuperConstructorInvocation}.
    */
   public void test_findLastAssignment_SuperConstructorInvocation_argument() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test extends java.util.ArrayList {",
-            "  public Test(int size) {",
-            "    super(size);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test extends java.util.ArrayList {",
+        "  public Test(int size) {",
+        "    super(size);",
+        "  }",
+        "}");
     MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
     SingleVariableDeclaration sizeDeclaration = DomGenerics.parameters(methodDeclaration).get(0);
     //
@@ -1280,16 +1245,15 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Follow to local constructor using {@link ConstructorInvocation}.
    */
   public void test_findLastAssignment_followConstructorInvocation() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test extends java.util.ArrayList {",
-            "  public Test() {",
-            "    this(0);",
-            "  }",
-            "  public Test(int size) {",
-            "    System.out.println(size);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test extends java.util.ArrayList {",
+        "  public Test() {",
+        "    this(0);",
+        "  }",
+        "  public Test(int size) {",
+        "    System.out.println(size);",
+        "  }",
+        "}");
     MethodDeclaration entryPointConstructor = typeDeclaration.getMethods()[0];
     MethodDeclaration sizeConstructor = typeDeclaration.getMethods()[1];
     SingleVariableDeclaration sizeDeclaration = DomGenerics.parameters(sizeConstructor).get(0);
@@ -1306,21 +1270,20 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * (so, always visited), we know last assignment.
    */
   public void test_findLastAssignment_notInFlow_initializedFromConstructor() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  int m_field;",
-                "  public Test() {",
-                "    m_field = 5;",
-                "  }",
-                "  private void disconnectedMethod() {",
-                "    System.out.println(m_field);",
-                "  }",
-                "}"));
+    CompilationUnit compilationUnit = createASTCompilationUnit(
+        "test",
+        "Test.java",
+        getSourceDQ(
+            "package test;",
+            "public class Test {",
+            "  int m_field;",
+            "  public Test() {",
+            "    m_field = 5;",
+            "  }",
+            "  private void disconnectedMethod() {",
+            "    System.out.println(m_field);",
+            "  }",
+            "}"));
     TypeDeclaration typeDeclaration = DomGenerics.types(compilationUnit).get(0);
     MethodDeclaration constructorMethod = typeDeclaration.getMethods()[0];
     MethodDeclaration disconnectedMethod = typeDeclaration.getMethods()[1];
@@ -1350,20 +1313,19 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * always visited), we know last assignment.
    */
   public void test_findLastAssignment_notInFlow_initializedInField() throws Exception {
-    CompilationUnit compilationUnit =
-        createASTCompilationUnit(
-            "test",
-            "Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  int m_field = 5;",
-                "  public Test() {",
-                "  }",
-                "  private void disconnectedMethod() {",
-                "    System.out.println(m_field);",
-                "  }",
-                "}"));
+    CompilationUnit compilationUnit = createASTCompilationUnit(
+        "test",
+        "Test.java",
+        getSourceDQ(
+            "package test;",
+            "public class Test {",
+            "  int m_field = 5;",
+            "  public Test() {",
+            "  }",
+            "  private void disconnectedMethod() {",
+            "    System.out.println(m_field);",
+            "  }",
+            "}"));
     TypeDeclaration typeDeclaration = DomGenerics.types(compilationUnit).get(0);
     MethodDeclaration constructorMethod = typeDeclaration.getMethods()[0];
     MethodDeclaration disconnectedMethod = typeDeclaration.getMethods()[1];
@@ -1394,20 +1356,19 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * Here no constructor, just to check that in this case we have no problem.
    */
   public void test_findLastAssignment_applicationPattern_noConstructor() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "import javax.swing.*;",
-            "public class Test {",
-            "  private JPanel shell;",
-            "  public static void main(String[] args) {",
-            "    Test app = new Test();",
-            "    app.open();",
-            "  }",
-            "  public void open() {",
-            "    shell = new JPanel();",
-            "    System.out.println(shell);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "import javax.swing.*;",
+        "public class Test {",
+        "  private JPanel shell;",
+        "  public static void main(String[] args) {",
+        "    Test app = new Test();",
+        "    app.open();",
+        "  }",
+        "  public void open() {",
+        "    shell = new JPanel();",
+        "    System.out.println(shell);",
+        "  }",
+        "}");
     MethodDeclaration entryPointConstructor = typeDeclaration.getMethods()[0];
     //
     Assignment shellAssignment = (Assignment) m_lastEditor.getEnclosingNode("shell =").getParent();
@@ -1423,22 +1384,21 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * pattern and class also has constructor.
    */
   public void test_findLastAssignment_applicationPattern_withConstructor() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "import javax.swing.*;",
-            "public class Test {",
-            "  private JPanel shell;",
-            "  public static void main(String[] args) {",
-            "    Test app = new Test();",
-            "    app.open();",
-            "  }",
-            "  public Test() {",
-            "  }",
-            "  public void open() {",
-            "    shell = new JPanel();",
-            "    System.out.println(shell);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "import javax.swing.*;",
+        "public class Test {",
+        "  private JPanel shell;",
+        "  public static void main(String[] args) {",
+        "    Test app = new Test();",
+        "    app.open();",
+        "  }",
+        "  public Test() {",
+        "  }",
+        "  public void open() {",
+        "    shell = new JPanel();",
+        "    System.out.println(shell);",
+        "  }",
+        "}");
     MethodDeclaration entryPointConstructor = typeDeclaration.getMethods()[0];
     //
     Assignment shellAssignment = (Assignment) m_lastEditor.getEnclosingNode("shell =").getParent();
@@ -1448,6 +1408,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
     ASTNode lastAssignment = getLastAssignment(flowDescription, shellArgument);
     assertSame(shellAssignment, lastAssignment);
   }
+
   private interface I_findLastAssignment {
     ASTNode getExpected(TypeDeclaration typeDeclaration,
         MethodDeclaration methodDeclaration,
@@ -1524,80 +1485,95 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
-   * Test for {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
+   * Test for
+   * {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
    * Direct value.
    */
   public void test_getFinalExpression_1() throws Exception {
-    check_getFinalExpression("555", new String[]{
-        "package test;",
-        "public class Test {",
-        "  public Test() {",
-        "    int a = !555;",
-        "  }",
-        "}"});
+    check_getFinalExpression(
+        "555",
+        new String[]{
+            "package test;",
+            "public class Test {",
+            "  public Test() {",
+            "    int a = !555;",
+            "  }",
+            "}"});
   }
 
   /**
-   * Test for {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
+   * Test for
+   * {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
    * Value declared as single variable.
    */
   public void test_getFinalExpression_2() throws Exception {
-    check_getFinalExpression("555", new String[]{
-        "package test;",
-        "public class Test {",
-        "  public Test() {",
-        "    int a = 555;",
-        "    System.out.println(!a);",
-        "  }",
-        "}"});
+    check_getFinalExpression(
+        "555",
+        new String[]{
+            "package test;",
+            "public class Test {",
+            "  public Test() {",
+            "    int a = 555;",
+            "    System.out.println(!a);",
+            "  }",
+            "}"});
   }
 
   /**
-   * Test for {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
+   * Test for
+   * {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
    * Value declared via two variables.
    */
   public void test_getFinalExpression_3() throws Exception {
-    check_getFinalExpression("555", new String[]{
-        "package test;",
-        "public class Test {",
-        "  public Test() {",
-        "    int a = 555;",
-        "    int b = a;",
-        "    System.out.println(!b);",
-        "  }",
-        "}"});
+    check_getFinalExpression(
+        "555",
+        new String[]{
+            "package test;",
+            "public class Test {",
+            "  public Test() {",
+            "    int a = 555;",
+            "    int b = a;",
+            "    System.out.println(!b);",
+            "  }",
+            "}"});
   }
 
   /**
-   * Test for {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
+   * Test for
+   * {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
    * Value assigned to single variable (not at declaration).
    */
   public void test_getFinalExpression_4() throws Exception {
-    check_getFinalExpression("555", new String[]{
-        "package test;",
-        "public class Test {",
-        "  public Test() {",
-        "    int a;",
-        "    a = 555;",
-        "    System.out.println(!a);",
-        "  }",
-        "}"});
+    check_getFinalExpression(
+        "555",
+        new String[]{
+            "package test;",
+            "public class Test {",
+            "  public Test() {",
+            "    int a;",
+            "    a = 555;",
+            "    System.out.println(!a);",
+            "  }",
+            "}"});
   }
 
   /**
-   * Test for {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
+   * Test for
+   * {@link ExecutionFlowUtils#getFinalExpression(ExecutionFlowDescription, Expression)}.<br>
    * Value assigned to single field (not at declaration).
    */
   public void test_getFinalExpression_5() throws Exception {
-    check_getFinalExpression("555", new String[]{
-        "package test;",
-        "public class Test {",
-        "  private int a;",
-        "  public Test() {",
-        "    a = 555;",
-        "    System.out.println(!a);",
-        "  }",
-        "}"});
+    check_getFinalExpression(
+        "555",
+        new String[]{
+            "package test;",
+            "public class Test {",
+            "  private int a;",
+            "  public Test() {",
+            "    a = 555;",
+            "    System.out.println(!a);",
+            "  }",
+            "}"});
   }
 
   private void check_getFinalExpression(String expectedSource, String[] lines) throws Exception {
@@ -1771,17 +1747,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * References on field in {@link AnonymousClassDeclaration}.
    */
   public void test_getReferences_field_inAnonymous() throws Exception {
-    String code =
-        getSource(
-            "int value;",
-            "void root() {",
-            "  System.out.println(value);",
-            "  new Object() {",
-            "    public int hashCode() {",
-            "      return value;",
-            "    }",
-            "  };",
-            "}");
+    String code = getSource(
+        "int value;",
+        "void root() {",
+        "  System.out.println(value);",
+        "  new Object() {",
+        "    public int hashCode() {",
+        "      return value;",
+        "    }",
+        "  };",
+        "}");
     String[] expected = new String[]{"value", "System.out.println(value)", "return value;"};
     check_getReferences(code, 0, expected);
   }
@@ -1790,18 +1765,17 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * References on field in {@link AnonymousClassDeclaration}.
    */
   public void test_getReferences_field_usingThisObject() throws Exception {
-    String code =
-        getSource(
-            "int value;",
-            "void root() {",
-            "  System.out.println(value);",
-            "  new Object() {",
-            "    public int hashCode() {",
-            "      Test test = new Test();",
-            "      return test.value;",
-            "    }",
-            "  };",
-            "}");
+    String code = getSource(
+        "int value;",
+        "void root() {",
+        "  System.out.println(value);",
+        "  new Object() {",
+        "    public int hashCode() {",
+        "      Test test = new Test();",
+        "      return test.value;",
+        "    }",
+        "  };",
+        "}");
     String[] expected = new String[]{"value", "System.out.println(value)", "test.value"};
     check_getReferences(code, 0, expected);
   }
@@ -1889,12 +1863,11 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link SingleVariableDeclaration}.
    */
   public void test_getDeclaration_methodParameter_direct() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public void root(int value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public void root(int value) {",
+        "  }",
+        "}");
     MethodDeclaration methodDeclaration = typeDeclaration.getMethods()[0];
     SingleVariableDeclaration variableDeclaration =
         (SingleVariableDeclaration) methodDeclaration.parameters().get(0);
@@ -1945,14 +1918,13 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_noVariableInformationForDanglingNode() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "    int foo = 1;",
-            "    System.out.println(foo);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "    int foo = 1;",
+        "    System.out.println(foo);",
+        "  }",
+        "}");
     MethodDeclaration rootMethod = typeDeclaration.getMethods()[0];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(rootMethod);
     ASTNode fooNode = m_lastEditor.getEnclosingNode("foo)");
@@ -1963,7 +1935,8 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
       Assertions.<ASTNode>assertThat(getReferences(flowDescription, fooNode)).containsOnly(
           declaration.getName(),
           fooNode);
-      Assertions.<ASTNode>assertThat(getAssignments(flowDescription, fooNode)).containsOnly(declaration);
+      Assertions.<ASTNode>assertThat(getAssignments(flowDescription, fooNode)).containsOnly(
+          declaration);
       assertThat(getLastAssignment(flowDescription, fooNode)).isEqualTo(declaration);
     }
     // delete Statement for "fooNode", no more variables information
@@ -1988,15 +1961,14 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link ConstructorInvocation}, same signature.
    */
   public void test_getInvocations_ConstructorInvocation_1() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "    this(1);",
-            "  }",
-            "  public Test(int value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "    this(1);",
+        "  }",
+        "  public Test(int value) {",
+        "  }",
+        "}");
     MethodDeclaration entryPoint = typeDeclaration.getMethods()[0];
     MethodDeclaration target = typeDeclaration.getMethods()[1];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(entryPoint);
@@ -2013,17 +1985,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link ConstructorInvocation}, different signature.
    */
   public void test_getInvocations_ConstructorInvocation_2() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "    this(false);",
-            "  }",
-            "  public Test(int value) {",
-            "  }",
-            "  public Test(boolean value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "    this(false);",
+        "  }",
+        "  public Test(int value) {",
+        "  }",
+        "  public Test(boolean value) {",
+        "  }",
+        "}");
     MethodDeclaration entryPoint = typeDeclaration.getMethods()[0];
     MethodDeclaration target = typeDeclaration.getMethods()[1];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(entryPoint);
@@ -2039,18 +2010,17 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link ClassInstanceCreation}, same signature.
    */
   public void test_getInvocations_ClassInstanceCreation_1() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public static void main(String[] args) {",
-            "    Test test = new Test(1);",
-            "  }",
-            "  public Test(int value) {",
-            "  }",
-            "  public static void main2() {",
-            "    Test test = new Test(2);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public static void main(String[] args) {",
+        "    Test test = new Test(1);",
+        "  }",
+        "  public Test(int value) {",
+        "  }",
+        "  public static void main2() {",
+        "    Test test = new Test(2);",
+        "  }",
+        "}");
     MethodDeclaration entryPoint = typeDeclaration.getMethods()[0];
     MethodDeclaration target = typeDeclaration.getMethods()[1];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(entryPoint);
@@ -2067,17 +2037,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link ClassInstanceCreation}, different signature.
    */
   public void test_getInvocations_ClassInstanceCreation_2() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public static void main(String[] args) {",
-            "    Test test = new Test(false);",
-            "  }",
-            "  public Test(int value) {",
-            "  }",
-            "  public Test(boolean value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public static void main(String[] args) {",
+        "    Test test = new Test(false);",
+        "  }",
+        "  public Test(int value) {",
+        "  }",
+        "  public Test(boolean value) {",
+        "  }",
+        "}");
     MethodDeclaration entryPoint = typeDeclaration.getMethods()[0];
     MethodDeclaration target = typeDeclaration.getMethods()[1];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(entryPoint);
@@ -2093,18 +2062,17 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link MethodInvocation}, same signature.
    */
   public void test_getInvocations_MethodInvocation_1() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "    target(1);",
-            "  }",
-            "  public void target(int value) {",
-            "  }",
-            "  public void disconnectedMethod() {",
-            "    target(2);",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "    target(1);",
+        "  }",
+        "  public void target(int value) {",
+        "  }",
+        "  public void disconnectedMethod() {",
+        "    target(2);",
+        "  }",
+        "}");
     MethodDeclaration entryPoint = typeDeclaration.getMethods()[0];
     MethodDeclaration target = typeDeclaration.getMethods()[1];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(entryPoint);
@@ -2121,17 +2089,16 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
    * {@link MethodInvocation}, different signature.
    */
   public void test_getInvocations_MethodInvocation_2() throws Exception {
-    TypeDeclaration typeDeclaration =
-        createTypeDeclaration_Test(
-            "public class Test {",
-            "  public Test() {",
-            "    notTarget(false);",
-            "  }",
-            "  public void targetMethod(int value) {",
-            "  }",
-            "  public void notTarget(boolean value) {",
-            "  }",
-            "}");
+    TypeDeclaration typeDeclaration = createTypeDeclaration_Test(
+        "public class Test {",
+        "  public Test() {",
+        "    notTarget(false);",
+        "  }",
+        "  public void targetMethod(int value) {",
+        "  }",
+        "  public void notTarget(boolean value) {",
+        "  }",
+        "}");
     MethodDeclaration entryPoint = typeDeclaration.getMethods()[0];
     MethodDeclaration target = typeDeclaration.getMethods()[1];
     ExecutionFlowDescription flowDescription = new ExecutionFlowDescription(entryPoint);

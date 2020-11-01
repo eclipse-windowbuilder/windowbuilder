@@ -13,7 +13,6 @@ package org.eclipse.wb.internal.swing.MigLayout.model;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.editor.actions.assistant.AbstractAssistantPage;
@@ -69,6 +68,7 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.Container;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -468,7 +468,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
   // CellConstraintsSupport access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<ComponentInfo, CellConstraintsSupport> m_constraints = Maps.newHashMap();
+  private final Map<ComponentInfo, CellConstraintsSupport> m_constraints = new HashMap<>();
 
   /**
    * @return the {@link CellConstraintsSupport} for given {@link ComponentInfo}.
@@ -1304,8 +1304,8 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
       rowIntervals = getIntervalsForOrigins(IDEUtil.getRowSizes(container), insets.top);
     }
     // prepare cells
-    final Map<ComponentInfo, Rectangle> componentToCells = Maps.newHashMap();
-    final Map<Point, ComponentInfo> occupiedCells = Maps.newHashMap();
+    final Map<ComponentInfo, Rectangle> componentToCells = new HashMap<>();
+    final Map<Point, ComponentInfo> occupiedCells = new HashMap<>();
     visitGridComponents(new MigComponentVisitor() {
       public void visit(ComponentInfo component, CellConstraintsSupport support) throws Exception {
         Rectangle cells =

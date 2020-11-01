@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.variables;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.model.variable.AbstractNamedVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.AbstractSimpleVariableSupport;
@@ -29,12 +28,13 @@ import org.eclipse.jdt.core.dom.ASTNode;
 
 import org.easymock.EasyMock;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Test for {@link AbstractNamedVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractNamedTest extends AbstractVariableTest {
@@ -53,14 +53,13 @@ public class AbstractNamedTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_accessName() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     // prepare variable
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
@@ -77,13 +76,12 @@ public class AbstractNamedTest extends AbstractVariableTest {
    * yet.
    */
   public void test_getName_whenNoVariable() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "class Test extends JPanel {",
-            "  Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "class Test extends JPanel {",
+        "  Test() {",
+        "  }",
+        "}");
     // new VariableSupport, without variable ASTNode
     VariableSupport variable = new LocalUniqueVariableSupport(panel);
     assertFalse(variable.hasName());
@@ -116,14 +114,13 @@ public class AbstractNamedTest extends AbstractVariableTest {
    * One variable, set same name as current.
    */
   public void test_setNameBase_sameName() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     AbstractNamedVariableSupport variable =
         (AbstractNamedVariableSupport) button.getVariableSupport();
@@ -142,16 +139,15 @@ public class AbstractNamedTest extends AbstractVariableTest {
    * No test for visible conflict, we use {@link AstEditor} that already supports both cases.
    */
   public void test_setNameBase_shadowConflict() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    //",
-            "    int button2;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    //",
+        "    int button2;",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     AbstractNamedVariableSupport variable =
         (AbstractNamedVariableSupport) button.getVariableSupport();
@@ -173,17 +169,16 @@ public class AbstractNamedTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_variableProperty() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "class Test extends JPanel {",
-            "  Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    //",
-            "    JButton button_2 = new JButton();",
-            "    add(button_2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "class Test extends JPanel {",
+        "  Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    //",
+        "    JButton button_2 = new JButton();",
+        "    add(button_2);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     final VariableProperty variableProperty =
@@ -238,9 +233,10 @@ public class AbstractNamedTest extends AbstractVariableTest {
   // validateVariables()
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Set<AbstractNamedVariableSupport> NO_VARIABLES = Sets.newHashSet();
+  private static final Set<AbstractNamedVariableSupport> NO_VARIABLES = new HashSet<>();
 
-  private static String validateVariables(Map<AbstractNamedVariableSupport, String> variablesNames) {
+  private static String validateVariables(
+      Map<AbstractNamedVariableSupport, String> variablesNames) {
     return validateVariables(variablesNames, NO_VARIABLES, NO_VARIABLES);
   }
 
@@ -267,15 +263,14 @@ public class AbstractNamedTest extends AbstractVariableTest {
    * Test for single variable.
    */
   public void test_validateVariables_singleVariable() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private int m_field;",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private int m_field;",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // invalid identifier
     {
@@ -295,52 +290,51 @@ public class AbstractNamedTest extends AbstractVariableTest {
    * Tests for renaming two variables with/without visible/shadow conflicts.
    */
   public void test_validateVariables_twoVariables_plain() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private int m_field;",
-            "  public Test() {",
-            "    JButton button1 = new JButton();",
-            "    add(button1);",
-            "    //",
-            "    JButton button2 = new JButton();",
-            "    add(button2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private int m_field;",
+        "  public Test() {",
+        "    JButton button1 = new JButton();",
+        "    add(button1);",
+        "    //",
+        "    JButton button2 = new JButton();",
+        "    add(button2);",
+        "  }",
+        "}");
     ComponentInfo button1 = panel.getChildrenComponents().get(0);
     ComponentInfo button2 = panel.getChildrenComponents().get(1);
     AbstractNamedVariableSupport variable1 =
         (AbstractNamedVariableSupport) button1.getVariableSupport();
     AbstractNamedVariableSupport variable2 =
         (AbstractNamedVariableSupport) button2.getVariableSupport();
-    // no conflict: no modifications 
+    // no conflict: no modifications
     {
       Map<AbstractNamedVariableSupport, String> variablesNames = ImmutableMap.of();
       validateVariables(true, variablesNames);
     }
-    // visible conflict: button2 -> button1 
+    // visible conflict: button2 -> button1
     {
       validateVariables(false, ImmutableMap.of(variable2, "button1"));
     }
-    // no visible conflict: button2 -> button1, button1 -> button_1 
+    // no visible conflict: button2 -> button1, button1 -> button_1
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable2, "button1", variable1, "button_1");
       validateVariables(true, variablesNames);
     }
-    // no visible conflict: button2 -> button1, button1 -> button2 
+    // no visible conflict: button2 -> button1, button1 -> button2
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable2, "button1", variable1, "button2");
       validateVariables(true, variablesNames);
     }
-    // shadow conflict: button1 -> button2 
+    // shadow conflict: button1 -> button2
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable1, "button2");
       validateVariables(false, variablesNames);
     }
-    // no shadow conflict: button1 -> button2, button2 -> button_2 
+    // no shadow conflict: button1 -> button2, button2 -> button_2
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable1, "button2", variable2, "button_2");
@@ -354,26 +348,25 @@ public class AbstractNamedTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_validateName_local() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  JButton m_field;",
-            "  public Test() {",
-            "    JButton button1 = new JButton();",
-            "    add(button1);",
-            "    //",
-            "    {",
-            "      JButton button2 = new JButton();",
-            "    }",
-            "    //",
-            "    JButton button3 = new JButton();",
-            "    add(button3);",
-            "    //",
-            "    {",
-            "      JButton button4 = new JButton();",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  JButton m_field;",
+        "  public Test() {",
+        "    JButton button1 = new JButton();",
+        "    add(button1);",
+        "    //",
+        "    {",
+        "      JButton button2 = new JButton();",
+        "    }",
+        "    //",
+        "    JButton button3 = new JButton();",
+        "    add(button3);",
+        "    //",
+        "    {",
+        "      JButton button4 = new JButton();",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     ComponentInfo button_2 = panel.getChildrenComponents().get(1);
     AbstractSimpleVariableSupport variable_1 =
@@ -423,18 +416,17 @@ public class AbstractNamedTest extends AbstractVariableTest {
   }
 
   public void test_validateName_field() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  JButton button1 = new JButton();",
-            "  JButton m_field;",
-            "  public Test() {",
-            "    add(button1);",
-            "    //",
-            "    JButton button2 = new JButton();",
-            "    add(button2);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  JButton button1 = new JButton();",
+        "  JButton m_field;",
+        "  public Test() {",
+        "    add(button1);",
+        "    //",
+        "    JButton button2 = new JButton();",
+        "    add(button2);",
+        "  }",
+        "}");
     ComponentInfo button_1 = panel.getChildrenComponents().get(0);
     AbstractSimpleVariableSupport variable_1 =
         (AbstractSimpleVariableSupport) button_1.getVariableSupport();

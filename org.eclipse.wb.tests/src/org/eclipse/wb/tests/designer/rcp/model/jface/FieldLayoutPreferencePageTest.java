@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
@@ -29,11 +27,12 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Test for {@link FieldLayoutPreferencePageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldLayoutPreferencePageTest extends RcpModelTest {
@@ -66,28 +65,27 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_parse() throws Exception {
-    FieldLayoutPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "import org.eclipse.wb.swt.*;",
-            "public class Test extends FieldLayoutPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  public Control createPageContents(Composite parent) {",
-            "    Composite container = new Composite(parent, SWT.NULL);",
-            "    {",
-            "      Composite composite = new Composite(container, SWT.NONE);",
-            "      composite.setBounds(0, 0, 200, 25);",
-            "      addField(new BooleanFieldEditor('', 'Boolean editor', composite));",
-            "    }",
-            "    {",
-            "      Composite composite = new Composite(container, SWT.NONE);",
-            "      composite.setBounds(50, 100, 200, 25);",
-            "      addField(new StringFieldEditor('', 'String editor', composite));",
-            "    }",
-            "    return container;",
-            "  }",
-            "}");
+    FieldLayoutPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "import org.eclipse.wb.swt.*;",
+        "public class Test extends FieldLayoutPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  public Control createPageContents(Composite parent) {",
+        "    Composite container = new Composite(parent, SWT.NULL);",
+        "    {",
+        "      Composite composite = new Composite(container, SWT.NONE);",
+        "      composite.setBounds(0, 0, 200, 25);",
+        "      addField(new BooleanFieldEditor('', 'Boolean editor', composite));",
+        "    }",
+        "    {",
+        "      Composite composite = new Composite(container, SWT.NONE);",
+        "      composite.setBounds(50, 100, 200, 25);",
+        "      addField(new StringFieldEditor('', 'String editor', composite));",
+        "    }",
+        "    return container;",
+        "  }",
+        "}");
     // check hierarchy
     assertHierarchy(
         "{this: org.eclipse.wb.swt.FieldLayoutPreferencePage} {this} {/addField(new BooleanFieldEditor('', 'Boolean editor', composite))/ /addField(new StringFieldEditor('', 'String editor', composite))/}",
@@ -128,18 +126,17 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
    * Test for {@link FieldLayoutPreferencePageInfo#schedule_CREATE(FieldEditorInfo)}.
    */
   public void test_CREATE() throws Exception {
-    FieldLayoutPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "import org.eclipse.wb.swt.*;",
-            "public class Test extends FieldLayoutPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  public Control createPageContents(Composite parent) {",
-            "    Composite container = new Composite(parent, SWT.NULL);",
-            "    return container;",
-            "  }",
-            "}");
+    FieldLayoutPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "import org.eclipse.wb.swt.*;",
+        "public class Test extends FieldLayoutPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  public Control createPageContents(Composite parent) {",
+        "    Composite container = new Composite(parent, SWT.NULL);",
+        "    return container;",
+        "  }",
+        "}");
     CompositeInfo parentComposite = (CompositeInfo) page.getChildrenJava().get(0);
     CompositeInfo containerComposite = (CompositeInfo) parentComposite.getChildrenControls().get(0);
     AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) containerComposite.getLayout();
@@ -175,7 +172,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
         "          {method: getLabelControl} {subComponent} {}",
         "          {method: getTextControl} {subComponent} {}");
     assertInstanceOf(EmptyAssociation.class, newEditor.getAssociation());
-    // set property, so convert to Block 
+    // set property, so convert to Block
     newEditor.getPropertyByTitle("textLimit").setValue(5);
     assertEditor(
         "import org.eclipse.jface.preference.*;",
@@ -208,28 +205,27 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
    * Test for {@link FieldEditorInfo} copy/paste.
    */
   public void test_copyPaste() throws Exception {
-    FieldLayoutPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "import org.eclipse.wb.swt.*;",
-            "public class Test extends FieldLayoutPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  public Control createPageContents(Composite parent) {",
-            "    Composite container = new Composite(parent, SWT.NULL);",
-            "    {",
-            "      Composite composite = new Composite(container, SWT.NONE);",
-            "      composite.setBounds(0, 0, 200, 25);",
-            "      addField(new BooleanFieldEditor('', 'Boolean editor', composite));",
-            "    }",
-            "    {",
-            "      Composite composite = new Composite(container, SWT.NONE);",
-            "      composite.setBounds(50, 100, 200, 25);",
-            "      addField(new StringFieldEditor('', 'String editor', composite));",
-            "    }",
-            "    return container;",
-            "  }",
-            "}");
+    FieldLayoutPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "import org.eclipse.wb.swt.*;",
+        "public class Test extends FieldLayoutPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  public Control createPageContents(Composite parent) {",
+        "    Composite container = new Composite(parent, SWT.NULL);",
+        "    {",
+        "      Composite composite = new Composite(container, SWT.NONE);",
+        "      composite.setBounds(0, 0, 200, 25);",
+        "      addField(new BooleanFieldEditor('', 'Boolean editor', composite));",
+        "    }",
+        "    {",
+        "      Composite composite = new Composite(container, SWT.NONE);",
+        "      composite.setBounds(50, 100, 200, 25);",
+        "      addField(new StringFieldEditor('', 'String editor', composite));",
+        "    }",
+        "    return container;",
+        "  }",
+        "}");
     page.refresh();
     CompositeInfo parentComposite = (CompositeInfo) page.getChildrenJava().get(0);
     CompositeInfo containerComposite = (CompositeInfo) parentComposite.getChildrenControls().get(0);
@@ -287,24 +283,22 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
    * visible.
    */
   public void test_paletteTweaks_1() throws Exception {
-    FieldLayoutPreferencePageInfo page =
-        parseJavaInfo(
-            "import org.eclipse.jface.preference.*;",
-            "import org.eclipse.wb.swt.*;",
-            "public class Test extends FieldLayoutPreferencePage {",
-            "  public Test() {",
-            "  }",
-            "  public Control createPageContents(Composite parent) {",
-            "    Composite container = new Composite(parent, SWT.NULL);",
-            "    return container;",
-            "  }",
-            "}");
+    FieldLayoutPreferencePageInfo page = parseJavaInfo(
+        "import org.eclipse.jface.preference.*;",
+        "import org.eclipse.wb.swt.*;",
+        "public class Test extends FieldLayoutPreferencePage {",
+        "  public Test() {",
+        "  }",
+        "  public Control createPageContents(Composite parent) {",
+        "    Composite container = new Composite(parent, SWT.NULL);",
+        "    return container;",
+        "  }",
+        "}");
     CategoryInfo systemCategory = new CategoryInfo("org.eclipse.wb.rcp.system");
     CategoryInfo editorsCategory = new CategoryInfo("org.eclipse.wb.rcp.fieldEditors");
     CategoryInfo otherCategory = new CategoryInfo("some.other.category");
     // prepare categories
-    List<CategoryInfo> categories =
-        Lists.newArrayList(systemCategory, editorsCategory, otherCategory);
+    List<CategoryInfo> categories = Arrays.asList(systemCategory, editorsCategory, otherCategory);
     assertThat(categories).hasSize(3);
     {
       // all visible

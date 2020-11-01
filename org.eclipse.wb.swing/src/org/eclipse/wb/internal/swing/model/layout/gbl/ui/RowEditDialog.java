@@ -10,40 +10,45 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The dialog for editing {@link FormRowInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout.ui
  */
 public final class RowEditDialog extends DimensionEditDialog<RowInfo, RowInfo.Alignment> {
-  private static final List<AlignmentDescription<RowInfo.Alignment>> ALIGNMENTS =
-      Lists.newArrayList();
+  private static final List<AlignmentDescription<RowInfo.Alignment>> ALIGNMENTS = new ArrayList<>();
   static {
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.TOP,
-        ModelMessages.RowEditDialog_aTop));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.CENTER,
-        ModelMessages.RowEditDialog_aCenter));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BOTTOM,
-        ModelMessages.RowEditDialog_aBottom));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.FILL,
-        ModelMessages.RowEditDialog_aFill));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE,
-        ModelMessages.RowEditDialog_aBaseline));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_ABOVE,
-        ModelMessages.RowEditDialog_aAboveBaseline));
-    ALIGNMENTS.add(new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_BELOW,
-        ModelMessages.RowEditDialog_aBelowBaseline));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.TOP,
+            ModelMessages.RowEditDialog_aTop));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.CENTER,
+            ModelMessages.RowEditDialog_aCenter));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BOTTOM,
+            ModelMessages.RowEditDialog_aBottom));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.FILL,
+            ModelMessages.RowEditDialog_aFill));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE,
+            ModelMessages.RowEditDialog_aBaseline));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_ABOVE,
+            ModelMessages.RowEditDialog_aAboveBaseline));
+    ALIGNMENTS.add(
+        new AlignmentDescription<RowInfo.Alignment>(RowInfo.Alignment.BASELINE_BELOW,
+            ModelMessages.RowEditDialog_aBelowBaseline));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -52,7 +57,12 @@ public final class RowEditDialog extends DimensionEditDialog<RowInfo, RowInfo.Al
   //
   ////////////////////////////////////////////////////////////////////////////
   public RowEditDialog(Shell parentShell, AbstractGridBagLayoutInfo layout, RowInfo row) {
-    super(parentShell, layout, layout.getRows(), row, ModelMessages.RowEditDialog_title, ALIGNMENTS);
+    super(parentShell,
+        layout,
+        layout.getRows(),
+        row,
+        ModelMessages.RowEditDialog_title,
+        ALIGNMENTS);
   }
 
   ////////////////////////////////////////////////////////////////////////////

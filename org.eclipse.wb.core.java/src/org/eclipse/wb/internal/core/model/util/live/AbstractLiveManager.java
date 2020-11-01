@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.util.live;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
@@ -41,6 +40,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -148,7 +148,8 @@ public abstract class AbstractLiveManager {
   /**
    * Creates {@link ILiveCacheEntry} instance and fills it with required data.
    */
-  protected abstract ILiveCacheEntry createComponentCacheEntry(AbstractComponentInfo liveComponentInfo);
+  protected abstract ILiveCacheEntry createComponentCacheEntry(
+      AbstractComponentInfo liveComponentInfo);
 
   /**
    * Creates {@link ILiveCacheEntry} instance when exception happens.
@@ -177,15 +178,13 @@ public abstract class AbstractLiveManager {
     // prepare target type
     TypeDeclaration typeDeclaration = (TypeDeclaration) m_editor.getAstUnit().types().get(0);
     // create method
-    m_tmpType =
-        m_editor.addTypeDeclaration(
-            ImmutableList.of("private static class __Tmp {", "}"),
-            new BodyDeclarationTarget(typeDeclaration, false));
-    m_method =
-        m_editor.addMethodDeclaration(
-            "private static void __tmp()",
-            ImmutableList.copyOf(sourceLines),
-            new BodyDeclarationTarget(m_tmpType, false));
+    m_tmpType = m_editor.addTypeDeclaration(
+        ImmutableList.of("private static class __Tmp {", "}"),
+        new BodyDeclarationTarget(typeDeclaration, false));
+    m_method = m_editor.addMethodDeclaration(
+        "private static void __tmp()",
+        ImmutableList.copyOf(sourceLines),
+        new BodyDeclarationTarget(m_tmpType, false));
     m_editorState.setFlowDescription(new ExecutionFlowDescription(m_method));
     // parse created method
     JavaInfo root = JavaInfoParser.parse(m_editor, m_method);
@@ -276,7 +275,7 @@ public abstract class AbstractLiveManager {
   // Caching
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Map<String, ILiveCacheEntry> m_staticCache = Maps.newHashMap();
+  private static final Map<String, ILiveCacheEntry> m_staticCache = new HashMap<>();
   private static final String EDITOR_CACHE_KEY = "LIVE_CACHE";
 
   /**
@@ -294,7 +293,7 @@ public abstract class AbstractLiveManager {
     Map<String, ILiveCacheEntry> cache =
         (Map<String, ILiveCacheEntry>) m_component.getEditor().getGlobalValue(EDITOR_CACHE_KEY);
     if (cache == null) {
-      cache = Maps.newHashMap();
+      cache = new HashMap<>();
       m_component.getEditor().putGlobalValue(EDITOR_CACHE_KEY, cache);
     }
     return cache;

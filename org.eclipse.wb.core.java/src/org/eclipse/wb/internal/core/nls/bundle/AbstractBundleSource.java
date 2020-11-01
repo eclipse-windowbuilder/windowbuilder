@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
@@ -48,7 +44,9 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -286,7 +284,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
     // allow subclasses do preparing work
     apply_renameKeys_pre(oldToNew);
     // prepare list of expression information objects
-    final List<BasicExpressionInfo> expressionInformationList = Lists.newArrayList();
+    final List<BasicExpressionInfo> expressionInformationList = new ArrayList<>();
     editor.getAstUnit().accept(new ASTVisitor() {
       @Override
       public void postVisit(ASTNode node) {
@@ -393,7 +391,8 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Replace given expression with externalized code.
    */
   protected abstract BasicExpressionInfo apply_externalize_replaceExpression(
-      GenericProperty property, String key) throws Exception;
+      GenericProperty property,
+      String key) throws Exception;
 
   @Override
   public final void apply_internalizeKeys(final Set<String> keys) throws Exception {
@@ -568,7 +567,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   }
 
   private LocaleInfo[] getLocales(IFile[] bundleFiles) {
-    Set<LocaleInfo> locales = Sets.newHashSet();
+    Set<LocaleInfo> locales = new HashSet<>();
     for (int i = 0; i < bundleFiles.length; i++) {
       IFile file = bundleFiles[i];
       locales.add(BundleInfo.getLocale(m_bundleName, file));
@@ -578,7 +577,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
 
   @Override
   public Set<String> getKeys() throws Exception {
-    Set<String> keys = Sets.newHashSet();
+    Set<String> keys = new HashSet<>();
     for (LocaleInfo locale : getLocales()) {
       BundleInfo bundle = getBundleInfo(locale);
       keys.addAll(bundle.getKeys());
@@ -622,7 +621,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
   // Bundle access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<LocaleInfo, BundleInfo> m_localeToBundleMap = Maps.newHashMap();
+  private final Map<LocaleInfo, BundleInfo> m_localeToBundleMap = new HashMap<>();
 
   /**
    * Return existing or new information about resource bundle for given locale.
@@ -661,7 +660,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Return list of IResource's that represent bundle files (*.properties) for given bundle name.
    */
   protected final IFile[] getBundleFiles() throws Exception {
-    List<IFile> bundleFiles = Lists.newArrayList();
+    List<IFile> bundleFiles = new ArrayList<>();
     String bundlePath = m_bundleName.replace('.', '/');
     String bundleFileName = new Path(bundlePath).lastSegment();
     // iterate over all source containers
