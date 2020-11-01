@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.absolute;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.association.InvocationSecondaryAssociation;
 import org.eclipse.wb.draw2d.geometry.Dimension;
@@ -36,12 +34,13 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Absolute layout which sets location/size as constraints.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -84,11 +83,10 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
               constraintsClassName =
                   JavaInfoUtils.getParameter(layout, "absoluteLayout.constraintsClass");
             }
-            constraints =
-                (ConstraintsAbsoluteLayoutDataInfo) JavaInfoUtils.createJavaInfo(
-                    component.getEditor(),
-                    constraintsClassName,
-                    new ConstructorCreationSupport());
+            constraints = (ConstraintsAbsoluteLayoutDataInfo) JavaInfoUtils.createJavaInfo(
+                component.getEditor(),
+                constraintsClassName,
+                new ConstructorCreationSupport());
             // prepare add() invocation
             InvocationChildAssociation association =
                 (InvocationChildAssociation) component.getAssociation();
@@ -101,7 +99,8 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
             }
             // set CreationSupport
             {
-              constraints.setCreationSupport(new ConstructorCreationSupport((ClassInstanceCreation) expression));
+              constraints.setCreationSupport(
+                  new ConstructorCreationSupport((ClassInstanceCreation) expression));
               constraints.addRelatedNode(expression);
             }
             // set Association
@@ -144,7 +143,8 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
     setBoundsProperty(component, "height", value);
   }
 
-  private void setBoundsProperty(ComponentInfo component, String title, int value) throws Exception {
+  private void setBoundsProperty(ComponentInfo component, String title, int value)
+      throws Exception {
     value = updateValueUsingScript(component, title, value);
     ConstraintsAbsoluteLayoutDataInfo constraints = getConstraints(component);
     if (constraints != null) {
@@ -161,7 +161,7 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
     String script = JavaInfoUtils.getParameter(this, scriptName);
     if (script != null) {
       ClassLoader classLoader = JavaInfoUtils.getClassLoader(this);
-      Map<String, Object> variables = Maps.newHashMap();
+      Map<String, Object> variables = new HashMap<>();
       variables.put("component", component);
       variables.put("value", value);
       value = (Integer) ScriptUtils.evaluate(classLoader, script, variables);
@@ -177,7 +177,7 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
   /**
    * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
    * "setLocation", "setSize", "setBounds" arguments.
-   * 
+   *
    * @param component
    *          the {@link ComponentInfo} which modifications applies to.
    * @param location

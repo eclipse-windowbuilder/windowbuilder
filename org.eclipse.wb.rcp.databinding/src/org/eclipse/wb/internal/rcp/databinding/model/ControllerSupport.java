@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.databinding.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.JavaInfo;
@@ -77,7 +76,9 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +86,7 @@ import java.util.Set;
 
 /**
  * Helper class for separate binding code to {@code Controller} class.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -269,7 +270,8 @@ public class ControllerSupport {
   // AutoWizard
   //
   ////////////////////////////////////////////////////////////////////////////
-  public static String automaticWizardPerformSubstitutions(AutomaticDatabindingFirstPage firstWizardPage,
+  public static String automaticWizardPerformSubstitutions(
+      AutomaticDatabindingFirstPage firstWizardPage,
       String code,
       ImportsManager imports,
       IJavaProject javaProject,
@@ -299,13 +301,13 @@ public class ControllerSupport {
       widgetStart = "\t";
     }
     // prepare imports
-    Collection<String> hostImportList = Sets.newHashSet();
+    Collection<String> hostImportList = new HashSet<>();
     hostImportList.add(SWT.class.getName());
     hostImportList.add("org.eclipse.swt.widgets.Label");
     hostImportList.add("org.eclipse.swt.layout.GridLayout");
     hostImportList.add("org.eclipse.swt.layout.GridData");
     //
-    Collection<String> controllerImportList = Sets.newHashSet();
+    Collection<String> controllerImportList = new HashSet<>();
     controllerImportList.add(SWT.class.getName());
     controllerImportList.add("org.eclipse.jface.databinding.swt.SWTObservables");
     controllerImportList.add("org.eclipse.core.databinding.observable.value.IObservableValue");
@@ -340,11 +342,10 @@ public class ControllerSupport {
     if (ReflectionUtils.getConstructorBySignature(beanClass, "<init>()") == null) {
       controllerCode = StringUtils.replace(controllerCode, "%BeanField%", fieldName);
     } else {
-      controllerCode =
-          StringUtils.replace(controllerCode, "%BeanField%", fieldName
-              + " = new "
-              + beanClassName
-              + "()");
+      controllerCode = StringUtils.replace(
+          controllerCode,
+          "%BeanField%",
+          fieldName + " = new " + beanClassName + "()");
     }
     //
     IPreferenceStore preferences = ToolkitProvider.DESCRIPTION.getPreferences();
@@ -353,11 +354,10 @@ public class ControllerSupport {
     controllerCode =
         StringUtils.replace(controllerCode, "%BeanFieldAccess%", accessPrefix + fieldName);
     //
-    controllerCode =
-        StringUtils.replace(
-            controllerCode,
-            "%BeanName%",
-            StringUtils.capitalize(beanClassShortName));
+    controllerCode = StringUtils.replace(
+        controllerCode,
+        "%BeanName%",
+        StringUtils.capitalize(beanClassShortName));
     // prepare code
     StringBuffer widgetFields = new StringBuffer();
     StringBuffer widgets = new StringBuffer();
@@ -388,63 +388,71 @@ public class ControllerSupport {
       String widgetAccessor = "get" + StringUtils.capitalize(propertyName) + widgetClassName + "()";
       String widgetControllerAccessor = hostField + "." + widgetAccessor;
       // getter
-      widgetGetters.append("method\n\tpublic "
-          + widgetClassName
-          + " "
-          + widgetAccessor
-          + " {\n\t\treturn "
-          + widgetFieldName
-          + ";\n\t}\n\n");
+      widgetGetters.append(
+          "method\n\tpublic "
+              + widgetClassName
+              + " "
+              + widgetAccessor
+              + " {\n\t\treturn "
+              + widgetFieldName
+              + ";\n\t}\n\n");
       // field
-      widgetFields.append("\r\nfield\r\n\tprivate " + widgetClassName + " " + widgetFieldName + ";");
+      widgetFields.append(
+          "\r\nfield\r\n\tprivate " + widgetClassName + " " + widgetFieldName + ";");
       // widget
       widgets.append(begin);
-      widgets.append(widgetStart
-          + "\t\tnew Label("
-          + swtContainer
-          + ", SWT.NONE).setText(\""
-          + StringUtils.capitalize(propertyName)
-          + ":\");\r\n");
+      widgets.append(
+          widgetStart
+              + "\t\tnew Label("
+              + swtContainer
+              + ", SWT.NONE).setText(\""
+              + StringUtils.capitalize(propertyName)
+              + ":\");\r\n");
       widgets.append(end + "\r\n");
       //
       widgets.append(begin);
-      widgets.append("\t\t"
-          + widgetFieldAccess
-          + " = "
-          + widgetDescriptor.getCreateCode(swtContainer)
-          + ";\r\n");
-      widgets.append(widgetStart
-          + "\t\t"
-          + widgetFieldAccess
-          + ".setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));\r\n");
+      widgets.append(
+          "\t\t"
+              + widgetFieldAccess
+              + " = "
+              + widgetDescriptor.getCreateCode(swtContainer)
+              + ";\r\n");
+      widgets.append(
+          widgetStart
+              + "\t\t"
+              + widgetFieldAccess
+              + ".setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));\r\n");
       widgets.append(end);
       // observables
-      observables.append("\t\tIObservableValue "
-          + propertyName
-          + "ObserveWidget = "
-          + widgetDescriptor.getBindingCode(widgetControllerAccessor)
-          + ";\r\n");
+      observables.append(
+          "\t\tIObservableValue "
+              + propertyName
+              + "ObserveWidget = "
+              + widgetDescriptor.getBindingCode(widgetControllerAccessor)
+              + ";\r\n");
       if (automaticWizardStub == null) {
-        observables.append("\t\tIObservableValue "
-            + propertyName
-            + observeMethod
-            + fieldName
-            + ", \""
-            + propertyName
-            + "\");");
+        observables.append(
+            "\t\tIObservableValue "
+                + propertyName
+                + observeMethod
+                + fieldName
+                + ", \""
+                + propertyName
+                + "\");");
       } else {
         observables.append(automaticWizardStub.createSourceCode(fieldName, propertyName));
       }
       // bindings
-      bindings.append("\t\tbindingContext.bindValue("
-          + propertyName
-          + "ObserveWidget, "
-          + propertyName
-          + "ObserveValue, "
-          + strategyDescriptor.getTargetStrategyCode()
-          + ", "
-          + strategyDescriptor.getModelStrategyCode()
-          + ");");
+      bindings.append(
+          "\t\tbindingContext.bindValue("
+              + propertyName
+              + "ObserveWidget, "
+              + propertyName
+              + "ObserveValue, "
+              + strategyDescriptor.getTargetStrategyCode()
+              + ", "
+              + strategyDescriptor.getModelStrategyCode()
+              + ");");
       //
       if (I.hasNext()) {
         widgetFields.append("\r\n");
@@ -523,8 +531,8 @@ public class ControllerSupport {
       AstEditor editor,
       TypeDeclaration rootNode) throws Exception {
     provider.setController(true);
-    provider.setControllerViewerField("m_"
-        + StringUtils.uncapitalize(rootNode.getName().getIdentifier()));
+    provider.setControllerViewerField(
+        "m_" + StringUtils.uncapitalize(rootNode.getName().getIdentifier()));
     //
     List<IBindingInfo> bindings = provider.getBindings();
     for (IBindingInfo binding : bindings) {
@@ -573,14 +581,8 @@ public class ControllerSupport {
     //
     controllerCode.append("public class " + controllerClass + " {" + endOfLine);
     controllerCode.append("\tprivate " + hostClass + " " + hostField + ";" + endOfLine + endOfLine);
-    controllerCode.append("\tpublic "
-        + controllerClass
-        + "("
-        + hostClass
-        + " "
-        + hostVariable
-        + ") {"
-        + endOfLine);
+    controllerCode.append(
+        "\tpublic " + controllerClass + "(" + hostClass + " " + hostVariable + ") {" + endOfLine);
     controllerCode.append("\t\t" + hostField + " = " + hostVariable + ";" + endOfLine);
     controllerCode.append("\t}" + endOfLine);
     controllerCode.append("}");
@@ -658,9 +660,9 @@ public class ControllerSupport {
       IObserveInfo parentObserve = observe.getParent();
       if (parentObserve == null) {
         MethodBeanBindableInfo methodBindable = (MethodBeanBindableInfo) observe;
-        methodBindable.setReferenceProvider(new StringReferenceProvider(provider.getControllerViewerField()
-            + "."
-            + methodBindable.getReference()));
+        methodBindable.setReferenceProvider(
+            new StringReferenceProvider(
+                provider.getControllerViewerField() + "." + methodBindable.getReference()));
       } else {
         moveBean(provider, parentObserve, controllerEditor, controllerRootNode);
       }
@@ -675,7 +677,7 @@ public class ControllerSupport {
     MethodDeclaration initDataBindings = provider.getRootInfo().getInitDataBindings();
     if (initDataBindings != null) {
       final String signature = AstNodeUtils.getMethodSignature(initDataBindings);
-      final List<Statement> statements = Lists.newArrayList();
+      final List<Statement> statements = new ArrayList<>();
       rootNode.accept(new ASTVisitor() {
         @Override
         public void endVisit(MethodInvocation node) {

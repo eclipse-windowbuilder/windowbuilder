@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
@@ -55,13 +53,15 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+
 import javax.swing.border.Border;
 
 import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * Dialog for {@link Border} editing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -89,7 +89,7 @@ public final class BorderDialog extends ResizableDialog {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets flag, that {@link Border} is modified.
-   * 
+   *
    * @param borderModified
    *          is <code>false</code>, if {@link Border} is not set, so <code>(default)</code> page
    *          should be used.
@@ -128,7 +128,7 @@ public final class BorderDialog extends ResizableDialog {
   private Combo m_typeCombo;
   private Group m_pagesComposite;
   private StackLayout m_pagesLayout;
-  private final java.util.List<AbstractBorderComposite> m_pages = Lists.newArrayList();
+  private final java.util.List<AbstractBorderComposite> m_pages = new ArrayList<>();
 
   @Override
   protected Control createDialogArea(Composite parent) {
@@ -306,10 +306,12 @@ public final class BorderDialog extends ResizableDialog {
     {
       String borderSource = getCurrentBorderSource();
       unit.getBuffer().setContents(
-          StringUtils.join(new String[]{
-              "class __Foo {",
-              "  private javax.swing.border.Border border = " + borderSource,
-              "}"}, "\n"));
+          StringUtils.join(
+              new String[]{
+                  "class __Foo {",
+                  "  private javax.swing.border.Border border = " + borderSource,
+                  "}"},
+              "\n"));
       AstEditor editor = new AstEditor(unit);
       FieldDeclaration fieldDeclaration =
           DomGenerics.types(editor.getAstUnit()).get(0).getFields()[0];

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.util.generic;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -26,12 +24,13 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Test for {@link ModelMethodPropertyChildSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ModelMethodPropertyChildTest extends SwingModelTest {
@@ -56,7 +55,7 @@ public class ModelMethodPropertyChildTest extends SwingModelTest {
       super(editor, description, creationSupport);
     }
 
-    private final Map<Object, String> m_values = Maps.newHashMap();
+    private final Map<Object, String> m_values = new HashMap<>();
 
     public Object getValue(ComponentInfo component) {
       String value = m_values.get(component);
@@ -91,17 +90,17 @@ public class ModelMethodPropertyChildTest extends SwingModelTest {
   }
 
   public void test_valueProperty() throws Exception {
-    prepareMyPanel("getter=getValue setter=setValue title=value category=normal type=java.lang.String"
-        + " child="
-        + ComponentInfo.class.getName());
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    add(new JButton());",
-            "    add(new JTextField());",
-            "  }",
-            "}");
+    prepareMyPanel(
+        "getter=getValue setter=setValue title=value category=normal type=java.lang.String"
+            + " child="
+            + ComponentInfo.class.getName());
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    add(new JButton());",
+        "    add(new JTextField());",
+        "  }",
+        "}");
     panel.refresh();
     assertNoErrors(panel);
     ComponentInfo button = panel.getChildrenComponents().get(0);

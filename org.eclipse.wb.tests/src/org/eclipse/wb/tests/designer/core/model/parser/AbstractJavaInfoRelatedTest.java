@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.model.parser;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -65,13 +64,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Abstract test that works with {@link JavaInfo}, but does not parses them directly, as opposed to
  * {@link AbstractJavaInfoTest}.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
@@ -352,11 +352,10 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
   public static <T extends JavaInfo> T createJavaInfo(String componentClassName, String creationId)
       throws Exception {
     AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
-    JavaInfo javaInfo =
-        JavaInfoUtils.createJavaInfo(
-            editor,
-            componentClassName,
-            new ConstructorCreationSupport(creationId, true));
+    JavaInfo javaInfo = JavaInfoUtils.createJavaInfo(
+        editor,
+        componentClassName,
+        new ConstructorCreationSupport(creationId, true));
     javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
     return (T) javaInfo;
   }
@@ -466,6 +465,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
         "openDialog(org.eclipse.wb.internal.core.model.property.Property)",
         property);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Combo property editor
@@ -479,10 +479,9 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
    */
   protected static void addComboPropertyItems(Property property) {
     PropertyEditor propertyEditor = property.getEditor();
-    String signature =
-        "addItems("
-            + "org.eclipse.wb.internal.core.model.property.Property,"
-            + "org.eclipse.wb.core.controls.CCombo3)";
+    String signature = "addItems("
+        + "org.eclipse.wb.internal.core.model.property.Property,"
+        + "org.eclipse.wb.core.controls.CCombo3)";
     TEST_COMBO.removeAll();
     ReflectionUtils.invokeMethodEx(propertyEditor, signature, property, TEST_COMBO);
   }
@@ -491,7 +490,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
    * @return items from combo.
    */
   protected static List<String> getComboPropertyItems() {
-    List<String> items = Lists.newArrayList();
+    List<String> items = new ArrayList<>();
     int itemCount = TEST_COMBO.getItemCount();
     for (int i = 0; i < itemCount; i++) {
       items.add(TEST_COMBO.getItem(i));
@@ -520,10 +519,9 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
    */
   protected static void setComboPropertySelection(Property property) {
     PropertyEditor propertyEditor = property.getEditor();
-    String signature =
-        "selectItem("
-            + "org.eclipse.wb.internal.core.model.property.Property,"
-            + "org.eclipse.wb.core.controls.CCombo3)";
+    String signature = "selectItem("
+        + "org.eclipse.wb.internal.core.model.property.Property,"
+        + "org.eclipse.wb.core.controls.CCombo3)";
     ReflectionUtils.invokeMethodEx(propertyEditor, signature, property, TEST_COMBO);
   }
 
@@ -532,11 +530,10 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
    */
   protected static void setComboPropertyValue(Property property, int index) {
     PropertyEditor propertyEditor = property.getEditor();
-    String signature =
-        "toPropertyEx("
-            + "org.eclipse.wb.internal.core.model.property.Property,"
-            + "org.eclipse.wb.core.controls.CCombo3,"
-            + "int)";
+    String signature = "toPropertyEx("
+        + "org.eclipse.wb.internal.core.model.property.Property,"
+        + "org.eclipse.wb.core.controls.CCombo3,"
+        + "int)";
     ReflectionUtils.invokeMethodEx(propertyEditor, signature, property, TEST_COMBO, index);
   }
 }

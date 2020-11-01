@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.edit;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -39,10 +35,13 @@ import org.eclipse.swt.SWT;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Implementation for editable source.
@@ -58,11 +57,11 @@ public final class EditableSource implements IEditableSource {
   ////////////////////////////////////////////////////////////////////////////
   private String m_shortTitle;
   private String m_longTitle;
-  private final Set<String> m_keys = Sets.newHashSet();
-  private final Set<String> m_formKeys = Sets.newHashSet();
+  private final Set<String> m_keys = new HashSet<>();
+  private final Set<String> m_formKeys = new HashSet<>();
   private final HashMap<String, String> m_keyToValue = new HashMap<String, String>();
   private KeyToComponentsSupport m_keyToComponentsSupport = new KeyToComponentsSupport(false); // initialize by default for case of new source
-  private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = Maps.newTreeMap();
+  private final Map<LocaleInfo, EditableLocaleInfo> m_localeToInfo = new TreeMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -133,7 +132,7 @@ public final class EditableSource implements IEditableSource {
   // IEditableSource: listener
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<IEditableSourceListener> m_listeners = Lists.newArrayList();
+  private final List<IEditableSourceListener> m_listeners = new ArrayList<>();
 
   public void addListener(IEditableSourceListener listener) {
     if (!m_listeners.contains(listener)) {
@@ -192,7 +191,7 @@ public final class EditableSource implements IEditableSource {
       EditableLocaleInfo editableBaseLocale = getEditableLocale(baseLocale);
       keyToValue = new HashMap<String, String>(editableBaseLocale.m_keyToValue);
     } else {
-      keyToValue = Maps.newHashMap();
+      keyToValue = new HashMap<>();
     }
     // add new locale
     add(locale, keyToValue);

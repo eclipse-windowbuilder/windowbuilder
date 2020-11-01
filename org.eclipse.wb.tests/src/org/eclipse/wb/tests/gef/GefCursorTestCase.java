@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.IPositionConstants;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -36,11 +34,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Shell;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GefCursorTestCase extends GefTestCase {
   protected Shell m_shell;
@@ -151,7 +150,7 @@ public class GefCursorTestCase extends GefTestCase {
         installEditPolicy(EditPolicy.SELECTION_ROLE, new SelectionEditPolicy() {
           @Override
           protected List<Handle> createSelectionHandles() {
-            List<Handle> handles = Lists.newArrayList();
+            List<Handle> handles = new ArrayList<>();
             handles.add(new MoveHandle(getHost()));
             handles.add(createResizeHandle(IPositionConstants.EAST));
             handles.add(createResizeHandle(IPositionConstants.SOUTH_EAST));

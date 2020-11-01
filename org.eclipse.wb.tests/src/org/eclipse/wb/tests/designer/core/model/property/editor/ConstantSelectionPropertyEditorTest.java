@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -29,12 +27,13 @@ import org.eclipse.swt.widgets.Shell;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Test for {@link ConstantSelectionPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
@@ -425,7 +424,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
         "}");
     Set<IType> types = getUsedTypes();
     // convert IType's into their names
-    Set<String> typeNames = Sets.newHashSet();
+    Set<String> typeNames = new HashSet<>();
     for (IType type : types) {
       typeNames.add(type.getFullyQualifiedName());
     }
@@ -445,7 +444,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
         "}");
     List<IType> types = getLocalTypes();
     // convert IType's into their names
-    Set<String> typeNames = Sets.newHashSet();
+    Set<String> typeNames = new HashSet<>();
     for (IType type : types) {
       typeNames.add(type.getFullyQualifiedName());
     }
@@ -472,7 +471,7 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
         "}");
     List<IType> types = getLocalTypes();
     // convert IType's into their names
-    Set<String> typeNames = Sets.newHashSet();
+    Set<String> typeNames = new HashSet<>();
     for (IType type : types) {
       typeNames.add(type.getFullyQualifiedName());
     }
@@ -489,13 +488,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
    * Check for items.
    */
   public void test_combo_items() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "    setStringId(PrefConstants.ID_1);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "    setStringId(PrefConstants.ID_1);",
+        "  }",
+        "}");
     Property property = panel.getPropertyByTitle("stringId");
     //
     addComboPropertyItems(property);

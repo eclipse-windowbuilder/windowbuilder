@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
@@ -26,12 +24,13 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
@@ -70,7 +69,7 @@ public final class MigLayoutConverter {
       createDimensions(layout, rows, false);
     }
     // prepare set of components in groups
-    Set<ComponentInGroup> componentsInGroups = Sets.newHashSet();
+    Set<ComponentInGroup> componentsInGroups = new HashSet<>();
     for (ComponentGroup column : columns) {
       for (ComponentInGroup componentInGroup : column.getComponents()) {
         componentsInGroups.add(componentInGroup);
@@ -102,14 +101,10 @@ public final class MigLayoutConverter {
         constraints.setHeight(sy);
       }
       // alignments
-      constraints.setHorizontalAlignment(getHorizontalAlignment(
-          columns,
-          componentInGroup,
-          generalLayoutData));
-      constraints.setVerticalAlignment(getVerticalAlignment(
-          rows,
-          componentInGroup,
-          generalLayoutData));
+      constraints.setHorizontalAlignment(
+          getHorizontalAlignment(columns, componentInGroup, generalLayoutData));
+      constraints.setVerticalAlignment(
+          getVerticalAlignment(rows, componentInGroup, generalLayoutData));
       // write constraints
       constraints.write();
     }
@@ -161,10 +156,9 @@ public final class MigLayoutConverter {
       GeneralLayoutData generalLayoutData) {
     if (generalLayoutData.horizontalAlignment != null) {
       // from general layout data
-      MigColumnInfo.Alignment alignment =
-          GeneralLayoutData.getRealValue(
-              MigLayoutInfo.m_horizontalAlignmentMap,
-              generalLayoutData.horizontalAlignment);
+      MigColumnInfo.Alignment alignment = GeneralLayoutData.getRealValue(
+          MigLayoutInfo.m_horizontalAlignmentMap,
+          generalLayoutData.horizontalAlignment);
       if (alignment != null && alignment != MigColumnInfo.Alignment.UNKNOWN) {
         return alignment;
       }
@@ -189,9 +183,8 @@ public final class MigLayoutConverter {
     int leftDelta = leftOffset + Math.abs(columnLeft + prefSize.width - br);
     int rightDelta = rightOffset + Math.abs(columnRight - prefSize.width - bl);
     int fillDelta = leftOffset + rightOffset;
-    int centerDelta =
-        Math.abs(bl - (columnCenter - prefSize.width / 2))
-            + Math.abs(br - (columnCenter + prefSize.width / 2));
+    int centerDelta = Math.abs(bl - (columnCenter - prefSize.width / 2))
+        + Math.abs(br - (columnCenter + prefSize.width / 2));
     // set alignment
     return getAlignment(
         new int[]{leftDelta, centerDelta, rightDelta, fillDelta},
@@ -210,10 +203,9 @@ public final class MigLayoutConverter {
       GeneralLayoutData generalLayoutData) {
     if (generalLayoutData.verticalAlignment != null) {
       // from general layout data
-      MigRowInfo.Alignment alignment =
-          GeneralLayoutData.getRealValue(
-              MigLayoutInfo.m_verticalAlignmentMap,
-              generalLayoutData.verticalAlignment);
+      MigRowInfo.Alignment alignment = GeneralLayoutData.getRealValue(
+          MigLayoutInfo.m_verticalAlignmentMap,
+          generalLayoutData.verticalAlignment);
       if (alignment != null && alignment != MigRowInfo.Alignment.UNKNOWN) {
         return alignment;
       }
@@ -237,9 +229,8 @@ public final class MigLayoutConverter {
     int topDelta = topOffset + Math.abs(rowTop + prefSize.height - bb);
     int bottomDelta = bottomOffset + Math.abs(rowBottom - prefSize.height - bt);
     int fillDelta = topOffset + bottomOffset;
-    int centerDelta =
-        Math.abs(bt - (rowCenter - prefSize.height / 2))
-            + Math.abs(bb - (rowCenter + prefSize.height / 2));
+    int centerDelta = Math.abs(bt - (rowCenter - prefSize.height / 2))
+        + Math.abs(bb - (rowCenter + prefSize.height / 2));
     // set alignment
     return getAlignment(
         new int[]{topDelta, centerDelta, bottomDelta, fillDelta},

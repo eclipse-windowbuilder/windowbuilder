@@ -10,22 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.laf.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Description for group of {@link LafInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */
 public final class CategoryInfo extends LafEntryInfo {
-  private final List<LafInfo> m_lafList = Lists.newArrayList();
+  private final List<LafInfo> m_lafList = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

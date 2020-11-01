@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.jface;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.controls.jface.preference.ComboFieldEditor;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -57,6 +55,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -244,7 +243,7 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
     private final String m_text;
     private final List<String> m_resultLabels = new ArrayList<>();
     private final List<IField> m_resultFields = new ArrayList<>();
-    private final Set<IType> m_allTypes = Sets.newHashSet();
+    private final Set<IType> m_allTypes = new HashSet<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //

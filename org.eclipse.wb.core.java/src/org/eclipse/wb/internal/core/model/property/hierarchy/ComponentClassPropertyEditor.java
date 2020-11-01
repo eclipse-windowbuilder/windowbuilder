@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.hierarchy;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -42,6 +40,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,7 +89,7 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
           int availableWidth,
           final IPropertyTooltipSite site) {
         // prepare hierarchy
-        List<Class<?>> classes = Lists.newArrayList();
+        List<Class<?>> classes = new ArrayList<>();
         {
           Class<?> clazz = m_componentClass;
           while (clazz != null) {

@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.core.util.ui;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.ui.IActionSingleton;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
@@ -27,11 +26,12 @@ import org.eclipse.jface.action.Separator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link MenuIntersector}.
- * 
+ *
  * @author lobas_av
  */
 public class MenuIntersectorTest extends DesignerTestCase {
@@ -54,7 +54,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
     IMenuManager manager2 = createMenu(deleteAction, copyAction, pasteAction);
     fillMenu2(manager2);
     // add to list
-    List<IMenuManager> menus = Lists.newArrayList();
+    List<IMenuManager> menus = new ArrayList<>();
     menus.add(manager1);
     menus.add(manager2);
     // merge
@@ -104,7 +104,7 @@ public class MenuIntersectorTest extends DesignerTestCase {
     fillMenu2(manager2);
     IMenuManager manager3 = createMenu(deleteAction, copyAction, pasteAction);
     // add to list
-    List<IMenuManager> menus = Lists.newArrayList();
+    List<IMenuManager> menus = new ArrayList<>();
     menus.add(manager1);
     menus.add(manager2);
     menus.add(manager3);
@@ -231,7 +231,9 @@ public class MenuIntersectorTest extends DesignerTestCase {
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static IMenuManager createMenu(Action deleteAction, Action copyAction, Action pasteAction) {
+  private static IMenuManager createMenu(Action deleteAction,
+      Action copyAction,
+      Action pasteAction) {
     IMenuManager manager = new MenuManager();
     manager.add(copyAction);
     manager.add(pasteAction);

@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.snapping;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -32,6 +30,7 @@ import org.apache.commons.collections.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,8 +51,8 @@ public final class PlacementsSupport {
   private final PlacementInfo m_x = new PlacementInfo();
   private final PlacementInfo m_y = new PlacementInfo();
   private Rectangle m_bounds;
-  private final Map<IAbstractComponentInfo, Rectangle> m_newModelBounds = Maps.newHashMap();
-  private final Map<IAbstractComponentInfo, Rectangle> m_oldModelBounds = Maps.newHashMap();
+  private final Map<IAbstractComponentInfo, Rectangle> m_newModelBounds = new HashMap<>();
+  private final Map<IAbstractComponentInfo, Rectangle> m_oldModelBounds = new HashMap<>();
   private final Map<IAbstractComponentInfo, Integer[]> m_effectiveAlignments = new HashMap<>();
   private final IAbsoluteLayoutCommands m_layoutCommands;
   private int m_resizeDirection;
@@ -1250,18 +1249,8 @@ public final class PlacementsSupport {
           m_layoutCommands.getAttachedToWidget(widget, PlacementUtils.getSide(isHorizontal, true));
       IAbstractComponentInfo attachedTrailing =
           m_layoutCommands.getAttachedToWidget(widget, PlacementUtils.getSide(isHorizontal, false));
-      traverseAttachedWidgets(
-          cyclicList,
-          Sets.<IAbstractComponentInfo>newHashSet(),
-          attachedLeading,
-          widget,
-          isHorizontal);
-      traverseAttachedWidgets(
-          cyclicList,
-          Sets.<IAbstractComponentInfo>newHashSet(),
-          attachedTrailing,
-          widget,
-          isHorizontal);
+      traverseAttachedWidgets(cyclicList, new HashSet<>(), attachedLeading, widget, isHorizontal);
+      traverseAttachedWidgets(cyclicList, new HashSet<>(), attachedTrailing, widget, isHorizontal);
     }
     return cyclicList;
   }

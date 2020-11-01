@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.Messages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -34,6 +32,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implementation of {@link AbstractImagePage} that selects image from file system.
@@ -43,7 +42,7 @@ import java.util.Map;
  */
 public final class FileImagePage extends AbstractImagePage {
   public static final String ID = "FILE";
-  private final Map<String, ImageInfo> m_pathToImageInfo = Maps.newTreeMap();
+  private final Map<String, ImageInfo> m_pathToImageInfo = new TreeMap<>();
   private final Text m_pathText;
 
   ////////////////////////////////////////////////////////////////////////////

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.pure.direct;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -33,6 +31,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,7 +64,7 @@ public final class DirectSource extends AbstractPureBundleSource {
    */
   public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
       throws Exception {
-    List<AbstractSource> sources = Lists.newArrayList();
+    List<AbstractSource> sources = new ArrayList<>();
     //
     Object[] nonJavaResources = pkg.getNonJavaResources();
     for (int i = 0; i < nonJavaResources.length; i++) {
@@ -89,10 +88,9 @@ public final class DirectSource extends AbstractPureBundleSource {
         }
         // OK, this is probably correct source
         try {
-          String bundleName =
-              pkg.getElementName()
-                  + "."
-                  + StringUtils.substring(fileName, 0, -".properties".length());
+          String bundleName = pkg.getElementName()
+              + "."
+              + StringUtils.substring(fileName, 0, -".properties".length());
           AbstractSource source = new DirectSource(root, bundleName);
           sources.add(source);
         } catch (Throwable e) {
@@ -152,10 +150,9 @@ public final class DirectSource extends AbstractPureBundleSource {
       // check for getString(key)
       MethodInvocation getString_invocation = (MethodInvocation) expression;
       {
-        boolean is_getString =
-            getString_invocation.getName().getIdentifier().equals("getString")
-                && getString_invocation.arguments().size() == 1
-                && getString_invocation.arguments().get(0) instanceof StringLiteral;
+        boolean is_getString = getString_invocation.getName().getIdentifier().equals("getString")
+            && getString_invocation.arguments().size() == 1
+            && getString_invocation.arguments().get(0) instanceof StringLiteral;
         if (!is_getString) {
           return null;
         }
@@ -168,10 +165,9 @@ public final class DirectSource extends AbstractPureBundleSource {
         }
         getBundle_invocation = (MethodInvocation) getString_invocation.getExpression();
         //
-        boolean is_getBundle =
-            getBundle_invocation.getName().getIdentifier().equals("getBundle")
-                && getBundle_invocation.arguments().size() == 1
-                && getBundle_invocation.arguments().get(0) instanceof StringLiteral;
+        boolean is_getBundle = getBundle_invocation.getName().getIdentifier().equals("getBundle")
+            && getBundle_invocation.arguments().size() == 1
+            && getBundle_invocation.arguments().get(0) instanceof StringLiteral;
         if (!is_getBundle) {
           return null;
         }
@@ -266,12 +262,11 @@ public final class DirectSource extends AbstractPureBundleSource {
   protected BasicExpressionInfo apply_externalize_replaceExpression(GenericProperty property,
       String key) throws Exception {
     // prepare code
-    String code =
-        "java.util.ResourceBundle.getBundle("
-            + StringConverter.INSTANCE.toJavaSource(m_root, m_bundleName)
-            + ").getString("
-            + StringConverter.INSTANCE.toJavaSource(m_root, key)
-            + ")";
+    String code = "java.util.ResourceBundle.getBundle("
+        + StringConverter.INSTANCE.toJavaSource(m_root, m_bundleName)
+        + ").getString("
+        + StringConverter.INSTANCE.toJavaSource(m_root, key)
+        + ")";
     // replace expression
     Expression expression = property.getExpression();
     ExpressionInfo expressionInfo = (ExpressionInfo) replaceExpression_getInfo(expression, code);

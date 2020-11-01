@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.parser;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils2;
 import org.eclipse.wb.core.eval.ExpressionValue;
@@ -52,6 +49,8 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.ThisExpression;
 import org.eclipse.jdt.core.dom.TypeLiteral;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -64,11 +63,11 @@ import java.util.Set;
 public final class JavaInfoResolver {
   private final EditorState m_editorState;
   private final CompilationUnit m_unit;
-  private final List<JavaInfo> m_components = Lists.newArrayList();
+  private final List<JavaInfo> m_components = new ArrayList<>();
   private boolean m_thisJavaInfoReady = false;
   private JavaInfo m_thisJavaInfo = null;
   private JavaInfo m_rootJavaInfo = null;
-  private final Set<Expression> m_expressions = Sets.newHashSet();
+  private final Set<Expression> m_expressions = new HashSet<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

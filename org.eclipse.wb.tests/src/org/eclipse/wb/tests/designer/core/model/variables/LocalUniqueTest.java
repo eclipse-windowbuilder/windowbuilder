@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.variables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -48,6 +46,7 @@ import org.eclipse.jdt.core.dom.ParenthesizedExpression;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +54,7 @@ import javax.swing.JTextField;
 
 /**
  * Test for {@link LocalUniqueVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LocalUniqueTest extends AbstractVariableTest {
@@ -114,14 +113,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for {@link VariableSupport#setName(String)}.
    */
   public void test_setName() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     //
     JavaInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
@@ -144,14 +142,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_toField() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     check_toField(
         panel,
         getTestSource(
@@ -169,13 +166,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * as <em>static</em>.
    */
   public void test_toFieldStatic() throws Exception {
-    ComponentInfo button =
-        parseContainer(
-            "public class Test {",
-            "  public static void main(String [] args) {",
-            "    JButton button = new JButton();",
-            "  }",
-            "}");
+    ComponentInfo button = parseContainer(
+        "public class Test {",
+        "  public static void main(String [] args) {",
+        "    JButton button = new JButton();",
+        "  }",
+        "}");
     button.getVariableSupport().convertLocalToField();
     assertEditor(
         "public class Test {",
@@ -192,17 +188,16 @@ public class LocalUniqueTest extends AbstractVariableTest {
    */
   public void test_toFieldStatic2() throws Exception {
     m_waitForAutoBuild = true;
-    ComponentInfo button =
-        parseContainer(
-            "public class Test {",
-            "  public static void main(String [] args) {",
-            "    Test application = new Test();",
-            "    application.open();",
-            "  }",
-            "  public void open() {",
-            "    JButton button = new JButton();",
-            "  }",
-            "}");
+    ComponentInfo button = parseContainer(
+        "public class Test {",
+        "  public static void main(String [] args) {",
+        "    Test application = new Test();",
+        "    application.open();",
+        "  }",
+        "  public void open() {",
+        "    JButton button = new JButton();",
+        "  }",
+        "}");
     button.getVariableSupport().convertLocalToField();
     assertEditor(
         "public class Test {",
@@ -218,14 +213,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_toField_withPrefixes() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     IJavaProject javaProject = m_lastEditor.getJavaProject();
     //
     Map<String, String> options;
@@ -252,15 +246,14 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_toField_assignment() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button;",
-            "    button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button;",
+        "    button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     check_toField(
         panel,
         getTestSource(
@@ -274,14 +267,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_toField_numberPrefix() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button_1 = new JButton();",
-            "    add(button_1);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button_1 = new JButton();",
+        "    add(button_1);",
+        "  }",
+        "}");
     check_toField(
         panel,
         getTestSource(
@@ -295,15 +287,14 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_toField_afterExistingField() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  private int m_value;",
-            "  public Test() {",
-            "    JButton button_1 = new JButton();",
-            "    add(button_1);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  private int m_value;",
+        "  public Test() {",
+        "    JButton button_1 = new JButton();",
+        "    add(button_1);",
+        "  }",
+        "}");
     check_toField(
         panel,
         getTestSource(
@@ -378,14 +369,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_hasExpression() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
     // no expression "before button Statement"
@@ -406,14 +396,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_getReferenceExpression_local_declarationWithInitializer() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
     // local expression keeps local variable
@@ -424,15 +413,14 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_getReferenceExpression_local_assignAfterDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button;",
-            "    button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button;",
+        "    button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
     // local expression keeps local variable
@@ -443,17 +431,16 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_getReferenceExpression_local_beginOfBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    {",
-            "      // empty block",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    {",
+        "      // empty block",
+        "    }",
+        "  }",
+        "}");
     String expectedSource = m_lastEditor.getSource();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
@@ -468,17 +455,16 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_getReferenceExpression_local_endOfBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    {",
-            "      // empty block",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    {",
+        "      // empty block",
+        "    }",
+        "  }",
+        "}");
     String expectedSource = m_lastEditor.getSource();
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
@@ -501,16 +487,15 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_getReferenceExpression_remote_afterBlock() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
     // after "button" block (not at end of this block!)
@@ -530,17 +515,16 @@ public class LocalUniqueTest extends AbstractVariableTest {
   }
 
   public void test_getReferenceExpression_remote_afterBlock_asBeforeStatement() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton button = new JButton();",
-            "      add(button);",
-            "    }",
-            "    int target;",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton button = new JButton();",
+        "      add(button);",
+        "    }",
+        "    int target;",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
     // after "button" block, but using "before" next statement
@@ -564,17 +548,16 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
    */
   public void test_getReferenceExpression_remote_otherMethodOfExecutionFlow() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    addButton();",
-            "  }",
-            "  private void addButton() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    addButton();",
+        "  }",
+        "  private void addButton() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // remote expression forces conversion
     NodeTarget target = getNodeStatementTarget(panel, false, 0);
@@ -598,17 +581,16 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
    */
   public void test_getReferenceExpression_remote_invokedMethod() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "    someInvokedMethod();",
-            "  }",
-            "  private void someInvokedMethod() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "    someInvokedMethod();",
+        "  }",
+        "  private void someInvokedMethod() {",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // remote expression forces conversion
     NodeTarget target = getNodeStatementTarget(panel, "someInvokedMethod()", true);
@@ -632,16 +614,15 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
    */
   public void test_getReferenceExpression_remote_methodBodyNotOfExecutionFlow() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "  private void externalMethod() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "  private void externalMethod() {",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // remote expression forces conversion
     Block targetBlock = getBlock(panel, "externalMethod()");
@@ -665,14 +646,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
    */
   public void test_getReferenceExpression_remote_afterMethodDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // remote expression forces conversion
     MethodDeclaration targetMethod = (MethodDeclaration) getBodyDeclaration(panel, 0);
@@ -694,14 +674,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for remote {@link VariableSupport#getReferenceExpression(NodeTarget)}.
    */
   public void test_getReferenceExpression_remote_endOfTypeDeclaration() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // remote expression forces conversion
     TypeDeclaration targetType = getTypeDeclaration(panel);
@@ -725,13 +704,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_target() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test {",
-            "  public static void main(String args[]){",
-            "    JPanel panel = new JPanel();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test {",
+        "  public static void main(String args[]){",
+        "    JPanel panel = new JPanel();",
+        "  }",
+        "}");
     TypeDeclaration typeDeclaration = AstNodeUtils.getTypeByName(m_lastEditor.getAstUnit(), "Test");
     MethodDeclaration mainMethod = typeDeclaration.getMethods()[0];
     assertStatementTarget(panel, null, (Statement) mainMethod.getBody().statements().get(0), false);
@@ -743,26 +721,25 @@ public class LocalUniqueTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_isVisibleAt() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      System.out.println();",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('button 1');",
-            "      add(button);",
-            "      {",
-            "        System.out.println();",
-            "      }",
-            "    }",
-            "    {",
-            "      JButton button = new JButton('button 2');",
-            "      add(button);",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      System.out.println();",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('button 1');",
+        "      add(button);",
+        "      {",
+        "        System.out.println();",
+        "      }",
+        "    }",
+        "    {",
+        "      JButton button = new JButton('button 2');",
+        "      add(button);",
+        "    }",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // this block - visible
     check_isVisibleAt(true, button, new int[]{1, 1});
@@ -794,13 +771,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test adding new component.
    */
   public void test_ADD_normal() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
     //
     ComponentInfo newComponent = createJButton();
@@ -830,13 +806,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test adding new component, with "final".
    */
   public void test_ADD_final() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
     //
     ComponentInfo newComponent = createJButton();
@@ -872,21 +847,18 @@ public class LocalUniqueTest extends AbstractVariableTest {
     ToolkitDescription toolkit = ToolkitProvider.DESCRIPTION;
     // set type specific
     {
-      List<ComponentNameDescription> descriptions = Lists.newArrayList();
-      descriptions.add(new ComponentNameDescription("javax.swing.JTextField",
-          "textField",
-          "txt",
-          true));
+      List<ComponentNameDescription> descriptions = new ArrayList<>();
+      descriptions.add(
+          new ComponentNameDescription("javax.swing.JTextField", "textField", "txt", true));
       NamesManager.setNameDescriptions(toolkit, descriptions);
     }
     // check descriptions
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
     // add component
     SwingTestUtils.setGenerations(
@@ -938,13 +910,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // add new MyButton
     ComponentInfo button = createJavaInfo("test.MyButton");
     ((FlowLayoutInfo) panel.getLayout()).add(button, null);
@@ -984,13 +955,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // add new MyButton
     ComponentInfo button = createJavaInfo("test.MyButton");
     ((FlowLayoutInfo) panel.getLayout()).add(button, null);
@@ -1028,13 +998,12 @@ public class LocalUniqueTest extends AbstractVariableTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     // add new MyButton
     {
       ComponentInfo newButton = createJavaInfo("test.MyButton");
@@ -1064,16 +1033,15 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Variable declaration deleted with {@link Statement}.
    */
   public void test_delete_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "// filler filler filler",
-            "public class  Test extends JPanel {",
-            "  Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "}",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "// filler filler filler",
+        "public class  Test extends JPanel {",
+        "  Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "}",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     assertTrue(button.canDelete());
@@ -1091,16 +1059,15 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Variable declaration in separate {@link Statement}.
    */
   public void test_delete_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public final class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button;",
-            "    button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public final class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button;",
+        "    button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     //
     assertTrue(button.canDelete());
@@ -1117,15 +1084,14 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Component is root, so its variable should not be removed.
    */
   public void test_delete_3() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler filler filler",
-            "// filler filler filler filler filler",
-            "public class Test {",
-            "  public static void main(String[] args) {",
-            "    JPanel rootPanel = new JPanel();",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler filler filler",
+        "// filler filler filler filler filler",
+        "public class Test {",
+        "  public static void main(String[] args) {",
+        "    JPanel rootPanel = new JPanel();",
+        "  }",
+        "}");
     //
     assertTrue(panel.canDelete());
     panel.delete();
@@ -1205,14 +1171,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_setType() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // check
     LocalUniqueVariableSupport variable = (LocalUniqueVariableSupport) button.getVariableSupport();
@@ -1235,15 +1200,14 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for {@link LocalUniqueVariableSupport#canInline()}.
    */
   public void test_inline_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    button.setEnabled(false);",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    button.setEnabled(false);",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // can not inline
     LocalUniqueVariableSupport variableSupport =
@@ -1255,14 +1219,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
    * Test for {@link LocalUniqueVariableSupport#inline()}.
    */
   public void test_inline_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton();",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton();",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // prepare initial CreationSupport
     CreationSupport creationSupport = button.getCreationSupport();
@@ -1317,14 +1280,13 @@ public class LocalUniqueTest extends AbstractVariableTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    MyButton button = (MyButton) new MyButton(this);",
-            "    button.setEnabled(false);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    MyButton button = (MyButton) new MyButton(this);",
+        "    button.setEnabled(false);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // prepare initial CreationSupport
     CreationSupport creationSupport = button.getCreationSupport();

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.accessor;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.description.MethodDescription;
 import org.eclipse.wb.internal.core.model.description.ParameterDescription;
@@ -32,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,7 +94,7 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
         }
 
         private String getNewInvocationArguments() {
-          List<String> arguments = Lists.newArrayList(defaultArguments);
+          List<String> arguments = new ArrayList<>(defaultArguments);
           arguments.set(m_index, source);
           return StringUtils.join(arguments.iterator(), ", ");
         }
@@ -153,7 +152,9 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
     return isSameSource(editor, argument, defaultArgumentSource);
   }
 
-  private static boolean isSameSource(AstEditor editor, Expression expression, String expectedSource) {
+  private static boolean isSameSource(AstEditor editor,
+      Expression expression,
+      String expectedSource) {
     String currentArgumentSource = getNormalizedSource(editor, expression);
     return expectedSource.equals(currentArgumentSource);
   }

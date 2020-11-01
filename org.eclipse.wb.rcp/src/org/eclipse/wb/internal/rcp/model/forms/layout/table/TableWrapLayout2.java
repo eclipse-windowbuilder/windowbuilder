@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -23,6 +21,7 @@ import org.eclipse.ui.forms.widgets.LayoutCache;
 import org.eclipse.ui.forms.widgets.SizeCache;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
@@ -44,7 +43,7 @@ import java.util.Vector;
  * If none of the columns contain expandable and wrappable controls, the end-result will be similar
  * to the one provided by GridLayout. The difference will show up for layouts that contain controls
  * whose minimum and maximum widths are not the same.
- * 
+ *
  * @see TableWrapData2
  * @since 3.0
  * @coverage rcp.model.forms
@@ -102,7 +101,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
   int[] m_columnWidths;
   int[] m_rowOrigins;
   int[] m_rowHeights;
-  Map<Control, Point> m_controlToXY = Maps.newHashMap();
+  Map<Control, Point> m_controlToXY = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -148,7 +147,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
 
   /**
    * Implements ILayoutExtension. Should not be called directly.
-   * 
+   *
    * @see ILayoutExtension
    */
   public int computeMinimumWidth(Composite parent, boolean changed) {
@@ -179,7 +178,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
 
   /**
    * Implements ILayoutExtension. Should not be called directly.
-   * 
+   *
    * @see ILayoutExtension
    */
   public int computeMaximumWidth(Composite parent, boolean changed) {

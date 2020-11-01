@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Insets;
@@ -26,11 +24,12 @@ import org.eclipse.wb.internal.swing.gef.ComponentsLayoutRequestValidator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Generic {@link LayoutEditPolicy} for absolute based Swing layouts.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swing.gef.policy
@@ -67,7 +66,7 @@ public abstract class AbsoluteBasedLayoutEditPolicySwing
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public List<ComponentInfo> getAllComponents() {
-    List<ComponentInfo> components = Lists.newArrayList();
+    List<ComponentInfo> components = new ArrayList<>();
     components.addAll(m_layout.getContainer().getChildrenComponents());
     return components;
   }
@@ -90,7 +89,7 @@ public abstract class AbsoluteBasedLayoutEditPolicySwing
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

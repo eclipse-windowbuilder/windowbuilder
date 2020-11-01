@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
@@ -45,11 +43,12 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Project and code utils.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -77,9 +76,9 @@ public final class DataBindingsCodeUtils {
             && !ProjectUtils.hasType(
                 javaProject,
                 "org.eclipse.core.databinding.observable.Observables");
-    boolean addDatabindingProperty =
-        ReflectivePDE.findModel("org.eclipse.core.databinding.property") != null
-            && !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.property.IProperty");
+    boolean addDatabindingProperty = ReflectivePDE.findModel(
+        "org.eclipse.core.databinding.property") != null
+        && !ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.property.IProperty");
     boolean addDatabindingJFace =
         !ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.SWTObservables");
     boolean addEquinoxCommon =
@@ -95,7 +94,7 @@ public final class DataBindingsCodeUtils {
       // check 'java project' or 'plugin project'
       if (project.hasNature("org.eclipse.pde.PluginNature")) {
         // collect plugin imports
-        List<String> pluginIds = Lists.newArrayList();
+        List<String> pluginIds = new ArrayList<>();
         if (addDatabindingCore) {
           pluginIds.add("org.eclipse.core.databinding");
         }
@@ -155,16 +154,15 @@ public final class DataBindingsCodeUtils {
    * Check add to client {@link IJavaProject} Designer support code for TreeViewer.
    */
   public static void ensureDesignerResources(IJavaProject javaProject) throws Exception {
-    String[] classes =
-        {
-            "Utils",
-            "IdentityWrapper",
-            "ListenerSupport",
-            "TreeObservableLabelProvider",
-            "TreeBeanAdvisor",
-            "BeansObservableFactory",
-            "BeansListObservableFactory",
-            "BeansSetObservableFactory"};
+    String[] classes = {
+        "Utils",
+        "IdentityWrapper",
+        "ListenerSupport",
+        "TreeObservableLabelProvider",
+        "TreeBeanAdvisor",
+        "BeansObservableFactory",
+        "BeansListObservableFactory",
+        "BeansSetObservableFactory"};
     for (int i = 0; i < classes.length; i++) {
       ProjectUtils.ensureResourceType(
           javaProject,
@@ -288,16 +286,15 @@ public final class DataBindingsCodeUtils {
       return;
     }
     //
-    List<Statement> oldStatements =
-        Lists.newArrayList(DomGenerics.statements(mainMethod.getBody()));
+    List<Statement> oldStatements = new ArrayList<>(DomGenerics.statements(mainMethod.getBody()));
     //
-    Statement displayStatement =
-        editor.addStatement(
-            "org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display.getDefault();",
-            new StatementTarget(mainMethod, true));
+    Statement displayStatement = editor.addStatement(
+        "org.eclipse.swt.widgets.Display display = org.eclipse.swt.widgets.Display.getDefault();",
+        new StatementTarget(mainMethod, true));
     //
-    List<String> lines = Lists.newArrayList();
-    lines.add("org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.jface.databinding.swt.SWTObservables.getRealm(display), new java.lang.Runnable() {");
+    List<String> lines = new ArrayList<>();
+    lines.add(
+        "org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.jface.databinding.swt.SWTObservables.getRealm(display), new java.lang.Runnable() {");
     lines.add("\tpublic void run() {");
     lines.add("\t}");
     lines.add("});");
@@ -427,7 +424,8 @@ public final class DataBindingsCodeUtils {
     public boolean visit(MethodInvocation invocation) {
       if (!m_enclosing) {
         m_enclosing =
-            "org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.core.databinding.observable.Realm,java.lang.Runnable)".equals(CoreUtils.getMethodSignature(invocation));
+            "org.eclipse.core.databinding.observable.Realm.runWithDefault(org.eclipse.core.databinding.observable.Realm,java.lang.Runnable)".equals(
+                CoreUtils.getMethodSignature(invocation));
       }
       return false;
     }

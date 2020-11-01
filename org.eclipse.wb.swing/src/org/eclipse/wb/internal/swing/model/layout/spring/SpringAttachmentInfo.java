@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.swing.model.layout.spring;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -41,13 +40,14 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.SpringLayout;
 
 /**
  * Model for attachment in {@link SpringLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -62,12 +62,14 @@ public final class SpringAttachmentInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the {@link SpringAttachmentInfo} for side of component.
-   * 
+   *
    * @param side
    *          one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#TOP},
    *          {@link IPositionConstants#RIGHT}, {@link IPositionConstants#BOTTOM}.
    */
-  public static SpringAttachmentInfo get(SpringLayoutInfo layout, ComponentInfo component, int side) {
+  public static SpringAttachmentInfo get(SpringLayoutInfo layout,
+      ComponentInfo component,
+      int side) {
     String key = getAttachmentKey(side);
     SpringAttachmentInfo attachment = (SpringAttachmentInfo) component.getArbitraryValue(key);
     if (attachment == null) {
@@ -203,7 +205,7 @@ public final class SpringAttachmentInfo {
   /**
    * @param side
    *          the side from {@link SpringLayout}.
-   * 
+   *
    * @return the absolute framework side one of the {@link IPositionConstants#LEFT},
    *         {@link IPositionConstants#TOP}, {@link IPositionConstants#RIGHT},
    *         {@link IPositionConstants#BOTTOM}.
@@ -294,13 +296,14 @@ public final class SpringAttachmentInfo {
     String componentSource = m_component.getVariableSupport().getReferenceExpression(target);
     // ensure putConstraint()
     if (m_invocation == null) {
-      String arguments =
-          StringUtils.join(new String[]{
+      String arguments = StringUtils.join(
+          new String[]{
               getSpringSideSource(m_side),
               componentSource,
               "0",
               "(java.lang.String) null",
-              "null"}, ", ");
+              "null"},
+          ", ");
       StatementTarget statementTarget = target.getStatementTarget();
       m_invocation = m_layout.addMethodInvocation(statementTarget, PUT_CONSTRAINT, arguments);
       m_component.addRelatedNodes(m_invocation);
@@ -349,11 +352,8 @@ public final class SpringAttachmentInfo {
    *         anchor can be referenced at it.
    */
   private NodeTarget getRequiredNodeTarget() throws Exception {
-    StatementTarget statementTarget =
-        JavaInfoUtils.getStatementTarget_whenAllCreated(ImmutableList.of(
-            m_layout,
-            m_component,
-            m_anchorComponent));
+    StatementTarget statementTarget = JavaInfoUtils.getStatementTarget_whenAllCreated(
+        ImmutableList.of(m_layout, m_component, m_anchorComponent));
     statementTarget = updateTargetToSortAttachments(statementTarget);
     return new NodeTarget(statementTarget);
   }
@@ -425,7 +425,7 @@ public final class SpringAttachmentInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Properties 
+  // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
   protected Property[] getProperties() throws Exception {
@@ -491,10 +491,9 @@ public final class SpringAttachmentInfo {
     Property sideProperty;
     {
       StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
-      String[] fieldDescriptions =
-          PlacementUtils.isHorizontalSide(getSide())
-              ? new String[]{"EAST", "WEST",}
-              : new String[]{"NORTH", "SOUTH"};
+      String[] fieldDescriptions = PlacementUtils.isHorizontalSide(getSide())
+          ? new String[]{"EAST", "WEST",}
+          : new String[]{"NORTH", "SOUTH"};
       editor.configure(SpringLayout.class, fieldDescriptions);
       sideProperty = new Property(editor) {
         @Override
@@ -548,8 +547,7 @@ public final class SpringAttachmentInfo {
               + getAnchorComponent().getPresentation().getText()
               + ")";
         }
-      },
-          "<exception>");
+      }, "<exception>");
     }
   }
 
@@ -562,7 +560,7 @@ public final class SpringAttachmentInfo {
    * An editor for choosing components in properties.
    */
   private final class ComponentEditor extends AbstractComboPropertyEditor {
-    private final List<ComponentInfo> m_components = Lists.newArrayList();
+    private final List<ComponentInfo> m_components = new ArrayList<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //

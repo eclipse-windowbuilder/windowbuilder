@@ -10,23 +10,22 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetBindableInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.AbstractViewerInputBindingInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.EditingSupportInfo;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.input.VirtualEditingSupportInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Configuration for {@link ViewerColumnsUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
 public final class ViewerColumnsConfiguration {
-  private final List<VirtualEditingSupportInfo> m_editingSupports = Lists.newArrayList();
+  private final List<VirtualEditingSupportInfo> m_editingSupports = new ArrayList<>();
   private final AbstractViewerInputBindingInfo m_viewerBinding;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -51,9 +50,8 @@ public final class ViewerColumnsConfiguration {
       }
       if (newColumn) {
         // create new support
-        m_editingSupports.add(new VirtualEditingSupportInfo(elementTypeProvider,
-            viewerBinding,
-            vieweColumn));
+        m_editingSupports.add(
+            new VirtualEditingSupportInfo(elementTypeProvider, viewerBinding, vieweColumn));
       }
     }
   }

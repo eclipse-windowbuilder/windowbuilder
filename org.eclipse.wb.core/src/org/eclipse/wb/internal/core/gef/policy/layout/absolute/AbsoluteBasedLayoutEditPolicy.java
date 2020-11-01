@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
@@ -60,6 +59,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -708,7 +708,7 @@ public abstract class AbsoluteBasedLayoutEditPolicy<C extends IAbstractComponent
   private void showPasteFeedback(final PasteRequest request) {
     List<IObjectInfo> pastingComponents =
         GlobalState.getPasteRequestProcessor().getPastingComponents(request);
-    m_pastedComponents = Maps.newHashMap();
+    m_pastedComponents = new HashMap<>();
     List<IAbstractComponentInfo> pastedModels = new ArrayList<>(pastingComponents.size());
     try {
       // remove create feedback

@@ -13,9 +13,6 @@
  */
 package org.eclipse.wb.internal.core.editor.multi;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -40,7 +37,9 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -53,7 +52,7 @@ import java.util.Set;
 public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener {
   private boolean m_shouldHighlight;
   private Color m_color;
-  private final List<Position> m_linePositions = Lists.newArrayList();
+  private final List<Position> m_linePositions = new ArrayList<>();
   private final ISourceViewer m_sourceViewer;
   private final IDocument m_document;
   private final StyledText m_textWidget;
@@ -114,7 +113,7 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
       m_positionManager.unmanagePosition(position);
     }
     // prepare lines
-    Set<Integer> lines = Sets.newHashSet();
+    Set<Integer> lines = new HashSet<>();
     for (ASTNode node : nodes) {
       int line = m_document.getLineOfOffset(node.getStartPosition());
       lines.add(line);

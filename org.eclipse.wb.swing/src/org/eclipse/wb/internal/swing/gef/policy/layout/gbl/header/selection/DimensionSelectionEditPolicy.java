@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -36,11 +34,12 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.Dimension
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract {@link SelectionEditPolicy} for {@link DimensionHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */
@@ -65,7 +64,7 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo>
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // move handle
     {
       MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
@@ -78,7 +77,7 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo>
 
   @Override
   protected List<Handle> createStaticHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     handles.add(createResizeHandle());
     return handles;
   }

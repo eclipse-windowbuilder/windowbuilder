@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.widgets;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
 import org.eclipse.wb.core.model.association.AssociationObjects;
@@ -33,6 +31,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -118,7 +117,7 @@ public abstract class AbstractPositionCompositeInfo extends CompositeInfo {
     @Override
     public List<ObjectInfo> getChildrenTree() throws Exception {
       List<ObjectInfo> children = new ArrayList<>(super.getChildrenTree());
-      Set<ControlInfo> positionedControls = Sets.newHashSet();
+      Set<ControlInfo> positionedControls = new HashSet<>();
       for (int i = 0; i < m_methods.length; i++) {
         String method = m_methods[i];
         ControlInfo control = getControl(method);

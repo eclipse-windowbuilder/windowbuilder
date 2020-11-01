@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
@@ -24,6 +23,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -33,7 +33,7 @@ import javax.swing.JTable;
 
 /**
  * Tests for {@link MigLayoutSurroundSupport} and {@link MigLayoutSurroundProcessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
@@ -55,25 +55,24 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
    * Bad: two components on diagonal, and other component in same rectangle.
    */
   public void test_0() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "    {",
-            "      JButton button_00 = new JButton();",
-            "      add(button_00, 'cell 0 0');",
-            "    }",
-            "    {",
-            "      JButton button_BAD = new JButton();",
-            "      add(button_BAD, 'cell 0 1');",
-            "    }",
-            "    {",
-            "      JButton button_11 = new JButton();",
-            "      add(button_11, 'cell 1 1');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "    {",
+        "      JButton button_00 = new JButton();",
+        "      add(button_00, 'cell 0 0');",
+        "    }",
+        "    {",
+        "      JButton button_BAD = new JButton();",
+        "      add(button_BAD, 'cell 0 1');",
+        "    }",
+        "    {",
+        "      JButton button_11 = new JButton();",
+        "      add(button_11, 'cell 1 1');",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_00 = getButtons(panel).get(0);
     ComponentInfo button_11 = getButtons(panel).get(2);
@@ -85,17 +84,16 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
    * Wrap {@link JTable} with {@link JScrollPane}.
    */
   public void test_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new MigLayout());",
-            "    {",
-            "      JTable table = new JTable();",
-            "      add(table, 'cell 0 0');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new MigLayout());",
+        "    {",
+        "      JTable table = new JTable();",
+        "      add(table, 'cell 0 0');",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo table = panel.getChildrenComponents().get(0);
     // run action
@@ -120,21 +118,20 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
    * Good: two components in single row, no other components.
    */
   public void test_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new MigLayout('', '[][]', '[]'));",
-            "    {",
-            "      JButton button_00 = new JButton();",
-            "      add(button_00, 'cell 0 0');",
-            "    }",
-            "    {",
-            "      JButton button_10 = new JButton();",
-            "      add(button_10, 'cell 1 0');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new MigLayout('', '[][]', '[]'));",
+        "    {",
+        "      JButton button_00 = new JButton();",
+        "      add(button_00, 'cell 0 0');",
+        "    }",
+        "    {",
+        "      JButton button_10 = new JButton();",
+        "      add(button_10, 'cell 1 0');",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_00 = getButtons(panel).get(0);
     ComponentInfo button_10 = getButtons(panel).get(1);
@@ -165,21 +162,20 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
    * Good: two components on diagonal, no other components.
    */
   public void test_3() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new MigLayout('', '[][]', '[][]'));",
-            "    {",
-            "      JButton button_00 = new JButton();",
-            "      add(button_00, 'cell 0 0');",
-            "    }",
-            "    {",
-            "      JButton button_11 = new JButton();",
-            "      add(button_11, 'cell 1 1');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new MigLayout('', '[][]', '[][]'));",
+        "    {",
+        "      JButton button_00 = new JButton();",
+        "      add(button_00, 'cell 0 0');",
+        "    }",
+        "    {",
+        "      JButton button_11 = new JButton();",
+        "      add(button_11, 'cell 1 1');",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_00 = getButtons(panel).get(0);
     ComponentInfo button_11 = getButtons(panel).get(1);
@@ -210,25 +206,24 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
    * Good: three components, one spanned horizontally.
    */
   public void test_4() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new MigLayout('', '[][]', '[][]'));",
-            "    {",
-            "      JButton button_00 = new JButton();",
-            "      add(button_00, 'cell 0 0');",
-            "    }",
-            "    {",
-            "      JButton button_10 = new JButton();",
-            "      add(button_10, 'cell 1 0');",
-            "    }",
-            "    {",
-            "      JButton button_01 = new JButton();",
-            "      add(button_01, 'cell 0 1 2 1,growx,aligny bottom');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new MigLayout('', '[][]', '[][]'));",
+        "    {",
+        "      JButton button_00 = new JButton();",
+        "      add(button_00, 'cell 0 0');",
+        "    }",
+        "    {",
+        "      JButton button_10 = new JButton();",
+        "      add(button_10, 'cell 1 0');",
+        "    }",
+        "    {",
+        "      JButton button_01 = new JButton();",
+        "      add(button_01, 'cell 0 1 2 1,growx,aligny bottom');",
+        "    }",
+        "  }",
+        "}");
     panel.refresh();
     ComponentInfo button_00 = getButtons(panel).get(0);
     ComponentInfo button_10 = getButtons(panel).get(1);
@@ -269,7 +264,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
    * @return the {@link ComponentInfo} models for {@link JButton} components.
    */
   private static List<ComponentInfo> getButtons(ContainerInfo parent) {
-    List<ComponentInfo> buttons = Lists.newArrayList();
+    List<ComponentInfo> buttons = new ArrayList<>();
     for (ComponentInfo control : parent.getChildrenComponents()) {
       if (control.getDescription().getComponentClass().getName().equals("javax.swing.JButton")) {
         buttons.add(control);
@@ -295,7 +290,7 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
     } else {
       resultMenuManager = new MenuManager();
       // handle multi selection
-      List<IMenuManager> managers = Lists.newArrayList();
+      List<IMenuManager> managers = new ArrayList<>();
       for (ObjectInfo object_ : objects) {
         IMenuManager manager = getDesignerMenuManager();
         object.getBroadcastObject().addContextMenu(objects, object_, manager);

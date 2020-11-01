@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.gef;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.geometry.Point;
@@ -38,12 +37,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.description.Description;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * {@link EventSender} for {@link TreeViewer}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class TreeRobot {
@@ -196,11 +196,12 @@ public final class TreeRobot {
   private static Event createDNDEvent() {
     return ExecutionUtils.runObject(new RunnableObjectEx<Event>() {
       public Event runObject() throws Exception {
-        Class<?> dndClass =
-            ReflectionUtils.getClassByName(
-                TreeRobot.class.getClassLoader(),
-                "org.eclipse.swt.dnd.DNDEvent");
-        return (Event) ReflectionUtils.getConstructorBySignature(dndClass, "<init>()").newInstance();
+        Class<?> dndClass = ReflectionUtils.getClassByName(
+            TreeRobot.class.getClassLoader(),
+            "org.eclipse.swt.dnd.DNDEvent");
+        return (Event) ReflectionUtils.getConstructorBySignature(
+            dndClass,
+            "<init>()").newInstance();
       }
     });
   }
@@ -282,10 +283,9 @@ public final class TreeRobot {
   }
 
   public TreeEditPart getEditPartNull(Object object) {
-    TreeEditPart editPart =
-        object instanceof TreeEditPart
-            ? (TreeEditPart) object
-            : (TreeEditPart) m_viewer.getEditPartByModel(object);
+    TreeEditPart editPart = object instanceof TreeEditPart
+        ? (TreeEditPart) object
+        : (TreeEditPart) m_viewer.getEditPartByModel(object);
     return editPart;
   }
 
@@ -496,7 +496,7 @@ public final class TreeRobot {
 
   private List<TreeItem> getFeedbackSelection() {
     Tree tree = (Tree) m_viewer.getControl();
-    List<TreeItem> selectedItems = Lists.newArrayList();
+    List<TreeItem> selectedItems = new ArrayList<>();
     Collections.addAll(selectedItems, tree.getSelection());
     for (EditPart selectedEditPart : m_viewer.getSelectedEditParts()) {
       selectedItems.remove(((TreeEditPart) selectedEditPart).getWidget());
@@ -544,6 +544,7 @@ public final class TreeRobot {
   public TreeRobot assertCommandNull() throws Exception {
     final Command command = getCommand();
     assertThat(command).describedAs(new Description() {
+      @Override
       public String value() {
         return "Unexpected command " + command;
       }

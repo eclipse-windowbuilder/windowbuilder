@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
@@ -32,20 +30,21 @@ import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
  * {@link BindableInfo} model for <code>SWT</code> widget.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
 public final class WidgetBindableInfo extends BindableInfo {
   private JavaInfo m_javaInfo;
   private final WidgetBindableInfo m_parent;
-  private final List<WidgetBindableInfo> m_children = Lists.newArrayList();
+  private final List<WidgetBindableInfo> m_children = new ArrayList<>();
   private List<WidgetPropertyBindableInfo> m_properties;
   private final IObservePresentation m_presentation;
 
@@ -61,8 +60,8 @@ public final class WidgetBindableInfo extends BindableInfo {
   public WidgetBindableInfo(JavaInfo javaInfo,
       WidgetBindableInfo parent,
       DatabindingsProvider provider) throws Exception {
-    super(javaInfo.getDescription().getComponentClass(), new JavaInfoReferenceProvider(javaInfo,
-        provider));
+    super(javaInfo.getDescription().getComponentClass(),
+        new JavaInfoReferenceProvider(javaInfo, provider));
     m_javaInfo = javaInfo;
     m_parent = parent;
     m_presentation = new JavaInfoObservePresentation(javaInfo, getReferenceProvider());

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.ui.editor.ICompleteListener;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IPageListener;
@@ -74,13 +72,14 @@ import org.eclipse.swt.widgets.TabItem;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Content provider for edit (tree viewer input, content and label providers)
  * {@link TreeViewerInputBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
@@ -91,7 +90,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
   private final TreeViewerInputBindingInfo m_binding;
   private final IPageListener m_pageListener;
   private final DatabindingsProvider m_provider;
-  private final List<SimpleClassObjectInfo> m_defaultObjects = Lists.newArrayList();
+  private final List<SimpleClassObjectInfo> m_defaultObjects = new ArrayList<>();
   private ICompleteListener m_completeListener;
   private TabFolder m_tabFolder;
   private final ChooseClassUiContentProvider m_elementTypeDesignerUIProvider;
@@ -119,10 +118,9 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     m_elementTypeDesignerUIProvider = createDesignerElementTypeUIProvider();
     m_elementTypeJFaceUIProvider = createJFaceElementTypeUIProvider();
     //
-    m_elementTypeUIProviders =
-        new ChooseClassUiContentProvider[]{
-            m_elementTypeDesignerUIProvider,
-            m_elementTypeJFaceUIProvider};
+    m_elementTypeUIProviders = new ChooseClassUiContentProvider[]{
+        m_elementTypeDesignerUIProvider,
+        m_elementTypeJFaceUIProvider};
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -172,23 +170,23 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     // create designer page
     m_designerPageListener = new PageListenerWrapper(m_pageListener, m_completeListener);
     //
-    m_designerComposite =
-        new UiContentProviderComposite(m_designerPageListener,
-            createDesignerProviders(),
-            m_tabFolder,
-            SWT.NONE);
-    TabFactory.item(m_tabFolder).text(Messages.TreeInputElementUiContentProvider_designerSupport).image(
-        CHECK_IMAGE).control(m_designerComposite);
+    m_designerComposite = new UiContentProviderComposite(m_designerPageListener,
+        createDesignerProviders(),
+        m_tabFolder,
+        SWT.NONE);
+    TabFactory.item(m_tabFolder).text(
+        Messages.TreeInputElementUiContentProvider_designerSupport).image(CHECK_IMAGE).control(
+            m_designerComposite);
     // create jface page
     m_jfacePageListener = new PageListenerWrapper(m_pageListener, m_completeListener);
     //
-    m_jfaceComposite =
-        new UiContentProviderComposite(m_jfacePageListener,
-            createJFaceProviders(),
-            m_tabFolder,
-            SWT.NONE);
-    TabFactory.item(m_tabFolder).text(Messages.TreeInputElementUiContentProvider_jfaceSupport).image(
-        UNCHECK_IMAGE).control(m_jfaceComposite);
+    m_jfaceComposite = new UiContentProviderComposite(m_jfacePageListener,
+        createJFaceProviders(),
+        m_tabFolder,
+        SWT.NONE);
+    TabFactory.item(m_tabFolder).text(
+        Messages.TreeInputElementUiContentProvider_jfaceSupport).image(UNCHECK_IMAGE).control(
+            m_jfaceComposite);
     //
     m_tabFolder.addSelectionListener(new SelectionAdapter() {
       @Override
@@ -203,7 +201,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
    * Fill Designer page.
    */
   private List<IUiContentProvider> createDesignerProviders() {
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     providers.add(m_elementTypeDesignerUIProvider);
     //
     if (m_binding.isDesignerMode()) {
@@ -247,10 +245,9 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
           new KnownElementsObservableInfo(contentProvider);
       TreeObservableLabelProviderInfo labelProvider = null;
       try {
-        labelProvider =
-            GlobalFactoryHelper.createTreeLabelProvider(
-                m_binding.getInputObservable(),
-                allElementsObservable);
+        labelProvider = GlobalFactoryHelper.createTreeLabelProvider(
+            m_binding.getInputObservable(),
+            allElementsObservable);
       } catch (Throwable e) {
         DesignerPlugin.log(e);
       }
@@ -270,7 +267,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
    * Fill JFace page.
    */
   private List<IUiContentProvider> createJFaceProviders() {
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     //
     if (m_binding.isDesignerMode()) {
       // create fake objects
@@ -301,11 +298,10 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
           (ChooseClassUiContentProvider) providers.get(0);
       //
       try {
-        String factoryValue =
-            inputObservable.getBindableProperty().getReference()
-                + ", "
-                + ClassUtils.getShortClassName(inputObservable.getBindableObject().getObjectType())
-                + ".class)";
+        String factoryValue = inputObservable.getBindableProperty().getReference()
+            + ", "
+            + ClassUtils.getShortClassName(inputObservable.getBindableObject().getObjectType())
+            + ".class)";
         //
         if (inputObservable instanceof ListBeanObservableInfo) {
           factoryValue = "listFactory(" + factoryValue;
@@ -323,7 +319,8 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
         public void run() {
           String className = contentProviderJFaceEditor.getClassName();
           if (className.startsWith("listFactory") || className.startsWith("setFactory")) {
-            m_elementTypeJFaceUIProvider.setClassName(CoreUtils.getClassName(inputObservable.getBindableObject().getObjectType()));
+            m_elementTypeJFaceUIProvider.setClassName(
+                CoreUtils.getClassName(inputObservable.getBindableObject().getObjectType()));
           }
         }
       });
@@ -357,8 +354,10 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     configuration.setDialogFieldLabel(Messages.TreeInputElementUiContentProvider_chooseDesigner);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage(Messages.TreeInputElementUiContentProvider_chooseDesignerEmptyMessage);
-    configuration.setErrorMessagePrefix(Messages.TreeInputElementUiContentProvider_chooseDesignerErrorPrefix);
+    configuration.setEmptyClassErrorMessage(
+        Messages.TreeInputElementUiContentProvider_chooseDesignerEmptyMessage);
+    configuration.setErrorMessagePrefix(
+        Messages.TreeInputElementUiContentProvider_chooseDesignerErrorPrefix);
     //
     GlobalFactoryHelper.configureChooseElementForTreeViewerInput(
         m_binding.getInputObservable(),
@@ -416,11 +415,16 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     configuration.setDialogFieldLabel(Messages.TreeInputElementUiContentProvider_chooseJFace);
     configuration.setValueScope("beans");
     configuration.setChooseInterfaces(true);
-    configuration.setEmptyClassErrorMessage(Messages.TreeInputElementUiContentProvider_chooseJFaceEmptyMessage);
-    configuration.setErrorMessagePrefix(Messages.TreeInputElementUiContentProvider_chooseJFaceMessagePrefix);
-    configuration.setPropertiesLabel(Messages.TreeInputElementUiContentProvider_chooseJFacePropertiesLabel);
-    configuration.setPropertiesErrorMessage(Messages.TreeInputElementUiContentProvider_choodJFacePropertiesErrorMessage);
-    configuration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
+    configuration.setEmptyClassErrorMessage(
+        Messages.TreeInputElementUiContentProvider_chooseJFaceEmptyMessage);
+    configuration.setErrorMessagePrefix(
+        Messages.TreeInputElementUiContentProvider_chooseJFaceMessagePrefix);
+    configuration.setPropertiesLabel(
+        Messages.TreeInputElementUiContentProvider_chooseJFacePropertiesLabel);
+    configuration.setPropertiesErrorMessage(
+        Messages.TreeInputElementUiContentProvider_choodJFacePropertiesErrorMessage);
+    configuration.setLoadedPropertiesCheckedStrategy(
+        ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
     //
     return new JFaceElementTypeUiProvider(configuration);
   }
@@ -541,8 +545,9 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
       newFactoryInfo.setVariableIdentifier(factoryInfo.getVariableIdentifier());
       contentProvider.setFactoryInfo(newFactoryInfo);
       //
-      m_binding.setInputObservable(new BeanFieldInputObservableInfo(inputObservable.getBindableObject(),
-          inputObservable.getBindableProperty()));
+      m_binding.setInputObservable(
+          new BeanFieldInputObservableInfo(inputObservable.getBindableObject(),
+              inputObservable.getBindableProperty()));
     }
   }
 
@@ -590,10 +595,12 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     private boolean isObservableMapLabelProvider() throws Exception {
       if (m_labelProviderJFaceEditor.getErrorMessage() == null) {
         Class<?> labelProviderChoosenClass = m_labelProviderJFaceEditor.getChoosenClass();
-        if (loadClass("org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider").isAssignableFrom(
-            labelProviderChoosenClass)
-            || loadClass("org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider").isAssignableFrom(
-                labelProviderChoosenClass)) {
+        if (loadClass(
+            "org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider").isAssignableFrom(
+                labelProviderChoosenClass)
+            || loadClass(
+                "org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider").isAssignableFrom(
+                    labelProviderChoosenClass)) {
           return true;
         }
       }
@@ -619,7 +626,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
           if (properties == null) {
             setClassName(CoreUtils.getClassName(elementType));
           } else {
-            List<String> checkedProperties = Lists.newArrayList();
+            List<String> checkedProperties = new ArrayList<>();
             for (int i = 0; i < properties.length; i++) {
               checkedProperties.add("\"" + properties[i] + "\"");
             }
@@ -649,12 +656,11 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
           KnownElementsObservableInfo knownElementsObservable =
               new KnownElementsObservableInfo(m_binding.getContentProvider());
           // create label provider
-          MapsBeanObservableInfo observeMaps =
-              GlobalFactoryHelper.createObserveMaps(
-                  m_binding.getInputObservable(),
-                  knownElementsObservable,
-                  elementType,
-                  new boolean[1]);
+          MapsBeanObservableInfo observeMaps = GlobalFactoryHelper.createObserveMaps(
+              m_binding.getInputObservable(),
+              knownElementsObservable,
+              elementType,
+              new boolean[1]);
           if (observeMaps == null) {
             observeMaps = new MapsBeanObservableInfo(knownElementsObservable, elementType, null);
           }

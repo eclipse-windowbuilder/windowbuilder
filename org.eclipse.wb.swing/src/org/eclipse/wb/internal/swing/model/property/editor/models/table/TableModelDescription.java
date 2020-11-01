@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.table;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.model.property.converter.ByteConverter;
 import org.eclipse.wb.internal.core.model.property.converter.DoubleConverter;
 import org.eclipse.wb.internal.core.model.property.converter.FloatConverter;
@@ -21,6 +19,7 @@ import org.eclipse.wb.internal.core.model.property.converter.ShortConverter;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,13 +31,13 @@ import javax.swing.table.TableModel;
 
 /**
  * Information about {@link TableModel}, with ability to edit.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
 public final class TableModelDescription {
-  private final LinkedList<LinkedList<Object>> m_values = Lists.newLinkedList();
-  private final LinkedList<TableColumnDescription> m_columns = Lists.newLinkedList();
+  private final LinkedList<LinkedList<Object>> m_values = new LinkedList<>();
+  private final LinkedList<TableColumnDescription> m_columns = new LinkedList<>();
   private int m_rowCount;
   private int m_columnCount;
 
@@ -56,13 +55,13 @@ public final class TableModelDescription {
     m_columnCount = model.getColumnCount();
     // copy values
     for (int row = 0; row < m_rowCount; row++) {
-      LinkedList<Object> rowValues = Lists.newLinkedList();
+      LinkedList<Object> rowValues = new LinkedList<>();
       m_values.add(rowValues);
       for (int column = 0; column < m_columnCount; column++) {
         rowValues.add(model.getValueAt(row, column));
       }
     }
-    // copy columns 
+    // copy columns
     for (int column = 0; column < m_columnCount; column++) {
       m_columns.add(new TableColumnDescription(table, column));
     }
@@ -143,7 +142,7 @@ public final class TableModelDescription {
   ////////////////////////////////////////////////////////////////////////////
   public void insertRow(int index) {
     m_rowCount++;
-    LinkedList<Object> newRow = Lists.newLinkedList();
+    LinkedList<Object> newRow = new LinkedList<>();
     m_values.add(newRow);
     for (int column = 0; column < m_columnCount; column++) {
       newRow.add(null);
@@ -282,14 +281,12 @@ public final class TableModelDescription {
   }
 
   public List<String> getColumnModelInvocations() {
-    List<String> invocations = Lists.newArrayList();
+    List<String> invocations = new ArrayList<>();
     for (int columnIndex = 0; columnIndex < m_columnCount; columnIndex++) {
       TableColumnDescription column = m_columns.get(columnIndex);
       for (String invocation : column.getInvocations()) {
-        invocations.add(MessageFormat.format(
-            "getColumnModel().getColumn({0}).{1}",
-            columnIndex,
-            invocation));
+        invocations.add(
+            MessageFormat.format("getColumnModel().getColumn({0}).{1}", columnIndex, invocation));
       }
     }
     return invocations;

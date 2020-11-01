@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.creation.factory;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -28,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,7 +104,7 @@ public final class InstanceFactoryInfo extends JavaInfo {
    */
   public static List<InstanceFactoryInfo> getFactories(JavaInfo rootJavaInfo, Class<?> factoryClass)
       throws Exception {
-    List<InstanceFactoryInfo> factories = Lists.newArrayList();
+    List<InstanceFactoryInfo> factories = new ArrayList<>();
     //
     InstanceFactoryContainerInfo container = InstanceFactoryContainerInfo.get(rootJavaInfo);
     for (InstanceFactoryInfo factory : container.getChildrenFactory()) {

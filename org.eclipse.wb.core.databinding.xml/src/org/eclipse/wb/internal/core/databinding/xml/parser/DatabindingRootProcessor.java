@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.xml.parser;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
 import org.eclipse.wb.internal.core.databinding.parser.ParseState;
@@ -22,18 +20,19 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 import org.eclipse.jface.text.IDocument;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * {@link IRootProcessor} for bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.xml.parser
  */
 public final class DatabindingRootProcessor implements IRootProcessor {
   public static final IRootProcessor INSTANCE = new DatabindingRootProcessor();
-  public static final Map<IDocument, ParseState> STATES = Maps.newHashMap();
+  public static final Map<IDocument, ParseState> STATES = new HashMap<>();
   private List<IDatabindingFactory> m_factories;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -44,11 +43,10 @@ public final class DatabindingRootProcessor implements IRootProcessor {
   public void process(final XmlObjectInfo root) throws Exception {
     // prepare factories
     if (m_factories == null) {
-      m_factories =
-          ExternalFactoriesHelper.getElementsInstances(
-              IDatabindingFactory.class,
-              "org.eclipse.wb.core.databinding.xml.databindingFactories",
-              "factory");
+      m_factories = ExternalFactoriesHelper.getElementsInstances(
+          IDatabindingFactory.class,
+          "org.eclipse.wb.core.databinding.xml.databindingFactories",
+          "factory");
     }
     // handle providers
     for (IDatabindingFactory factory : m_factories) {

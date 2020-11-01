@@ -11,8 +11,6 @@
 package org.eclipse.wb.gef.core;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.gef.core.events.IEditPartListener;
 import org.eclipse.wb.gef.core.events.IEditPartSelectionListener;
@@ -30,6 +28,7 @@ import org.eclipse.core.runtime.Assert;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -396,7 +395,7 @@ public abstract class EditPart {
 
   protected void refreshChildren() {
     // prepare map[model, currentPart]
-    Map<Object, EditPart> modelToPart = Maps.newHashMap();
+    Map<Object, EditPart> modelToPart = new HashMap<>();
     List<EditPart> children = getChildren();
     for (EditPart editPart : children) {
       modelToPart.put(editPart.getModel(), editPart);
@@ -443,7 +442,7 @@ public abstract class EditPart {
     int newPartCount = children.size();
     if (newPartCount - index > 1) {
       // deselect old child EditPart's
-      List<EditPart> deselectList = Lists.newArrayList();
+      List<EditPart> deselectList = new ArrayList<>();
       Iterators.addAll(deselectList, children.listIterator(index));
       getViewer().deselect(deselectList);
     }
@@ -510,7 +509,7 @@ public abstract class EditPart {
     Assert.isNotNull(childPart);
     // check container
     if (m_children == null) {
-      m_children = Lists.newArrayList();
+      m_children = new ArrayList<>();
     }
     // add to child list
     if (index == -1) {
@@ -661,7 +660,7 @@ public abstract class EditPart {
    *         empty {@link List}.
    */
   private List<EditPolicy> getUnderstandingPolicies(Request request) {
-    List<EditPolicy> policies = Lists.newArrayList();
+    List<EditPolicy> policies = new ArrayList<>();
     for (EditPolicy editPolicy : m_policies) {
       if (editPolicy.understandsRequest(request)) {
         policies.add(editPolicy);
@@ -675,7 +674,7 @@ public abstract class EditPart {
   // Request processors
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<RequestProcessor> m_requestProcessors = Lists.newArrayList();
+  private final List<RequestProcessor> m_requestProcessors = new ArrayList<>();
 
   /**
    * Adds the {@link RequestProcessor}, if not added yet.

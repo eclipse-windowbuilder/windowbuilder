@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -33,6 +31,7 @@ import org.eclipse.jdt.core.dom.VariableDeclaration;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -229,7 +228,7 @@ public abstract class AbstractNamedVariableSupport extends VariableSupport {
       }
     }
     // prepare map: variable declaration -> name
-    Map<VariableDeclaration, String> declarationsNames = Maps.newHashMap();
+    Map<VariableDeclaration, String> declarationsNames = new HashMap<>();
     for (Map.Entry<AbstractNamedVariableSupport, String> entry : variablesNames.entrySet()) {
       AbstractNamedVariableSupport variable = entry.getKey();
       String name = entry.getValue();

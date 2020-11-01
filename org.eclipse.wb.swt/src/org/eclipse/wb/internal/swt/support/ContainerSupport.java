@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
@@ -24,17 +22,18 @@ import org.eclipse.swt.widgets.Composite;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.widgets.Composite}'s in another
  * {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */
 public class ContainerSupport extends AbstractSupport {
-  private static final Map<Image, Object> SWT_TO_TOOLKIT_IMAGES = Maps.newHashMap();
+  private static final Map<Image, Object> SWT_TO_TOOLKIT_IMAGES = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -159,10 +158,9 @@ public class ContainerSupport extends AbstractSupport {
    * Creates new instance of SWT {@link org.eclipse.swt.widgets.Composite}.
    */
   public static Object createComposite(Object parent, int style) throws Exception {
-    Constructor<?> constructor =
-        ReflectionUtils.getConstructorBySignature(
-            getCompositeClass(),
-            "<init>(org.eclipse.swt.widgets.Composite,int)");
+    Constructor<?> constructor = ReflectionUtils.getConstructorBySignature(
+        getCompositeClass(),
+        "<init>(org.eclipse.swt.widgets.Composite,int)");
     return constructor.newInstance(parent, style);
   }
 
@@ -223,8 +221,13 @@ public class ContainerSupport extends AbstractSupport {
    */
   public static Rectangle computeTrim(Object composite, int x, int y, int width, int height)
       throws Exception {
-    Object rectangle =
-        ReflectionUtils.invokeMethod(composite, "computeTrim(int,int,int,int)", x, y, width, height);
+    Object rectangle = ReflectionUtils.invokeMethod(
+        composite,
+        "computeTrim(int,int,int,int)",
+        x,
+        y,
+        width,
+        height);
     return RectangleSupport.getRectangle(rectangle);
   }
 

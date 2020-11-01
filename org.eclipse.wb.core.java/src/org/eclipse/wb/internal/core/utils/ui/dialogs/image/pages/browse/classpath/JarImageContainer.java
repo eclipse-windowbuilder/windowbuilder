@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.ImageInfo;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
@@ -26,6 +24,7 @@ import org.eclipse.swt.widgets.Display;
 
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -41,7 +40,7 @@ final class JarImageContainer implements IClasspathImageContainer {
   private final String m_id;
   private final IPackageFragmentRoot m_root;
   private final JarFile m_jarFile;
-  private final Map<IPath, JarPackageImageContainer> m_packagePathToEntryMap = Maps.newHashMap();
+  private final Map<IPath, JarPackageImageContainer> m_packagePathToEntryMap = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -125,7 +124,7 @@ final class JarImageContainer implements IClasspathImageContainer {
   // Images
   //
   ////////////////////////////////////////////////////////////////////////////
-  private Map<String, ImageInfo> m_nameToImageInfo = Maps.newHashMap();
+  private Map<String, ImageInfo> m_nameToImageInfo = new HashMap<>();
 
   /**
    * Disposes images loaded from jar.

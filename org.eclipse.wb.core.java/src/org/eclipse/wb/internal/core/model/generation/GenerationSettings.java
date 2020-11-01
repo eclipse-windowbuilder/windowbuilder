@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.generation;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -43,9 +39,13 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Code generation settings for adding new {@link JavaInfo}.
@@ -64,12 +64,12 @@ public final class GenerationSettings {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IPreferenceStore m_store;
-  private final Map<String, VariableSupportDescription> m_idToVariable = Maps.newTreeMap();
-  private final Map<String, StatementGeneratorDescription> m_idToStatement = Maps.newTreeMap();
-  private final List<VariableSupportDescription> m_variables = Lists.newArrayList();
+  private final Map<String, VariableSupportDescription> m_idToVariable = new TreeMap<>();
+  private final Map<String, StatementGeneratorDescription> m_idToStatement = new TreeMap<>();
+  private final List<VariableSupportDescription> m_variables = new ArrayList<>();
   private final Map<VariableSupportDescription, StatementGeneratorDescription[]> m_variableToStatements =
-      Maps.newHashMap();
-  private final MultiKeyMap/*<variable + statement -> GenerationPreview>*/m_previewMap =
+      new HashMap<>();
+  private final MultiKeyMap/*<variable + statement -> GenerationPreview>*/ m_previewMap =
       new MultiKeyMap();
 
   ////////////////////////////////////////////////////////////////////////////
@@ -374,7 +374,7 @@ public final class GenerationSettings {
   public static void deduce(JavaInfo root) throws Exception {
     // prepare map: settings -> components
     final Map<GenerationSettings, Set<AbstractComponentInfo>> settingsToComponents =
-        Maps.newHashMap();
+        new HashMap<>();
     root.accept(new ObjectInfoVisitor() {
       @Override
       public void endVisit(ObjectInfo objectInfo) throws Exception {
@@ -385,7 +385,7 @@ public final class GenerationSettings {
           // prepare list of components
           Set<AbstractComponentInfo> components = settingsToComponents.get(settings);
           if (components == null) {
-            components = Sets.newHashSet();
+            components = new HashSet<>();
             settingsToComponents.put(settings, components);
           }
           // add new component
@@ -414,9 +414,9 @@ public final class GenerationSettings {
     IPreferenceStore editorPreferences;
     {
       editorPreferences = new PreferenceStore();
-      setPreferences(javaInfo, new ChainedPreferenceStore(new IPreferenceStore[]{
-          editorPreferences,
-          m_store}));
+      setPreferences(
+          javaInfo,
+          new ChainedPreferenceStore(new IPreferenceStore[]{editorPreferences, m_store}));
     }
     // do deduce
     deduceVariable(components, editorPreferences);
@@ -438,7 +438,7 @@ public final class GenerationSettings {
   private void deduceVariable(Set<AbstractComponentInfo> components, IPreferenceStore store) {
     // prepare statistics
     int componentCount = 0;
-    Map<VariableSupportDescription, Integer> variableToCount = Maps.newHashMap();
+    Map<VariableSupportDescription, Integer> variableToCount = new HashMap<>();
     for (AbstractComponentInfo component : components) {
       VariableSupport variableSupport = component.getVariableSupport();
       VariableSupportDescription variableDescription = getVariableDescription(variableSupport);
@@ -462,7 +462,7 @@ public final class GenerationSettings {
       throws Exception {
     // prepare statistics
     int componentCount = 0;
-    Map<Block, Integer> blockToCount = Maps.newHashMap();
+    Map<Block, Integer> blockToCount = new HashMap<>();
     for (AbstractComponentInfo component : components) {
       VariableSupport variableSupport = component.getVariableSupport();
       if (getVariableDescription(variableSupport) != null) {
@@ -492,10 +492,9 @@ public final class GenerationSettings {
           multipleCount += count;
         }
       }
-      StatementGeneratorDescription statementDescription =
-          singleCount >= multipleCount
-              ? BlockStatementGeneratorDescription.INSTANCE
-              : FlatStatementGeneratorDescription.INSTANCE;
+      StatementGeneratorDescription statementDescription = singleCount >= multipleCount
+          ? BlockStatementGeneratorDescription.INSTANCE
+          : FlatStatementGeneratorDescription.INSTANCE;
       store.setValue(P_STATEMENT_GENERATOR_ID, statementDescription.getId());
     }
   }

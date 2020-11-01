@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.description.helpers;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -56,10 +53,14 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Helper for accessing {@link ComponentPresentation}'s.
@@ -85,7 +86,7 @@ public final class ComponentPresentationHelper {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final Map<String, ComponentPresentationCache> m_presentationCaches =
-      Maps.newTreeMap();
+      new TreeMap<>();
 
   /**
    * @return the {@link ComponentPresentation} for component with given {@link Class}.
@@ -245,8 +246,8 @@ public final class ComponentPresentationHelper {
 
   private static final class ComponentParseHelper extends QHandlerAdapter {
     private String m_currentId = null;
-    private final Map<String, String> m_descriptions = Maps.newHashMap();
-    private final Map<String, String> m_names = Maps.newHashMap();
+    private final Map<String, String> m_descriptions = new HashMap<>();
+    private final Map<String, String> m_names = new HashMap<>();
     //
     private final String m_xml;
     private int m_descStart;
@@ -333,10 +334,10 @@ public final class ComponentPresentationHelper {
    */
   private static class ComponentPresentationCache {
     private final String m_toolkitId;
-    private final List<Bundle> m_bundles = Lists.newArrayList();
-    private final Set<String> m_bundleCheckSums = Sets.newHashSet();
+    private final List<Bundle> m_bundles = new ArrayList<>();
+    private final Set<String> m_bundleCheckSums = new HashSet<>();
     private final File m_cacheFile;
-    private final Map<String, ComponentPresentation> m_presentations = Maps.newTreeMap();
+    private final Map<String, ComponentPresentation> m_presentations = new TreeMap<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -447,7 +448,8 @@ public final class ComponentPresentationHelper {
     //
     ////////////////////////////////////////////////////////////////////////////
     private void prepareBundles() {
-      for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(m_toolkitId)) {
+      for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(
+          m_toolkitId)) {
         Bundle bundle = ExternalFactoriesHelper.getExtensionBundle(toolkitElement);
         m_bundles.add(bundle);
       }
@@ -528,7 +530,7 @@ public final class ComponentPresentationHelper {
     }
 
     private static Set<String> readCheckSums(DataInputStream dataInput) throws IOException {
-      Set<String> checkSums = Sets.newHashSet();
+      Set<String> checkSums = new HashSet<>();
       int sumCount = dataInput.readInt();
       for (int i = 0; i < sumCount; i++) {
         String checkSum = dataInput.readUTF();
@@ -576,11 +578,11 @@ public final class ComponentPresentationHelper {
   private static void fillPresentations(ComponentPresentationCache cache,
       String toolkitId,
       IProgressMonitor monitor) throws Exception {
-    Map<Bundle, List<IConfigurationElement>> bundles = Maps.newHashMap();
+    Map<Bundle, List<IConfigurationElement>> bundles = new HashMap<>();
     // prepare bundles and entries
     for (IConfigurationElement toolkitElement : DescriptionHelper.getToolkitElements(toolkitId)) {
       IConfigurationElement[] elements = toolkitElement.getChildren("palette");
-      List<IConfigurationElement> paletteElements = Lists.newArrayList();
+      List<IConfigurationElement> paletteElements = new ArrayList<>();
       Collections.addAll(paletteElements, elements);
       bundles.put(ExternalFactoriesHelper.getExtensionBundle(toolkitElement), paletteElements);
     }

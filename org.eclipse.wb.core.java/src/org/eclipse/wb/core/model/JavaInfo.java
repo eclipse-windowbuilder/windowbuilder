@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.eval.ExecutionFlowUtils;
@@ -92,8 +89,11 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -312,7 +312,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    */
   public void putTemplateArgument(String name, String value) {
     if (m_templateArguments == null) {
-      m_templateArguments = Maps.newHashMap();
+      m_templateArguments = new HashMap<>();
     }
     m_templateArguments.put(name, value);
   }
@@ -407,8 +407,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
   /**
    * Is <code>true</code> if this {@link JavaInfo} already initialized. We check this flag in
    * {@link #setObject(Object)} and do initialization if needed. This is required for newly created
-   * {@link JavaInfo
-	 * }'s.
+   * {@link JavaInfo }'s.
    */
   private boolean m_initialized;
 
@@ -534,10 +533,10 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 
   @Override
   protected List<Property> getPropertyList() throws Exception {
-    List<Property> properties = Lists.newArrayList();
+    List<Property> properties = new ArrayList<>();
     // add description based properties
     if (m_descriptionBasedProperties == null) {
-      m_descriptionBasedProperties = Lists.newArrayList();
+      m_descriptionBasedProperties = new ArrayList<>();
       for (GenericPropertyDescription description : getDescription().getProperties()) {
         GenericPropertyImpl property = PropertyUtils2.createGenericPropertyImpl(this, description);
         m_descriptionBasedProperties.add(property);
@@ -580,7 +579,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    */
   private void addConfigurableProperties(List<Property> properties) throws Exception {
     if (m_configurableProperties == null) {
-      m_configurableProperties = Lists.newArrayList();
+      m_configurableProperties = new ArrayList<>();
       for (ConfigurablePropertyDescription description : getDescription().getConfigurableProperties()) {
         String id = description.getId();
         IConfigurablePropertyFactory factory = getConfigurablePropertyFactory(id);
@@ -600,10 +599,9 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    * @return the {@link IConfigurablePropertyFactory} registered with given ID.
    */
   private static IConfigurablePropertyFactory getConfigurablePropertyFactory(String id) {
-    List<IConfigurationElement> factoryElements =
-        ExternalFactoriesHelper.getElements(
-            "org.eclipse.wb.core.configurablePropertyFactories",
-            "factory");
+    List<IConfigurationElement> factoryElements = ExternalFactoriesHelper.getElements(
+        "org.eclipse.wb.core.configurablePropertyFactories",
+        "factory");
     for (IConfigurationElement factofyElement : factoryElements) {
       if (ExternalFactoriesHelper.getRequiredAttribute(factofyElement, "id").equals(id)) {
         return ExternalFactoriesHelper.createExecutableExtension(factofyElement, "class");
@@ -701,7 +699,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    * represents reference of this {@link JavaInfo}, i.e. is creation or usage as part of
    * {@link MethodInvocation} (as target expression or argument) or {@link Assignment}, etc.
    */
-  private final List<ASTNode> m_nodes = Lists.newLinkedList();
+  private final List<ASTNode> m_nodes = new LinkedList<>();
 
   /**
    * Adds given related {@link ASTNode}.
@@ -868,7 +866,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    * @return the {@link List} of all {@link MethodInvocation} of this {@link JavaInfo}.
    */
   public final List<MethodInvocation> getMethodInvocations() {
-    List<MethodInvocation> invocations = Lists.newArrayList();
+    List<MethodInvocation> invocations = new ArrayList<>();
     for (ASTNode node : getRelatedNodes()) {
       MethodInvocation invocation = getMethodInvocation(node);
       if (invocation != null) {
@@ -883,7 +881,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    *         signature.
    */
   public final List<MethodInvocation> getMethodInvocations(String signature) {
-    List<MethodInvocation> invocations = Lists.newArrayList();
+    List<MethodInvocation> invocations = new ArrayList<>();
     for (ASTNode node : getRelatedNodes()) {
       // prepare invocation from related node
       MethodInvocation invocation = getMethodInvocation(node);
@@ -1010,7 +1008,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    * @return the all {@link Assignment}'s to fields, may be empty {@link List}.
    */
   public final List<Assignment> getFieldAssignments() {
-    List<Assignment> assignments = Lists.newArrayList();
+    List<Assignment> assignments = new ArrayList<>();
     for (ASTNode node : getRelatedNodes()) {
       Expression fieldAccess = AstNodeUtils.getFieldAssignment(node);
       if (fieldAccess != null) {
@@ -1025,7 +1023,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    * @return the {@link Assignment}'s to field, may be empty {@link List}.
    */
   public final List<Assignment> getFieldAssignments(String fieldName) {
-    List<Assignment> assignments = Lists.newArrayList();
+    List<Assignment> assignments = new ArrayList<>();
     for (Assignment assignment : getFieldAssignments()) {
       Expression fieldAccess = assignment.getLeftHandSide();
       String fieldAccessName = AstNodeUtils.getFieldAccessName(fieldAccess).getIdentifier();

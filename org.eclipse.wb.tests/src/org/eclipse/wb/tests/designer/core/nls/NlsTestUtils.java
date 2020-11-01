@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.nls;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.nls.bundle.AbstractBundleSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.modern.ModernEclipseSource;
 import org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSource;
@@ -22,9 +20,11 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import java.util.HashMap;
+
 /**
  * Utilities for testing NLS.
- * 
+ *
  * @author scheglov_ke
  */
 public class NlsTestUtils {
@@ -36,7 +36,7 @@ public class NlsTestUtils {
     String title = "NEW: " + name;
     editableSource.setShortTitle(title);
     editableSource.setLongTitle(title);
-    editableSource.add(LocaleInfo.DEFAULT, Maps.<String, String>newHashMap());
+    editableSource.add(LocaleInfo.DEFAULT, new HashMap<>());
     editableSource.setKeyGeneratorStrategy(AbstractBundleSource.KEY_GENERATOR);
     return editableSource;
   }
@@ -51,18 +51,20 @@ public class NlsTestUtils {
     AbstractJavaProjectTest.setFileContentSrc(
         "test/messages_it.properties",
         DesignerTestCase.getSourceDQ("frame_title=My JFrame", "frame_name=My name"));
-    AbstractJavaProjectTest.setFileContentSrc("test/Messages.java", DesignerTestCase.getSourceDQ(
-        "package test;",
-        "import org.eclipse.osgi.util.NLS;",
-        "public class Messages extends NLS {",
-        "  private static final String BUNDLE_NAME = 'test.messages'; //$NON-NLS-1$",
-        "  public static String frame_title;",
-        "  public static String frame_name;",
-        "  private Messages() {}",
-        "  static {",
-        "    NLS.initializeMessages(BUNDLE_NAME, Messages.class);",
-        "  }",
-        "}"));
+    AbstractJavaProjectTest.setFileContentSrc(
+        "test/Messages.java",
+        DesignerTestCase.getSourceDQ(
+            "package test;",
+            "import org.eclipse.osgi.util.NLS;",
+            "public class Messages extends NLS {",
+            "  private static final String BUNDLE_NAME = 'test.messages'; //$NON-NLS-1$",
+            "  public static String frame_title;",
+            "  public static String frame_name;",
+            "  private Messages() {}",
+            "  static {",
+            "    NLS.initializeMessages(BUNDLE_NAME, Messages.class);",
+            "  }",
+            "}"));
     AbstractJavaProjectTest.waitForAutoBuild();
   }
 
@@ -80,27 +82,30 @@ public class NlsTestUtils {
   public static void create_EclipseOld_Accessor(AbstractJavaTest javaTest,
       String bundleName,
       boolean withDefault) throws Exception {
-    javaTest.createModelCompilationUnit("test", "Messages.java", DesignerTestCase.getSourceDQ(
-        "package test;",
-        "import java.beans.Beans;",
-        "import java.util.MissingResourceException;",
-        "import java.util.ResourceBundle;",
-        "public class Messages {",
-        "  private static final String BUNDLE_NAME = '" + bundleName + "'; //$NON-NLS-1$",
-        "  private static final ResourceBundle RESOURCE_BUNDLE = loadBundle();",
-        "  private static ResourceBundle loadBundle() {",
-        "    return ResourceBundle.getBundle(BUNDLE_NAME);",
-        "  }",
-        withDefault
-            ? "  public static String getString(String key, String defValue) {"
-            : "  public static String getString(String key) {",
-        "    try {",
-        "      ResourceBundle bundle = Beans.isDesignTime() ? loadBundle() : RESOURCE_BUNDLE;",
-        "      return bundle.getString(key);",
-        "    } catch (MissingResourceException e) {",
-        withDefault ? "      return defValue;" : "      return '!' + key + '!';",
-        "    }",
-        "  }",
-        "}"));
+    javaTest.createModelCompilationUnit(
+        "test",
+        "Messages.java",
+        DesignerTestCase.getSourceDQ(
+            "package test;",
+            "import java.beans.Beans;",
+            "import java.util.MissingResourceException;",
+            "import java.util.ResourceBundle;",
+            "public class Messages {",
+            "  private static final String BUNDLE_NAME = '" + bundleName + "'; //$NON-NLS-1$",
+            "  private static final ResourceBundle RESOURCE_BUNDLE = loadBundle();",
+            "  private static ResourceBundle loadBundle() {",
+            "    return ResourceBundle.getBundle(BUNDLE_NAME);",
+            "  }",
+            withDefault
+                ? "  public static String getString(String key, String defValue) {"
+                : "  public static String getString(String key) {",
+            "    try {",
+            "      ResourceBundle bundle = Beans.isDesignTime() ? loadBundle() : RESOURCE_BUNDLE;",
+            "      return bundle.getString(key);",
+            "    } catch (MissingResourceException e) {",
+            withDefault ? "      return defValue;" : "      return '!' + key + '!';",
+            "    }",
+            "  }",
+            "}"));
   }
 }

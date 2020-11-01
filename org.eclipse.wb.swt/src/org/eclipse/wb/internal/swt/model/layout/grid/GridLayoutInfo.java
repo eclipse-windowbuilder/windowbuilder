@@ -12,8 +12,6 @@ package org.eclipse.wb.internal.swt.model.layout.grid;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
@@ -58,13 +56,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Model for SWT {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */
@@ -154,7 +155,7 @@ public class GridLayoutInfo extends LayoutInfo
   // Refresh
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Set<Object> m_controlsImplicit = Sets.newHashSet();
+  private final Set<Object> m_controlsImplicit = new HashSet<>();
 
   @Override
   public void refresh_dispose() throws Exception {
@@ -334,10 +335,9 @@ public class GridLayoutInfo extends LayoutInfo
     // check columns
     boolean deleteOnlyIfIsRemovingColumn = false;
     for (int column = grid[0].length - 1; column >= 0; column--) {
-      boolean isRemovingColumn =
-          removingData != null
-              && removingData.x <= column
-              && column < removingData.x + removingData.width;
+      boolean isRemovingColumn = removingData != null
+          && removingData.x <= column
+          && column < removingData.x + removingData.width;
       // check if empty
       boolean isEmpty = true;
       for (int row = 0; row < grid.length; row++) {
@@ -360,10 +360,9 @@ public class GridLayoutInfo extends LayoutInfo
     ControlInfo[][] grid = getControlsGrid();
     boolean deleteOnlyIfIsRemovingRow = false;
     for (int row = grid.length - 1; row >= 0; row--) {
-      boolean isRemovingRow =
-          removingData != null
-              && removingData.y <= row
-              && row < removingData.y + removingData.height;
+      boolean isRemovingRow = removingData != null
+          && removingData.y <= row
+          && row < removingData.y + removingData.height;
       // check if empty
       boolean isEmpty = true;
       for (int column = 0; column < grid[row].length; column++) {
@@ -538,8 +537,8 @@ public class GridLayoutInfo extends LayoutInfo
   // Dimensions access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<GridColumnInfo<ControlInfo>> m_columns = Lists.newArrayList();
-  private final List<GridRowInfo<ControlInfo>> m_rows = Lists.newArrayList();
+  private final List<GridColumnInfo<ControlInfo>> m_columns = new ArrayList<>();
+  private final List<GridRowInfo<ControlInfo>> m_rows = new ArrayList<>();
 
   /**
    * @return the "numColumns" property value.
@@ -930,7 +929,7 @@ public class GridLayoutInfo extends LayoutInfo
 
   /**
    * @return the {@link ControlInfo} that should be used as reference of adding into specified cell.
-   * 
+   *
    * @param exclude
    *          the {@link ControlInfo} that should not be checked, for example because we move it now
    */
@@ -955,11 +954,10 @@ public class GridLayoutInfo extends LayoutInfo
     // prepare creation support
     ConstructorCreationSupport creationSupport = new ConstructorCreationSupport(null, false);
     // prepare filler
-    ControlInfo filler =
-        (ControlInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            LabelSupport.getLabelClass(),
-            creationSupport);
+    ControlInfo filler = (ControlInfo) JavaInfoUtils.createJavaInfo(
+        getEditor(),
+        LabelSupport.getLabelClass(),
+        creationSupport);
     // add filler
     ControlInfo reference = getReferenceControl(row, column, null);
     JavaInfoUtils.add(
@@ -1083,8 +1081,8 @@ public class GridLayoutInfo extends LayoutInfo
     final Interval[] columnIntervals = getIntervals(m_columnOrigins, m_columnWidths);
     final Interval[] rowIntervals = getIntervals(m_rowOrigins, m_rowHeights);
     // prepare cells
-    final Map<ControlInfo, Rectangle> componentToCells = Maps.newHashMap();
-    final Map<Point, ControlInfo> occupiedCells = Maps.newHashMap();
+    final Map<ControlInfo, Rectangle> componentToCells = new HashMap<>();
+    final Map<Point, ControlInfo> occupiedCells = new HashMap<>();
     {
       for (ControlInfo control : getControls()) {
         // ignore filler
@@ -1278,7 +1276,7 @@ public class GridLayoutInfo extends LayoutInfo
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data 
+  // Manage general layout data
   //
   ////////////////////////////////////////////////////////////////////////////
   static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
@@ -1312,25 +1310,19 @@ public class GridLayoutInfo extends LayoutInfo
         (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "horizontalSpan");
     generalLayoutData.spanY =
         (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "verticalSpan");
-    generalLayoutData.horizontalGrab =
-        (Boolean) GeneralLayoutData.getLayoutPropertyValue(
-            gridLayoutData,
-            "grabExcessHorizontalSpace");
-    generalLayoutData.verticalGrab =
-        (Boolean) GeneralLayoutData.getLayoutPropertyValue(
-            gridLayoutData,
-            "grabExcessVerticalSpace");
+    generalLayoutData.horizontalGrab = (Boolean) GeneralLayoutData.getLayoutPropertyValue(
+        gridLayoutData,
+        "grabExcessHorizontalSpace");
+    generalLayoutData.verticalGrab = (Boolean) GeneralLayoutData.getLayoutPropertyValue(
+        gridLayoutData,
+        "grabExcessVerticalSpace");
     // alignments
-    generalLayoutData.horizontalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_horizontalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(
-                gridLayoutData,
-                "horizontalAlignment"));
-    generalLayoutData.verticalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_verticalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "verticalAlignment"));
+    generalLayoutData.horizontalAlignment = GeneralLayoutData.getGeneralValue(
+        m_horizontalAlignmentMap,
+        (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "horizontalAlignment"));
+    generalLayoutData.verticalAlignment = GeneralLayoutData.getGeneralValue(
+        m_verticalAlignmentMap,
+        (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "verticalAlignment"));
     generalLayoutData.putToInfo(control);
   }
 }

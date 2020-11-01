@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.context;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfoVisitor;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -33,12 +31,13 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Container for bindings. This class manage JFace binding source code for method
  * <code>initDataBindings()</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */
@@ -56,7 +55,7 @@ public final class DataBindingContextInfo extends AstObjectInfo {
   private static final String BIND_SET_METHOD_2 =
       "org.eclipse.core.databinding.DataBindingContext.bindSet(org.eclipse.core.databinding.observable.set.IObservableSet,org.eclipse.core.databinding.observable.set.IObservableSet)";
   //
-  private final List<AbstractBindingInfo> m_bindings = Lists.newArrayList();
+  private final List<AbstractBindingInfo> m_bindings = new ArrayList<>();
   private boolean m_addInitializeContext;
   private String m_userTryCatchBlock;
 
@@ -105,17 +104,23 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       // prepare target
       ObservableInfo target = (ObservableInfo) resolver.getModel(arguments[0]);
       if (target == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.DataBindingContextInfo_targetArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.DataBindingContextInfo_targetArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare model
       ObservableInfo model = (ObservableInfo) resolver.getModel(arguments[1]);
       if (model == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.DataBindingContextInfo_modelArgumentNotFound,
-            arguments[1]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.DataBindingContextInfo_modelArgumentNotFound,
+                arguments[1]),
+            new Throwable());
         return null;
       }
       // prepare target strategy
@@ -144,17 +149,23 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       // prepare target
       ObservableInfo target = (ObservableInfo) resolver.getModel(arguments[0]);
       if (target == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.DataBindingContextInfo_targetArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.DataBindingContextInfo_targetArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare model
       ObservableInfo model = (ObservableInfo) resolver.getModel(arguments[1]);
       if (model == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.DataBindingContextInfo_modelArgumentNotFound,
-            arguments[1]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.DataBindingContextInfo_modelArgumentNotFound,
+                arguments[1]),
+            new Throwable());
         return null;
       }
       // prepare target strategy
@@ -183,17 +194,23 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       // prepare target
       ObservableInfo target = (ObservableInfo) resolver.getModel(arguments[0]);
       if (target == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.DataBindingContextInfo_targetArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.DataBindingContextInfo_targetArgumentNotFound,
+                arguments[0]),
+            new Throwable());
         return null;
       }
       // prepare model
       ObservableInfo model = (ObservableInfo) resolver.getModel(arguments[1]);
       if (model == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.DataBindingContextInfo_modelArgumentNotFound,
-            arguments[1]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.DataBindingContextInfo_modelArgumentNotFound,
+                arguments[1]),
+            new Throwable());
         return null;
       }
       // prepare target strategy
@@ -242,9 +259,10 @@ public final class DataBindingContextInfo extends AstObjectInfo {
       setVariableIdentifier("bindingContext");
     }
     // create content
-    lines.add("org.eclipse.core.databinding.DataBindingContext "
-        + getVariableIdentifier()
-        + " = new org.eclipse.core.databinding.DataBindingContext();");
+    lines.add(
+        "org.eclipse.core.databinding.DataBindingContext "
+            + getVariableIdentifier()
+            + " = new org.eclipse.core.databinding.DataBindingContext();");
     // try {
     boolean addTryCatch = Activator.getStore().getBoolean(IPreferenceConstants.INITDB_TRY_CATCH);
     if (m_userTryCatchBlock != null || addTryCatch) {

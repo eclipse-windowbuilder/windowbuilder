@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -60,12 +58,13 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class manage binding source code (add invocation initDataBindings(), configure classpath and
  * etc.) for compilation unit.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */
@@ -86,7 +85,7 @@ public final class DataBindingsRootInfo implements ISubParser {
   private static Constructor<JTableBindingInfo> m_constructorJTable;
   private static Constructor<JComboBoxBindingInfo> m_constructorJComboBox;
   private final DatabindingsProvider m_provider;
-  private final List<BindingInfo> m_bindings = Lists.newArrayList();
+  private final List<BindingInfo> m_bindings = new ArrayList<>();
   private MethodDeclaration m_initDataBindings;
   private boolean m_addToGroup;
   private boolean m_addInitializeContext;
@@ -118,11 +117,9 @@ public final class DataBindingsRootInfo implements ISubParser {
     m_initDataBindings = initDataBindings;
     IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(m_initDataBindings);
     ITypeBinding returnType = methodBinding == null ? null : methodBinding.getReturnType();
-    m_addToGroup =
-        returnType != null
-            && "org.jdesktop.beansbinding.BindingGroup".equals(AstNodeUtils.getFullyQualifiedName(
-                returnType,
-                false));
+    m_addToGroup = returnType != null
+        && "org.jdesktop.beansbinding.BindingGroup".equals(
+            AstNodeUtils.getFullyQualifiedName(returnType, false));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -164,10 +161,9 @@ public final class DataBindingsRootInfo implements ISubParser {
           ReflectionUtils.getConstructorBySignature(JListBindingInfo.class, CONSTRUCTOR_SIGNATURE);
       m_constructorJTable =
           ReflectionUtils.getConstructorBySignature(JTableBindingInfo.class, CONSTRUCTOR_SIGNATURE);
-      m_constructorJComboBox =
-          ReflectionUtils.getConstructorBySignature(
-              JComboBoxBindingInfo.class,
-              CONSTRUCTOR_SIGNATURE);
+      m_constructorJComboBox = ReflectionUtils.getConstructorBySignature(
+          JComboBoxBindingInfo.class,
+          CONSTRUCTOR_SIGNATURE);
     }
     if (signature.startsWith(BINDINGS_CREATE_AUTO_BINDING)) {
       // Bindings.createAutoBinding(AutoBinding.UpdateStrategy, ...)
@@ -204,7 +200,8 @@ public final class DataBindingsRootInfo implements ISubParser {
             m_constructorJList);
       }
       if (signature.endsWith(",org.jdesktop.beansbinding.Property,javax.swing.JList)")
-          || signature.endsWith(",org.jdesktop.beansbinding.Property,javax.swing.JList,java.lang.String)")) {
+          || signature.endsWith(
+              ",org.jdesktop.beansbinding.Property,javax.swing.JList,java.lang.String)")) {
         return createBindingForListPropertyToJComponent(
             editor,
             signature,
@@ -226,7 +223,8 @@ public final class DataBindingsRootInfo implements ISubParser {
             m_constructorJTable);
       }
       if (signature.endsWith(",org.jdesktop.beansbinding.Property,javax.swing.JTable)")
-          || signature.endsWith(",org.jdesktop.beansbinding.Property,javax.swing.JTable,java.lang.String)")) {
+          || signature.endsWith(
+              ",org.jdesktop.beansbinding.Property,javax.swing.JTable,java.lang.String)")) {
         return createBindingForListPropertyToJComponent(
             editor,
             signature,
@@ -248,7 +246,8 @@ public final class DataBindingsRootInfo implements ISubParser {
             m_constructorJComboBox);
       }
       if (signature.endsWith(",org.jdesktop.beansbinding.Property,javax.swing.JComboBox)")
-          || signature.endsWith(",org.jdesktop.beansbinding.Property,javax.swing.JComboBox,java.lang.String)")) {
+          || signature.endsWith(
+              ",org.jdesktop.beansbinding.Property,javax.swing.JComboBox,java.lang.String)")) {
         return createBindingForListPropertyToJComponent(
             editor,
             signature,
@@ -293,7 +292,9 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelArgumentNotFound,
+              arguments[1]),
           new Throwable());
       return null;
     }
@@ -306,38 +307,51 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target object
     ObserveInfo target = getObserveInfo(arguments[2]);
     if (target == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
-          arguments[2]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+              arguments[2]),
+          new Throwable());
       return null;
     }
     // target AST property
     PropertyInfo targetAstProperty = (PropertyInfo) resolver.getModel(arguments[3]);
     if (targetAstProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetPropertyArgumentNotFound,
-          arguments[3]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetPropertyArgumentNotFound,
+              arguments[3]),
+          new Throwable());
       return null;
     }
     // target property
     ObserveInfo targetProperty = targetAstProperty.getObserveProperty(target);
     if (targetProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetProperty2NotFound,
-          arguments[2],
-          arguments[3]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetProperty2NotFound,
+              arguments[2],
+              arguments[3]),
+          new Throwable());
       targetProperty = createDefaultProperty(targetAstProperty);
     } else {
       assertObserves(types, 1, target, targetAstProperty, targetProperty);
     }
     // binding
-    return addBinding(editor, signature, arguments, new AutoBindingInfo(strategyInfo,
-        target,
-        targetProperty,
-        targetAstProperty,
-        model,
-        modelProperty,
-        modelAstProperty));
+    return addBinding(
+        editor,
+        signature,
+        arguments,
+        new AutoBindingInfo(strategyInfo,
+            target,
+            targetProperty,
+            targetAstProperty,
+            model,
+            modelProperty,
+            modelAstProperty));
   }
 
   /**
@@ -356,26 +370,34 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelArgumentNotFound,
+              arguments[1]),
           new Throwable());
       return null;
     }
     // model AST property
     PropertyInfo modelAstProperty = (PropertyInfo) resolver.getModel(arguments[2]);
     if (modelAstProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errModelPropertyArgumentNotFound,
-          arguments[2]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelPropertyArgumentNotFound,
+              arguments[2]),
+          new Throwable());
       return null;
     }
     // model property
     ObserveInfo modelProperty = modelAstProperty.getObserveProperty(model);
     IGenericType[] types = GenericUtils.getReturnTypeArguments(editor, invocation, 4);
     if (modelProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errModelProperty2NotFound,
-          arguments[1],
-          arguments[2]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelProperty2NotFound,
+              arguments[1],
+              arguments[2]),
+          new Throwable());
       modelProperty = createDefaultProperty(modelAstProperty);
     } else {
       assertObserves(types, 0, model, modelAstProperty, modelProperty);
@@ -383,9 +405,12 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target object
     ObserveInfo target = getObserveInfo(arguments[3]);
     if (target == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
-          arguments[3]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+              arguments[3]),
+          new Throwable());
       return null;
     }
     // target AST property
@@ -400,22 +425,29 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target property
     ObserveInfo targetProperty = targetAstProperty.getObserveProperty(target);
     if (targetProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetProperty2NotFound,
-          arguments[3],
-          arguments[4]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetProperty2NotFound,
+              arguments[3],
+              arguments[4]),
+          new Throwable());
       targetProperty = createDefaultProperty(targetAstProperty);
     } else {
       assertObserves(types, 2, target, targetAstProperty, targetProperty);
     }
     // binding
-    return addBinding(editor, signature, arguments, new AutoBindingInfo(strategyInfo,
-        target,
-        targetProperty,
-        targetAstProperty,
-        model,
-        modelProperty,
-        modelAstProperty));
+    return addBinding(
+        editor,
+        signature,
+        arguments,
+        new AutoBindingInfo(strategyInfo,
+            target,
+            targetProperty,
+            targetAstProperty,
+            model,
+            modelProperty,
+            modelAstProperty));
   }
 
   /**
@@ -436,7 +468,9 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelArgumentNotFound,
+              arguments[1]),
           new Throwable());
       return null;
     }
@@ -448,9 +482,12 @@ public final class DataBindingsRootInfo implements ISubParser {
     // target object
     ObserveInfo target = getComponentObserveInfo(arguments[2]);
     if (target == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
-          arguments[2]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+              arguments[2]),
+          new Throwable());
       return null;
     }
     // target properties
@@ -459,19 +496,25 @@ public final class DataBindingsRootInfo implements ISubParser {
     Assert.isNotNull(targetProperty);
     assertEquals(targetProperty, targetAstProperty);
     // binding
-    return addBinding(editor, signature, arguments, constructor.newInstance(
-        strategyInfo,
-        target,
-        targetProperty,
-        targetAstProperty,
-        model,
-        modelProperty,
-        modelAstProperty));
+    return addBinding(
+        editor,
+        signature,
+        arguments,
+        constructor.newInstance(
+            strategyInfo,
+            target,
+            targetProperty,
+            targetAstProperty,
+            model,
+            modelProperty,
+            modelAstProperty));
   }
 
   /**
-   * SwingBindings.createJListBinding(UpdateStrategy, SS, Property<SS, List<E>>, JList, [String]) <br>
-   * SwingBindings.createJTableBinding(UpdateStrategy, SS, Property<SS, List<E>>, JTable, [String])<br>
+   * SwingBindings.createJListBinding(UpdateStrategy, SS, Property<SS, List<E>>, JList, [String])
+   * <br>
+   * SwingBindings.createJTableBinding(UpdateStrategy, SS, Property<SS, List<E>>, JTable,
+   * [String])<br>
    * SwingBindings.createJComboBoxBinding(UpdateStrategy, SS, Property<SS, List<E>>, JComboBox,
    * [String])
    */
@@ -488,7 +531,9 @@ public final class DataBindingsRootInfo implements ISubParser {
     if (model == null) {
       AbstractParser.addError(
           editor,
-          MessageFormat.format(Messages.DataBindingsRootInfo_errModelArgumentNotFound, arguments[1]),
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelArgumentNotFound,
+              arguments[1]),
           new Throwable());
       return null;
     }
@@ -497,26 +542,35 @@ public final class DataBindingsRootInfo implements ISubParser {
     GenericUtils.assertEquals(model.getObjectType(), types[1]);
     PropertyInfo modelAstProperty = (PropertyInfo) resolver.getModel(arguments[2]);
     if (modelAstProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errModelPropertyArgumentNotFound,
-          arguments[2]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelPropertyArgumentNotFound,
+              arguments[2]),
+          new Throwable());
       return null;
     }
     // model property
     ObserveInfo modelProperty = modelAstProperty.getObserveProperty(model);
     if (modelProperty == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errModelProperty2NotFound,
-          arguments[1],
-          arguments[2]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errModelProperty2NotFound,
+              arguments[1],
+              arguments[2]),
+          new Throwable());
       modelProperty = createDefaultProperty(modelAstProperty);
     }
     // target object
     ObserveInfo target = getComponentObserveInfo(arguments[3]);
     if (target == null) {
-      AbstractParser.addError(editor, MessageFormat.format(
-          Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
-          arguments[3]), new Throwable());
+      AbstractParser.addError(
+          editor,
+          MessageFormat.format(
+              Messages.DataBindingsRootInfo_errTargetArgumentNotFound,
+              arguments[3]),
+          new Throwable());
       return null;
     }
     // target properties
@@ -525,18 +579,23 @@ public final class DataBindingsRootInfo implements ISubParser {
     Assert.isNotNull(targetProperty);
     assertEquals(targetProperty, targetAstProperty);
     //
-    Assert.isTrue(DatabindingsProvider.isSwingBinding(model, modelProperty) != DatabindingsProvider.isSwingBinding(
-        target,
-        targetProperty));
+    Assert.isTrue(
+        DatabindingsProvider.isSwingBinding(
+            model,
+            modelProperty) != DatabindingsProvider.isSwingBinding(target, targetProperty));
     // binding
-    return addBinding(editor, signature, arguments, constructor.newInstance(
-        strategyInfo,
-        target,
-        targetProperty,
-        targetAstProperty,
-        model,
-        modelProperty,
-        modelAstProperty));
+    return addBinding(
+        editor,
+        signature,
+        arguments,
+        constructor.newInstance(
+            strategyInfo,
+            target,
+            targetProperty,
+            targetAstProperty,
+            model,
+            modelProperty,
+            modelAstProperty));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -621,7 +680,7 @@ public final class DataBindingsRootInfo implements ISubParser {
     //
     boolean reparse = DataBindingsCodeUtils.ensureDBLibraries(javaProject);
     // prepare source code
-    List<String> methodLines = Lists.newArrayList();
+    List<String> methodLines = new ArrayList<>();
     //
     if (m_addInitializeContext) {
       methodLines.add("initializeBindings();");
@@ -641,9 +700,10 @@ public final class DataBindingsRootInfo implements ISubParser {
       String groupVariable = generationSupport.generateLocalName("bindingGroup");
       //
       methodLines.add("//");
-      methodLines.add("org.jdesktop.beansbinding.BindingGroup "
-          + groupVariable
-          + " = new org.jdesktop.beansbinding.BindingGroup();");
+      methodLines.add(
+          "org.jdesktop.beansbinding.BindingGroup "
+              + groupVariable
+              + " = new org.jdesktop.beansbinding.BindingGroup();");
       methodLines.add("//");
       //
       for (BindingInfo binding : m_bindings) {
@@ -672,11 +732,10 @@ public final class DataBindingsRootInfo implements ISubParser {
         DataBindingsCodeUtils.getLastInfoDeclaration(m_initDataBindings, javaInfoRoot);
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(javaInfoRoot);
     BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, false);
-    m_initDataBindings =
-        editor.addMethodDeclaration(
-            createMethodHeader(m_addToGroup, lastInfoMethod),
-            methodLines,
-            target);
+    m_initDataBindings = editor.addMethodDeclaration(
+        createMethodHeader(m_addToGroup, lastInfoMethod),
+        methodLines,
+        target);
     // check call initDataBindings() after creation all components
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(editor, lastInfoMethod);
     //

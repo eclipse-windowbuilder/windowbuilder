@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
@@ -32,12 +30,13 @@ import org.eclipse.swt.graphics.Image;
 
 import org.apache.commons.lang.exception.NestableError;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * Maintains alignment menus around control selection.
- * 
+ *
  * @author mitin_aa
  */
 public final class AnchorFiguresClassic<C extends IControlInfo> {
@@ -66,7 +65,7 @@ public final class AnchorFiguresClassic<C extends IControlInfo> {
    */
   public final void show() {
     if (m_alignmentFigures == null) {
-      m_alignmentFigures = Lists.newArrayList();
+      m_alignmentFigures = new ArrayList<>();
       // show alignment figures for all of the children of the host's parent
       {
         Collection<EditPart> editParts = m_policy.getHost().getParent().getChildren();

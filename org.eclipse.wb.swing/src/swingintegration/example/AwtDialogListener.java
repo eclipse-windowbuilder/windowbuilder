@@ -2,12 +2,10 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
-
-import com.google.common.collect.Lists;
 
 import org.eclipse.swt.widgets.Display;
 
@@ -20,6 +18,7 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,15 +28,15 @@ import java.util.List;
  */
 class AwtDialogListener implements AWTEventListener, ComponentListener {
   // modalDialogs should be accessed only from the AWT thread, so no
-  // synchronization is needed. 
-  private final List<Dialog> modalDialogs = Lists.newArrayList();
+  // synchronization is needed.
+  private final List<Dialog> modalDialogs = new ArrayList<>();
   private final Display display;
 
   /**
    * Registers this object as an AWT event listener so that Swing dialogs have the proper modal
    * behavior in the containing SWT environment. This is called automatically when you construct a
    * {@link EmbeddedSwingComposite}, and it need not be called separately in that case.
-   * 
+   *
    * @param shell
    */
   AwtDialogListener(Display display) {
@@ -54,7 +53,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
     if (removeListener) {
       awtDialog.removeComponentListener(this);
     }
-    // Note: there is no isModal() check here because the dialog might 
+    // Note: there is no isModal() check here because the dialog might
     // have been changed from modal to non-modal after it was opened. In this case
     // the currently visible dialog would still act modal and we'd need to unblock
     // SWT here when it goes away.
@@ -84,7 +83,7 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
   }
 
   void requestFocus() {
-    // TODO: this does not always bring the dialog to the top 
+    // TODO: this does not always bring the dialog to the top
     // under some Linux desktops/window managers (e.g. metacity under GNOME).
     EventQueue.invokeLater(new Runnable() {
       public void run() {
@@ -92,20 +91,20 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
         int size = modalDialogs.size();
         if (size > 0) {
           final Dialog awtDialog = modalDialogs.get(size - 1);
-          // In one case, a call to requestFocus() alone does not 
-          // bring the AWT dialog to the top. This happens if the 
+          // In one case, a call to requestFocus() alone does not
+          // bring the AWT dialog to the top. This happens if the
           // dialog is given a null parent frame. When opened, the dialog
           // can be hidden by the SWT window even when it obtains focus.
           // Calling toFront() solves the problem, but...
           //
           // There are still problems if the Metal look and feel is in use.
-          // The SWT window will hide the dialog the first time it is 
-          // selected. Once the dialog is brought back to the front by 
-          // the user, there is no further problem. 
+          // The SWT window will hide the dialog the first time it is
+          // selected. Once the dialog is brought back to the front by
+          // the user, there is no further problem.
           //
-          // Why? It looks like SWT is not being notified of lost focus when 
-          // the Metal dialog first opens; subsequently, when focus is regained, the 
-          // focus gain event is not posted to the SwtInputBlocker.  
+          // Why? It looks like SWT is not being notified of lost focus when
+          // the Metal dialog first opens; subsequently, when focus is regained, the
+          // focus gain event is not posted to the SwtInputBlocker.
           //
           // The workaround is to use Windows look and feel, rather than Metal.
           awtDialog.requestFocus();
@@ -138,12 +137,12 @@ class AwtDialogListener implements AWTEventListener, ComponentListener {
   private void handleClosingWindow(WindowEvent event) {
     assert event != null;
     assert EventQueue.isDispatchThread(); // On AWT event thread
-    // System-based close 
+    // System-based close
     Window window = event.getWindow();
     if (window instanceof Dialog) {
       final Dialog dialog = (Dialog) window;
-      // Defer until later. Bad things happen if 
-      // handleRemovedDialog() is called directly from 
+      // Defer until later. Bad things happen if
+      // handleRemovedDialog() is called directly from
       // this event handler. The Swing dialog does not close
       // properly and its modality remains in effect.
       EventQueue.invokeLater(new Runnable() {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.variable;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -41,6 +39,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -92,7 +91,7 @@ public final class FieldUniqueVariableSupport extends FieldVariableSupport {
   @Override
   public boolean canConvertFieldToLocal() {
     // prepare set of methods that reference this field
-    Set<MethodDeclaration> methods = Sets.newHashSet();
+    Set<MethodDeclaration> methods = new HashSet<>();
     {
       for (Expression reference : getReferences()) {
         // ignore field declaration
@@ -124,15 +123,14 @@ public final class FieldUniqueVariableSupport extends FieldVariableSupport {
     Statement oldStatement = (Statement) assignment.getParent();
     ITypeBinding typeBinding = AstNodeUtils.getTypeBinding(oldField.getType());
     // rename variable to make it local-like
-    String localName =
-        m_utils.convertName(
-            assignment.getStartPosition(),
-            getName(),
-            JavaCore.CODEASSIST_FIELD_PREFIXES,
-            JavaCore.CODEASSIST_FIELD_SUFFIXES,
-            JavaCore.CODEASSIST_LOCAL_PREFIXES,
-            JavaCore.CODEASSIST_LOCAL_SUFFIXES,
-            m_declaration);
+    String localName = m_utils.convertName(
+        assignment.getStartPosition(),
+        getName(),
+        JavaCore.CODEASSIST_FIELD_PREFIXES,
+        JavaCore.CODEASSIST_FIELD_SUFFIXES,
+        JavaCore.CODEASSIST_LOCAL_PREFIXES,
+        JavaCore.CODEASSIST_LOCAL_SUFFIXES,
+        m_declaration);
     setName(localName);
     // replace "this.fieldName" with "localName"
     {

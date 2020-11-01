@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.state;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.jdt.core.dom.ASTNode;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,7 +23,7 @@ import java.util.Set;
  * @coverage core.model
  */
 public final class VisitedNodes {
-  private final Set<ASTNode> m_nodes = Sets.newHashSet();
+  private final Set<ASTNode> m_nodes = new HashSet<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

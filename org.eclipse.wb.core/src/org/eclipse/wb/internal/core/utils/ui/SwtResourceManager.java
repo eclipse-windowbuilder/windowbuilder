@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.jface.resource.CompositeImageDescriptor;
@@ -30,6 +28,7 @@ import org.eclipse.swt.widgets.Display;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -53,7 +52,7 @@ public class SwtResourceManager {
   // Color
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static Map<RGB, Color> m_colorMap = Maps.newHashMap();
+  private static Map<RGB, Color> m_colorMap = new HashMap<>();
 
   /**
    * Returns the system {@link Color} matching the specific ID.
@@ -117,8 +116,8 @@ public class SwtResourceManager {
   /**
    * Maps image paths to images.
    */
-  private static Map<String, Image> m_imageMap = Maps.newHashMap();
-  private static Map<Integer, Image> m_systemImageMap = Maps.newHashMap();
+  private static Map<String, Image> m_imageMap = new HashMap<>();
+  private static Map<Integer, Image> m_systemImageMap = new HashMap<>();
 
   /**
    * Get an <code>Image</code> from the provide SWT image constant.
@@ -132,11 +131,7 @@ public class SwtResourceManager {
     image[0] = m_systemImageMap.get(imageID);
     if (image[0] == null) {
       final Display display = DesignerPlugin.getStandardDisplay();
-      display.syncExec(new Runnable() {
-        public void run() {
-          image[0] = display.getSystemImage(imageID);
-        }
-      });
+      display.syncExec(() -> image[0] = display.getSystemImage(imageID));
       m_systemImageMap.put(imageID, image[0]);
     }
     return image[0];
@@ -261,18 +256,20 @@ public class SwtResourceManager {
    *          the corner to place decorator image
    * @return the resulting decorated {@link Image}
    */
-  public static Image decorateImage(final Image baseImage, final Image decorator, final int corner) {
+  public static Image decorateImage(final Image baseImage,
+      final Image decorator,
+      final int corner) {
     if (corner <= 0 || corner >= LAST_CORNER_KEY) {
       throw new IllegalArgumentException("Wrong decorate corner");
     }
     Map<Image, Map<Image, Image>> cornerDecoratedImageMap = m_decoratedImageMap[corner];
     if (cornerDecoratedImageMap == null) {
-      cornerDecoratedImageMap = Maps.newHashMap();
+      cornerDecoratedImageMap = new HashMap<>();
       m_decoratedImageMap[corner] = cornerDecoratedImageMap;
     }
     Map<Image, Image> decoratedMap = cornerDecoratedImageMap.get(baseImage);
     if (decoratedMap == null) {
-      decoratedMap = Maps.newHashMap();
+      decoratedMap = new HashMap<>();
       cornerDecoratedImageMap.put(baseImage, decoratedMap);
     }
     //
@@ -342,15 +339,15 @@ public class SwtResourceManager {
   /**
    * Maps font keys (constructed from font name, height, style, etc) to fonts.
    */
-  private static Map<String, Font> m_fontMap = Maps.newHashMap();
+  private static Map<String, Font> m_fontMap = new HashMap<>();
   /**
    * Maps {@link FontData} to {@link Font}.
    */
-  private static Map<FontData, Font> m_fontDataMap = Maps.newHashMap();
+  private static Map<FontData, Font> m_fontDataMap = new HashMap<>();
   /**
    * Maps fonts to their bold versions.
    */
-  private static Map<Font, Font> m_fontToBoldFontMap = Maps.newHashMap();
+  private static Map<Font, Font> m_fontToBoldFontMap = new HashMap<>();
 
   /**
    * @return the {@link Font} for given {@link FontData} array.
@@ -396,7 +393,11 @@ public class SwtResourceManager {
    *          the underline flag (warning: Windows only)
    * @return {@link Font} The font matching the name, height, style, strikeout and underline
    */
-  public static Font getFont(String name, int size, int style, boolean strikeout, boolean underline) {
+  public static Font getFont(String name,
+      int size,
+      int style,
+      boolean strikeout,
+      boolean underline) {
     String fontName = name + '|' + size + '|' + style + '|' + strikeout + '|' + underline;
     Font font = m_fontMap.get(fontName);
     if (font == null) {

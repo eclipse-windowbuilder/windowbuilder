@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -19,11 +17,12 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import org.eclipse.jface.action.IAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Test for {@link FormLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {
@@ -33,58 +32,57 @@ public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_selectionActions() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "import com.jgoodies.forms.layout.*;",
-            "import com.jgoodies.forms.factories.*;",
-            "class Test extends JPanel {",
-            "  public Test() {",
-            "    setLayout(new FormLayout(new ColumnSpec[] {",
-            "        FormSpecs.RELATED_GAP_COLSPEC,",
-            "        FormSpecs.DEFAULT_COLSPEC,",
-            "        FormSpecs.RELATED_GAP_COLSPEC,",
-            "        FormSpecs.DEFAULT_COLSPEC,",
-            "        FormSpecs.RELATED_GAP_COLSPEC,",
-            "        FormSpecs.DEFAULT_COLSPEC,",
-            "        FormSpecs.RELATED_GAP_COLSPEC,",
-            "        FormSpecs.DEFAULT_COLSPEC,",
-            "        FormSpecs.RELATED_GAP_COLSPEC,",
-            "        FormSpecs.DEFAULT_COLSPEC,",
-            "        FormSpecs.RELATED_GAP_COLSPEC,",
-            "        ColumnSpec.decode('default:grow'),},",
-            "      new RowSpec[] {",
-            "        FormSpecs.RELATED_GAP_ROWSPEC,",
-            "        FormSpecs.DEFAULT_ROWSPEC,",
-            "        FormSpecs.RELATED_GAP_ROWSPEC,",
-            "        FormSpecs.DEFAULT_ROWSPEC,",
-            "        FormSpecs.RELATED_GAP_ROWSPEC,",
-            "        FormSpecs.DEFAULT_ROWSPEC,",
-            "        FormSpecs.RELATED_GAP_ROWSPEC,",
-            "        FormSpecs.DEFAULT_ROWSPEC,",
-            "        FormSpecs.RELATED_GAP_ROWSPEC,",
-            "        FormSpecs.DEFAULT_ROWSPEC,",
-            "        FormSpecs.RELATED_GAP_ROWSPEC,",
-            "        FormSpecs.DEFAULT_ROWSPEC,}));",
-            "    {",
-            "      JButton button = new JButton('New button');",
-            "      add(button, '6, 6');",
-            "    }",
-            "    {",
-            "      JTextField textField = new JTextField();",
-            "      add(textField, '12, 12, left, default');",
-            "    }",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "import com.jgoodies.forms.layout.*;",
+        "import com.jgoodies.forms.factories.*;",
+        "class Test extends JPanel {",
+        "  public Test() {",
+        "    setLayout(new FormLayout(new ColumnSpec[] {",
+        "        FormSpecs.RELATED_GAP_COLSPEC,",
+        "        FormSpecs.DEFAULT_COLSPEC,",
+        "        FormSpecs.RELATED_GAP_COLSPEC,",
+        "        FormSpecs.DEFAULT_COLSPEC,",
+        "        FormSpecs.RELATED_GAP_COLSPEC,",
+        "        FormSpecs.DEFAULT_COLSPEC,",
+        "        FormSpecs.RELATED_GAP_COLSPEC,",
+        "        FormSpecs.DEFAULT_COLSPEC,",
+        "        FormSpecs.RELATED_GAP_COLSPEC,",
+        "        FormSpecs.DEFAULT_COLSPEC,",
+        "        FormSpecs.RELATED_GAP_COLSPEC,",
+        "        ColumnSpec.decode('default:grow'),},",
+        "      new RowSpec[] {",
+        "        FormSpecs.RELATED_GAP_ROWSPEC,",
+        "        FormSpecs.DEFAULT_ROWSPEC,",
+        "        FormSpecs.RELATED_GAP_ROWSPEC,",
+        "        FormSpecs.DEFAULT_ROWSPEC,",
+        "        FormSpecs.RELATED_GAP_ROWSPEC,",
+        "        FormSpecs.DEFAULT_ROWSPEC,",
+        "        FormSpecs.RELATED_GAP_ROWSPEC,",
+        "        FormSpecs.DEFAULT_ROWSPEC,",
+        "        FormSpecs.RELATED_GAP_ROWSPEC,",
+        "        FormSpecs.DEFAULT_ROWSPEC,",
+        "        FormSpecs.RELATED_GAP_ROWSPEC,",
+        "        FormSpecs.DEFAULT_ROWSPEC,}));",
+        "    {",
+        "      JButton button = new JButton('New button');",
+        "      add(button, '6, 6');",
+        "    }",
+        "    {",
+        "      JTextField textField = new JTextField();",
+        "      add(textField, '12, 12, left, default');",
+        "    }",
+        "  }",
+        "}");
     //
     panel.refresh();
     //
     ComponentInfo button = panel.getChildrenComponents().get(0);
     ComponentInfo text = panel.getChildrenComponents().get(1);
     // prepare "text" selection
-    List<ObjectInfo> selectedObjects = Lists.newArrayList();
+    List<ObjectInfo> selectedObjects = new ArrayList<>();
     selectedObjects.add(text);
     // prepare actions
-    List<Object> actions = Lists.newArrayList();
+    List<Object> actions = new ArrayList<>();
     panel.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     // check actions
     assertEquals(12, actions.size()); // 10 action's, 2 separator's

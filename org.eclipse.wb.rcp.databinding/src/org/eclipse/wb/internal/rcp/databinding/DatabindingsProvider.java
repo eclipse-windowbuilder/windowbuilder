@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
@@ -74,14 +71,16 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 /**
  * {@link IDatabindingsProvider} for support JFace bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -89,8 +88,8 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   private static List<PropertyFilter> m_filters;
   private final JavaInfo m_javaInfoRoot;
   private final List<ObserveTypeContainer> m_containers;
-  private final List<ObserveType> m_types = Lists.newArrayList();
-  private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = Maps.newHashMap();
+  private final List<ObserveType> m_types = new ArrayList<>();
+  private final Map<ObserveType, ObserveTypeContainer> m_typeToContainer = new HashMap<>();
   private ObserveType m_targetStartType;
   private ObserveType m_modelStartType;
   private BindingDesignPage m_bindingPage;
@@ -109,17 +108,16 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   ////////////////////////////////////////////////////////////////////////////
   protected DatabindingsProvider() {
     m_javaInfoRoot = null;
-    m_containers = Lists.newArrayList();
+    m_containers = new ArrayList<>();
   }
 
   public DatabindingsProvider(JavaInfo javaInfoRoot) throws Exception {
     m_javaInfoRoot = javaInfoRoot;
     // load containers
-    m_containers =
-        ExternalFactoriesHelper.getElementsInstances(
-            ObserveTypeContainer.class,
-            "org.eclipse.wb.rcp.databinding.observeTypeContainer",
-            "container");
+    m_containers = ExternalFactoriesHelper.getElementsInstances(
+        ObserveTypeContainer.class,
+        "org.eclipse.wb.rcp.databinding.observeTypeContainer",
+        "container");
     // prepare containers
     for (Iterator<ObserveTypeContainer> I = m_containers.iterator(); I.hasNext();) {
       ObserveTypeContainer container = I.next();
@@ -220,7 +218,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     m_synchronizeObserves = synchronizeObserves;
   }
 
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   //
   // Bindings
   //
@@ -312,31 +310,35 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 
   public static List<PropertyFilter> observePropertyFilters() {
     if (m_filters == null) {
-      m_filters = Lists.newArrayList();
+      m_filters = new ArrayList<>();
       // advanced
       m_filters.add(new AdvancedPropertyFilter());
       // any type
-      m_filters.add(new AllPropertiesFilter(Messages.DatabindingsProvider_filterAllTypes,
-          TypeImageProvider.OBJECT_IMAGE));
+      m_filters.add(
+          new AllPropertiesFilter(Messages.DatabindingsProvider_filterAllTypes,
+              TypeImageProvider.OBJECT_IMAGE));
       // String, byte, char
-      m_filters.add(new TypesPropertyFilter("String",
-          TypeImageProvider.STRING_IMAGE,
-          String.class,
-          byte.class,
-          char.class));
+      m_filters.add(
+          new TypesPropertyFilter("String",
+              TypeImageProvider.STRING_IMAGE,
+              String.class,
+              byte.class,
+              char.class));
       // boolean
-      m_filters.add(new TypesPropertyFilter("Boolean",
-          TypeImageProvider.BOOLEAN_IMAGE,
-          boolean.class,
-          Boolean.class));
+      m_filters.add(
+          new TypesPropertyFilter("Boolean",
+              TypeImageProvider.BOOLEAN_IMAGE,
+              boolean.class,
+              Boolean.class));
       // int, short, long, float, double
-      m_filters.add(new TypesPropertyFilter("Numbers",
-          TypeImageProvider.NUMBER_IMAGE,
-          int.class,
-          short.class,
-          long.class,
-          float.class,
-          double.class));
+      m_filters.add(
+          new TypesPropertyFilter("Numbers",
+              TypeImageProvider.NUMBER_IMAGE,
+              int.class,
+              short.class,
+              long.class,
+              float.class,
+              double.class));
       // SWT Color
       m_filters.add(new TypesPropertyFilter("Color", TypeImageProvider.COLOR_IMAGE, Color.class));
       // SWT Font
@@ -366,7 +368,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
       throws Exception {
     AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
-    List<IUiContentProvider> providers = Lists.newArrayList();
+    List<IUiContentProvider> providers = new ArrayList<>();
     binding.createContentProviders(providers, listener, this);
     return providers;
   }

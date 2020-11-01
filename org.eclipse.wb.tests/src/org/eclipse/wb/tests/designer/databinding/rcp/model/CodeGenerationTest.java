@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.rcp.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
@@ -82,11 +80,12 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.swt.SWT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class CodeGenerationTest extends AbstractBindingTest {
   ////////////////////////////////////////////////////////////////////////////
@@ -95,10 +94,10 @@ public class CodeGenerationTest extends AbstractBindingTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_ConverterInfo() throws Exception {
-    ConverterInfo converter =
-        new ConverterInfo("org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter");
+    ConverterInfo converter = new ConverterInfo(
+        "org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter");
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, converter);
     //
     assertEquals(
@@ -117,7 +116,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     ValidatorInfo validator =
         new ValidatorInfo("org.eclipse.core.internal.databinding.validation.StringToDateValidator");
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, validator);
     //
     assertEquals(
@@ -169,12 +168,11 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateListStrategyInfo_IntConstructor() throws Exception {
-    UpdateListStrategyInfo listStrategyInfo =
-        createListStrategy(
-            UpdateStrategyInfo.StrategyType.IntConstructor,
-            UpdateListStrategyInfo.Value.POLICY_UPDATE,
-            null,
-            null);
+    UpdateListStrategyInfo listStrategyInfo = createListStrategy(
+        UpdateStrategyInfo.StrategyType.IntConstructor,
+        UpdateListStrategyInfo.Value.POLICY_UPDATE,
+        null,
+        null);
     assertStrategy(
         listStrategyInfo,
         "new org.eclipse.core.databinding.UpdateListStrategy(org.eclipse.core.databinding.UpdateListStrategy.POLICY_UPDATE)");
@@ -238,12 +236,12 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateListStrategyInfo_Converter() throws Exception {
-    UpdateListStrategyInfo strategy =
-        createListStrategy(
-            UpdateStrategyInfo.StrategyType.ExtendetClass,
-            "com.company.project.Strategy",
-            new ConverterInfo("org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter"),
-            "_strategy");
+    UpdateListStrategyInfo strategy = createListStrategy(
+        UpdateStrategyInfo.StrategyType.ExtendetClass,
+        "com.company.project.Strategy",
+        new ConverterInfo(
+            "org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter"),
+        "_strategy");
     //
     assertStrategy(
         strategy,
@@ -258,7 +256,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "org.eclipse.core.databinding.UpdateListStrategy strategy = new com.company.project.Strategy();",
         "strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter());");
     //
-    strategy.setConverter(new ConverterInfo("org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
+    strategy.setConverter(
+        new ConverterInfo(
+            "org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
     assertStrategy(
         strategy,
         "strategy",
@@ -303,12 +303,11 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateSetStrategyInfo_IntConstructor() throws Exception {
-    UpdateSetStrategyInfo setStrategyInfo =
-        createSetStrategy(
-            UpdateStrategyInfo.StrategyType.IntConstructor,
-            UpdateSetStrategyInfo.Value.POLICY_UPDATE,
-            null,
-            null);
+    UpdateSetStrategyInfo setStrategyInfo = createSetStrategy(
+        UpdateStrategyInfo.StrategyType.IntConstructor,
+        UpdateSetStrategyInfo.Value.POLICY_UPDATE,
+        null,
+        null);
     assertStrategy(
         setStrategyInfo,
         "new org.eclipse.core.databinding.UpdateSetStrategy(org.eclipse.core.databinding.UpdateSetStrategy.POLICY_UPDATE)");
@@ -372,12 +371,12 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateSetStrategyInfo_Converter() throws Exception {
-    UpdateSetStrategyInfo strategy =
-        createSetStrategy(
-            UpdateStrategyInfo.StrategyType.ExtendetClass,
-            "com.company.project.Strategy",
-            new ConverterInfo("org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter"),
-            "_strategy");
+    UpdateSetStrategyInfo strategy = createSetStrategy(
+        UpdateStrategyInfo.StrategyType.ExtendetClass,
+        "com.company.project.Strategy",
+        new ConverterInfo(
+            "org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter"),
+        "_strategy");
     //
     assertStrategy(
         strategy,
@@ -392,7 +391,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "org.eclipse.core.databinding.UpdateSetStrategy strategy = new com.company.project.Strategy();",
         "strategy.setConverter(new org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter());");
     //
-    strategy.setConverter(new ConverterInfo("org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
+    strategy.setConverter(
+        new ConverterInfo(
+            "org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
     assertStrategy(
         strategy,
         "strategy",
@@ -437,12 +438,11 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateValueStrategyInfo_IntConstructor() throws Exception {
-    UpdateValueStrategyInfo valueStrategyInfo =
-        createValueStrategy(
-            UpdateStrategyInfo.StrategyType.IntConstructor,
-            UpdateValueStrategyInfo.Value.POLICY_UPDATE,
-            null,
-            null);
+    UpdateValueStrategyInfo valueStrategyInfo = createValueStrategy(
+        UpdateStrategyInfo.StrategyType.IntConstructor,
+        UpdateValueStrategyInfo.Value.POLICY_UPDATE,
+        null,
+        null);
     assertStrategy(
         valueStrategyInfo,
         "new org.eclipse.core.databinding.UpdateValueStrategy(org.eclipse.core.databinding.UpdateValueStrategy.POLICY_UPDATE)");
@@ -518,18 +518,19 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_UpdateValueStrategyInfo_Converter_Validators() throws Exception {
-    UpdateValueStrategyInfo strategy =
-        createValueStrategy(
-            UpdateStrategyInfo.StrategyType.ExtendetClass,
-            "com.company.project.Strategy",
-            new ConverterInfo("org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter"),
-            "_strategy");
+    UpdateValueStrategyInfo strategy = createValueStrategy(
+        UpdateStrategyInfo.StrategyType.ExtendetClass,
+        "com.company.project.Strategy",
+        new ConverterInfo(
+            "org.eclipse.core.internal.databinding.conversion.IntegerToStringConverter"),
+        "_strategy");
     strategy.setValidator(
         "setAfterConvertValidator",
-        new ValidatorInfo("org.eclipse.core.internal.databinding.validation.StringToIntegerValidator"));
+        new ValidatorInfo(
+            "org.eclipse.core.internal.databinding.validation.StringToIntegerValidator"));
     //
-    ValidatorInfo validator =
-        new ValidatorInfo("org.eclipse.core.internal.databinding.validation.StringToIntegerValidator");
+    ValidatorInfo validator = new ValidatorInfo(
+        "org.eclipse.core.internal.databinding.validation.StringToIntegerValidator");
     validator.setVariableIdentifier("validator");
     strategy.setValidator("setAfterGetValidator", validator);
     //
@@ -542,7 +543,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "_strategy.setAfterGetValidator(validator);",
         "_strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());");
     //
-    validator.setClassName("org.eclipse.core.internal.databinding.validation.StringToByteValidator");
+    validator.setClassName(
+        "org.eclipse.core.internal.databinding.validation.StringToByteValidator");
     //
     assertStrategy(
         strategy,
@@ -563,7 +565,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "strategy.setAfterGetValidator(validator);",
         "strategy.setAfterConvertValidator(new org.eclipse.core.internal.databinding.validation.StringToIntegerValidator());");
     //
-    strategy.setConverter(new ConverterInfo("org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
+    strategy.setConverter(
+        new ConverterInfo(
+            "org.eclipse.core.internal.databinding.conversion.NumberToBigDecimalConverter"));
     assertStrategy(
         strategy,
         "strategy",
@@ -584,30 +588,29 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_BeanObservebleInfo() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test {",
-            "  private String m_bean;",
-            "  protected Shell m_shell;",
-            "  public static void main(String[] args) {",
-            "    Test test = new Test();",
-            "    test.open();",
-            "  }",
-            "  public void open() {",
-            "    Display display = new Display();",
-            "    createContents();",
-            "    m_shell.open();",
-            "    m_shell.layout();",
-            "    while (!m_shell.isDisposed()) {",
-            "      if (!display.readAndDispatch()) {",
-            "        display.sleep();",
-            "      }",
-            "    }",
-            "  }",
-            "  protected void createContents() {",
-            "    m_shell = new Shell();",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test {",
+        "  private String m_bean;",
+        "  protected Shell m_shell;",
+        "  public static void main(String[] args) {",
+        "    Test test = new Test();",
+        "    test.open();",
+        "  }",
+        "  public void open() {",
+        "    Display display = new Display();",
+        "    createContents();",
+        "    m_shell.open();",
+        "    m_shell.layout();",
+        "    while (!m_shell.isDisposed()) {",
+        "      if (!display.readAndDispatch()) {",
+        "        display.sleep();",
+        "      }",
+        "    }",
+        "  }",
+        "  protected void createContents() {",
+        "    m_shell = new Shell();",
+        "  }",
+        "}");
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -641,31 +644,30 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_CollectionObservableInfo() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test {",
-            "  private java.util.List m_bean0;",
-            "  private java.util.Set m_bean1;",
-            "  protected Shell m_shell;",
-            "  public static void main(String[] args) {",
-            "    Test test = new Test();",
-            "    test.open();",
-            "  }",
-            "  public void open() {",
-            "    Display display = new Display();",
-            "    createContents();",
-            "    m_shell.open();",
-            "    m_shell.layout();",
-            "    while (!m_shell.isDisposed()) {",
-            "      if (!display.readAndDispatch()) {",
-            "        display.sleep();",
-            "      }",
-            "    }",
-            "  }",
-            "  protected void createContents() {",
-            "    m_shell = new Shell();",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test {",
+        "  private java.util.List m_bean0;",
+        "  private java.util.Set m_bean1;",
+        "  protected Shell m_shell;",
+        "  public static void main(String[] args) {",
+        "    Test test = new Test();",
+        "    test.open();",
+        "  }",
+        "  public void open() {",
+        "    Display display = new Display();",
+        "    createContents();",
+        "    m_shell.open();",
+        "    m_shell.layout();",
+        "    while (!m_shell.isDisposed()) {",
+        "      if (!display.readAndDispatch()) {",
+        "        display.sleep();",
+        "      }",
+        "    }",
+        "  }",
+        "  protected void createContents() {",
+        "    m_shell = new Shell();",
+        "  }",
+        "}");
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -710,30 +712,29 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_BeanObservableInfo_observeDetail() throws Exception {
-    CompositeInfo shell =
-        parseComposite(
-            "public class Test {",
-            "  private String m_bean;",
-            "  protected Shell m_shell;",
-            "  public static void main(String[] args) {",
-            "    Test test = new Test();",
-            "    test.open();",
-            "  }",
-            "  public void open() {",
-            "    Display display = new Display();",
-            "    createContents();",
-            "    m_shell.open();",
-            "    m_shell.layout();",
-            "    while (!m_shell.isDisposed()) {",
-            "      if (!display.readAndDispatch()) {",
-            "        display.sleep();",
-            "      }",
-            "    }",
-            "  }",
-            "  protected void createContents() {",
-            "    m_shell = new Shell();",
-            "  }",
-            "}");
+    CompositeInfo shell = parseComposite(
+        "public class Test {",
+        "  private String m_bean;",
+        "  protected Shell m_shell;",
+        "  public static void main(String[] args) {",
+        "    Test test = new Test();",
+        "    test.open();",
+        "  }",
+        "  public void open() {",
+        "    Display display = new Display();",
+        "    createContents();",
+        "    m_shell.open();",
+        "    m_shell.layout();",
+        "    while (!m_shell.isDisposed()) {",
+        "      if (!display.readAndDispatch()) {",
+        "        display.sleep();",
+        "      }",
+        "    }",
+        "  }",
+        "  protected void createContents() {",
+        "    m_shell = new Shell();",
+        "  }",
+        "}");
     assertNotNull(shell);
     //
     DatabindingsProvider provider = getDatabindingsProvider();
@@ -748,7 +749,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
         new ValueBeanObservableInfo(bindableObject, bindableProperty);
     masterObservable.setCodeSupport(new BeanObservableValueCodeSupport());
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, masterObservable);
     // ----------
     DetailValueBeanObservableInfo observableDetailValue =
@@ -826,8 +827,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_DirectPropertyObservableInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  private DataBindingContext m_context;",
             "  private String m_bean;",
@@ -873,7 +875,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
       assertInstanceOf(UnsupportedOperationException.class, e);
     }
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
     //
     observable.addSourceCode(lines, generationSupport);
@@ -883,8 +885,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_DirectObservableInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  private WritableValue m_value;",
             "  private String m_bean;",
@@ -929,7 +932,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
       assertInstanceOf(UnsupportedOperationException.class, e);
     }
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
     //
     observable.addSourceCode(lines, generationSupport);
@@ -939,8 +942,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_SWTObservableInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private Spinner m_spinner;",
@@ -1081,9 +1085,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
     // -----------------
     WidgetBindableInfo textBindable = (WidgetBindableInfo) shellChildren.get(1);
     //
-    WidgetPropertyBindableInfo textEditable =
-        (WidgetPropertyBindableInfo) textBindable.getChildren(
-            ChildrenContext.ChildrenForPropertiesTable).get(2);
+    WidgetPropertyBindableInfo textEditable = (WidgetPropertyBindableInfo) textBindable.getChildren(
+        ChildrenContext.ChildrenForPropertiesTable).get(2);
     assertSWTObservableInfo(
         textBindable,
         textEditable,
@@ -1093,9 +1096,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "org.eclipse.core.databinding.observable.value.IObservableValue textObserveEditableObserveWidget = org.eclipse.jface.databinding.swt.SWTObservables.observeEditable(m_text);",
         "org.eclipse.core.databinding.observable.value.IObservableValue textObserveEditableObserveWidget = org.eclipse.jface.databinding.swt.SWTObservables.observeDelayedValue(100, org.eclipse.jface.databinding.swt.SWTObservables.observeEditable(m_text));");
     //
-    WidgetPropertyBindableInfo textText =
-        (WidgetPropertyBindableInfo) textBindable.getChildren(
-            ChildrenContext.ChildrenForPropertiesTable).get(10);
+    WidgetPropertyBindableInfo textText = (WidgetPropertyBindableInfo) textBindable.getChildren(
+        ChildrenContext.ChildrenForPropertiesTable).get(10);
     assertSWTObservableInfo(
         new TextSwtObservableInfo(textBindable, textText, SWT.Modify),
         new SwtObservableTextCodeSupport(),
@@ -1120,9 +1122,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
     // -----------------
     WidgetBindableInfo comboBindable = (WidgetBindableInfo) shellChildren.get(2);
     //
-    WidgetPropertyBindableInfo comboItems =
-        (WidgetPropertyBindableInfo) comboBindable.getChildren(
-            ChildrenContext.ChildrenForPropertiesTable).get(6);
+    WidgetPropertyBindableInfo comboItems = (WidgetPropertyBindableInfo) comboBindable.getChildren(
+        ChildrenContext.ChildrenForPropertiesTable).get(6);
     assertObservableInfo(
         new ItemsSwtObservableInfo(comboBindable, comboItems),
         new SwtObservableItemsCodeSupport(),
@@ -1156,8 +1157,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_ViewerObservableInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private CheckboxTableViewer m_viewer;",
@@ -1187,9 +1189,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
     DatabindingsProvider provider = getDatabindingsProvider();
     List<IObserveInfo> observes = provider.getObserves(ObserveType.WIDGETS);
     //
-    WidgetBindableInfo viewerBindable =
-        (WidgetBindableInfo) observes.get(0).getChildren(ChildrenContext.ChildrenForMasterTable).get(
-            0).getChildren(ChildrenContext.ChildrenForMasterTable).get(0);
+    WidgetBindableInfo viewerBindable = (WidgetBindableInfo) observes.get(0).getChildren(
+        ChildrenContext.ChildrenForMasterTable).get(0).getChildren(
+            ChildrenContext.ChildrenForMasterTable).get(0);
     //
     WidgetPropertyBindableInfo singleSelection =
         (WidgetPropertyBindableInfo) viewerBindable.getChildren(
@@ -1223,8 +1225,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_DataBindingContextInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -1260,7 +1263,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     DataBindingContextInfo contextInfo = new DataBindingContextInfo();
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, contextInfo);
     //
     contextInfo.addSourceCode(m_lastEditor, lines, generationSupport);
@@ -1331,8 +1334,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_BindingInfo() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private Combo m_combo0;",
@@ -1381,7 +1385,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     model0.setCodeSupport(new SwtObservableCodeSupport());
     ValueBindingInfo binding0 = new ValueBindingInfo(target0, model0);
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, binding0);
     DataBindingContextInfo context = new DataBindingContextInfo();
     context.setVariableIdentifier("context");
@@ -1447,13 +1451,11 @@ public class CodeGenerationTest extends AbstractBindingTest {
         "org.eclipse.core.databinding.observable.list.IObservableList combo1ObserveItemsObserveListWidget = org.eclipse.jface.databinding.swt.SWTObservables.observeItems(m_combo1);",
         "context.bindList(combo0ObserveItemsObserveListWidget, combo1ObserveItemsObserveListWidget, null, null);");
     // ----------------
-    WidgetBindableInfo viewerBindable0 =
-        (WidgetBindableInfo) shellChildren.get(2).getChildren(
-            ChildrenContext.ChildrenForMasterTable).get(0);
+    WidgetBindableInfo viewerBindable0 = (WidgetBindableInfo) shellChildren.get(2).getChildren(
+        ChildrenContext.ChildrenForMasterTable).get(0);
     //
-    WidgetBindableInfo viewerBindable1 =
-        (WidgetBindableInfo) shellChildren.get(3).getChildren(
-            ChildrenContext.ChildrenForMasterTable).get(0);
+    WidgetBindableInfo viewerBindable1 = (WidgetBindableInfo) shellChildren.get(3).getChildren(
+        ChildrenContext.ChildrenForMasterTable).get(0);
     //
     CheckedElementsObservableInfo checkedObservable0 =
         new CheckedElementsObservableInfo(viewerBindable0, String.class);
@@ -1475,8 +1477,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_BindingInfo_setVariableIdentifier() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private DataBindingContext m_bindingContext;",
@@ -1519,109 +1522,115 @@ public class CodeGenerationTest extends AbstractBindingTest {
     binding.setVariableIdentifier(shell.getRootJava(), "m_binding", true);
     assertEquals("m_binding", binding.getVariableIdentifier());
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private Binding m_binding;",
-        "  protected Shell m_shell;",
-        "  private DataBindingContext m_bindingContext;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  private DataBindingContext initDataBindings() {",
-        "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-        "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private Binding m_binding;",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
+            "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
     //
     binding.setVariableIdentifier(shell.getRootJava(), "_binding", true);
     assertEquals("_binding", binding.getVariableIdentifier());
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private Binding _binding;",
-        "  protected Shell m_shell;",
-        "  private DataBindingContext m_bindingContext;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  private DataBindingContext initDataBindings() {",
-        "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-        "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private Binding _binding;",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
+            "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
     //
     binding.setVariableIdentifier(shell.getRootJava(), null, false);
     assertNull(binding.getVariableIdentifier());
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  protected Shell m_shell;",
-        "  private DataBindingContext m_bindingContext;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  private DataBindingContext initDataBindings() {",
-        "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
-        "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  private DataBindingContext initDataBindings() {",
+            "    IObservableValue observeWidget0 = SWTObservables.observeVisible(m_shell);",
+            "    IObservableValue observeWidget1 = SWTObservables.observeText(m_shell);",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_DataBindingsCodeUtils_ensureDBLibraries() throws Exception {
@@ -1631,39 +1640,30 @@ public class CodeGenerationTest extends AbstractBindingTest {
       //
       IJavaProject javaProject = project.getJavaProject();
       //
-      assertFalse(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.observable.IObservable"));
-      assertFalse(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.beans.IBeanObservable"));
-      assertFalse(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.jface.databinding.swt.ISWTObservable"));
+      assertFalse(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.observable.IObservable"));
+      assertFalse(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.IBeanObservable"));
+      assertFalse(
+          ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.ISWTObservable"));
       //
       DataBindingsCodeUtils.ensureDBLibraries(javaProject);
       //
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.observable.IObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.beans.IBeanObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.jface.databinding.swt.ISWTObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.observable.IObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.IBeanObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.ISWTObservable"));
       //
       DataBindingsCodeUtils.ensureDBLibraries(javaProject);
       //
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.observable.IObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.beans.IBeanObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.jface.databinding.swt.ISWTObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.observable.IObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.IBeanObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.ISWTObservable"));
     } finally {
       project.dispose();
       waitForAutoBuild();
@@ -1679,39 +1679,30 @@ public class CodeGenerationTest extends AbstractBindingTest {
       //
       IJavaProject javaProject = project.getJavaProject();
       //
-      assertFalse(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.observable.IObservable"));
-      assertFalse(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.beans.IBeanObservable"));
-      assertFalse(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.jface.databinding.swt.ISWTObservable"));
+      assertFalse(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.observable.IObservable"));
+      assertFalse(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.IBeanObservable"));
+      assertFalse(
+          ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.ISWTObservable"));
       //
       DataBindingsCodeUtils.ensureDBLibraries(javaProject);
       //
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.observable.IObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.beans.IBeanObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.jface.databinding.swt.ISWTObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.observable.IObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.IBeanObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.ISWTObservable"));
       //
       DataBindingsCodeUtils.ensureDBLibraries(javaProject);
       //
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.observable.IObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.core.databinding.beans.IBeanObservable"));
-      assertTrue(ProjectUtils.hasType(
-          javaProject,
-          "org.eclipse.jface.databinding.swt.ISWTObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.observable.IObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.core.databinding.beans.IBeanObservable"));
+      assertTrue(
+          ProjectUtils.hasType(javaProject, "org.eclipse.jface.databinding.swt.ISWTObservable"));
     } finally {
       project.dispose();
       waitForAutoBuild();
@@ -1719,8 +1710,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_DataBindingsCodeUtils_ensureEnclosingRealmOfMain_1() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -1746,68 +1738,73 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     DataBindingsCodeUtils.ensureEnclosingRealmOfMain(m_lastEditor);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "  }",
+            "}"),
+        m_lastEditor);
     //
     DataBindingsCodeUtils.ensureEnclosingRealmOfMain(m_lastEditor);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_DataBindingsCodeUtils_ensureEnclosingRealmOfMain_2() throws Exception {
-    CompositeInfo composite =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo composite = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test extends Composite {",
             "  public Test(Composite parent, int style) {",
             "    super(parent, style);",
@@ -1817,17 +1814,20 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     DataBindingsCodeUtils.ensureEnclosingRealmOfMain(m_lastEditor);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test extends Composite {",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test extends Composite {",
+            "  public Test(Composite parent, int style) {",
+            "    super(parent, style);",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_DataBindingsCodeUtils_getLastInfoDeclaration_1() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -1860,8 +1860,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_DataBindingsCodeUtils_getLastInfoDeclaration_2() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -1890,8 +1891,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_DataBindingsCodeUtils_getLastInfoDeclaration_3() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  public static void main(String[] args) {",
             "    Display display = new Display();",
@@ -1916,8 +1918,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
   }
 
   public void test_ensureInvokeInitDataBindings_1() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  public static void main(String[] args) {",
             "    Display display = new Display();",
@@ -1937,10 +1940,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
     assertNotNull(shell);
     //
     TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
-    MethodDeclaration lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            shell);
+    MethodDeclaration lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        shell);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         shell,
@@ -1948,29 +1950,32 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  public static void main(String[] args) {",
-        "    Display display = new Display();",
-        "    Shell shell = new Shell();",
-        "    initDataBindings();",
-        "    shell.open();",
-        "    shell.layout();",
-        "    while (!shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected static DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  public static void main(String[] args) {",
+            "    Display display = new Display();",
+            "    Shell shell = new Shell();",
+            "    initDataBindings();",
+            "    shell.open();",
+            "    shell.layout();",
+            "    while (!shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected static DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_ensureInvokeInitDataBindings_2() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -1995,10 +2000,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
     assertNotNull(shell);
     //
     TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
-    MethodDeclaration lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            shell);
+    MethodDeclaration lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        shell);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         shell,
@@ -2006,35 +2010,38 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_ensureInvokeInitDataBindings_3() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -2062,10 +2069,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
     assertNotNull(shell);
     //
     TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
-    MethodDeclaration lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            shell);
+    MethodDeclaration lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        shell);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         shell,
@@ -2073,39 +2079,40 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
     // -------------
     type = JavaInfoUtils.getTypeDeclaration(shell);
-    lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            shell);
+    lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        shell);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         shell,
@@ -2113,38 +2120,41 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_ensureInvokeInitDataBindings_4() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  public static void main(String[] args) {",
@@ -2173,10 +2183,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
     assertNotNull(shell);
     //
     TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
-    MethodDeclaration lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            shell);
+    MethodDeclaration lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        shell);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         shell,
@@ -2184,40 +2193,41 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected boolean createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "    return true;",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected boolean createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "    return true;",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
     // -------------
     type = JavaInfoUtils.getTypeDeclaration(shell);
-    lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            shell);
+    lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        shell);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         shell,
@@ -2225,39 +2235,42 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected boolean createContents() {",
-        "    m_shell = new Shell();",
-        "    m_bindingContext = initDataBindings();",
-        "    return true;",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected boolean createContents() {",
+            "    m_shell = new Shell();",
+            "    m_bindingContext = initDataBindings();",
+            "    return true;",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_ensureInvokeInitDataBindings_5() throws Exception {
-    CompositeInfo composite =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo composite = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test extends Composite {",
             "  public Test(Composite parent, int style) {",
             "    super(parent, style);",
@@ -2269,10 +2282,9 @@ public class CodeGenerationTest extends AbstractBindingTest {
     assertNotNull(composite);
     //
     TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(composite);
-    MethodDeclaration lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            composite);
+    MethodDeclaration lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        composite);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         composite,
@@ -2280,23 +2292,24 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test extends Composite {",
-        "  private DataBindingContext m_bindingContext;",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test extends Composite {",
+            "  private DataBindingContext m_bindingContext;",
+            "  public Test(Composite parent, int style) {",
+            "    super(parent, style);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
     // -------------
     type = JavaInfoUtils.getTypeDeclaration(composite);
-    lastInfoDeclaration =
-        DataBindingsCodeUtils.getLastInfoDeclaration(
-            AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
-            composite);
+    lastInfoDeclaration = DataBindingsCodeUtils.getLastInfoDeclaration(
+        AstNodeUtils.getMethodBySignature(type, "initDataBindings()"),
+        composite);
     //
     DataBindingsCodeUtils.ensureInvokeInitDataBindings(
         composite,
@@ -2304,22 +2317,25 @@ public class CodeGenerationTest extends AbstractBindingTest {
         type,
         lastInfoDeclaration);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test extends Composite {",
-        "  private DataBindingContext m_bindingContext;",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    return null;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test extends Composite {",
+            "  private DataBindingContext m_bindingContext;",
+            "  public Test(Composite parent, int style) {",
+            "    super(parent, style);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    return null;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_JavaInfoDeleteManager() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private Spinner m_spinner;",
@@ -2363,89 +2379,94 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     shell.getChildrenControls().get(0).delete();
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  protected Shell m_shell;",
-        "  private Text m_text;",
-        "  private Combo m_combo;",
-        "  private DataBindingContext m_bindingContext;",
-        "  public static void main(String[] args) {",
-        "    Test test = new Test();",
-        "    test.open();",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_shell.setLayout(new FillLayout());",
-        "    m_text = new Text(m_shell, SWT.NONE);",
-        "    m_combo = new Combo(m_shell, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    IObservableValue widget0 = SWTObservables.observeEnabled(m_text);",
-        "    IObservableValue widget1 = SWTObservables.observeEnabled(m_combo);",
-        "    bindingContext.bindValue(widget0, widget1, null, null);",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private Text m_text;",
+            "  private Combo m_combo;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Test test = new Test();",
+            "    test.open();",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_shell.setLayout(new FillLayout());",
+            "    m_text = new Text(m_shell, SWT.NONE);",
+            "    m_combo = new Combo(m_shell, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    IObservableValue widget0 = SWTObservables.observeEnabled(m_text);",
+            "    IObservableValue widget1 = SWTObservables.observeEnabled(m_combo);",
+            "    bindingContext.bindValue(widget0, widget1, null, null);",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
     //
     shell.getChildrenControls().get(0).delete();
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  protected Shell m_shell;",
-        "  private Combo m_combo;",
-        "  private DataBindingContext m_bindingContext;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_shell.setLayout(new FillLayout());",
-        "    m_combo = new Combo(m_shell, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  protected Shell m_shell;",
+            "  private Combo m_combo;",
+            "  private DataBindingContext m_bindingContext;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_shell.setLayout(new FillLayout());",
+            "    m_combo = new Combo(m_shell, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_totalCodeGeneration_1() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private Text m_text;",
@@ -2481,7 +2502,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(8);
     //
     WidgetBindableInfo textObserve =
-        (WidgetBindableInfo) shellObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(0);
+        (WidgetBindableInfo) shellObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(
+            0);
     WidgetPropertyBindableInfo textTextProperty =
         (WidgetPropertyBindableInfo) textObserve.getChildren(
             ChildrenContext.ChildrenForPropertiesTable).get(10);
@@ -2542,92 +2564,97 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     provider.editBinding(binding);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  private Text m_text;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_shell.setLayout(new FillLayout());",
-        "    m_text = new Text(m_shell, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    IObservableValue target = SWTObservables.observeText(m_shell);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
-        "    bindingContext.bindValue(target, model, null, null);",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  private Text m_text;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_shell.setLayout(new FillLayout());",
+            "    m_text = new Text(m_shell, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    IObservableValue target = SWTObservables.observeText(m_shell);",
+            "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+            "    bindingContext.bindValue(target, model, null, null);",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
     //
     provider.deleteBinding(binding);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  private Text m_text;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    createContents();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected void createContents() {",
-        "    m_shell = new Shell();",
-        "    m_shell.setLayout(new FillLayout());",
-        "    m_text = new Text(m_shell, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  private Text m_text;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    createContents();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected void createContents() {",
+            "    m_shell = new Shell();",
+            "    m_shell.setLayout(new FillLayout());",
+            "    m_text = new Text(m_shell, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_totalCodeGeneration_2() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  protected Shell m_shell;",
             "  private Text m_text;",
@@ -2660,7 +2687,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(8);
     //
     WidgetBindableInfo textObserve =
-        (WidgetBindableInfo) shellObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(0);
+        (WidgetBindableInfo) shellObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(
+            0);
     WidgetPropertyBindableInfo textTextProperty =
         (WidgetPropertyBindableInfo) textObserve.getChildren(
             ChildrenContext.ChildrenForPropertiesTable).get(10);
@@ -2718,86 +2746,91 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     provider.editBinding(binding);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  private Text m_text;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    m_shell = new Shell();",
-        "    m_shell.setLayout(new FillLayout());",
-        "    m_text = new Text(m_shell, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    IObservableValue target = SWTObservables.observeText(m_shell);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
-        "    bindingContext.bindValue(target, model, null, null);",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  private Text m_text;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    m_shell = new Shell();",
+            "    m_shell.setLayout(new FillLayout());",
+            "    m_text = new Text(m_shell, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    IObservableValue target = SWTObservables.observeText(m_shell);",
+            "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+            "    bindingContext.bindValue(target, model, null, null);",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
     //
     provider.deleteAllBindings();
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private DataBindingContext m_bindingContext;",
-        "  protected Shell m_shell;",
-        "  private Text m_text;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Test test = new Test();",
-        "        test.open();",
-        "      }",
-        "    });",
-        "  }",
-        "  public void open() {",
-        "    Display display = new Display();",
-        "    m_shell = new Shell();",
-        "    m_shell.setLayout(new FillLayout());",
-        "    m_text = new Text(m_shell, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "    m_shell.open();",
-        "    m_shell.layout();",
-        "    while (!m_shell.isDisposed()) {",
-        "      if (!display.readAndDispatch()) {",
-        "        display.sleep();",
-        "      }",
-        "    }",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private DataBindingContext m_bindingContext;",
+            "  protected Shell m_shell;",
+            "  private Text m_text;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Test test = new Test();",
+            "        test.open();",
+            "      }",
+            "    });",
+            "  }",
+            "  public void open() {",
+            "    Display display = new Display();",
+            "    m_shell = new Shell();",
+            "    m_shell.setLayout(new FillLayout());",
+            "    m_text = new Text(m_shell, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "    m_shell.open();",
+            "    m_shell.layout();",
+            "    while (!m_shell.isDisposed()) {",
+            "      if (!display.readAndDispatch()) {",
+            "        display.sleep();",
+            "      }",
+            "    }",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_totalCodeGeneration_3() throws Exception {
-    CompositeInfo shell =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo shell = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test {",
             "  private static Shell m_shell;",
             "  private static Text m_text;",
@@ -2826,7 +2859,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
             ChildrenContext.ChildrenForPropertiesTable).get(8);
     //
     WidgetBindableInfo textObserve =
-        (WidgetBindableInfo) shellObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(0);
+        (WidgetBindableInfo) shellObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(
+            0);
     WidgetPropertyBindableInfo textTextProperty =
         (WidgetPropertyBindableInfo) textObserve.getChildren(
             ChildrenContext.ChildrenForPropertiesTable).get(10);
@@ -2879,44 +2913,47 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     provider.editBinding(binding);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test {",
-        "  private static Shell m_shell;",
-        "  private static Text m_text;",
-        "  public static void main(String[] args) {",
-        "    Display display = Display.getDefault();",
-        "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
-        "      public void run() {",
-        "        Display display = new Display();",
-        "        m_shell = new Shell();",
-        "        m_shell.setLayout(new FillLayout());",
-        "        m_text = new Text(m_shell, SWT.NONE);",
-        "        initDataBindings();",
-        "        m_shell.open();",
-        "        m_shell.layout();",
-        "        while (!m_shell.isDisposed()) {",
-        "          if (!display.readAndDispatch()) {",
-        "            display.sleep();",
-        "          }",
-        "        }",
-        "      }",
-        "    });",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    IObservableValue target = SWTObservables.observeText(m_shell);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
-        "    bindingContext.bindValue(target, model, null, null);",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test {",
+            "  private static Shell m_shell;",
+            "  private static Text m_text;",
+            "  public static void main(String[] args) {",
+            "    Display display = Display.getDefault();",
+            "    Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {",
+            "      public void run() {",
+            "        Display display = new Display();",
+            "        m_shell = new Shell();",
+            "        m_shell.setLayout(new FillLayout());",
+            "        m_text = new Text(m_shell, SWT.NONE);",
+            "        initDataBindings();",
+            "        m_shell.open();",
+            "        m_shell.layout();",
+            "        while (!m_shell.isDisposed()) {",
+            "          if (!display.readAndDispatch()) {",
+            "            display.sleep();",
+            "          }",
+            "        }",
+            "      }",
+            "    });",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    IObservableValue target = SWTObservables.observeText(m_shell);",
+            "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+            "    bindingContext.bindValue(target, model, null, null);",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   public void test_totalCodeGeneration_4() throws Exception {
-    CompositeInfo composite =
-        DatabindingTestUtils.parseTestSource(this, new String[]{
+    CompositeInfo composite = DatabindingTestUtils.parseTestSource(
+        this,
+        new String[]{
             "public class Test extends Composite {",
             "  private Text m_text;",
             "  public Test(Composite parent, int style) {",
@@ -2935,9 +2972,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
         (WidgetPropertyBindableInfo) compositeObserve.getChildren(
             ChildrenContext.ChildrenForPropertiesTable).get(2);
     //
-    WidgetBindableInfo textObserve =
-        (WidgetBindableInfo) compositeObserve.getChildren(ChildrenContext.ChildrenForMasterTable).get(
-            0);
+    WidgetBindableInfo textObserve = (WidgetBindableInfo) compositeObserve.getChildren(
+        ChildrenContext.ChildrenForMasterTable).get(0);
     WidgetPropertyBindableInfo textTextProperty =
         (WidgetPropertyBindableInfo) textObserve.getChildren(
             ChildrenContext.ChildrenForPropertiesTable).get(10);
@@ -2977,26 +3013,28 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     provider.editBinding(binding);
     //
-    assertEditor(DatabindingTestUtils.getTestSource(
-        "public class Test extends Composite {",
-        "  private DataBindingContext m_bindingContext;",
-        "  private Text m_text;",
-        "  public Test(Composite parent, int style) {",
-        "    super(parent, style);",
-        "    setLayout(new FillLayout());",
-        "    m_text = new Text(this, SWT.NONE);",
-        "    m_bindingContext = initDataBindings();",
-        "  }",
-        "  protected DataBindingContext initDataBindings() {",
-        "    DataBindingContext bindingContext = new DataBindingContext();",
-        "    //",
-        "    IObservableValue target = SWTObservables.observeEnabled(this);",
-        "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
-        "    bindingContext.bindValue(target, model, null, null);",
-        "    //",
-        "    return bindingContext;",
-        "  }",
-        "}"), m_lastEditor);
+    assertEditor(
+        DatabindingTestUtils.getTestSource(
+            "public class Test extends Composite {",
+            "  private DataBindingContext m_bindingContext;",
+            "  private Text m_text;",
+            "  public Test(Composite parent, int style) {",
+            "    super(parent, style);",
+            "    setLayout(new FillLayout());",
+            "    m_text = new Text(this, SWT.NONE);",
+            "    m_bindingContext = initDataBindings();",
+            "  }",
+            "  protected DataBindingContext initDataBindings() {",
+            "    DataBindingContext bindingContext = new DataBindingContext();",
+            "    //",
+            "    IObservableValue target = SWTObservables.observeEnabled(this);",
+            "    IObservableValue model = SWTObservables.observeText(m_text, SWT.Modify);",
+            "    bindingContext.bindValue(target, model, null, null);",
+            "    //",
+            "    return bindingContext;",
+            "  }",
+            "}"),
+        m_lastEditor);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -3031,7 +3069,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
     //
     observable.setDelayValue(100);
     //
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
     observable.addSourceCode(lines, generationSupport);
     //
@@ -3043,7 +3081,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
       String variable,
       String line1,
       String line2) throws Exception {
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
     //
     observable.setCodeSupport(codeSupport);
@@ -3062,7 +3100,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
   private static void assertStrategy(UpdateStrategyInfo strategy,
       String expectedSourceCode,
       String... expectedLines) throws Exception {
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, strategy);
     //
     assertEquals(expectedSourceCode, strategy.getSourceCode(lines, generationSupport));
@@ -3072,7 +3110,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
     }
   }
 
-  private static UpdateValueStrategyInfo createValueStrategy(UpdateStrategyInfo.StrategyType strategyType,
+  private static UpdateValueStrategyInfo createValueStrategy(
+      UpdateStrategyInfo.StrategyType strategyType,
       Object strategyValue,
       ConverterInfo converter,
       String variable) {
@@ -3082,7 +3121,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
     return strategy;
   }
 
-  private static UpdateListStrategyInfo createListStrategy(UpdateStrategyInfo.StrategyType strategyType,
+  private static UpdateListStrategyInfo createListStrategy(
+      UpdateStrategyInfo.StrategyType strategyType,
       Object strategyValue,
       ConverterInfo converter,
       String variable) {
@@ -3092,7 +3132,8 @@ public class CodeGenerationTest extends AbstractBindingTest {
     return strategy;
   }
 
-  private static UpdateSetStrategyInfo createSetStrategy(UpdateStrategyInfo.StrategyType strategyType,
+  private static UpdateSetStrategyInfo createSetStrategy(
+      UpdateStrategyInfo.StrategyType strategyType,
       Object strategyValue,
       ConverterInfo converter,
       String variable) {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
@@ -55,12 +53,13 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Editor for {@link ColumnBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */
@@ -120,11 +119,8 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
     propertiesLabel = new Label(parent, SWT.NONE);
     propertiesLabel.setText(Messages.ColumnBindingUiContentProvider_properties);
     // create properties viewer
-    treeViewer =
-        new CheckboxTreeViewer(parent, SWT.BORDER
-            | SWT.FULL_SELECTION
-            | SWT.H_SCROLL
-            | SWT.V_SCROLL);
+    treeViewer = new CheckboxTreeViewer(parent,
+        SWT.BORDER | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
     treeViewer.setContentProvider(new PropertyAdapterContentProvider());
     treeViewer.setLabelProvider(new PropertyAdapterLabelProvider(treeViewer));
     treeViewer.addCheckStateListener(new ICheckStateListener() {
@@ -182,10 +178,8 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
         if (elements.length == 1) {
           ObservePropertyAdapter adapter = (ObservePropertyAdapter) elements[0];
           if (adapter.getProperty() instanceof ElPropertyObserveInfo) {
-            elPropertyUIContentProvider.setProperty((ElPropertyInfo) convertAdapterToProperty(
-                new BeanSupport(),
-                objectType,
-                adapter));
+            elPropertyUIContentProvider.setProperty(
+                (ElPropertyInfo) convertAdapterToProperty(new BeanSupport(), objectType, adapter));
             return;
           }
         }
@@ -195,10 +189,8 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
         ObservePropertyAdapter adapter = (ObservePropertyAdapter) elements[0];
         if (adapter.getProperty() instanceof ElPropertyObserveInfo) {
           elProperty = true;
-          elPropertyUIContentProvider.setProperty((ElPropertyInfo) convertAdapterToProperty(
-              new BeanSupport(),
-              objectType,
-              adapter));
+          elPropertyUIContentProvider.setProperty(
+              (ElPropertyInfo) convertAdapterToProperty(new BeanSupport(), objectType, adapter));
         }
       }
     } catch (Throwable e) {
@@ -231,11 +223,10 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
       IGenericType objectType = binding.getJTableBinding().getInputElementType();
       List<PropertyAdapter> choosenProperties = getChoosenProperties();
       PropertyAdapter propertyAdapter = choosenProperties.get(0);
-      PropertyInfo property =
-          convertAdapterToProperty(
-              new BeanSupport(),
-              objectType,
-              (ObservePropertyAdapter) propertyAdapter);
+      PropertyInfo property = convertAdapterToProperty(
+          new BeanSupport(),
+          objectType,
+          (ObservePropertyAdapter) propertyAdapter);
       binding.setDetailProperty(property);
     }
   }
@@ -281,13 +272,13 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
   //
   ////////////////////////////////////////////////////////////////////////////
   private List<PropertyAdapter> getChoosenProperties() {
-    List<PropertyAdapter> properties = Lists.newArrayList();
+    List<PropertyAdapter> properties = new ArrayList<>();
     CollectionUtils.addAll(properties, treeViewer.getCheckedElements());
     return properties;
   }
 
   private List<PropertyAdapter> getProperties(IGenericType objectType) throws Exception {
-    List<PropertyAdapter> adapters = Lists.newArrayList();
+    List<PropertyAdapter> adapters = new ArrayList<>();
     BeanSupport beanSupport = new BeanSupport();
     beanSupport.doAddELProperty(true);
     for (ObserveInfo property : beanSupport.createProperties(null, objectType)) {
@@ -307,11 +298,8 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
   private ObservePropertyAdapter convertPropertyToAdapter(BeanSupport beanSupport,
       IGenericType objectType,
       PropertyInfo property) throws Exception {
-    ObserveInfo observe =
-        property.getObserveProperty(new SubBeanObserveInfo(beanSupport,
-            null,
-            objectType,
-            StringReferenceProvider.EMPTY));
+    ObserveInfo observe = property.getObserveProperty(
+        new SubBeanObserveInfo(beanSupport, null, objectType, StringReferenceProvider.EMPTY));
     Assert.isNotNull(observe);
     return convertObserveToAdapter(observe);
   }
@@ -364,7 +352,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 
     public List<ObservePropertyAdapter> getChildren() {
       if (m_children == null) {
-        m_children = Lists.newArrayList();
+        m_children = new ArrayList<>();
         List<ObserveInfo> properties =
             CoreUtils.cast(m_property.getChildren(ChildrenContext.ChildrenForPropertiesTable));
         for (ObserveInfo property : properties) {
@@ -380,7 +368,7 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
 
     public void addToParent() {
       if (m_parent != null) {
-        m_parent.m_children = Lists.newArrayList();
+        m_parent.m_children = new ArrayList<>();
         m_parent.m_children.add(this);
       }
     }
@@ -406,10 +394,8 @@ public final class ColumnBindingUiContentProvider implements IUiContentProvider 
       if (object instanceof ObservePropertyAdapter) {
         ObservePropertyAdapter adapter = (ObservePropertyAdapter) object;
         if (m_parent == null && adapter.m_parent == null) {
-        } else if (m_parent != null
-            && adapter.m_parent == null
-            || m_parent == null
-            && adapter.m_parent != null) {
+        } else if (m_parent != null && adapter.m_parent == null
+            || m_parent == null && adapter.m_parent != null) {
           return false;
         } else if (m_parent != null && adapter.m_parent != null) {
           if (!m_parent.equals(adapter.m_parent)) {

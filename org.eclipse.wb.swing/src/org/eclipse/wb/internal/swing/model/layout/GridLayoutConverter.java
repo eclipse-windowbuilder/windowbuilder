@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -25,12 +22,14 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to {@link GridLayoutInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model.layout
  */
@@ -79,7 +78,7 @@ public final class GridLayoutConverter extends AbstractGridConverter {
     }
 
     public List<IAbstractComponentInfo> getControls() {
-      List<IAbstractComponentInfo> controls = Lists.newArrayList();
+      List<IAbstractComponentInfo> controls = new ArrayList<>();
       controls.addAll(m_container.getChildrenComponents());
       return controls;
     }
@@ -108,7 +107,7 @@ public final class GridLayoutConverter extends AbstractGridConverter {
       return m_container;
     }
 
-    private final Map<Object, GridLayoutData> m_layoutDatas = Maps.newHashMap();
+    private final Map<Object, GridLayoutData> m_layoutDatas = new HashMap<>();
 
     public IGridLayoutData getLayoutData(IAbstractComponentInfo control) {
       return getLayoutDataEx(control);
@@ -135,7 +134,7 @@ public final class GridLayoutConverter extends AbstractGridConverter {
 
     public void applyChanges() throws Exception {
       List<ComponentInfo> components = m_container.getComponents();
-      List<ComponentInfo> fillers = Lists.newArrayList();
+      List<ComponentInfo> fillers = new ArrayList<>();
       int colCount = getColumnCount();
       // calculate rows count
       int rowCount;
@@ -168,11 +167,12 @@ public final class GridLayoutConverter extends AbstractGridConverter {
                   fillers.remove(cell);
                 } else {
                   // collision detected
-                  DesignerPlugin.log("swing.model.layout.GridLayout_Converter.convert(ContainerInfo, GridLayoutInfo) collision: in cell ("
-                      + x
-                      + ","
-                      + y
-                      + ")");
+                  DesignerPlugin.log(
+                      "swing.model.layout.GridLayout_Converter.convert(ContainerInfo, GridLayoutInfo) collision: in cell ("
+                          + x
+                          + ","
+                          + y
+                          + ")");
                 }
               } else {
                 // add filler if empty
@@ -222,11 +222,10 @@ public final class GridLayoutConverter extends AbstractGridConverter {
     }
 
     private ComponentInfo createFiller() throws Exception {
-      ComponentInfo emptyLabel =
-          (ComponentInfo) JavaInfoUtils.createJavaInfo(
-              m_layout.getEditor(),
-              "javax.swing.JLabel",
-              new ConstructorCreationSupport());
+      ComponentInfo emptyLabel = (ComponentInfo) JavaInfoUtils.createJavaInfo(
+          m_layout.getEditor(),
+          "javax.swing.JLabel",
+          new ConstructorCreationSupport());
       return emptyLabel;
     }
   }

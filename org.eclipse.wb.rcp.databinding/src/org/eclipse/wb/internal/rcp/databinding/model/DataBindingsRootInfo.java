@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -43,12 +41,13 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class manage JFace binding source code (add Realm to main(), add invocation
  * initDataBindings(), configure classpath and etc.) for compilation unit.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -169,15 +168,14 @@ public final class DataBindingsRootInfo implements ISubParser {
       editor.removeBodyDeclaration(m_initDataBindings);
     }
     // prepare source code
-    List<String> methodLines = Lists.newArrayList();
+    List<String> methodLines = new ArrayList<>();
     m_contextInfo.addSourceCode(editor, methodLines, generationSupport);
     //
     BodyDeclarationTarget target = new BodyDeclarationTarget(typeDeclaration, null, false);
     //
-    MethodDeclaration lastInfoMethod =
-        controller
-            ? AstNodeUtils.getConstructors(typeDeclaration).get(0)
-            : DataBindingsCodeUtils.getLastInfoDeclaration(m_initDataBindings, rootJavaInfo);
+    MethodDeclaration lastInfoMethod = controller
+        ? AstNodeUtils.getConstructors(typeDeclaration).get(0)
+        : DataBindingsCodeUtils.getLastInfoDeclaration(m_initDataBindings, rootJavaInfo);
     // create new method
     m_initDataBindings =
         editor.addMethodDeclaration(createMethodHeader(lastInfoMethod), methodLines, target);

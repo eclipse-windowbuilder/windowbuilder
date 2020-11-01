@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.controls.CCombo3;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -77,8 +74,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -181,10 +180,9 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
    */
   private void openDialog(Property _property) throws Exception {
     GenericProperty property = (GenericProperty) _property;
-    ConstantSelection_Dialog dialog =
-        new ConstantSelection_Dialog(DesignerPlugin.getShell(),
-            property.getJavaInfo(),
-            getField(property));
+    ConstantSelection_Dialog dialog = new ConstantSelection_Dialog(DesignerPlugin.getShell(),
+        property.getJavaInfo(),
+        getField(property));
     if (dialog.open() == Window.OK) {
       setField(property, dialog.m_selectedField);
     }
@@ -235,7 +233,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
    * @return the {@link IField}'s for constants of required type.
    */
   public List<IField> getFields(IType type) throws Exception {
-    List<IField> fields = Lists.newArrayList();
+    List<IField> fields = new ArrayList<>();
     if (type != null) {
       for (IField field : type.getFields()) {
         // check that field is "public static final"
@@ -357,7 +355,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
    *         {@link ConstantSelectionPropertyEditor} in current {@link CompilationUnit}.
    */
   private Set<IType> getUsedTypes(JavaInfo javaInfo) throws Exception {
-    Set<IType> types = Sets.newHashSet();
+    Set<IType> types = new HashSet<>();
     collectUsedTypes(types, javaInfo.getRootJava());
     return types;
   }
@@ -406,7 +404,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
    *         with constants of valid type.
    */
   private List<IType> getLocalTypes(JavaInfo javaInfo) throws Exception {
-    List<IType> types = Lists.newArrayList();
+    List<IType> types = new ArrayList<>();
     IJavaProject javaProject = javaInfo.getEditor().getJavaProject();
     TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(javaInfo);
     // add type itself
@@ -447,7 +445,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
     private final JavaInfo m_javaInfo;
     private final IField m_currentField;
     private final IType m_currentType;
-    private final Set<IType> m_additionalTypes = Sets.newHashSet();
+    private final Set<IType> m_additionalTypes = new HashSet<>();
     private TableViewer m_typesViewer;
     private Text m_filterText;
     private TableViewer m_fieldsViewer;
@@ -669,7 +667,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
       public Object[] getElements(Object inputElement) {
         return ExecutionUtils.runObject(new RunnableObjectEx<Object[]>() {
           public Object[] runObject() throws Exception {
-            Set<IType> types = Sets.newHashSet();
+            Set<IType> types = new HashSet<>();
             types.addAll(m_additionalTypes);
             types.addAll(getUsedTypes(m_javaInfo));
             types.addAll(getLocalTypes(m_javaInfo));

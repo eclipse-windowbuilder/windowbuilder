@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
@@ -24,14 +22,15 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.reset;
 import static org.easymock.EasyMock.verify;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,7 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Test for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectInfoTest extends DesignerTestCase {
@@ -304,27 +303,27 @@ public class ObjectInfoTest extends DesignerTestCase {
     child_1.addChild(child_1_1);
     // direct parent
     {
-      List<ObjectInfo> parents = Lists.newArrayList();
+      List<ObjectInfo> parents = new ArrayList<>();
       parents.add(parent);
       parents.add(child_1);
       assertSame(child_1, child_1_1.getParent(parents));
     }
     // direct parent 2
     {
-      List<ObjectInfo> parents = Lists.newArrayList();
+      List<ObjectInfo> parents = new ArrayList<>();
       parents.add(parent);
       parents.add(child_1);
       assertSame(parent, child_2.getParent(parents));
     }
     // indirect parent
     {
-      List<ObjectInfo> parents = Lists.newArrayList();
+      List<ObjectInfo> parents = new ArrayList<>();
       parents.add(parent);
       assertSame(parent, child_1_1.getParent(parents));
     }
     // no parent
     {
-      List<ObjectInfo> parents = Lists.newArrayList();
+      List<ObjectInfo> parents = new ArrayList<>();
       parents.add(child_1);
       assertNull(child_2.getParent(parents));
     }
@@ -389,9 +388,10 @@ public class ObjectInfoTest extends DesignerTestCase {
     parent.addChild(child_1);
     parent.addChild(child_2);
     parent.addChild(child_3, child_2);
-    assertTrue(ArrayUtils.isEquals(
-        new Object[]{child_1, child_3, child_2},
-        parent.getChildren().toArray()));
+    assertTrue(
+        ArrayUtils.isEquals(
+            new Object[]{child_1, child_3, child_2},
+            parent.getChildren().toArray()));
     assertSame(parent, child_1.getParent());
     assertSame(parent, child_2.getParent());
     assertSame(parent, child_3.getParent());
@@ -447,9 +447,10 @@ public class ObjectInfoTest extends DesignerTestCase {
     {
       buffer.setLength(0);
       parent.moveChild(child_3, child_1);
-      assertTrue(ArrayUtils.isEquals(
-          new Object[]{child_3, child_1, child_2},
-          parent.getChildren().toArray()));
+      assertTrue(
+          ArrayUtils.isEquals(
+              new Object[]{child_3, child_1, child_2},
+              parent.getChildren().toArray()));
       assertEquals(
           getSourceDQ(
               "childMoveBefore parent child_3 child_1",
@@ -460,9 +461,10 @@ public class ObjectInfoTest extends DesignerTestCase {
     {
       buffer.setLength(0);
       parent.moveChild(child_1, null);
-      assertTrue(ArrayUtils.isEquals(
-          new Object[]{child_3, child_2, child_1},
-          parent.getChildren().toArray()));
+      assertTrue(
+          ArrayUtils.isEquals(
+              new Object[]{child_3, child_2, child_1},
+              parent.getChildren().toArray()));
       assertEquals(
           getSourceDQ("childMoveBefore parent child_1 null", "childMoveAfter parent child_1 null"),
           buffer.toString());
@@ -686,10 +688,12 @@ public class ObjectInfoTest extends DesignerTestCase {
     // do operations
     parent.addChild(child_1);
     child_1.addChild(child_2);
-    assertEquals("childAddBefore parent child_1\n"
-        + "childAddAfter parent child_1\n"
-        + "childAddBefore child_1 child_2\n"
-        + "childAddAfter child_1 child_2\n", buffer.toString());
+    assertEquals(
+        "childAddBefore parent child_1\n"
+            + "childAddAfter parent child_1\n"
+            + "childAddBefore child_1 child_2\n"
+            + "childAddAfter child_1 child_2\n",
+        buffer.toString());
     // remove listener and do more operations
     {
       buffer.setLength(0);
@@ -897,6 +901,7 @@ public class ObjectInfoTest extends DesignerTestCase {
     class Listener_1 extends ObjectEventListener {
     }
     class Listener_2 extends Listener_1 {
+      @Override
       public void dispose() throws Exception {
         buffer.append("invoke");
       }

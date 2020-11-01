@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.wizards.autobindings;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
@@ -47,13 +44,15 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Provider for support Swing bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */
@@ -72,15 +71,14 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       if (m_componentContainer == null && m_strategyContainer == null) {
         // load containers
         InputStream stream = Activator.getFile("templates/SwingEditors.xml");
-        Map<String, DescriptorContainer> containers =
-            DescriptorContainer.parseDescriptors(
-                stream,
-                SwingDatabindingProvider.class.getClassLoader(),
-                new IImageLoader() {
-                  public Image getImage(String name) {
-                    return Activator.getImage(name);
-                  }
-                });
+        Map<String, DescriptorContainer> containers = DescriptorContainer.parseDescriptors(
+            stream,
+            SwingDatabindingProvider.class.getClassLoader(),
+            new IImageLoader() {
+              public Image getImage(String name) {
+                return Activator.getImage(name);
+              }
+            });
         IOUtils.closeQuietly(stream);
         // sets containers
         m_componentContainer = containers.get("Swing.Components");
@@ -129,7 +127,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<PropertyAdapter> getProperties0(Class<?> choosenClass) throws Exception {
-    List<PropertyAdapter> adapters = Lists.newArrayList();
+    List<PropertyAdapter> adapters = new ArrayList<>();
     BeanSupport beanSupport = new BeanSupport();
     beanSupport.doAddELProperty(false);
     beanSupport.doAddSelfProperty(false);
@@ -158,7 +156,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
     CodeGenerationSupport generationSupport =
         new CodeGenerationSupport(CoreUtils.useGenerics(m_javaProject));
     // prepare imports
-    Collection<String> importList = Sets.newHashSet();
+    Collection<String> importList = new HashSet<>();
     importList.add("java.awt.GridBagLayout");
     importList.add("java.awt.GridBagConstraints");
     importList.add("java.awt.Insets");
@@ -192,7 +190,7 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
     code = StringUtils.replace(code, "%BeanName%", StringUtils.capitalize(beanClassShortName));
     code = StringUtils.replace(code, "%BeanFieldAccess%", accessPrefix + fieldName);
     // prepare properties
-    final List<PropertyAdapter> properties = Lists.newArrayList();
+    final List<PropertyAdapter> properties = new ArrayList<>();
     Display.getDefault().syncExec(new Runnable() {
       public void run() {
         CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
@@ -210,13 +208,15 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
     // prepare layout code
     components.append("\t\tGridBagLayout gridBagLayout = new GridBagLayout();\r\n");
     components.append("\t\tgridBagLayout.columnWidths = new int[]{0, 0, 0};\r\n");
-    components.append("\t\tgridBagLayout.rowHeights = new int[]{"
-        + StringUtils.repeat("0, ", propertiesCount)
-        + "0};\r\n");
+    components.append(
+        "\t\tgridBagLayout.rowHeights = new int[]{"
+            + StringUtils.repeat("0, ", propertiesCount)
+            + "0};\r\n");
     components.append("\t\tgridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0E-4};\r\n");
-    components.append("\t\tgridBagLayout.rowWeights = new double[]{"
-        + StringUtils.repeat("0.0, ", propertiesCount)
-        + "1.0E-4};\r\n");
+    components.append(
+        "\t\tgridBagLayout.rowWeights = new double[]{"
+            + StringUtils.repeat("0.0, ", propertiesCount)
+            + "1.0E-4};\r\n");
     components.append("\t\t" + swingContainerWithDot + "setLayout(gridBagLayout);\r\n");
     //
     StringBuffer group = new StringBuffer();
@@ -253,11 +253,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       //
       importList.add(componentClassName);
       // field
-      componentFields.append("\r\nfield\r\n\tprivate "
-          + componentShortClassName
-          + " "
-          + componentFieldName
-          + ";");
+      componentFields.append(
+          "\r\nfield\r\n\tprivate " + componentShortClassName + " " + componentFieldName + ";");
       // component
       addComponentCode(
           components,
@@ -296,28 +293,30 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       } else {
         bindings.append("\t\tProperty ");
       }
-      bindings.append(targetPropertyName
-          + " = BeanProperty.create(\""
-          + componentDescriptor.getName(1)
-          + "\");\r\n");
+      bindings.append(
+          targetPropertyName
+              + " = BeanProperty.create(\""
+              + componentDescriptor.getName(1)
+              + "\");\r\n");
       // binding
       bindings.append("\t\tAutoBinding");
       if (generationSupport.useGenerics()) {
         bindings.append("<" + modelGeneric + ", " + targetGeneric + ">");
       }
-      bindings.append(" "
-          + bindingName
-          + " = Bindings.createAutoBinding("
-          + strategyDescriptor.getSourceCode()
-          + ", "
-          + beanFieldAccess
-          + ", "
-          + modelPropertyName
-          + ", "
-          + componentAccess
-          + ", "
-          + targetPropertyName
-          + ");\r\n");
+      bindings.append(
+          " "
+              + bindingName
+              + " = Bindings.createAutoBinding("
+              + strategyDescriptor.getSourceCode()
+              + ", "
+              + beanFieldAccess
+              + ", "
+              + modelPropertyName
+              + ", "
+              + componentAccess
+              + ", "
+              + targetPropertyName
+              + ");\r\n");
       bindings.append("\t\t" + bindingName + ".bind();");
       //
       group.append("\t\tbindingGroup.addBinding(" + bindingName + ");");
@@ -364,17 +363,18 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
           preferences.getBoolean(FieldUniqueVariableSupport.P_PREFIX_THIS) ? "this." : "";
       componentAccess = "get" + StringUtils.capitalize(label) + "()";
       String labelAccess = accessPrefix + fieldPrefix + label;
-      lazy.append("\r\nmethod\r\n\tprivate JLabel "
-          + componentAccess
-          + " {\r\n\t\tif ("
-          + labelAccess
-          + " == null) {\r\n\t\t\t"
-          + labelAccess
-          + " = new JLabel(\""
-          + StringUtils.capitalize(propertyName)
-          + ":\");\r\n\t\t}\r\n\t\treturn "
-          + labelAccess
-          + ";\r\n\t}\r\n\r\n");
+      lazy.append(
+          "\r\nmethod\r\n\tprivate JLabel "
+              + componentAccess
+              + " {\r\n\t\tif ("
+              + labelAccess
+              + " == null) {\r\n\t\t\t"
+              + labelAccess
+              + " = new JLabel(\""
+              + StringUtils.capitalize(propertyName)
+              + ":\");\r\n\t\t}\r\n\t\treturn "
+              + labelAccess
+              + ";\r\n\t}\r\n\r\n");
     }
     if (blockMode) {
       // block
@@ -382,16 +382,18 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       // component
       if (!lazyVariables) {
         componentAccess = "label";
-        components.append("\t\t\tJLabel label = new JLabel(\""
-            + StringUtils.capitalize(propertyName)
-            + ":\");\r\n");
+        components.append(
+            "\t\t\tJLabel label = new JLabel(\""
+                + StringUtils.capitalize(propertyName)
+                + ":\");\r\n");
       }
       // layout
       components.append("\t\t\tGridBagConstraints gbc = new GridBagConstraints();\r\n");
       components.append("\t\t\tgbc.insets = new Insets(5, 5, 5, 5);\r\n");
       components.append("\t\t\tgbc.gridx = 0;\r\n");
       components.append("\t\t\tgbc.gridy = " + index + ";\r\n");
-      components.append("\t\t\t" + swingContainerWithDot + "add(" + componentAccess + ", gbc);\r\n");
+      components.append(
+          "\t\t\t" + swingContainerWithDot + "add(" + componentAccess + ", gbc);\r\n");
       // block
       components.append("\t\t}\r\n");
     } else {
@@ -400,11 +402,12 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       // component
       if (!lazyVariables) {
         componentAccess = propertyName + "Label";
-        components.append("\t\tJLabel "
-            + componentAccess
-            + " = new JLabel(\""
-            + StringUtils.capitalize(propertyName)
-            + ":\");\r\n");
+        components.append(
+            "\t\tJLabel "
+                + componentAccess
+                + " = new JLabel(\""
+                + StringUtils.capitalize(propertyName)
+                + ":\");\r\n");
       }
       // layout
       String gbc = "labelGbc_" + index;
@@ -412,13 +415,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       components.append("\t\t" + gbc + ".insets = new Insets(5, 5, 5, 5);\r\n");
       components.append("\t\t" + gbc + ".gridx = 0;\r\n");
       components.append("\t\t" + gbc + ".gridy = " + index + ";\r\n");
-      components.append("\t\t"
-          + swingContainerWithDot
-          + "add("
-          + componentAccess
-          + ", "
-          + gbc
-          + ");\r\n");
+      components.append(
+          "\t\t" + swingContainerWithDot + "add(" + componentAccess + ", " + gbc + ");\r\n");
       // separator
       components.append("\t\r\n");
     }
@@ -449,19 +447,20 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
     if (lazyVariable) {
       // lazy method
       componentAccess = componentLazyAccess;
-      lazy.append("\r\nmethod\r\n\tprivate "
-          + componentShortClassName
-          + " "
-          + componentLazyAccess
-          + " {\r\n\t\tif ("
-          + componentFieldAccess
-          + " == null) {\r\n\t\t\t"
-          + componentFieldAccess
-          + " = new "
-          + componentShortClassName
-          + "();\r\n\t\t}\r\n\t\treturn "
-          + componentFieldAccess
-          + ";\r\n\t}\r\n\r\n");
+      lazy.append(
+          "\r\nmethod\r\n\tprivate "
+              + componentShortClassName
+              + " "
+              + componentLazyAccess
+              + " {\r\n\t\tif ("
+              + componentFieldAccess
+              + " == null) {\r\n\t\t\t"
+              + componentFieldAccess
+              + " = new "
+              + componentShortClassName
+              + "();\r\n\t\t}\r\n\t\treturn "
+              + componentFieldAccess
+              + ";\r\n\t}\r\n\r\n");
     }
     if (blockMode) {
       // block
@@ -469,11 +468,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       // component
       if (!lazyVariable) {
         componentAccess = componentFieldAccess;
-        components.append("\t\t\t "
-            + componentFieldAccess
-            + " = new "
-            + componentShortClassName
-            + "();\r\n");
+        components.append(
+            "\t\t\t " + componentFieldAccess + " = new " + componentShortClassName + "();\r\n");
       }
       // layout
       components.append("\t\t\tGridBagConstraints gbc = new GridBagConstraints();\r\n");
@@ -481,7 +477,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       components.append("\t\t\tgbc.fill = GridBagConstraints.HORIZONTAL;\r\n");
       components.append("\t\t\tgbc.gridx = 1;\r\n");
       components.append("\t\t\tgbc.gridy = " + index + ";\r\n");
-      components.append("\t\t\t" + swingContainerWithDot + "add(" + componentAccess + ", gbc);\r\n");
+      components.append(
+          "\t\t\t" + swingContainerWithDot + "add(" + componentAccess + ", gbc);\r\n");
       // block
       components.append("\t\t}");
     } else {
@@ -490,11 +487,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       //component
       if (!lazyVariable) {
         componentAccess = componentFieldAccess;
-        components.append("\t\t "
-            + componentFieldAccess
-            + " = new "
-            + componentShortClassName
-            + "();\r\n");
+        components.append(
+            "\t\t " + componentFieldAccess + " = new " + componentShortClassName + "();\r\n");
       }
       // layout
       String gbc = "componentGbc_" + index;
@@ -503,13 +497,8 @@ public final class SwingDatabindingProvider extends DefaultAutomaticDatabindingP
       components.append("\t\t" + gbc + ".fill = GridBagConstraints.HORIZONTAL;\r\n");
       components.append("\t\t" + gbc + ".gridx = 1;\r\n");
       components.append("\t\t" + gbc + ".gridy = " + index + ";\r\n");
-      components.append("\t\t"
-          + swingContainerWithDot
-          + "add("
-          + componentAccess
-          + ", "
-          + gbc
-          + ");\r\n");
+      components.append(
+          "\t\t" + swingContainerWithDot + "add(" + componentAccess + ", " + gbc + ");\r\n");
       // separator
       components.append("\t\t");
     }

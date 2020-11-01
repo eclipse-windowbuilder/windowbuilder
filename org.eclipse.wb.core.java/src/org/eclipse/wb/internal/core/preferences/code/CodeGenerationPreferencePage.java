@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.preferences.code;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 import org.eclipse.wb.internal.core.model.generation.GenerationDescription;
 import org.eclipse.wb.internal.core.model.generation.GenerationPropertiesComposite;
@@ -53,6 +51,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -169,6 +168,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     // create preview (here, after binding)
     createPreviewComposite(container);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Variable
@@ -220,6 +220,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     TabItem tabItem = m_variablesTabFolder.getSelection()[0];
     return (VariableSupportDescription) tabItem.getData();
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Statement
@@ -289,6 +290,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
   private StatementGeneratorDescription getSelectedStatement() {
     return (StatementGeneratorDescription) m_statementsTabFolder.getSelection()[0].getData();
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Preview
@@ -326,7 +328,8 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       GridDataFactory.create(previewComposite).spanH(2).grab().fill();
       GridLayoutFactory.create(previewComposite);
       // label
-      new Label(previewComposite, SWT.NONE).setText(Messages.CodeGenerationPreferencePage_previewLabel);
+      new Label(previewComposite, SWT.NONE).setText(
+          Messages.CodeGenerationPreferencePage_previewLabel);
       // source viewer
       {
         m_previewViewer =
@@ -374,14 +377,15 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       }
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<GenerationDescription, Composite> m_descriptionComposites = Maps.newHashMap();
+  private final Map<GenerationDescription, Composite> m_descriptionComposites = new HashMap<>();
   private final Map<GenerationDescription, GenerationPropertiesComposite> m_descriptionPropertyComposites =
-      Maps.newHashMap();
+      new HashMap<>();
 
   /**
    * @return the {@link Composite} for displaying/editing {@link GenerationDescription} properties.
@@ -394,9 +398,10 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       {
         Label descriptionLabel = new Label(wrapper, SWT.WRAP);
         GridDataFactory.create(descriptionLabel).grabH().fillH().hintHC(50);
-        descriptionLabel.setText(MessageFormat.format(
-            Messages.CodeGenerationPreferencePage_descriptionLabel,
-            description.getDescription()));
+        descriptionLabel.setText(
+            MessageFormat.format(
+                Messages.CodeGenerationPreferencePage_descriptionLabel,
+                description.getDescription()));
       }
       {
         GenerationPropertiesComposite composite =
@@ -414,7 +419,8 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
    * @return the existing {@link GenerationPropertiesComposite} for given
    *         {@link GenerationDescription}.
    */
-  private GenerationPropertiesComposite getDescriptionPropertiesComposite(GenerationDescription description) {
+  private GenerationPropertiesComposite getDescriptionPropertiesComposite(
+      GenerationDescription description) {
     GenerationPropertiesComposite composite = m_descriptionPropertyComposites.get(description);
     Assert.isNotNull(composite);
     return composite;

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.observables;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
@@ -25,25 +23,20 @@ import org.eclipse.swt.SWT;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model for observable object <code>SWTObservables.observeText(Control, int)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
 public final class TextSwtObservableInfo extends SwtObservableInfo {
-  private static final int[] VALID_UPDATE_EVENT_TYPES = {
-      SWT.Modify,
-      SWT.FocusOut,
-      SWT.DefaultSelection,
-      SWT.None};
-  public static final String[] TEXT_EVENTS = {
-      "SWT.Modify",
-      "SWT.FocusOut",
-      "SWT.DefaultSelection",
-      "SWT.NONE"};
+  private static final int[] VALID_UPDATE_EVENT_TYPES =
+      {SWT.Modify, SWT.FocusOut, SWT.DefaultSelection, SWT.None};
+  public static final String[] TEXT_EVENTS =
+      {"SWT.Modify", "SWT.FocusOut", "SWT.DefaultSelection", "SWT.NONE"};
   private List<String> m_updateEvents;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -76,11 +69,11 @@ public final class TextSwtObservableInfo extends SwtObservableInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public List<String> getUpdateEvents() {
-    return Lists.newArrayList(m_updateEvents);
+    return new ArrayList<>(m_updateEvents);
   }
 
   public void setUpdateEvents(List<String> updateEvents) {
-    m_updateEvents = Lists.newArrayList(updateEvents);
+    m_updateEvents = new ArrayList<>(updateEvents);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -116,19 +109,20 @@ public final class TextSwtObservableInfo extends SwtObservableInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public static List<String> getEventsSources(int[] updateEvents) {
-    List<String> updateEventStrings = Lists.newArrayList();
+    List<String> updateEventStrings = new ArrayList<>();
     if (updateEvents.length == 1) {
       int updateEventTypeIndex = ArrayUtils.indexOf(VALID_UPDATE_EVENT_TYPES, updateEvents[0]);
-      Assert.isTrue(updateEventTypeIndex >= 0
-          && updateEventTypeIndex < VALID_UPDATE_EVENT_TYPES.length);
+      Assert.isTrue(
+          updateEventTypeIndex >= 0 && updateEventTypeIndex < VALID_UPDATE_EVENT_TYPES.length);
       updateEventStrings.add(TEXT_EVENTS[updateEventTypeIndex]);
     } else {
       for (int i = 0; i < updateEvents.length; i++) {
         int eventValue = updateEvents[i];
         int updateEventTypeIndex = ArrayUtils.indexOf(VALID_UPDATE_EVENT_TYPES, eventValue);
-        Assert.isTrue(eventValue != SWT.NONE
-            && updateEventTypeIndex >= 0
-            && updateEventTypeIndex < VALID_UPDATE_EVENT_TYPES.length);
+        Assert.isTrue(
+            eventValue != SWT.NONE
+                && updateEventTypeIndex >= 0
+                && updateEventTypeIndex < VALID_UPDATE_EVENT_TYPES.length);
         updateEventStrings.add(TEXT_EVENTS[updateEventTypeIndex]);
       }
     }

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.property.editor;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.DatePropertyEditor;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -25,7 +23,7 @@ import java.util.Map;
 
 /**
  * Test for {@link DatePropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
@@ -44,7 +42,7 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_configure_default() throws Exception {
-    HashMap<String, Object> parameters = Maps.newHashMap();
+    HashMap<String, Object> parameters = new HashMap<>();
     /*DatePropertyEditor editor = */createEditor(DatePropertyEditor.class, parameters);
   }
 
@@ -59,14 +57,13 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
   ////////////////////////////////////////////////////////////////////////////
   public void test_setValue_default() throws Exception {
     configureContents(false);
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    DateComponent component = new DateComponent();",
-            "    add(component);",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    DateComponent component = new DateComponent();",
+        "    add(component);",
+        "  }",
+        "}");
     ComponentInfo componentInfo = container.getChildrenComponents().get(0);
     // check property
     Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -93,14 +90,13 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 
   public void test_setValue_custom() throws Exception {
     configureContents(true);
-    ContainerInfo container =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    DateComponent component = new DateComponent();",
-            "    add(component);",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    DateComponent component = new DateComponent();",
+        "    add(component);",
+        "  }",
+        "}");
     ComponentInfo componentInfo = container.getChildrenComponents().get(0);
     // check property
     Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -131,16 +127,15 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
   public void test_setText_default() throws Exception {
     configureContents(false);
     long currentTimeMillis = System.currentTimeMillis();
-    ContainerInfo container =
-        parseContainer(
-            "import java.util.Date;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    DateComponent component = new DateComponent();",
-            "    component.setDate(new Date(" + new Long(currentTimeMillis).toString() + "L));",
-            "    add(component);",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "import java.util.Date;",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    DateComponent component = new DateComponent();",
+        "    component.setDate(new Date(" + new Long(currentTimeMillis).toString() + "L));",
+        "    add(component);",
+        "  }",
+        "}");
     ComponentInfo componentInfo = container.getChildrenComponents().get(0);
     // check property
     Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -174,16 +169,15 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 
   public void test_setText_custom() throws Exception {
     configureContents(true);
-    ContainerInfo container =
-        parseContainer(
-            "import java.util.Date;",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    DateComponent component = new DateComponent();",
-            "    component.setDate(new Date());",
-            "    add(component);",
-            "  }",
-            "}");
+    ContainerInfo container = parseContainer(
+        "import java.util.Date;",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    DateComponent component = new DateComponent();",
+        "    component.setDate(new Date());",
+        "    add(component);",
+        "  }",
+        "}");
     ComponentInfo componentInfo = container.getChildrenComponents().get(0);
     // check property
     Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -230,7 +224,7 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
     //	<parameter name="toDate">(new SimpleDateFormat(\"dd.MM.yyyy\")).parse(value)</parameter>
     //	<parameter name="source">new java.util.Date(\"%value%\")</parameter>
     //</editor>
-    HashMap<String, Object> params = Maps.newHashMap();
+    HashMap<String, Object> params = new HashMap<>();
     params.put(
         "functions",
         getSourceDQ("import javax.swing.JTextField;", "import java.text.SimpleDateFormat;"));

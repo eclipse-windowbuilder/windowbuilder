@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.ui.common;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.nls.Messages;
@@ -54,7 +52,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Abstract composite for creating strings source using {@link DialogField}'s.
@@ -119,7 +119,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
   // Validation: utils
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, IStatus> m_statusMap = Maps.newTreeMap();
+  private final Map<String, IStatus> m_statusMap = new TreeMap<>();
 
   protected final void setStatus(String key, IStatus status) {
     m_statusMap.put(key, status);
@@ -176,7 +176,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
     String title = "NEW: " + name;
     editableSource.setShortTitle(title);
     editableSource.setLongTitle(title);
-    editableSource.add(LocaleInfo.DEFAULT, Maps.<String, String>newHashMap());
+    editableSource.add(LocaleInfo.DEFAULT, new HashMap<>());
     return editableSource;
   }
 
@@ -201,12 +201,11 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
       classGroup.setText(groupTitle);
       // create source folder and package selection field
       {
-        m_packageField =
-            new PackageRootAndPackageSelectionDialogField(60,
-                Messages.AbstractFieldsSourceNewComposite_sourceFolder,
-                Messages.AbstractFieldsSourceNewComposite_sourceFolderBrowse,
-                Messages.AbstractFieldsSourceNewComposite_package,
-                Messages.AbstractFieldsSourceNewComposite_packageBrowse);
+        m_packageField = new PackageRootAndPackageSelectionDialogField(60,
+            Messages.AbstractFieldsSourceNewComposite_sourceFolder,
+            Messages.AbstractFieldsSourceNewComposite_sourceFolderBrowse,
+            Messages.AbstractFieldsSourceNewComposite_package,
+            Messages.AbstractFieldsSourceNewComposite_packageBrowse);
         m_packageField.setDialogFieldListener(m_validateListener);
         m_packageField.doFillIntoGrid(classGroup, 3);
       }
@@ -218,19 +217,17 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
               // prepare dialog parameters
               IPackageFragmentRoot sourceFolder = m_packageField.getRoot();
               ProgressMonitorDialog context = new ProgressMonitorDialog(DesignerPlugin.getShell());
-              IJavaSearchScope scope =
-                  sourceFolder != null
-                      ? SearchEngine.createJavaSearchScope(new IJavaElement[]{sourceFolder})
-                      : SearchEngine.createWorkspaceScope();
+              IJavaSearchScope scope = sourceFolder != null
+                  ? SearchEngine.createJavaSearchScope(new IJavaElement[]{sourceFolder})
+                  : SearchEngine.createWorkspaceScope();
               // prepare dialog
-              SelectionDialog dialog =
-                  JavaUI.createTypeDialog(
-                      getShell(),
-                      context,
-                      scope,
-                      IJavaElementSearchConstants.CONSIDER_TYPES,
-                      false,
-                      selectPattern);
+              SelectionDialog dialog = JavaUI.createTypeDialog(
+                  getShell(),
+                  context,
+                  scope,
+                  IJavaElementSearchConstants.CONSIDER_TYPES,
+                  false,
+                  selectPattern);
               dialog.setTitle(Messages.AbstractFieldsSourceNewComposite_chooseTitle);
               dialog.setMessage(Messages.AbstractFieldsSourceNewComposite_chooseMessage);
               // select type
@@ -396,9 +393,11 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
         });
         // set status
         if (hasSuchName[0]) {
-          setInvalid(KEY_FIELD_NAME, MessageFormat.format(
-              Messages.AbstractFieldsSourceNewComposite_validateFieldNameUsed,
-              fieldName));
+          setInvalid(
+              KEY_FIELD_NAME,
+              MessageFormat.format(
+                  Messages.AbstractFieldsSourceNewComposite_validateFieldNameUsed,
+                  fieldName));
           return;
         }
       }

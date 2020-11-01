@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -44,6 +42,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -564,7 +563,7 @@ public class UiUtils {
   // File icons
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static Map<String, Image> m_extensionToIcon = Maps.newHashMap();
+  private static Map<String, Image> m_extensionToIcon = new HashMap<>();
 
   /**
    * @return icon that is associated with given file extension in the operating system

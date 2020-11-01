@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.emf.model;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.parser.IModelResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -19,16 +17,17 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.ModelCreator;
 
 import org.eclipse.jdt.core.dom.Expression;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Creators for parse all methods <code>EMFObservables.observeXXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */
 final class CreatorManager {
-  public static final Map<String, LocalModelCreator> METHOD_CREATORS = Maps.newHashMap();
+  public static final Map<String, LocalModelCreator> METHOD_CREATORS = new HashMap<>();
   ////////////////////////////////////////////////////////////////////////////
   //
   // Factories

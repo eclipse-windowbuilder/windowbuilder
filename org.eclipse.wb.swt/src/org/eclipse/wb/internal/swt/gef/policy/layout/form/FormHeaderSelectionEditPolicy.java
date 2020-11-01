@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -21,11 +19,12 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * SelectionEditPolicy for {@link FormHeaderEditPart}.
- * 
+ *
  * @author mitin_aa
  */
 final class FormHeaderSelectionEditPolicy extends AbstractHeaderSelectionEditPolicy {
@@ -45,7 +44,7 @@ final class FormHeaderSelectionEditPolicy extends AbstractHeaderSelectionEditPol
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected List<Handle> createSelectionHandles() {
-    List<Handle> handles = Lists.newArrayList();
+    List<Handle> handles = new ArrayList<>();
     // move handle
     {
       MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());

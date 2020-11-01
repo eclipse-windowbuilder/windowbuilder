@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.core.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.GenericTypeError;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
@@ -30,12 +29,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Tests for {@link GenericsUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenericsUtilsTest extends DesignerTestCase {
@@ -58,7 +58,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
     // prepare objects
     List<Object> objects;
     {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       objects.add(firstObject);
       objects.add(555);
     }
@@ -72,7 +72,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
     // prepare objects
     List<Object> objects;
     {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       objects.add("123");
       objects.add(555);
     }
@@ -106,7 +106,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
     // prepare objects
     List<Object> objects;
     {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       objects.add("123");
       objects.add(555);
     }
@@ -182,7 +182,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
     // prepare objects
     List<Object> objects;
     {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       objects.add("111");
       objects.add("222");
       objects.add(333);
@@ -208,7 +208,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
     // prepare objects
     List<Object> objects;
     {
-      objects = Lists.newArrayList();
+      objects = new ArrayList<>();
       objects.add("111");
       objects.add("222");
     }
@@ -384,15 +384,12 @@ public class GenericsUtilsTest extends DesignerTestCase {
     assertTrue(GenericsUtils.areAdjacent(ImmutableList.of(), ImmutableList.of()));
     assertTrue(GenericsUtils.areAdjacent(ImmutableList.of("a"), ImmutableList.of("a")));
     assertTrue(GenericsUtils.areAdjacent(ImmutableList.of("a", "b", "c"), ImmutableList.of("a")));
-    assertTrue(GenericsUtils.areAdjacent(
-        ImmutableList.of("a", "b", "c"),
-        ImmutableList.of("a", "b")));
-    assertTrue(GenericsUtils.areAdjacent(
-        ImmutableList.of("a", "b", "c"),
-        ImmutableList.of("b", "c")));
-    assertFalse(GenericsUtils.areAdjacent(
-        ImmutableList.of("a", "b", "c"),
-        ImmutableList.of("a", "c")));
+    assertTrue(
+        GenericsUtils.areAdjacent(ImmutableList.of("a", "b", "c"), ImmutableList.of("a", "b")));
+    assertTrue(
+        GenericsUtils.areAdjacent(ImmutableList.of("a", "b", "c"), ImmutableList.of("b", "c")));
+    assertFalse(
+        GenericsUtils.areAdjacent(ImmutableList.of("a", "b", "c"), ImmutableList.of("a", "c")));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -610,11 +607,10 @@ public class GenericsUtilsTest extends DesignerTestCase {
     {
       Method method_addListener =
           ReflectionUtils.getMethod(ConcreteWidget2.class, "addListener", Listener.class);
-      GenericTypeResolver superClassResolver =
-          GenericTypeResolver.superClass(
-              GenericTypeResolver.EMPTY,
-              ConcreteWidget2.class,
-              GenericWidget.class);
+      GenericTypeResolver superClassResolver = GenericTypeResolver.superClass(
+          GenericTypeResolver.EMPTY,
+          ConcreteWidget2.class,
+          GenericWidget.class);
       resolver = GenericTypeResolver.argumentOfMethod(superClassResolver, method_addListener, 0);
     }
     // validate
@@ -644,11 +640,10 @@ public class GenericsUtilsTest extends DesignerTestCase {
       Method method_addListener =
           ReflectionUtils.getMethod(GenericWidget.class, "addListener", Listener.class);
       parameterTypeToResolve = method_addListener.getGenericParameterTypes()[0];
-      GenericTypeResolver superClassResolver =
-          GenericTypeResolver.superClass(
-              GenericTypeResolver.EMPTY,
-              ActualWidget.class,
-              GenericWidget.class);
+      GenericTypeResolver superClassResolver = GenericTypeResolver.superClass(
+          GenericTypeResolver.EMPTY,
+          ActualWidget.class,
+          GenericWidget.class);
       resolver = GenericTypeResolver.argumentOfMethod(superClassResolver, method_addListener, 0);
     }
     // validate

@@ -10,20 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper for temporary modifying/restoring values in {@link IPreferenceStore}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class PreferencesRepairer {
   private final IPreferenceStore m_preferences;
-  private final Map<String, Object> m_nameToValue = Maps.newTreeMap();
+  private final Map<String, Object> m_nameToValue = new TreeMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

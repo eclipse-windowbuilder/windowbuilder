@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.jface.resource;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
@@ -21,13 +19,14 @@ import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
  * Implementation {@link JavaInfo} for {@link org.eclipse.jface.resource.ResourceRegistry}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.jface
  */
@@ -67,7 +66,7 @@ public class ResourceRegistryInfo extends JavaInfo {
    * .
    */
   private static List<KeyFieldInfo> getKeyFields(Class<?> registryClass) throws Exception {
-    List<KeyFieldInfo> fields = Lists.newArrayList();
+    List<KeyFieldInfo> fields = new ArrayList<>();
     // extract all fields
     for (Field field : registryClass.getFields()) {
       if (Modifier.isStatic(field.getModifiers()) && field.getType() == String.class) {

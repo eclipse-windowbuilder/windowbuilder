@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.ui.contentproviders;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.PropertyAdapter;
@@ -26,12 +24,13 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.ViewerO
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Content provider for edit (choose detail property) {@link DetailBeanObservableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */
@@ -66,10 +65,9 @@ public class ObservableDetailUiContentProvider
     if (propertyReference == null) {
       // calculate type over viewer input element type
       if (m_observable.getMasterObservable() instanceof ViewerObservableInfo) {
-        Class<?> elementType =
-            AbstractViewerInputBindingInfo.getViewerInutElementType(
-                m_observable.getMasterObservable(),
-                m_provider);
+        Class<?> elementType = AbstractViewerInputBindingInfo.getViewerInutElementType(
+            m_observable.getMasterObservable(),
+            m_provider);
         if (elementType == null) {
           calculateFinish();
         } else {
@@ -87,12 +85,11 @@ public class ObservableDetailUiContentProvider
       bindableProperty.setProperties(Collections.<PropertyBindableInfo>emptyList());
       PropertyAdapter property = new ObservePropertyAdapter(null, bindableProperty);
       // prepare fake class name
-      String className =
-          "detail("
-              + propertyReference
-              + ", "
-              + ClassUtils.getShortClassName(propertyType)
-              + ".class)";
+      String className = "detail("
+          + propertyReference
+          + ", "
+          + ClassUtils.getShortClassName(propertyType)
+          + ".class)";
       // sets class and property
       setClassNameAndProperty(className, property, false);
     } else {
@@ -104,7 +101,7 @@ public class ObservableDetailUiContentProvider
       setClassNameAndProperties(
           m_observable.getDetailBeanClass(),
           null,
-          Lists.newArrayList(propertyReference));
+          Arrays.asList(propertyReference));
       // restore strategy
       m_configuration.setLoadedPropertiesCheckedStrategy(strategy);
     }

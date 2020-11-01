@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.ui.editor.IUiContentProvider;
 import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration;
@@ -34,12 +32,14 @@ import org.eclipse.wb.internal.rcp.databinding.ui.contentproviders.ChooseClassAn
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Editable model for {@link EditingSupportInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */
@@ -120,15 +120,19 @@ public final class VirtualEditingSupportInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   public String getCellEditorPresentationText() throws Exception {
-    return isEmpty() ? "" : ClassUtils.getShortClassName(StringUtils.substringBefore(
-        m_cellEditorClassName,
-        "(")) + "." + StringUtils.remove(m_cellEditorProperty, '"');
+    return isEmpty()
+        ? ""
+        : ClassUtils.getShortClassName(StringUtils.substringBefore(m_cellEditorClassName, "("))
+            + "."
+            + StringUtils.remove(m_cellEditorProperty, '"');
   }
 
   public String getElementPropertyPresentationText() throws Exception {
-    return isEmpty() ? "" : ClassUtils.getShortClassName(m_elementTypeProvider.getElementType())
-        + "."
-        + StringUtils.remove(m_elementProperty, '"');
+    return isEmpty()
+        ? ""
+        : ClassUtils.getShortClassName(m_elementTypeProvider.getElementType())
+            + "."
+            + StringUtils.remove(m_elementProperty, '"');
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -138,38 +142,51 @@ public final class VirtualEditingSupportInfo {
   ////////////////////////////////////////////////////////////////////////////
   public void createContentProviders(List<IUiContentProvider> providers) throws Exception {
     // CellEditor
-    providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_cellEditorLabel,
-        getCellEditorPresentationText()));
+    providers.add(
+        new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_cellEditorLabel,
+            getCellEditorPresentationText()));
     //
     ChooseClassAndPropertiesConfiguration cellEditorConfiguration =
         new ChooseClassAndPropertiesConfiguration();
     cellEditorConfiguration.setBaseClassName("org.eclipse.jface.viewers.CellEditor");
     cellEditorConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseLabel);
-    cellEditorConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseEmptyMessage);
-    cellEditorConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseErrorPrefix);
-    cellEditorConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_choosePropertiesLabel);
-    cellEditorConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    cellEditorConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_choosePropertyMessage);
-    cellEditorConfiguration.setDefaultValues(new String[]{
-        "org.eclipse.jface.viewers.TextCellEditor",
-        "org.eclipse.jface.viewers.ComboBoxCellEditor",
-        "org.eclipse.jface.viewers.CheckboxCellEditor"});
+    cellEditorConfiguration.setEmptyClassErrorMessage(
+        Messages.VirtualEditingSupportInfo_chooseEmptyMessage);
+    cellEditorConfiguration.setErrorMessagePrefix(
+        Messages.VirtualEditingSupportInfo_chooseErrorPrefix);
+    cellEditorConfiguration.setPropertiesLabel(
+        Messages.VirtualEditingSupportInfo_choosePropertiesLabel);
+    cellEditorConfiguration.setLoadedPropertiesCheckedStrategy(
+        ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
+    cellEditorConfiguration.setPropertiesErrorMessage(
+        Messages.VirtualEditingSupportInfo_choosePropertyMessage);
+    cellEditorConfiguration.setDefaultValues(
+        new String[]{
+            "org.eclipse.jface.viewers.TextCellEditor",
+            "org.eclipse.jface.viewers.ComboBoxCellEditor",
+            "org.eclipse.jface.viewers.CheckboxCellEditor"});
     //
     providers.add(new CellEditorUiContentProvider(cellEditorConfiguration));
     //
     providers.add(new SeparatorUiContentProvider());
     // Element property
-    providers.add(new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_elementProperty,
-        getElementPropertyPresentationText()));
+    providers.add(
+        new LabelUiContentProvider(Messages.VirtualEditingSupportInfo_elementProperty,
+            getElementPropertyPresentationText()));
     //
     ChooseClassAndPropertiesConfiguration elementConfiguration =
         new ChooseClassAndPropertiesConfiguration();
     elementConfiguration.setDialogFieldLabel(Messages.VirtualEditingSupportInfo_chooseBeanLabel);
-    elementConfiguration.setEmptyClassErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanEmptyMessage);
-    elementConfiguration.setErrorMessagePrefix(Messages.VirtualEditingSupportInfo_chooseBeanErrorPrefix);
-    elementConfiguration.setPropertiesLabel(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesLabel);
-    elementConfiguration.setLoadedPropertiesCheckedStrategy(ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
-    elementConfiguration.setPropertiesErrorMessage(Messages.VirtualEditingSupportInfo_chooseBeanPropertiesErrorMessage);
+    elementConfiguration.setEmptyClassErrorMessage(
+        Messages.VirtualEditingSupportInfo_chooseBeanEmptyMessage);
+    elementConfiguration.setErrorMessagePrefix(
+        Messages.VirtualEditingSupportInfo_chooseBeanErrorPrefix);
+    elementConfiguration.setPropertiesLabel(
+        Messages.VirtualEditingSupportInfo_chooseBeanPropertiesLabel);
+    elementConfiguration.setLoadedPropertiesCheckedStrategy(
+        ChooseClassAndPropertiesConfiguration.LoadedPropertiesCheckedStrategy.None);
+    elementConfiguration.setPropertiesErrorMessage(
+        Messages.VirtualEditingSupportInfo_chooseBeanPropertiesErrorMessage);
     //
     providers.add(new ElementPropertyUiContentProvider(elementConfiguration));
   }
@@ -217,12 +234,11 @@ public final class VirtualEditingSupportInfo {
               if (m_children == null) {
                 try {
                   // prepare control SWT properties
-                  m_children = Lists.newArrayList();
-                  List<WidgetPropertyBindableInfo> swtProperties =
-                      getWidgetProperties(
-                          JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()),
-                          choosenClass,
-                          m_property.getObjectType());
+                  m_children = new ArrayList<>();
+                  List<WidgetPropertyBindableInfo> swtProperties = getWidgetProperties(
+                      JavaInfoUtils.getClassLoader(EditorState.getActiveJavaInfo()),
+                      choosenClass,
+                      m_property.getObjectType());
                   // create adapters for all properties exclude "items"
                   for (WidgetPropertyBindableInfo swtProperty : swtProperties) {
                     if (!"observeItems".equals(swtProperty.getReference())) {
@@ -274,7 +290,9 @@ public final class VirtualEditingSupportInfo {
               getWidgetProperties(classLoader, beanClass, controlProperty.getObjectType());
           //
           for (WidgetPropertyBindableInfo swtProperty : swtProperties) {
-            if (swtPropertyReference.equals(SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(swtProperty.getReference()))) {
+            if (swtPropertyReference.equals(
+                SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(
+                    swtProperty.getReference()))) {
               ObservePropertyAdapter swtAdapter = new ObservePropertyAdapter(parent, swtProperty);
               swtAdapter.setChildren(Collections.<ObservePropertyAdapter>emptyList());
               swtAdapter.addToParent();
@@ -288,7 +306,7 @@ public final class VirtualEditingSupportInfo {
           setClassNameAndProperties(
               beanClass,
               m_cellEditorClassName,
-              Lists.newArrayList(m_cellEditorProperty));
+              Arrays.asList(m_cellEditorProperty));
         }
       }
     }
@@ -300,10 +318,10 @@ public final class VirtualEditingSupportInfo {
       Object[] checkedElements = m_propertiesViewer.getCheckedElements();
       ObservePropertyAdapter adapter = (ObservePropertyAdapter) checkedElements[0];
       if (adapter.getProperty() instanceof WidgetPropertyBindableInfo) {
-        m_cellEditorProperty =
-            "\"control."
-                + SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(adapter.getProperty().getReference())
-                + "\"";
+        m_cellEditorProperty = "\"control."
+            + SwtProperties.SWT_OBSERVABLES_TO_WIDGET_PROPERTIES.get(
+                adapter.getProperty().getReference())
+            + "\"";
       } else {
         m_cellEditorProperty = adapter.getProperty().getReference();
       }
@@ -317,8 +335,8 @@ public final class VirtualEditingSupportInfo {
     if (classLoader.loadClass("org.eclipse.jface.viewers.TextCellEditor").isAssignableFrom(
         choosenClass)) {
       widgetType = classLoader.loadClass("org.eclipse.swt.widgets.Text");
-    } else if (classLoader.loadClass("org.eclipse.jface.viewers.ComboBoxCellEditor").isAssignableFrom(
-        choosenClass)) {
+    } else if (classLoader.loadClass(
+        "org.eclipse.jface.viewers.ComboBoxCellEditor").isAssignableFrom(choosenClass)) {
       widgetType = classLoader.loadClass("org.eclipse.swt.custom.CCombo");
     }
     return PropertiesSupport.getProperties(classLoader, widgetType);
@@ -351,7 +369,7 @@ public final class VirtualEditingSupportInfo {
           setClassName(CoreUtils.getClassName(elementType));
         }
       } else {
-        setClassNameAndProperties(elementType, null, Lists.newArrayList(m_elementProperty));
+        setClassNameAndProperties(elementType, null, Arrays.asList(m_elementProperty));
       }
     }
 

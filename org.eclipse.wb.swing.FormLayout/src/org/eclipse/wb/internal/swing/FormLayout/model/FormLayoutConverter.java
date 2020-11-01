@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.geometry.Dimension;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
@@ -29,6 +27,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -73,7 +72,7 @@ public class FormLayoutConverter {
       createDimensions(layout, rows, false);
     }
     // prepare set of components in groups
-    Set<ComponentInGroup> componentsInGroups = Sets.newHashSet();
+    Set<ComponentInGroup> componentsInGroups = new HashSet<>();
     for (ComponentGroup column : columns) {
       for (ComponentInGroup componentInGroup : column.getComponents()) {
         componentsInGroups.add(componentInGroup);
@@ -171,10 +170,9 @@ public class FormLayoutConverter {
       GeneralLayoutData generalLayoutData) {
     if (generalLayoutData.horizontalAlignment != null) {
       // from general layout data
-      CellConstraints.Alignment alignment =
-          GeneralLayoutData.getRealValue(
-              FormLayoutInfo.m_horizontalAlignmentMap,
-              generalLayoutData.horizontalAlignment);
+      CellConstraints.Alignment alignment = GeneralLayoutData.getRealValue(
+          FormLayoutInfo.m_horizontalAlignmentMap,
+          generalLayoutData.horizontalAlignment);
       if (alignment != null && alignment != CellConstraints.DEFAULT) {
         return alignment;
       }
@@ -199,15 +197,16 @@ public class FormLayoutConverter {
     int leftDelta = leftOffset + Math.abs(columnLeft + prefSize.width - br);
     int rightDelta = rightOffset + Math.abs(columnRight - prefSize.width - bl);
     int fillDelta = leftOffset + rightOffset;
-    int centerDelta =
-        Math.abs(bl - (columnCenter - prefSize.width / 2))
-            + Math.abs(br - (columnCenter + prefSize.width / 2));
+    int centerDelta = Math.abs(bl - (columnCenter - prefSize.width / 2))
+        + Math.abs(br - (columnCenter + prefSize.width / 2));
     // set alignment
-    return getAlignment(new int[]{leftDelta, centerDelta, rightDelta, fillDelta}, new Alignment[]{
-        CellConstraints.LEFT,
-        CellConstraints.CENTER,
-        CellConstraints.RIGHT,
-        CellConstraints.FILL});
+    return getAlignment(
+        new int[]{leftDelta, centerDelta, rightDelta, fillDelta},
+        new Alignment[]{
+            CellConstraints.LEFT,
+            CellConstraints.CENTER,
+            CellConstraints.RIGHT,
+            CellConstraints.FILL});
   }
 
   /**
@@ -218,10 +217,9 @@ public class FormLayoutConverter {
       GeneralLayoutData generalLayoutData) {
     if (generalLayoutData.verticalAlignment != null) {
       // from general layout data
-      CellConstraints.Alignment alignment =
-          GeneralLayoutData.getRealValue(
-              FormLayoutInfo.m_verticalAlignmentMap,
-              generalLayoutData.verticalAlignment);
+      CellConstraints.Alignment alignment = GeneralLayoutData.getRealValue(
+          FormLayoutInfo.m_verticalAlignmentMap,
+          generalLayoutData.verticalAlignment);
       if (alignment != null && alignment != CellConstraints.DEFAULT) {
         return alignment;
       }
@@ -245,15 +243,16 @@ public class FormLayoutConverter {
     int topDelta = topOffset + Math.abs(rowTop + prefSize.height - bb);
     int bottomDelta = bottomOffset + Math.abs(rowBottom - prefSize.height - bt);
     int fillDelta = topOffset + bottomOffset;
-    int centerDelta =
-        Math.abs(bt - (rowCenter - prefSize.height / 2))
-            + Math.abs(bb - (rowCenter + prefSize.height / 2));
+    int centerDelta = Math.abs(bt - (rowCenter - prefSize.height / 2))
+        + Math.abs(bb - (rowCenter + prefSize.height / 2));
     // set alignment
-    return getAlignment(new int[]{topDelta, centerDelta, bottomDelta, fillDelta}, new Alignment[]{
-        CellConstraints.TOP,
-        CellConstraints.CENTER,
-        CellConstraints.BOTTOM,
-        CellConstraints.FILL});
+    return getAlignment(
+        new int[]{topDelta, centerDelta, bottomDelta, fillDelta},
+        new Alignment[]{
+            CellConstraints.TOP,
+            CellConstraints.CENTER,
+            CellConstraints.BOTTOM,
+            CellConstraints.FILL});
   }
 
   /**

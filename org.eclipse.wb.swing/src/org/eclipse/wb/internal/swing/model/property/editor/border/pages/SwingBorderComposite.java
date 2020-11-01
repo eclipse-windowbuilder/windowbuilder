@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -25,8 +22,10 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -35,7 +34,7 @@ import javax.swing.border.Border;
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link Border} from {@link UIManager}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -120,11 +119,11 @@ public final class SwingBorderComposite extends AbstractBorderComposite {
    */
   private static synchronized void prepareBorders() {
     if (m_borders == null) {
-      m_borderKeys = Lists.newArrayList();
-      m_borders = Lists.newArrayList();
+      m_borderKeys = new ArrayList<>();
+      m_borders = new ArrayList<>();
       UIDefaults defaults = UIManager.getLookAndFeelDefaults();
       // prepare set of all String keys in UIManager
-      Set<String> allKeys = Sets.newTreeSet();
+      Set<String> allKeys = new TreeSet<>();
       for (Iterator<?> I = defaults.keySet().iterator(); I.hasNext();) {
         Object key = I.next();
         if (key instanceof String) {

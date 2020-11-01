@@ -11,8 +11,6 @@
 package org.eclipse.wb.internal.core.nls.edit;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -35,6 +33,8 @@ import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.map.MultiKeyMap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,13 +46,12 @@ import java.util.Map;
  */
 public final class EditableSupport implements IEditableSupport, ICommandQueue {
   private final JavaInfo m_root;
-  private final List<IEditableSource> m_newEditableSources = Lists.newArrayList();
-  private final Map<AbstractSource, IEditableSource> m_sourceToEditable = Maps.newHashMap();
-  private final Map<IEditableSource, AbstractSource> m_editableToSource = Maps.newHashMap();
-  private final MultiKeyMap/*<IEditableSource, String, List<StringPropertyInfo>>*/m_externalizedProperties =
+  private final List<IEditableSource> m_newEditableSources = new ArrayList<>();
+  private final Map<AbstractSource, IEditableSource> m_sourceToEditable = new HashMap<>();
+  private final Map<IEditableSource, AbstractSource> m_editableToSource = new HashMap<>();
+  private final MultiKeyMap/*<IEditableSource, String, List<StringPropertyInfo>>*/ m_externalizedProperties =
       new MultiKeyMap();
-  private final Map<JavaInfo, List<StringPropertyInfo>> m_componentToPropertyList =
-      Maps.newHashMap();
+  private final Map<JavaInfo, List<StringPropertyInfo>> m_componentToPropertyList = new HashMap<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -118,10 +117,10 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   private void initializeProperties(NlsSupport support, JavaInfo component) throws Exception {
     // add list of properties for current component
     {
-      List<StringPropertyInfo> componentProperties = Lists.newArrayList();
+      List<StringPropertyInfo> componentProperties = new ArrayList<>();
       m_componentToPropertyList.put(component, componentProperties);
       // prepare list of properties
-      List<Property> properties = Lists.newArrayList(component.getProperties());
+      List<Property> properties = Arrays.asList(component.getProperties());
       for (Property property : ImmutableList.copyOf(properties)) {
         PropertyEditor editor = property.getEditor();
         if (editor instanceof INlsPropertyContributor) {
@@ -166,9 +165,9 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final Map<AbstractSource, IEditableSource> m_possibleSourceToEditableSource =
-      Maps.newHashMap();
+      new HashMap<>();
   private final Map<IEditableSource, AbstractSource> m_possibleEditableSourceToSource =
-      Maps.newHashMap();
+      new HashMap<>();
 
   /**
    * Fill possible sources containers.
@@ -210,7 +209,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   // IEditableSupport: listener
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<IEditableSupportListener> m_listeners = Lists.newArrayList();
+  private final List<IEditableSupportListener> m_listeners = new ArrayList<>();
 
   public void addListener(IEditableSupportListener listener) {
     if (!m_listeners.contains(listener)) {
@@ -253,7 +252,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   }
 
   public List<IEditableSource> getEditableSources() {
-    List<IEditableSource> editableSources = Lists.newArrayList();
+    List<IEditableSource> editableSources = new ArrayList<>();
     // add existing and new sources
     editableSources.addAll(m_sourceToEditable.values());
     editableSources.addAll(m_newEditableSources);
@@ -332,7 +331,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   }
 
   public List<JavaInfo> getTreeChildren(JavaInfo component) throws Exception {
-    List<JavaInfo> selectedTreeChildren = Lists.newArrayList();
+    List<JavaInfo> selectedTreeChildren = new ArrayList<>();
     for (ObjectInfo child : component.getPresentation().getChildrenTree()) {
       if (child instanceof JavaInfo) {
         // check if child can be visited
@@ -350,7 +349,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   }
 
   public List<StringPropertyInfo> getProperties(JavaInfo component) {
-    List<StringPropertyInfo> externalizableProperties = Lists.newArrayList();
+    List<StringPropertyInfo> externalizableProperties = new ArrayList<>();
     // prepare all properties of component
     List<StringPropertyInfo> componentProperties = m_componentToPropertyList.get(component);
     externalizableProperties.addAll(componentProperties);
@@ -390,7 +389,7 @@ public final class EditableSupport implements IEditableSupport, ICommandQueue {
   // ICommandQueue
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<AbstractCommand> m_commands = Lists.newArrayList();
+  private final List<AbstractCommand> m_commands = new ArrayList<>();
 
   public void addCommand(AbstractCommand command) {
     command.addToCommandList(m_commands);

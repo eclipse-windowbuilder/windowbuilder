@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.model.ui;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -45,12 +43,13 @@ import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * The dialog for editing {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */
@@ -100,7 +99,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
   private Text m_specificationText;
   private Button[] m_alignmentButtons;
   private Combo m_templateCombo;
-  private final Map<Size, Button> m_componentSizeToButton = Maps.newHashMap();
+  private final Map<Size, Button> m_componentSizeToButton = new HashMap<>();
   // constant
   private ConstantSizeComposite m_constantSizeComposite;
   private Button m_constantSizeButton;
@@ -135,9 +134,8 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
   @Override
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(MessageFormat.format(
-        ModelMessages.DimensionEditDialog_dialogTitle,
-        m_dimensionName));
+    newShell.setText(
+        MessageFormat.format(ModelMessages.DimensionEditDialog_dialogTitle, m_dimensionName));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -193,21 +191,19 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
         int dialogResult;
         {
           String title = ModelMessages.DimensionEditDialog_applyConfirmTitle;
-          String message =
-              MessageFormat.format(
-                  ModelMessages.DimensionEditDialog_applyConfirmMessage,
-                  m_dimensionName);
-          MessageDialog dialog =
-              new MessageDialog(getShell(),
-                  title,
-                  null,
-                  message,
-                  MessageDialog.QUESTION,
-                  new String[]{
-                      IDialogConstants.YES_LABEL,
-                      IDialogConstants.NO_LABEL,
-                      IDialogConstants.CANCEL_LABEL},
-                  0);
+          String message = MessageFormat.format(
+              ModelMessages.DimensionEditDialog_applyConfirmMessage,
+              m_dimensionName);
+          MessageDialog dialog = new MessageDialog(getShell(),
+              title,
+              null,
+              message,
+              MessageDialog.QUESTION,
+              new String[]{
+                  IDialogConstants.YES_LABEL,
+                  IDialogConstants.NO_LABEL,
+                  IDialogConstants.CANCEL_LABEL},
+              0);
           dialogResult = dialog.open();
         }
         // check cancel/yes
@@ -256,12 +252,14 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       // prev button
       {
         m_prevButton = new Button(composite, SWT.NONE);
-        m_prevButton.setToolTipText(MessageFormat.format(
-            ModelMessages.DimensionEditDialog_previousButton,
-            m_dimensionName));
-        m_prevButton.setImage(m_horizontal
-            ? Activator.getImage("navigation/left.gif")
-            : Activator.getImage("navigation/up.gif"));
+        m_prevButton.setToolTipText(
+            MessageFormat.format(
+                ModelMessages.DimensionEditDialog_previousButton,
+                m_dimensionName));
+        m_prevButton.setImage(
+            m_horizontal
+                ? Activator.getImage("navigation/left.gif")
+                : Activator.getImage("navigation/up.gif"));
         m_prevButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             int index = m_dimensions.indexOf(m_currentDimension);
@@ -273,12 +271,12 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       // next button
       {
         m_nextButton = new Button(composite, SWT.NONE);
-        m_nextButton.setToolTipText(MessageFormat.format(
-            ModelMessages.DimensionEditDialog_nextButton,
-            m_dimensionName));
-        m_nextButton.setImage(m_horizontal
-            ? Activator.getImage("navigation/right.gif")
-            : Activator.getImage("navigation/down.gif"));
+        m_nextButton.setToolTipText(
+            MessageFormat.format(ModelMessages.DimensionEditDialog_nextButton, m_dimensionName));
+        m_nextButton.setImage(
+            m_horizontal
+                ? Activator.getImage("navigation/right.gif")
+                : Activator.getImage("navigation/down.gif"));
         m_nextButton.addListener(SWT.Selection, new Listener() {
           public void handleEvent(Event event) {
             int index = m_dimensions.indexOf(m_currentDimension);

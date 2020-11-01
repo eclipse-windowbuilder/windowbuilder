@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.model.generic;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.state.ILayoutRequestValidatorHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Factory for {@link ContainerObjectValidator} objects.
@@ -33,6 +33,7 @@ import java.util.Map;
 public final class ContainerObjectValidators {
   public static ContainerObjectValidator alwaysTrue() {
     return new ContainerObjectValidator() {
+      @Override
       public boolean validate(Object container, Object object) {
         return true;
       }
@@ -46,6 +47,7 @@ public final class ContainerObjectValidators {
 
   public static ContainerObjectValidator forList(final String[] types) {
     return new ContainerObjectValidator() {
+      @Override
       public boolean validate(Object container, Object object) {
         ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
         if (validatorHelper.isComponent(object)) {
@@ -73,41 +75,44 @@ public final class ContainerObjectValidators {
   // for*Expression
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final String DEF_functions = StringUtils.join(new String[]{
-      "def isModelType(model, c) {",
-      "  if (c is String) {",
-      "    return ReflectionUtils.isSuccessorOf((Class) model.description.componentClass, c);",
-      "  } else {",
-      "    return c.isAssignableFrom(model.description.componentClass);",
-      "  }",
-      "};",
-      "def isSuccessorOf(o, c) {",
-      "  if (c is String) {",
-      "    return ReflectionUtils.isSuccessorOf(o, c);",
-      "  } else {",
-      "    return o != null && c.isAssignableFrom(o.getClass());",
-      "  }",
-      "};",
-      "def isComponentType(c) {",
-      "  return isModelType(component, c);",
-      "};",
-      "def isReferenceType(c) {",
-      "  return isModelType(reference, c);",
-      "};",
-      "def isContainerType(c) {",
-      "  return isModelType(container, c);",
-      "};",
-      "def isContainerThis() {",
-      "  return isSuccessorOf(container.creationSupport, "
-          + "'org.eclipse.wb.internal.core.model.creation.ThisCreationSupport');",
-      "};",}, "\n");
+  private static final String DEF_functions = StringUtils.join(
+      new String[]{
+          "def isModelType(model, c) {",
+          "  if (c is String) {",
+          "    return ReflectionUtils.isSuccessorOf((Class) model.description.componentClass, c);",
+          "  } else {",
+          "    return c.isAssignableFrom(model.description.componentClass);",
+          "  }",
+          "};",
+          "def isSuccessorOf(o, c) {",
+          "  if (c is String) {",
+          "    return ReflectionUtils.isSuccessorOf(o, c);",
+          "  } else {",
+          "    return o != null && c.isAssignableFrom(o.getClass());",
+          "  }",
+          "};",
+          "def isComponentType(c) {",
+          "  return isModelType(component, c);",
+          "};",
+          "def isReferenceType(c) {",
+          "  return isModelType(reference, c);",
+          "};",
+          "def isContainerType(c) {",
+          "  return isModelType(container, c);",
+          "};",
+          "def isContainerThis() {",
+          "  return isSuccessorOf(container.creationSupport, "
+              + "'org.eclipse.wb.internal.core.model.creation.ThisCreationSupport');",
+          "};",},
+      "\n");
 
   public static ContainerObjectValidator forComponentExpression(final String expression) {
     return new ContainerObjectValidator() {
+      @Override
       public boolean validate(Object container, Object component) {
         ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
         if (validatorHelper.isComponent(container) && validatorHelper.isComponent(component)) {
-          Map<String, Object> variables = Maps.newTreeMap();
+          Map<String, Object> variables = new TreeMap<>();
           variables.put("container", container);
           variables.put("component", component);
           return evaluate(expression, variables);
@@ -124,10 +129,11 @@ public final class ContainerObjectValidators {
 
   public static ContainerObjectValidator forReferenceExpression(final String expression) {
     return new ContainerObjectValidator() {
+      @Override
       public boolean validate(Object container, Object reference) {
         ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
         if (validatorHelper.isComponent(container) && validatorHelper.isComponent(reference)) {
-          Map<String, Object> variables = Maps.newTreeMap();
+          Map<String, Object> variables = new TreeMap<>();
           variables.put("container", container);
           variables.put("reference", reference);
           return evaluate(expression, variables);
@@ -152,13 +158,14 @@ public final class ContainerObjectValidators {
   }
 
   private static boolean validateContainer(String expression, Object container) {
-    Map<String, Object> variables = Maps.newTreeMap();
+    Map<String, Object> variables = new TreeMap<>();
     variables.put("container", container);
     return evaluate(expression, variables);
   }
 
   public static Predicate<Object> forContainerExpression(final String expression) {
     return new Predicate<Object>() {
+      @Override
       public boolean apply(Object container) {
         ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
         if (validatorHelper.isComponent(container)) {

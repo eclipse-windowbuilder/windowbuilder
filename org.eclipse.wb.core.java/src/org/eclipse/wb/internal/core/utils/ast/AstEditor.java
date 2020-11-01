@@ -13,9 +13,6 @@ package org.eclipse.wb.internal.core.utils.ast;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
@@ -87,10 +84,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -498,7 +499,8 @@ public final class AstEditor {
       return index;
     }
     // not found
-    throw new IllegalArgumentException("Can not find '" + subString + "' starting from " + startPos);
+    throw new IllegalArgumentException(
+        "Can not find '" + subString + "' starting from " + startPos);
   }
 
   /**
@@ -524,10 +526,8 @@ public final class AstEditor {
       }
     }
     // not found
-    throw new IllegalArgumentException("Can not find '"
-        + searchChars
-        + "' starting from "
-        + startPos);
+    throw new IllegalArgumentException(
+        "Can not find '" + searchChars + "' starting from " + startPos);
   }
 
   /**
@@ -547,10 +547,8 @@ public final class AstEditor {
       return i;
     }
     // not found
-    throw new IllegalArgumentException("Can not find '"
-        + searchChars
-        + "' starting from "
-        + startPos);
+    throw new IllegalArgumentException(
+        "Can not find '" + searchChars + "' starting from " + startPos);
   }
 
   /**
@@ -587,10 +585,8 @@ public final class AstEditor {
       return i;
     }
     // not found
-    throw new IllegalArgumentException("Can not find '"
-        + searchChars
-        + "' starting from "
-        + startPos);
+    throw new IllegalArgumentException(
+        "Can not find '" + searchChars + "' starting from " + startPos);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -610,7 +606,7 @@ public final class AstEditor {
       lineNode = lineNode.getParent();
     }
     // find all literals on this line
-    final List<StringLiteral> literals = Lists.newArrayList();
+    final List<StringLiteral> literals = new ArrayList<>();
     lineNode.accept(new ASTVisitor() {
       @Override
       public void endVisit(StringLiteral literal) {
@@ -728,9 +724,9 @@ public final class AstEditor {
    * Examples:
    *
    * <pre>
-	 * SWT.NONE = org.eclipse.swt.SWT.NONE
-	 * new JButton() = new javax.swing.JButton()
-	 * </pre>
+   * SWT.NONE = org.eclipse.swt.SWT.NONE
+   * new JButton() = new javax.swing.JButton()
+   * </pre>
    *
    * @param theNode
    *          the {@link ASTNode} to get the source.
@@ -744,10 +740,11 @@ public final class AstEditor {
    * @return the source of {@link ASTNode} in "external form", i.e. with fully qualified types.
    */
   @SuppressWarnings("restriction")
-  public String getExternalSource(final ASTNode theNode, final Function<ASTNode, String> transformer) {
+  public String getExternalSource(final ASTNode theNode,
+      final Function<ASTNode, String> transformer) {
     final StringBuffer buffer = new StringBuffer(getSource(theNode));
     // remember positions for all nodes
-    final Map<ASTNode, Integer> nodePositions = Maps.newHashMap();
+    final Map<ASTNode, Integer> nodePositions = new HashMap<>();
     theNode.accept(new ASTVisitor() {
       @Override
       public void postVisit(ASTNode _node) {
@@ -911,7 +908,7 @@ public final class AstEditor {
    * @return the {@link List} of {@link Comment}'s in this {@link CompilationUnit}.
    */
   public List<Comment> getCommentList() throws Exception {
-    List<Comment> comments = Lists.newArrayList();
+    List<Comment> comments = new ArrayList<>();
     comments.addAll(DomGenerics.getCommentList(m_astUnit));
     // clean up
     int documentLength = m_document.getLength();
@@ -943,7 +940,7 @@ public final class AstEditor {
   // ASTNode's replacement
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Set<Method> m_invalidNodeMethods = Sets.newHashSet();
+  private static final Set<Method> m_invalidNodeMethods = new HashSet<>();
 
   /**
    * Replaces given <code>originalNode</code> with <code>replacementNode</code>. This method uses
@@ -1149,7 +1146,7 @@ public final class AstEditor {
   // Global values
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final Map<String, Object> m_globalMap = Maps.newTreeMap();
+  private final Map<String, Object> m_globalMap = new TreeMap<>();
 
   /**
    * @return the current global value for given key.
@@ -1194,7 +1191,7 @@ public final class AstEditor {
       String baseName,
       VariableDeclaration excludedVariable) {
     // prepare declarations...
-    List<VariableDeclaration> declarations = Lists.newArrayList();
+    List<VariableDeclaration> declarations = new ArrayList<>();
     if (position != -1) {
       // ...visible + shadows
       declarations.addAll(AstNodeUtils.getVariableDeclarationsVisibleAt(m_astUnit, position));
@@ -1219,9 +1216,10 @@ public final class AstEditor {
    *
    * @return the unique variable name (for local variable or field).
    */
-  public static String getUniqueVariableName(List<VariableDeclaration> declarations, String baseName) {
+  public static String getUniqueVariableName(List<VariableDeclaration> declarations,
+      String baseName) {
     // prepare set of conflicting variables identifiers
-    final Set<String> existingIdentifiers = Sets.newTreeSet();
+    final Set<String> existingIdentifiers = new TreeSet<>();
     for (VariableDeclaration declaration : declarations) {
       existingIdentifiers.add(declaration.getName().getIdentifier());
     }
@@ -1238,7 +1236,7 @@ public final class AstEditor {
    */
   public String getUniqueMethodName(String baseName) {
     // prepare set of methods names
-    final Set<String> existingMethods = Sets.newTreeSet();
+    final Set<String> existingMethods = new TreeSet<>();
     m_astUnit.accept(new ASTVisitor() {
       @Override
       public void endVisit(MethodDeclaration node) {
@@ -1263,7 +1261,7 @@ public final class AstEditor {
    */
   public String getUniqueTypeName(String baseName) {
     // prepare set of methods names
-    final Set<String> existingTypes = Sets.newTreeSet();
+    final Set<String> existingTypes = new TreeSet<>();
     m_astUnit.accept(new ASTVisitor() {
       @Override
       public void endVisit(TypeDeclaration node) {
@@ -1455,10 +1453,9 @@ public final class AstEditor {
       String line_1 = "try {";
       String line_2 = "} catch (" + catchExceptionType + " e) {";
       String line_3 = "}";
-      tryStatement =
-          (TryStatement) addStatement(
-              ImmutableList.of(line_1, line_2, line_3),
-              new StatementTarget(statement, true));
+      tryStatement = (TryStatement) addStatement(
+          ImmutableList.of(line_1, line_2, line_3),
+          new StatementTarget(statement, true));
     }
     moveStatement(statement, new StatementTarget(tryStatement.getBody(), true));
     return tryStatement;
@@ -1504,7 +1501,7 @@ public final class AstEditor {
   public void inlineBlock(Block block) throws Exception {
     StatementTarget target = new StatementTarget((Statement) block, true);
     // move Statement's
-    List<Statement> statements = Lists.newArrayList(DomGenerics.statements(block));
+    List<Statement> statements = new ArrayList<>(DomGenerics.statements(block));
     for (Statement statement : statements) {
       moveStatement(statement, target);
     }
@@ -1785,12 +1782,14 @@ public final class AstEditor {
       if (statement.getParent() == targetStatement.getParent()) {
         if (target.isBefore()) {
           // statement before target
-          if (targetStatements.indexOf(statement) == targetStatements.indexOf(targetStatement) - 1) {
+          if (targetStatements.indexOf(statement) == targetStatements.indexOf(targetStatement)
+              - 1) {
             return;
           }
         } else {
           // statement after target
-          if (targetStatements.indexOf(statement) == targetStatements.indexOf(targetStatement) + 1) {
+          if (targetStatements.indexOf(statement) == targetStatements.indexOf(targetStatement)
+              + 1) {
             return;
           }
         }
@@ -1964,7 +1963,7 @@ public final class AstEditor {
               return;
             }
             // node contains source
-            /*if (n_pos < b_pos && n_end > b_end)*/{
+            /*if (n_pos < b_pos && n_end > b_end)*/ {
               node.setSourceRange(n_pos + b_len, n_len - b_len);
               return;
             }
@@ -2009,7 +2008,7 @@ public final class AstEditor {
             return;
           }
           // node contains source
-          /*if (n_pos < b_pos && n_end > b_end)*/{
+          /*if (n_pos < b_pos && n_end > b_end)*/ {
             node.setSourceRange(n_pos, n_len - b_len);
             return;
           }
@@ -2116,7 +2115,7 @@ public final class AstEditor {
       List<String> bodyLines,
       BodyDeclarationTarget target) throws Exception {
     // prepare full method lines
-    List<String> lines = Lists.newArrayList();
+    List<String> lines = new ArrayList<>();
     {
       lines.addAll(annotations);
       if (bodyLines != null) {
@@ -2144,8 +2143,8 @@ public final class AstEditor {
    * @param target
    *          describes location for new {@link BodyDeclaration}
    */
-  public MethodDeclaration addInterfaceMethodDeclaration(String header, BodyDeclarationTarget target)
-      throws Exception {
+  public MethodDeclaration addInterfaceMethodDeclaration(String header,
+      BodyDeclarationTarget target) throws Exception {
     List<String> lines = ImmutableList.of(header + ";");
     return (MethodDeclaration) addBodyDeclaration(lines, target);
   }
@@ -2405,9 +2404,9 @@ public final class AstEditor {
     // prepare new interfaceType node
     SimpleType interfaceType;
     {
-      TypeLiteral typeLiteral =
-          (TypeLiteral) m_parser.parseExpression(type.getStartPosition(), interfaceClassName
-              + ".class");
+      TypeLiteral typeLiteral = (TypeLiteral) m_parser.parseExpression(
+          type.getStartPosition(),
+          interfaceClassName + ".class");
       AstNodeUtils.moveNode(typeLiteral, pos + codePrefix.length());
       interfaceType = (SimpleType) typeLiteral.getType();
       typeLiteral.setType(typeLiteral.getAST().newPrimitiveType(PrimitiveType.BOOLEAN));
@@ -2687,9 +2686,8 @@ public final class AstEditor {
       }
     } else {
       // can't remove other cases
-      throw new IllegalArgumentException("Can not remove VariableDeclaration '"
-          + declaration.toString()
-          + "'");
+      throw new IllegalArgumentException(
+          "Can not remove VariableDeclaration '" + declaration.toString() + "'");
     }
   }
 
@@ -2976,8 +2974,7 @@ public final class AstEditor {
         ImportDeclaration currentImport = I.next();
         String importName = currentImport.getName().toString();
         if (importName.equals(className)
-            || currentImport.isOnDemand()
-            && importName.equals(packageName)) {
+            || currentImport.isOnDemand() && importName.equals(packageName)) {
           return shortClassName;
         }
       }
@@ -3313,7 +3310,11 @@ public final class AstEditor {
    */
   public void replaceCreationArguments(ClassInstanceCreation creation, List<String> lines)
       throws Exception {
-    replaceInvocationArguments(creation, creation.getType(), DomGenerics.arguments(creation), lines);
+    replaceInvocationArguments(
+        creation,
+        creation.getType(),
+        DomGenerics.arguments(creation),
+        lines);
   }
 
   /**
@@ -3434,8 +3435,8 @@ public final class AstEditor {
    * @return the parsed {@link ASTNode}.
    */
   public ASTNode replaceInvocationBinding(Expression invocation) throws Exception {
-    Assert.isLegal(invocation instanceof MethodInvocation
-        || invocation instanceof ClassInstanceCreation);
+    Assert.isLegal(
+        invocation instanceof MethodInvocation || invocation instanceof ClassInstanceCreation);
     ASTNode parsedInvocation =
         m_parser.parseExpression(invocation.getStartPosition(), getSource(invocation));
     replaceMethodBinding(invocation, parsedInvocation);

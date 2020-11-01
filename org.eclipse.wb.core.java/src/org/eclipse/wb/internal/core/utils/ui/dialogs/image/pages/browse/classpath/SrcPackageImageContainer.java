@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.AbstractBrowseImagePage;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
@@ -23,6 +21,7 @@ import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.swt.graphics.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ final class SrcPackageImageContainer implements IImageContainer {
       IPackageFragment packageFragment) throws Exception {
     m_packageFragment = packageFragment;
     //
-    List<SrcImageResource> resources = Lists.newArrayList();
+    List<SrcImageResource> resources = new ArrayList<>();
     {
       Object[] nonJavaResources = m_packageFragment.getNonJavaResources();
       for (Object nonJavaResource : nonJavaResources) {

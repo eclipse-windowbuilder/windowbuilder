@@ -10,12 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.nonvisual;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class ItemCollectorObjectInfo extends CollectorObjectInfo {
   private final ItemCollectorObjectInfo m_this = this;
-  protected final LinkedList<ObjectInfo> m_items = Lists.newLinkedList();
+  protected final LinkedList<ObjectInfo> m_items = new LinkedList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -57,7 +56,7 @@ public class ItemCollectorObjectInfo extends CollectorObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public List<ObjectInfo> getItems() {
-    List<ObjectInfo> list = Lists.newArrayList();
+    List<ObjectInfo> list = new ArrayList<>();
     list.addAll(m_items);
     return Collections.unmodifiableList(list);
   }

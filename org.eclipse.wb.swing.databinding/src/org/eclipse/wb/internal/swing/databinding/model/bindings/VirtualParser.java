@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.bindings;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo.ChildrenContext;
 import org.eclipse.wb.internal.core.databinding.parser.AbstractParser;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
@@ -34,6 +32,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.apache.commons.lang.math.NumberUtils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -57,8 +56,8 @@ public final class VirtualParser {
     // prepare class loader
     ClassLoader classLoader = EditorState.get(editor).getEditorLoader();
     //
-    List<Integer> indexes = Lists.newArrayList();
-    List<BindingInfo> virtualBindings = Lists.newArrayList();
+    List<Integer> indexes = new ArrayList<>();
+    List<BindingInfo> virtualBindings = new ArrayList<>();
     // scan comments
     for (Comment comment : editor.getCommentList()) {
       if (comment instanceof LineComment) {
@@ -94,30 +93,31 @@ public final class VirtualParser {
               elementType =
                   new ClassGenericType(CoreUtils.load(classLoader, elementClassName), null, null);
             } catch (ClassNotFoundException e) {
-              AbstractParser.addError(editor, MessageFormat.format(
-                  Messages.VirtualParser_errUnknownElementClass,
-                  elementClassName), new Throwable());
+              AbstractParser.addError(
+                  editor,
+                  MessageFormat.format(
+                      Messages.VirtualParser_errUnknownElementClass,
+                      elementClassName),
+                  new Throwable());
               continue;
             }
             // create binding
             VirtualBindingInfo binding = null;
             //
             if (isSwingTarget) {
-              binding =
-                  new VirtualBindingInfo(swingObserve,
-                      swingProperty,
-                      swingAstProperty,
-                      virtualObserve,
-                      virtualProperty,
-                      virtualAstProperty);
+              binding = new VirtualBindingInfo(swingObserve,
+                  swingProperty,
+                  swingAstProperty,
+                  virtualObserve,
+                  virtualProperty,
+                  virtualAstProperty);
             } else {
-              binding =
-                  new VirtualBindingInfo(virtualObserve,
-                      virtualProperty,
-                      virtualAstProperty,
-                      swingObserve,
-                      swingProperty,
-                      swingAstProperty);
+              binding = new VirtualBindingInfo(virtualObserve,
+                  virtualProperty,
+                  virtualAstProperty,
+                  swingObserve,
+                  swingProperty,
+                  swingAstProperty);
             }
             // configure
             binding.setElementType(elementType);

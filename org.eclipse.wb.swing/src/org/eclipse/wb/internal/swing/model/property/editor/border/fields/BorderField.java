@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.border.fields;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.swing.model.property.editor.border.BorderDialog;
@@ -36,13 +34,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.border.Border;
 
 /**
  * {@link AbstractBorderField} for editing inner {@link Border}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -143,12 +142,12 @@ public final class BorderField extends AbstractBorderField {
       SoftBevelBorderComposite.class,
       TitledBorderComposite.class,
       SwingBorderComposite.class,};
-  private static final List<AbstractBorderComposite> m_borderComposites = Lists.newLinkedList();
+  private static final List<AbstractBorderComposite> m_borderComposites = new LinkedList<>();
 
   /**
    * Note, that we can not reuse {@link AbstractBorderComposite}'s, so when we get some
    * {@link AbstractBorderComposite}, we should return it back, else new instance will be created.
-   * 
+   *
    * @return the instance free of {@link AbstractBorderComposite}.
    */
   private static final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)

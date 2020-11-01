@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.preferences.laf;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -89,6 +87,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -589,7 +588,7 @@ public class LafPreferencePage extends PreferencePage
    * Updates the LAF list checking items which has "visible" property set.
    */
   private void updateVisibilityStates() {
-    List<Object> visibleElements = Lists.newArrayList();
+    List<Object> visibleElements = new ArrayList<>();
     for (CategoryInfo category : LafSupport.getLAFCategoriesList()) {
       if (category.isVisible()) {
         visibleElements.add(category);
@@ -800,7 +799,7 @@ public class LafPreferencePage extends PreferencePage
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
-  private final List<Command> m_commands = Lists.newArrayList();
+  private final List<Command> m_commands = new ArrayList<>();
 
   /**
    * Executes new {@link Command} and updates {@link #m_viewer} accordingly.
@@ -1035,7 +1034,7 @@ public class LafPreferencePage extends PreferencePage
   private static class LAFItemsContentProvider implements ITreeContentProvider {
     @SuppressWarnings("unchecked")
     public Object[] getElements(Object inputElement) {
-      List<Object> resultList = Lists.newArrayList();
+      List<Object> resultList = new ArrayList<>();
       for (CategoryInfo category : LafSupport.getLAFCategoriesList()) {
         if (LafSupport.isRootCategory(category)) {
           resultList.addAll(category.getLAFList());

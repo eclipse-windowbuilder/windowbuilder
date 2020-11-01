@@ -13,9 +13,6 @@ package org.eclipse.wb.internal.rcp.model.rcp;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
@@ -61,9 +58,13 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Helper for working with PDE model.
@@ -80,7 +81,7 @@ public final class PdeUtils {
   // Instance access
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final Map<IProject, PdeUtils> m_projectToUtilitiesMap = Maps.newHashMap();
+  private static final Map<IProject, PdeUtils> m_projectToUtilitiesMap = new HashMap<>();
 
   /**
    * @return the instance of {@link PdeUtils} for given {@link IProject}, existing from cache or
@@ -192,7 +193,7 @@ public final class PdeUtils {
   }
 
   public void addPluginImport(String... pluginIds) throws Exception {
-    addPluginImport(Lists.newArrayList(pluginIds));
+    addPluginImport(Arrays.asList(pluginIds));
   }
 
   /**
@@ -263,7 +264,7 @@ public final class PdeUtils {
    * @return the {@link Set} of all ID's in this <code>plugin.xml</code> file.
    */
   private Set<String> getIDSet() {
-    Set<String> idSet = Sets.newTreeSet();
+    Set<String> idSet = new TreeSet<>();
     for (IPluginExtension extension : getExtensions(getModel())) {
       for (IPluginObject pluginObject : extension.getChildren()) {
         if (pluginObject instanceof IPluginElement) {
@@ -634,11 +635,11 @@ public final class PdeUtils {
   /**
    * {@link Map} for <code>bundleId + path</code> into loaded {@link Image}.
    */
-  private static Map<String, Image> m_bundleIcons = Maps.newTreeMap();
+  private static Map<String, Image> m_bundleIcons = new TreeMap<>();
   /**
    * {@link Map} for <code>projectName + path</code> into loaded {@link Image}.
    */
-  private static Map<String, Image> m_projectIcons = Maps.newTreeMap();
+  private static Map<String, Image> m_projectIcons = new TreeMap<>();
 
   /**
    * Returns icon from {@link IPluginElement}, attribute <code>"icon"</code>.
@@ -834,7 +835,7 @@ public final class PdeUtils {
   /**
    * Cache for view ID to {@link ViewInfo}.
    */
-  private static final Map<String, ViewInfo> m_viewsById = Maps.newTreeMap();
+  private static final Map<String, ViewInfo> m_viewsById = new TreeMap<>();
 
   /**
    * Information about view in "org.eclipse.ui.views" extension.
@@ -988,7 +989,7 @@ public final class PdeUtils {
   /**
    * Cache for view ID to {@link ViewInfo}.
    */
-  private static final Map<String, PerspectiveInfo> m_perspectivesById = Maps.newTreeMap();
+  private static final Map<String, PerspectiveInfo> m_perspectivesById = new TreeMap<>();
 
   /**
    * Information about perspective in "org.eclipse.ui.perspectives" extension.

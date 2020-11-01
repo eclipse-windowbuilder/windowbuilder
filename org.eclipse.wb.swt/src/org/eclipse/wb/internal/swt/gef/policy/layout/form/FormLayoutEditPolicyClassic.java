@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.OutlineImageFigure;
@@ -70,18 +67,23 @@ import org.eclipse.swt.graphics.Image;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Policy implementing 'Classic' version of the FormLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     extends
-      KeyboardMovingLayoutEditPolicy implements IHeadersProvider {
+      KeyboardMovingLayoutEditPolicy
+    implements
+      IHeadersProvider {
   private static final int EXTENSION = 8;
   // model
   private final IFormLayoutInfo<C> layout;
@@ -92,7 +94,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
   private static final Color baseColor = DrawUtils.getShiftedColor(offsetColor, -32);
   private static final Color controlColor = DrawUtils.getShiftedColor(offsetColor, 32);
   // feedbacks
-  private final Map<EditPart, List<Figure>> feedbacks = Maps.newHashMap();
+  private final Map<EditPart, List<Figure>> feedbacks = new HashMap<>();
   private Map<EditPart, Figure> moveFeedbacks;
   private int lastMouseQuadrant;
   private int frozenYValue;
@@ -239,7 +241,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     }
     lastMouseQuadrant = quadrant;
     if (moveFeedbacks == null) {
-      moveFeedbacks = Maps.newHashMap();
+      moveFeedbacks = new HashMap<>();
     }
     // prepare change bounds feedback
     Figure moveFeedback = moveFeedbacks.get(part);
@@ -273,46 +275,49 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     List<C> vAttachables = getAttachableControls(null, false, false);
     // West
     if (quadrant == 0 || quadrant == 2) {
-      xText =
-          showLeftSideFeedbacks(
-              part,
-              control,
-              bounds,
-              location,
-              xText,
-              leftAttachment,
-              hAttachables,
-              false);
+      xText = showLeftSideFeedbacks(
+          part,
+          control,
+          bounds,
+          location,
+          xText,
+          leftAttachment,
+          hAttachables,
+          false);
     }
     // North
     if (quadrant == 0 || quadrant == 1) {
-      yText =
-          showTopSideFeedbacks(
-              part,
-              control,
-              bounds,
-              location,
-              yText,
-              topAttachment,
-              vAttachables,
-              false);
+      yText = showTopSideFeedbacks(
+          part,
+          control,
+          bounds,
+          location,
+          yText,
+          topAttachment,
+          vAttachables,
+          false);
     }
     // East
     if (quadrant == 1 || quadrant == 3) {
-      xText =
-          showRightSideFeedbacks(part, control, bounds, xText, rightAttachment, hAttachables, false);
+      xText = showRightSideFeedbacks(
+          part,
+          control,
+          bounds,
+          xText,
+          rightAttachment,
+          hAttachables,
+          false);
     }
     // South
     if (quadrant == 2 || quadrant == 3) {
-      yText =
-          showBottomSideFeedbacks(
-              part,
-              control,
-              bounds,
-              yText,
-              bottomAttachment,
-              vAttachables,
-              false);
+      yText = showBottomSideFeedbacks(
+          part,
+          control,
+          bounds,
+          yText,
+          bottomAttachment,
+          vAttachables,
+          false);
     }
     // Show feedback rectangle and location hints
     {
@@ -378,7 +383,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
 
   private void showCreateFeedback(CreateRequest request, C newChild) throws Exception {
     if (moveFeedbacks == null) {
-      moveFeedbacks = Maps.newHashMap();
+      moveFeedbacks = new HashMap<>();
     }
     // hide any old create feedbacks (it is more easy to add each time new feedback than track old ones and change their positions)
     removeFeedbacks();
@@ -408,8 +413,8 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     if (size != null) {
       // size-on-drop info update
       topLeftPoint = new Point(startLocation.x, startLocation.y);
-      preferredSize =
-          new Dimension(size.width + loc.x - startLocation.x, size.height + loc.y - startLocation.y);
+      preferredSize = new Dimension(size.width + loc.x - startLocation.x,
+          size.height + loc.y - startLocation.y);
       // prevent axis fixing
       frozenYValue = 0;
     } else {
@@ -516,11 +521,11 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     List<IObjectInfo> pastingComponents =
         GlobalState.getPasteRequestProcessor().getPastingComponents(request);
     if (moveFeedbacks == null) {
-      moveFeedbacks = Maps.newHashMap();
+      moveFeedbacks = new HashMap<>();
     }
     // remove create feedback
     if (moveFeedbacks == null) {
-      moveFeedbacks = Maps.newHashMap();
+      moveFeedbacks = new HashMap<>();
     }
     // hide any old create feedbacks
     removeFeedbacks();
@@ -559,14 +564,14 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
       for (int i = 0; i < pastingComponents.size(); ++i) {
         C control = getControlFromList(pastingComponents, i);
         Rectangle modelBounds = control.getBounds().getCopy();
-        relativeBounds[i] =
-            new Rectangle(modelBounds.x - offsetX,
-                modelBounds.y - offsetY,
-                modelBounds.width,
-                modelBounds.height);
+        relativeBounds[i] = new Rectangle(modelBounds.x - offsetX,
+            modelBounds.y - offsetY,
+            modelBounds.width,
+            modelBounds.height);
         bounds.union(relativeBounds[i]);
-        moveFeedback.add(new OutlineImageFigure(control.getImage(),
-            AbsolutePolicyUtils.COLOR_OUTLINE), relativeBounds[i]);
+        moveFeedback.add(
+            new OutlineImageFigure(control.getImage(), AbsolutePolicyUtils.COLOR_OUTLINE),
+            relativeBounds[i]);
       }
     } else {
       C model = getControlFromList(pastingComponents, 0);
@@ -591,22 +596,22 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     Dimension parentSize = composite.getClientArea().getSize();
     // prepare create command
     createCommand = new CompoundEditCommand(layoutModel);
-    createCommand.add(GlobalState.getPasteRequestProcessor().getPasteCommand(
-        request,
-        new IPasteComponentProcessor() {
-          @SuppressWarnings("unchecked")
-          public void process(Object component) throws Exception {
-            layout.commandCreate((C) component, null);
-          }
-        }));
+    createCommand.add(
+        GlobalState.getPasteRequestProcessor().getPasteCommand(
+            request,
+            new IPasteComponentProcessor() {
+              @SuppressWarnings("unchecked")
+              public void process(Object component) throws Exception {
+                layout.commandCreate((C) component, null);
+              }
+            }));
     for (int i = 0; i < pastingComponents.size(); ++i) {
       final C pasted = getControlFromList(pastingComponents, i);
       final Dimension size = new Dimension(relativeBounds[i].width, relativeBounds[i].height);
-      final Rectangle pastedBounds =
-          new Rectangle(bounds.x + relativeBounds[i].x,
-              bounds.y + relativeBounds[i].y,
-              relativeBounds[i].width,
-              relativeBounds[i].height);
+      final Rectangle pastedBounds = new Rectangle(bounds.x + relativeBounds[i].x,
+          bounds.y + relativeBounds[i].y,
+          relativeBounds[i].width,
+          relativeBounds[i].height);
       // West
       {
         xText = showLeftSideFeedbacks(host, pasted, pastedBounds, loc, xText, null, ctrls, true);
@@ -626,12 +631,16 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
         @Override
         protected void executeEdit() throws Exception {
           if (size.width != pasted.getPreferredSize().width) {
-            layout.setAttachmentOffset(pasted, IPositionConstants.RIGHT, pastedBounds.x
-                + size.width);
+            layout.setAttachmentOffset(
+                pasted,
+                IPositionConstants.RIGHT,
+                pastedBounds.x + size.width);
           }
           if (size.height != pasted.getPreferredSize().height) {
-            layout.setAttachmentOffset(pasted, IPositionConstants.BOTTOM, pastedBounds.y
-                + size.height);
+            layout.setAttachmentOffset(
+                pasted,
+                IPositionConstants.BOTTOM,
+                pastedBounds.y + size.height);
           }
         }
       });
@@ -679,8 +688,9 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
         C child = null;
         int cmdSide = 0;
         int cmdOffset = 0;
-        for (Iterator<C> I = sortControlsByAxisRange(attachables, true, bounds.right()).iterator(); I.hasNext()
-            && !controlFound;) {
+        for (Iterator<C> I =
+            sortControlsByAxisRange(attachables, true, bounds.right()).iterator(); I.hasNext()
+                && !controlFound;) {
           child = I.next();
           Rectangle childBounds = FormSelectionEditPolicyClassic.getControlModelBounds(child);
           int left = Math.min(bounds.x, childBounds.x);
@@ -712,14 +722,13 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
         }
         if (controlFound) {
-          cmd =
-              getBindToControlCommand(
-                  createControl,
-                  control,
-                  IPositionConstants.BOTTOM,
-                  child,
-                  cmdSide,
-                  cmdOffset);
+          cmd = getBindToControlCommand(
+              createControl,
+              control,
+              IPositionConstants.BOTTOM,
+              child,
+              cmdSide,
+              cmdOffset);
         }
       }
       if (!controlFound) {
@@ -743,17 +752,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
           if (snappedToPercent) {
             if (createControl) {
-              cmd =
-                  new CreateToPercentOffsetCommand(control,
-                      IPositionConstants.BOTTOM,
-                      percent.intValue(),
-                      offset);
+              cmd = new CreateToPercentOffsetCommand(control,
+                  IPositionConstants.BOTTOM,
+                  percent.intValue(),
+                  offset);
             } else {
-              cmd =
-                  new MoveToPercentOffsetCommand(control,
-                      IPositionConstants.BOTTOM,
-                      percent.intValue(),
-                      offset);
+              cmd = new MoveToPercentOffsetCommand(control,
+                  IPositionConstants.BOTTOM,
+                  percent.intValue(),
+                  offset);
             }
             break;
           }
@@ -765,34 +772,32 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
             addVLine(part, bottomPoint, offsetColor);
             locationY = "--> " + String.valueOf(vMargin);
             if (createControl) {
-              cmd =
-                  new CreateToMarginCommand(control,
-                      IPositionConstants.BOTTOM,
-                      IPositionConstants.BOTTOM,
-                      vMargin);
+              cmd = new CreateToMarginCommand(control,
+                  IPositionConstants.BOTTOM,
+                  IPositionConstants.BOTTOM,
+                  vMargin);
             } else {
-              cmd =
-                  new MoveToMarginCommand(control,
-                      IPositionConstants.BOTTOM,
-                      IPositionConstants.BOTTOM,
-                      vMargin);
+              cmd = new MoveToMarginCommand(control,
+                  IPositionConstants.BOTTOM,
+                  IPositionConstants.BOTTOM,
+                  vMargin);
             }
           } else {
             setVBounds(bounds, FormUtils.snapGrid(bounds.bottom(), sens), createControl);
-            locationY =
-                getLocationString(bottomAttachment, bounds.bottom() - layoutMarginTop, parentHeight);
+            locationY = getLocationString(
+                bottomAttachment,
+                bounds.bottom() - layoutMarginTop,
+                parentHeight);
             if (createControl) {
-              cmd =
-                  new CreateToOffsetCommand(control,
-                      IPositionConstants.BOTTOM,
-                      parentHeight,
-                      FormUtils.snapGrid(y - layoutMarginTop, sens));
+              cmd = new CreateToOffsetCommand(control,
+                  IPositionConstants.BOTTOM,
+                  parentHeight,
+                  FormUtils.snapGrid(y - layoutMarginTop, sens));
             } else {
-              cmd =
-                  new MoveToOffsetCommand(control,
-                      IPositionConstants.BOTTOM,
-                      parentHeight,
-                      FormUtils.snapGrid(y - layoutMarginTop, sens));
+              cmd = new MoveToOffsetCommand(control,
+                  IPositionConstants.BOTTOM,
+                  parentHeight,
+                  FormUtils.snapGrid(y - layoutMarginTop, sens));
             }
           }
         }
@@ -800,13 +805,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     } else {
       locationY = getLocationString(bottomAttachment, bounds.bottom(), parentHeight);
       if (createControl) {
-        cmd =
-            new CreateToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight, y
-                - layoutMarginTop);
+        cmd = new CreateToOffsetCommand(control,
+            IPositionConstants.BOTTOM,
+            parentHeight,
+            y - layoutMarginTop);
       } else {
-        cmd =
-            new MoveToOffsetCommand(control, IPositionConstants.BOTTOM, parentHeight, y
-                - layoutMarginTop);
+        cmd = new MoveToOffsetCommand(control,
+            IPositionConstants.BOTTOM,
+            parentHeight,
+            y - layoutMarginTop);
       }
     }
     addVLine(
@@ -847,7 +854,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
         int cmdOffset = 0;
         for (Iterator<C> I =
             sortControlsByAxisRange(attachables, false, bounds.bottom()).iterator(); I.hasNext()
-            && !controlFound;) {
+                && !controlFound;) {
           child = I.next();
           Rectangle childBounds = FormSelectionEditPolicyClassic.getControlModelBounds(child);
           int top = Math.min(bounds.y, childBounds.y);
@@ -879,14 +886,13 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
         }
         if (controlFound) {
-          cmd =
-              getBindToControlCommand(
-                  createControl,
-                  control,
-                  IPositionConstants.RIGHT,
-                  child,
-                  cmdSide,
-                  cmdOffset);
+          cmd = getBindToControlCommand(
+              createControl,
+              control,
+              IPositionConstants.RIGHT,
+              child,
+              cmdSide,
+              cmdOffset);
         }
       }
       if (!controlFound) {
@@ -910,17 +916,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
           if (snappedToPercent) {
             if (createControl) {
-              cmd =
-                  new CreateToPercentOffsetCommand(control,
-                      IPositionConstants.RIGHT,
-                      percent.intValue(),
-                      -offset);
+              cmd = new CreateToPercentOffsetCommand(control,
+                  IPositionConstants.RIGHT,
+                  percent.intValue(),
+                  -offset);
             } else {
-              cmd =
-                  new MoveToPercentOffsetCommand(control,
-                      IPositionConstants.RIGHT,
-                      percent.intValue(),
-                      -offset);
+              cmd = new MoveToPercentOffsetCommand(control,
+                  IPositionConstants.RIGHT,
+                  percent.intValue(),
+                  -offset);
             }
             break;
           }
@@ -933,34 +937,30 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
             locationX = String.valueOf(-hMargin);
             locationX = "--> " + String.valueOf(hMargin);
             if (createControl) {
-              cmd =
-                  new CreateToMarginCommand(control,
-                      IPositionConstants.RIGHT,
-                      IPositionConstants.RIGHT,
-                      hMargin);
+              cmd = new CreateToMarginCommand(control,
+                  IPositionConstants.RIGHT,
+                  IPositionConstants.RIGHT,
+                  hMargin);
             } else {
-              cmd =
-                  new MoveToMarginCommand(control,
-                      IPositionConstants.RIGHT,
-                      IPositionConstants.RIGHT,
-                      hMargin);
+              cmd = new MoveToMarginCommand(control,
+                  IPositionConstants.RIGHT,
+                  IPositionConstants.RIGHT,
+                  hMargin);
             }
           } else {
             setHBounds(bounds, FormUtils.snapGrid(bounds.right(), sens), createControl);
             locationX =
                 getLocationString(rightAttachment, bounds.right() - layoutMarginLeft, parentWidth);
             if (createControl) {
-              cmd =
-                  new CreateToOffsetCommand(control,
-                      IPositionConstants.RIGHT,
-                      parentWidth,
-                      FormUtils.snapGrid(x - layoutMarginLeft, sens));
+              cmd = new CreateToOffsetCommand(control,
+                  IPositionConstants.RIGHT,
+                  parentWidth,
+                  FormUtils.snapGrid(x - layoutMarginLeft, sens));
             } else {
-              cmd =
-                  new MoveToOffsetCommand(control,
-                      IPositionConstants.RIGHT,
-                      parentWidth,
-                      FormUtils.snapGrid(x - layoutMarginLeft, sens));
+              cmd = new MoveToOffsetCommand(control,
+                  IPositionConstants.RIGHT,
+                  parentWidth,
+                  FormUtils.snapGrid(x - layoutMarginLeft, sens));
             }
           }
         }
@@ -969,13 +969,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
       locationX =
           getLocationString(rightAttachment, bounds.right() - layoutMarginLeft, parentWidth);
       if (createControl) {
-        cmd =
-            new CreateToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth, x
-                - layoutMarginLeft);
+        cmd = new CreateToOffsetCommand(control,
+            IPositionConstants.RIGHT,
+            parentWidth,
+            x - layoutMarginLeft);
       } else {
-        cmd =
-            new MoveToOffsetCommand(control, IPositionConstants.RIGHT, parentWidth, x
-                - layoutMarginLeft);
+        cmd = new MoveToOffsetCommand(control,
+            IPositionConstants.RIGHT,
+            parentWidth,
+            x - layoutMarginLeft);
       }
     }
     addHLine(
@@ -1015,8 +1017,9 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
         C child = null;
         int cmdSide = 0;
         int cmdOffset = 0;
-        for (Iterator<C> I = sortControlsByAxisRange(attachables, true, location.x).iterator(); I.hasNext()
-            && !controlFound;) {
+        for (Iterator<C> I =
+            sortControlsByAxisRange(attachables, true, location.x).iterator(); I.hasNext()
+                && !controlFound;) {
           child = I.next();
           Rectangle childBounds = FormSelectionEditPolicyClassic.getControlModelBounds(child);
           int left = Math.min(bounds.x, childBounds.x);
@@ -1048,14 +1051,13 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
         }
         if (controlFound) {
-          cmd =
-              getBindToControlCommand(
-                  createControl,
-                  control,
-                  IPositionConstants.TOP,
-                  child,
-                  cmdSide,
-                  cmdOffset);
+          cmd = getBindToControlCommand(
+              createControl,
+              control,
+              IPositionConstants.TOP,
+              child,
+              cmdSide,
+              cmdOffset);
         }
       }
       if (!controlFound) {
@@ -1079,17 +1081,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
           if (snappedToPercent) {
             if (createControl) {
-              cmd =
-                  new CreateToPercentOffsetCommand(control,
-                      IPositionConstants.TOP,
-                      percent.intValue(),
-                      offset);
+              cmd = new CreateToPercentOffsetCommand(control,
+                  IPositionConstants.TOP,
+                  percent.intValue(),
+                  offset);
             } else {
-              cmd =
-                  new MoveToPercentOffsetCommand(control,
-                      IPositionConstants.TOP,
-                      percent.intValue(),
-                      offset);
+              cmd = new MoveToPercentOffsetCommand(control,
+                  IPositionConstants.TOP,
+                  percent.intValue(),
+                  offset);
             }
             break;
           }
@@ -1099,32 +1099,28 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
             bounds.y = vMargin;
             addVLine(part, vMargin, offsetColor);
             if (createControl) {
-              cmd =
-                  new CreateToMarginCommand(control,
-                      IPositionConstants.TOP,
-                      IPositionConstants.TOP,
-                      vModelMargin);
+              cmd = new CreateToMarginCommand(control,
+                  IPositionConstants.TOP,
+                  IPositionConstants.TOP,
+                  vModelMargin);
             } else {
-              cmd =
-                  new MoveToMarginCommand(control,
-                      IPositionConstants.TOP,
-                      IPositionConstants.TOP,
-                      vModelMargin);
+              cmd = new MoveToMarginCommand(control,
+                  IPositionConstants.TOP,
+                  IPositionConstants.TOP,
+                  vModelMargin);
             }
           } else {
             bounds.y = FormUtils.snapGrid(y, sens);
             if (createControl) {
-              cmd =
-                  new CreateToOffsetCommand(control,
-                      IPositionConstants.TOP,
-                      parentHeight,
-                      FormUtils.snapGrid(y - layoutMarginTop, sens));
+              cmd = new CreateToOffsetCommand(control,
+                  IPositionConstants.TOP,
+                  parentHeight,
+                  FormUtils.snapGrid(y - layoutMarginTop, sens));
             } else {
-              cmd =
-                  new MoveToOffsetCommand(control,
-                      IPositionConstants.TOP,
-                      parentHeight,
-                      FormUtils.snapGrid(y - layoutMarginTop, sens));
+              cmd = new MoveToOffsetCommand(control,
+                  IPositionConstants.TOP,
+                  parentHeight,
+                  FormUtils.snapGrid(y - layoutMarginTop, sens));
             }
           }
           locationY = getLocationString(topAttachment, bounds.y - layoutMarginTop, parentHeight);
@@ -1133,13 +1129,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     } else {
       locationY = getLocationString(topAttachment, bounds.y - layoutMarginTop, parentHeight);
       if (createControl) {
-        cmd =
-            new CreateToOffsetCommand(control, IPositionConstants.TOP, parentHeight, y
-                - layoutMarginTop);
+        cmd = new CreateToOffsetCommand(control,
+            IPositionConstants.TOP,
+            parentHeight,
+            y - layoutMarginTop);
       } else {
-        cmd =
-            new MoveToOffsetCommand(control, IPositionConstants.TOP, parentHeight, y
-                - layoutMarginTop);
+        cmd = new MoveToOffsetCommand(control,
+            IPositionConstants.TOP,
+            parentHeight,
+            y - layoutMarginTop);
       }
     }
     addVLine(part, bounds.y, layout.getComposite().getClientArea().width, IColorConstants.red);
@@ -1176,8 +1174,9 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
         C child = null;
         int cmdSide = 0;
         int cmdOffset = 0;
-        for (Iterator<C> I = sortControlsByAxisRange(attachables, false, location.y).iterator(); I.hasNext()
-            && !controlFound;) {
+        for (Iterator<C> I =
+            sortControlsByAxisRange(attachables, false, location.y).iterator(); I.hasNext()
+                && !controlFound;) {
           child = I.next();
           Rectangle childBounds = FormSelectionEditPolicyClassic.getControlModelBounds(child);
           int top = Math.min(bounds.y, childBounds.y);
@@ -1209,14 +1208,13 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
         }
         if (controlFound) {
-          cmd =
-              getBindToControlCommand(
-                  createControl,
-                  control,
-                  IPositionConstants.LEFT,
-                  child,
-                  cmdSide,
-                  cmdOffset);
+          cmd = getBindToControlCommand(
+              createControl,
+              control,
+              IPositionConstants.LEFT,
+              child,
+              cmdSide,
+              cmdOffset);
         }
       }
       if (!controlFound) {
@@ -1240,17 +1238,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
           }
           if (snappedToPercent) {
             if (createControl) {
-              cmd =
-                  new CreateToPercentOffsetCommand(control,
-                      IPositionConstants.LEFT,
-                      percent.intValue(),
-                      offset);
+              cmd = new CreateToPercentOffsetCommand(control,
+                  IPositionConstants.LEFT,
+                  percent.intValue(),
+                  offset);
             } else {
-              cmd =
-                  new MoveToPercentOffsetCommand(control,
-                      IPositionConstants.LEFT,
-                      percent.intValue(),
-                      offset);
+              cmd = new MoveToPercentOffsetCommand(control,
+                  IPositionConstants.LEFT,
+                  percent.intValue(),
+                  offset);
             }
             break;
           }
@@ -1260,32 +1256,28 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
             bounds.x = hMargin;
             addHLine(part, hMargin, offsetColor);
             if (createControl) {
-              cmd =
-                  new CreateToMarginCommand(control,
-                      IPositionConstants.LEFT,
-                      IPositionConstants.LEFT,
-                      hModelMargin);
+              cmd = new CreateToMarginCommand(control,
+                  IPositionConstants.LEFT,
+                  IPositionConstants.LEFT,
+                  hModelMargin);
             } else {
-              cmd =
-                  new MoveToMarginCommand(control,
-                      IPositionConstants.LEFT,
-                      IPositionConstants.LEFT,
-                      hModelMargin);
+              cmd = new MoveToMarginCommand(control,
+                  IPositionConstants.LEFT,
+                  IPositionConstants.LEFT,
+                  hModelMargin);
             }
           } else {
             bounds.x = FormUtils.snapGrid(x, sens);
             if (createControl) {
-              cmd =
-                  new CreateToOffsetCommand(control,
-                      IPositionConstants.LEFT,
-                      parentWidth,
-                      FormUtils.snapGrid(x - layoutMarginLeft, sens));
+              cmd = new CreateToOffsetCommand(control,
+                  IPositionConstants.LEFT,
+                  parentWidth,
+                  FormUtils.snapGrid(x - layoutMarginLeft, sens));
             } else {
-              cmd =
-                  new MoveToOffsetCommand(control,
-                      IPositionConstants.LEFT,
-                      parentWidth,
-                      FormUtils.snapGrid(x - layoutMarginLeft, sens));
+              cmd = new MoveToOffsetCommand(control,
+                  IPositionConstants.LEFT,
+                  parentWidth,
+                  FormUtils.snapGrid(x - layoutMarginLeft, sens));
             }
           }
           locationX = getLocationString(leftAttachment, bounds.x - layoutMarginLeft, parentWidth);
@@ -1294,13 +1286,15 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     } else {
       locationX = getLocationString(leftAttachment, bounds.x - layoutMarginLeft, parentWidth);
       if (createControl) {
-        cmd =
-            new CreateToOffsetCommand(control, IPositionConstants.LEFT, parentWidth, x
-                - layoutMarginLeft);
+        cmd = new CreateToOffsetCommand(control,
+            IPositionConstants.LEFT,
+            parentWidth,
+            x - layoutMarginLeft);
       } else {
-        cmd =
-            new MoveToOffsetCommand(control, IPositionConstants.LEFT, parentWidth, x
-                - layoutMarginLeft);
+        cmd = new MoveToOffsetCommand(control,
+            IPositionConstants.LEFT,
+            parentWidth,
+            x - layoutMarginLeft);
       }
     }
     addHLine(part, bounds.x, layout.getComposite().getClientArea().height, IColorConstants.red);
@@ -1312,7 +1306,9 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     return locationX;
   }
 
-  private String getLocationString(IFormAttachmentInfo<C> attachment, int coord, int parentDimension) {
+  private String getLocationString(IFormAttachmentInfo<C> attachment,
+      int coord,
+      int parentDimension) {
     String locationX;
     if (attachment == null || attachment.getNumerator() != 100) {
       locationX = String.valueOf(coord) + " <--";
@@ -1406,7 +1402,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     }
     List<Figure> partFeedbacks = feedbacks.get(part);
     if (partFeedbacks == null) {
-      partFeedbacks = Lists.newLinkedList();
+      partFeedbacks = new LinkedList<>();
       feedbacks.put(part, partFeedbacks);
     }
     partFeedbacks.add(line);
@@ -1537,12 +1533,12 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     return FormSelectionEditPolicyClassic.sortControlsByAxisRange(components, isX, value);
   }
 
-  private List<C> getAttachableControls(C control, boolean horizontal, final boolean includeSelected)
-      throws Exception {
-    List<C> attachableControls =
-        control != null
-            ? FormUtils.getAttachableControls(layout, control, horizontal)
-            : FormUtils.getAttachableControls(layout);
+  private List<C> getAttachableControls(C control,
+      boolean horizontal,
+      final boolean includeSelected) throws Exception {
+    List<C> attachableControls = control != null
+        ? FormUtils.getAttachableControls(layout, control, horizontal)
+        : FormUtils.getAttachableControls(layout);
     CollectionUtils.filter(attachableControls, new Predicate() {
       public boolean evaluate(Object input) {
         try {
@@ -1564,8 +1560,8 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
   // Location and size hints
   //
   ////////////////////////////////////////////////////////////////////////////
-  private Map<EditPart, TextFeedback> xTextFeedbacks = Maps.newHashMap();
-  private Map<EditPart, TextFeedback> yTextFeedbacks = Maps.newHashMap();
+  private Map<EditPart, TextFeedback> xTextFeedbacks = new HashMap<>();
+  private Map<EditPart, TextFeedback> yTextFeedbacks = new HashMap<>();
   private TextFeedback createControlHintFeedbackX;
   private TextFeedback createControlHintFeedbackY;
 
@@ -1583,8 +1579,8 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     for (TextFeedback feedback : yTextFeedbacks.values()) {
       feedback.remove();
     }
-    xTextFeedbacks = Maps.newHashMap(); // use fast GC :)
-    yTextFeedbacks = Maps.newHashMap(); // use fast GC :)
+    xTextFeedbacks = new HashMap<>(); // use fast GC :)
+    yTextFeedbacks = new HashMap<>(); // use fast GC :)
     if (createControlHintFeedbackX != null) {
       createControlHintFeedbackX.remove();
       createControlHintFeedbackX = null;
@@ -1809,11 +1805,10 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
   }
 
   public List<?> getHeaders(boolean isHorizontal) {
-    List<Integer> values =
-        isHorizontal
-            ? layout.getPreferences().getHorizontalPercents()
-            : layout.getPreferences().getVerticalPercents();
-    List<FormLayoutPreferences.PercentsInfo> results = Lists.newArrayList();
+    List<Integer> values = isHorizontal
+        ? layout.getPreferences().getHorizontalPercents()
+        : layout.getPreferences().getVerticalPercents();
+    List<FormLayoutPreferences.PercentsInfo> results = new ArrayList<>();
     for (Integer percent : values) {
       results.add(new FormLayoutPreferences.PercentsInfo(percent));
     }

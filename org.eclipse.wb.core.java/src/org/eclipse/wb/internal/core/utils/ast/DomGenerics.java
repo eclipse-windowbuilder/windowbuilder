@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.ast;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 
@@ -120,7 +119,7 @@ public class DomGenerics {
    * @return {@link Initializer}'s of given {@link TypeDeclaration}.
    */
   public static List<Initializer> initializers(TypeDeclaration typeDeclaration, boolean aStatic) {
-    List<Initializer> initializers = Lists.newArrayList();
+    List<Initializer> initializers = new ArrayList<>();
     for (BodyDeclaration bodyDeclaration : bodyDeclarations(typeDeclaration)) {
       if (bodyDeclaration instanceof Initializer) {
         Initializer initializer = (Initializer) bodyDeclaration;
@@ -149,11 +148,13 @@ public class DomGenerics {
   //
   ////////////////////////////////////////////////////////////////////////////
   @SuppressWarnings("unchecked")
-  public static List<BodyDeclaration> bodyDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
+  public static List<BodyDeclaration> bodyDeclarations(
+      AnonymousClassDeclaration anonymousDeclaration) {
     return anonymousDeclaration.bodyDeclarations();
   }
 
-  public static List<MethodDeclaration> methodDeclarations(AnonymousClassDeclaration anonymousDeclaration) {
+  public static List<MethodDeclaration> methodDeclarations(
+      AnonymousClassDeclaration anonymousDeclaration) {
     List<BodyDeclaration> bodyDeclarations = bodyDeclarations(anonymousDeclaration);
     return GenericsUtils.select(bodyDeclarations, MethodDeclaration.class);
   }
@@ -269,7 +270,8 @@ public class DomGenerics {
   }
 
   @SuppressWarnings("unchecked")
-  public static List<VariableDeclarationFragment> fragments(VariableDeclarationStatement statement) {
+  public static List<VariableDeclarationFragment> fragments(
+      VariableDeclarationStatement statement) {
     return statement.fragments();
   }
 
@@ -327,7 +329,7 @@ public class DomGenerics {
    */
   @SuppressWarnings("rawtypes")
   public static List<EnumDeclaration> getEnums(TypeDeclaration typeDeclaration) {
-    List<EnumDeclaration> enumDeclarations = Lists.newArrayList();
+    List<EnumDeclaration> enumDeclarations = new ArrayList<>();
     List declarations = typeDeclaration.bodyDeclarations();
     for (Object object : declarations) {
       if (object instanceof EnumDeclaration) {

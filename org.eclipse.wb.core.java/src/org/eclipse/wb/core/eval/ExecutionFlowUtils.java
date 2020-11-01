@@ -11,10 +11,7 @@
 package org.eclipse.wb.core.eval;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getBinding;
 import static org.eclipse.wb.internal.core.utils.ast.AstNodeUtils.getConstructor;
@@ -80,6 +77,9 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +103,7 @@ public final class ExecutionFlowUtils {
   ////////////////////////////////////////////////////////////////////////////
   private ExecutionFlowUtils() {
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // ExecutionFlowFrameVisitor
@@ -160,12 +161,13 @@ public final class ExecutionFlowUtils {
     boolean classInitialized;
     boolean instanceInitialized;
     boolean useBinaryFlow;
-    final Set<MethodDeclaration> visitedMethods = Sets.newHashSet();
+    final Set<MethodDeclaration> visitedMethods = new HashSet<>();
 
     public VisitingContext(boolean useBinaryFlow) {
       this.useBinaryFlow = useBinaryFlow;
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Visiting
@@ -354,6 +356,7 @@ public final class ExecutionFlowUtils {
       statement.accept(complexVisitor);
     }
   }
+
   private static final Map<ExecutionFlowFrameVisitor, ASTVisitor> m_interceptingVisitors =
       new MapMaker().weakKeys().weakValues().makeMap();
 
@@ -459,7 +462,8 @@ public final class ExecutionFlowUtils {
    * In general we should not visit anonymous classes, they are usually event handlers. However
    * there are special cases, such as <code>EventQueue.invokeLater(Runnable)</code> in Swing.
    */
-  private static boolean shouldVisitAnonymousClassDeclaration(final AnonymousClassDeclaration anonymous) {
+  private static boolean shouldVisitAnonymousClassDeclaration(
+      final AnonymousClassDeclaration anonymous) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
       public Boolean runObject() throws Exception {
         for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
@@ -499,10 +503,9 @@ public final class ExecutionFlowUtils {
       Statement statement,
       ExecutionFlowFrameVisitor visitor) {
     if (context.useBinaryFlow) {
-      List<MethodDeclaration> binaryFlowMethods =
-          beforeStatement
-              ? flowDescription.getBinaryFlowMethodsBefore(statement)
-              : flowDescription.getBinaryFlowMethodsAfter(statement);
+      List<MethodDeclaration> binaryFlowMethods = beforeStatement
+          ? flowDescription.getBinaryFlowMethodsBefore(statement)
+          : flowDescription.getBinaryFlowMethodsAfter(statement);
       if (binaryFlowMethods != null) {
         for (MethodDeclaration method : binaryFlowMethods) {
           visit(context, flowDescription, visitor, method);
@@ -584,7 +587,7 @@ public final class ExecutionFlowUtils {
    */
   public static MethodDeclaration getExecutionFlowConstructor(TypeDeclaration typeDeclaration) {
     // build list of constructors
-    List<MethodDeclaration> constructors = Lists.newArrayList();
+    List<MethodDeclaration> constructors = new ArrayList<>();
     for (MethodDeclaration methodDeclaration : typeDeclaration.getMethods()) {
       if (methodDeclaration.isConstructor()) {
         constructors.add(methodDeclaration);
@@ -627,6 +630,7 @@ public final class ExecutionFlowUtils {
     }
     return null;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Assignment
@@ -688,7 +692,8 @@ public final class ExecutionFlowUtils {
    * @param flowDescription
    *          the {@link ExecutionFlowDescription} from which we should start searching.
    */
-  public static ASTNode getLastAssignment(ExecutionFlowDescription flowDescription, ASTNode variable) {
+  public static ASTNode getLastAssignment(ExecutionFlowDescription flowDescription,
+      ASTNode variable) {
     if (EnvironmentUtils.isTestingTime()) {
       Assert.isTrue(isVariable(variable));
     }
@@ -781,33 +786,35 @@ public final class ExecutionFlowUtils {
   private static void prepareAssignmentInformation(ExecutionFlowDescription flowDescription) {
     final Long assignmentStamp = flowDescription.getAST().modificationCount();
     // visit execution flow, find declarations/assignments for all variables
-    visit(new VisitingContext(true), flowDescription, new AbstractVariablesExecutionFlowVisitor(
-        true) {
-      @Override
-      public void endVisit(Assignment node) {
-        Expression leftSide = node.getLeftHandSide();
-        if (isVariable(leftSide)) {
-          Expression variable = leftSide;
-          executionFlowContext.addAssignment(variable, node);
-          executionFlowContext.storeAssignments(variable);
-        }
-      }
+    visit(
+        new VisitingContext(true),
+        flowDescription,
+        new AbstractVariablesExecutionFlowVisitor(true) {
+          @Override
+          public void endVisit(Assignment node) {
+            Expression leftSide = node.getLeftHandSide();
+            if (isVariable(leftSide)) {
+              Expression variable = leftSide;
+              executionFlowContext.addAssignment(variable, node);
+              executionFlowContext.storeAssignments(variable);
+            }
+          }
 
-      ////////////////////////////////////////////////////////////////////////////
-      //
-      // Generic ASTNode pre/post visiting
-      //
-      ////////////////////////////////////////////////////////////////////////////
-      @Override
-      public void postVisit(ASTNode node) {
-        // store assignment for variable usage
-        if (node instanceof Expression && isVariable(node)) {
-          Expression variable = (Expression) node;
-          variable.setProperty(KEY_LAST_VARIABLE_STAMP, assignmentStamp);
-          executionFlowContext.storeAssignments(variable);
-        }
-      }
-    });
+          ////////////////////////////////////////////////////////////////////////////
+          //
+          // Generic ASTNode pre/post visiting
+          //
+          ////////////////////////////////////////////////////////////////////////////
+          @Override
+          public void postVisit(ASTNode node) {
+            // store assignment for variable usage
+            if (node instanceof Expression && isVariable(node)) {
+              Expression variable = (Expression) node;
+              variable.setProperty(KEY_LAST_VARIABLE_STAMP, assignmentStamp);
+              executionFlowContext.storeAssignments(variable);
+            }
+          }
+        });
     // visit CompilationUnit, find references for all variables
     flowDescription.getCompilationUnit().accept(new AbstractVariablesExecutionFlowVisitor(false) {
       @Override
@@ -858,6 +865,7 @@ public final class ExecutionFlowUtils {
       }
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // AbstractVariablesExecutionFlowVisitor
@@ -930,7 +938,7 @@ public final class ExecutionFlowUtils {
    */
   private static final class ExecutionFlowContext {
     private final boolean m_forExecutionFlow;
-    private final LinkedList<ExecutionFlowFrame> m_stack = Lists.newLinkedList();
+    private final LinkedList<ExecutionFlowFrame> m_stack = new LinkedList<>();
     private ExecutionFlowFrame m_currentFrame;
 
     ////////////////////////////////////////////////////////////////////////////
@@ -961,10 +969,9 @@ public final class ExecutionFlowUtils {
      * Creates new frame, all subsequent variable declarations will go into this frame.
      */
     public void enterFrame(ASTNode node) {
-      m_currentFrame =
-          new ExecutionFlowFrame(getNewFrameMethod(node),
-              m_forExecutionFlow,
-              node instanceof TypeDeclaration);
+      m_currentFrame = new ExecutionFlowFrame(getNewFrameMethod(node),
+          m_forExecutionFlow,
+          node instanceof TypeDeclaration);
       m_stack.addFirst(m_currentFrame);
     }
 
@@ -1070,12 +1077,12 @@ public final class ExecutionFlowUtils {
     private final MethodDeclaration m_method;
     private final boolean m_forExecutionFlow;
     private final boolean m_forTypeDeclaration;
-    private final Map<String, VariableDeclaration> m_variableToDeclaration = Maps.newHashMap();
-    private final Map<String, ASTNode> m_assignments = Maps.newHashMap();
-    private final Map<String, Expression> m_assignmentsVariables = Maps.newHashMap();
-    private final Map<String, ASTNode> m_variableToLastAssignment = Maps.newHashMap();
-    private final Map<String, List<ASTNode>> m_variableToAssignments = Maps.newHashMap();
-    private final Map<String, List<Expression>> m_variableToReferences = Maps.newHashMap();
+    private final Map<String, VariableDeclaration> m_variableToDeclaration = new HashMap<>();
+    private final Map<String, ASTNode> m_assignments = new HashMap<>();
+    private final Map<String, Expression> m_assignmentsVariables = new HashMap<>();
+    private final Map<String, ASTNode> m_variableToLastAssignment = new HashMap<>();
+    private final Map<String, List<ASTNode>> m_variableToAssignments = new HashMap<>();
+    private final Map<String, List<Expression>> m_variableToReferences = new HashMap<>();
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -1194,7 +1201,7 @@ public final class ExecutionFlowUtils {
       String variableName = getVariableName(variable);
       List<ASTNode> assignments = m_variableToAssignments.get(variableName);
       if (assignments == null) {
-        assignments = Lists.newArrayList();
+        assignments = new ArrayList<>();
         m_variableToAssignments.put(variableName, assignments);
       }
       return assignments;
@@ -1224,7 +1231,7 @@ public final class ExecutionFlowUtils {
         String variableName = getVariableName(variable);
         references = m_variableToReferences.get(variableName);
         if (references == null) {
-          references = Lists.newArrayList();
+          references = new ArrayList<>();
           m_variableToReferences.put(variableName, references);
         }
       }
@@ -1248,7 +1255,7 @@ public final class ExecutionFlowUtils {
    */
   public static List<ASTNode> getInvocations(ExecutionFlowDescription flowDescription,
       MethodDeclaration methodDeclaration) {
-    final List<ASTNode> invocations = Lists.newArrayList();
+    final List<ASTNode> invocations = new ArrayList<>();
     // prepare required values
     IMethodBinding requiredBinding = getMethodBinding(methodDeclaration);
     if (requiredBinding == null) {

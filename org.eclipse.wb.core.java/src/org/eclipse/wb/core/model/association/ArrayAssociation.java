@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.model.association;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 
 import org.eclipse.jdt.core.dom.ArrayCreation;
@@ -19,6 +17,7 @@ import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.Statement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +63,7 @@ public final class ArrayAssociation extends Association {
   @Override
   public boolean remove() throws Exception {
     ArrayInitializer initializer = m_arrayCreation.getInitializer();
-    List<Expression> expressionsToRemove = Lists.newArrayList();
+    List<Expression> expressionsToRemove = new ArrayList<>();
     // locate items
     {
       @SuppressWarnings("unchecked")

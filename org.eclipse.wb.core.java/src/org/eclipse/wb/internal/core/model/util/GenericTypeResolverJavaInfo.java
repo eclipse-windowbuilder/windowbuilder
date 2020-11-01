@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.util;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -23,6 +21,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.ParameterizedType;
 
 import java.lang.reflect.TypeVariable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -50,7 +49,7 @@ public class GenericTypeResolverJavaInfo extends GenericTypeResolver {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static Map<String, String> getTypeArguments(JavaInfo javaInfo) throws Exception {
-    Map<String, String> typeArguments = Maps.newHashMap();
+    Map<String, String> typeArguments = new HashMap<>();
     ASTNode node = javaInfo.getCreationSupport().getNode();
     if (node instanceof ClassInstanceCreation) {
       ClassInstanceCreation creation = (ClassInstanceCreation) node;

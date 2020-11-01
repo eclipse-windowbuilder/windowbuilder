@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.layout.form;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.IPositionConstants;
@@ -42,7 +40,7 @@ import java.util.List;
 
 /**
  * Layout assistant page for FormLayout automatic mode.
- * 
+ *
  * @author mitin_aa
  */
 public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
@@ -109,7 +107,7 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // ILayoutAssistantPage 
+  // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
   public boolean isPageValid() {
@@ -132,21 +130,18 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
   ////////////////////////////////////////////////////////////////////////////
   private void fillAnchorsActions(IContributionManager manager) {
     C widget = m_selection.size() == 1 ? (C) m_selection.get(0) : null;
-    new AnchorsActionsSupport(m_placementsSupport, m_imageProvider).fillAnchorsActions(
-        manager,
-        widget,
-        false);
-    new AnchorsActionsSupport(m_placementsSupport, m_imageProvider).fillAnchorsActions(
-        manager,
-        widget,
-        true);
+    new AnchorsActionsSupport(m_placementsSupport,
+        m_imageProvider).fillAnchorsActions(manager, widget, false);
+    new AnchorsActionsSupport(m_placementsSupport,
+        m_imageProvider).fillAnchorsActions(manager, widget, true);
   }
 
   private void fillAlignmentActions(final IContributionManager manager) {
-    ArrayList<Object> actions = Lists.newArrayList();
-    new FormLayoutEditPolicy.FormLayoutAlignmentActionsSupport<C>(m_layout, m_placementsSupport).addAlignmentActions(
-        GenericsUtils.<ObjectInfo>cast(m_selection),
-        actions);
+    ArrayList<Object> actions = new ArrayList<>();
+    new FormLayoutEditPolicy.FormLayoutAlignmentActionsSupport<C>(m_layout,
+        m_placementsSupport).addAlignmentActions(
+            GenericsUtils.<ObjectInfo>cast(m_selection),
+            actions);
     for (Object action : actions) {
       if (action instanceof IContributionItem) {
         manager.add((IContributionItem) action);
@@ -157,53 +152,65 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
   }
 
   private void fillComplexAnchorsActions(IContributionManager manager) {
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentTopLeft,
-        "assistant/top_left.gif",
-        IPositionConstants.LEFT | IPositionConstants.TOP));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentTopRight,
-        "assistant/top_right.gif",
-        IPositionConstants.TOP | IPositionConstants.RIGHT));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentBottomLeft,
-        "assistant/bottom_left.gif",
-        IPositionConstants.LEFT | IPositionConstants.BOTTOM));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentBottomRight,
-        "assistant/bottom_right.gif",
-        IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentTopLeft,
+            "assistant/top_left.gif",
+            IPositionConstants.LEFT | IPositionConstants.TOP));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentTopRight,
+            "assistant/top_right.gif",
+            IPositionConstants.TOP | IPositionConstants.RIGHT));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentBottomLeft,
+            "assistant/bottom_left.gif",
+            IPositionConstants.LEFT | IPositionConstants.BOTTOM));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentBottomRight,
+            "assistant/bottom_right.gif",
+            IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
     manager.add(new Separator());
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentLeftRightTop,
-        "assistant/top_left_right.gif",
-        IPositionConstants.LEFT | IPositionConstants.TOP | IPositionConstants.RIGHT));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentLeftRightBottom,
-        "assistant/bottom_left_right.gif",
-        IPositionConstants.LEFT | IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentTopBottomLeft,
-        "assistant/top_bottom_left.gif",
-        IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.BOTTOM));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentTopLBottomRight,
-        "assistant/top_bottom_right.gif",
-        IPositionConstants.BOTTOM | IPositionConstants.RIGHT | IPositionConstants.TOP));
-    manager.add(new SetCornerAnchorsAction(m_selection,
-        ModelMessages.LayoutAssistantPage_alignmentAll,
-        "assistant/top_bottom_left_right.gif",
-        IPositionConstants.BOTTOM
-            | IPositionConstants.RIGHT
-            | IPositionConstants.TOP
-            | IPositionConstants.LEFT));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentLeftRightTop,
+            "assistant/top_left_right.gif",
+            IPositionConstants.LEFT | IPositionConstants.TOP | IPositionConstants.RIGHT));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentLeftRightBottom,
+            "assistant/bottom_left_right.gif",
+            IPositionConstants.LEFT | IPositionConstants.BOTTOM | IPositionConstants.RIGHT));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentTopBottomLeft,
+            "assistant/top_bottom_left.gif",
+            IPositionConstants.TOP | IPositionConstants.LEFT | IPositionConstants.BOTTOM));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentTopLBottomRight,
+            "assistant/top_bottom_right.gif",
+            IPositionConstants.BOTTOM | IPositionConstants.RIGHT | IPositionConstants.TOP));
+    manager.add(
+        new SetCornerAnchorsAction(m_selection,
+            ModelMessages.LayoutAssistantPage_alignmentAll,
+            "assistant/top_bottom_left_right.gif",
+            IPositionConstants.BOTTOM
+                | IPositionConstants.RIGHT
+                | IPositionConstants.TOP
+                | IPositionConstants.LEFT));
   }
 
   private final class SetCornerAnchorsAction extends ObjectInfoAction {
     private final int m_alignment;
     private final List<C> m_widgets;
 
-    private SetCornerAnchorsAction(List<C> selection, String text, String imageName, int alignment) {
+    private SetCornerAnchorsAction(List<C> selection,
+        String text,
+        String imageName,
+        int alignment) {
       super(m_layout.getUnderlyingModel(), text, m_imageProvider.getActionImage(imageName));
       m_widgets = selection;
       m_alignment = alignment;

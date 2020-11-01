@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.utils;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.draw2d.geometry.Rectangle;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -44,6 +42,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.ImageConsumer;
 import java.awt.image.ImageProducer;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -57,7 +56,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Utilities for Swing images/shots.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swing.utils
@@ -102,7 +101,7 @@ public class SwingImageUtils {
     // restore old value back when all done.
     ComponentShotConfigurator shotConfigurator = new ComponentShotConfigurator(component);
     try {
-      // Linux only: it seems that printAll() should be invoked in AWT dispatch thread 
+      // Linux only: it seems that printAll() should be invoked in AWT dispatch thread
       // to prevent deadlocks between main thread and AWT event queue.
       // See also SwingUtils.invokeLaterAndWait().
       runInDispatchThread(new Runnable() {
@@ -118,7 +117,7 @@ public class SwingImageUtils {
   }
 
   static Image createOSXImage(Window window, Image windowImage) throws Exception {
-    // draw decorations manually, because it becomes slow if using SWT shell to capture decorations. 
+    // draw decorations manually, because it becomes slow if using SWT shell to capture decorations.
     int width = Math.max(1, window.getWidth());
     int height = Math.max(1, window.getHeight());
     Image fullImage = new Image(null, width, height);
@@ -225,7 +224,7 @@ public class SwingImageUtils {
    * Traverses through components hierarchy and prepares screen shot for every component passed in
    * <code>componentImages</code> map except for branch root if <code>isRoot</code> is
    * <code>true</code>.
-   * 
+   *
    * @param component
    *          the branch hierarchy root component.
    * @param componentImages
@@ -239,10 +238,10 @@ public class SwingImageUtils {
       Component rootComponent) throws Exception {
     if (componentImages.containsKey(component) && component != rootComponent) {
       BufferedImage thisComponentImage = (BufferedImage) createComponentShotAWT(component);
-      // BUG in OS X (Java 1.6.0_24-b07-334-10M3326): Component.printAll() returns no image 
-      // for AWT components and these components are not drawn on the JComponent container 
-      // using the same printAll() method. 
-      // The workaround is to hack into a native peer, get the native image and then paint it. 
+      // BUG in OS X (Java 1.6.0_24-b07-334-10M3326): Component.printAll() returns no image
+      // for AWT components and these components are not drawn on the JComponent container
+      // using the same printAll() method.
+      // The workaround is to hack into a native peer, get the native image and then paint it.
       if (EnvironmentUtils.IS_MAC && !(component instanceof JComponent)) {
         int width = Math.max(1, component.getWidth());
         int height = Math.max(1, component.getHeight());
@@ -276,11 +275,11 @@ public class SwingImageUtils {
 
   /**
    * Prepares {@link Component} for printing.
-   * 
+   *
    * mitin_aa: Linux: for Metacity window manager (as recommended to use with the Designer) to
    * prevent preview window flickering a better place for preview window is right-bottom screen
    * direction.
-   * 
+   *
    * TODO: add a preference (Linux only) allowing the user to explicitly set preview window location
    */
   public static void prepareForPrinting(Component component) throws Exception {
@@ -294,12 +293,12 @@ public class SwingImageUtils {
     // make visible
     setVisible(component, true);
     {
-      // workaround to prevent window from flashing if the Window Manager 
-      // doesn't allow the window to appear off-screen. 
+      // workaround to prevent window from flashing if the Window Manager
+      // doesn't allow the window to appear off-screen.
       if (component instanceof Window) {
         Window window = (Window) component;
         window.toBack();
-        // do the location change once again, because sometimes setLocation() 
+        // do the location change once again, because sometimes setLocation()
         // for invisible windows could be ignored.
         component.setLocation(10000, 10000);
       }
@@ -325,7 +324,7 @@ public class SwingImageUtils {
 
   /**
    * Set "visible" property of {@link Component} using dispatch thread.
-   * 
+   *
    * @param component
    *          A {@link Component} which property would be set.
    * @param visible
@@ -430,11 +429,8 @@ public class SwingImageUtils {
       Container menuObject,
       Container parent) throws Exception {
     if (parent != null) {
-      menuData.m_menuBounds =
-          CoordinateUtils.get(SwingUtilities.convertRectangle(
-              menuObject,
-              menuObject.getBounds(),
-              parent));
+      menuData.m_menuBounds = CoordinateUtils.get(
+          SwingUtilities.convertRectangle(menuObject, menuObject.getBounds(), parent));
     } else {
       // image
       {
@@ -459,10 +455,9 @@ public class SwingImageUtils {
 
   private static void fetchMenuVisualData_JMenu_JPopupMenu(MenuVisualData menuData,
       Container menuObject) throws Exception {
-    JPopupMenu popupMenu =
-        menuObject instanceof JPopupMenu
-            ? (JPopupMenu) menuObject
-            : ((JMenu) menuObject).getPopupMenu();
+    JPopupMenu popupMenu = menuObject instanceof JPopupMenu
+        ? (JPopupMenu) menuObject
+        : ((JMenu) menuObject).getPopupMenu();
     // image
     {
       prepareForPrinting(popupMenu);
@@ -511,7 +506,7 @@ public class SwingImageUtils {
   }
 
   private static void fetchMenuVisualData_items(MenuVisualData menuData, Container menuObject) {
-    menuData.m_itemBounds = Lists.newArrayList();
+    menuData.m_itemBounds = new ArrayList<>();
     for (Component menuComponent : menuObject.getComponents()) {
       menuData.m_itemBounds.add(CoordinateUtils.get(menuComponent.getBounds()));
     }

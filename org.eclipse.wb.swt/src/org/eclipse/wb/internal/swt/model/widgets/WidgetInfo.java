@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
@@ -32,11 +30,12 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.swt.widgets.Widget;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Abstract model representing (e)SWT {@link org.eclipse.swt.widgets.Widget}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swt.model.widgets
@@ -82,7 +81,7 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
    * Creates exposed children for given SWT {@link JavaInfo}.
    */
   public static void createExposedChildren(JavaInfo host) throws Exception {
-    final List<Class<?>> classList = Lists.newArrayList();
+    final List<Class<?>> classList = new ArrayList<>();
     final ClassLoader classLoader = JavaInfoUtils.getClassLoader(host);
     ExecutionUtils.runIgnore(new RunnableEx() {
       public void run() throws Exception {
@@ -108,7 +107,7 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
   /**
    * Adds/modifies {@link Widget#setData(String, Object)} with key "name" and value - new variable
    * name.
-   * 
+   *
    * @param newName
    *          the new variable name
    */

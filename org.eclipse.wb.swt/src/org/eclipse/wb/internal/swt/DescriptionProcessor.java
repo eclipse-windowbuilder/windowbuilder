@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.ConstructorDescription;
 import org.eclipse.wb.internal.core.model.description.CreationDescription;
@@ -43,13 +41,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implementation of {@link IDescriptionProcessor} for eRCP.
  * <p>
  * It analyzes {@link ConstructorDescription}'s and treats <code>Composite, int</code> parameters as
  * parent and style.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt
  */
@@ -140,9 +139,8 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
      * needed, uses {@link StylePropertyEditor} from superclass constructor.
      */
     private void ensureStylePropertyEditor(ParameterDescription parameter) throws Exception {
-      boolean hasSpecialPropertyEditor =
-          parameter.getEditor() instanceof StylePropertyEditor
-              || parameter.getEditor() instanceof DisplayExpressionPropertyEditor;
+      boolean hasSpecialPropertyEditor = parameter.getEditor() instanceof StylePropertyEditor
+          || parameter.getEditor() instanceof DisplayExpressionPropertyEditor;
       if (!hasSpecialPropertyEditor) {
         hasSpecialPropertyEditor = configureStylePropertyEditor_fromBeanInfo(parameter);
       }
@@ -171,7 +169,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
       Object styleObject =
           componentDescription.getBeanDescriptor().getValue("org.eclipse.wb.swt.style");
       if (styleObject instanceof String[][]) {
-        Map<String, Object> parameters = Maps.newTreeMap();
+        Map<String, Object> parameters = new TreeMap<>();
         parameters.put("class", "org.eclipse.swt.SWT");
         // fill parameters
         int selectIndex = 0;

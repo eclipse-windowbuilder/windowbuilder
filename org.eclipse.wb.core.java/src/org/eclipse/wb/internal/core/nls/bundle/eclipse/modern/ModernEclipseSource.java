@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle.eclipse.modern;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -48,6 +46,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,7 +90,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
    */
   public static List<AbstractSource> getPossibleSources(JavaInfo root, IPackageFragment pkg)
       throws Exception {
-    List<AbstractSource> sources = Lists.newArrayList();
+    List<AbstractSource> sources = new ArrayList<>();
     // check that there is "NLS" type
     IType typeNLS = root.getEditor().getJavaProject().findType("org.eclipse.osgi.util.NLS");
     if (typeNLS != null) {
@@ -347,11 +346,10 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
       {
         template =
             IOUtils.toString(ModernEclipseSource.class.getResourceAsStream("newAccessor.jvt"));
-        template =
-            StringUtils.replace(
-                template,
-                "%PACKAGE_NAME%",
-                parameters.m_accessorPackage.getElementName());
+        template = StringUtils.replace(
+            template,
+            "%PACKAGE_NAME%",
+            parameters.m_accessorPackage.getElementName());
         template = StringUtils.replace(template, "%CLASS_NAME%", parameters.m_accessorClassName);
         template = StringUtils.replace(template, "%BUNDLE_NAME%", parameters.m_propertyBundleName);
       }

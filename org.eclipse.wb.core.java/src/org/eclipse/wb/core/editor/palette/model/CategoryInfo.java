@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.palette.model;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.internal.core.editor.palette.model.entry.AttributesProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ import java.util.List;
  * @coverage core.editor.palette
  */
 public final class CategoryInfo extends AbstractElementInfo {
-  private final List<EntryInfo> m_entries = Lists.newArrayList();
+  private final List<EntryInfo> m_entries = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //

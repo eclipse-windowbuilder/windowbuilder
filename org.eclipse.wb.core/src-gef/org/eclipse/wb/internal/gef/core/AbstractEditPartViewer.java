@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import com.google.common.collect.Maps;
-
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -29,6 +27,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,7 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
   private/*final*/IRootContainer m_rootEditPart;
   private EditDomain m_domain;
   private IEditPartFactory m_factory;
-  private final Map<Object, EditPart> m_modelToEditPart = Maps.newHashMap();
+  private final Map<Object, EditPart> m_modelToEditPart = new HashMap<>();
   private MenuManager m_contextMenu;
   private List<EditPart> m_selectionList = new ArrayList<>();
   private EventTable m_eventTable;

@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * Mode for describe properties as {@code preferred}, {@code advanced} and {@code hidden}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

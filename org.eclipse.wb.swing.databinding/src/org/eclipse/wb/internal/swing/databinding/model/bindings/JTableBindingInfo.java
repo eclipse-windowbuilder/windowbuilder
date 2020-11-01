@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.model.bindings;
 
-import com.google.common.collect.Lists;
-
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.databinding.model.AstObjectInfo;
 import org.eclipse.wb.internal.core.databinding.model.CodeGenerationSupport;
@@ -42,11 +40,12 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model for {@link org.jdesktop.swingbinding.JTableBinding}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.bindings
  */
@@ -62,12 +61,11 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
   private static final String ADD_COLUMN_BINDING_4 =
       "org.jdesktop.swingbinding.JTableBinding.addColumnBinding(int,org.jdesktop.beansbinding.Property,java.lang.String)";
   //
-  private static final IGenericType JTABLE_CLASS = new ClassGenericType(javax.swing.JTable.class,
-      null,
-      null);
+  private static final IGenericType JTABLE_CLASS =
+      new ClassGenericType(javax.swing.JTable.class, null, null);
   //
   private boolean m_editable = true;
-  private List<ColumnBindingInfo> m_columns = Lists.newArrayList();
+  private List<ColumnBindingInfo> m_columns = new ArrayList<>();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -218,23 +216,21 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
   private ColumnBindingInfo createColumnBinding(int column) {
     ColumnBindingInfo binding;
     if (isJTableBinding(m_target, m_targetProperty)) {
-      binding =
-          new ColumnBindingInfo(m_target,
-              m_targetProperty,
-              m_targetAstProperty,
-              m_model,
-              m_modelProperty,
-              m_modelAstProperty,
-              this);
+      binding = new ColumnBindingInfo(m_target,
+          m_targetProperty,
+          m_targetAstProperty,
+          m_model,
+          m_modelProperty,
+          m_modelAstProperty,
+          this);
     } else {
-      binding =
-          new ColumnBindingInfo(m_model,
-              m_modelProperty,
-              m_modelAstProperty,
-              m_target,
-              m_targetProperty,
-              m_targetAstProperty,
-              this);
+      binding = new ColumnBindingInfo(m_model,
+          m_modelProperty,
+          m_modelAstProperty,
+          m_target,
+          m_targetProperty,
+          m_targetAstProperty,
+          this);
     }
     binding.setColumn(column);
     return binding;
@@ -307,10 +303,11 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
       DatabindingsProvider provider) throws Exception {
     super.createContentProviders(bindings, providers, listener, provider);
     providers.add(new EditableUiContentProvider(this));
-    providers.add(new JTableColumnContainerUiContentProvider(createTabConfiguration(),
-        this,
-        bindings,
-        provider));
+    providers.add(
+        new JTableColumnContainerUiContentProvider(createTabConfiguration(),
+            this,
+            bindings,
+            provider));
   }
 
   private TabContainerConfiguration createTabConfiguration() {
@@ -370,10 +367,11 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
     if (modelAstProperty instanceof ObjectPropertyInfo) {
       if (localVariable) {
         if (generationSupport.useGenerics()) {
-          line.append(GenericUtils.getTypesSource(
-              model.getObjectType().getSubType(0),
-              model.getObjectType(),
-              JTABLE_CLASS));
+          line.append(
+              GenericUtils.getTypesSource(
+                  model.getObjectType().getSubType(0),
+                  model.getObjectType(),
+                  JTABLE_CLASS));
         }
         line.append(" ");
       }
@@ -388,10 +386,11 @@ public final class JTableBindingInfo extends AutoBindingInfo implements IEditabl
       generationSupport.addSourceCode(modelAstProperty, lines);
       if (localVariable) {
         if (generationSupport.useGenerics()) {
-          line.append(GenericUtils.getTypesSource(
-              modelProperty.getObjectType().getSubType(0),
-              model.getObjectType(),
-              JTABLE_CLASS));
+          line.append(
+              GenericUtils.getTypesSource(
+                  modelProperty.getObjectType().getSubType(0),
+                  model.getObjectType(),
+                  JTABLE_CLASS));
         }
         line.append(" ");
       }

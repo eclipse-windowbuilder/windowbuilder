@@ -12,7 +12,6 @@ package org.eclipse.wb.tests.designer.core.model.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -24,11 +23,12 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Tests for {@link PropertyUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyUtilsTest extends SwingModelTest {
@@ -41,13 +41,12 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#getText(Property)}.
    */
   public void test_getText() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    add(new JButton('my text'));",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    add(new JButton('my text'));",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // "enabled" property has no text presentation
     {
@@ -92,14 +91,13 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#getByTitle(Property[], String)}.
    */
   public void test_getByTitle_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton myButton = new JButton('text');",
-            "    add(myButton);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton myButton = new JButton('text');",
+        "    add(myButton);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     Property[] properties = button.getProperties();
     //
@@ -111,14 +109,13 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#getByTitle(List, String)}.
    */
   public void test_getByTitle_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton myButton = new JButton('text');",
-            "    add(myButton);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton myButton = new JButton('text');",
+        "    add(myButton);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     List<Property> properties = ImmutableList.copyOf(button.getProperties());
     //
@@ -135,14 +132,13 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#getByPath(JavaInfo, String)}.
    */
   public void test_getByPath_1() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton('text');",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton('text');",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
     // top level property
     {
@@ -177,16 +173,15 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#getByPath(List, String)}.
    */
   public void test_getByPath_2() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    JButton button = new JButton('text');",
-            "    add(button);",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    JButton button = new JButton('text');",
+        "    add(button);",
+        "  }",
+        "}");
     ComponentInfo button = panel.getChildrenComponents().get(0);
-    List<Property> properties = Lists.newArrayList(button.getProperties());
+    List<Property> properties = Arrays.asList(button.getProperties());
     // top level property
     {
       Property property = PropertyUtils.getByPath(properties, "enabled");
@@ -278,13 +273,12 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#getProperties(JavaInfo, Predicate)}.
    */
   public void test_getProperties_withPredicate() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     //  JPanel has "enabled" property
     {
       Property[] properties = panel.getProperties();
@@ -322,13 +316,12 @@ public class PropertyUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     Predicate<Property> predicate =
         PropertyUtils.getExcludeByTitlePredicate(panel, "exclude-parameter");
     {
@@ -367,13 +360,12 @@ public class PropertyUtilsTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // parse
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends MyPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends MyPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     //  JPanel has "enabled" and "visible" properties
     {
       Property[] properties = panel.getProperties();
@@ -393,13 +385,12 @@ public class PropertyUtilsTest extends SwingModelTest {
    * Test for {@link PropertyUtils#filterProperties(List, Predicate)}.
    */
   public void test_filterProperties() throws Exception {
-    ContainerInfo panel =
-        parseContainer(
-            "// filler filler filler",
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "}");
+    ContainerInfo panel = parseContainer(
+        "// filler filler filler",
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "}");
     //  JPanel has "enabled" property
     {
       Property[] properties = panel.getProperties();
@@ -408,7 +399,7 @@ public class PropertyUtilsTest extends SwingModelTest {
     }
     // use predicate that includes only "enabled"
     {
-      List<Property> properties = Lists.newArrayList(panel.getProperties());
+      List<Property> properties = Arrays.asList(panel.getProperties());
       assertThat(properties.size()).isGreaterThan(10);
       //
       PropertyUtils.filterProperties(

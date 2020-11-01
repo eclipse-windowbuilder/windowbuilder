@@ -11,7 +11,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.layout.form.gef;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -25,11 +24,12 @@ import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * GEF tests for {@link FormLayout} alignment support.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  */
@@ -55,151 +55,170 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
   public void test_alignLeft() throws Exception {
     String[] constraints_1 =
         new String[]{"left = new FormAttachment(0, 50);", "top = new FormAttachment(0, 100);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(0, 150);",
-        "top = new FormAttachment(0, 200);"});
+    parse_twoButtons_typical(
+        constraints_1,
+        new String[]{"left = new FormAttachment(0, 150);", "top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Align left edges");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(button_1, 0, SWT.LEFT);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "left = new FormAttachment(button_1, 0, SWT.LEFT);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_independentControls() throws Exception {
-    String[] constraints_1 =
-        new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 250);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(0, 150);",
-        "top = new FormAttachment(0, 200);"});
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 250);"};
+    parse_twoButtons_typical(
+        constraints_1,
+        new String[]{"left = new FormAttachment(0, 150);", "top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(0, 350);",
-        "left = new FormAttachment(0, 150);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "right = new FormAttachment(0, 350);",
+            "left = new FormAttachment(0, 150);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_leftParent() throws Exception {
-    String[] constraints_1 =
-        new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 250);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(0, 10);",
-        "top = new FormAttachment(0, 200);"});
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 250);"};
+    parse_twoButtons_typical(
+        constraints_1,
+        new String[]{"left = new FormAttachment(0, 10);", "top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(0, 210);",
-        "left = new FormAttachment(0, 10);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "right = new FormAttachment(0, 210);",
+            "left = new FormAttachment(0, 10);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_rightParent() throws Exception {
-    String[] constraints_1 =
-        new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 250);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(100, -10);",
-        "top = new FormAttachment(0, 200);"});
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 250);"};
+    parse_twoButtons_typical(
+        constraints_1,
+        new String[]{"right = new FormAttachment(100, -10);", "top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(100, -210);",
-        "right = new FormAttachment(100, -10);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "left = new FormAttachment(100, -210);",
+            "right = new FormAttachment(100, -10);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_leftAttached() throws Exception {
-    String[] constraints_1 =
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 250);"};
+    parse_twoButtons_typical(
+        constraints_1,
         new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 250);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(button_1, 0, SWT.LEFT);",
-        "top = new FormAttachment(0, 200);"});
+            "left = new FormAttachment(button_1, 0, SWT.LEFT);",
+            "top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(button_1, 200);",
-        "left = new FormAttachment(button_1, 0, SWT.LEFT);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "right = new FormAttachment(button_1, 200);",
+            "left = new FormAttachment(button_1, 0, SWT.LEFT);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_rightAttached() throws Exception {
-    String[] constraints_1 =
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 250);"};
+    parse_twoButtons_typical(
+        constraints_1,
         new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 250);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(button_1, 0, SWT.RIGHT);",
-        "top = new FormAttachment(0, 200);"});
+            "right = new FormAttachment(button_1, 0, SWT.RIGHT);",
+            "top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(button_1, -200);",
-        "right = new FormAttachment(button_1, 0, SWT.RIGHT);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "left = new FormAttachment(button_1, -200);",
+            "right = new FormAttachment(button_1, 0, SWT.RIGHT);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_notAttached() throws Exception {
-    String[] constraints_1 =
-        new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 250);"};
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 250);"};
     parse_twoButtons_typical(constraints_1, new String[]{"top = new FormAttachment(0, 200);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(0, 200);",
-        "left = new FormAttachment(0);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "right = new FormAttachment(0, 200);",
+            "left = new FormAttachment(0);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_leftRightAttached() throws Exception {
-    String[] constraints_1 =
+    String[] constraints_1 = new String[]{
+        "left = new FormAttachment(0, 50);",
+        "top = new FormAttachment(0, 100);",
+        "right = new FormAttachment(0, 150);"};
+    parse_twoButtons_typical(
+        constraints_1,
         new String[]{
-            "left = new FormAttachment(0, 50);",
-            "top = new FormAttachment(0, 100);",
-            "right = new FormAttachment(0, 150);"};
-    parse_twoButtons_typical(constraints_1, new String[]{
-        "left = new FormAttachment(button_1, 0, SWT.LEFT);",
-        "top = new FormAttachment(0, 200);",
-        "right = new FormAttachment(button_1, 200, SWT.LEFT);"});
+            "left = new FormAttachment(button_1, 0, SWT.LEFT);",
+            "top = new FormAttachment(0, 200);",
+            "right = new FormAttachment(button_1, 200, SWT.LEFT);"});
     // do alignment
     runAlignmentAction_twoButtons("Replicate width");
-    assertEditor_twoButtons_typical(constraints_1, new String[]{
-        "right = new FormAttachment(button_1, 100);",
-        "left = new FormAttachment(button_1, 0, SWT.LEFT);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        constraints_1,
+        new String[]{
+            "right = new FormAttachment(button_1, 100);",
+            "left = new FormAttachment(button_1, 0, SWT.LEFT);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_leftRightAttached_reverse() throws Exception {
-    parse_twoButtons_typical(new String[]{
-        "left = new FormAttachment(0, 50);",
-        "top = new FormAttachment(0, 100);",
-        "right = new FormAttachment(0, 150);"}, new String[]{
-        "left = new FormAttachment(button_1, 0, SWT.LEFT);",
-        "top = new FormAttachment(0, 200);",
-        "right = new FormAttachment(button_1, 200, SWT.LEFT);"});
+    parse_twoButtons_typical(
+        new String[]{
+            "left = new FormAttachment(0, 50);",
+            "top = new FormAttachment(0, 100);",
+            "right = new FormAttachment(0, 150);"},
+        new String[]{
+            "left = new FormAttachment(button_1, 0, SWT.LEFT);",
+            "top = new FormAttachment(0, 200);",
+            "right = new FormAttachment(button_1, 200, SWT.LEFT);"});
     // do alignment
     runAlignmentAction("Replicate width", button_2, button_1);
-    assertEditor_twoButtons_typical(new String[]{
-        "left = new FormAttachment(0, 50);",
-        "top = new FormAttachment(0, 100);",
-        "right = new FormAttachment(0, 250);"}, new String[]{
-        "right = new FormAttachment(100, " + (50 + 200 - shell.getClientArea().width) + ");",
-        "left = new FormAttachment(0, 50);",
-        "top = new FormAttachment(0, 200);"});
+    assertEditor_twoButtons_typical(
+        new String[]{
+            "left = new FormAttachment(0, 50);",
+            "top = new FormAttachment(0, 100);",
+            "right = new FormAttachment(0, 250);"},
+        new String[]{
+            "right = new FormAttachment(100, " + (50 + 200 - shell.getClientArea().width) + ");",
+            "left = new FormAttachment(0, 50);",
+            "top = new FormAttachment(0, 200);"});
   }
 
   public void test_replicateWidth_leftAttachedToRight_rightNotAttached() throws Exception {
@@ -378,7 +397,8 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
     assertEditor(lines);
   }
 
-  private static String[] getLines_twoButtons_typical(String[] constraints_1, String[] constraints_2) {
+  private static String[] getLines_twoButtons_typical(String[] constraints_1,
+      String[] constraints_2) {
     constraints_1 = (String[]) ArrayUtils.clone(constraints_1);
     constraints_2 = (String[]) ArrayUtils.clone(constraints_2);
     for (int i = 0; i < constraints_1.length; i++) {
@@ -387,20 +407,20 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
     for (int i = 0; i < constraints_2.length; i++) {
       constraints_2[i] = "        data_2." + constraints_2[i];
     }
-    String[] lines =
-        new String[]{
-            "public class Test extends Shell {",
-            "  private Button button_1;",
-            "  private Button button_2;",
-            "  public Test() {",
-            "    setLayout(new FormLayout());",
-            "    {",
-            "      button_1 = new Button(this, SWT.NONE);",
-            "      {",
-            "        FormData data_1 = new FormData();"};
+    String[] lines = new String[]{
+        "public class Test extends Shell {",
+        "  private Button button_1;",
+        "  private Button button_2;",
+        "  public Test() {",
+        "    setLayout(new FormLayout());",
+        "    {",
+        "      button_1 = new Button(this, SWT.NONE);",
+        "      {",
+        "        FormData data_1 = new FormData();"};
     lines = (String[]) ArrayUtils.addAll(lines, constraints_1);
-    lines =
-        (String[]) ArrayUtils.addAll(lines, new String[]{
+    lines = (String[]) ArrayUtils.addAll(
+        lines,
+        new String[]{
             "        button_1.setLayoutData(data_1);",
             "      }",
             "    }",
@@ -409,13 +429,9 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
             "      {",
             "        FormData data_2 = new FormData();"});
     lines = (String[]) ArrayUtils.addAll(lines, constraints_2);
-    lines =
-        (String[]) ArrayUtils.addAll(lines, new String[]{
-            "        button_2.setLayoutData(data_2);",
-            "      }",
-            "    }",
-            "  }",
-            "}"});
+    lines = (String[]) ArrayUtils.addAll(
+        lines,
+        new String[]{"        button_2.setLayoutData(data_2);", "      }", "    }", "  }", "}"});
     return lines;
   }
 
@@ -437,7 +453,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
     // prepare actions
     List<Object> actions;
     {
-      actions = Lists.newArrayList();
+      actions = new ArrayList<>();
       List<ObjectInfo> selectedObjects = ImmutableList.<ObjectInfo>copyOf(controls);
       shell.getBroadcastObject().addSelectionActions(selectedObjects, actions);
     }
