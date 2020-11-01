@@ -1218,6 +1218,9 @@ public class GridLayoutInfo extends LayoutInfo
    * @return the array of {@link Interval}'s for given arrays of origins/sizes.
    */
   private static Interval[] getIntervals(int[] origins, int[] sizes) {
+    if (origins == null) {
+      return new Interval[]{};
+    }
     Interval[] intervals = new Interval[origins.length];
     for (int i = 0; i < intervals.length; i++) {
       intervals[i] = new Interval(origins[i], sizes[i]);
