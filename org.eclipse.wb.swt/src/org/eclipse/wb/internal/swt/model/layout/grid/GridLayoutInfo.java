@@ -64,7 +64,7 @@ import java.util.Set;
 
 /**
  * Model for SWT {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */
@@ -334,10 +334,9 @@ public class GridLayoutInfo extends LayoutInfo
     // check columns
     boolean deleteOnlyIfIsRemovingColumn = false;
     for (int column = grid[0].length - 1; column >= 0; column--) {
-      boolean isRemovingColumn =
-          removingData != null
-              && removingData.x <= column
-              && column < removingData.x + removingData.width;
+      boolean isRemovingColumn = removingData != null
+          && removingData.x <= column
+          && column < removingData.x + removingData.width;
       // check if empty
       boolean isEmpty = true;
       for (int row = 0; row < grid.length; row++) {
@@ -360,10 +359,9 @@ public class GridLayoutInfo extends LayoutInfo
     ControlInfo[][] grid = getControlsGrid();
     boolean deleteOnlyIfIsRemovingRow = false;
     for (int row = grid.length - 1; row >= 0; row--) {
-      boolean isRemovingRow =
-          removingData != null
-              && removingData.y <= row
-              && row < removingData.y + removingData.height;
+      boolean isRemovingRow = removingData != null
+          && removingData.y <= row
+          && row < removingData.y + removingData.height;
       // check if empty
       boolean isEmpty = true;
       for (int column = 0; column < grid[row].length; column++) {
@@ -930,7 +928,7 @@ public class GridLayoutInfo extends LayoutInfo
 
   /**
    * @return the {@link ControlInfo} that should be used as reference of adding into specified cell.
-   * 
+   *
    * @param exclude
    *          the {@link ControlInfo} that should not be checked, for example because we move it now
    */
@@ -955,11 +953,10 @@ public class GridLayoutInfo extends LayoutInfo
     // prepare creation support
     ConstructorCreationSupport creationSupport = new ConstructorCreationSupport(null, false);
     // prepare filler
-    ControlInfo filler =
-        (ControlInfo) JavaInfoUtils.createJavaInfo(
-            getEditor(),
-            LabelSupport.getLabelClass(),
-            creationSupport);
+    ControlInfo filler = (ControlInfo) JavaInfoUtils.createJavaInfo(
+        getEditor(),
+        LabelSupport.getLabelClass(),
+        creationSupport);
     // add filler
     ControlInfo reference = getReferenceControl(row, column, null);
     JavaInfoUtils.add(
@@ -1220,6 +1217,9 @@ public class GridLayoutInfo extends LayoutInfo
    * @return the array of {@link Interval}'s for given arrays of origins/sizes.
    */
   private static Interval[] getIntervals(int[] origins, int[] sizes) {
+    if (origins == null) {
+      return new Interval[]{};
+    }
     Interval[] intervals = new Interval[origins.length];
     for (int i = 0; i < intervals.length; i++) {
       intervals[i] = new Interval(origins[i], sizes[i]);
@@ -1278,7 +1278,7 @@ public class GridLayoutInfo extends LayoutInfo
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data 
+  // Manage general layout data
   //
   ////////////////////////////////////////////////////////////////////////////
   static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =
@@ -1312,25 +1312,19 @@ public class GridLayoutInfo extends LayoutInfo
         (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "horizontalSpan");
     generalLayoutData.spanY =
         (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "verticalSpan");
-    generalLayoutData.horizontalGrab =
-        (Boolean) GeneralLayoutData.getLayoutPropertyValue(
-            gridLayoutData,
-            "grabExcessHorizontalSpace");
-    generalLayoutData.verticalGrab =
-        (Boolean) GeneralLayoutData.getLayoutPropertyValue(
-            gridLayoutData,
-            "grabExcessVerticalSpace");
+    generalLayoutData.horizontalGrab = (Boolean) GeneralLayoutData.getLayoutPropertyValue(
+        gridLayoutData,
+        "grabExcessHorizontalSpace");
+    generalLayoutData.verticalGrab = (Boolean) GeneralLayoutData.getLayoutPropertyValue(
+        gridLayoutData,
+        "grabExcessVerticalSpace");
     // alignments
-    generalLayoutData.horizontalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_horizontalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(
-                gridLayoutData,
-                "horizontalAlignment"));
-    generalLayoutData.verticalAlignment =
-        GeneralLayoutData.getGeneralValue(
-            m_verticalAlignmentMap,
-            (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "verticalAlignment"));
+    generalLayoutData.horizontalAlignment = GeneralLayoutData.getGeneralValue(
+        m_horizontalAlignmentMap,
+        (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "horizontalAlignment"));
+    generalLayoutData.verticalAlignment = GeneralLayoutData.getGeneralValue(
+        m_verticalAlignmentMap,
+        (Integer) GeneralLayoutData.getLayoutPropertyValue(gridLayoutData, "verticalAlignment"));
     generalLayoutData.putToInfo(control);
   }
 }
