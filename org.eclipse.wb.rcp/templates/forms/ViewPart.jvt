@@ -27,7 +27,8 @@ method
 		%this%%field-prefix%toolkit.paintBordersFor(container);
 		%container.SWTLayout%
 		createActions();
-		initializeToolBar();
+		// Uncomment if you wish to add code to initialize the toolbar
+		// initializeToolBar();
 		initializeMenu();
 	}
 

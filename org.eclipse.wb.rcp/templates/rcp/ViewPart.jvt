@@ -21,7 +21,8 @@ method
 		Composite container = new Composite(parent, SWT.NONE);
 		%container.SWTLayout%
 		createActions();
-		initializeToolBar();
+		// Uncomment if you wish to add code to initialize the toolbar
+		// initializeToolBar();
 		initializeMenu();
 	}
 
