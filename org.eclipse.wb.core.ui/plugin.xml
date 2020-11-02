@@ -9,6 +9,7 @@
 		<editor class="org.eclipse.wb.internal.core.editor.multi.DesignerEditor"
 			contributorClass="org.eclipse.wb.internal.core.editor.multi.DesignerEditorContributor"
 			extensions="java" icon="icons/gui_editor.gif" id="org.eclipse.wb.core.guiEditor"
+			symbolicFontName="org.eclipse.jdt.ui.editors.textfont"
 			name="WindowBuilder Editor">
 			<contentTypeBinding contentTypeId="org.eclipse.wb.core.javaSourceGUI"/>
 		</editor>
