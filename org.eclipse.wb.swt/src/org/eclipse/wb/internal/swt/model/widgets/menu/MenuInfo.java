@@ -57,6 +57,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
@@ -64,7 +65,7 @@ import java.util.List;
 
 /**
  * Model for SWT menu.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets.menu
  */
@@ -157,7 +158,9 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
     MenuVisualData visualData = null;
     try {
       displayListener.beforeMessagesLoop();
-      visualData = ToolkitSupport.fetchMenuVisualData(getObject());
+      // On windows, when one creates a new entry the image for the menu is not displayed correctly
+      Display.getDefault().readAndDispatch();
+      visualData = ToolkitSupport.fetchMenuVisualData(getObject());//
     } finally {
       displayListener.afterMessagesLoop();
     }
@@ -296,7 +299,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -311,7 +314,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuPopupInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuPopupImpl extends MenuAbstractImpl implements IMenuPopupInfo {
@@ -367,7 +370,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo, IMenuPolicy {
