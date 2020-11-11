@@ -78,7 +78,14 @@ public final class RcpDescriptionVersionsProviderFactory
         "4.7",
         "4.8",
         "4.9",
-        "4.10");
+        "4.10",
+        "4.11",
+        "4.12",
+        "4.13",
+        "4.14",
+        "4.15",
+        "4.16",
+        "4.17");
     return new FromListDescriptionVersionsProvider(allVersions, version) {
       @Override
       protected boolean validate(Class<?> componentClass) throws Exception {
