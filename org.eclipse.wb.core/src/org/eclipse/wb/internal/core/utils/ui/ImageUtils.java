@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.core.utils.ui;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -55,13 +54,11 @@ public final class ImageUtils {
    * @return the SWT {@link Image} for AWT one.
    */
   public static Image convertToSWT(final java.awt.Image awtImage) {
-    return ExecutionUtils.runObject(new RunnableObjectEx<Image>() {
-      public Image runObject() throws Exception {
-        BufferedImage bufferedImage = getBufferedImage(awtImage);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "PNG", os);
-        return new Image(null, new ImageData(new ByteArrayInputStream(os.toByteArray())));
-      }
+    return ExecutionUtils.runObject(() -> {
+      BufferedImage bufferedImage = getBufferedImage(awtImage);
+      ByteArrayOutputStream os = new ByteArrayOutputStream();
+      ImageIO.write(bufferedImage, "PNG", os);
+      return new Image(null, new ImageData(new ByteArrayInputStream(os.toByteArray())));
     });
   }
 
@@ -78,6 +75,11 @@ public final class ImageUtils {
       int w = image.getWidth(null);
       int h = image.getHeight(null);
       // draw into BufferedImage
+      if (w == -1 && h == -1) {
+        // Buffered image does not allow these sizes
+        w = 32;
+        h = 32;
+      }
       bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
       Graphics2D g2 = bufferedImage.createGraphics();
       g2.drawImage(image, 0, 0, null);
@@ -95,16 +97,14 @@ public final class ImageUtils {
     Graphics2D g2 = bufferedImage.createGraphics();
     // prepare observer
     final Object done = new Object();
-    ImageObserver imageObserver = new ImageObserver() {
-      public boolean imageUpdate(java.awt.Image img, int flags, int x, int y, int width, int height) {
-        if (flags < ALLBITS) {
-          return true;
-        } else {
-          synchronized (done) {
-            done.notify();
-          }
-          return false;
+    ImageObserver imageObserver = (img, flags, x, y, width, height) -> {
+      if (flags < ImageObserver.ALLBITS) {
+        return true;
+      } else {
+        synchronized (done) {
+          done.notify();
         }
+        return false;
       }
     };
     // draw Image with wait
@@ -146,16 +146,15 @@ public final class ImageUtils {
     ColorModel colorModel = null;
     PaletteData palette = data.palette;
     if (palette.isDirect) {
-      colorModel =
-          new DirectColorModel(data.depth,
-              palette.redMask,
-              palette.greenMask,
-              palette.blueMask,
-              data.alphaData == null ? 0 : 0xff000000);
-      BufferedImage bufferedImage =
-          new BufferedImage(colorModel, colorModel.createCompatibleWritableRaster(
-              data.width,
-              data.height), false, null);
+      colorModel = new DirectColorModel(data.depth,
+          palette.redMask,
+          palette.greenMask,
+          palette.blueMask,
+          data.alphaData == null ? 0 : 0xff000000);
+      BufferedImage bufferedImage = new BufferedImage(colorModel,
+          colorModel.createCompatibleWritableRaster(data.width, data.height),
+          false,
+          null);
       WritableRaster raster = bufferedImage.getRaster();
       int[] pixelArray = new int[4];
       for (int y = 0; y < data.height; y++) {
@@ -191,10 +190,10 @@ public final class ImageUtils {
       } else {
         colorModel = new IndexColorModel(data.depth, rgbs.length, red, green, blue);
       }
-      BufferedImage bufferedImage =
-          new BufferedImage(colorModel, colorModel.createCompatibleWritableRaster(
-              data.width,
-              data.height), false, null);
+      BufferedImage bufferedImage = new BufferedImage(colorModel,
+          colorModel.createCompatibleWritableRaster(data.width, data.height),
+          false,
+          null);
       WritableRaster raster = bufferedImage.getRaster();
       int[] pixelArray = new int[1];
       for (int y = 0; y < data.height; y++) {
