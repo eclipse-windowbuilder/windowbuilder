@@ -58,11 +58,9 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
     // custom tooltip
     new CustomTooltipManager(canvas, this);
     // add listeners
-    Object listener =
-        createListenerProxy(this, new Class[]{
-            MouseListener.class,
-            MouseMoveListener.class,
-            MouseTrackListener.class});
+    Object listener = createListenerProxy(
+        this,
+        new Class[]{MouseListener.class, MouseMoveListener.class, MouseTrackListener.class});
     m_canvas.addMouseListener((MouseListener) listener);
     m_canvas.addMouseMoveListener((MouseMoveListener) listener);
     m_canvas.addMouseTrackListener((MouseTrackListener) listener);
@@ -165,10 +163,12 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
   // MouseEvent listener's
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent event) {
     handleMouseEvent(MOUSE_DOUBLE_CLICK_INVOKER, IMouseListener.class, event);
   }
 
+  @Override
   public void mouseDown(org.eclipse.swt.events.MouseEvent event) {
     if (m_canvas.getToolTipText() != null) {
       m_canvas.setToolTipText(null);
@@ -176,10 +176,12 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
     handleMouseEvent(MOUSE_DOWN_INVOKER, IMouseListener.class, event);
   }
 
+  @Override
   public void mouseUp(org.eclipse.swt.events.MouseEvent event) {
     handleMouseEvent(MOUSE_UP_INVOKER, IMouseListener.class, event);
   }
 
+  @Override
   public void mouseMove(org.eclipse.swt.events.MouseEvent event) {
     handleMouseEvent(MOUSE_MOVE_INVOKER, IMouseMoveListener.class, event);
   }
@@ -214,14 +216,17 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
   // MouseTrackListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void mouseEnter(org.eclipse.swt.events.MouseEvent event) {
     handleMouseEvent(MOUSE_ENTER_INVOKER, IMouseTrackListener.class, event);
   }
 
+  @Override
   public void mouseExit(org.eclipse.swt.events.MouseEvent event) {
     handleMouseEvent(MOUSE_EXIT_INVOKER, IMouseTrackListener.class, event);
   }
 
+  @Override
   public void mouseHover(org.eclipse.swt.events.MouseEvent event) {
     handleMouseEvent(MOUSE_HOVER_INVOKER, IMouseTrackListener.class, event);
   }
@@ -234,65 +239,51 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
   /**
    * Invoke <code>mouseDown()</code>.
    */
-  private static final IListenerInvoker MOUSE_DOWN_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseListener mouseListener = (IMouseListener) listener;
-      mouseListener.mouseDown(event);
-    }
+  private static final IListenerInvoker MOUSE_DOWN_INVOKER = (listener, event) -> {
+    IMouseListener mouseListener = (IMouseListener) listener;
+    mouseListener.mouseDown(event);
   };
   /**
    * Invoke <code>mouseUp()</code>.
    */
-  private static final IListenerInvoker MOUSE_UP_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseListener mouseListener = (IMouseListener) listener;
-      mouseListener.mouseUp(event);
-    }
+  private static final IListenerInvoker MOUSE_UP_INVOKER = (listener, event) -> {
+    IMouseListener mouseListener = (IMouseListener) listener;
+    mouseListener.mouseUp(event);
   };
   /**
    * Invoke <code>mouseDoubleClick()</code>.
    */
-  private static final IListenerInvoker MOUSE_DOUBLE_CLICK_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseListener mouseListener = (IMouseListener) listener;
-      mouseListener.mouseDoubleClick(event);
-    }
+  private static final IListenerInvoker MOUSE_DOUBLE_CLICK_INVOKER = (listener, event) -> {
+    IMouseListener mouseListener = (IMouseListener) listener;
+    mouseListener.mouseDoubleClick(event);
   };
   /**
    * Invoke <code>mouseMove()</code>.
    */
-  private static final IListenerInvoker MOUSE_MOVE_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseMoveListener mouseListener = (IMouseMoveListener) listener;
-      mouseListener.mouseMove(event);
-    }
+  private static final IListenerInvoker MOUSE_MOVE_INVOKER = (listener, event) -> {
+    IMouseMoveListener mouseListener = (IMouseMoveListener) listener;
+    mouseListener.mouseMove(event);
   };
   /**
    * Invoke <code>mouseEnter()</code>.
    */
-  private static final IListenerInvoker MOUSE_ENTER_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
-      mouseListener.mouseEnter(event);
-    }
+  private static final IListenerInvoker MOUSE_ENTER_INVOKER = (listener, event) -> {
+    IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
+    mouseListener.mouseEnter(event);
   };
   /**
    * Invoke <code>mouseExit()</code>.
    */
-  private static final IListenerInvoker MOUSE_EXIT_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
-      mouseListener.mouseExit(event);
-    }
+  private static final IListenerInvoker MOUSE_EXIT_INVOKER = (listener, event) -> {
+    IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
+    mouseListener.mouseExit(event);
   };
   /**
    * Invoke <code>mouseHover()</code>.
    */
-  private static final IListenerInvoker MOUSE_HOVER_INVOKER = new IListenerInvoker() {
-    public void invokeListener(Object listener, MouseEvent event) {
-      IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
-      mouseListener.mouseHover(event);
-    }
+  private static final IListenerInvoker MOUSE_HOVER_INVOKER = (listener, event) -> {
+    IMouseTrackListener mouseListener = (IMouseTrackListener) listener;
+    mouseListener.mouseHover(event);
   };
 
   private static interface IListenerInvoker {
@@ -315,6 +306,7 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
         owner.getClass().getClassLoader(),
         interfaces,
         new InvocationHandler() {
+          @Override
           public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             // check for delay
             if (delayEvent(this, proxy, method, args)) {
@@ -369,12 +361,12 @@ public class EventManager implements MouseListener, MouseMoveListener, MouseTrac
       TypedEvent event = (TypedEvent) args[0];
       if (event.widget instanceof Control) {
         Control control = (Control) event.widget;
-        if (control.getData(FLAG_DELAY_EVENTS) != null) {
+        if (!control.isDisposed() && control.getData(FLAG_DELAY_EVENTS) != null) {
           // prepare delay queue
           @SuppressWarnings("unchecked")
           List<DelayedEvent> eventQueue = (List<DelayedEvent>) control.getData(KEY_DELAYED_EVENTS);
           if (eventQueue == null) {
-            eventQueue = new ArrayList<DelayedEvent>();
+            eventQueue = new ArrayList<>();
             control.setData(KEY_DELAYED_EVENTS, eventQueue);
           }
           // put event into queue
