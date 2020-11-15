@@ -21,7 +21,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -40,8 +39,9 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
   private boolean m_ignoreFocusLost;
 
   @Override
-  public boolean activate(final PropertyTable propertyTable, final Property property, Point location)
-      throws Exception {
+  public boolean activate(final PropertyTable propertyTable,
+      final Property property,
+      Point location) throws Exception {
     // create Text
     {
       m_textControl = new Text(propertyTable, SWT.NONE);
@@ -61,11 +61,9 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
         }
       }
     });
-    m_textControl.addListener(SWT.FocusOut, new Listener() {
-      public void handleEvent(Event event) {
-        if (!m_ignoreFocusLost) {
-          propertyTable.deactivateEditor(true);
-        }
+    m_textControl.addListener(SWT.FocusOut, event -> {
+      if (!m_ignoreFocusLost) {
+        propertyTable.deactivateEditor(true);
       }
     });
     // set data
@@ -83,7 +81,9 @@ public abstract class AbstractTextPropertyEditor extends TextDisplayPropertyEdit
   public final void deactivate(PropertyTable propertyTable, Property property, boolean save) {
     if (save) {
       try {
-        toProperty(property);
+        if (m_textControl != null) {
+          toProperty(property);
+        }
       } catch (Throwable e) {
         propertyTable.deactivateEditor(false);
         propertyTable.handleException(e);

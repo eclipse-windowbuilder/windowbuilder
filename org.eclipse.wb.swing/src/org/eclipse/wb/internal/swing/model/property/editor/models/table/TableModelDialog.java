@@ -56,7 +56,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * Dialog for editing {@link TableModelDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -369,7 +369,8 @@ public final class TableModelDialog extends ResizableDialog {
       });
     }
     {
-      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesPrefWidth);
+      new Label(container, SWT.NONE).setText(
+          ModelMessages.TableModelDialog_columnPropertiesPrefWidth);
       m_columnPropertyPrefWidth = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyPrefWidth).hintHC(15);
       m_columnPropertyPrefWidth.setRange(0, Integer.MAX_VALUE);
@@ -426,7 +427,8 @@ public final class TableModelDialog extends ResizableDialog {
       m_columnPropertyValuesEdit.setData(UiUtils.KEY_IGNORE_HIERARCHY_ENABLED, true);
     }
     {
-      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesMinWidth);
+      new Label(container, SWT.NONE).setText(
+          ModelMessages.TableModelDialog_columnPropertiesMinWidth);
       m_columnPropertyMinWidth = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyMinWidth).hintHC(15);
       m_columnPropertyMinWidth.setRange(0, Integer.MAX_VALUE);
@@ -471,7 +473,8 @@ public final class TableModelDialog extends ResizableDialog {
       }
     }
     {
-      new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnPropertiesMaxWidth);
+      new Label(container, SWT.NONE).setText(
+          ModelMessages.TableModelDialog_columnPropertiesMaxWidth);
       m_columnPropertyMaxWidth = new CSpinner(container, SWT.BORDER);
       GridDataFactory.create(m_columnPropertyMaxWidth).hintHC(15);
       m_columnPropertyMaxWidth.setRange(0, Integer.MAX_VALUE);
@@ -609,7 +612,7 @@ public final class TableModelDialog extends ResizableDialog {
     m_moveRowDownButton.setEnabled(row >= 0 && row < rowCount - 1);
     // column properties
     UiUtils.changeControlEnable(m_columnPropertiesComposite, column != -1);
-    if (column != -1) {
+    if (column != -1 && column < columnCount) {
       TableColumnDescription columnDescription = m_model.getColumn(column);
       m_columnPropertyNo.setText("" + column);
       if (!m_columnPropertyTitle.getText().equals(columnDescription.m_name)) {
