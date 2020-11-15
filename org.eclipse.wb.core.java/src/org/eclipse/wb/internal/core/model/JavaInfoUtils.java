@@ -190,7 +190,9 @@ public class JavaInfoUtils {
     Display.getDefault().asyncExec(new Runnable() {
       public void run() {
         IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
-        site.openSourcePosition(node.getStartPosition());
+        if (site != null) {
+          site.openSourcePosition(node.getStartPosition());
+        }
       }
     });
   }
@@ -398,18 +400,12 @@ public class JavaInfoUtils {
     Constructor<?> modelConstructor;
     {
       Class<?> modelClass = componentDescription.getModelClass();
-      modelConstructor =
-          modelClass.getConstructor(new Class[]{
-              AstEditor.class,
-              ComponentDescription.class,
-              CreationSupport.class});
+      modelConstructor = modelClass.getConstructor(
+          new Class[]{AstEditor.class, ComponentDescription.class, CreationSupport.class});
     }
     // create model
-    JavaInfo javaInfo =
-        (JavaInfo) modelConstructor.newInstance(new Object[]{
-            editor,
-            componentDescription,
-            creationSupport});
+    JavaInfo javaInfo = (JavaInfo) modelConstructor.newInstance(
+        new Object[]{editor, componentDescription, creationSupport});
     ObjectInfoUtils.setNewId(javaInfo);
     return javaInfo;
   }
@@ -532,9 +528,8 @@ public class JavaInfoUtils {
       methodJavaInfo = createJavaInfo(editor, componentDescription, creationSupport);
     }
     // configure JavaInfo
-    methodJavaInfo.setVariableSupport(new ExposedPropertyVariableSupport(methodJavaInfo,
-        host,
-        getMethod));
+    methodJavaInfo.setVariableSupport(
+        new ExposedPropertyVariableSupport(methodJavaInfo, host, getMethod));
     methodJavaInfo.setAssociation(new ImplicitObjectAssociation(host));
     // add new child
     addExposedJavaInfo(host, methodJavaInfo);
@@ -1222,7 +1217,13 @@ public class JavaInfoUtils {
       JavaInfo nextComponent) throws Exception {
     VariableSupport variableSupport = GenerationUtils.getVariableSupport(component);
     StatementGenerator statementGenerator = GenerationUtils.getStatementGenerator(component);
-    add(component, variableSupport, statementGenerator, associationObject, container, nextComponent);
+    add(
+        component,
+        variableSupport,
+        statementGenerator,
+        associationObject,
+        container,
+        nextComponent);
   }
 
   /**
@@ -1421,7 +1422,8 @@ public class JavaInfoUtils {
    * @return the given not null {@link AssociationObject} or {@link AssociationObject} with
    *         <code>null</code> as {@link Association}.
    */
-  private static AssociationObject getNotNullAssociationObject(AssociationObject associationObject) {
+  private static AssociationObject getNotNullAssociationObject(
+      AssociationObject associationObject) {
     if (associationObject == null) {
       associationObject = new AssociationObject(null, false);
     }
@@ -1856,8 +1858,8 @@ public class JavaInfoUtils {
    * @return the {@link StatementTarget} such that all given {@link JavaInfo} are created at this
    *         target, so can be referenced.
    */
-  public static StatementTarget getStatementTarget_whenAllCreated(List<? extends JavaInfo> components)
-      throws Exception {
+  public static StatementTarget getStatementTarget_whenAllCreated(
+      List<? extends JavaInfo> components) throws Exception {
     Assert.isTrue(!components.isEmpty(), "Can not provide target for empty components list.");
     // prepare target after last component
     NodeTarget nodeTarget_afterLastComponent;
@@ -1966,7 +1968,8 @@ public class JavaInfoUtils {
    *
    * @see IJavaInfoRendering IJavaInfoRendering for more information.
    */
-  public static void scheduleSpecialRendering(JavaInfo javaInfo, final IJavaInfoRendering rendering) {
+  public static void scheduleSpecialRendering(JavaInfo javaInfo,
+      final IJavaInfoRendering rendering) {
     if (!(javaInfo.getCreationSupport() instanceof ThisCreationSupport)) {
       return;
     }
