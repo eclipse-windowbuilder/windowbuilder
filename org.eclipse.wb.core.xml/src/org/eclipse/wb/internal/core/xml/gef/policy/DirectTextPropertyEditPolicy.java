@@ -33,12 +33,13 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.SWT;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link EditPolicy} that support direct editing for text {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.gef.policy
  */
@@ -176,7 +177,8 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
         } else if ("left".equals(horizontalAlignment)) {
           x = hostBounds.left();
         } else {
-          throw new IllegalArgumentException("Unknown horizontal alignment: " + horizontalAlignment);
+          throw new IllegalArgumentException(
+              "Unknown horizontal alignment: " + horizontalAlignment);
         }
       }
       // prepare "y"
@@ -228,7 +230,8 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
   public void performRequest(Request request) {
     if (request instanceof KeyRequest) {
       KeyRequest keyRequest = (KeyRequest) request;
-      if (keyRequest.isPressed() && keyRequest.getCharacter() == ' ') {
+      if (keyRequest.isPressed() && keyRequest.getCharacter() == ' ' //
+          || keyRequest.getKeyCode() == SWT.F2) {//
         beginEdit();
       }
     }

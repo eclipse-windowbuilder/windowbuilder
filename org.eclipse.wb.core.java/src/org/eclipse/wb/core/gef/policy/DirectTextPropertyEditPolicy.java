@@ -33,6 +33,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.execution.RunnableObjectEx;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.SWT;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -177,7 +178,8 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
         } else if ("left".equals(horizontalAlignment)) {
           x = hostBounds.left();
         } else {
-          throw new IllegalArgumentException("Unknown horizontal alignment: " + horizontalAlignment);
+          throw new IllegalArgumentException(
+              "Unknown horizontal alignment: " + horizontalAlignment);
         }
       }
       // prepare "y"
@@ -229,7 +231,8 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
   public void performRequest(Request request) {
     if (request instanceof KeyRequest) {
       KeyRequest keyRequest = (KeyRequest) request;
-      if (keyRequest.isPressed() && keyRequest.getCharacter() == ' ') {
+      if (keyRequest.isPressed() && (keyRequest.getCharacter() == ' ' || //
+          keyRequest.getKeyCode() == SWT.F2)) { //
         beginEdit();
       }
     }
