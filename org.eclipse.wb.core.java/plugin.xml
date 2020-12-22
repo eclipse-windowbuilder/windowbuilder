@@ -245,6 +245,9 @@
     <!-- NLS sources -->
     <!-- ======================================================== -->
     <extension point="org.eclipse.wb.core.nlsSources">
+        <description id="org.eclipse.wb.core.nls.bundle.pure.activator.ActivatorSource"
+            source="org.eclipse.wb.internal.core.nls.bundle.pure.activator.ActivatorSource"
+            composite="org.eclipse.wb.internal.core.nls.bundle.pure.activator.ActivatorSourceNewComposite"/>
         <description id="org.eclipse.wb.core.nls.bundle.eclipse.old.EclipseSource"
             source="org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSource"
             composite="org.eclipse.wb.internal.core.nls.bundle.eclipse.old.EclipseSourceNewComposite"/>

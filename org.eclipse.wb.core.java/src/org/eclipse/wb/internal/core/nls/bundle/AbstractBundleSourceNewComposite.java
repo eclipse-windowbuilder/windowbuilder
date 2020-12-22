@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    bergert - added Activator.getPluginBundle().getString()
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
@@ -71,12 +72,11 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     GridLayoutFactory.create(m_propertyGroup).columns(3);
     m_propertyGroup.setText(Messages.AbstractBundleSourceNewComposite_propertiesGroup);
     {
-      m_propertyPackageField =
-          new PackageRootAndPackageSelectionDialogField(60,
-              Messages.AbstractBundleSourceNewComposite_propertiesSourceFolder,
-              Messages.AbstractBundleSourceNewComposite_propertiesSourceFolderBrowse,
-              Messages.AbstractBundleSourceNewComposite_propertiesPackage,
-              Messages.AbstractBundleSourceNewComposite_propertiesPackageBrowse);
+      m_propertyPackageField = new PackageRootAndPackageSelectionDialogField(60,
+          Messages.AbstractBundleSourceNewComposite_propertiesSourceFolder,
+          Messages.AbstractBundleSourceNewComposite_propertiesSourceFolderBrowse,
+          Messages.AbstractBundleSourceNewComposite_propertiesPackage,
+          Messages.AbstractBundleSourceNewComposite_propertiesPackageBrowse);
       m_propertyPackageField.setDialogFieldListener(m_validateListener);
       m_propertyPackageField.doFillIntoGrid(m_propertyGroup, 3);
       // create property file field
@@ -138,7 +138,8 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
         });
         m_propertyFileField.setDialogFieldListener(m_validateListener);
         m_propertyFileField.setLabelText(Messages.AbstractBundleSourceNewComposite_propertiesLabel);
-        m_propertyFileField.setButtonLabel(Messages.AbstractBundleSourceNewComposite_propertiesChooseButton);
+        m_propertyFileField.setButtonLabel(
+            Messages.AbstractBundleSourceNewComposite_propertiesChooseButton);
         createTextFieldControls(m_propertyGroup, m_propertyFileField, 3);
       }
     }
@@ -147,6 +148,11 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
   protected final void initializePropertyGroup() {
     m_propertyPackageField.setCompilationUnit(m_compilationUnit);
     m_propertyFileField.setText("messages.properties");
+  }
+
+  protected final void initializePropertyGroupActivator() {
+    m_propertyPackageField.setCompilationUnit(m_compilationUnit);
+    m_propertyFileField.setText("plugin.properties");
   }
 
   protected final void setPropertyGroupEnable(boolean enable) {

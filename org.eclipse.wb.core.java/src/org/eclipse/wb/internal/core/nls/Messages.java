@@ -57,6 +57,7 @@ public class Messages extends NLS {
   public static String ChooseLocaleDialog_shellTitle;
   public static String ChooseLocaleDialog_title;
   public static String DirectSourceNewComposite_title;
+  public static String ActivatorSourceNewComposite_title;
   public static String EclipseSourceNewComposite_title;
   public static String EclipseSourceNewComposite_useDefaultNames;
   public static String EclipseSourceNewComposite_validateNoBundleNameField;

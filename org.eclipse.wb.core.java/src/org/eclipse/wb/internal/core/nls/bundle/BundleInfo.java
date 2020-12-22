@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    bergert - fixed getProperties()
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
@@ -167,7 +168,7 @@ public final class BundleInfo {
    * @return the cached or reloaded (if changed externally) map key -> value.
    */
   private Map<String, String> getProperties() throws Exception {
-    if (m_properties == null || isExternallyChanged()) {
+    if (m_properties == null || isExternallyChanged() || m_properties.isEmpty()) {
       InputStream is = m_file.getContents(true);
       try {
         String charset = m_file.getCharset();
