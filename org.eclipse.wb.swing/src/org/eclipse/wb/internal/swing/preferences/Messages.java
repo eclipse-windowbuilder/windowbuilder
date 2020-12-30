@@ -16,7 +16,7 @@ public class Messages extends NLS {
   public static String AbsoluteLayoutPreferencePage_stepX;
   public static String AbsoluteLayoutPreferencePage_stepY;
   public static String AbsoluteLayoutPreferencePage_top;
-  public static String AbsoluteLayoutPreferencePage_useFreeStyle;
+  public static String AbsoluteLayoutPreferencePage_useAssistedStyle;
   public static String AbsoluteLayoutPreferencePage_useGridSnapping;
   public static String AbsoluteLayoutPreferencePage_useLayoutStyle;
   public static String GridBagLayoutPreferencePage_autoGrab;
