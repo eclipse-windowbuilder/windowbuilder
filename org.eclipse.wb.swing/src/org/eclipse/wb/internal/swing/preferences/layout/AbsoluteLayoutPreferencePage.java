@@ -32,7 +32,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * Main {@link PreferencePage} for Swing Absolute Layout Support.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.preferences.ui
  */
@@ -61,7 +61,7 @@ public final class AbsoluteLayoutPreferencePage extends FieldLayoutPreferencePag
     GridLayoutFactory.create(container);
     createBooleanFieldEditor(
         P_USE_FREE_MODE,
-        Messages.AbsoluteLayoutPreferencePage_useFreeStyle,
+        Messages.AbsoluteLayoutPreferencePage_useAssistedStyle,
         container);
     createBooleanFieldEditor(
         P_USE_JDK_LAYOUT_STYLE,
@@ -160,14 +160,16 @@ public final class AbsoluteLayoutPreferencePage extends FieldLayoutPreferencePag
   /**
    * Helper method Create {@link #BooleanFieldEditor} within own composite on specified parent
    */
-  private void createBooleanFieldEditor(final String key, final String text, final Composite parent) {
+  private void createBooleanFieldEditor(final String key,
+      final String text,
+      final Composite parent) {
     final Composite composite = new Composite(parent, SWT.NONE);
     addField(new BooleanFieldEditor(key, text, composite));
   }
 
   /**
    * Helper method Create {@link #IntegerFieldEditor} within own composite on specified parent
-   * 
+   *
    * @param alignedRight
    *          if this parameter is true then align filed editor to the right
    */
