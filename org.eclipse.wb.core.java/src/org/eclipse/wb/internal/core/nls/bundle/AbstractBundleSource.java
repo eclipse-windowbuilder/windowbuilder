@@ -19,6 +19,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
+import org.eclipse.wb.internal.core.nls.bundle.pure.activator.ActivatorSource;
 import org.eclipse.wb.internal.core.nls.edit.EditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
@@ -404,8 +405,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Replace given expression with externalized code.
    */
   protected abstract BasicExpressionInfo apply_externalize_replaceExpression(
-      GenericProperty property,
-      String key) throws Exception;
+      GenericProperty property, String key) throws Exception;
 
   @Override
   public final void apply_internalizeKeys(final Set<String> keys) throws Exception {
@@ -677,8 +677,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Return list of IResource's that represent bundle files (*.properties) for given bundle name.
    */
   protected final IFile[] getBundleFiles() throws Exception {
-    String source = this.getClass().getName();
-    if (source.equals("org.eclipse.wb.internal.core.nls.bundle.pure.activator.ActivatorSource")) {
+    if (getClass().equals(ActivatorSource.class)) {
       // support for messages in the plugin root
       return getBundleFilesActivator();
     }

@@ -52,20 +52,16 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
   private PackageRootAndPackageSelectionDialogField m_propertyPackageField;
   private StringButtonDialogField m_propertyFileField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Constructor
+   */
   public AbstractBundleSourceNewComposite(Composite parent, int style, JavaInfo root) {
     super(parent, style, root);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property group
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Property group
+   */
   protected final void createPropertyGroup() {
     m_propertyGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(m_propertyGroup).grabH().fillH();
@@ -159,11 +155,9 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     UiUtils.changeControlEnable(m_propertyGroup, enable);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property group: validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Property group: validation
+   */
   private static final String KEY_PROPERTY_FOLDER = "KEY_PROPERTY_FOLDER";
   private static final String KEY_PROPERTY_PACKAGE = "KEY_PROPERTY_PACKAGE";
   private static final String KEY_PROPERTY_FILE = "KEY_PROPERTY_FILE";
@@ -211,24 +205,21 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Validation
+   */
   @Override
   protected void validateAll() {
     validatePropertyFields();
     super.validateAll();
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void fillPropertyParameters(AbstractBundleSourceParameters parameters)
-      throws Exception {
+  /**
+   * Parameters
+   * @param parameters
+   * @throws Exception
+   */
+  protected final void fillPropertyParameters(AbstractBundleSourceParameters parameters) throws Exception {
     parameters.m_propertySourceFolder = m_propertyPackageField.getRoot();
     parameters.m_propertyPackage = m_propertyPackageField.getPackage();
     parameters.m_propertyFileName = m_propertyFileField.getText();
