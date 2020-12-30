@@ -74,7 +74,7 @@ import javax.swing.JComponent;
 
 /**
  * Model for any AWT {@link Container}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -162,8 +162,8 @@ public class ContainerInfo extends ComponentInfo {
    * Fills given {@link IMenuManager} with {@link IAction}s for setting new {@link LayoutInfo} on
    * this {@link CompositeInfo}.
    */
-  public void fillLayoutsManager(IMenuManager layoutsManager) throws ClassNotFoundException,
-      Exception {
+  public void fillLayoutsManager(IMenuManager layoutsManager)
+      throws ClassNotFoundException, Exception {
     // add "absolute"
     {
       ObjectInfoAction action = new ObjectInfoAction(this) {
@@ -191,11 +191,10 @@ public class ContainerInfo extends ComponentInfo {
         @Override
         protected void runEx() throws Exception {
           description.ensureLibraries(editor.getJavaProject());
-          LayoutInfo layout =
-              (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                  editor,
-                  layoutClass,
-                  new ConstructorCreationSupport(creationId, true));
+          LayoutInfo layout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+              editor,
+              layoutClass,
+              new ConstructorCreationSupport(creationId, true));
           setLayout(layout);
         }
       };
@@ -243,7 +242,7 @@ public class ContainerInfo extends ComponentInfo {
   @Override
   protected void refresh_fetch() throws Exception {
     // fetch insets
-    {
+    if (getContainer() != null) {
       java.awt.Insets insets = getContainer().getInsets();
       m_insets = CoordinateUtils.get(insets);
     }
@@ -314,7 +313,7 @@ public class ContainerInfo extends ComponentInfo {
   /**
    * We may call {@link #initialize_createImplicitLayout()} many times, may be after each
    * {@link Statement}, so before adding new implicit layout we should remove existing one.
-   * 
+   *
    * @return <code>true</code> if {@link LayoutInfo} with same object already exists, so it was not
    *         removed and no need for creating new implicit {@link LayoutInfo}.
    */
@@ -432,10 +431,9 @@ public class ContainerInfo extends ComponentInfo {
     IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
     // check if processing required
     {
-      boolean shouldBeProcessed =
-          hasLayout()
-              && getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE
-              && getArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED) == null;
+      boolean shouldBeProcessed = hasLayout()
+          && getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE
+          && getArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED) == null;
       if (!shouldBeProcessed) {
         return;
       }
@@ -454,11 +452,10 @@ public class ContainerInfo extends ComponentInfo {
           if (layoutClass == null) {
             thisLayout = AbsoluteLayoutInfo.createExplicit(getEditor());
           } else {
-            thisLayout =
-                (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                    getEditor(),
-                    layoutClass,
-                    new ConstructorCreationSupport());
+            thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+                getEditor(),
+                layoutClass,
+                new ConstructorCreationSupport());
           }
         }
         // we are in process of refresh(), set inherited layout later
@@ -477,11 +474,10 @@ public class ContainerInfo extends ComponentInfo {
       LayoutDescription layoutDescription =
           LayoutDescriptionHelper.get(getDescription().getToolkit(), layoutId);
       if (layoutDescription != null) {
-        final LayoutInfo thisLayout =
-            (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                getEditor(),
-                layoutDescription.getLayoutClassName(),
-                new ConstructorCreationSupport());
+        final LayoutInfo thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+            getEditor(),
+            layoutDescription.getLayoutClassName(),
+            new ConstructorCreationSupport());
         // we are in process of refresh(), set inherited layout later
         ExecutionUtils.runLater(this, new RunnableEx() {
           public void run() throws Exception {
@@ -512,7 +508,7 @@ public class ContainerInfo extends ComponentInfo {
    * from {@link #getClientAreaInsets()}, because in AWT/Swing insets means that it is preferred to
    * place children {@link Component}'s inside of area after cropping by insets, but (0,0) is point
    * on insets, not inside of insets.
-   * 
+   *
    * @return the {@link Insets} for this AWT {@link Container}.
    */
   public final Insets getInsets() {
