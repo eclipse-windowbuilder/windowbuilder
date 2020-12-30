@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    bergert - added Activator.getPluginBundle().getString()
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
@@ -18,6 +19,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
+import org.eclipse.wb.internal.core.nls.bundle.pure.activator.ActivatorSource;
 import org.eclipse.wb.internal.core.nls.edit.EditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
@@ -33,7 +35,9 @@ import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -125,7 +129,15 @@ public abstract class AbstractBundleSource extends AbstractSource {
       if (bundleFiles.length == 0) {
         throw new IllegalStateException("At least one bundle file expected for: " + m_bundleName);
       }
-      m_bundlesFolder = (IFolder) bundleFiles[0].getParent();
+      IContainer folder = bundleFiles[0].getParent();
+      if (folder instanceof IProject) {
+        // Activator messages located in the project root
+        IProject project = (IProject) folder;
+        m_bundlesFolder = project.getFolder("src");
+      } else {
+        // default: messages inside the src folder
+        m_bundlesFolder = (IFolder) bundleFiles[0].getParent();
+      }
     }
   }
 
@@ -499,6 +511,10 @@ public abstract class AbstractBundleSource extends AbstractSource {
   protected static void createPropertyBundleFile(IPackageFragment targetPackage,
       String propertyFileName,
       String charset) throws Exception {
+    if (targetPackage instanceof IProject) {
+      IProject project = (IProject) targetPackage;
+      project.getFile(propertyFileName);
+    }
     IFolder folder = (IFolder) targetPackage.getUnderlyingResource();
     createPropertyBundleFile(folder, propertyFileName, charset);
   }
@@ -661,6 +677,10 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Return list of IResource's that represent bundle files (*.properties) for given bundle name.
    */
   protected final IFile[] getBundleFiles() throws Exception {
+    if (getClass().equals(ActivatorSource.class)) {
+      // support for messages in the plugin root
+      return getBundleFilesActivator();
+    }
     List<IFile> bundleFiles = Lists.newArrayList();
     String bundlePath = m_bundleName.replace('.', '/');
     String bundleFileName = new Path(bundlePath).lastSegment();
@@ -683,6 +703,53 @@ public abstract class AbstractBundleSource extends AbstractSource {
               || fileName.startsWith(bundleFileName + ".")) {
             if (!bundleFiles.contains(resource)) {
               bundleFiles.add((IFile) resource);
+            }
+          }
+        }
+      }
+    }
+    // return resources as array
+    return bundleFiles.toArray(new IFile[bundleFiles.size()]);
+  }
+
+  /**
+   * Return list of IResource's (*.properties) for the Activator type
+   */
+  private IFile[] getBundleFilesActivator() throws Exception, CoreException {
+    List<IFile> bundleFiles = Lists.newArrayList();
+    // locate any messages inside src container
+    for (IContainer container : getSourceContainers()) {
+      IFolder folder = container.getFolder(new Path("."));
+      IResource[] resources = new IResource[0];
+      if (folder.exists()) {
+        resources = folder.members();
+      }
+      for (IResource resource : resources) {
+        String fileName = resource.getName();
+        if (fileName.endsWith(".properties")) {
+          if (fileName.startsWith("plugin_") || fileName.startsWith("plugin.")) {
+            if (!bundleFiles.contains(resource)) {
+              bundleFiles.add((IFile) resource);
+            }
+          }
+        }
+      }
+    }
+    // locate any messages in the project (root) container
+    {
+      for (IContainer container : getSourceContainers()) {
+        IProject project = container.getProject();
+        IResource[] resources2 = project.members();
+        for (IResource resource : resources2) {
+          String fileName = resource.getName();
+          if (fileName.endsWith(".properties")) {
+            if (fileName.startsWith("plugin_")
+                || fileName.startsWith("plugin.")
+                || fileName.startsWith(m_bundleName + "_")
+                || fileName.startsWith(m_bundleName + ".")) {
+              if (!bundleFiles.contains(resource)) {
+                bundleFiles.add((IFile) resource);
+              }
             }
           }
         }

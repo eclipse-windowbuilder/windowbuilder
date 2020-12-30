@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    bergert - added Activator.getPluginBundle().getString()
  *******************************************************************************/
 package org.eclipse.wb.internal.core.nls.bundle;
 
@@ -51,32 +52,27 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
   private PackageRootAndPackageSelectionDialogField m_propertyPackageField;
   private StringButtonDialogField m_propertyFileField;
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Constructor
+   */
   public AbstractBundleSourceNewComposite(Composite parent, int style, JavaInfo root) {
     super(parent, style, root);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property group
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Property group
+   */
   protected final void createPropertyGroup() {
     m_propertyGroup = new Group(this, SWT.NONE);
     GridDataFactory.create(m_propertyGroup).grabH().fillH();
     GridLayoutFactory.create(m_propertyGroup).columns(3);
     m_propertyGroup.setText(Messages.AbstractBundleSourceNewComposite_propertiesGroup);
     {
-      m_propertyPackageField =
-          new PackageRootAndPackageSelectionDialogField(60,
-              Messages.AbstractBundleSourceNewComposite_propertiesSourceFolder,
-              Messages.AbstractBundleSourceNewComposite_propertiesSourceFolderBrowse,
-              Messages.AbstractBundleSourceNewComposite_propertiesPackage,
-              Messages.AbstractBundleSourceNewComposite_propertiesPackageBrowse);
+      m_propertyPackageField = new PackageRootAndPackageSelectionDialogField(60,
+          Messages.AbstractBundleSourceNewComposite_propertiesSourceFolder,
+          Messages.AbstractBundleSourceNewComposite_propertiesSourceFolderBrowse,
+          Messages.AbstractBundleSourceNewComposite_propertiesPackage,
+          Messages.AbstractBundleSourceNewComposite_propertiesPackageBrowse);
       m_propertyPackageField.setDialogFieldListener(m_validateListener);
       m_propertyPackageField.doFillIntoGrid(m_propertyGroup, 3);
       // create property file field
@@ -138,7 +134,8 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
         });
         m_propertyFileField.setDialogFieldListener(m_validateListener);
         m_propertyFileField.setLabelText(Messages.AbstractBundleSourceNewComposite_propertiesLabel);
-        m_propertyFileField.setButtonLabel(Messages.AbstractBundleSourceNewComposite_propertiesChooseButton);
+        m_propertyFileField.setButtonLabel(
+            Messages.AbstractBundleSourceNewComposite_propertiesChooseButton);
         createTextFieldControls(m_propertyGroup, m_propertyFileField, 3);
       }
     }
@@ -149,15 +146,18 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     m_propertyFileField.setText("messages.properties");
   }
 
+  protected final void initializePropertyGroupActivator() {
+    m_propertyPackageField.setCompilationUnit(m_compilationUnit);
+    m_propertyFileField.setText("plugin.properties");
+  }
+
   protected final void setPropertyGroupEnable(boolean enable) {
     UiUtils.changeControlEnable(m_propertyGroup, enable);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Property group: validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Property group: validation
+   */
   private static final String KEY_PROPERTY_FOLDER = "KEY_PROPERTY_FOLDER";
   private static final String KEY_PROPERTY_PACKAGE = "KEY_PROPERTY_PACKAGE";
   private static final String KEY_PROPERTY_FILE = "KEY_PROPERTY_FILE";
@@ -205,24 +205,21 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Validation
-  //
-  ////////////////////////////////////////////////////////////////////////////
+  /**
+   * Validation
+   */
   @Override
   protected void validateAll() {
     validatePropertyFields();
     super.validateAll();
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Parameters
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  protected final void fillPropertyParameters(AbstractBundleSourceParameters parameters)
-      throws Exception {
+  /**
+   * Parameters
+   * @param parameters
+   * @throws Exception
+   */
+  protected final void fillPropertyParameters(AbstractBundleSourceParameters parameters) throws Exception {
     parameters.m_propertySourceFolder = m_propertyPackageField.getRoot();
     parameters.m_propertyPackage = m_propertyPackageField.getPackage();
     parameters.m_propertyFileName = m_propertyFileField.getText();

@@ -179,6 +179,8 @@
 	<!-- ======================================================== -->
 	<extension point="org.eclipse.wb.core.nlsSources">
 		<binding toolkit="org.eclipse.wb.swing"
+			description="org.eclipse.wb.core.nls.bundle.pure.activator.ActivatorSource"/>
+		<binding toolkit="org.eclipse.wb.swing"
 			description="org.eclipse.wb.core.nls.bundle.eclipse.old.EclipseSource"/>
 		<binding toolkit="org.eclipse.wb.swing"
 			description="org.eclipse.wb.core.nls.bundle.pure.direct.DirectSource"/>
