@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Abstract model for strategies.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */
@@ -113,11 +113,20 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
     if ("setConverter".equals(invocation.getName().getIdentifier())) {
       Assert.isLegal(arguments.length == 1);
       Assert.isNull(m_converter);
-      m_converter = (ConverterInfo) resolver.getModel(arguments[0]);
+      AstObjectInfo model = resolver.getModel(arguments[0]);
+      if (model instanceof ConverterInfo) {
+        m_converter = (ConverterInfo) model;
+      } else {
+        // A class can implement both IConverter and IValidator
+        m_converter = new ConverterInfo(editor, (ClassInstanceCreation) arguments[0]);
+      }
       if (m_converter == null) {
-        AbstractParser.addError(editor, MessageFormat.format(
-            Messages.UpdateStrategyInfo_converterArgumentNotFound,
-            arguments[0]), new Throwable());
+        AbstractParser.addError(
+            editor,
+            MessageFormat.format(
+                Messages.UpdateStrategyInfo_converterArgumentNotFound,
+                arguments[0]),
+            new Throwable());
       } else {
         IModelSupport modelSupport = resolver.getModelSupport(invocation.getExpression());
         if (modelSupport instanceof StrategyModelSupport) {
@@ -213,12 +222,12 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
     configuration.setRetargetClassName(getStrategyClass(), "POLICY_UPDATE");
     configuration.setBaseClassName(getStrategyClass());
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(MessageFormat.format(
-        Messages.UpdateStrategyInfo_errorMessage,
-        context.getDirection()));
-    configuration.setErrorMessagePrefix(MessageFormat.format(
-        Messages.UpdateStrategyInfo_errorMessagePrefix,
-        context.getDirection()));
+    configuration.setEmptyClassErrorMessage(
+        MessageFormat.format(Messages.UpdateStrategyInfo_errorMessage, context.getDirection()));
+    configuration.setErrorMessagePrefix(
+        MessageFormat.format(
+            Messages.UpdateStrategyInfo_errorMessagePrefix,
+            context.getDirection()));
     //
     if (m_strategyType == StrategyType.ExtendetClass
         && m_strategyValue.toString().indexOf('(') != -1) {
@@ -231,19 +240,22 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
   /**
    * Create configuration for edit strategy convert.
    */
-  protected final ChooseClassConfiguration createConverterConfiguration(BindingUiContentProviderContext context) {
+  protected final ChooseClassConfiguration createConverterConfiguration(
+      BindingUiContentProviderContext context) {
     ChooseClassConfiguration configuration = new ChooseClassConfiguration();
     configuration.setDialogFieldLabel(Messages.UpdateStrategyInfo_chooseLabel);
     configuration.setValueScope("org.eclipse.core.databinding.conversion.IConverter");
     configuration.setClearValue("N/S");
     configuration.setBaseClassName("org.eclipse.core.databinding.conversion.IConverter");
     configuration.setConstructorParameters(ArrayUtils.EMPTY_CLASS_ARRAY);
-    configuration.setEmptyClassErrorMessage(MessageFormat.format(
-        Messages.UpdateStrategyInfo_chooseErrorMessage,
-        context.getDirection()));
-    configuration.setErrorMessagePrefix(MessageFormat.format(
-        Messages.UpdateStrategyInfo_chooseErrorMessagePrefix,
-        context.getDirection()));
+    configuration.setEmptyClassErrorMessage(
+        MessageFormat.format(
+            Messages.UpdateStrategyInfo_chooseErrorMessage,
+            context.getDirection()));
+    configuration.setErrorMessagePrefix(
+        MessageFormat.format(
+            Messages.UpdateStrategyInfo_chooseErrorMessagePrefix,
+            context.getDirection()));
     //
     if (m_converter != null
         && (m_converter.isAnonymous() || m_converter.getClassName().indexOf('(') != -1)) {
@@ -290,29 +302,31 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
         }
       case DefaultConstructor :
         if (hasVariable) {
-          lines.add(strategyClassName
-              + " "
-              + getVariableIdentifier()
-              + " = "
-              + "new "
-              + strategyClassName
-              + "();");
+          lines.add(
+              strategyClassName
+                  + " "
+                  + getVariableIdentifier()
+                  + " = "
+                  + "new "
+                  + strategyClassName
+                  + "();");
         } else {
           return "new " + strategyClassName + "()";
         }
         break;
       case IntConstructor :
         if (hasVariable) {
-          lines.add(strategyClassName
-              + " "
-              + getVariableIdentifier()
-              + " = new "
-              + strategyClassName
-              + "("
-              + strategyClassName
-              + "."
-              + getStrategyStringValue()
-              + ");");
+          lines.add(
+              strategyClassName
+                  + " "
+                  + getVariableIdentifier()
+                  + " = new "
+                  + strategyClassName
+                  + "("
+                  + strategyClassName
+                  + "."
+                  + getStrategyStringValue()
+                  + ");");
         } else {
           return "new "
               + strategyClassName
@@ -326,13 +340,14 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
       case ExtendetClass :
         String defaultCostructor = m_strategyValue.toString().indexOf('(') == -1 ? "()" : "";
         if (hasVariable) {
-          lines.add(strategyClassName
-              + " "
-              + getVariableIdentifier()
-              + " = new "
-              + m_strategyValue
-              + defaultCostructor
-              + ";");
+          lines.add(
+              strategyClassName
+                  + " "
+                  + getVariableIdentifier()
+                  + " = new "
+                  + m_strategyValue
+                  + defaultCostructor
+                  + ";");
         } else {
           return "new " + m_strategyValue + defaultCostructor;
         }
@@ -358,10 +373,11 @@ public abstract class UpdateStrategyInfo extends AstObjectInfo {
   protected void addSourceCodeForProperties(List<String> lines,
       CodeGenerationSupport generationSupport) throws Exception {
     if (m_converter != null) {
-      lines.add(getVariableIdentifier()
-          + ".setConverter("
-          + m_converter.getSourceCode(lines, generationSupport)
-          + ");");
+      lines.add(
+          getVariableIdentifier()
+              + ".setConverter("
+              + m_converter.getSourceCode(lines, generationSupport)
+              + ");");
     }
   }
 
