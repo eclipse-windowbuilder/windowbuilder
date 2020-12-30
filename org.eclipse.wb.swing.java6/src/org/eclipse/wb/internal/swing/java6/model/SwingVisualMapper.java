@@ -31,10 +31,11 @@ import javax.swing.text.JTextComponent;
 
 /**
  * The VisualMapper for Swing.
- * 
+ *
  * @author mitin_aa
  */
 public class SwingVisualMapper implements VisualMapper {
+  private static final int DEFAULT_MIN_SIZE = 25;
   private GroupLayoutInfo2 m_layout;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -76,6 +77,9 @@ public class SwingVisualMapper implements VisualMapper {
   @Override
   public Dimension getComponentMinimumSize(String componentId) {
     Component component = getComponent(componentId);
+    if (component == null) {
+      return new Dimension(DEFAULT_MIN_SIZE, DEFAULT_MIN_SIZE);
+    }
     return component.getMinimumSize();
   }
 
@@ -104,12 +108,11 @@ public class SwingVisualMapper implements VisualMapper {
     JComponent jcomp2 = comp2 instanceof JComponent ? (JComponent) comp2 : null;
     assert dimension == HORIZONTAL || dimension == VERTICAL;
     assert comp2Alignment == LEADING || comp2Alignment == TRAILING;
-    LayoutStyle.ComponentPlacement type =
-        paddingType == PaddingType.INDENT
-            ? LayoutStyle.ComponentPlacement.INDENT
-            : paddingType == PaddingType.RELATED
-                ? LayoutStyle.ComponentPlacement.RELATED
-                : LayoutStyle.ComponentPlacement.UNRELATED;
+    LayoutStyle.ComponentPlacement type = paddingType == PaddingType.INDENT
+        ? LayoutStyle.ComponentPlacement.INDENT
+        : paddingType == PaddingType.RELATED
+            ? LayoutStyle.ComponentPlacement.RELATED
+            : LayoutStyle.ComponentPlacement.UNRELATED;
     int position = 0;
     if (dimension == HORIZONTAL) {
       if (paddingType == PaddingType.INDENT) {
@@ -124,13 +127,14 @@ public class SwingVisualMapper implements VisualMapper {
       // default distance between components
       return type != javax.swing.LayoutStyle.ComponentPlacement.UNRELATED ? 6 : 12;
     }
-    int prefPadding =
-        paddingType != PaddingType.SEPARATE ? LayoutStyle.getInstance().getPreferredGap(
+    int prefPadding = paddingType != PaddingType.SEPARATE
+        ? LayoutStyle.getInstance().getPreferredGap(
             jcomp1,
             jcomp2,
             type,
             position,
-            getContainer().getContainer()) : PADDING_SEPARATE_VALUE;
+            getContainer().getContainer())
+        : PADDING_SEPARATE_VALUE;
     return prefPadding;
   }
 
