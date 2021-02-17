@@ -90,7 +90,7 @@ public final class TableModelDialog extends ResizableDialog {
     super(parentShell, DesignerPlugin.getDefault());
     m_title = title;
     m_model = model;
-    setShellStyle(SWT.SHELL_TRIM | SWT.APPLICATION_MODAL);
+    setShellStyle(SWT.RESIZE | SWT.TITLE | SWT.APPLICATION_MODAL);
   }
 
   ////////////////////////////////////////////////////////////////////////////
