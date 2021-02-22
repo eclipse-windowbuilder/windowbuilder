@@ -22,3 +22,4 @@ Java GUI code. It also supports free-form code editing (make changes anywhere...
 special areas) and most user re-factorings (you can move, rename and subdivide methods 
 without a problem).
 
+test
