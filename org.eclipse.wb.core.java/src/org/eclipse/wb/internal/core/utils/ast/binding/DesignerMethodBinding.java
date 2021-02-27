@@ -246,4 +246,8 @@ public final class DesignerMethodBinding implements IMethodBinding {
   public boolean isCanonicalConstructor() {
     return false;
   }
+
+  public boolean isSyntheticRecordMethod() {
+    return false;
+  }
 }
