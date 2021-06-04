@@ -1,0 +1,4 @@
+# Workaround for bug 572210 (<https://bugs.eclipse.org/bugs/show_bug.cgi?id=572210>):
+# in "eclipse.ini" add the VM argument "--illegal-access=permit"
+instructions.configure=org.eclipse.equinox.p2.touchpoint.eclipse.addJvmArg(jvmArg:--illegal-access=permit)
+instructions.unconfigure=org.eclipse.equinox.p2.touchpoint.eclipse.removeJvmArg(jvmArg:--illegal-access=permit)
