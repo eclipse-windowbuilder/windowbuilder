@@ -22,3 +22,12 @@ Java GUI code. It also supports free-form code editing (make changes anywhere...
 special areas) and most user re-factorings (you can move, rename and subdivide methods 
 without a problem).
 
+### Building
+* git clone https://github.com/eclipse/windowbuilder.git
+* cd windowbuilder
+* mvn clean verify -DskipTests
+
+### Contributing
+Contributing is easy. File an issue, fix it and create a pull request.
+
+The developers and contributors use the [windowbuilder dev list](https://accounts.eclipse.org/mailing-list/wb-dev). Please subscribe if you have any technical questions. 
