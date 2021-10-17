@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.utils.product.ProductInfo;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -25,7 +24,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scrollable;
 import org.eclipse.swt.widgets.Shell;
@@ -34,10 +32,14 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import static org.burningwave.core.assembler.StaticComponentContainer.Modules;
+
 import org.apache.commons.lang.StringUtils;
 import org.osgi.framework.BundleContext;
 
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -62,6 +64,29 @@ public class DesignerPlugin extends AbstractUIPlugin {
     addLogListener();
     if (EnvironmentUtils.IS_LINUX) {
       installPreferenceForwarder();
+    }
+    exportAllModulesToAllModules();
+  }
+
+  @SuppressWarnings("unchecked")
+  private void exportAllModulesToAllModules() {
+    try {
+      Modules.exportAllToAll();
+      Class<?> bootClassLoaderClass =
+          Class.forName("jdk.internal.loader.ClassLoaders$BootClassLoader");
+      Constructor<? extends ClassLoader> constructor =
+          (Constructor<? extends ClassLoader>) Class.forName(
+              "jdk.internal.loader.ClassLoaders$PlatformClassLoader").getDeclaredConstructor(
+                  bootClassLoaderClass);
+      constructor.setAccessible(true);
+      Class<?> classLoadersClass = Class.forName("jdk.internal.loader.ClassLoaders");
+      Method bootClassLoaderRetriever = classLoadersClass.getDeclaredMethod("bootLoader");
+      bootClassLoaderRetriever.setAccessible(true);
+      ClassLoader newBuiltinclassLoader =
+          constructor.newInstance(bootClassLoaderRetriever.invoke(classLoadersClass));
+      System.out.println(newBuiltinclassLoader + " instantiated");
+    } catch (Exception exc) {
+      log(exc);
     }
   }
 
@@ -159,24 +184,18 @@ public class DesignerPlugin extends AbstractUIPlugin {
   private static void addMouseWheelRedirector() {
     // Windows-only code
     if (EnvironmentUtils.IS_WINDOWS) {
-      final Listener listener = new Listener() {
-        public void handleEvent(Event event) {
-          Control cursorControl = Display.getDefault().getCursorControl();
-          if (cursorControl instanceof Scrollable && cursorControl != event.widget) {
-            event.doit = false;
-            if ((cursorControl.getStyle() & SWT.V_SCROLL) != 0) {
-              // prepare count and direction
-              OSSupport.get().scroll(cursorControl, event.count);
-            }
+      final Listener listener = event -> {
+        Control cursorControl = Display.getDefault().getCursorControl();
+        if (cursorControl instanceof Scrollable && cursorControl != event.widget) {
+          event.doit = false;
+          if ((cursorControl.getStyle() & SWT.V_SCROLL) != 0) {
+            // prepare count and direction
+            OSSupport.get().scroll(cursorControl, event.count);
           }
         }
       };
       final Display display = Display.getDefault();
-      display.asyncExec(new Runnable() {
-        public void run() {
-          display.addFilter(SWT.MouseWheel, listener);
-        }
-      });
+      display.asyncExec(() -> display.addFilter(SWT.MouseWheel, listener));
     }
   }
 
@@ -184,40 +203,36 @@ public class DesignerPlugin extends AbstractUIPlugin {
    * Adds {@link Display} filters for tracking interesting events.
    */
   private static void setupEventFilters() {
-    final Listener listener = new Listener() {
-      public void handleEvent(Event event) {
-        // Ctrl tracking
-        if (event.keyCode == SWT.CTRL) {
-          if (event.type == SWT.KeyDown) {
-            m_ctrlPressed = true;
-          }
-          if (event.type == SWT.KeyUp) {
-            m_ctrlPressed = false;
-          }
-          return;
+    final Listener listener = event -> {
+      // Ctrl tracking
+      if (event.keyCode == SWT.CTRL) {
+        if (event.type == SWT.KeyDown) {
+          m_ctrlPressed = true;
         }
-        // Shift tracking
-        if (event.keyCode == SWT.SHIFT) {
-          if (event.type == SWT.KeyDown) {
-            m_shiftPressed = true;
-          }
-          if (event.type == SWT.KeyUp) {
-            m_shiftPressed = false;
-          }
-          return;
+        if (event.type == SWT.KeyUp) {
+          m_ctrlPressed = false;
         }
+        return;
+      }
+      // Shift tracking
+      if (event.keyCode == SWT.SHIFT) {
+        if (event.type == SWT.KeyDown) {
+          m_shiftPressed = true;
+        }
+        if (event.type == SWT.KeyUp) {
+          m_shiftPressed = false;
+        }
+        return;
       }
     };
     //
     final Display display = Display.getDefault();
-    display.asyncExec(new Runnable() {
-      public void run() {
-        display.addFilter(SWT.MouseDown, listener);
-        display.addFilter(SWT.MouseUp, listener);
-        display.addFilter(SWT.KeyDown, listener);
-        display.addFilter(SWT.KeyUp, listener);
-        display.addFilter(SWT.Traverse, listener);
-      }
+    display.asyncExec(() -> {
+      display.addFilter(SWT.MouseDown, listener);
+      display.addFilter(SWT.MouseUp, listener);
+      display.addFilter(SWT.KeyDown, listener);
+      display.addFilter(SWT.KeyUp, listener);
+      display.addFilter(SWT.Traverse, listener);
     });
   }
 
@@ -369,11 +384,7 @@ public class DesignerPlugin extends AbstractUIPlugin {
 
   private void addLogListener() {
     ILog log = getLog();
-    log.addLogListener(new ILogListener() {
-      public void logging(IStatus status, String plugin) {
-        setLastStatus(status);
-      }
-    });
+    log.addLogListener((status, plugin) -> setLastStatus(status));
   }
 
   private void setLastStatus(IStatus lastStatus) {

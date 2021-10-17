@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry exported="true" kind="lib" path="lib/toolfactory-jvm-driver-8.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/burningwave-core-12.4.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/burningwave-jvm-driver-6.0.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-13.0.1.jar" sourcepath="lib/guava-13.0.1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/MVEL-fork.jar" sourcepath="lib/MVEL-fork.zip"/>
