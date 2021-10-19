@@ -368,19 +368,19 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
     {
       int modifiers = keyStroke.getModifiers();
       if ((modifiers & CTRL_MASK) != 0) {
-        modifiersSource += "java.awt.event.InputEvent.CTRL_MASK | ";
+        modifiersSource += "java.awt.event.InputEvent.CTRL_DOWN_MASK | ";
       }
       if ((modifiers & ALT_MASK) != 0) {
-        modifiersSource += "java.awt.event.InputEvent.ALT_MASK | ";
+        modifiersSource += "java.awt.event.InputEvent.ALT_DOWN_MASK | ";
       }
       if ((modifiers & SHIFT_MASK) != 0) {
-        modifiersSource += "java.awt.event.InputEvent.SHIFT_MASK | ";
+        modifiersSource += "java.awt.event.InputEvent.SHIFT_DOWN_MASK | ";
       }
       if ((modifiers & META_MASK) != 0) {
-        modifiersSource += "java.awt.event.InputEvent.META_MASK | ";
+        modifiersSource += "java.awt.event.InputEvent.META_DOWN_MASK | ";
       }
       if ((modifiers & ALT_GRAPH_MASK) != 0) {
-        modifiersSource += "java.awt.event.InputEvent.ALT_GRAPH_MASK | ";
+        modifiersSource += "java.awt.event.InputEvent.ALT_GRAPH_DOWN_MASK | ";
       }
       //
       if (modifiersSource.length() != 0) {
