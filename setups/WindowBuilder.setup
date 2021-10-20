@@ -257,6 +257,6 @@
   </project>
   <logicalProjectContainer
       xsi:type="setup:ProjectCatalog"
-      href="../org.eclipse.setup#//@projectCatalogs[name='org.eclipse']"/>
+      href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']"/>
   <description>Window Builder provides cool stuff.</description>
 </setup:Project>
