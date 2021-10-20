@@ -28,6 +28,10 @@ without a problem).
 * mvn clean verify -DskipTests
 
 ### Contributing
-Contributing is easy. File an issue, fix it and create a pull request.
+Contributing is easy. Set up a development environment:
+
+[![Create Eclipse Development Environment for Window Builder](https://download.eclipse.org/oomph/www/setups/svg/Window_Builder.svg)](https://www.eclipse.org/setups/installer/?url=https://raw.githubusercontent.com/eclipse/windowbuilder/master/setups/WindowBuilderConfiguration.setup&show=true "Click to open Eclipse-Installer Auto Launch or drag into your running installer")
+
+File an issue, fix it and create a pull request.
 
 The developers and contributors use the [windowbuilder dev list](https://accounts.eclipse.org/mailing-list/wb-dev). Please subscribe if you have any technical questions. 

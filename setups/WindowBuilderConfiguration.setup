@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Configuration
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    label="Eclipse Window Builder">
+  <annotation
+      source="http://www.eclipse.org/oomph/setup/BrandingInfo">
+    <detail
+        key="imageURI">
+      <value>https://www.eclipse.org/downloads/images/committers.png</value>
+    </detail>
+    <detail
+        key="badgeLabel">
+      <value>Window Builder</value>
+    </detail>
+  </annotation>
+  <installation
+      name="windowbuilder.installation"
+      label="Window BuilderInstallation">
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="installation.id.default"
+        value="window-builder"/>
+    <productVersion
+        href="index:/org.eclipse.setup#//@productCatalogs[name='org.eclipse.products']/@products[name='epp.package.committers']/@versions[name='latest']"/>
+    <description>The Window Builder installation provides the latest tools needed to work with the Window Builder source code.</description>
+  </installation>
+  <workspace
+      name="windowbuilder.workspace"
+      label="Window Builder Workspace">
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="workspace.id.default"
+        value="window-builder-ws"/>
+    <setupTask
+        xsi:type="setup:CompoundTask"
+        name="User Preferences">
+      <annotation
+          source="http://www.eclipse.org/oomph/setup/UserPreferences">
+        <detail
+            key="/instance/org.eclipse.oomph.setup.ui/showToolBarContributions">
+          <value>record</value>
+        </detail>
+      </annotation>
+      <setupTask
+          xsi:type="setup:CompoundTask"
+          name="org.eclipse.oomph.setup.ui">
+        <setupTask
+            xsi:type="setup:PreferenceTask"
+            key="/instance/org.eclipse.oomph.setup.ui/showToolBarContributions"
+            value="true"/>
+      </setupTask>
+      <setupTask
+          xsi:type="setup:CompoundTask"
+          name="org.eclipse.ui.ide">
+        <setupTask
+            xsi:type="setup:PreferenceTask"
+            key="/instance/org.eclipse.ui.ide/WORKSPACE_NAME"
+            value="Window Builder"/>
+      </setupTask>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="eclipse.git.authentication.style"
+        defaultValue="anonymous"/>
+    <stream
+        href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']/@projects[name='windowbuilder']/@projects[name='core']/@streams[name='master']"/>
+    <stream
+        href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']/@projects[name='windowbuilder']/@projects[name='website']/@streams[name='master']"/>
+    <description>The Window Builder workspace provides all the source code of the Eclipse Window Builder project.</description>
+  </workspace>
+  <description>
+    &lt;p>
+    The Window Builder configuration provisions a dedicated development environment for the complete set of &lt;a href=&quot;https://www.eclipse.org/windowbuilder/&quot;>Window Builder&lt;/a> projects.
+    &lt;/p>
+    &lt;p>
+    The installation is based on the latest available release train repository,
+    the workspace consists of projects from over the Window Builder Git clones organized into workings sets,
+    and the PDE target platform, like the installation, is also based on thelatest available release train repository.
+    &lt;p>
+    &lt;/p>
+    Please &lt;a href=&quot;https://wiki.eclipse.org/Eclipse_Platform_SDK_Provisioning&quot;>read the analogous tutorial instructions&lt;/a> for the Eclipse Platform SDK's configuration for more details.
+    &lt;/p>
+  </description>
+</setup:Configuration>
