@@ -54,7 +54,7 @@ public final class PropertyDescriptorEditorProvider extends PropertyEditorProvid
     }
     Object[] enumElements = (Object[]) attributeValue;
     // should be multiple 3
-    if (enumElements.length % 3 != 0) {
+    if (enumElements.length == 0 || enumElements.length % 3 != 0) {
       return false;
     }
     // elements should be sequence of [String,Object,String]
