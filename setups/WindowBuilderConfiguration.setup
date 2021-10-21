@@ -61,10 +61,6 @@
             value="Window Builder"/>
       </setupTask>
     </setupTask>
-    <setupTask
-        xsi:type="setup:VariableTask"
-        name="eclipse.git.authentication.style"
-        defaultValue="anonymous"/>
     <stream
         href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']/@projects[name='windowbuilder']/@projects[name='core']/@streams[name='master']"/>
     <stream
