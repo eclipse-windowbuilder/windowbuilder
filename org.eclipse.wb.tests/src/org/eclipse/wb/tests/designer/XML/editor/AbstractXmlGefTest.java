@@ -47,7 +47,7 @@ import org.eclipse.ui.ide.IDE;
 
 /**
  * Test for {@link AbstractXmlEditor} and its parts.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {

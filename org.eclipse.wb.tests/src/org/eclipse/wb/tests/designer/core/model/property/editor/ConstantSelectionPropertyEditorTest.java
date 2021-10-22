@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * Test for {@link ConstantSelectionPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstantSelectionPropertyEditorTest extends SwingModelTest {

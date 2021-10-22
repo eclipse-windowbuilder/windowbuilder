@@ -31,7 +31,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Tests for property wrapper over {@link java.beans.PropertyEditor}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

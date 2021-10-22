@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class FigureTest extends Draw2dFigureTestCase {
   private static final String ERROR_MESSAGE_CYCLE =

@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link ITableWrapLayout_Info<C>}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

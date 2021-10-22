@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Bindings design page factory.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

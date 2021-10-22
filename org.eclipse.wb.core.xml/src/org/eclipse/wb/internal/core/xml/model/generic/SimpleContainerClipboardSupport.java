@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Support for copying {@link SimpleContainer} child.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.generic
  */

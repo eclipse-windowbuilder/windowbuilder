@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.PreferencePage;
 
 /**
  * {@link PreferencePage} for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.ui
  */

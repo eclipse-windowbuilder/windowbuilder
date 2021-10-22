@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 
 /**
  * {@link Rule} that adds some tag for {@link GenericPropertyDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

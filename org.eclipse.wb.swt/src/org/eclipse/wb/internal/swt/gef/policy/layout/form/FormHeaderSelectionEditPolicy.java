@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * SelectionEditPolicy for {@link FormHeaderEditPart}.
- * 
+ *
  * @author mitin_aa
  */
 final class FormHeaderSelectionEditPolicy extends AbstractHeaderSelectionEditPolicy {

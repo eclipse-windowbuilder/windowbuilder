@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Tests for {@link ExecutionUtils} and {@link RunnableEx}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExecutionUtilsTest extends SwingModelTest {

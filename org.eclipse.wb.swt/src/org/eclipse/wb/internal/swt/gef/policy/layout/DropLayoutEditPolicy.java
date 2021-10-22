@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 /**
  * Implementation of {@link LayoutEditPolicy} for dropping {@link LayoutInfo} on
  * {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.policy
  */

@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Test for {@link XmlProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlPropertyTest extends AbstractCoreTest {

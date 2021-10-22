@@ -14,7 +14,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Superclass for Nebula tests.
- * 
+ *
  * @author sablin_aa
  */
 public class AbstractNebulaTest extends RcpModelTest {

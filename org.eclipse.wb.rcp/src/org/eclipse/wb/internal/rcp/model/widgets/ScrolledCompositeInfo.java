@@ -27,7 +27,7 @@ import org.eclipse.swt.custom.ScrolledComposite;
 
 /**
  * Model for {@link ScrolledComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

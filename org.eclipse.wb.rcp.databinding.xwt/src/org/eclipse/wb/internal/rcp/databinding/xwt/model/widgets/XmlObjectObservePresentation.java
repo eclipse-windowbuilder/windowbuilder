@@ -16,9 +16,9 @@ import org.eclipse.wb.internal.core.databinding.model.presentation.JavaInfoObser
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class XmlObjectObservePresentation extends JavaInfoObservePresentation {
   ////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ public class XmlObjectObservePresentation extends JavaInfoObservePresentation {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

@@ -19,9 +19,9 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.BindingInfo;
 import org.eclipse.swt.SWT;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class ModeContentProvider extends DialogFieldUiContentProvider {
   private final ComboDialogField m_dialogField;

@@ -28,7 +28,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Model for <code>Java Beans</code> object properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

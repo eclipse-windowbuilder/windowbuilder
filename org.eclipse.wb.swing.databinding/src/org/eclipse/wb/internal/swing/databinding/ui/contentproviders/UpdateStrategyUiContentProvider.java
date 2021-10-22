@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Content provider for edit (choose strategy type over combo) {@link UpdateStrategyInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

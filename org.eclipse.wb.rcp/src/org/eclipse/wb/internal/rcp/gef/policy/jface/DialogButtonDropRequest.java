@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * A {@link Request} for adding new "button" on {@link DialogInfo} button bar.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

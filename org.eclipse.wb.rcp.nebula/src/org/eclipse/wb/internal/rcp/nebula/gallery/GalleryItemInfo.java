@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 /**
  * Model {@link GalleryItem}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

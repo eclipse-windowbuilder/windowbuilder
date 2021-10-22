@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link RowHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

@@ -20,7 +20,7 @@ import javax.swing.JFrame;
 
 /**
  * Model for {@link JFrame}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

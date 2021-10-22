@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link PopupDialogInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

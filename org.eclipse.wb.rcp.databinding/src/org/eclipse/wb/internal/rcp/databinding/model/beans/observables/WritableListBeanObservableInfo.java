@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.CollectionP
 
 /**
  * Model for observable object {@link org.eclipse.core.databinding.observable.list.WritableList}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

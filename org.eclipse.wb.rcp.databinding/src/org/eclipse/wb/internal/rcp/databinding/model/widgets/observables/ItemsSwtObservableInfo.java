@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPro
 
 /**
  * Model for observable object <code>SWTObservables.observeItems(Control)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

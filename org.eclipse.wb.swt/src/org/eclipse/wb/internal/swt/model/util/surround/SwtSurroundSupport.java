@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Helper for surrounding {@link ControlInfo}'s with some {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.util
  */

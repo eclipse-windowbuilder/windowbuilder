@@ -17,7 +17,7 @@ import org.eclipse.swt.custom.StackLayout;
 
 /**
  * Interface model for {@link StackLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.layout
  */

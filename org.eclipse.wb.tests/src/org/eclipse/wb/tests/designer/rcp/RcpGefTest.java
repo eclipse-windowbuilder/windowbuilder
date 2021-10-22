@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Abstract test for RCP in editor.
- * 
+ *
  * @author scheglov_ke
  */
 public class RcpGefTest extends DesignerEditorTestCase {

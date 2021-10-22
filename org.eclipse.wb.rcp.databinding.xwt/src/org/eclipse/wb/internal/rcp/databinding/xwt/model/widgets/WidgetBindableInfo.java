@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class WidgetBindableInfo extends BindableInfo {
   private final XmlObjectInfo m_xmlObjectInfo;

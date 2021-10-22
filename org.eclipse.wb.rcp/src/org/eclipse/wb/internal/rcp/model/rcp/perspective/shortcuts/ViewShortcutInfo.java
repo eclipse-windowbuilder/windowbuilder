@@ -20,7 +20,7 @@ import org.eclipse.ui.IPageLayout;
 
 /**
  * Element for {@link IPageLayout#addShowViewShortcut(String)} method.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

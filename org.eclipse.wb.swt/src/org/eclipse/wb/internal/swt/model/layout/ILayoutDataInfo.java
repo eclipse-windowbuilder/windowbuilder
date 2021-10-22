@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.IObjectInfo;
 
 /**
  * Interface model for layout data object.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

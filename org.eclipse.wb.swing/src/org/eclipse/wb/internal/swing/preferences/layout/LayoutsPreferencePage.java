@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Main {@link PreferencePage} for Layout Support.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.preferences.ui

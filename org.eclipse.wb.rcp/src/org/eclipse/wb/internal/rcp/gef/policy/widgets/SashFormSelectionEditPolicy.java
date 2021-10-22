@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for {@link IControlInfo} in {@link ISashFormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

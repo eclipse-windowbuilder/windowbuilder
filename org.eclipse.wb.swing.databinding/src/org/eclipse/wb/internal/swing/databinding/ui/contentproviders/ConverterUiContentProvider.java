@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 /**
  * Editor for {@link ConverterInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

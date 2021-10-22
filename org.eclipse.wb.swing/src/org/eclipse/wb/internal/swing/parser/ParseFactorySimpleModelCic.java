@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * {@link IParseFactorySimpleModelCic} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.parser
  */

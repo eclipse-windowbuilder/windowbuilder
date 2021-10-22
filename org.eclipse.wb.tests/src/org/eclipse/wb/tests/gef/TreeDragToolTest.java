@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Event;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class TreeDragToolTest extends TreeToolTest {
   ////////////////////////////////////////////////////////////////////////////

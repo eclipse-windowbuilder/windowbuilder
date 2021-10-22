@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * Test for {@link ExpressionListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class AbstractTextPropertyEditorTest extends SwingModelTest {
@@ -87,9 +87,9 @@ public class AbstractTextPropertyEditorTest extends SwingModelTest {
   }
 
   /**
-   * 
+   *
    * Assert class array field equal for .
-   * 
+   *
    * @param editor
    * @param fieldName
    * @param expected

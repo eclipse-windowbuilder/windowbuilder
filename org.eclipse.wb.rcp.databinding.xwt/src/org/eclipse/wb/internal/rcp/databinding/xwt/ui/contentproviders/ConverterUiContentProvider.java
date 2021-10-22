@@ -22,9 +22,9 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class ConverterUiContentProvider extends ChooseClassUiContentProvider {
   private final DatabindingsProvider m_provider;
@@ -45,7 +45,7 @@ public class ConverterUiContentProvider extends ChooseClassUiContentProvider {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

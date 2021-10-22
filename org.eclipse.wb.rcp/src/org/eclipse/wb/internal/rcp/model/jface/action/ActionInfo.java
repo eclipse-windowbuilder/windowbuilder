@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Model for {@link IAction}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

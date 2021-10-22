@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Translatable;
 
 /**
  * Helper for drawing feedbacks by {@link FeedbacksDrawer}.
- * 
+ *
  * @author mitin_aa
  */
 public interface IFeedbacksHelper {

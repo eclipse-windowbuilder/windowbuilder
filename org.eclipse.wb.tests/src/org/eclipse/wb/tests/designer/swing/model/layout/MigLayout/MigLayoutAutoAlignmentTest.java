@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 
 /**
  * Tests for {@link MigLayoutInfo} and automatic alignment.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {

@@ -73,7 +73,7 @@ import java.util.Set;
 
 /**
  * Model for {@link TableWrapLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -792,7 +792,7 @@ public final class TableWrapLayoutInfo extends LayoutInfo
 
   /**
    * @return the {@link ControlInfo} that should be used as reference of adding into specified cell.
-   * 
+   *
    * @param exclude
    *          the {@link ControlInfo} that should not be checked, for example because we move it now
    */
@@ -1147,7 +1147,7 @@ public final class TableWrapLayoutInfo extends LayoutInfo
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =

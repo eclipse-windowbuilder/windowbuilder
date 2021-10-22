@@ -18,9 +18,9 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetBindableInfo;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class XmlObjectDecorator extends JavaInfoDecorator {
   ////////////////////////////////////////////////////////////////////////////

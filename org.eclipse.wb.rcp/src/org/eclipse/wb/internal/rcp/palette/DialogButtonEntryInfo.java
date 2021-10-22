@@ -27,7 +27,7 @@ import javax.swing.JToolBar;
  * Implementation of {@link EntryInfo} that is contributed to palette for each {@link Action}
  * instance existing on form, so that it can be selected and used for example for other
  * {@link AbstractButton}, or added on {@link JMenu} or {@link JToolBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

@@ -27,7 +27,7 @@ import org.eclipse.ui.forms.IManagedForm;
 
 /**
  * Model for {@link IManagedForm}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

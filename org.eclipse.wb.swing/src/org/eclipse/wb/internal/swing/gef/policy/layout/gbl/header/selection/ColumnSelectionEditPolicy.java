@@ -27,7 +27,7 @@ import java.text.MessageFormat;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link ColumnHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

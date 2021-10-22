@@ -22,9 +22,9 @@ import org.eclipse.jface.text.IRegion;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public final class DesignPageFactory implements IXmlEditorPageFactory {
   ////////////////////////////////////////////////////////////////////////////

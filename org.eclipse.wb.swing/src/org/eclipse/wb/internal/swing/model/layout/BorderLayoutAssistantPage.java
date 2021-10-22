@@ -20,7 +20,7 @@ import java.awt.BorderLayout;
 
 /**
  * Layout assistant for {@link BorderLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.assistant
  */

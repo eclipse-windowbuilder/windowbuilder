@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 
 /**
  * Contains various preference constants for SWT.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage swt.preferences

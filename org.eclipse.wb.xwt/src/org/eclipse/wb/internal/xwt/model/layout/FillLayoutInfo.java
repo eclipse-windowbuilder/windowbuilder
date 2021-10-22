@@ -21,7 +21,7 @@ import org.eclipse.swt.layout.FillLayout;
 
 /**
  * Model for {@link FillLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

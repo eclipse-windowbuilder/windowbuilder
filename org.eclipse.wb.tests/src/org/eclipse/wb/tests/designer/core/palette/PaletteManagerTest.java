@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Tests for {@link PaletteInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PaletteManagerTest extends AbstractPaletteTest {
@@ -746,7 +746,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
               "</palette>"));
       // load palette from "TestProject", so "myProject" also used
       PaletteInfo palette = loadPalette();
-      // check categories: only ".2" category, because file with ".1" was deleted 
+      // check categories: only ".2" category, because file with ".1" was deleted
       assertThat(palette.getCategories()).hasSize(1);
       {
         CategoryInfo category = palette.getCategories().get(0);

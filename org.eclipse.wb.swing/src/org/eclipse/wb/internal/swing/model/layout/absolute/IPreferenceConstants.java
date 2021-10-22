@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.model.layout.absolute;
 
 /**
  * Preference constants for SWING absolute-based layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout
  */

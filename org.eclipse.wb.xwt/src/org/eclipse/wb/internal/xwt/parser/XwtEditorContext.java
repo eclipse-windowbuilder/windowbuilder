@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * {@link EditorContext} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */

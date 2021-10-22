@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Model for any AWT {@link Component}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -227,7 +227,7 @@ public class ComponentInfo extends AbstractComponentInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Adds/updates {@link Component#setName(String)} with new variable name.
-   * 
+   *
    * @param newName
    *          the new variable name
    */

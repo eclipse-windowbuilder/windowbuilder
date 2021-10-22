@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
 /**
  * This class configure show plugin filters.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

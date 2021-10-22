@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Table;
 /**
  * {@link EntryInfo} that allows user to drop new {@link Composite} with
  * {@link org.eclipse.jface.layout.TableColumnLayout} and {@link Table}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */
@@ -93,7 +93,7 @@ public final class TableCompositeEntryInfo extends ToolEntryInfo {
         }
       }
     });
-    // OK, return CreationTool 
+    // OK, return CreationTool
     return creationTool;
   }
 

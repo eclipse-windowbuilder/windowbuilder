@@ -24,7 +24,7 @@ import java.io.File;
 
 /**
  * Tests for {@link ImageDescriptorPropertyEditor} with <code>ResourceManager</code>.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

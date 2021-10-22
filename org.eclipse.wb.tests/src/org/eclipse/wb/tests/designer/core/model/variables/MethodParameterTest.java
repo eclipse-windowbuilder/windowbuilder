@@ -41,7 +41,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link MethodParameterVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodParameterTest extends AbstractVariableTest {

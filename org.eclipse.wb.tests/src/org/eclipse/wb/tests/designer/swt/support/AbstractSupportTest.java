@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Abstract test for any {@link AbstractSupport}.
- * 
+ *
  * @author lobas_av
  */
 public abstract class AbstractSupportTest extends RcpModelTest {

@@ -20,7 +20,7 @@ import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 /**
  * "Source" page of {@link AbstractXmlEditor}.
- * 
+ *
  * @author lobas_av
  * @coverage XML.editor
  */

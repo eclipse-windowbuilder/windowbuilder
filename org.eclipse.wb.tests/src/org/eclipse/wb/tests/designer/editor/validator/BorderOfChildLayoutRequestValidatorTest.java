@@ -21,7 +21,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Test {@link BorderOfChildLayoutRequestValidator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
@@ -117,7 +117,7 @@ public class BorderOfChildLayoutRequestValidatorTest extends SwingGefTest {
 
   /**
    * No selection at all, but "target" marked as always transparent on borders.
-   * 
+   *
    * @throws Exception
    */
   public void test_CREATE_targetMarkedAsTransparentOnBorders_noSelection_onBorder()

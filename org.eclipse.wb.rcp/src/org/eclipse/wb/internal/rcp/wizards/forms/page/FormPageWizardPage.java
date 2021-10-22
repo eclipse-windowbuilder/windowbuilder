@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new Forms {@link FormPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

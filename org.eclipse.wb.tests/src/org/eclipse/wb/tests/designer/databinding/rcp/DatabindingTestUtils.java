@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class DatabindingTestUtils {
   /**

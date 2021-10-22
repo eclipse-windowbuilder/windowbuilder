@@ -51,7 +51,7 @@ import javax.swing.Icon;
 
 /**
  * Model for {@link AbstractAction}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model
  */

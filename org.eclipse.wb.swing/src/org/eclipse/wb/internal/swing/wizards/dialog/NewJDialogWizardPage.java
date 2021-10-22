@@ -31,7 +31,7 @@ import javax.swing.JDialog;
 
 /**
  * {@link WizardPage} that creates new Swing {@link JDialog}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.databinding.ui.providers.BindingLabelProvid
 
 /**
  * Property for single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui.properties
  */

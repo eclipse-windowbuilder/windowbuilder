@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link ViewFormInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewFormGefTest extends XwtGefTest {

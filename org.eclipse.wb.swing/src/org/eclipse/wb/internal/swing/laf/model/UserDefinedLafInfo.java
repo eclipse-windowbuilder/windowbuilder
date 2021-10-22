@@ -18,7 +18,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Class representing user-defined Look-n-Feel.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

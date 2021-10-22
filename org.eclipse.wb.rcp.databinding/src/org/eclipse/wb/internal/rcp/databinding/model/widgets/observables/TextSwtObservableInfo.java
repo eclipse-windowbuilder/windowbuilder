@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Model for observable object <code>SWTObservables.observeText(Control, int)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

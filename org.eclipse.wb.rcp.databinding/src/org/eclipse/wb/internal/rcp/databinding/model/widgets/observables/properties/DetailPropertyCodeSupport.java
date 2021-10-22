@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Abstract model for detail observable object <code>IValueProperty.XXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

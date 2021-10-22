@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.swing.model.layout.BoxSupport;
 /**
  * Implementation of {@link DirectTextEditPolicy} for {@link BoxStrutHorizontalEditPart} that allows
  * to edit width strut.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

@@ -25,7 +25,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link JavaInfoMemento} and other clipboard related operations.
- * 
+ *
  * @author scheglov_ke
  */
 public class ClipboardTest extends RcpModelTest {
@@ -101,7 +101,7 @@ public class ClipboardTest extends RcpModelTest {
   /**
    * Checks that with given source invocation, given resulting invocation will be generated during
    * copy/paste.
-   * 
+   *
    * @param invocationCode_1
    *          the source invocation
    * @param invocationCode_2

@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Scrollable;
 
 /**
  * Interface model of {@link Scrollable}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets
  */

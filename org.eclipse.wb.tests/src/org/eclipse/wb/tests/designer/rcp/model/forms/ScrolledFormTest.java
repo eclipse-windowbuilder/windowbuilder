@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Test for {@link ScrolledFormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ScrolledFormTest extends AbstractFormsTest {

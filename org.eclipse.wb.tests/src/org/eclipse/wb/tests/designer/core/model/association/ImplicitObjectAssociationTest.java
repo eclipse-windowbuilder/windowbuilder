@@ -19,7 +19,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Tests for {@link ImplicitObjectAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ImplicitObjectAssociationTest extends SwingModelTest {

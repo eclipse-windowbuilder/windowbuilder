@@ -24,7 +24,7 @@ import java.io.File;
 
 /**
  * Tests for {@link ImagePropertyEditor} with <code>SWTResourceManager</code>.
- * 
+ *
  * @author lobas_av
  */
 public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest {

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Model for row in {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

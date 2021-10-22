@@ -56,7 +56,7 @@ import java.util.Map;
 
 /**
  * Provider for support JFace bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.wizard.auto
  */

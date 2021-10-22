@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * A {@link Request} for adding new "button" on {@link CollapsibleButtonsInfo} widget.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.gef
  */

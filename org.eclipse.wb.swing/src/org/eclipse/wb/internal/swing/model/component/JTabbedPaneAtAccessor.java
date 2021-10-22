@@ -32,7 +32,7 @@ import javax.swing.JTabbedPane;
 /**
  * The implementation of {@link ExpressionAccessor} for {@link JTabbedPane} "set*At(index, value)"
  * methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

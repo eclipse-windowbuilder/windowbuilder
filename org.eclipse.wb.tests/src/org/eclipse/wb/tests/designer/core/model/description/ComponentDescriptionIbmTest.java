@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link ComponentDescriptionHelper}, {@link ComponentDescription}, etc.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentDescriptionIbmTest extends SwingModelTest {

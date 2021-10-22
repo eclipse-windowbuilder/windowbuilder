@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Tests for {@link TreeInfo} and {@link TreeItemInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TreeTest extends RcpModelTest {

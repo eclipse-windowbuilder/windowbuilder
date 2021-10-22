@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Test for {@link CompositeTopBoundsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompositeTopBoundsSupportTest extends XwtModelTest {

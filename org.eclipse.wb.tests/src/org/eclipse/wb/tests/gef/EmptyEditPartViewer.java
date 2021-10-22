@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class EmptyEditPartViewer implements IEditPartViewer {
   private final EditDomain m_editDomain = new EditDomain();

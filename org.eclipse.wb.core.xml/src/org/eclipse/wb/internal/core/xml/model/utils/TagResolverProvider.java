@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectResolveTag;
 
 /**
  * Interface for registering {@link XmlObjectResolveTag} broadcasts.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.utils
  */

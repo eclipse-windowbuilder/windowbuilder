@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MethodDescription} and {@link MethodOrder}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodOrderTest extends SwingModelTest {

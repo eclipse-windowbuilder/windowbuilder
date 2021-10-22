@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.Choos
 
 /**
  * Model for {@link org.eclipse.wb.rcp.databinding.BeansSetObservableFactory}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

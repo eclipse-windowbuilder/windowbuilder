@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link VariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class VariablesTests extends DesignerSuiteTests {

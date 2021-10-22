@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * GEF tests for FormLayout support moving.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutMoveTest extends RcpGefTest {
@@ -484,7 +484,7 @@ public class FormLayoutMoveTest extends RcpGefTest {
   /**
    * modelX and modelY are offsets of the right side of the widget relative to client are of the
    * parent.
-   * 
+   *
    * @param modelX
    * @param modelY
    */

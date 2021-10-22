@@ -20,7 +20,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 /**
  * Model for {@link ColumnLayoutData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

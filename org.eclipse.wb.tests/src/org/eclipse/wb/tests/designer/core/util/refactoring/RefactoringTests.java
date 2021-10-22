@@ -20,7 +20,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link ReflectionUtils} and its {@link Change}s.
- * 
+ *
  * @author scheglov_ke
  */
 public class RefactoringTests extends DesignerSuiteTests {

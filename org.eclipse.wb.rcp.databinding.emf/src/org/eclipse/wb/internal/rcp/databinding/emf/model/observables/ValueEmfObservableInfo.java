@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.BeanObser
 
 /**
  * Model for observable object <code>EMFObservables.observeValue(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

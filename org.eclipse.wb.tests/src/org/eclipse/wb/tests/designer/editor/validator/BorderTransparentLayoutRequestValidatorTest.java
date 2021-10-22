@@ -26,7 +26,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Test {@link BorderTransparentLayoutRequestValidator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BorderTransparentLayoutRequestValidatorTest extends SwingGefTest {

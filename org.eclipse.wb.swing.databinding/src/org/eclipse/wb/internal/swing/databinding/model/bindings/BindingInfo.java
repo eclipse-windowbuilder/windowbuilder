@@ -58,7 +58,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.jdesktop.beansbinding.Binding}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.bindings
  */
@@ -189,7 +189,7 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Create {@link IUiContentProvider} content providers for edit this model.
-   * 
+   *
    * @param provider
    *          TODO
    */

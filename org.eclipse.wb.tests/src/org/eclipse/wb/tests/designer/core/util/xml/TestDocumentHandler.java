@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 import org.eclipse.wb.internal.core.utils.xml.Model;
 
 /**
- * 
+ *
  * @author lobas_av
  */
 public class TestDocumentHandler extends AbstractDocumentHandler {

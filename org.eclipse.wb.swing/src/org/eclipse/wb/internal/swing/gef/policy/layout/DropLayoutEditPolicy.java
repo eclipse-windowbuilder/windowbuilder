@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 /**
  * Implementation of {@link LayoutEditPolicy} for dropping {@link LayoutInfo} on
  * {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

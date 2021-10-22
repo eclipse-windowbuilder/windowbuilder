@@ -18,7 +18,7 @@ import java.lang.reflect.Constructor;
 /**
  * Stub class for using SWT {@link org.eclipse.swt.graphics.Rectangle} in another
  * {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 /**
  * XXX
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

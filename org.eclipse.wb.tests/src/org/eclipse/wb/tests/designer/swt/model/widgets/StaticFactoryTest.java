@@ -29,7 +29,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Test for static factory and eSWT.
- * 
+ *
  * @author scheglov_ke
  */
 public class StaticFactoryTest extends RcpModelTest {

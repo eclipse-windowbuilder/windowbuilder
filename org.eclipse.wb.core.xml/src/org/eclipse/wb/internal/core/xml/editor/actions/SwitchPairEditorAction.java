@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * {@link Action} for switching between pair/companion {@link IFile}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */

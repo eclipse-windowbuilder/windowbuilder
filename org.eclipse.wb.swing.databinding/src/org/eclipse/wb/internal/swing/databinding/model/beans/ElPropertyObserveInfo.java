@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * {@link ObserveInfo} model for {@link org.jdesktop.beansbinding.ELProperty}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

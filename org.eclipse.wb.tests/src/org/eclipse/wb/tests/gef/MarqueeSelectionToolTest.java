@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class MarqueeSelectionToolTest extends RequestTestCase {
   private MarqueeSelectionTool m_tool;

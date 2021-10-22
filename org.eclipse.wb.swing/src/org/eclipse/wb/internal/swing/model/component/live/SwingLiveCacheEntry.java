@@ -18,7 +18,7 @@ import java.awt.Component;
 
 /**
  * Live components cache entry for Swing toolkit.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model
  */

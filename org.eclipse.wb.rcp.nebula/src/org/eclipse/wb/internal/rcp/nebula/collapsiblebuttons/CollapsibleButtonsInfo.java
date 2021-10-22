@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Model {@link CollapsibleButtons}
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */
@@ -64,7 +64,7 @@ public final class CollapsibleButtonsInfo extends CompositeInfo {
 
   /**
    * Adds new "button" on {@link CollapsibleButtons} widget.
-   * 
+   *
    * @return the added button {@link ControlInfo}.
    */
   public static ControlInfo createButton(final CollapsibleButtonsInfo collapsibleButtons,

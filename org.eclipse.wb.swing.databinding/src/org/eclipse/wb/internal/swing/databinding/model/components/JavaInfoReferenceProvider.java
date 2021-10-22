@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 
 /**
  * {@link IReferenceProvider} for provider reference on {@link JavaInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.widgets
  */

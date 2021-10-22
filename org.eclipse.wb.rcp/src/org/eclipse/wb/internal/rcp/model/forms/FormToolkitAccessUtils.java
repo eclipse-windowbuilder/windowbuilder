@@ -34,7 +34,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * Helper for using {@link FormToolkitAccess}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -43,7 +43,7 @@ public final class FormToolkitAccessUtils {
    * Creates {@link InstanceFactoryInfo} for {@link FormToolkit} using {@link FormToolkitAccess}.
    * This method should be used during {@link JavaInfo} initializing of "this" component, i.e.
    * practically during parsing.
-   * 
+   *
    * @return the created {@link InstanceFactoryInfo}.
    */
   public static InstanceFactoryInfo createFormToolkit_usingAccess(JavaInfo hostJavaInfo)

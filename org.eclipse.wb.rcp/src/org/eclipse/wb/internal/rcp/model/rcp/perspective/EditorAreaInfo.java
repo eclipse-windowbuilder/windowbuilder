@@ -25,7 +25,7 @@ import org.eclipse.ui.IPageLayout;
 
 /**
  * Model for editor area in {@link IPageLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

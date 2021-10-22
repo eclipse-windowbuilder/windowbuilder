@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link ConstructorParentAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstructorParentAssociationTest extends SwingModelTest {
@@ -86,7 +86,7 @@ public class ConstructorParentAssociationTest extends SwingModelTest {
     ComponentInfo oldButton = panel.getChildrenComponents().get(0);
     ConstructorParentAssociation oldAssociation =
         (ConstructorParentAssociation) oldButton.getAssociation();
-    // test correct type 
+    // test correct type
     {
       assertInstanceOf(ConstructorParentAssociation.class, oldAssociation.getCopy());
     }

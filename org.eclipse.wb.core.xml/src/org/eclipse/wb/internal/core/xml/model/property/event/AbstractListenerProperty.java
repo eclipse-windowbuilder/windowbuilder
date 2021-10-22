@@ -18,7 +18,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * Interface of single listener {@link Property}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
 
 /**
  * Presentation for button with style: <code>CHECK</code> or <code>RADIO</code>.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage swt.model.presentation

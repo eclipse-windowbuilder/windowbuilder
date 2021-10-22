@@ -76,7 +76,7 @@ import java.util.Map;
 
 /**
  * Policy implementing 'Classic' version of the FormLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutEditPolicyClassic<C extends IControlInfo>

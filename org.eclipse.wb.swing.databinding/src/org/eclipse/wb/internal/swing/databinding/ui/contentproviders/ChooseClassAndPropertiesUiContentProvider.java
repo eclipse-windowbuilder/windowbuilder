@@ -55,7 +55,7 @@ import java.util.List;
 
 /**
  * Content provider for choose properties from Tree (properties + sub properties).
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

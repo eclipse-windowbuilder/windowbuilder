@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link PropertyEditor}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyEditorsTests extends DesignerSuiteTests {

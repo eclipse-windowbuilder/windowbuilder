@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Provider of {@link Image} and {@link ImageDescriptor} for {@link TableWrapLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

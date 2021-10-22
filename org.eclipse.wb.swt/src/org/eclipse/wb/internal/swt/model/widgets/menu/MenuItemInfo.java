@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Class representing menu item model for SWT menu item object.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets.menu
  */
@@ -267,7 +267,7 @@ public final class MenuItemInfo extends ItemInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuItemImpl extends AbstractMenuObject implements IMenuItemInfo, IMenuPolicy {

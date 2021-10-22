@@ -14,7 +14,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Base for testing XML core.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractCoreTest extends XwtModelTest {

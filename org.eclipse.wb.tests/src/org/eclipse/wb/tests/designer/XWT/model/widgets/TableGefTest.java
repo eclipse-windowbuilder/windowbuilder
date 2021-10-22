@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link TableInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableGefTest extends XwtGefTest {

@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link ISurroundTarget} for using {@link Composite} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.util
  */

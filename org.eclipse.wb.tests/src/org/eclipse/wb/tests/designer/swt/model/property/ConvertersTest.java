@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Tests for SWT converters.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConvertersTest extends RcpModelTest {

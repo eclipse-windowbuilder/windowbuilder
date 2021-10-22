@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Tests found bugs with menu.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuProblemsTest extends RcpGefTest {
@@ -116,7 +116,7 @@ public class MenuProblemsTest extends RcpGefTest {
 
   /**
    * Ensure that in RCP cascade menu also works.
-   * 
+   *
    * @throws Exception
    */
   public void test_cascadeSubMenu_andRCP() throws Exception {

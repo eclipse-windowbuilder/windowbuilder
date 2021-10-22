@@ -37,7 +37,7 @@ import org.eclipse.swt.events.KeyEvent;
 
 /**
  * {@link SourceViewerConfiguration} for highlighting {@code EL} properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

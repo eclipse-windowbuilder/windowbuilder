@@ -22,7 +22,7 @@ import java.awt.Point;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Point}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

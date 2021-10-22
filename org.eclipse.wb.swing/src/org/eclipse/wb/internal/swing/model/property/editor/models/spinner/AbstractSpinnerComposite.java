@@ -18,7 +18,7 @@ import javax.swing.SpinnerModel;
 
 /**
  * Abstract editor for some {@link SpinnerModel} type.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -47,7 +47,7 @@ abstract class AbstractSpinnerComposite extends Composite {
 
   /**
    * Sets the {@link SpinnerModel} to display/edit.
-   * 
+   *
    * @return <code>true</code> if this {@link AbstractSpinnerComposite} understands given model.
    */
   public abstract boolean setModel(SpinnerModel model);

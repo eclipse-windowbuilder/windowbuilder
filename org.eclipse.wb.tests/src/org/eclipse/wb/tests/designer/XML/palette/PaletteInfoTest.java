@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Tests for {@link PaletteInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PaletteInfoTest extends DesignerTestCase {
@@ -74,7 +74,7 @@ public class PaletteInfoTest extends DesignerTestCase {
       assertSame(category_2, palette.getCategories().get(1));
       assertSame(category_3, palette.getCategories().get(2));
     }
-    // case 2: move before itself - ignore 
+    // case 2: move before itself - ignore
     {
       palette.moveCategory("category_1", "category_1");
       assertSame(category_1, palette.getCategories().get(0));

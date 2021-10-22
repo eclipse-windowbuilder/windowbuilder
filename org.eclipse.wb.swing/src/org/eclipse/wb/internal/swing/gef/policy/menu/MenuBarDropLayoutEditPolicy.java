@@ -36,7 +36,7 @@ import javax.swing.JFrame;
 /**
  * {@link LayoutEditPolicy} allowing drop {@link JMenuBarInfo} on {@link JFrame}, {@link JDialog} or
  * {@link JApplet}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

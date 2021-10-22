@@ -21,9 +21,9 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.XmlObjectRefere
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class AttributeDocumentEditor implements IDocumentEditor {
   private final BindingInfo m_binding;
@@ -45,7 +45,7 @@ public class AttributeDocumentEditor implements IDocumentEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   private String getValue() throws Exception {

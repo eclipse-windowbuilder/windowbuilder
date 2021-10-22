@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for <code>FilteredItemsSelectionDialog</code>.
- * 
+ *
  * @author scheglov_ke
  */
 public class FilteredItemsSelectionDialogTest extends RcpModelTest {

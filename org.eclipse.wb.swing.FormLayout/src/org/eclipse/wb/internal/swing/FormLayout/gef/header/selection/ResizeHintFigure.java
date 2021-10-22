@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 
 /**
  * {@link Figure} for displaying {@link FormLayoutInfo} header resize.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */
@@ -170,7 +170,7 @@ public final class ResizeHintFigure extends Figure {
 
   /**
    * Draws text at given location.
-   * 
+   *
    * @return the new <code>x</code>.
    */
   private int drawText(Graphics graphics, int x, int y, String text, Font font) {

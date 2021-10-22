@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model for {@link ConstraintsAbsoluteLayoutInfo} constraints.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

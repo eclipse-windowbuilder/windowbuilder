@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Dialog for {@link Font} choosing.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

@@ -53,7 +53,7 @@ import java.util.Map;
 
 /**
  * Provider for support Swing bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
 
 /**
  * Editor for XWT UI.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.editor
  */

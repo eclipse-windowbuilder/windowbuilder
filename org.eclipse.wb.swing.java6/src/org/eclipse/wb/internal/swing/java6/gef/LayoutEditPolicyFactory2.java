@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo2;
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for Java6 Swing. "2" is for developers to not
  * confuse this with main Swing factory.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gef.policy
  */

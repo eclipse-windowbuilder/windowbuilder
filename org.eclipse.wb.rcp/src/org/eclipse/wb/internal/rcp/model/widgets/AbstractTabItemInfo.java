@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Model for {@link TabItem} or {@link CTabItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

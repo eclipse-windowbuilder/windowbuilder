@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Model for {@link TabItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

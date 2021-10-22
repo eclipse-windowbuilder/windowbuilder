@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Menu;
 
 /**
  * Test for {@link DesignContextMenuProvider}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignContextMenuProviderTest extends XwtGefTest {

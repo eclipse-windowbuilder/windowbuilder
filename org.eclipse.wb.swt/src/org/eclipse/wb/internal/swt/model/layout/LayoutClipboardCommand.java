@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Command for pasting {@link ControlInfo} on {@link CompositeInfo} using layout specific way.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

@@ -66,7 +66,7 @@ import javax.swing.JToolBar;
 
 /**
  * Test for {@link ActionInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionTest extends SwingModelTest {

@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Container for {@link ActionInfo}, direct child of root {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -146,7 +146,7 @@ public final class ActionContainerInfo extends ObjectInfo {
   /**
    * Ensures that given {@link ActionInfo} has instance in source, adds into source and to the
    * {@link ActionContainerInfo} if needed.
-   * 
+   *
    * @param action
    *          the {@link ActionInfo} to ensure.
    */

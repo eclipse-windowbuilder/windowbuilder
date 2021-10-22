@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Assistant pages provider for {@link RowLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

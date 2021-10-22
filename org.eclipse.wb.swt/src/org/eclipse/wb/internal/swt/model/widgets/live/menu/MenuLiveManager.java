@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 
 /**
  * Special {@link SwtLiveManager} for SWT menu.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swt.model.widgets.live

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Helper for displaying grid for {@link ITableWrapLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

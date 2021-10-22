@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Model for {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -87,7 +87,7 @@ public final class GridLayoutInfo extends GenericFlowLayoutInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

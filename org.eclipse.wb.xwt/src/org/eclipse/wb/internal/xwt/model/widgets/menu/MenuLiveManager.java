@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.XwtLiveManager;
 
 /**
  * {@link XwtLiveManager} for {@link MenuInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage XWT.model.widgets

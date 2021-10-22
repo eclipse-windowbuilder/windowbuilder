@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.association.Association;
 
 /**
  * Configuration for {@link SimpleContainerConfigurable}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.generic
  */

@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * {@link Command} for modifying {@link CategoryInfo} name.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

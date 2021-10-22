@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FormToolkitAccess}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormToolkitAccessTest extends AbstractFormsTest {

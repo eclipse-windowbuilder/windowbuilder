@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Support for special "Name" property for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model
  */

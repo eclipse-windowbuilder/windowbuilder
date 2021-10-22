@@ -15,7 +15,7 @@ import org.eclipse.wb.gef.core.tools.PasteTool;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class PasteToolTest extends AbstractCreationToolTest {
   ////////////////////////////////////////////////////////////////////////////

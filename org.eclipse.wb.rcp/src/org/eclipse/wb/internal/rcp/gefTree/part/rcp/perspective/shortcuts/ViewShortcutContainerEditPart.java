@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutC
 
 /**
  * {@link EditPart} for {@link ViewShortcutContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gefTree.part
  */

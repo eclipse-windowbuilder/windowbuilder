@@ -68,7 +68,7 @@ import java.util.List;
 
 /**
  * Test for {@link CompositeInfo}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

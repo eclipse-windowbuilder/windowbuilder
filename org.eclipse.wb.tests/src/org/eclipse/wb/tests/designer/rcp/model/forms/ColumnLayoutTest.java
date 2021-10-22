@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Test for {@link ColumnLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ColumnLayoutTest extends AbstractFormsTest {

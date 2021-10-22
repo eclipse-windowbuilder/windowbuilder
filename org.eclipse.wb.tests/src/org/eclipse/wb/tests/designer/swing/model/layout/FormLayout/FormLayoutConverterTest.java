@@ -18,7 +18,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Test for {@link FormLayoutConverter}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutConverterTest extends AbstractFormLayoutTest {

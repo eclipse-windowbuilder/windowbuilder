@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for SWT layouts models.
- * 
+ *
  * @author lobas_av
  */
 public class LayoutTests extends DesignerSuiteTests {

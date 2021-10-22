@@ -21,7 +21,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * {@link Action} for modifying alignment of {@link TableWrapDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

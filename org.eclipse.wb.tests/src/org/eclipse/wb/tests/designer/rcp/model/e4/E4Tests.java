@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for E4 models.
- * 
+ *
  * @author scheglov_ke
  */
 public class E4Tests extends DesignerSuiteTests {

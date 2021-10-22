@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for {@link FormLayoutInfo} preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -26,7 +26,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
       IPreferenceConstants {
   ////////////////////////////////////////////////////////////////////////////
   //
-  //	Initializing 
+  //	Initializing
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

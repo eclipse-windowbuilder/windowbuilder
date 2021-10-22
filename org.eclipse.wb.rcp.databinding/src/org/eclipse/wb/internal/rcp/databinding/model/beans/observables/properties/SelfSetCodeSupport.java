@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Model for observable object {@code Properties.selfSet(...)}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

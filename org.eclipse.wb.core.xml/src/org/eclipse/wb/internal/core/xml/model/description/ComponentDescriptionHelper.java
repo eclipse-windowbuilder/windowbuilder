@@ -59,7 +59,7 @@ import java.util.List;
 
 /**
  * Helper for loading {@link ComponentDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

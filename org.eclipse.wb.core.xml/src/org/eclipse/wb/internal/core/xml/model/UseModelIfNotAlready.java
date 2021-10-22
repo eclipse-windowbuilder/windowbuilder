@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 /**
  * Indicates that model marked with this annotation should be used only if there are no already
  * given model class.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

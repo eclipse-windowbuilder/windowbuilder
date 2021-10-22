@@ -20,7 +20,7 @@ import javax.swing.JTable;
 
 /**
  * Test for {@link MigLayoutConverter}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutConverterTest extends AbstractMigLayoutTest {

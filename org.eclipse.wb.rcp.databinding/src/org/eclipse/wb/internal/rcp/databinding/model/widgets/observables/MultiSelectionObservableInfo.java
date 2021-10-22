@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.bindables.WidgetPro
 
 /**
  * Model for observable object <code>ViewersObservables.observeMultiSelection(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

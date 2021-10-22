@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Test for {@link TableViewerColumnInfo} and {@link ViewerColumnInfo} in general.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableViewerColumnTest extends RcpModelTest {

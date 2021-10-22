@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * {@link IPropertiesToolBarContributor} for XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 
 /**
  * The {@link EditPart} for {@link JTabbedPaneInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

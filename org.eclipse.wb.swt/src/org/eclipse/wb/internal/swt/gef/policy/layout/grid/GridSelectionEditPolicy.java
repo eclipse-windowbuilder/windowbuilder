@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

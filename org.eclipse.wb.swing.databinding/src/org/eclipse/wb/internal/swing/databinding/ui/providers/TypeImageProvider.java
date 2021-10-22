@@ -18,7 +18,7 @@ import java.util.Collection;
 
 /**
  * Helper for association {@link Class} with {@link Image}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

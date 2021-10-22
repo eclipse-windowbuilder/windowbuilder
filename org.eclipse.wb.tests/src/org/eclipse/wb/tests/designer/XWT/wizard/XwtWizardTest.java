@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 
 /**
  * Tests for {@link XwtWizard}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtWizardTest extends XwtModelTest {

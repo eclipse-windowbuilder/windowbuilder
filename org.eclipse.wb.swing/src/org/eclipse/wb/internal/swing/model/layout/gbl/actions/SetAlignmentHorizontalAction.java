@@ -17,7 +17,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * {@link Action} for modifying horizontal alignment.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Layout;
 
 /**
  * Tests for {@link LayoutDataInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  */

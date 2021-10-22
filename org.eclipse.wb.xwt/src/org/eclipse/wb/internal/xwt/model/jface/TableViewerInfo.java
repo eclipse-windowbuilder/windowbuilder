@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for {@link TableViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.jface
  */

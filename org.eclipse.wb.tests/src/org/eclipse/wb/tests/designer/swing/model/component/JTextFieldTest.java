@@ -17,7 +17,7 @@ import javax.swing.text.Document;
 
 /**
  * Tests for {@link JTextField} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JTextFieldTest extends SwingModelTest {

@@ -28,7 +28,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Class representing look-n-feel loaded from using Eclipse plugin API.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

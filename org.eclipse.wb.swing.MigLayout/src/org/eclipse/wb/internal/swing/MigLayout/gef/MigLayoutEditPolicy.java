@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.policy
  */
@@ -290,7 +290,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Determines parameters of insert feedback.
-   * 
+   *
    * @return the array of: visual gap, begin/end of insert feedback, begin/end of target feedback.
    */
   public static int[] getInsertFeedbackParameters(Interval interval,
@@ -470,7 +470,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IHeadersProvider 
+  // IHeadersProvider
   //
   ////////////////////////////////////////////////////////////////////////////
   public LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal) {

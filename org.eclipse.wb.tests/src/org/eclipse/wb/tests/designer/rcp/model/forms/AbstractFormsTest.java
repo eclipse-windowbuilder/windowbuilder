@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 
 /**
  * Abstract {@link TestCase} for all "Forms API" tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractFormsTest extends RcpModelTest {

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.databinding.Messages;
 
 /**
  * Swing Automatic bindings wizard.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */

@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link TreeInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class TreeGefTest extends XwtGefTest {

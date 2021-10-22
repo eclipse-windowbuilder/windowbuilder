@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link DisplayExpressionPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DisplayExpressionPropertyEditorTest extends SwingModelTest {

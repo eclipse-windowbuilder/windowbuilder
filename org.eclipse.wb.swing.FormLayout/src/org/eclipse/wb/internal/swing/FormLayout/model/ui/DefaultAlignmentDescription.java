@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
 
 /**
  * Description of {@link DefaultAlignment} for {@link DimensionEditDialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */

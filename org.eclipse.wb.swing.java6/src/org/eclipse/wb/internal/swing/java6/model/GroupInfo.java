@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Base class for GroupLayout container elements.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

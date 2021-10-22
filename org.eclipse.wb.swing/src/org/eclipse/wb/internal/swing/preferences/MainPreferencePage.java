@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * {@link PreferencePage} with general Swing preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.ui
  */

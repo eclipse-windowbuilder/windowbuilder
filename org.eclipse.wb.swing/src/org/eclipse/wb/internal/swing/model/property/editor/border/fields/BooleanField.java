@@ -22,7 +22,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * {@link AbstractBorderField} that allows to select {@link Boolean} value.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -20,7 +20,7 @@ import java.lang.reflect.TypeVariable;
 
 /**
  * Tests for {@link GenericTypeResolverJavaInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenericTypeResolverJavaInfoTest extends SwingModelTest {

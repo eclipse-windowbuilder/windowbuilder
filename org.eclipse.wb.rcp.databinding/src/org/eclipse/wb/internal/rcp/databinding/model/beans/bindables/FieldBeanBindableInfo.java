@@ -32,7 +32,7 @@ import java.beans.PropertyDescriptor;
 
 /**
  * Model for field based <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

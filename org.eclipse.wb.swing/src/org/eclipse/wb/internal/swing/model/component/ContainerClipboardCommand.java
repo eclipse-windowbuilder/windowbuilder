@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 
 /**
  * {@link ClipboardCommand} for adding {@link ComponentInfo} to {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

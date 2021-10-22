@@ -20,9 +20,9 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class BindingLabelProvider extends LabelProvider implements ITableLabelProvider {
   public static final BindingLabelProvider INSTANCE = new BindingLabelProvider();

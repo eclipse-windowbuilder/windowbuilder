@@ -69,7 +69,7 @@ import java.util.List;
 /**
  * Widgets container with type {@link ObserveType#WIDGETS}. Works on <code>SWT</code> widgets and
  * <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

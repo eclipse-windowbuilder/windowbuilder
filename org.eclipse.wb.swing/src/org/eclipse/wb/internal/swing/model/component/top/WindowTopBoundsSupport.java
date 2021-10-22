@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link JFrame}, {@link JDialog}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swing.model.top
@@ -58,7 +58,7 @@ public final class WindowTopBoundsSupport extends SwingTopBoundsSupport {
       if (m_component.getObject() instanceof Window) {
         Window window = (Window) m_component.getObject();
         // bug/feature in MacOSX Java5 (at least in build 1.5.0_16-b06-284):
-        // if the window is not valid and has no peer, making it visible leads to 
+        // if the window is not valid and has no peer, making it visible leads to
         // invalid insets (0x80000000) returned by peer's native window.
         // the workaround it to create peer by invoking 'addNotify()' method.
         if (!window.isDisplayable()) {

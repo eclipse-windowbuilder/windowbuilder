@@ -24,7 +24,7 @@ import org.eclipse.ui.IEditorPart;
 /**
  * Test for reparsing on dependency modification, for example modification of used component (it
  * same project).
- * 
+ *
  * @author scheglov_ke
  */
 public class ReparseOnModificationTest extends SwingGefTest {

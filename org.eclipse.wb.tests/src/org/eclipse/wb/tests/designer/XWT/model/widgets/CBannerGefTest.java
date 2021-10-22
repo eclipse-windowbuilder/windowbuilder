@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link CBannerInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class CBannerGefTest extends XwtGefTest {

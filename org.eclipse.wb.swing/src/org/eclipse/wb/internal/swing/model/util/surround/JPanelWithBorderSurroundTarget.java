@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 
 /**
  * {@link ISurroundTarget} that uses {@link JPanel} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.util
  */

@@ -55,7 +55,7 @@ import java.util.List;
 
 /**
  * Model for any XWT {@link Layout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */
@@ -93,7 +93,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
         if (getContext().isParsing()) {
           return;
         }
-        // Control was added, create virtual LayoutData 
+        // Control was added, create virtual LayoutData
         if (isActiveOnComposite(parent) && isManagedObject(child)) {
           ensureLayoutData((ControlInfo) child);
         }
@@ -227,7 +227,7 @@ public class LayoutInfo extends XmlObjectInfo implements ILayoutInfo<ControlInfo
    * when we intentionally delete {@link LayoutDataInfo}, for example during process of moving this
    * {@link ControlInfo} from this {@link LayoutData_Support} or deleting this
    * {@link LayoutData_Support}.
-   * 
+   *
    * @return <code>true</code> if for given {@link ControlInfo} we should create
    *         {@link LayoutDataInfo}.
    */

@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link IGridLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */

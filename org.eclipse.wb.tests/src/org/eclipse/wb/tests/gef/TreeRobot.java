@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * {@link EventSender} for {@link TreeViewer}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class TreeRobot {

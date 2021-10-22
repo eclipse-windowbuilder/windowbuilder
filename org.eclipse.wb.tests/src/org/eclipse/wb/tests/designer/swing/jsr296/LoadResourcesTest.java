@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 
 /**
  * Test for <code>org.jdesktop.application.ResourceMap.injectComponents(Component)</code>.
- * 
+ *
  * @author sablin_aa
  */
 public class LoadResourcesTest extends SwingModelTest {

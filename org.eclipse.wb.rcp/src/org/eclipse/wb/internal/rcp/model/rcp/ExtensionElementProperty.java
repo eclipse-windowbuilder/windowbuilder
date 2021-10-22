@@ -24,7 +24,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * {@link Property} that updates PDE model.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

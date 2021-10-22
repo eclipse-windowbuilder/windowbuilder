@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Test for {@link GridLayoutInfo} and special parameters for grab/alignment.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutParametersTest extends XwtModelTest {

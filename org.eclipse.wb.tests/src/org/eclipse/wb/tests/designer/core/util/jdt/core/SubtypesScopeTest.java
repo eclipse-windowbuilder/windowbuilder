@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IType;
 
 /**
  * Tests for {@link SubtypesScope}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SubtypesScopeTest extends AbstractJavaTest {

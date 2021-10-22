@@ -37,7 +37,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ColumnHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

@@ -43,7 +43,7 @@ import javax.swing.JSeparator;
 
 /**
  * Test for {@link JPopupMenuInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JPopupMenuTest extends SwingModelTest {

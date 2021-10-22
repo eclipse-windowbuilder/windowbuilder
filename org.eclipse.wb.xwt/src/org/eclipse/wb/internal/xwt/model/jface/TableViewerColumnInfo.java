@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 
 /**
  * Model for {@link TableViewerColumn}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.jface
  */

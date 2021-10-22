@@ -34,7 +34,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 /**
  * {@link PropertyEditor} for selecting model of {@link Object} in XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

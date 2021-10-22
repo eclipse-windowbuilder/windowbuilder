@@ -25,7 +25,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 /**
  * Model for {@link ScrolledForm}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

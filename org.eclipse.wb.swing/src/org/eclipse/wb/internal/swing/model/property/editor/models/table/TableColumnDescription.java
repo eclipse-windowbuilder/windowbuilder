@@ -21,7 +21,7 @@ import javax.swing.table.TableModel;
 
 /**
  * Information about column in {@link TableModel}, with ability to edit.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

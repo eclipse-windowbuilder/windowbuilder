@@ -17,7 +17,7 @@ import org.apache.commons.digester.Rule;
 
 /**
  * Provider for contributing {@link Rule}s for loading {@link ComponentDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

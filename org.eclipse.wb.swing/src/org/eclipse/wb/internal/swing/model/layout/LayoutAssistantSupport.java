@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 
 /**
  * Swing provider for layout assistant pages.
- * 
+ *
  * @author lobas_av
  * @coverage swing.assistant
  */
@@ -35,7 +35,7 @@ public class LayoutAssistantSupport
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

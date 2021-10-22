@@ -22,9 +22,9 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.DatabindingsProvider;
 import org.eclipse.wb.internal.xwt.model.jface.ViewerInfo;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class XmlObjectPropertiesManager extends AbstracXmlObjectPropertiesManager {
   ////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ public class XmlObjectPropertiesManager extends AbstracXmlObjectPropertiesManage
   ////////////////////////////////////////////////////////////////////////////
   @Override
   protected boolean isCreateProperty(ObjectInfo objectInfo) throws Exception {
-    // temporary disabled bindings property for Layout_Info, LayoutData_Info & etc.  
+    // temporary disabled bindings property for Layout_Info, LayoutData_Info & etc.
     // FIXME if (objectInfo instanceof XMLObject_Info) {
     if (objectInfo instanceof AbstractComponentInfo || objectInfo instanceof ViewerInfo) {
       XmlObjectInfo xmlObjectInfo = (XmlObjectInfo) objectInfo;

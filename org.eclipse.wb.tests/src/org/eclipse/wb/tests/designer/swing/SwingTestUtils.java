@@ -23,7 +23,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Utils for testing Swing related classes.
- * 
+ *
  * @author scheglov_ke
  */
 public class SwingTestUtils {

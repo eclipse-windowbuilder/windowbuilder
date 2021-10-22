@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Shell for {@link Font} preview.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.support
  */

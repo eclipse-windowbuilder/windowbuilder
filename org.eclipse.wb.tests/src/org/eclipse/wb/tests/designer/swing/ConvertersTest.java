@@ -28,7 +28,7 @@ import javax.swing.UIManager;
 
 /**
  * Tests for Swing {@link ExpressionConverter}'s.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  */

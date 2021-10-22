@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * RCP/eRCP plugins provide implementation of this interface to provide access to the toolkit
  * specific operations.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @author scheglov_ke

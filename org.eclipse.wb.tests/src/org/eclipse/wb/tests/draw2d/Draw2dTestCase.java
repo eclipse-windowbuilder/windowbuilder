@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public abstract class Draw2dTestCase extends TestCase {
   ////////////////////////////////////////////////////////////////////////////

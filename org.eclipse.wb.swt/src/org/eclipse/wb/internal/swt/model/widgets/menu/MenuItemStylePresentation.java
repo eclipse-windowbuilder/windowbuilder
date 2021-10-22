@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.support.SwtSupport;
 /**
  * Presentation for SWT menu item with style: <code>SWT.CHECK</code>, <code>SWT.RADIO</code>,
  * <code>SWT.SEPARATOR</code>.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets.menu.presentation
  */

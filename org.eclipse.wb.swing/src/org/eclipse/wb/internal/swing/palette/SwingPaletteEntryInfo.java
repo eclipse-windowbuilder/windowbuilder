@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * {@link EntryInfo} that shows popup/cascading Swing palette (this entry should be placed into RCP
  * palette).
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.editor.palette
  */
@@ -152,7 +152,7 @@ public final class SwingPaletteEntryInfo extends EntryInfo {
             shell.dispose();
           }
         } else if (event.type == SWT.MouseDown) {
-          // ...click outside of Shell hierarchy 
+          // ...click outside of Shell hierarchy
           if (!UiUtils.isChildOf(shell, event.widget)) {
             shell.dispose();
           }

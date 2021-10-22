@@ -40,7 +40,7 @@ import javax.swing.tree.TreeModel;
 
 /**
  * The dialog for editing {@link TreeModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -176,7 +176,7 @@ public final class TreeModelDialog extends ResizableDialog {
 
   /**
    * Information about resulting item.
-   * 
+   *
    * @author scheglov_ke
    */
   static final class ItemInformation {
@@ -293,7 +293,7 @@ public final class TreeModelDialog extends ResizableDialog {
 
   /**
    * Information about {@link TreeItem}.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ItemInformationImpl {

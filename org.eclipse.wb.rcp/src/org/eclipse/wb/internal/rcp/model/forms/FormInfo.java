@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Model for {@link Form}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

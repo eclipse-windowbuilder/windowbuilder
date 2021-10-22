@@ -24,7 +24,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link ComponentDescriptionKey}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentDescriptionKeyTest extends DesignerTestCase {

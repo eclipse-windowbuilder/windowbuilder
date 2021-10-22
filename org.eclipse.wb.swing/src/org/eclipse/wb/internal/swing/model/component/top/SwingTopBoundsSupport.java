@@ -37,7 +37,7 @@ import javax.swing.WindowConstants;
 
 /**
  * Implementation of {@link TopBoundsSupport} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.top
  */
@@ -207,7 +207,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Changes {@link Dimension} argument of given method.
-   * 
+   *
    * @return <code>true</code> if method was found and change done.
    */
   protected final boolean setSizeDimension(String methodName, int width, int height)
@@ -230,7 +230,7 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 
   /**
    * Changes <code>int</code> arguments of given method.
-   * 
+   *
    * @return <code>true</code> if method was found and change done.
    */
   private boolean setSizeInts(String methodSignature,

@@ -20,7 +20,7 @@ import java.awt.GridBagConstraints;
 
 /**
  * Test for {@link RowInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagRowTest extends AbstractGridBagLayoutTest {

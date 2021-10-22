@@ -25,7 +25,7 @@ import javax.swing.Action;
 /**
  * Implementation of {@link EntryInfo} that allows user to create new inner {@link Action} and loads
  * new {@link ActionDropTool}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

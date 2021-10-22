@@ -21,7 +21,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * Miscellaneous actions for GroupLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public class MiscActions {

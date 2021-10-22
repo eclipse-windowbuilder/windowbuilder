@@ -45,7 +45,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * Swing implementation.
- * 
+ *
  * @author mitin_aa
  */
 public final class SwingGroupLayoutCodeSupport extends GroupLayoutCodeSupport

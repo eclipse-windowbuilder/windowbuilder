@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for {@link JDialog} support.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  */

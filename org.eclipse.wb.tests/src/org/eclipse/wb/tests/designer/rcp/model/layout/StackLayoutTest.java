@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Test for {@link StackLayoutInfo}
- * 
+ *
  * @author scheglov_ke
  */
 public class StackLayoutTest extends RcpModelTest {
@@ -125,7 +125,7 @@ public class StackLayoutTest extends RcpModelTest {
     shell.refresh();
     StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
     ControlInfo button_1 = getJavaInfoByName("button_1");
-    // "button_1" is top Control 
+    // "button_1" is top Control
     assertSame(button_1, layout.getActiveControl());
     // only "button_1" is in "graphical children"
     {

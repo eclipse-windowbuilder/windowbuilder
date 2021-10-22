@@ -23,7 +23,7 @@ import javax.swing.GroupLayout;
 
 /**
  * Tests for {@link GroupLayout}.
- * 
+ *
  * @author mitin_aa
  */
 public class GroupLayoutTest extends AbstractLayoutTest {
@@ -72,7 +72,7 @@ public class GroupLayoutTest extends AbstractLayoutTest {
             "    return button;",
             "  }",
             "}");
-    // 
+    //
     panel.refresh();
     JavaInfo newLayout =
         JavaInfoUtils.createJavaInfo(
@@ -123,7 +123,7 @@ public class GroupLayoutTest extends AbstractLayoutTest {
             "    setLayout(groupLayout);",
             "  }",
             "}");
-    // 
+    //
     panel.refresh();
     JavaInfo newLayout =
         JavaInfoUtils.createJavaInfo(

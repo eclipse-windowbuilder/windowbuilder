@@ -51,7 +51,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutTest extends AbstractMigLayoutTest {
@@ -2518,7 +2518,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#moveColumn(int, int)}.
-   * 
+   *
    * <pre>
 	 *   1....
 	 *   22...
@@ -2526,9 +2526,9 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ..444
 	 *   ....5
 	 * </pre>
-   * 
+   *
    * into
-   * 
+   *
    * <pre>
 	 *   1....
 	 *   222...
@@ -2569,7 +2569,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#moveColumn(int, int)}.
-   * 
+   *
    * <pre>
 	 *   1....
 	 *   222...
@@ -2577,9 +2577,9 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ...44
 	 *   ....5
 	 * </pre>
-   * 
+   *
    * into
-   * 
+   *
    * <pre>
 	 *   1....
 	 *   22...
@@ -2625,12 +2625,12 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Test for {@link MigLayoutInfo#insertRow(int)}.
-   * 
+   *
    * <pre>
 	 *   12.
 	 *   .23
 	 * </pre>
-   * 
+   *
    * <pre>
 	 *   12.
 	 *   *2*
@@ -2665,13 +2665,13 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#deleteRow(int)}.
-   * 
+   *
    * <pre>
 	 *   12.
 	 *   .24
 	 *   .23
 	 * </pre>
-   * 
+   *
    * <pre>
 	 *   12.
 	 *   .23
@@ -2706,13 +2706,13 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#clearRow(int)}.
-   * 
+   *
    * <pre>
 	 *   12.
 	 *   .24
 	 *   .23
 	 * </pre>
-   * 
+   *
    * <pre>
 	 *   12.
 	 *   .2.
@@ -2748,13 +2748,13 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#splitRow(int)}.
-   * 
+   *
    * <pre>
 	 *   1..
 	 *   .2.
 	 *   ..3
 	 * </pre>
-   * 
+   *
    * <pre>
 	 *   1..
 	 *   .2.
@@ -2790,7 +2790,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#moveRow(int, int)}.
-   * 
+   *
    * <pre>
 	 *   12...
 	 *   .2...
@@ -2798,7 +2798,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ..34.
 	 *   ...45
 	 * </pre>
-   * 
+   *
    * <pre>
 	 *   1....
 	 *   222...
@@ -2839,7 +2839,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
   /**
    * Test for {@link MigLayoutInfo#moveRow(int, int)}.
-   * 
+   *
    * <pre>
 	 *   1....
 	 *   222...
@@ -2847,7 +2847,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	 *   ...44
 	 *   ....5
 	 * </pre>
-   * 
+   *
    * <pre>
 	 *   12...
 	 *   .2...

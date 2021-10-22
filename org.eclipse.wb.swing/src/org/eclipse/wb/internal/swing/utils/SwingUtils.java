@@ -40,7 +40,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  * Various utilities to operate with Swing.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.utils
  */
@@ -64,7 +64,7 @@ public final class SwingUtils {
    * pumping. Due to SWT principles this means pumping system message loop. Using
    * {@link SwingUtilities#invokeAndWait(Runnable)} is not acceptable because it could produce
    * deadlocks between SWT and AWT dispatch threads.
-   * 
+   *
    * Note: must be invoked from SWT UI thread.
    */
   public static void runLaterAndWait(final RunnableEx runnableEx) throws Exception {
@@ -134,11 +134,11 @@ public final class SwingUtils {
      * Different platforms requires different Swing execution:
      * 1. Mac OS X is very slow while invoking Swing using main thread;
      * 2. Linux synchronizes GTK calls and if being invoked from different threads it may lock up.
-     * 3. Windows is indifferent. :-) 
+     * 3. Windows is indifferent. :-)
      */
     if (!EventQueue.isDispatchThread() && display != null && !EnvironmentUtils.IS_LINUX) {
       // async events should be disabled while waiting AWT to be done.
-      // Otherwise its possible the state at which AWT still does something 
+      // Otherwise its possible the state at which AWT still does something
       // and puts async events into Display, which immediately would be executed
       // because the SWT message loop is pumping up.
       // Do this by Synchronizer delegate.
@@ -158,7 +158,7 @@ public final class SwingUtils {
       // run and clean up
       setMainShellEnabled(false);
       try {
-        // set new Synchronizer, do not use Display.setSynchronizer() because it 
+        // set new Synchronizer, do not use Display.setSynchronizer() because it
         // gets pending events executed
         setSynchronizer(display, newSynchronizer);
         // schedule runnable to AWT dispatch thread

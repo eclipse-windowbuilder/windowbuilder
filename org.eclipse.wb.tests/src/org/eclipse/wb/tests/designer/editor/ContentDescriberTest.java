@@ -22,7 +22,7 @@ import org.eclipse.ui.ide.IDE;
 
 /**
  * Test for {@link JavaSourceUiDescriber}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ContentDescriberTest extends AbstractJavaTest {

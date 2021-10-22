@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 /**
  * Implementation of {@link RequestProcessor} for dropping {@link FieldEditorInfo} on
  * {@link CompositeInfo}, inside {@link FieldLayoutPreferencePageInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

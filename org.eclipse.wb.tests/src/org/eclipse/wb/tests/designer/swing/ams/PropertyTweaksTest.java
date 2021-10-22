@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * We should tweak properties for AMS components: group them and change {@link PropertyCategory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTweaksTest extends SwingGefTest {

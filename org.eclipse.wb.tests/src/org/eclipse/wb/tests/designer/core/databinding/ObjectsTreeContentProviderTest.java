@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link ObjectsTreeContentProvider}.
- * 
+ *
  * @author lobas_av
  */
 public class ObjectsTreeContentProviderTest extends DesignerTestCase {

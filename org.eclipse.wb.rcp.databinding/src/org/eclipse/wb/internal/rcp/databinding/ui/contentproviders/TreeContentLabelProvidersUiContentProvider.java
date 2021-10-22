@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * Content provider for choose properties (over checked tree): parent/children/has
  * children/text/image for content and label providers for tree viewer in Designer mode.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

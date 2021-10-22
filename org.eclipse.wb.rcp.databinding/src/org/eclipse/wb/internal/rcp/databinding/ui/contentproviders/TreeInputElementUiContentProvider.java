@@ -80,7 +80,7 @@ import java.util.List;
 /**
  * Content provider for edit (tree viewer input, content and label providers)
  * {@link TreeViewerInputBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Model for <code>BorderLayout</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.swing2swt.model.layout
  */
@@ -75,7 +75,7 @@ public final class BorderLayoutInfo extends LayoutInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the {@link ControlInfo} at given region.
-   * 
+   *
    * @param region
    *          is name of field for constraints, for example <code>WEST</code>.
    */

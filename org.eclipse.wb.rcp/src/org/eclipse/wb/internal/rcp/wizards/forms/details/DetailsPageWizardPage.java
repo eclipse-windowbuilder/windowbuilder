@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * {@link WizardPage} that creates new Forms {@link IDetailsPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

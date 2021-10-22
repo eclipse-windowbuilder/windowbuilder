@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Editor for {@code EL} properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

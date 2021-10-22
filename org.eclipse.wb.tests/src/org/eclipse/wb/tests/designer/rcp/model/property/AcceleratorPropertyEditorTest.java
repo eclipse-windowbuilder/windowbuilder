@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Tests for {@link AcceleratorPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AcceleratorPropertyEditorTest extends RcpModelTest {

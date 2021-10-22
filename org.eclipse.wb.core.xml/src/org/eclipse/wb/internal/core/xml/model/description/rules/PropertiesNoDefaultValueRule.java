@@ -19,7 +19,7 @@ import org.xml.sax.Attributes;
 /**
  * {@link Rule} that sets {@link ExpressionAccessor#NO_DEFAULT_VALUE_TAG} for
  * {@link GenericPropertyDescription} properties.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

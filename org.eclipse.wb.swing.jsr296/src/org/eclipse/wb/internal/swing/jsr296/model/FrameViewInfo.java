@@ -37,7 +37,7 @@ import javax.swing.JFrame;
 
 /**
  * Model for {@link org.jdesktop.application.FrameView}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.jsr296
  */

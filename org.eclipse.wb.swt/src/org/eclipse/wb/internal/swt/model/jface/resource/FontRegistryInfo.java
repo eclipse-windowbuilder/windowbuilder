@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Implementation model for {@link org.eclipse.jface.resource.FontRegistry}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.jface
  */

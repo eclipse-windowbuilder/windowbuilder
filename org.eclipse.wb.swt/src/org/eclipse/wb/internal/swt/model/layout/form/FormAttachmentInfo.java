@@ -41,7 +41,7 @@ import java.io.Serializable;
 
 /**
  * SWT {@link FormAttachment} model. This is related to {@link FormLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

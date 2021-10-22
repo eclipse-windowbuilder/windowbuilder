@@ -19,7 +19,7 @@ import org.eclipse.jface.window.Window;
 
 /**
  * Test for {@link WindowTopBoundsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class WindowTopBoundsSupportTest extends RcpModelTest {

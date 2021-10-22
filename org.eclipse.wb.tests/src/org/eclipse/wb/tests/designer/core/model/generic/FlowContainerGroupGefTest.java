@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 /**
  * Tests for "flow container" support for "layout manager", created by
  * {@link ILayoutEditPolicyFactory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowContainerGroupGefTest extends FlowContainerAbstractGefTest {

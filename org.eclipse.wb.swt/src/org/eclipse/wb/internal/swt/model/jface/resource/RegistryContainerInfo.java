@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Container for {@link ResourceRegistryInfo}, direct child of root {@link JavaInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.jface
  */

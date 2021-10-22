@@ -46,7 +46,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link PropertyEditor} for {link org.eclipse.swt.graphics.Image}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

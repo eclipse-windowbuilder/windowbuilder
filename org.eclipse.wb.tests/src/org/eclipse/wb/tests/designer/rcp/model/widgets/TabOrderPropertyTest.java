@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link TabOrderProperty}, RCP variant.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

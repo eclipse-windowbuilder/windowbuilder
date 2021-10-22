@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.FolderViewInfo;
 
 /**
  * {@link EditPart} for {@link FolderViewInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

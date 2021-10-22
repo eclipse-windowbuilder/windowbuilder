@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * Test for {@link FormText}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormTextTest extends AbstractFormsTest {

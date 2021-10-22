@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescriptionJava;
 
 /**
  * Implementation of {@link IToolkitProvider} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp
  */

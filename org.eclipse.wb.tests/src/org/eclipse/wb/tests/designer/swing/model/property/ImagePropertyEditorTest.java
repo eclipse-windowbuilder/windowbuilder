@@ -20,7 +20,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * Test for {@link ImagePropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ImagePropertyEditorTest extends SwingModelTest {

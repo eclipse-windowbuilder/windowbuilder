@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Test for {@link DialogInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DialogTest extends RcpModelTest {

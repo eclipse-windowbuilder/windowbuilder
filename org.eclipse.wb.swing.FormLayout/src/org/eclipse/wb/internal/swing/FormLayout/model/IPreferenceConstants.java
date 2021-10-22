@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper;
 
 /**
  * Preference constants for {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

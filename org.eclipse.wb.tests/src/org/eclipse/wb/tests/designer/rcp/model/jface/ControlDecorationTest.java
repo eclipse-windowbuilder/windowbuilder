@@ -25,7 +25,7 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 
 /**
  * Test for {@link ControlDecorationInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ControlDecorationTest extends RcpModelTest {

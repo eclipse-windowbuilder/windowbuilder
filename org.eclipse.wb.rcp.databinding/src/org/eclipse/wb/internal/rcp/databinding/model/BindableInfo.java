@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Abstract model for any object and property that may be use for binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -131,7 +131,7 @@ public abstract class BindableInfo implements IObserveInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   private List<AbstractBindingInfo> m_bindings;

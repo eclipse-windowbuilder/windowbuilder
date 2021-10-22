@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ExtensionElementProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExtensionElementPropertyTest extends AbstractPdeTest {

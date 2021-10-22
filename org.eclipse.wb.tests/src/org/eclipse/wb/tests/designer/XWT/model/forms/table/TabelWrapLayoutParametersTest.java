@@ -25,7 +25,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Test for {@link TableWrapLayout} and special parameters for grab/alignment.
- * 
+ *
  * @author scheglov_ke
  */
 public class TabelWrapLayoutParametersTest extends XwtModelTest {

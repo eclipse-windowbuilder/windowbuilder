@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link IMenuPopupInfo} for dropping down some {@link MenuManagerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

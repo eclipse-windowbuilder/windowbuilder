@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link FormLayout}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  */

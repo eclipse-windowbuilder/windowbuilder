@@ -44,7 +44,7 @@ import java.util.Map;
 
 /**
  * {@link PropertyEditor} for creating or selecting {@link Class}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */
@@ -148,7 +148,7 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
         return;
       }
     }
-    // generate new 
+    // generate new
     {
       createNewClass(genericProperty);
       openClass(property);

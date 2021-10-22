@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Test for {@link CoordinateUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CoordinateUtilsTest extends DesignerTestCase {

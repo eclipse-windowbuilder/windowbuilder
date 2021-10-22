@@ -19,7 +19,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * {@link IDatabindingFactory} factory for support JFace bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

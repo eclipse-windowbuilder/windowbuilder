@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 /**
  * Abstract superclass for SWT related supports.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */
@@ -40,7 +40,7 @@ public class AbstractSupport {
 
   /**
    * Loads the {@link Class} that should always be successful, so it re-throws any exception.
-   * 
+   *
    * @return the {@link Class} with given name loaded from active editor {@link ClassLoader}.
    */
   protected static Class<?> loadClass(final String name) {

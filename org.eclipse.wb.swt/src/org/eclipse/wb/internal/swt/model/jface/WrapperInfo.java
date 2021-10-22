@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Model for SWT wrappers.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  * @coverage swt.model.jface

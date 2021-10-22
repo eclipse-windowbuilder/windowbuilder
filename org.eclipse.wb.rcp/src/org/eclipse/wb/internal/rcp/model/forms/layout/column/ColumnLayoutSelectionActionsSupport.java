@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link IColumnLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

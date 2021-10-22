@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Horizontal or vertical line, line {@link Label} separator, but without highlight.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

@@ -47,7 +47,7 @@ import javax.swing.SpringLayout;
 
 /**
  * Model for attachment in {@link SpringLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -62,7 +62,7 @@ public final class SpringAttachmentInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the {@link SpringAttachmentInfo} for side of component.
-   * 
+   *
    * @param side
    *          one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#TOP},
    *          {@link IPositionConstants#RIGHT}, {@link IPositionConstants#BOTTOM}.
@@ -203,7 +203,7 @@ public final class SpringAttachmentInfo {
   /**
    * @param side
    *          the side from {@link SpringLayout}.
-   * 
+   *
    * @return the absolute framework side one of the {@link IPositionConstants#LEFT},
    *         {@link IPositionConstants#TOP}, {@link IPositionConstants#RIGHT},
    *         {@link IPositionConstants#BOTTOM}.
@@ -425,7 +425,7 @@ public final class SpringAttachmentInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Properties 
+  // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
   protected Property[] getProperties() throws Exception {

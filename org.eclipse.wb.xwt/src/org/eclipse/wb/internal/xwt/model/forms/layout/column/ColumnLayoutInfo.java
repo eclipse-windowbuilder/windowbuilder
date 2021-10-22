@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Model for {@link ColumnLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

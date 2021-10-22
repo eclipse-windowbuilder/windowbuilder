@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link EditorRelatedAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditorRelatedActionTest extends XwtGefTest {

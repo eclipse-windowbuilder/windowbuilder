@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.JSplitPaneInfo;
 
 /**
  * The {@link EditPart} for {@link JSplitPaneInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

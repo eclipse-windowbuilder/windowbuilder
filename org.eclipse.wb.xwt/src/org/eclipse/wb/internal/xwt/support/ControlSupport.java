@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Helper for working with {@link Control}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.support
  */

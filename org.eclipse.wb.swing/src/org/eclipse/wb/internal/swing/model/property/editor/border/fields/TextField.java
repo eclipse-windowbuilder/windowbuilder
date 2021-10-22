@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * {@link AbstractBorderField} that allows to enter {@link String} value.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

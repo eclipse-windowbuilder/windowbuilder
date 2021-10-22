@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Tests for {@link InstanceFactoryEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {

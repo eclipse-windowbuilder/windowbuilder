@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Display;
  * Implementation of {@link IExpressionEvaluator} for evaluating <code>new Display()</code> as
  * <code>Display.getCurrent()</code>. We need this because all SWT forms use same shared, already
  * existing instance of {@link Display}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.support
  */

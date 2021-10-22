@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Implementation of {@link EntryInfo} that allows user select some type and activate
  * {@link ComponentEntryInfo} with this type.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

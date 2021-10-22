@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Tests for {@link FactoryCreateAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryCreateActionTest extends SwingModelTest {
@@ -1298,7 +1298,7 @@ public class FactoryCreateActionTest extends SwingModelTest {
 
   /**
    * Configures {@link FactoryCreateAction} creation/invocations.
-   * 
+   *
    * @return the result of validation - error message or <code>null</code>.
    */
   private String generate_configureInvocations(JavaInfo component,

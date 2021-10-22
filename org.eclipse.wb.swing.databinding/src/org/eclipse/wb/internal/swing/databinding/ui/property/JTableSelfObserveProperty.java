@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JTableBindingInf
 
 /**
  * Property for {@link JTableBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui.properties
  */

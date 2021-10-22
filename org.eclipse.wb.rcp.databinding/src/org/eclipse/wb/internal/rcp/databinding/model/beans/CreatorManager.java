@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * Creators for parse all methods <code>BeansObservables.observeXXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

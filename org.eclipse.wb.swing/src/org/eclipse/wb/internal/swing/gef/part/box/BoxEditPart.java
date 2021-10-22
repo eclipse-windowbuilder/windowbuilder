@@ -21,7 +21,7 @@ import javax.swing.Box;
 
 /**
  * The {@link EditPart} for horizontal/vertical glue from {@link Box}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

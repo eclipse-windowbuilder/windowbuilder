@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Test for <code>VarmenuLayout</code> support.
- * 
+ *
  * @author scheglov_ke
  */
 public class VarmenuLayoutTest extends SwingGefTest {

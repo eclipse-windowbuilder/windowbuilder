@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Layout assistant for {@link org.eclipse.swt.layout.GridLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.assistant
  */

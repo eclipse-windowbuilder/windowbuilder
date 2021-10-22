@@ -27,7 +27,7 @@ import java.text.MessageFormat;
 
 /**
  * Model for {@link GridBagConstraints}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.model.layout
@@ -241,7 +241,7 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Source utils 
+  // Source utils
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

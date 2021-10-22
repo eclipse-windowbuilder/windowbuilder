@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.xml.model;
 
 /**
  * {@link EditorContext} should provide implementation of this interface to support "live" parsing.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

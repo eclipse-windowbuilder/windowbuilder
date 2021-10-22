@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * Extension for {@link Property} that can provide object for copy/paste operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.clipboard
  */

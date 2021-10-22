@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link CoolBarManagerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CoolBarManagerTest extends RcpModelTest {

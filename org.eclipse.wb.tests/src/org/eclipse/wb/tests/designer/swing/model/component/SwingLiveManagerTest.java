@@ -32,7 +32,7 @@ import java.awt.Component;
 
 /**
  * Tests for Swing {@link SwingLiveManager}.
- * 
+ *
  * @author mitin_aa
  */
 public class SwingLiveManagerTest extends SwingModelTest {

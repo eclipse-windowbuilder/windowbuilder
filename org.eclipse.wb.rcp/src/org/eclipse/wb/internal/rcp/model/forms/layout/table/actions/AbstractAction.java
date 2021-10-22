@@ -18,7 +18,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * Abstract {@link Action} for modifying horizontal/vertical part of {@link ITableWrapDataInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

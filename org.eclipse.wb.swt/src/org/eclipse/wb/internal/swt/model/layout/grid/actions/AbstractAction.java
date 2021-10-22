@@ -18,7 +18,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * Abstract {@link Action} for modifying horizontal/vertical part of {@link IGridDataInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

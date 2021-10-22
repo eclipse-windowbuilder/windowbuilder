@@ -27,7 +27,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Model for {@link PreferencePage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -92,7 +92,7 @@ public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRende
         preferenceManager,
         "addToRoot(org.eclipse.jface.preference.IPreferenceNode)",
         preferenceNode);
-    // prepare parent Shell for PreferenceDialog 
+    // prepare parent Shell for PreferenceDialog
     if (m_parentShell == null) {
       m_parentShell = ContainerSupport.createShell();
     }

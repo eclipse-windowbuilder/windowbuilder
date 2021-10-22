@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Test for {@link FormLayoutInfo} groups.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutGroupsTest extends AbstractFormLayoutTest {

@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.xml.model.property.converter.StringConverter
 
 /**
  * Tests for standard {@link ExpressionConverter}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExpressionConverterTest extends AbstractCoreTest {

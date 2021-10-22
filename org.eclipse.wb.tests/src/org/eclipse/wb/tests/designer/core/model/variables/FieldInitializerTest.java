@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Test for {@link FieldInitializerVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldInitializerTest extends AbstractVariableTest {

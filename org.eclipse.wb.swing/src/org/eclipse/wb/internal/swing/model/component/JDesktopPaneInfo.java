@@ -23,7 +23,7 @@ import javax.swing.JDesktopPane;
 
 /**
  * Model for {@link JDesktopPane}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model
  */

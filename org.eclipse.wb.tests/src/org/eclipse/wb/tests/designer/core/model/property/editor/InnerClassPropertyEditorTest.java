@@ -30,7 +30,7 @@ import org.easymock.IMocksControl;
 
 /**
  * Test for {@link InnerClassPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InnerClassPropertyEditorTest extends SwingModelTest {

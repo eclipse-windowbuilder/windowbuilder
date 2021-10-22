@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * {@link ExecutionFlowProvider} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.parser
  */

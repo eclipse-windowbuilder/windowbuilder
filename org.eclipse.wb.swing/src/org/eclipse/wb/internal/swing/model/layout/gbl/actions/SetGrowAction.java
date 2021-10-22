@@ -17,7 +17,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * {@link Action} for that sets weight for {@link DimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

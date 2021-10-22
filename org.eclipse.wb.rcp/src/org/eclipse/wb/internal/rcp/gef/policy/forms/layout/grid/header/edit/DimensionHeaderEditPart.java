@@ -32,7 +32,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * {@link EditPart} for column/row header of {@link ITableWrapLayout_Info<C>}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

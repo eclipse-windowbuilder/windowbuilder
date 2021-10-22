@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Model for observable object <code>WidgetProperties.XXX()</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Helper for temporary modifying/restoring values in {@link IPreferenceStore}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class PreferencesRepairer {

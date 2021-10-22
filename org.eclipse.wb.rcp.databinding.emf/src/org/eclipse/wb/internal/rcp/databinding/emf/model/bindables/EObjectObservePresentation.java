@@ -19,7 +19,7 @@ import org.apache.commons.lang.ClassUtils;
 
 /**
  * Presentation for {@link EObjectBindableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

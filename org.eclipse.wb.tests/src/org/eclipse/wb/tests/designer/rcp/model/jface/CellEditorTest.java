@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Test for {@link CellEditor} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class CellEditorTest extends RcpModelTest {

@@ -29,7 +29,7 @@ import javax.swing.SpringLayout;
 
 /**
  * GEF tests for {@link SpringLayout} and absolute framework in general.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpringLayoutGefTest extends SwingGefTest {

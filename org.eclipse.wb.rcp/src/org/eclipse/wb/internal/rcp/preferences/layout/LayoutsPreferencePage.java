@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Main {@link PreferencePage} for Layout Support.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.preferences.ui
  */

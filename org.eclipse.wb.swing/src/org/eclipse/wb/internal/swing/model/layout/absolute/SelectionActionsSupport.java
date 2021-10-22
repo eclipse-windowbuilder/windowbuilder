@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Helper for adding selection actions for {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.model.layout
  */
@@ -40,7 +40,7 @@ public final class SelectionActionsSupport
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

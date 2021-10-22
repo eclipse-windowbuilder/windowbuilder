@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link ISurroundTarget} that uses {@link SashForm} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.util
  */

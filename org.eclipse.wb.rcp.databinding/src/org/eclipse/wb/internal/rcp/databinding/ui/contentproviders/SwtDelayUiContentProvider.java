@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.SwtObse
 
 /**
  * Content provider for edit (delay value over spinner) {@link SwtObservableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

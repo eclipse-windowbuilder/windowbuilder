@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutAddViewInfo;
 
 /**
  * {@link EditPart} for {@link PageLayoutAddViewInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

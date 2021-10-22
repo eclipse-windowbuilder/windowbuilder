@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Model for fake property for collection objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

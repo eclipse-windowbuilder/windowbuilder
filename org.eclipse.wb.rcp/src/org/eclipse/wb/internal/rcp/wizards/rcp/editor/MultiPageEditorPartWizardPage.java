@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * {@link WizardPage} that creates new JFace {@link MultiPageEditorPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

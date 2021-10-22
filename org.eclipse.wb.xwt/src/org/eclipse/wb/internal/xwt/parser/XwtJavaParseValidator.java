@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.IExceptionConstants;
 
 /**
  * {@link IParseValidator} to prevent opening XWT Java class.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */

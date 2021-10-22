@@ -34,7 +34,7 @@ import javax.swing.ListModel;
 
 /**
  * {@link PropertyEditor} for {@link ListModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public abstract class TreeToolTest extends GefTestCase {
   protected Shell m_shell;

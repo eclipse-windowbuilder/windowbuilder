@@ -22,7 +22,7 @@ import org.eclipse.jface.action.IMenuManager;
 
 /**
  * This class represent "boolean" property implementation.
- * 
+ *
  * @author lobas_av
  * @coverage XWT.model.property.editor
  */

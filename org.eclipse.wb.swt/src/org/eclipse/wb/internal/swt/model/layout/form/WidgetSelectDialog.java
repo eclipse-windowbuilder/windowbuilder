@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Dialog allowing to select a widget from list.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  */

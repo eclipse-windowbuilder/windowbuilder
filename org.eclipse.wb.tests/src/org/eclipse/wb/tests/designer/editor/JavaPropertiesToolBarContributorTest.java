@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 /**
  * Test for {@link JavaPropertiesToolBarContributor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JavaPropertiesToolBarContributorTest extends SwingGefTest {

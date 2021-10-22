@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * Tests for {@link MethodInvocationArgumentAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodInvocationArgumentAccessorTest extends SwingModelTest {

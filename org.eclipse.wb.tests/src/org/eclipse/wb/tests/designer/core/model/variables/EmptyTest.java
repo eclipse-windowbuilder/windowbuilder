@@ -41,7 +41,7 @@ import java.awt.Container;
 
 /**
  * Test for {@link EmptyVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyTest extends AbstractVariableTest {
@@ -68,7 +68,7 @@ public class EmptyTest extends AbstractVariableTest {
             "  }",
             "}");
     assertThat(panel.getChildrenComponents()).hasSize(1);
-    // 
+    //
     JavaInfo button = panel.getChildrenComponents().get(0);
     EmptyVariableSupport variableSupport = (EmptyVariableSupport) button.getVariableSupport();
     // basic checks
@@ -96,7 +96,7 @@ public class EmptyTest extends AbstractVariableTest {
             "}");
     JavaInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
-    // 
+    //
     variableSupport.setName("abc");
     assertTrue(button.getVariableSupport() instanceof LocalUniqueVariableSupport);
     assertEditor(
@@ -148,7 +148,7 @@ public class EmptyTest extends AbstractVariableTest {
             "}");
     JavaInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
-    // 
+    //
     variableSupport.convertFieldToLocal();
     assertTrue(button.getVariableSupport() instanceof LocalUniqueVariableSupport);
     assertEditor(
@@ -170,7 +170,7 @@ public class EmptyTest extends AbstractVariableTest {
             "}");
     JavaInfo button = panel.getChildrenComponents().get(0);
     VariableSupport variableSupport = button.getVariableSupport();
-    // 
+    //
     variableSupport.convertLocalToField();
     assertTrue(button.getVariableSupport() instanceof FieldUniqueVariableSupport);
     assertEditor(

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * {@link IGenericType} for describe single class.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.generic
  */

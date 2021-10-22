@@ -20,7 +20,7 @@ import javax.swing.AbstractButton;
 
 /**
  * Contributes {@link ActionInfo} related {@link EditPolicy}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

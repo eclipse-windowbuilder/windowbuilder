@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.ui.providers.BindingLabelProv
 
 /**
  * Property for single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.xwt.ui.properties
  */

@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link SwtLiveManager}, style access.
- * 
+ *
  * @author scheglov_ke
  */
 public class LiveComponentsManagerTest extends RcpModelTest {

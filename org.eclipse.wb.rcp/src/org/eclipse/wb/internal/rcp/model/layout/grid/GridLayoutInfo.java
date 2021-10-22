@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Model for {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.layout
  */

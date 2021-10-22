@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.utils.ManagerUtils;
 
 /**
  * Tests for {@link FontPropertyEditor} with <code>SWTResourceManager</code>.
- * 
+ *
  * @author lobas_av
  */
 public class FontPropertyEditorTestWithManager extends FontPropertyEditorTest {

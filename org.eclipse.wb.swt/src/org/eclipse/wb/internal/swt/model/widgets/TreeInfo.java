@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Model for SWT tree {@link org.eclipse.swt.widgets.Tree}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.widgets
  */

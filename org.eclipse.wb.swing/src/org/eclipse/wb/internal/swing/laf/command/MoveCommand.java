@@ -22,7 +22,7 @@ import java.util.ListIterator;
 
 /**
  * Implementation of {@link Command} which moves the {@link LafInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

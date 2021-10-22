@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.forms.ExpandableCompositeInfo;
 
 /**
  * {@link EditPart} for {@link ExpandableCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef.part
  */

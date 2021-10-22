@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new E4 {@link ViewPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

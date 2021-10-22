@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
 /**
  * Model for {@link ExpandableComposite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

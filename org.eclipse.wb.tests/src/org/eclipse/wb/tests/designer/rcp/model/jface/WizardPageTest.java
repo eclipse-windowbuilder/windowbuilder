@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Test for {@link WizardPageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class WizardPageTest extends RcpModelTest {
@@ -226,7 +226,7 @@ public class WizardPageTest extends RcpModelTest {
         "{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(new MyButton(parent, SWT.NONE))/}",
         "  {parameter} {parent} {/new MyButton(parent, SWT.NONE)/}",
         "    {new: test.MyButton} {empty} {/setControl(new MyButton(parent, SWT.NONE))/}");
-    // check logged exceptions 
+    // check logged exceptions
     List<BadNodeInformation> badNodes = m_lastState.getBadRefreshNodes().nodes();
     assertThat(badNodes).hasSize(1);
   }

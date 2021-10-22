@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GraphicsTest extends Draw2dFigureTestCase {
   ////////////////////////////////////////////////////////////////////////////

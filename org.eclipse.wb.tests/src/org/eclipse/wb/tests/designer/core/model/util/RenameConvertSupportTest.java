@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Tests for {@link RenameConvertSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RenameConvertSupportTest extends SwingModelTest {

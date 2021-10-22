@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
 
 /**
  * {@link IEditPartFactory} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gefTree
  */

@@ -74,7 +74,7 @@ import java.util.Map;
 
 /**
  * {@link IDatabindingsProvider} for support Swing beans bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */
@@ -293,7 +293,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     // prepare node
     TypeDeclaration rootNode = JavaInfoUtils.getTypeDeclaration(m_javaInfoRoot);
     if (rootNode == null) {
-      // use first type declaration from compilation unit 
+      // use first type declaration from compilation unit
       CompilationUnit astUnit = editor.getAstUnit();
       rootNode = (TypeDeclaration) astUnit.types().get(0);
     }
@@ -583,7 +583,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     if (binding instanceof DetailBindingInfo) {
       return false;
     }
-    // column binding can move only relative to column bindings 
+    // column binding can move only relative to column bindings
     IBindingInfo target = getBindings().get(targetIndex);
     if (binding instanceof ColumnBindingInfo) {
       return target instanceof ColumnBindingInfo;

@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Table;
 
 /**
  * Model for "big" SWT {@link Table}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

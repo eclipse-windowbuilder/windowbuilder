@@ -19,7 +19,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 /**
  * This interface is contributed via extension point and used by {@link DatabindingRootProcessor}
  * for creating {@link IDatabindingsProvider} for root {@link XmlObjectInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.xml.model
  */

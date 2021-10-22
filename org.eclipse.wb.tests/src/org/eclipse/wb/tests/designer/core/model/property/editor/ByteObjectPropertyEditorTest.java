@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 /**
  * Test for {@link ByteObjectPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ByteObjectPropertyEditorTest extends AbstractTextPropertyEditorTest {

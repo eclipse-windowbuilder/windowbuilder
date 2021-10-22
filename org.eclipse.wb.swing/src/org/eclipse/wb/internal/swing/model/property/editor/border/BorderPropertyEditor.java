@@ -43,7 +43,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  * {@link PropertyEditor} for {@link Border}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

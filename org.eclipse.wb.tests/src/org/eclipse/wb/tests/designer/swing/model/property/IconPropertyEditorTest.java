@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * Test for {@link IconPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class IconPropertyEditorTest extends SwingModelTest {

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link DialogInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage rcp.model.widgets

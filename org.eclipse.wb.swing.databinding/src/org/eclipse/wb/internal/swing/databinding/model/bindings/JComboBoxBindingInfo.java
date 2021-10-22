@@ -26,9 +26,9 @@ import org.eclipse.wb.internal.swing.databinding.model.properties.PropertyInfo;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public final class JComboBoxBindingInfo extends AutoBindingInfo {
   private static final IGenericType JCOMBO_BOX_CLASS =

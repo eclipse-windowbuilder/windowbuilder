@@ -32,7 +32,7 @@ import javax.swing.table.TableModel;
 
 /**
  * Tests for {@link JTable} support, more specifically {@link DefaultTableModel}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JTableTest extends SwingModelTest {

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 /**
  * The {@link ExpressionConverter} for {@link org.eclipse.swt.graphics.Rectangle}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.converter
  */

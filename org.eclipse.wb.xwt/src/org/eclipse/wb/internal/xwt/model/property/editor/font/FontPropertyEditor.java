@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.FontData;
 
 /**
  * {@link PropertyEditor} for {@link Font}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 /**
  * Abstract base for {@link IMenuInfo} implementation, for {@link XmlObjectInfo} models.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

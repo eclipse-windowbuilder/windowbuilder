@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * {@link IncrementalProjectBuilder} that validates XML description files on XML file changes or
  * corresponding XSD changes.
- * 
+ *
  * @author scheglov_ke
  */
 public final class WbBuilder extends IncrementalProjectBuilder {

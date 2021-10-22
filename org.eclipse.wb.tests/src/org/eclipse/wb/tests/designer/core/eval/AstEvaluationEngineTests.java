@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link AstEvaluationEngine}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AstEvaluationEngineTests extends DesignerSuiteTests {

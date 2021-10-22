@@ -19,7 +19,7 @@ import org.eclipse.swt.custom.TableCursor;
 
 /**
  * Model for {@link TableCursor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

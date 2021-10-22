@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.model.layout
  */

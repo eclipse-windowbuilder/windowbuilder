@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} allowing drop {@link JPopupMenuInfo} on {@link ComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

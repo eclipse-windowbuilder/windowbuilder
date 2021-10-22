@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.ElementTarget;
 
 /**
  * {@link Association} which put child element into "parentTag.propertyName" sub-element.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.association
  */

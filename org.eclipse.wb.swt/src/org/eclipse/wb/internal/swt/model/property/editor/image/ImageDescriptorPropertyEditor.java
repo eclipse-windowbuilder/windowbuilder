@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link PropertyEditor} for {link org.eclipse.jface.resource.ImageDescriptor}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  * @coverage swt.property.editor

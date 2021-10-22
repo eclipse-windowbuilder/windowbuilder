@@ -20,7 +20,7 @@ import java.awt.GridLayout;
 
 /**
  * Layout assistant for {@link GridLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.assistant
  */

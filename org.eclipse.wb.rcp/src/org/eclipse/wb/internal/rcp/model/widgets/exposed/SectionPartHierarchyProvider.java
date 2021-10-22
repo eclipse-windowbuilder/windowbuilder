@@ -20,7 +20,7 @@ import org.eclipse.ui.forms.SectionPart;
 
 /**
  * {@link HierarchyProvider} for {@link SectionPart}.
- * 
+ *
  * @author sablin_aa
  * @coverage rcp.model.widgets
  */

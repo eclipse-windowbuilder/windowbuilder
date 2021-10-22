@@ -22,9 +22,9 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class EmfValuePropertyCodeSupport extends EmfPropertiesCodeSupport {
   ////////////////////////////////////////////////////////////////////////////

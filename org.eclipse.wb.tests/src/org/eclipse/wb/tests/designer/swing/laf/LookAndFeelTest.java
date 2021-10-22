@@ -35,7 +35,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /**
  * Tests for Swing LookAndFeel support.
- * 
+ *
  * @author mitin_aa
  */
 public class LookAndFeelTest extends SwingModelTest {
@@ -458,7 +458,7 @@ public class LookAndFeelTest extends SwingModelTest {
             "    JPanel panel = new JPanel();",
             "  }",
             "}");
-    // set <undefined> LAF (<system> set by default) 
+    // set <undefined> LAF (<system> set by default)
     LafInfo undefinedLAF = UndefinedLafInfo.INSTANCE;
     LafSupport.selectLAF(panel, undefinedLAF);
     LafInfo selectedLAF = LafSupport.getSelectedLAF(panel);

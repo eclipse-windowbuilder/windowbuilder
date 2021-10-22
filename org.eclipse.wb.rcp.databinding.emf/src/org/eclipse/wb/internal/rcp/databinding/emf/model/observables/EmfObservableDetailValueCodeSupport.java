@@ -18,9 +18,9 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.standard.
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class EmfObservableDetailValueCodeSupport extends BeanObservableDetailCodeSupport {
   ////////////////////////////////////////////////////////////////////////////

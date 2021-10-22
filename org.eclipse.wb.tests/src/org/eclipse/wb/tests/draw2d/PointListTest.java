@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class PointListTest extends Draw2dTestCase {
   ////////////////////////////////////////////////////////////////////////////

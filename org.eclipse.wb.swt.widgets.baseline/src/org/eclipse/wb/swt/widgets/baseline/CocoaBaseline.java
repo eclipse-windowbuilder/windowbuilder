@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 
 /**
  * Implementation for Cocoa SWT baseline.
- * 
+ *
  * @author mitin_aa
  */
 public class CocoaBaseline extends Baseline {
@@ -32,7 +32,7 @@ public class CocoaBaseline extends Baseline {
         return baseline;
       }
     } catch (Throwable e) {
-      // ignore errors 
+      // ignore errors
     }
     return super.fetchBaseline(control, width, height);
   }

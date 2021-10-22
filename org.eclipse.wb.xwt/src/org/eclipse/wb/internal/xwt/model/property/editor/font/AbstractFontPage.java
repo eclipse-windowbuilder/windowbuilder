@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Abstract page for editing {@link FontInfo} in {@link FontDialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

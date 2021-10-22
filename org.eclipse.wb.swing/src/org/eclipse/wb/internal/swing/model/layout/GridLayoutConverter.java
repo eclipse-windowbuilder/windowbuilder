@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to {@link GridLayoutInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model.layout
  */

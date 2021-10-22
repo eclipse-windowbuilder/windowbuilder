@@ -22,7 +22,7 @@ import java.awt.Insets;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Insets}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

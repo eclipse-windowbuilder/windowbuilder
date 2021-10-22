@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link PropertyCategory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyCategoryTest extends SwingModelTest {

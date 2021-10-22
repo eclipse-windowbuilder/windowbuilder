@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Model for any SWT {@link org.eclipse.swt.widgets.Item}.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage swt.model.widgets

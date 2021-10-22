@@ -18,7 +18,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for modifying grow of {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

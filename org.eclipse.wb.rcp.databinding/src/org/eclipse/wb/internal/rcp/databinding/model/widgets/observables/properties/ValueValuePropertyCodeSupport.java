@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.propertie
 
 /**
  * Model for detail observable object <code>IValueProperty.value(IValueProperty)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

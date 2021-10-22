@@ -32,7 +32,7 @@ import java.util.zip.GZIPOutputStream;
 
 /**
  * Implementation of {@link ByteArrayTransfer} for {@link XmlObjectMemento}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.clipboard
  */
@@ -141,7 +141,7 @@ public class XmlObjectMementoTransfer extends ByteArrayTransfer {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link ObjectInputStream} that resolves classes using {@link Bundle}'s.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class BundleObjectInputStream extends ObjectInputStream {

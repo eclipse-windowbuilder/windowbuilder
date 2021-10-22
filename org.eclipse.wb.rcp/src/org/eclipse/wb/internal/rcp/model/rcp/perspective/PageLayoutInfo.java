@@ -83,7 +83,7 @@ import java.util.Set;
 
 /**
  * Model for {@link IPageLayout}, used in {@link IPerspectiveFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -567,7 +567,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutAddViewInfo}.
-   * 
+   *
    * @param command
    *          the {@link IPageLayoutCommand} that performs operation using prepared parameters.
    * @param reference
@@ -586,7 +586,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
               "createInitialLayout(org.eclipse.ui.IPageLayout)");
       Assert.isNotNull(layoutMethod, "No createInitialLayout() method in %s.", editor.getSource());
     }
-    // prepare target for 
+    // prepare target for
     StatementTarget target;
     AbstractPartInfo prevChild;
     {
@@ -601,7 +601,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
           }
         }
       }
-      // prepare target relative to last AbstractPart_Info 
+      // prepare target relative to last AbstractPart_Info
       if (lastRefPart != null) {
         prevChild = lastRefPart;
         target = getTargetAfter(prevChild);
@@ -632,7 +632,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutAddViewInfo}.
-   * 
+   *
    * @return the created {@link PageLayoutAddViewInfo}.
    */
   public PageLayoutAddViewInfo command_CREATE(final String viewId,
@@ -737,7 +737,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutCreateFolderInfo}.
-   * 
+   *
    * @return the created {@link PageLayoutCreateFolderInfo}.
    */
   public PageLayoutCreateFolderInfo command_CREATE_folder(final int relationship,
@@ -760,7 +760,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 
   /**
    * Creates new {@link PageLayoutCreateFolderInfo}.
-   * 
+   *
    * @return the created {@link PageLayoutCreateFolderInfo}.
    */
   private PageLayoutCreateFolderInfo command_CREATE_folder(int relationship,

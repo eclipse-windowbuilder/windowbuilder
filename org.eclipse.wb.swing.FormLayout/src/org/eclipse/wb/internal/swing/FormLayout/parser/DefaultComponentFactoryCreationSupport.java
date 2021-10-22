@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * {@link CreationSupport} for JGoodies <code>DefaultComponentFactory</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

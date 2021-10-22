@@ -14,7 +14,7 @@ import org.eclipse.ui.IPageLayout;
 
 /**
  * Interface for some top-level element of {@link IPageLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

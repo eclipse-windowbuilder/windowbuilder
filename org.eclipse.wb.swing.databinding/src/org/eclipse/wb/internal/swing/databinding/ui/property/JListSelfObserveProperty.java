@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.JListBindingInfo
 
 /**
  * Property for {@link JListBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui.properties
  */

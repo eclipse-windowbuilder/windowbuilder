@@ -28,7 +28,7 @@ import java.io.InputStream;
 
 /**
  * Test for {@link BundleResourceProvider}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BundleResourceProviderTest extends DesignerTestCase {

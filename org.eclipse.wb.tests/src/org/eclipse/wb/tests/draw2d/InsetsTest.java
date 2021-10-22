@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.geometry.Insets;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class InsetsTest extends Draw2dTestCase {
   ////////////////////////////////////////////////////////////////////////////

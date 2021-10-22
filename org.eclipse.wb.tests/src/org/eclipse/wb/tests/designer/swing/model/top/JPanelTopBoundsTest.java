@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 
 /**
  * Basic tests for {@link JPanelTopBoundsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JPanelTopBoundsTest extends SwingGefTest {

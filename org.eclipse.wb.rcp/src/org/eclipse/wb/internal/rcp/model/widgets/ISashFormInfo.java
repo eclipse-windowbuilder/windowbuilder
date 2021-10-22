@@ -17,7 +17,7 @@ import org.eclipse.swt.custom.SashForm;
 
 /**
  * Interface model of {@link SashForm}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */
@@ -49,7 +49,7 @@ public interface ISashFormInfo<C extends IControlInfo> extends ICompositeInfo {
 
   /**
    * Sets requested size for {@link IControlInfo}.
-   * 
+   *
    * @param control
    *          the {@link IControlInfo}, not last.
    * @param size

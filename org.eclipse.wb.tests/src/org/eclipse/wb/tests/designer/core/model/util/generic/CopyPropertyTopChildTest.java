@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link CopyPropertyTopChildSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CopyPropertyTopChildTest extends SwingModelTest {

@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Abstract {@link WizardPage} for RCP elements - views, editors, perspectives.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

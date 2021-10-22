@@ -19,7 +19,7 @@ import org.eclipse.pde.core.plugin.PluginRegistry;
 
 /**
  * Implementation of {@link IImageRoot} for browsing plugin image resources.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

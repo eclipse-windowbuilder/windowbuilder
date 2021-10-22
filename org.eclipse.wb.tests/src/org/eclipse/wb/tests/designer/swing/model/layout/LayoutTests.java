@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing layouts.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutTests extends DesignerSuiteTests {

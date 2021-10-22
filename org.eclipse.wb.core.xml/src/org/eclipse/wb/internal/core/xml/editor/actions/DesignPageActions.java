@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * Helper for managing {@link XmlDesignPage} actions.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */
@@ -54,7 +54,7 @@ public final class DesignPageActions {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Initializes new {@link DesignPageActions}.
-   * 
+   *
    * @param viewer
    *          the {@link IEditPartViewer} of {@link XmlEditorPage}.
    * @param actionBars

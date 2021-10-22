@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Test for {@link TestAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TestActionTest extends XwtGefTest {

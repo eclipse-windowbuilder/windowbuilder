@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * Tests for {@link ExecutionFlowUtils2}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExecutionFlowUtils2Test extends AbstractEngineTest {

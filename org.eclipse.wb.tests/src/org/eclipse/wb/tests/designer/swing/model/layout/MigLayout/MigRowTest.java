@@ -18,7 +18,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Test for {@link MigRowInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigRowTest extends AbstractMigLayoutTest {

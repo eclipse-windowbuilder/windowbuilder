@@ -22,7 +22,7 @@ import javax.swing.JInternalFrame;
 
 /**
  * Tests for {@link JInternalFrame} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JInternalFrameTest extends SwingModelTest {

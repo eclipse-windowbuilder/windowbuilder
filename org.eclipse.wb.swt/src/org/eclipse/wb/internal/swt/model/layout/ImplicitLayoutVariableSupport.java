@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 
 /**
  * Implementation of {@link VariableSupport} for implicit {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

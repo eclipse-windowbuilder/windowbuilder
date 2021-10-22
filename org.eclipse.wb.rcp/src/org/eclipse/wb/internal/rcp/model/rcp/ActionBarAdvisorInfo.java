@@ -66,7 +66,7 @@ import java.util.List;
 
 /**
  * Model for {@link ActionBarAdvisor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

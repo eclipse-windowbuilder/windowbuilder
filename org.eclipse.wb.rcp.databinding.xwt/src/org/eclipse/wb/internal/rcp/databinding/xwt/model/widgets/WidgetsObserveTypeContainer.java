@@ -23,9 +23,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
   private List<WidgetBindableInfo> m_observables = Collections.emptyList();

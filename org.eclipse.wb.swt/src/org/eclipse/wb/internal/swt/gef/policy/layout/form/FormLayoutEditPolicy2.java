@@ -56,7 +56,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 /**
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
@@ -332,7 +332,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
    * just Integer.toString(), but some layouts, for example GWT AbsolutePanel support not only
    * pixels, but also inches, centimeters, etc. We keep size units for such layouts, so want to show
    * user size in current units, not in plain pixels.
-   * 
+   *
    * @param editPart
    *          An {@link EditPart} which is currently resizing
    * @param x
@@ -347,7 +347,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
 
   /**
    * Return string representing the current component location during moving
-   * 
+   *
    * @param editPart
    *          An {@link EditPart} which is currently moving
    * @param x

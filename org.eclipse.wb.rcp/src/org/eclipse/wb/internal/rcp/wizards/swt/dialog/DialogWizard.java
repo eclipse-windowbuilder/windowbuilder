@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Dialog;
 
 /**
  * {@link Wizard} that creates new SWT {@link Dialog}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

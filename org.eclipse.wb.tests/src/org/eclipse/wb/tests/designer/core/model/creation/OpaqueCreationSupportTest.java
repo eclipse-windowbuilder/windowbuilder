@@ -32,7 +32,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link OpaqueCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class OpaqueCreationSupportTest extends SwingModelTest {

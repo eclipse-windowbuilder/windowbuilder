@@ -2,7 +2,7 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
@@ -31,9 +31,9 @@ class SwtInputBlocker extends Dialog {
     shell.addFocusListener(new FocusAdapter() {
       @Override
       public void focusGained(FocusEvent e) {
-        // On some platforms (e.g. Linux/GTK), the 0x0 shell still appears as a dot 
+        // On some platforms (e.g. Linux/GTK), the 0x0 shell still appears as a dot
         // on the screen, so make it invisible by moving it below other windows. This
-        // is unnecessary under Windows and causes a flash, so only make the call when necessary. 
+        // is unnecessary under Windows and causes a flash, so only make the call when necessary.
         if (Platform.isGtk()) {
           shell.moveBelow(null);
         }
@@ -79,14 +79,14 @@ class SwtInputBlocker extends Dialog {
       assert instance == null; // should be no existing blocker
       // get a shell to parent the blocking dialog
       Shell shell = AwtEnvironment.getInstance(display).getShell();
-      // If there is a shell to block, block input now. If there are no shells, 
+      // If there is a shell to block, block input now. If there are no shells,
       // then there is no input to block. In the case of no shells, we are not
       // protecting against a shell that might get created later. This is a rare
-      // enough case to skip, at least for now. In the future, a listener could be 
-      // added to cover it. 
+      // enough case to skip, at least for now. In the future, a listener could be
+      // added to cover it.
       // TODO: if (shell==null) add listener to block shells created later?
       //
-      // Block is implemented with a hidden modal dialog. Using setEnabled(false) is another option, but 
+      // Block is implemented with a hidden modal dialog. Using setEnabled(false) is another option, but
       // on some platforms that will grey the disabled controls.
       if (shell != null) {
         instance = new SwtInputBlocker(shell);

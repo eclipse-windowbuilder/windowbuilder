@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Container for {@link ActionInfo}, direct child of root {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -81,7 +81,7 @@ public final class ActionContainerInfo extends ObjectInfo {
 
   /**
    * Adds {@link ActionInfo} and to the {@link ActionContainerInfo}.
-   * 
+   *
    * @param action
    *          the {@link ActionInfo} to add.
    */

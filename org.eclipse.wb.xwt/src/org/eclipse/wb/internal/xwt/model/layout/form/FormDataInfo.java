@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * SWT {@link FormData} model. This is related to {@link FormLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage XWT.model.layout
  */
@@ -76,7 +76,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
   /**
    * Initializes {@link FormAttachmentInfo} instances for all possible sides. Performs search for
    * existing and creates virtual new if found nothing.
-   * 
+   *
    * @param parentControl
    *          the control for which attachments would be searched.
    */
@@ -90,7 +90,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
   /**
    * Initializes {@link FormAttachmentInfo} instance for <code>fieldName</code>. Performs search for
    * existing and creates virtual new if found nothing.
-   * 
+   *
    * @param side
    *          the {@link FormSide} that describes field of {@link FormData} in which this attachment
    *          may already assigned.

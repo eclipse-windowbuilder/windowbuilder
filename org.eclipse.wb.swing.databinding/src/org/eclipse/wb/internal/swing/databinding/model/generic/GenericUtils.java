@@ -37,7 +37,7 @@ import java.util.Arrays;
 
 /**
  * Helper class for provide all generic information.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.generic
  */

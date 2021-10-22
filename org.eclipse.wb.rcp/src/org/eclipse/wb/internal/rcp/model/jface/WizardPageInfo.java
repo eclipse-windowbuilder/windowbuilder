@@ -32,7 +32,7 @@ import net.sf.cglib.proxy.NoOp;
 
 /**
  * Model for {@link WizardPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -71,7 +71,7 @@ public final class WizardPageInfo extends DialogPageInfo implements IJavaInfoRen
     }
     // add this WizardPage
     wizard.addPage((WizardPage) getObject());
-    // prepare parent Shell for WizardDialog 
+    // prepare parent Shell for WizardDialog
     if (m_parentShell == null) {
       m_parentShell = new Shell();
     }

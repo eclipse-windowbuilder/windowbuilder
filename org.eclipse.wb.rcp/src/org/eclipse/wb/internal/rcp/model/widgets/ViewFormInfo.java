@@ -18,7 +18,7 @@ import org.eclipse.swt.custom.ViewForm;
 
 /**
  * Model for {@link ViewForm}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

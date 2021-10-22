@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to
  * {@link AbstractGridBagLayoutInfo} constraints.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

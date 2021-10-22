@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * Abstract command for pasting {@link ControlInfo} on {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

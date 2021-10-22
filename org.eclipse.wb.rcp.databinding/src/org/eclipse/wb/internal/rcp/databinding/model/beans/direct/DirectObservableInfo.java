@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider
 
 /**
  * {@link ObservableInfo} model for objects with observable types.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

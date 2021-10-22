@@ -19,7 +19,7 @@ import org.eclipse.ui.part.ViewPart;
 
 /**
  * {@link WizardPage} that creates new RCP {@link ViewPart}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

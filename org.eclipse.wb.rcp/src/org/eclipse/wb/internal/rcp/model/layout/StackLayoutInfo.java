@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Model for {@link StackLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.layout
  */

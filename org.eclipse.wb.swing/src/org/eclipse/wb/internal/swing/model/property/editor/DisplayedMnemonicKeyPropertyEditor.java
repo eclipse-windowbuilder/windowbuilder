@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Specialized version of {@link StaticFieldPropertyEditor} that allows to select any
  * <code>VK_</code> field from {@link KeyEvent}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

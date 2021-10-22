@@ -28,7 +28,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.standard.
 
 /**
  * {@link IObservableFactory} for direct observable objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

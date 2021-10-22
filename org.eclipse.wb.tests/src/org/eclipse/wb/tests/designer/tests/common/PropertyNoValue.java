@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 
 /**
  * Implementation of {@link Property} that is not modified and has no value.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyNoValue extends Property {

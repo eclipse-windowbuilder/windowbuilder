@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 /**
  * Extension of {@link PropertyEditor} that can be used to set expression during
  * {@link GenericProperty#setValue(Object)} call.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link CompositeTopBoundsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompositeTopBoundsSupportTest extends RcpModelTest {

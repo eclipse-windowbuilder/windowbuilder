@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Model for "flow based" {@link Layout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

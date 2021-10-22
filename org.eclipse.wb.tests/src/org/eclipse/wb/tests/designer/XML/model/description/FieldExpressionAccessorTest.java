@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FieldExpressionAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldExpressionAccessorTest extends AbstractCoreTest {

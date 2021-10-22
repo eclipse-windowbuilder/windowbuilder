@@ -22,7 +22,7 @@ import org.eclipse.ltk.core.refactoring.Change;
 
 /**
  * Participates in rename of event listener method.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.refactoring
  */

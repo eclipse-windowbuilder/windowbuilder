@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Editor for {@link JListBindingInfo} detail binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

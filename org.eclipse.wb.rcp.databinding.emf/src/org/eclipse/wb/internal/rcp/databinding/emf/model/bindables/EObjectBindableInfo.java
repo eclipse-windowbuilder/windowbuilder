@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Model for EMF objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

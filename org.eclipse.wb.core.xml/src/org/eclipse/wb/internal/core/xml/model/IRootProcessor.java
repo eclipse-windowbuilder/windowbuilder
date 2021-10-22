@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.xml.model;
 
 /**
  * Processor for root {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

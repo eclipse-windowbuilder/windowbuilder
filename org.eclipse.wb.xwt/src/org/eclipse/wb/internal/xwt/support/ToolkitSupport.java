@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Toolkit specific utilities for eRCP/RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.support
  */

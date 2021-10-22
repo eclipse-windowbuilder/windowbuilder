@@ -57,7 +57,7 @@ import java.util.List;
 /**
  * Provider for properties of {@link IWorkbenchWindowConfigurer} in
  * {@link WorkbenchWindowAdvisor#preWindowOpen()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -227,7 +227,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
   /**
    * {@link ExpressionAccessor} for {@link IWorkbenchWindowConfigurer} in
    * {@link WorkbenchWindowAdvisor#preWindowOpen()}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class Window_ExpressionAccessor extends ExpressionAccessor {

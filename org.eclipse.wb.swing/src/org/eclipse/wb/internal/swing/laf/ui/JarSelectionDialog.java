@@ -33,7 +33,7 @@ import java.util.HashSet;
 
 /**
  * Dialog allowing to select JAR files from workspace.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage swing.laf.ui

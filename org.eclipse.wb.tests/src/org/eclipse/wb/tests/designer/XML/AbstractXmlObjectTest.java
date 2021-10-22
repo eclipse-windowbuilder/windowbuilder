@@ -52,7 +52,7 @@ import java.util.List;
 
 /**
  * Abstract superclass for any XML test - model or GEF based.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractXmlObjectTest extends AbstractJavaProjectTest {

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 /**
  * Broadcast used to notify {@link XwtParser} that {@link XmlObjectInfo} was created and should be
  * bound to specified {@link DocumentElement}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */

@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * All SWT tests.
- * 
+ *
  * @author sablin_aa
  */
 public class SwtTests extends DesignerSuiteTests {

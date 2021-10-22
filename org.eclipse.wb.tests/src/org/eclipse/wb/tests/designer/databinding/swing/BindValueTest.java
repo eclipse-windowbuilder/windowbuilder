@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * @author sablin_aa
- * 
+ *
  */
 public class BindValueTest extends AbstractBindingTest {
   ////////////////////////////////////////////////////////////////////////////

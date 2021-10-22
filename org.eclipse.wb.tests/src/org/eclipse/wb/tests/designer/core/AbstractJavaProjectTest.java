@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Test with helpers for manipulating {@link IProject} and {@link IJavaProject}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractJavaProjectTest extends DesignerTestCase {
@@ -211,8 +211,8 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
     // check for compilation problems
     String problemsText = "";
     for (IFile file : m_createdResources) {
-      // When we test refactorings, we may rename/move resources, so IFile may disappear. 
-      // Note, that after refactorings we dispose project to restore initial, clean state. 
+      // When we test refactorings, we may rename/move resources, so IFile may disappear.
+      // Note, that after refactorings we dispose project to restore initial, clean state.
       if (!file.exists()) {
         continue;
       }
@@ -254,7 +254,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates {@link ICompilationUnit} with given name and source.
-   * 
+   *
    * @return the main {@link IType}.
    */
   public final IType createModelType(String packageName, String unitName, String code)
@@ -382,7 +382,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given folder/name, relative to {@link IProject}.
-   * 
+   *
    * @return the created/updated {@link IFile}.
    */
   public static IFile setFileContent(IProject project,
@@ -410,7 +410,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given folder/name, relative to "src" folder.
-   * 
+   *
    * @return the created/updated {@link IFile}.
    */
   public static IFile setFileContentSrc(IProject project, String path, String content)
@@ -420,7 +420,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given folder/name, relative to {@link IProject}.
-   * 
+   *
    * @return the created/updated {@link IFile}.
    */
   public static IFile setFileContent(IProject project, String path, String content)
@@ -442,7 +442,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given content.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContent0(IFile file, String content) throws Exception {
@@ -451,7 +451,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given content.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContent(IFile file, byte[] bytes) throws CoreException {
@@ -460,7 +460,7 @@ public class AbstractJavaProjectTest extends DesignerTestCase {
 
   /**
    * Creates/updates {@link IFile} with given content.
-   * 
+   *
    * @return <code>true</code> if {@link IFile} was created.
    */
   public static boolean setFileContent(IFile file, InputStream inputStream) throws CoreException {

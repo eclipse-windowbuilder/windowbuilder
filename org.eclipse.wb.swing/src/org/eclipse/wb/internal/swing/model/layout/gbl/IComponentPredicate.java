@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 /**
  * Predicate for {@link ComponentInfo} and its {@link AbstractGridBagConstraintsInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

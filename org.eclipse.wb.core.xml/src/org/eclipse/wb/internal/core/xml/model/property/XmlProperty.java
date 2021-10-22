@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * {@link Property} for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

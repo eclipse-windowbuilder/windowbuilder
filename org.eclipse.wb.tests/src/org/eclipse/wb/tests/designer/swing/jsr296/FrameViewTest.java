@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 
 /**
  * Test for {@link FrameViewInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FrameViewTest extends SwingModelTest {

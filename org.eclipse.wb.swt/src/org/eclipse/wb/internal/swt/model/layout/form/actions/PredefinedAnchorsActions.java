@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Adds various pre-defined anchors to controls. Ex., 'top-left', 'top-bottom-right', etc.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Model for "null" (absolute) layout.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swing.model.layout
@@ -229,7 +229,7 @@ public final class AbsoluteLayoutInfo extends AbstractAbsoluteLayoutInfo {
   /**
    * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
    * "setLocation", "setSize", "setBounds" arguments.
-   * 
+   *
    * @param component
    *          the {@link ComponentInfo} which modifications applies to.
    * @param location

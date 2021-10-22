@@ -19,7 +19,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * Test for {@link Wizard} support (rather not support).
- * 
+ *
  * @author scheglov_ke
  */
 public class WizardTest extends RcpModelTest {

@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Model for describe class generic information.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.generic
  */

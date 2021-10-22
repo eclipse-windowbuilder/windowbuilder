@@ -41,7 +41,7 @@ import javax.swing.JPanel;
 
 /**
  * Creates screenshots for given Swing top component.
- * 
+ *
  * @author mitin_aa
  */
 public final class SwingScreenshotMaker {
@@ -99,9 +99,9 @@ public final class SwingScreenshotMaker {
 
   /**
    * Traverses through components hierarchy and prepares screen shot for every component needed.
-   * 
+   *
    * Note: it doesn't make top component not visible, use {@link #dispose()} for that.
-   * 
+   *
    * Important note: must be called from AWT dispatch thread.
    */
   public void makeShots() throws Exception {

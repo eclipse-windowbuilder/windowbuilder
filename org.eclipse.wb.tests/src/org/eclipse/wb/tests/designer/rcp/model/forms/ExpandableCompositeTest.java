@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 
 /**
  * Test for {@link ExpandableCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExpandableCompositeTest extends AbstractFormsTest {

@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link XmlAttributeProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlAttributePropertyTest extends AbstractCoreTest {

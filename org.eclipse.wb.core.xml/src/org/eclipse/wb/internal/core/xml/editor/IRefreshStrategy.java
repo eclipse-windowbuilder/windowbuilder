@@ -14,7 +14,7 @@ import org.eclipse.jface.text.IDocument;
 
 /**
  * Strategy for refresh after {@link IDocument} change in {@link UndoManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

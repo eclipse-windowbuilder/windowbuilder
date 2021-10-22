@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Test for {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutTest extends XwtModelTest {

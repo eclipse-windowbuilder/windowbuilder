@@ -23,7 +23,7 @@ import java.net.URLClassLoader;
 
 /**
  * Tests for {@link org.eclipse.wb.swt.ResourceManager}.
- * 
+ *
  * @author lobas_av
  */
 public class ResourceManagerTest extends RcpModelTest {

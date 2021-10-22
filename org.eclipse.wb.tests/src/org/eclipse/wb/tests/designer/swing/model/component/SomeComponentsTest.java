@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
 
 /**
  * Test for different components.
- * 
+ *
  * @author scheglov_ke
  */
 public class SomeComponentsTest extends SwingModelTest {

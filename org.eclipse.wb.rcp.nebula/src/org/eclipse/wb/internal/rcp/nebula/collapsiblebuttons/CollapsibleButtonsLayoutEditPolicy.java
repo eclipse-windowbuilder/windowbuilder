@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link LayoutEditPolicy} for dropping buttons on {@link CollapsibleButtonsEditPart}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.gef
  */

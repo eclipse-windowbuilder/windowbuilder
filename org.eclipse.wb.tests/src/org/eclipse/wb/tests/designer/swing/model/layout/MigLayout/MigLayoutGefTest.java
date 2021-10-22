@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Test {@link MigLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutGefTest extends SwingGefTest {

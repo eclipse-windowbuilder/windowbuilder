@@ -38,7 +38,7 @@ import javax.swing.JTextArea;
 
 /**
  * For custom AWT {@link Component} try to find and use default constructor.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

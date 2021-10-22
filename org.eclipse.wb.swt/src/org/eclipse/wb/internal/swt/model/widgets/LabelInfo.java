@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model for {@link org.eclipse.swt.widgets.Label}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

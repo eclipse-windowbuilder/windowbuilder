@@ -25,7 +25,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
  * {@link EntryInfo} creates {@link DefaultComponentFactory#createLabel(String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

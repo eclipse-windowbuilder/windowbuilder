@@ -25,7 +25,7 @@ import javax.swing.JToolBar;
 
 /**
  * Tests for {@link InvocationVoidAssociation}, for example {@link JToolBarSeparatorInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InvocationVoidAssociationTest extends SwingModelTest {

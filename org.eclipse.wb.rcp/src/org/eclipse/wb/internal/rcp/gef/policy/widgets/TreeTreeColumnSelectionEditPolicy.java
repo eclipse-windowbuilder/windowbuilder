@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for {@link ITreeColumnInfo}, that allows resizing without selection.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

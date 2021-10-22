@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Test for {@link ToolBarInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ToolBarGefTest extends RcpGefTest {

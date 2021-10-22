@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link HierarchyProvider} for SWT items.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets
  */

@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Abstract class to provide cross-platform functionality.
- * 
+ *
  * @author mitin_aa
  * @coverage os.core
  */
@@ -80,14 +80,14 @@ public abstract class OSSupport {
   /**
    * Prepares shots for all {@link Control}'s in hierarchy that have flag {@link #WBP_NEED_IMAGE}.
    * Created image can be requested using {@link ToolkitSupport#getShotImage(Object)}.
-   * 
+   *
    * Note: the control may have <code>null</code> as image, ex. if the control has the invalid size.
    */
   public abstract void makeShots(Object control) throws Exception;
 
   /**
    * Prepares the process of taking screen shot. Overridden in Linux.
-   * 
+   *
    * @param control
    *          the {@link Control}.
    */
@@ -116,7 +116,7 @@ public abstract class OSSupport {
   /**
    * Ensures that layout is performed for all {@link Composite}-s, even if some of them are in
    * "null" layout, so layout request is not propagated to them automatically.
-   * 
+   *
    * @param control
    *          the {@link Control} to layout if required and is {@link Composite}.
    */
@@ -134,7 +134,7 @@ public abstract class OSSupport {
 
   /**
    * Finalizes the process of taking screen shot. Overridden in Linux.
-   * 
+   *
    * @param control
    *          the {@link Control}.
    */
@@ -147,10 +147,10 @@ public abstract class OSSupport {
 
   /**
    * Return the {@link Image} of given {@link Control}.
-   * 
+   *
    * Note: may return <code>null</code> as image, ex. if the control has the invalid size. See also
    * {@link OSSupport#makeShots(Object)}.
-   * 
+   *
    * @return the {@link Image} of given {@link Control}.
    */
   public abstract Image makeShot(Control control) throws Exception;
@@ -220,7 +220,7 @@ public abstract class OSSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets the <code>alpha</code> value for given <code>shell</code>.
-   * 
+   *
    * @param shell
    *          the instance of {@link Shell} to set the alpha.
    * @param alpha
@@ -230,7 +230,7 @@ public abstract class OSSupport {
 
   /**
    * Returns the current alpha value for given <code>shell</code>.
-   * 
+   *
    * @param shell
    *          the instance of {@link Shell} to get the alpha.
    * @return the alpha value.
@@ -244,7 +244,7 @@ public abstract class OSSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns the {@link Image} of popup or drop-down menu and fills the menu items bounds array.
-   * 
+   *
    * @return the {@link Image} of popup or drop-down menu and fills the menu items bounds array.
    */
   public abstract Image getMenuPopupVisualData(Menu menu, int[] bounds) throws Exception;
@@ -252,7 +252,7 @@ public abstract class OSSupport {
   /**
    * Returns <code>null</code> in most cases except MacOSX. Fills the {@link List} of
    * {@link Rectangle} with items bounds of bar menu in <code>bounds</code> parameter.
-   * 
+   *
    * @param menu
    *          the {@link Menu} with style {@link SWT#BAR}.
    * @param bounds
@@ -263,7 +263,7 @@ public abstract class OSSupport {
 
   /**
    * Returns the bounds of given bar menu.
-   * 
+   *
    * @param menu
    *          the {@link Menu} with style {@link SWT#BAR}.
    * @return the bounds of given bar menu.
@@ -301,7 +301,7 @@ public abstract class OSSupport {
   /**
    * Scrolls the <code>cursorControl</code> by <code>count</code> positions. Implemented as
    * Windows-only.
-   * 
+   *
    * @param cursorControl
    *          the {@link Control} to scroll.
    * @param count

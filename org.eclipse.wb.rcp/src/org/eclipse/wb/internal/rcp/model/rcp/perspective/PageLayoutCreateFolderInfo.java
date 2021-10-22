@@ -53,7 +53,7 @@ import java.util.Map;
 
 /**
  * Model for {@link IPageLayout#createFolder(String, int, float, String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -317,7 +317,7 @@ public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link FolderViewInfo}.
-   * 
+   *
    * @return the created {@link FolderViewInfo}.
    */
   public FolderViewInfo command_CREATE(String viewId, FolderViewInfo nextView) throws Exception {
@@ -360,7 +360,7 @@ public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
 
   /**
    * Creates new {@link FolderViewInfo} using existing {@link PageLayoutAddViewInfo}.
-   * 
+   *
    * @return the created {@link FolderViewInfo}.
    */
   public FolderViewInfo command_MOVE(PageLayoutAddViewInfo topView, FolderViewInfo nextView)

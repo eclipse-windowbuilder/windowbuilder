@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Tests for {@link GridLayout} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutGefTest extends RcpGefTest {

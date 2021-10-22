@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Layout assistant for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Model of category - container for {@link EntryInfo} on palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

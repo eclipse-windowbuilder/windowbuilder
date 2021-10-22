@@ -33,7 +33,7 @@ import java.text.MessageFormat;
 
 /**
  * Abstract source code generator for widget observables.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

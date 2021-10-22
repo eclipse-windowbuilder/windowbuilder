@@ -2,7 +2,7 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
@@ -57,13 +57,13 @@ class EmbeddedChildFocusTraversalPolicy extends LayoutFocusTraversalPolicy {
     assert container != null;
     assert awtHandler != null;
     assert EventQueue.isDispatchThread(); // On AWT event thread
-    // This is a hack which depends on knowledge of current JDK implementation to 
+    // This is a hack which depends on knowledge of current JDK implementation to
     // work. The implementation above of getComponentBefore/After
     // properly returns null when transferring to SWT. However, the calling AWT container
     // will then immediately try this method to find the next recipient of
     // focus. But we don't want *any* AWT component to receive focus... it's just
-    // been transferred to SWT. So, this method must return null when AWT does 
-    // not own the focus. When AWT *does* own the focus, behave normally.  
+    // been transferred to SWT. So, this method must return null when AWT does
+    // not own the focus. When AWT *does* own the focus, behave normally.
     if (awtHandler.awtHasFocus()) {
       // System.out.println("getDefault: super");
       return super.getDefaultComponent(container);

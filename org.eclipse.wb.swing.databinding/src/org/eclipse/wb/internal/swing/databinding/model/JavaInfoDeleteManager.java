@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Observe {@link JavaInfo} events for delete bindings that have reference to deleted
  * {@link JavaInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

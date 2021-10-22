@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link MethodSinglePropertyRule}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodSinglePropertyRuleTest extends SwingModelTest {

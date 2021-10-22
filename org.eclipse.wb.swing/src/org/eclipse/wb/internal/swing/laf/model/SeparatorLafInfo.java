@@ -16,7 +16,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Used just to indicate separator in list of LAFs.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

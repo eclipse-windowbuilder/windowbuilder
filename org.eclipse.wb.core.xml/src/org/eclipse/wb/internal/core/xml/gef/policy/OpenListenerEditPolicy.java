@@ -22,15 +22,15 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 /**
  * {@link EditPolicy} which adds listener code by handling "Open" request (double-clicking on its
  * {@link EditPart}). Component description should have lines like this:
- * 
+ *
  * <pre><code>
  * &lt;parameters&gt;
  *   &lt;parameter name="x.double-click.listener" value="Selection"/&gt;
  * &lt;/parameters&gt; </code></pre>
- * 
+ *
  * Where parameter <code>double-click.listener</code> is '/' separated name of listener method to be
  * created.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.gef.policy
  */

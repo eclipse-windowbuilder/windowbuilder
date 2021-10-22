@@ -47,7 +47,7 @@ import java.awt.LayoutManager;
 
 /**
  * Test for {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ContainerTest extends SwingModelTest {

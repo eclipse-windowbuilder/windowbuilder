@@ -40,7 +40,7 @@ import java.util.Comparator;
 
 /**
  * Test for {@link StylePropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StylePropertyEditorTest extends XwtModelTest {

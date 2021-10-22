@@ -19,7 +19,7 @@ import java.util.Locale;
 
 /**
  * Tests for {@link LocaleUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LocaleUtilsTest extends DesignerTestCase {

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Assistant pages provider for {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

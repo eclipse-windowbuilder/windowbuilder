@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.SectionPart;
 
 /**
  * {@link Wizard} that creates new Forms {@link SectionPart}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

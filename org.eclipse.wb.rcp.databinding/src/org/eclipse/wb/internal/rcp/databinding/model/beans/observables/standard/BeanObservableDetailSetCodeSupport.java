@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Model for observable object {@code BeansObservables.observeDetailSet(...)}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

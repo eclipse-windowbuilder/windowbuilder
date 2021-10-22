@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Tests for {@link CursorPropertyEditor} with <code>SWTResourceManager</code>.
- * 
+ *
  * @author scheglov_ke
  */
 public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTest {

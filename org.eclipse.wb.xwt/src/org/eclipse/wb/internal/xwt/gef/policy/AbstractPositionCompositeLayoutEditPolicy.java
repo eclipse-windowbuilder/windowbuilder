@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * {@link LayoutEditPolicy} for {@link AbstractPositionCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef.policy
  */

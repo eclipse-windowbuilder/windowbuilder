@@ -18,7 +18,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for modifying grow of {@link DimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

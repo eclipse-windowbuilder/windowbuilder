@@ -57,7 +57,7 @@ import java.util.List;
 
 /**
  * Model for any {@link Composite} in XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

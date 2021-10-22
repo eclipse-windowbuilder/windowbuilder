@@ -47,7 +47,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Model for {@link SectionPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

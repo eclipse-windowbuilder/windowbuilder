@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 /**
  * Tests for {@link FormLayoutInfo} and automatic alignment.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutParametersTest extends AbstractFormLayoutTest {

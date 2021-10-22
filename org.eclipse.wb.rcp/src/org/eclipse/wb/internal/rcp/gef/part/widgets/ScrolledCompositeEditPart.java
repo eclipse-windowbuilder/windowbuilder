@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
 
 /**
  * {@link EditPart} for {@link ScrolledCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

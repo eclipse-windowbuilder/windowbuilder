@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Tests for loading of {@link IDescriptionProcessor}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class DescriptionProcessorTest extends DesignerTestCase {
@@ -72,7 +72,7 @@ public class DescriptionProcessorTest extends DesignerTestCase {
 
   /**
    * Test implementation of {@link IDescriptionProcessor}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static final class MyDescriptionProcessor implements IDescriptionProcessor {
@@ -93,7 +93,7 @@ public class DescriptionProcessorTest extends DesignerTestCase {
 
   /**
    * Adds dynamic {@link IDescriptionProcessor} extension.
-   * 
+   *
    * @param className
    *          the name of {@link IDescriptionProcessor} class.
    */

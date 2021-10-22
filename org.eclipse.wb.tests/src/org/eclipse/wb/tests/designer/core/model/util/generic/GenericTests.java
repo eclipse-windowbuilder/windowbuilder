@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Test for generic, description driven features.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenericTests extends DesignerSuiteTests {

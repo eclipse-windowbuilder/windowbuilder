@@ -14,7 +14,7 @@ import org.eclipse.swt.layout.FormLayout;
 
 /**
  * Preference constants for {@link FormLayout}.
- * 
+ *
  * @author mitin_aa
  */
 public interface IPreferenceConstants {

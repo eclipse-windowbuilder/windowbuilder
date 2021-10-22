@@ -21,7 +21,7 @@ import java.awt.GridBagLayout;
 
 /**
  * Test for {@link GridBagLayout}.
- * 
+ *
  * @author scheglov_ke
  */
 abstract class AbstractGridBagLayoutTest extends AbstractLayoutTest {

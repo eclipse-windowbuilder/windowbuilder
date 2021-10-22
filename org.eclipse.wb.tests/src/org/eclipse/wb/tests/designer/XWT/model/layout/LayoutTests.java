@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for XWT {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutTests extends DesignerSuiteTests {

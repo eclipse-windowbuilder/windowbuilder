@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 
 /**
  * Tests for {@link ConstructorAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstructorAccessorTest extends SwingModelTest {

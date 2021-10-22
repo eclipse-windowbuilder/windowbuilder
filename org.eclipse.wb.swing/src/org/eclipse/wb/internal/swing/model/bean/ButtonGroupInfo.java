@@ -38,7 +38,7 @@ import javax.swing.ButtonGroup;
 
 /**
  * Model for {@link ButtonGroup}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

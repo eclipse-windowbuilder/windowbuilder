@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  * Indicates that after running test {@link Method} with this annotation auto-build should be
  * performed. Sometimes we have situation that inner classes are not removed, so cause problems in
  * subsequent tests.
- * 
+ *
  * @author scheglov_ke
  */
 @Target(ElementType.METHOD)

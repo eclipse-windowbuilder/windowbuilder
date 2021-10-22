@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link GroupLayoutInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gef.policy
  */

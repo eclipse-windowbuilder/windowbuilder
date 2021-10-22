@@ -21,7 +21,7 @@ import javax.swing.Box;
 
 /**
  * Helper for working with {@link Box} models.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

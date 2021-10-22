@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link PreferencePage} for Forms API.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.preferences.ui
  */

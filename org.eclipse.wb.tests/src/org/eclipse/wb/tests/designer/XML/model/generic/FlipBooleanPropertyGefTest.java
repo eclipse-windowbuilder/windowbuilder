@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Tests for <code>double-click.flipBooleanProperty</code> support.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlipBooleanPropertyGefTest extends XwtGefTest {

@@ -19,7 +19,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * {@link IDatabindingFactory} factory for support XWT bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.xwt.model
  */

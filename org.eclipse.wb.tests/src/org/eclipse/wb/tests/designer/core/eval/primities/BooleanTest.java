@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.core.eval.AbstractEngineTest;
 
 /**
  * Test for {@link BooleanEvaluator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BooleanTest extends AbstractEngineTest {

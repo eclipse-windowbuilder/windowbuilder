@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.TabItem;
 
 /**
  * Model for {@link TabItem}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage rcp.model.widgets

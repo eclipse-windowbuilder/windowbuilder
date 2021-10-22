@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Model of palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

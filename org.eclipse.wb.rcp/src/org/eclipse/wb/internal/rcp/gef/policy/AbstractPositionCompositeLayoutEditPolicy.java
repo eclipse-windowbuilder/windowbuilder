@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link AbstractPositionCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

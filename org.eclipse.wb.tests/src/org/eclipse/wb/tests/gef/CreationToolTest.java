@@ -16,7 +16,7 @@ import org.eclipse.wb.gef.core.tools.CreationTool;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class CreationToolTest extends AbstractCreationToolTest {
   ////////////////////////////////////////////////////////////////////////////

@@ -31,7 +31,7 @@ import java.io.InputStream;
  * If subclass of {@link org.eclipse.ui.plugin.AbstractUIPlugin} is not runtime plugin (i.e. just
  * project in workspace), its method {@code ImageDescriptor getImageDescriptor(String path)} should
  * by intercepted and implemented to return appropriate ImageDescriptor.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.util
  */

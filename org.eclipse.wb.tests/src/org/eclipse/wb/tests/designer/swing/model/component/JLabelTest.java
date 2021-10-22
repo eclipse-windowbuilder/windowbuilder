@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 
 /**
  * Tests for {@link JLabel} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JLabelTest extends SwingModelTest {

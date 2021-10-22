@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Test for {@link DefaultObjectPresentation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DefaultObjectPresentationTest extends DesignerTestCase {

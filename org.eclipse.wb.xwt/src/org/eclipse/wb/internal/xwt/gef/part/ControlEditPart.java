@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * {@link GraphicalEditPart} for {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.gef
  */

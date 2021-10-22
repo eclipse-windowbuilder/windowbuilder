@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Base class for LAF managing commands.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

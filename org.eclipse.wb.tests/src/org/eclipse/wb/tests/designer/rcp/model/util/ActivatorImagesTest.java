@@ -20,7 +20,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * Test for {@link Activator_getImages_ByteCodeProcessor}.
- * 
+ *
  * @author lobas_av
  */
 public class ActivatorImagesTest extends RcpModelTest {

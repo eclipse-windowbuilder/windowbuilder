@@ -17,7 +17,7 @@ import javax.swing.JComboBox;
 
 /**
  * Tests for {@link JComboBox} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JComboBoxTest extends SwingModelTest {

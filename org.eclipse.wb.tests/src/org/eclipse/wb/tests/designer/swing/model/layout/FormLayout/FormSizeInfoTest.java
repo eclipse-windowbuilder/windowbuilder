@@ -25,7 +25,7 @@ import com.jgoodies.forms.layout.Sizes;
 
 /**
  * Test for {@link FormSizeInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormSizeInfoTest extends AbstractFormLayoutTest {

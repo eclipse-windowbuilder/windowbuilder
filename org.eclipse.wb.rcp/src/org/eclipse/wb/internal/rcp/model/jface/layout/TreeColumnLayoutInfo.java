@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 /**
  * Model for {@link org.eclipse.jface.layout.TreeColumnLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.layout
  */

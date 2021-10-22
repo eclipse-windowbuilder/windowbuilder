@@ -18,7 +18,7 @@ import org.eclipse.ui.part.ViewPart;
 
 /**
  * Test for {@link ViewPartInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewPartGefTest extends RcpGefTest {

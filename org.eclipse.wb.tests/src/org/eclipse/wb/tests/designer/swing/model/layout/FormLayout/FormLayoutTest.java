@@ -53,7 +53,7 @@ import javax.swing.border.Border;
 
 /**
  * Test for {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutTest extends AbstractFormLayoutTest {

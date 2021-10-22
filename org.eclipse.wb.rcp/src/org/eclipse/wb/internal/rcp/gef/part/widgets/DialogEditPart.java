@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.DialogInfo;
 
 /**
  * {@link EditPart} for {@link DialogInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage rcp.gef.part
@@ -44,7 +44,7 @@ public class DialogEditPart extends AbstractComponentEditPart {
   @Override
   protected void refreshEditPolicies() {
     super.refreshEditPolicies();
-    // injecting into main {@link ShellEditPart} a {@link TopSelectionEditPolicy}. 
+    // injecting into main {@link ShellEditPart} a {@link TopSelectionEditPolicy}.
     for (EditPart child : getChildren()) {
       if (child.getModel() == m_dialog.getShellInfo()) {
         child.installEditPolicy(EditPolicy.SELECTION_ROLE, new TopSelectionEditPolicy(m_dialog));

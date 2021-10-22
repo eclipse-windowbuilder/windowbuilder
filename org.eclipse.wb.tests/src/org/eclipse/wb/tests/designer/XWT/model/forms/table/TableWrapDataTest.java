@@ -24,7 +24,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 /**
  * Test for {@link TableWrapDataInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapDataTest extends XwtModelTest {

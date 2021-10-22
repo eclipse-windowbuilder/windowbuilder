@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Utilities for Swing menu.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -47,7 +47,7 @@ public final class MenuUtils {
   /**
    * @param container
    *          some menu container, {@link JMenuInfo} or {@link JPopupMenuInfo}.
-   * 
+   *
    * @return the {@link IMenuItemInfo}'s of given menu container.
    */
   public static List<IMenuItemInfo> getItems(ContainerInfo container) {
@@ -62,7 +62,7 @@ public final class MenuUtils {
   /**
    * @param component
    *          some {@link ComponentInfo}, may be menu related, may be just generic.
-   * 
+   *
    * @return the {@link IMenuItemInfo} wrapper for given {@link ComponentInfo}.
    */
   public static IMenuItemInfo getMenuItem(ComponentInfo component) {
@@ -91,7 +91,7 @@ public final class MenuUtils {
 
   /**
    * Adds broadcast listener for copy/paste items of menu container.
-   * 
+   *
    * @param container
    *          some menu container, {@link JMenuInfo} or {@link JPopupMenuInfo}.
    */

@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class FigureEventTest extends Draw2dFigureTestCase {
   private Shell m_shell;

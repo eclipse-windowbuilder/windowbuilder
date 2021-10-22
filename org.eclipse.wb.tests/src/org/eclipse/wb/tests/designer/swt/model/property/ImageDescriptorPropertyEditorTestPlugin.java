@@ -21,7 +21,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * Tests for {@link ImageDescriptorPropertyEditor} with plugin images.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

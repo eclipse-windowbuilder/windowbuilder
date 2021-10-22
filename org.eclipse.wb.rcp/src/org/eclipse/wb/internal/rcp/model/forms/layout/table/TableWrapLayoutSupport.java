@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * Support for using {@link TableWrapLayout} in another {@link ClassLoader}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

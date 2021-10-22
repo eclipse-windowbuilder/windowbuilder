@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * The dialog for editing {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

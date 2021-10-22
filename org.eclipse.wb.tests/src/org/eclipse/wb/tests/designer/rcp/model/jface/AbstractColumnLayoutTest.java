@@ -50,7 +50,7 @@ import org.eclipse.swt.widgets.Tree;
 
 /**
  * Test for {@link AbstractColumnLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractColumnLayoutTest extends RcpModelTest {

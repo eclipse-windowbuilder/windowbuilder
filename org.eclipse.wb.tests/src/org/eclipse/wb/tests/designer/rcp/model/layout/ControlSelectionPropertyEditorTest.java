@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Tests for {@link ControlSelectionPropertyEditor}.
- * 
+ *
  * @author mitin_aa
  */
 public class ControlSelectionPropertyEditorTest extends RcpModelTest {

@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Tests for palette {@link CategoryInfo} {@link Command}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class CategoryCommandsTest extends AbstractPaletteTest {

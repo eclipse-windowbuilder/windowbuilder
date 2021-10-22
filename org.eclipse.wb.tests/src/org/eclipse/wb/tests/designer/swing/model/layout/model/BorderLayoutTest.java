@@ -26,7 +26,7 @@ import java.awt.BorderLayout;
 
 /**
  * Test for {@link BorderLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BorderLayoutTest extends AbstractLayoutTest {

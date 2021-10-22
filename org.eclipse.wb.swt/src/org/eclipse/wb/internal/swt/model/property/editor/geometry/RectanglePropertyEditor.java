@@ -21,7 +21,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link org.eclipse.swt.graphics.Rectangle}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.editor
  */

@@ -58,7 +58,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Test for {@link ViewerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewerTest extends RcpModelTest {

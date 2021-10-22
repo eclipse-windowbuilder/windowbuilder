@@ -23,7 +23,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing objects models.
- * 
+ *
  * @author scheglov_ke
  */
 public class ModelTests extends DesignerSuiteTests {

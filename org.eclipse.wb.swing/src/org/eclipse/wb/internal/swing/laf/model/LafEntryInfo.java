@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.laf.model;
 
 /**
  * Abstract LAF entry: category or LAF.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */
@@ -38,7 +38,7 @@ public abstract class LafEntryInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets the name for this entry.
-   * 
+   *
    * @param name
    *          the name string to set.
    */
@@ -55,7 +55,7 @@ public abstract class LafEntryInfo {
 
   /**
    * Sets the ID for this entry.
-   * 
+   *
    * @param id
    *          the ID string to set.
    */

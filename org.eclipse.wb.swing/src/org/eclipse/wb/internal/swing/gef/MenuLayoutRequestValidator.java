@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 
 /**
  * Implementation of {@link ILayoutRequestValidator} for ignore all menu objects.
- * 
+ *
  * @author lobas_av
  * @coverage swing.gef
  */

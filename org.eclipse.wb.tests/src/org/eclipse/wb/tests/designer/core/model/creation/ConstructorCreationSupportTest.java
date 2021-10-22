@@ -52,7 +52,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link ConstructorCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstructorCreationSupportTest extends SwingModelTest {
@@ -987,7 +987,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
   public void test_getAssociation_noParent() throws Exception {
     String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
     parseContainer(lines);
-    // 
+    //
     Class<?> clazz = JButton.class;
     CreationSupport creationSupport = new ConstructorCreationSupport();
     JavaInfoUtils.createJavaInfo(m_lastEditor, clazz, creationSupport);
@@ -1017,7 +1017,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
     String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
     // parse
     parseContainer(lines);
-    // 
+    //
     Class<?> clazz = m_lastLoader.loadClass("test.MyButton");
     CreationSupport creationSupport = new ConstructorCreationSupport();
     JavaInfoUtils.createJavaInfo(m_lastEditor, clazz, creationSupport);

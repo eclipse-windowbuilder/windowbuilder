@@ -22,7 +22,7 @@ import java.awt.Rectangle;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Rectangle}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

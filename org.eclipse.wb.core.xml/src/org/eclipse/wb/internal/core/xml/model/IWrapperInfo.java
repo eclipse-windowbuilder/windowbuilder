@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.xml.model;
 
 /**
  * Interface for any wrapper {@link XmlObjectInfo} (like a viewer in XWT).
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

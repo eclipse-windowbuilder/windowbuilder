@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Abstract {@link SelectionEditPolicy} for {@link DimensionHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */
@@ -245,7 +245,7 @@ abstract class DimensionSelectionEditPolicy<T extends FormDimensionInfo>
   /**
    * @param inverse
    *          is <code>true</code> if constant size should be replaced with minimum and reverse.
-   * 
+   *
    * @return the size text for text feedback.
    */
   protected abstract String getTextFeedbackText(ChangeBoundsRequest request, boolean inverse);

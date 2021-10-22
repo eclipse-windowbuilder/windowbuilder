@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Model for EMF properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

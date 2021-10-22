@@ -95,7 +95,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
     }
     // check association
     assertInstanceOf(EmptyAssociation.class, dataInfo.getAssociation());
-    // check that "virtual" LayoutDataInfo has object 
+    // check that "virtual" LayoutDataInfo has object
     assertNotNull(dataInfo.getObject());
   }
 

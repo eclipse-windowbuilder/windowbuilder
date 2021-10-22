@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 /**
  * Baseline class used to determine text baseline value of widgets. Singleton. Usage:
  * Baseline.getBaseline(someControl) Baseline.getBaseline(someControl, controlWidth, controlHeight)
- * 
+ *
  * @author mitin_aa
  */
 public class Baseline {
@@ -178,7 +178,7 @@ public class Baseline {
 
   /**
    * Returns a constant indicating how the baseline varies with the size of the component.
-   * 
+   *
    * @param c
    *          the Control to get the baseline resize behavior for
    * @return one of BRB_CONSTANT_ASCENT, BRB_CONSTANT_DESCENT, BRB_CENTER_OFFSET or BRB_OTHER

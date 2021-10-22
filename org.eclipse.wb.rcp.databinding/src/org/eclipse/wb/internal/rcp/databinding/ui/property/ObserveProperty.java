@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Property for bindable properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui.properties
  */

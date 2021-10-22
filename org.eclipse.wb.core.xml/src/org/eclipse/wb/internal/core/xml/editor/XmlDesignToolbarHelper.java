@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.ToolBar;
 
 /**
  * Helper for managing actions on internal {@link ToolBarManager} of {@link XmlEditorPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

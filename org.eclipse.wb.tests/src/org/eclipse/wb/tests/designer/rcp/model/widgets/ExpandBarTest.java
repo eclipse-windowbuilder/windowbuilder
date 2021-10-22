@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Test for {@link ExpandBar}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExpandBarTest extends RcpModelTest {
@@ -101,7 +101,7 @@ public class ExpandBarTest extends RcpModelTest {
   }
 
   /**
-   * We should show on design canvas only {@link ControlInfo}'s of expanded {@link ExpandItemInfo} 
+   * We should show on design canvas only {@link ControlInfo}'s of expanded {@link ExpandItemInfo}
    * 's.
    */
   public void test_presentationChildrenGraphical() throws Exception {

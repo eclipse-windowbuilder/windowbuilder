@@ -29,7 +29,7 @@ import javax.swing.JSpinner;
 
 /**
  * Tests for {@link JSpinner} support, such as {@link SpinnerModelPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JSpinnerTest extends SwingModelTest {

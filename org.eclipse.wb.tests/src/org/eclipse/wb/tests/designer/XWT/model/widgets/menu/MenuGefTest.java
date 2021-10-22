@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link MenuInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuGefTest extends XwtGefTest {

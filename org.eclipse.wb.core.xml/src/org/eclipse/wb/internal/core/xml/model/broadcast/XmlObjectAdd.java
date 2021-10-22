@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * Listener for {@link XmlObjectInfo} create.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

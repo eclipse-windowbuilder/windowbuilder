@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Model for <code>org.eclipse.core.databinding.UpdateListStrategy</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

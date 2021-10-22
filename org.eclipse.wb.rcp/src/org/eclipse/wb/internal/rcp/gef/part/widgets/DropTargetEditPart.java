@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.IDropTargetInfo;
 
 /**
  * {@link EditPart} for {@link IDropTargetInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

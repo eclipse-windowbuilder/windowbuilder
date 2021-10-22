@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * Test for {@link DatePropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {

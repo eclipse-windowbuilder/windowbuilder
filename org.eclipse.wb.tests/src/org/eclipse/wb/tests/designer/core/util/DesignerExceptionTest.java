@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
 
 /**
  * Test for {@link DesignerException}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignerExceptionTest extends TestCase {

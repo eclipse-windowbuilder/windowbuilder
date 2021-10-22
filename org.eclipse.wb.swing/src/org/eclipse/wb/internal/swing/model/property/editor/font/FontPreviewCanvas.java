@@ -32,7 +32,7 @@ import javax.swing.JLabel;
 
 /**
  * Control for displaying {@link Font}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

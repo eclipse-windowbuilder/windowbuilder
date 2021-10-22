@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ExposePropertySupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExposePropertySupportTest extends SwingModelTest {

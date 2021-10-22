@@ -19,7 +19,7 @@ import org.eclipse.jface.dialogs.PopupDialog;
 
 /**
  * Model for {@link PopupDialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

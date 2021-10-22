@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Tests for {@link ChooseComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {

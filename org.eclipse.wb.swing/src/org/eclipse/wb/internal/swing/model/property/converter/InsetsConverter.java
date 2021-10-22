@@ -17,7 +17,7 @@ import java.awt.Insets;
 
 /**
  * The {@link ExpressionConverter} for {@link Insets}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.converter
  */

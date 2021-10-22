@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Support for disposing {@link Shell} parameters for unknown {@link Composite} parameters, created
  * by {@link SwtMethodParameterEvaluator}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

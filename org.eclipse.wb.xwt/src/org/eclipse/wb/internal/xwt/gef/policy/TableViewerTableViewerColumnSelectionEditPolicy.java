@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.model.jface.TableViewerColumnInfo;
 
 /**
  * {@link SelectionEditPolicy} for {@link TableViewerColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef.policy
  */

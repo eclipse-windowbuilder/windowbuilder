@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Property for {@link ObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui.properties
  */

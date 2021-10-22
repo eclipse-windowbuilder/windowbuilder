@@ -16,7 +16,7 @@ import javax.swing.GroupLayout.Alignment;
 
 /**
  * Reflects parallel group of GroupLayout.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

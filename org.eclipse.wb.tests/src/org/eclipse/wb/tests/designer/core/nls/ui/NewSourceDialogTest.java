@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Tests for {@link NewSourceDialog}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NewSourceDialogTest extends SwingModelTest {

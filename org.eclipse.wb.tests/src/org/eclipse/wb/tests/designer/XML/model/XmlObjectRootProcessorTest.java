@@ -19,7 +19,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Test for {@link XmlObjectRootProcessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlObjectRootProcessorTest extends AbstractCoreTest {

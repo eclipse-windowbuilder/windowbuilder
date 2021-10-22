@@ -40,7 +40,7 @@ import java.util.Set;
 
 /**
  * Implementation of {@link IToolkitSupport} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage rcp.support
@@ -143,9 +143,9 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   public void showShell(Object shellObject) throws Exception {
     final Shell shell = (Shell) shellObject;
     final Shell mainShell = DesignerPlugin.getShell();
-    // [Linux] feature in SWT/GTK: since we cannot use Test/Preview shell as modal 
-    // and if the 'main' shell of the application is disabled, switching to other 
-    // application (and even to this Eclipse itself) and back will hide 
+    // [Linux] feature in SWT/GTK: since we cannot use Test/Preview shell as modal
+    // and if the 'main' shell of the application is disabled, switching to other
+    // application (and even to this Eclipse itself) and back will hide
     // Test/Preview shell behind the 'main' shell.
     // The workaround is to forcibly hide Test/Preview window.
     ShellAdapter shellAdapter = new ShellAdapter() {

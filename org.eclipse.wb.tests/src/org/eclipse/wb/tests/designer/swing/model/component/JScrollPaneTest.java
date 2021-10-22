@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 
 /**
  * Test for {@link JScrollPane}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JScrollPaneTest extends SwingModelTest {
@@ -273,7 +273,7 @@ public class JScrollPaneTest extends SwingModelTest {
     JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
     ComponentInfo button = innerPanel.getChildrenComponents().get(0);
-    // 
+    //
     scroll.command_ADD(button, "setRowHeaderView");
     assertEditor(
         "class Test extends JPanel {",

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model for SWT table item {@link org.eclipse.swt.widgets.TableItem}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.widgets
  */

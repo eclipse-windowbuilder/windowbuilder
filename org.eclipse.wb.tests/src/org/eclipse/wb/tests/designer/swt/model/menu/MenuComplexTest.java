@@ -27,7 +27,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Tests for "popup" with several item's, sub-menu's, etc.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuComplexTest extends RcpGefTest {

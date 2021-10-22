@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 /**
  * {@link ObjectPositionLayoutEditPolicy} for Swing toolkit.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.gef.policy
  */

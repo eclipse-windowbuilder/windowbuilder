@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Swing utils tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class UtilTests extends DesignerSuiteTests {

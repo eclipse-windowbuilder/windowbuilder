@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Tests for {@link ManagerUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ManagerUtilsTest extends RcpModelTest {

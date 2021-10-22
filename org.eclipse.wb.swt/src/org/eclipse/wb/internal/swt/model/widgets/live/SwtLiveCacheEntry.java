@@ -16,7 +16,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Live components cache entry for SWT toolkit.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets.live
  */

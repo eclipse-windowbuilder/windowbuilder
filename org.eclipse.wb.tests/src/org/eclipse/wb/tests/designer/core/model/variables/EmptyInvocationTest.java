@@ -23,7 +23,7 @@ import javax.swing.JButton;
 
 /**
  * Test for adding using {@link EmptyVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyInvocationTest extends AbstractVariableTest {

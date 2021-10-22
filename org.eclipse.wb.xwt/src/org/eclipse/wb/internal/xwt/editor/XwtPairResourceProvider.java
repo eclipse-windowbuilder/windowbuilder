@@ -28,7 +28,7 @@ import org.eclipse.jface.text.Document;
 
 /**
  * {@link IPairResourceProvider} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.editor
  */

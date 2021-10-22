@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Stub class for using SWT {@link org.eclipse.swt.layout.GridLayout}'s in another
  * {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

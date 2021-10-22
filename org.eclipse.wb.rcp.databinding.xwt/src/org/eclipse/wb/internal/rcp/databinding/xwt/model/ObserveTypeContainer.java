@@ -25,9 +25,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public abstract class ObserveTypeContainer
     extends

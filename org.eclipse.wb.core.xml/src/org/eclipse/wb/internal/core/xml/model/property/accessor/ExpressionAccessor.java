@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
  * <p>
  * FIXME This class is too specific. It is better to rename it to "AttributeExpressionAccessor" and
  * introduce abstract "ExpressionAccessor" instead.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */
@@ -90,7 +90,7 @@ public abstract class ExpressionAccessor extends AbstractDescription {
 
   /**
    * Updates attribute of given {@link XmlObjectInfo} to have given expression.
-   * 
+   *
    * @param expression
    *          the new expression of attribute, may be <code>null</code> to remove attribute.
    */

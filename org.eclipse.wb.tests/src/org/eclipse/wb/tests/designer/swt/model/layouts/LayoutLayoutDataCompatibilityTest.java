@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Layout;
 
 /**
  * Test that <code>LayoutData</code> corresponds to {@link Layout}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {

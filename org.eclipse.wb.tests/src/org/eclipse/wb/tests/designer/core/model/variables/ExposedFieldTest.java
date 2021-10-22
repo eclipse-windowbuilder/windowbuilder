@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * Test for {@link ExposedFieldVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExposedFieldTest extends AbstractVariableTest {

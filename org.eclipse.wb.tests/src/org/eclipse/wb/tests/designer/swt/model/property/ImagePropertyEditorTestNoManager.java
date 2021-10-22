@@ -22,7 +22,7 @@ import java.io.File;
 
 /**
  * Tests for {@link ImagePropertyEditor} without <code>SWTResourceManager</code>.
- * 
+ *
  * @author lobas_av
  */
 public class ImagePropertyEditorTestNoManager extends ImagePropertyEditorTest {

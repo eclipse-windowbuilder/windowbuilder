@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Tests for {@link ChooseComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {

@@ -28,7 +28,7 @@ import javax.swing.JButton;
 
 /**
  * Test for adding.
- * 
+ *
  * @author scheglov_ke
  */
 public class AddTest extends SwingModelTest {

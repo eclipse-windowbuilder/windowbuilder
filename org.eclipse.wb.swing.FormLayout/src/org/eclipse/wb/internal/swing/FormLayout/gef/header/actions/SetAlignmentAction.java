@@ -20,7 +20,7 @@ import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
 
 /**
  * {@link Action} for modifying alignment of {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

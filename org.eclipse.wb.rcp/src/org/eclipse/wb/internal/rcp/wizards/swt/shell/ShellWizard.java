@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * {@link Wizard} that creates new SWT {@link Shell}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

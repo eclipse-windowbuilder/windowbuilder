@@ -14,7 +14,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Abstract test for NLS.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractNlsTest extends SwingModelTest {

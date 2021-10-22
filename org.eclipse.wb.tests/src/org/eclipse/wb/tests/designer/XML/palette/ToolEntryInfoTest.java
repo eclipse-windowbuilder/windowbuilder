@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Tests for abstract {@link ToolEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ToolEntryInfoTest extends AbstractPaletteTest {

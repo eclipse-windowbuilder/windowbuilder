@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link IVisualDataProvider} for FormLayout automatic.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gef.policy.form
  */
@@ -34,7 +34,7 @@ final class FormLayoutVisualDataProvider<C extends IControlInfo> implements IVis
   //
   // Constructor
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public FormLayoutVisualDataProvider(IFormLayoutInfo<C> layout) {
     m_layout = layout;
   }

@@ -19,7 +19,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 
 /**
  * {@link Wizard} that creates new RCP {@link PropertyPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

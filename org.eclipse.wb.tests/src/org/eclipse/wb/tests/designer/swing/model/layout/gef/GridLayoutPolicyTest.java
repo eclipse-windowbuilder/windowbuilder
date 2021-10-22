@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Test for {@link GridLayoutEditPolicy}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutPolicyTest extends AbstractLayoutPolicyTest {

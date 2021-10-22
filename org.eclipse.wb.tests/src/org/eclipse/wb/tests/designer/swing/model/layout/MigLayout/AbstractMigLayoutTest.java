@@ -24,7 +24,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Test for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractMigLayoutTest extends AbstractLayoutTest {

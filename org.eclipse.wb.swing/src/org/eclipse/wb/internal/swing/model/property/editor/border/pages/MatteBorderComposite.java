@@ -25,7 +25,7 @@ import javax.swing.border.MatteBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link MatteBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Tests for {@link TableInfo}, {@link TableColumnInfo} and {@link TableItemInfo}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  * @author mitin_aa

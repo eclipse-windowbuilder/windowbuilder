@@ -61,9 +61,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public final class DatabindingsProvider implements IDatabindingsProvider {
   private final XmlObjectInfo m_xmlObjectRoot;
@@ -124,7 +124,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     new XmlObjectPropertiesManager(this);
   }
 
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   //
   // Bindings
   //

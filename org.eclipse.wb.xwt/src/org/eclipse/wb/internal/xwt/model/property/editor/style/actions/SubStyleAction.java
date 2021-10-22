@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.xwt.model.property.editor.style.SubStylePropertyI
 
 /**
  * Abstract action for {@link Property} context menu.
- * 
+ *
  * @author lobas_av
  * @coverage XWT.model.property.editor
  */

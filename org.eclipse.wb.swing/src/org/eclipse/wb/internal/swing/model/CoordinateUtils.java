@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.model;
 
 /**
  * Utilities for converting AWT coordinate objects into draw2d objects.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swing.model

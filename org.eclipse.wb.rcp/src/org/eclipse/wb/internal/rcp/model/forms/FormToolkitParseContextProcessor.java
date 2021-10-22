@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * {@link IParseContextProcessor} for Forms API.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

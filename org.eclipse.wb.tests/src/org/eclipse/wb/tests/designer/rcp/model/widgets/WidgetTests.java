@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for RCP widgets models.
- * 
+ *
  * @author scheglov_ke
  */
 public class WidgetTests extends DesignerSuiteTests {

@@ -21,7 +21,7 @@ import java.util.List;
  * Used to get notified when all other methods for adding properties were already used so the
  * properties are gathered and {@link XmlObjectInfo#getProperties()} ready to sort and return
  * result.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

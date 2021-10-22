@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Interface providing LayoutStyle functionality.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */
@@ -29,7 +29,7 @@ public interface ILayoutStyleSupport {
 
   /**
    * Sets the LayoutStyle instance for given <code>laf</code>.
-   * 
+   *
    * @param laf
    *          a {@link LookAndFeel} which LayoutStyle would be used.
    */

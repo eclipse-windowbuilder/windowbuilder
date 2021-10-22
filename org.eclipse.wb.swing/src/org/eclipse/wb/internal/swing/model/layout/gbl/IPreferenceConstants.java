@@ -16,7 +16,7 @@ import java.awt.GridBagConstraints;
 
 /**
  * Preference constants for {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.layout
  */

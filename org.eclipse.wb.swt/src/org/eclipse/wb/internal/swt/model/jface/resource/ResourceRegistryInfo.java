@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Implementation {@link JavaInfo} for {@link org.eclipse.jface.resource.ResourceRegistry}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.jface
  */

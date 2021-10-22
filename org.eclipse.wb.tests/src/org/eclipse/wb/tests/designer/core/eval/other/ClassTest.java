@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Test for {@link ClassEvaluator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ClassTest extends AbstractEngineTest {

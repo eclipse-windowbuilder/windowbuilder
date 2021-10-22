@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link StackLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class StackLayoutGefTest extends XwtGefTest {

@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class LabelTest extends Draw2dFigureTestCase {
   ////////////////////////////////////////////////////////////////////////////

@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link IntrospectionHelper}.
- * 
+ *
  * @author scheglov_ke
  */
 public class IntrospectionHelperTest extends DesignerTestCase {

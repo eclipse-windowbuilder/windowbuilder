@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.WidgetInfo;
 /**
  * Implementation of {@link Association} for column {@link WidgetInfo} of {@link ViewerColumnInfo}.
  * It delegates all operations to the {@link Association} of {@link ViewerColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.viewers
  */

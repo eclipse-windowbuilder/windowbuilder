@@ -25,7 +25,7 @@ import java.util.List;
  * {@link CreationSupport} for {@link XmlObjectInfo} without component class, using just tag name.
  * <p>
  * TODO Introduce Java class based {@link XmlObjectInfo} and just tag based (such as HTML elements).
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.creation
  */

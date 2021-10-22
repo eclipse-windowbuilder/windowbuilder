@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * Tests for {@link AstVisitorEx}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AstVisitorExTest extends AbstractJavaTest {
@@ -105,7 +105,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
       public void postVisitEx(ASTNode node) throws Exception {
       }
     });
-    // exception 
+    // exception
     final Exception expected = new Exception("post");
     try {
       compilationUnit.accept(new AstVisitorEx() {
@@ -140,7 +140,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
         return true;
       }
     });
-    // exception 
+    // exception
     final Exception expected = new Exception("visit");
     try {
       compilationUnit.accept(new AstVisitorEx() {
@@ -176,7 +176,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
         super.endVisitEx(node);
       }
     });
-    // exception 
+    // exception
     try {
       compilationUnit.accept(new AstVisitorEx() {
         @Override
@@ -211,7 +211,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
         super.endVisitEx(node);
       }
     });
-    // exception 
+    // exception
     final Exception expected = new Exception("endVisit");
     try {
       compilationUnit.accept(new AstVisitorEx() {
@@ -246,7 +246,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
         super.endVisitEx(node);
       }
     });
-    // exception 
+    // exception
     final Exception expected = new Exception("endVisit");
     try {
       compilationUnit.accept(new AstVisitorEx() {
@@ -279,7 +279,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
         super.endVisitEx(node);
       }
     });
-    // exception 
+    // exception
     final Exception expected = new Exception("endVisit");
     try {
       compilationUnit.accept(new AstVisitorEx() {
@@ -315,7 +315,7 @@ public class AstVisitorExTest extends AbstractJavaTest {
         super.endVisitEx(node);
       }
     });
-    // exception 
+    // exception
     final Exception expected = new Exception("endVisit");
     try {
       compilationUnit.accept(new AstVisitorEx() {

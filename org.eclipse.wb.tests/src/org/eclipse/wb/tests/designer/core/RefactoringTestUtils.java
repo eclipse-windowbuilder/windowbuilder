@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * Utils for testing/using refactorings.
- * 
+ *
  * @author scheglov_ke
  */
 public final class RefactoringTestUtils {

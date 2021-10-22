@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link FactoryDescriptionHelper} and static/instance factories.
- * 
+ *
  * @author scheglov_ke
  */
 public class CreationsTests extends DesignerSuiteTests {

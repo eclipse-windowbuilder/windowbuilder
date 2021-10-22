@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link EditPart} for {@link ControlDecorationInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

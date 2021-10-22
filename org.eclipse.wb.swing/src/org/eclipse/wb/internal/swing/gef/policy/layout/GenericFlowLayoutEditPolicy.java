@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swing.model.layout.GenericFlowLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link GenericFlowLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.gef.policy

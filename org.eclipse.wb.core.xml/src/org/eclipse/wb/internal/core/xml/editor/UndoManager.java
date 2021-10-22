@@ -39,7 +39,7 @@ import java.util.Map;
 
 /**
  * Manager for handling undo/redo modifications in XML {@link IDocument}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

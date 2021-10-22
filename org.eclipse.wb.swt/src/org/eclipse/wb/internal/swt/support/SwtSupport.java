@@ -14,7 +14,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.SWT} in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage swt.support

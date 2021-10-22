@@ -20,7 +20,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Tests for {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbsoluteLayoutGefTest extends RcpGefTest {

@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Main {@link PreferencePage} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.preferences.ui
  */

@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Tests for {@link WidgetInfo}.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @author scheglov_ke

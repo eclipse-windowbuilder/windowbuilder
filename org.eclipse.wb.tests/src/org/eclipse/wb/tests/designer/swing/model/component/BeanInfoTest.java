@@ -17,7 +17,7 @@ import java.beans.BeanInfo;
 
 /**
  * Test for special flags from {@link BeanInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BeanInfoTest extends SwingModelTest {

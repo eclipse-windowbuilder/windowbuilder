@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 
 /**
  * {@link DocumentElement} that we create for "special" tag.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpecialDocumentNode extends DocumentElement {

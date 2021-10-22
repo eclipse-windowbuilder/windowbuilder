@@ -12,7 +12,7 @@ package org.eclipse.wb.os;
 
 /**
  * Error thrown when no appropriate {@link OSSupport} instance found for runtime OS or WS.
- * 
+ *
  * @author mitin_aa
  * @coverage os.core
  */

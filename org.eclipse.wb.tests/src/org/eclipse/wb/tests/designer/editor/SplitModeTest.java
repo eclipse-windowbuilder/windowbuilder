@@ -22,7 +22,7 @@ import java.awt.Component;
 
 /**
  * Test for "split" layout editor mode.
- * 
+ *
  * @author scheglov_ke
  */
 public class SplitModeTest extends SwingGefTest {

@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.model.layout.CardLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link CardLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.gef.policy
  */

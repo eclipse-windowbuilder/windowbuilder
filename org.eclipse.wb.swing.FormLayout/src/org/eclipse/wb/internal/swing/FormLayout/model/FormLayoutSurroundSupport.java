@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Helper for surrounding {@link ComponentInfo}'s with some {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

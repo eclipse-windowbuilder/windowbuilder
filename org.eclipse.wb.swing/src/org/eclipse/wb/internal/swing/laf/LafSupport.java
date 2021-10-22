@@ -85,7 +85,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Helper class to manage (enumerate, switching between) installed LAFs.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */
@@ -218,7 +218,7 @@ public final class LafSupport {
    * <code>main()</code> method. Then tries to get the LAF from underlying resource of CU of
    * <code>javaInfo</code>. At last if nothing found it returns the default LAF as it defined in
    * preferences.
-   * 
+   *
    * @return the {@link LafInfo} which selected currently in active editor.
    */
   public static LafInfo getSelectedLAF(JavaInfo javaInfo) {
@@ -274,7 +274,7 @@ public final class LafSupport {
    * Returns system default LAF. For Linux it is 'Metal' LAF because of a bug in JVM, see
    * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6922280 For other system it is defined by
    * {@link UIManager#getSystemLookAndFeelClassName()}.
-   * 
+   *
    * @return system default LAF.
    */
   public static LafInfo getSystemDefaultLAF() {
@@ -322,7 +322,7 @@ public final class LafSupport {
 
   /**
    * Applies the selected LAF in Swing via UIManager.
-   * 
+   *
    * @param lafInfo
    *          the {@link LafInfo} to be applied.
    */
@@ -347,7 +347,7 @@ public final class LafSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Traverses through LAF list and looks up for LAF with given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of look-and-feel. Can be <code>null</code>.
    */
@@ -367,7 +367,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF list and looks up for LAF with
    * given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of look-and-feel. Can NOT be <code>null</code>.
    * @return the found look-and-feel or <code>null</code> if nothing found.
@@ -382,7 +382,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF categories and looks up for
    * category with given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of category. Can NOT be <code>null</code>.
    * @return the found category or <code>null</code>.
@@ -447,7 +447,7 @@ public final class LafSupport {
    * <code>setLookAndFeel</code> method invocation. If found, stores LAF id in passed
    * <code>javaInfo</code> 's underlying resource under <code>SWING_LAF_SELECTED</code> persistent
    * key.
-   * 
+   *
    * @return {@link LafInfo} which represents installed LAF or <code>null</code> if no
    *         <code>main</code> method found of no <code>setLookAndFeel</code> method invocation
    *         found.
@@ -456,7 +456,7 @@ public final class LafSupport {
     AstEditor editor = javaInfo.getEditor();
     MethodDeclaration mainMethod = getMainMethod(editor);
     if (mainMethod == null) {
-      // no main method 
+      // no main method
       return null;
     }
     // look up for setLookAndFeel method
@@ -498,7 +498,7 @@ public final class LafSupport {
    * Searches for main method declaration and looks for any
    * UIManager.setLookAndFeel(java.lang.String) and
    * UIManager.setLookAndFeel(javax.swing.LookAndFeel) method invocations in it.
-   * 
+   *
    * @return any of UIManager.setLookAndFeel(java.lang.String) or
    *         UIManager.setLookAndFeel(javax.swing.LookAndFeel) {@link MethodInvocation} instance if
    *         any. Otherwise returns <code>null</code>.
@@ -534,7 +534,7 @@ public final class LafSupport {
   /**
    * Returns the {@link MethodDeclaration} for main method of primary type of the compilation unit
    * for given <code>editor</code>. Returns <code>null</code> if no main method found.
-   * 
+   *
    * @return the {@link MethodDeclaration} for main method of primary type of the compilation unit
    *         for given <code>editor</code> or <code>null</code> if no main method found.
    */
@@ -563,7 +563,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF categories and looks up for
    * category with given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of category. Can NOT be <code>null</code>.
    * @return the found category or assertion error if not found.
@@ -575,7 +575,7 @@ public final class LafSupport {
   /**
    * Ensures the LAF list to be created and traverses through LAF list and looks up for LAF with
    * given <code>id</code>.
-   * 
+   *
    * @param id
    *          the id of look-and-feel. Can NOT be <code>null</code>.
    * @return the found look-and-feel or <code>null</code> if nothing found.
@@ -587,7 +587,7 @@ public final class LafSupport {
   /**
    * Removes the category specified by <code>id</code> if any. Note that root category cannot be
    * removed.
-   * 
+   *
    * @param id
    *          the id of category. Can NOT be <code>null</code>.
    */
@@ -607,7 +607,7 @@ public final class LafSupport {
   /**
    * Removes the LookAndFeel specified by <code>lafInfo</code> if any. Note: don't remove from
    * category directly.
-   * 
+   *
    * @param lafInfo
    *          the instance of {@link LafInfo} to remove. Can't be <code>null</code>.
    */
@@ -619,7 +619,7 @@ public final class LafSupport {
 
   /**
    * Adds the new category with <code>id</code> and <code>name</code>.
-   * 
+   *
    * @param id
    *          the id of category. Can not be <code>null</code>.
    * @param name
@@ -634,7 +634,7 @@ public final class LafSupport {
 
   /**
    * Moves given category within another categories. Root category can not be moved.
-   * 
+   *
    * @param moveCategoryID
    *          the id of moving category. Can not be <code>null</code>.
    * @param nextCategoryID
@@ -806,7 +806,7 @@ public final class LafSupport {
 
   /**
    * Listener interface for changing LookAndFeel preferences.
-   * 
+   *
    * @author mitin_aa
    */
   public interface ILookAndFeelsChangeListener {

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.property.accessor.ExpressionAccess
 
 /**
  * Test for {@link EmptyExpressionAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyExpressionAccessorTest extends AbstractCoreTest {

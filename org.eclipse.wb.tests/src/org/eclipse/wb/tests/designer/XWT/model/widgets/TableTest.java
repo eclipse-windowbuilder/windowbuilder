@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Tests for {@link TableInfo}, {@link TableColumnInfo} and {@link TableItemInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableTest extends XwtModelTest {

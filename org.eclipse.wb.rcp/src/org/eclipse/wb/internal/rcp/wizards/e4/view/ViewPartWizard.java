@@ -19,7 +19,7 @@ import org.eclipse.ui.part.ViewPart;
 
 /**
  * {@link Wizard} that creates new E4 {@link ViewPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

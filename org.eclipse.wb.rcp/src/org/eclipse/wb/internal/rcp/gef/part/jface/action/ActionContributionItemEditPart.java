@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo
 
 /**
  * {@link EditPart} for {@link ActionContributionItemInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

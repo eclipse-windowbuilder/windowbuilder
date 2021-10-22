@@ -31,7 +31,7 @@ import java.util.List;
  * Dialog for {@link Font} choosing.
  * <p>
  * Note, this this dialog is reduced, no support for multiple pages.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

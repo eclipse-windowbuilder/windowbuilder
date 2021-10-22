@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Tests for {@link MethodInvocationAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodInvocationAccessorTest extends SwingModelTest {

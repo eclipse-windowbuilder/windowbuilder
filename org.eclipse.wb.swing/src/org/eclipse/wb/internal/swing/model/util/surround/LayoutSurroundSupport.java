@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Abstract {@link SurroundSupport} for Swing {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.util
  */

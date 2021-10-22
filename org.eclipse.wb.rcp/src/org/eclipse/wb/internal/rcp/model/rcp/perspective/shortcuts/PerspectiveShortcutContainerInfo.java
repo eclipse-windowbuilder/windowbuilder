@@ -17,7 +17,7 @@ import org.eclipse.ui.IPageLayout;
 
 /**
  * Container for {@link IPageLayout#addPerspectiveShortcut(String)} method.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -48,7 +48,7 @@ public final class PerspectiveShortcutContainerInfo extends AbstractShortcutCont
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link PerspectiveShortcutInfo}.
-   * 
+   *
    * @return the created {@link PerspectiveShortcutInfo}.
    */
   public PerspectiveShortcutInfo command_CREATE(String perspectiveId,

@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 /**
  * Test for {@link IntegerPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {

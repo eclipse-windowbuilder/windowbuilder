@@ -85,7 +85,7 @@ import java.util.Set;
 
 /**
  * Helper class for separate binding code to {@code Controller} class.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

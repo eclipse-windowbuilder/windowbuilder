@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * {@link SelectionLayoutEditPolicy} for {@link IStackLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

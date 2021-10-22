@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MenuInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuTest extends XwtModelTest {
@@ -855,7 +855,7 @@ public class MenuTest extends XwtModelTest {
     MenuInfo menu = getObjectByName("menu");
     // menu bar has bounds, but has no image
     assertNotNull(menu.getModelBounds());
-    // menu bar in OSX has synthetic image which drawn above design canvas. 
+    // menu bar in OSX has synthetic image which drawn above design canvas.
     if (EnvironmentUtils.IS_MAC) {
       assertNotNull(menu.getImage());
     } else {

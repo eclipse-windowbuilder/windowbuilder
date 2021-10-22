@@ -21,7 +21,7 @@ import javax.swing.AbstractAction;
 
 /**
  * Interface for working with {@link AbstractAction} extended properties.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model
  */

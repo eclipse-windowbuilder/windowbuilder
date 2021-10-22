@@ -55,7 +55,7 @@ import java.util.Map;
 
 /**
  * Container with type {@link ObserveType#BEANS}. Works on <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link SectionPartInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for JGoodies.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.policy
  */

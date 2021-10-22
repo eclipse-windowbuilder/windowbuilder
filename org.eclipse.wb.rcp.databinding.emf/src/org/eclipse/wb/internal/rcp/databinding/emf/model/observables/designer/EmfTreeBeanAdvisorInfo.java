@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.eclipse.wb.rcp.databinding.EMFTreeBeanAdvisor}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

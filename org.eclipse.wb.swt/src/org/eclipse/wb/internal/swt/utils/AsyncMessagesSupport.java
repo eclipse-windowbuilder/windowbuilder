@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Support for optional running SWT "async" runnables.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swt.utils

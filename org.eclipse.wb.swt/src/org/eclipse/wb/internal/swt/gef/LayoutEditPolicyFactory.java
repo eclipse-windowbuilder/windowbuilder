@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for SWT.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @author scheglov_ke

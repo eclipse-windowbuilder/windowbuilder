@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutTests extends DesignerSuiteTests {

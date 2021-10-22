@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Model for observable object <code>ViewersObservables.observeCheckedElements(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -24,7 +24,7 @@ import org.apache.commons.lang.SystemUtils;
 
 /**
  * Layout assistant for {@link java.awt.GridBagConstraints}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.assistant
  */

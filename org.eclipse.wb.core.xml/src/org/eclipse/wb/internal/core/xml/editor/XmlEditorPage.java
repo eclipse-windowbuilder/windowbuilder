@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.xml.editor;
 
 /**
  * Abstract {@link IXmlEditorPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

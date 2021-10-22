@@ -33,7 +33,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Test for {@link ActionBarAdvisorInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionBarAdvisorTest extends RcpModelTest {

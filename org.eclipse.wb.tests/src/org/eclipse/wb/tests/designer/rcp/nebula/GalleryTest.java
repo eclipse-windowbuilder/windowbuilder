@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link GalleryInfo}.
- * 
+ *
  * @author sablin_aa
  */
 public class GalleryTest extends AbstractNebulaTest {

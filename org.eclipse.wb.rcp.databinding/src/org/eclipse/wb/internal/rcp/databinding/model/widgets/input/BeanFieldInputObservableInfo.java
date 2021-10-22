@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Model for field {@code Java Bean} object that sets as input for tree viewer.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

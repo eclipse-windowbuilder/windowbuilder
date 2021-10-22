@@ -17,7 +17,7 @@ import java.awt.Point;
 
 /**
  * The {@link ExpressionConverter} for {@link Point}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.converter
  */

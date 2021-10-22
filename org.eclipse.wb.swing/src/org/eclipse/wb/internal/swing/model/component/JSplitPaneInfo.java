@@ -24,7 +24,7 @@ import javax.swing.JSplitPane;
 
 /**
  * Model for {@link JSplitPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

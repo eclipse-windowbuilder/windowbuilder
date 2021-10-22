@@ -63,7 +63,7 @@ import java.util.Set;
 
 /**
  * Parser for XWT UI.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */

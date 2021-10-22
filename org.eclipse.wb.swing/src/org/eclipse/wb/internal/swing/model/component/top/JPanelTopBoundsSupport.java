@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link JPanel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.top
  */

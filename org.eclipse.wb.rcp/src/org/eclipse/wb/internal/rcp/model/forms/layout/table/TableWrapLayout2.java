@@ -44,7 +44,7 @@ import java.util.Vector;
  * If none of the columns contain expandable and wrappable controls, the end-result will be similar
  * to the one provided by GridLayout. The difference will show up for layouts that contain controls
  * whose minimum and maximum widths are not the same.
- * 
+ *
  * @see TableWrapData2
  * @since 3.0
  * @coverage rcp.model.forms
@@ -148,7 +148,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
 
   /**
    * Implements ILayoutExtension. Should not be called directly.
-   * 
+   *
    * @see ILayoutExtension
    */
   public int computeMinimumWidth(Composite parent, boolean changed) {
@@ -179,7 +179,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
 
   /**
    * Implements ILayoutExtension. Should not be called directly.
-   * 
+   *
    * @see ILayoutExtension
    */
   public int computeMaximumWidth(Composite parent, boolean changed) {

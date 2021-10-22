@@ -30,7 +30,7 @@ import java.io.InputStream;
 
 /**
  * {@link EntryInfo} for adding <code>DoubleFieldEditor</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.NullLiteral;
 /**
  * Implementation of {@link VariableSupport} for {@link AbsoluteLayoutInfo} specified as
  * {@link NullLiteral} in "setLayout(null)"
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */

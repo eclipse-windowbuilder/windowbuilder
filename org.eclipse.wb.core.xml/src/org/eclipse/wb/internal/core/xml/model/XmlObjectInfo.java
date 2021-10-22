@@ -45,7 +45,7 @@ import java.util.Map;
 
 /**
  * Model for any object in XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

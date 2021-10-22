@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Tests for palette {@link ComponentEntryInfo} {@link Command}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentCommandsTest extends AbstractPaletteTest {

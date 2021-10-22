@@ -26,7 +26,7 @@ import javax.swing.AbstractButton;
 /**
  * {@link LayoutEditPolicy} to drop neq {@link ActionInfo} on {@link ComponentInfo} model of
  * {@link AbstractButton}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

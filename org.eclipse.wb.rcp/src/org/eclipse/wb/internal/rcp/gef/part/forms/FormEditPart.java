@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
 
 /**
  * {@link EditPart} for {@link FormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

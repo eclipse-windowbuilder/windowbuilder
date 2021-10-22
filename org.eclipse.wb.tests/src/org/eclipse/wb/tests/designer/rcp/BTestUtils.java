@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Utilities for RCP testing. "B" in name means "big". :-)
- * 
+ *
  * @author scheglov_ke
  */
 public final class BTestUtils {

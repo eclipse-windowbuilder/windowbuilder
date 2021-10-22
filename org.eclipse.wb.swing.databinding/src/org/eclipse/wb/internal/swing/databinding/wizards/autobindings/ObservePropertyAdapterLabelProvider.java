@@ -15,7 +15,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link LabelProvider} for {@link ObservePropertyAdapter}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */

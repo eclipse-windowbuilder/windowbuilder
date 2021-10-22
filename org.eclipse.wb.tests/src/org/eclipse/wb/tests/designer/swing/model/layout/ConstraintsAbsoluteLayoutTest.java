@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.ResourceUtils;
 
 /**
  * Tests for {@link ConstraintsAbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstraintsAbsoluteLayoutTest extends AbstractLayoutTest {

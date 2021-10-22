@@ -16,7 +16,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * {@link Action} for modifying horizontal/vertical alignment.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

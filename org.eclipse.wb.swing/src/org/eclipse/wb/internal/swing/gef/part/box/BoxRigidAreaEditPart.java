@@ -23,7 +23,7 @@ import javax.swing.Box;
 
 /**
  * The {@link EditPart} for {@link Box#createRigidArea(java.awt.Dimension)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

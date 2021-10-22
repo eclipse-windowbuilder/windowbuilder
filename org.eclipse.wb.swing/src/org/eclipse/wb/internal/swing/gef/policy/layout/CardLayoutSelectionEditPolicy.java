@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionLayoutEditPolicy} for {@link CardLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.gef.policy
  */

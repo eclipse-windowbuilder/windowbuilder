@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 /**
  * Model for method based <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

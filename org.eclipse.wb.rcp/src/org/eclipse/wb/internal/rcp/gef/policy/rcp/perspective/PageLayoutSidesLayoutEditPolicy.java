@@ -34,7 +34,7 @@ import org.eclipse.ui.IPageLayout;
 /**
  * Implementation of {@link LayoutEditPolicy} for adding new {@link PageLayoutAddViewInfo} relative
  * to some {@link AbstractPartInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

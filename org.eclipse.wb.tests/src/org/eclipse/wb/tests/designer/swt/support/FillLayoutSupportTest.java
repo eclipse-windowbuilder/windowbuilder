@@ -17,7 +17,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Test for {@link FillLayoutSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class FillLayoutSupportTest extends AbstractSupportTest {

@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link Menu}.
- * 
+ *
  * @author mitin_aa
  */
 public class MenuTests extends DesignerSuiteTests {

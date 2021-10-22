@@ -20,7 +20,7 @@ import javax.swing.JMenu;
 
 /**
  * Test for {@link JMenuInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class JMenuGefTest extends SwingGefTest {

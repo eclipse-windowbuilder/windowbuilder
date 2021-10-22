@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MenuInfo}.
- * 
+ *
  * @author mitin_aa
  */
 public class MenuTest extends RcpModelTest {
@@ -1027,7 +1027,7 @@ public class MenuTest extends RcpModelTest {
     // menu bar has bounds, but has no image
     assertNotNull(menu.getModelBounds());
     if (EnvironmentUtils.IS_MAC) {
-      // menu bar in OSX has synthetic image which drawn above design canvas. 
+      // menu bar in OSX has synthetic image which drawn above design canvas.
       assertNotNull(menu.getImage());
     } else {
       assertNull(menu.getImage());

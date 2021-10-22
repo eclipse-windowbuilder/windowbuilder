@@ -50,7 +50,7 @@ import java.util.Map;
 
 /**
  * The dialog for editing {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */

@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link BorderLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.swing2swt.gef
  */

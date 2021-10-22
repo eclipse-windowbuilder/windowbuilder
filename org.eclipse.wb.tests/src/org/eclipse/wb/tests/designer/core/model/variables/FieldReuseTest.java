@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FieldReuseVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldReuseTest extends AbstractVariableTest {

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Test for {@link FormLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {

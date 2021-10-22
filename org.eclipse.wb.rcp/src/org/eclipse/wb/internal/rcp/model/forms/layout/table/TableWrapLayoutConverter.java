@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to
  * {@link ITableWrapLayoutInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage rcp.model.forms
  */

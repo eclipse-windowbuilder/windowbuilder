@@ -35,7 +35,7 @@ import java.net.URL;
 /**
  * Implementation of {@link IClassLoaderInitializer} for initializing RCP
  * <code>ResourceManager</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.utils
  */

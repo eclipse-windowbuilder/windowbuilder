@@ -32,7 +32,7 @@ import org.eclipse.swt.layout.GridLayout;
 
 /**
  * Tests for {@link FormLayoutInfo}.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutModelsTest extends RcpModelTest {

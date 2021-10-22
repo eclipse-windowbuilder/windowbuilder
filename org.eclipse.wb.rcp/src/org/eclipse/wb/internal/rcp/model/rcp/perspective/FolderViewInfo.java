@@ -35,7 +35,7 @@ import org.eclipse.ui.IFolderLayout;
 
 /**
  * Model for {@link IFolderLayout#addView(String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

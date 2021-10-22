@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */

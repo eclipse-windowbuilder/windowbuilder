@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 
 /**
  * Initializer for XWT preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.preferences
  */

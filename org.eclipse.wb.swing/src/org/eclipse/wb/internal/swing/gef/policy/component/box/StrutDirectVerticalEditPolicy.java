@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 /**
  * Implementation of {@link DirectTextEditPolicy} for {@link BoxStrutVerticalEditPart} that allows
  * to edit height of strut.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

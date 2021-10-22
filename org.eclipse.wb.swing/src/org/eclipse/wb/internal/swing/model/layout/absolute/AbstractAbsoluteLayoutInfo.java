@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Model for abstract absolute layout.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swing.model.layout
@@ -227,7 +227,7 @@ public abstract class AbstractAbsoluteLayoutInfo extends LayoutInfo {
   /**
    * Modifies location/size values by modifying appropriate "setLocation", "setSize", "setBounds"
    * arguments.
-   * 
+   *
    * @param component
    *          the {@link ComponentInfo} which modifications applies to.
    * @param location

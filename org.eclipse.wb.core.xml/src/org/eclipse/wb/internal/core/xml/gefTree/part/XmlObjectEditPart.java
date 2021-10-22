@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * {@link TreeEditPart} for {@link XmlObjectInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage XML.gefTree
  */

@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link Predicate} implementations.
- * 
+ *
  * @author scheglov_ke
  */
 public class PredicatesTest extends SwingModelTest {

@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
  * <p>
  * For example it binds {@link LayoutInfo} with its {@link SurroundSupport}, that should be in same
  * package and have <code>"_SurroundSupport"</code> suffix.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

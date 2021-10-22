@@ -28,7 +28,7 @@ import java.lang.reflect.Field;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class SelectionToolTest extends RequestTestCase {
   private SelectionTool m_tool;

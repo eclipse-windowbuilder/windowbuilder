@@ -32,7 +32,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new SWT {@link Composite}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

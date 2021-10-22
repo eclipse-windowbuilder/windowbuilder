@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Implementation of {@link CreationSupport} for creating {@link ViewerColumnInfo} during creating
  * corresponding column {@link WidgetInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.viewers
  */

@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 
 /**
  * Abstract superclass for {@link PaletteInfo} tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractPaletteTest extends SwingModelTest {

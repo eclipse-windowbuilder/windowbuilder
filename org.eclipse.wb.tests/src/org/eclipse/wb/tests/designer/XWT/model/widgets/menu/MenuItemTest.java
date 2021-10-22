@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MenuItemInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuItemTest extends XwtModelTest {

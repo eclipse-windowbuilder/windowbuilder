@@ -26,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Default live components manager implementation for SWT toolkit.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swt.model.widgets.live

@@ -18,7 +18,7 @@ import javax.swing.GroupLayout;
 
 /**
  * Test for {@link GroupLayout}.
- * 
+ *
  * @author mitin_aa
  */
 public class GroupLayoutGefTest extends SwingGefTest {

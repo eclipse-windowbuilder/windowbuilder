@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Project and code utils.
- * 
+ *
  * @author lobas_av
  * @author sablin_aa
  * @coverage bindings.swing.model

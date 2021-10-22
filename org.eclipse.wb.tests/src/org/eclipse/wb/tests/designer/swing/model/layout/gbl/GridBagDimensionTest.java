@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Test for {@link DimensionInfo}, {@link ColumnInfo} and {@link RowInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagDimensionTest extends AbstractGridBagLayoutTest {

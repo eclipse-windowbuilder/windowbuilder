@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * The activator and utility class controls the Data Bindings plug-in life cycle.
- * 
+ *
  * @author lobas_av
  */
 public class Activator extends AbstractUIPlugin {

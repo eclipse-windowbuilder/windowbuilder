@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Tests for {@link GenericsUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenericsUtilsTest extends DesignerTestCase {

@@ -24,7 +24,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Abstract model for any GUI component.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */
@@ -120,7 +120,7 @@ public abstract class AbstractComponentInfo extends XmlObjectInfo implements IAb
 
   /**
    * Sets preferred size of this component.
-   * 
+   *
    * This method should be used by subclasses during fetching visual information.
    */
   public final void setPreferredSize(Dimension preferredSize) {

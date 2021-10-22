@@ -37,7 +37,7 @@ import java.util.Set;
 
 /**
  * Class maintaining FromLayout support preferences (both Classic & Auto).
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -288,7 +288,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
   /**
    * Model for percents header edit part. Just Integer can't be used because equals int values are
    * equals Integer values.
-   * 
+   *
    * @author mitin_aa
    */
   public static final class PercentsInfo {

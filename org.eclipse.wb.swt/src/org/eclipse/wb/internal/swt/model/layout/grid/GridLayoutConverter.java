@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

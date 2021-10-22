@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Model for any {@link Control} in XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */
@@ -134,7 +134,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
    * We need such separate method because there {@link AbstractComponentInfo}'s that <em>have</em>
    * <code>Control</code> , but are not <code>Control</code> themselves. For example - Dialog,
    * PreferncePage, ViewPart, etc.
-   * 
+   *
    * @param component
    *          the {@link AbstractComponentInfo} that has <code>Control</code> as object.
    * @param control

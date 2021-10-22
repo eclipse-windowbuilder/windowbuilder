@@ -28,7 +28,7 @@ import net.sf.cglib.proxy.MethodProxy;
 /**
  * Implementation of {@link CreationSupport} for {@link IPageLayout} parameter of
  * {@link IPerspectiveFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

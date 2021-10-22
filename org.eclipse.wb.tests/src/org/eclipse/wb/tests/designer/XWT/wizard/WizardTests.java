@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for XWT wizards.
- * 
+ *
  * @author scheglov_ke
  */
 public class WizardTests extends DesignerSuiteTests {

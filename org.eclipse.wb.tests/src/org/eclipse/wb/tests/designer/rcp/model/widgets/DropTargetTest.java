@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DropTargetInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DropTargetTest extends RcpModelTest {

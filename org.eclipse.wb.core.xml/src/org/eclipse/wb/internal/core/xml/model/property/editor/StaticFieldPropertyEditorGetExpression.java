@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.xml.model.property.editor;
 
 /**
  * Broadcast for preparing attribute {@link String} for {@link StaticFieldPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property.editor
  */

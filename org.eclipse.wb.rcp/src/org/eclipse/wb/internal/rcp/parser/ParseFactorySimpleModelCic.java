@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * {@link IParseFactorySimpleModelCic} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.parser
  */

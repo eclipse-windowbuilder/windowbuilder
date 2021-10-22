@@ -47,7 +47,7 @@ import org.eclipse.ui.part.WorkbenchPart;
 
 /**
  * Model for any {@link WorkbenchPart}-like component.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

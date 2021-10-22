@@ -22,7 +22,7 @@ import java.awt.FlowLayout;
 
 /**
  * Layout assistant for {@link FlowLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.assistant
  */

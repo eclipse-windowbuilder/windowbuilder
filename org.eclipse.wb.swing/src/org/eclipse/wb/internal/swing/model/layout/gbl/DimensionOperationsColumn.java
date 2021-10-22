@@ -18,7 +18,7 @@ import java.util.LinkedList;
 
 /**
  * Implementation of {@link DimensionOperations} for {@link ColumnInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

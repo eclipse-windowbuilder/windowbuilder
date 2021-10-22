@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Insets;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class MarginBorderTest extends Draw2dFigureTestCase {
   ////////////////////////////////////////////////////////////////////////////

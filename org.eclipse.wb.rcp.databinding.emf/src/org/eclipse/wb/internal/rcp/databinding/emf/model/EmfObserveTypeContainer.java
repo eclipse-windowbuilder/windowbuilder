@@ -79,7 +79,7 @@ import java.util.Map;
 
 /**
  * Container for EMF objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

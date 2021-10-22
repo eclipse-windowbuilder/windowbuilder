@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * {@link ILoadingContext} for XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

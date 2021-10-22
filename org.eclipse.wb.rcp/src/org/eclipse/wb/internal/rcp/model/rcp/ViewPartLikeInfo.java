@@ -48,7 +48,7 @@ import java.lang.reflect.Proxy;
 
 /**
  * Model for {@link ViewPart}-like components.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -171,7 +171,7 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
   protected void refresh_afterCreate() throws Exception {
     super.refresh_afterCreate();
     // update tab item height, it should be big enough to show "toolComposite",
-    // in other case SWT does not show "toolbar" at all 
+    // in other case SWT does not show "toolbar" at all
     {
       int toolHeight = m_managersComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).y + 2;
       m_tabFolder.setTabHeight(Math.max(m_tabFolder.getTabHeight(), toolHeight));

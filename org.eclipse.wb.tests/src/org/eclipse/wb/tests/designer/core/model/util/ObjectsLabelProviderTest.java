@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Test for {@link ObjectsLabelProvider}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectsLabelProviderTest extends DesignerTestCase {

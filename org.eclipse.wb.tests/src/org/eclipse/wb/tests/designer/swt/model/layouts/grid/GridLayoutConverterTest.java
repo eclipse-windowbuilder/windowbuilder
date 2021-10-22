@@ -23,7 +23,7 @@ import org.eclipse.swt.layout.GridLayout;
 
 /**
  * Tests for {@link GridLayoutConverter}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutConverterTest extends RcpModelTest {

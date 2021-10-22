@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link MasterDetailsBlockInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MasterDetailsBlockTest extends AbstractFormsTest {

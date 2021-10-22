@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model {@link GanttGroup}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

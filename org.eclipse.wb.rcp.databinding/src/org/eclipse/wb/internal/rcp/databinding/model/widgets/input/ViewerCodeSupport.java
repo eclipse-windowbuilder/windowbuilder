@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Source code generator for owner {@link ViewerInputBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

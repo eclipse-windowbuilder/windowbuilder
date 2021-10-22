@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Model for {@link GridBagLayout}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.model.layout
@@ -100,7 +100,7 @@ public final class GridBagLayoutInfo extends AbstractGridBagLayoutInfo {
   public Object getConstraintsObject(final java.awt.Component component) throws Exception {
     GridBagConstraints constraints;
     if (component == null) {
-      // no component instance, we probably add new component, so use just some GridBagConstraints 
+      // no component instance, we probably add new component, so use just some GridBagConstraints
       constraints = new GridBagConstraints();
     } else {
       // component is bound to parent, get constraints from layout

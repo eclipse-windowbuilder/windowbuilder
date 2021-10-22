@@ -17,7 +17,7 @@ import java.util.Locale;
 
 /**
  * Tests for {@link LocaleInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LocaleInfoTest extends DesignerTestCase {

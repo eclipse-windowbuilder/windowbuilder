@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class TreeCreateToolTest extends TreeToolTest {
   ////////////////////////////////////////////////////////////////////////////

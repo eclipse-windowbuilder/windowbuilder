@@ -57,7 +57,7 @@ import javax.swing.JButton;
 
 /**
  * Tests for {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbsoluteLayoutTest extends AbstractLayoutTest {
@@ -1229,7 +1229,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 
   /**
    * Adds dynamic {@link IJavaInfoInitializationParticipator} extension.
-   * 
+   *
    * @param className
    *          the name of {@link IJavaInfoInitializationParticipator} class.
    */

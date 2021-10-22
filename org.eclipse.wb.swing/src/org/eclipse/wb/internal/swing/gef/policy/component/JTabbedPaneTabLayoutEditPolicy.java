@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link JTabbedPaneInfo} manipulating
  * {@link JTabbedPaneTabInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.gef.policy
  */

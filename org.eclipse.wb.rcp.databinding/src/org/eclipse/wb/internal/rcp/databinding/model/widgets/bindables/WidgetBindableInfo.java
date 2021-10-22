@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * {@link BindableInfo} model for <code>SWT</code> widget.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

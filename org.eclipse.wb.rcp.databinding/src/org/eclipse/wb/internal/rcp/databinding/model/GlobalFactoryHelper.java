@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Helper class for work with {@link IGlobalObservableFactory}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

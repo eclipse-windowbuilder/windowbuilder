@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.core.xml.editor.palette.model;
 
 /**
  * Provider for attributes (and may be other information) for palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

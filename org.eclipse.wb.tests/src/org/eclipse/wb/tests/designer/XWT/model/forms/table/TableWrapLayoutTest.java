@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Test for {@link TableWrapLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutTest extends XwtModelTest {

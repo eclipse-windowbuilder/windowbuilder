@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

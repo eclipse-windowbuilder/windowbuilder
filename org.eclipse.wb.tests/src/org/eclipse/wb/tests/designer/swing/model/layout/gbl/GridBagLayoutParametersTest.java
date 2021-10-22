@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 /**
  * Tests for {@link GridBagLayoutInfo} and automatic alignment.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {

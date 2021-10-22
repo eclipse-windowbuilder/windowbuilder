@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link AbstractSplashHandlerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractSplashHandlerTest extends RcpModelTest {
@@ -60,7 +60,7 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
 
   /**
    * Test for {@link AbstractSplashHandler_TopBoundsSupport}.
-   * 
+   *
    * @throws Exception
    */
   public void test_topBoundsSupport() throws Exception {

@@ -23,7 +23,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Fluent factory for creating ZIP/JAR files.
- * 
+ *
  * @author scheglov_ke
  */
 public final class ZipFileFactory {

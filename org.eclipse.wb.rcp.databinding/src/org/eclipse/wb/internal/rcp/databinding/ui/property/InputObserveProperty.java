@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Property for input bindable property of viewer objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui.properties
  */

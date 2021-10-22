@@ -22,7 +22,7 @@ import javax.swing.Box;
 
 /**
  * The {@link EditPart} for {@link Box#createGlue()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

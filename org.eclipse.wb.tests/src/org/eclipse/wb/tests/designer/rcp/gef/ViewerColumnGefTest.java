@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Tests for changing layout and GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewerColumnGefTest extends RcpGefTest {

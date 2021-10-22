@@ -34,7 +34,7 @@ import javax.swing.ListModel;
 /**
  * Implementation of {@link IExpressionEvaluator} for evaluating {@link ListModel} for {@link JList}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

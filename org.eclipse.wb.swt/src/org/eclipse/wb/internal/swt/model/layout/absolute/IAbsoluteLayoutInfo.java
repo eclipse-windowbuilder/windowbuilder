@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Interface for absolute (null) layout model.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout
  */
@@ -35,7 +35,7 @@ public interface IAbsoluteLayoutInfo<C extends IControlInfo> extends ILayoutInfo
   /**
    * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
    * "setLocation", "setSize", "setBounds" arguments.
-   * 
+   *
    * @param widget
    *          a Control which modifications applies to
    * @param location

@@ -17,7 +17,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * {@link Action} for clearing horizontal/vertical hint.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

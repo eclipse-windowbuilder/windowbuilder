@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutTests extends DesignerSuiteTests {

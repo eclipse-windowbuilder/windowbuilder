@@ -20,7 +20,7 @@ import org.apache.commons.lang.WordUtils;
 
 /**
  * {@link Action} for specifying {@link FormDimensionInfo} as template.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

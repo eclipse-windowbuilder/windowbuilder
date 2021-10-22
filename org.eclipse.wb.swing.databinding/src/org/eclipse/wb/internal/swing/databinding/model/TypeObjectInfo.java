@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 /**
  * {@link AstObjectInfo} model for objects with generic parameters.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

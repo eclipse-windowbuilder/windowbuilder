@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Test for {@link SelectionToolEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SelectionToolEntryInfoTest extends DesignerTestCase {

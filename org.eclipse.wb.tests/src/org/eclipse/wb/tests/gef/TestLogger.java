@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Helper class for logging into test cases.
- * 
+ *
  * @author lobas_av
  */
 public class TestLogger {

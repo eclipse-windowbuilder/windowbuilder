@@ -47,7 +47,7 @@ import java.util.Map;
 
 /**
  * GroupLayout support based on Netbeans engine.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutConstants {

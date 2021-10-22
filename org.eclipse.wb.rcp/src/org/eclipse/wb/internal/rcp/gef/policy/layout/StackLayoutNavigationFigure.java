@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * {@link Figure} for selecting previous/next {@link Control} on {@link StackLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

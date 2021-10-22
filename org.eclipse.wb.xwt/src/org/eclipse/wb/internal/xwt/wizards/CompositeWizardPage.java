@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link WizardPage} for {@link ApplicationWizard}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.wizards
  */

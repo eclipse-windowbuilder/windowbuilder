@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for cell split support in {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.MigLayout.policy

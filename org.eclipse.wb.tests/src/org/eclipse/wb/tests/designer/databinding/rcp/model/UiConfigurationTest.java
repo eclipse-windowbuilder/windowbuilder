@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 @SuppressWarnings("unchecked")
 public class UiConfigurationTest extends AbstractBindingTest {

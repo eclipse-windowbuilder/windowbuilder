@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Utility functions for work with GL.
- * 
+ *
  * @author mitin_aa
  */
 public final class GroupLayoutUtils {

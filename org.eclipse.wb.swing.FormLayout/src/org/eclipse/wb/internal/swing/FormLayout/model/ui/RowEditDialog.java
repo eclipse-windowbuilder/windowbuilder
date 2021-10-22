@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * The dialog for editing {@link FormRowInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */

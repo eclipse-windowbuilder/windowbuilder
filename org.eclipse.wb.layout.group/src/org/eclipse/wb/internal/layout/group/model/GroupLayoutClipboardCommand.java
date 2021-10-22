@@ -28,7 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Clipboard command for copy/paste a container with GroupLayout.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class GroupLayoutClipboardCommand extends ClipboardCommand {

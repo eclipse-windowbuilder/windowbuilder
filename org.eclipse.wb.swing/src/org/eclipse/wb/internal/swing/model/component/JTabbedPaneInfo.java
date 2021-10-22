@@ -59,7 +59,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Model for {@link JTabbedPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -140,7 +140,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
   protected void refresh_afterCreate() throws Exception {
     super.refresh_afterCreate();
     JTabbedPane pane = (JTabbedPane) getObject();
-    // if for some reason tab Component is "null", for example we were not able to evaluate it, remove tab 
+    // if for some reason tab Component is "null", for example we were not able to evaluate it, remove tab
     {
       int tabCount = pane.getTabCount();
       for (int i = tabCount - 1; i >= 0; i--) {
@@ -294,7 +294,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
                 component,
                 defaultSource));
           } else if (method.getName().startsWith("add")) {
-            // check for correct (invocation) association, with correct signature 
+            // check for correct (invocation) association, with correct signature
             if (component.getAssociation() instanceof InvocationChildAssociation) {
               InvocationChildAssociation association =
                   (InvocationChildAssociation) component.getAssociation();
@@ -498,7 +498,7 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 
   /**
    * Processor for processing <code>set*At()</code> invocations.
-   * 
+   *
    * @author scheglov_ke
    */
   private interface AtInvocationProcessor {

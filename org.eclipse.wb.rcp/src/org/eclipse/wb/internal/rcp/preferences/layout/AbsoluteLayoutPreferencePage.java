@@ -32,7 +32,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * Main {@link PreferencePage} for RCP Absolute Layout Support.
- * 
+ *
  * @author mitin_aa
  * @coverage rcp.preferences.ui
  */
@@ -169,7 +169,7 @@ public final class AbsoluteLayoutPreferencePage extends FieldLayoutPreferencePag
 
   /**
    * Helper method Create {@link #IntegerFieldEditor} within own composite on specified parent
-   * 
+   *
    * @param alignedRight
    *          if this parameter is true then align filed editor to the right
    */

@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericPropertyImpl;
  * <p>
  * Subscribers can use this method to update/validate expression during
  * {@link GenericPropertyImpl#setExpression(String, Object)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

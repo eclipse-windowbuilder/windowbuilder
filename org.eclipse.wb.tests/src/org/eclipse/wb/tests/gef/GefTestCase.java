@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GefTestCase extends TestCase {
   ////////////////////////////////////////////////////////////////////////////

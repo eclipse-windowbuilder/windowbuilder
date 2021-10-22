@@ -33,7 +33,7 @@ import javax.swing.JFrame;
 
 /**
  * {@link WizardPage} that creates new Swing {@link JFrame}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

@@ -28,7 +28,7 @@ import java.awt.Component;
 
 /**
  * Model for <code>org.jdesktop.swingx.JXTaskPane</code>.
- * 
+ *
  * @author sablin_aa
  * @coverage swingx.model
  */
@@ -51,7 +51,7 @@ public final class JXTaskPaneInfo extends JPanelInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ComponentInfo} using {@link ActionInfo}.
-   * 
+   *
    * @return the created {@link ComponentInfo}.
    */
   public ComponentInfo command_CREATE(ActionInfo action, ComponentInfo nextComponent)

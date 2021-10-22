@@ -27,7 +27,7 @@ import java.awt.Container;
 /**
  * Abstract model for position based {@link ContainerInfo}. {@link Association} should be
  * {@link InvocationChildAssociation} for {@link Container#add(java.awt.Component, Object)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

@@ -22,7 +22,7 @@ import javax.swing.border.Border;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link BevelBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

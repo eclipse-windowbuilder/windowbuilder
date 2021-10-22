@@ -18,7 +18,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Test for {@link MigColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigColumnTest extends AbstractMigLayoutTest {

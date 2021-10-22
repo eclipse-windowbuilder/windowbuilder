@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Tests for "simple container" support, such as {@link SimpleContainer} interface.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class SimpleContainerAbstractGefTest extends XwtGefTest {

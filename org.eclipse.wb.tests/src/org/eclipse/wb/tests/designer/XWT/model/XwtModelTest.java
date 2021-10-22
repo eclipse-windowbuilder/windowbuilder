@@ -36,7 +36,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Abstract super class for XWT tests.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class XwtModelTest extends AbstractXmlModelTest {

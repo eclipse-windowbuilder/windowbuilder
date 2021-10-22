@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Tests for {@link ApplicationWizard}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ApplicationWizardTest extends XwtWizardTest {

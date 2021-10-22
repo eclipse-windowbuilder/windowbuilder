@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 /**
  * Tests for {@link FactoryActionsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryActionsSupportTest extends SwingModelTest {

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

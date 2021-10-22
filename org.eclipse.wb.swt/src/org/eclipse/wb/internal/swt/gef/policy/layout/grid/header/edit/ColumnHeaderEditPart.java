@@ -37,7 +37,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} for {@link GridColumnInfo} header of {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

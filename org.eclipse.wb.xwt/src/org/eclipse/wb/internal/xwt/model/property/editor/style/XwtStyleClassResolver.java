@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Implementation of {@link IStyleClassResolver} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

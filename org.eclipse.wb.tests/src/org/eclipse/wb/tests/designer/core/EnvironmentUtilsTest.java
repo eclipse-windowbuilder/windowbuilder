@@ -19,7 +19,7 @@ import java.util.Locale;
 
 /**
  * Test for {@link EnvironmentUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EnvironmentUtilsTest extends DesignerTestCase {

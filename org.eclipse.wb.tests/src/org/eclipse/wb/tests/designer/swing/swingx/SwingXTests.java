@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * All SwingX tests.
- * 
+ *
  * @author sablin_aa
  */
 public class SwingXTests extends DesignerSuiteTests {

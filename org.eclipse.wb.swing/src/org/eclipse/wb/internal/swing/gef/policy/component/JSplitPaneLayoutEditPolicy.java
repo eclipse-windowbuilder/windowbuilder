@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.JSplitPaneInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link JSplitPaneInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

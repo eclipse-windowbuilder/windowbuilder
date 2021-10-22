@@ -18,7 +18,7 @@ import java.awt.GridBagLayout;
 
 /**
  * Tests for {@link GridBagLayoutConverter}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagLayoutConverterTest extends AbstractGridBagLayoutTest {

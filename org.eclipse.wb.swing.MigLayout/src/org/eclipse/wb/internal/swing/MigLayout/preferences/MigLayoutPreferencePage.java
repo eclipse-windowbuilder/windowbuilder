@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link PreferencePage} for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

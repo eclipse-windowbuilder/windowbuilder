@@ -20,7 +20,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 
 /**
  * Model for {@link PropertyPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

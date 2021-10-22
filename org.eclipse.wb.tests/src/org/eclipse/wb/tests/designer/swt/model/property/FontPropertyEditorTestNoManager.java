@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
 /**
  * Tests for {@link FontPropertyEditor} without <code>SWTResourceManager</code>.
- * 
+ *
  * @author lobas_av
  */
 public class FontPropertyEditorTestNoManager extends FontPropertyEditorTest {

@@ -51,7 +51,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link NlsSupport} and basic NLS operations.
- * 
+ *
  * @author scheglov_ke
  */
 public class NlsSupportTest extends SwingModelTest {

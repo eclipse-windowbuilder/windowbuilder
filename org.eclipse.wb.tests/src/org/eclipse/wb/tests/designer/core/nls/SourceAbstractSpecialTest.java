@@ -27,7 +27,7 @@ import java.awt.BorderLayout;
 
 /**
  * Tests for special methods of {@link AbstractSource} for support {@link StringPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SourceAbstractSpecialTest extends AbstractNlsTest {

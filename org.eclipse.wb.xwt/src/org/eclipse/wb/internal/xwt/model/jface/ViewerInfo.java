@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 
 /**
  * Model for JFace {@link Viewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.jface
  */

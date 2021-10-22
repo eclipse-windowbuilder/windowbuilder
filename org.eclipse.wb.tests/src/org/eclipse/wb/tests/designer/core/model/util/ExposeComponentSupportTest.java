@@ -22,7 +22,7 @@ import org.eclipse.jface.action.MenuManager;
 
 /**
  * Tests for {@link ExposeComponentSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExposeComponentSupportTest extends SwingModelTest {

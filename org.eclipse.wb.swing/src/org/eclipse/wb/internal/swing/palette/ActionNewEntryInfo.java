@@ -23,7 +23,7 @@ import javax.swing.Action;
 /**
  * Implementation of {@link EntryInfo} that allows user to create new inner {@link Action} and drop
  * it.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.editor.palette
  */

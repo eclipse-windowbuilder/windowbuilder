@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link GridLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class GridLayoutSelectionActionsTest extends RcpModelTest {

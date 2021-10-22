@@ -68,7 +68,7 @@ import java.util.List;
 
 /**
  * Superclass for all Designer test cases.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignerTestCase extends TestCase {
@@ -77,7 +77,7 @@ public class DesignerTestCase extends TestCase {
   ////////////////////////////////////////////////////////////////////////////
   //
   // XXX TestSuite creation, used only with patched
-  // org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader 
+  // org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader
   //
   ////////////////////////////////////////////////////////////////////////////
   public static TestSuite suite(Class<?> clazz) {
@@ -433,7 +433,7 @@ public class DesignerTestCase extends TestCase {
 
   /**
    * Replaces each line in array that use single quotes, with double quotes.
-   * 
+   *
    * @return the updated array.
    */
   public static String[] getDoubleQuotes(String[] lines) {
@@ -679,7 +679,7 @@ public class DesignerTestCase extends TestCase {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Notifies that given {@link ObjectInfo} is selecting.
-   * 
+   *
    * @return the refresh flag.
    */
   protected static boolean notifySelecting(ObjectInfo object) throws Exception {

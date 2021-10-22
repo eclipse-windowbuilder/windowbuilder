@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.xml.editor.palette.model.PaletteInfo;
 
 /**
  * Tests for {@link CategoryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CategoryInfoTest extends AbstractPaletteTest {

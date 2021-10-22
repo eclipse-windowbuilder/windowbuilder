@@ -34,7 +34,7 @@ import java.text.MessageFormat;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link RowHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

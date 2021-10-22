@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
 /**
  * Description for size unit.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

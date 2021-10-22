@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 /**
  * Model for {@link org.eclipse.jface.layout.TableColumnLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.layout
  */

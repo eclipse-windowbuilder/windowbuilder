@@ -35,7 +35,7 @@ import javax.swing.JButton;
 
 /**
  * Test for renaming {@link AbstractSimpleVariableSupport} on "text" property change.
- * 
+ *
  * @author scheglov_ke
  */
 public class TextPropertyRenameTest extends AbstractVariableTest {

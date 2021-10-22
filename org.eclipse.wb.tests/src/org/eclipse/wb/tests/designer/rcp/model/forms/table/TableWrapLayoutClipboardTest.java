@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
 /**
  * Test for {@link TableWrapLayoutInfo} and copy/paste.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutClipboardTest extends AbstractFormsTest {

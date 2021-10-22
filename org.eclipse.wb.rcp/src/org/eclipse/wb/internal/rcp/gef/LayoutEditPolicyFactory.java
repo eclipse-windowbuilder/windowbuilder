@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef
  */

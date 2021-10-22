@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 /**
  * Model for field based <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

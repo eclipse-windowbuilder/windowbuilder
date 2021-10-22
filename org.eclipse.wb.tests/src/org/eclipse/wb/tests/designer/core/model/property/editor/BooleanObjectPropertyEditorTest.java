@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * Test for {@link BooleanPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BooleanObjectPropertyEditorTest extends AbstractTextPropertyEditorTest {

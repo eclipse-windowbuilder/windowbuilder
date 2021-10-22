@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Model for observable object <code>EMFObservables.observeMaps(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

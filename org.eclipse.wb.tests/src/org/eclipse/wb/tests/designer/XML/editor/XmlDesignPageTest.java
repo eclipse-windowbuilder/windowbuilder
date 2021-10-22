@@ -43,7 +43,7 @@ import org.eclipse.ui.IWorkbenchPage;
 /**
  * Test for {@link XmlDesignPage} with {@link XmlExceptionComposite} and {@link XmlWarningComposite}
  * .
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlDesignPageTest extends XwtGefTest {

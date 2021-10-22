@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Components container with type {@link ObserveType#WIDGETS}. Works on <code>Swing</code>
  * components.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.components
  */

@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Test for {@link SwitchAction}.
- * 
+ *
  * @author mitin_aa
  */
 public class SwitchActionTest extends SwingGefTest {

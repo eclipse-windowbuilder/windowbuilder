@@ -30,7 +30,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link ITableLabelProvider} for {@link IBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

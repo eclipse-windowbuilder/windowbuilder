@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Project and code utils.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

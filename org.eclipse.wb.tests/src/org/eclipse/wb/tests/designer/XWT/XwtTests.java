@@ -23,7 +23,7 @@ import junit.framework.TestSuite;
 
 /**
  * All XWT tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtTests extends DesignerSuiteTests {

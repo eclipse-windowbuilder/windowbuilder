@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link AbstractXmlEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractXmlEditorTest extends XwtGefTest {

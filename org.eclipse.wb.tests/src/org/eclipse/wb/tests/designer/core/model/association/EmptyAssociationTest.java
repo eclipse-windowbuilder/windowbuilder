@@ -19,7 +19,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Tests for {@link EmptyAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyAssociationTest extends SwingModelTest {

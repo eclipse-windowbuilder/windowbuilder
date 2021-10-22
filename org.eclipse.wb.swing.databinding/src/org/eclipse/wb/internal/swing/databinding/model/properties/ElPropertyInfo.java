@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.jdesktop.beansbinding.ELProperty}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.properties
  */

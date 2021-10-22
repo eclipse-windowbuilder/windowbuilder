@@ -32,7 +32,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Implementation of {@link CreationSupport} for implicit {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

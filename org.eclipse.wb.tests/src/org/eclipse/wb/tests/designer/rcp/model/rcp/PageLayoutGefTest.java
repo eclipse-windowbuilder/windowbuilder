@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Test for {@link PageLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class PageLayoutGefTest extends RcpGefTest {

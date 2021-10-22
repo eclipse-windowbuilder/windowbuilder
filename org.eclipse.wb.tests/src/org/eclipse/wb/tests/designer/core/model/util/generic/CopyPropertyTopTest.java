@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link CopyPropertyTopSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CopyPropertyTopTest extends SwingModelTest {

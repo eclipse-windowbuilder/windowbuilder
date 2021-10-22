@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Model for {@link Button}.
- * 
+ *
  * @author sablin_aa
  * @coverage XWT.model.widgets
  */

@@ -19,7 +19,7 @@ import javax.swing.border.Border;
  * Implementation of {@link AbstractBorderComposite} that does invoke
  * {@link JComponent#setBorder(javax.swing.border.Border)}, so does not change default
  * {@link Border}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * Model for {@link FieldEditorPreferencePage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

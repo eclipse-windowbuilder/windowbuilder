@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * The dialog for editing {@link MigColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

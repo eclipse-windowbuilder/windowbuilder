@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Contains various preference constants for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.preferences
  */

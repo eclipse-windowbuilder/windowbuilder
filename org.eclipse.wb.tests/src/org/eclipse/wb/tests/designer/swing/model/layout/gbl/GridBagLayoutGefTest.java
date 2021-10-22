@@ -26,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Test {@link GridBagLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagLayoutGefTest extends SwingGefTest {

@@ -17,7 +17,7 @@ import java.lang.reflect.Constructor;
 /**
  * Stub class for using SWT {@link org.eclipse.swt.layout.FormLayout}'s with another
  * {@link ClassLoader}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.support
  */

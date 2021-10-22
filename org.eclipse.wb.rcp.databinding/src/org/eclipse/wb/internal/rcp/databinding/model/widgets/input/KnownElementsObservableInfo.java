@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * Accessor model for describe method invocation <code>getKnownElements()</code> on observable
  * <code>JFace</code> content provider for viewer. For example:
  * {@link org.eclipse.jface.databinding.viewers.ObservableListContentProvider#getKnownElements()}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Model for {@link SashForm}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

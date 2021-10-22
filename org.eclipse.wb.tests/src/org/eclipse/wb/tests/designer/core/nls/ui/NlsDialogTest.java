@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Table;
 
 /**
  * Tests for {@link NlsDialog}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NlsDialogTest extends AbstractDialogTest {

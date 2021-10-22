@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
 /**
  * {@link EditPart} for {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gefTree.part
  */

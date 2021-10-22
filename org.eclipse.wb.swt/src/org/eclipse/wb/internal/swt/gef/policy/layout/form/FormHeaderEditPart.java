@@ -29,7 +29,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Header edit part for FormLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public class FormHeaderEditPart<C extends IControlInfo> extends GraphicalEditPart {

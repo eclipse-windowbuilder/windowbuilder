@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * Test for {@link FieldUniqueVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldUniqueTest extends AbstractVariableTest {

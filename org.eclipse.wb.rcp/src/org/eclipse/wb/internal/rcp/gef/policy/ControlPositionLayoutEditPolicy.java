@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link ObjectPositionLayoutEditPolicy} for RCP toolkit.
- * 
+ *
  * @author sablin_aa
  * @coverage rcp.gef.policy
  */

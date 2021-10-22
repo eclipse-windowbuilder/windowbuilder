@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Test for {@link BrandingUtils}.
- * 
+ *
  * @author Jaime Wren
  * @author scheglov_ke
  */

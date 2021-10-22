@@ -36,7 +36,7 @@ import java.util.Set;
 
 /**
  * Implementation of {@link IImageRoot} for browsing plugin image resources.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

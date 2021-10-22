@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Test for {@link FormLayoutInfo} selection action's.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {

@@ -43,7 +43,7 @@ import java.util.Set;
 
 /**
  * Test for {@link ProjectClassLoader}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ProjectClassLoaderTest extends SwingModelTest {
@@ -501,7 +501,7 @@ public class ProjectClassLoaderTest extends SwingModelTest {
 
   /**
    * Move existing {@link IProject} into "subFolder" in workspace.
-   * 
+   *
    * @return the new absolute location of project.
    */
   public static String moveProjectIntoWorkspaceSubFolder() throws Exception {

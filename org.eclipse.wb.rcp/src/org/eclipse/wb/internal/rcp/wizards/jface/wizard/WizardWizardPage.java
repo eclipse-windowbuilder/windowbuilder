@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * {@link WizardPage} that creates new JFace {@link Wizard}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

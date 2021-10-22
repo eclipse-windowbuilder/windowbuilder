@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Abstract model for observable objects <code>BeansObservables.observeDetailXXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

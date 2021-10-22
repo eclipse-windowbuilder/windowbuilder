@@ -36,7 +36,7 @@ import javax.swing.JMenuItem;
 
 /**
  * Test for {@link ActionInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionGefTest extends SwingGefTest {

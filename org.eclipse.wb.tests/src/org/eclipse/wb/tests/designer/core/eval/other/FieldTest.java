@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * Test for {@link FieldAccessEvaluator}.
- * 
+ *
  * @author lobas_av
  */
 public class FieldTest extends AbstractEngineTest {

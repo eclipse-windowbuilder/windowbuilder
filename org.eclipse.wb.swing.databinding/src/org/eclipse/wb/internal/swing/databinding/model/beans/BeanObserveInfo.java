@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Model for any <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

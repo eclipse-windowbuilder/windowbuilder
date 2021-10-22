@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Composite for editing {@link CellConstraintsSupport} as text.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

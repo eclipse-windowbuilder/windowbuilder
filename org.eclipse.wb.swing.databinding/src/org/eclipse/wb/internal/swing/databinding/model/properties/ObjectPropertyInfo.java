@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.jdesktop.beansbinding.ObjectProperty}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.properties
  */

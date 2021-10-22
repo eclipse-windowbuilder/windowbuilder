@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Model for {@link ExpandItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

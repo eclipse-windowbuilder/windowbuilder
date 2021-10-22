@@ -36,7 +36,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 /**
  * {@link EditPart} for {@link TableWrapRowInfo} header of {@link ITableWrapLayout_Info<C>}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

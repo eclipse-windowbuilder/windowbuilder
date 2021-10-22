@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Contributes {@link Action} for customizing object using {@link Customizer}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.customize
  */

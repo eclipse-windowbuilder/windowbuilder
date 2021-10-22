@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 
 /**
  * Tests for {@link InvocationChildAssociationAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InvocationChildAssociationAccessorTest extends SwingModelTest {

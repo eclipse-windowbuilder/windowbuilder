@@ -29,7 +29,7 @@ import java.awt.Component;
 
 /**
  * Test for {@link SWT_AWT#new_Frame(Composite)} support and {@link SwingCompositeEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SwtAwtTest extends RcpModelTest {

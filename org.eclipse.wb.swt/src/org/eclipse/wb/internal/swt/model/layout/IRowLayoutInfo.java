@@ -16,7 +16,7 @@ import org.eclipse.swt.layout.RowLayout;
 
 /**
  * Interface model for SWT {@link RowLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

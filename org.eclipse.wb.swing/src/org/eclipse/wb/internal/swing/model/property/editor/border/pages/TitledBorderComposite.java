@@ -27,7 +27,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link TitledBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutExposedTest extends RcpModelTest {

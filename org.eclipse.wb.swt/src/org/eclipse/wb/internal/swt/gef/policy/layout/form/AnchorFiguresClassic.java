@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Maintains alignment menus around control selection.
- * 
+ *
  * @author mitin_aa
  */
 public final class AnchorFiguresClassic<C extends IControlInfo> {

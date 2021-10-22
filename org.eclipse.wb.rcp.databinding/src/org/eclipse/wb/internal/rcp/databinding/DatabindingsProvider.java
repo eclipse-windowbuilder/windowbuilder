@@ -81,7 +81,7 @@ import java.util.Map;
 
 /**
  * {@link IDatabindingsProvider} for support JFace bindings API.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */
@@ -220,7 +220,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     m_synchronizeObserves = synchronizeObserves;
   }
 
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   //
   // Bindings
   //

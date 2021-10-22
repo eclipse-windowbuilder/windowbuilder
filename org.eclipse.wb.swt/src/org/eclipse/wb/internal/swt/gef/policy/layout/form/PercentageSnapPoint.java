@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * A snap point allowing to snap to a percentage value as in FormLayout.
- * 
+ *
  * @author mitin_aa
  */
 final class PercentageSnapPoint<C extends IControlInfo> extends SnapPoint {
@@ -60,7 +60,7 @@ final class PercentageSnapPoint<C extends IControlInfo> extends SnapPoint {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Snapping 
+  // Snapping
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
@@ -104,7 +104,7 @@ final class PercentageSnapPoint<C extends IControlInfo> extends SnapPoint {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  //	Access 
+  //	Access
   //
   ////////////////////////////////////////////////////////////////////////////
   public int getPercent() {

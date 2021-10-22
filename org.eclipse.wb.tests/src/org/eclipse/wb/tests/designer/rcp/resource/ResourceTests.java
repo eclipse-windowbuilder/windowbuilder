@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for RCP resource managers.
- * 
+ *
  * @author scheglov_ke
  */
 public class ResourceTests extends DesignerSuiteTests {

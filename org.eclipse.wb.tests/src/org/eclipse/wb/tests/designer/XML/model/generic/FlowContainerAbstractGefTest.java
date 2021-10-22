@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Tests for "flow container" support for container itself or for its "layout manager".
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class FlowContainerAbstractGefTest extends XwtGefTest {

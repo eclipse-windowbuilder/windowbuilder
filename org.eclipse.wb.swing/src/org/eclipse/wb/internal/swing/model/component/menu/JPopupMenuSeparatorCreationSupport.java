@@ -21,7 +21,7 @@ import javax.swing.JPopupMenu;
 
 /**
  * Implementation of {@link CreationSupport} for {@link JPopupMenu#addSeparator()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */

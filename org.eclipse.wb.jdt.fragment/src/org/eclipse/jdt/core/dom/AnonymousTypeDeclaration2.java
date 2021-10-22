@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Wrapper of {@link AnonymousClassDeclaration} into {@link TypeDeclaration}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class AnonymousTypeDeclaration2 extends TypeDeclaration {

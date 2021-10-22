@@ -24,7 +24,7 @@ import java.awt.Container;
 
 /**
  * Test for {@link InvocationSecondaryAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InvocationSecondaryAssociationTest extends SwingModelTest {

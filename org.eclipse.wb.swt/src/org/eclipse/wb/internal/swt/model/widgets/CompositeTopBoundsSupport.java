@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link TopBoundsSupport} for SWT {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage swt.model.widgets
@@ -57,7 +57,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
   ////////////////////////////////////////////////////////////////////////////
   @Override
   public void apply() throws Exception {
-    // if one these methods is present, we already set size during AST evaluation 
+    // if one these methods is present, we already set size during AST evaluation
     if (hasMethodInvocations(new String[]{
         "setSize(int,int)",
         "setSize(org.eclipse.swt.graphics.Point)",
@@ -171,7 +171,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
     // set location
     {
       Rectangle monitorClientArea = DesignerPlugin.getShell().getMonitor().getClientArea();
-      // center on primary Monitor 
+      // center on primary Monitor
       int x;
       int y;
       {
@@ -220,7 +220,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Changes {@link org.eclipse.swt.graphics.Point} argument of given method.
-   * 
+   *
    * @return <code>true</code> if method was found and change done.
    */
   protected final boolean setSizePoint(String methodName, int width, int height) throws Exception {

@@ -18,7 +18,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for modifying alignment of {@link ColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

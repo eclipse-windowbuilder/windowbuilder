@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Test for {@link ViewFormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewFormTest extends RcpModelTest {

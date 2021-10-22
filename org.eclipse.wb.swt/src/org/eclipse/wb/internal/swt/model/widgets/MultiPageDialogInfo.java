@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model for {@link org.eclipse.ercp.swt.mobile.MultiPageDialog}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.widgets
  */

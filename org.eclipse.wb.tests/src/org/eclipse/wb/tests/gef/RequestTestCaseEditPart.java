@@ -19,7 +19,7 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 /**
  * Helper {@link EditPart} used to check invoke different method and logging it use format:
  * EditPart.name = method [ Request ].
- * 
+ *
  * @author lobas_av
  */
 public class RequestTestCaseEditPart extends GraphicalEditPart {

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 
 /**
  * NLS preferences for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.ui
  */

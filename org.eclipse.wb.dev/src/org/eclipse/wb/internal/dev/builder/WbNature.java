@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 
 /**
  * {@link IProjectNature} for {@link WbBuilder}.
- * 
+ *
  * @author scheglov_ke
  */
 public class WbNature implements IProjectNature {

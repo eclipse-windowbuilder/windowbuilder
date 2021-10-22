@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Test for {@link EditorWarning}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditorWarningTest extends DesignerTestCase {

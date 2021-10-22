@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Command} that removes {@link LafInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

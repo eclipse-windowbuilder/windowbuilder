@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Model for observable objects <code>SWTObservables.observeXXX(Control)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing components models.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentTests extends DesignerSuiteTests {

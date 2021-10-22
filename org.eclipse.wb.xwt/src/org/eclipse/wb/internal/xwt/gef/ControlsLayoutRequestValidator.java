@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * {@link ILayoutRequestValidator} for {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef
  */

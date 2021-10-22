@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * All AMS tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class AmsTests extends DesignerSuiteTests {

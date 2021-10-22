@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Helper class for two directional convert EMF properties names (Java Beans format <-> EMF format).
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */
@@ -60,7 +60,7 @@ public final class EmfCodeGenUtil {
    * recombining them using the specified separator. A prefix can also be given to be recognized as
    * a separate word or to be trimmed. Leading underscores can be ignored or can cause a leading
    * separator to be prepended.
-   * 
+   *
    * @since 2.2
    */
   public static String format(String name,
@@ -102,7 +102,7 @@ public final class EmfCodeGenUtil {
   private static String getLeadingSeparators(String name, char separator) {
     int i = 0;
     for (int len = name.length(); i < len && name.charAt(i) == separator; i++) {
-      // the for loop's condition finds the separator 
+      // the for loop's condition finds the separator
     }
     return i != 0 ? name.substring(0, i) : null;
   }

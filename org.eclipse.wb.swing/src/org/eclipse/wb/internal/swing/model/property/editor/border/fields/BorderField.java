@@ -42,7 +42,7 @@ import javax.swing.border.Border;
 
 /**
  * {@link AbstractBorderField} for editing inner {@link Border}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -148,7 +148,7 @@ public final class BorderField extends AbstractBorderField {
   /**
    * Note, that we can not reuse {@link AbstractBorderComposite}'s, so when we get some
    * {@link AbstractBorderComposite}, we should return it back, else new instance will be created.
-   * 
+   *
    * @return the instance free of {@link AbstractBorderComposite}.
    */
   private static final AbstractBorderComposite getBorderComposite(Class<?> compositeClass)

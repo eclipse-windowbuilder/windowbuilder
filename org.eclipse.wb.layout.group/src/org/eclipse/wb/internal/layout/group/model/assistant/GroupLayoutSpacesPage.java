@@ -45,7 +45,7 @@ import org.netbeans.modules.form.layoutdesign.LayoutConstants;
 
 /**
  * Layout assistant page for managing component and space around it.
- * 
+ *
  * @author mitin_aa
  */
 public final class GroupLayoutSpacesPage extends Composite

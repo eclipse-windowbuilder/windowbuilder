@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 
 /**
  * Implementation of {@link IObjectPresentation} for {@link LayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.presentation
  */

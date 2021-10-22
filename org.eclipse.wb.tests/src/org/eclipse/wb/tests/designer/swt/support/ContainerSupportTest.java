@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ContainerSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ContainerSupportTest extends AbstractSupportTest {

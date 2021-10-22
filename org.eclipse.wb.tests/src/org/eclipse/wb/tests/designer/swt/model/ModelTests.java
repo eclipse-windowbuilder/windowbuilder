@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
 
 /**
  * SWT model tests.
- * 
+ *
  * @author sablin_aa
  */
 public class ModelTests extends DesignerSuiteTests {

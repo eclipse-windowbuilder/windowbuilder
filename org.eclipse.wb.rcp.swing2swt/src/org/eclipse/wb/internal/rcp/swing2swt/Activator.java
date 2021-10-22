@@ -18,7 +18,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.swing2swt
  */

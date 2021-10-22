@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 
 /**
  * Test for {@link TabOrderProperty}.
- * 
+ *
  * @author lobas_av
  */
 public class TabOrderPropertyValueTest extends SwingModelTest {

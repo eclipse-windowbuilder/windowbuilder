@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.eclipse.jface.layout.AbstractColumnLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.layout
  */

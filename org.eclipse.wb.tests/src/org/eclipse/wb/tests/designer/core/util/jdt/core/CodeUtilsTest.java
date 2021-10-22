@@ -55,7 +55,7 @@ import java.util.List;
 
 /**
  * Tests for {@link CodeUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CodeUtilsTest extends AbstractJavaTest {
@@ -881,7 +881,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
                 "  public void bar() {",
                 "  }",
                 "}")).getTypes()[0];
-    // ask method from "A" 
+    // ask method from "A"
     {
       IMethod method = CodeUtils.findMethod(aType, "foo()");
       assertSame(aType.getMethods()[0], method);

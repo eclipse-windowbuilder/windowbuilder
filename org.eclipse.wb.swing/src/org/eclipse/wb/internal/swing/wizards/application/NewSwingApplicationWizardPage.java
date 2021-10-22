@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new Swing application.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

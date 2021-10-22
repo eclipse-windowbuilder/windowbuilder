@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * Stub class for using SWT {@link Display} in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

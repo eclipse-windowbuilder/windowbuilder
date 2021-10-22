@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 
 /**
  * Test for {@link DesignerPlugin}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignerPluginTest extends DesignerTestCase {

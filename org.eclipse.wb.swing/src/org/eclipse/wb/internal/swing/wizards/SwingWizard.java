@@ -16,7 +16,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * Abstract {@link Wizard} for Swing toolkit.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.wizards.ui
  */

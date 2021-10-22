@@ -18,7 +18,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Implementation of {@link StaticFieldPropertyEditorGetExpression} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model
  */

@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link FlowLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowLayoutTest extends AbstractSwing2SwtTest {

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * {@link IGenericType} container that contains generic parameters.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.generic
  */

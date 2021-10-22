@@ -18,7 +18,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for Swing absolute-based layouts preferences.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.preferences.layout
  */

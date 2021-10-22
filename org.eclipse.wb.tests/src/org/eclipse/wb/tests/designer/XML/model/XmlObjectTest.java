@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Test for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlObjectTest extends AbstractCoreTest {

@@ -17,7 +17,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 /**
  * Interface model for {@link ColumnLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

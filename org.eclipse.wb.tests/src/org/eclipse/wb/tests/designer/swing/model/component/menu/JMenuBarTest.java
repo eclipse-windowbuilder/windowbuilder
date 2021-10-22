@@ -41,7 +41,7 @@ import javax.swing.JMenuItem;
 
 /**
  * Test for {@link JMenuBarInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JMenuBarTest extends SwingModelTest {

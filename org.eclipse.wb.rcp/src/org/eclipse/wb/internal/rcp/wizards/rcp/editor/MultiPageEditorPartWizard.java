@@ -19,7 +19,7 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 
 /**
  * {@link Wizard} that creates new JFace {@link MultiPageEditorPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

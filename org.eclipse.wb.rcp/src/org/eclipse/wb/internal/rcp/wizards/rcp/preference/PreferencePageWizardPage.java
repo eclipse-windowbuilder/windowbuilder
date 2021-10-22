@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * {@link WizardPage} that creates new RCP {@link PreferencePage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

@@ -29,7 +29,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutI
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link PageLayoutCreateFolderInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

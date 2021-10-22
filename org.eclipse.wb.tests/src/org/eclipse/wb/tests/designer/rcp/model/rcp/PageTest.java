@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link PageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PageTest extends RcpModelTest {

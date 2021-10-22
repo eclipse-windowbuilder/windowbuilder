@@ -18,7 +18,7 @@ import java.awt.Dimension;
 
 /**
  * The {@link ExpressionConverter} for {@link Dimension}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.converter
  */

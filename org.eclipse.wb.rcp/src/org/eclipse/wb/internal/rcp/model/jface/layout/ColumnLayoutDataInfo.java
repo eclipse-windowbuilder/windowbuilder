@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ColumnLayoutData;
 
 /**
  * Model for {@link ColumnLayoutData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.layout
  */

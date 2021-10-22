@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Combo editor (choose properties) for {@link BeanPropertyInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

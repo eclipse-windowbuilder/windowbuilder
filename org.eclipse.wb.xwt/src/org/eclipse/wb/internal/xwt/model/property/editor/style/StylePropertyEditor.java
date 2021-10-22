@@ -49,7 +49,7 @@ import java.util.Map;
 
 /**
  * The {@link PropertyEditor} for configure SWT styles.
- * 
+ *
  * @author lobas_av
  * @coverage XWT.model.property.editor
  */

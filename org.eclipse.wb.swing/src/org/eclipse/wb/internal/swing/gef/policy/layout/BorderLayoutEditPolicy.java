@@ -22,7 +22,7 @@ import java.awt.BorderLayout;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link BorderLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

@@ -30,7 +30,7 @@ import javax.swing.JFrame;
 
 /**
  * Test for {@link ExposedFieldCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExposedFieldCreationSupportTest extends SwingModelTest {

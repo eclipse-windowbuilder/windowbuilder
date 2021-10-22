@@ -36,7 +36,7 @@ import org.eclipse.pde.core.plugin.PluginRegistry;
 
 /**
  * Tests for {@link ImagePropertyEditor} with plugin images.
- * 
+ *
  * @author lobas_av
  */
 public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {

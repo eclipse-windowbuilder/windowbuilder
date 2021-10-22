@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Test for {@link FieldEditorLabelsConstantsPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest {

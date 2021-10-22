@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Implementation of {@link VariableSupport} for virtual {@link FormAttachmentInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * Special utils for union different code depending on Eclipse version (3.3.4).
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

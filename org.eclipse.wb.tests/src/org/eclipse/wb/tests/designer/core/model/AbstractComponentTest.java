@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Test for {@link AbstractComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractComponentTest extends SwingModelTest {

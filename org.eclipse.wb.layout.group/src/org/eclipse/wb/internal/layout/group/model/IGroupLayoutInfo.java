@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Abstract interface for GroupLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public interface IGroupLayoutInfo extends IAdaptable {

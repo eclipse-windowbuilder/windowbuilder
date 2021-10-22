@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Abstract class maintaining presentation which depends on SWT style set for SWT {@link Widget}.
- * 
+ *
  * @author mitin_aa
  * @coverage XWT.model.widgets
  */
@@ -90,7 +90,7 @@ public abstract class StylePresentation extends XmlObjectPresentation {
   /**
    * Add an image into image map representing given <code>style</code> by given
    * <code>imagePath</code>. See {@link StylePresentation#addImage(int, String)}.
-   * 
+   *
    * @param style
    *          the SWT style value.
    * @param imagePath

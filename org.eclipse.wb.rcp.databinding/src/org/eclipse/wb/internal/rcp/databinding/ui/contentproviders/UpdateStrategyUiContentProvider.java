@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateSt
 /**
  * Content provider for edit (choose strategy class over dialog and combo)
  * {@link UpdateStrategyInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 /**
  * Utilities for testing SWT Color/Image/Font property editors.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  */

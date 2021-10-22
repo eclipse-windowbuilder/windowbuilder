@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * Implementation of {@link AbstractFontPage} for constructing {@link Font} using
  * {@link org.eclipse.jface.resource.FontRegistry}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

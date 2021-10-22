@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.preferences;
 
 /**
  * Contains various preference constants for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences
  */

@@ -32,7 +32,7 @@ import javax.swing.UIManager;
 
 /**
  * Test for {@link FontPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FontPropertyEditorTest extends SwingModelTest {

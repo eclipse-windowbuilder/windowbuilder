@@ -31,7 +31,7 @@ import javax.swing.UIManager;
 
 /**
  * Container for AWT/Swing colors.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -20,7 +20,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Tests for {@link StringsAddPropertyFactory} and {@link StringsAddPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StringsAddPropertyTest extends SwingModelTest {

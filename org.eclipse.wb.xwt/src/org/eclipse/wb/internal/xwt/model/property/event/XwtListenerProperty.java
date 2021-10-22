@@ -44,7 +44,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link Property} for single XML event.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property
  */
@@ -137,7 +137,7 @@ public final class XwtListenerProperty extends AbstractListenerProperty {
 
   /**
    * For given {@link ListenerMethodProperty} creates two {@link Action}'s:
-   * 
+   *
    * [0] - for existing stub method, may be <code>null</code>;<br>
    * [1] - for creating new stub method.
    */

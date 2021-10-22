@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Support adding XWT specific {@link AbstractListenerProperty}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model
  */

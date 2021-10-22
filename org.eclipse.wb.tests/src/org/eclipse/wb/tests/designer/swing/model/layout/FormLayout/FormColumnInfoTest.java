@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Test for {@link FormColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormColumnInfoTest extends AbstractFormLayoutTest {

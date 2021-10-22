@@ -30,7 +30,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new SWT application.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

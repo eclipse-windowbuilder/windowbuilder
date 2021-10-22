@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Support for <code>org.jdesktop.application.ResourceMap.injectComponents(Component)</code>
  * invocations.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.jsr296
  */
@@ -62,7 +62,7 @@ public final class Jsr296RootProcessor implements IRootProcessor {
           try {
             evaluating = true;
             AstEvaluationEngine.evaluate(context, (MethodInvocation) node);
-            // 
+            //
             Expression javaInfoExpression = DomGenerics.arguments(node).get(0);
             JavaInfo javaInfo = root.getChildRepresentedBy(javaInfoExpression);
             if (javaInfo != null) {
@@ -78,7 +78,7 @@ public final class Jsr296RootProcessor implements IRootProcessor {
 
       /**
        * Process renew properties values.
-       * 
+       *
        * @param the
        *          {@link JavaInfo}.
        */

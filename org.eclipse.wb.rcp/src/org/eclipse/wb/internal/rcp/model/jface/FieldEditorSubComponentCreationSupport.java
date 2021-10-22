@@ -37,7 +37,7 @@ import java.lang.reflect.Method;
  * {@link FieldEditorInfo} using <code>getXXXControl(Composite)</code>.
  * <p>
  * For example {@link StringFieldEditor#getTextControl(org.eclipse.swt.widgets.Composite)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

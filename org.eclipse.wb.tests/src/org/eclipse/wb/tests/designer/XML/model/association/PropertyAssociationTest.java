@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link PropertyAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyAssociationTest extends AbstractCoreTest {

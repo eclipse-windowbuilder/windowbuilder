@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Test for RCP <code>ResourceManager</code>.
- * 
+ *
  * @author scheglov_ke
  */
 public class ResourceManagerTest extends RcpModelTest {

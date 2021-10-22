@@ -18,7 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * Test for {@link PointSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class PointSupportTest extends AbstractSupportTest {

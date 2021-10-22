@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Simple SWT {@link ControlInfo} test.
- * 
+ *
  * @author scheglov_ke
  */
 public class ControlTest extends RcpModelTest {
@@ -559,7 +559,7 @@ public class ControlTest extends RcpModelTest {
             "  public Test() {",
             "  }",
             "}");
-    // check ComponentDescription 
+    // check ComponentDescription
     ComponentDescription description = shell.getDescription();
     Assertions.assertThat(description.getBeanInfo()).isNotNull();
     Image icon = description.getIcon();
@@ -731,7 +731,7 @@ public class ControlTest extends RcpModelTest {
         "    {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(inner, SWT.NONE)/}",
         "      {virtual-layout_data: org.eclipse.swt.layout.RowData} {virtual-layout-data} {}");
     composite.refresh();
-    // "this" has RTL orientation		
+    // "this" has RTL orientation
     assertTrue(composite.isRTL());
     assertEquals(new Insets(0, 0, 0, 0), composite.getClientAreaInsets());
     // "inner"

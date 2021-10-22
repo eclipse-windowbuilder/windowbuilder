@@ -30,7 +30,7 @@ import javax.swing.border.Border;
 
 /**
  * Abstract editor for some {@link Border} type.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -69,7 +69,7 @@ public abstract class AbstractBorderComposite extends Composite {
 
   /**
    * Sets the {@link Border} to edit.
-   * 
+   *
    * @return <code>true</code> if this {@link AbstractBorderComposite} understands given
    *         {@link Border}.
    */

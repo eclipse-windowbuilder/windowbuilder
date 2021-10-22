@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 /**
  * Test for {@link XmlPropertiesToolBarContributor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlPropertiesToolBarContributorTest extends XwtGefTest {

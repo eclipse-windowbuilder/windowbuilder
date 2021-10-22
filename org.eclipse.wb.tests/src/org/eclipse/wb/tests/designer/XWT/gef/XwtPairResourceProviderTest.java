@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * Test for {@link XwtPairResourceProvider}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtPairResourceProviderTest extends XwtModelTest {

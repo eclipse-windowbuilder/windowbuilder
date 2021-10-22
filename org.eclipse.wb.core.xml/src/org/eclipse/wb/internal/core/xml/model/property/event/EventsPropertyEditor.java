@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * {@link PropertyEditor} for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property
  */

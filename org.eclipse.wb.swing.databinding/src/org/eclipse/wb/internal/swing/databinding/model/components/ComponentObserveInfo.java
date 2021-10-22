@@ -39,7 +39,7 @@ import java.util.Map;
 
 /**
  * {@link ObserveInfo} model for {@code Swing} components.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.components
  */

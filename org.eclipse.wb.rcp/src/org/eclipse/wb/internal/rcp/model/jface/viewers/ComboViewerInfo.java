@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ComboViewer;
 
 /**
  * Model for any JFace {@link org.eclipse.jface.viewers.ComboViewer}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage rcp.model.jface.viewers

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
  * <p>
  * Used to get notified after object of {@link XmlObjectInfo} becomes set using
  * {@link XmlObjectInfo#setObject(Object)}
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

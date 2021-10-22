@@ -20,7 +20,7 @@ import java.awt.CardLayout;
 
 /**
  * Layout assistant for {@link CardLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.assistant
  */

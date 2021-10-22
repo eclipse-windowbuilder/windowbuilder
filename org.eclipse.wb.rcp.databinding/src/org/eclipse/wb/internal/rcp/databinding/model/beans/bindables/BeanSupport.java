@@ -53,7 +53,7 @@ import java.util.Set;
 
 /**
  * Properties provider for <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

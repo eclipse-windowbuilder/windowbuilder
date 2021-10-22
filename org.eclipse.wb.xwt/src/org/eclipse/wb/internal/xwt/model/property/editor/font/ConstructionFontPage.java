@@ -30,7 +30,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * {@link AbstractFontPage} for constructing {@link Font} using family, style and size.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

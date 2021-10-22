@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Model for any simple <code>JFace<code> viewer label provider.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

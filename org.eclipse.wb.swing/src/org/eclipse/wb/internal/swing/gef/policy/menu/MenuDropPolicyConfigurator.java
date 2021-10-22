@@ -23,7 +23,7 @@ import javax.swing.JInternalFrame;
 
 /**
  * Contributes menu related {@link EditPolicy}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

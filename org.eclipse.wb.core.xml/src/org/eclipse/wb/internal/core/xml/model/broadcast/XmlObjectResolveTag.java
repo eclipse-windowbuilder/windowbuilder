@@ -14,14 +14,14 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * Listener for preparing namespace and tag for {@link Class} name.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */
 public interface XmlObjectResolveTag {
   /**
    * Fills namespace and tag.
-   * 
+   *
    * @param object
    *          some {@link XmlObjectInfo} in hierarchy.
    * @param clazz

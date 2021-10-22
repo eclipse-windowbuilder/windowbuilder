@@ -18,7 +18,7 @@ import org.eclipse.swt.layout.FormLayout;
 
 /**
  * Interface for SWT {@link FormData} model. This is related to {@link FormLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

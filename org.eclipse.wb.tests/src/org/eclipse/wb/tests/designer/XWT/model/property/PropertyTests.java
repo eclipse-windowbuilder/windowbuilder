@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for XWT properties and {@link PropertyEditor}s.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTests extends DesignerSuiteTests {

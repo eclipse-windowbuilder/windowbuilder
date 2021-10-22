@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for default RCP bindings preferences.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.preferences
  */

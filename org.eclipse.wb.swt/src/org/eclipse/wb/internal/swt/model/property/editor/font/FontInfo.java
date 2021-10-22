@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * Information object about {@link Font}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

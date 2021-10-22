@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ViewFormInfo;
 
 /**
  * {@link LayoutEditPolicy} for {@link ViewFormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef.policy
  */

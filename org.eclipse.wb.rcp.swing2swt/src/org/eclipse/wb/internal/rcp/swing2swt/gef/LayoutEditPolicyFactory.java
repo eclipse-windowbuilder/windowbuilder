@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.swing2swt.layout.BorderLayoutInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for Swing2SWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.swing2swt.gef
  */

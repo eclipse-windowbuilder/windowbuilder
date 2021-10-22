@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.Validato
 
 /**
  * Content provider foe edit (choose class over dialog and combo) {@link UpdateValueStrategyInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

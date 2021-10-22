@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Model {@link Grid}
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

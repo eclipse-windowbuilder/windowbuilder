@@ -48,7 +48,7 @@ import javax.swing.JSeparator;
 
 /**
  * Model for {@link JPopupMenu}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -105,7 +105,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
         menu.add(new JMenuItem(IMenuInfo.NO_ITEMS_TEXT));
       }
     }
-    // add a popup menu tracking listener to get the menu working in 'Test/Preview' mode. 
+    // add a popup menu tracking listener to get the menu working in 'Test/Preview' mode.
     {
       ComponentInfo parent = (ComponentInfo) getParent();
       if (parent != null) {
@@ -168,7 +168,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Popup menu tracking 
+  // Popup menu tracking
   //
   ////////////////////////////////////////////////////////////////////////////
   /**
@@ -203,7 +203,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -218,7 +218,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuPopupInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuPopupImpl extends MenuAbstractImpl implements IMenuPopupInfo {
@@ -274,7 +274,7 @@ public final class JPopupMenuInfo extends ContainerInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo {

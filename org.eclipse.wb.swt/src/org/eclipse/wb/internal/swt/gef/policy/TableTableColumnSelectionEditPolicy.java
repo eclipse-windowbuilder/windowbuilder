@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * {@link SelectionEditPolicy} that shows simple rectangle selection around {@link EditPart} and one
  * column resize {@link Handle}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.gef.policy
  */

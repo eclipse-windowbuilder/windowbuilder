@@ -30,7 +30,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new JFace application.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

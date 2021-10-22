@@ -17,7 +17,7 @@ import org.eclipse.ui.IPageLayout;
 
 /**
  * Container for {@link IPageLayout#addShowViewShortcut(String)} method.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -48,7 +48,7 @@ public final class ViewShortcutContainerInfo extends AbstractShortcutContainerIn
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ViewShortcutInfo}.
-   * 
+   *
    * @return the created {@link ViewShortcutInfo}.
    */
   public ViewShortcutInfo command_CREATE(String viewId, ViewShortcutInfo nextItem) throws Exception {

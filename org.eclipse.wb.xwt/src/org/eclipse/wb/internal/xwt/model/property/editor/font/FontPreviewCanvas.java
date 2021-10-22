@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Control for displaying {@link Font}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

@@ -40,7 +40,7 @@ import javax.swing.JButton;
 
 /**
  * Tests for {@link IDescriptionVersionsProvider} .
- * 
+ *
  * @author scheglov_ke
  */
 public class DescriptionVersionsProvidersTest extends SwingModelTest {

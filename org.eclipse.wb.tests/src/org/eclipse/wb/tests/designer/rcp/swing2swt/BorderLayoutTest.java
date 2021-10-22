@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link BorderLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BorderLayoutTest extends AbstractSwing2SwtTest {

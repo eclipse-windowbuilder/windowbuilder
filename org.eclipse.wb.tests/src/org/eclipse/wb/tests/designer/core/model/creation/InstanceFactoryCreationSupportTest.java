@@ -52,7 +52,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link InstanceFactoryCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InstanceFactoryCreationSupportTest extends SwingModelTest {

@@ -23,7 +23,7 @@ import java.awt.GridBagConstraints;
 
 /**
  * Implementation of {@link CreationSupport} for virtual {@link AbstractGridBagConstraintsInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

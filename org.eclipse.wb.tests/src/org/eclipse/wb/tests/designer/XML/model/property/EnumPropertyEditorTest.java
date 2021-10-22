@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Test for {@link EnumPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EnumPropertyEditorTest extends AbstractCoreTest {

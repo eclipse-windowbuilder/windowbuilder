@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Tests for {@link ApplicationWindowInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ApplicationWindowGefTest extends RcpGefTest {

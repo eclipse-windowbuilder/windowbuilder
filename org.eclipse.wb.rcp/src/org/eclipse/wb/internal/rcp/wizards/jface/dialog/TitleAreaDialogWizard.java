@@ -19,7 +19,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Wizard} that creates new JFace {@link TitleAreaDialog}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

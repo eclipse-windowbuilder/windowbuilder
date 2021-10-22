@@ -32,7 +32,7 @@ import java.util.Map;
 
 /**
  * Model for any top-level part of {@link IPageLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -74,7 +74,7 @@ public abstract class AbstractPartInfo extends AbstractComponentInfo
   /**
    * Method {@link IPageLayout#addStandaloneView(String, boolean, int, float, String)} is exception,
    * because for it relationship/ratio/refId arguments are shifted by 1.
-   * 
+   *
    * @return the offset index, 1 for <code>addStandaloneView</code>, 0 in other case.
    */
   protected int getIndexOffest() {

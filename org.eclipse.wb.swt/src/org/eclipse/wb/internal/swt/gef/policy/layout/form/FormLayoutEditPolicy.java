@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for edit containers with {@link FormLayout} installed.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gef.policy.form
  */
@@ -229,7 +229,7 @@ public final class FormLayoutEditPolicy<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

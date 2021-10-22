@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainer;
 
 /**
  * Tests for "simple container" support, such as {@link SimpleContainer} interface.
- * 
+ *
  * @author scheglov_ke
  */
 public class SimpleContainerGefTest extends SimpleContainerAbstractGefTest {

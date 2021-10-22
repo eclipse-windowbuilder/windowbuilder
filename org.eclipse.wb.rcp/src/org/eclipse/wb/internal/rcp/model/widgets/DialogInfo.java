@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Model for {@link Dialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

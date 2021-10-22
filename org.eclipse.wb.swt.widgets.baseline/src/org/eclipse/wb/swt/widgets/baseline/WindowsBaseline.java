@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * package private class used to fetch baseline values on Windows platform
- * 
+ *
  * @author mitin_aa
  */
 final class WindowsBaseline extends Baseline {

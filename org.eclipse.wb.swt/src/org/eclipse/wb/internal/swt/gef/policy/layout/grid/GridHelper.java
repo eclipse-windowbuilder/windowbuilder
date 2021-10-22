@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 
 /**
  * Helper for displaying grid for {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

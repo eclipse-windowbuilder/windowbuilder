@@ -148,7 +148,7 @@ public class EditorStateTest extends SwingModelTest {
   }
 
   /**
-   * We should remove cached {@link Class}-s to prevent memory leak and {@link ClassCastException} 
+   * We should remove cached {@link Class}-s to prevent memory leak and {@link ClassCastException}
    * 's.
    */
   public void test_clearUIManager() throws Exception {

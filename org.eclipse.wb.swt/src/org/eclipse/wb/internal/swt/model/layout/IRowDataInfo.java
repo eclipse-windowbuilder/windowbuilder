@@ -14,7 +14,7 @@ import org.eclipse.swt.layout.RowData;
 
 /**
  * Interface model for SWT {@link RowData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

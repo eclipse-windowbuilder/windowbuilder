@@ -35,7 +35,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for implicit {@link LayoutManager}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class ImplicitLayoutTest extends AbstractLayoutTest {

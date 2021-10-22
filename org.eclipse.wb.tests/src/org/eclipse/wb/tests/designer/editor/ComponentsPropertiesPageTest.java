@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Test for {@link ComponentsPropertiesPage}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentsPropertiesPageTest extends SwingGefTest {

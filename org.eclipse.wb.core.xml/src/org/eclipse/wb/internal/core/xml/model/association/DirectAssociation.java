@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 /**
  * {@link Association} for element of child directly in element parent.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.association
  */

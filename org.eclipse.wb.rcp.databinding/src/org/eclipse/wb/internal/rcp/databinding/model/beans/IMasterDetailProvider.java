@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
  * ObservableInfo its not know that it is the master observable (master should refer to certain
  * special detail's property). Thats why all of the possible masters should implement this interface
  * to be able to create by request it's own copy with detail property reference.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

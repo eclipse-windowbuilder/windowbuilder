@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for component descriptions.
- * 
+ *
  * @author scheglov_ke
  */
 public class DescriptionTests extends DesignerSuiteTests {

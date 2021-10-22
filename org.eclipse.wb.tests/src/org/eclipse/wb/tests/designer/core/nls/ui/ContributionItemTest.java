@@ -28,7 +28,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link ExternalizeStringsContributionItem}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ContributionItemTest extends AbstractNlsUiTest {

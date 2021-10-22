@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Editor for {@link DetailBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

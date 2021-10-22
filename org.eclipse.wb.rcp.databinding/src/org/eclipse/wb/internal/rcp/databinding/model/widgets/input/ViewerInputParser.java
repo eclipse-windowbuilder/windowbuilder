@@ -52,7 +52,7 @@ import java.util.Map;
 
 /**
  * Parser for bindings input for <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

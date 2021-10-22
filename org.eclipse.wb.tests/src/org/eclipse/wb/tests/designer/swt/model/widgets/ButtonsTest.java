@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Tests for {@link ButtonInfo}.
- * 
+ *
  * @author lobas_av
  */
 public class ButtonsTest extends RcpModelTest {

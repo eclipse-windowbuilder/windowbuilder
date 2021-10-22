@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * {@link AbstractBorderField} that allows to enter integer value.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

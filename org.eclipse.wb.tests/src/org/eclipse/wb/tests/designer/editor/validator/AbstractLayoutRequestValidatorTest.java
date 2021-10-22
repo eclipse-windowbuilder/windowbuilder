@@ -30,7 +30,7 @@ import org.easymock.IMocksControl;
 
 /**
  * Abstract tests for {@link ILayoutRequestValidator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractLayoutRequestValidatorTest extends SwingModelTest {

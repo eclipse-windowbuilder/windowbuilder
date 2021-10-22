@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 
 /**
  * Information about {@link Font} from {@link UIManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

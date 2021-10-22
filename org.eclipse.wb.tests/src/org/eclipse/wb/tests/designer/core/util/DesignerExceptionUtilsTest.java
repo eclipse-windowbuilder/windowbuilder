@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DesignerExceptionUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignerExceptionUtilsTest extends DesignerTestCase {

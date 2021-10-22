@@ -18,7 +18,7 @@ import java.awt.GridLayout;
 
 /**
  * Test for {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutTest extends AbstractLayoutTest {

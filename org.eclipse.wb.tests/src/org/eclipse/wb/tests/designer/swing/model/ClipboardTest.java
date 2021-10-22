@@ -30,7 +30,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link JavaInfoMemento} and other clipboard related operations.
- * 
+ *
  * @author scheglov_ke
  */
 public class ClipboardTest extends SwingModelTest {
@@ -405,7 +405,7 @@ public class ClipboardTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Does copy/paste for first child of parsed {@link ContainerInfo} with {@link FlowLayoutInfo}.
-   * 
+   *
    * @return the pasted {@link ComponentInfo}.
    */
   private ComponentInfo flow_doCopy(String[] sourceLines, String[] targetLines) throws Exception {

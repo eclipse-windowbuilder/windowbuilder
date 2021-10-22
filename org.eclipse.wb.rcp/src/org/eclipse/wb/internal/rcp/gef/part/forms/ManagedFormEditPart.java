@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.forms.ManagedFormInfo;
 
 /**
  * {@link EditPart} for {@link ManagedFormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

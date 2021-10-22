@@ -20,7 +20,7 @@ import org.eclipse.swt.layout.FormAttachment;
 
 /**
  * Implementation of {@link CreationSupport} for virtual {@link FormAttachment}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -59,7 +59,7 @@ public final class VirtualFormAttachmentCreationSupport extends CreationSupport 
     m_javaInfo.setObject(m_attachmentObject);
     m_formDataInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
       public void invoke(JavaInfo target, Object object) throws Exception {
-        // check if this CreationSupport no more needed 
+        // check if this CreationSupport no more needed
         if (m_javaInfo.getCreationSupport() != VirtualFormAttachmentCreationSupport.this) {
           m_formDataInfo.removeBroadcastListener(this);
           return;

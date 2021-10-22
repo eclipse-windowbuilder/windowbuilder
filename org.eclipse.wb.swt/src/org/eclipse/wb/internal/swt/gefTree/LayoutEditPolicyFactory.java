@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for SWT.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swt.gefTree
@@ -42,7 +42,7 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
       if (formLayoutInfo.getImpl() instanceof FormLayoutInfoImplAutomatic) {
         return new FormLayoutEditPolicy(formLayoutInfo);
       } else {
-        // TODO: 
+        // TODO:
       }
     }
     return null;

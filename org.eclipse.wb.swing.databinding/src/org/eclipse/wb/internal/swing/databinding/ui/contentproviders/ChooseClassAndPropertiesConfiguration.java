@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
 /**
  * Configuration for {@link ChooseClassAndPropertiesUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

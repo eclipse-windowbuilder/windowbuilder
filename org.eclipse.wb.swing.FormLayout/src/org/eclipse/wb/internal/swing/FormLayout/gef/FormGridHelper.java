@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 /**
  * Helper for displaying grid for {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.policy
  */

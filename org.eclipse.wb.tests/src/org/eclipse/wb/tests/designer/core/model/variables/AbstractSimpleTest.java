@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Test for {@link AbstractSimpleVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractSimpleTest extends AbstractVariableTest {

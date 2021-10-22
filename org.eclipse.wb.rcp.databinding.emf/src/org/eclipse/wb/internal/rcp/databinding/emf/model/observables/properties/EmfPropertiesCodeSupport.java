@@ -31,9 +31,9 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import java.text.MessageFormat;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public abstract class EmfPropertiesCodeSupport extends ObservableCodeSupport {
   private final String m_observeSignature0;

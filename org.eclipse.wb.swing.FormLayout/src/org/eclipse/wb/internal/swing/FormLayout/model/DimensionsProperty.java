@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * {@link Property} to display/edit {@link List} of {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

@@ -25,7 +25,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Tests for {@link TableWrapLayoutConverter}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutConverterTest extends XwtModelTest {

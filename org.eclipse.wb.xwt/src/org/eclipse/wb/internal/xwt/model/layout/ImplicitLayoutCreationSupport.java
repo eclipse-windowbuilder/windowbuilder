@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Layout;
 
 /**
  * Implementation of {@link CreationSupport} for implicit {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

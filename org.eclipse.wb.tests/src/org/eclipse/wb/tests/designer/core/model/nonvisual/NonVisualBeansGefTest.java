@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Tests for non visual beans.
- * 
+ *
  * @author scheglov_ke
  */
 public class NonVisualBeansGefTest extends SwingGefTest {

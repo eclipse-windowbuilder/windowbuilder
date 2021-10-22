@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Dispose listener for clear images loaded from {@code InternalImageManager}.
- * 
+ *
  * @author lobas_av
  * @author sablin_aa
  * @coverage rcp.util

@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for SWT widgets models.
- * 
+ *
  * @author lobas_av
  */
 public class WidgetTests extends DesignerSuiteTests {

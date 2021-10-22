@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Model for {@link ToolBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

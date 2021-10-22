@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.AbstractSplashHandlerInfo;
 
 /**
  * {@link EditPart} for {@link AbstractSplashHandlerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

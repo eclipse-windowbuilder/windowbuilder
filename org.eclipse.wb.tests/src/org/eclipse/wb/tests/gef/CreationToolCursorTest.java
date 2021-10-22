@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class CreationToolCursorTest extends GefCursorTestCase {
   private CreationTool m_tool;

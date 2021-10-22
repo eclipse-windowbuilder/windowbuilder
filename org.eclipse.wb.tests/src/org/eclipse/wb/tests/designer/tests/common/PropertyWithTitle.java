@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyE
 
 /**
  * Implementation of {@link Property} that has some title.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyWithTitle extends Property {

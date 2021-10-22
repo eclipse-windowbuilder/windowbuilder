@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.forms.FormInfo;
 
 /**
  * {@link EditPart} for {@link FormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef.part
  */

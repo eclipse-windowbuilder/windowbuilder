@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Test for {@link NameSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NameSupportTest extends XwtModelTest {
@@ -41,7 +41,7 @@ public class NameSupportTest extends XwtModelTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // getName() 
+  // getName()
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

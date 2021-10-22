@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Helper for providing expected values in tests, it can return different values for different
  * platforms and computers.
- * 
+ *
  * @author scheglov_ke
  */
 public final class Expectations {

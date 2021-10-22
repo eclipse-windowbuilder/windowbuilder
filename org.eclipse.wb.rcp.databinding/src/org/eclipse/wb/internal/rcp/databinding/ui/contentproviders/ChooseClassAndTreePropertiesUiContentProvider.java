@@ -58,7 +58,7 @@ import java.util.List;
 /**
  * Content provider for choose properties from Tree (properties + sub properties) and make order
  * choosen properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

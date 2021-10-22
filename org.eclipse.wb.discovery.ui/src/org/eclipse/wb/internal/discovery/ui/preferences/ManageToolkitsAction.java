@@ -19,7 +19,7 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 
 /**
  * This action opens the Toolkits preference page.
- * 
+ *
  * @see ToolkitsPreferencePage
  */
 public class ManageToolkitsAction implements IEditorActionDelegate {

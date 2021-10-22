@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link ViewCategoryPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewCategoryPropertyEditorTest extends RcpModelTest {

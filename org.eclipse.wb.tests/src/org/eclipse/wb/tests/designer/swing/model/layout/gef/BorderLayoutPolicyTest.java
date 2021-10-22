@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Test for {@link BorderLayoutEditPolicy}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BorderLayoutPolicyTest extends AbstractLayoutPolicyTest {

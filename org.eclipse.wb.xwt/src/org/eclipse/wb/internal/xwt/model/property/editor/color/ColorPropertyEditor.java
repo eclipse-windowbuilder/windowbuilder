@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link PropertyEditor} for {@link Color}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

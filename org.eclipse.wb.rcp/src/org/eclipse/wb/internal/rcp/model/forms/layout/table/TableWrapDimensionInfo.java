@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Abstract dimension in {@link ITableWrapLayout_Info<C>}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -189,7 +189,7 @@ public abstract class TableWrapDimensionInfo<C extends IControlInfo> {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Processor for processing {@link ITableWrapDataInfo} for each {@link IControlInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   protected interface ILayoutDataProcessor<C extends IControlInfo> {

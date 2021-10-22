@@ -41,7 +41,7 @@ import javax.swing.Icon;
 
 /**
  * Model for {@link Action}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -133,7 +133,7 @@ public class ActionInfo extends JavaInfo {
   /**
    * Sets {@link ActionInfo} for given {@link ComponentInfo} using
    * {@link AbstractButton#setAction(javax.swing.Action)}.
-   * 
+   *
    * @param component
    *          the {@link ComponentInfo} to set action for.
    * @param action

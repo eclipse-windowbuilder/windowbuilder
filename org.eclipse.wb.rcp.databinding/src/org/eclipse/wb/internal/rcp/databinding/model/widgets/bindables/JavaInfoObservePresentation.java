@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvid
 
 /**
  * {@link IObservePresentation} for presentation {@link JavaInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

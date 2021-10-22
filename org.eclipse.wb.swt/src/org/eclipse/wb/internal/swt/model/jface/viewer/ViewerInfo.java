@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swt.support.ContainerSupport;
 
 /**
  * Model for any JFace {@link org.eclipse.jface.viewers.Viewer}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swt.model.jface

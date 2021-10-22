@@ -23,7 +23,7 @@ import java.util.List;
  * positions as they were before enclosing. It works only if source {@link ContainerInfo} has
  * {@link AbsoluteLayoutInfo} and sets also {@link AbsoluteLayoutInfo} on target
  * {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

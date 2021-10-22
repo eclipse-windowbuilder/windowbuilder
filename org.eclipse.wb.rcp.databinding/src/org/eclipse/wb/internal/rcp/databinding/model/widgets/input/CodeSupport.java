@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Source code generator for owner {@link AbstractViewerInputBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

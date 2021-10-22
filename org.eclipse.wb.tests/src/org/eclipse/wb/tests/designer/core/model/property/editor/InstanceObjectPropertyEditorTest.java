@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * Test for {@link InstanceListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class InstanceObjectPropertyEditorTest extends SwingModelTest {

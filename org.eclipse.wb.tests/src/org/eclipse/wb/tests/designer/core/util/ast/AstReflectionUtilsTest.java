@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for {@link AstReflectionUtils}.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  */

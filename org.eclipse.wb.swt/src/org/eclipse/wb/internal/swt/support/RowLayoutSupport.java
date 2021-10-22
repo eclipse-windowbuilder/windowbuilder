@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 /**
  * Stub class for using SWT {@link org.eclipse.swt.layout.RowLayout}'s in another
  * {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

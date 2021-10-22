@@ -17,9 +17,9 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanBindabl
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanSupport;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class XmlElementBeanBindableInfo extends BeanBindableInfo {
   private final boolean m_dataContext;

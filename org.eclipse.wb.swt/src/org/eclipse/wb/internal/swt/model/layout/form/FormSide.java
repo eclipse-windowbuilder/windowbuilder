@@ -20,7 +20,7 @@ import java.text.MessageFormat;
 
 /**
  * Information about side in {@link FormLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout.form
  */

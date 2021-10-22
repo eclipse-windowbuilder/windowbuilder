@@ -30,7 +30,7 @@ import org.assertj.core.api.Assertions;
 
 /**
  * Test for {@link CoolBarInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CoolBarTest extends XwtModelTest {

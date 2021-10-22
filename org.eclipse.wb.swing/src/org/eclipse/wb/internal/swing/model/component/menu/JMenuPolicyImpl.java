@@ -39,7 +39,7 @@ import javax.swing.JPopupMenu;
 
 /**
  * Implementation of {@link IMenuPolicy} for {@link JMenu}, plain or wrapped by {@link JPopupMenu}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */

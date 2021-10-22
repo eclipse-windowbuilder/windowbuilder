@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * Handler for build events in {@link WbBuilder}.
- * 
+ *
  * @author scheglov_ke
  */
 public interface BuilderHandler {

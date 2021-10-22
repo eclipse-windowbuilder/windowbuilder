@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Tests for {@link LiveImagesManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LiveImagesManagerTest extends RcpModelTest {

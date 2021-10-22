@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Common image resource.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

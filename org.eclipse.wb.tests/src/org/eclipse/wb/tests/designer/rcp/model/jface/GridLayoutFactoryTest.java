@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Test for {@link GridLayoutFactory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutFactoryTest extends RcpModelTest {

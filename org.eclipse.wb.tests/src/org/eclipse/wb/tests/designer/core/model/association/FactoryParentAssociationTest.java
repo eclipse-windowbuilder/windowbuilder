@@ -27,7 +27,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link FactoryParentAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryParentAssociationTest extends SwingModelTest {
@@ -120,7 +120,7 @@ public class FactoryParentAssociationTest extends SwingModelTest {
     // prepare "old" button
     ComponentInfo oldButton = panel.getChildrenComponents().get(0);
     FactoryParentAssociation oldAssociation = (FactoryParentAssociation) oldButton.getAssociation();
-    // test correct type 
+    // test correct type
     {
       assertInstanceOf(ConstructorParentAssociation.class, oldAssociation.getCopy());
     }

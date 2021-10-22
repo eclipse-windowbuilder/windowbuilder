@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Represents sequential group.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for support utils
- * 
+ *
  * @author scheglov_ke
  */
 public class SupportTests extends DesignerSuiteTests {

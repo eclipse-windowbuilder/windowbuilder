@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.xml.DocumentElement;
 
 /**
  * Target in {@link DocumentElement}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.utils
  */

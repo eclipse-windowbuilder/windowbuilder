@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link FormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormTest extends XwtModelTest {

@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Item;
 
 /**
  * Model for {@link Item}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

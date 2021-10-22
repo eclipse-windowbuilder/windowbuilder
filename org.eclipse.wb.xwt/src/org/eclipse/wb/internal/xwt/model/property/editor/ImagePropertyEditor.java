@@ -37,7 +37,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link PropertyEditor} for {link org.eclipse.swt.graphics.Image}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

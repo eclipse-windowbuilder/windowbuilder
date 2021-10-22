@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.model.creation.WrapperMethodControlCreationS
 
 /**
  * Implementation of {@link CreationSupport} for column widget of {@link ViewerColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.viewers
  */

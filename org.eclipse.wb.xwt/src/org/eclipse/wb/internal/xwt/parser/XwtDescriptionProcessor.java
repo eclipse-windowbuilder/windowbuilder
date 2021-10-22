@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * {@link IDescriptionProcessor} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */

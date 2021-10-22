@@ -41,7 +41,7 @@ import java.util.Map;
 
 /**
  * Absolute layout which sets location/size as constraints.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -177,7 +177,7 @@ public final class ConstraintsAbsoluteLayoutInfo extends AbstractAbsoluteLayoutI
   /**
    * Perform "move" or "resize" operation. Modifies location/size values by modifying appropriate
    * "setLocation", "setSize", "setBounds" arguments.
-   * 
+   *
    * @param component
    *          the {@link ComponentInfo} which modifications applies to.
    * @param location

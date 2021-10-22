@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Test for {@link MarqueeSelectionToolEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MarqueeSelectionToolEntryInfoTest extends DesignerTestCase {

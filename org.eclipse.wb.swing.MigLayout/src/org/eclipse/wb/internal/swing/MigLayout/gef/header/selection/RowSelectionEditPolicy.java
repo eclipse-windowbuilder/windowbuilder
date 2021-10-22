@@ -28,7 +28,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link RowHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

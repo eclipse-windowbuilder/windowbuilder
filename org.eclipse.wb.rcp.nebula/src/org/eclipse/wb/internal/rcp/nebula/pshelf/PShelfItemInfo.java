@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ItemInfo;
 
 /**
  * Model for {@link PShelfItem}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

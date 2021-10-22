@@ -66,7 +66,7 @@ import java.util.Set;
 
 /**
  * Palette implementation for {@link XmlDesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette.ui
  */

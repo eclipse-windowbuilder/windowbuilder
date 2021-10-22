@@ -69,7 +69,7 @@ import java.util.Set;
 
 /**
  * Model for {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */
@@ -941,7 +941,7 @@ public class GridLayoutInfo extends LayoutInfo
 
   /**
    * @return the {@link ControlInfo} that should be used as reference of adding into specified cell.
-   * 
+   *
    * @param exclude
    *          the {@link ControlInfo} that should not be checked, for example because we move it now
    */

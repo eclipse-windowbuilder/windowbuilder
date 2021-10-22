@@ -24,7 +24,7 @@ import org.easymock.IMocksControl;
 
 /**
  * Test for {@link TabOrderToolEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TabOrderToolEntryInfoTest extends AbstractPaletteTest {

@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Layout;
 
 /**
  * Model for "flow based" {@link Layout}, such as {@link FillLayout}, {@link RowLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

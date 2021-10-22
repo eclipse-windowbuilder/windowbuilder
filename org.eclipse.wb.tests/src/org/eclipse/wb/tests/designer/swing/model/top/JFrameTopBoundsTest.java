@@ -31,7 +31,7 @@ import javax.swing.JInternalFrame;
 
 /**
  * Basic tests for {@link WindowTopBoundsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JFrameTopBoundsTest extends SwingGefTest {
@@ -73,7 +73,7 @@ public class JFrameTopBoundsTest extends SwingGefTest {
             "  }",
             "}"));
     waitForAutoBuild();
-    // 
+    //
     Dimension oldSize = new Dimension(500, 400);
     Dimension resizeSize = new Dimension(350, 200);
     ICompilationUnit unit =
@@ -101,7 +101,7 @@ public class JFrameTopBoundsTest extends SwingGefTest {
             "  }",
             "}"));
     waitForAutoBuild();
-    // 
+    //
     Dimension oldSize = new Dimension(500, 400);
     Dimension resizeSize = new Dimension(350, 200);
     ICompilationUnit unit =

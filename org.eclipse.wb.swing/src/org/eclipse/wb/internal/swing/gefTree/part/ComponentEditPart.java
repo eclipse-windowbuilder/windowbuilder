@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 /**
  * {@link EditPart} for {@link ComponentInfo} for GEF Tree.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gefTree.part
  */

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
 
 /**
  * {@link EditPart} for {@link ShellInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.part
  */

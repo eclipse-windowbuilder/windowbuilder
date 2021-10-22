@@ -37,7 +37,7 @@ import javax.swing.SpinnerModel;
 
 /**
  * Implementation of {@link AbstractSpinnerComposite} for {@link SpinnerDateModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

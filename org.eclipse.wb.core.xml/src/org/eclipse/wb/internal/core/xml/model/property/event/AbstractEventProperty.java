@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.property.XmlProperty;
 
 /**
  * Abstract super class for any event property.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property
  */

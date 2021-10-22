@@ -14,7 +14,7 @@ import java.awt.Font;
 
 /**
  * Information object about {@link Font}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

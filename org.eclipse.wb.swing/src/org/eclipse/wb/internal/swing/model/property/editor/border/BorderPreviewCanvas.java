@@ -29,7 +29,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * {@link Composite} for displaying {@link Border}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

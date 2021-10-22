@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * @author sablin_aa
- * 
+ *
  */
 public class DatabindingsProviderTest extends XwtModelTest {
   ////////////////////////////////////////////////////////////////////////////

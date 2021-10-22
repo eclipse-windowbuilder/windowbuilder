@@ -22,7 +22,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * {@link IRule} for detect {@code EL} keywords.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

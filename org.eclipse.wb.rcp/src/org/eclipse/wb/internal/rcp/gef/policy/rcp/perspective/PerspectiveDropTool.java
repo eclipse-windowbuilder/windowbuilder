@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
 
 /**
  * {@link Tool} to drop new perspective.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

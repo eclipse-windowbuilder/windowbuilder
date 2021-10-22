@@ -28,7 +28,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link JavaInfoUtils#getTarget(JavaInfo, JavaInfo)} and {@link ThisVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ThisForcedMethodTest extends SwingModelTest {

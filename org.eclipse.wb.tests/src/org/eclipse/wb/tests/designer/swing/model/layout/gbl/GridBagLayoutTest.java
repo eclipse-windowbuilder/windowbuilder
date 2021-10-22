@@ -50,7 +50,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link GridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagLayoutTest extends AbstractGridBagLayoutTest {

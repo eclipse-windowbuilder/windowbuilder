@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.designer.databinding.rcp.model;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class ViewerCodeGenerationTest extends AbstractBindingTest {
 }

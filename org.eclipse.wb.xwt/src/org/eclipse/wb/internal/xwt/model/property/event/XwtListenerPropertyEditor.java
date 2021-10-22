@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * {@link PropertyEditor} for {@link XwtListenerProperty}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property
  */

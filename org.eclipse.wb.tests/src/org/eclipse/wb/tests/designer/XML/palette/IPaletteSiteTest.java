@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.xml.editor.palette.model.IPaletteSite;
 
 /**
  * Tests for {@link IPaletteSite}.
- * 
+ *
  * @author scheglov_ke
  */
 public class IPaletteSiteTest extends AbstractPaletteTest {

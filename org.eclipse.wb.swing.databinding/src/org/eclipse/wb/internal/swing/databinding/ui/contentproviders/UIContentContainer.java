@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * {@link IUiContentProvider} which is a container for other {@link IUiContentProvider}'s.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

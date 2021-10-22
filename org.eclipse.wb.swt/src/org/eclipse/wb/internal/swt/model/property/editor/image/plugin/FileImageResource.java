@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 /**
  * Implementation {@link IImageResource} for file image resource into workspace plugin project.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

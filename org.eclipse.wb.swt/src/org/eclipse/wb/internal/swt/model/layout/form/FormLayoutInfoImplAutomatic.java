@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Implementation using automatic component placement.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -55,7 +55,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   //
   // Move operations
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public void command_moveToContainer(List<? extends IAbstractComponentInfo> sourceSet,
       IAbstractComponentInfo nearestBeingSnapped,
       int side,
@@ -378,7 +378,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
         if (lAttachment.getNumerator() != tAttachment.getNumerator()) {
           return new AlignmentInfo(PlacementInfo.LEADING, true);
         }
-        // indirectly non-resizable 
+        // indirectly non-resizable
         return new AlignmentInfo(lEffectiveAlignment);
       }
     } else {
@@ -621,7 +621,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   /*public void setExplicitSize(IAbstractComponentInfo widget, int side, int draggingSide, int resizeDelta)
   		throws Exception {
-  	// set the size explicitly in layout data, if the resulting size is preferred size, remove the size set in layout data  
+  	// set the size explicitly in layout data, if the resulting size is preferred size, remove the size set in layout data
   	Rectangle modelBounds = widget.getModelBounds();
   	Dimension oldSize = modelBounds != null ? modelBounds.getSize() : widget.getPreferredSize();
   	FormDataInfo layoutData = (FormDataInfo) getLayoutData((ControlInfo) widget);
@@ -738,7 +738,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Layout-defined actions 
+  // Layout-defined actions
   //
   ////////////////////////////////////////////////////////////////////////////
   public void performAction(int actionId) {

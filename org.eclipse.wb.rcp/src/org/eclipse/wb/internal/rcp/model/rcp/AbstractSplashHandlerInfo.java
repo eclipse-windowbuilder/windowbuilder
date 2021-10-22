@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Model for <code>AbstractSplashHandler</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

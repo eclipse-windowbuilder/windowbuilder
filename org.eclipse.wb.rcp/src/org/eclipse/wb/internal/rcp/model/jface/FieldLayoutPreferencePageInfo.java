@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Model for {@link FieldLayoutPreferencePage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -76,7 +76,7 @@ public final class FieldLayoutPreferencePageInfo extends PreferencePageInfo {
    * This method is invoked when we try to drop {@link FieldEditorInfo} on some container that
    * requires {@link CompositeInfo}. So, we should return {@link CompositeInfo} that will later add
    * {@link FieldEditorInfo} on itself.
-   * 
+   *
    * @return the {@link CompositeInfo} wrapper for {@link FieldEditorInfo}.
    */
   public CompositeInfo schedule_CREATE(final FieldEditorInfo editor) throws Exception {

@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Presentation for {@link Label} with style.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.presentation
  */

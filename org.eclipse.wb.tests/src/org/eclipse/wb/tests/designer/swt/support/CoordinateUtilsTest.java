@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Group;
 
 /**
  * Tests for SWT {@link CoordinateUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CoordinateUtilsTest extends RcpModelTest {

@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Implementation of {@link IExpressionEvaluator} for evaluating plugin image for workspace
  * plugin's.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

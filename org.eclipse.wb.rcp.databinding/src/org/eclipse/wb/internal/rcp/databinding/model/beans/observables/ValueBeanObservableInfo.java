@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.BeanPropert
 
 /**
  * Model for observable object <code>BeansObservables.observeValue(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

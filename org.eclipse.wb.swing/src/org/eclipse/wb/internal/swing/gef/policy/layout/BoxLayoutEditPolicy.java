@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.model.layout.BoxLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link BoxLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link FormsCompositeWizard}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormsCompositeWizardTest extends XwtWizardTest {

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.model.layout.GridLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

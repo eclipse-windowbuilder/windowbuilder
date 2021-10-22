@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Abstract action for manipulating selected {@link FormDimensionInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Model for {@link org.eclipse.jface.fieldassist.ControlDecoration}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

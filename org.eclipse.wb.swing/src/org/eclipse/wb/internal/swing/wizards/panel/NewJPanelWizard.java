@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 /**
  * {@link Wizard} that creates new Swing {@link JPanel}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

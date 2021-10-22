@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.TabItem;
 
 /**
  * Test for {@link TabFolderInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class TabFolderGefTest extends RcpGefTest {

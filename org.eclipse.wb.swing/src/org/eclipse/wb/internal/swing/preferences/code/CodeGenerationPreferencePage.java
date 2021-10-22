@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 
 /**
  * Implementation of {@link AbstractCodeGenerationPreferencePage} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.ui
  */

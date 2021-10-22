@@ -17,7 +17,7 @@ import org.eclipse.jface.dialogs.PopupDialog;
 
 /**
  * Test for {@link PopupDialogInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PopupDialogTest extends RcpModelTest {

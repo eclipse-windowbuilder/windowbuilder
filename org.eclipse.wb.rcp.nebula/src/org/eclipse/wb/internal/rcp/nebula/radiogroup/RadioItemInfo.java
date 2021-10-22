@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Model for {@link RadioItem}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

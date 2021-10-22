@@ -26,7 +26,7 @@ import javax.swing.BoxLayout;
 
 /**
  * Test for {@link BoxLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BoxLayoutTest extends AbstractLayoutTest {

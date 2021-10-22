@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Editor for {@code EL} properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

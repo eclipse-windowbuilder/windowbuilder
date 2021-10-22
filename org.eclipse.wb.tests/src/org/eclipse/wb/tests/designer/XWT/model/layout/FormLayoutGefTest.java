@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Tests for {@link FormLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutGefTest extends XwtGefTest {

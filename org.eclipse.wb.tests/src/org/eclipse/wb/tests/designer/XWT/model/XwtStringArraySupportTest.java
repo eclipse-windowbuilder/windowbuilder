@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link XwtStringArraySupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtStringArraySupportTest extends XwtModelTest {

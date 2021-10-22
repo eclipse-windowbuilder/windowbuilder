@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.CBannerInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link CBannerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

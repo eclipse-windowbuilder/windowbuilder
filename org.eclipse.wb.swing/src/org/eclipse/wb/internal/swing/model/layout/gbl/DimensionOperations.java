@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Entry point for operations with {@link DimensionInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -249,7 +249,7 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
    * We don't analyze that there are empty columns/rows ourselves. Instead we just allow
    * {@link GridBagLayout} to this for us and obey it - remove {@link DimensionInfo}'s and cut
    * "weight" arrays.
-   * 
+   *
    * @return <code>true</code> if any dimension was removed.
    */
   boolean cutToGrid(int renderedSize) throws Exception {

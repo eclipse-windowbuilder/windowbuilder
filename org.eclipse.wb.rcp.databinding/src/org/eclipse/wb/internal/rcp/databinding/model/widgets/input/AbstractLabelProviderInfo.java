@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Abstract model for <code>JFace<code> viewer label provider.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

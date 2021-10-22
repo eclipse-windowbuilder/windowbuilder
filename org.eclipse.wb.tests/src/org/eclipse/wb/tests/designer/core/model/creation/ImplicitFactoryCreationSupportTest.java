@@ -34,7 +34,7 @@ import java.util.zip.GZIPOutputStream;
 
 /**
  * Test for {@link ImplicitFactoryCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ImplicitFactoryCreationSupportTest extends SwingModelTest {

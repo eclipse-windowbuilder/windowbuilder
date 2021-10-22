@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link TableWrapLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutTests extends DesignerSuiteTests {

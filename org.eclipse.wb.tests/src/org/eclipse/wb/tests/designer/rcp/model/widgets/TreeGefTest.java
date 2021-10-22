@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Test for {@link TreeInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class TreeGefTest extends RcpGefTest {

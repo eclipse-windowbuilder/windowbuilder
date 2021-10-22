@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link ViewerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef
  */

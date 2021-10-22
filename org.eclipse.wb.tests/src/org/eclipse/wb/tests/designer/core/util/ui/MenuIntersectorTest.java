@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Test for {@link MenuIntersector}.
- * 
+ *
  * @author lobas_av
  */
 public class MenuIntersectorTest extends DesignerTestCase {

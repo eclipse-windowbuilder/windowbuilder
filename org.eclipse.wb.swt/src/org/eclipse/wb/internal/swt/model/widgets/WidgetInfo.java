@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Abstract model representing (e)SWT {@link org.eclipse.swt.widgets.Widget}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swt.model.widgets
@@ -108,7 +108,7 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
   /**
    * Adds/modifies {@link Widget#setData(String, Object)} with key "name" and value - new variable
    * name.
-   * 
+   *
    * @param newName
    *          the new variable name
    */

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test {@link BoxLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BoxLayoutTest extends AbstractSwing2SwtTest {

@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Source code generator for observe CellEditor properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

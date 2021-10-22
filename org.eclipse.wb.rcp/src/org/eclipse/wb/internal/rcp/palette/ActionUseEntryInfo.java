@@ -29,7 +29,7 @@ import org.apache.commons.lang.ObjectUtils;
  * Implementation of {@link EntryInfo} that is contributed to palette for each {@link IAction}
  * instance existing on form, so that it can be selected and used on some
  * {@link IContributionManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

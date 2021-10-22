@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.rcp.ToolkitProvider;
 
 /**
  * Implementation of {@link CodeGenerationPreferencePage} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.preferences.ui
  */

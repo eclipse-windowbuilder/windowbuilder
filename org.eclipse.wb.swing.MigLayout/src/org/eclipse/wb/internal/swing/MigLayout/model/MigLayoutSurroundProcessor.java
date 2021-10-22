@@ -26,7 +26,7 @@ import java.util.List;
  * {@link ISurroundProcessor} that places enclosing {@link ComponentInfo}'s into same relative
  * cells, as they were before enclosing. It works only if source {@link ContainerInfo} has
  * {@link MigLayoutInfo} and sets also {@link MigLayoutInfo} on target {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */

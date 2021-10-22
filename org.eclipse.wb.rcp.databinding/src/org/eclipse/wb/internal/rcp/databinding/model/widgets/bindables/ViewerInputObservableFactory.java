@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.ObservableInfo;
 
 /**
  * {@link IObservableFactory} for input for <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

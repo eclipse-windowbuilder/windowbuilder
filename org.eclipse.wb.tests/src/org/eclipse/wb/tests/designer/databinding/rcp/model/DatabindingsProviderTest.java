@@ -56,7 +56,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class DatabindingsProviderTest extends AbstractBindingTest {
   ////////////////////////////////////////////////////////////////////////////

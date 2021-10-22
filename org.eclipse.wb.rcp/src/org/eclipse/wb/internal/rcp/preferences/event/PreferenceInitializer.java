@@ -19,7 +19,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for {@link EventsProperty} preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.preferences
  */
@@ -28,7 +28,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
       IPreferenceConstants {
   ////////////////////////////////////////////////////////////////////////////
   //
-  //	Initializing 
+  //	Initializing
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * {@link AbstractXmlEditor} and related tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlEditorTests extends DesignerSuiteTests {

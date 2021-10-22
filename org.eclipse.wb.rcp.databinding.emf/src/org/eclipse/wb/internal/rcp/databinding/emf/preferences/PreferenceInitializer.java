@@ -16,9 +16,9 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
   ////////////////////////////////////////////////////////////////////////////

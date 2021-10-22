@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
 /**
  * {@link GraphicalEditPart} for {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.gef
  */

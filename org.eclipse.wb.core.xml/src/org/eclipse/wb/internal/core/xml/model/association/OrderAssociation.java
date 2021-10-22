@@ -20,7 +20,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * {@link Association} which is used only during re-order.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.association
  */

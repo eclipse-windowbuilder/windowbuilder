@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Dialog for editing {@link List} of {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */
@@ -286,7 +286,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 
   /**
    * Adds new {@link MigDimensionInfo}.
-   * 
+   *
    * @param indexOffset
    *          the offset to add to the current selection index, <code>0</code> to implement insert
    *          and <code>1</code> for append.
@@ -369,7 +369,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 
   /**
    * Edits given {@link MigDimensionInfo}.
-   * 
+   *
    * @return <code>true</code> if edit was successful.
    */
   protected abstract boolean editSelectedDimension(T dimension);

@@ -14,7 +14,7 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
 
 /**
  * Helper class for navigate into {@link ICharacterScanner} to forward and back.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

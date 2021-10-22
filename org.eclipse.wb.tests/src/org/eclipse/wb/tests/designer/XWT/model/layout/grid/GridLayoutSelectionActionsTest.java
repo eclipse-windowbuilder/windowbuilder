@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Test for {@link GridLayoutInfo} selection action's.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutSelectionActionsTest extends XwtModelTest {

@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.editor.FormPage;
 
 /**
  * {@link Wizard} that creates new Forms {@link FormPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

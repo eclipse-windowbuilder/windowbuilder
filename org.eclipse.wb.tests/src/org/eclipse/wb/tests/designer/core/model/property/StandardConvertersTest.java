@@ -45,7 +45,7 @@ import java.util.Locale;
 
 /**
  * Tests for standard {@link ExpressionConverter}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class StandardConvertersTest extends SwingModelTest {

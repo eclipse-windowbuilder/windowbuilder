@@ -22,7 +22,7 @@ import javax.swing.JViewport;
 
 /**
  * Model for {@link JScrollPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

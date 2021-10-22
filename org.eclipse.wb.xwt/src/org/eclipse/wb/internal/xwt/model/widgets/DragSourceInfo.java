@@ -19,7 +19,7 @@ import org.eclipse.swt.dnd.DragSource;
 
 /**
  * Model for {@link DragSource}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

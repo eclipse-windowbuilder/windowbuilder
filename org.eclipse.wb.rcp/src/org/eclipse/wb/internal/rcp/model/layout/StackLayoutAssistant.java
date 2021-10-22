@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Assistant pages provider for {@link StackLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.layout
  */

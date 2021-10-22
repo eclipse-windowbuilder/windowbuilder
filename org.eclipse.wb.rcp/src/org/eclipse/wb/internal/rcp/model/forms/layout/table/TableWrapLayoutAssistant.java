@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Assistant pages provider for {@link TableWrapLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

@@ -22,7 +22,7 @@ import org.eclipse.wb.internal.xwt.model.layout.LayoutInfo;
 /**
  * Tests for "flow container" support for "layout manager", created by
  * {@link ILayoutEditPolicyFactory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowContainerLayoutGefTest extends FlowContainerAbstractGefTest {

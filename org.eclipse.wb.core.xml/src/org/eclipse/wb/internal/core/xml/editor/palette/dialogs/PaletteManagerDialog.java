@@ -83,7 +83,7 @@ import java.util.Set;
 
 /**
  * Dialog for modifying palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette.ui
  */

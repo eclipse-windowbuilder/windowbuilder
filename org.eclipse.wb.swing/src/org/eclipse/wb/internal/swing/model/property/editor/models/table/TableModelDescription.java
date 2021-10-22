@@ -32,7 +32,7 @@ import javax.swing.table.TableModel;
 
 /**
  * Information about {@link TableModel}, with ability to edit.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -62,7 +62,7 @@ public final class TableModelDescription {
         rowValues.add(model.getValueAt(row, column));
       }
     }
-    // copy columns 
+    // copy columns
     for (int column = 0; column < m_columnCount; column++) {
       m_columns.add(new TableColumnDescription(table, column));
     }

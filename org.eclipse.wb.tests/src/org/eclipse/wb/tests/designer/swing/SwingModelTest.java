@@ -24,7 +24,7 @@ import javax.swing.JButton;
 
 /**
  * Abstract super class for Swing tests.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class SwingModelTest extends AbstractJavaInfoTest {

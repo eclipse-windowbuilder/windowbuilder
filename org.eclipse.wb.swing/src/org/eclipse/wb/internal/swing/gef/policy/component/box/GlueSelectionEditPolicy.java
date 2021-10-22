@@ -23,7 +23,7 @@ import javax.swing.Box;
 
 /**
  * Abstract {@link SelectionEditPolicy} for any glue from {@link Box}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

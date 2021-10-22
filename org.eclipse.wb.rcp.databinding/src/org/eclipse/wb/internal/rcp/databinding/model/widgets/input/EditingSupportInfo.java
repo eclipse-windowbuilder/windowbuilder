@@ -23,7 +23,7 @@ import java.util.List;
  * Model for handle
  * {@code ObservableValueEditingSupport.create(viewer, dbc, cellEditor, cellEditorProperty,
  * elementProperty)}.
- * 
+ *
  * @author lobas_av
  */
 public final class EditingSupportInfo extends AstObjectInfo {

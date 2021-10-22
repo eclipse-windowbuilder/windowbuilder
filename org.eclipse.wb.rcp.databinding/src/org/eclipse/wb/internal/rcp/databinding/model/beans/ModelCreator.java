@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Description for single AST creation.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

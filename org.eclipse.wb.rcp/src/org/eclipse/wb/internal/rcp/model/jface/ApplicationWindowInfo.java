@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Model for {@link ApplicationWindow}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage rcp.model.jface

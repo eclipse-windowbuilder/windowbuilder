@@ -40,7 +40,7 @@ import javax.swing.Action;
 /**
  * Implementation of {@link ExpressionAccessor} for accessing {@link Expression}'s from
  * {@link Action#putValue(String, Object)} in some constructor.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -179,7 +179,7 @@ public final class ActionExpressionAccessor extends ExpressionAccessor {
    * @param keyExpression
    *          the {@link Expression} for {@link Action#putValue(String, Object)} key. Only
    *          {@link SimpleName} and {@link StringLiteral} are supported.
-   * 
+   *
    * @return the value of "key" {@link Expression}.
    */
   static String getKeyValue(Expression keyExpression) {
