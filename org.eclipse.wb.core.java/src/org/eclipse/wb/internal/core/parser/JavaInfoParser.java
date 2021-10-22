@@ -185,6 +185,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
           eclipseVersionString);
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Instance fields
@@ -214,15 +215,15 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     m_javaInfoResolver = new JavaInfoResolver(editor);
     m_components = m_javaInfoResolver.getComponents();
     m_evaluationListener = m_editorState.getBroadcast().getListener(EvaluationEventListener.class);
-    m_parseFactories =
-        ExternalFactoriesHelper.getElementsInstances(
-            IParseFactory.class,
-            "org.eclipse.wb.core.java.parseFactories",
-            "factory");
+    m_parseFactories = ExternalFactoriesHelper.getElementsInstances(
+        IParseFactory.class,
+        "org.eclipse.wb.core.java.parseFactories",
+        "factory");
     m_editor.putGlobalValue(KEY_COMPONENTS, m_components);
     GlobalState.setParsing(true);
     m_editorState.setExecuting(true);
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Parsing
@@ -254,11 +255,10 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
       }
       // use IParseContextProcessor-s
       {
-        List<IParseContextProcessor> processors =
-            ExternalFactoriesHelper.getElementsInstances(
-                IParseContextProcessor.class,
-                "org.eclipse.wb.core.java.parseContextProcessors",
-                "processor");
+        List<IParseContextProcessor> processors = ExternalFactoriesHelper.getElementsInstances(
+            IParseContextProcessor.class,
+            "org.eclipse.wb.core.java.parseContextProcessors",
+            "processor");
         for (IParseContextProcessor processor : processors) {
           processor.process(m_editor, flowDescription, m_components);
         }
@@ -272,11 +272,10 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
    * Uses {@link IParseValidator}s to validate this {@link AstEditor}.
    */
   private void validateASTEditor() throws Exception {
-    List<IParseValidator> validators =
-        ExternalFactoriesHelper.getElementsInstances(
-            IParseValidator.class,
-            "org.eclipse.wb.core.java.parseFactories",
-            "validator");
+    List<IParseValidator> validators = ExternalFactoriesHelper.getElementsInstances(
+        IParseValidator.class,
+        "org.eclipse.wb.core.java.parseFactories",
+        "validator");
     for (IParseValidator validator : validators) {
       validator.validate(m_editor);
     }
@@ -285,7 +284,8 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
   /**
    * We don't visit NVO {@link MethodDeclaration}-s, so we should add them forcedly.
    */
-  private static void addStartMethodsNVO(ExecutionFlowDescription flowDescription) throws Exception {
+  private static void addStartMethodsNVO(ExecutionFlowDescription flowDescription)
+      throws Exception {
     // prepare enclosing type
     TypeDeclaration typeDeclaration;
     {
@@ -447,11 +447,10 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
       }
     }
     // prepare processors
-    List<IRootProcessor> processors =
-        ExternalFactoriesHelper.getElementsInstances(
-            IRootProcessor.class,
-            "org.eclipse.wb.core.java.rootProcessors",
-            "processor");
+    List<IRootProcessor> processors = ExternalFactoriesHelper.getElementsInstances(
+        IRootProcessor.class,
+        "org.eclipse.wb.core.java.rootProcessors",
+        "processor");
     //
     for (IRootProcessor processor : processors) {
       processor.process(root, components);
@@ -528,6 +527,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     // check description
     return JavaInfoUtils.hasTrueParameter(root, "parser.preferredRoot");
   }
+
   /**
    * Visitor for parsing {@link ASTNode}'s on execution flow.
    *
@@ -635,11 +635,10 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
      *         {@link JavaInfo} model.
      */
     private boolean createJavaInfo_noModel(ASTNode node) {
-      List<ParseFactoryNoModel> validators =
-          ExternalFactoriesHelper.getElementsInstances(
-              ParseFactoryNoModel.class,
-              "org.eclipse.wb.core.java.parseFactories",
-              "noModel");
+      List<ParseFactoryNoModel> validators = ExternalFactoriesHelper.getElementsInstances(
+          ParseFactoryNoModel.class,
+          "org.eclipse.wb.core.java.parseFactories",
+          "noModel");
       for (ParseFactoryNoModel validator : validators) {
         if (validator.noModel(node)) {
           return true;
@@ -689,14 +688,13 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
         // ask each "complex" factory
         if (javaInfo == null) {
           for (IParseFactory parseFactory : m_parseFactories) {
-            javaInfo =
-                parseFactory.create(
-                    m_editor,
-                    creation,
-                    methodBinding,
-                    typeBinding,
-                    arguments,
-                    argumentInfos);
+            javaInfo = parseFactory.create(
+                m_editor,
+                creation,
+                methodBinding,
+                typeBinding,
+                arguments,
+                argumentInfos);
             if (javaInfo != null) {
               break;
             }
@@ -718,12 +716,12 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
      * @return <code>true</code> if it is known that this {@link ClassInstanceCreation} does not
      *         have {@link JavaInfo} model.
      */
-    private boolean createJavaInfo_noModel(ClassInstanceCreation creation, ITypeBinding typeBinding) {
-      List<ParseFactoryNoModel> validators =
-          ExternalFactoriesHelper.getElementsInstances(
-              ParseFactoryNoModel.class,
-              "org.eclipse.wb.core.java.parseFactories",
-              "noModel");
+    private boolean createJavaInfo_noModel(ClassInstanceCreation creation,
+        ITypeBinding typeBinding) {
+      List<ParseFactoryNoModel> validators = ExternalFactoriesHelper.getElementsInstances(
+          ParseFactoryNoModel.class,
+          "org.eclipse.wb.core.java.parseFactories",
+          "noModel");
       for (ParseFactoryNoModel validator : validators) {
         if (validator.noModel(creation, typeBinding)) {
           return true;
@@ -749,15 +747,14 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
         JavaInfo[] argumentInfos = getJavaInfoArray(arguments);
         // ask each factory, may be this invocation is JavaInfo creation
         for (IParseFactory parseFactory : m_parseFactories) {
-          JavaInfo javaInfo =
-              parseFactory.create(
-                  m_editor,
-                  invocation,
-                  methodBinding,
-                  arguments,
-                  expressionInfo,
-                  argumentInfos,
-                  JavaInfoParser.this);
+          JavaInfo javaInfo = parseFactory.create(
+              m_editor,
+              invocation,
+              methodBinding,
+              arguments,
+              expressionInfo,
+              argumentInfos,
+              JavaInfoParser.this);
           if (javaInfo != null) {
             addJavaInfo(javaInfo, invocation);
             break;
@@ -847,16 +844,14 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
                   }
                 } else if (parameterIndex == parameterDescriptions.size() - 1) {
                   // ellipsis support
-                  Expression[] arrayArguments =
-                      (Expression[]) ArrayUtils.subarray(
-                          arguments,
-                          parameterIndex,
-                          arguments.length);
-                  JavaInfo[] arrayArgumentInfos =
-                      (JavaInfo[]) ArrayUtils.subarray(
-                          argumentInfos,
-                          parameterIndex,
-                          argumentInfos.length);
+                  Expression[] arrayArguments = (Expression[]) ArrayUtils.subarray(
+                      arguments,
+                      parameterIndex,
+                      arguments.length);
+                  JavaInfo[] arrayArgumentInfos = (JavaInfo[]) ArrayUtils.subarray(
+                      argumentInfos,
+                      parameterIndex,
+                      argumentInfos.length);
                   // prepare EllipsisObjectInfo
                   bindChild_MethodInvocationParameter_ArrayEllipsis(
                       invocation,
@@ -924,8 +919,10 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
       ArrayObjectInfo arrayInfo =
           new ArrayObjectInfo(m_editor, methodDescription.getName(), creation);
       expressionInfo.addChild(arrayInfo);
-      arrayInfo.setRemoveOnEmpty(parameterDescription.hasTrueTag(AbstractArrayObjectInfo.REMOVE_ON_EMPTY_TAG));
-      arrayInfo.setHideInTree(parameterDescription.hasTrueTag(AbstractArrayObjectInfo.HIDE_IN_TREE_TAG));
+      arrayInfo.setRemoveOnEmpty(
+          parameterDescription.hasTrueTag(AbstractArrayObjectInfo.REMOVE_ON_EMPTY_TAG));
+      arrayInfo.setHideInTree(
+          parameterDescription.hasTrueTag(AbstractArrayObjectInfo.HIDE_IN_TREE_TAG));
       //arrayInfo.setCreationId(parameter.getTag(ArrayObjectInfo.CREATION_ID_TAG));
       // prepare items
       Expression[] arrayItems = getExpressionArray(creation.getInitializer().expressions());
@@ -940,7 +937,9 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
           }
           Assert.isNull(
               arrayJavaInfo.getParent(),
-              String.format("Parent for array item %s already assigned.", arrayJavaInfo.toString()));
+              String.format(
+                  "Parent for array item %s already assigned.",
+                  arrayJavaInfo.toString()));
           arrayInfo.addItem(arrayJavaInfo);
           expressionInfo.getBroadcast(JavaInfoMethodAssociationOnParse.class).invoke(
               expressionInfo,
@@ -964,16 +963,18 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
         JavaInfo arrayJavaInfos[]) throws Exception {
       Class<?> itemType = (Class<?>) parameterDescription.getType();
       Assert.isTrue(itemType.isArray(), "Ellipsis type not array.");
-      EllipsisObjectInfo arrayInfo =
-          new EllipsisObjectInfo(m_editor,
-              methodDescription.getName(),
-              itemType.getComponentType(),
-              invocation,
-              parameterIndex);
+      EllipsisObjectInfo arrayInfo = new EllipsisObjectInfo(m_editor,
+          methodDescription.getName(),
+          itemType.getComponentType(),
+          invocation,
+          parameterIndex);
       expressionInfo.addChild(arrayInfo);
-      arrayInfo.setRemoveOnEmpty(parameterDescription.hasTrueTag(AbstractArrayObjectInfo.REMOVE_ON_EMPTY_TAG));
-      arrayInfo.setHideInTree(parameterDescription.hasTrueTag(AbstractArrayObjectInfo.HIDE_IN_TREE_TAG));
-      arrayInfo.setOnEmptySource(parameterDescription.getTag(EllipsisObjectInfo.ON_EMPTY_SOURCE_TAG));
+      arrayInfo.setRemoveOnEmpty(
+          parameterDescription.hasTrueTag(AbstractArrayObjectInfo.REMOVE_ON_EMPTY_TAG));
+      arrayInfo.setHideInTree(
+          parameterDescription.hasTrueTag(AbstractArrayObjectInfo.HIDE_IN_TREE_TAG));
+      arrayInfo.setOnEmptySource(
+          parameterDescription.getTag(EllipsisObjectInfo.ON_EMPTY_SOURCE_TAG));
       // process array items
       for (int i = 0; i < arrayJavaInfos.length; i++) {
         JavaInfo arrayJavaInfo = arrayJavaInfos[i];
@@ -984,7 +985,9 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
           }
           Assert.isNull(
               arrayJavaInfo.getParent(),
-              String.format("Parent for array item %s already assigned.", arrayJavaInfo.toString()));
+              String.format(
+                  "Parent for array item %s already assigned.",
+                  arrayJavaInfo.toString()));
           arrayInfo.addItem(arrayJavaInfo);
           expressionInfo.getBroadcast(JavaInfoMethodAssociationOnParse.class).invoke(
               expressionInfo,
@@ -1261,6 +1264,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
       getEvaluationHelper().evaluateJavaInfoUsingCreationSupport(javaInfo);
     }
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Evaluation
@@ -1392,16 +1396,15 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
       Association newAssociation) throws DesignerException {
     String existingStatementSource = getAssociationStatementSource(existingAssociation);
     String newStatementSource = getAssociationStatementSource(newAssociation);
-    String message =
-        MessageFormat.format(
-            "\nChild:                    \n  {0}"
-                + "\nExisting: \n  {1} \n    {2}"
-                + "\nNew: \n  {3} \n    {4}",
-            child,
-            child.getParent(),
-            existingAssociation,
-            parent,
-            newAssociation);
+    String message = MessageFormat.format(
+        "\nChild:                    \n  {0}"
+            + "\nExisting: \n  {1} \n    {2}"
+            + "\nNew: \n  {3} \n    {4}",
+        child,
+        child.getParent(),
+        existingAssociation,
+        parent,
+        newAssociation);
     DesignerException designerWarning =
         new DesignerException(ICoreExceptionConstants.PARSER_DOUBLE_ASSOCIATION,
             getShortComponentName(child),
