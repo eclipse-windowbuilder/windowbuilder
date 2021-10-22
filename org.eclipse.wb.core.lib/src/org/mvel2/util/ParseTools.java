@@ -1828,6 +1828,7 @@ public class ParseTools {
   }
 
   public static final class WithStatementPair implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String parm;
     private String value;
 
