@@ -252,55 +252,6 @@ public class DesignerPlugin extends AbstractUIPlugin {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Security
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * We should not allow user code to terminate JVM.
-   */
-  public static void installSecurityManager() {
-    System.setSecurityManager(new SecurityManager() {
-      @Override
-      public void checkPermission(java.security.Permission perm) {
-        if (isExitVM(perm)) {
-          StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-          for (StackTraceElement element : stackTrace) {
-            String className = element.getClassName();
-            String methodName = element.getMethodName();
-            // ignore this class, because it has our class name prefix
-            if (className.equals(getClass().getName())) {
-              continue;
-            }
-            // ignore JFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            if (className.equals("javax.swing.JFrame")
-                && methodName.equals("setDefaultCloseOperation")) {
-              return;
-            }
-            // prevent exit() from user invoked by "designer"
-            if (className.startsWith("org.eclipse.wb.")
-                || className.startsWith("com.google.gdt.eclipse.designer.")
-                || className.startsWith("net.rim.ejde.designer.")
-                || className.startsWith("java.awt.EventQueue")) {
-              // we often use test_exit() method as point to stop tests, allow it
-              if (methodName.startsWith("test_") && methodName.endsWith("_exit")) {
-                return;
-              }
-              // prevent exit()
-              throw new SecurityException("Exit from within user-loaded code");
-            }
-          }
-        }
-      }
-
-      private boolean isExitVM(java.security.Permission perm) {
-        return perm instanceof RuntimePermission
-            && StringUtils.startsWith(perm.getName(), "exitVM");
-      }
-    });
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
   // Logging
   //
   ////////////////////////////////////////////////////////////////////////////
