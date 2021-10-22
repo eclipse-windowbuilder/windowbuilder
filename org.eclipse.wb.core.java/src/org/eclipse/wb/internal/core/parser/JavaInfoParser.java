@@ -145,7 +145,6 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
    * Parses given compilation unit and returns single root {@link JavaInfo}.
    */
   public static JavaInfo parse(ICompilationUnit modelUnit) throws Exception {
-    DesignerPlugin.installSecurityManager();
     checkJavaVersion(modelUnit);
     final JavaInfoParser parser = new JavaInfoParser(modelUnit);
     return ExecutionUtils.runDesignTime(new RunnableObjectEx<JavaInfo>() {
@@ -961,7 +960,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
         ParameterDescription parameterDescription,
         Expression[] arrayArguments,
         JavaInfo arrayJavaInfos[]) throws Exception {
-      Class<?> itemType = (Class<?>) parameterDescription.getType();
+      Class<?> itemType = parameterDescription.getType();
       Assert.isTrue(itemType.isArray(), "Ellipsis type not array.");
       EllipsisObjectInfo arrayInfo = new EllipsisObjectInfo(m_editor,
           methodDescription.getName(),
