@@ -926,6 +926,7 @@ public class LayoutModel implements LayoutConstants {
    * UndoableEdit implementation for series of changes in layout model.
    */
   private class LayoutUndoableEdit extends AbstractUndoableEdit {
+    private static final long serialVersionUID = 1L;
     private Object startMark;
     private Object endMark;
 

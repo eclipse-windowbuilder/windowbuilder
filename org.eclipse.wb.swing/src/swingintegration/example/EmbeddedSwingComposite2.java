@@ -269,6 +269,8 @@ public abstract class EmbeddedSwingComposite2 extends Composite {
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=376561
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=291326
     JApplet applet = new JApplet() {
+      private static final long serialVersionUID = 1L;
+
       @Override
       public InputContext getInputContext() {
         return null;
