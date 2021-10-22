@@ -137,9 +137,6 @@ public final class SelectionUsingEqualsStylePropertyImpl extends SubStylePropert
   public void contributeActions(Property property, IMenuManager manager) throws Exception {
     // separate sub-properties
     manager.add(new Separator());
-    // default
-    IAction defaultAction = null;
-    boolean defineChecked = false;
     // add actions
     long style = getStyleValue(property);
     for (int i = 0; i < m_flags.length; i++) {
@@ -148,14 +145,9 @@ public final class SelectionUsingEqualsStylePropertyImpl extends SubStylePropert
       // configure
       if ((style & m_flags[i]) != 0) {
         action.setChecked(true);
-        defineChecked = true;
       }
       // add to menu
       manager.add(action);
-    }
-    // default
-    if (!defineChecked) {
-      defaultAction.setChecked(true);
     }
   }
 
@@ -260,12 +252,11 @@ public final class SelectionUsingEqualsStylePropertyImpl extends SubStylePropert
         // modify this code segment to use the StringBuffer so that the code is in sync with
         // the coding-pattern in the rest of the method (pattern of using the StringBuffer)
         if (addClassAndDefault) {
-          currentSource =
-              currentSource.substring(0, beginIndex)
-                  + m_className
-                  + '.'
-                  + style
-                  + currentSource.substring(endIndex);
+          currentSource = currentSource.substring(0, beginIndex)
+              + m_className
+              + '.'
+              + style
+              + currentSource.substring(endIndex);
         } else {
           currentSource =
               currentSource.substring(0, beginIndex) + style + currentSource.substring(endIndex);
