@@ -22,7 +22,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Test for {@link ContainerObjectValidators}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ContainerObjectValidatorsTest extends AbstractCoreTest {

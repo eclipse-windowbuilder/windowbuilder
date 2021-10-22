@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Abstract test for {@link VariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractVariableTest extends SwingModelTest {

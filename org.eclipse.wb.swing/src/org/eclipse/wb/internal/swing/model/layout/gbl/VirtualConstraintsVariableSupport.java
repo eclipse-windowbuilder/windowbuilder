@@ -31,7 +31,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Implementation of {@link VariableSupport} for virtual {@link AbstractGridBagConstraintsInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

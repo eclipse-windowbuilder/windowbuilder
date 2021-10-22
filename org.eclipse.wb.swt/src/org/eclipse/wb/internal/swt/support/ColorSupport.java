@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 
 /**
  * Stub class for using SWT {@link Color} in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

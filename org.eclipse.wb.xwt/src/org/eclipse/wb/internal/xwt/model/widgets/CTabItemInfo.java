@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for {@link CTabItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

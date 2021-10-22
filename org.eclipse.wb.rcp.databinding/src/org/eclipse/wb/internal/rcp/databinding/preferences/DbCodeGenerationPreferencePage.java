@@ -43,7 +43,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * Code generation preference page.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.preferences
  */

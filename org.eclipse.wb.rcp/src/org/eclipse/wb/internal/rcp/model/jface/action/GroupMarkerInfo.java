@@ -23,7 +23,7 @@ import net.sf.cglib.proxy.NoOp;
 
 /**
  * Model for {@link GroupMarker}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

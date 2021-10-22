@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Model for {@link PShelf}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

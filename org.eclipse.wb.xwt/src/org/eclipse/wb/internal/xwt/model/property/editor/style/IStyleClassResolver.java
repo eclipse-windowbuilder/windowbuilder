@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 
 /**
  * Generator of reference on class with style constants.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property.editor
  */

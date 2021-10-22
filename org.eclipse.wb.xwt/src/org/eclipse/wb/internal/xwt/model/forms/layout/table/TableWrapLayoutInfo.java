@@ -71,7 +71,7 @@ import java.util.Set;
 
 /**
  * Model for {@link TableWrapLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */
@@ -799,7 +799,7 @@ public final class TableWrapLayoutInfo extends LayoutInfo
 
   /**
    * @return the {@link ControlInfo} that should be used as reference of adding into specified cell.
-   * 
+   *
    * @param exclude
    *          the {@link ControlInfo} that should not be checked, for example because we move it now
    */

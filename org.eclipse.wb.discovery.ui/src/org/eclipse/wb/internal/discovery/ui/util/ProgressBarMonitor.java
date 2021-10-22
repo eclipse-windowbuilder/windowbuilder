@@ -22,7 +22,7 @@ public class ProgressBarMonitor implements IProgressMonitor {
 
   /**
    * Create a new ProgressBarMonitor.
-   * 
+   *
    * @param progressBar
    *          the ProgressBar control
    */

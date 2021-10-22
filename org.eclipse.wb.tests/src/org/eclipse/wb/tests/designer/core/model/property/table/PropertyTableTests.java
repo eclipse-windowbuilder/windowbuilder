@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link PropertyTable}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTableTests extends DesignerSuiteTests {

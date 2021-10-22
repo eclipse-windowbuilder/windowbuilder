@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Figure for change current card selection component.
- * 
+ *
  * @author lobas_av
  * @coverage swing.gef.policy
  */

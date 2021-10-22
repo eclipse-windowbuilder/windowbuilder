@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * All XML tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class AllXmlTests extends DesignerSuiteTests {

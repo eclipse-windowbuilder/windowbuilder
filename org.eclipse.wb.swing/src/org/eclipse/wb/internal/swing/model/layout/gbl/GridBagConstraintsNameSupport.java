@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Support for managing name of {@link AbstractGridBagConstraintsInfo}, so that it corresponds to
  * the name of its parent {@link ComponentInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model.layout
  */

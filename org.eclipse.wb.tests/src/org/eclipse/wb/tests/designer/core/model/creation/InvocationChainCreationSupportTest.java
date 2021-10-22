@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link InvocationChainCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InvocationChainCreationSupportTest extends SwingModelTest {

@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * {@link IParseFactory} for Nebula.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.parser
  */

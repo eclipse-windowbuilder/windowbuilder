@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  * Helper for working with {@link Font}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.support
  */

@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Combo;
 
 /**
  * Test for {@link ComboViewer}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComboViewerTest extends RcpModelTest {

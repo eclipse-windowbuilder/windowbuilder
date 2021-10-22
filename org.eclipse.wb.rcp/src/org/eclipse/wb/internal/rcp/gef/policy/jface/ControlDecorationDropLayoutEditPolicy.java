@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for dropping {@link ControlDecorationInfo} on {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

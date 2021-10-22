@@ -34,7 +34,7 @@ import java.text.MessageFormat;
 
 /**
  * Helper class adding popup actions into palette.
- * 
+ *
  * @author mitin_aa
  * @coverage XML.editor.palette.ui
  */

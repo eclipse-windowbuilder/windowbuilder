@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Test for abstract {@link VariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractVariableSupportTest extends AbstractVariableTest {

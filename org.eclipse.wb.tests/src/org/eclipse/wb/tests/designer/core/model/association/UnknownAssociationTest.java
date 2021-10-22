@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link UnknownAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class UnknownAssociationTest extends SwingModelTest {

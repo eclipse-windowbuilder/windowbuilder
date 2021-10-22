@@ -22,7 +22,7 @@ import java.io.InputStream;
 
 /**
  * The activator class controls the plug-in life cycle
- * 
+ *
  * @author sablin_aa
  * @coverage rcp
  */

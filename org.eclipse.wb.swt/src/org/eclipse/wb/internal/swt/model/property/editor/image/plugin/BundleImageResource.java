@@ -24,7 +24,7 @@ import java.net.URL;
 
 /**
  * Implementation {@link IImageResource} for plugin resource available over {@link Bundle}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Model for {@link Shell}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

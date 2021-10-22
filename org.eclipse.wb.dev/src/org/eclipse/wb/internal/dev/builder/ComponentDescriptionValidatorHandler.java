@@ -39,7 +39,7 @@ import javax.xml.validation.Validator;
 
 /**
  * Validator for <code>*.wbp-component.xml</code> descriptions against schema.
- * 
+ *
  * @author scheglov_ke
  */
 public final class ComponentDescriptionValidatorHandler implements BuilderHandler {

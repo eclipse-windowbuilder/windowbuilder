@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Model for {@link TabFolder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

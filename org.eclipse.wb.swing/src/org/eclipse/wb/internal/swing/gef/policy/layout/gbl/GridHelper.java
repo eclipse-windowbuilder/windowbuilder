@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 
 /**
  * Helper for displaying grid for {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Model for {@link IMenuManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -163,7 +163,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -178,7 +178,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo} for "this" {@link MenuManagerInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuItemImpl extends AbstractMenuObject implements IMenuItemInfo {
@@ -238,7 +238,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo, IMenuPolicy {

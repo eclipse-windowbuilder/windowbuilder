@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link ExpressionConverter} for <code>double</code> values.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage XML.model.property

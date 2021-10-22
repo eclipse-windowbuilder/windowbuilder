@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Support that configures palette for using {@link FieldEditorInfo} & binds {@link FieldEditorInfo}
  * to {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage rcp.model.jface

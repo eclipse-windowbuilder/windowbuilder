@@ -38,7 +38,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Dialog for editing the Look-n-Feel. Allows editing name, class name, jar file for custom LAFs.
  * Else allows editing just the name.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.ui
  */

@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * SWT widget descriptor.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.wizard.auto
  */

@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.AbstractLiveManager;
  * We need this interface because we need to create full copy of {@link XmlObjectInfo} during adding
  * it in temporary hierarchy. So, we should also create copy of {@link CreationSupport} that also
  * should be aware, that it will be used for "live component".
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage XML.model.creation

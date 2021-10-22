@@ -36,7 +36,7 @@ import org.easymock.IMocksControl;
 
 /**
  * Tests for {@link RefactoringUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RefactoringUtilsTest extends AbstractJavaTest {

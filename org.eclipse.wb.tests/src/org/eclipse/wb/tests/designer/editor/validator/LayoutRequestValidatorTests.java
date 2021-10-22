@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link ILayoutRequestValidator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutRequestValidatorTests extends DesignerSuiteTests {

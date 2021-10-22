@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * Test for {@link ThisVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ThisTest extends AbstractVariableTest {

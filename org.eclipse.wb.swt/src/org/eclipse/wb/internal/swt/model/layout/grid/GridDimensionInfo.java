@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Abstract dimension in {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

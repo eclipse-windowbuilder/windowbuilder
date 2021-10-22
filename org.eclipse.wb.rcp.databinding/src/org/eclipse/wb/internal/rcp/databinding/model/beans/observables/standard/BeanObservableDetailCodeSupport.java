@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Abstract model for all detail observable.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

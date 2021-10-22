@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link IRootProcessor} that contributes LAF selection action into context menu.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.ui
  */

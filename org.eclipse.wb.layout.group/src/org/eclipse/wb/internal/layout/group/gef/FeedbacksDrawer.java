@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link IFeedbacksDrawer}. Draws and maintains feedbacks engaged by GL engine.
- * 
+ *
  * @author mitin_aa
  */
 final class FeedbacksDrawer implements IFeedbacksDrawer {

@@ -38,7 +38,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Test for {@link LazyVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LazyTest extends AbstractVariableTest {

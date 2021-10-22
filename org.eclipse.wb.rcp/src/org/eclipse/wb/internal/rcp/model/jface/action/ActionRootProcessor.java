@@ -29,7 +29,7 @@ import java.util.ListIterator;
 
 /**
  * Support that contributes {@link ActionInfo} elements on palette.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage rcp.model.jface

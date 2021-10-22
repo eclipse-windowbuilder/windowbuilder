@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Standard "New Java Class" wizard page.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.wizard.auto
  */

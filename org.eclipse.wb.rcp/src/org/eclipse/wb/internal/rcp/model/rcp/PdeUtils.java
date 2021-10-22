@@ -66,7 +66,7 @@ import java.util.Set;
 
 /**
  * Helper for working with PDE model.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -160,7 +160,7 @@ public final class PdeUtils {
 
   /**
    * Adds a new plug-in import to this plugin.
-   * 
+   *
    * @param pluginId
    *          the id of plugin.
    */
@@ -196,7 +196,7 @@ public final class PdeUtils {
 
   /**
    * Adds a new library to this plugin.
-   * 
+   *
    * @param name
    *          the name of library (i.e. jar) file.
    */
@@ -287,7 +287,7 @@ public final class PdeUtils {
    *          the {@link IPluginElement} to get attribute name.
    * @param attributeName
    *          the name of attribute to get value from.
-   * 
+   *
    * @return the value of attribute with given name.
    */
   public static String getAttribute(IPluginElement element, String attributeName) {
@@ -312,7 +312,7 @@ public final class PdeUtils {
    * <code>plugin.xml</code> is modified. Only after request of {@link IPluginElement} using for
    * example {@link #getExtensionElementById(String, String, String)} you will see updated
    * attributes.
-   * 
+   *
    * @param element
    *          the direct child of <code>extension</code>.
    * @param attributeName
@@ -365,7 +365,7 @@ public final class PdeUtils {
    *          the ID of extension point.
    * @param elementName
    *          the name of extension element.
-   * 
+   *
    * @return the {@link IPluginElement}'s for direct child of extension.
    */
   public List<IPluginElement> getExtensionElements(String pointId, String elementName) {
@@ -413,7 +413,7 @@ public final class PdeUtils {
    *          the name of attribute to check.
    * @param filterAttrValue
    *          the value of attribute to check.
-   * 
+   *
    * @return the {@link IPluginElement} of direct extension child that satisfies given filter on
    *         attribute value.
    */
@@ -432,7 +432,7 @@ public final class PdeUtils {
   /**
    * @param pointId
    *          the ID of extension point.
-   * 
+   *
    * @return the {@link IPluginExtension}'s for given extension point.
    */
   private static List<IPluginExtension> getExtensions(IPluginModelBase pluginModel, String pointId) {
@@ -549,7 +549,7 @@ public final class PdeUtils {
       protected void modifyModel(IBaseModel model, IProgressMonitor monitor) throws CoreException {
         IPluginModelBase pluginModel = (IPluginModelBase) model;
         IExtensionsModelFactory extensionsFactory = pluginModel.getFactory();
-        // prepare IPluginExtension to create new IPluginElement 
+        // prepare IPluginExtension to create new IPluginElement
         boolean newExtension;
         IPluginExtension extension;
         {
@@ -641,7 +641,7 @@ public final class PdeUtils {
 
   /**
    * Returns icon from {@link IPluginElement}, attribute <code>"icon"</code>.
-   * 
+   *
    * @param element
    *          the {@link IPluginElement} to get attribute from.
    * @param defaultIconPath
@@ -1139,7 +1139,7 @@ public final class PdeUtils {
   private interface IExtensionVisitor {
     /**
      * Visits single extension {@link IPluginElement}.
-     * 
+     *
      * @return <code>true</code> if required result was found, so visiting should be terminated.
      */
     boolean visit(IPluginElement element);

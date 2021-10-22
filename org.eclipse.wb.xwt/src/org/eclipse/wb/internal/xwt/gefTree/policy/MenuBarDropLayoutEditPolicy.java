@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
 
 /**
  * {@link LayoutEditPolicy} allowing drop "bar" {@link MenuInfo} on {@link ShellInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage XWT.gefTree.policy
  */

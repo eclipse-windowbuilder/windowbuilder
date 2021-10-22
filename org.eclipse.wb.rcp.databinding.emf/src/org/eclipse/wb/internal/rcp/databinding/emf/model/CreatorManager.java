@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Creators for parse all methods <code>EMFObservables.observeXXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

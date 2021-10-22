@@ -33,7 +33,7 @@ import javax.swing.table.TableModel;
 
 /**
  * {@link PropertyEditor} for {@link DefaultTableModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

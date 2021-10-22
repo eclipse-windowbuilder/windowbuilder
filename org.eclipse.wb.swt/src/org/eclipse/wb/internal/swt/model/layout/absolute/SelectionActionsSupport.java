@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Helper for adding selection actions for {@link IAbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage swt.model.layout

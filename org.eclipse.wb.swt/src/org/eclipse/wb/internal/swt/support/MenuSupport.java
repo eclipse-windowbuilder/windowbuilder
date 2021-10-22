@@ -17,7 +17,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.widgets.Menu} in another {@link ClassLoader}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.support
  */
@@ -89,9 +89,9 @@ public class MenuSupport extends AbstractSupport {
   }
 
   /**
-   * 
+   *
    * Adds a placeholder item with string "(add items here)" into empty menu.
-   * 
+   *
    * @param menuObject
    *          A menu object in which placeholder should be placed.
    */

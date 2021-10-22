@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for RCP models.
- * 
+ *
  * @author scheglov_ke
  */
 public class TheRcpTests extends DesignerSuiteTests {

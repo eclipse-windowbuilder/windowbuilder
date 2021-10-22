@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * {@link CreationSupport} for creating {@link Control}, wrapped into {@link Viewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.jface
  */

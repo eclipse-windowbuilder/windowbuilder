@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Abstract superclass for {@link PaletteInfo} tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractPaletteTest extends AbstractCoreTest {

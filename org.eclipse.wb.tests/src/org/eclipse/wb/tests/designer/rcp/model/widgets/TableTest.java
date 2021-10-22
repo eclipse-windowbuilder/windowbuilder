@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for "big" SWT {@link Table}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableTest extends RcpModelTest {

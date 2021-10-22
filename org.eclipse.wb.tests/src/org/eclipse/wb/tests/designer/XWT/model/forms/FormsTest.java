@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.RGB;
 
 /**
  * Test for basic Forms API features.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormsTest extends XwtModelTest {

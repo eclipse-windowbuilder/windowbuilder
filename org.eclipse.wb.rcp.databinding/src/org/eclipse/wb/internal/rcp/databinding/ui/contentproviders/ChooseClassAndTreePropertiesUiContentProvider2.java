@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Control;
 /**
  * Content provider for choose properties from Tree (properties + sub properties) without order
  * choosen properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

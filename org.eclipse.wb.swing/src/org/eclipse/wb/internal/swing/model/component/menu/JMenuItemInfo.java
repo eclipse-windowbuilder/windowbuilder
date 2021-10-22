@@ -27,7 +27,7 @@ import javax.swing.JMenuItem;
 
 /**
  * Model for {@link JMenuItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -80,7 +80,7 @@ public class JMenuItemInfo extends ContainerInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuItemImpl extends AbstractMenuObject implements IMenuItemInfo {

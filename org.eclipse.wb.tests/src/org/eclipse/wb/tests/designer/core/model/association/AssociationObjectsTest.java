@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link AssociationObjects}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AssociationObjectsTest extends SwingModelTest {

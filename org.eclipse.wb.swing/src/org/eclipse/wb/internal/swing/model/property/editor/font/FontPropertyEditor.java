@@ -36,7 +36,7 @@ import java.util.Iterator;
 
 /**
  * {@link PropertyEditor} for {@link Font}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -221,7 +221,7 @@ public final class FontPropertyEditor extends TextDialogPropertyEditor
       Expression familyExpression = DomGenerics.arguments(creation).get(0);
       Expression styleExpression = DomGenerics.arguments(creation).get(1);
       Expression sizeExpression = DomGenerics.arguments(creation).get(2);
-      // prepare Expression for base Font 
+      // prepare Expression for base Font
       final Expression[] baseFontExpression = new Expression[1];
       {
         expression.accept(new ASTVisitor() {

@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 
 /**
  * Fake {@link TestCase} that just wait long time, so that we have time to get memory snapshot.
- * 
+ *
  * @author scheglov_ke
  */
 public class WaitForMemoryProfilerTest extends DesignerTestCase {

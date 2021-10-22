@@ -45,7 +45,7 @@ import javax.swing.UIManager;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Color}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -225,7 +225,7 @@ public final class ColorPropertyEditor extends PropertyEditor {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Edits given {@link ColorInfo}.
-   * 
+   *
    * @return the modified {@link ColorInfo}, or <code>null</code> if editing was canceled.
    */
   public static ColorInfo external_editColor(ColorInfo colorInfo) {

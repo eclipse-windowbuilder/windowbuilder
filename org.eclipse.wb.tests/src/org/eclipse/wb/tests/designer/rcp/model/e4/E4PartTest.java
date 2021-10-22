@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link E4PartInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class E4PartTest extends RcpModelTest {

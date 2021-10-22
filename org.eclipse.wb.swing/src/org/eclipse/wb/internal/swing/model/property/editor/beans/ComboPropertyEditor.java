@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.GC;
 
 /**
  * The {@link PropertyEditor} wrapper for tag's based AWT {@link java.beans.PropertyEditor}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.beans
  */

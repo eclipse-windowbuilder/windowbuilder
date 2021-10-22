@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Helper for adding SWT/JFace resource managers.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.utils
  */
@@ -38,7 +38,7 @@ public class ManagerUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.SWTResourceManager</code>.
-   * 
+   *
    * @param component
    *          the component to access {@link IJavaProject}.
    */
@@ -61,7 +61,7 @@ public class ManagerUtils {
 
   /**
    * Ensures that {@link IJavaProject} has type <code>org.eclipse.wb.swt.ResourceManager</code>.
-   * 
+   *
    * @param component
    *          the component to access {@link IJavaProject}.
    */

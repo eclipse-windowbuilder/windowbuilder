@@ -52,7 +52,7 @@ import java.util.Map;
 
 /**
  * Tests for {@link ProjectUtils}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  */
@@ -127,7 +127,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 
   /**
    * No-op implementation of {@link IProjectNature}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static class MyNatureClass implements IProjectNature {
@@ -493,7 +493,7 @@ public class ProjectUtilsTest extends AbstractJavaTest {
         assertThat(managerType).isNotNull();
         assertThat(managerType.getFields()).isEmpty();
       }
-      // no changes, because "manager" is in binary 
+      // no changes, because "manager" is in binary
       ProjectUtils.ensureResourceType(m_javaProject, testBundle.getBundle(), managerClassName);
       {
         IType managerType = m_javaProject.findType(managerClassName);

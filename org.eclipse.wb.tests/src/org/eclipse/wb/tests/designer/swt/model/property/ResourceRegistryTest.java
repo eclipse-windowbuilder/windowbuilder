@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Tests for {@link ResourceRegistryInfo}.
- * 
+ *
  * @author lobas_av
  */
 public class ResourceRegistryTest extends RcpModelTest {

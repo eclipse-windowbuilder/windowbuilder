@@ -17,7 +17,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class RectangleTest extends Draw2dTestCase {
   ////////////////////////////////////////////////////////////////////////////
@@ -428,7 +428,7 @@ public class RectangleTest extends Draw2dTestCase {
     template.union(point);
     assertEquals(10, 20, 30, 40, template);
     assertEquals(15, 25, point);
-    //		
+    //
     template.union(point.setLocation(50, 70));
     assertEquals(10, 20, 41, 51, template);
     assertEquals(50, 70, point);

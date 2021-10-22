@@ -21,7 +21,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Tests for {@link MenuSupport}.
- * 
+ *
  * @author mitin_aa
  */
 public class MenuSupportTest extends RcpModelTest {

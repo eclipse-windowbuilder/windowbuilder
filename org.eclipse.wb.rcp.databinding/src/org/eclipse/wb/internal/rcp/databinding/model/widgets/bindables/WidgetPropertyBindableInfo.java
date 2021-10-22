@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * {@link BindableInfo} model for <code>SWT</code> widget property.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

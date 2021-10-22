@@ -28,7 +28,7 @@ import javax.swing.Action;
 
 /**
  * Implementation of {@link EntryInfo} that allows user select some {@link Action} and drop it.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.editor.palette
  */

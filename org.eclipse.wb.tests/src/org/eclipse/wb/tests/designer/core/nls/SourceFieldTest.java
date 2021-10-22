@@ -37,7 +37,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link FieldSource}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SourceFieldTest extends AbstractNlsTest {

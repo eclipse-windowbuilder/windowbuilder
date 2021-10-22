@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Tests for various {@link ClassLoader} tricks.
- * 
+ *
  * @author scheglov_ke
  */
 public class ClassLoadingTest extends SwingModelTest {

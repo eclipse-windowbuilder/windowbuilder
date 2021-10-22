@@ -17,7 +17,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Model for objects with generic parameters.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

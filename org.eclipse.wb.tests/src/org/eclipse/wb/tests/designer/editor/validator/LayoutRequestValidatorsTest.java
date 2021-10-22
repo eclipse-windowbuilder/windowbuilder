@@ -26,7 +26,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * Tests for {@link LayoutRequestValidators}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutRequestValidatorsTest extends AbstractLayoutRequestValidatorTest {
@@ -62,7 +62,7 @@ public class LayoutRequestValidatorsTest extends AbstractLayoutRequestValidatorT
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Factories 
+  // Factories
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

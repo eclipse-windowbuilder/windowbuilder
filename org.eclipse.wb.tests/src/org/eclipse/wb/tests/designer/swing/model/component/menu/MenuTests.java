@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing menu.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuTests extends DesignerSuiteTests {

@@ -30,7 +30,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link GenerationSettings}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenerationSettingsTest extends SwingModelTest {

@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class PolylineTest extends Draw2dFigureTestCase {
   private TestLogger m_actualLogger;

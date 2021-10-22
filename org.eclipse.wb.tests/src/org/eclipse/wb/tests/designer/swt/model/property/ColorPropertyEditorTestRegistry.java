@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Tests for {@link ColorPropertyEditor} with JFace <code>ColorRegistry</code>.
- * 
+ *
  * @author lobas_av
  */
 public class ColorPropertyEditorTestRegistry extends ColorPropertyEditorTest {

@@ -28,7 +28,7 @@ import javax.swing.JScrollPane;
 
 /**
  * {@link ISurroundTarget} that uses {@link JScrollPane} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.util
  */

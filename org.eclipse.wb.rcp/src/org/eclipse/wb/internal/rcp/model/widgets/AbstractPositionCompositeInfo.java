@@ -39,7 +39,7 @@ import java.util.Set;
 /**
  * Model for {@link Composite} that has methods like
  * <code>setContent(org.eclipse.swt.widgets.Control)</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

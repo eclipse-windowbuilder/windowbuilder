@@ -29,7 +29,7 @@ import java.util.Locale;
 
 /**
  * Description for {@link FormSpec}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

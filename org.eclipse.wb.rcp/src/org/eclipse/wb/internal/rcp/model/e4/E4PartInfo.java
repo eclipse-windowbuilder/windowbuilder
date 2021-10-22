@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Model for any E4-like GUI component.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.e4
  */

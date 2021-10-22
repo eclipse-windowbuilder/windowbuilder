@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * {@link PropertyEditor} for for {@link XmlObjectInfo} events.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.property
  */
@@ -170,7 +170,7 @@ public final class EventsProperty extends AbstractEventProperty {
   /**
    * Creates and/or opens in Java editor method for listener. Used to create and open listener with
    * known info, for example on double click.
-   * 
+   *
    * @param listenerPath
    *          the '/' separated name of listener, for example <code>key/pressed</code>.
    */

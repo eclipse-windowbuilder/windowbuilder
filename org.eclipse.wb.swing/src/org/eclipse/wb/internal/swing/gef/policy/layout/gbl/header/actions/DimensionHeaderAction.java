@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Abstract action for manipulating selected {@link DimensionHeaderEditPart}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

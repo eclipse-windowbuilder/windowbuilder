@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  * disposed, so it will be recreated later. Usually we need this because test performs modifications
  * which can not be tracked by test class, such as adding new files (not using test-local methods)
  * or changing classpath.
- * 
+ *
  * @author scheglov_ke
  */
 @Target(ElementType.METHOD)

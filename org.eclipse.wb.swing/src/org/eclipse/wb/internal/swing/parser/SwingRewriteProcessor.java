@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Changes known unsupported patterns into supported.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.parser
  */

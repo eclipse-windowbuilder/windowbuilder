@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link RowHeaderEditPart}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

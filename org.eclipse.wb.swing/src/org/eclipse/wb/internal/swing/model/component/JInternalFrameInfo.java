@@ -19,7 +19,7 @@ import javax.swing.JInternalFrame;
 
 /**
  * Model for {@link JInternalFrame}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

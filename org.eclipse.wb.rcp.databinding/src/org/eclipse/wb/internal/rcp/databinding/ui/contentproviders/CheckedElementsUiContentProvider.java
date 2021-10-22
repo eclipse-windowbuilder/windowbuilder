@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.Checked
 /**
  * Content provider for edit (choose checked element type over dialog and combo)
  * {@link CheckedElementsObservableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

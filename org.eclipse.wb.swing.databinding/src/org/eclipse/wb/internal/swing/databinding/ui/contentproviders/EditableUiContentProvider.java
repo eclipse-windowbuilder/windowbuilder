@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.databinding.Messages;
 
 /**
  * Editor for {@link IEditableProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

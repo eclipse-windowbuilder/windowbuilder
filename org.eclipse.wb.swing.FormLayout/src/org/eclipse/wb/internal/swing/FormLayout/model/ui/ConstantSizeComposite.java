@@ -26,7 +26,7 @@ import com.jgoodies.forms.layout.ConstantSize.Unit;
 
 /**
  * {@link Composite} for editing {@link FormSizeConstantInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */

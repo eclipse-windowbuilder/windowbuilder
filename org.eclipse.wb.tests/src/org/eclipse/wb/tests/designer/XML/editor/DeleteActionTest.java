@@ -18,7 +18,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Test for {@link DeleteAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DeleteActionTest extends XwtGefTest {

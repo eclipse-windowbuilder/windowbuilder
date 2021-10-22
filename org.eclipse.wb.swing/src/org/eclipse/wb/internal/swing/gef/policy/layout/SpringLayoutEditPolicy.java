@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link SpringLayoutInfo}.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swing.gef.policy

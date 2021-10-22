@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Test for {@link FieldLayoutPreferencePageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldLayoutPreferencePageTest extends RcpModelTest {
@@ -175,7 +175,7 @@ public class FieldLayoutPreferencePageTest extends RcpModelTest {
         "          {method: getLabelControl} {subComponent} {}",
         "          {method: getTextControl} {subComponent} {}");
     assertInstanceOf(EmptyAssociation.class, newEditor.getAssociation());
-    // set property, so convert to Block 
+    // set property, so convert to Block
     newEditor.getPropertyByTitle("textLimit").setValue(5);
     assertEditor(
         "import org.eclipse.jface.preference.*;",

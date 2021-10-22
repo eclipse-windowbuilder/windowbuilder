@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Nebula widgets models.
- * 
+ *
  * @author sablin_aa
  */
 public class NebulaTests extends DesignerSuiteTests {

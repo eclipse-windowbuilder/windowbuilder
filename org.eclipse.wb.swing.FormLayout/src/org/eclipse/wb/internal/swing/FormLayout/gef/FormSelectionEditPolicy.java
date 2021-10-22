@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.policy
  */

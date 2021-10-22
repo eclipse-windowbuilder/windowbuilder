@@ -18,7 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * Test for {@link RectangleSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class RectangleSupportTest extends AbstractSupportTest {

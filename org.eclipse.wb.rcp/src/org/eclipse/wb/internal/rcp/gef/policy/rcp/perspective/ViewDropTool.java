@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.ViewInfo;
 
 /**
  * {@link Tool} to drop new view.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

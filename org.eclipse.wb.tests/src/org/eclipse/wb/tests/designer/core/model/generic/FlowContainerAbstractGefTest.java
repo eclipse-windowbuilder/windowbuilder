@@ -20,7 +20,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Tests for "flow container" support for container itself or for its "layout manager".
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class FlowContainerAbstractGefTest extends SwingGefTest {

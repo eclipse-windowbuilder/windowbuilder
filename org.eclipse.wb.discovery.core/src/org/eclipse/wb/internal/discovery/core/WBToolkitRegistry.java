@@ -41,14 +41,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 public class WBToolkitRegistry {
   private static WBToolkitRegistry registry;
-  
+
   public interface IRegistryChangeListener {
     public void handleRegistryChange();
   };
-  
+
   /**
    * Returns the singleton instance of the WBToolkitRegistry.
-   * 
+   *
    * @return the singleton instance of the WBToolkitRegistry
    */
   public static WBToolkitRegistry getRegistry() {
@@ -59,16 +59,16 @@ public class WBToolkitRegistry {
   }
 
   private List<WBToolkit> toolkits = new ArrayList<WBToolkit>();
-  
+
   private List<IRegistryChangeListener> listeners = new ArrayList<WBToolkitRegistry.IRegistryChangeListener>();
-  
+
   private WBToolkitRegistry() {
     initRegistry();
   }
 
   /**
    * Return the WindowBuilder toolkit with the given id.
-   * 
+   *
    * @param toolkitId
    *          a unique identifier for a WindowBuilder toolkit
    * @return the WindowBuilder toolkit with the given id
@@ -84,26 +84,26 @@ public class WBToolkitRegistry {
 
   /**
    * Return all the available WindowBuilder toolkits.
-   * 
+   *
    * @return all the available WindowBuilder toolkits
    */
   public List<WBToolkit> getToolkits() {
     return Collections.unmodifiableList(toolkits);
   }
-  
+
   public void addRegistryListener(IRegistryChangeListener listener) {
     if (!listeners.contains(listener)) {
       listeners.add(listener);
     }
   }
-  
+
   public void removeRegistryListener(IRegistryChangeListener listener) {
     listeners.remove(listener);
   }
-  
+
   protected long getLastCachedModified() {
     File toolkitsFile = getCacheLocation().append("toolkits.xml").toFile();
-    
+
     if (toolkitsFile.exists() && toolkitsFile.canRead()) {
       return toolkitsFile.lastModified();
     } else {
@@ -113,17 +113,17 @@ public class WBToolkitRegistry {
 
   protected void updateCacheFrom(URL toolkitsUrl) {
     IPath cacheDirectory = getCacheLocation();
-    
+
     // copy toolkitsUrl to cacheDirectory
     copy(toolkitsUrl, cacheDirectory);
-    
+
     // copy referenced images to cacheDirectory
     try {
       //URL toolkitsFileURL = getCacheLocation().append("toolkits.xml").toFile().toURL();
-      
+
       for (WBToolkit toolkit : parseToolkits(toolkitsUrl)) {
         URL iconURL = toolkit.getIconURL();
-        
+
         if (iconURL != null) {
           copy(iconURL, cacheDirectory);
         }
@@ -131,27 +131,27 @@ public class WBToolkitRegistry {
     } catch (Throwable t) {
       WBDiscoveryCorePlugin.logError(t);
     }
-    
+
     parseToolkitsFromCache();
   }
 
   private void copy(URL fileURL, IPath parentDirectory) {
     String fileName = fileURL.getPath();
-    
+
     if (fileName.indexOf('/') != -1) {
       fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
     }
-    
+
     IPath filePath = parentDirectory.append(fileName);
-    
+
     try {
       URLConnection connection = fileURL.openConnection();
       File outFile = filePath.toFile();
-      
+
       copy(connection.getInputStream(), new FileOutputStream(outFile));
-      
+
       long lastModified = connection.getHeaderFieldDate("Last-Modified", 0); //$NON-NLS-1$
-      
+
       outFile.setLastModified(lastModified);
     } catch (IOException ioe) {
       WBDiscoveryCorePlugin.logError(ioe);
@@ -160,15 +160,15 @@ public class WBToolkitRegistry {
 
   private void copy(InputStream in, OutputStream out) throws IOException {
     byte[] buffer = new byte[4096];
-    
+
     int count = in.read(buffer);
-    
+
     while (count != -1) {
       out.write(buffer, 0, count);
-      
+
       count = in.read(buffer);
     }
-    
+
     in.close();
     out.close();
   }
@@ -177,7 +177,7 @@ public class WBToolkitRegistry {
     if (!cacheExists()) {
       URL toolkitsUrl =
         WBDiscoveryCorePlugin.getPlugin().getBundle().getEntry("resources/toolkits.xml");
-      
+
       updateCacheFrom(toolkitsUrl);
     } else {
       parseToolkitsFromCache();
@@ -188,19 +188,19 @@ public class WBToolkitRegistry {
   private void parseToolkitsFromCache() {
     try {
       URL toolkitsFileURL = getCacheLocation().append("toolkits.xml").toFile().toURL();
-      
+
       try {
         toolkits = parseToolkits(toolkitsFileURL);
       } catch (Throwable t) {
         WBDiscoveryCorePlugin.logError(t);
       }
-      
+
       Collections.sort(toolkits, new Comparator<WBToolkit>() {
         public int compare(WBToolkit toolkit1, WBToolkit toolkit2) {
           return toolkit1.getName().compareToIgnoreCase(toolkit2.getName());
         }
       });
-      
+
       for (IRegistryChangeListener listener : listeners) {
         listener.handleRegistryChange();
       }
@@ -211,7 +211,7 @@ public class WBToolkitRegistry {
 
   private boolean cacheExists() {
     File toolkitsFile = getCacheLocation().append("toolkits.xml").toFile();
-    
+
     return toolkitsFile.exists();
   }
 
@@ -228,9 +228,9 @@ public class WBToolkitRegistry {
       Node node = nodeList.item(s);
       if (node.getNodeType() == Node.ELEMENT_NODE) {
         Element element = (Element) node;
-        
+
         WBToolkit entry = new WBToolkit();
-        
+
         entry.setId(getAttributeText(element, "id"));
         entry.setName(getAttributeText(element, "name"));
         entry.setTitle(getAttributeText(element, "title"));
@@ -240,12 +240,12 @@ public class WBToolkitRegistry {
         parseUpdateSiteInfo(element.getElementsByTagName("updateSite"), entry);
         entry.setProviderName(getAttributeText(element, "providerName"));
         entry.setMoreInfoURL(getAttributeText(element, "moreInfoURL"));
-        
+
         String os = getAttributeText(element, "os");
         if (os != null) {
           entry.setOsList(os.split(","));
         }
-        
+
         // Check to make sure that this toolkit is valid for this configuration of Eclipse.
         if (entry.supportsCurrentOS() && entry.getUpdateSite() != null) {
         	results.add(entry);
@@ -258,7 +258,7 @@ public class WBToolkitRegistry {
   private IPath getCacheLocation() {
     return WBDiscoveryCorePlugin.getPlugin().getStateLocation();
   }
-  
+
   private void parseUpdateSiteInfo(NodeList nodes, WBToolkit entry) {
     //<updateSite version="[3.6,3.7)" url="http://download.eclipse.org/windowbuilder/WB/integration/3.7">
     //  <feature id="org.eclipse.wb.xwt.feature"/>

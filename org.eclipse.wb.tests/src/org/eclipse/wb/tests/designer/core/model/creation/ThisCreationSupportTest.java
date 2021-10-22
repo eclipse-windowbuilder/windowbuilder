@@ -41,7 +41,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link ThisCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ThisCreationSupportTest extends SwingModelTest {

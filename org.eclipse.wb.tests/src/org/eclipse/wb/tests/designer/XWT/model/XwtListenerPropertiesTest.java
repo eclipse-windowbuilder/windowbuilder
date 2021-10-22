@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.xwt.model.util.XwtListenerProperties;
 
 /**
  * Test for {@link XwtListenerProperties}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtListenerPropertiesTest extends XwtModelTest {

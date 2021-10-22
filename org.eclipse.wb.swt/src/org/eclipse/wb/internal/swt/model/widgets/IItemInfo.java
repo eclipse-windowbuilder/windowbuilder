@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Item;
 
 /**
  * Interface model of {@link Item}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

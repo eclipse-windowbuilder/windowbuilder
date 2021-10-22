@@ -16,7 +16,7 @@ import org.eclipse.wb.draw2d.geometry.Point;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class PointTest extends Draw2dTestCase {
   ////////////////////////////////////////////////////////////////////////////

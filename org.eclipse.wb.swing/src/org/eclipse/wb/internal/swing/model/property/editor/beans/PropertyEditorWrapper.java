@@ -37,7 +37,7 @@ import java.lang.reflect.Method;
 
 /**
  * Wrapper for common operations on {@link java.beans.PropertyEditor}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.beans
  */

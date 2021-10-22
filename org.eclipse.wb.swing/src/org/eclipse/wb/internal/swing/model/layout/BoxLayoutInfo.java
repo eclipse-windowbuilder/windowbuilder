@@ -34,7 +34,7 @@ import javax.swing.JComponent;
 
 /**
  * Model for {@link BoxLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -135,7 +135,7 @@ public final class BoxLayoutInfo extends GenericFlowLayoutInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

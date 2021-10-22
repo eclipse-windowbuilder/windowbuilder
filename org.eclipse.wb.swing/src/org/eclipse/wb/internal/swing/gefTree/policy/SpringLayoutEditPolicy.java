@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link SpringLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gefTree.policy
  */

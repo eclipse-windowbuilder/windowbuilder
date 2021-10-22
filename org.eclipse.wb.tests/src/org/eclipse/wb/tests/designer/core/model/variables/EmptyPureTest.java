@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Test for adding using {@link EmptyPureVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyPureTest extends AbstractVariableTest {

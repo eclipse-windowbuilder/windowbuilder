@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Test for {@link CTabFolderInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CTabFolderTest extends RcpModelTest {

@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * @author sablin_aa
- * 
+ *
  */
 public class GenericUtilsTest extends AbstractBindingTest {
   ////////////////////////////////////////////////////////////////////////////

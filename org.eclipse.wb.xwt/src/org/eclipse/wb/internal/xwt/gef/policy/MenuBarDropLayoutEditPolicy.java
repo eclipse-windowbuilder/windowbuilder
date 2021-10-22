@@ -36,7 +36,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuInfo;
 
 /**
  * {@link LayoutEditPolicy} allowing drop "bar" {@link MenuInfo} on {@link ShellInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage XWT.gef.policy
  */
@@ -161,7 +161,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
     ////////////////////////////////////////////////////////////////////////////
     @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      // only one "bar" 
+      // only one "bar"
       for (MenuInfo menuInfo : m_m_shell.getChildren(MenuInfo.class)) {
         if (menuInfo.isBar()) {
           return false;

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Property editor allowing to select one control within list of controls on the same parent (except
  * itself).
- * 
+ *
  * @author mitin_aa
  * @coverage swt.property.editor
  */

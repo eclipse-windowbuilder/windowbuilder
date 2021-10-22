@@ -36,7 +36,7 @@ import javax.swing.Box;
 
 /**
  * Abstract {@link SelectionEditPolicy} for any strut or rigid area from {@link Box}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

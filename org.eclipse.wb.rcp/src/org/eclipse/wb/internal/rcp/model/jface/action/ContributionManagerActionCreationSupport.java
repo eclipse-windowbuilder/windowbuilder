@@ -25,7 +25,7 @@ import org.eclipse.jface.action.IContributionManager;
 /**
  * Implementation of {@link CreationSupport} for {@link IContributionManager#add(IAction)}.<br>
  * This method internally creates {@link ActionContributionItem}, but does not return it.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

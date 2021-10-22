@@ -46,7 +46,7 @@ import java.util.Set;
 
 /**
  * Properties provider for EMF objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

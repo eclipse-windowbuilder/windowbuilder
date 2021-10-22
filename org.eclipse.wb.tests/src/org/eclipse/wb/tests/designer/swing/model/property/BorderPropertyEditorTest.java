@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link BorderPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BorderPropertyEditorTest extends SwingModelTest {

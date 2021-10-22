@@ -37,7 +37,7 @@ import javax.swing.JTextField;
 
 /**
  * Test for {@link NamesManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NamesManagerTest extends AbstractVariableTest {
@@ -134,7 +134,7 @@ public class NamesManagerTest extends AbstractVariableTest {
             "  public Test() {",
             "  }",
             "}");
-    // get name/acronym from description 
+    // get name/acronym from description
     assertEquals("pName", NamesManager.getName(panel));
     assertEquals("pAcr", NamesManager.getAcronym(panel));
   }
@@ -189,7 +189,7 @@ public class NamesManagerTest extends AbstractVariableTest {
             "  public Test() {",
             "  }",
             "}");
-    // default names 
+    // default names
     assertEquals("myPanel2", NamesManager.getName(panel));
     assertEquals("mpnl2", NamesManager.getAcronym(panel));
   }

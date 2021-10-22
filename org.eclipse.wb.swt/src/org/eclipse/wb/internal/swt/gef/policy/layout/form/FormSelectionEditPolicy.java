@@ -23,7 +23,7 @@ import org.eclipse.swt.layout.FormLayout;
 
 /**
  * Selection policy for edit containers with {@link FormLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gef.policy.form
  */

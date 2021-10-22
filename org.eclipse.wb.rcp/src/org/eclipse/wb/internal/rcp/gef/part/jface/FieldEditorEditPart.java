@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 
 /**
  * {@link EditPart} for {@link FieldEditorInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

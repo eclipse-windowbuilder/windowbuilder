@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Abstract model for
  * <code>DataBindingContext.bindXXX(target, model, targetStrategy, modelStrategy)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

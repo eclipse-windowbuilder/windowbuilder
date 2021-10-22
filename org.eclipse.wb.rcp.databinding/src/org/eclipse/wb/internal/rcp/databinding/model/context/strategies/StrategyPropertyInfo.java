@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Abstract model for any strategy properties: converter, validator and etc.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

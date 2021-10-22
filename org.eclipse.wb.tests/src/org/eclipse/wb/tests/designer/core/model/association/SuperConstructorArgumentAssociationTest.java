@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
 /**
  * Tests for {@link SuperConstructorArgumentAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SuperConstructorArgumentAssociationTest extends SwingModelTest {

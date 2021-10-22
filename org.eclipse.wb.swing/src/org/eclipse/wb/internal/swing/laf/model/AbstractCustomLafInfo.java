@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.laf.model;
 
 /**
  * Represents custom (external from plugin or user-defined) look-n-feel.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

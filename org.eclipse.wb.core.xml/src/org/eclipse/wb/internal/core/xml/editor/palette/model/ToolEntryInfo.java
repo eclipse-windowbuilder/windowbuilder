@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 
 /**
  * Implementation of {@link EntryInfo} that sets {@link Tool} for {@link EditDomain}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

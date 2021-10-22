@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 /**
  * Model for {@link ToolItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

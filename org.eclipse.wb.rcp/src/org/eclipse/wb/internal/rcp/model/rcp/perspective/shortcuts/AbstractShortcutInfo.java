@@ -40,7 +40,7 @@ import org.eclipse.ui.IPageLayout;
  * Abstract item for shortcut-like methods in {@link IPageLayout}, such as
  * {@link IPageLayout#addFastView(String)}, {@link IPageLayout#addShowViewShortcut(String)} and
  * {@link IPageLayout#addPerspectiveShortcut(String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

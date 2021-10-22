@@ -54,7 +54,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link StaticFactoryCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StaticFactoryCreationSupportTest extends SwingModelTest {

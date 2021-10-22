@@ -64,7 +64,7 @@ import java.util.Set;
 
 /**
  * Helper for accessing {@link ComponentPresentation}'s.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage XML.model.description
@@ -567,7 +567,7 @@ public final class ComponentPresentationHelper {
             // it OK
             return Status.OK_STATUS;
           }
-          // proceed with presentations  
+          // proceed with presentations
           fillPresentations(cache, toolkitId, monitor);
         } catch (Exception e) {
           DesignerPlugin.log(e);

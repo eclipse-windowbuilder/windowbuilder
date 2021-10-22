@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link NamespacesHelper}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NamespacesHelperTest extends AbstractCoreTest {

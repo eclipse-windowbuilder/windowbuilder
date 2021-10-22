@@ -48,7 +48,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link LayoutManager}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutManagersTest extends AbstractLayoutTest {
@@ -154,7 +154,7 @@ public class LayoutManagersTest extends AbstractLayoutTest {
     assertTrue(newLayout.isActive());
     // "oldLayout" does not manage
     assertThat(oldLayout.getComponents()).isEmpty();
-    // "newLayout" manages 
+    // "newLayout" manages
     assertThat(newLayout.getComponents()).containsExactly(button);
   }
 
@@ -229,9 +229,9 @@ public class LayoutManagersTest extends AbstractLayoutTest {
     panel.setLayout(newLayout);
     assertFalse(oldLayout.isActive());
     assertTrue(newLayout.isActive());
-    // "oldLayout" does not manage 
+    // "oldLayout" does not manage
     assertFalse(oldLayout.isManagedObject(button));
-    // "newLayout" manages 
+    // "newLayout" manages
     assertTrue(newLayout.isManagedObject(button));
   }
 
@@ -269,7 +269,7 @@ public class LayoutManagersTest extends AbstractLayoutTest {
     assertNotNull(button);
     // prepare layouts
     LayoutInfo layout = panel.getLayout();
-    // indirectly exposed, so not managed 
+    // indirectly exposed, so not managed
     assertFalse(layout.isManagedObject(button));
   }
 

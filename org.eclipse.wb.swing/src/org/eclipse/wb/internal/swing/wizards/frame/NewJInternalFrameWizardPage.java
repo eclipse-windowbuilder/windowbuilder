@@ -26,7 +26,7 @@ import javax.swing.JInternalFrame;
 
 /**
  * {@link WizardPage} that creates new Swing {@link JInternalFrame}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

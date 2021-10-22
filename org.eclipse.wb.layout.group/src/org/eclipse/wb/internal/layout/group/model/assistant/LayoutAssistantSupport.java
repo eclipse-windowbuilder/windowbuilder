@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Provides support for Layout Assistant and surrogate 'Constraints' property.
- * 
+ *
  * @author mitin_aa
  */
 public class LayoutAssistantSupport {
@@ -76,7 +76,7 @@ public class LayoutAssistantSupport {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Assistant 
+  // Assistant
   //
   ////////////////////////////////////////////////////////////////////////////
   private void createAssistantPages(List<ObjectInfo> objects,

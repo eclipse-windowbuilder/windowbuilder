@@ -76,7 +76,7 @@ import java.util.List;
 
 /**
  * Test for {@link ActionInfo} and {@link ActionContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionTest extends RcpModelTest {

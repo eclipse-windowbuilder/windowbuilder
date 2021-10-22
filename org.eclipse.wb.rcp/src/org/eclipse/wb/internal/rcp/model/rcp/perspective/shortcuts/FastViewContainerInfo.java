@@ -17,7 +17,7 @@ import org.eclipse.ui.IPageLayout;
 
 /**
  * Container for {@link IPageLayout#addFastView(String)} method.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -48,7 +48,7 @@ public final class FastViewContainerInfo extends AbstractShortcutContainerInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link FastViewInfo}.
-   * 
+   *
    * @return the created {@link FastViewInfo}.
    */
   public FastViewInfo command_CREATE(String viewId, FastViewInfo nextItem) throws Exception {

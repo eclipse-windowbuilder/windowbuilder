@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TrayItem;
 
 /**
  * Test {@link TrayItemInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TrayItemTest extends RcpModelTest {

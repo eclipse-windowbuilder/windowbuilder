@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Model for {@link ExpandBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

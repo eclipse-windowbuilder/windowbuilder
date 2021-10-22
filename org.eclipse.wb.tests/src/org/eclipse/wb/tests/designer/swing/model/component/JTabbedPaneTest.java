@@ -43,7 +43,7 @@ import javax.swing.JTabbedPane;
 
 /**
  * Test for {@link JTabbedPane}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JTabbedPaneTest extends SwingModelTest {
@@ -220,7 +220,7 @@ public class JTabbedPaneTest extends SwingModelTest {
         "}");
     refresh();
     ComponentInfo button = getJavaInfoByName("button");
-    // 
+    //
     GenericProperty property = (GenericProperty) getTabPropertyByTitle(button, "foreground");
     assertEquals("RED", getPropertyText(property));
   }
@@ -410,7 +410,7 @@ public class JTabbedPaneTest extends SwingModelTest {
             "}");
     refresh();
     JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
-    // 
+    //
     ComponentInfo button = tabbed.getChildrenComponents().get(0);
     GenericProperty property = (GenericProperty) getTabPropertyByTitle(button, "foreground");
     // check current value
@@ -455,7 +455,7 @@ public class JTabbedPaneTest extends SwingModelTest {
             "}");
     refresh();
     JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
-    // 
+    //
     ComponentInfo button = tabbed.getChildrenComponents().get(0);
     GenericProperty property = (GenericProperty) getTabPropertyByTitle(button, "foreground");
     // check current value
@@ -496,7 +496,7 @@ public class JTabbedPaneTest extends SwingModelTest {
             "}");
     refresh();
     JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
-    // 
+    //
     ComponentInfo button = tabbed.getChildrenComponents().get(0);
     GenericProperty property = (GenericProperty) getTabPropertyByTitle(button, "tooltip");
     // check current value
@@ -534,7 +534,7 @@ public class JTabbedPaneTest extends SwingModelTest {
             "}");
     refresh();
     JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
-    // 
+    //
     ComponentInfo button = tabbed.getChildrenComponents().get(0);
     GenericProperty property = (GenericProperty) getTabPropertyByTitle(button, "enabled");
     // check current value
@@ -1176,7 +1176,7 @@ public class JTabbedPaneTest extends SwingModelTest {
     JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
     ComponentInfo button_0 = getJavaInfoByName("button_0");
     assertSame(button_0, tabbed.getActiveComponent());
-    // 
+    //
     ComponentInfo button = getJavaInfoByName("button");
     tabbed.command_ADD(button, button_0);
     assertEditor(
@@ -1220,7 +1220,7 @@ public class JTabbedPaneTest extends SwingModelTest {
     panel.refresh();
     JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
     ComponentInfo button = getJavaInfoByName("button");
-    // 
+    //
     tabbed.command_ADD(button, null);
     assertEditor(
         "class Test extends JPanel {",
@@ -1264,7 +1264,7 @@ public class JTabbedPaneTest extends SwingModelTest {
     JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
     ComponentInfo button_0 = getJavaInfoByName("button_0");
     assertSame(button_0, tabbed.getActiveComponent());
-    // 
+    //
     ComponentInfo button = getJavaInfoByName("button");
     {
       FlowContainer flowContainer = new FlowContainerFactory(tabbed, false).get().get(0);
@@ -1328,7 +1328,7 @@ public class JTabbedPaneTest extends SwingModelTest {
     //
     ContainerInfo innerPanel = (ContainerInfo) tabbed.getChildrenComponents().get(1);
     ComponentInfo button = innerPanel.getChildrenComponents().get(0);
-    // 
+    //
     panel.refresh();
     try {
       assertSame(button_0, tabbed.getActiveComponent());

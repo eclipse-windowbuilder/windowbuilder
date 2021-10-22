@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Support for managing name of {@link LayoutDataInfo}, so that it corresponds to the name of its
  * parent {@link ControlInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage swt.model.layout
  */

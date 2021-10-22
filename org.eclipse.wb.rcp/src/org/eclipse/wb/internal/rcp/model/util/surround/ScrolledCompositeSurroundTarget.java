@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * {@link ISurroundTarget} that uses {@link ScrolledComposite} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.util
  */

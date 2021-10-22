@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link Grid} items models.
- * 
+ *
  * @author sablin_aa
  */
 public class GridTest extends AbstractNebulaTest {

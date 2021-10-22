@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link EmptyXmlProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyXmlPropertyTest extends AbstractCoreTest {

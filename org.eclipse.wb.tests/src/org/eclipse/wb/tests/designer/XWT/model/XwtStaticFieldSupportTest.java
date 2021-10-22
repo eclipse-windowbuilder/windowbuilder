@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Test for {@link XwtStaticFieldSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtStaticFieldSupportTest extends XwtModelTest {

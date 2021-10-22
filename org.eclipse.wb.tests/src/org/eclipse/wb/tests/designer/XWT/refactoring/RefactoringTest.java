@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.IType;
 
 /**
  * Test for XWT refactoring participants.
- * 
+ *
  * @author scheglov_ke
  */
 public class RefactoringTest extends XwtModelTest {

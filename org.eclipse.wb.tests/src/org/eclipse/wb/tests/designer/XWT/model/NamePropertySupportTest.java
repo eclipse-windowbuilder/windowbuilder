@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.util.NamePropertySupport;
 
 /**
  * Test for {@link NamePropertySupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class NamePropertySupportTest extends XwtModelTest {

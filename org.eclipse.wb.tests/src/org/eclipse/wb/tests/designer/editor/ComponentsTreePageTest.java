@@ -34,7 +34,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link ComponentsTreePage}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentsTreePageTest extends SwingGefTest {

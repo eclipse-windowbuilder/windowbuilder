@@ -13,7 +13,7 @@ package org.netbeans.modules.form.layoutdesign;
 /**
  * Interface between netbeans and GEF for drawing feedbacks. Some methods not used, but needed to
  * compile netbeans code.
- * 
+ *
  * @author mitin_aa
  */
 public interface IFeedbacksDrawer {

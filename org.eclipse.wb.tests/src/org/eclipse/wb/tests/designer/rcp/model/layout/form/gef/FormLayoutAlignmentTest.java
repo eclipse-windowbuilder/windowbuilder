@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * GEF tests for {@link FormLayout} alignment support.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  */

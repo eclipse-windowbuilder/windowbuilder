@@ -30,7 +30,7 @@ import javax.swing.border.CompoundBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link CompoundBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

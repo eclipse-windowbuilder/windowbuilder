@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
 /**
  * Model for observable object <code>BeansObservables.setFactory(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

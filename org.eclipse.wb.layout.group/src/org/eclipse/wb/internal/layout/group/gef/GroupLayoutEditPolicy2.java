@@ -51,7 +51,7 @@ import java.util.List;
 
 /**
  * Policy implementing manipulations with GroupLayout.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements IFeedbacksHelper {
@@ -254,7 +254,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
               bounds.height);
       layoutComponents[j++] = m_layout.createLayoutComponent(model);
     }
-    // the position of the mouse inside the dragging rectangle 
+    // the position of the mouse inside the dragging rectangle
     Point hotSpot = request.getLocation().getCopy();
     PolicyUtils.translateAbsoluteToModel((GraphicalEditPart) firstEditPart.getParent(), hotSpot);
     hotSpot.translate(request.getMoveDelta().getNegated());

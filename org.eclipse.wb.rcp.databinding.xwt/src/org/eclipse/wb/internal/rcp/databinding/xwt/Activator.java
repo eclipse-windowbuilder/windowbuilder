@@ -21,7 +21,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The activator and utility class controls the Data Bindings plug-in life cycle.
- * 
+ *
  * @author lobas_av
  */
 public final class Activator extends AbstractUIPlugin {

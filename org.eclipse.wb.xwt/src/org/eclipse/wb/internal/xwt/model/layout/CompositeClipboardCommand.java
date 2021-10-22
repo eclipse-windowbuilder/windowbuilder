@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
 /**
  * Abstract command for {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

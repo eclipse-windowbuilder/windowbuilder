@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EventsPropertyTest extends XwtModelTest {

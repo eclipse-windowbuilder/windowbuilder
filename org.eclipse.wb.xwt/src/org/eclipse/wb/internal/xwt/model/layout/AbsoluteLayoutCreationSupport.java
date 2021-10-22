@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
 /**
  * {@link CreationSupport} for explicit {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

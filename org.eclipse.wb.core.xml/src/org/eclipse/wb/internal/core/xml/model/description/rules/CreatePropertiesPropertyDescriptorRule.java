@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * The {@link Rule} that adds {@link GenericPropertyDescription}s for {@link PropertyDescriptor}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

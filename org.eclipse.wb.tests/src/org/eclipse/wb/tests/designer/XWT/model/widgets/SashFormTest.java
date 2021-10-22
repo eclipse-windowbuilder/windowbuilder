@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Test for {@link SashFormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SashFormTest extends XwtModelTest {

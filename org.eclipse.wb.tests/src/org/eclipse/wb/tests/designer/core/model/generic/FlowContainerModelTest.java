@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * Test for {@link FlowContainer} and {@link FlowContainerConfigurable} models.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowContainerModelTest extends SwingModelTest {

@@ -26,7 +26,7 @@ import java.io.File;
 
 /**
  * Tests for {@link ImagePropertyEditor}.
- * 
+ *
  * @author lobas_av
  */
 public abstract class ImagePropertyEditorTest extends RcpModelTest {

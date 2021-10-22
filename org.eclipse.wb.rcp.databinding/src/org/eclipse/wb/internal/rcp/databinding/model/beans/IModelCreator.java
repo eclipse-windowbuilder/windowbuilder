@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.dom.Expression;
 /**
  * Factory for create {@link AstObjectInfo} models for AST <code>MethodInvocation</code> and
  * <code>ClassInstanceCreation</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

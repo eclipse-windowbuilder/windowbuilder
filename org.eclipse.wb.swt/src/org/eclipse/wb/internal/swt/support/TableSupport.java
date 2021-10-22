@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Table;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.widget.Table}'s in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage swt.support

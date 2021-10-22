@@ -23,7 +23,7 @@ import java.util.List;
  * Model for viewer properties (see to
  * {@link org.eclipse.jface.databinding.viewers.ViewersObservables}) when
  * {@link org.eclipse.jface.viewers.ISelectionProvider} object isn't widget.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

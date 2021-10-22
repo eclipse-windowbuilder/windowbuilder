@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for "big" SWT {@link Tree}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

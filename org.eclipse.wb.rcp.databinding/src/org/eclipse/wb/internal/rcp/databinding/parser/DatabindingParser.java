@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * JFace bindings API parser.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.parser
  */

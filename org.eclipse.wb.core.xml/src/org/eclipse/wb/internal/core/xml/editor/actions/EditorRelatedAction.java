@@ -21,7 +21,7 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * Abstract superclass for actions of {@link AbstractXmlEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */

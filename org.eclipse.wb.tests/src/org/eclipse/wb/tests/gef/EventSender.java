@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Scrollable;
 
 /**
  * Event emulator used for send different mouse events to given SWT control.
- * 
+ *
  * @author lobas_av
  */
 public class EventSender {

@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for {@link MethodExpressionAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodExpressionAccessorTest extends AbstractCoreTest {

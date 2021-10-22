@@ -36,7 +36,7 @@ import javax.swing.UIManager;
 
 /**
  * Implementation of {@link AbstractFontPage} for selecting {@link Font} from {@link UIManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.AbstractPositionInfo;
 
 /**
  * {@link EditPart} for {@link AbstractPositionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gefTree.part
  */

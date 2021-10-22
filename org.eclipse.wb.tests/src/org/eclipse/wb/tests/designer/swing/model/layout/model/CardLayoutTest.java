@@ -36,7 +36,7 @@ import javax.swing.JPopupMenu;
 
 /**
  * Test for {@link CardLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

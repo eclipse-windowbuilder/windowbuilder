@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
 
 /**
  * Common image container.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

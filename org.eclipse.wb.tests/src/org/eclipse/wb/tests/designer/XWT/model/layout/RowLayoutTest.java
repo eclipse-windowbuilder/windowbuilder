@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Test for {@link RowLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RowLayoutTest extends XwtModelTest {

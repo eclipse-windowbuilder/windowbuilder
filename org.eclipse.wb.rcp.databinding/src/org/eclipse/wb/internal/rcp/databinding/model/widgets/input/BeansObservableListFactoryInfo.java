@@ -11,9 +11,9 @@
 package org.eclipse.wb.internal.rcp.databinding.model.widgets.input;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class BeansObservableListFactoryInfo extends AbstractFactoryInfo {
   ////////////////////////////////////////////////////////////////////////////

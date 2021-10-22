@@ -18,7 +18,7 @@ import org.eclipse.swt.custom.CTabItem;
 
 /**
  * Test for {@link CTabFolderInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class CTabFolderGefTest extends XwtGefTest {

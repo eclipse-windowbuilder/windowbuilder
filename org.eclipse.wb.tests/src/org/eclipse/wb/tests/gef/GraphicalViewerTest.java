@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GraphicalViewerTest extends GefTestCase {
   private Shell m_shell;

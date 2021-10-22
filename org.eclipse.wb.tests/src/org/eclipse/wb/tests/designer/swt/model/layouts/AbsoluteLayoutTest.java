@@ -51,7 +51,7 @@ import java.util.Collections;
 
 /**
  * Tests for {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author mitin_aa
  */
 public class AbsoluteLayoutTest extends RcpModelTest {
@@ -86,7 +86,7 @@ public class AbsoluteLayoutTest extends RcpModelTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * The sample below installs wrong toolkit for AbsoluteLayoutInfo. The sequence is:
-   * 
+   *
    * <pre>
 	 *   refresh_beforeCreate sets active JavaInfo for EditorState to CompositeInfo;
 	 *   parser found "new java.util.ArrayList()", creates DefaultJavaInfo and sets it as active JavaInfo;

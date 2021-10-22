@@ -19,7 +19,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Wizard} that creates new JFace {@link Dialog}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

@@ -29,7 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Test for {@link CellConstraintsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CellConstraintsSupportTest extends AbstractFormLayoutTest {

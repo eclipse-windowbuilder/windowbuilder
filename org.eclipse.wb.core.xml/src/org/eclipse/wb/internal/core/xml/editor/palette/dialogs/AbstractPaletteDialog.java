@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Abstract {@link TitleAreaDialog} for palette.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette.ui
  */

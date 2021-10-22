@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.IDetailsPage;
 
 /**
  * {@link Wizard} that creates new Forms {@link IDetailsPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

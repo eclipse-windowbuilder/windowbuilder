@@ -36,7 +36,7 @@ import javax.swing.JRootPane;
 
 /**
  * SWT dialog for showing AWT component.
- * 
+ *
  * @author lobas_av
  * @coverage swing.customize
  */

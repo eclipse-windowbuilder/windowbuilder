@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
 
 /**
  * Implementation of {@link IEditPartFactory} for SWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gefTree
  */

@@ -19,7 +19,7 @@ import org.eclipse.jface.action.Action;
 /**
  * Abstract {@link Action} for modifying horizontal/vertical part of
  * {@link AbstractGridBagConstraintsInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

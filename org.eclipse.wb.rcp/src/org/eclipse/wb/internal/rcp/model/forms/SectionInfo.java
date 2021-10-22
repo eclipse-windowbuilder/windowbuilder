@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * Model for {@link Section}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

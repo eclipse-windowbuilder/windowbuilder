@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * {@link IJavaInfoInitializationParticipator} that supports rendering
  * {@link SWT_AWT#new_Frame(Composite)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.util
  */

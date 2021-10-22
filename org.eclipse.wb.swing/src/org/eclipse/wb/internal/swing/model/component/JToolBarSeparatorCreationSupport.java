@@ -22,7 +22,7 @@ import javax.swing.JToolBar;
 /**
  * Implementation of {@link CreationSupport} for {@link JToolBar#addSeparator()} and
  * {@link JToolBar#addSeparator(java.awt.Dimension)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

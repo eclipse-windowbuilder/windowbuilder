@@ -3,7 +3,7 @@
  * accompanying materials are made available under the terms of the Eclipse
  * Public License v1.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: Google, Inc. - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wb.internal.discovery.core;
@@ -24,13 +24,13 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
 
   /** Set the system property "com.google.usageprofiler.debug" to "true" to enable debugging. */
   public static final boolean DEBUG = Boolean.getBoolean("org.eclipse.wb.discovery.debug");
-  
+
   // The shared instance
   private static WBDiscoveryCorePlugin plugin;
 
   /**
    * Returns the bundle context for this plugin.
-   * 
+   *
    * @return the bundle context
    */
   public static BundleContext getBundleContext() {
@@ -39,7 +39,7 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
 
   /**
    * Returns the shared instance.
-   * 
+   *
    * @return the shared instance
    */
   public static WBDiscoveryCorePlugin getPlugin() {
@@ -48,7 +48,7 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
 
   /**
    * Log an exception to the Eclipse log.
-   * 
+   *
    * @param t the exception to log
    */
   public static void logError(Throwable t) {
@@ -58,7 +58,7 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
 
   /**
    * Log an exception to the Eclipse log.
-   * 
+   *
    * @param message the log message
    * @param t the exception to log
    */
@@ -66,7 +66,7 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
     getPlugin().getLog().log(
         new Status(IStatus.ERROR, PLUGIN_ID, message, t));
   }
-  
+
   /**
    * @return a string representing the current operating system
    */
@@ -94,7 +94,7 @@ public class WBDiscoveryCorePlugin extends AbstractUIPlugin {
   public void checkForRegistryUpdates() {
     //updateJob.cancel();
     //updateJob.schedule();
-    
+
     WBToolkitRegistryUpdateJob updateJob = new WBToolkitRegistryUpdateJob();
     updateJob.schedule(1000);
   }

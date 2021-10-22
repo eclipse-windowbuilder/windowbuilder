@@ -35,7 +35,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Model for {@link MasterDetailsBlock}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

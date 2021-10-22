@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Helper for testing SWT UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class UiContext {

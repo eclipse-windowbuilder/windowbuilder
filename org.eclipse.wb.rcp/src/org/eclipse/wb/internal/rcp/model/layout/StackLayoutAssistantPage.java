@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Layout assistant for {@link org.eclipse.swt.custom.StackLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.layout
  */

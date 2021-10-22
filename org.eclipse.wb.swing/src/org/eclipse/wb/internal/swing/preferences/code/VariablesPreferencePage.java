@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swing.ToolkitProvider;
 /**
  * Implementation of {@link org.eclipse.wb.internal.core.preferences.code.VariablesPreferencePage}
  * for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.ui
  */

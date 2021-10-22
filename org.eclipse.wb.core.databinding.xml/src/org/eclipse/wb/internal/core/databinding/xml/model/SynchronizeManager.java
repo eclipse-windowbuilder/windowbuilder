@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.xml.model.broadcast.XmlObjectSetObjectAfter;
 
 /**
  * Helper class for auto synchronize {@link XmlObjectInfo}'s and observe, binding info's.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.xml.model
  */

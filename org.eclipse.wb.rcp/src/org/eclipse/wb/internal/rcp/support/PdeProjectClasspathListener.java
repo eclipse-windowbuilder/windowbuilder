@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * {@link IProjectClasspathListener} for PDE.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.support
  */

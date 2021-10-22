@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ViewFormInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

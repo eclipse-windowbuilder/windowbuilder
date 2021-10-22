@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * XML model tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class DescriptionTests extends DesignerSuiteTests {

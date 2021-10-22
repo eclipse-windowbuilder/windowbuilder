@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Test for {@link UndoManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class UndoManagerTest extends XwtGefTest {

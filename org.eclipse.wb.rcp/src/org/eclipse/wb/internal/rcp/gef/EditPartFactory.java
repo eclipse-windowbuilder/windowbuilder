@@ -30,7 +30,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 /**
  * Implementation of {@link IEditPartFactory} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef
  */

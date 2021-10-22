@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.gef.GraphicalRobot;
 
 /**
  * Tester for feedbacks on {@link IEditPartViewer#MENU_FEEDBACK_LAYER}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class MenuFeedbackTester {

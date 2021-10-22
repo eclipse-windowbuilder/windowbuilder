@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * Stub class for using SWT {@link Font} in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

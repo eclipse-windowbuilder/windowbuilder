@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class CommandsTest extends TestCase {
   ////////////////////////////////////////////////////////////////////////////

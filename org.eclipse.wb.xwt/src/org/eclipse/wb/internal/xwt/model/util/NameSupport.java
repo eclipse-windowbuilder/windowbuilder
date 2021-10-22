@@ -30,7 +30,7 @@ import java.util.Set;
 
 /**
  * Maintains special "Name" property for XWT.
- * 
+ *
  * @author mitin_aa
  * @coverage XWT.model
  */

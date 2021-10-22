@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link EmptyProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EmptyPropertyTest extends SwingModelTest {

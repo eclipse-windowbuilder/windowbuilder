@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 
 /**
  * Basic tests for {@link CompositeTopBoundsSupport}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

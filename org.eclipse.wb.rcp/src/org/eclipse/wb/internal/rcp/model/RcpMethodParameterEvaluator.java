@@ -23,7 +23,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * {@link IMethodParameterEvaluator} for RCP objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model
  */

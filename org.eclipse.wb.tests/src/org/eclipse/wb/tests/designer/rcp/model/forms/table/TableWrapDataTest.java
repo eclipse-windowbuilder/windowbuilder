@@ -29,7 +29,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Test for {@link TableWrapDataInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapDataTest extends AbstractFormsTest {

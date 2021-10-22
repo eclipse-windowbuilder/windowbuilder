@@ -32,7 +32,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * {@link EditPart} for column/row header of {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MorphingTargetDescription}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MorphingTargetDescriptionTest extends SwingModelTest {
@@ -142,7 +142,7 @@ public class MorphingTargetDescriptionTest extends SwingModelTest {
 
   /**
    * We should clear targets on "noInhetit=true"
-   * 
+   *
    * @throws Exception
    */
   public void test_noInherit() throws Exception {

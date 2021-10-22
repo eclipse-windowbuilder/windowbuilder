@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link PerspectiveShortcutContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gefTree.policy
  */

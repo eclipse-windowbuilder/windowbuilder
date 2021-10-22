@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.model;
 
 /**
  * Factory for creating {@link ObservableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

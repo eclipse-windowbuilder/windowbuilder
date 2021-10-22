@@ -18,7 +18,7 @@ import java.io.StringWriter;
 
 /**
  * Tests for {@link XmlWriter}.
- * 
+ *
  * @author mitin_aa
  */
 public class XmlWriterTest extends DesignerTestCase {

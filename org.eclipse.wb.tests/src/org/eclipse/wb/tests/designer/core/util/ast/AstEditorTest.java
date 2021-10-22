@@ -94,7 +94,7 @@ import java.util.List;
 
 /**
  * Tests for {@link AstEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AstEditorTest extends AbstractJavaTest {
@@ -1657,7 +1657,7 @@ public class AstEditorTest extends AbstractJavaTest {
 
   /**
    * Checks {@link AstEditor#addFieldDeclaration(String, BodyDeclarationTarget)}.
-   * 
+   *
    * @param relativeToType
    *          is <code>true</code> if new field should be added relative to type, is
    *          <code>false</code> if relative to field.
@@ -2770,11 +2770,11 @@ public class AstEditorTest extends AbstractJavaTest {
       assertFalse(position == -1);
       assertEquals("value", m_lastEditor.getUniqueVariableName(position, "value", null));
     }
-    // when ask globally unique variable... 
+    // when ask globally unique variable...
     {
-      // ..."m_value" already visible 
+      // ..."m_value" already visible
       assertEquals("m_value_1", m_lastEditor.getUniqueVariableName(-1, "m_value", null));
-      // ..."value" already visible 
+      // ..."value" already visible
       assertEquals("value_1", m_lastEditor.getUniqueVariableName(-1, "value", null));
     }
   }
@@ -2790,7 +2790,7 @@ public class AstEditorTest extends AbstractJavaTest {
             "void foo() {",
             "  m_value2 = 1;",
             "}"));
-    // m_value as base, exclude m_value 
+    // m_value as base, exclude m_value
     {
       VariableDeclarationFragment fragment =
           (VariableDeclarationFragment) typeDeclaration.getFields()[0].fragments().get(0);
@@ -5880,7 +5880,7 @@ public class AstEditorTest extends AbstractJavaTest {
         "class Test {",
         "  private int m_value = 0;",
         "}");
-    // 
+    //
     SimpleName fieldName = (SimpleName) m_lastEditor.getEnclosingNode("m_value");
     m_lastEditor.setIdentifier(fieldName, "foo");
     assertEditor(

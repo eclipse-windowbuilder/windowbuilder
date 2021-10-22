@@ -24,7 +24,7 @@ import javax.swing.JTabbedPane;
 
 /**
  * {@link ISurroundTarget} that uses {@link JTabbedPane} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.util
  */

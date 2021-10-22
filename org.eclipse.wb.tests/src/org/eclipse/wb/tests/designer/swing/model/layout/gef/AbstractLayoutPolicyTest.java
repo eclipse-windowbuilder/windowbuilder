@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Abstract super class for testing {@link LayoutEditPolicy}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractLayoutPolicyTest extends SwingGefTest {

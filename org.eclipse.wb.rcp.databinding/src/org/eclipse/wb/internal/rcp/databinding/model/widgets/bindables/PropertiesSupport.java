@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Properties provider for <code>SWT</code> widgets and <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -14,7 +14,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Base class for all GroupLayout elements.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

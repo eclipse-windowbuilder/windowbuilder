@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * Tests for {@link ImageDescriptorPropertyEditorTestNoManager} without <code>ResourceManager</code>
  * .
- * 
+ *
  * @author lobas_av
  */
 public class ImageDescriptorPropertyEditorTestNoManager extends ImageDescriptorPropertyEditorTest {

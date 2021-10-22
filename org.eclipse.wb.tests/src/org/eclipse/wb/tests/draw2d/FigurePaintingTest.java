@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class FigurePaintingTest extends Draw2dFigureTestCase {
   private TestLogger m_actualLogger;

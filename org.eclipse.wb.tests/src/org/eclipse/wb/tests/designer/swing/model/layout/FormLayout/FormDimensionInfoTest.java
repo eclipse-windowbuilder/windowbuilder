@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormDimensionInfoTest extends AbstractFormLayoutTest {

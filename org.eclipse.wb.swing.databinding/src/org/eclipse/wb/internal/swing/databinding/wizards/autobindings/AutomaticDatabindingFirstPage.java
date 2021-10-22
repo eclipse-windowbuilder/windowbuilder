@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.wizards.SwingWizardPage;
 
 /**
  * Standard "New Java Class" wizard page.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */

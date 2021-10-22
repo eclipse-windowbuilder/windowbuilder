@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Root container for file image resources into workspace plugin project.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

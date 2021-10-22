@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Generic {@link LayoutEditPolicy} for absolute based Swing layouts.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @coverage swing.gef.policy
@@ -90,7 +90,7 @@ public abstract class AbsoluteBasedLayoutEditPolicySwing
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

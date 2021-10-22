@@ -20,7 +20,7 @@ import javax.swing.JInternalFrame;
 
 /**
  * {@link Wizard} that creates new Swing {@link JInternalFrame}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

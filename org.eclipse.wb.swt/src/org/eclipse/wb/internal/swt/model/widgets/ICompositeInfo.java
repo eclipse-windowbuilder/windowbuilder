@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Interface model of {@link Composite}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */
@@ -46,7 +46,7 @@ public interface ICompositeInfo extends IScrollableInfo {
    * place child {@link Control} exactly in top-left point of {@link Group}, we should use
    * <code>(0,0)</code>. However if we want to place {@link Control} in <b>top-left of preferred
    * location</b>, then {@link #getClientAreaInsets2()} should be used.
-   * 
+   *
    * @return the {@link Insets} for "displaying data" part of this {@link Composite}.
    */
   Insets getClientAreaInsets2();

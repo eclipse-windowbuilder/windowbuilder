@@ -34,7 +34,7 @@ import java.awt.GraphicsEnvironment;
 /**
  * Implementation of {@link AbstractFontPage} for deriving {@link Font} by changing its family,
  * style or size.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -262,7 +262,7 @@ public final class DerivedFontPage extends AbstractFontPage {
   /**
    * Configures with {@link GenericProperty}, we should get "base" attributes required to create
    * {@link DerivedFontInfo}.
-   * 
+   *
    * @return <code>true</code> if configuration was successful.
    */
   boolean configure(GenericProperty property) throws Exception {

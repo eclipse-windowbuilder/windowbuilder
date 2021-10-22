@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.preferences.laf;
 
 /**
  * Preference constants for Swing LAF.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.preferences.laf
  */

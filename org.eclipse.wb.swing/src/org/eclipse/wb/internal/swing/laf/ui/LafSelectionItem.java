@@ -48,7 +48,7 @@ import javax.swing.UIManager;
 
 /**
  * LAF selection item to contribute onto Designer Toolbar.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.ui
  */
@@ -80,7 +80,7 @@ public final class LafSelectionItem extends ContributionItem
     m_toolItem.setImage(Activator.getImage("info/laf/laf.png"));
     m_toolItem.setText(LafSupport.getSelectedLAF(m_componentInfo).getName());
     m_toolItem.setToolTipText(ModelMessages.LafSelectionItem_select);
-    // setup drop-down menu 
+    // setup drop-down menu
     m_toolItem.addListener(SWT.Selection, new Listener() {
       public void handleEvent(Event event) {
         createMenu(parent);
@@ -128,7 +128,7 @@ public final class LafSelectionItem extends ContributionItem
     m_menu = new Menu(parent);
     // add MRU items
     addMRUItems();
-    // 
+    //
     for (final CategoryInfo categoryInfo : LafSupport.getLAFCategoriesList()) {
       if (LafSupport.isRootCategory(categoryInfo)) {
         createLAFMenuItem(m_menu, categoryInfo);
@@ -247,7 +247,7 @@ public final class LafSelectionItem extends ContributionItem
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // LAFSupport.ILookAndFeelsChangeListener 
+  // LAFSupport.ILookAndFeelsChangeListener
   //
   ////////////////////////////////////////////////////////////////////////////
   public void lookAndFeelsListChanged() {

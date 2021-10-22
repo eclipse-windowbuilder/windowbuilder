@@ -23,7 +23,7 @@ import javax.swing.UIManager;
 
 /**
  * Class describing {@link LookAndFeel} which represents the default LAF of this system.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */
@@ -49,7 +49,7 @@ public class SystemLafInfo extends LafInfo {
   public void applyInMain(AstEditor editor) throws Exception {
     MethodDeclaration mainMethod = LafSupport.getMainMethod(editor);
     if (mainMethod == null) {
-      // no main method 
+      // no main method
       return;
     }
     // look up for setLookAndFeel method
@@ -61,7 +61,7 @@ public class SystemLafInfo extends LafInfo {
           + "javax.swing.UIManager.getSystemLookAndFeelClassName());\n"
           + "} catch (Throwable e) {\n\te.printStackTrace();\n}", target);
     } else {
-      // modify any existing to set system LAF class name 
+      // modify any existing to set system LAF class name
       editor.replaceExpression(
           DomGenerics.arguments(setLookAndFeelMethod).get(0),
           "javax.swing.UIManager.getSystemLookAndFeelClassName()");

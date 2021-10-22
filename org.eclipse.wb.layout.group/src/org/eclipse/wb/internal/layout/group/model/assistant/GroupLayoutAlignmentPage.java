@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Layout assistant page for aligning components.
- * 
+ *
  * @author mitin_aa
  */
 public final class GroupLayoutAlignmentPage extends Composite

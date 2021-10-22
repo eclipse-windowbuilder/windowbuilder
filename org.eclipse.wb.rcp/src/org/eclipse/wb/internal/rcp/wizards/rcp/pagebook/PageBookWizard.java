@@ -19,7 +19,7 @@ import org.eclipse.ui.part.PageBook;
 
 /**
  * {@link Wizard} that creates new RCP {@link PageBook}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

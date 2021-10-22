@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link AbstractShortcutContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

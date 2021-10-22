@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Model for {@link ToolItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

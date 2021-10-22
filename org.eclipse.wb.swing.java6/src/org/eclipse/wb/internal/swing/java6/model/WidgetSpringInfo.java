@@ -18,7 +18,7 @@ import javax.swing.GroupLayout.Alignment;
 
 /**
  * Spring containing component.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

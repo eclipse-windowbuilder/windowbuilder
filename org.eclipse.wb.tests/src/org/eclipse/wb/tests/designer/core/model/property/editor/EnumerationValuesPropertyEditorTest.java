@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link EnumerationValuesPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EnumerationValuesPropertyEditorTest extends SwingModelTest {

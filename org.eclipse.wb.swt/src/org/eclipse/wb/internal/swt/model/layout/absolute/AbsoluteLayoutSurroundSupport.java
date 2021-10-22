@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Helper for surrounding {@link ControlInfo}'s with some {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

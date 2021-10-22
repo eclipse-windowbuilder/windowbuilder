@@ -38,7 +38,7 @@ import java.util.List;
  * <p>
  * So, we need some trick to dispose {@link ResourceRegistry}'s with editor and remove its dispose
  * {@link Runnable} from {@link Display}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swt.model.jface
@@ -86,7 +86,7 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Disposes all {@link ResourceRegistry}'s, loaded for given hierarchy.
-   * 
+   *
    * @param javaInfo
    *          the root {@link JavaInfo} of hierarchy.
    */

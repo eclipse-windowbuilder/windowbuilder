@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.core.xml.model.property.IExpressionPropertyEditor
 
 /**
  * {@link PropertyEditor} for selecting single value of type {@link Enum}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage XML.model.property.editor

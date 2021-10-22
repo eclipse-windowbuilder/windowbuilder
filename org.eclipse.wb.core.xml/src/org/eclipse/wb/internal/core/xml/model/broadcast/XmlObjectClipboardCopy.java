@@ -20,7 +20,7 @@ import java.util.List;
  * <p>
  * Gives subscribers possibility to participate in copy to clipboard process. For example container
  * can add command for installing layout, layout can commands for creating children, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

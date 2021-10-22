@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation for XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

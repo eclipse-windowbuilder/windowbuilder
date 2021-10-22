@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * This interface is contributed via extension point and used by {@link AbstractXmlEditor} for
  * creating {@link IXmlEditorPage} pages for Designer multi page XML editor.
- * 
+ *
  * @author lobas_av
  * @coverage XML.editor
  */

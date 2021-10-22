@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectPresentation;
 
 /**
  * Implementation of {@link IObjectPresentation} for {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

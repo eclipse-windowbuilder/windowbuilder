@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swt.support.ImageSupport;
 
 /**
  * Test for {@link ImageSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class ImageSupportTest extends AbstractSupportTest {

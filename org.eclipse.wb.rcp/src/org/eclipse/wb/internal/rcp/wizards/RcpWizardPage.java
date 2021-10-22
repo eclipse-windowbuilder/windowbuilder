@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * General wizard page for RCP wizard's.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

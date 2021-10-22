@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Model for observable object {@link org.eclipse.core.databinding.observable.list.WritableList}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

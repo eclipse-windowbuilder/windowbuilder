@@ -39,7 +39,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * The dialog for editing {@link SpinnerModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

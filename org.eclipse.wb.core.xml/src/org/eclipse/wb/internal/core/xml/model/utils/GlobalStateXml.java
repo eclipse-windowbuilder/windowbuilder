@@ -47,7 +47,7 @@ import java.util.Map;
 
 /**
  * Implementations of {@link GlobalState} for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.util
  */
@@ -108,7 +108,7 @@ public final class GlobalStateXml {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Editor context 
+  // Editor context
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

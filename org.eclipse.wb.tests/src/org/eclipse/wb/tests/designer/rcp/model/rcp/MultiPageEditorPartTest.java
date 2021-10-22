@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for <code>MultiPageEditorPart</code> support (rather not support).
- * 
+ *
  * @author scheglov_ke
  */
 public class MultiPageEditorPartTest extends RcpModelTest {

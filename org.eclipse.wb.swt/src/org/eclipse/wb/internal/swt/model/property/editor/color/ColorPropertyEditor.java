@@ -62,7 +62,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link org.eclipse.swt.graphics.Color}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */
@@ -204,7 +204,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
   /**
    * @param idExpression
    *          the {@link Expression} with "id" of system color.
-   * 
+   *
    * @return the name of "COLOR_XXX" field from <code>SWT</code>.
    */
   private static String getColorFieldName(Expression idExpression) throws Exception {

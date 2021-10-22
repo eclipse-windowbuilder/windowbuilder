@@ -19,7 +19,7 @@ import org.eclipse.ui.actions.ActionFactory;
  * even when {@link Action} itself has no icon.
  * <p>
  * We use this for example for {@link ActionFactory} actions.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

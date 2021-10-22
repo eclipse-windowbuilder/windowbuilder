@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * Initialize class loader for use bindings on runtime.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.parser
  */
@@ -165,7 +165,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
   /**
    * Inject to all public static methods contains parameters {@code Object} bean and {@code String}
    * property:
-   * 
+   *
    * <pre>
 	 * public static %ReturnType% %method%(..., Object bean, ..., String property, ....) {
 	 *     if (bean == null) {
@@ -238,7 +238,7 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
 
   /**
    * Inject to constructor with {@code methodDescriptor} signature additional code:
-   * 
+   *
    * <pre>
 	 * constructor(Realm, %Type% argument, Object) {
 	 *    if (argument == null) {

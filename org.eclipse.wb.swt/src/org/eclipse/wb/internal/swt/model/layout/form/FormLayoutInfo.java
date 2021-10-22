@@ -51,7 +51,7 @@ import java.util.List;
 
 /**
  * SWT {@link FormLayout} model.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */
@@ -175,7 +175,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IFormLayoutInfo<
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Commands 
+  // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
   public void commandMove(ControlInfo control, ControlInfo nextControl) throws Exception {

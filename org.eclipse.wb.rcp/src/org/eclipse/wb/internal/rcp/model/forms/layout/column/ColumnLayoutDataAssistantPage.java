@@ -22,7 +22,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 /**
  * Layout assistant for {@link ColumnLayoutData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Abstract {@link SurroundSupport} for SWT {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.util
  */

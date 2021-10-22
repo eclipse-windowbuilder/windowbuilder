@@ -19,7 +19,7 @@ import javax.swing.GroupLayout;
 
 /**
  * Tests for {@link GroupLayout}.
- * 
+ *
  * @author mitin_aa
  */
 public class GroupLayoutTests extends DesignerSuiteTests {

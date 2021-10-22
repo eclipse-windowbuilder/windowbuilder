@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link LayoutEditPolicy} for dropping {@link ControlDecorationInfo} on {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

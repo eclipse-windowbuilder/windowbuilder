@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.ConstantSize.Unit;
 
 /**
  * Description for {@link Unit}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */

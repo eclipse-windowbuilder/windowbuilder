@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * Factory for {@link Association}s.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.association
  */

@@ -17,7 +17,7 @@ import java.text.MessageFormat;
 
 /**
  * Model for {@link org.jdesktop.beansbinding.AutoBinding.UpdateStrategy}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.bindings
  */

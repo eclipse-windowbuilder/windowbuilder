@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 /**
  * Model for {@code initDataBindings()} local variables <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

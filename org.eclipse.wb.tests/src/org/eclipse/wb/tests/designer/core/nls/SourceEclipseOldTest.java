@@ -29,7 +29,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link EclipseSource}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SourceEclipseOldTest extends AbstractNlsTest {

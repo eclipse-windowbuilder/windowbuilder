@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for dropping {@link ControlInfo} on {@link AbstractPositionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gefTree.policy
  */

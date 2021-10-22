@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Abstract action for manipulating selected {@link TableWrapDimensionInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

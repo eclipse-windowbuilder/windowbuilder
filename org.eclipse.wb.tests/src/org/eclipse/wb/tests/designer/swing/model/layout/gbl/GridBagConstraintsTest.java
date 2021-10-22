@@ -53,7 +53,7 @@ import java.awt.GridBagLayout;
 
 /**
  * Test for {@link GridBagConstraintsInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {

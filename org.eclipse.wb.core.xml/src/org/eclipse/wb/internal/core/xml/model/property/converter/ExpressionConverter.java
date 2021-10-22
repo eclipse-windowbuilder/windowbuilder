@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * {@link ExpressionConverter} converts property value into XML attribute value.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

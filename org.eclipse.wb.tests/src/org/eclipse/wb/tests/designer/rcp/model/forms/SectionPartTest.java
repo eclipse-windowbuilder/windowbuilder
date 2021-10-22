@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link SectionPartInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SectionPartTest extends AbstractFormsTest {

@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Test for {@link StringListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest {
@@ -166,7 +166,7 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
         "  </property>",
         "</component>"});
     waitForAutoBuild();
-    // 
+    //
     ContainerInfo panel =
         parseContainer(
             "class Test extends JPanel {",

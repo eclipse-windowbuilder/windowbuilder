@@ -16,7 +16,7 @@ import org.eclipse.swt.dnd.DragSource;
 
 /**
  * Interface model for {@link DragSource}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

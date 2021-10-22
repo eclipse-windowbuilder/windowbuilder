@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link ComponentClassProperty}.
- * 
+ *
  * @author lobas_av
  */
 public class ComponentClassPropertyTest extends SwingModelTest {

@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Test for {@link FileDocumentEditContext}, {@link DocumentElement}, etc.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */
@@ -413,7 +413,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
         "  <description>Some text</description>",
         "  <source><![CDATA[Some source]]></source>",
         "</root>");
-    // <description> and <source> 
+    // <description> and <source>
     List<DocumentElement> children = rootElement.getChildren();
     assertThat(children).hasSize(2);
     // <description>
@@ -1534,7 +1534,7 @@ public class XmlDocumentTest extends AbstractJavaProjectTest {
     });
     assertThat(visitObjects).hasSize(6);
     assertSame(rootElement, visitObjects.get(0)); // <root>
-    assertSame(rootElement.getDocumentAttribute("name"), visitObjects.get(1)); // <root name=""> 
+    assertSame(rootElement.getDocumentAttribute("name"), visitObjects.get(1)); // <root name="">
     assertSame(rootElement.getChildAt(0), visitObjects.get(2)); // <tag>
     assertSame(rootElement.getChildAt(0).getDocumentAttribute("name2"), visitObjects.get(3)); // <tag name2="">
     assertSame(rootElement.getChildAt(0), visitObjects.get(4)); // </tag>

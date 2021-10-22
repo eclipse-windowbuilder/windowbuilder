@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing beans.
- * 
+ *
  * @author scheglov_ke
  */
 public class BeanTests extends DesignerSuiteTests {

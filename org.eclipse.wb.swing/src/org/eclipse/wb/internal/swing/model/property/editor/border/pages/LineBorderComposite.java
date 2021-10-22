@@ -25,7 +25,7 @@ import javax.swing.border.LineBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link LineBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

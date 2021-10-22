@@ -51,7 +51,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Tests for {@link ComponentEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentEntryInfoTest extends AbstractPaletteTest {

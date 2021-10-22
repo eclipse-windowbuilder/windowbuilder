@@ -17,7 +17,7 @@ import org.eclipse.swt.SWT;
 /**
  * Presentation for SWT menu with style: <code>SWT.POP_UP</code>, <code>SWT.DROP_DOWN</code>,
  * <code>SWT.BAR</code>.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage XWT.model.widgets

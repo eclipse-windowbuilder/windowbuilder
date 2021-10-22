@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * {@link EntryInfo} that allows user to drop new {@link CustomButton} on {@link CollapsibleButtons}
  * .
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.palette
  */

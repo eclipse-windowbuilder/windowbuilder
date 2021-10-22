@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 
 /**
  * package private class used to fetch baseline values on Gtk platform
- * 
+ *
  * @author mitin_aa
  */
 final class GtkBaseline extends Baseline {
@@ -35,8 +35,8 @@ final class GtkBaseline extends Baseline {
   int fetchBaseline(Control control, int width, int height) {
     int baseline = NO_BASELINE;
     try {
-      // we need to check if any text set for widget. If no text set we will set 
-      // our own to fetch baseline value properly (actually I suppose that we should not do baseline 
+      // we need to check if any text set for widget. If no text set we will set
+      // our own to fetch baseline value properly (actually I suppose that we should not do baseline
       // fetch from widgets without "text" property).
       Class<?> clazz = control.getClass();
       Method setTextMethod = null;

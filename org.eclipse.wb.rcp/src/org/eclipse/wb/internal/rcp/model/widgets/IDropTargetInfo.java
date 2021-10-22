@@ -16,7 +16,7 @@ import org.eclipse.swt.dnd.DropTarget;
 
 /**
  * Interface model for {@link DropTarget}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests {@link LayoutInfo} and GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutGefTest extends SwingGefTest {

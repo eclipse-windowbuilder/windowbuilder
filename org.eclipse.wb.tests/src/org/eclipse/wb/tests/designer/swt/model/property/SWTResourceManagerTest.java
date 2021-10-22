@@ -23,7 +23,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Tests for {@link org.eclipse.wb.swt.SWTResourceManager}.
- * 
+ *
  * @author lobas_av
  */
 public class SWTResourceManagerTest extends RcpModelTest {
@@ -216,7 +216,7 @@ public class SWTResourceManagerTest extends RcpModelTest {
         "getImage(java.lang.Class,java.lang.String)",
         SWTManagerClass,
         "/javax/swing/plaf/basic/icons/JavaCup16.png"));
-    // load image directly over Image 
+    // load image directly over Image
     Object directImage =
         ReflectionUtils.getConstructorBySignature(
             ImageClass,

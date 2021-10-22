@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link FastViewContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

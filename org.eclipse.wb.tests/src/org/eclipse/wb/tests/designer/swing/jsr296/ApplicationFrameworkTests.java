@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Test for "Swing Application Framework", JSR-296.
- * 
+ *
  * @author scheglov_ke
  */
 public class ApplicationFrameworkTests extends DesignerSuiteTests {

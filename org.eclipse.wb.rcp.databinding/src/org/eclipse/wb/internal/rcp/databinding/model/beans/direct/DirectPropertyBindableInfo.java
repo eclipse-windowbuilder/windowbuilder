@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * {@link PropertyBindableInfo} model for properties with observable types.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

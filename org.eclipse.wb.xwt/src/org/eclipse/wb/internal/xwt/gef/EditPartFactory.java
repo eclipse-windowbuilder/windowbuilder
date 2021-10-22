@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.menu.MenuItemInfo;
 
 /**
  * {@link IEditPartFactory} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef
  */

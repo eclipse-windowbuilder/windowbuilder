@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Fake {@link ObserveInfo} for undefined properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * {@link GraphicalEditPart} for {@link AbstractComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.gef
  */

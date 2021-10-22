@@ -26,7 +26,7 @@ import javax.swing.JApplet;
 
 /**
  * {@link WizardPage} that creates new Swing {@link JApplet}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

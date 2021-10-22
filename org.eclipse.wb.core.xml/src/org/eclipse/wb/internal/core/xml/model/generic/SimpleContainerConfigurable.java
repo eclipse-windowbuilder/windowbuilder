@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Configurable {@link SimpleContainer} for {@link XmlObjectInfo} children.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.generic
  */

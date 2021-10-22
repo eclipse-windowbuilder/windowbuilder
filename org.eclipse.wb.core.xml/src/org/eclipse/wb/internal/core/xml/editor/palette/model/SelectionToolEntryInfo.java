@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link EntryInfo} that activates {@link SelectionTool}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

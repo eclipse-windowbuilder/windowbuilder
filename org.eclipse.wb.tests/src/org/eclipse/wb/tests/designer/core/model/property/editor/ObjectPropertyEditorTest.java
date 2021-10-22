@@ -37,7 +37,7 @@ import javax.swing.JTextField;
 
 /**
  * Tests for {@link ObjectPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectPropertyEditorTest extends SwingModelTest {
@@ -89,7 +89,7 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
     {
       assertNull(panel.getPropertyByTitle("dropTarget"));
     }
-    // hierarchy 
+    // hierarchy
     assertHierarchy(
         "{this: javax.swing.JPanel} {this} {/add(component)/}",
         "  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",

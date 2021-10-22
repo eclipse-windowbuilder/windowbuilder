@@ -38,7 +38,7 @@ import java.text.MessageFormat;
 
 /**
  * Test for {@link StylePropertyEditor}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

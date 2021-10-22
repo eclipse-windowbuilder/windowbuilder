@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Test for {@link ScrolledFormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ScrolledFormTest extends XwtModelTest {

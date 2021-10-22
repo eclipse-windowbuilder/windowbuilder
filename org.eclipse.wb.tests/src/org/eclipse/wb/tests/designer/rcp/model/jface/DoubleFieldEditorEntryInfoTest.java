@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link DoubleFieldEditorEntryInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DoubleFieldEditorEntryInfoTest extends RcpModelTest {

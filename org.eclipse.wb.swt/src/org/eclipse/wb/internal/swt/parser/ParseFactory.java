@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.parser.IParseFactory;
 
 /**
  * {@link IParseFactory} for SWT.
- * 
+ *
  * @author sablin_aa
  * @coverage swt.parser
  */

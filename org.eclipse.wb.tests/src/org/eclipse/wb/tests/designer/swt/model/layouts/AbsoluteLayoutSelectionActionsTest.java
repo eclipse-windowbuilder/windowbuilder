@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Test for {@link AbsoluteLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
@@ -488,7 +488,7 @@ public class AbsoluteLayoutSelectionActionsTest extends RcpModelTest {
   //
   // Vertical
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   /**
    * One parent selection objects, order: Bottom-Up.
    */

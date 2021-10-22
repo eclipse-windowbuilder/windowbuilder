@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link RowLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class RowLayoutGefTest extends XwtGefTest {

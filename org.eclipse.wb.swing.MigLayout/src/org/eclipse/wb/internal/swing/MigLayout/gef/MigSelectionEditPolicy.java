@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.policy
  */

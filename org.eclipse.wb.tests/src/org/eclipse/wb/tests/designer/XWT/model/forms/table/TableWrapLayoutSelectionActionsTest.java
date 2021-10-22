@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Test for {@link TableWrapLayoutInfo} selection action's.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutSelectionActionsTest extends XwtModelTest {

@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * GroupLayout-specific association.
- * 
+ *
  * @author mitin_aa
  */
 public final class GroupLayoutAssociation extends Association {

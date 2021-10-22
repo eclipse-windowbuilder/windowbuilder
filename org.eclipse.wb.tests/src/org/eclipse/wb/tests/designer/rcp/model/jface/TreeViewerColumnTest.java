@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link ViewerColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TreeViewerColumnTest extends RcpModelTest {

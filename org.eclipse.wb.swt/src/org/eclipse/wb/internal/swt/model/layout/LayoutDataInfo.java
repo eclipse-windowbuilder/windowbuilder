@@ -61,7 +61,7 @@ import java.util.Map;
 
 /**
  * Model for layout data object, for example {@link GridData}, {@link RowData}, etc.
- * 
+ *
  * @author scheglov_ke
  * @author lobas_av
  * @coverage swt.model.layout

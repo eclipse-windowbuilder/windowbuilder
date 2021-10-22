@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.gef.MenuLayoutRequestValidator;
 
 /**
  * Swing implementation for {@link GroupLayoutEditPolicy2}.
- * 
+ *
  * @author mitin_aa
  */
 public class SwingGroupLayoutEditPolicy2 extends GroupLayoutEditPolicy2 {

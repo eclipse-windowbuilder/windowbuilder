@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 /**
  * {@link ColumnBindingInfo} {@code class} attribute editor.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

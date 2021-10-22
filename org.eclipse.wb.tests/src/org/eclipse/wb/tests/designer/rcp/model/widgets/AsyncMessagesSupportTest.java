@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link AsyncMessagesSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AsyncMessagesSupportTest extends RcpModelTest {

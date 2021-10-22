@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Command for adding {@link ComponentInfo} to {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

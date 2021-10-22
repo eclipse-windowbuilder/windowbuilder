@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link SashFormInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class SashFormGefTest extends XwtGefTest {

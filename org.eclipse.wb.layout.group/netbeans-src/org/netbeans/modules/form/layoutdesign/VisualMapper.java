@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -43,7 +43,7 @@ public interface VisualMapper extends LayoutConstants {
   /**
    * Provides actual bounds (position and size) of a component - as it appears in the visual design
    * area. The position should be in coordinates of the whole design visualization.
-   * 
+   *
    * @param componentId
    * @return actual bounds of given component, null if the component is not currently visualized in
    *         the design area
@@ -55,7 +55,7 @@ public interface VisualMapper extends LayoutConstants {
    * the visual design area. (The interior differs from the outer bounds in that it should reflect
    * the borders or other insets). The position should be in coordinates of the whole design
    * visualization.
-   * 
+   *
    * @param componentId
    * @return actual interior of given component, null if the component is not currently visualized
    *         in the design area
@@ -70,7 +70,7 @@ public interface VisualMapper extends LayoutConstants {
 
   /**
    * Provides preferred padding (optimal amount of space) between two components.
-   * 
+   *
    * @param component1Id
    *          first component Id
    * @param component2Id
@@ -93,7 +93,7 @@ public interface VisualMapper extends LayoutConstants {
   /**
    * Provides preferred padding (optimal amount of space) between a component and its parent's
    * border.
-   * 
+   *
    * @param parentId
    *          Id of the parent container
    * @param componentId

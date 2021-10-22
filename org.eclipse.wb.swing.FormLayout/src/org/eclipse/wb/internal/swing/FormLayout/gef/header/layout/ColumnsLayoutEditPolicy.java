@@ -40,7 +40,7 @@ import java.text.MessageFormat;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ColumnHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

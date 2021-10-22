@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.property.IConfigurablePropertyObje
 
 /**
  * Description of {@link PropertyEditor}, can be {@link IConfigurablePropertyObject}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

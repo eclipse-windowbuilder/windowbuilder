@@ -23,7 +23,7 @@ import javax.swing.border.SoftBevelBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link SoftBevelBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

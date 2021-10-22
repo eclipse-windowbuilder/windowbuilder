@@ -65,7 +65,7 @@ import java.util.List;
 /**
  * This class manage binding source code (add invocation initDataBindings(), configure classpath and
  * etc.) for compilation unit.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

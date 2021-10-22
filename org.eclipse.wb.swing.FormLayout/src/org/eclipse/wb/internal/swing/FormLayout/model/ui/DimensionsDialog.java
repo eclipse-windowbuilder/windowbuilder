@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Dialog for editing {@link List} of {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.ui
  */
@@ -313,7 +313,7 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
 
   /**
    * Adds new {@link FormDimensionInfo}.
-   * 
+   *
    * @param indexOffset
    *          the offset to add to the current selection index, <code>0</code> to implement insert
    *          and <code>1</code> for append.
@@ -377,7 +377,7 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
 
   /**
    * Edits given {@link FormDimensionInfo}.
-   * 
+   *
    * @return <code>true</code> if edit was successful.
    */
   protected abstract boolean editSelectedDimension(List<T> dimensions, T dimension);

@@ -54,7 +54,7 @@ import java.util.regex.Pattern;
 
 /**
  * Model for constraints on {@link MigLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
@@ -349,7 +349,7 @@ public final class CellConstraintsSupport {
 
   /**
    * Sets {@link DockSide} as enum.
-   * 
+   *
    * @param side
    *          the {@link DockSide}, may be <code>null</code> if docking should be removed.
    */
@@ -397,7 +397,7 @@ public final class CellConstraintsSupport {
 
   /**
    * Specifies if split of this this component should be: horizontal, vertical or none.
-   * 
+   *
    * @param horizontal
    *          is <code>true</code>, <code>false</code> or <code>null</code>.
    */
@@ -652,7 +652,7 @@ public final class CellConstraintsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract implementation of {@link Property} for {@link CellConstraintsSupport}.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class AbstractCellProperty extends Property {
@@ -745,7 +745,7 @@ public final class CellConstraintsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link Property} for integer fields of {@link CellConstraintsSupport}.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class IntegerCellProperty extends AbstractCellProperty {
@@ -786,7 +786,7 @@ public final class CellConstraintsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link Property} for alignment fields of {@link CellConstraintsSupport}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class AlignmentCellProperty<A extends Enum<?>> extends AbstractCellProperty {

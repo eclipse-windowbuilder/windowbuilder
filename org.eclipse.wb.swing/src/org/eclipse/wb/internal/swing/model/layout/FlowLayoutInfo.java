@@ -21,7 +21,7 @@ import java.awt.FlowLayout;
 
 /**
  * Model for {@link FlowLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

@@ -19,7 +19,7 @@ import org.eclipse.swt.layout.GridData;
 
 /**
  * Interface model for SWT {@link GridData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

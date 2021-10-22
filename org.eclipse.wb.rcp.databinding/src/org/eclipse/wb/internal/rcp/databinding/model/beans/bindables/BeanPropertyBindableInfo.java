@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * Model for <code>Java Beans</code> object properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

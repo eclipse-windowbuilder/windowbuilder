@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
 
 /**
  * {@link IEditPartFactory} for JSR-296.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.jsr296
  */

@@ -91,7 +91,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for {@link JavaInfoUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JavaInfoUtilsTest extends SwingModelTest {

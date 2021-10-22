@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.Messages;
 
 /**
  * RCP Automatic bindings wizard.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.wizard.auto
  */

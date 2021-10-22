@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Presentation for {@link FieldBeanObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

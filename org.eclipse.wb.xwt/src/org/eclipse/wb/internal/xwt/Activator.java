@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 /**
  * The activator class controls the plug-in life cycle.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT
  */
@@ -92,7 +92,7 @@ public class Activator extends AbstractUIPlugin {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * XWT is not separate toolkit, we use RCP {@link ToolkitDescription}.
-   * 
+   *
    * @return the RCP {@link ToolkitDescription}.
    */
   public static ToolkitDescription getToolkit() {

@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 
 /**
  * Description for {@link ColumnSpec}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

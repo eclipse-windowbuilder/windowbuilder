@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.rcp.model.forms.AbstractFormsTest;
 
 /**
  * Test for {@link TableWrapLayoutInfo} and exposed {@link ControlInfo}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutExposedTest extends AbstractFormsTest {

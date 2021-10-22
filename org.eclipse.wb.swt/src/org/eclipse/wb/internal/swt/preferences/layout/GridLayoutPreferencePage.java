@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link PreferencePage} for {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.preferences.ui
  */

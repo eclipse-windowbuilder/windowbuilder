@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link ITableWrapLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

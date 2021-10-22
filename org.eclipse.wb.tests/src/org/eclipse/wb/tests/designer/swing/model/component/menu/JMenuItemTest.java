@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Test for {@link JMenuItemInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JMenuItemTest extends SwingModelTest {

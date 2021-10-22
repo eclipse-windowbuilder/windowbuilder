@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Dialog for {@link Font} choosing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

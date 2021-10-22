@@ -20,7 +20,7 @@ import javax.swing.JButton;
 
 /**
  * Test for {@link ExposedPropertyCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExposedPropertyCreationSupportTest extends SwingModelTest {

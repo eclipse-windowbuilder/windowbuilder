@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Model for {@link IPageLayout#addView(String, int, float, String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

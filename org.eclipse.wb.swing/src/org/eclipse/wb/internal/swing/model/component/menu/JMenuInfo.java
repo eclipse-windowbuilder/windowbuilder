@@ -34,7 +34,7 @@ import javax.swing.JSeparator;
 
 /**
  * Model for {@link JMenu}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -138,7 +138,7 @@ public final class JMenuInfo extends JMenuItemInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -153,7 +153,7 @@ public final class JMenuInfo extends JMenuItemInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuItemImpl extends AbstractMenuObject implements IMenuItemInfo {
@@ -213,7 +213,7 @@ public final class JMenuInfo extends JMenuItemInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo {

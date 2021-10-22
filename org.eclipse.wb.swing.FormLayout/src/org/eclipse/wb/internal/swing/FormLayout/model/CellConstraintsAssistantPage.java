@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Layout assistant for {@link com.jgoodies.forms.layout.CellConstraints}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.FormLayout.model
  */

@@ -61,7 +61,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * Dialog for {@link Border} editing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -89,7 +89,7 @@ public final class BorderDialog extends ResizableDialog {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets flag, that {@link Border} is modified.
-   * 
+   *
    * @param borderModified
    *          is <code>false</code>, if {@link Border} is not set, so <code>(default)</code> page
    *          should be used.

@@ -39,7 +39,7 @@ import javax.swing.JRadioButton;
 
 /**
  * Test for {@link ButtonGroupInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ButtonGroupTest extends SwingModelTest {

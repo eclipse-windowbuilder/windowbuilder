@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Test for {@link ToolBarInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ToolBarTest extends XwtModelTest {

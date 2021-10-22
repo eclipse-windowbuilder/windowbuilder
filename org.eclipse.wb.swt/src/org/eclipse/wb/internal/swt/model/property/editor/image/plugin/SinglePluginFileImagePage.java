@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link AbstractImagePage} that selects image as single plugin resource.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

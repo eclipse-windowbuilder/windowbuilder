@@ -44,7 +44,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Test for {@link JToolBar}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JToolBarTest extends SwingModelTest {
@@ -262,7 +262,7 @@ public class JToolBarTest extends SwingModelTest {
     JToolBarInfo bar = (JToolBarInfo) panel.getChildrenComponents().get(0);
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
     ComponentInfo button = innerPanel.getChildrenComponents().get(0);
-    // 
+    //
     bar.command_MOVE(button, null);
     assertEditor(
         "class Test extends JPanel {",

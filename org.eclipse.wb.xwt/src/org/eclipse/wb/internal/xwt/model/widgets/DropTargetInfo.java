@@ -19,7 +19,7 @@ import org.eclipse.swt.dnd.DropTarget;
 
 /**
  * Model for {@link DropTarget}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

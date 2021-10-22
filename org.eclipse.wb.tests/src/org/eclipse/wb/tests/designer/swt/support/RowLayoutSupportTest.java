@@ -17,7 +17,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Test for {@link RowLayoutSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class RowLayoutSupportTest extends AbstractSupportTest {

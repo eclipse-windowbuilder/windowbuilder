@@ -24,7 +24,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ToolBarManagerInfo;
 
 /**
  * {@link LayoutEditPolicy} for dropping items on {@link ToolBarManagerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

@@ -21,7 +21,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Test for {@link DirectTextPropertyEditPolicy}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DirectTextPropertyEditPolicyTest extends XwtGefTest {

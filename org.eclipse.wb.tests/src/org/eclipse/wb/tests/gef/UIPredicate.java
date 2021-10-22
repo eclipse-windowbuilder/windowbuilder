@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.gef;
 
 /**
  * The predicate for waiting UI.
- * 
+ *
  * @author scheglov_ke
  */
 public interface UIPredicate {

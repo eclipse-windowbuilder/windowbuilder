@@ -44,7 +44,7 @@ import java.util.Set;
 
 /**
  * 'Old-school' implementation of the FromLayout.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayoutInfoImpl<C> {

@@ -14,7 +14,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Interface for extension point providing initializing {@link LookAndFeel} external classes.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */
@@ -22,7 +22,7 @@ public interface ILookAndFeelInitializer {
   /**
    * Performs any initializing before using look-n-feel class, i.e., just before
    * javax.swing.UIManager.setLookAndFeel(javax.swing.LookAndFeel).
-   * 
+   *
    * @throws Exception
    */
   void initialize() throws Exception;

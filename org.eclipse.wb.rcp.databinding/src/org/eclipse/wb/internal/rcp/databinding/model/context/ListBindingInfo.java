@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateLi
 
 /**
  * Model for <code>DataBindingContext.bindList()</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

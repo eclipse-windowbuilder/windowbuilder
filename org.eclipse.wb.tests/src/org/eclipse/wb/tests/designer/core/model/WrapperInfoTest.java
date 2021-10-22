@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link WrapperMethodInfo}.
- * 
+ *
  * @author sablin_aa
  * @author scheglov_ke
  */
@@ -472,7 +472,7 @@ public class WrapperInfoTest extends SwingModelTest {
             "}"));
     waitForAutoBuild();
     // contribute special {@link HierarchyProvider}
-    TestUtils.addDynamicExtension(COMPONENTS_HIERARCHY_PROVIDERS_POINT_ID, // 
+    TestUtils.addDynamicExtension(COMPONENTS_HIERARCHY_PROVIDERS_POINT_ID, //
         "  <provider class='" + SwingViewer_HierarchyProvider.class.getName() + "'/>");
     //
     try {

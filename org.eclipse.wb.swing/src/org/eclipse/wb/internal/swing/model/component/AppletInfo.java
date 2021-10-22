@@ -23,7 +23,7 @@ import javax.swing.JApplet;
 
 /**
  * Model for {@link Applet} and {@link JApplet}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

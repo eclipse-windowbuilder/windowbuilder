@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for dropping {@link ControlInfo} on {@link FormInfo#getHead()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

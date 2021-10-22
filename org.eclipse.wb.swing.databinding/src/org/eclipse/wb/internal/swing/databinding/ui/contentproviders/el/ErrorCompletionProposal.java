@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * {@link ICompletionProposal} for display errors.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

@@ -25,7 +25,7 @@ import java.util.Collections;
 
 /**
  * Tests for {@link OrderingSupport} and {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author mitin_aa
  */
 public class AbsoluteLayoutOrderingTest extends RcpModelTest {

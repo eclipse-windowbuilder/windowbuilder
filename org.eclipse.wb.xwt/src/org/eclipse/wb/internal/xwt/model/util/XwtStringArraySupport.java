@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.XmlObjectUtils;
 
 /**
  * Helper for setting {@link String} array value in XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model
  */

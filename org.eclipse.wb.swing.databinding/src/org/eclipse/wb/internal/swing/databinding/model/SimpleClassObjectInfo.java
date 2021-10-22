@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Model for abstract objects or interfaces and objects that supported extends.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

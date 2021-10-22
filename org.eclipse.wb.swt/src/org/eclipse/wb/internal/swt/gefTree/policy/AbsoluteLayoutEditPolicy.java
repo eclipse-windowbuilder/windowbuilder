@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link IAbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gefTree.policy
  */

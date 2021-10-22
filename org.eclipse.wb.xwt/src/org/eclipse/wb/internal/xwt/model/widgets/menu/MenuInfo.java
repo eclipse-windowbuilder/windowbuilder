@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Model for {@link Menu}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */
@@ -235,7 +235,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends XmlMenuMenuObject {
@@ -250,7 +250,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuPopupInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuPopupImpl extends MenuAbstractImpl implements IMenuPopupInfo {
@@ -306,7 +306,7 @@ public final class MenuInfo extends WidgetInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo, IMenuPolicy {

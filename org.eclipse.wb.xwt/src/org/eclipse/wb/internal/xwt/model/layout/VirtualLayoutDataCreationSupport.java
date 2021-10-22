@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * Model for virtual {@link LayoutDataInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

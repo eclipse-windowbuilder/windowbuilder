@@ -51,7 +51,7 @@ import java.util.List;
 
 /**
  * Content provider for ViewerColumn's bindings.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

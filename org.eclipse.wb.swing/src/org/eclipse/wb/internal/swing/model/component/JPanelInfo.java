@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 /**
  * Model for {@link JPanel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

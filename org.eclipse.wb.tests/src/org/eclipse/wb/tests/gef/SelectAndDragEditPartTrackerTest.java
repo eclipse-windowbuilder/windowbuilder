@@ -24,7 +24,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
   ////////////////////////////////////////////////////////////////////////////

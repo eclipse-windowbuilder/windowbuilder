@@ -53,7 +53,7 @@ import java.util.List;
 
 /**
  * Model for {@link MenuItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */
@@ -280,7 +280,7 @@ public final class MenuItemInfo extends ItemInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuItemImpl extends AbstractMenuObject implements IMenuItemInfo, IMenuPolicy {

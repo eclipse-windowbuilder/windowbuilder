@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Helper class for logging {@link EditPart}'s and {@link Request}'s to them.
- * 
+ *
  * @author scheglov_ke
  */
 public final class RequestsLogger {

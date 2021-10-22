@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Abstract model for factory observable object <code>BeansObservables.XXXFactory(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * {@link ExpressionConverter} for <code>float</code> values.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage XML.model.property

@@ -31,7 +31,7 @@ import java.util.Set;
 
 /**
  * Helper for converting coordinates of {@link ComponentInfo} children to {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */

@@ -23,7 +23,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Tests for {@link ControlSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class ControlSupportTest extends AbstractSupportTest {

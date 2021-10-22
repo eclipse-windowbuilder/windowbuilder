@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Win32 implementation for {@link OSSupport}.
- * 
+ *
  * @author mitin_aa
  * @coverage os.win32
  */
@@ -281,7 +281,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
   /**
    * Calls GetMenuBarInfo and fills the given array of int with bounds in a left, right, top, bottom
    * sequence.
-   * 
+   *
    * @param shellHandle
    *          the handle of {@link Shell} which bar menu belongs to.
    * @param itemIndex
@@ -295,7 +295,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 
   /**
    * Fetches the menu data: returns item bounds as plain array and the HBITMAP of menu image.
-   * 
+   *
    * @param shellHandle
    *          the handle of menu parent shell.
    * @param menuHandle
@@ -320,7 +320,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 
   /**
    * Causes taking the screen shot.
-   * 
+   *
    * @param windowHandle
    *          the handle of {@link Shell}.
    * @param dcHandle
@@ -335,7 +335,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 
   /**
    * Sets the <code>alpha</code> value for given <code>shell</code>.
-   * 
+   *
    * @param shellHandle
    *          the handle of {@link Shell}.
    * @param alpha
@@ -345,7 +345,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 
   /**
    * Returns the current alpha value for given <code>shellHandle</code>.
-   * 
+   *
    * @param shellHandle
    *          the handle of {@link Shell}.
    * @return the alpha value.
@@ -354,7 +354,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
 
   /**
    * Fills the given array of int with bounds in a left, right, top, bottom sequence.
-   * 
+   *
    * @param tabFolderHandle
    *          the handle of {@link TabFolder}.
    * @param itemIndex

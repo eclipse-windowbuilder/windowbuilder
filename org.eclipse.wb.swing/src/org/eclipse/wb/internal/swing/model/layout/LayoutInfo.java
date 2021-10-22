@@ -54,7 +54,7 @@ import java.util.List;
 
 /**
  * Abstract model for {@link LayoutManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -333,7 +333,7 @@ public class LayoutInfo extends JavaInfo {
   /**
    * @return the {@link AssociationObject} for standard Swing parent/child association - using
    *         methods {@link Container#add(Component, Object)} or {@link Container#add(Component)}
-   * 
+   *
    * @param constraintsSource
    *          the source for constraints object for {@link Container#add(Component, Object)} or
    *          <code>null</code> if {@link Container#add(Component)} should be used.
@@ -374,7 +374,7 @@ public class LayoutInfo extends JavaInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

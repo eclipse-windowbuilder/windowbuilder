@@ -17,7 +17,7 @@ import org.eclipse.jface.action.Action;
 
 /**
  * {@link Action} for modifying grow of {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

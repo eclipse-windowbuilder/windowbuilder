@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.Block;
 
 /**
  * Implementation of {@link StatementGenerator} for virtual {@link LayoutDataInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

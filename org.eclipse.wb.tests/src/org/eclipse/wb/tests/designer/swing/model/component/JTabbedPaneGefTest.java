@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Test for {@link JTabbedPaneInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class JTabbedPaneGefTest extends SwingGefTest {

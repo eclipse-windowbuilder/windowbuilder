@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Model for any SWT {@link org.eclipse.swt.widgets.Control}.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage swt.model.widgets
@@ -163,7 +163,7 @@ public class ControlInfo extends WidgetInfo implements IControlInfo {
    * We need such separate method because there {@link AbstractComponentInfo}'s that <em>have</em>
    * <code>Control</code> , but are not <code>Control</code> themselves. For example - Dialog,
    * PreferncePage, ViewPart, etc.
-   * 
+   *
    * @param component
    *          the {@link AbstractComponentInfo} that has <code>Control</code> as object.
    * @param control

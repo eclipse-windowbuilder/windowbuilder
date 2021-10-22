@@ -17,7 +17,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for {@link AbstractGridBagLayoutInfo} preferences.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.layout
  */
@@ -26,7 +26,7 @@ public final class PreferenceInitializer extends AbstractPreferenceInitializer
       IPreferenceConstants {
   ////////////////////////////////////////////////////////////////////////////
   //
-  //	Initializing 
+  //	Initializing
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

@@ -24,7 +24,7 @@ import org.eclipse.ui.actions.ActionFactory;
 /**
  * Implementation of {@link IExpressionEvaluator} for evaluating {@link Action}'s from
  * {@link ActionFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

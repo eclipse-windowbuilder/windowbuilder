@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * The dialog for editing {@link CellConstraintsSupport}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

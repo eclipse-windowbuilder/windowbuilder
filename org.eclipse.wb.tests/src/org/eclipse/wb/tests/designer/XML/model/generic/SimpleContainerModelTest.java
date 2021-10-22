@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Test for {@link SimpleContainer} and {@link SimpleContainerConfigurable} models.
- * 
+ *
  * @author scheglov_ke
  */
 public class SimpleContainerModelTest extends AbstractCoreTest {

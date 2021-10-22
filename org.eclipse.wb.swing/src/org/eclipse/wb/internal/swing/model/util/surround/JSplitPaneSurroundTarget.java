@@ -26,7 +26,7 @@ import javax.swing.JSplitPane;
 
 /**
  * {@link ISurroundTarget} that uses {@link JSplitPane} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.util
  */

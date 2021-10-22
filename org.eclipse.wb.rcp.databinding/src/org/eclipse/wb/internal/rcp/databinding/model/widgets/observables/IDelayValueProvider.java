@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.model.widgets.observables;
 
 /**
  * Interface for provider access to abstract {@code delay} attribute.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

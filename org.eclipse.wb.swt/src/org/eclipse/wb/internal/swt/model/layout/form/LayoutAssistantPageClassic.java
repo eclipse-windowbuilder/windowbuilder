@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Layout assistant page for FormLayout automatic mode.
- * 
+ *
  * @author mitin_aa
  */
 public final class LayoutAssistantPageClassic<C extends IControlInfo> extends Composite
@@ -96,7 +96,7 @@ public final class LayoutAssistantPageClassic<C extends IControlInfo> extends Co
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // ILayoutAssistantPage 
+  // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
   public boolean isPageValid() {

@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Command for applying properties of {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.clipboard
  */

@@ -49,7 +49,7 @@ import java.util.Map;
  * <p>
  * It analyzes {@link ConstructorDescription}'s and treats <code>Composite, int</code> parameters as
  * parent and style.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt
  */

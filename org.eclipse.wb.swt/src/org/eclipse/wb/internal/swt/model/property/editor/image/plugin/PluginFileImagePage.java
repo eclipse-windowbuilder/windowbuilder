@@ -48,7 +48,7 @@ import java.util.TimerTask;
 
 /**
  * Implementation of {@link AbstractImagePage} that selects image as plugin resource.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

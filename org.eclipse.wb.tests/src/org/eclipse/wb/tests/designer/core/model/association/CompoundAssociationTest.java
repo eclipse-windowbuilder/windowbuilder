@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Tests for {@link CompoundAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompoundAssociationTest extends SwingModelTest {
@@ -230,7 +230,7 @@ public class CompoundAssociationTest extends SwingModelTest {
     expect(association_1.canDelete()).andReturn(true);
     expect(association_2.canDelete()).andReturn(true);
     mockControl.replay();
-    // verify: ...so compound association also can be deleted 
+    // verify: ...so compound association also can be deleted
     CompoundAssociation compoundAssociation = new CompoundAssociation(association_1, association_2);
     assertTrue(compoundAssociation.canDelete());
     mockControl.verify();

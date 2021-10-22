@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Configurable {@link FlowContainer} for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.generic
  */

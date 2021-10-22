@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
  * <li>From properties of file.</li>
  * <li>From source - using existing setSize()/setBounds() or may be pack().</li>
  * </ol>
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */
@@ -68,7 +68,7 @@ public abstract class TopBoundsSupport implements ITopBoundsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Shows component for testing/preview.
-   * 
+   *
    * @return <code>true</code> if something really was shown, so reparse required.
    */
   public abstract boolean show() throws Exception;

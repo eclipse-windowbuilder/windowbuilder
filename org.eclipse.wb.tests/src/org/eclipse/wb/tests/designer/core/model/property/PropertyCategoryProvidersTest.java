@@ -21,7 +21,7 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
 /**
  * Test for {@link PropertyCategoryProviders}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyCategoryProvidersTest extends SwingModelTest {

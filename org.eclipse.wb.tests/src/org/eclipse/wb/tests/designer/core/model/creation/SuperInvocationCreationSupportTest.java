@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for {@link SuperInvocationCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SuperInvocationCreationSupportTest extends SwingModelTest {

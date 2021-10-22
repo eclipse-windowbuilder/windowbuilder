@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Support for providing {@link FormToolkit} instance in creations.
- * 
+ *
  * @author sablin_aa
  * @coverage rcp.model.forms
  */

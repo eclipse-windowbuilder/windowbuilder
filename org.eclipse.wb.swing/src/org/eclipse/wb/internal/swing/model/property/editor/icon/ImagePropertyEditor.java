@@ -45,7 +45,7 @@ import java.awt.Image;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Image}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

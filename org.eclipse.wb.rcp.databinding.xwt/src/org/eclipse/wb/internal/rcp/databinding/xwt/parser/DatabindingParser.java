@@ -40,9 +40,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public final class DatabindingParser {
   private static final String BINDING = "{binding ";

@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class CursorLogger extends TestLogger {
   ////////////////////////////////////////////////////////////////////////////

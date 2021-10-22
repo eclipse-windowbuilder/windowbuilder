@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Interface model for SWT {@link Layout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

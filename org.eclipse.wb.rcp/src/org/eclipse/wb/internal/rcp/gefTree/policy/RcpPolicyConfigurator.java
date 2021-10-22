@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * Configures RCP related {@link EditPart}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gefTree.policy
  */

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link GridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gefTree.policy
  */

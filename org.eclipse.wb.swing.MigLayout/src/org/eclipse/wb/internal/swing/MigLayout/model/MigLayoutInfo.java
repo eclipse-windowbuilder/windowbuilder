@@ -78,7 +78,7 @@ import javax.swing.JTextField;
 
 /**
  * Model for {@link MigLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
@@ -761,7 +761,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
    */
   public void command_setCells(ComponentInfo component, Rectangle cells) throws Exception {
     // force dimensions in MigLayout creation, because in some cases MigLayout can "optimize"
-    // columns/rows, if these columns/rows contain only spanned parts of components 
+    // columns/rows, if these columns/rows contain only spanned parts of components
     writeDimensions();
     makeExplicitCell();
     // OK, now we can safely update constraints
@@ -777,7 +777,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   /**
    * Creates new {@link ComponentInfo} in given cell.
-   * 
+   *
    * @param newComponent
    *          the new {@link ComponentInfo} to create.
    * @param column
@@ -803,7 +803,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
     }
     // write all constraints (in ideal case - only this one)
     writeAllConstraints();
-    // 
+    //
     doAutomaticAlignment(newComponent);
   }
 
@@ -839,7 +839,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   /**
    * Forces explicit <code>cell</code> tags for all components.
-   * 
+   *
    * @see {@link CellConstraintsSupport#makeExplicitCell()}.
    */
   private void makeExplicitCell() {
@@ -861,7 +861,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   /**
    * @return the {@link ComponentInfo} that should be used as reference of adding into given cell.
-   * 
+   *
    * @param exclude
    *          the {@link ComponentInfo} that should not be checked, for example because we move it
    *          now.
@@ -1014,7 +1014,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
   /**
    * Adds new component into cell that already has one or more (in case of already splitted cell)
    * components.
-   * 
+   *
    * @param column
    *          the target column for new component.
    * @param row
@@ -1037,7 +1037,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
   /**
    * Moves component into cell that already has one or more (in case of already splitted cell)
    * components.
-   * 
+   *
    * @param column
    *          the target column for moved component.
    * @param row
@@ -1440,7 +1440,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   //MigColumnInfo.Alignment

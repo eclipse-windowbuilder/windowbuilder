@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.databinding.model;
 
 /**
  * Observable types.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

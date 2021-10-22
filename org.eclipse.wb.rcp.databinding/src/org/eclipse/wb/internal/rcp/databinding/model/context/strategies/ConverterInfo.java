@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 
 /**
  * Model for <code>org.eclipse.core.databinding.conversion.IConverter</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

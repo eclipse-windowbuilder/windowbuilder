@@ -23,7 +23,7 @@ import javax.swing.Box;
 
 /**
  * The {@link EditPart} for {@link Box#createVerticalStrut(int)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

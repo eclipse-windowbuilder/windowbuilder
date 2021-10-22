@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Test for {@link SelectSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SelectSupportTest extends SwingGefTest {
@@ -62,14 +62,14 @@ public class SelectSupportTest extends SwingGefTest {
         sendSelectKey(SWT.CTRL);
         canvas.assertSelection(panel, button_1, button_2, text_1);
       }
-      // same type 
+      // same type
       canvas.deselectAll();
       {
         canvas.select(button_1);
         sendSelectKey(SWT.CTRL | SWT.SHIFT);
         canvas.assertSelection(button_1, button_2);
       }
-      // same parent 
+      // same parent
       canvas.deselectAll();
       {
         canvas.select(text_1);
@@ -94,7 +94,7 @@ public class SelectSupportTest extends SwingGefTest {
         findChildAction(selectMenu, "All of Same Type").run();
         canvas.assertSelection(button_1, button_2);
       }
-      // same parent 
+      // same parent
       canvas.deselectAll();
       {
         canvas.select(text_1);

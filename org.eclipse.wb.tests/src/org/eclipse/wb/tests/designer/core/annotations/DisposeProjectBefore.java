@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 /**
  * Indicates that before running test {@link Method} (and even before "setUp") with this annotation
  * {@link IProject} should be disposed, so it will be recreated by "setUp".
- * 
+ *
  * @author scheglov_ke
  */
 @Target(ElementType.METHOD)

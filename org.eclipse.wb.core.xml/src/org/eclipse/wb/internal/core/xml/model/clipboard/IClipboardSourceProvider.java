@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.property.GenericProperty;
 
 /**
  * Extension for {@link PropertyEditor} that can provide XML source for copy/paste operation.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.clipboard
  */

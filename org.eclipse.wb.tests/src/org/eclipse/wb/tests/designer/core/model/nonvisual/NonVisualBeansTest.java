@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Tests for <i>non-visual beans</i>.
- * 
+ *
  * @author lobas_av
  */
 public class NonVisualBeansTest extends SwingModelTest {

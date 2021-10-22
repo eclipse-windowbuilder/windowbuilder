@@ -18,7 +18,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Provides support for different patterns of {@link XmlObjectInfo} creation.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.creation
  */

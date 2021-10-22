@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * {@link ILayoutEditPolicyFactory} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gefTree
  */

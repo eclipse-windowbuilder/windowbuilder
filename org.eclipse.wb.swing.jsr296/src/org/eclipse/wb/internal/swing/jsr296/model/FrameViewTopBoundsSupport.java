@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 
 /**
  * {@link TopBoundsSupport} for {@link FrameViewInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.jsr296
  */

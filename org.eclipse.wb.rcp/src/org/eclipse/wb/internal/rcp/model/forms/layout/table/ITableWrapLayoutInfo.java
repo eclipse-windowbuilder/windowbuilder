@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Interface model for {@link TableWrapLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -90,7 +90,7 @@ public interface ITableWrapLayoutInfo<C extends IControlInfo> extends ILayoutInf
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link IControlInfo} in given cell.
-   * 
+   *
    * @param newControl
    *          the new {@link IControlInfo} to create.
    * @param column
@@ -115,7 +115,7 @@ public interface ITableWrapLayoutInfo<C extends IControlInfo> extends ILayoutInf
 
   /**
    * Sets the cells occupied by given {@link IControlInfo}.
-   * 
+   *
    * @param forMove
    *          is <code>true</code> if we move control and <code>false</code> if we set cells for
    *          newly added control.

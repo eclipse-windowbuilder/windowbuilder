@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Test for {@link ExpressionListPropertyEditor}.
- * 
+ *
  * @author sablin_aa
  */
 public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditorTest {
@@ -149,7 +149,7 @@ public class ExpressionListPropertyEditorTest extends AbstractTextPropertyEditor
         "conditions",
         Lists.newArrayList("value is ArrayList", "value is String", "value == null"));
     parameters.put("titles", Lists.newArrayList("AL", "STR", "NIL"));
-    //		
+    //
     ExpressionListPropertyEditor editor =
         createEditor(ExpressionListPropertyEditor.class, parameters);
     assert_getText("AL", editor, new ArrayList<Object>());

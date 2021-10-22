@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Test for {@link TitleAreaDialogInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TitleAreaDialogTest extends RcpModelTest {

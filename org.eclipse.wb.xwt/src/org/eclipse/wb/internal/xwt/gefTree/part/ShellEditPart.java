@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ShellInfo;
 
 /**
  * {@link EditPart} for {@link ShellInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gefTree.part
  */

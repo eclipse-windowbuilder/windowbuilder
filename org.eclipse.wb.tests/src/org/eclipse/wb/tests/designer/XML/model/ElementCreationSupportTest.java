@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for {@link ElementCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ElementCreationSupportTest extends AbstractCoreTest {

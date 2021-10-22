@@ -29,7 +29,7 @@ import java.text.MessageFormat;
 
 /**
  * Field for editing {@link UnitValue} property of {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */

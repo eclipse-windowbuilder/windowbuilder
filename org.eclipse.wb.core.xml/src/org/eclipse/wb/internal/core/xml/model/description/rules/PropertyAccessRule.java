@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * {@link Rule} that push's {@link GenericPropertyDescription} for property with given "id".
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

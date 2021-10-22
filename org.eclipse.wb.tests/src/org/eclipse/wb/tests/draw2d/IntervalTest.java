@@ -14,7 +14,7 @@ import org.eclipse.wb.draw2d.geometry.Interval;
 
 /**
  * Tests for {@link Interval} class.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  */

@@ -24,7 +24,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Test for {@link CopyAction} and {@link PasteAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CopyActionTest extends XwtGefTest {

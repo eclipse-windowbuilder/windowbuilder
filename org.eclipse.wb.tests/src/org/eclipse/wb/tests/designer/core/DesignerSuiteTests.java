@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 /**
  * Abstract {@link TestCase} for suite. In particular, calls "test_setUp" as first test and
  * "test_tearDown" as last.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class DesignerSuiteTests extends TestCase {

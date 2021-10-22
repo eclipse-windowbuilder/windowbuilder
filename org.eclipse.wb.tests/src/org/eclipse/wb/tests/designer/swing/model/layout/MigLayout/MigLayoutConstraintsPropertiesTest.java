@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Test for "Constraints" property contributed by {@link CellConstraintsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {

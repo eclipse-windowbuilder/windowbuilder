@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Editable model for {@link EditingSupportInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

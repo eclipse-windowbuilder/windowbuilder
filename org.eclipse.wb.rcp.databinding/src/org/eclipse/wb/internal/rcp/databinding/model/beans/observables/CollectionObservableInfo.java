@@ -19,7 +19,7 @@ import org.apache.commons.lang.ClassUtils;
 
 /**
  * Abstract model for collection observable objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Test for "big" SWT {@link Tree}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TreeTest extends RcpModelTest {

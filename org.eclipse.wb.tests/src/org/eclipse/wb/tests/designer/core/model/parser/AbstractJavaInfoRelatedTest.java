@@ -71,7 +71,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Abstract test that works with {@link JavaInfo}, but does not parses them directly, as opposed to
  * {@link AbstractJavaInfoTest}.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {

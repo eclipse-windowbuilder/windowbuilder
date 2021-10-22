@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.swing.model.layout.gef.AbstractLayoutPolicy
 
 /**
  * Test for {@link CardLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class CardLayoutGefTest extends AbstractLayoutPolicyTest {

@@ -41,13 +41,13 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
   public static final boolean DEBUG = Boolean.getBoolean("org.eclipse.wb.discovery.debug");
   /** The preference key to contribute new wizard entries. */
   public static final String CONTRIBUTE_WIZARD_ENTRIES_PREF = "contributeWizardEntries";
-  
+
   // The shared instance
   private static WBDiscoveryUiPlugin plugin;
   private static LocalResourceManager resourceManager;
 
   private WBToolkitRegistry.IRegistryChangeListener registryListener;
-  
+
   /**
    * The constructor
    */
@@ -55,7 +55,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
   }
 
   /**
-	 * 
+	 *
 	 */
   public void start(BundleContext context) throws Exception {
     super.start(context);
@@ -70,7 +70,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
   }
 
   /**
-	 * 
+	 *
 	 */
   public void stop(BundleContext context) throws Exception {
     if (registryListener != null) {
@@ -87,7 +87,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 
   /**
    * Returns the shared instance
-   * 
+   *
    * @return the shared instance
    */
   public static WBDiscoveryUiPlugin getPlugin() {
@@ -96,7 +96,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 
   /**
    * Log an exception to the Eclipse log.
-   * 
+   *
    * @param t
    *          the exception to log
    */
@@ -113,7 +113,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 
   /**
    * Returns an image descriptor for the image file at the given plug-in relative path.
-   * 
+   *
    * @param path
    *          the path
    * @return the image descriptor
@@ -124,7 +124,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 
   /**
    * Install the given toolkits.
-   * 
+   *
    * @param toolkits
    *          the toolkits to install
    * @param monitor
@@ -143,7 +143,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
 
   /**
    * Uninstall the given toolkits.
-   * 
+   *
    * @param toolkits
    *          the toolkits to uninstall
    * @param monitor
@@ -175,7 +175,7 @@ public class WBDiscoveryUiPlugin extends AbstractUIPlugin {
         DynamicRegistryHelper.getRegistryHelper().removeRegistrations();
         DynamicRegistryHelper.getRegistryHelper().registerWizards();
       }
-    };    
+    };
   }
 
   /**

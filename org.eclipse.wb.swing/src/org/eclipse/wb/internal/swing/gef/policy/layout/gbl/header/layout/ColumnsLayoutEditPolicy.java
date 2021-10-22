@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ColumnHeaderEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

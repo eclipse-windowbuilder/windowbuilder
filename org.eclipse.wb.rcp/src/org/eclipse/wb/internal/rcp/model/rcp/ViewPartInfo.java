@@ -30,7 +30,7 @@ import java.lang.reflect.Proxy;
 
 /**
  * Model for {@link ViewPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

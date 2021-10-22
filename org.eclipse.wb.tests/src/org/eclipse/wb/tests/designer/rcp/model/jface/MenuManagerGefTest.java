@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link MenuManagerInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuManagerGefTest extends RcpGefTest {

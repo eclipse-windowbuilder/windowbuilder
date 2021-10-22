@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for generic simple/flow containers support.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenericTests extends DesignerSuiteTests {

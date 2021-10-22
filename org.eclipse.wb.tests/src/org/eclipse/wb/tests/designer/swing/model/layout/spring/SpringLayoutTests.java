@@ -19,7 +19,7 @@ import javax.swing.SpringLayout;
 
 /**
  * Tests for {@link SpringLayout}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpringLayoutTests extends DesignerSuiteTests {

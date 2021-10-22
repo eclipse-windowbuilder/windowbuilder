@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class EditPartTest extends GefTestCase {
   private static final String ERROR_MESSAGE_NPE = "null argument;";
@@ -596,7 +596,7 @@ public class EditPartTest extends GefTestCase {
     assertSame(parent, child1.getParent());
     assertSame(parent, child2.getParent());
     assertSame(parent, child4.getParent());
-    // 
+    //
     parent.refresh();
     assertEquals(4, children.size());
     assertSame(child2, children.get(0));

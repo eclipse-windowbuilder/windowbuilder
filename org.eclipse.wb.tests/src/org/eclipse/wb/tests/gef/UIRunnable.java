@@ -12,7 +12,7 @@ package org.eclipse.wb.tests.gef;
 
 /**
  * Interface for running UI actions.
- * 
+ *
  * @author scheglov_ke
  */
 public interface UIRunnable {

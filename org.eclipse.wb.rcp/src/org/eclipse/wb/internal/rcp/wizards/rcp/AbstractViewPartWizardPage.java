@@ -29,7 +29,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new {@link ViewPart}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

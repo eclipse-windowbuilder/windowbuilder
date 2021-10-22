@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Test for {@link DragSourceInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DragSourceTest extends XwtModelTest {

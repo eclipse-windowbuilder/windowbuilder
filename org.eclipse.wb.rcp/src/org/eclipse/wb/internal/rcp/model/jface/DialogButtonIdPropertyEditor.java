@@ -79,7 +79,7 @@ import java.util.List;
 /**
  * Implementation of {@link PropertyEditor} for ID of {@link Button} on {@link DialogInfo}
  * "button bar".
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -231,7 +231,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
 
   /**
    * {@link Dialog} for selecting ID of "button" on "button bar".
-   * 
+   *
    * @author scheglov_ke
    */
   private class SelectIdDialog extends ResizableDialog {

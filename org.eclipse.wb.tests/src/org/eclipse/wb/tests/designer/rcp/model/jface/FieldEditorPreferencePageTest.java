@@ -52,7 +52,7 @@ import java.util.List;
 
 /**
  * Test for {@link FieldEditorPreferencePageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldEditorPreferencePageTest extends RcpModelTest {

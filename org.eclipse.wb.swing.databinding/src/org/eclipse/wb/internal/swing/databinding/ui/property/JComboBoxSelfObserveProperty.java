@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Property for {@link JComboBoxBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui.properties
  */

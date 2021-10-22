@@ -22,7 +22,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Test for {@link OrderAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class OrderAssociationTest extends AbstractCoreTest {

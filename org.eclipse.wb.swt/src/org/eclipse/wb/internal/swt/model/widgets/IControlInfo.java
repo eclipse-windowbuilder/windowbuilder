@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Interface model of {@link Control}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

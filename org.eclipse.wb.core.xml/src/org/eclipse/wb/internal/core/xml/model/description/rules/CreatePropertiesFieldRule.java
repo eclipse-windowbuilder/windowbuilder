@@ -26,7 +26,7 @@ import java.lang.reflect.Modifier;
 
 /**
  * {@link Rule} that adds for public fields.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

@@ -42,7 +42,7 @@ import java.util.Set;
 
 /**
  * Tests for {@link PdeUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PdeUtilsTest extends AbstractPdeTest {

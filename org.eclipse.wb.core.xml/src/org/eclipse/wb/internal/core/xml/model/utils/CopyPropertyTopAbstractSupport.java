@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * This helper allows to create top-level {@link Property} as copy of other {@link Property}
  * (usually part of complex property).
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.util
  */
@@ -97,7 +97,7 @@ public abstract class CopyPropertyTopAbstractSupport {
   /**
    * @param object
    *          the {@link XmlObjectInfo} passed into {@link #install(XmlObjectInfo, String)}.
-   * 
+   *
    * @return the {@link Predicate} to check if property of some {@link XmlObjectInfo} should be
    *         copied to its top properties.
    */

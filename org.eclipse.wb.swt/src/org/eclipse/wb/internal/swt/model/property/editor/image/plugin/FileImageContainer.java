@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Implementation {@link IImageContainer} for file image resources into workspace plugin project.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

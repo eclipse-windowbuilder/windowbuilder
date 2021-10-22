@@ -17,7 +17,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Test for {@link DisplaySupport}.
- * 
+ *
  * @author lobas_av
  */
 public class DisplaySupportTest extends AbstractSupportTest {

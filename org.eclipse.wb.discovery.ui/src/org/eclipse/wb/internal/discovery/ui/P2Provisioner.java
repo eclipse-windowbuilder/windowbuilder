@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- * 
+ *
  * Portions of this file were taken from the Mylyn Connector Discovery UI plugin
  * (org.eclipse.mylyn.discovery.ui/PrepareInstallProfileJob_e_3_6.java),
  * and are Copyright (c) 2009, 2010 Tasktop Technologies and others.
@@ -56,7 +56,7 @@ class P2Provisioner {
 
   /**
    * Create a new instance of the P2Provisioner class to act on the given list of toolkits.
-   * 
+   *
    * @param toolkits
    *          the toolkits to act on
    */
@@ -66,7 +66,7 @@ class P2Provisioner {
 
   /**
    * Install a set of toolkits.
-   * 
+   *
    * @param progressMonitor
    *          a progress monitor
    * @throws ProvisionException
@@ -109,7 +109,7 @@ class P2Provisioner {
 
   /**
    * Uninstall a set of toolkits.
-   * 
+   *
    * @param progressMonitor
    *          a progress monitor
    * @throws ProvisionException
@@ -139,21 +139,21 @@ class P2Provisioner {
 
   private URI[] getRepositories() {
     List<URI> uris = new ArrayList<URI>();
-    
+
     for (WBToolkit toolkit : toolkits) {
       URI uri = toolkit.getUpdateSiteURI();
-      
+
       if (uri != null) {
       	uris.add(uri);
       }
-      
+
       uri = toolkit.getAuxiliaryUpdateSiteURI();
-      
+
       if (uri != null) {
       	uris.add(uri);
       }
     }
-    
+
     return uris.toArray(new URI[uris.size()]);
   }
 
@@ -174,23 +174,23 @@ class P2Provisioner {
           (IMetadataRepositoryManager) agent.getService(IMetadataRepositoryManager.SERVICE_NAME);
       IArtifactRepositoryManager artifactManager =
           (IArtifactRepositoryManager) agent.getService(IArtifactRepositoryManager.SERVICE_NAME);
-      
+
       URI auxiliaryUpdateUrl = toolkit.getAuxiliaryUpdateSiteURI();
-      
+
       if (auxiliaryUpdateUrl != null) {
         manager.addRepository(auxiliaryUpdateUrl);
         artifactManager.addRepository(auxiliaryUpdateUrl);
-	      
+
         // Load and query the metadata.
         manager.loadRepository(auxiliaryUpdateUrl, monitor.newChild(25));
       }
-      
+
       manager.addRepository(updateSiteURI);
       artifactManager.addRepository(updateSiteURI);
-      
+
       IMetadataRepository metadataRepo =
           manager.loadRepository(updateSiteURI, monitor.newChild(25));
-      
+
       for (WBToolkitFeature feature : toolkit.getFeatures()) {
         // ??? necessary magic
         String featureId = feature.getFeatureId() + ".feature.group";
@@ -201,7 +201,7 @@ class P2Provisioner {
         units.addAll(featureResults);
       }
     }
-    
+
     return units;
   }
 

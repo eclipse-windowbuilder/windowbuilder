@@ -18,7 +18,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Wizard} that creates new RCP Perspective.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

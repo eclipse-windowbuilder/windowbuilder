@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.jdesktop.swingbinding.JListBinding.DetailBinding}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.bindings
  */

@@ -27,11 +27,11 @@ import java.util.List;
 
 /**
  * Container for copy/paste information about {@link XmlObjectInfo}.
- * 
+ *
  * <p>
  * During "copy" operation method {@link #createMemento(XmlObjectInfo)} should be used to create
  * instance of {@link XmlObjectMemento} with all information about {@link XmlObjectInfo}.
- * 
+ *
  * <p>
  * Later, during "paste", following methods should be invoked (only one time and only in this
  * sequence):
@@ -41,7 +41,7 @@ import java.util.List;
  * <li> {@link #apply()}, after adding {@link XmlObjectInfo} to the hierarchy, to apply all
  * {@link ClipboardCommand}'s and do other things for configuring created {@link XmlObjectInfo}.</li>
  * </ul>
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.clipboard
  */
@@ -71,7 +71,7 @@ public class XmlObjectMemento implements Serializable {
   /**
    * Checks that component can be copy/paste, i.e. {@link XmlObjectMemento} can be created, but
    * don't really create it. We use this to enable/disable copy/cut actions on selection change.
-   * 
+   *
    * @return <code>true</code> if {@link XmlObjectMemento} can be created for given
    *         {@link XmlObjectInfo}.
    */
@@ -132,7 +132,7 @@ public class XmlObjectMemento implements Serializable {
   /**
    * Adds {@link ClipboardCommand}'s for restoring properties, children, etc for given
    * {@link XmlObjectInfo}.
-   * 
+   *
    * @param javaInfo
    *          the {@link XmlObjectInfo} to add commands for.
    * @param commands
@@ -181,10 +181,10 @@ public class XmlObjectMemento implements Serializable {
 
   /**
    * Creates new {@link XmlObjectInfo} using remembered values.
-   * 
+   *
    * @param existingHierarchyObject
    *          some {@link XmlObjectInfo} in model hierarchy.
-   * 
+   *
    * @return the new {@link XmlObjectInfo}.
    */
   public XmlObjectInfo create(XmlObjectInfo existingHierarchyObject) throws Exception {

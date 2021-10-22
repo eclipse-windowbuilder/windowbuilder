@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.ActionBarAdvisorInfo;
 
 /**
  * {@link EditPart} for {@link ActionBarAdvisorInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

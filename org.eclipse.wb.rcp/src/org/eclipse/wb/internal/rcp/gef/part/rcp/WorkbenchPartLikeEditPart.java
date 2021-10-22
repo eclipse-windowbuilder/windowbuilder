@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.WorkbenchPartLikeInfo;
 
 /**
  * {@link EditPart} for {@link WorkbenchPartLikeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

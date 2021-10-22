@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * Implementation of {@link GenericProperty} that is not modified and has no value.
- * 
+ *
  * @author scheglov_ke
  */
 public class GenericPropertyNoValue extends GenericProperty {

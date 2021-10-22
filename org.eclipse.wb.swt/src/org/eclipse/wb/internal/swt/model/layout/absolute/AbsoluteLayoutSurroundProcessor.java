@@ -23,7 +23,7 @@ import java.util.List;
  * as they were before enclosing. It works only if source {@link CompositeInfo} has
  * {@link AbsoluteLayoutInfo} and sets also {@link AbsoluteLayoutInfo} on target
  * {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

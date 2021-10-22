@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Model for "flow based" {@link LayoutManager}, such as {@link FlowLayout}, {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

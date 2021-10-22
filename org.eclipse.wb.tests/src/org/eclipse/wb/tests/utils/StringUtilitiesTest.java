@@ -19,7 +19,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Test for {@link StringUtilities}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StringUtilitiesTest extends DesignerTestCase {
@@ -136,7 +136,7 @@ public class StringUtilitiesTest extends DesignerTestCase {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // getDifferenceIntervals() 
+  // getDifferenceIntervals()
   //
   ////////////////////////////////////////////////////////////////////////////
   public void test_getDifferenceIntervals_same() throws Exception {

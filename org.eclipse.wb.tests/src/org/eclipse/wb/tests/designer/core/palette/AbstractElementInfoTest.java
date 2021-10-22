@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Tests for {@link AbstractElementInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractElementInfoTest extends DesignerTestCase {

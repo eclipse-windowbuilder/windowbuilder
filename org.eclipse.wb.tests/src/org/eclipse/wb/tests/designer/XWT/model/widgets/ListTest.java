@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.List;
 
 /**
  * Test for {@link List} widget in XWT.
- * 
+ *
  * @author scheglov_ke
  */
 public class ListTest extends XwtModelTest {

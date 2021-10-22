@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuItemInfo;
 
 /**
  * Implementation of {@link IEditPartFactory} for SWT.
- * 
+ *
  * @author lobas_av
  * @author mitin_aa
  * @coverage swt.gef

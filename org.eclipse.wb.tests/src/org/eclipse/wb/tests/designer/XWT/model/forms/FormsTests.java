@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Forms API support.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormsTests extends DesignerSuiteTests {

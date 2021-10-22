@@ -17,7 +17,7 @@ import java.awt.Dimension;
 
 /**
  * Baseline support for components using Java6 methods.
- * 
+ *
  * @author mitin_aa
  */
 public class BaselineSupport implements IBaselineSupport {

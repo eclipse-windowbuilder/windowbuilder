@@ -44,7 +44,7 @@ import java.util.Map.Entry;
 
 /**
  * Utils for {@link XmlObjectInfo} manipulation.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.utils
  */
@@ -83,7 +83,7 @@ public final class XmlObjectUtils {
    * <p>
    * Usually returns just {@link ComponentDescription#getParameter(String)}, but checks also
    * instance level parameters.
-   * 
+   *
    * @return the value of {@link XmlObjectInfo} parameter.
    */
   public static String getParameter(XmlObjectInfo object, String name) {
@@ -189,7 +189,7 @@ public final class XmlObjectUtils {
    * {@link Control}. We should drop {@link Viewer} in code, but layout policies should see that we
    * drop {@link Control}. So we should "extract" {@link Control} {@link XmlObjectInfo} from
    * {@link Viewer} {@link XmlObjectInfo}.
-   * 
+   *
    * @return the wrapped {@link XmlObjectInfo} or original {@link XmlObjectInfo} if there are no
    *         wrapping.
    */

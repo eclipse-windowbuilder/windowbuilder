@@ -18,7 +18,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Wizard} that creates new JFace {@link Wizard}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

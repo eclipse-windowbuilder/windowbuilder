@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.standar
 
 /**
  * {@link IObservableFactory} for <code>SWT</code> widgets.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

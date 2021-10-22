@@ -28,9 +28,9 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class XmlObjectReferenceProvider implements IReferenceProvider {
   private final XmlObjectInfo m_objectInfo;

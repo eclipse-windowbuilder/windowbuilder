@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link TopBoundsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TopBoundsSupportTest extends AbstractCoreTest {

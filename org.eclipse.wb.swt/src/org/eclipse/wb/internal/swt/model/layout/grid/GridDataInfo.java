@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Model for SWT {@link GridData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

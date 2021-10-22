@@ -27,7 +27,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Support for actions changing the alignment of the control.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 
 /**
  * Tests for {@link SuperConstructorAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SuperConstructorAccessorTest extends SwingModelTest {

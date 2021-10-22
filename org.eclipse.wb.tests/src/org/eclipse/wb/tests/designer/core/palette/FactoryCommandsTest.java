@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntr
 
 /**
  * Tests for palette {@link FactoryEntryInfo} {@link Command}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryCommandsTest extends AbstractPaletteTest {

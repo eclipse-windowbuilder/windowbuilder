@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link EditorWarning}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditorWarningTest extends AbstractCoreTest {

@@ -90,7 +90,7 @@ import java.util.List;
 
 /**
  * Model for any SWT {@link Composite}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.widgets
  */
@@ -435,7 +435,7 @@ public class CompositeInfo extends ScrollableInfo
   /**
    * We may call {@link #initialize_createImplicitLayout()} many times, may be after each
    * {@link Statement}, so before adding new implicit layout we should remove existing one.
-   * 
+   *
    * @return <code>true</code> if {@link LayoutInfo} with same object already exists, so it was not
    *         removed and no need for creating new implicit {@link LayoutInfo}.
    */
@@ -482,7 +482,7 @@ public class CompositeInfo extends ScrollableInfo
 
   /**
    * @return the current {@link LayoutInfo} for this composite. Can not return <code>null</code>.
-   * 
+   *
    * @throws IllegalStateException
    *           if no {@link LayoutInfo} found.
    */

@@ -40,7 +40,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.widgets.observables.standar
 
 /**
  * {@link IObservableFactory} for <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

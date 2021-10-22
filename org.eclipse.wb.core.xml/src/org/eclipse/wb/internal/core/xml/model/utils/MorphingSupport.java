@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Helper for morphing {@link XmlObjectInfo} for one component class to another.
- * 
+ *
  * @author sablin_aa
  * @coverage core.model.util
  */
@@ -112,7 +112,7 @@ public abstract class MorphingSupport<T extends XmlObjectInfo> extends AbstractM
   ////////////////////////////////////////////////////////////////////////////
   /**
    * If possible, contributes "morph" actions.
-   * 
+   *
    * @param toolkitClassName
    *          the name of base class for "Other..." action, for example
    *          <code>"org.eclipse.swt.widgets.Control"</code> as SWT.

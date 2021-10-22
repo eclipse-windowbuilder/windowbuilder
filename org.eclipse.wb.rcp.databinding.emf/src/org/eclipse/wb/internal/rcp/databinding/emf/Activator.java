@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 /**
  * The activator and utility class controls the EMF Data Bindings plug-in life cycle.
- * 
+ *
  * @author lobas_av
  */
 public class Activator extends AbstractUIPlugin {

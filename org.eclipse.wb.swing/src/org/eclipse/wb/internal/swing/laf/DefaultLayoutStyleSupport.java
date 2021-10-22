@@ -17,7 +17,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Default LayoutStyle support implementation.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */

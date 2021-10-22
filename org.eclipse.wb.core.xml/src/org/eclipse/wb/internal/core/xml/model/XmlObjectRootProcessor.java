@@ -24,7 +24,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Broadcasts based functionality for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

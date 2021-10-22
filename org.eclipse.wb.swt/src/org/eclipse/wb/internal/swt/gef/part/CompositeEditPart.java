@@ -29,7 +29,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * {@link EditPart} for {@link CompositeInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.gef.part
  */

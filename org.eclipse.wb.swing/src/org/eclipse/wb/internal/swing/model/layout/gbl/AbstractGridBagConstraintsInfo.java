@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Model for abstraction of {@link GridBagConstraints}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage swing.model.layout
@@ -187,7 +187,7 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
   /**
    * This method materializes {@link AbstractGridBagConstraintsInfo} before asking properties to
    * allow using {@link ExpressionAccessor}'s from {@link CreationSupport}.
-   * 
+   *
    * @return the {@link Property} with given title.
    */
   private Property getProperty(String title) throws Exception {
@@ -390,7 +390,7 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Container with information about conversion column/row alignments into "fill" and "anchor".
-   * 
+   *
    * @author scheglov_ke
    */
   protected static class AlignmentInfo {
@@ -632,7 +632,7 @@ public abstract class AbstractGridBagConstraintsInfo extends JavaInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Source utils 
+  // Source utils
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

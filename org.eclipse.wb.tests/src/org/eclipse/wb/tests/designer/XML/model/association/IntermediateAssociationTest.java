@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link IntermediateAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class IntermediateAssociationTest extends AbstractCoreTest {

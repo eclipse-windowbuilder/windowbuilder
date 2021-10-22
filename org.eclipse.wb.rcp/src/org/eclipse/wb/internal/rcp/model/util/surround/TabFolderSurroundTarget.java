@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.TabFolder;
 
 /**
  * {@link ISurroundTarget} that uses {@link TabFolder} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.util
  */

@@ -11,7 +11,7 @@
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
 
 /**
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

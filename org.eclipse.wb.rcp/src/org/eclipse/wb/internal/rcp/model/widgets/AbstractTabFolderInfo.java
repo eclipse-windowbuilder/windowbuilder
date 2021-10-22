@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Model for {@link TabFolder} or {@link CTabFolder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

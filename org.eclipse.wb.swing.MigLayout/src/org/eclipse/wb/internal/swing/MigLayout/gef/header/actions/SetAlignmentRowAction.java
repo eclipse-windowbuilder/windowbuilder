@@ -19,7 +19,7 @@ import org.eclipse.jface.action.Action;
 ;
 /**
  * {@link Action} for modifying alignment of {@link MigRowInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

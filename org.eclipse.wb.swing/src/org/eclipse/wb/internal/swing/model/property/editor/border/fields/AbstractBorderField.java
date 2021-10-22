@@ -21,7 +21,7 @@ import javax.swing.border.Border;
 
 /**
  * Abstract labeled field for {@link Border} editing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

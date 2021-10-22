@@ -37,7 +37,7 @@ import javax.swing.AbstractButton;
 /**
  * Implementation of {@link IJavaInfoInitializationParticipator} that contributes {@link ActionInfo}
  * actions into context menu.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

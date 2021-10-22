@@ -43,7 +43,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for {@link InvocationEvaluator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodInvocationTest extends AbstractEngineTest {
@@ -396,7 +396,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Use InvocationEvaluatorInterceptor to resolve Method 
+  // Use InvocationEvaluatorInterceptor to resolve Method
   //
   ////////////////////////////////////////////////////////////////////////////
   public static class Test_InvocationEvaluatorInterceptor_resolveMethod
@@ -502,7 +502,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Use InvocationEvaluatorInterceptor to rewrite Exception 
+  // Use InvocationEvaluatorInterceptor to rewrite Exception
   //
   ////////////////////////////////////////////////////////////////////////////
   public static class Test_InvocationEvaluatorInterceptor_rewriteException

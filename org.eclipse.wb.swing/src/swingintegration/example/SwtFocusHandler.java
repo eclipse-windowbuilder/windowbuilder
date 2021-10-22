@@ -2,7 +2,7 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
@@ -40,10 +40,10 @@ class SwtFocusHandler implements FocusListener, KeyListener {
     assert handler != null;
     assert awtHandler == null; // this method is meant to be called once
     assert composite != null;
-    assert Display.getCurrent() != null; // On SWT event thread        
+    assert Display.getCurrent() != null; // On SWT event thread
     awtHandler = handler;
-    // Dismiss Swing popups when the main window is moved. (It would be 
-    // better to dismiss popups whenever the titlebar is clicked, but 
+    // Dismiss Swing popups when the main window is moved. (It would be
+    // better to dismiss popups whenever the titlebar is clicked, but
     // there does not seem to be a way.)
     final ControlAdapter controlAdapter = new ControlAdapter() {
       @Override
@@ -72,7 +72,7 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 
   private void traverse(final int traversal) {
     assert composite != null;
-    // Tab from the containing SWT component while 
+    // Tab from the containing SWT component while
     // running on the SWT thread
     Runnable r = new Runnable() {
       public void run() {
@@ -84,7 +84,7 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 
   //    boolean hasFocus() {
   //        assert composite != null;
-  //        
+  //
   //        // This will return true if the composite has focus, or if any
   //        // foreign (e.g. AWT) child of the composite has focus.
   //        if (display.isDisposed()) {
@@ -117,15 +117,15 @@ class SwtFocusHandler implements FocusListener, KeyListener {
 
   public void keyPressed(KeyEvent e) {
     assert Display.getCurrent() != null; // On SWT event thread
-    // If the embedded swing root pane has no components to receive focus, 
-    // then there will be cases where the parent SWT composite will keep 
-    // focus. (For example, when tabbing into the root pane container). 
+    // If the embedded swing root pane has no components to receive focus,
+    // then there will be cases where the parent SWT composite will keep
+    // focus. (For example, when tabbing into the root pane container).
     // By default, in these cases, the focus is swallowed by the Composite
-    // and never escapes. This code allows tab and back-tab to do the 
+    // and never escapes. This code allows tab and back-tab to do the
     // proper traversal to other SWT components from the composite.
     // TODO: other keys?
     if (e.keyCode == SWT.TAB) {
-      // TODO: In some cases, this gobbles up all the tabs, even from AWT children. Find a more selective way. 
+      // TODO: In some cases, this gobbles up all the tabs, even from AWT children. Find a more selective way.
       /*if (e.stateMask == SWT.NONE) {
           traverse(SWT.TRAVERSE_TAB_NEXT);
       } else if (e.stateMask == SWT.SHIFT) {

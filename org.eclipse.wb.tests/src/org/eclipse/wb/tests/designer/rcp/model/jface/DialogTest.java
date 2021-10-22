@@ -55,7 +55,7 @@ import java.util.List;
 
 /**
  * Test for {@link DialogInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DialogTest extends RcpModelTest {

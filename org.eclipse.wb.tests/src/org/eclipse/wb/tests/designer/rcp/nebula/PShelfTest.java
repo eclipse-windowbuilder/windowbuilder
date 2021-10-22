@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link PShelfInfo}.
- * 
+ *
  * @author sablin_aa
  */
 public class PShelfTest extends AbstractNebulaTest {
@@ -80,7 +80,7 @@ public class PShelfTest extends AbstractNebulaTest {
       assertThat(bounds.width).isEqualTo(pshelfBounds.width);
       assertThat(bounds.height).isGreaterThan(itemHeight);
       {
-        // check inner composite 
+        // check inner composite
         CompositeInfo composite = item.getChildren(CompositeInfo.class).get(0);
         assertTrue(composite.hasLayout());
         Rectangle compositeBounds = composite.getBounds();

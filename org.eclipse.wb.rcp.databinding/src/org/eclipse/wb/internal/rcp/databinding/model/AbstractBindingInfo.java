@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * This abstract model for all bindings: binding over <code>DataBindingContext.bindXXX()</code> and
  * binding input for JFace viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

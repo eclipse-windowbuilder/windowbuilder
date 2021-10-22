@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 /**
  * Marker class for FormLayout implementation.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

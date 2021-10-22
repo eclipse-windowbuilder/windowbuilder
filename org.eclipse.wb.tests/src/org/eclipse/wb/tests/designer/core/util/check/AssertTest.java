@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 
 /**
  * Tests for {@link Assert}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AssertTest extends TestCase {

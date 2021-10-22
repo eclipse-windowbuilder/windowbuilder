@@ -33,7 +33,7 @@ import java.text.MessageFormat;
 
 /**
  * {@link Action} for performing customization.
- * 
+ *
  * @author lobas_av
  * @coverage swing.customize
  */

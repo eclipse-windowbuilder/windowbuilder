@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link LayoutEditPolicy} for dropping buttons on {@link DialogButtonBarEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

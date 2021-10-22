@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 
 /**
  * {@link LayoutEditPolicy} allowing drop "bar" {@link MenuInfo} on <code>Shell</code>.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gefTree.policy.menu
  */
@@ -78,7 +78,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
   private final ILayoutRequestValidator VALIDATOR = new LayoutRequestValidatorStubFalse() {
     @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
-      // only one "bar" 
+      // only one "bar"
       for (MenuInfo menuInfo : m_shell.getChildren(MenuInfo.class)) {
         if (menuInfo.isBar()) {
           return false;

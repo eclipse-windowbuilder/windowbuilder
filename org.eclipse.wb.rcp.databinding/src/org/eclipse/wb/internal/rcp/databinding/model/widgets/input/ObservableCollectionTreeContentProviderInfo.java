@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Abstract model for all <code>JFace</code> tree viewer observable content provider.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

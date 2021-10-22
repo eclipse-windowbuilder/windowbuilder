@@ -16,7 +16,7 @@ import org.apache.commons.lang.ClassUtils;
 
 /**
  * Model for abstract objects or interfaces and objects that supported extends.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

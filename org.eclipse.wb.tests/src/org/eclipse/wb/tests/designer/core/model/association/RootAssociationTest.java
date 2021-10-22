@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link RootAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RootAssociationTest extends SwingModelTest {

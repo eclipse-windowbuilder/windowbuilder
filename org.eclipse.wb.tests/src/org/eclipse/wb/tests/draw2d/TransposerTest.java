@@ -18,7 +18,7 @@ import org.eclipse.wb.draw2d.geometry.Transposer;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class TransposerTest extends Draw2dTestCase {
   ////////////////////////////////////////////////////////////////////////////

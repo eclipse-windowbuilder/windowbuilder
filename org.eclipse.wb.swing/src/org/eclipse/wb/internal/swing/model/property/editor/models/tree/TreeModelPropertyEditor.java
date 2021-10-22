@@ -35,7 +35,7 @@ import javax.swing.tree.TreeNode;
 
 /**
  * {@link PropertyEditor} for {@link TreeModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

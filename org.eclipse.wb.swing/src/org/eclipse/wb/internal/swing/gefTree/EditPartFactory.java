@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Implementation of {@link IEditPartFactory} for Swing.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gefTree
  */

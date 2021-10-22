@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link RefreshAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RefreshActionTest extends XwtGefTest {

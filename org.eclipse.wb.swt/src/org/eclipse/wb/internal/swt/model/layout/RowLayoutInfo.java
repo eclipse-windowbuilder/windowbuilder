@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Model for SWT {@link RowLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */

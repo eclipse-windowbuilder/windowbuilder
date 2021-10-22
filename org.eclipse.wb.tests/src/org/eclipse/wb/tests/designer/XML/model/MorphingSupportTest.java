@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MorphingSupport}.
- * 
+ *
  * @author sablin_aa
  */
 public class MorphingSupportTest extends AbstractCoreTest {

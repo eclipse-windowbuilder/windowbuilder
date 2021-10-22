@@ -19,7 +19,7 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 
 /**
  * {@link Wizard} that creates new RCP {@link ActionBarAdvisor}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Stub class for using eRCP JFace classes in another {@link ClassLoader}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

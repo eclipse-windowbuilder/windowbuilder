@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 /**
  * Interface model for {@link TableWrapData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

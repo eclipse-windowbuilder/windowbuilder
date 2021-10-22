@@ -20,7 +20,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Implementation of {@link HierarchyProvider} for SWT items.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

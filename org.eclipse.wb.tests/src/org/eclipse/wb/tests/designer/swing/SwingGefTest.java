@@ -28,7 +28,7 @@ import javax.swing.JButton;
 
 /**
  * Abstract test for Swing in editor.
- * 
+ *
  * @author scheglov_ke
  */
 public class SwingGefTest extends DesignerEditorTestCase {

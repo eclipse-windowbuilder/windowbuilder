@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Interface for page in {@link AbstractXmlEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

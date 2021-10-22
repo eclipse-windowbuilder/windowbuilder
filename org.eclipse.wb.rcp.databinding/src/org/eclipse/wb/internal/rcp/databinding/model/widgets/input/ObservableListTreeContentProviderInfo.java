@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.eclipse.jface.databinding.viewers.ObservableListTreeContentProvider};
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.observables.DetailBea
 /**
  * Additional content provider for choose collection element type for
  * {@link DetailBeanObservableInfo} (over selection, multi selection, checkable) viewer input.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

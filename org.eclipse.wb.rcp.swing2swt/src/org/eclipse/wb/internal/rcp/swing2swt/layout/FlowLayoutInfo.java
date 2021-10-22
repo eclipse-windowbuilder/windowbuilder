@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 
 /**
  * Model for <code>FlowLayout</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.swing2swt.model.layout
  */

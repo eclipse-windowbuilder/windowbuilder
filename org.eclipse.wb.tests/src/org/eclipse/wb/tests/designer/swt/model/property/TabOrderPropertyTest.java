@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link TabOrderProperty}.
- * 
+ *
  * @author lobas_av
  */
 public class TabOrderPropertyTest extends RcpModelTest {

@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ContextMenuProvider} for Designer.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

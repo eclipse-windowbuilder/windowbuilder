@@ -74,7 +74,7 @@ import java.util.List;
 
 /**
  * EMF implementation of {@link IGlobalObservableFactory}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.xml.model.EditorContext;
 
 /**
  * Implementations of this interface can process {@link ComponentDescription}'s after loading them.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

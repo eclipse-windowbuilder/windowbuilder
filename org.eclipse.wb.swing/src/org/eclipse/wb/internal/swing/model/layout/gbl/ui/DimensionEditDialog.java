@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * The dialog for editing {@link DimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout.ui
  */

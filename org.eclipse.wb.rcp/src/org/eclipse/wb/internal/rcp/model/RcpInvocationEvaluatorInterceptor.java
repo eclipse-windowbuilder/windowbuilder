@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
  * For custom RCP objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model
  */

@@ -20,7 +20,7 @@ import com.jgoodies.forms.layout.FormSpec;
 
 /**
  * {@link Action} for modifying grow of {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

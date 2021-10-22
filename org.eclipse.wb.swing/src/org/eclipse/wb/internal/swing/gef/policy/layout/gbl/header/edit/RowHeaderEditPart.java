@@ -37,7 +37,7 @@ import org.apache.commons.lang.SystemUtils;
 
 /**
  * {@link EditPart} for {@link RowInfo} header of {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

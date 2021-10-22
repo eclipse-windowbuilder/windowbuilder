@@ -61,7 +61,7 @@ import java.util.List;
 
 /**
  * Abstract model for {@link Layout}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */
@@ -106,7 +106,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
     addBroadcastListener(new ObjectInfoChildAddBefore() {
       public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
           throws Exception {
-        // add new LayoutData - remove existing one 
+        // add new LayoutData - remove existing one
         if (parent instanceof ControlInfo
             && child instanceof LayoutDataInfo
             && isActiveOnComposite(parent.getParent())) {
@@ -440,7 +440,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
    * We may be {@link ControlInfo} that virtual {@link LayoutDataInfo} should not be created for it,
    * when we intentionally delete {@link LayoutDataInfo}, for example during process of moving this
    * {@link ControlInfo} from this {@link LayoutInfo} or deleting this {@link LayoutInfo}.
-   * 
+   *
    * @return <code>true</code> if for given {@link ControlInfo} we should create
    *         {@link LayoutDataInfo}.
    */
@@ -672,7 +672,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   /**

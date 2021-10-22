@@ -79,7 +79,7 @@ public final class FormUtils {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Utils returning the layout margin according to side 
+  // Utils returning the layout margin according to side
   //
   ////////////////////////////////////////////////////////////////////////////
   public static <C extends IControlInfo> int getLayoutMarginLeft(IFormLayoutInfo<C> layout) {

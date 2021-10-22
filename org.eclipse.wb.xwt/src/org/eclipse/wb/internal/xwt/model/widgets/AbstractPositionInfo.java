@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link ObjectInfo} that represents empty position in {@link AbstractPositionCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

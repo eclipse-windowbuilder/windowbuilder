@@ -23,7 +23,7 @@ import org.eclipse.swt.custom.SashForm;
 
 /**
  * Test for {@link SashFormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SashFormTest extends RcpModelTest {

@@ -29,7 +29,7 @@ import javax.swing.UIManager;
 
 /**
  * Used when no LAF selected explicitly.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */
@@ -57,7 +57,7 @@ public class UndefinedLafInfo extends LafInfo {
     // remove any setLookAndFeel method invocation, remove try..catch clauses if they are empty
     MethodDeclaration mainMethod = LafSupport.getMainMethod(editor);
     if (mainMethod == null) {
-      // no main method 
+      // no main method
       return;
     }
     // look up for setLookAndFeel method
@@ -87,7 +87,7 @@ public class UndefinedLafInfo extends LafInfo {
    * Try to find which LAF used as "undefined", i.e. when no LAF explicitly specified in main.
    */
   private static synchronized String getClassName0() {
-    // 1. Try to get system LAF class name from "swing.systemlaf" property name 
+    // 1. Try to get system LAF class name from "swing.systemlaf" property name
     // in $(java.home)/lib/swing.properties file.
     if (m_swingProperties == null) {
       String javaHome = System.getProperty("java.home");

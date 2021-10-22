@@ -16,7 +16,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * Model for column in {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

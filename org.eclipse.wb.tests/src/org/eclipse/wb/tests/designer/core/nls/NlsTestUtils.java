@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Utilities for testing NLS.
- * 
+ *
  * @author scheglov_ke
  */
 public class NlsTestUtils {

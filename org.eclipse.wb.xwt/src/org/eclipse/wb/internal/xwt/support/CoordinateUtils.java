@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Utilities for SWT {@link Control} coordinates.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.support
  */
@@ -171,7 +171,7 @@ public final class CoordinateUtils {
    * place child {@link Control} exactly in top-left point of {@link Group}, we should use
    * <code>(0,0)</code>. However if we want to place {@link Control} in <b>top-left of preferred
    * location</b>, then {@link #getClientAreaInsets2()} should be used.
-   * 
+   *
    * @return the {@link Insets} for "displaying data" part of given {@link Composite}.
    */
   public static Insets getClientAreaInsets2(Composite composite) throws Exception {

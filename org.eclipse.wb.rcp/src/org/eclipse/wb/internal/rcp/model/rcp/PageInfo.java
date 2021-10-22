@@ -28,7 +28,7 @@ import java.lang.reflect.Proxy;
 
 /**
  * Model for {@link Page}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

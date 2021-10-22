@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * {@link CreationSupport} for {@link FormToolkit} described by {@link FormToolkitAccess}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

@@ -21,9 +21,9 @@ import org.eclipse.wb.internal.rcp.databinding.xwt.model.widgets.WidgetBindableI
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class XmlObjectDeleteManager extends JavaInfoDeleteManager {
   ////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ public class XmlObjectDeleteManager extends JavaInfoDeleteManager {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

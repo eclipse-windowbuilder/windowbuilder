@@ -22,7 +22,7 @@ import javax.swing.border.EtchedBorder;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets {@link EtchedBorder}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

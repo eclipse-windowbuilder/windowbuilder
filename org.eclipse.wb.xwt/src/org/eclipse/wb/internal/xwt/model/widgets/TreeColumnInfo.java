@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 
 /**
  * Model for {@link TreeColumn}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

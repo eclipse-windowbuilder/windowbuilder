@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 
 /**
  * Implementation of {@link IDescriptionProcessor} for AWT/Swing components.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing
  */

@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 
 /**
  * {@link ExpressionAccessor} based on getter and setter {@link Method}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

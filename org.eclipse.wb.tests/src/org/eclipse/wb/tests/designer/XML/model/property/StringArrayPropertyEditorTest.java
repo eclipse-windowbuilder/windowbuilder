@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Test for {@link StringArrayPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StringArrayPropertyEditorTest extends XwtModelTest {

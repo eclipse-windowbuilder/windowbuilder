@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 
 /**
  * Model for {@link ColumnWeightData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.layout
  */
@@ -34,7 +34,7 @@ public final class ColumnWeightDataInfo extends ColumnLayoutDataInfo {
       ComponentDescription description,
       CreationSupport creationSupport) throws Exception {
     super(editor, description, creationSupport);
-    // instead of "column.width" property set "minimumWidth" property of ColumnWeightData 
+    // instead of "column.width" property set "minimumWidth" property of ColumnWeightData
     addBroadcastListener(new GenericPropertySetValue() {
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {

@@ -79,7 +79,7 @@ import java.util.List;
 
 /**
  * {@link IParseFactory} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.parser
  */

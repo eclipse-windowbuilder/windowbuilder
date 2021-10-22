@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Tests for various {@link ClassLoader} tricks in XML.
- * 
+ *
  * @author scheglov_ke
  */
 public class ClassLoadingTest extends XwtModelTest {

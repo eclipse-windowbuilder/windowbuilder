@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Abstract model for <code>Java Beans</code> object properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

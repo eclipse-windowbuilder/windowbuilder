@@ -19,7 +19,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * {@link HierarchyProvider} for SWT controls.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.widgets
  */

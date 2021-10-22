@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link WindowInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

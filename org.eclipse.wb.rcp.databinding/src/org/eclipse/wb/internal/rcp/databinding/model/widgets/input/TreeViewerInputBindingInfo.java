@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Model for binding input to <code>JFace</code> tree viewer.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

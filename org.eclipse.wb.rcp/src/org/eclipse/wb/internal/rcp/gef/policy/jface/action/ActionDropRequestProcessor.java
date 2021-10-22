@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 /**
  * Implementation of {@link RequestProcessor} for dropping {@link ActionInfo} on
  * {@link MenuManagerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Tests for {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbsoluteLayoutGefTest extends XwtGefTest {

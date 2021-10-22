@@ -19,7 +19,7 @@ import org.eclipse.swt.custom.CTabItem;
 
 /**
  * Model for {@link CTabItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

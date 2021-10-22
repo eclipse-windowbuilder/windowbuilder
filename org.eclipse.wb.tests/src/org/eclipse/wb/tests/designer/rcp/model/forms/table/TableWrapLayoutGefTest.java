@@ -24,7 +24,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Tests for {@link TableWrapLayout} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableWrapLayoutGefTest extends RcpGefTest {

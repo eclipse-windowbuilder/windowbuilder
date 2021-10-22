@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Tests for "simple container" support, such as {@link SimpleContainer} interface.
- * 
+ *
  * @author scheglov_ke
  */
 public class SimpleContainerLayoutGefTest extends SimpleContainerAbstractGefTest {

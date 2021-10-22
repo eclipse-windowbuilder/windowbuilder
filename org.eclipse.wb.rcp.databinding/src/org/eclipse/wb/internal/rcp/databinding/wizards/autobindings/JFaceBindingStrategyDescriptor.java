@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.databinding.wizards.autobindings.AbstractDes
 
 /**
  * JFace UpdateStrategy descriptor.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.wizard.auto
  */

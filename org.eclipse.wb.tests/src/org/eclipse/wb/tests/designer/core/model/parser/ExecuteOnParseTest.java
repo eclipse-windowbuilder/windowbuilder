@@ -98,7 +98,7 @@ import javax.swing.JPanel;
  * get default property values and identify property based children. Also, we can not use default
  * constructors, because we should create components <b>exactly</b> as they are created in source
  * code.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExecuteOnParseTest extends SwingModelTest {
@@ -1701,7 +1701,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
             "}");
     frame.refresh();
     assertNoErrors(frame);
-    // one of the effects was keeping JFrame.visible in "true" 
+    // one of the effects was keeping JFrame.visible in "true"
     JFrame frameObject = (JFrame) frame.getObject();
     assertFalse(frameObject.isVisible());
   }
@@ -1807,7 +1807,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
             "</component>"));
     waitForAutoBuild();
     // contribute special {@link HierarchyProvider}
-    TestUtils.addDynamicExtension(COMPONENTS_HIERARCHY_PROVIDERS_POINT_ID, // 
+    TestUtils.addDynamicExtension(COMPONENTS_HIERARCHY_PROVIDERS_POINT_ID, //
         "  <provider class='" + Test_HierarchyProvider.class.getName() + "'/>");
     //
     try {

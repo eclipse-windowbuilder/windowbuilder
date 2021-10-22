@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link ISurroundTarget} that uses {@link CTabFolder} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.util
  */

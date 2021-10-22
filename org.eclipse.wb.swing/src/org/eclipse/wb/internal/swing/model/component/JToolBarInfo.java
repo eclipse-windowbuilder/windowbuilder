@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Model for {@link JToolBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -74,7 +74,7 @@ public final class JToolBarInfo extends ContainerInfo {
 
   /**
    * Creates new {@link ComponentInfo} for {@link JButton} using {@link ActionInfo}.
-   * 
+   *
    * @return the created {@link ComponentInfo}.
    */
   public ComponentInfo command_CREATE(ActionInfo action, ComponentInfo nextComponent)

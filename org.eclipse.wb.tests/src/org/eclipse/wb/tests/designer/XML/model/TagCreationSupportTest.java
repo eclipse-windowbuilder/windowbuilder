@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link TagCreationSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TagCreationSupportTest extends AbstractCoreTest {

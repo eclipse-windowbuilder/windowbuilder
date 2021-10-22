@@ -23,7 +23,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * {@link EntryInfo} for factory methods from {@link DefaultComponentFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

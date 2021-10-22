@@ -22,7 +22,7 @@ import org.eclipse.jface.dialogs.DialogPage;
 
 /**
  * Abstract model for {@link DialogPage} subclasses.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

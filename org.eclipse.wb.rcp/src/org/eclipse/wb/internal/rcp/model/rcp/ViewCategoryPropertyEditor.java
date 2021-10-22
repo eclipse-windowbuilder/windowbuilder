@@ -19,7 +19,7 @@ import org.eclipse.jface.window.Window;
 
 /**
  * {@link PropertyEditor} for "category" attribute of "view".
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

@@ -19,7 +19,7 @@ import javax.swing.JSlider;
 
 /**
  * Tests for {@link JSlider} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JSliderTest extends SwingModelTest {

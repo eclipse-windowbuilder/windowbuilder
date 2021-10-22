@@ -30,7 +30,7 @@ import javax.swing.SpinnerNumberModel;
 
 /**
  * Implementation of {@link AbstractSpinnerComposite} for {@link SpinnerNumberModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

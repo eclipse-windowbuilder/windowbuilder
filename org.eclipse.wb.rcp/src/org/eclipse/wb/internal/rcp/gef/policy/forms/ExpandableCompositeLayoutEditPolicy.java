@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.model.forms.ExpandableCompositeInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ExpandableCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

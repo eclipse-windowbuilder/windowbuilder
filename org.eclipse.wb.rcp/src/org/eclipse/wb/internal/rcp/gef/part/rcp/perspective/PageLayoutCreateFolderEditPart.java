@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutCreateFolderI
 
 /**
  * {@link EditPart} for {@link PageLayoutCreateFolderInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

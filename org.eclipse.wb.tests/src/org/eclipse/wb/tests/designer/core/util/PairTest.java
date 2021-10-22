@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link Pair}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PairTest extends DesignerTestCase {

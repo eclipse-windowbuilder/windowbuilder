@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for absolute (null) layout.
- * 
+ *
  * @author mitin_aa
  * @author lobas_av
  * @coverage swt.gef.policy
@@ -174,7 +174,7 @@ public final class AbsoluteLayoutEditPolicy<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

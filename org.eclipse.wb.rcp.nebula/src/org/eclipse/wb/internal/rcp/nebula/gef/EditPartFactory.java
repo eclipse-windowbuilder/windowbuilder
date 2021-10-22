@@ -18,7 +18,7 @@ import org.eclipse.wb.gef.core.IEditPartFactory;
 
 /**
  * Implementation of {@link IEditPartFactory} for Nebula widgets.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.gef
  */

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Abstract model for Designer observable factory for tree viewer input.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

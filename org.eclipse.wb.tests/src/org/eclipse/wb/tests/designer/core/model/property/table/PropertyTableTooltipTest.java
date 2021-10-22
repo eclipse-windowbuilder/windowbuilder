@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Tests for basic {@link PropertyTable} features.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTableTooltipTest extends AbstractPropertyTableTest {

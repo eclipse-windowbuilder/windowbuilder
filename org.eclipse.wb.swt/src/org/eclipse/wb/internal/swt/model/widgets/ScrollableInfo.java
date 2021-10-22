@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Scrollable;
 
 /**
  * Model for any SWT {@link org.eclipse.swt.widgets.Scrollable}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swt.model.widgets

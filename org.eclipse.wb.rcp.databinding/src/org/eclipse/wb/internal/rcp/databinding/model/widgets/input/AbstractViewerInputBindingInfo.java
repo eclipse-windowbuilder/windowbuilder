@@ -49,7 +49,7 @@ import java.util.List;
 
 /**
  * Abstract model for binding input to <code>JFace</code> viewer.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

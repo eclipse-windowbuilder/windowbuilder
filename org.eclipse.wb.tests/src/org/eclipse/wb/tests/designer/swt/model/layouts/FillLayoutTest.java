@@ -28,7 +28,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Test for {@link FillLayoutInfo}.
- * 
+ *
  * @author lobas_av
  */
 public class FillLayoutTest extends RcpModelTest {

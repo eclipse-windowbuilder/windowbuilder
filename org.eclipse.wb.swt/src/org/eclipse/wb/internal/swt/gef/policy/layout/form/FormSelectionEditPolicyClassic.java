@@ -71,7 +71,7 @@ import java.util.Map;
 
 /**
  * Selection Policy for 'Classic' version of the FormLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
@@ -230,7 +230,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     Rectangle clientArea = layoutInfo.getComposite().getClientArea();
     int parentClientAreaWidth = clientArea.width;
     int parentClientAreaHeight = clientArea.height;
-    // size hints feedback 
+    // size hints feedback
     String xText = "", yText = "";
     // West
     if (hasDirection(direction, IPositionConstants.WEST)) {
@@ -1145,7 +1145,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Returns model bounds of the control in parent client area coordinates
-   * 
+   *
    * @param control
    * @return
    */

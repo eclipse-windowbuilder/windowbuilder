@@ -25,7 +25,7 @@ import java.util.List;
  * cells, as they were before enclosing. It works only if source {@link ContainerInfo} has
  * {@link GridBagLayoutInfo} and sets also {@link GridBagLayoutInfo} on target {@link ContainerInfo}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Implementation {@link IImageContainer} for {@link Bundle} plugin.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor.plugin
  */

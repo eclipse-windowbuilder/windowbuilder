@@ -16,7 +16,7 @@ import javax.swing.JTabbedPane;
 
 /**
  * Model for single tab on {@link JTabbedPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

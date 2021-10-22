@@ -18,7 +18,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Stub class for using SWT {@link org.eclipse.swt.widget.Label}'s in another {@link ClassLoader}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.support
  */

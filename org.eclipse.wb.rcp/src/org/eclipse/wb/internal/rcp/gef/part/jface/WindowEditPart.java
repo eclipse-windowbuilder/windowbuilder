@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.jface.WindowInfo;
 
 /**
  * {@link EditPart} for {@link WindowInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

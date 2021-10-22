@@ -30,7 +30,7 @@ import javax.swing.JToolBar;
 
 /**
  * Test for {@link JXTaskPaneInfo}.
- * 
+ *
  * @author sablin_aa
  */
 public class JXTaskPaneTest extends SwingxModelTest {
@@ -56,7 +56,7 @@ public class JXTaskPaneTest extends SwingxModelTest {
             "  }",
             "}");
     panel.refresh();
-    // 
+    //
     assertThat(ActionContainerInfo.getActions(panel).size()).isEqualTo(1);
     List<JXTaskPaneInfo> children = panel.getChildren(JXTaskPaneInfo.class);
     assertThat(children.size()).isEqualTo(1);

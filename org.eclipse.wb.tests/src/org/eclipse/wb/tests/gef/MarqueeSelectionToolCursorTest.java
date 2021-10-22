@@ -17,7 +17,7 @@ import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
   ////////////////////////////////////////////////////////////////////////////

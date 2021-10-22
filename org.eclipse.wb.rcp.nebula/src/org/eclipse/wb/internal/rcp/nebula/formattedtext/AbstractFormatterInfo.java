@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model {@link org.eclipse.nebula.widgets.formattedtext.AbstractFormatter}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

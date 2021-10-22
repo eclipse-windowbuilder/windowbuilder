@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * Test for {@link QParser}.
- * 
+ *
  * @author scheglov_ke
  */
 public class QParserTest extends AbstractJavaProjectTest {

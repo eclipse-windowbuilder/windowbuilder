@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.parser.XwtParser;
 
 /**
  * {@link XmlDesignPage} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.editor
  */

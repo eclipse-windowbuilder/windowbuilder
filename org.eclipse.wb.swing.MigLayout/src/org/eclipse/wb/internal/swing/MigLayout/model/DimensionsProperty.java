@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * {@link Property} to display/edit {@link List} of {@link MigDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */

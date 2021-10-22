@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * {@link ISurroundTarget} for using any {@link Composite} as target container.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.util
  */

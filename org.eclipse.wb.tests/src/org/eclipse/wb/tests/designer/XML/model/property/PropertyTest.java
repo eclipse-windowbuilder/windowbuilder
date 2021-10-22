@@ -37,7 +37,7 @@ import java.lang.reflect.TypeVariable;
 
 /**
  * Test for {@link GenericProperty} and its components.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTest extends AbstractCoreTest {
@@ -723,14 +723,14 @@ public class PropertyTest extends AbstractCoreTest {
         "<Shell>",
         "  <t:MyComponent wbp:name='component' test='1'/>",
         "</Shell>");
-    // non-default value 
+    // non-default value
     property.setExpression("2", Integer.valueOf(2));
     assertXML(
         "// filler filler filler filler filler",
         "<Shell>",
         "  <t:MyComponent wbp:name='component' test='2'/>",
         "</Shell>");
-    // default value 
+    // default value
     property.setExpression("5", Integer.valueOf(5));
     assertXML(
         "// filler filler filler filler filler",

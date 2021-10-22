@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Model for {@link ColumnLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */
@@ -147,7 +147,7 @@ public class ColumnLayoutInfo extends GenericFlowLayoutInfo
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Manage general layout data. 
+  // Manage general layout data.
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final BiMap<GeneralLayoutData.HorizontalAlignment, Integer> m_horizontalAlignmentMap =

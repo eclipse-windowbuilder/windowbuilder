@@ -19,9 +19,9 @@ import java.util.Map;
 
 /**
  * Context for set/get state during create provider contents.
- * 
+ *
  * @see BindingInfo#createContentProviders(java.util.List, IPageListener, DatabindingsProvider)
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

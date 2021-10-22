@@ -72,7 +72,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Manager for {@link PaletteInfo} for some GUI toolkit.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */
@@ -505,7 +505,7 @@ public final class PaletteManager {
 
   /**
    * Parses single custom palette contribution.
-   * 
+   *
    * @param inputStream
    *          the {@link InputStream} with palette XML.
    * @param sourceDescription

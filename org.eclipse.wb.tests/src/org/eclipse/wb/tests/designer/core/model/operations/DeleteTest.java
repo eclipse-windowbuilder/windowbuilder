@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for different {@link JavaInfo#delete()} cases.
- * 
+ *
  * @author scheglov_ke
  */
 public class DeleteTest extends SwingModelTest {

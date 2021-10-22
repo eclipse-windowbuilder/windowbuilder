@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Test for any factory.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryTest extends SwingModelTest {

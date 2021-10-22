@@ -57,7 +57,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link UndoManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class UndoManagerTest extends SwingGefTest {
@@ -462,7 +462,7 @@ public class UndoManagerTest extends SwingGefTest {
       tree.select(button);
       tree.assertPrimarySelected(button);
     }
-    // use "MyPanel" which does not expose "getButton()" 
+    // use "MyPanel" which does not expose "getButton()"
     setFileContentSrc(
         "test/MyPanel.java",
         getTestSource(

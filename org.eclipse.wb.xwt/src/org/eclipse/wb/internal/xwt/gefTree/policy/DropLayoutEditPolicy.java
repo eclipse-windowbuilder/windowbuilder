@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CompositeInfo;
 
 /**
  * {@link LayoutEditPolicy} for dropping {@link LayoutInfo} on {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gefTree.policy
  */

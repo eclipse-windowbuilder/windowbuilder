@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Model for any XWT "LayoutData".
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Layout assistant for <code>BorderLayout</code>.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.swing2swt.model.layout
  */

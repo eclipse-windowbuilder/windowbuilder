@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for RCP GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class GefTests extends DesignerSuiteTests {

@@ -54,7 +54,7 @@ import javax.swing.ComboBoxModel;
 
 /**
  * The dialog for editing {@link ComboBoxModel}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.property.editor
  */

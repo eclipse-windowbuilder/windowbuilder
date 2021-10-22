@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * {@link ExpressionConverter} for <code>boolean</code> values.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

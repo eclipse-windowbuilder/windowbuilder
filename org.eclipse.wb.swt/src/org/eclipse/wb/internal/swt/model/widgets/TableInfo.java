@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Model for SWT table {@link org.eclipse.swt.widgets.Table}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.widgets
  */

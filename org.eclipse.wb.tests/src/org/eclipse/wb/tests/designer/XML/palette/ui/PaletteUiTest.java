@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * Test for palette UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class PaletteUiTest extends AbstractPaletteUiTest {

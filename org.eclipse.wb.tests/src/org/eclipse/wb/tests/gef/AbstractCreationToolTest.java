@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public abstract class AbstractCreationToolTest extends RequestTestCase {
   protected AbstractCreateRequest m_request;

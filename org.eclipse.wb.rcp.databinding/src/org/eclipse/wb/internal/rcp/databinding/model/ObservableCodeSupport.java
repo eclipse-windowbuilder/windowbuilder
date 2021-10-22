@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Source code generator for owner {@link ObservableInfo}. {@link ObservableInfo} can have multiple
  * code generators (f.e. BeansObservables or BeanProperties).
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

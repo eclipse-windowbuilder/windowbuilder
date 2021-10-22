@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * Model for {@link Window}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

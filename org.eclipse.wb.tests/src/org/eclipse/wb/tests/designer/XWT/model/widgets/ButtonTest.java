@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Tests for {@link ButtonInfo}.
- * 
+ *
  * @author sablin_aa
  */
 public class ButtonTest extends XwtModelTest {

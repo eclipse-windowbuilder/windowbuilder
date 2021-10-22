@@ -30,7 +30,7 @@ import java.util.Locale;
 
 /**
  * Description for {@link DimConstraint} in {@link MigLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */
@@ -76,7 +76,7 @@ public abstract class MigDimensionInfo {
   /**
    * @param withBraces
    *          is <code>true</code>, if surrounding <code>[]</code> should be used.
-   * 
+   *
    * @return the constraints of this {@link MigDimensionInfo} as string.
    */
   public final String getString(boolean withBraces) {

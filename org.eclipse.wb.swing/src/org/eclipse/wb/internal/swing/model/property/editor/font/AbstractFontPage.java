@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Abstract page for editing {@link FontInfo} in {@link FontDialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -38,7 +38,7 @@ public abstract class AbstractFontPage extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Sets the {@link FontInfo} selected in {@link FontDialog}.
-   * 
+   *
    * @return <code>true</code> if this page thinks that it is suits for given {@link FontInfo}.
    */
   public abstract boolean setFont(FontInfo fontInfo);

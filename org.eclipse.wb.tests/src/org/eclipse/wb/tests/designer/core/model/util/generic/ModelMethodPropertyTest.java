@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Test for {@link ModelMethodPropertySupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ModelMethodPropertyTest extends SwingModelTest {

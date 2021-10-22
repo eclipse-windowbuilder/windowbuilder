@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * Description for {@link RowSpec}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

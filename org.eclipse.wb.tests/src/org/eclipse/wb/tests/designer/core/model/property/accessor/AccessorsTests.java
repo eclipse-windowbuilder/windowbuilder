@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for core {@link ExpressionAccessor}'s.
- * 
+ *
  * @author scheglov_ke
  */
 public class AccessorsTests extends DesignerSuiteTests {

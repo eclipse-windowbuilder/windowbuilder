@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MenuItemInfo}.
- * 
+ *
  * @author mitin_aa
  */
 public class MenuItemTest extends RcpModelTest {

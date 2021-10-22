@@ -97,7 +97,7 @@ public class Library {
    * embedded in the library name and this along with <code>name</code> is used to load the library.
    * If this fails, <code>name</code> is used in another attempt to load the library, this time
    * ignoring the SWT version encoding scheme.
-   * 
+   *
    * @param name
    *          the name of the library to load
    */
@@ -121,7 +121,7 @@ public class Library {
     if (load(path + SEPARATOR + fileName)) {
       return;
     }
-    // Try extracting and loading library from jar 
+    // Try extracting and loading library from jar
     if (path != null) {
       if (extract(path + SEPARATOR + fileName, fileName)) {
         return;

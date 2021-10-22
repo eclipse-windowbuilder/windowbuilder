@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link ControlInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.gef.part
  */

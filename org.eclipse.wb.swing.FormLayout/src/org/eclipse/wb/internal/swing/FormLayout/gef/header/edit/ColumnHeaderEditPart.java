@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link FormColumnInfo} header of {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

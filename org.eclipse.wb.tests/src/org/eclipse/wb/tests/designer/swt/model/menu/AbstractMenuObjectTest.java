@@ -26,7 +26,7 @@ import org.easymock.IMocksControl;
 
 /**
  * Tests for {@link AbstractMenuObject}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractMenuObjectTest extends DesignerTestCase {

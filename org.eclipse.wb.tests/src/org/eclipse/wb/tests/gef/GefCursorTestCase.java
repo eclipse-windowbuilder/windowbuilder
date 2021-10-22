@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GefCursorTestCase extends GefTestCase {
   protected Shell m_shell;

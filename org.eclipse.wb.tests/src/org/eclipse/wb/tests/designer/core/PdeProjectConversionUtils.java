@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Utilities for operating with PDE projects.
- * 
+ *
  * @author scheglov_ke
  */
 public class PdeProjectConversionUtils {
@@ -64,7 +64,7 @@ public class PdeProjectConversionUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Converts given {@link IProject} into PDE project.
-   * 
+   *
    * If <code>hostPluginId</code> is not <code>null</code>, fragment will be created.
    */
   public static void convertToPDE(IProject project, String hostPluginId) throws CoreException {
@@ -73,7 +73,7 @@ public class PdeProjectConversionUtils {
 
   /**
    * Converts given {@link IProject} into PDE project.
-   * 
+   *
    * If <code>hostPluginId</code> is not <code>null</code>, fragment will be created.
    */
   public static void convertToPDE(IProject project, String hostPluginId, String pluginActivator)

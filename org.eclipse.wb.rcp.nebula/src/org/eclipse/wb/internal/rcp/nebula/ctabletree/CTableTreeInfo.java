@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Model {@link CTableTree}
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */
@@ -65,7 +65,7 @@ public final class CTableTreeInfo extends CompositeInfo {
           boolean[] terminal) {
         if (parent == m_this) {
           if (child instanceof CContainerColumnInfo) {
-            // locate first CTableTreeItem 
+            // locate first CTableTreeItem
             List<CTableTreeItemInfo> items = getChildren(CTableTreeItemInfo.class);
             for (CTableTreeItemInfo item : items) {
               List<ASTNode> itemNodes = item.getRelatedNodes();

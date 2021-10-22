@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.xwt.parser.XwtDescriptionProcessor;
 
 /**
  * Test for {@link XwtDescriptionProcessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtDescriptionProcessorTest extends XwtModelTest {

@@ -28,7 +28,7 @@ import org.xml.sax.Attributes;
 
 /**
  * {@link IDescriptionRulesProvider} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */

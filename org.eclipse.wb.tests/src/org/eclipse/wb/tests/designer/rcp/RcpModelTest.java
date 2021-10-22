@@ -22,7 +22,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Abstract super class for RCP tests.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class RcpModelTest extends AbstractJavaInfoTest {
@@ -57,7 +57,7 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 
   /**
    * Configures test values for core/toolkit preferences.
-   * 
+   *
    * @param preferences
    *          the eRCP toolkit preferences.
    */
@@ -72,7 +72,7 @@ public abstract class RcpModelTest extends AbstractJavaInfoTest {
 
   /**
    * Configures default values for core/toolkit preferences.
-   * 
+   *
    * @param preferences
    *          the eRCP toolkit preferences.
    */

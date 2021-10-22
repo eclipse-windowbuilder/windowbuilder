@@ -32,7 +32,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for bad situations during parsing.
- * 
+ *
  * @author scheglov_ke
  */
 public class BadNodesTest extends SwingModelTest {

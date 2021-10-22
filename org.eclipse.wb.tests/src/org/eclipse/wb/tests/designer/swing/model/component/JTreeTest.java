@@ -27,7 +27,7 @@ import javax.swing.tree.TreeModel;
 
 /**
  * Tests for {@link JTree} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JTreeTest extends SwingModelTest {
@@ -239,7 +239,7 @@ public class JTreeTest extends SwingModelTest {
 
   /**
    * Adds new <code>ItemInformation</code> to given parent.
-   * 
+   *
    * @return added <code>ItemInformation</code> instance.
    */
   public static Object addItemInformation(Object parentItem, String text) throws Exception {

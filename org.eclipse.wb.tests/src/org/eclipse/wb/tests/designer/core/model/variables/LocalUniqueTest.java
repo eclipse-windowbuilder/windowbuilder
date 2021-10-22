@@ -55,7 +55,7 @@ import javax.swing.JTextField;
 
 /**
  * Test for {@link LocalUniqueVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LocalUniqueTest extends AbstractVariableTest {

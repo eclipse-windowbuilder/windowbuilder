@@ -38,7 +38,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Model for {@link FormPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

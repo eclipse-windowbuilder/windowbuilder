@@ -23,7 +23,7 @@ import javax.swing.JTable;
 
 /**
  * Tests for {@link GridBagLayout_SurroundSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagLayoutSurroundSupportTest extends AbstractGridBagLayoutTest {

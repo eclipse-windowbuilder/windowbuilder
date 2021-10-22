@@ -29,7 +29,7 @@ import javax.swing.JLayeredPane;
 
 /**
  * Test for {@link JLayeredPaneInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JLayeredPaneTest extends SwingModelTest {

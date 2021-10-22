@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * {@link IJavaInfoInitializationParticipator} that contributes {@link FormToolkit} related actions
  * into context menu.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

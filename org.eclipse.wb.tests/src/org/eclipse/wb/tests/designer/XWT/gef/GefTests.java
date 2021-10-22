@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * XWT GEF tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class GefTests extends DesignerSuiteTests {

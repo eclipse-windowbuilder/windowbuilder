@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Dialog for adding new {@link CategoryInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette.ui
  */

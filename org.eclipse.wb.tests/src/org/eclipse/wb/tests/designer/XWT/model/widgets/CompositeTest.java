@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Test for {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompositeTest extends XwtModelTest {
@@ -301,7 +301,7 @@ public class CompositeTest extends XwtModelTest {
         "  <t:MyComponent wbp:name='myComponent'/>",
         "</Shell>");
     refresh();
-    // 
+    //
     CompositeInfo myComponent = getObjectByName("myComponent");
     assertFalse(myComponent.shouldDrawDotsBorder());
   }

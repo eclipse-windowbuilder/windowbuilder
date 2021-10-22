@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 /**
  * Marker interface for {@link XmlObjectInfo} which has no element. For example: implicit layouts,
  * virtual layout data, etc.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.creation
  */

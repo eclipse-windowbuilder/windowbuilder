@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Interface for extend operation with models into sub RCP (EMF and etc.) plugins.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

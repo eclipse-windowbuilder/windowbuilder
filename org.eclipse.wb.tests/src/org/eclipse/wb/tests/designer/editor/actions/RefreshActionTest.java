@@ -18,7 +18,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Test for {@link RefreshAction}.
- * 
+ *
  * @author mitin_aa
  */
 public class RefreshActionTest extends SwingGefTest {

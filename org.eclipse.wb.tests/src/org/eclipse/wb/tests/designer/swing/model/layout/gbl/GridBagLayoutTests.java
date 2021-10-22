@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link GridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagLayoutTests extends DesignerSuiteTests {

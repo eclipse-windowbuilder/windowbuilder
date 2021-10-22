@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Test for {@link ViewerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewerTest extends XwtModelTest {

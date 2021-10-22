@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * {@link Rule} that sets the default value of current {@link GenericPropertyDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

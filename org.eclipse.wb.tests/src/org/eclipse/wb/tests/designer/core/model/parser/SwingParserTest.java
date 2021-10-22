@@ -460,9 +460,9 @@ public class SwingParserTest extends SwingModelTest {
 
   /**
    * In addition to {@link #test_panelButton_1a()} this test demonstrates:
-   * 
+   *
    * 1. passing parent into method;
-   * 
+   *
    * @author scheglov_ke
    */
   public void test_panelButton_1b() throws Exception {
@@ -1317,7 +1317,7 @@ public class SwingParserTest extends SwingModelTest {
         "    <parameter name='parser.preferredRoot'>true</parameter>",
         "  </parameters>",
         "</component>"});
-    // standard JPanel has bigger hierarchy, so without "parser.preferredRoot" is would be selected 
+    // standard JPanel has bigger hierarchy, so without "parser.preferredRoot" is would be selected
     parseContainer(
         "public class Test {",
         "  public static void main(String[] args) {",

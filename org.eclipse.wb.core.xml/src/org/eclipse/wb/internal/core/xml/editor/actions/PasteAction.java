@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link Action} for {@link ActionFactory#PASTE}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */

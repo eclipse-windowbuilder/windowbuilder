@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Swing component descriptor.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */

@@ -26,7 +26,7 @@ import java.net.URL;
 public class BrowserHelper {
   /**
    * Given a URL and a shell, open the URL in an external browser.
-   * 
+   *
    * @param shell
    *          the current shell
    * @param url

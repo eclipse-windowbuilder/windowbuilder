@@ -28,7 +28,7 @@ import java.awt.GraphicsEnvironment;
 /**
  * Implementation of {@link AbstractFontPage} for constructing {@link Font} using family, style and
  * size.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

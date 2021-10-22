@@ -17,7 +17,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Abstract {@link Command} that works with {@link LafInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

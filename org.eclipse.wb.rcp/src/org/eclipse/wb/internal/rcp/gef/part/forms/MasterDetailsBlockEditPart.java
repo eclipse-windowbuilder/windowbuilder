@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.forms.MasterDetailsBlockInfo;
 
 /**
  * {@link EditPart} for {@link MasterDetailsBlockInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

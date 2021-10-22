@@ -23,7 +23,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Base class for {@link LookAndFeel} info.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.models
  */
@@ -102,7 +102,7 @@ public class LafInfo extends LafEntryInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Load the LAF class and creates an instance of LAF class.
-   * 
+   *
    * @return the instance of LAF class.
    */
   public LookAndFeel getLookAndFeelInstance() throws Exception {
@@ -122,7 +122,7 @@ public class LafInfo extends LafEntryInfo {
   public void applyInMain(AstEditor editor) throws Exception {
     MethodDeclaration mainMethod = LafSupport.getMainMethod(editor);
     if (mainMethod == null) {
-      // no main method 
+      // no main method
       return;
     }
     // look up for setLookAndFeel method
@@ -134,7 +134,7 @@ public class LafInfo extends LafEntryInfo {
           + getClassName()
           + "\");\n} catch (Throwable e) {\n\te.printStackTrace();\n}", target);
     } else {
-      // modify existing 
+      // modify existing
       String methodSignature = AstNodeUtils.getMethodSignature(setLookAndFeelMethod);
       if (LafSupport.SET_LOOK_AND_FEEL_LAF.equals(methodSignature)) {
         // UIManager.setLookAndFeel(javax.swing.LookAndFeel)
@@ -142,7 +142,7 @@ public class LafInfo extends LafEntryInfo {
             + getClassName()
             + "()");
       } else if (LafSupport.SET_LOOK_AND_FEEL_STRING.equals(methodSignature)) {
-        // UIManager.setLookAndFeel(java.lang.String) 
+        // UIManager.setLookAndFeel(java.lang.String)
         editor.replaceExpression(DomGenerics.arguments(setLookAndFeelMethod).get(0), "\""
             + getClassName()
             + "\"");

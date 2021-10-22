@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Assistant pages provider for {@link FillLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

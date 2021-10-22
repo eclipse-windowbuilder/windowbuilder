@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * EMF implementation of {@link IAutomaticWizardStub}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

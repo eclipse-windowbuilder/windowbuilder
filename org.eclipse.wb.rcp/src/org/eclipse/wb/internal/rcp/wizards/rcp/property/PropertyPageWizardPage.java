@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 /**
  * {@link WizardPage} that creates new RCP {@link PropertyPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

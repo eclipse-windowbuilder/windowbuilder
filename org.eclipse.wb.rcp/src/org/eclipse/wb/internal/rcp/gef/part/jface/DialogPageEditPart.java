@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.jface.DialogPageInfo;
 
 /**
  * {@link EditPart} for {@link DialogPageInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

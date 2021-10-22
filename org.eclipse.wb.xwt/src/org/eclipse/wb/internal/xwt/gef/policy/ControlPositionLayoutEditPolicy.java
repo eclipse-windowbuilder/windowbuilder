@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.ControlInfo;
 
 /**
  * {@link ObjectPositionLayoutEditPolicy} for XWT toolkit.
- * 
+ *
  * @author sablin_aa
  * @coverage XWT.gef.policy
  */

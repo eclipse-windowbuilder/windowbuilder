@@ -63,7 +63,7 @@ import java.util.List;
 
 /**
  * Model for "null" (absolute) layout.
- * 
+ *
  * @author mitin_aa
  * @author scheglov_ke
  * @author lobas_av

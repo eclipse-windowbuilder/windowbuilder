@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for components from {@link DefaultComponentFactory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {

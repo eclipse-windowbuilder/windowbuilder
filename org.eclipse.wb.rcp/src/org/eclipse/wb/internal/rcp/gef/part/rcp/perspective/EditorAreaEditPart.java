@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 
 /**
  * {@link EditPart} for {@link EditorAreaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

@@ -21,7 +21,7 @@ import org.apache.commons.lang.ClassUtils;
 
 /**
  * Presentation for {@link BeanBindableInfo} models.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

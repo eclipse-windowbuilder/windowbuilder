@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Test for {@link FormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormTest extends AbstractFormsTest {
@@ -307,7 +307,7 @@ public class FormTest extends AbstractFormsTest {
             "}");
     shell.refresh();
     FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
-    // exposed MenuManager and its IMenuPopupInfo 
+    // exposed MenuManager and its IMenuPopupInfo
     {
       MenuManagerInfo menuManager = form.getMenuManager();
       IMenuPopupInfo popupInfo = form.getMenuImpl(menuManager);

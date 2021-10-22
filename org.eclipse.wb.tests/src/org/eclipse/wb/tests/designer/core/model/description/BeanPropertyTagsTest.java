@@ -23,7 +23,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 /**
  * Tests for {@link StandardBeanPropertyTagRule}, {@link StandardBeanPropertiesFlaggedRule}, its
  * subclasses and applications.
- * 
+ *
  * @author scheglov_ke
  */
 public class BeanPropertyTagsTest extends SwingModelTest {
@@ -291,7 +291,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 
   /**
    * Test for using disabling default value of {@link GenericPropertyDescription}.
-   * 
+   *
    * <pre>
 	 *     <properties-noDefaultValue names="valueA valueB"/>
 	 * </pre>
@@ -349,7 +349,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Test for marking {@link GenericPropertyDescription} with tags.
-   * 
+   *
    * <pre>
 	 *     <property-tag name="text" tag="isText" value="true"/>
 	 *     <property-tag name="image" tag="isImage" value="true"/>
@@ -418,7 +418,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 
   /**
    * Test for using tag "title" to specify different title of {@link GenericPropertyDescription}.
-   * 
+   *
    * <pre>
 	 *     <property-tag name="hTML" tag="title" value="HTML"/>
 	 * </pre>
@@ -451,7 +451,7 @@ public class BeanPropertyTagsTest extends SwingModelTest {
 
   /**
    * Test for using tag "title" to specify different title of {@link GenericPropertyDescription}.
-   * 
+   *
    * <pre>
    *     <property id="...">
    *         <tag name="title" value="HTML"/>

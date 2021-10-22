@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Test for {@link FillLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FillLayoutTest extends XwtModelTest {

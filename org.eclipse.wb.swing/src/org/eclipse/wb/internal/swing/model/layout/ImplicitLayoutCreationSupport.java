@@ -32,7 +32,7 @@ import java.awt.Container;
 
 /**
  * Implementation of {@link CreationSupport} for implicit {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

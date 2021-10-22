@@ -27,7 +27,7 @@ import java.io.InputStream;
 
 /**
  * Abstract {@link WizardPage} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.wizards
  */

@@ -53,7 +53,7 @@ import java.util.List;
  * Abstract container for shortcut-like methods in {@link IPageLayout}, such as
  * {@link IPageLayout#addFastView(String)}, {@link IPageLayout#addShowViewShortcut(String)} and
  * {@link IPageLayout#addPerspectiveShortcut(String)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -210,7 +210,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link AbstractShortcutInfo}.
-   * 
+   *
    * @return the created {@link AbstractShortcutInfo}.
    */
   protected final <T extends AbstractShortcutInfo> T command_CREATE(String id,

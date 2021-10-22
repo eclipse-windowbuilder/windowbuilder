@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for RCP wizards, such as {@link ViewPart}.
- * 
+ *
  * @author scheglov_ke
  */
 public class RcpWizardsTest extends RcpModelTest {

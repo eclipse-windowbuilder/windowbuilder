@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link FormsApplicationWizard}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormsApplicationWizardTest extends XwtWizardTest {

@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
 
 /**
  * Decorator for bindings {@link JavaInfo} models.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Tests for <code>double-click.runScript</code> support.
- * 
+ *
  * @author scheglov_ke
  */
 public class DblClickRunScriptEditPolicyTest extends SwingGefTest {

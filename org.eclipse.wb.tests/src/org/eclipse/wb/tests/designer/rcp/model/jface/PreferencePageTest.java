@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link PreferencePageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PreferencePageTest extends RcpModelTest {

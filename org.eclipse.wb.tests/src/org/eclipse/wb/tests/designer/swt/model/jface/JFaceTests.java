@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for SWT JFace models.
- * 
+ *
  * @author scheglov_ke
  */
 public class JFaceTests extends DesignerSuiteTests {

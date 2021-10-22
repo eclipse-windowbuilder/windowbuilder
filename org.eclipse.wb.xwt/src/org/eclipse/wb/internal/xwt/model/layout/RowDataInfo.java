@@ -19,7 +19,7 @@ import org.eclipse.swt.layout.RowData;
 
 /**
  * Model for {@link RowData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

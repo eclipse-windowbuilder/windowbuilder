@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link LayoutEditPolicy} {@link CompositeInfo} without known {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.policy
  */

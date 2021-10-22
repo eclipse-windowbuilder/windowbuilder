@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.model.utils.ElementTarget;
 
 /**
  * Presentation of parent/child link.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.association
  */

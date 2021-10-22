@@ -24,7 +24,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Tests for "bar" and "popup" menu, create/move them.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuBarPopupTest extends RcpGefTest {

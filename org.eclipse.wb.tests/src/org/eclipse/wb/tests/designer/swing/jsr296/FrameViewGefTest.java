@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 /**
  * Test for {@link FrameViewInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class FrameViewGefTest extends SwingGefTest {

@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 /**
  * Content provider for edit (choose class over dialog and combo) {@link ValidatorInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

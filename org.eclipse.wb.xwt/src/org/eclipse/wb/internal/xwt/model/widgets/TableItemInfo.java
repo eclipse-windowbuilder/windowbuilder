@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 /**
  * Model for {@link TableItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

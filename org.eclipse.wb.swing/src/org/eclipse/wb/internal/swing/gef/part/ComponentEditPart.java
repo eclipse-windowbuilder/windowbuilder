@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 /**
  * {@link EditPart} for {@link ComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

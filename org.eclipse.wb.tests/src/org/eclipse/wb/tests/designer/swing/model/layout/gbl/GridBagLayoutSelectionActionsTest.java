@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Test for {@link GridBagLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class GridBagLayoutSelectionActionsTest extends AbstractGridBagLayoutTest {

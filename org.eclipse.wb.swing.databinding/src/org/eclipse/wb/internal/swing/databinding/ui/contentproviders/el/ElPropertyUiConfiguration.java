@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Configuration for {@link ElPropertyUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

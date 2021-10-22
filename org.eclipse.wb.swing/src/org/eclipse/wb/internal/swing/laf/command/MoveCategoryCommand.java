@@ -18,7 +18,7 @@ import org.xml.sax.Attributes;
 
 /**
  * Implementation of {@link Command} that moves {@link CategoryInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

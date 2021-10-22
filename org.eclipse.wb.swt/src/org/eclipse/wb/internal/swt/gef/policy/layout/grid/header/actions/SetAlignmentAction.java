@@ -21,7 +21,7 @@ import org.apache.commons.lang.ObjectUtils;
 
 /**
  * {@link Action} for modifying alignment of {@link FormDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

@@ -45,7 +45,7 @@ import javax.swing.JTable;
 
 /**
  * Tests for {@link SwingSurroundSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SurroundSupportTest extends SwingModelTest {

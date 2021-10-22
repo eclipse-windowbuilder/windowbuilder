@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation of {@link PropertyEditor} for "icon" attribute in {@link IPluginElement}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

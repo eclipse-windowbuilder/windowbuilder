@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Model {@link CTableTreeItem}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

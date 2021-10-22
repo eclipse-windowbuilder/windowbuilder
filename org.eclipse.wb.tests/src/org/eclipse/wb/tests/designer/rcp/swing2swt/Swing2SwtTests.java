@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing2SWT.
- * 
+ *
  * @author scheglov_ke
  */
 public class Swing2SwtTests extends DesignerSuiteTests {

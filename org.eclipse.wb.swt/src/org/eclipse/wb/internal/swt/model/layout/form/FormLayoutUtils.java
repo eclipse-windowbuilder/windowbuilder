@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 
 /**
  * Utility class for working with SWT FormLayout.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

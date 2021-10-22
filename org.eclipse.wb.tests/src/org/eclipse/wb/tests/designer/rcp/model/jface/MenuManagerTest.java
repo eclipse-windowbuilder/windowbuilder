@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * Test for {@link MenuManagerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuManagerTest extends RcpModelTest {

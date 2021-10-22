@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class TableTest1 {
   ////////////////////////////////////////////////////////////////////////////

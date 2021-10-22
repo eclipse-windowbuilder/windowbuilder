@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * For custom SWT {@link Component} try to find and use default constructor.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model
  */

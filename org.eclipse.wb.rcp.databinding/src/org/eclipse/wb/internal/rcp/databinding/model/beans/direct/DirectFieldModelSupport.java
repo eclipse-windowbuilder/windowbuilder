@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.Expression;
 
 /**
  * {@link IModelSupport} for direct observable objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

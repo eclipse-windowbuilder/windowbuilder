@@ -21,7 +21,7 @@ import java.util.Locale;
 
 /**
  * Tests for {@link FlagImagesRepository}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlagRepositoryTest extends DesignerTestCase {

@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * Test for {@link SectionInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SectionTest extends AbstractFormsTest {

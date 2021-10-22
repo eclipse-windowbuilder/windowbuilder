@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.core.xml.model.description.GenericPropertyDescrip
 
 /**
  * {@link Property} for {@link XmlObjectInfo}, based of {@link GenericPropertyDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

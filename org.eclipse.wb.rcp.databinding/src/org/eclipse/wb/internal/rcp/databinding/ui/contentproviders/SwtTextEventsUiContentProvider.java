@@ -31,7 +31,7 @@ import java.util.Arrays;
 
 /**
  * Content provider for edit (choose event type over combo) {@link TextSwtObservableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

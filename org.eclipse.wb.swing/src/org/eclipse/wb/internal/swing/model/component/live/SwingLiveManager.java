@@ -27,7 +27,7 @@ import javax.swing.UIManager;
 
 /**
  * Default live components manager for Swing.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model
  */
@@ -90,7 +90,7 @@ public class SwingLiveManager extends AbstractLiveManager {
     Component component = componentInfo.getComponent();
     component.getParent().remove(component);
     cacheEntry.setComponent(component);
-    // image 
+    // image
     cacheEntry.setImage(componentInfo.getImage());
     componentInfo.setImage(null);
     // baseline

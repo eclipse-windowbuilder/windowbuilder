@@ -19,7 +19,7 @@ import org.eclipse.jface.wizard.WizardPage;
 
 /**
  * {@link Wizard} that creates new JFace {@link WizardPage}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

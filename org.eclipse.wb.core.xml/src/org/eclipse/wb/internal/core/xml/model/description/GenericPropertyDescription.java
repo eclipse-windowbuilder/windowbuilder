@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.xml.model.property.converter.ExpressionConve
 
 /**
  * Description of single property of {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

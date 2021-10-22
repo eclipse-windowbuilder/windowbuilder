@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Group;
 
 /**
  * Tests for {@link MorphingSupport} and RCP.
- * 
+ *
  * @author scheglov_ke
  */
 public class MorphingSupportTest extends RcpModelTest {

@@ -37,7 +37,7 @@ import java.util.Map;
  * Helper for accessing "live" information for {@link AbstractComponentInfo} during adding it on
  * some container. Information can be just anything - image, style, default values of properties,
  * etc.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage XML.model.utils
@@ -136,10 +136,10 @@ public abstract class AbstractLiveManager {
    * Parses given statements source in temporary type/method, but in same {@link AstEditor}, so with
    * same {@link EditorState}, {@link ClassLoader}, etc. Ensures that new parsed
    * {@link XmlObjectInfo} hierarchy does not interacts with "main" hierarchy.
-   * 
+   *
    * @param sourceLines
    *          that source for {@link Statement}'s to parse.
-   * 
+   *
    * @return the root {@link XmlObjectInfo} for parsed source.
    */
   protected final XmlObjectInfo parse(String[] sourceLines) throws Exception {

@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.tests.common.PropertyWithTitle;
 
 /**
  * Test for {@link PropertyManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyManagerTest extends SwingModelTest {

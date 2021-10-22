@@ -51,7 +51,7 @@ import java.util.Map;
 
 /**
  * Context of XML editing.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

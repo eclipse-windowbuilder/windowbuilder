@@ -21,7 +21,7 @@ import javax.swing.JMenu;
 
 /**
  * Implementation of {@link CreationSupport} for {@link JMenu#addSeparator()}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swing.model.menu

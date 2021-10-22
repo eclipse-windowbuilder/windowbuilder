@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.gef.TestLogger;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class RootFigureTest extends Draw2dFigureTestCase {
   ////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
     testRoot.addLayer(layer1);
     actualLogger.clear();
     //
-    // check work removeLayer(Layer) 
+    // check work removeLayer(Layer)
     testRoot.removeLayer(layer0);
     //
     expectedLogger.log("repaint(true, 0, 0, 0, 0)");

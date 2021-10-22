@@ -23,7 +23,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Abstract test for {@link FormLayout}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractFormLayoutTest extends AbstractLayoutTest {

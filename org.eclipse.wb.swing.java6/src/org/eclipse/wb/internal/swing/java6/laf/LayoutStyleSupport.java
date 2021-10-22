@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Java6 LayoutStyle support implementation.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */

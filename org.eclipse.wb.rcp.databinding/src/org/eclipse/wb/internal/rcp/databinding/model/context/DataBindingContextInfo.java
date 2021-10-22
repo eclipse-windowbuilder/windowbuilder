@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Container for bindings. This class manage JFace binding source code for method
  * <code>initDataBindings()</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

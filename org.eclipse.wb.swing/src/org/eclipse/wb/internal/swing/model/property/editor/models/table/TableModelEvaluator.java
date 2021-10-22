@@ -32,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * {@link IExpressionEvaluator} for evaluating anonymous implementation of {@link DefaultTableModel}
  * for {@link JTable}.
- * 
+ *
  * <pre>
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -51,7 +51,7 @@ import javax.swing.table.DefaultTableModel;
 			}
 		});
  * </pre>
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * {@link XmlObjectResolveTag} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model
  */

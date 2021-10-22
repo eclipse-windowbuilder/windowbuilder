@@ -40,7 +40,7 @@ import java.util.Locale;
 
 /**
  * Model for {@link BorderLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */

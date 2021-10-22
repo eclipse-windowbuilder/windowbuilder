@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.SimpleClassObjectInfo;
 
 /**
  * Content provider for edit (choose class over dialog and combo) {@link SimpleClassObjectInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

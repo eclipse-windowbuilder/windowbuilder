@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Tests for {@link PropertyUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyUtilsTest extends SwingModelTest {

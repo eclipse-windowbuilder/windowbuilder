@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for RCP {@link LayoutInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  */

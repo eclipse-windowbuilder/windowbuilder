@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.model.layout.GenericFlowLayoutInfo;
 
 /**
  * {@link LayoutEditPolicy} for {@link GenericFlowLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gefTree.policy
  */

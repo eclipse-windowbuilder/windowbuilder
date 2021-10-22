@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -40,7 +40,7 @@ import java.util.NoSuchElementException;
 /**
  * This class collects various static methods for examining the layout. For modifying methods see
  * LayoutOperations class.
- * 
+ *
  * @author Tomas Pavek
  */
 public class LayoutUtils implements LayoutConstants {
@@ -76,7 +76,7 @@ public class LayoutUtils implements LayoutConstants {
     //                        interval = parent;
     //                    } else {
     //                        LayoutInterval candidate = parent.getSubInterval(index+1);
-    //                        return candidate.isEmptySpace() ? candidate : null;                        
+    //                        return candidate.isEmptySpace() ? candidate : null;
     //                    }
     //                }
     //            } else {
@@ -151,7 +151,7 @@ public class LayoutUtils implements LayoutConstants {
 
   /**
    * Returns size of the empty space represented by the given layout interval.
-   * 
+   *
    * @param interval
    *          layout interval that represents padding.
    * @return size of the padding.
@@ -197,7 +197,7 @@ public class LayoutUtils implements LayoutConstants {
   /**
    * Finds out the sizes of given types of default gaps between the trailing edge of a set of
    * "source" components and the leading edge of a set of "target" components.
-   * 
+   *
    * @param gapType
    *          the padding type whose size should be returned, or null if all types should be
    *          determined
@@ -347,7 +347,7 @@ public class LayoutUtils implements LayoutConstants {
    * Returns list of components that reside in the <code>root</code> layout interval - the list
    * contains only components whose layout intervals lie at the specified edge (<code>LEADING</code>
    * or <code>TRAILING</code>) of the <code>root</code> layout interval.
-   * 
+   *
    * @param root
    *          layout interval that will be scanned.
    * @param edge

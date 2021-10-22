@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 
 /**
  * Constants for XWT {@link DesignerException}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT
  */

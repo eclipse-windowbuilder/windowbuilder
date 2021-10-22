@@ -34,7 +34,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Helper class to manage user-defined LAFs. Used by UI providing add/edit/delete operations.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf
  */
@@ -56,7 +56,7 @@ public final class LafUtils {
    * Opens given <code>jarFile</code>, loads every class inside own {@link ClassLoader} and checks
    * loaded class for to be instance of {@link LookAndFeel}. Returns the array of {@link LafInfo}
    * containing all found {@link LookAndFeel} classes.
-   * 
+   *
    * @param jarFileName
    *          the absolute OS path pointing to source JAR file.
    * @param monitor

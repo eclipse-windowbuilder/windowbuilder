@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link IGridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */
@@ -263,7 +263,7 @@ public final class GridLayoutEditPolicy<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Determines parameters of insert feedback.
-   * 
+   *
    * @return the array of: visual gap, begin/end of insert feedback, begin/end of target feedback.
    */
   public static int[] getInsertFeedbackParameters(Interval interval,
@@ -459,7 +459,7 @@ public final class GridLayoutEditPolicy<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IHeadersProvider 
+  // IHeadersProvider
   //
   ////////////////////////////////////////////////////////////////////////////
   public LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal) {

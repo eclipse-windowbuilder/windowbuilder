@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Test for {@link CoolBar}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CoolBarTest extends RcpModelTest {

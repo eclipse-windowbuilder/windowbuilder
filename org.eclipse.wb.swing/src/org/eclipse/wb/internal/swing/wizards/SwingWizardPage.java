@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * General wizard page for Swing wizard's.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

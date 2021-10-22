@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 /**
  * {@link ClipboardCommand} for applying {@link LayoutDataInfo} during pasting {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

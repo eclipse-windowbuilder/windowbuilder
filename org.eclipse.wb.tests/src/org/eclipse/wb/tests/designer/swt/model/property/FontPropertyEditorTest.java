@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Tests for {@link FontPropertyEditor}.
- * 
+ *
  * @author lobas_av
  */
 public abstract class FontPropertyEditorTest extends RcpModelTest {

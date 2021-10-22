@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swt.model.jface.resource;
 
 /**
  * Additional class with information about registry key (describe as field).
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.jface
  */

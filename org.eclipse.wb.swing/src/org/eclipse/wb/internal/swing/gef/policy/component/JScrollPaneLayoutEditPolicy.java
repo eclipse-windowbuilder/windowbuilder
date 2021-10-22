@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link JScrollPaneInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

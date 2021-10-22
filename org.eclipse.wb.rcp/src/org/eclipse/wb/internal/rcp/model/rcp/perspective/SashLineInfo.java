@@ -15,7 +15,7 @@ import org.eclipse.wb.draw2d.geometry.Rectangle;
 
 /**
  * Model for "sash" between {@link AbstractPartInfo}'s in {@link PageLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

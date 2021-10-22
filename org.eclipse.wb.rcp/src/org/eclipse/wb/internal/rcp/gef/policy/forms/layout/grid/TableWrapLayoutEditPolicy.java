@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link ITableWrapLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
@@ -214,7 +214,7 @@ public final class TableWrapLayoutEditPolicy<C extends IControlInfo>
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Determines parameters of insert feedback.
-   * 
+   *
    * @return the array of: visual gap, begin/end of insert feedback, begin/end of target feedback.
    */
   public static int[] getInsertFeedbackParameters(Interval interval,

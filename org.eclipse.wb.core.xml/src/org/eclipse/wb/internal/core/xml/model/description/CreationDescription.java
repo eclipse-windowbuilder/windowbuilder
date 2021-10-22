@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * Description for creating new component.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

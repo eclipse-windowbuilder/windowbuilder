@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * XML {@link Property} tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTests extends DesignerSuiteTests {

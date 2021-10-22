@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * Support for holding or adding {@link DocumentElement} of {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.creation
  */

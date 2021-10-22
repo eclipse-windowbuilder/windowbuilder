@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 /**
  * {@link EditPart} for "buttonBar" part of {@link DialogInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

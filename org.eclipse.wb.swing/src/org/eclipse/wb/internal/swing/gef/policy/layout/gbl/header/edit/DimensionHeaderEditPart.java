@@ -29,7 +29,7 @@ import org.eclipse.swt.graphics.Font;
 
 /**
  * {@link EditPart} for column/row header of {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

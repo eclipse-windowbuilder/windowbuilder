@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Tests for {@link ConstructorChildAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ConstructorChildAssociationTest extends SwingModelTest {

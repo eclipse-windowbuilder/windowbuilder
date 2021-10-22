@@ -45,7 +45,7 @@ import java.text.MessageFormat;
 /**
  * The object that provides access for the JGoodies CellConstraints.<br>
  * It should be used for single read/modification and thrown away.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */
@@ -347,7 +347,7 @@ public final class CellConstraintsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract implementation of {@link Property} for {@link CellConstraintsSupport}.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class AbstractCellProperty extends Property {
@@ -436,7 +436,7 @@ public final class CellConstraintsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link Property} for integer fields of {@link CellConstraintsSupport}.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class IntegerCellProperty extends AbstractCellProperty {
@@ -476,7 +476,7 @@ public final class CellConstraintsSupport {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link Property} for alignment fields of {@link CellConstraintsSupport}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class AlignmentCellProperty extends AbstractCellProperty {

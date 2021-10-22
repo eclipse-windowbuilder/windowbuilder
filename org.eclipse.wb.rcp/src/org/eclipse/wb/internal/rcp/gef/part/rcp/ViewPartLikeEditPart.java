@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.ViewPartLikeInfo;
 
 /**
  * {@link EditPart} for {@link ViewPartLikeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

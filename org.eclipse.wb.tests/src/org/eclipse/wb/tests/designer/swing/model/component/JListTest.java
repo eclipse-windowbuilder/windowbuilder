@@ -22,7 +22,7 @@ import javax.swing.ListModel;
 
 /**
  * Tests for {@link JList} support.
- * 
+ *
  * @author scheglov_ke
  */
 public class JListTest extends SwingModelTest {

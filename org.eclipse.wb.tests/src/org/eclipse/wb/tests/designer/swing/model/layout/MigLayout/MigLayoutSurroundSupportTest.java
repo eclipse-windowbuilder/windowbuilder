@@ -33,7 +33,7 @@ import javax.swing.JTable;
 
 /**
  * Tests for {@link MigLayoutSurroundSupport} and {@link MigLayoutSurroundProcessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {

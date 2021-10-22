@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * {@link Figure} for displaying {@link MigLayoutInfo} header resize.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */
@@ -222,7 +222,7 @@ public final class ResizeHintFigure extends Figure {
 
   /**
    * Draws text at given location.
-   * 
+   *
    * @return the size of text.
    */
   private static Dimension drawText(Graphics graphics, String text, int x, int y, Font font) {

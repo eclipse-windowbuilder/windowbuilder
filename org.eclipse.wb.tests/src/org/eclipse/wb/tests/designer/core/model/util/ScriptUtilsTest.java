@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * Tests for {@link ScriptUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ScriptUtilsTest extends SwingModelTest {

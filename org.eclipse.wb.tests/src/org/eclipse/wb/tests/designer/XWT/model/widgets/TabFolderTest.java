@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Test for {@link TabFolderInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TabFolderTest extends XwtModelTest {

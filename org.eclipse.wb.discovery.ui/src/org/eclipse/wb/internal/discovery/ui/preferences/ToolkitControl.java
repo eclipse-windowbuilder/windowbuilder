@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * A ToolkitControl is a UI wrapper around a WBToolkit.
- * 
+ *
  * @see WBToolkit
  */
 class ToolkitControl extends Composite {
@@ -51,7 +51,7 @@ class ToolkitControl extends Composite {
 
   /**
    * Create a new ToolkitControl.
-   * 
+   *
    * @param parent
    *          the SWT parent control
    * @param wbToolkit
@@ -145,7 +145,7 @@ class ToolkitControl extends Composite {
         }
       });
       GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(moreInfoLink);
-      // spacer      
+      // spacer
       Label label = new Label(this, SWT.NONE);
       label.setBackground(getBackground());
       listenTo(label);
@@ -156,7 +156,7 @@ class ToolkitControl extends Composite {
       //      if (iconLabel.getImage() != null) {
       //        ImageDescriptor descriptor = ImageDescriptor.createWithFlags(
       //            ImageDescriptor.createFromImage(iconLabel.getImage()), SWT.IMAGE_GRAY);
-      //        
+      //
       //        iconLabel.setImage(WBDiscoveryUiPlugin.getImage(descriptor));
       //      }
     }

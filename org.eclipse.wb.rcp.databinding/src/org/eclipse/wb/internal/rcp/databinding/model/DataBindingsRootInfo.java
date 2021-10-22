@@ -48,7 +48,7 @@ import java.util.List;
 /**
  * This class manage JFace binding source code (add Realm to main(), add invocation
  * initDataBindings(), configure classpath and etc.) for compilation unit.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

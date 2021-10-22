@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 /**
  * Implementation of {@link org.eclipse.wb.internal.swt.model.widgets.CompositeTopBoundsSupport} for
  * RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

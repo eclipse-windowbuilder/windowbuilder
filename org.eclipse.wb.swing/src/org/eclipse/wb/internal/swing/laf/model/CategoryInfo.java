@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Description for group of {@link LafInfo}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

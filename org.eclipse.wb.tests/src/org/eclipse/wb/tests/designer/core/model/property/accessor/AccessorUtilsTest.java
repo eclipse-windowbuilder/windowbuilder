@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 
 /**
  * Test for {@link AccessorUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AccessorUtilsTest extends SwingModelTest {

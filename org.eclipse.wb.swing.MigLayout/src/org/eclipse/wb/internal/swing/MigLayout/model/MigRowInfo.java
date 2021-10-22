@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Description for row {@link DimConstraint} in {@link MigLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.model
  */

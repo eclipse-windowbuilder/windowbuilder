@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Abstract action for manipulating selected {@link GridDimensionInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Test for {@link ColorPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ColorPropertyEditorTest extends XwtModelTest {

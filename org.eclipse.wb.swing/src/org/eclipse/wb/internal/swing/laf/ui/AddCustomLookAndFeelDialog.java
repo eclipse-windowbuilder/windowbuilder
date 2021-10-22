@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Dialog for entering new Look-n-Feel.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.ui
  */
@@ -128,7 +128,7 @@ public final class AddCustomLookAndFeelDialog extends AbstractCustomLookAndFeelD
     {
       createProgressUI(container);
     }
-    // configure LAF class table viewer 
+    // configure LAF class table viewer
     m_classTable.setContentProvider(new IStructuredContentProvider() {
       public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       }

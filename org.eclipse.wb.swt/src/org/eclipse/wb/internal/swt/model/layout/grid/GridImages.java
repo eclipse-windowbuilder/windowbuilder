@@ -18,7 +18,7 @@ import org.eclipse.swt.layout.GridLayout;
 
 /**
  * Provider of {@link Image} and {@link ImageDescriptor} for {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

@@ -20,7 +20,7 @@ import javax.swing.JApplet;
 
 /**
  * {@link Wizard} that creates new Swing {@link JApplet}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

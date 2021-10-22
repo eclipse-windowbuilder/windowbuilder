@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * Model for any {@link IContributionManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -204,7 +204,7 @@ public abstract class ContributionManagerInfo extends AbstractComponentInfo {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link ContributionItemInfo} using given {@link ActionInfo}.
-   * 
+   *
    * @return the created {@link ActionContributionItemInfo}.
    */
   public ActionContributionItemInfo command_CREATE(ActionInfo action, AbstractComponentInfo nextItem)

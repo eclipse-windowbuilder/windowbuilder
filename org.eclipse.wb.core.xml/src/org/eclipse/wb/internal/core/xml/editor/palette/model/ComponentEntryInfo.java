@@ -52,7 +52,7 @@ import java.util.WeakHashMap;
 
 /**
  * Implementation of {@link EntryInfo} for "component" contribution.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.palette
  */

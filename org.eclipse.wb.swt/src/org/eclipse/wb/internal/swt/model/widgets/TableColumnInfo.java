@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 
 /**
  * Model for SWT table column {@link org.eclipse.swt.widgets.TableColumn}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.widgets
  */

@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 
 /**
  * Implementation of {@link ObjectInfo} used during tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class TestObjectInfo extends ObjectInfo {

@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Test for instance factory and eSWT.
- * 
+ *
  * @author scheglov_ke
  */
 public class InstanceFactoryTest extends RcpModelTest {

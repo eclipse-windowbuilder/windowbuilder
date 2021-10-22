@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * Model for {@link Dialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -165,7 +165,7 @@ public class DialogInfo extends WindowInfo {
 
   /**
    * Adds new "button" on "button bar".
-   * 
+   *
    * @return the added button {@link ControlInfo}.
    */
   public static ControlInfo createButtonOnButtonBar(CompositeInfo buttonBar, ControlInfo nextButton)

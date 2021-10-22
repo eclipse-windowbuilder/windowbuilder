@@ -16,7 +16,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * Abstract {@link Wizard} for RCP toolkit.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.wizards.ui
  */

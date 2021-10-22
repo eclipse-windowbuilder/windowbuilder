@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * Tests for basic {@link PropertyTable} features.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTableTest extends AbstractPropertyTableTest {

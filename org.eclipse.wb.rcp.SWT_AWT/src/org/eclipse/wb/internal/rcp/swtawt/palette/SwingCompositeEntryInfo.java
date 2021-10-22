@@ -41,7 +41,7 @@ import javax.swing.JRootPane;
 
 /**
  * {@link EntryInfo} that drops {@link Composite} with {@link SWT_AWT#new_Frame(Composite)}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

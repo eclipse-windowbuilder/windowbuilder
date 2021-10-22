@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * Swing GroupLayout support.
- * 
+ *
  * @author mitin_aa
  */
 public final class GroupLayoutInfo2 extends LayoutInfo implements IAdaptable {

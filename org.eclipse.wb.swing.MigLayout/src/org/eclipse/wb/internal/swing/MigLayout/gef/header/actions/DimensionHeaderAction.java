@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Abstract action for manipulating selected {@link MigDimensionInfo}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

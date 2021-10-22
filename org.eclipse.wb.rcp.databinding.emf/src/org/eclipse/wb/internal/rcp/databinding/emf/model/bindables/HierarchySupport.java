@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  * Helper class for build EMF classes hierarchy.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

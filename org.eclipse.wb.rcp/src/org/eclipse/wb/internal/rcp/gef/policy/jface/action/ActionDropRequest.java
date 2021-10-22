@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 
 /**
  * A {@link Request} for adding new {@link ActionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

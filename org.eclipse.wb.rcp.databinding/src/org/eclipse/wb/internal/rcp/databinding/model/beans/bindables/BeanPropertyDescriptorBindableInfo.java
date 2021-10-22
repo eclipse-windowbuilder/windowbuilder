@@ -21,7 +21,7 @@ import java.beans.PropertyDescriptor;
 
 /**
  * Model for <code>Java Beans</code> object properties described over {@link PropertyDescriptor}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

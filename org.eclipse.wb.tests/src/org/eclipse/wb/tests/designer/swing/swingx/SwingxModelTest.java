@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Abstract super class for SwingX tests.
- * 
+ *
  * @author sablin_aa
  */
 public abstract class SwingxModelTest extends SwingModelTest {

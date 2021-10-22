@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.XWT.model.XwtModelTest;
 
 /**
  * Test for {@link XwtStyleClassResolver}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtStyleClassResolverTest extends XwtModelTest {

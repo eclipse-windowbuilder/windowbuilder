@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Just for display {@link GroupLayoutSpacesPage}.
- * 
+ *
  * @author mitin_aa
  */
 public final class ConstraintsDialog extends Dialog {

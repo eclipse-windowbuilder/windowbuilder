@@ -27,7 +27,7 @@ import java.io.ByteArrayInputStream;
 
 /**
  * Abstract {@link TestCase} for PDE related tests.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractPdeTest extends RcpModelTest {

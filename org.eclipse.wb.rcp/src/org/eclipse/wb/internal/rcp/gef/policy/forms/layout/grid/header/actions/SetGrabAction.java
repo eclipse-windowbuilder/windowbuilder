@@ -19,7 +19,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * {@link Action} for modifying grab of {@link TableWrapDimensionInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

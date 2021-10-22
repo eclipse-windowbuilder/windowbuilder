@@ -18,7 +18,7 @@ import org.eclipse.jface.text.rules.Token;
 
 /**
  * {@link IRule} for detect digits.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

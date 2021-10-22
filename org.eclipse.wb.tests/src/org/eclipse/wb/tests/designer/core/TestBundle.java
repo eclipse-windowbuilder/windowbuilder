@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Helper for creating temporary {@link Bundle}.
- * 
+ *
  * @author scheglov_ke
  */
 public final class TestBundle {

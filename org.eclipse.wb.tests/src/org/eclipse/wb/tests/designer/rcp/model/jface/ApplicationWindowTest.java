@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link ApplicationWindowInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ApplicationWindowTest extends RcpModelTest {

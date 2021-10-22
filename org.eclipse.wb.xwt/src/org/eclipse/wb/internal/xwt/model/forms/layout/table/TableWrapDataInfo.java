@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Model for {@link TableWrapData}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

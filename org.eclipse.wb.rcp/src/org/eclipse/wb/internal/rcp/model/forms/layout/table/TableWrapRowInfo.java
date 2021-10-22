@@ -16,7 +16,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 /**
  * Model for row in {@link ITableWrapLayout_Info<C>}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

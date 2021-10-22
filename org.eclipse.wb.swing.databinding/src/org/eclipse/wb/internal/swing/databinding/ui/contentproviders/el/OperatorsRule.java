@@ -18,7 +18,7 @@ import org.eclipse.jface.text.rules.Token;
 
 /**
  * {@link IRule} for detect {@code EL} operators.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

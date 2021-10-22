@@ -36,7 +36,7 @@ import javax.swing.JPanel;
 
 /**
  * Tests for {@link SetterAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SetterAccessorTest extends SwingModelTest {
@@ -107,7 +107,7 @@ public class SetterAccessorTest extends SwingModelTest {
     SetterAccessor accessor = (SetterAccessor) getGenericPropertyAccessors(property).get(0);
     // check that IAccessibleExpressionAccessor is available
     // note, that we don't check it, I just don't know how to do this more easy than perform full check
-    // but we expect that it should be from IAccessibleExpressionAccessor.Utils.forMethod() 
+    // but we expect that it should be from IAccessibleExpressionAccessor.Utils.forMethod()
     IAccessibleExpressionAccessor accessibleAccessor =
         accessor.getAdapter(IAccessibleExpressionAccessor.class);
     assertNotNull(accessibleAccessor);

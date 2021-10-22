@@ -22,7 +22,7 @@ import org.eclipse.ui.forms.widgets.Form;
 
 /**
  * Model for {@link Form}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

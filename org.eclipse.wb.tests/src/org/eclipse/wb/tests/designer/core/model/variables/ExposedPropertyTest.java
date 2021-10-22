@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 /**
  * Test for {@link ExposedPropertyVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExposedPropertyTest extends AbstractVariableTest {

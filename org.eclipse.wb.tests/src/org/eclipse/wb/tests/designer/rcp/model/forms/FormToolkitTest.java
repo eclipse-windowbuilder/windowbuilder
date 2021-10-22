@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Test for <code>FormToolkit</code>.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormToolkitTest extends AbstractFormsTest {

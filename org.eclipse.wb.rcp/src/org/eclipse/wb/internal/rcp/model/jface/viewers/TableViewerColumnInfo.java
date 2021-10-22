@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Model for any JFace {@link org.eclipse.jface.viewers.ViewerColumn}.
- * 
+ *
  * @author scheglov_ke
  * @author sablin_aa
  * @coverage rcp.model.jface.viewers

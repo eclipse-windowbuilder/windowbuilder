@@ -18,7 +18,7 @@ import org.eclipse.swt.custom.CBanner;
 
 /**
  * Model for {@link CBanner}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

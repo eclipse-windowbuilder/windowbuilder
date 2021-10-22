@@ -34,7 +34,7 @@ import org.apache.commons.lang.ArrayUtils;
 /**
  * Implementation of {@link AbstractFontPage} for constructing {@link Font} using family, style and
  * size.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

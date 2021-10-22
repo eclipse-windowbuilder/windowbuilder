@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Test {@link FormLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class FormLayoutGefTest extends SwingGefTest {

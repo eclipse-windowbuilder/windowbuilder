@@ -25,7 +25,7 @@ import javax.swing.AbstractButton;
 
 /**
  * Test properties {@link StaticFieldPropertyEditor} of {@link AbstractButton}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractButtonTest extends SwingModelTest {

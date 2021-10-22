@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link SelectionEditPolicy} for {@link IColumnLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

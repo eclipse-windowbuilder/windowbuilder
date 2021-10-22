@@ -17,7 +17,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Test for {@link ViewFormInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewFormGefTest extends RcpGefTest {

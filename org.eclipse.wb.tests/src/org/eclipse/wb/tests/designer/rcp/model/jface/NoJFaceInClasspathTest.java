@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.IJavaProject;
 /**
  * If no JFace in classpath, in {@link IJavaProject}, then corresponding entries should no be
  * active.
- * 
+ *
  * @author scheglov_ke
  */
 public class NoJFaceInClasspathTest extends AbstractJavaInfoTest {

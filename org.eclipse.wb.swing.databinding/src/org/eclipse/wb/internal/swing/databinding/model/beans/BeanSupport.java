@@ -50,7 +50,7 @@ import java.util.Map;
 
 /**
  * Properties provider for <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

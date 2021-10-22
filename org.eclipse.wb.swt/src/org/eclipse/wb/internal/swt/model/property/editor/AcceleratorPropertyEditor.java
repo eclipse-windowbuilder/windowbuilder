@@ -48,7 +48,7 @@ import java.util.Map;
 
 /**
  * Implementation of {@link PropertyEditor} for SWT accelerator.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.property.editor
  */
@@ -106,7 +106,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // KeyStrokeDialog 
+  // KeyStrokeDialog
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final class KeyStrokeDialog extends ResizableDialog {

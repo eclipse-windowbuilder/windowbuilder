@@ -18,7 +18,7 @@ import junit.framework.TestSuite;
 
 /**
  * XML {@link Association} tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class AssociationTests extends DesignerSuiteTests {

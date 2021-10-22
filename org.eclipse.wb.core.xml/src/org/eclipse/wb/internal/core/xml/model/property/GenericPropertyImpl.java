@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * {@link Property} for {@link XmlObjectInfo}, based of {@link GenericPropertyDescription}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

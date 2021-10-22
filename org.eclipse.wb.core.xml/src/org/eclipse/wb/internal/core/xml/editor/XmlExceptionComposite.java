@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Implementation for XML.
- * 
+ *
  * @author mitin_aa
  * @coverage XML.editor
  */
@@ -90,7 +90,7 @@ public final class XmlExceptionComposite extends ExceptionComposite {
   /**
    * Sets the {@link Throwable} to display with additional information which may be included into
    * problem report.
-   * 
+   *
    * @param e
    *          the {@link Throwable} to display.
    * @param screenshot

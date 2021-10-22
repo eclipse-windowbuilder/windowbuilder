@@ -39,7 +39,7 @@ import javax.swing.SpringLayout;
 
 /**
  * Model for {@link SpringLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout
  */
@@ -217,7 +217,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the {@link SpringAttachmentInfo} for side of component.
-   * 
+   *
    * @param side
    *          one of the {@link IPositionConstants#LEFT}, {@link IPositionConstants#TOP},
    *          {@link IPositionConstants#RIGHT}, {@link IPositionConstants#BOTTOM}.
@@ -276,7 +276,7 @@ public final class SpringLayoutInfo extends LayoutInfo implements IAbsoluteLayou
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Layout-defined actions 
+  // Layout-defined actions
   //
   ////////////////////////////////////////////////////////////////////////////
   public void performAction(int actionId) {

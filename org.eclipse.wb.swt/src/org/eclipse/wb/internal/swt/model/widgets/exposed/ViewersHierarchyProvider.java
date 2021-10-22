@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 /**
  * {@link HierarchyProvider} for JFace viewers.
- * 
+ *
  * @author scheglov_le
  * @coverage swt.model.widgets
  */

@@ -48,7 +48,7 @@ import java.util.List;
 
 /**
  * Test for {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutTest extends XwtModelTest {

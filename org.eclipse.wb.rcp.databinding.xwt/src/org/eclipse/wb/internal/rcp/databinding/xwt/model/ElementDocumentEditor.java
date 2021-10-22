@@ -24,9 +24,9 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class ElementDocumentEditor implements IDocumentEditor {
   private final BindingInfo m_binding;
@@ -129,7 +129,7 @@ public class ElementDocumentEditor implements IDocumentEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   private abstract class AttributeEditor {
@@ -160,7 +160,7 @@ public class ElementDocumentEditor implements IDocumentEditor {
 
     ////////////////////////////////////////////////////////////////////////////
     //
-    // 
+    //
     //
     ////////////////////////////////////////////////////////////////////////////
     public boolean update() throws Exception {

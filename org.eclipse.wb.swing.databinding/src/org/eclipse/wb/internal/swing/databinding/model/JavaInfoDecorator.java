@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swing.databinding.model.components.JavaInfoRefere
 
 /**
  * Decorator for bindings {@link JavaInfo} models.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

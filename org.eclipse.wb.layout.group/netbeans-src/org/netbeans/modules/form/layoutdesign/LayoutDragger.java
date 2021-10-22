@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -38,7 +38,7 @@ import java.util.Map;
 /*
  * Finding position procedure [sort of out of date]: - find vertical position first - preferring
  * aligned position - find horizontal position - preferring derived (next to) position
- * 
+ *
  * finding position in a dimension: - find best derived positions for each alignment (L, T): - go
  * down from the root, looking for distances (opposite edges) - exclude elements not overlapping in
  * the other dimension - if a distance is smaller than SNAP_DISTANCE, compare with the best position
@@ -91,7 +91,7 @@ class LayoutDragger implements LayoutConstants {
   // determines whether the dragged components can snap to baseline
   private boolean canSnapToBaseline;
   // the following fields hold various parameters used during the procedure
-  // of finding a suitable position for the moving/resizing components 
+  // of finding a suitable position for the moving/resizing components
   // (fields are used not to need to pass the parameters through all the
   // methods again and again and to avoid repetitive creation of arrays) ---
   private LayoutRegion movingSpace;
@@ -653,7 +653,7 @@ class LayoutDragger implements LayoutConstants {
    * Checks distance of the leading/trailing edges of the moving component to the padding positions
    * in the root layout interval. (Distance in root interval is checked differently than
    * scanLayoutForNextTo method does.)
-   * 
+   *
    * @param layoutRoot
    *          layout interval to be checked
    * @param alignment
@@ -699,7 +699,7 @@ class LayoutDragger implements LayoutConstants {
   /**
    * Recursively scans given interval for suitable sub-intervals next to which the moving component
    * could be suitably positioned.
-   * 
+   *
    * @param interval
    *          group to scan
    * @param alignment
@@ -917,7 +917,7 @@ class LayoutDragger implements LayoutConstants {
   /**
    * Compares given "next to" position with the best position found so far. Cares about the visual
    * aspect only, not the logical structure.
-   * 
+   *
    * @return int as result of comparison: 1 - new position is better -1 - old position is better 0 -
    *         the positions are equal
    */
@@ -963,7 +963,7 @@ class LayoutDragger implements LayoutConstants {
    * Checks distance of the leading/trailing edges of the moving component to the border positions
    * in the root layout interval. (Distance in root interval is checked differently than
    * scanLayoutForAligned method does.)
-   * 
+   *
    * @param layoutRoot
    *          layout interval to be checked
    * @param alignment
@@ -995,7 +995,7 @@ class LayoutDragger implements LayoutConstants {
   /**
    * Recursively scans given interval for suitable sub-intervals which the moving component could be
    * aligned with.
-   * 
+   *
    * @param alignment
    *          determines which edges of the moving space should be checked - can be LEADING or
    *          TRAILING, or ALL_POINTS for both
@@ -1573,7 +1573,7 @@ class LayoutDragger implements LayoutConstants {
 
   /**
    * Finds value of padding between a moving component and given layout interval.
-   * 
+   *
    * @param alignment
    *          edge of the component
    */

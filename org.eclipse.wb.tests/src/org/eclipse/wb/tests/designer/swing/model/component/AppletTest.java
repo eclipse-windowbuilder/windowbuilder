@@ -27,7 +27,7 @@ import javax.swing.JFrame;
 
 /**
  * Test for {@link Applet} and {@link JApplet}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AppletTest extends SwingModelTest {

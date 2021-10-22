@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link FlowLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

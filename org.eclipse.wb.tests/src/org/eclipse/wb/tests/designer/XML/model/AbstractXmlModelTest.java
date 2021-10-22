@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Abstract superclass for any XML model test.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {

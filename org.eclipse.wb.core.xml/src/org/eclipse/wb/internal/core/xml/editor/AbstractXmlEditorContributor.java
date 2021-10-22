@@ -23,7 +23,7 @@ import org.eclipse.ui.texteditor.ITextEditorActionConstants;
  * Manages the installation/deinstallation of global actions for multi-page editors. Responsible for
  * the redirection of global actions to the active editor. Multi-page contributor replaces the
  * contributors for the individual editors in the multi-page editor.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

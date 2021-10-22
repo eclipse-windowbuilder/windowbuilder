@@ -63,7 +63,7 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
   private Button uninstallButton;
   private ProgressBar progressBar;
   private Composite scrolledContents;
-  
+
   /**
    * Create a new ToolkitsPreferencePage.
    */
@@ -74,7 +74,7 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
 
   /**
    * Create a new ToolkitsPreferencePage.
-   * 
+   *
    * @param title
    *          the preference page title
    */
@@ -170,11 +170,11 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
     Dialog.applyDialogFont(body);
     updateInstallButtons();
     body.layout(true);
-    
+
     WBToolkitRegistry.getRegistry().addRegistryListener(this);
-    
+
     WBDiscoveryCorePlugin.getPlugin().checkForRegistryUpdates();
-    
+
     return body;
   }
 
@@ -188,20 +188,20 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
     Display.getDefault().asyncExec(new Runnable() {
       public void run() {
         controls.clear();
-        
+
         for (Control control : scrolledContents.getChildren()) {
           control.dispose();
         }
-        
+
         createToolkitsContents(scrolledContents);
       }
     });
   }
-  
+
   @Override
   public void dispose() {
     WBToolkitRegistry.getRegistry().removeRegistryListener(this);
-    
+
     super.dispose();
   }
 
@@ -302,15 +302,15 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
         toolkits.add(control.getToolkit());
       }
     }
-    
+
     IProgressMonitor monitor = new ProgressBarMonitor(progressBar);
-    
+
     try {
       WBDiscoveryUiPlugin.getPlugin().installToolkits(toolkits, monitor);
       closePreferencesDialog();
     } catch (ProvisionException e) {
       monitor.done();
-      
+
       MessageDialog.openError(
           getShell(),
           Messages.ToolkitsPreferencePage_errorInstalling,
@@ -328,16 +328,16 @@ public class ToolkitsPreferencePage extends PreferencePage implements IWorkbench
         toolkits.add(control.getToolkit());
       }
     }
-    
+
     IProgressMonitor monitor = new ProgressBarMonitor(progressBar);
-    
+
     try {
       WBDiscoveryUiPlugin.getPlugin().uninstallToolkits(
           toolkits, monitor);
       closePreferencesDialog();
     } catch (ProvisionException e) {
       monitor.done();
-        
+
       MessageDialog.openError(
           getShell(),
           Messages.ToolkitsPreferencePage_errorUninstalling,

@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 /**
  * Interface model of {@link TableColumn}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

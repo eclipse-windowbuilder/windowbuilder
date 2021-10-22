@@ -14,7 +14,7 @@ import org.eclipse.jface.action.IContributionItem;
 
 /**
  * Model for {@link IContributionItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

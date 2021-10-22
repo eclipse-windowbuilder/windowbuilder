@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 /**
  * Abstract test for NLS UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractNlsUiTest extends SwingGefTest {

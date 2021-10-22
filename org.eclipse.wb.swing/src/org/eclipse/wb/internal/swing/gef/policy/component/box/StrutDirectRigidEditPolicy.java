@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Implementation of {@link DirectTextEditPolicy} for {@link BoxRigidAreaEditPart} that allows to
  * edit dimension of rigid area.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

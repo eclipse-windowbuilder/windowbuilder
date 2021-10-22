@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.policy
  */

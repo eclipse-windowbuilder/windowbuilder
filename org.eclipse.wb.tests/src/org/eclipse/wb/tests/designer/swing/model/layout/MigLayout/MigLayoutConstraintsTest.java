@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Test for {@link CellConstraintsSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {

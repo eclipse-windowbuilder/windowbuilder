@@ -21,7 +21,7 @@ import org.eclipse.jface.viewers.Viewer;
 
 /**
  * Show advanced properties filter.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

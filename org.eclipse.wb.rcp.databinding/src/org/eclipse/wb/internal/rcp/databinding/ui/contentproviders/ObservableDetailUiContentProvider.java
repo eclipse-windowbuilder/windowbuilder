@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Content provider for edit (choose detail property) {@link DetailBeanObservableInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

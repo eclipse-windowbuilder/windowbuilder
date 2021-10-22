@@ -63,7 +63,7 @@ import java.util.List;
 
 /**
  * Abstract {@link Dialog} for working with Look-n-Feel.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.ui
  */
@@ -226,7 +226,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 
   /**
    * Called when the user selects jar file either using workspace or file-system.
-   * 
+   *
    * @param jarFileName
    *          the path to selected jar file.
    */
@@ -239,7 +239,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 
   /**
    * Performs scanning of JAR file using progress monitor and performs the error handling.
-   * 
+   *
    * @param monitor
    *          the instance of {@link IProgressMonitor}, cannot be <code>null</code>.
    * @param jarFileName
@@ -273,7 +273,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Inner class 
+  // Inner class
   //
   ////////////////////////////////////////////////////////////////////////////
   private final class JarFileSelectionButtonAdapter implements IStringButtonAdapter {
@@ -308,7 +308,7 @@ public abstract class AbstractCustomLookAndFeelDialog extends AbstractValidation
           item.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-              // open file system jar selection dialog 
+              // open file system jar selection dialog
               handleBrowseFileSystem();
             }
           });

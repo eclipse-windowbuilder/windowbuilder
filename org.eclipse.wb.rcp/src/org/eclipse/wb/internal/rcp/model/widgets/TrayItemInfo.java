@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TrayItem;
 
 /**
  * Model for {@link TrayItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

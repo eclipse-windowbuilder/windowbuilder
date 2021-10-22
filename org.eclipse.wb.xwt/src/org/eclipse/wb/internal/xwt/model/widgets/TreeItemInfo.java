@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Model for {@link TreeItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

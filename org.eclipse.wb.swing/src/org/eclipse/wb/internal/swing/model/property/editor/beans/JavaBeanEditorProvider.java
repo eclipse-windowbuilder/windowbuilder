@@ -20,7 +20,7 @@ import java.beans.PropertyEditorManager;
 /**
  * Implementation of {@link PropertyEditorProvider} that creates wrappers for AWT
  * {@link java.beans.PropertyEditor}'s.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.beans
  */

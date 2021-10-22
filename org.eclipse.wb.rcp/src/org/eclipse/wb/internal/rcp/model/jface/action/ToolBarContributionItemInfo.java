@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.ToolBar;
 
 /**
  * Model for {@link ToolBarContributionItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

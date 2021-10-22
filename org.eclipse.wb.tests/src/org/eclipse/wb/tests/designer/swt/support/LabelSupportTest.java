@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swt.support.LabelSupport;
 
 /**
  * Tests for {@link LabelSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class LabelSupportTest extends AbstractSupportTest {

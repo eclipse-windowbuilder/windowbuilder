@@ -21,7 +21,7 @@ import javax.swing.GroupLayout;
 
 /**
  * Selection policy for edit containers with {@link GroupLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gef.policy
  */

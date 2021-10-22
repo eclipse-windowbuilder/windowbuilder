@@ -36,7 +36,7 @@ class InstallToolkitWizardPage extends WizardPage {
 
   /**
    * Create a new instance of a InstallToolkitWizardPage.
-   * 
+   *
    * @param toolkit
    *          the WindowBuilder toolkit to install
    */

@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Container for {@link ButtonGroupInfo}, direct child of root {@link JavaInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */
@@ -68,7 +68,7 @@ public final class ButtonGroupContainerInfo extends ObjectInfo {
   /**
    * Creates new instance of {@link ButtonGroupInfo} and adds it to the
    * {@link ButtonGroupContainerInfo}.
-   * 
+   *
    * @return the new added {@link ButtonGroupInfo}.
    */
   public static ButtonGroupInfo add(JavaInfo root, String className) throws Exception {

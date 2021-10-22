@@ -16,7 +16,7 @@ import org.eclipse.ui.IEditorPart;
 /**
  * Provider for {@link IFile} pair/companion which corresponds {@link IFile} of active
  * {@link IEditorPart}, such as Java for XML and vice-versa.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */

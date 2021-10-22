@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link Wizard} that creates new {@link Composite}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

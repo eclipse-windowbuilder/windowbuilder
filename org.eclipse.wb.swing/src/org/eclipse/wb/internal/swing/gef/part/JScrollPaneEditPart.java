@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.model.component.JScrollPaneInfo;
 
 /**
  * The {@link EditPart} for {@link JScrollPaneInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Group;
 
 /**
  * Layout assistant for {@link org.eclipse.swt.layout.RowLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.assistant
  */

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Model for observable object <code>BeansObservables.observeMaps(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

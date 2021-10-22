@@ -15,7 +15,7 @@ import org.eclipse.wb.gef.core.EditPart;
 
 /**
  * {@link EditPart} for {@link GanttGroupInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.gef
  */

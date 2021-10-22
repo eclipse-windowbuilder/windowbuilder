@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.NullLiteral;
 /**
  * Implementation of {@link CreationSupport} for {@link AbsoluteLayoutInfo} specified as
  * {@link NullLiteral} in "setLayout(null)"
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

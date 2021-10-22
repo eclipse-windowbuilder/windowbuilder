@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 
 /**
  * Tests for {@link FactoryAccessor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryAccessorTest extends SwingModelTest {

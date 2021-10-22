@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Model for any {@link Widget} in XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

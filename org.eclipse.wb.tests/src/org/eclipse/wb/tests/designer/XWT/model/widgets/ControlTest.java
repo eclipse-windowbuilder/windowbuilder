@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for basic parsing and {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ControlTest extends XwtModelTest {

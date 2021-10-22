@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * {@link Composite} with {@link Separator} title.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

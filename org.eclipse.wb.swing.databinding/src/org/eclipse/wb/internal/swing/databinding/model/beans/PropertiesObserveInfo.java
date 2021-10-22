@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Model for <code>Java Beans</code> object properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.beans
  */

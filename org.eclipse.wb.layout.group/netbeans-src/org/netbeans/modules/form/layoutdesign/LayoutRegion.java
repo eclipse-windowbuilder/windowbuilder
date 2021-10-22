@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -98,7 +98,7 @@ class LayoutRegion implements LayoutConstants {
 
   /**
    * Converts the region to a rectangle.
-   * 
+   *
    * @param bounds
    *          rectangle to be set (output)
    * @return Rectangle updated with actual position values (same instance as passed in as parameter)
@@ -269,7 +269,7 @@ class LayoutRegion implements LayoutConstants {
   /**
    * Goes through all points of given two regions in given dimension and finds the smallest distance
    * (abs) between the regions. Positive value is returned if r2 has higher position.
-   * 
+   *
    * @return the smallest distance between the corresponding points of given regions in given
    *         dimension
    */
@@ -301,7 +301,7 @@ class LayoutRegion implements LayoutConstants {
    * Computes distance between two regions supposing they do not overlap. The distance is between
    * LEADING point of one region and TRAILING of the other (or vice versa, depending on their
    * relative position). Positive value is returned if r2 has higher position.
-   * 
+   *
    * @return the distance between two regions if they don't overlap, or 0 if they overlap
    */
   static int nonOverlapDistance(LayoutRegion r1, LayoutRegion r2, int dimension) {
@@ -321,7 +321,7 @@ class LayoutRegion implements LayoutConstants {
   /**
    * Checks whether a point of 'contained' region (described by 'alignment') is inside the
    * 'container' region's area in given 'dimension'.
-   * 
+   *
    * @return whether a point of a region is inside the other region
    */
   static boolean pointInside(LayoutRegion contained,

@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.databinding.model.generic.IGenericType;
 
 /**
  * Model for {@link org.jdesktop.beansbinding.Converter}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.bindings
  */

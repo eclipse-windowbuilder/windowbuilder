@@ -16,7 +16,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class GefTests extends TestCase {
   public static Test suite() {

@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for changing layout and GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ChangeLayoutTest extends RcpGefTest {

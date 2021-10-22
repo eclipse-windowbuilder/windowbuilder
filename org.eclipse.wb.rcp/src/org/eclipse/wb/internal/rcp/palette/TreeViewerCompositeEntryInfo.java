@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Tree;
 /**
  * {@link EntryInfo} that allows user to drop new {@link Composite} with
  * {@link org.eclipse.jface.layout.TreeColumnLayout} and {@link TreeViewer}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */
@@ -95,7 +95,7 @@ public final class TreeViewerCompositeEntryInfo extends ToolEntryInfo {
         }
       }
     });
-    // OK, return CreationTool 
+    // OK, return CreationTool
     return creationTool;
   }
 

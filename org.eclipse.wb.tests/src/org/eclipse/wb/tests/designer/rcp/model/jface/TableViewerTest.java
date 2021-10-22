@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Test for {@link TableViewer}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableViewerTest extends RcpModelTest {

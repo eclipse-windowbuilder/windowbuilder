@@ -26,7 +26,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Abstract {@link Wizard} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.wizards
  */

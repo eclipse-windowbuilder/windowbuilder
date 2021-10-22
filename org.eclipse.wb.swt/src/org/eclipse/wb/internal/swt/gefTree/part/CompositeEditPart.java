@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 /**
  * {@link EditPart} for {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @author mitin_aa
  * @coverage swt.gefTree.part

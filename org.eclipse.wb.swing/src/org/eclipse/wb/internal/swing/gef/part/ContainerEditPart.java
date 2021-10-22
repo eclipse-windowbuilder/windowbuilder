@@ -27,7 +27,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * {@link EditPart} for {@link ContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.part
  */

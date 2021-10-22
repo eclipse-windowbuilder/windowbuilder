@@ -19,7 +19,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 /**
  * Action for reparse/refresh {@link XmlDesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */

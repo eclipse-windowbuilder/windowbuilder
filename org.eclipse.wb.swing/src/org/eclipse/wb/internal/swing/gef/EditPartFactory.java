@@ -49,7 +49,7 @@ import javax.swing.Box;
 
 /**
  * Implementation of {@link IEditPartFactory} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef
  */

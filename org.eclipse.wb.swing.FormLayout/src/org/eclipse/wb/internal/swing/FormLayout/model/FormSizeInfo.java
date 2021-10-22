@@ -20,7 +20,7 @@ import com.jgoodies.forms.layout.Sizes;
 
 /**
  * Description for {@link Size}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

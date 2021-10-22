@@ -27,7 +27,7 @@ import org.eclipse.swt.layout.GridData;
 
 /**
  * Test for {@link GridDataInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridDataTest extends XwtModelTest {

@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link ToolBarInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class ToolBarGefTest extends XwtGefTest {

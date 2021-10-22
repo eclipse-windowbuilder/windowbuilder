@@ -20,7 +20,7 @@ import org.eclipse.wb.tests.designer.XML.model.description.AbstractCoreTest;
 
 /**
  * Test for {@link DirectAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DirectAssociationTest extends AbstractCoreTest {

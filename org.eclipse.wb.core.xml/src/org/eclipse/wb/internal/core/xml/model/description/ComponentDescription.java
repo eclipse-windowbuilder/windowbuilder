@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * Description of {@link Class} based component in XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */
@@ -80,7 +80,7 @@ public final class ComponentDescription extends AbstractDescription
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Model class 
+  // Model class
   //
   ////////////////////////////////////////////////////////////////////////////
   private Class<?> m_modelClass;

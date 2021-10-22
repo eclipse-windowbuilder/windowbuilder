@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * {@link AstObjectInfo} that contains other {@link AstObjectInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model
  */

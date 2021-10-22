@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * The {@link SelectionEditPolicy} for resizing {@link BoxStrutVerticalEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */

@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 /**
  * Model for {@link TableColumn}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

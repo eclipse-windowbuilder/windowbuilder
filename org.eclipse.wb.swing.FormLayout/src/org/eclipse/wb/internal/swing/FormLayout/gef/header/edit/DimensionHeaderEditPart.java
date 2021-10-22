@@ -36,7 +36,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} for column/row header of {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.header
  */

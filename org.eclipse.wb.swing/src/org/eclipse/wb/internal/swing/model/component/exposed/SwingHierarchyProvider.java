@@ -23,7 +23,7 @@ import javax.swing.JPopupMenu;
 
 /**
  * Implementation of {@link HierarchyProvider} for Swing components.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model
  */

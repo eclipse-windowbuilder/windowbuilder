@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 
 /**
  * {@link ExpressionAccessor} without value.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

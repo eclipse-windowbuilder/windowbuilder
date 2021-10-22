@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 
 /**
  * Implementation of {@link CreationSupport} for virtual {@link LayoutDataInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */

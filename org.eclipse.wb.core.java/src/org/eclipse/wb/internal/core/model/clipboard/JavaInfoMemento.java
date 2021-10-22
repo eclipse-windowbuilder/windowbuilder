@@ -100,8 +100,8 @@ public class JavaInfoMemento implements Serializable {
   private final String m_componentClassName;
   private final IClipboardCreationSupport m_creationSupport;
   private final List<ClipboardCommand> m_commands = Lists.newArrayList();
-  
-  //the variable.field name must be kept, it's not contained in javaInfo created during paste. 
+
+  //the variable.field name must be kept, it's not contained in javaInfo created during paste.
   private String m_variableName;
 
   ////////////////////////////////////////////////////////////////////////////
@@ -232,12 +232,12 @@ public class JavaInfoMemento implements Serializable {
       command.execute(m_javaInfo);
     }
   }
-  
+
   /**
    * Get the variable field name of the JavaInfo.
    *
    * @param javaInfo The JavaInfo will be queried.
-   * 
+   *
    * @return The variable field name.
    */
     private String getVariableName(JavaInfo javaInfo) {

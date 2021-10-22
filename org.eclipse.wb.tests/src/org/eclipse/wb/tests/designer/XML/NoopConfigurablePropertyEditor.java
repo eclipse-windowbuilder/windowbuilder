@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * No-op configurable property editor. Does nothing :-)
- * 
+ *
  * @author mitin_aa
  */
 public class NoopConfigurablePropertyEditor extends TextDisplayPropertyEditor

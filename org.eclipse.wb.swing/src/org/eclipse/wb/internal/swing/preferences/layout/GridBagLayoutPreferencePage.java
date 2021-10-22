@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * {@link PreferencePage} for {@link AbstractGridBagLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.preferences.ui
  */

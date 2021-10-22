@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DetailsPageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DetailsPageTest extends AbstractFormsTest {

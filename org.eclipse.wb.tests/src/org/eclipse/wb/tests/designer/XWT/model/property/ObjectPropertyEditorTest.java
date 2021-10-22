@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link ObjectPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectPropertyEditorTest extends XwtModelTest {

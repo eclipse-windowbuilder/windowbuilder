@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Test {@link CompatibleLayoutRequestValidator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompatibleLayoutRequestValidatorTest extends AbstractLayoutRequestValidatorTest {

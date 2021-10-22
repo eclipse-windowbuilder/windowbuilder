@@ -27,7 +27,7 @@ import java.io.File;
 
 /**
  * Tests for {@link ImageDescriptorPropertyEditorTest}.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

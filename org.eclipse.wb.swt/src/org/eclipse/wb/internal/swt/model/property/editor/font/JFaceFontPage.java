@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link AbstractFontPage} for constructing {@link Font} using JFace constants.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */
@@ -108,7 +108,7 @@ public final class JFaceFontPage extends AbstractFontPage {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

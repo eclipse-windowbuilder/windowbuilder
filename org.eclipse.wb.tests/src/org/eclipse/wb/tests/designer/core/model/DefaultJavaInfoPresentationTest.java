@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IFile;
 
 /**
  * Test for {@link DefaultJavaInfoPresentation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DefaultJavaInfoPresentationTest extends SwingModelTest {

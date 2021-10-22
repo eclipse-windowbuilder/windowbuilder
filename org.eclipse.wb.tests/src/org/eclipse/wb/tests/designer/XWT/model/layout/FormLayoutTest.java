@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * Test for {@link FormLayoutInfo}.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutTest extends XwtModelTest {

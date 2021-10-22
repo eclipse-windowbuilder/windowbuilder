@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 /**
  * Test for {@link DoubleObjectPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTest {

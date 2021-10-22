@@ -42,7 +42,7 @@ import java.util.List;
 
 /**
  * {@link LayoutEditPolicy} for {@link ColumnHeaderEditPart}'s.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */

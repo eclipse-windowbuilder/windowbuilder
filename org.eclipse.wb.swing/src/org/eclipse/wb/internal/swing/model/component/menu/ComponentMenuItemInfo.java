@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link IMenuItemInfo} for any {@link ComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */

@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * {@link Command} changing {@link LafEntryInfo} "visible" property.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.laf.model
  */

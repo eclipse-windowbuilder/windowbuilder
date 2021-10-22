@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link PaletteInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PaletteTests extends DesignerSuiteTests {

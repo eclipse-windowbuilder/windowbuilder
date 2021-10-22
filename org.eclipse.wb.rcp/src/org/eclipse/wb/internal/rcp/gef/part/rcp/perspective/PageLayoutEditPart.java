@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * {@link EditPart} for {@link PageLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

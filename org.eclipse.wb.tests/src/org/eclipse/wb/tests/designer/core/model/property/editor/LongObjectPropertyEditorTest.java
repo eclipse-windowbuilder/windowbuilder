@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 /**
  * Test for {@link LongObjectPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LongObjectPropertyEditorTest extends AbstractTextPropertyEditorTest {

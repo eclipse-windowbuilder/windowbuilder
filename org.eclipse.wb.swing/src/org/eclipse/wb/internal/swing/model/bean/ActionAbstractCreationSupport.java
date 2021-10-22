@@ -43,7 +43,7 @@ import javax.swing.Action;
 
 /**
  * Implementation of {@link CreationSupport} for {@link Action}.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model
  */

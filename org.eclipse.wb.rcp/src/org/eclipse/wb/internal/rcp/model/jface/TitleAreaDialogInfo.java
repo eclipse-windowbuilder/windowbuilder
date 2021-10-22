@@ -18,7 +18,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 
 /**
  * Model for {@link TitleAreaDialog}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

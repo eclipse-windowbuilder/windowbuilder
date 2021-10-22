@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Model for {@link ICoolBarManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

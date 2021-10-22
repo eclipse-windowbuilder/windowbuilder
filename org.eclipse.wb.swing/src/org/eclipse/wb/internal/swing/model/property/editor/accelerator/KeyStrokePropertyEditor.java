@@ -50,7 +50,7 @@ import javax.swing.KeyStroke;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link KeyStroke}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
@@ -120,7 +120,7 @@ public final class KeyStrokePropertyEditor extends TextDialogPropertyEditor {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // KeyStrokeDialog 
+  // KeyStrokeDialog
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final class KeyStrokeDialog extends ResizableDialog {

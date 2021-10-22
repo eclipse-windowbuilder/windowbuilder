@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Test for "org.eclipse.wb.core.temp" project.
- * 
+ *
  * @author scheglov_ke
  */
 public class CommonTests extends DesignerSuiteTests {

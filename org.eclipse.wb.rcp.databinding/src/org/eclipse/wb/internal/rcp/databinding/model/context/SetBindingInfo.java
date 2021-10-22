@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateSe
 
 /**
  * Model for <code>DataBindingContext.bindSet()</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

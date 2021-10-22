@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swt.support.TableSupport;
 
 /**
  * Tests for {@link TableSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class TableSupportTest extends AbstractSupportTest {

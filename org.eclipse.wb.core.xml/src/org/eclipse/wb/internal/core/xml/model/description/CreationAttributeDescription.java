@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 /**
  * {@link CreationDescription} consists of tag name and attributes to set on creation.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.description
  */

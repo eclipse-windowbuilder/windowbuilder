@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.BindingInfo;
 
 /**
  * {@link BindingInfo} {@code name} attribute editor.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * {@link PropertyEditor} for {@link org.eclipse.swt.graphic.Font}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

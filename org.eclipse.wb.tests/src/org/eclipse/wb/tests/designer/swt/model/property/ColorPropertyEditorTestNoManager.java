@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
 /**
  * Tests for {@link ColorPropertyEditor} without <code>SWTResourceManager</code>.
- * 
+ *
  * @author scheglov_ke
  */
 public class ColorPropertyEditorTestNoManager extends ColorPropertyEditorTest {

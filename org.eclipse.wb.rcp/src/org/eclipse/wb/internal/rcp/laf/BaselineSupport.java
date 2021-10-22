@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Baseline support for SWT widgets.
- * 
+ *
  * @author mitin_aa
  */
 public class BaselineSupport implements IBaselineSupport {

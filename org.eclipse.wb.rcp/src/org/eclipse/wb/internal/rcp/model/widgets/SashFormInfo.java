@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * Model for {@link SashForm}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */
@@ -181,7 +181,7 @@ public final class SashFormInfo extends CompositeInfo implements ISashFormInfo<C
 
   /**
    * Ensures that this {@link SashFormInfo} has "setWeights()" invocation.
-   * 
+   *
    * @return the {@link ArrayInitializer} for weights.
    */
   private ArrayInitializer ensureWeights() throws Exception {
@@ -202,7 +202,7 @@ public final class SashFormInfo extends CompositeInfo implements ISashFormInfo<C
   /**
    * @param weightsExpression
    *          the argument of {@link SashForm#setWeights(int[])} argument.
-   * 
+   *
    * @return the current weights.
    */
   private int[] getWeights(ArrayInitializer weightsExpression) throws Exception {

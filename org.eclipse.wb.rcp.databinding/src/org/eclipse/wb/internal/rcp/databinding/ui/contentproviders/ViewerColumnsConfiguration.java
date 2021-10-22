@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Configuration for {@link ViewerColumnsUiContentProvider}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

@@ -60,7 +60,7 @@ import java.util.Set;
 
 /**
  * Renderer for XWT UI.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.parser
  */
@@ -127,7 +127,7 @@ public final class XwtRenderer {
       }
     });
     m_context.getBroadcastSupport().addListener(null, m_broadcast_setObjectAfter);
-    // prepare IXWTLoader with intercepting IMetaclass loading 
+    // prepare IXWTLoader with intercepting IMetaclass loading
     IXWTLoader loader;
     {
       final IXWTLoader loader0 = XWTLoaderManager.getActive();

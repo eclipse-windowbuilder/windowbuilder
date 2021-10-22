@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.xwt.model.widgets.CBannerInfo;
 
 /**
  * {@link LayoutEditPolicy} for {@link CBannerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.gef.policy
  */

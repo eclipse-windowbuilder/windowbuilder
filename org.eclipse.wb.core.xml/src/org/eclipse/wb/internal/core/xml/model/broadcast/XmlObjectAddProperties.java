@@ -19,7 +19,7 @@ import java.util.List;
  * Listener for {@link XmlObjectInfo} events.
  * <p>
  * Used to get notified while preparing {@link Property} list for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

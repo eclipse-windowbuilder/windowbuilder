@@ -43,7 +43,7 @@ import javax.swing.LookAndFeel;
 
 /**
  * Model for {@link JMenuBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.menu
  */
@@ -153,7 +153,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Abstract superclass for {@link IMenuObjectInfo} implementations.
-   * 
+   *
    * @author scheglov_ke
    */
   private abstract class MenuAbstractImpl extends JavaMenuMenuObject {
@@ -168,7 +168,7 @@ public final class JMenuBarInfo extends ContainerInfo implements IAdaptable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private final class MenuImpl extends MenuAbstractImpl implements IMenuInfo {

@@ -42,7 +42,7 @@ import javax.swing.JButton;
 
 /**
  * Tests for {@link FactoryDescriptionHelper}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryDescriptionHelperTest extends SwingModelTest {

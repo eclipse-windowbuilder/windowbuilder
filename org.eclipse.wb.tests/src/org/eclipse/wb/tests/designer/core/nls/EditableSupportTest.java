@@ -51,7 +51,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link IEditableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EditableSupportTest extends AbstractNlsTest {

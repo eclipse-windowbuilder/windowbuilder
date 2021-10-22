@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * The {@link PropertyEditor} wrapper for text based AWT {@link java.beans.PropertyEditor}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.beans
  */

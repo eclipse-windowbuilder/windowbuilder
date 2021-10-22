@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Handler that updates last modification time for for resources in <code>wbp-meta</code>.
- * 
+ *
  * @author scheglov_ke
  */
 public final class MetaDataModificationHandler implements BuilderHandler {

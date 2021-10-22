@@ -19,7 +19,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for {@link Menu}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuTests extends DesignerSuiteTests {

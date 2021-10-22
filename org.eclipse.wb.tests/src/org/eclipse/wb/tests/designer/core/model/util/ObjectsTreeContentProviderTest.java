@@ -23,7 +23,7 @@ import org.assertj.core.api.Assertions;
 
 /**
  * Test for {@link ObjectsTreeContentProvider}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectsTreeContentProviderTest extends DesignerTestCase {

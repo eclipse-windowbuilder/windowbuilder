@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.support.ControlSupport;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link ActionBarAdvisorInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * {@link ToolkitDescription} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp
  */

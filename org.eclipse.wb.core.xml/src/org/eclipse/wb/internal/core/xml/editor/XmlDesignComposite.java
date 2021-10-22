@@ -31,7 +31,7 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * {@link DesignComposite} for XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */

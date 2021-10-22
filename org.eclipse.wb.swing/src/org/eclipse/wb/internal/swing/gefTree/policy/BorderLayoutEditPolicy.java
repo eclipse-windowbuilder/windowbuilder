@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link BorderLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gefTree.policy
  */

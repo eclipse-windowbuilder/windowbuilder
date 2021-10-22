@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
 
 /**
  * {@link EditPart} for {@link CollapsibleButtonsInfo}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.gef
  */

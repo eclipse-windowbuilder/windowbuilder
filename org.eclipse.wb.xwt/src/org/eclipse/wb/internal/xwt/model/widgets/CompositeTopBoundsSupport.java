@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * {@link TopBoundsSupport} for {@link ControlInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */
@@ -125,7 +125,7 @@ public class CompositeTopBoundsSupport extends TopBoundsSupport {
     {
       org.eclipse.swt.graphics.Rectangle monitorClientArea =
           DesignerPlugin.getShell().getMonitor().getClientArea();
-      // center on primary Monitor 
+      // center on primary Monitor
       int x;
       int y;
       {

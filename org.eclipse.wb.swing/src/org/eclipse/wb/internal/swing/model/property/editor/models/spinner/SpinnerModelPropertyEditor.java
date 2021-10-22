@@ -34,7 +34,7 @@ import javax.swing.SpinnerNumberModel;
 
 /**
  * {@link PropertyEditor} for {@link SpinnerModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

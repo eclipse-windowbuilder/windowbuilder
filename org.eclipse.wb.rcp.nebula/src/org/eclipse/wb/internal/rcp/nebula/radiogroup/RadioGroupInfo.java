@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 /**
  * Model for {@link RadioGroup}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

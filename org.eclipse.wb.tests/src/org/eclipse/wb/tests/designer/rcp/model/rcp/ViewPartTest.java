@@ -36,7 +36,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Test for {@link ViewPartInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ViewPartTest extends RcpModelTest {

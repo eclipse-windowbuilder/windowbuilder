@@ -23,7 +23,7 @@ import javax.swing.JSplitPane;
 
 /**
  * Test for {@link JSplitPane}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JSplitPaneTest extends SwingModelTest {
@@ -344,7 +344,7 @@ public class JSplitPaneTest extends SwingModelTest {
     JSplitPaneInfo split = (JSplitPaneInfo) panel.getChildrenComponents().get(0);
     ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
     ComponentInfo button = innerPanel.getChildrenComponents().get(0);
-    // 
+    //
     split.command_ADD(button, true);
     assertEditor(
         "class Test extends JPanel {",

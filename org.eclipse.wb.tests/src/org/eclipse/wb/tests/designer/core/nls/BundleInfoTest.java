@@ -23,7 +23,7 @@ import java.util.Set;
 
 /**
  * Test for {@link BundleInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class BundleInfoTest extends SwingModelTest {

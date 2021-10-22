@@ -27,7 +27,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link RowLayoutInfo}.
- * 
+ *
  * @author lobas_av
  */
 public class RowLayoutTest extends RcpModelTest {

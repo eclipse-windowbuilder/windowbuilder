@@ -23,7 +23,7 @@ import java.util.Set;
 
 /**
  * Helper for working with namespaces.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.utils
  */
@@ -139,7 +139,7 @@ public class NamespacesHelper {
    *          some {@link DocumentElement} attached to root.
    * @param name
    *          the name of namespace.
-   * 
+   *
    * @return the URI of given namespace name.
    */
   public static String getURI(DocumentElement element, String name) {
@@ -152,7 +152,7 @@ public class NamespacesHelper {
    *          some {@link DocumentElement} attached to root.
    * @param uri
    *          the URI of namespace.
-   * 
+   *
    * @return the existing name of given URI, may be <code>null</code> if does not exist.
    */
   public static String getName(DocumentElement element, String uri) {
@@ -167,7 +167,7 @@ public class NamespacesHelper {
    *          the URI of namespace.
    * @param base
    *          the base of name to generate.
-   * 
+   *
    * @return the existing name of given URI or generate and add new name.
    */
   public static String ensureName(DocumentElement element, String uri, String base) {

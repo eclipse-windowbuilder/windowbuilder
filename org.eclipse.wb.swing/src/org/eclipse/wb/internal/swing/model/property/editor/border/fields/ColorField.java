@@ -29,7 +29,7 @@ import java.awt.Color;
 
 /**
  * {@link AbstractBorderField} that allows to enter integer value.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

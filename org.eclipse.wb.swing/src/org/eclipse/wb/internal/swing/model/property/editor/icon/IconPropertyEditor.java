@@ -46,7 +46,7 @@ import javax.swing.Icon;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Icon}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

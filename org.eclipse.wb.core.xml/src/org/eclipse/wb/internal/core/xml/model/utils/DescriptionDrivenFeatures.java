@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.core.xml.model.XmlObjectInfo;
 /**
  * Helper to configure any {@link JavaInfo} to support configuration based features (from
  * <code>parameter</code> tags).
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.util
  */

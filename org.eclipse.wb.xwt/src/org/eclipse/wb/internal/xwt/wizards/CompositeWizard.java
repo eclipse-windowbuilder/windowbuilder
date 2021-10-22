@@ -14,7 +14,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Wizard} for new XWT Composite.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.wizards
  */

@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 
 /**
  * Information object {@link Font} derived from some existing one.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

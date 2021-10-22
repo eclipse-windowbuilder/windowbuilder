@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Content provider container for edit update strategy properties: converter and validators.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

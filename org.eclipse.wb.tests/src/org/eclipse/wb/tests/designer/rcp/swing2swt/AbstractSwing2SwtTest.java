@@ -19,7 +19,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Abstract test for Swing2SWT.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractSwing2SwtTest extends RcpModelTest {

@@ -56,7 +56,7 @@ import java.util.List;
 
 /**
  * Model for "null" (absolute) layout.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.layout
  */

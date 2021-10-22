@@ -14,7 +14,7 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 
 /**
  * Definition of the attachment.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.model.layout.form
  */

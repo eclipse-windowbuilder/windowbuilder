@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link CollapsibleButtonsInfo}.
- * 
+ *
  * @author sablin_aa
  */
 public class CollapsibleButtonsTest extends AbstractNebulaTest {

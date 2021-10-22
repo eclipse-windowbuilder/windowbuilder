@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * {@link EntryInfo} that drop new {@link ActionInfo} from {@link ActionFactory} using
  * {@link ActionDropTool}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

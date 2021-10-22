@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Button;
 
 /**
  * Support "Customize" tests.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

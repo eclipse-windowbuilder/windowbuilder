@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
 
 /**
  * RCP model tests.
- * 
+ *
  * @author scheglov_ke
  */
 public class ModelTests extends DesignerSuiteTests {

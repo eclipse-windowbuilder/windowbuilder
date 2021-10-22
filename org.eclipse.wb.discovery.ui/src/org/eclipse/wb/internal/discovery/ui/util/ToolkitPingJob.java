@@ -42,7 +42,7 @@ public class ToolkitPingJob extends Job {
     for (WBToolkit toolkit : toolkits) {
       try {
         String updateSite = toolkit.getUpdateSite();
-        
+
         if (updateSite != null) {
           if (!updateSite.endsWith("/")) {
             updateSite += "/";

@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 
 /**
  * {@link CreationSupport} for {@link XmlObjectInfo} accessible using property.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.forms
  */

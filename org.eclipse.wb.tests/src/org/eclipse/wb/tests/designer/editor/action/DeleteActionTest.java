@@ -24,7 +24,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Test for {@link DeleteAction}.
- * 
+ *
  * @author mitin_aa
  */
 public class DeleteActionTest extends SwingGefTest {

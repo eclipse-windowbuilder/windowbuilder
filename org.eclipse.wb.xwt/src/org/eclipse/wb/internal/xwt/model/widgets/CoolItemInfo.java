@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.CoolItem;
 
 /**
  * Model for {@link CoolItem}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.widgets
  */

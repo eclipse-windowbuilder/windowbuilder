@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Tests for {@link LayoutDescription} and {@link LayoutDescriptionHelper}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LayoutDescriptionTest extends SwingModelTest {

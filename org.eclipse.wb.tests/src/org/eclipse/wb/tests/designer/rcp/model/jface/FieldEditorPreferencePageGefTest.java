@@ -18,7 +18,7 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 
 /**
  * Tests for {@link FieldEditorPreferencePage} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class FieldEditorPreferencePageGefTest extends RcpGefTest {

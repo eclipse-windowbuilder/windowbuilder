@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Tests for {@link ColorPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class ColorPropertyEditorTest extends RcpModelTest {

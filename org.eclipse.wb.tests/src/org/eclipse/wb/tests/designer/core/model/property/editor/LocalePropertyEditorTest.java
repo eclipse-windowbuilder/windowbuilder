@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * Test for {@link LocalePropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LocalePropertyEditorTest extends SwingModelTest {

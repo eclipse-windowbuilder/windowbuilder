@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Interface model for SWT {@link GridLayout}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */
@@ -109,7 +109,7 @@ public interface IGridLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> 
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates new {@link IControlInfo} in given cell.
-   * 
+   *
    * @param newControl
    *          the new {@link IControlInfo} to create.
    * @param column
@@ -134,7 +134,7 @@ public interface IGridLayoutInfo<C extends IControlInfo> extends ILayoutInfo<C> 
 
   /**
    * Sets the cells occupied by given {@link IControlInfo}.
-   * 
+   *
    * @param forMove
    *          is <code>true</code> if we move control and <code>false</code> if we set cells for
    *          newly added control.

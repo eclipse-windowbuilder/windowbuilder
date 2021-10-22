@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 
 /**
  * Simples tests of parser to use during optimizations.
- * 
+ *
  * @author scheglov_ke
  */
 public class SimpleParserTest extends SwingModelTest {
@@ -263,7 +263,7 @@ public class SimpleParserTest extends SwingModelTest {
    */
   public void test_noModel() throws Exception {
     // contribute special {@link HierarchyProvider}
-    TestUtils.addDynamicExtension(PARSE_FACTORIES_POINT_ID, // 
+    TestUtils.addDynamicExtension(PARSE_FACTORIES_POINT_ID, //
         "  <noModel class='" + TestParseFactory_noModel.class.getName() + "'/>");
     //
     try {

@@ -32,7 +32,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EditPart} for column/row header of {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.header
  */

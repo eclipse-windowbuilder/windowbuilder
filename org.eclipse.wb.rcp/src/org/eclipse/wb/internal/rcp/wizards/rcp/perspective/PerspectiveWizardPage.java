@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * {@link WizardPage} that creates new RCP Perspective.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * {@link IParseFactory} for JGoodies.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.model
  */

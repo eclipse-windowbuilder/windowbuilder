@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.gef.TestLogger;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class LayerTest extends Draw2dFigureTestCase {
   ////////////////////////////////////////////////////////////////////////////

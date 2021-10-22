@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Test for {@link ObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectInfoTest extends DesignerTestCase {

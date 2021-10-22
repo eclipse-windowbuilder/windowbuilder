@@ -29,7 +29,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 /**
  * Test for {@link Action}'s from {@link ActionFactory}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionFactoryTest extends RcpModelTest {

@@ -19,7 +19,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 /**
  * Abstract {@link LayoutEditPolicy} for Swing flow containers.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.gef.policy
  */

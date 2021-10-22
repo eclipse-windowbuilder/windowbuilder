@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author sablin_aa
- * 
+ *
  */
 public class BindingTests extends DesignerSuiteTests {
   public static Test suite() {

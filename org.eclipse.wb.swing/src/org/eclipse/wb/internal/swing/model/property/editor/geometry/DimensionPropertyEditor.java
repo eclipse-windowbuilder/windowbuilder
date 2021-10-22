@@ -22,7 +22,7 @@ import java.awt.Dimension;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link Dimension}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

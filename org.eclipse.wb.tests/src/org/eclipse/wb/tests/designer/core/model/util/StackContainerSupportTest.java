@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 
 /**
  * Tests for {@link StackContainerSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StackContainerSupportTest extends SwingModelTest {

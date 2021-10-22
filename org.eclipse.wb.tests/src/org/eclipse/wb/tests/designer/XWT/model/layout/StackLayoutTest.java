@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link StackLayoutInfo}
- * 
+ *
  * @author scheglov_ke
  */
 public class StackLayoutTest extends XwtModelTest {

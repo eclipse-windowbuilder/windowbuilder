@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Helper for creating property with name "Extension" for attributes in <code>plugin.xml</code>
  * file.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

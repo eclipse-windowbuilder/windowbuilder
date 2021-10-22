@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class DimensionTest extends Draw2dTestCase {
   ////////////////////////////////////////////////////////////////////////////

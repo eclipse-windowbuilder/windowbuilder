@@ -21,7 +21,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 /**
  * Test for {@link LocalReuseVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LocalReuseTest extends AbstractVariableTest {

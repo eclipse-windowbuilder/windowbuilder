@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link MethodPropertyRule}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MethodPropertyRuleTest extends SwingModelTest {

@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class DebugGraphics extends Graphics {
   private final TestLogger m_logger;
@@ -44,7 +44,7 @@ public class DebugGraphics extends Graphics {
   //
   // Graphics
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   @Override
   public void clipRect(Rectangle rectangle) {
     m_logger.log("clipRect(" + rectangle + ")");

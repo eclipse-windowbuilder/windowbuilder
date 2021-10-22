@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link IAdaptableFactory} for children of {@link MenuManagerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */
@@ -54,7 +54,7 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Implementation of {@link IMenuItemInfo} for {@link ContributionItemInfo}.
-   * 
+   *
    * @author scheglov_ke
    */
   private static final class ContributionItemImpl extends AbstractMenuObject

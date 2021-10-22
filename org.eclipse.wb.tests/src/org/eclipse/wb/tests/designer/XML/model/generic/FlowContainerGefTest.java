@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
 
 /**
  * Tests for "flow container" support, such as {@link FlowContainer} interface.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowContainerGefTest extends FlowContainerAbstractGefTest {

@@ -255,9 +255,9 @@ public class LayoutTest extends RcpModelTest {
     shell.setLayout(newLayout);
     assertFalse(oldLayout.isActive());
     assertTrue(newLayout.isActive());
-    // "oldLayout" does not manage 
+    // "oldLayout" does not manage
     assertFalse(oldLayout.isManagedObject(button));
-    // "newLayout" manages 
+    // "newLayout" manages
     assertTrue(newLayout.isManagedObject(button));
   }
 

@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 
 /**
  * Abstract model for all <code>JFace</code> viewer observable content provider.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

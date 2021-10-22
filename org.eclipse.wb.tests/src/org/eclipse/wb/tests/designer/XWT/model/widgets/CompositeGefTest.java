@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link CompositeInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class CompositeGefTest extends XwtGefTest {

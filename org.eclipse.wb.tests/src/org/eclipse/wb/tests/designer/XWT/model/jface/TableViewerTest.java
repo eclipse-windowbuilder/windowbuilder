@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link TableViewerInfo} and {@link TableViewerColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class TableViewerTest extends XwtModelTest {

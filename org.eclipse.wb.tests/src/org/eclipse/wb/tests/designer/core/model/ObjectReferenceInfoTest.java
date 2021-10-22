@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 /**
  * Test for {@link ObjectReferenceInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ObjectReferenceInfoTest extends DesignerTestCase {

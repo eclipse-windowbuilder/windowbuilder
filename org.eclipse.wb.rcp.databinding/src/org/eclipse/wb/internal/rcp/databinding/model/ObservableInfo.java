@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Abstract model for all <code>org.eclipse.core.databinding.observable.IObservable</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model
  */

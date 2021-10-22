@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Filter for {@link ObserveInfo} properties over {@link Class} type.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.eclipse.jface.viewers.CellEditor}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

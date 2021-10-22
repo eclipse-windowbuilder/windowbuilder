@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Test for {@link XmlObjectMemento} and {@link ClipboardCommand}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ClipboardTest extends AbstractCoreTest {

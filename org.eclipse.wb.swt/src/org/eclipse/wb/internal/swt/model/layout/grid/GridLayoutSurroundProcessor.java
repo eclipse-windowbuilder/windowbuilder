@@ -24,7 +24,7 @@ import java.util.List;
  * {@link ISurroundProcessor} that places enclosing {@link ControlInfo}'s into same relative cells,
  * as they were before enclosing. It works only if source {@link CompositeInfo} has
  * {@link GridLayoutInfo} and sets also {@link GridLayoutInfo} on target {@link CompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.layout
  */

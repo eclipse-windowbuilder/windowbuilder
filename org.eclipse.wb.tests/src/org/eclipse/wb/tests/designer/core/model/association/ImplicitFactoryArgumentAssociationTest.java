@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link ImplicitFactoryArgumentAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ImplicitFactoryArgumentAssociationTest extends SwingModelTest {

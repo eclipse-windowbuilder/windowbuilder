@@ -38,7 +38,7 @@ import javax.swing.tree.TreeModel;
 /**
  * Implementation of {@link IExpressionEvaluator} for evaluating {@link TreeModel} for {@link JTree}
  * .
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

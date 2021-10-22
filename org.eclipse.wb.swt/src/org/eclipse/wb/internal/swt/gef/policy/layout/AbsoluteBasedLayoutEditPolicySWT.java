@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Generic {@link LayoutEditPolicy} for absolute based SWT layouts.
- * 
+ *
  * @author mitin_aa
  * @coverage swt.gef.policy
  */

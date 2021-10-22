@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link FlowLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowLayoutTest extends AbstractLayoutTest {

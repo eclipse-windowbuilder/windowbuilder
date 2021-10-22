@@ -36,7 +36,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link DirectSource}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SourceDirectTest extends AbstractNlsTest {

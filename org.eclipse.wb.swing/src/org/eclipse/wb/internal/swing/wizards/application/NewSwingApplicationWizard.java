@@ -18,7 +18,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 /**
  * {@link Wizard} that creates new Swing application.
- * 
+ *
  * @author lobas_av
  * @coverage swing.wizards.ui
  */

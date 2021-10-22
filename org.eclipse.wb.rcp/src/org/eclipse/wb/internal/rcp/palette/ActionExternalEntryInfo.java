@@ -29,7 +29,7 @@ import javax.swing.Action;
 /**
  * Implementation of {@link EntryInfo} that allows user select some {@link Action} and loads
  * {@link ViewDropTool}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

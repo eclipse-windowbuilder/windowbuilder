@@ -23,7 +23,7 @@ import org.eclipse.ui.IPageLayout;
 /**
  * {@link CreationSupport} for {@link IRenderableInfo}, created using {@link IPageLayout#addXXX()}
  * methods.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */

@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Property for editing components tab order.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.order
  */

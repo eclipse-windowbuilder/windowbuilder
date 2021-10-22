@@ -29,7 +29,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Abstract super class for XWT GEF tests.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class XwtGefTest extends AbstractXmlGefTest {

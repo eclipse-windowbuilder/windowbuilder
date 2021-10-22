@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link DescriptionProcessor} for SWT.
- * 
+ *
  * @author scheglov_ke
  */
 public class DescriptionProcessorTest extends RcpModelTest {

@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ViewerColumn;
 
 /**
  * Model for {@link ViewerColumn}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.model.jface
  */

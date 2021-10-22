@@ -13,7 +13,7 @@ package org.eclipse.wb.internal.core.xml.model;
 /**
  * Participator of {@link XmlObjectInfo} initialization, used from
  * {@link XmlObjectInfo#initialize()}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

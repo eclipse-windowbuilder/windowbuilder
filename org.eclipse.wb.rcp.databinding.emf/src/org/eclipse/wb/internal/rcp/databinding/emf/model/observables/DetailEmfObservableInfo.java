@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Abstract model for observable objects <code>EMFObservables.observeDetailXXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.emf.model
  */

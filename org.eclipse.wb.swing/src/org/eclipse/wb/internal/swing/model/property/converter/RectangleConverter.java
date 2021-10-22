@@ -17,7 +17,7 @@ import java.awt.Rectangle;
 
 /**
  * The {@link ExpressionConverter} for {@link Rectangle}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.converter
  */

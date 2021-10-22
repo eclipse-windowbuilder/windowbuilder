@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.swing.databinding.ui.contentproviders;
 
 /**
  * Interface for provider access to abstract {@code editable} attribute.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

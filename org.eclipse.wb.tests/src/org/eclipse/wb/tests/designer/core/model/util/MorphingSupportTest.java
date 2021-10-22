@@ -49,7 +49,7 @@ import javax.swing.JTextField;
 
 /**
  * Tests for {@link MorphingSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MorphingSupportTest extends SwingModelTest {
@@ -1001,7 +1001,7 @@ public class MorphingSupportTest extends SwingModelTest {
       assertTrue(invokeBeforeState[0]);
       assertTrue(parentBeforeState[0]); // old child is not removed
       assertTrue(childrenBeforeState[0]);
-      assertFalse(parentBeforeState[1]); // new child has not yet added 
+      assertFalse(parentBeforeState[1]); // new child has not yet added
       assertFalse(childrenBeforeState[1]);
       // check result "after" state
       assertTrue(invokeAfterState[0]);

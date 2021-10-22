@@ -31,7 +31,7 @@ import net.sf.cglib.proxy.NoOp;
 
 /**
  * Model for {@link IToolBarManager}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

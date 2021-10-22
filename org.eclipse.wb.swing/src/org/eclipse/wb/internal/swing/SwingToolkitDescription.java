@@ -45,7 +45,7 @@ import java.util.List;
 
 /**
  * {@link ToolkitDescription} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing
  */
@@ -174,9 +174,9 @@ public final class SwingToolkitDescription extends ToolkitDescriptionJava {
   //
   ////////////////////////////////////////////////////////////////////////////
   private void configureLAF() {
-    // forcibly set 'Metal' LAF under Linux, see the description 
+    // forcibly set 'Metal' LAF under Linux, see the description
     // of LAFSupport.getSystemDefaultLAF() for details.
-    // this is hack though because someone may already initialize Gtk LAF. 
+    // this is hack though because someone may already initialize Gtk LAF.
     if (EnvironmentUtils.IS_LINUX) {
       System.setProperty("swing.systemlaf", "javax.swing.plaf.metal.MetalLookAndFeel");
     }

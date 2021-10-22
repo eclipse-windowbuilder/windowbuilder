@@ -17,9 +17,9 @@ import org.eclipse.wb.tests.designer.databinding.rcp.DatabindingTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class AbstractBindingTest extends RcpModelTest {
   ////////////////////////////////////////////////////////////////////////////

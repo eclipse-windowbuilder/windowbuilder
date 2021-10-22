@@ -2,7 +2,7 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
@@ -61,7 +61,7 @@ public final class AwtEnvironment {
    * The current implementation limits the number of instances of AwtEnvironment to one. If this
    * method is called with a display different to one used on a previous call,
    * {@link UnsupportedOperationException} is thrown.
-   * 
+   *
    * @param display
    *          the non-null SWT display
    * @return the AWT environment
@@ -108,10 +108,10 @@ public final class AwtEnvironment {
      * important to wait for the L&F to be set so that any subsequent calls
      * to createFrame() will be return a frame with the proper L&F (note
      * that createFrame() happens on the SWT thread).
-     * 
+     *
      * The call to invokeAndWait is safe because
      * the first call AwtEnvironment.getInstance should happen
-     * before any (potential deadlocking) activity occurs on the 
+     * before any (potential deadlocking) activity occurs on the
      * AWT thread.
      */
     try {
@@ -144,7 +144,7 @@ public final class AwtEnvironment {
    * returned by {@link #createDialogParentFrame()}.
    * <p>
    * This method must be called from the SWT event thread.
-   * 
+   *
    * @param runnable
    *          the code to schedule on the AWT event thread
    * @exception IllegalArgumentException
@@ -200,7 +200,7 @@ public final class AwtEnvironment {
    * shell is disposed.
    * <p>
    * See {@link #createDialogParentFrame(Shell)} for more details.
-   * 
+   *
    * @return a {@link java.awt.Frame} to be used for parenting dialogs
    * @exception SWTException
    *              <ul>
@@ -232,7 +232,7 @@ public final class AwtEnvironment {
    * This method is useful for creating a frame to parent any AWT/Swing dialogs created for use
    * inside a SWT application. A modal AWT/Swing dialogs will flicker less if its parent is set to
    * the returned frame rather than to null or to an independently created {@link java.awt.Frame}.
-   * 
+   *
    * @return a {@link java.awt.Frame} to be used for parenting dialogs
    * @exception SWTException
    *              <ul>
@@ -282,7 +282,7 @@ public final class AwtEnvironment {
         // non-gnome Linux desktop. Fix that here, if the RCP itself is
         // running
         // with the GTK windowing system set.
-        // 
+        //
         // mitin_aa: commented out due to http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6922280
         /*if (xplatLaf.equals(systemLaf) && Platform.isGtk()) {
             systemLaf = GTK_LOOK_AND_FEEL_NAME;

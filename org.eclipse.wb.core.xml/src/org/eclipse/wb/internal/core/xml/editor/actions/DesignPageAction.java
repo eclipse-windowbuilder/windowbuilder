@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.xml.editor.XmlDesignPage;
 
 /**
  * Action for {@link XmlDesignPage}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor.action
  */

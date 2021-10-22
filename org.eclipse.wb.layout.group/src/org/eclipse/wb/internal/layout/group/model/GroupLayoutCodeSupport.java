@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * Responsible to parse/save GroupLayout code.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class GroupLayoutCodeSupport implements LayoutConstants {
@@ -52,7 +52,7 @@ public abstract class GroupLayoutCodeSupport implements LayoutConstants {
   protected static final String ID_LINK_SIZE = "linkSize";
   protected static final String ID_ADD_CONTAINER_GAP = "addContainerGap";
   protected static final String ID_ADD_PREFERRED_GAP = "addPreferredGap";
-  // 
+  //
   protected String GROUP_LAYOUT_CLASS_NAME;
   protected String GROUP_LAYOUT_GROUP_CLASS_NAME;
   protected String ID_ADD_GAP;

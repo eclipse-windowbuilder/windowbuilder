@@ -58,7 +58,7 @@ import javax.swing.JSeparator;
 
 /**
  * Test for {@link JMenuInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JMenuTest extends SwingModelTest {

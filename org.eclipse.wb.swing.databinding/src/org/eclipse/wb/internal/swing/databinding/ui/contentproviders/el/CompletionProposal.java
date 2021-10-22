@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * {@link ICompletionProposal} for display {@code Java Bean} properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

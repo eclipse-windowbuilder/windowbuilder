@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.core.xml.editor.AbstractXmlEditorContributor;
 
 /**
  * {@link AbstractXmlEditorContributor} for XWT.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.editor
  */

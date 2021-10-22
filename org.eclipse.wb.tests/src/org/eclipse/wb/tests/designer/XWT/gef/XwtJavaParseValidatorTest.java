@@ -25,7 +25,7 @@ import org.eclipse.ui.ide.IDE;
 
 /**
  * Test for {@link XwtJavaParseValidator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XwtJavaParseValidatorTest extends XwtGefTest {

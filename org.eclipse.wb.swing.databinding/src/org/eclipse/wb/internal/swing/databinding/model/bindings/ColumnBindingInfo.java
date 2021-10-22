@@ -55,7 +55,7 @@ import java.util.List;
 
 /**
  * Model for {@link org.jdesktop.swingbinding.JTableBinding.ColumnBinding}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.model.bindings
  */

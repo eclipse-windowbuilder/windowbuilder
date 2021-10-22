@@ -53,7 +53,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Test for {@link EventsProperty}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EventsPropertyTest extends SwingModelTest implements IPreferenceConstants {
@@ -3411,7 +3411,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
   /**
    * Ensures that listener/method with given names are exist in source (create if needed).
-   * 
+   *
    * @return the {@link MethodDeclaration} that method of listener to handle this event.
    */
   public static MethodDeclaration ensureListenerMethod(JavaInfo javaInfo,

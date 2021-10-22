@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 
 /**
  * Helper for displaying grid for {@link MigLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.policy
  */

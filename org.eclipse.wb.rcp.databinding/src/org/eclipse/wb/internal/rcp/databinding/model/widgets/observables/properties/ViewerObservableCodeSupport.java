@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Abstract model for observable object <code>ViewerProperties.XXX(...)<code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

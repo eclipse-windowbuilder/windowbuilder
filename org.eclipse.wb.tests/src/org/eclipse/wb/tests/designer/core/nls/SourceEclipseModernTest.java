@@ -41,7 +41,7 @@ import javax.swing.JFrame;
 
 /**
  * Tests for {@link ModernEclipseSource}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SourceEclipseModernTest extends AbstractNlsTest {

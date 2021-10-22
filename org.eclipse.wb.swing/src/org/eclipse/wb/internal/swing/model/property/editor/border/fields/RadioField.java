@@ -24,7 +24,7 @@ import java.lang.reflect.Field;
 
 /**
  * {@link AbstractBorderField} that allows to select one field from many.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

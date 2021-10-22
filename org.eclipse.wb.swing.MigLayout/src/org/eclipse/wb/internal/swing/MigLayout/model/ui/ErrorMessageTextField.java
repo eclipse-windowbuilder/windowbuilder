@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Control;
 /**
  * Special {@link org.eclipse.jface.fieldassist.DecoratedField} that can show optional error message
  * in top-right corner.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */
@@ -61,7 +61,7 @@ public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.Decorat
 
   /**
    * Shows error message.
-   * 
+   *
    * @param message
    *          the message to show as decorator, or <code>null</code> to hide error message.
    */

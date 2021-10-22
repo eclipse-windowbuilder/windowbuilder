@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * {@link IMethodParameterEvaluator} for SWT objects.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.model.widgets
  */

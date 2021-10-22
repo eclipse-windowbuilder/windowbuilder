@@ -22,7 +22,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 
 /**
  * Test for {@link IAction} management in {@link DesignerEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActionsTest extends SwingGefTest {

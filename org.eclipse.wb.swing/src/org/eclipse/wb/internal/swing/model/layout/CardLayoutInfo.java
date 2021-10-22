@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Model for {@link CardLayout}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.model.layout
  */

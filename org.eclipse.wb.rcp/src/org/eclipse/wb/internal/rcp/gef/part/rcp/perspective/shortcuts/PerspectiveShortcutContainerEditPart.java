@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveSh
 
 /**
  * {@link EditPart} for {@link PerspectiveShortcutContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  * Default bean for replace user wrong beans.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.parser
  */

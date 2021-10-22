@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 /**
  * Base64 utils simple testing.
- * 
+ *
  * @author mitin_aa
  */
 public class Base64UtilsTest extends DesignerTestCase {

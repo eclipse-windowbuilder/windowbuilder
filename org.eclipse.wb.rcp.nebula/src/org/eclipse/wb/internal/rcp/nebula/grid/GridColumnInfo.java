@@ -20,7 +20,7 @@ import org.eclipse.wb.internal.swt.support.RectangleSupport;
 
 /**
  * Model {@link GridColumn}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

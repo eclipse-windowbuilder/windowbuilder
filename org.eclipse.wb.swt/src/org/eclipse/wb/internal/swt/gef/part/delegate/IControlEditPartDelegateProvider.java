@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swt.gef.part.ControlEditPart;
 
 /**
  * Provider for {@link IControlEditPartDelegate} of given {@link ControlEditPart}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.part
  */
@@ -22,7 +22,7 @@ public interface IControlEditPartDelegateProvider {
   /**
    * Returns the {@link IControlEditPartDelegate} for given {@link ControlEditPart}. eRCP and RCP
    * provide different implementations of {@link IControlEditPartDelegate}.
-   * 
+   *
    * @param editPart
    *          the {@link ControlEditPart} to get provider for.
    * @return the {@link IControlEditPartDelegate} for given {@link ControlEditPart}.

@@ -18,7 +18,7 @@ import org.eclipse.jface.action.IAction;
 
 /**
  * Test for {@link CutAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CutActionTest extends XwtGefTest {

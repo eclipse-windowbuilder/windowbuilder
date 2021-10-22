@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link GridLayout} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutGefTest extends XwtGefTest {

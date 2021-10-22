@@ -30,7 +30,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * {@link PropertyEditor} for installing sorter of {@link TableViewer} by column.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface.viewers
  */

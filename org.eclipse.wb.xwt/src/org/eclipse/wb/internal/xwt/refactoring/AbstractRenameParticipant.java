@@ -23,7 +23,7 @@ import org.eclipse.ltk.core.refactoring.participants.RenameParticipant;
 
 /**
  * Abstract {@link IMethod} rename participant.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.refactoring
  */

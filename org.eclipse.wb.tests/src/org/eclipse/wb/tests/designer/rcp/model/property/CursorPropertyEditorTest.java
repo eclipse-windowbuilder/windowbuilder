@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Tests for {@link CursorPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public abstract class CursorPropertyEditorTest extends RcpModelTest {

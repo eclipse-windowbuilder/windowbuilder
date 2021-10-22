@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Support for binding {@link ActionInfo}'s to hierarchy.
- * 
+ *
  * @author sablin_aa
  * @coverage swing.model
  */

@@ -32,7 +32,7 @@ import javax.swing.SpringLayout;
 
 /**
  * Test for {@link SpringLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpringLayoutTest extends AbstractLayoutTest {

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Model for all {@link org.eclipse.core.databinding.observable.masterdetail.IObservableFactory}
  * objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

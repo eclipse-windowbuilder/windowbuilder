@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Provides FormLayout-specific snap points for snapping engine.
- * 
+ *
  * @author mitin_aa
  */
 final class FormLayoutSnapPointsProvider<C extends IControlInfo>
@@ -48,7 +48,7 @@ final class FormLayoutSnapPointsProvider<C extends IControlInfo>
   //
   // Constructor
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public FormLayoutSnapPointsProvider(IFormLayoutInfo<C> layout,
       FormLayoutVisualDataProvider<C> visualDataProvider,
       List<? extends IAbstractComponentInfo> allWidgets) {
@@ -60,7 +60,7 @@ final class FormLayoutSnapPointsProvider<C extends IControlInfo>
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // ISnapPointsProvider 
+  // ISnapPointsProvider
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

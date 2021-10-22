@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * {@link ChooseClassAndPropertiesUiContentProvider} with RCP implementation for
  * {@link #getProperties(Class)} over {@link BeanSupport#getPropertyDescriptors(Class)}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

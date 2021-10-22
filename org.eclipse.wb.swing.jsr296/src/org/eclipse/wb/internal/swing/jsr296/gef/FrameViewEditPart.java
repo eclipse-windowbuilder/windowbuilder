@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swing.jsr296.model.FrameViewInfo;
 
 /**
  * {@link EditPart} for {@link FrameViewInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.jsr296
  */

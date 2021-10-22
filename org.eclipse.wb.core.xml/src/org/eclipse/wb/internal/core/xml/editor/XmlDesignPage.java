@@ -57,7 +57,7 @@ import java.util.Map;
 
 /**
  * {@link XmlEditorPage} for XML.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.editor
  */
@@ -150,7 +150,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
    * Disposes {@link EditorContext} of current hierarchy.
    * <p>
    * It is not guarantied that hierarchy exists, may be parsing was failed.
-   * 
+   *
    * @param force
    *          is <code>true</code> if user closes editor or explicitly requests re-parsing.
    */
@@ -363,7 +363,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
 
   /**
    * Parses {@link ICompilationUnit} and displays it in GEF.
-   * 
+   *
    * @return <code>true</code> if parsing was successful.
    */
   boolean internal_refreshGEF() {
@@ -496,13 +496,13 @@ public abstract class XmlDesignPage extends XmlEditorPage {
 
   /**
    * Displays the error information on Design Pane.
-   * 
+   *
    * @param e
    *          the {@link Throwable} to display.
    * @param screenshot
    *          the {@link Image} of entire shell just before error. Can be <code>null</code> in case
    *          of parse error when no screenshot needed.
-   * 
+   *
    */
   private void showExceptionOnDesignPane(Throwable e, Image screenshot) {
     m_designerState = DesignerState.Error;

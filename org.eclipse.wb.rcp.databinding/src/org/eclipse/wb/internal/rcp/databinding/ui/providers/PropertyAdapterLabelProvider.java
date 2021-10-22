@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Implementation of {@link LabelProvider} for {@link PropertyAdapter}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

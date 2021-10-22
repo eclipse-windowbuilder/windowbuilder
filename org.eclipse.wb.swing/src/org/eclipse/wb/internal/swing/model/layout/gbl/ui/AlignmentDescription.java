@@ -14,7 +14,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
 /**
  * Description for {@link DimensionInfo} alignment.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout.ui
  */

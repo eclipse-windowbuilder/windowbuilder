@@ -47,7 +47,7 @@ import javax.swing.UIManager;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for SWING absolute (null) layout.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gef.policy
  */
@@ -129,7 +129,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
     } else {
       JComponent componentObject1 = (JComponent) swingComponentInfo1.getComponent();
       JComponent componentObject2 = (JComponent) swingComponentInfo2.getComponent();
-      return m_layoutStyleSupport.getPreferredGap(componentObject1, componentObject2, 1, // use UNRELATED for AbsoluteLayout 
+      return m_layoutStyleSupport.getPreferredGap(componentObject1, componentObject2, 1, // use UNRELATED for AbsoluteLayout
           direction,
           componentObject1.getParent());
     }
@@ -265,7 +265,7 @@ public final class AbsoluteLayoutEditPolicy extends AbsoluteBasedLayoutEditPolic
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Misc 
+  // Misc
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override

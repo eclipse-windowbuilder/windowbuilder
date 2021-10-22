@@ -27,7 +27,7 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
  * Tests for {@link FactoryApplyAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class FactoryApplyActionTest extends SwingModelTest {

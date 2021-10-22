@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link ToolEntryInfo} that adds {@link AbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.editor
  */

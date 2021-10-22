@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * {@link ExecutionFlowProvider} for RCP.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.parser
  */

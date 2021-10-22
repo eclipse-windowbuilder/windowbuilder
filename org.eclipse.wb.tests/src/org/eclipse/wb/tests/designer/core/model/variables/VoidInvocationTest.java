@@ -37,7 +37,7 @@ import javax.swing.JToolBar;
 
 /**
  * Test for {@link VoidInvocationVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class VoidInvocationTest extends AbstractVariableTest {

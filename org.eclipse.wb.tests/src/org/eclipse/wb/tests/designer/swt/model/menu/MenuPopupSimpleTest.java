@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * Tests "popup" with single "item".
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuPopupSimpleTest extends RcpGefTest {

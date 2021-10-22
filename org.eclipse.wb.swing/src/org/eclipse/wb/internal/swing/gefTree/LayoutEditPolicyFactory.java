@@ -26,7 +26,7 @@ import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for Swing.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.gefTree
  */

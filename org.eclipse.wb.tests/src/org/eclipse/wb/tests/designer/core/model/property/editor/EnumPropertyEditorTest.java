@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link EnumPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class EnumPropertyEditorTest extends SwingModelTest {

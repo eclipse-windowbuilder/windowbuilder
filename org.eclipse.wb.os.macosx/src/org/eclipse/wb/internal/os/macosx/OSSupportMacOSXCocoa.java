@@ -34,9 +34,9 @@ import java.io.InputStream;
 
 /**
  * Support for MacOSX for SWT based on Cocoa framework.
- * 
+ *
  * Generic version.
- * 
+ *
  * @author mitin_aa
  */
 public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMacOSX {
@@ -56,9 +56,9 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   @Override
   protected void makeShellVisible(Shell shell) {
     shell.setVisible(true);
-    // calling shell.setVisible() brings the window to front by calling -[NSWindow orderFront] 
-    // which causes flickering. The workaround is to send the window back immediately, 
-    // so window manager won't display it at the screen, but window views remains visible. 
+    // calling shell.setVisible() brings the window to front by calling -[NSWindow orderFront]
+    // which causes flickering. The workaround is to send the window back immediately,
+    // so window manager won't display it at the screen, but window views remains visible.
     _orderOut(getID(shell, "window"));
   }
 
@@ -225,7 +225,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Removes the window from screen by invoking -[NSWindow orderOut:].
-   * 
+   *
    * @param window
    *          the native handle of the window, <code>NSWindow*</code>.
    */
@@ -233,7 +233,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
 
   /**
    * Creates the image of the control.
-   * 
+   *
    * @param view
    *          the native handle of the view of the control, <code>NSView*</code>.
    * @param parentView
@@ -246,7 +246,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
 
   /**
    * Creates the image of the shell as NSView.
-   * 
+   *
    * @param view
    *          the native handle of the root view of the shell, <code>NSView*</code>.
    * @param context
@@ -263,7 +263,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   /**
    * Fetches the menu data: returns item bounds as plain array and the draws the menu image on the
    * given context
-   * 
+   *
    * @param menuHandle
    *          the handle of menu.
    * @param itemsSizes
@@ -278,7 +278,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
 
   /**
    * Fetches the menu bounds.
-   * 
+   *
    * @param menuHandle
    *          the handle of menu.
    * @param menuSize
@@ -300,7 +300,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   //
   // Implementations
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   public static final class Cocoa32 extends OSSupportMacOSXCocoa<Integer> {
     @Override
     protected Integer getID(Object control, String string) {
@@ -354,7 +354,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
         menuWidth = Math.max(itemWidth, menuWidth);
       }
       menuHeight += 4; // 4px menu border
-      menuWidth += 20; // space for 'cascade' image, always present 
+      menuWidth += 20; // space for 'cascade' image, always present
       // update items' width
       for (int i = 0; i < menu.getItemCount(); ++i) {
         bounds[i * 4 + 2] = menuWidth;

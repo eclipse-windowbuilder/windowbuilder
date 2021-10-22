@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 /**
  * Test for {@link GanttChart} items models.
- * 
+ *
  * @author sablin_aa
  */
 public class GanttChartTest extends AbstractNebulaTest {

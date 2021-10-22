@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Helper for adding selection actions for {@link FormLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.FormLayout.model
  */

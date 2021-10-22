@@ -22,7 +22,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Tests for {@link FormLayoutInfoImplAutomatic}.
- * 
+ *
  * @author mitin_aa
  */
 public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
@@ -548,7 +548,7 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
   //
   // Helpers
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   private FormLayoutInfoImplAutomatic<ControlInfo> getImpl(CompositeInfo shell) {
     FormLayoutInfo layout = (FormLayoutInfo) shell.getLayout();
     return (FormLayoutInfoImplAutomatic<ControlInfo>) layout.getImpl();

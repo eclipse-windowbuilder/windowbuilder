@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.beans.IMasterDetailProvider
 
 /**
  * Abstract model for observable objects <code>BeansObservables.observeXXX(...)</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

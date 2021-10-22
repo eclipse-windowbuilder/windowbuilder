@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * {@link PropertyEditor} for {@link Cursor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.property.editor
  */

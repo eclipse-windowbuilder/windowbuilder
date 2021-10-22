@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Tests for {@link MorphingTargetDescription}.
- * 
+ *
  * @author sablin_aa
  */
 public class MorphingTargetDescriptionTest extends AbstractCoreTest {
@@ -79,7 +79,7 @@ public class MorphingTargetDescriptionTest extends AbstractCoreTest {
 
   /**
    * We should clear targets on "noInhetit=true"
-   * 
+   *
    * @throws Exception
    */
   public void test_noInherit() throws Exception {

@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Tests for {@link SwtSurroundSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SurroundSupportTest extends RcpModelTest {

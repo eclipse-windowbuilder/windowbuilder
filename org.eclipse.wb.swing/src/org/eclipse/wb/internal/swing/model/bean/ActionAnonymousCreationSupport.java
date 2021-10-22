@@ -29,7 +29,7 @@ import javax.swing.Action;
 
 /**
  * Implementation of {@link CreationSupport} for {@link Action} as inner class.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

@@ -22,7 +22,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Helper for working with {@link Color}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XWT.support
  */

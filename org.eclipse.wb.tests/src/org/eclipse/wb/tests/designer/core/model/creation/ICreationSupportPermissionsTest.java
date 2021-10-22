@@ -18,7 +18,7 @@ import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Test for {@link ICreationSupportPermissions}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ICreationSupportPermissionsTest extends SwingModelTest {

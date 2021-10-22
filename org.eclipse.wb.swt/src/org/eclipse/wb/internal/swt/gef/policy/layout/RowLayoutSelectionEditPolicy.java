@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * {@link SelectionEditPolicy} for {@link RowLayoutInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.gef.policy
  */

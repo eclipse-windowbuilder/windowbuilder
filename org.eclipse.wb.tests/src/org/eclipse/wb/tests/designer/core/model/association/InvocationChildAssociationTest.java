@@ -32,7 +32,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 /**
  * Tests for {@link InvocationChildAssociation}.
- * 
+ *
  * @author scheglov_ke
  */
 public class InvocationChildAssociationTest extends SwingModelTest {

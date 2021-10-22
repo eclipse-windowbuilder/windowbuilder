@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.core.databinding.ui.property.Context;
 
 /**
  * Property for bindable properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.xwt.ui.properties
  */

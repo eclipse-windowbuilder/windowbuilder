@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * Test for {@link AbstractNamedVariableSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractNamedTest extends AbstractVariableTest {
@@ -313,34 +313,34 @@ public class AbstractNamedTest extends AbstractVariableTest {
         (AbstractNamedVariableSupport) button1.getVariableSupport();
     AbstractNamedVariableSupport variable2 =
         (AbstractNamedVariableSupport) button2.getVariableSupport();
-    // no conflict: no modifications 
+    // no conflict: no modifications
     {
       Map<AbstractNamedVariableSupport, String> variablesNames = ImmutableMap.of();
       validateVariables(true, variablesNames);
     }
-    // visible conflict: button2 -> button1 
+    // visible conflict: button2 -> button1
     {
       validateVariables(false, ImmutableMap.of(variable2, "button1"));
     }
-    // no visible conflict: button2 -> button1, button1 -> button_1 
+    // no visible conflict: button2 -> button1, button1 -> button_1
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable2, "button1", variable1, "button_1");
       validateVariables(true, variablesNames);
     }
-    // no visible conflict: button2 -> button1, button1 -> button2 
+    // no visible conflict: button2 -> button1, button1 -> button2
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable2, "button1", variable1, "button2");
       validateVariables(true, variablesNames);
     }
-    // shadow conflict: button1 -> button2 
+    // shadow conflict: button1 -> button2
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable1, "button2");
       validateVariables(false, variablesNames);
     }
-    // no shadow conflict: button1 -> button2, button2 -> button_2 
+    // no shadow conflict: button1 -> button2, button2 -> button_2
     {
       Map<AbstractNamedVariableSupport, String> variablesNames =
           ImmutableMap.of(variable1, "button2", variable2, "button_2");

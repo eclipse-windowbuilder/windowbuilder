@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * {@link EntryInfo} that allows user to drop new view on {@link PageLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.editor.palette
  */

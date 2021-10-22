@@ -21,7 +21,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 
 /**
  * Implementation of {@link PropertyEditor} for {@link org.eclipse.swt.graphics.Point}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

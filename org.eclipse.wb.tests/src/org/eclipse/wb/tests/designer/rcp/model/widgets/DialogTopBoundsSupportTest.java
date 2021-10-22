@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Dialog;
 
 /**
  * Test for {@link DialogTopBoundsSupport}.
- * 
+ *
  * @author sablin_aa
  */
 public class DialogTopBoundsSupportTest extends RcpModelTest {

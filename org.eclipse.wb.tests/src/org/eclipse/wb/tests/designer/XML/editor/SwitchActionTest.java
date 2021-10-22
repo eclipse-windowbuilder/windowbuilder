@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link SwitchAction}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SwitchActionTest extends XwtGefTest {

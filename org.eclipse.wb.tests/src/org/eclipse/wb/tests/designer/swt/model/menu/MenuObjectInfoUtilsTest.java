@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Test for {@link MenuObjectInfoUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class MenuObjectInfoUtilsTest extends DesignerTestCase {
@@ -189,7 +189,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
 
   /**
    * Test implementation of {@link IAdaptableFactory}.
-   * 
+   *
    * @author scheglov_ke
    */
   public static final class MyAdaptableFactory implements IAdaptableFactory {

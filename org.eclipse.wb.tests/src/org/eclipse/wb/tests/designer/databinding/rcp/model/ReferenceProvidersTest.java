@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class ReferenceProvidersTest extends TestCase {
   public void test_StringReferenceProvider() throws Exception {

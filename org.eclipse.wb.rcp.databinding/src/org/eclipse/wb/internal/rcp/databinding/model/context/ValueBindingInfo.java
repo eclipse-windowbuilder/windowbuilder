@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.rcp.databinding.model.context.strategies.UpdateVa
 
 /**
  * Model for <code>DataBindingContext.bindValue()</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

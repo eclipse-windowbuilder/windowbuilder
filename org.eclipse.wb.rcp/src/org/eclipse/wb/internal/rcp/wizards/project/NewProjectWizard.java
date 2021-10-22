@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.IJavaProject;
 
 /**
  * Wizard that creates new RCP project.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards
  */

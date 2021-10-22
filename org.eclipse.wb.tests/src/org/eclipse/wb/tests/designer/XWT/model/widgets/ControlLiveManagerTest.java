@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link XwtLiveManager}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ControlLiveManagerTest extends XwtModelTest {

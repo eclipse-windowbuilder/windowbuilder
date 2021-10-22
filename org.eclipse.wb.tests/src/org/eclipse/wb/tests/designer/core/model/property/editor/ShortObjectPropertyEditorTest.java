@@ -18,7 +18,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 /**
  * Test for {@link ShortObjectPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ShortObjectPropertyEditorTest extends AbstractTextPropertyEditorTest {

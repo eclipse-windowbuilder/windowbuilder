@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 /**
  * Test for {@link CoolBarInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class CoolBarGefTest extends RcpGefTest {

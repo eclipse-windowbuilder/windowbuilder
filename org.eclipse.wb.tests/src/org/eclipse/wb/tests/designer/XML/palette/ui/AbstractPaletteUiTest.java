@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for palette UI.
- * 
+ *
  * @author scheglov_ke
  */
 public class AbstractPaletteUiTest extends XwtGefTest {

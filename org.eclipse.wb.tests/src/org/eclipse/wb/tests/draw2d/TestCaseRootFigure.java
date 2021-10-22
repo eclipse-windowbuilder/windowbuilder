@@ -15,7 +15,7 @@ import org.eclipse.wb.tests.gef.TestLogger;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class TestCaseRootFigure extends RootFigure {
   private final TestLogger m_logger;

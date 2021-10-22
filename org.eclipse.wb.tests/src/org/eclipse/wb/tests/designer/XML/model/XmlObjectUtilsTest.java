@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Test for {@link XmlObjectUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class XmlObjectUtilsTest extends AbstractCoreTest {

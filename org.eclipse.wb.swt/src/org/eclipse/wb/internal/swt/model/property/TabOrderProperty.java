@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Property for editing controls tab order.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.order
  */

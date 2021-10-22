@@ -100,7 +100,7 @@ import java.util.Set;
 
 /**
  * Widgets container with type {@link ObserveType#BEANS}. Works on <code>Java Beans</code> objects.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.beans
  */

@@ -37,7 +37,7 @@ import javax.swing.JLabel;
 
 /**
  * Test for {@link ComponentInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ComponentTest extends SwingModelTest {

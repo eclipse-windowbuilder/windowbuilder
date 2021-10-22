@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * This class represent "macro" property implementation.
- * 
+ *
  * @author lobas_av
  * @coverage XWT.model.property.editor
  */

@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * The dialog for editing {@link ColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model.layout.ui
  */

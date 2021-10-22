@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Test for {@link ColumnInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridBagColumnTest extends AbstractGridBagLayoutTest {

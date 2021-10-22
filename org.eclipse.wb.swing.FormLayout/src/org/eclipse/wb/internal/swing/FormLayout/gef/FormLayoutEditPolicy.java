@@ -47,7 +47,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link FormLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.FormLayout.policy
  */
@@ -379,7 +379,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // IHeadersProvider 
+  // IHeadersProvider
   //
   ////////////////////////////////////////////////////////////////////////////
   public LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal) {

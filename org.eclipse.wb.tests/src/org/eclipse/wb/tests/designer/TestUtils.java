@@ -66,13 +66,13 @@ import java.util.zip.ZipEntry;
 
 /**
  * Some external utils for tests.
- * 
+ *
  * @author scheglov_ke
  */
 public final class TestUtils {
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Constructor 
+  // Constructor
   //
   ////////////////////////////////////////////////////////////////////////////
   private TestUtils() {
@@ -85,7 +85,7 @@ public final class TestUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Creates file with empty PNG image of given size.
-   * 
+   *
    * @param testProject
    *          the {@link TestProject} to access {@link IProject} where to create image.
    * @param path
@@ -190,7 +190,7 @@ public final class TestUtils {
 
   /**
    * Adds dynamic extension.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param contribution
@@ -203,7 +203,7 @@ public final class TestUtils {
 
   /**
    * Adds dynamic extension.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param extensionId
@@ -222,7 +222,7 @@ public final class TestUtils {
    * Adds dynamic extension.<br>
    * In contrast to {@link #addDynamicExtension(String, String)}, this method accepts full
    * contribution, that should have <code>"point", "id"</code> and other attributes.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param extensionId
@@ -264,7 +264,7 @@ public final class TestUtils {
   /**
    * Removes the test dynamic extension, added previously by
    * {@link #addDynamicExtension(String, String)}.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    */
@@ -284,7 +284,7 @@ public final class TestUtils {
   /**
    * Removes dynamic extension from registry and waits until it will be removed also from
    * {@link ExternalFactoriesHelper}.
-   * 
+   *
    * @param pointId
    *          the qualified extension point id, e.g. <code>"org.eclipse.wb.core.toolkits"</code>.
    * @param extensionId
@@ -354,7 +354,7 @@ public final class TestUtils {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * @return the path to the temporary "jar" file with single entry.
-   * 
+   *
    * @param entryName
    *          the name of entry, for example <code>"myFolder/subFolder/file.txt"</code>.
    * @param content

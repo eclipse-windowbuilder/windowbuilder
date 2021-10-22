@@ -14,7 +14,7 @@ import org.eclipse.jface.text.IDocument;
 
 /**
  * Listener for "commit" event.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model
  */

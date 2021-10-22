@@ -19,7 +19,7 @@ import org.eclipse.wb.tests.designer.XWT.gef.XwtGefTest;
 
 /**
  * Test for {@link DropTargetInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class DropTargetGefTest extends XwtGefTest {

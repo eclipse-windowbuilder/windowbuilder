@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.swt.support.PointSupport;
 
 /**
  * The {@link ExpressionConverter} for {@link org.eclipse.swt.graphics.Point}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.converter
  */

@@ -16,7 +16,7 @@ import javax.swing.JComponent;
 
 /**
  * The {@link PropertyEditor} for {@link JComponent#setAlignmentY(float)} .
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

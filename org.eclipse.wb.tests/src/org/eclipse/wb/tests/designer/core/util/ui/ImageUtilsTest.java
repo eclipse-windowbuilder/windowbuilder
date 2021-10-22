@@ -24,7 +24,7 @@ import java.io.ByteArrayInputStream;
 
 /**
  * Test for {@link ImageUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ImageUtilsTest extends DesignerTestCase {

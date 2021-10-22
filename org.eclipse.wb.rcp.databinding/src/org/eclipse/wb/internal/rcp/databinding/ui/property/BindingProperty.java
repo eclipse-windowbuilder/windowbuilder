@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.databinding.ui.providers.BindingLabelProvider
 
 /**
  * Property for single binding.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui.properties
  */

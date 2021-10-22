@@ -27,7 +27,7 @@ import javax.swing.SpringLayout;
 
 /**
  * Test for {@link SpringAttachmentInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class SpringAttachmentTest extends AbstractLayoutTest {

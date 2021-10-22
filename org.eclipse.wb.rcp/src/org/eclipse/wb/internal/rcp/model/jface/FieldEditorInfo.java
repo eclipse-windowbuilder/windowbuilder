@@ -55,7 +55,7 @@ import java.util.List;
 
 /**
  * Model for {@link FieldEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

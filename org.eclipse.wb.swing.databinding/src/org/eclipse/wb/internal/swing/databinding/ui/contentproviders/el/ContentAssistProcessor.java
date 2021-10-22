@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * {@link IContentAssistProcessor} for {@code EL} properties.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.ui
  */

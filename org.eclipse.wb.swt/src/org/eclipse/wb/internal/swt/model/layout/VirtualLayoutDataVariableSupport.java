@@ -30,13 +30,13 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * Implementation of {@link VariableSupport} for virtual {@link LayoutDataInfo}.
- * 
+ *
  * "Virtual" is state when there are no layout data at all, i.e. {@link Control#getLayoutData()}
  * returns <code>null</code>.
- * 
+ *
  * "Implicit" is state when {@link Control#getLayoutData()} returns some not <code>null</code>
  * value, but layout data was not created it this {@link CompilationUnit}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.model.layout
  */

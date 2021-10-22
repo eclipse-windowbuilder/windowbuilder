@@ -42,7 +42,7 @@ import org.apache.commons.beanutils.PropertyUtilsBean;
 
 /**
  * {@link CreationSupport} for {@link Action} created from {@link ActionFactory}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
@@ -74,7 +74,7 @@ public final class ActionFactoryCreationSupport extends CreationSupport
   /**
    * @param name
    *          then name of field from {@link ActionFactory}.
-   * 
+   *
    * @return the {@link ActionInfo} for {@link IWorkbenchAction} from {@link ActionFactory}.
    */
   public static ActionInfo createNew(JavaInfo root, String name) throws Exception {

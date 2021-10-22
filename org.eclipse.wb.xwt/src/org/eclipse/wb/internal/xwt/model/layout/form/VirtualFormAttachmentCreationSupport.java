@@ -25,7 +25,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormSide;
 
 /**
  * Special creation support for non-existent FormAttachment.
- * 
+ *
  * @author mitin_aa
  * @coverage XWT.model.layout
  */

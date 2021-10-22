@@ -40,7 +40,7 @@ import javax.swing.DefaultComboBoxModel;
 
 /**
  * {@link PropertyEditor} for {@link ComboBoxModel}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

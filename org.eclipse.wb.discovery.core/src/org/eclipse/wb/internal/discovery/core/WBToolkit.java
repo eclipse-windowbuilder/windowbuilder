@@ -66,7 +66,7 @@ public class WBToolkit {
 
   /**
    * Set the name of the toolkit.
-   * 
+   *
    * @param name
    *          the toolkit name
    */
@@ -87,7 +87,7 @@ public class WBToolkit {
 
   /**
    * Set the name of the toolkit.
-   * 
+   *
    * @param title
    *          the toolkit title
    */
@@ -104,7 +104,7 @@ public class WBToolkit {
 
   /**
    * Set the toolkit's unique ID.
-   * 
+   *
    * @param id
    *          the unique ID
    */
@@ -142,7 +142,7 @@ public class WBToolkit {
 
   /**
    * Set the toolkit's icon path.
-   * 
+   *
    * @param parentPath
    *          the parent path
    * @param iconPath
@@ -162,7 +162,7 @@ public class WBToolkit {
 
   /**
    * Set the toolkit's license description.
-   * 
+   *
    * @param licenseDescription
    *          the license description
    */
@@ -179,14 +179,14 @@ public class WBToolkit {
 
   /**
    * Set the update set URL.
-   * 
+   *
    * @param updateSite
    *          the update site
    */
   protected void setUpdateSite(String updateSite) {
     this.updateSite = updateSite;
   }
-  
+
   /**
    * @return the update site URI
    */
@@ -210,14 +210,14 @@ public class WBToolkit {
 
   /**
    * Set the update set URL.
-   * 
+   *
    * @param updateSite
    *          the update site
    */
   protected void setAuxiliaryUpdateSite(String updateSite) {
     this.auxiliaryUpdateSite = updateSite;
   }
-  
+
   /**
    * @return the update site URI
    */
@@ -231,7 +231,7 @@ public class WBToolkit {
       return null;
     }
   }
-  
+
   /**
    * @return the list of features necessary to install this toolkit
    */
@@ -241,7 +241,7 @@ public class WBToolkit {
 
   /**
    * Add a feature identifier to the toolkit.
-   * 
+   *
    * @param featureId
    *          the feature identifier
    */
@@ -260,7 +260,7 @@ public class WBToolkit {
 
   /**
    * Set the provider name for this toolkit.
-   * 
+   *
    * @param providerName
    *          the provider name
    */
@@ -291,7 +291,7 @@ public class WBToolkit {
 
   /**
    * Set the info URL.
-   * 
+   *
    * @param moreInfoURL
    *          the info URL
    */
@@ -308,7 +308,7 @@ public class WBToolkit {
 
   /**
    * Set the toolkit's description.
-   * 
+   *
    * @param description
    *          the description
    */
@@ -322,7 +322,7 @@ public class WBToolkit {
   public List<String> getOsList() {
     return Collections.unmodifiableList(osList);
   }
-  
+
   /**
    * Set the list of supported operating systems.
    * @param oses
@@ -331,7 +331,7 @@ public class WBToolkit {
     osList.clear();
     osList.addAll(Arrays.asList(oses));
   }
-  
+
   /**
    * @return whether the current operating system is supported by this toolkit
    */
@@ -339,16 +339,16 @@ public class WBToolkit {
     if (osList.size() == 0) {
       return true;
     }
-    
+
     for (String os : osList) {
       if (WBDiscoveryCorePlugin.getCurrentOS().equals(os)) {
         return true;
       }
     }
-    
+
     return false;
   }
-  
+
   /**
    * @return whether this toolkit is installed or not
    */

@@ -35,7 +35,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Tests for {@link AttributesProviders}.
- * 
+ *
  * @author scheglov_ke
  */
 public class AttributesProvidersTest extends AbstractPaletteTest {

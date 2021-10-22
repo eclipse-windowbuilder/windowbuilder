@@ -61,7 +61,7 @@ import javax.swing.AbstractAction;
 
 /**
  * {@link IParseFactory} for Swing.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.parser
  */
@@ -174,7 +174,7 @@ public class ParseFactory extends AbstractParseFactory {
     if (anonymousClassDeclaration != null) {
       typeBinding = typeBinding.getSuperclass();
     }
-    // special support for javax.swing.AbstractAction 
+    // special support for javax.swing.AbstractAction
     if (AstNodeUtils.isSuccessorOf(creation, "javax.swing.AbstractAction")) {
       // ... as named class
       {

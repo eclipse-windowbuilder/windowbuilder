@@ -36,7 +36,7 @@ import java.util.List;
  * In analyzes component {@link Class} and {@link TypeDeclaration} and tries to find field/method
  * that provide {@link IManagedForm} (so we can use method {@link IManagedForm#getToolkit()}) or
  * directly {@link FormToolkit}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

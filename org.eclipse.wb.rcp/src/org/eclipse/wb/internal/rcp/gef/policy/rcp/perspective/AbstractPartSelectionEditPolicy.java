@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * {@link SelectionEditPolicy} for {@link AbstractPartInfo}, that shows simple rectangle selection
  * around {@link EditPart} and "static" resize {@link Handle}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */

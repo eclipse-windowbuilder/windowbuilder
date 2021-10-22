@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Content provider for edit (viewer input, content and label providers)
  * {@link ViewerInputBindingInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

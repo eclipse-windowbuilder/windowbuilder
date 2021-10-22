@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Test for {@link CTabFolderInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CTabFolderTest extends XwtModelTest {

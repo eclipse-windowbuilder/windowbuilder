@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Test for {@link GridDataInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridDataTest extends RcpModelTest {

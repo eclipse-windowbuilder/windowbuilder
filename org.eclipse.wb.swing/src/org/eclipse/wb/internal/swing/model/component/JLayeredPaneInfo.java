@@ -43,7 +43,7 @@ import javax.swing.JLayeredPane;
 
 /**
  * Model for {@link JLayeredPane}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

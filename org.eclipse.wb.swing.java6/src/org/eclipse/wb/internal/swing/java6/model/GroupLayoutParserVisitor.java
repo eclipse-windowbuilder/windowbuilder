@@ -37,7 +37,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * Parser for Swing {@link GroupLayout}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

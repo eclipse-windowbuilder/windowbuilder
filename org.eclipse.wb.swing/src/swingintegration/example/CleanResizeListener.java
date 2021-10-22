@@ -2,7 +2,7 @@
  * Copyright (c) 2007 SAS Institute. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors: SAS Institute - initial API and implementation
  *******************************************************************************/
 package swingintegration.example;
@@ -21,8 +21,8 @@ class CleanResizeListener extends ControlAdapter {
   public void controlResized(ControlEvent e) {
     assert e != null;
     assert Display.getCurrent() != null; // On SWT event thread
-    // Prevent garbage from Swing lags during resize. Fill exposed areas 
-    // with background color. 
+    // Prevent garbage from Swing lags during resize. Fill exposed areas
+    // with background color.
     Composite composite = (Composite) e.widget;
     //Rectangle newRect = composite.getBounds();
     //newRect = composite.getDisplay().map(composite.getParent(), composite, newRect);

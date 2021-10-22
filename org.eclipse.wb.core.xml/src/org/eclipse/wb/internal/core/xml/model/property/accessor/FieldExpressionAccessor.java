@@ -22,7 +22,7 @@ import java.lang.reflect.Field;
 
 /**
  * {@link ExpressionAccessor} based on {@link Field}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

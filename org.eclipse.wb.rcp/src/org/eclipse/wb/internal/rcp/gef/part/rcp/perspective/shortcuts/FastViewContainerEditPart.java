@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewConta
 
 /**
  * {@link EditPart} for {@link FastViewContainerInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

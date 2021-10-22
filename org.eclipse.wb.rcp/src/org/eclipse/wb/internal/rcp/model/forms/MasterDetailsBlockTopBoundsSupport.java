@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Implementation of {@link TopBoundsSupport} for {@link MasterDetailsBlockInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.forms
  */

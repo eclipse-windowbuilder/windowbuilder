@@ -44,7 +44,7 @@ import java.util.Map;
 
 /**
  * Model for <code>org.eclipse.core.databinding.UpdateValueStrategy</code>.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.context
  */

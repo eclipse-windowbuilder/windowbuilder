@@ -26,7 +26,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * Toolkit specific utilities for eRCP/RCP.
- * 
+ *
  * @author lobas_av
  * @coverage swt.support
  */

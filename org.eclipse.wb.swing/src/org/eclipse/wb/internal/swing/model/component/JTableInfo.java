@@ -27,7 +27,7 @@ import javax.swing.JTable;
 
 /**
  * Model for {@link JTable}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.model
  */

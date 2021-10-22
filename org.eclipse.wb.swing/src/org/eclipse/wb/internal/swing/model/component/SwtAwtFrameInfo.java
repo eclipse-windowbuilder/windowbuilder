@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 /**
  * Special model for SWT_AWT frame.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model
  */
@@ -46,9 +46,9 @@ public class SwtAwtFrameInfo extends ContainerInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Refresh 
+  // Refresh
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   @Override
   protected void refresh_fetch() throws Exception {
     SwingUtils.runLaterAndWait(new RunnableEx() {

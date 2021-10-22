@@ -16,9 +16,9 @@ import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 /**
- * 
+ *
  * @author sablin_aa
- * 
+ *
  */
 public abstract class AbstractBindingTest extends SwingModelTest {
   ////////////////////////////////////////////////////////////////////////////

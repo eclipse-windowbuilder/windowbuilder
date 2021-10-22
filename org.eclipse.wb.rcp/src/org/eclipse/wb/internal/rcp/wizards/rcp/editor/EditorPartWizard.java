@@ -19,7 +19,7 @@ import org.eclipse.ui.part.EditorPart;
 
 /**
  * {@link Wizard} that creates new RCP {@link EditorPart}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

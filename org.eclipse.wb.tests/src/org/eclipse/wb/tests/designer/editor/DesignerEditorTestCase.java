@@ -58,7 +58,7 @@ import java.util.List;
 
 /**
  * {@link TestCase} for {@link DesignPage} and its usage.
- * 
+ *
  * @author scheglov_ke
  */
 public class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {

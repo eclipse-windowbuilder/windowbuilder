@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * {@link Association} which put child element into sub-element with given name.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.association
  */

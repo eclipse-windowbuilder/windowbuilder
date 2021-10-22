@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests for Swing properties.
- * 
+ *
  * @author lobas_av
  * @author scheglov_ke
  */

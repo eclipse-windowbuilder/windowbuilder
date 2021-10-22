@@ -18,7 +18,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * Spring representing gaps.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model.layout.group
  */

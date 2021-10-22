@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 
 /**
  * {@link LayoutEditPolicy} for unknown (or unsupported in tree) {@link LayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gefTree.policy
  */

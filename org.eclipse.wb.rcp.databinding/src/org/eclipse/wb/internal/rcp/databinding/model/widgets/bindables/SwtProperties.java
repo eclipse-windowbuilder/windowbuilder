@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * Properties container for <code>SWT</code> widgets and <code>JFace</code> viewers.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.model.widgets
  */

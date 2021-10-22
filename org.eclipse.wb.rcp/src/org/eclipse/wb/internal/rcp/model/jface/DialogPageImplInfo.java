@@ -25,7 +25,7 @@ import org.eclipse.jface.dialogs.DialogPage;
 
 /**
  * Model for {@link DialogPage} itself.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

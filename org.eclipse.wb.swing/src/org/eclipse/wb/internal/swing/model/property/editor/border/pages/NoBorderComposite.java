@@ -16,7 +16,7 @@ import javax.swing.border.Border;
 
 /**
  * Implementation of {@link AbstractBorderComposite} that sets <code>null</code> {@link Border}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.property.editor
  */

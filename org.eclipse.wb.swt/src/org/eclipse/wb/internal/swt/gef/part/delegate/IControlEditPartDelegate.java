@@ -18,7 +18,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * Top level {@link ControlEditPart}, i.e. for root {@link ControlInfo}, delegates some of their
  * implementation to {@link IControlEditPartDelegate}. We use it in "eRCP" to show device image
  * around the {@link ControlInfo} image.
- * 
+ *
  * @author scheglov_ke
  * @coverage swt.gef.part
  */

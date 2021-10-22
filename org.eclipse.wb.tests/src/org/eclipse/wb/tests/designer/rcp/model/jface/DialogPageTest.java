@@ -20,7 +20,7 @@ import org.eclipse.swt.layout.FillLayout;
 
 /**
  * Test for {@link DialogPageInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class DialogPageTest extends RcpModelTest {

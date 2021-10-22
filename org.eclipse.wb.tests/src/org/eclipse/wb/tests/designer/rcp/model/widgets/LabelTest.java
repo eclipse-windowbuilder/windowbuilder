@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Label;
 
 /**
  * Test for {@link Label}.
- * 
+ *
  * @author scheglov_ke
  */
 public class LabelTest extends RcpModelTest {

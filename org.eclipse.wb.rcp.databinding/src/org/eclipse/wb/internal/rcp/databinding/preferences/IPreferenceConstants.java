@@ -12,7 +12,7 @@ package org.eclipse.wb.internal.rcp.databinding.preferences;
 
 /**
  * Contains various preference constants.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.preferences
  */

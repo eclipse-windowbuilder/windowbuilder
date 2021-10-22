@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Tests for {@link FontPropertyEditor} with JFace <code>FontRegistry</code>.
- * 
+ *
  * @author lobas_av
  */
 public class FontPropertyEditorTestRegistry extends FontPropertyEditorTest {

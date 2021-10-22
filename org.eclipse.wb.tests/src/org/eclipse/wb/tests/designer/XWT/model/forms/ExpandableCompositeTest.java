@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Test for {@link ExpandableCompositeInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ExpandableCompositeTest extends XwtModelTest {

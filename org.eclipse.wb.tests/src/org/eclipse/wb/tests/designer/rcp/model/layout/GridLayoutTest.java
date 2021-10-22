@@ -29,7 +29,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 /**
  * Test for {@link GridLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class GridLayoutTest extends RcpModelTest {
@@ -162,7 +162,7 @@ public class GridLayoutTest extends RcpModelTest {
             "  }",
             "}"));
     waitForAutoBuild();
-    // parse 
+    // parse
     CompositeInfo shell =
         parseComposite(
             "class Test extends Shell {",

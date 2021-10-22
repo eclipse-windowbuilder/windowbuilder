@@ -20,7 +20,7 @@ import javax.swing.JDialog;
 
 /**
  * Model for {@link JDialog}.
- * 
+ *
  * @author mitin_aa
  * @coverage swing.model
  */

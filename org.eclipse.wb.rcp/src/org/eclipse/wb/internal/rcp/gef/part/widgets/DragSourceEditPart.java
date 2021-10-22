@@ -17,7 +17,7 @@ import org.eclipse.wb.internal.rcp.model.widgets.IDragSourceInfo;
 
 /**
  * {@link EditPart} for {@link IDragSourceInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

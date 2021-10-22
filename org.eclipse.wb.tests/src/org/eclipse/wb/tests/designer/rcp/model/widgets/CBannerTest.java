@@ -16,7 +16,7 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 /**
  * Test for {@link CBannerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CBannerTest extends RcpModelTest {

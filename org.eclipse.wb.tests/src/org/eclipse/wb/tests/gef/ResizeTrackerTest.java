@@ -20,7 +20,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * @author lobas_av
- * 
+ *
  */
 public class ResizeTrackerTest extends RequestTestCase {
   private int m_direction;
@@ -145,7 +145,7 @@ public class ResizeTrackerTest extends RequestTestCase {
       expectedLogger.log(m_editPart, new String[]{"showSourceFeedback", "getCommand"}, request);
       assertLoggers(expectedLogger, m_actualLogger);
     }
-    // end drag process of handle 
+    // end drag process of handle
     {
       m_sender.endDrag();
       //
@@ -576,7 +576,7 @@ public class ResizeTrackerTest extends RequestTestCase {
       expectedLogger.log(m_editPart, new String[]{"showSourceFeedback", "getCommand"}, request);
       assertLoggers(expectedLogger, m_actualLogger);
     }
-    // invalid click during drag process 
+    // invalid click during drag process
     {
       m_sender.click(10, 11, 3);
       //

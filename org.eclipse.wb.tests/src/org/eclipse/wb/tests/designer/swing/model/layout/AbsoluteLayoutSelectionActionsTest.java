@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 
 /**
  * Test for {@link AbsoluteLayoutInfo} selection action's.
- * 
+ *
  * @author lobas_av
  */
 public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
@@ -555,7 +555,7 @@ public class AbsoluteLayoutSelectionActionsTest extends AbstractLayoutTest {
   //
   // Vertical
   //
-  ////////////////////////////////////////////////////////////////////////////	
+  ////////////////////////////////////////////////////////////////////////////
   /**
    * One parent selection objects, order: Bottom-Up.
    */

@@ -20,7 +20,7 @@ import java.awt.FlowLayout;
 
 /**
  * Test for {@link FlowLayoutInfo} in GEF.
- * 
+ *
  * @author scheglov_ke
  */
 public class FlowLayoutGefTest extends AbstractLayoutPolicyTest {

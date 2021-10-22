@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link Version}.
- * 
+ *
  * @author sablin_aa
  */
 public class VersionTest extends DesignerTestCase {

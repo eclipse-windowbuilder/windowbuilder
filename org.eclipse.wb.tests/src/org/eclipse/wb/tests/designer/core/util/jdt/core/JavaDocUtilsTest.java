@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
  * Tests for {@link JavaDocUtils}.
- * 
+ *
  * @author scheglov_ke
  */
 public class JavaDocUtilsTest extends AbstractJavaTest {

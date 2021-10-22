@@ -33,9 +33,9 @@ import org.apache.commons.lang.ArrayUtils;
 import java.util.List;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public class BindingInfo extends AbstractBindingInfo {
   public static final String[] MODES = {"TwoWay", "OneWay", "OneTime"};
@@ -174,7 +174,7 @@ public class BindingInfo extends AbstractBindingInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   @Override
@@ -194,7 +194,7 @@ public class BindingInfo extends AbstractBindingInfo {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // 
+  //
   //
   ////////////////////////////////////////////////////////////////////////////
   public int getDefinitionOffset() {

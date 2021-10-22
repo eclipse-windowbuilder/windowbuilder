@@ -19,7 +19,7 @@ import java.awt.Color;
 
 /**
  * The {@link ExpressionConverter} for {@link Color}.
- * 
+ *
  * @author lobas_av
  * @coverage swing.property.converter
  */

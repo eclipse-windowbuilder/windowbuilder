@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Model {@link GridColumnGroup}.
- * 
+ *
  * @author sablin_aa
  * @coverage nebula.model
  */

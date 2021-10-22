@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU General Public License
  * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,
  * the "License"). You may not use this file except in compliance with the License. You can obtain a
@@ -14,12 +14,12 @@
  * License file that accompanied this code. If applicable, add the following below the License
  * Header, with the fields enclosed by brackets [] replaced by your own identifying information:
  * "Portions Copyrighted [year] [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * The Original Software is NetBeans. The Initial Developer of the Original Software is Sun
  * Microsystems, Inc. Portions Copyright 1997-2006 Sun Microsystems, Inc. All Rights Reserved.
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or only the GPL Version 2,
  * indicate your decision by adding "[Contributor] elects to include this software in this
  * distribution under the [CDDL or GPL Version 2] license." If you do not indicate a single choice
@@ -179,7 +179,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns the type of the structure of the interval. It can be a single interval or a group with
    * sub-intervals arranged either sequentially or parallelly.
-   * 
+   *
    * @return type of the interval: SINGLE, SEQUENTIAL, or PARALLEL
    */
   public int getType() {
@@ -189,7 +189,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns alignment of the interval within a parallel group. If the interval is not part of a
    * parallel group, the alignment is meaningless.
-   * 
+   *
    * @return alignment of the interval within a parallel group (LEADING, TRAILING, CENTER, or
    *         BASELINE); DEFAULT if in a sequential group
    */
@@ -202,7 +202,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns the common alignment of sub-intervals within a group (makes sense only for a parallel
    * group).
-   * 
+   *
    * @return alignment of the group (LEADING, TRAILING, CENTER, or BASELINE)
    */
   public int getGroupAlignment() {
@@ -212,7 +212,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns the minimum size of the interval. Instead of a specific size it may return also one of
    * the constants NOT_EXPLICITLY_DEFINED or USE_PREFERRED_SIZE.
-   * 
+   *
    * @param designTime
    *          if true, size for design time layout is returned (design time behavior may be
    *          different in terms of resizing)
@@ -236,7 +236,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns the preferred size of the interval. If no specific size was set, it returns
    * NOT_EXPLICITLY_DEFINED constant.
-   * 
+   *
    * @param designTime
    *          if true, size for design time layout is returned (design time behavior may be
    *          different in terms of resizing)
@@ -249,7 +249,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns the maximum size of the interval. Instead of a specific size it may return also one of
    * the constants NOT_EXPLICITLY_DEFINED or USE_PREFERRED_SIZE.
-   * 
+   *
    * @param designTime
    *          if true, size for design time layout is returned (design time behavior may be
    *          different in terms of resizing)
@@ -272,7 +272,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Returns number of sub-intervals of this interval.
-   * 
+   *
    * @return number of sub-intervals of this interval, 0 if it is not a group
    */
   public int getSubIntervalCount() {
@@ -281,7 +281,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Returns an iterator of sub-intervals.
-   * 
+   *
    * @return iterator of sub-intervals, empty if there are no sub-intervals
    */
   public Iterator<LayoutInterval> getSubIntervals() {
@@ -290,7 +290,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * If this interval represents a component's width or height, this methods returns the component.
-   * 
+   *
    * @return LayoutComponent instance representing the associated component. Null if this interval
    *         does not represent a component.
    */
@@ -309,7 +309,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Returns whether this interval defines a lyout component.
-   * 
+   *
    * @return true if this interval represents a layout component, false otherwise
    */
   public boolean isComponent() {
@@ -319,7 +319,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Returns whether this interval defines an "empty" space (gap) in the layout, not including nor
    * being able to include any component.
-   * 
+   *
    * @return true if this is a single interval not representing a component, false otherwise
    */
   public boolean isEmptySpace() {
@@ -341,7 +341,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Returns whether this interval represents a group structure that can have have sub-intervals.
-   * 
+   *
    * @return whether this interval is a group, either sequential or parallel
    */
   public boolean isGroup() {
@@ -384,7 +384,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Sets attributes of the layout interval. Should be used by persistence manager only!
-   * 
+   *
    * @param attrs
    *          attributes.
    */
@@ -515,7 +515,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Finds common parent of the given intervals.
-   * 
+   *
    * @param intervals
    *          intervals whose parent should be found.
    * @return common parent of the given intervals.
@@ -532,7 +532,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Finds common parent of two given intervals. In case one interval is parent of the other then
    * this interval is returned directly, not its parent.
-   * 
+   *
    * @param interval1
    *          interval whose parent should be found.
    * @param interval2
@@ -566,7 +566,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Calculates all parents of the given interval.
-   * 
+   *
    * @param interval
    *          interval whose parents should be found.
    * @return <code>List</code> of <code>LayoutInterval</code> objects that are parents of the given
@@ -867,7 +867,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Finds out whether given interval would resize if allowed (given more space by its parent).
-   * 
+   *
    * @return whether given interval would resize if given opportunity
    */
   static boolean wantResize(LayoutInterval interval) {
@@ -878,7 +878,7 @@ public final class LayoutInterval implements LayoutConstants {
    * Finds out whether given interval would resize if allowed (given more space by its parent). This
    * method also considers resizing of the whole layout (some parent of the interval could block the
    * resizing).
-   * 
+   *
    * @return whether given interval would resize if given opportunity
    */
   static boolean wantResizeInLayout(LayoutInterval interval) {
@@ -937,7 +937,7 @@ public final class LayoutInterval implements LayoutConstants {
    * If there are no other intervals resizing then the parent alignment is returned. If there are
    * resizing intervals on both sides, or the interval itself is resizing, then the there is no
    * (positive) effective alignment.
-   * 
+   *
    * @return LEADING, TRAILING, or DEFAULT
    */
   static int getEffectiveAlignment(LayoutInterval interval) {
@@ -980,7 +980,7 @@ public final class LayoutInterval implements LayoutConstants {
    * Computes effective alignment of given interval's edge in its direct parent. In case of a
    * sequential parent, the effective interval alignment depends on other intervals and their
    * resizability.
-   * 
+   *
    * @return effective alignment within parent, or DEFAULT in case of ambiguous alignment in
    *         sequential parent
    */
@@ -1031,7 +1031,7 @@ public final class LayoutInterval implements LayoutConstants {
 
   /**
    * Computes effective alignment of an interval's edge relatively to given parent.
-   * 
+   *
    * @return effective alignment within parent, or DEFAULT in case of ambiguous alignment in
    *         sequential parent
    */
@@ -1056,7 +1056,7 @@ public final class LayoutInterval implements LayoutConstants {
   /**
    * Creates clone of the given interval. Doesn't clone content of groups, nor it sets
    * LayoutComponent. Just the type, alignments and sizes are copied.
-   * 
+   *
    * @param interval
    *          interval to be cloned.
    * @param clone

@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * Tests for {@link PropertyEditor}'s in {@link PropertyTable}.
- * 
+ *
  * @author scheglov_ke
  */
 public class PropertyTableEditorsTest extends AbstractPropertyTableTest {

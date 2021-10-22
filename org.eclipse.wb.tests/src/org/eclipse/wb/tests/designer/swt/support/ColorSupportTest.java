@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * Test for {@link ColorSupport}.
- * 
+ *
  * @author lobas_av
  */
 public class ColorSupportTest extends AbstractSupportTest {

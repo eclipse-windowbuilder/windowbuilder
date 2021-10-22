@@ -34,7 +34,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Test for {@link StaticFieldPropertyEditor}.
- * 
+ *
  * @author scheglov_ke
  */
 public class StaticFieldPropertyEditorTest extends AbstractCoreTest {

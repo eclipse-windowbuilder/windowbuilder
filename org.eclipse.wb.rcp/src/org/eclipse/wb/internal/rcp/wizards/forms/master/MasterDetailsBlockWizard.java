@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.MasterDetailsBlock;
 
 /**
  * {@link Wizard} that creates new Forms {@link MasterDetailsBlock}.
- * 
+ *
  * @author lobas_av
  * @coverage rcp.wizards.ui
  */

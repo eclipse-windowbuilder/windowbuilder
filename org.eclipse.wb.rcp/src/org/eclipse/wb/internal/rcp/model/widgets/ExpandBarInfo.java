@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Model for {@link ExpandBar}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.widgets
  */

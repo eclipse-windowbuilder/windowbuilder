@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * Test for {@link ModelMethodPropertyChildSupport}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ModelMethodPropertyChildTest extends SwingModelTest {

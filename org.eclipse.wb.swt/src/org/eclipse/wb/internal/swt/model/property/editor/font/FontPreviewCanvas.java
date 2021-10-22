@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Listener;
 
 /**
  * Control for displaying {@link Font}.
- * 
+ *
  * @author lobas_av
  * @coverage swt.property.editor
  */

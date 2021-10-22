@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Filter for {@link BindableInfo} properties over {@link Class} type.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.rcp.ui
  */

@@ -63,7 +63,7 @@ import java.util.Set;
 /**
  * {@link PropertyEditor} for labels/constants property of {@link RadioGroupFieldEditor} or
  * {@link ComboFieldEditor}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.model.jface
  */

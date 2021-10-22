@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * Factory for accessing {@link SimpleContainer} for {@link XmlObjectInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.generic
  */

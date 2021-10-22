@@ -23,7 +23,7 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.AbstractAbsoluteLayou
 
 /**
  * Implementation of {@link LayoutEditPolicy} for {@link AbstractAbsoluteLayoutInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage swing.gefTree.policy
  */

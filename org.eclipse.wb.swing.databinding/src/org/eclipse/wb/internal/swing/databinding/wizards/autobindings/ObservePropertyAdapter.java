@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
 
 /**
  * {@link PropertyAdapter} for {@link ObserveInfo}.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.wizard.auto
  */

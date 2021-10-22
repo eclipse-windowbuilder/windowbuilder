@@ -19,7 +19,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * Initializer for eRCP absolute-based layouts preferences.
- * 
+ *
  * @author mitin_aa
  * @coverage rcp.preferences.layout
  */

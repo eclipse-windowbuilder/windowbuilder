@@ -16,7 +16,7 @@ import org.eclipse.wb.internal.rcp.model.forms.DetailsPageInfo;
 
 /**
  * {@link EditPart} for {@link DetailsPageInfo}.
- * 
+ *
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */

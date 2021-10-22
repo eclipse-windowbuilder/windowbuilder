@@ -15,7 +15,7 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 /**
  * Extension for {@link PropertyEditor} that can be used to convert {@link Object} value into XML
  * attribute.
- * 
+ *
  * @author scheglov_ke
  * @coverage XML.model.property
  */

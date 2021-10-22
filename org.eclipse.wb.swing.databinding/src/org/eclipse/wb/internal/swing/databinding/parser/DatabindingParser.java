@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Swing beans bindings API parser.
- * 
+ *
  * @author lobas_av
  * @coverage bindings.swing.parser
  */

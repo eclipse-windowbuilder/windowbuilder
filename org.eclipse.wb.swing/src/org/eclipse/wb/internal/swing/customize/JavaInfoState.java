@@ -27,7 +27,7 @@ import java.util.TreeSet;
 
 /**
  * Utils for support customizing (API&Beans).
- * 
+ *
  * @author sablin_aa
  * @coverage swing.customize
  */

@@ -36,9 +36,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ *
  * @author lobas_av
- * 
+ *
  */
 public final class BeansObserveTypeContainer extends ObserveTypeContainer {
   public static final String NAMESPACE_KEY = "xmlns:";

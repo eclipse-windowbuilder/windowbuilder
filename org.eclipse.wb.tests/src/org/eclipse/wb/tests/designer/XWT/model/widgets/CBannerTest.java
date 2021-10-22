@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Test for {@link CBannerInfo}.
- * 
+ *
  * @author scheglov_ke
  */
 public class CBannerTest extends XwtModelTest {

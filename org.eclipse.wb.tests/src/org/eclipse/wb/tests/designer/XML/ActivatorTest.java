@@ -26,7 +26,7 @@ import java.io.InputStream;
 
 /**
  * Test for {@link Activator}.
- * 
+ *
  * @author scheglov_ke
  */
 public class ActivatorTest extends DesignerTestCase {
