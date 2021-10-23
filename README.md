@@ -10,6 +10,8 @@ properties of controls using a property editor, internationalize your app and mu
 
 ### Contributing is easy. 
 
+[How to contribute to the Eclipse Windowbuilder Project Video (YouTube)](https://www.youtube.com/watch?v=thoBjUGdFjs)
+
 #### 1. Sign the Eclipse Contributor Agreement:
 
 * [Open the registration site](http://www.eclipse.org/contribute/cla) (you have to create an account with the Eclipse Foundation if you have not already done so)
