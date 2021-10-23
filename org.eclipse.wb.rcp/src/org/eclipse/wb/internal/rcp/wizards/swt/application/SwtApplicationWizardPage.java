@@ -95,7 +95,7 @@ public final class SwtApplicationWizardPage extends RcpWizardPage {
     GridDataFactory.create(methodsComposite).fillH().spanH(columns);
     //
     Label label = new Label(methodsComposite, SWT.NONE);
-    label.setText(WizardsMessages.SwtApplicationWizardPage_createContentsIn);
+    label.setText("Hello World");
     //
     m_createContentsButton = new Button(methodsComposite, SWT.RADIO);
     m_createContentsButton.setText("protected " + getCreateMethod("createContents") + "() method");
