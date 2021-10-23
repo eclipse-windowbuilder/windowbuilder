@@ -1,4 +1,4 @@
-# Welcome to Eclipse WindowBuilder [![Create Eclipse Development Environment for Window Builder]
+# Welcome to Eclipse WindowBuilder
 
 ### WindowBuilder - is a powerful and easy to use bi-directional Java GUI designer for SWT and Swing
 WindowBuilder is composed of SWT Designer and Swing Designer and makes it very easy to create
