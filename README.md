@@ -1,5 +1,4 @@
-# Welcome to Eclipse WindowBuilder [![Create Eclipse Development Environment for Window Builder](https://download.eclipse.org/oomph/www/setups/svg/Window_Builder.svg)](https://www.eclipse.org/setups/installer/?url=https://raw.githubusercontent.com/eclipse/windowbuilder/master/setups/WindowBuilderConfiguration.setup&show=true "Click to open Eclipse-Installer Auto Launch or drag into your running installer")
-[Website](https://www.eclipse.org/windowbuilder/)  ---  [Documentation](https://help.eclipse.org/2019-12/index.jsp?topic=%2Forg.eclipse.wb.doc.user%2Fhtml%2Findex.html&cp%3D94)  ---  [Download](https://www.eclipse.org/windowbuilder/download.php)  
+# Welcome to Eclipse WindowBuilder [![Create Eclipse Development Environment for Window Builder]
 
 ### WindowBuilder - is a powerful and easy to use bi-directional Java GUI designer for SWT and Swing
 WindowBuilder is composed of SWT Designer and Swing Designer and makes it very easy to create
