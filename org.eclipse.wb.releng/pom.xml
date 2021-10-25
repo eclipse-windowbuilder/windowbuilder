@@ -58,19 +58,6 @@
              </executions>
            </plugin>
            <plugin>
-             <groupId>org.eclipse.tycho.extras</groupId>
-             <artifactId>tycho-pack200b-plugin</artifactId>
-             <executions>
-               <execution>
-                 <id>pack200-pack</id>
-                 <goals>
-                   <goal>pack</goal>
-                 </goals>
-                 <phase>package</phase>
-               </execution>
-             </executions>
-           </plugin>
-           <plugin>
              <groupId>org.eclipse.tycho</groupId>
              <artifactId>tycho-p2-plugin</artifactId>
              <executions>
