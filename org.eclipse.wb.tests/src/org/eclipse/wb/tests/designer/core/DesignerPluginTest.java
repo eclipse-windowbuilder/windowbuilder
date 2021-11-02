@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 /**
  * Test for {@link DesignerPlugin}.
@@ -33,7 +34,6 @@ public class DesignerPluginTest extends DesignerTestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    DesignerPlugin.installSecurityManager();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -110,6 +110,6 @@ public class DesignerPluginTest extends DesignerTestCase {
    */
   public void test_preventExit_JFrame() {
     JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }
 }
