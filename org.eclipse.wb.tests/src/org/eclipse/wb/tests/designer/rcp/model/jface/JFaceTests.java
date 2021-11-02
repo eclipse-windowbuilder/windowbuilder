@@ -24,7 +24,6 @@ public class JFaceTests extends DesignerSuiteTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("org.eclipse.wb.rcp.model.jface");
     suite.addTest(createSingleSuite(TableViewerTest.class));
-    suite.addTest(createSingleSuite(TableTreeViewerTest.class));
     suite.addTest(createSingleSuite(TableViewerColumnTest.class));
     suite.addTest(createSingleSuite(TreeViewerColumnTest.class));
     suite.addTest(createSingleSuite(ComboViewerTest.class));
