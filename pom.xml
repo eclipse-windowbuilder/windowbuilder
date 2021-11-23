@@ -74,9 +74,8 @@
 	<module>org.eclipse.wb.swing.MigLayout.lib</module>
 	<module>org.eclipse.wb.swt</module>
 	<module>org.eclipse.wb.swt.widgets.baseline</module>
-<!--
+
 	<module>org.eclipse.wb.tests</module>
--->
 	<module>org.eclipse.wb.xwt</module>
 	
 	

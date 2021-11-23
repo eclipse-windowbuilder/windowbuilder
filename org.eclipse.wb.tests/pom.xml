@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2021, vogella GmbH
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Distribution License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/org/documents/edl-v10.php
+ 
+  Contributors:
+     Lars Vogel - initial implementation
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.eclipse.wb</groupId>
+    <artifactId>org.eclipse.wb.root</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <groupId>org.eclipse.wb</groupId>
+  <artifactId>org.eclipse.wb.tests</artifactId>
+  <version>1.2.0-SNAPSHOT</version>
+  <packaging>eclipse-test-plugin</packaging>
+
+
+  <properties>	
+    <skipTests>true</skipTests>
+  </properties>
+  
+ <!-- 
+  <properties>
+    <defaultSigning-excludeInnerJars>true</defaultSigning-excludeInnerJars>
+    <code.ignoredWarnings>${tests.ignoredWarnings}</code.ignoredWarnings>
+    <testSuite>${project.artifactId}</testSuite>
+    <testClass>org.eclipse.osgi.tests.AutomatedTests</testClass>
+    <skipAPIAnalysis>true</skipAPIAnalysis>
+  </properties>
+
+ <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-surefire-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <argLine>-Xmx128m</argLine>
+          <dependencies>
+            <dependency>
+              <type>p2-installable-unit</type>
+              <artifactId>org.eclipse.equinox.event</artifactId>
+            </dependency>
+          </dependencies>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <dependency-resolution>
+            <extraRequirements>
+              <requirement>
+                <id>org.eclipse.osgi.compatibility.state</id>
+                <type>p2-installable-unit</type>
+                <versionRange>0.0.0</versionRange>
+              </requirement>
+              <requirement>
+                <id>org.eclipse.jdt.junit.runtime</id>
+                <type>p2-installable-unit</type>
+                <versionRange>0.0.0</versionRange>
+              </requirement>
+              <requirement>
+                <id>org.eclipse.jdt.junit4.runtime</id>
+                <type>p2-installable-unit</type>
+                <versionRange>0.0.0</versionRange>
+              </requirement>
+              <requirement>
+                <id>org.eclipse.pde.junit.runtime</id>
+                <type>p2-installable-unit</type>
+                <versionRange>0.0.0</versionRange>
+              </requirement>
+              <requirement>
+                <id>org.junit.jupiter.api</id>
+                <type>p2-installable-unit</type>
+                <versionRange>0.0.0</versionRange>
+              </requirement>
+            </extraRequirements>
+          </dependency-resolution>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build> -->
+
+</project>
