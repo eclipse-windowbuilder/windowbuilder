@@ -88,22 +88,6 @@ public class DesignerPluginTest extends DesignerTestCase {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Exit
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  /**
-   * We should prevent {@link System#exit(int)} execution from within user-loaded code.
-   */
-  public void test_preventExit_execution() {
-    try {
-      System.exit(0);
-      fail();
-    } catch (SecurityException e) {
-    }
-  }
-
   /**
    * However we should allow {@link JFrame#setDefaultCloseOperation(int)} with
    * {@link JFrame#EXIT_ON_CLOSE}.
