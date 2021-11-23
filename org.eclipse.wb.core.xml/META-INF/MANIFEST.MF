@@ -18,7 +18,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.sse.ui;visibility:=reexport,
  org.eclipse.wst.xml.ui;visibility:=reexport
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.wb.internal.core.xml,
  org.eclipse.wb.internal.core.xml.editor,
  org.eclipse.wb.internal.core.xml.editor.actions,
@@ -47,3 +46,4 @@ Export-Package: org.eclipse.wb.internal.core.xml,
  org.eclipse.wb.internal.core.xml.model.property.event,
  org.eclipse.wb.internal.core.xml.model.utils
 Automatic-Module-Name: org.eclipse.wb.core.xml
+Bundle-RequiredExecutionEnvironment: JavaSE-11

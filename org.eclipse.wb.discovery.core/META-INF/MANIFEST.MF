@@ -13,6 +13,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.p2.metadata,
  org.eclipse.equinox.p2.engine
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.wb.internal.discovery.core
 Automatic-Module-Name: org.eclipse.wb.discovery.core
