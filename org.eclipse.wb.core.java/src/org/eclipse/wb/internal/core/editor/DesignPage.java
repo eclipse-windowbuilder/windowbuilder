@@ -184,7 +184,6 @@ public final class DesignPage implements IDesignPage {
         handleDesignException(exception);
       }
     };
-    compositeManager.includeWindowbuilderToolbar(true);
     m_designComposite = new JavaDesignComposite(m_pageBook,
         SWT.NONE,
         m_designerEditor,
