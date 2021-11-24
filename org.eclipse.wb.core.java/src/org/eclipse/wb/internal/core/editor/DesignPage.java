@@ -82,7 +82,7 @@ public final class DesignPage implements IDesignPage {
   private boolean m_active;
   private UndoManager m_undoManager;
   private DesignerState m_designerState = DesignerState.Undefined;
-  private DesignCompositeManager compositeManager = new DesignCompositeManager();
+  private final DesignCompositeManager compositeManager = new DesignCompositeManager();
   ////////////////////////////////////////////////////////////////////////////
   //
   // Initialization
@@ -652,7 +652,7 @@ public final class DesignPage implements IDesignPage {
     showExceptionOnDesignPane(e, screenshot);
   }
 
-  public void setDesignCompositeManager(DesignCompositeManager composite_manger) {
-    compositeManager = composite_manger;
+  public void setDesignCompositeManager(boolean composite_manger) {
+    compositeManager.includeWindowbuilderToolbar(composite_manger);
   }
 }
