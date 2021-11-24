@@ -19,7 +19,7 @@
 package org.eclipse.wb.internal.core.editor;
 
 public class DesignCompositeManager {
-  private boolean includeWBToolbar = true;
+  private boolean includeWBToolbar = false;
 
   public DesignCompositeManager() {
   }
