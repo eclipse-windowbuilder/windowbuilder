@@ -179,50 +179,6 @@ public class ContentDescriberTest extends AbstractJavaTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // GWT
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void test_GWT() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  // com.google.gwt.user.client.ui.Button",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
-
-  public void test_GWTExt() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  // com.gwtext.client.widgets.Panel",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
-
-  public void test_ExtGWT() throws Exception {
-    IFile file =
-        setFileContentSrc(
-            "test/Test.java",
-            getSourceDQ(
-                "package test;",
-                "public class Test {",
-                "  // com.extjs.gxt.ui.client.widget.Button",
-                "}"));
-    waitForContentType();
-    assertTrue(isDesignerType(file));
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
   // Utils
   //
   ////////////////////////////////////////////////////////////////////////////

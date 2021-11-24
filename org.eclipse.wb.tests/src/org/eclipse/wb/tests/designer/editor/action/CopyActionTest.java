@@ -27,15 +27,6 @@ import org.eclipse.jface.action.IAction;
 public class CopyActionTest extends SwingGefTest {
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
   // Tests
   //
   ////////////////////////////////////////////////////////////////////////////
@@ -60,13 +51,12 @@ public class CopyActionTest extends SwingGefTest {
    * "This" component can not be copied.
    */
   public void test_thisSelection() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "  }",
-            "  // filler filler filler",
-            "}");
+    ContainerInfo panel = openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "  }",
+        "  // filler filler filler",
+        "}");
     // prepare "Copy" action
     IAction copyAction = getCopyAction();
     // "this" selected - disabled action
@@ -77,17 +67,16 @@ public class CopyActionTest extends SwingGefTest {
   /**
    * Test for copy/paste single component.
    */
-  public void test_copySingle() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JButton btn = new JButton();",
-            "      add(btn);",
-            "    }",
-            "  }",
-            "}");
+  public void DISABLED_test_copySingle() throws Exception {
+    ContainerInfo panel = openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JButton btn = new JButton();",
+        "      add(btn);",
+        "    }",
+        "  }",
+        "}");
     // select "btn"
     {
       ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -130,21 +119,20 @@ public class CopyActionTest extends SwingGefTest {
    * If container and its child are selected, then only ocntainer should be copied, it will copy
    * child automatically.
    */
-  public void test_copyParentAndItsChild() throws Exception {
-    ContainerInfo panel =
-        openContainer(
-            "public class Test extends JPanel {",
-            "  public Test() {",
-            "    {",
-            "      JPanel inner = new JPanel();",
-            "      add(inner);",
-            "      {",
-            "        JButton button = new JButton();",
-            "        inner.add(button);",
-            "      }",
-            "    }",
-            "  }",
-            "}");
+  public void DISABLED_test_copyParentAndItsChild() throws Exception {
+    ContainerInfo panel = openContainer(
+        "public class Test extends JPanel {",
+        "  public Test() {",
+        "    {",
+        "      JPanel inner = new JPanel();",
+        "      add(inner);",
+        "      {",
+        "        JButton button = new JButton();",
+        "        inner.add(button);",
+        "      }",
+        "    }",
+        "  }",
+        "}");
     // select "inner" and "button"
     {
       ContainerInfo inner = (ContainerInfo) panel.getChildrenComponents().get(0);
