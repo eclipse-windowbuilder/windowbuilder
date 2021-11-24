@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2021 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - hiding/showing WB toolbar by means of DesignCompositeManager
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
@@ -51,6 +52,7 @@ public abstract class DesignComposite extends Composite {
   protected ToolBar m_toolBar;
   protected ViewersComposite m_viewersComposite;
   protected GraphicalViewer m_viewer;
+  protected DesignCompositeManager m_composite_manager;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -64,6 +66,24 @@ public abstract class DesignComposite extends Composite {
     super(parent, style);
     m_editorPart = editorPart;
     m_exceptionHandler = exceptionHandler;
+    m_composite_manager = new DesignCompositeManager();
+    // create GUI
+    setLayout(new FillLayout());
+    createMainComposite();
+    // fill toolbar
+    createDesignActions();
+    createDesignToolbarHelper();
+  }
+
+  public DesignComposite(Composite parent,
+      int style,
+      IEditorPart editorPart,
+      ICommandExceptionHandler exceptionHandler,
+      DesignCompositeManager compositeManager) {
+    super(parent, style);
+    m_editorPart = editorPart;
+    m_exceptionHandler = exceptionHandler;
+    m_composite_manager = compositeManager;
     // create GUI
     setLayout(new FillLayout());
     createMainComposite();
@@ -100,13 +120,21 @@ public abstract class DesignComposite extends Composite {
     // toolbar
     {
       m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);
-      GridDataFactory.create(m_toolBar).grabH().fill();
+      //Exclude from GridData when separator is hidden
+      //if includeWindowBuilderToolbar is true the exclude method should get 'false' as parameter
+      GridDataFactory.create(m_toolBar).grabH().fill().exclude(
+          !m_composite_manager.includeWindowbuilderToolbar());
+      m_toolBar.setVisible(m_composite_manager.includeWindowbuilderToolbar());
     }
     // separator to highlight toolbar
     {
       LineControl separator = new LineControl(editorComposite, SWT.HORIZONTAL);
       separator.setBackground(IColorConstants.buttonDarker);
-      GridDataFactory.create(separator).grabH().fill();
+      //Exclude from GridData when separator is hidden
+      //Separator should be hidden when toolbar is hidden.
+      GridDataFactory.create(separator).grabH().fill().exclude(
+          !m_composite_manager.includeWindowbuilderToolbar());
+      separator.setVisible(m_composite_manager.includeWindowbuilderToolbar());
     }
     // create gefComposite - palette and design canvas (viewer)
     createGEFComposite(editorComposite);
@@ -115,7 +143,10 @@ public abstract class DesignComposite extends Composite {
   protected void createGEFComposite(Composite parent) {
     PluginFlyoutPreferences preferences =
         new PluginFlyoutPreferences(DesignerPlugin.getPreferences(), "design.palette");
-    preferences.initializeDefaults(IFlyoutPreferences.DOCK_WEST, IFlyoutPreferences.STATE_OPEN, 210);
+    preferences.initializeDefaults(
+        IFlyoutPreferences.DOCK_WEST,
+        IFlyoutPreferences.STATE_OPEN,
+        210);
     FlyoutControlComposite gefComposite = new FlyoutControlComposite(parent, SWT.NONE, preferences);
     GridDataFactory.create(gefComposite).grab().fill();
     gefComposite.setTitleText("Palette");
@@ -233,16 +264,19 @@ public abstract class DesignComposite extends Composite {
     // IExtractableControl
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Control getControl() {
       return m_control;
     }
 
+    @Override
     public void extract(Composite newParent) {
       m_control.setParent(newParent);
       doLayout(m_oldParent);
       newParent.layout();
     }
 
+    @Override
     public void restore() {
       m_control.setParent(m_oldParent);
       m_control.setVisible(true);
@@ -276,4 +310,8 @@ public abstract class DesignComposite extends Composite {
    * @return the {@link IExtractableControl} for accessing "Structure" {@link Control}.
    */
   public abstract IExtractableControl getExtractablePalette();
+
+  public DesignCompositeManager getDesignCompositeManager() {
+    return m_composite_manager;
+  }
 }

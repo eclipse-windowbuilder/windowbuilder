@@ -82,6 +82,7 @@ public final class DesignPage implements IDesignPage {
   private boolean m_active;
   private UndoManager m_undoManager;
   private DesignerState m_designerState = DesignerState.Undefined;
+  private DesignCompositeManager compositeManager = new DesignCompositeManager();
   ////////////////////////////////////////////////////////////////////////////
   //
   // Initialization
@@ -154,6 +155,7 @@ public final class DesignPage implements IDesignPage {
   public Image getImage() {
     return DesignerPlugin.getImage("editor_design_page.png");
   }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Control
@@ -182,8 +184,12 @@ public final class DesignPage implements IDesignPage {
         handleDesignException(exception);
       }
     };
-    m_designComposite =
-        new JavaDesignComposite(m_pageBook, SWT.NONE, m_designerEditor, exceptionHandler);
+    compositeManager.includeWindowbuilderToolbar(true);
+    m_designComposite = new JavaDesignComposite(m_pageBook,
+        SWT.NONE,
+        m_designerEditor,
+        exceptionHandler,
+        compositeManager);
     // show "design" initially
     m_pageBook.showPage(m_designComposite);
   }
@@ -437,8 +443,8 @@ public final class DesignPage implements IDesignPage {
   private void internal_refreshGEF_withProgress() throws Exception {
     final Display display = Display.getCurrent();
     IRunnableWithProgress runnable = new IRunnableWithProgress() {
-      public void run(final IProgressMonitor monitor) throws InvocationTargetException,
-          InterruptedException {
+      public void run(final IProgressMonitor monitor)
+          throws InvocationTargetException, InterruptedException {
         monitor.beginTask("Opening Design page.", 7);
         //
         try {
@@ -644,5 +650,9 @@ public final class DesignPage implements IDesignPage {
       e.printStackTrace();
     }
     showExceptionOnDesignPane(e, screenshot);
+  }
+
+  public void setDesignCompositeManager(DesignCompositeManager composite_manger) {
+    compositeManager = composite_manger;
   }
 }
