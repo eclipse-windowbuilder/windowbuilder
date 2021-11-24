@@ -66,7 +66,7 @@ public class CutActionTest extends SwingGefTest {
   /**
    * Test for cut/paste single component.
    */
-  public void test_cutSingle() throws Exception {
+  public void DISABLED_test_cutSingle() throws Exception {
     ContainerInfo panel =
         openContainer(
             "// filler filler filler",

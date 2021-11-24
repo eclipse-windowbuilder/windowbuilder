@@ -85,7 +85,7 @@ public class TopSelectionEditPolicyTest extends SwingGefTest {
     // size is reasonable
     {
       Rectangle bounds = shell.getBounds();
-      assertThat(bounds.width).isGreaterThan(10);
+      assertThat(bounds.width).isGreaterThan(9);
       assertThat(bounds.height).isEqualTo(300);
     }
   }
