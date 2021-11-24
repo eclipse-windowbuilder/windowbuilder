@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2021 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - hiding/showing WB toolbar by means of a preference
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
@@ -31,12 +32,15 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IEditorPart;
+
+import org.osgi.service.prefs.Preferences;
 
 /**
  * {@link Composite} with GUI for visual design, i.e. properties table, palette, GEF.
@@ -97,16 +101,24 @@ public abstract class DesignComposite extends Composite {
   private void createEditorComposite(Composite parent) {
     Composite editorComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
+    Preferences preferences = InstanceScope.INSTANCE.getNode("org.eclipse.wb.toolbar");
+    boolean includeWBToolbar = preferences.getBoolean("includeWBToolbar", true);
     // toolbar
     {
       m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);
-      GridDataFactory.create(m_toolBar).grabH().fill();
+      //Exclude from GridData when separator is hidden
+      //if includeWindowBuilderToolbar is true the exclude method should get 'false' as parameter
+      GridDataFactory.create(m_toolBar).grabH().fill().exclude(!includeWBToolbar);
+      m_toolBar.setVisible(includeWBToolbar);
     }
     // separator to highlight toolbar
     {
       LineControl separator = new LineControl(editorComposite, SWT.HORIZONTAL);
       separator.setBackground(IColorConstants.buttonDarker);
-      GridDataFactory.create(separator).grabH().fill();
+      //Exclude from GridData when separator is hidden
+      //Separator should be hidden when toolbar is hidden.
+      GridDataFactory.create(separator).grabH().fill().exclude(!includeWBToolbar);
+      separator.setVisible(includeWBToolbar);
     }
     // create gefComposite - palette and design canvas (viewer)
     createGEFComposite(editorComposite);
@@ -115,7 +127,10 @@ public abstract class DesignComposite extends Composite {
   protected void createGEFComposite(Composite parent) {
     PluginFlyoutPreferences preferences =
         new PluginFlyoutPreferences(DesignerPlugin.getPreferences(), "design.palette");
-    preferences.initializeDefaults(IFlyoutPreferences.DOCK_WEST, IFlyoutPreferences.STATE_OPEN, 210);
+    preferences.initializeDefaults(
+        IFlyoutPreferences.DOCK_WEST,
+        IFlyoutPreferences.STATE_OPEN,
+        210);
     FlyoutControlComposite gefComposite = new FlyoutControlComposite(parent, SWT.NONE, preferences);
     GridDataFactory.create(gefComposite).grab().fill();
     gefComposite.setTitleText("Palette");
@@ -233,16 +248,19 @@ public abstract class DesignComposite extends Composite {
     // IExtractableControl
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Control getControl() {
       return m_control;
     }
 
+    @Override
     public void extract(Composite newParent) {
       m_control.setParent(newParent);
       doLayout(m_oldParent);
       newParent.layout();
     }
 
+    @Override
     public void restore() {
       m_control.setParent(m_oldParent);
       m_control.setVisible(true);
