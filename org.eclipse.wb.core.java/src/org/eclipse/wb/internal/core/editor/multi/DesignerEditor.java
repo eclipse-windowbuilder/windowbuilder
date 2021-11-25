@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2021 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Constructor with DesignCompositeManager parameter added
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
@@ -62,7 +63,6 @@ public final class DesignerEditor extends CompilationUnitEditor
   private boolean m_firstActivation = true;
   private Composite m_rootControl;
   private VisitedLinesHighlighter m_linesHighlighter;
-  private DesignCompositeManager m_designCompositeManager;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -78,6 +78,11 @@ public final class DesignerEditor extends CompilationUnitEditor
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Constructor
+  //
+  ////////////////////////////////////////////////////////////////////////////
   public DesignerEditor(DesignCompositeManager m_designCompositeManager) {
     DesignerPlugin.configurePreEditor();
     if (isPagesMode()) {
