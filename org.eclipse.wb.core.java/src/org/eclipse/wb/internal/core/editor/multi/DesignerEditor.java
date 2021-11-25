@@ -17,6 +17,7 @@ import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.editor.IMultiMode;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignComposite;
+import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -61,6 +62,7 @@ public final class DesignerEditor extends CompilationUnitEditor
   private boolean m_firstActivation = true;
   private Composite m_rootControl;
   private VisitedLinesHighlighter m_linesHighlighter;
+  private DesignCompositeManager m_designCompositeManager;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -73,6 +75,15 @@ public final class DesignerEditor extends CompilationUnitEditor
       m_multiMode = new MultiPagesMode(this);
     } else {
       m_multiMode = new MultiSplitMode(this);
+    }
+  }
+
+  public DesignerEditor(DesignCompositeManager m_designCompositeManager) {
+    DesignerPlugin.configurePreEditor();
+    if (isPagesMode()) {
+      m_multiMode = new MultiPagesMode(this, m_designCompositeManager);
+    } else {
+      m_multiMode = new MultiSplitMode(this, m_designCompositeManager);
     }
   }
 
@@ -93,7 +104,7 @@ public final class DesignerEditor extends CompilationUnitEditor
    * Activates context of our Java editor.
    */
   private void activateEditorContext() {
-    IContextService contextService = (IContextService) getSite().getService(IContextService.class);
+    IContextService contextService = getSite().getService(IContextService.class);
     if (contextService != null) {
       contextService.activateContext(CONTEXT_ID);
     }

@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.core.editor.IEditorPageFactory;
 import org.eclipse.wb.core.editor.IMultiMode;
+import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
@@ -44,6 +45,12 @@ public abstract class MultiMode implements IMultiMode {
     m_editor = editor;
     m_sourcePage = new SourcePage(m_editor);
     m_designPage = new DesignPage();
+  }
+
+  public MultiMode(DesignerEditor editor, DesignCompositeManager designCompositeManager) {
+    m_editor = editor;
+    m_sourcePage = new SourcePage(m_editor);
+    m_designPage = new DesignPage(designCompositeManager);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -102,11 +109,10 @@ public abstract class MultiMode implements IMultiMode {
     m_sourcePage.initialize(m_editor);
     m_designPage.initialize(m_editor);
     // create additional pages
-    List<IEditorPageFactory> factories =
-        ExternalFactoriesHelper.getElementsInstances(
-            IEditorPageFactory.class,
-            "org.eclipse.wb.core.designPageFactories",
-            "factory");
+    List<IEditorPageFactory> factories = ExternalFactoriesHelper.getElementsInstances(
+        IEditorPageFactory.class,
+        "org.eclipse.wb.core.designPageFactories",
+        "factory");
     for (IEditorPageFactory factory : factories) {
       factory.createPages(m_editor, m_additionalPages);
     }

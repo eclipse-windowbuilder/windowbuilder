@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.editor.multi;
 
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 
 import org.eclipse.swt.widgets.Composite;
@@ -31,6 +32,10 @@ final class MultiPagesMode extends DefaultMultiMode {
   ////////////////////////////////////////////////////////////////////////////
   public MultiPagesMode(DesignerEditor editor) {
     super(editor);
+  }
+
+  public MultiPagesMode(DesignerEditor editor, DesignCompositeManager m_designCompositeManager) {
+    super(editor, m_designCompositeManager);
   }
 
   ////////////////////////////////////////////////////////////////////////////

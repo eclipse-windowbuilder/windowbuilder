@@ -82,7 +82,15 @@ public final class DesignPage implements IDesignPage {
   private boolean m_active;
   private UndoManager m_undoManager;
   private DesignerState m_designerState = DesignerState.Undefined;
-  private final DesignCompositeManager compositeManager = new DesignCompositeManager();
+  private DesignCompositeManager compositeManager = new DesignCompositeManager();
+
+  public DesignPage(DesignCompositeManager designCompositeManager) {
+    compositeManager = designCompositeManager;
+  }
+
+  public DesignPage() {
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   //
   // Initialization

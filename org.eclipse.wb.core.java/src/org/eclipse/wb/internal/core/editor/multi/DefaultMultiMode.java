@@ -11,6 +11,7 @@
 package org.eclipse.wb.internal.core.editor.multi;
 
 import org.eclipse.wb.core.editor.IEditorPage;
+import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -44,6 +45,10 @@ abstract class DefaultMultiMode extends MultiMode {
   ////////////////////////////////////////////////////////////////////////////
   public DefaultMultiMode(DesignerEditor editor) {
     super(editor);
+  }
+
+  public DefaultMultiMode(DesignerEditor editor, DesignCompositeManager m_designCompositeManager) {
+    super(editor, m_designCompositeManager);
   }
 
   ////////////////////////////////////////////////////////////////////////////
