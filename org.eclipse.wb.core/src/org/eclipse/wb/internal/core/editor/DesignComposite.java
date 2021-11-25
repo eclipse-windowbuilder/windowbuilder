@@ -123,8 +123,8 @@ public abstract class DesignComposite extends Composite {
       //Exclude from GridData when separator is hidden
       //if includeWindowBuilderToolbar is true the exclude method should get 'false' as parameter
       GridDataFactory.create(m_toolBar).grabH().fill().exclude(
-          !m_composite_manager.includeWindowbuilderToolbar());
-      m_toolBar.setVisible(m_composite_manager.includeWindowbuilderToolbar());
+          !m_composite_manager.getIncludeWindowBuilderToolbar());
+      m_toolBar.setVisible(m_composite_manager.getIncludeWindowBuilderToolbar());
     }
     // separator to highlight toolbar
     {
@@ -133,8 +133,8 @@ public abstract class DesignComposite extends Composite {
       //Exclude from GridData when separator is hidden
       //Separator should be hidden when toolbar is hidden.
       GridDataFactory.create(separator).grabH().fill().exclude(
-          !m_composite_manager.includeWindowbuilderToolbar());
-      separator.setVisible(m_composite_manager.includeWindowbuilderToolbar());
+          !m_composite_manager.getIncludeWindowBuilderToolbar());
+      separator.setVisible(m_composite_manager.getIncludeWindowBuilderToolbar());
     }
     // create gefComposite - palette and design canvas (viewer)
     createGEFComposite(editorComposite);
