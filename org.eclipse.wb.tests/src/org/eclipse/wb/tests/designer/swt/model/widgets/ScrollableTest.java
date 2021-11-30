@@ -70,7 +70,11 @@ public class ScrollableTest extends RcpModelTest {
             new IntValue("flanker-desktop", 31),
             new IntValue("flanker-windows", 30),
             new IntValue("scheglov-win", 30)});
-    assertEquals(new Rectangle(0, 0, 450 - shellBorder - shellBorder, 300
+    assertEquals(
+        new Rectangle(0,
+            0,
+            450 - shellBorder - shellBorder,
+            299
         - shellTitle
         - shellBorder), shell.getClientArea());
   }
