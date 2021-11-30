@@ -80,7 +80,7 @@ public class TableViewerInfo extends ViewerInfo {
         TableColumn columnObject = ((TableViewerColumn) column.getObject()).getColumn();
         int columnWidth = columnObject.getWidth();
         int y = 0;
-        if (EnvironmentUtils.IS_MAC_COCOA) {
+        if (EnvironmentUtils.IS_MAC) {
           // HACK:
           // SWT Cocoa excludes column headers from client area, so insets.top is header height.
           // workaround is to adjust y to header height.

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.os.win32;
 
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.os.OSSupport;
 
@@ -49,9 +48,7 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
   // Instance
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected static final OSSupport INSTANCE = EnvironmentUtils.IS_64BIT_OS
-      ? new Impl64()
-      : new Impl32();
+  protected static final OSSupport INSTANCE = new Impl64();
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -143,10 +140,10 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
     getTabItemBounds(tabFolder, index, bounds);
     // convert into Rectangle
     int borderOffset = (tabFolder.getStyle() & SWT.BORDER) != 0 ? 2 : 0;
-    int x = bounds[0]/*itemRect.left*/+ borderOffset;
-    int y = bounds[2]/*itemRect.top*/+ borderOffset;
-    int width = bounds[1]/*itemRect.right*/- bounds[0]/*itemRect.left*/;
-    int height = bounds[3]/*itemRect.bottom*/- bounds[2]/*itemRect.top*/;
+    int x = bounds[0]/*itemRect.left*/ + borderOffset;
+    int y = bounds[2]/*itemRect.top*/ + borderOffset;
+    int width = bounds[1]/*itemRect.right*/ - bounds[0]/*itemRect.left*/;
+    int height = bounds[3]/*itemRect.bottom*/ - bounds[2]/*itemRect.top*/;
     return new Rectangle(x, y, width, height);
   }
 
@@ -168,8 +165,11 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
       int height = bounds[3] - bounds[2]; // info.bottom - info.top;
       //
       Point shellLocation = shell.getLocation();
-      return new Rectangle(bounds[0] /*info.left*/- shellLocation.x, bounds[2] /*info.top*/
-          - shellLocation.y, width, height);
+      return new Rectangle(bounds[0] /*info.left*/ - shellLocation.x,
+          bounds[2] /*info.top*/
+              - shellLocation.y,
+          width,
+          height);
     }
     throw new RuntimeException("OS function call failed.");
   }
@@ -370,18 +370,12 @@ public abstract class OSSupportWin32<H extends Number> extends OSSupport {
    * Simply calls DeleteObject() for given <code>handle</code>.
    */
   private static native <H extends Number> void _DeleteObject(H handle);
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Implementations
   //
   ////////////////////////////////////////////////////////////////////////////
-  private static final class Impl32 extends OSSupportWin32<Integer> {
-    @Override
-    protected Integer getHandleField(Object object) {
-      return ReflectionUtils.getFieldInt(object, "handle");
-    }
-  }
+
   private static final class Impl64 extends OSSupportWin32<Long> {
     @Override
     protected Long getHandleField(Object object) {

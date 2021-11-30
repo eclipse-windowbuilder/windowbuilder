@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.os.macosx;
 
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.os.OSSupport;
 
 import org.eclipse.swt.SWT;
@@ -49,11 +48,7 @@ public abstract class OSSupportMacOSX extends OSSupport {
   protected static final int MENU_ITEM_SEPARATOR_HEIGHT = 11;
   private static final int TAB_ITEM_OFFSET_Y = 8;
   private static final int TAB_ITEM_EXTRA_WIDTH = 25;
-  protected static final OSSupport INSTANCE = EnvironmentUtils.IS_MAC_COCOA
-      ? EnvironmentUtils.IS_64BIT_OS
-          ? new OSSupportMacOSXCocoa.Cocoa64()
-          : new OSSupportMacOSXCocoa.Cocoa32()
-      : new OSSupportMacOSXCarbon();
+  protected static final OSSupport INSTANCE = new OSSupportMacOSXCocoa.Cocoa64();
   private static boolean mustFlipImage; // Initialized in static block below
   static {
     String osVersion = System.getProperties().get("os.version").toString();
