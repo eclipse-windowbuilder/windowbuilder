@@ -419,7 +419,7 @@ public class ResourceManagerTest extends RcpModelTest {
             local_ManagerClass,
             "getPluginImage(java.lang.String,java.lang.String)",
             "org.eclipse.jdt.ui",
-            "/icons/full/elcl16/ch_cancel.gif");
+            "/icons/full/elcl16/ch_cancel.png");
     // check create
     assertNotNull(image);
     // check state
@@ -455,7 +455,7 @@ public class ResourceManagerTest extends RcpModelTest {
         local_ManagerClass,
         "getPluginImageDescriptor(java.lang.String,java.lang.String)",
         "org.eclipse.jdt.ui",
-        "/icons/full/elcl16/ch_cancel.gif"));
+        "/icons/full/elcl16/ch_cancel.png"));
     assertNull(ReflectionUtils.invokeMethod(
         local_ManagerClass,
         "getPluginImageDescriptor(java.lang.String,java.lang.String)",
