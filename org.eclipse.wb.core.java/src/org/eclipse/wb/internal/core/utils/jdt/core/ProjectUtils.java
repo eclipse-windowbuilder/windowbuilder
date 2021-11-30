@@ -424,7 +424,7 @@ public final class ProjectUtils {
    */
   public static void addSWTLibrary(IJavaProject javaProject) throws Exception {
     String pluginId = "org.eclipse.swt." + SWT.getPlatform() + "." + Platform.getOS();
-    boolean isMacCocoa64 = EnvironmentUtils.IS_MAC_COCOA && EnvironmentUtils.IS_64BIT_OS;
+    boolean isMacCocoa64 = EnvironmentUtils.IS_MAC;
     if (isMacCocoa64 || !EnvironmentUtils.IS_MAC) {
       pluginId += "." + Platform.getOSArch();
     }

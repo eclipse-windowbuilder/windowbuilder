@@ -22,7 +22,6 @@ import com.google.common.collect.Sets;
 
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -95,8 +94,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
   // Instance
   //
   ////////////////////////////////////////////////////////////////////////////
-  protected static final OSSupport INSTANCE =
-      EnvironmentUtils.IS_64BIT_OS ? new Impl64() : new Impl32();
+  protected static final OSSupport INSTANCE = new Impl64();
   private String m_oldShellText;
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -661,31 +659,6 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
           null,
           SWT.BITMAP,
           imageHandle.longValue(),
-          0);
-    }
-  }
-  private static final class Impl32 extends OSSupportLinux<Integer> {
-    @Override
-    protected Integer getHandleValue(Object widget, String fieldName) {
-      int value = ReflectionUtils.getFieldInt(widget, fieldName);
-      if (value != 0) {
-        return value;
-      }
-      return null;
-    }
-
-    @Override
-    protected Image createImage0(Integer imageHandle) throws Exception {
-      return (Image) ReflectionUtils.invokeMethod2(
-          Image.class,
-          "gtk_new",
-          Device.class,
-          int.class,
-          int.class,
-          int.class,
-          null,
-          SWT.BITMAP,
-          imageHandle.intValue(),
           0);
     }
   }

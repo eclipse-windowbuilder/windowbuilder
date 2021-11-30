@@ -11,7 +11,6 @@
 package org.eclipse.wb.core.gef.header;
 
 import org.eclipse.wb.draw2d.IColorConstants;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.swt.graphics.Color;
@@ -29,10 +28,6 @@ public final class Headers {
   public static final Color COLOR_HEADER = getColorHeader();
 
   private static Color getColorHeader() {
-    if (EnvironmentUtils.IS_WINDOWS_VISTA || EnvironmentUtils.IS_WINDOWS_7) {
-      return DrawUtils.getShiftedColor(IColorConstants.white, 0);
-    } else {
-      return DrawUtils.getShiftedColor(IColorConstants.white, -16);
-    }
+    return DrawUtils.getShiftedColor(IColorConstants.white, -16);
   }
 }

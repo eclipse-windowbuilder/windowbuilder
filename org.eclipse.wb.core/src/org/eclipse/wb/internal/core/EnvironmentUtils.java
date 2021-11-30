@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import org.apache.commons.lang.StringUtils;
@@ -36,43 +35,29 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
   public static final boolean DEVELOPER_HOST;
   static {
     String host = HOST_NAME.toUpperCase(Locale.ENGLISH);
-    DEVELOPER_HOST =
-        "SCHEGLOV-KE".equals(host)
-            || "SCHEGLOV-MACPRO".equals(host)
-            || "SCHEGLOV-WIN".equals(host)
-            || "SCHEGLOV".equals(host)
-            || "MITIN-AA".equals(host)
-            || "MITIN-AA-MAC".equals(host)
-            || "SABLIN-AA".equals(host)
-            || "FLANKER-WINDOWS".equals(host);
+    DEVELOPER_HOST = "SCHEGLOV-KE".equals(host)
+        || "SCHEGLOV-MACPRO".equals(host)
+        || "SCHEGLOV-WIN".equals(host)
+        || "SCHEGLOV".equals(host)
+        || "MITIN-AA".equals(host)
+        || "MITIN-AA-MAC".equals(host)
+        || "SABLIN-AA".equals(host)
+        || "FLANKER-WINDOWS".equals(host);
   }
   ////////////////////////////////////////////////////////////////////////////
   //
   // Operating systems
   //
   ////////////////////////////////////////////////////////////////////////////
-  /** True if this is running on 64-bit OS */
-  public static final boolean IS_64BIT_OS;
   /** True if this is running on Windows */
   public static final boolean IS_WINDOWS;
-  /** True if this is running on Unix */
-  public static final boolean IS_UNIX;
   /** True if this is running on Mac */
   public static final boolean IS_MAC;
-  /** True if this is running on Mac with Cocoa SWT */
-  public static final boolean IS_MAC_COCOA;
-  /** True if this is running on OS2 */
-  public static final boolean IS_OS2;
   /** True if this is running on Linux */
   public static final boolean IS_LINUX;
   /** True if this is running on Motif */
-  public static final boolean IS_MOTIF;
   private static final String OS_NAME_OSX_PREFIX = "Mac OS X";
   public static final boolean IS_MAC_10_6 = getOSMatches(OS_NAME_OSX_PREFIX, "10.6");
-  private static final String OS_NAME_WINDOWS_PREFIX = "Windows";
-  public static final boolean IS_WINDOWS_XP = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.1");
-  public static final boolean IS_WINDOWS_VISTA = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.0");
-  public static final boolean IS_WINDOWS_7 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.1");
   /*
    * The JLS doesn't seem to specify an exact naming convention for the
    * os.name. We ensure a uniform naming here.
@@ -80,86 +65,25 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
   static {
     if (SystemUtils.OS_NAME.startsWith("Windows")) {
       IS_WINDOWS = true;
-      IS_UNIX = false;
       IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("SunOS")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("Solaris")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
       IS_LINUX = false;
     } else if (SystemUtils.OS_NAME.startsWith("Linux")) {
       IS_WINDOWS = false;
-      IS_UNIX = true;
       IS_MAC = false;
-      IS_OS2 = false;
       IS_LINUX = true;
-    } else if (SystemUtils.OS_NAME.startsWith("HP-UX")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("AIX")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("Irix")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("Digital Unix")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("OS/400")) {
-      IS_WINDOWS = false;
-      IS_UNIX = true;
-      IS_MAC = false;
-      IS_OS2 = false;
-      IS_LINUX = false;
-    } else if (SystemUtils.OS_NAME.startsWith("OS/2")) {
-      IS_WINDOWS = false;
-      IS_UNIX = false;
-      IS_MAC = false;
-      IS_OS2 = true;
-      IS_LINUX = false;
     } else if (SystemUtils.OS_NAME.startsWith(OS_NAME_OSX_PREFIX)) {
       IS_WINDOWS = false;
-      IS_UNIX = true;
       IS_MAC = true;
-      IS_OS2 = false;
       IS_LINUX = false;
     } else if (SystemUtils.OS_NAME.startsWith("Mac")) {
       IS_WINDOWS = false;
-      IS_UNIX = false;
       IS_MAC = true;
-      IS_OS2 = false;
       IS_LINUX = false;
     } else {
       IS_WINDOWS = false;
-      IS_UNIX = false;
       IS_MAC = false;
-      IS_OS2 = false;
       IS_LINUX = false;
     }
-    IS_MAC_COCOA = IS_MAC && "cocoa".equals(SWT.getPlatform());
-    IS_MOTIF = "motif".equals(SWT.getPlatform());
-    IS_64BIT_OS = SystemUtils.OS_ARCH.indexOf("64") != -1;
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -29,23 +29,11 @@ public final class BTestUtils {
    */
   public static void configureSWT(TestProject testProject) throws Exception {
     if (EnvironmentUtils.IS_WINDOWS) {
-      testProject.addPlugin("org.eclipse.swt.win32.win32.x86");
+      testProject.addPlugin("org.eclipse.swt.win32.win32.x86_64");
     } else if (EnvironmentUtils.IS_LINUX) {
-      if (EnvironmentUtils.IS_64BIT_OS) {
         testProject.addPlugin("org.eclipse.swt.gtk.linux.x86_64");
-      } else {
-        testProject.addPlugin("org.eclipse.swt.gtk.linux.x86");
-      }
     } else if (EnvironmentUtils.IS_MAC) {
-      if (EnvironmentUtils.IS_MAC_COCOA) {
-        if (EnvironmentUtils.IS_64BIT_OS) {
-          testProject.addPlugin("org.eclipse.swt.cocoa.macosx.x86_64");
-        } else {
-          testProject.addPlugin("org.eclipse.swt.cocoa.macosx");
-        }
-      } else {
-        testProject.addPlugin("org.eclipse.swt.carbon.macosx");
-      }
+      testProject.addPlugin("org.eclipse.swt.cocoa.macosx.x86_64");
     } else {
       throw new UnsupportedOperationException("Unsupported platform.");
     }
