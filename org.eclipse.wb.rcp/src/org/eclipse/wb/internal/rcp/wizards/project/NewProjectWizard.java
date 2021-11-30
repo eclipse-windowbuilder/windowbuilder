@@ -11,7 +11,6 @@
 package org.eclipse.wb.internal.rcp.wizards.project;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.wizards.DesignerJavaProjectWizard;
 import org.eclipse.wb.internal.rcp.Activator;
@@ -67,8 +66,5 @@ public class NewProjectWizard extends DesignerJavaProjectWizard {
     ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.workbench");
     ProjectUtils.addPluginLibraries(javaProject, "com.ibm.icu");
     ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.ui.forms");
-    if (EnvironmentUtils.IS_MAC && !EnvironmentUtils.IS_MAC_COCOA) {
-      ProjectUtils.addPluginLibraries(javaProject, "org.eclipse.swt.carbon.macosx");
-    }
   }
 }
