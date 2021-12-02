@@ -32,12 +32,15 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IEditorPart;
+
+import org.osgi.service.prefs.Preferences;
 
 /**
  * {@link Composite} with GUI for visual design, i.e. properties table, palette, GEF.
@@ -117,14 +120,15 @@ public abstract class DesignComposite extends Composite {
   private void createEditorComposite(Composite parent) {
     Composite editorComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
+    Preferences preferences = InstanceScope.INSTANCE.getNode("org.eclipse.wb");
+    boolean includeWBToolbar = preferences.getBoolean("includeWBToolbar", false);
     // toolbar
     {
       m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);
       //Exclude from GridData when separator is hidden
       //if includeWindowBuilderToolbar is true the exclude method should get 'false' as parameter
-      GridDataFactory.create(m_toolBar).grabH().fill().exclude(
-          !m_composite_manager.getIncludeWindowBuilderToolbar());
-      m_toolBar.setVisible(m_composite_manager.getIncludeWindowBuilderToolbar());
+      GridDataFactory.create(m_toolBar).grabH().fill().exclude(!includeWBToolbar);
+      m_toolBar.setVisible(includeWBToolbar);
     }
     // separator to highlight toolbar
     {
@@ -132,9 +136,8 @@ public abstract class DesignComposite extends Composite {
       separator.setBackground(IColorConstants.buttonDarker);
       //Exclude from GridData when separator is hidden
       //Separator should be hidden when toolbar is hidden.
-      GridDataFactory.create(separator).grabH().fill().exclude(
-          !m_composite_manager.getIncludeWindowBuilderToolbar());
-      separator.setVisible(m_composite_manager.getIncludeWindowBuilderToolbar());
+      GridDataFactory.create(separator).grabH().fill().exclude(!includeWBToolbar);
+      separator.setVisible(includeWBToolbar);
     }
     // create gefComposite - palette and design canvas (viewer)
     createGEFComposite(editorComposite);
