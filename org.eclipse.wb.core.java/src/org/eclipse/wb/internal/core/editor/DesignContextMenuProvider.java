@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2021 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - buildContextMenu alterations made to allow preferences to be set via external sources
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
@@ -22,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
 import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 
@@ -95,6 +97,16 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
   @Override
   protected void buildContextMenu(final EditPart editPart, final IMenuManager manager) {
     addGroups(manager);
+    //Toolbar actions refer to the actions that also occur on the WB toolbar such as the Refresh and Preview action
+    boolean includeToolbarActions =
+        InstanceScope.INSTANCE.getNode("org.eclipse.wb.contextMenu").getBoolean(
+            "toolbarActions",
+            true);
+    //The object Info actions refer to those actions that are specific to the object the context menu is generated for
+    boolean includeObjectInfoActions =
+        InstanceScope.INSTANCE.getNode("org.eclipse.wb.contextMenu").getBoolean(
+            "objectInfoActions",
+            true);
     // edit
     {
       manager.appendToGroup(IContextMenuConstants.GROUP_EDIT, m_pageActions.getCutAction());
@@ -104,17 +116,21 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
     }
     // edit2
     {
-      manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getTestAction());
-      manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getRefreshAction());
+      if (includeToolbarActions) {
+        manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getTestAction());
+        manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getRefreshAction());
+      }
     }
     // send notification
-    if (editPart.getModel() instanceof ObjectInfo) {
-      ExecutionUtils.runLog(new RunnableEx() {
-        public void run() throws Exception {
-          ObjectInfo object = (ObjectInfo) editPart.getModel();
-          object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);
-        }
-      });
+    if (includeObjectInfoActions) {
+      if (editPart.getModel() instanceof ObjectInfo) {
+        ExecutionUtils.runLog(new RunnableEx() {
+          public void run() throws Exception {
+            ObjectInfo object = (ObjectInfo) editPart.getModel();
+            object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);
+          }
+        });
+      }
     }
   }
 }
