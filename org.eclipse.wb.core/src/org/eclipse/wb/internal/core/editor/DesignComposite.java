@@ -121,7 +121,7 @@ public abstract class DesignComposite extends Composite {
     Composite editorComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
     Preferences preferences = InstanceScope.INSTANCE.getNode("org.eclipse.wb");
-    boolean includeWBToolbar = preferences.getBoolean("includeWBToolbar", false);
+    boolean includeWBToolbar = preferences.getBoolean("includeWBToolbar", true);
     // toolbar
     {
       m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);
