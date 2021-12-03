@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2021 Google, Inc.
+ * Copyright (c) 2011  Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,6 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- *    Marcel du Preez - Constructor with DesignCompositeManager parameter added
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
@@ -16,7 +15,6 @@ import com.google.common.collect.Lists;
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.core.editor.IEditorPageFactory;
 import org.eclipse.wb.core.editor.IMultiMode;
-import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
@@ -46,17 +44,6 @@ public abstract class MultiMode implements IMultiMode {
     m_editor = editor;
     m_sourcePage = new SourcePage(m_editor);
     m_designPage = new DesignPage();
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiMode(DesignerEditor editor, DesignCompositeManager designCompositeManager) {
-    m_editor = editor;
-    m_sourcePage = new SourcePage(m_editor);
-    m_designPage = new DesignPage(designCompositeManager);
   }
 
   ////////////////////////////////////////////////////////////////////////////

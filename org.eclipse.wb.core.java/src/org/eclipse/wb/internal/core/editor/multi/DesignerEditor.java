@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2021 Google, Inc.
+ * Copyright (c) 2011 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,6 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- *    Marcel du Preez - Constructor with DesignCompositeManager parameter added
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
@@ -18,7 +17,6 @@ import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.editor.IMultiMode;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignComposite;
-import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -75,20 +73,6 @@ public final class DesignerEditor extends CompilationUnitEditor
       m_multiMode = new MultiPagesMode(this);
     } else {
       m_multiMode = new MultiSplitMode(this);
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public DesignerEditor(DesignCompositeManager m_designCompositeManager) {
-    DesignerPlugin.configurePreEditor();
-    if (isPagesMode()) {
-      m_multiMode = new MultiPagesMode(this, m_designCompositeManager);
-    } else {
-      m_multiMode = new MultiSplitMode(this, m_designCompositeManager);
     }
   }
 

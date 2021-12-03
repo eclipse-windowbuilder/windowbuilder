@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- *    Marcel du Preez - hiding/showing WB toolbar by means of DesignCompositeManager
+ *    Marcel du Preez - hiding/showing WB toolbar by means of a preference
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
@@ -55,7 +55,6 @@ public abstract class DesignComposite extends Composite {
   protected ToolBar m_toolBar;
   protected ViewersComposite m_viewersComposite;
   protected GraphicalViewer m_viewer;
-  protected DesignCompositeManager m_composite_manager;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -69,24 +68,6 @@ public abstract class DesignComposite extends Composite {
     super(parent, style);
     m_editorPart = editorPart;
     m_exceptionHandler = exceptionHandler;
-    m_composite_manager = new DesignCompositeManager();
-    // create GUI
-    setLayout(new FillLayout());
-    createMainComposite();
-    // fill toolbar
-    createDesignActions();
-    createDesignToolbarHelper();
-  }
-
-  public DesignComposite(Composite parent,
-      int style,
-      IEditorPart editorPart,
-      ICommandExceptionHandler exceptionHandler,
-      DesignCompositeManager compositeManager) {
-    super(parent, style);
-    m_editorPart = editorPart;
-    m_exceptionHandler = exceptionHandler;
-    m_composite_manager = compositeManager;
     // create GUI
     setLayout(new FillLayout());
     createMainComposite();
@@ -120,7 +101,7 @@ public abstract class DesignComposite extends Composite {
   private void createEditorComposite(Composite parent) {
     Composite editorComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
-    Preferences preferences = InstanceScope.INSTANCE.getNode("org.eclipse.wb");
+    Preferences preferences = InstanceScope.INSTANCE.getNode("org.eclipse.wb.toolbar");
     boolean includeWBToolbar = preferences.getBoolean("includeWBToolbar", true);
     // toolbar
     {
@@ -313,8 +294,4 @@ public abstract class DesignComposite extends Composite {
    * @return the {@link IExtractableControl} for accessing "Structure" {@link Control}.
    */
   public abstract IExtractableControl getExtractablePalette();
-
-  public DesignCompositeManager getDesignCompositeManager() {
-    return m_composite_manager;
-  }
 }

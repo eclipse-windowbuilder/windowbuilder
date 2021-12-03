@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2021 Google, Inc.
+ * Copyright (c) 2011 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,14 +7,12 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- *    Marcel du Preez - Constructor with DesignCompositeManager parameter
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.multi;
 
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.draw2d.IColorConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.editor.DesignCompositeManager;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
@@ -43,15 +41,6 @@ final class MultiSplitMode extends DefaultMultiMode {
   ////////////////////////////////////////////////////////////////////////////
   public MultiSplitMode(DesignerEditor editor) {
     super(editor);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
-  // Constructor
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public MultiSplitMode(DesignerEditor editor, DesignCompositeManager compositeManager) {
-    super(editor, compositeManager);
   }
 
   ////////////////////////////////////////////////////////////////////////////

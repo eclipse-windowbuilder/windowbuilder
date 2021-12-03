@@ -53,14 +53,6 @@ public final class JavaDesignComposite extends DesignComposite {
     super(parent, style, editorPart, exceptionHandler);
   }
 
-  public JavaDesignComposite(Composite parent,
-      int style,
-      IEditorPart editorPart,
-      ICommandExceptionHandler exceptionHandler,
-      DesignCompositeManager compositeManager) {
-    super(parent, style, editorPart, exceptionHandler, compositeManager);
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Creation of UI

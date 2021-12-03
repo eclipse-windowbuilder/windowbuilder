@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2021 Google, Inc.
+ * Copyright (c) 2011  Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,8 +7,6 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
- *    Marcel du Preez - Default constructor and Constructor with DesignCompositeManager parameter
- *                    - Alterations made to the initialization of m_designComposite in createControl_pageBook method
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
@@ -84,25 +82,6 @@ public final class DesignPage implements IDesignPage {
   private boolean m_active;
   private UndoManager m_undoManager;
   private DesignerState m_designerState = DesignerState.Undefined;
-  private DesignCompositeManager compositeManager = new DesignCompositeManager();
-
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  //  Constructor
-  //  This constructor can be used if the windowbuilder toolbars need to be hidden
-  ///////////////////////////////////////////////////////////////////////////////
-  public DesignPage(DesignCompositeManager designCompositeManager) {
-    compositeManager = designCompositeManager;
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////
-  //
-  //  Constructor
-  // Default constructor
-  ////////////////////////////////////////////////////////////////////////////////
-  public DesignPage() {
-  }
-
   ////////////////////////////////////////////////////////////////////////////
   //
   // Initialization
@@ -204,14 +183,8 @@ public final class DesignPage implements IDesignPage {
         handleDesignException(exception);
       }
     };
-    //include the compositeManager object. This object is either initialized to true if the default constructor is used
-    //or it has the value specified from external sources of the constructor DesignPage(DesignCompositeManager designCompositeManager)
-    //is used
-    m_designComposite = new JavaDesignComposite(m_pageBook,
-        SWT.NONE,
-        m_designerEditor,
-        exceptionHandler,
-        compositeManager);
+    m_designComposite =
+        new JavaDesignComposite(m_pageBook, SWT.NONE, m_designerEditor, exceptionHandler);
     // show "design" initially
     m_pageBook.showPage(m_designComposite);
   }
