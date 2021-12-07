@@ -10,12 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core;
 
-import com.google.common.collect.ImmutableSet;
-
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
-
-import java.util.Locale;
 
 /**
  * Test for {@link EnvironmentUtils}.
@@ -30,26 +26,6 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
     if ("SCHEGLOV-KE".equals(EnvironmentUtils.HOST_NAME)) {
       assertTrue(EnvironmentUtils.DEVELOPER_HOST);
     }
-  }
-
-  /**
-   * Test for OS.
-   */
-  public void test_OS() throws Exception {
-    boolean isWindows;
-    boolean isLinux;
-    boolean isMac;
-    {
-      String hostName = EnvironmentUtils.HOST_NAME.toUpperCase(Locale.ENGLISH);
-      isWindows =
-          ImmutableSet.of("SCHEGLOV-KE", "SCHEGLOV-WIN", "FLANKER-WINDOWS", "SABLIN-AA").contains(
-              hostName);
-      isLinux = ImmutableSet.of("FLANKER-DESKTOP").contains(hostName);
-      isMac = ImmutableSet.of("MITIN-AA").contains(hostName);
-    }
-    assertEquals(isWindows, EnvironmentUtils.IS_WINDOWS);
-    assertEquals(isLinux, EnvironmentUtils.IS_LINUX);
-    assertEquals(isMac, EnvironmentUtils.IS_MAC);
   }
 
   /**
@@ -73,17 +49,15 @@ public class EnvironmentUtilsTest extends DesignerTestCase {
    * Test for {@link EnvironmentUtils#getJavaVersion()}.
    */
   public void test_getJavaVersion() throws Exception {
-    assertEquals(1.7, EnvironmentUtils.getJavaVersion(), 0.001);
     {
       // specify version 1.5
-      EnvironmentUtils.setForcedJavaVersion(1.5f);
+      EnvironmentUtils.setForcedJavaVersion(1.8f);
       try {
-        assertEquals(1.5, EnvironmentUtils.getJavaVersion(), 0.001);
+        assertEquals(1.8, EnvironmentUtils.getJavaVersion(), 0.001);
       } finally {
         EnvironmentUtils.setForcedJavaVersion(null);
       }
     }
-    assertEquals(1.7, EnvironmentUtils.getJavaVersion(), 0.001);
   }
 
   /**
