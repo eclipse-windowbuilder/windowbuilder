@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 
 import java.util.List;
 import java.util.Map;
@@ -55,10 +56,17 @@ public final class LayoutDescriptionHelper {
       layouts = Lists.newArrayList();
       m_layouts.put(toolkit, layouts);
       //
-      for (IConfigurationElement element : ExternalFactoriesHelper.getElements(POINT_ID, "layout")) {
+      for (IConfigurationElement element : ExternalFactoriesHelper.getElements(
+          POINT_ID,
+          "layout")) {
         String toolkitId = ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit");
         if (toolkitId.equals(toolkit.getId())) {
-          layouts.add(new LayoutDescription(toolkit, element));
+          String layoutId = ExternalFactoriesHelper.getRequiredAttribute(element, "id");
+          if (InstanceScope.INSTANCE.getNode("org.eclipse.wb.layoutOptions").getBoolean(
+              layoutId,
+              true)) {
+            layouts.add(new LayoutDescription(toolkit, element));
+          }
         }
       }
     }
