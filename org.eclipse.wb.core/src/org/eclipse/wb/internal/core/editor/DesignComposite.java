@@ -115,7 +115,10 @@ public abstract class DesignComposite extends Composite {
   protected void createGEFComposite(Composite parent) {
     PluginFlyoutPreferences preferences =
         new PluginFlyoutPreferences(DesignerPlugin.getPreferences(), "design.palette");
-    preferences.initializeDefaults(IFlyoutPreferences.DOCK_WEST, IFlyoutPreferences.STATE_OPEN, 210);
+    preferences.initializeDefaults(
+        IFlyoutPreferences.DOCK_WEST,
+        IFlyoutPreferences.STATE_OPEN,
+        210);
     FlyoutControlComposite gefComposite = new FlyoutControlComposite(parent, SWT.NONE, preferences);
     GridDataFactory.create(gefComposite).grab().fill();
     gefComposite.setTitleText("Palette");
@@ -233,16 +236,19 @@ public abstract class DesignComposite extends Composite {
     // IExtractableControl
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Control getControl() {
       return m_control;
     }
 
+    @Override
     public void extract(Composite newParent) {
       m_control.setParent(newParent);
       doLayout(m_oldParent);
       newParent.layout();
     }
 
+    @Override
     public void restore() {
       m_control.setParent(m_oldParent);
       m_control.setVisible(true);
@@ -276,4 +282,8 @@ public abstract class DesignComposite extends Composite {
    * @return the {@link IExtractableControl} for accessing "Structure" {@link Control}.
    */
   public abstract IExtractableControl getExtractablePalette();
+
+  public GraphicalViewer getViewer() {
+    return m_viewer;
+  }
 }
