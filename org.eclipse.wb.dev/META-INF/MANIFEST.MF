@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Designer internal developers Plug-in
 Bundle-SymbolicName: org.eclipse.wb.dev;singleton:=true
-Bundle-Version: 1.0.9
+Bundle-Version: 1.9.8.qualifier
 Bundle-Activator: org.eclipse.wb.internal.dev.Activator
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.core.runtime,

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.swing.feature"
       label="%featureName"
-      version="1.9.7.qualifier"
+      version="1.9.8.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.swing"
       image="eclipse_update_120.jpg">
@@ -20,10 +20,10 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.core.feature" version="1.9.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.core.java.feature" version="1.9.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.core.ui.feature" version="1.9.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.layout.group.feature" version="1.9.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.feature" version="1.9.8" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.java.feature" version="1.9.8" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.ui.feature" version="1.9.8" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.layout.group.feature" version="1.9.8" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -73,7 +73,7 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-	
+
    <plugin
          id="org.eclipse.wb.swing.java6"
          download-size="0"

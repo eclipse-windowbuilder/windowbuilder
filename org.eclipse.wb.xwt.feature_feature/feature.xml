@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.xwt.feature"
       label="%featureName"
-      version="1.9.7.qualifier"
+      version="1.9.8.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.xwt"
       image="eclipse_update_120.jpg">
@@ -20,15 +20,12 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.core.feature" version="1.9.0" match="greaterOrEqual"/>
-      <!-- $if eclipse.version >= 3.5$ -->
-      <import feature="org.eclipse.wb.core.xml.feature" version="1.9.0" match="greaterOrEqual"/>
-      <!-- $endif$ -->
-      <import feature="org.eclipse.wb.swt.feature" version="1.9.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.wb.rcp.feature" version="1.9.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.feature" version="1.9.8" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.xml.feature" version="1.9.8" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.swt.feature" version="1.9.8" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.rcp.feature" version="1.9.8" match="greaterOrEqual"/>
    </requires>
 
-   <!-- $if eclipse.version >= 3.5$ -->
    <plugin
          id="org.eclipse.wb.xwt"
          download-size="0"
@@ -42,5 +39,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-   <!-- $endif$ -->
+
 </feature>

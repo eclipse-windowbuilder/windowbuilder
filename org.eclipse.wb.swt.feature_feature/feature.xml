@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wb.swt.feature"
       label="%featureName"
-      version="1.9.7.qualifier"
+      version="1.9.8.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.wb.swt"
       image="eclipse_update_120.jpg">
@@ -20,7 +20,7 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.wb.core.feature" version="1.9.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.wb.core.feature" version="1.9.8" match="greaterOrEqual"/>
       <import feature="org.eclipse.pde" version="3.2.0" match="greaterOrEqual"/>
    </requires>
 

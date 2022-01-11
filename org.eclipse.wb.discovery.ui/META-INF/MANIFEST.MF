@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.wb.discovery.ui;singleton:=true
-Bundle-Version: 0.0.0.qualifier
+Bundle-Version: 1.9.8.qualifier
 Bundle-Activator: org.eclipse.wb.internal.discovery.ui.WBDiscoveryUiPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,

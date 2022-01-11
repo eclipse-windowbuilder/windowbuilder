@@ -3,9 +3,9 @@
     <parent>
         <groupId>org.eclipse.wb</groupId>
         <artifactId>org.eclipse.wb.root</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.9.8-SNAPSHOT</version>
     </parent>
     <artifactId>org.eclipse.wb.releng.updatesite</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.9.8-SNAPSHOT</version>
     <packaging>eclipse-repository</packaging>
 </project>
