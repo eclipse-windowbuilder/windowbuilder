@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Preference option to hide/show advanced properties in the properties view
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.structure.property;
 
@@ -21,6 +22,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoDeactivePropertyEditor;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.editor.structure.IPage;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -33,9 +35,9 @@ import org.eclipse.wb.internal.core.model.property.table.IPropertyExceptionHandl
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -47,7 +49,6 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
@@ -56,7 +57,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MenuItem;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -80,6 +80,7 @@ public final class ComponentsPropertiesPage implements IPage {
   // IPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
     Control control = getControl();
     if (control != null && !control.isDisposed()) {
@@ -87,6 +88,7 @@ public final class ComponentsPropertiesPage implements IPage {
     }
   }
 
+  @Override
   public void createControl(Composite parent) {
     {
       m_container = new Composite(parent, SWT.NONE);
@@ -94,11 +96,9 @@ public final class ComponentsPropertiesPage implements IPage {
       m_container.setLayout(m_stackLayout);
     }
     {
-      IPropertyExceptionHandler exceptionHandler = new IPropertyExceptionHandler() {
-        public void handle(Throwable e) {
-          IDesignPageSite site = IDesignPageSite.Helper.getSite(m_rootObject);
-          site.handleException(e);
-        }
+      IPropertyExceptionHandler exceptionHandler = e -> {
+        IDesignPageSite site = IDesignPageSite.Helper.getSite(m_rootObject);
+        site.handleException(e);
       };
       {
         m_propertyTable = new PropertyTable(m_container, SWT.NONE);
@@ -121,10 +121,12 @@ public final class ComponentsPropertiesPage implements IPage {
     }
   }
 
+  @Override
   public Control getControl() {
     return m_container;
   }
 
+  @Override
   public void setFocus() {
     getControl().setFocus();
   }
@@ -137,6 +139,7 @@ public final class ComponentsPropertiesPage implements IPage {
   private Property m_activeProperty;
   private IToolBarManager m_toolBarManager;
 
+  @Override
   public void setToolBar(IToolBarManager toolBarManager) {
     m_toolBarManager = toolBarManager;
     updateActions();
@@ -157,41 +160,47 @@ public final class ComponentsPropertiesPage implements IPage {
    * Updates {@link Action}'s.
    */
   private void updateActions() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      public void run() throws Exception {
-        // update standard items
-        update_showEventsAction();
-        update_categoryAction();
-        update_defaultValueAction();
-        // update toolbar
-        Control toolBarControl = ((ToolBarManager) m_toolBarManager).getControl();
-        try {
-          toolBarControl.setRedraw(false);
-          m_toolBarManager.removeAll();
-          // add standard items
+    ExecutionUtils.runLog(() -> {
+      // update standard items
+      update_showEventsAction();
+      update_categoryAction();
+      update_defaultValueAction();
+      // update toolbar
+      Control toolBarControl = ((ToolBarManager) m_toolBarManager).getControl();
+      try {
+        toolBarControl.setRedraw(false);
+        m_toolBarManager.removeAll();
+        // add standard items
+        boolean wbBasic = InstanceScope.INSTANCE.getNode(
+            IEditorPreferenceConstants.WB_BASIC_PREFERENCE_NODE).getBoolean(
+                IEditorPreferenceConstants.WB_BASIC,
+                false);
+        //In Windowbuilder Basic the events action is hidden from the toolbar
+        //By default the Events actions are shown.
+        if (!wbBasic) {
           m_toolBarManager.add(m_showEventsAction);
-          m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_EDIT));
-          m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_ADDITIONAL));
-          m_toolBarManager.add(m_showAdvancedPropertiesAction);
-          m_toolBarManager.add(m_defaultValueAction);
-          // use external contributors
-          List<IPropertiesToolBarContributor> contributors =
-              ExternalFactoriesHelper.getElementsInstances(
-                  IPropertiesToolBarContributor.class,
-                  "org.eclipse.wb.core.propertiesPageActions",
-                  "toolbar");
-          for (final IPropertiesToolBarContributor contributor : contributors) {
-            ExecutionUtils.runLog(new RunnableEx() {
-              public void run() throws Exception {
-                contributor.contributeToolBar(m_toolBarManager, m_objects);
-              }
-            });
-          }
-          // done
-          m_toolBarManager.update(false);
-        } finally {
-          toolBarControl.setRedraw(true);
         }
+        m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_EDIT));
+        m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_ADDITIONAL));
+        //In Windowbuilder Basic the advanced properties action is hidden from the toolbar
+        //By default the Advanced properties are shown.
+        if (!wbBasic) {
+          m_toolBarManager.add(m_showAdvancedPropertiesAction);
+        }
+        m_toolBarManager.add(m_defaultValueAction);
+        // use external contributors
+        List<IPropertiesToolBarContributor> contributors =
+            ExternalFactoriesHelper.getElementsInstances(
+                IPropertiesToolBarContributor.class,
+                "org.eclipse.wb.core.propertiesPageActions",
+                "toolbar");
+        for (final IPropertiesToolBarContributor contributor : contributors) {
+          ExecutionUtils.runLog(() -> contributor.contributeToolBar(m_toolBarManager, m_objects));
+        }
+        // done
+        m_toolBarManager.update(false);
+      } finally {
+        toolBarControl.setRedraw(true);
       }
     });
   }
@@ -203,6 +212,7 @@ public final class ComponentsPropertiesPage implements IPage {
     final MenuManager manager = new MenuManager();
     manager.setRemoveAllWhenShown(true);
     manager.addMenuListener(new IMenuListener() {
+      @Override
       public void menuAboutToShow(IMenuManager _manager) {
         // dispose items to avoid their caching
         for (MenuItem item : manager.getMenu().getItems()) {
@@ -232,11 +242,7 @@ public final class ComponentsPropertiesPage implements IPage {
                 "org.eclipse.wb.core.propertiesPageActions",
                 "menu");
         for (final IPropertiesMenuContributor contributor : contributors) {
-          ExecutionUtils.runLog(new RunnableEx() {
-            public void run() throws Exception {
-              contributor.contributeMenu(manager, m_activeProperty);
-            }
-          });
+          ExecutionUtils.runLog(() -> contributor.contributeMenu(manager, m_activeProperty));
         }
       }
     });
@@ -247,17 +253,13 @@ public final class ComponentsPropertiesPage implements IPage {
    * Tracks {@link Property} selection in {@link PropertyTable}'s.
    */
   private void trackPropertySelection() {
-    ISelectionChangedListener listener = new ISelectionChangedListener() {
-      public void selectionChanged(SelectionChangedEvent event) {
-        StructuredSelection selection = (StructuredSelection) event.getSelection();
-        m_activeProperty = (Property) selection.getFirstElement();
-        ExecutionUtils.runLog(new RunnableEx() {
-          public void run() throws Exception {
-            update_defaultValueAction();
-            update_categoryAction();
-          }
-        });
-      }
+    ISelectionChangedListener listener = event -> {
+      StructuredSelection selection = (StructuredSelection) event.getSelection();
+      m_activeProperty = (Property) selection.getFirstElement();
+      ExecutionUtils.runLog(() -> {
+        update_defaultValueAction();
+        update_categoryAction();
+      });
     };
     m_propertyTable.addSelectionChangedListener(listener);
     m_eventsTable.addSelectionChangedListener(listener);
@@ -355,11 +357,8 @@ public final class ComponentsPropertiesPage implements IPage {
    * properties.
    */
   private void deactivatePropertyEditor_whenExplicitlyRequested() {
-    m_rootObject.addBroadcastListener(new ObjectInfoDeactivePropertyEditor() {
-      public void invoke() throws Exception {
-        m_propertyTable.deactivateEditor(false);
-      }
-    });
+    m_rootObject.addBroadcastListener(
+        (ObjectInfoDeactivePropertyEditor) () -> m_propertyTable.deactivateEditor(false));
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -380,7 +379,8 @@ public final class ComponentsPropertiesPage implements IPage {
         m_propertyTable.setShowAdvancedProperties(show);
       }
     };
-    m_showAdvancedPropertiesAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/filter_advanced_properties.gif"));
+    m_showAdvancedPropertiesAction.setImageDescriptor(
+        DesignerPlugin.getImageDescriptor("structure/filter_advanced_properties.gif"));
     setTexts(m_showAdvancedPropertiesAction, Messages.ComponentsPropertiesPage_showAdvancedAction);
   }
 
@@ -457,14 +457,11 @@ public final class ComponentsPropertiesPage implements IPage {
     m_defaultValueAction = new Action() {
       @Override
       public void run() {
-        ExecutionUtils.run(m_rootObject, new RunnableEx() {
-          public void run() throws Exception {
-            m_activeProperty.setValue(Property.UNKNOWN_VALUE);
-          }
-        });
+        ExecutionUtils.run(m_rootObject, () -> m_activeProperty.setValue(Property.UNKNOWN_VALUE));
       }
     };
-    m_defaultValueAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/properties_default.gif"));
+    m_defaultValueAction.setImageDescriptor(
+        DesignerPlugin.getImageDescriptor("structure/properties_default.gif"));
     setTexts(m_defaultValueAction, Messages.ComponentsPropertiesPage_restoreDefaultAction);
   }
 
@@ -505,7 +502,8 @@ public final class ComponentsPropertiesPage implements IPage {
         }
       }
     };
-    m_showEventsAction.setImageDescriptor(DesignerPlugin.getImageDescriptor("structure/events.gif"));
+    m_showEventsAction.setImageDescriptor(
+        DesignerPlugin.getImageDescriptor("structure/events.gif"));
     setTexts(m_showEventsAction, Messages.ComponentsPropertiesPage_showEventsAction);
     m_showEventsAction.setChecked(m_showEvents);
   }
@@ -527,16 +525,14 @@ public final class ComponentsPropertiesPage implements IPage {
    * Shows {@link Property}'s of current objects.
    */
   private void refreshProperties() {
-    ExecutionUtils.runLog(new RunnableEx() {
-      public void run() throws Exception {
-        if (m_showEvents) {
-          showEvents();
-        } else {
-          showProperties();
-        }
-        // update actions
-        updateActions();
+    ExecutionUtils.runLog(() -> {
+      if (m_showEvents) {
+        showEvents();
+      } else {
+        showProperties();
       }
+      // update actions
+      updateActions();
     });
   }
 
@@ -581,29 +577,26 @@ public final class ComponentsPropertiesPage implements IPage {
     final PropertyCategoryProvider provider = getPropertyCategoryProvider();
     m_propertyTable.setPropertyCategoryProvider(provider);
     // move system properties on top
-    Collections.sort(properties, new Comparator<Property>() {
-      public int compare(Property property_1, Property property_2) {
-        PropertyCategory category_1 = provider.getCategory(property_1);
-        PropertyCategory category_2 = provider.getCategory(property_2);
-        boolean system_1 = category_1.isSystem();
-        boolean system_2 = category_2.isSystem();
-        if (system_1 && system_2) {
-          return category_1.getPriority() - category_2.getPriority();
-        } else if (system_1) {
-          return -1;
-        } else if (system_2) {
-          return 1;
-        }
-        return 0;
+    Collections.sort(properties, (property_1, property_2) -> {
+      PropertyCategory category_1 = provider.getCategory(property_1);
+      PropertyCategory category_2 = provider.getCategory(property_2);
+      boolean system_1 = category_1.isSystem();
+      boolean system_2 = category_2.isSystem();
+      if (system_1 && system_2) {
+        return category_1.getPriority() - category_2.getPriority();
+      } else if (system_1) {
+        return -1;
+      } else if (system_2) {
+        return 1;
       }
+      return 0;
     });
     // apply processors
     {
-      List<PropertyListProcessor> processors =
-          ExternalFactoriesHelper.getElementsInstances(
-              PropertyListProcessor.class,
-              "org.eclipse.wb.core.propertiesPageProcessors",
-              "processor");
+      List<PropertyListProcessor> processors = ExternalFactoriesHelper.getElementsInstances(
+          PropertyListProcessor.class,
+          "org.eclipse.wb.core.propertiesPageProcessors",
+          "processor");
       for (PropertyListProcessor processor : processors) {
         processor.process(m_objects, properties);
       }
