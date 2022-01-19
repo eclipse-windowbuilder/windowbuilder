@@ -103,13 +103,14 @@ public abstract class DesignComposite extends Composite {
   private void createEditorComposite(Composite parent) {
     Composite editorComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
-    Preferences preferences = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
-    boolean windowbuilderBasic = preferences.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
-   
+    Preferences preferences =
+        InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
+    boolean windowbuilderBasic =
+        preferences.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
     // toolbar
     {
       m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);
-    //Exclude from GridData when separator is hidden
+      //Exclude from GridData when separator is hidden
       //if includeWindowBuilderToolbar is true the exclude method should get 'false' as parameter
       GridDataFactory.create(m_toolBar).grabH().fill().exclude(windowbuilderBasic);
       m_toolBar.setVisible(!windowbuilderBasic);
@@ -118,7 +119,7 @@ public abstract class DesignComposite extends Composite {
     {
       LineControl separator = new LineControl(editorComposite, SWT.HORIZONTAL);
       separator.setBackground(IColorConstants.buttonDarker);
-    //Exclude from GridData when separator is hidden
+      //Exclude from GridData when separator is hidden
       //Separator should be hidden when toolbar is hidden.
       GridDataFactory.create(separator).grabH().fill().exclude(windowbuilderBasic);
       separator.setVisible(!windowbuilderBasic);
