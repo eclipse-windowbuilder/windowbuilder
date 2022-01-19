@@ -18,6 +18,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
+import org.eclipse.wb.internal.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
@@ -97,16 +98,11 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
   @Override
   protected void buildContextMenu(final EditPart editPart, final IMenuManager manager) {
     addGroups(manager);
-    //Toolbar actions refer to the actions that also occur on the WB toolbar such as the Refresh and Preview action
-    boolean includeToolbarActions =
-        InstanceScope.INSTANCE.getNode("org.eclipse.wb.contextMenu").getBoolean(
-            "toolbarActions",
-            true);
-    //The object Info actions refer to those actions that are specific to the object the context menu is generated for
-    boolean includeObjectInfoActions =
-        InstanceScope.INSTANCE.getNode("org.eclipse.wb.contextMenu").getBoolean(
-            "objectInfoActions",
-            true);
+    //When Windowbuilder Basic is active Toolbar actions and Object Info actions are hidden from the context menu
+    boolean wbBasic = InstanceScope.INSTANCE.getNode(
+        IEditorPreferenceConstants.WB_BASIC_PREFERENCE_NODE).getBoolean(
+            IEditorPreferenceConstants.WB_BASIC,
+            false);
     // edit
     {
       manager.appendToGroup(IContextMenuConstants.GROUP_EDIT, m_pageActions.getCutAction());
@@ -116,13 +112,13 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
     }
     // edit2
     {
-      if (includeToolbarActions) {
+      if (!wbBasic) {
         manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getTestAction());
         manager.appendToGroup(IContextMenuConstants.GROUP_EDIT2, m_pageActions.getRefreshAction());
       }
     }
     // send notification
-    if (includeObjectInfoActions) {
+    if (!wbBasic) {
       if (editPart.getModel() instanceof ObjectInfo) {
         ExecutionUtils.runLog(new RunnableEx() {
           public void run() throws Exception {
