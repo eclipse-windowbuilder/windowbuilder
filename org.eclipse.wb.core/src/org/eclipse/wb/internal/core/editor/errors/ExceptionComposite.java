@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Hiding/showing of buttons depending on WB Basic preference
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
@@ -16,6 +17,7 @@ import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
 import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
@@ -23,9 +25,8 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -50,6 +51,7 @@ public abstract class ExceptionComposite extends Composite {
   private BrowserComposite m_browserComposite;
   private Image m_screenshotImage;
   private int m_sourcePosition;
+  private final boolean wbBasic;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -58,6 +60,10 @@ public abstract class ExceptionComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   public ExceptionComposite(Composite parent, int style) {
     super(parent, style);
+    wbBasic = InstanceScope.INSTANCE.getNode(
+        IEditorPreferenceConstants.WB_BASIC_PREFERENCE_NODE).getBoolean(
+            IEditorPreferenceConstants.WB_BASIC,
+            true);
     // create GUI elements
     GridLayoutFactory.create(this);
     {
@@ -72,9 +78,10 @@ public abstract class ExceptionComposite extends Composite {
       {
         Link label = new Link(titleComposite, SWT.WRAP | SWT.NO_FOCUS);
         GridDataFactory.create(label).alignHL().grabH().alignVM();
-        label.setText(MessageFormat.format(
-            Messages.ExceptionComposite_message,
-            BrandingUtils.getBranding().getProductName()));
+        label.setText(
+            MessageFormat.format(
+                Messages.ExceptionComposite_message,
+                BrandingUtils.getBranding().getProductName()));
         label.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent event) {
@@ -104,9 +111,10 @@ public abstract class ExceptionComposite extends Composite {
         Button contactSupportButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(contactSupportButton).fillH();
         contactSupportButton.setText(Messages.ExceptionComposite_reportButton);
-        contactSupportButton.setImage(EnvironmentUtils.IS_MAC
-            ? null
-            : DesignerPlugin.getImage("actions/errors/support32.png"));
+        contactSupportButton.setImage(
+            EnvironmentUtils.IS_MAC
+                ? null
+                : DesignerPlugin.getImage("actions/errors/support32.png"));
         contactSupportButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
@@ -115,20 +123,23 @@ public abstract class ExceptionComposite extends Composite {
             dialog.open();
           }
         });
+        contactSupportButton.setVisible(!wbBasic);
       }
       {
         Button refreshButton = new Button(buttonsComposite, SWT.NONE);
         GridDataFactory.create(refreshButton).fillH();
         refreshButton.setText(Messages.ExceptionComposite_reparseButton);
-        refreshButton.setImage(EnvironmentUtils.IS_MAC
-            ? null
-            : DesignerPlugin.getImage("actions/errors/refresh32.png"));
+        refreshButton.setImage(
+            EnvironmentUtils.IS_MAC
+                ? null
+                : DesignerPlugin.getImage("actions/errors/refresh32.png"));
         refreshButton.addSelectionListener(new SelectionAdapter() {
           @Override
           public void widgetSelected(SelectionEvent e) {
             doRefresh();
           }
         });
+        refreshButton.setVisible(!wbBasic);
       }
       {
         m_switchButton = new Button(buttonsComposite, SWT.NONE);
@@ -140,14 +151,13 @@ public abstract class ExceptionComposite extends Composite {
             doShowSource(m_sourcePosition);
           }
         });
+        m_switchButton.setVisible(!wbBasic);
       }
     }
     // dispose
-    addDisposeListener(new DisposeListener() {
-      public void widgetDisposed(DisposeEvent e) {
-        if (m_screenshotImage != null) {
-          m_screenshotImage.dispose();
-        }
+    addDisposeListener(e -> {
+      if (m_screenshotImage != null) {
+        m_screenshotImage.dispose();
       }
     });
   }

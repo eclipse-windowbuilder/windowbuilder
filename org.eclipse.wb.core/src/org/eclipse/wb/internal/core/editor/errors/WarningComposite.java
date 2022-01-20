@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Hiding/showing of buttons depending on WB Basic preference
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.errors;
 
@@ -14,11 +15,13 @@ import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.SwtResourceManager;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -39,6 +42,7 @@ public abstract class WarningComposite extends Composite {
   private final BrowserComposite m_browser;
   private final Label m_titleLabel;
   private int m_sourcePosition;
+  private final boolean wbBasic;
 
   ////////////////////////////////////////////////////////////////////////////
   //
@@ -47,6 +51,10 @@ public abstract class WarningComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   public WarningComposite(Composite parent, int style) {
     super(parent, style);
+    wbBasic = InstanceScope.INSTANCE.getNode(
+        IEditorPreferenceConstants.WB_BASIC_PREFERENCE_NODE).getBoolean(
+            IEditorPreferenceConstants.WB_BASIC,
+            true);
     GridLayoutFactory.create(this);
     {
       Composite titleComposite = new Composite(this, SWT.NONE);
@@ -58,10 +66,8 @@ public abstract class WarningComposite extends Composite {
       }
       {
         m_titleLabel = new Label(titleComposite, SWT.NONE);
-        m_titleLabel.setFont(SwtResourceManager.getFont(
-            getFont().getFontData()[0].getName(),
-            14,
-            SWT.BOLD));
+        m_titleLabel.setFont(
+            SwtResourceManager.getFont(getFont().getFontData()[0].getName(), 14, SWT.BOLD));
       }
     }
     {
@@ -84,15 +90,16 @@ public abstract class WarningComposite extends Composite {
       Button refreshButton = new Button(buttonsComposite, SWT.NONE);
       GridDataFactory.create(refreshButton).fillH();
       refreshButton.setText(Messages.WarningComposite_refreshButton);
-      refreshButton.setImage(EnvironmentUtils.IS_MAC
-          ? null
-          : DesignerPlugin.getImage("actions/errors/refresh32.png"));
+      refreshButton.setImage(
+          EnvironmentUtils.IS_MAC ? null : DesignerPlugin.getImage("actions/errors/refresh32.png"));
       refreshButton.addSelectionListener(new SelectionAdapter() {
         @Override
         public void widgetSelected(SelectionEvent e) {
           doRefresh();
         }
       });
+      //If not Windowbuilder Basic then button should be visible
+      refreshButton.setVisible(!wbBasic);
     }
     {
       m_switchButton = new Button(buttonsComposite, SWT.NONE);
@@ -104,6 +111,8 @@ public abstract class WarningComposite extends Composite {
           doShowSource(m_sourcePosition);
         }
       });
+      //If not Windowbuilder Basic then button should be visible
+      m_switchButton.setVisible(!wbBasic);
     }
   }
 
