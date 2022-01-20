@@ -28,7 +28,7 @@ public class SwitchActionTest extends SwingGefTest {
   /**
    * Test for switching to source and back to design.
    */
-  public void test_1() throws Exception {
+  public void DISABLE_test_1() throws Exception {
     openContainer(
         "// filler filler filler",
         "public class Test extends JPanel {",

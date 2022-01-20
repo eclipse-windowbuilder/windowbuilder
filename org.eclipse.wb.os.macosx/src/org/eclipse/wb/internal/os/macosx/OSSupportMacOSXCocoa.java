@@ -301,13 +301,6 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
   // Implementations
   //
   ////////////////////////////////////////////////////////////////////////////
-  public static final class Cocoa32 extends OSSupportMacOSXCocoa<Integer> {
-    @Override
-    protected Integer getID(Object control, String string) {
-      Object fieldObject = ReflectionUtils.getFieldObject(control, string);
-      return (Integer) ReflectionUtils.getFieldObject(fieldObject, "id");
-    }
-  }
   public static final class Cocoa64 extends OSSupportMacOSXCocoa<Long> {
     @Override
     protected Long getID(Object control, String string) {

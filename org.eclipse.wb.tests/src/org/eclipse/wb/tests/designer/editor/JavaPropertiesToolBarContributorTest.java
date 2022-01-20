@@ -42,7 +42,7 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
   /**
    * Test for "Goto definition" action.
    */
-  public void test_gotoDefinition() throws Exception {
+  public void DISABLED_test_gotoDefinition() throws Exception {
     openContainer(
         "// filler filler filler filler filler",
         "// filler filler filler filler filler",
@@ -85,7 +85,7 @@ public class JavaPropertiesToolBarContributorTest extends SwingGefTest {
   /**
    * Test for "Local to field" action.
    */
-  public void test_convertLocalToField() throws Exception {
+  public void DISABLED_test_convertLocalToField() throws Exception {
     openContainer(
         "// filler filler filler filler filler",
         "// filler filler filler filler filler",

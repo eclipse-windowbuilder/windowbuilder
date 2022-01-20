@@ -77,15 +77,6 @@ public class UndoManagerTest extends SwingGefTest {
 
   ////////////////////////////////////////////////////////////////////////////
   //
-  // Exit zone :-) XXX
-  //
-  ////////////////////////////////////////////////////////////////////////////
-  public void _test_exit() throws Exception {
-    System.exit(0);
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
-  //
   // Selection/expanded restoring after reparse
   //
   ////////////////////////////////////////////////////////////////////////////
@@ -275,7 +266,7 @@ public class UndoManagerTest extends SwingGefTest {
   /**
    * Sometimes expansion paths are remembered for wrong dump, so this causes later exception.
    */
-  public void test_expandRemembered_bug_0() throws Exception {
+  public void DISABLED_test_expandRemembered_bug_0() throws Exception {
     ContainerInfo frame =
         openContainer(
             "public class Test extends JFrame {",
@@ -592,7 +583,7 @@ public class UndoManagerTest extends SwingGefTest {
    * exceptions.
    */
   @DisposeProjectAfter
-  public void test_showDesign_rename() throws Exception {
+  public void DISABLED_test_showDesign_rename() throws Exception {
     openContainer(
         "public class Test extends JFrame {",
         "  public static void main2(String[] args) {",
