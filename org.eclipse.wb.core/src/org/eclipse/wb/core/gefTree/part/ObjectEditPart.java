@@ -18,6 +18,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.tree.TreeEditPart;
+import org.eclipse.wb.internal.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -171,9 +172,10 @@ public class ObjectEditPart extends TreeEditPart {
       getWidget().setImage(image);
     }
     //Obtain the preference specifying the root object name. If no name is specified then the default is used
-    String rootObjectName = InstanceScope.INSTANCE.getNode("org.eclipse.wb.core.ObjectInfo").get(
-        "rootObjectName",
-        null);
+    String rootObjectName =
+        InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_PREFERENCE_NODE).get(
+            IEditorPreferenceConstants.WB_ROOT_OBJ_NAME,
+            null);
     if (getWidget().getParentItem() == null) {
       if (rootObjectName == null) {
         getWidget().setText(text);
