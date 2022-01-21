@@ -14,10 +14,10 @@ package org.eclipse.wb.internal.core.editor.errors;
 import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.branding.IBrandingDescription;
 import org.eclipse.wb.core.controls.BrowserComposite;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.Messages;
-import org.eclipse.wb.internal.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
 import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
@@ -61,8 +61,8 @@ public abstract class ExceptionComposite extends Composite {
   public ExceptionComposite(Composite parent, int style) {
     super(parent, style);
     wbBasic = InstanceScope.INSTANCE.getNode(
-        IEditorPreferenceConstants.WB_BASIC_PREFERENCE_NODE).getBoolean(
-            IEditorPreferenceConstants.WB_BASIC,
+        IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
+            IEditorPreferenceConstants.WB_BASIC_UI,
             true);
     // create GUI elements
     GridLayoutFactory.create(this);
