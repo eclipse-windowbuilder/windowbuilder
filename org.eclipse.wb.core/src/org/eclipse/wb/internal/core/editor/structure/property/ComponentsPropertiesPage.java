@@ -12,6 +12,7 @@ package org.eclipse.wb.internal.core.editor.structure.property;
 
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.structure.property.PropertyCategoryProviderProvider;
 import org.eclipse.wb.core.editor.structure.property.PropertyListProcessor;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -34,6 +35,7 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -165,14 +167,22 @@ public final class ComponentsPropertiesPage implements IPage {
 			update_defaultValueAction();
 			// update toolbar
 			Control toolBarControl = ((ToolBarManager) m_toolBarManager).getControl();
+
+			boolean wbBasic = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE)
+					.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
+
 			try {
 				toolBarControl.setRedraw(false);
 				m_toolBarManager.removeAll();
 				// add standard items
-				m_toolBarManager.add(m_showEventsAction);
+				if (!wbBasic) {
+					m_toolBarManager.add(m_showEventsAction);
+				}
 				m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_EDIT));
 				m_toolBarManager.add(new Separator(IPropertiesToolBarContributor.GROUP_ADDITIONAL));
-				m_toolBarManager.add(m_showAdvancedPropertiesAction);
+				if (!wbBasic) {
+					m_toolBarManager.add(m_showAdvancedPropertiesAction);
+				}
 				m_toolBarManager.add(m_defaultValueAction);
 				// use external contributors
 				List<IPropertiesToolBarContributor> contributors = ExternalFactoriesHelper.getElementsInstances(
