@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,17 +7,20 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Addition of preference to specify a specific classpath for icon packs
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageRoot;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
@@ -49,8 +52,14 @@ public final class ClasspathImageRoot implements IImageRoot {
         try {
           if (root.isArchive()) {
             JarImageContainer jarContainer = new JarImageContainer(id, root);
-            if (!jarContainer.isEmpty()) {
-              containers.add(jarContainer);
+            String iconClasspaths = InstanceScope.INSTANCE.getNode(
+                IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
+                    IEditorPreferenceConstants.WB_CLASSPATH_ICONS,
+                    null);
+            if (iconClasspaths == null || jarContainer.getName().equals(iconClasspaths)) {
+              if (!jarContainer.isEmpty()) {
+                containers.add(jarContainer);
+              }
             }
           } else {
             SrcImageContainer srcContainer = new SrcImageContainer(id, root);
