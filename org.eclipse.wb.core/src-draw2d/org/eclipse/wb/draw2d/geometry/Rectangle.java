@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Updated Crop method to avoid negative width/height
  *******************************************************************************/
 package org.eclipse.wb.draw2d.geometry;
 
@@ -326,15 +327,31 @@ public final class Rectangle implements Translatable, Serializable {
   ////////////////////////////////////////////////////////////////////////////
   /**
    * Crops this rectangle by the amount specified in <code>insets</code>.
+   *
+   * if the width/height after cropping should be less than 0. The smallest value i.e. 0 is used as
+   * default
    */
   public Rectangle crop(Insets insets) {
+    int tmpHeight = 0;
+    int tmpWidth = 0;
     if (insets == null) {
       return this;
     }
     x += insets.left;
     y += insets.top;
+    tmpHeight = height - insets.getWidth();
+    tmpWidth = width - insets.getHeight();
     width -= insets.getWidth();
-    height -= insets.getHeight();
+    if (tmpWidth < 0) {
+      width = 0;
+    } else {
+      width = tmpWidth;
+    }
+    if (tmpHeight < 0) {
+      height = 0;
+    } else {
+      height = tmpHeight;
+    }
     return this;
   }
 
