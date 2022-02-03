@@ -20,4 +20,5 @@ public interface IEditorPreferenceConstants {
       "org.eclipse.wb.core.editor.constants.preferences";
   //Windowbuilder basic is a simplified version of Windowbuilder, containing fewer UI elements.
   public static String WB_BASIC_UI = "basicUserInterface";
+  public static String WB_CLASSPATH_ICONS = "iconsClasspaths";
 }
