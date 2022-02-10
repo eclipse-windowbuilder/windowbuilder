@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -88,11 +87,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
         {
           layoutCombo.add(UiMessages.LayoutsPreferencePage_implicitLayout);
           for (LayoutDescription layoutDescription : layouts) {
-            if (InstanceScope.INSTANCE.getNode("org.eclipse.wb.layoutOptions").getBoolean(
-                layoutDescription.getId(),
-                true)) {
-              layoutCombo.add(layoutDescription.getName());
-            }
+            layoutCombo.add(layoutDescription.getName());
           }
         }
         // bind

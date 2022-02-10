@@ -13,6 +13,7 @@ package org.eclipse.wb.internal.core.model.description.helpers;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.internal.core.model.description.LayoutDescription;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
@@ -62,9 +63,20 @@ public final class LayoutDescriptionHelper {
         String toolkitId = ExternalFactoriesHelper.getRequiredAttribute(element, "toolkit");
         if (toolkitId.equals(toolkit.getId())) {
           String layoutId = ExternalFactoriesHelper.getRequiredAttribute(element, "id");
-          if (InstanceScope.INSTANCE.getNode("org.eclipse.wb.layoutOptions").getBoolean(
-              layoutId,
-              true)) {
+          if (InstanceScope.INSTANCE.getNode(
+              IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
+                  IEditorPreferenceConstants.WB_BASIC_UI,
+                  true)) {
+            //Check whether the layout should be included in WB basic UI version
+            for (int i = 0; i < IEditorPreferenceConstants.WB_BASIC_LAYOUTS.length; i++) {
+              if (layoutId.equals(IEditorPreferenceConstants.WB_BASIC_LAYOUTS[i])) {
+                layouts.add(new LayoutDescription(toolkit, element));
+                //step out of the loop. At the time of writing there are only four elements to check
+                //but should this number grow in time, this loop could become a problem if the check is not performed
+                i += IEditorPreferenceConstants.WB_BASIC_LAYOUTS.length;
+              }
+            }
+          } else {
             layouts.add(new LayoutDescription(toolkit, element));
           }
         }

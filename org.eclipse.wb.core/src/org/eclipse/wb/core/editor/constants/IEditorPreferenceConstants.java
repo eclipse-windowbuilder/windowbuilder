@@ -21,4 +21,6 @@ public interface IEditorPreferenceConstants {
   //Windowbuilder basic is a simplified version of Windowbuilder, containing fewer UI elements.
   public static String WB_BASIC_UI = "basicUserInterface";
   public static String WB_CLASSPATH_ICONS = "iconsClasspaths";
+  public static String[] WB_BASIC_LAYOUTS =
+      {"absoluteLayout", "boxLayout", "gridLayout", "gridBagLayout"};
 }
