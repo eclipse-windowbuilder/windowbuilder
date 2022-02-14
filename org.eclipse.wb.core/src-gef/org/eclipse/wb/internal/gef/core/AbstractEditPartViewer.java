@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Nullcheck added to setSelection method
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
@@ -246,13 +247,14 @@ public abstract class AbstractEditPartViewer implements IEditPartViewer {
       //
       for (Iterator<EditPart> I = editParts.iterator(); I.hasNext();) {
         EditPart part = I.next();
-        Assert.isNotNull(part);
-        m_selectionList.add(part);
-        m_selecting = part;
-        if (I.hasNext()) {
-          part.setSelected(EditPart.SELECTED);
-        } else {
-          part.setSelected(EditPart.SELECTED_PRIMARY);
+        if(part != null) {
+          m_selectionList.add(part);
+          m_selecting = part;
+          if (I.hasNext()) {
+            part.setSelected(EditPart.SELECTED);
+          } else {
+            part.setSelected(EditPart.SELECTED_PRIMARY);
+          }
         }
       }
     } finally {
