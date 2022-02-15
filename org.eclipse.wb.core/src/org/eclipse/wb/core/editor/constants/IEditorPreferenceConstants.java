@@ -20,11 +20,7 @@ public interface IEditorPreferenceConstants {
       "org.eclipse.wb.core.editor.constants.preferences";
   //Windowbuilder basic is a simplified version of Windowbuilder, containing fewer UI elements.
   public static String WB_BASIC_UI = "basicUserInterface";
-<<<<<<< Upstream, based on origin/master
   public static String WB_CLASSPATH_ICONS = "iconsClasspaths";
-=======
->>>>>>> 8eae14f Root object in the Tree view can now have a default name set from an external source
-//Sets the root object name in the Components Tree view
+  //Sets the root object name in the Components Tree view
   public static String WB_ROOT_OBJ_NAME = "rootObjectDisplayName";
 }
-
