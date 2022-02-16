@@ -1,5 +1,13 @@
-/*Copyright(c)2011 Google,Inc.*All rights reserved.This program and the accompanying materials*are made available under the terms of the Eclipse Public License v1.0*which accompanies this distribution,and is available at*http://www.eclipse.org/legal/epl-v10.html
-**Contributors:*Google,Inc.-initial API and implementation*******************************************************************************/
+/*******************************************************************************
+ * Copyright (c) 2011 Google, Inc.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Google, Inc. - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
 import com.google.common.collect.Lists;
@@ -254,8 +262,7 @@ public class LayoutInfo extends JavaInfo {
             }
 
             @Override
-            protected void onClick(PropertyTable propertyTable, Property property)
-                throws Exception {
+            protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
               MenuManager manager = new MenuManager();
               getContainer().fillLayoutsManager(manager);
               Menu menu = manager.createContextMenu(propertyTable);

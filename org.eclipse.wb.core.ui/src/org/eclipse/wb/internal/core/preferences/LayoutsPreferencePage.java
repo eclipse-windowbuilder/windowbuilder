@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Label;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -80,9 +81,11 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
         UiUtils.setVisibleItemCount(layoutCombo, 15);
         // prepare layouts
         final List<LayoutDescription> layouts = LayoutDescriptionHelper.get(m_toolkit);
-        Collections.sort(
-            layouts,
-            (layout_1, layout_2) -> layout_1.getName().compareTo(layout_2.getName()));
+        Collections.sort(layouts, new Comparator<LayoutDescription>() {
+          public int compare(LayoutDescription layout_1, LayoutDescription layout_2) {
+            return layout_1.getName().compareTo(layout_2.getName());
+          }
+        });
         // add items for layouts
         {
           layoutCombo.add(UiMessages.LayoutsPreferencePage_implicitLayout);
@@ -92,7 +95,6 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
         }
         // bind
         m_bindManager.bind(new IDataEditor() {
-          @Override
           public void setValue(Object value) {
             String id = (String) value;
             // implicit layout
@@ -109,7 +111,6 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
             }
           }
 
-          @Override
           public Object getValue() {
             int index = layoutCombo.getSelectionIndex();
             if (index <= 0) {
@@ -121,8 +122,7 @@ public abstract class LayoutsPreferencePage extends AbstractBindingPreferencesPa
             }
           }
         },
-            new StringPreferenceProvider(m_preferences, IPreferenceConstants.P_LAYOUT_DEFAULT),
-            true);
+            new StringPreferenceProvider(m_preferences, IPreferenceConstants.P_LAYOUT_DEFAULT), true);
       }
       // boolean preferences
       checkButton(
