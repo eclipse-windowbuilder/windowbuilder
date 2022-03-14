@@ -16,10 +16,12 @@ https://download.eclipse.org/windowbuilder/latest/
 
 
 
-* 👔 Eclipse project entry: https://projects.eclipse.org/projects/tools.windowbuilder
+* 👔 Eclipse project entry: 
+     * https://projects.eclipse.org/projects/tools.windowbuilder
 * 🪲 Bug Tracker
      * https://github.com/eclipse/windowbuilder/issues
-* ⌨️ How to Contribute and latest snapshots: [CONTRIBUTING.md](./CONTRIBUTING.md)
+* ⌨️ How to Contribute and get the latest snapshots: 
+     * [CONTRIBUTING.md](./CONTRIBUTING.md)
 * 💬 Discussion channels
      * https://github.com/eclipse/windowbuilder/discussions
 
