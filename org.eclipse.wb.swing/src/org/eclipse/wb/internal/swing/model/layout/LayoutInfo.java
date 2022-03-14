@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2021 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - updated "restore default value" feature
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
@@ -24,8 +25,11 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
+import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
+import org.eclipse.wb.internal.core.model.description.LayoutDescription;
+import org.eclipse.wb.internal.core.model.description.helpers.LayoutDescriptionHelper;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData.HorizontalAlignment;
 import org.eclipse.wb.internal.core.model.layout.GeneralLayoutData.VerticalAlignment;
@@ -37,15 +41,20 @@ import org.eclipse.wb.internal.core.model.property.editor.presentation.ButtonPro
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
+import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Menu;
+
+import org.apache.commons.lang.StringUtils;
+import org.osgi.service.prefs.Preferences;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -56,6 +65,7 @@ import java.util.List;
  * Abstract model for {@link LayoutManager}.
  *
  * @author scheglov_ke
+ * @author Marcel du Preez - default layout
  * @coverage swing.model.layout
  */
 public class LayoutInfo extends JavaInfo {
@@ -249,7 +259,7 @@ public class LayoutInfo extends JavaInfo {
           @Override
           public void setValue(Object value) throws Exception {
             if (value == UNKNOWN_VALUE) {
-              delete();
+              setDefaultLayout();
             }
           }
         };
@@ -262,7 +272,8 @@ public class LayoutInfo extends JavaInfo {
             }
 
             @Override
-            protected void onClick(PropertyTable propertyTable, Property property) throws Exception {
+            protected void onClick(PropertyTable propertyTable, Property property)
+                throws Exception {
               MenuManager manager = new MenuManager();
               getContainer().fillLayoutsManager(manager);
               Menu menu = manager.createContextMenu(propertyTable);
@@ -415,5 +426,37 @@ public class LayoutInfo extends JavaInfo {
       }
       generalLayoutData.putToInfo(component);
     }
+  }
+
+  /**
+   * Removes the previous layout and sets the default layout as specified in the Windowbuilder
+   * layout preferences
+   *
+   * When the Implicit (default) layout option is selected the layout defaults to the GridLayout
+   *
+   * @throws Exception
+   */
+  private void setDefaultLayout() throws Exception {
+    Preferences prefs = InstanceScope.INSTANCE.getNode("org.eclipse.wb.swing");
+    //when the preferences are set to "Implicit (default) layout" the returned value is null
+    //therefore the default value for that would then default to flowLayout
+    String defaultValue = prefs.get("layout.default", "gridLayout");
+    List<LayoutDescription> descriptions =
+        LayoutDescriptionHelper.get(getDescription().getToolkit());
+    String creationId = null;
+    ClassLoader editorLoader = null;
+    Class<?> layoutClass = null;
+    for (LayoutDescription description : descriptions) {
+      if (StringUtils.equals(defaultValue, description.getId())) {
+        creationId = description.getCreationId();
+        editorLoader = EditorState.get(getContainer().getEditor()).getEditorLoader();
+        layoutClass = editorLoader.loadClass(description.getLayoutClassName());
+      }
+    }
+    LayoutInfo defaultLayoutInfo = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+        getContainer().getEditor(),
+        layoutClass,
+        new ConstructorCreationSupport(creationId, true));
+    getContainer().setLayout(defaultLayoutInfo);
   }
 }
