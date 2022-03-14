@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,11 +7,13 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *     Marcel du Preez - Preference check added to alter the root object name in the TreeView
  *******************************************************************************/
 package org.eclipse.wb.core.gefTree.part;
 
 import com.google.common.collect.Lists;
 
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.EditPart;
@@ -25,6 +27,7 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Event;
@@ -177,7 +180,20 @@ public class ObjectEditPart extends TreeEditPart {
     if (image != null && !image.isDisposed()) {
       getWidget().setImage(image);
     }
-    getWidget().setText(text);
+  //Obtain the preference specifying the root object name. If no name is specified then the default is used
+    String rootObjectName =
+        InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
+            IEditorPreferenceConstants.WB_ROOT_OBJ_NAME,
+            null);
+    if (getWidget().getParentItem() == null) {
+      if (rootObjectName == null) {
+        getWidget().setText(text);
+      } else {
+        getWidget().setText(rootObjectName);
+      }
+    } else {
+      getWidget().setText(text);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

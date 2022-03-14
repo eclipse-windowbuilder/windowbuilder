@@ -21,4 +21,6 @@ public interface IEditorPreferenceConstants {
   //Windowbuilder basic is a simplified version of Windowbuilder, containing fewer UI elements.
   public static String WB_BASIC_UI = "basicUserInterface";
   public static String WB_CLASSPATH_ICONS = "iconsClasspaths";
+  //Sets the root object name in the Components Tree view
+  public static String WB_ROOT_OBJ_NAME = "rootObjectDisplayName";
 }
