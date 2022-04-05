@@ -96,7 +96,7 @@ public final class ContainerEditPart extends ComponentEditPart {
       if (m_currentLayout != layout) {
         m_currentLayout = layout;
         LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
       }
     }
   }

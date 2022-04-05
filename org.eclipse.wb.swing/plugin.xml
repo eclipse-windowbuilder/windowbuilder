@@ -463,6 +463,8 @@
 			class="java.awt.CardLayout"/>
 		<layout toolkit="org.eclipse.wb.swing" id="gridBagLayout" name="GridBagLayout"
 			class="java.awt.GridBagLayout"/>
+		<layout toolkit="org.eclipse.wb.swing" id="springLayout" name="SpringLayout"
+			class="javax.swing.SpringLayout"/> 
 	</extension>
 
 

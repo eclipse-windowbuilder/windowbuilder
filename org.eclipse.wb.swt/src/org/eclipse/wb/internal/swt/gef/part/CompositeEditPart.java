@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,9 +7,12 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Updated refreshEditPolicies to include a preference check
+ *                      and set a default should the original layout not be allowed
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.part;
 
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.draw2d.Figure;
@@ -25,6 +28,7 @@ import org.eclipse.wb.internal.swt.gef.policy.layout.DropLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 
 /**
@@ -91,23 +95,49 @@ public class CompositeEditPart extends ControlEditPart {
 
   @Override
   protected void refreshEditPolicies() {
-    super.refreshEditPolicies();
-    // support for dropping components
-    if (m_composite.hasLayout()) {
-      LayoutInfo layout = m_composite.getLayout();
-      if (layout != m_currentLayout) {
-        m_currentLayout = layout;
-        LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
-        if (policy == null) {
-          policy = new DefaultLayoutEditPolicy();
-        }
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
-      } else {
-        EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);
-        if (policy instanceof IRefreshableEditPolicy) {
-          ((IRefreshableEditPolicy) policy).refreshEditPolicy();
-        }
-      }
-    }
-  }
+		super.refreshEditPolicies();
+		// support for dropping components
+		if (m_composite.hasLayout()) {
+			LayoutInfo layout = m_composite.getLayout();
+			if (layout != m_currentLayout) {
+				m_currentLayout = layout;
+				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
+				if (policy == null) {
+					policy = new DefaultLayoutEditPolicy();
+				}
+				installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+
+				if (layout.getDescription().getComponentClass() != null) {
+					if (!InstanceScope.INSTANCE.getNode(
+				              IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
+				                  layout.getDescription().getComponentClass().getName(),
+				                  true)) {
+						try {
+							m_currentLayout = m_composite.getDefaultCompositeInfo();
+
+							policy = LayoutPolicyUtils.createLayoutEditPolicy(this, m_currentLayout);
+			              if (policy == null) {
+			                policy = new DefaultLayoutEditPolicy();
+			              }
+			              installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
+			              //Sets the default layout if the layout was originally set with a layout
+			              //that is no longer available due to preference settings
+							m_composite.setLayout(m_currentLayout);
+						} catch (Exception e) {
+
+							e.printStackTrace();
+						}
+					}
+					}
+
+
+			} else {
+				EditPolicy policy = getEditPolicy(EditPolicy.LAYOUT_ROLE);
+				if (policy instanceof IRefreshableEditPolicy) {
+					((IRefreshableEditPolicy) policy).refreshEditPolicy();
+				}
+			}
+
+		}
+	}
 }

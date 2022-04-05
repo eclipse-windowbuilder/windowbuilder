@@ -23,4 +23,12 @@ public interface IEditorPreferenceConstants {
   public static String WB_CLASSPATH_ICONS = "iconsClasspaths";
   //Sets the root object name in the Components Tree view
   public static String WB_ROOT_OBJ_NAME = "rootObjectDisplayName";
+  /**
+   * This node is used to store the preferences of which layouts should be available in
+   * Windowbuilder Swing and SWT layout preferences both use the same node. If the preferences on
+   * this node are <code>true</true> they
+   * will be available for use as normal. If it is <code>false</code> then the specified layouts
+   * will be hidden from layout comboxes as well as the layout container in the designer palette.
+   */
+  public static String P_AVAILABLE_LAYOUTS_NODE = "layout.available";
 }
