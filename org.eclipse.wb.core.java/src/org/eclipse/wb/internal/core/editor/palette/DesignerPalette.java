@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc and Others.
+ * Copyright (c) 2011, 2022 Google, Inc. and Others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.core.controls.palette.ICategory;
 import org.eclipse.wb.core.controls.palette.IEntry;
 import org.eclipse.wb.core.controls.palette.IPalette;
 import org.eclipse.wb.core.controls.palette.PaletteComposite;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.palette.PaletteEventListener;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -61,6 +62,7 @@ import org.eclipse.wb.internal.gef.core.IDefaultToolProvider;
 
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -90,6 +92,7 @@ public class DesignerPalette {
   // Instance fields
   //
   ////////////////////////////////////////////////////////////////////////////
+  private final String ENTRYINFO_CATEGORY = "org.eclipse.wb.swing.layouts";
   private final boolean m_isMainPalette;
   private final PluginPalettePreferences m_preferences;
   private final PaletteComposite m_paletteComposite;
@@ -336,9 +339,21 @@ public class DesignerPalette {
           List<IEntry> entries = Lists.newArrayList();
           for (EntryInfo entryInfo : entryInfoList) {
             if (entryInfo.isVisible()) {
-              IEntry entry = getVisualEntry(entryInfo);
-              if (entry != null) {
-                entries.add(entry);
+              if (categoryId.equals(ENTRYINFO_CATEGORY)) {
+                if (InstanceScope.INSTANCE.getNode(
+                    IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
+                        entryInfo.getId().substring(entryInfo.getId().indexOf(' ') + 1),
+                        true)) {
+                  IEntry entry = getVisualEntry(entryInfo);
+                  if (entry != null) {
+                    entries.add(entry);
+                  }
+                }
+              } else {
+                IEntry entry = getVisualEntry(entryInfo);
+                if (entry != null) {
+                  entries.add(entry);
+                }
               }
             }
           }

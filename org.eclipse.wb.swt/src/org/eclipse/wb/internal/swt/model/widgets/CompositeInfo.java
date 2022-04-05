@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2022 Google, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,10 +7,15 @@
  *
  * Contributors:
  *    Google, Inc. - initial API and implementation
+ *    Marcel du Preez - Altered the method fillLayoutsManager to include only layouts specified in
+ *                      the preferences.
+ *                    - Moved code out of initialize_createImplicitLayout and replaced it with a new method getDefaultCompositeInfo
+ *                    - Added the method getDefaultCompositeInfo that returns the appropriate default layout, either specified in preferences or Absolute layout
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.widgets;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.eval.AstEvaluationEngine;
 import org.eclipse.wb.core.eval.EvaluationContext;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -68,6 +73,7 @@ import org.eclipse.wb.internal.swt.support.ContainerSupport;
 import org.eclipse.wb.internal.swt.support.ControlSupport;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NullLiteral;
@@ -230,25 +236,29 @@ public class CompositeInfo extends ScrollableInfo
     List<LayoutDescription> descriptions =
         LayoutDescriptionHelper.get(getDescription().getToolkit());
     for (final LayoutDescription description : descriptions) {
-      final Class<?> layoutClass = editorLoader.loadClass(description.getLayoutClassName());
-      final String creationId = description.getCreationId();
-      ComponentDescription layoutComponentDescription =
-          ComponentDescriptionHelper.getDescription(editor, layoutClass);
-      ObjectInfoAction action = new ObjectInfoAction(this) {
-        @Override
-        protected void runEx() throws Exception {
-          description.ensureLibraries(editor.getJavaProject());
-          LayoutInfo layout =
-              (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                  getEditor(),
-                  layoutClass,
-                  new ConstructorCreationSupport(creationId, true));
-          setLayout(layout);
-        }
-      };
-      action.setText(description.getName());
-      action.setImageDescriptor(new ImageImageDescriptor(layoutComponentDescription.getIcon()));
-      layoutsManager.add(action);
+      if (InstanceScope.INSTANCE.getNode(
+          IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(
+              description.getLayoutClassName(),
+              true)) {
+        final Class<?> layoutClass = editorLoader.loadClass(description.getLayoutClassName());
+        final String creationId = description.getCreationId();
+        ComponentDescription layoutComponentDescription =
+            ComponentDescriptionHelper.getDescription(editor, layoutClass);
+        ObjectInfoAction action = new ObjectInfoAction(this) {
+          @Override
+          protected void runEx() throws Exception {
+            description.ensureLibraries(editor.getJavaProject());
+            LayoutInfo layout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+                getEditor(),
+                layoutClass,
+                new ConstructorCreationSupport(creationId, true));
+            setLayout(layout);
+          }
+        };
+        action.setText(description.getName());
+        action.setImageDescriptor(new ImageImageDescriptor(layoutComponentDescription.getIcon()));
+        layoutsManager.add(action);
+      }
     }
   }
 
@@ -400,23 +410,24 @@ public class CompositeInfo extends ScrollableInfo
         return;
       }
       // prepare for creation
-      AstEditor editor = getEditor();
+		AstEditor editor = getEditor();
       Object layout = ContainerSupport.getLayout(getObject());
-      // check if same implicit already exists
-      if (initialize_removeImplicitLayout(layout)) {
-        return;
-      }
+		// check if same implicit already exists
+		if (initialize_removeImplicitLayout(layout)) {
+			return;
+		}
       // create layout model
-      LayoutInfo implicitLayout;
-      CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
-      if (layout == null) {
-        ToolkitDescription toolkit = getDescription().getToolkit();
-        implicitLayout = new AbsoluteLayoutInfo(editor, toolkit, creationSupport);
-      } else {
-        Class<?> layoutClass = layout.getClass();
-        implicitLayout =
-            (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutClass, creationSupport);
-      }
+		LayoutInfo implicitLayout;
+		CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
+		if (layout == null) {
+			ToolkitDescription toolkit = getDescription().getToolkit();
+			implicitLayout = new AbsoluteLayoutInfo(editor, toolkit, creationSupport);
+		} else {
+			Class<?> layoutClass = layout.getClass();
+			implicitLayout = checkLayoutPreferences(layoutClass, editor, creationSupport);
+
+		}
+
       // set variable support
       VariableSupport variableSupport = new ImplicitLayoutVariableSupport(implicitLayout);
       implicitLayout.setVariableSupport(variableSupport);
@@ -546,11 +557,10 @@ public class CompositeInfo extends ScrollableInfo
     IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
     // check if processing required
     {
-      boolean shouldBeProcessed =
-          hasLayout()
-              && getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE
-              && getArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED) == null
-              && getArbitraryValue(KEY_DONT_INHERIT_LAYOUT) == null;
+      boolean shouldBeProcessed = hasLayout()
+          && getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE
+          && getArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED) == null
+          && getArbitraryValue(KEY_DONT_INHERIT_LAYOUT) == null;
       if (!shouldBeProcessed) {
         return;
       }
@@ -577,11 +587,10 @@ public class CompositeInfo extends ScrollableInfo
         if (layoutClass == null) {
           thisLayout = AbsoluteLayoutInfo.createExplicit(this);
         } else {
-          thisLayout =
-              (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                  getEditor(),
-                  layoutClass,
-                  new ConstructorCreationSupport());
+          thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+              getEditor(),
+              layoutClass,
+              new ConstructorCreationSupport());
         }
       }
       // we are in process of refresh(), set inherited layout later
@@ -607,11 +616,10 @@ public class CompositeInfo extends ScrollableInfo
           layoutClass = editorLoader.loadClass(layoutClassName);
         }
         //
-        final LayoutInfo thisLayout =
-            (LayoutInfo) JavaInfoUtils.createJavaInfo(
-                getEditor(),
-                layoutClass,
-                new ConstructorCreationSupport());
+        final LayoutInfo thisLayout = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+            getEditor(),
+            layoutClass,
+            new ConstructorCreationSupport());
         // we are in process of refresh(), set inherited layout later
         ExecutionUtils.runLater(this, new RunnableEx() {
           @Override
@@ -713,4 +721,71 @@ public class CompositeInfo extends ScrollableInfo
       }
     }
   }
+
+  /**
+   * Check that implicit layout is the same as the default layout, default layout should always take
+   * precedence over implicit layout. If the default layout AND the implicit layout is not allowed
+   * (via preference settings) then the absolute layout is used.
+   *
+   * @return Default/Implicit or Absolute Layout
+   * @throws Exception
+   */
+  public LayoutInfo getDefaultCompositeInfo() throws Exception {
+    LayoutInfo layoutInfo = null;
+    Class<?> preferenceDefaultlayoutClass = null;
+    IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
+    String layoutId = preferences.getString(IPreferenceConstants.P_LAYOUT_DEFAULT);
+    CreationSupport creationSupport = new ImplicitLayoutCreationSupport(this);
+	if (layoutId != "") {
+		// handle the case that "Implicit" is specified in the preferences
+
+      //handle the case that another layout has been specified as default
+      LayoutDescription ldescription =
+          LayoutDescriptionHelper.get(getDescription().getToolkit(), layoutId);
+      if (ldescription != null) {
+        String layoutClassName = ldescription.getLayoutClassName();
+        ClassLoader editorLoader = EditorState.get(getEditor()).getEditorLoader();
+        preferenceDefaultlayoutClass = editorLoader.loadClass(layoutClassName);
+		if (layoutClassName != null && !InstanceScope.INSTANCE
+				.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE).getBoolean(layoutClassName, true)) {
+			return layoutInfo = AbsoluteLayoutInfo.createExplicit(this);
+		}
+
+        layoutInfo = (LayoutInfo) JavaInfoUtils.createJavaInfo(
+            getEditor(),
+            preferenceDefaultlayoutClass,
+				creationSupport);
+      }
+    }
+	if (layoutId == "") {
+      //Last resort is to load the Absolute layout
+		layoutInfo = new AbsoluteLayoutInfo(getEditor(), getDescription().getToolkit(), creationSupport);
+    }
+
+    return layoutInfo;
+  }
+
+	public LayoutInfo checkLayoutPreferences(Class<?> layoutInf, AstEditor editor,
+			CreationSupport creationSupport) {
+
+		if (layoutInf != null) {
+			if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+					.getBoolean(layoutInf.getCanonicalName(), true)) {
+				try {
+					return AbsoluteLayoutInfo.createExplicit(this);
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+			}
+		}
+		try {
+			return (LayoutInfo) JavaInfoUtils.createJavaInfo(editor, layoutInf, creationSupport);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			}
+			return null;
+		}
+
 }

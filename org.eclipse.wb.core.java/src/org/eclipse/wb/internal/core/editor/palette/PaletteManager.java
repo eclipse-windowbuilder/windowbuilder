@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
@@ -53,6 +54,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.IJavaProject;
 
 import org.apache.commons.io.FileUtils;
@@ -68,6 +70,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -442,6 +445,12 @@ public final class PaletteManager {
               categoryId,
               "Element defined outside of category, so requires 'category' attribute.");
           categoryInfo = paletteInfo.getCategory(categoryId);
+				if (categoryId.equals("org.eclipse.wb.rcp.layouts")) {
+					if (InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+							.getBoolean(categoryId, true)) {
+						categoryInfo = filterPaletteLayouts(categoryInfo);
+					}
+				}
           Assert.isNotNull(categoryInfo, "No category with id '" + categoryId + "' found.");
         }
         // generic entry
@@ -495,6 +504,47 @@ public final class PaletteManager {
     });
   }
 
+	public static CategoryInfo filterPaletteLayouts(CategoryInfo categoryInfo) {
+		CategoryInfo filteredCategory = categoryInfo;
+		List<EntryInfo> entries = new ArrayList<EntryInfo>();
+		entries.addAll(categoryInfo.getEntries()); // make a copy of the entries list to avoid concurrent modification
+													// error
+		for (EntryInfo entryInfo : entries) {
+
+				if (entryInfo instanceof ComponentEntryInfo) {
+					// java.awt.FlowLayout, javax.swing.BoxLayout and java.awt.BorderLayout layout
+					// are special layouts that have a swing to swt
+					// implementation and need to checked
+					// separately
+
+					if (((ComponentEntryInfo) entryInfo).getClassName().contains("FlowLayout")) {
+						if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+								.getBoolean("java.awt.FlowLayout", true)) {
+							filteredCategory.removeEntry(entryInfo);
+						}
+					}
+					if (((ComponentEntryInfo) entryInfo).getClassName().contains("BoxLayout")) {
+						if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+								.getBoolean("javax.swing.BoxLayout", true)) {
+							filteredCategory.removeEntry(entryInfo);
+						}
+					}
+					if (((ComponentEntryInfo) entryInfo).getClassName().contains("BorderLayout")) {
+						if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+								.getBoolean("java.awt.BorderLayout", true)) {
+							filteredCategory.removeEntry(entryInfo);
+						}
+					}
+				if (!InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+						.getBoolean(((ComponentEntryInfo) entryInfo).getClassName(), true)) {
+					filteredCategory.removeEntry(entryInfo);
+				}
+
+			}
+		}
+
+		return filteredCategory;
+	}
   /**
    * @return <code>true</code> if "condition" attribute is empty or evaluates to <code>true</code>.
    */

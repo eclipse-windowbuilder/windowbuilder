@@ -6,6 +6,7 @@ public class UiMessages extends NLS {
   private static final String BUNDLE_NAME = "org.eclipse.wb.internal.core.UiMessages"; //$NON-NLS-1$
   public static String AbstractOpenWizardAction_emptyWorkspaceMessage;
   public static String AbstractOpenWizardAction_emptyWorkspaceTitle;
+  public static String LayoutsPreferencePage_availableLayouts;
   public static String LayoutsPreferencePage_defaultLayout;
   public static String LayoutsPreferencePage_implicitLayout;
   public static String LayoutsPreferencePage_inheritLayout;
