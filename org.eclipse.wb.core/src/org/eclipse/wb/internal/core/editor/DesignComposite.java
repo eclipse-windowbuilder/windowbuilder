@@ -8,6 +8,7 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *    Marcel du Preez - GraphicalViewer getter method
+ *                      - hiding/showing WB toolbar by means of a preference
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
@@ -16,6 +17,7 @@ import org.eclipse.wb.core.controls.LineControl;
 import org.eclipse.wb.core.controls.flyout.FlyoutControlComposite;
 import org.eclipse.wb.core.controls.flyout.IFlyoutPreferences;
 import org.eclipse.wb.core.controls.flyout.PluginFlyoutPreferences;
+import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.Graphics;
 import org.eclipse.wb.draw2d.IColorConstants;
@@ -32,12 +34,15 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IEditorPart;
+
+import org.osgi.service.prefs.Preferences;
 
 /**
  * {@link Composite} with GUI for visual design, i.e. properties table, palette, GEF.
@@ -98,16 +103,25 @@ public abstract class DesignComposite extends Composite {
   private void createEditorComposite(Composite parent) {
     Composite editorComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
+    Preferences preferences = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
+    boolean windowbuilderBasic = preferences.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
+   
     // toolbar
     {
       m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);
-      GridDataFactory.create(m_toolBar).grabH().fill();
+    //Exclude from GridData when separator is hidden
+      //if includeWindowBuilderToolbar is true the exclude method should get 'false' as parameter
+      GridDataFactory.create(m_toolBar).grabH().fill().exclude(windowbuilderBasic);
+      m_toolBar.setVisible(!windowbuilderBasic);
     }
     // separator to highlight toolbar
     {
       LineControl separator = new LineControl(editorComposite, SWT.HORIZONTAL);
       separator.setBackground(IColorConstants.buttonDarker);
-      GridDataFactory.create(separator).grabH().fill();
+    //Exclude from GridData when separator is hidden
+      //Separator should be hidden when toolbar is hidden.
+      GridDataFactory.create(separator).grabH().fill().exclude(windowbuilderBasic);
+      separator.setVisible(!windowbuilderBasic);
     }
     // create gefComposite - palette and design canvas (viewer)
     createGEFComposite(editorComposite);
