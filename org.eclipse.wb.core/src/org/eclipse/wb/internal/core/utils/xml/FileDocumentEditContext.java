@@ -62,6 +62,7 @@ public class FileDocumentEditContext extends AbstractDocumentEditContext {
   @Override
   public final void commit() {
     ExecutionUtils.runRethrowUI(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         commit_super();
         m_buffer.commit(null, false);

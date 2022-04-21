@@ -56,6 +56,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
   // IEditPartFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public EditPart createEditPart(EditPart context, Object model) {
     Class<?> modelClass = model.getClass();
     for (; modelClass != null; modelClass = modelClass.getSuperclass()) {

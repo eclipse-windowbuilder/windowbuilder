@@ -42,6 +42,7 @@ public class CImageLabel extends Canvas {
   public CImageLabel(Composite parent, int style) {
     super(parent, style | SWT.NO_BACKGROUND);
     addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (m_backImage != null) {
           m_backImage.dispose();
@@ -50,6 +51,7 @@ public class CImageLabel extends Canvas {
       }
     });
     addListener(SWT.Paint, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         doPaint(event.gc);
       }

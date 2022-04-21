@@ -79,6 +79,7 @@ public abstract class AbstractRelativeLocator implements ILocator, IPositionCons
   /**
    * Relocates the target using the relative offset locations.
    */
+  @Override
   public final void relocate(Figure target) {
     // prepare reference
     Rectangle reference = getReferenceRectangle();

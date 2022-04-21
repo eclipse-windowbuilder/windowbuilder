@@ -67,6 +67,7 @@ class RootEditPart extends TreeEditPart implements IRootContainer {
   /**
    * Returns the <i>content</i> {@link EditPart}.
    */
+  @Override
   public EditPart getContent() {
     return m_contentEditPart;
   }
@@ -75,6 +76,7 @@ class RootEditPart extends TreeEditPart implements IRootContainer {
    * Sets the <i>content</i> {@link EditPart}. A IRootEditPart only has a single child, called its
    * <i>contents</i>.
    */
+  @Override
   public void setContent(EditPart contentEditPart) {
     if (m_contentEditPart != null) {
       // remove content

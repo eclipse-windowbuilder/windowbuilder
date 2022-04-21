@@ -101,14 +101,17 @@ public interface IMenuPolicy {
     // Validation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean validateCreate(Object newObject) {
       return false;
     }
 
+    @Override
     public boolean validatePaste(Object mementoObject) {
       return false;
     }
 
+    @Override
     public boolean validateMove(Object object) {
       return false;
     }
@@ -118,12 +121,15 @@ public interface IMenuPolicy {
     // Operations
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void commandCreate(Object newObject, Object nextObject) throws Exception {
     }
 
+    @Override
     public void commandMove(Object object, Object nextObject) throws Exception {
     }
 
+    @Override
     public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
       return ImmutableList.of();
     }

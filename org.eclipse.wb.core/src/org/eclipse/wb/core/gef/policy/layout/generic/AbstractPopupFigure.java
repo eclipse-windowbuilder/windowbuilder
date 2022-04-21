@@ -65,6 +65,7 @@ public abstract class AbstractPopupFigure extends Figure {
     setCursor(ICursorConstants.HAND);
     // add mouse listener
     addMouseListener(new IMouseListener() {
+      @Override
       public void mouseDown(MouseEvent event) {
         event.consume();
         // prepare IMenuManager
@@ -76,9 +77,11 @@ public abstract class AbstractPopupFigure extends Figure {
         menu.setVisible(true);
       }
 
+      @Override
       public void mouseUp(MouseEvent event) {
       }
 
+      @Override
       public void mouseDoubleClick(MouseEvent event) {
       }
     });

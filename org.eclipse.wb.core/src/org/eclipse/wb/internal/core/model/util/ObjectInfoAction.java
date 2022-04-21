@@ -79,9 +79,11 @@ public abstract class ObjectInfoAction extends Action {
   @Override
   public final void run() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (shouldRun()) {
           ExecutionUtils.run(m_object, new RunnableEx() {
+            @Override
             public void run() throws Exception {
               runEx();
             }

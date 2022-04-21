@@ -43,6 +43,7 @@ public final class ImageDisposer {
     // create Timer (its TimerThread) with empty set of ProtectionDomain's,
     // so prevent holding reference on stack ProtectionDomain's, which include ClassLoader's
     AccessController.doPrivileged(new PrivilegedAction<Object>() {
+      @Override
       public Object run() {
         m_timer = new Timer(true);
         return null;
@@ -116,6 +117,7 @@ public final class ImageDisposer {
       // dispose Image
       final Image image = reference.m_image;
       ExecutionUtils.runAsync(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           if (image != null && !image.isDisposed()) {
             image.dispose();

@@ -29,10 +29,12 @@ import java.util.List;
  */
 public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
   private final IEditPartListener m_listener = new IEditPartListener() {
+    @Override
     public void childAdded(EditPart child, int index) {
       decorateChild(child);
     }
 
+    @Override
     public void removingChild(EditPart child, int index) {
       undecorateChild(child);
     }

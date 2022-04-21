@@ -57,6 +57,7 @@ public abstract class ObjectPositionLayoutEditPolicy<C, D> extends AbstractPosit
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
         new IPasteComponentProcessor() {
+          @Override
           @SuppressWarnings("unchecked")
           public void process(Object component) throws Exception {
             command_CREATE((C) component, (D) data);

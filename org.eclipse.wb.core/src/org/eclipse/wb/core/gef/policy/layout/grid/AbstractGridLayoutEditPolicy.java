@@ -63,6 +63,7 @@ public abstract class AbstractGridLayoutEditPolicy extends LayoutEditPolicy
       }
     });
     new SelectionListenerHelper(this, new IEditPartSelectionListener() {
+      @Override
       public void selectionChanged(EditPart editPart) {
         refreshSelectionGrid();
       }

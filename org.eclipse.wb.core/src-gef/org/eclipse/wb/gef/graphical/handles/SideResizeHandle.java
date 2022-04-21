@@ -67,6 +67,7 @@ public class SideResizeHandle extends Handle {
     // ILocator
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void relocate(Figure target) {
       Rectangle bounds = m_reference.getBounds().getCopy();
       FigureUtils.translateFigureToFigure(m_reference, target, bounds);

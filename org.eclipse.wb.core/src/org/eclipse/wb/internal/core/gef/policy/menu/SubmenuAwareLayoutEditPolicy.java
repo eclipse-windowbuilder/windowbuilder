@@ -138,16 +138,19 @@ public final class SubmenuAwareLayoutEditPolicy extends LayoutEditPolicy {
   }
 
   private final ILayoutRequestValidator m_validator = new ILayoutRequestValidator() {
+    @Override
     public boolean validateCreateRequest(EditPart host, CreateRequest request) {
       IMenuInfo subMenu = getSubMenu();
       return subMenu != null && subMenu.getPolicy().validateCreate(request.getNewObject());
     }
 
+    @Override
     public boolean validatePasteRequest(EditPart host, PasteRequest request) {
       IMenuInfo subMenu = getSubMenu();
       return subMenu != null && subMenu.getPolicy().validatePaste(request.getMemento());
     }
 
+    @Override
     public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
       IMenuInfo subMenu = getSubMenu();
       if (subMenu == null) {
@@ -162,6 +165,7 @@ public final class SubmenuAwareLayoutEditPolicy extends LayoutEditPolicy {
       return true;
     }
 
+    @Override
     public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
       return validateMoveRequest(host, request);
     }

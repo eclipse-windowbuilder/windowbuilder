@@ -51,6 +51,7 @@ public final class AutoExpandEditPolicy extends EditPolicy {
     // if mouse cursor is above our "host", expand it
     if (targetWidget == hostWidget && !hostWidget.getExpanded() && hostWidget.getItemCount() != 0) {
       tree.getShell().getDisplay().asyncExec(new Runnable() {
+        @Override
         public void run() {
           if (!hostWidget.isDisposed()) {
             hostWidget.setExpanded(true);

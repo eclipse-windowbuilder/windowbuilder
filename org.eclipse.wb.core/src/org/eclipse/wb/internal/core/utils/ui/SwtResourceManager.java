@@ -133,6 +133,7 @@ public class SwtResourceManager {
     if (image[0] == null) {
       final Display display = DesignerPlugin.getStandardDisplay();
       display.syncExec(new Runnable() {
+        @Override
         public void run() {
           image[0] = display.getSystemImage(imageID);
         }

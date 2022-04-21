@@ -20,12 +20,15 @@ import java.util.Map;
  * @coverage core.util.xml
  */
 public class QHandlerAdapter implements QHandler {
+  @Override
   public void startDocument() throws Exception {
   }
 
+  @Override
   public void endDocument() throws Exception {
   }
 
+  @Override
   public void startElement(int offset,
       int length,
       String tag,
@@ -34,9 +37,11 @@ public class QHandlerAdapter implements QHandler {
       boolean closed) throws Exception {
   }
 
+  @Override
   public void endElement(int offset, int endOffset, String tag) throws Exception {
   }
 
+  @Override
   public void text(String text, boolean isCDATA) throws Exception {
   }
 }

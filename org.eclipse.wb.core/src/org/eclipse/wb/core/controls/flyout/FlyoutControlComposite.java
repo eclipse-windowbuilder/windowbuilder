@@ -93,6 +93,7 @@ public final class FlyoutControlComposite extends Composite {
     m_preferences = preferences;
     // add listeners
     addListener(SWT.Resize, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (getShell().getMinimized()) {
           return;
@@ -290,6 +291,7 @@ public final class FlyoutControlComposite extends Composite {
       updateTitleImage(Messages.FlyoutControlComposite_title);
       // add listeners
       addListener(SWT.Dispose, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           if (m_titleImage != null) {
             m_titleImage.dispose();
@@ -305,6 +307,7 @@ public final class FlyoutControlComposite extends Composite {
       });
       {
         Listener listener = new Listener() {
+          @Override
           public void handleEvent(Event event) {
             layout();
           }
@@ -313,6 +316,7 @@ public final class FlyoutControlComposite extends Composite {
         addListener(SWT.Resize, listener);
       }
       addListener(SWT.Paint, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           handlePaint(event.gc);
         }
@@ -347,6 +351,7 @@ public final class FlyoutControlComposite extends Composite {
         }
       });
       addMouseMoveListener(new MouseMoveListener() {
+        @Override
         public void mouseMove(MouseEvent event) {
           handle_mouseMove(event);
         }
@@ -480,6 +485,7 @@ public final class FlyoutControlComposite extends Composite {
         container.layout();
         // add listeners
         Listener listener = new Listener() {
+          @Override
           public void handleEvent(Event event) {
             if (event.type == SWT.Dispose) {
               getDisplay().removeFilter(SWT.MouseMove, this);
@@ -522,6 +528,7 @@ public final class FlyoutControlComposite extends Composite {
       dockingTracker.setRectangles(new Rectangle[]{getBounds()});
       dockingTracker.setStippled(true);
       dockingTracker.addListener(SWT.Move, new Listener() {
+        @Override
         public void handleEvent(Event event2) {
           Rectangle clientArea = container.getClientArea();
           Point location = container.toControl(event2.x, event2.y);
@@ -867,6 +874,7 @@ public final class FlyoutControlComposite extends Composite {
       final MenuManager manager = new MenuManager();
       manager.setRemoveAllWhenShown(true);
       manager.addMenuListener(new IMenuListener() {
+        @Override
         public void menuAboutToShow(IMenuManager menuMgr) {
           addDockActions();
           for (IFlyoutMenuContributor contributor : m_menuContributors) {
@@ -905,6 +913,7 @@ public final class FlyoutControlComposite extends Composite {
       setMenu(manager.createContextMenu(this));
       // dispose it later
       addDisposeListener(new DisposeListener() {
+        @Override
         public void widgetDisposed(DisposeEvent e) {
           manager.dispose();
         }

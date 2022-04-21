@@ -62,6 +62,7 @@ public abstract class ObjectLayoutEditPolicy<C> extends LayoutEditPolicy {
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
         new IPasteComponentProcessor() {
+          @Override
           public void process(Object component) throws Exception {
             command_CREATE(getObjectModel(component), reference);
           }

@@ -35,6 +35,7 @@ public abstract class ContextMenuProvider extends MenuManager {
     m_viewer = viewer;
     setRemoveAllWhenShown(true);
     addMenuListener(new IMenuListener() {
+      @Override
       public void menuAboutToShow(IMenuManager manager) {
         // dispose items to avoid their caching
         for (MenuItem item : getMenu().getItems()) {

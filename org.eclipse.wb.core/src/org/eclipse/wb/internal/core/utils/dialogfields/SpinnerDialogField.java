@@ -106,6 +106,7 @@ public class SpinnerDialogField extends DialogField {
     if (m_spinner == null) {
       assertCompositeNotNull(parent);
       m_modifyListener = new ModifyListener() {
+        @Override
         public void modifyText(ModifyEvent e) {
           doModifyText(e);
         }

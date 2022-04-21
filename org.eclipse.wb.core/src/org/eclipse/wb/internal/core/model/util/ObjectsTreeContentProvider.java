@@ -43,6 +43,7 @@ public final class ObjectsTreeContentProvider implements ITreeContentProvider {
   // Input
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object[] getElements(Object inputElement) {
     if (inputElement instanceof Object[]) {
       return (Object[]) inputElement;
@@ -56,16 +57,19 @@ public final class ObjectsTreeContentProvider implements ITreeContentProvider {
   // Children
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object[] getChildren(Object parentElement) {
     List<ObjectInfo> children = ((ObjectInfo) parentElement).getChildren();
     Iterable<ObjectInfo> filtered = Iterables.filter(children, m_predicate);
     return Iterables.toArray(filtered, ObjectInfo.class);
   }
 
+  @Override
   public boolean hasChildren(Object element) {
     return getChildren(element).length != 0;
   }
 
+  @Override
   public Object getParent(Object element) {
     return ((ObjectInfo) element).getParent();
   }
@@ -75,9 +79,11 @@ public final class ObjectsTreeContentProvider implements ITreeContentProvider {
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
   }
 
+  @Override
   public void dispose() {
   }
 }

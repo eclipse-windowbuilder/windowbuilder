@@ -67,6 +67,7 @@ public final class DesignComponentsComposite extends Composite {
     }
     // add listeners
     m_treePage.getSelectionProvider().addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         ISelection selection = event.getSelection();
         m_propertiesPage.setSelection(selection);

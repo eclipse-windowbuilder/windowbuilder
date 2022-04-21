@@ -36,12 +36,14 @@ public abstract class DesignPageSite implements IDesignPageSite {
   /**
    * Moves cursor to given position in Java editor.
    */
+  @Override
   public void showSourcePosition(int position) {
   }
 
   /**
    * Moves cursor to given position in Java editor and opens Java editor.
    */
+  @Override
   public void openSourcePosition(int position) {
   }
 
@@ -54,6 +56,7 @@ public abstract class DesignPageSite implements IDesignPageSite {
   /**
    * Handles any unexpected {@link Exception}.
    */
+  @Override
   public void handleException(Throwable e) {
   }
 
@@ -61,6 +64,7 @@ public abstract class DesignPageSite implements IDesignPageSite {
    * Performs reparse for this editor. Note, that this is last method that should be invoked for
    * this {@link DesignPageSite} and in this {@link ObjectInfo} hierarchy.
    */
+  @Override
   public void reparse() {
   }
   ////////////////////////////////////////////////////////////////////////////

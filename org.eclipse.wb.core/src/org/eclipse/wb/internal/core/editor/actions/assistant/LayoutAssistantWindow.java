@@ -174,6 +174,7 @@ public class LayoutAssistantWindow extends Window {
       }
       // create pages
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           ObjectInfo component = m_selectedComponents.get(0);
           LayoutAssistantListener listener = component.getBroadcast(LayoutAssistantListener.class);

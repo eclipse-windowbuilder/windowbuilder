@@ -91,6 +91,7 @@ public class CCombo3 extends Composite {
       final Listener filter = new Listener() {
         private boolean hasFocus;
 
+        @Override
         public void handleEvent(Event event) {
           boolean old_hasFocus = hasFocus;
           hasFocus =
@@ -117,6 +118,7 @@ public class CCombo3 extends Composite {
       };
       getDisplay().addFilter(SWT.FocusIn, filter);
       addListener(SWT.Dispose, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           getDisplay().removeFilter(SWT.FocusIn, filter);
         }
@@ -130,6 +132,7 @@ public class CCombo3 extends Composite {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final Listener m_comboListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       switch (event.type) {
         case SWT.Dispose :
@@ -147,6 +150,7 @@ public class CCombo3 extends Composite {
     }
   };
   private final Listener m_textListener = new Listener() {
+    @Override
     public void handleEvent(final Event event) {
       switch (event.type) {
         case SWT.MouseDown :
@@ -223,6 +227,7 @@ public class CCombo3 extends Composite {
     }
   };
   private final Listener m_arrowListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       switch (event.type) {
       /*case SWT.FocusIn : {
@@ -237,6 +242,7 @@ public class CCombo3 extends Composite {
     }
   };
   private final Listener m_tableListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       switch (event.type) {
         case SWT.Selection : {

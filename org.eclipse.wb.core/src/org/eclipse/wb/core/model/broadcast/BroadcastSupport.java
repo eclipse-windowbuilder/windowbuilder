@@ -198,6 +198,7 @@ public final class BroadcastSupport {
       Enhancer enhancer = new Enhancer();
       enhancer.setSuperclass(listenerClass);
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj,
             java.lang.reflect.Method method,
             Object[] args,

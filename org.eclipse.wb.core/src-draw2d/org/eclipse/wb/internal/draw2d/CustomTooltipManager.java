@@ -50,6 +50,7 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
     m_eventManager = eventManager;
     // tooltip show/hide behavior listeners
     m_canvas.addMouseTrackListener(new MouseTrackListener() {
+      @Override
       public void mouseHover(MouseEvent event) {
         if (event.stateMask == 0
             && (m_tooltipFigure == null || m_tooltipFigure != m_eventManager.getCursorFigure())) {
@@ -57,6 +58,7 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
         }
       }
 
+      @Override
       public void mouseExit(MouseEvent event) {
         Control cursorControl = Display.getCurrent().getCursorControl();
         if (cursorControl == null || cursorControl.getShell() != m_tooltipShell) {
@@ -64,18 +66,21 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
         }
       }
 
+      @Override
       public void mouseEnter(MouseEvent event) {
       }
     });
     ScrollBar verticalBar = m_canvas.getVerticalBar();
     if (verticalBar != null) {
       verticalBar.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           hideTooltip();
         }
       });
     }
     m_canvas.addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         hideTooltip();
       }
@@ -87,6 +92,7 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
   // ICustomTooltipSide
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void hideTooltip() {
     if (m_tooltipShell != null && !m_tooltipShell.isDisposed()) {
       m_tooltipShell.close();
@@ -96,11 +102,13 @@ public final class CustomTooltipManager implements ICustomTooltipSite {
     m_tooltipFigure = null;
   }
 
+  @Override
   public Listener getHideListener() {
     return m_hideListener;
   }
 
   private final Listener m_hideListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       Control tooltipControl = (Control) event.widget;
       switch (event.type) {

@@ -48,6 +48,7 @@ public class MoveHandleLocator implements ILocator {
    * Sets the handle's bounds to that of its owner figure's bounds, expanded by the handle's
    * {@link Insets}.
    */
+  @Override
   public void relocate(Figure target) {
     Rectangle bounds = m_reference.getBounds().getResized(-1, -1);
     FigureUtils.translateFigureToFigure(m_reference, target, bounds);

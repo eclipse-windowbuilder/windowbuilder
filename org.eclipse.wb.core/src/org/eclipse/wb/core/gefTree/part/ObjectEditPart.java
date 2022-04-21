@@ -72,6 +72,7 @@ public class ObjectEditPart extends TreeEditPart {
       // update presentation only when EditPart become visible
       {
         m_updatePresentationListener = new Listener() {
+          @Override
           public void handleEvent(Event event) {
             if (event.item.getData() instanceof ObjectEditPart) {
               ObjectEditPart editPart = (ObjectEditPart) event.item.getData();
@@ -167,6 +168,7 @@ public class ObjectEditPart extends TreeEditPart {
     if (m_updateRequired) {
       m_updateRequired = false;
       ExecutionUtils.runLogUI(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           update0();
         }
@@ -223,6 +225,7 @@ public class ObjectEditPart extends TreeEditPart {
   @Override
   protected List<?> getModelChildren() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+      @Override
       public List<?> runObject() throws Exception {
         return m_object.getPresentation().getChildrenTree();
       }

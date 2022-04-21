@@ -151,14 +151,17 @@ public final class ZipFileErrorReport implements IErrorReport {
   private Map<String, IReportEntry> m_screenshotsMap;
   private final Image m_defaultScreenShot;
 
+  @Override
   public boolean hasDefaultScreenshot() {
     return m_defaultScreenShot != null;
   }
 
+  @Override
   public boolean hasScreenshot(String filePath) {
     return m_screenshotsMap.get(filePath) != null;
   }
 
+  @Override
   public void includeScreenshot(String filePath, boolean include) {
     if (include) {
       addScreenshot(filePath);
@@ -200,10 +203,12 @@ public final class ZipFileErrorReport implements IErrorReport {
   ////////////////////////////////////////////////////////////////////////////
   private Map<String, IReportEntry> m_filesMap;
 
+  @Override
   public boolean hasFile(String filePath) {
     return m_filesMap.get(filePath) != null;
   }
 
+  @Override
   public void includeFile(String filePath, boolean include) {
     if (include) {
       addFile(filePath);
@@ -255,6 +260,7 @@ public final class ZipFileErrorReport implements IErrorReport {
     }
   }
 
+  @Override
   public boolean hasSourceFile() {
     return m_sourceFileReport != null && m_entries.indexOf(m_sourceFileReport) != -1;
   }
@@ -273,16 +279,19 @@ public final class ZipFileErrorReport implements IErrorReport {
     }
   }
 
+  @Override
   public IProject getProject() {
     return m_project;
   }
 
+  @Override
   public void addEntry(IReportEntry entry) {
     if (m_entries.indexOf(entry) == -1) {
       m_entries.add(entry);
     }
   }
 
+  @Override
   public void removeEntry(IReportEntry entry) {
     m_entries.remove(entry);
   }

@@ -60,6 +60,7 @@ public final class LayoutAssistantAction extends Action {
     // initialize viewer
     m_viewer = viewer;
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         updateWindow();
       }
@@ -87,23 +88,28 @@ public final class LayoutAssistantAction extends Action {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IPartListener m_windowPartListener = new IPartListener() {
+    @Override
     public void partActivated(IWorkbenchPart part) {
       if (m_editor == part && m_assistantWindow != null) {
         m_assistantWindow.open();
       }
     }
+    @Override
     public void partDeactivated(IWorkbenchPart part) {
       if (m_editor == part && m_assistantWindow != null) {
         m_assistantWindow.hide();
       }
     }
+    @Override
     public void partClosed(IWorkbenchPart part) {
       if (m_editor == part) {
         closeWindow();
       }
     }
+    @Override
     public void partOpened(IWorkbenchPart part) {
     }
+    @Override
     public void partBroughtToTop(IWorkbenchPart part) {
     }
   };
@@ -134,6 +140,7 @@ public final class LayoutAssistantAction extends Action {
       m_workbenchWindow.getPartService().addPartListener(m_windowPartListener);
       m_assistantWindow.open();
       m_assistantWindow.getShell().addDisposeListener(new DisposeListener() {
+        @Override
         public void widgetDisposed(DisposeEvent e) {
           setChecked(false);
           m_assistantWindow = null;

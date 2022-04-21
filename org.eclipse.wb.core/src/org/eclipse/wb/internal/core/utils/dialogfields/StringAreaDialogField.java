@@ -101,6 +101,7 @@ public class StringAreaDialogField extends DialogField {
     if (fTextControl == null) {
       assertCompositeNotNull(parent);
       fModifyListener = new ModifyListener() {
+        @Override
         public void modifyText(ModifyEvent e) {
           doModifyText(e);
         }

@@ -72,6 +72,7 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
   private void setHorizontallHook() {
     // configure root preferred size
     getRootFigureInternal().setPreferredSizeProvider(new IPreferredSizeProvider() {
+      @Override
       public Dimension getPreferredSize(Dimension originalPreferredSize) {
         return new Dimension(m_mainViewer.getRootFigureInternal().getPreferredSize().width
             + m_mainViewer.m_canvas.getVerticalBar().getSize().x, originalPreferredSize.height);
@@ -80,6 +81,7 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
     // configure scrolling
     m_mainViewer.m_canvas.getHorizontalScrollModel().addSelectionListener(
         new ScrollModel.ISelectionListener() {
+          @Override
           public void setSelection(int newSelection) {
             m_canvas.getHorizontalScrollModel().setSelection(newSelection);
             getRootFigureInternal().repaint();
@@ -90,6 +92,7 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
   private void setVerticalHook() {
     // configure root preferred size
     getRootFigureInternal().setPreferredSizeProvider(new IPreferredSizeProvider() {
+      @Override
       public Dimension getPreferredSize(Dimension originalPreferredSize) {
         return new Dimension(originalPreferredSize.width,
             m_mainViewer.getRootFigureInternal().getPreferredSize().height
@@ -99,6 +102,7 @@ public class HeaderGraphicalViewer extends GraphicalViewer {
     // configure scrolling
     m_mainViewer.m_canvas.getVerticalScrollModel().addSelectionListener(
         new ScrollModel.ISelectionListener() {
+          @Override
           public void setSelection(int newSelection) {
             m_canvas.getVerticalScrollModel().setSelection(newSelection);
             getRootFigureInternal().repaint();

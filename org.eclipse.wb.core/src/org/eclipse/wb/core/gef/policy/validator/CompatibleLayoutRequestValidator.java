@@ -69,6 +69,7 @@ public final class CompatibleLayoutRequestValidator extends AbstractLayoutReques
    */
   private static boolean areCompatible(final EditPart host, final Object child) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         Object parent = host.getModel();
         return parentAgreeToAcceptChild(parent, child)

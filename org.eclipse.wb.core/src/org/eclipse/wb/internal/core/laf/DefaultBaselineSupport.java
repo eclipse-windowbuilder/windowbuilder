@@ -22,6 +22,7 @@ public class DefaultBaselineSupport implements IBaselineSupport {
   // IBaselineSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getBaseline(Object component) {
     return NO_BASELINE;
   }

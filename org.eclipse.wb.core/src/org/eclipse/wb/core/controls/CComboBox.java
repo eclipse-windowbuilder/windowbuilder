@@ -84,6 +84,7 @@ public class CComboBox extends Composite {
     m_wasFocused = isComboFocused();
     // add display hook
     final Listener displayFocusInHook = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         boolean focused = isComboFocused();
         if (m_wasFocused && !focused) {
@@ -105,6 +106,7 @@ public class CComboBox extends Composite {
       }
     };
     final Listener displayFocusOutHook = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_wasFocused = isComboFocused();
       }
@@ -122,6 +124,7 @@ public class CComboBox extends Composite {
       }
     });
     addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         {
           // remove Display hooks
@@ -214,6 +217,7 @@ public class CComboBox extends Composite {
     });
     // modifications processing
     m_text.addModifyListener(new ModifyListener() {
+      @Override
       public void modifyText(ModifyEvent e) {
         if (isDroppedDown()) {
           m_table.refresh();
@@ -250,6 +254,7 @@ public class CComboBox extends Composite {
   protected void createImage(Composite parent) {
     m_canvas = new Canvas(parent, SWT.BORDER);
     m_canvas.addPaintListener(new PaintListener() {
+      @Override
       public void paintControl(PaintEvent e) {
         Image selectionImage = getSelectionImage();
         if (selectionImage != null) {
@@ -344,13 +349,16 @@ public class CComboBox extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   protected IContentProvider getContentProvider() {
     return new IStructuredContentProvider() {
+      @Override
       public Object[] getElements(Object inputElement) {
         return m_items.toArray(new ComboBoxItem[m_items.size()]);
       }
 
+      @Override
       public void dispose() {
       }
 
+      @Override
       public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       }
     };
@@ -609,6 +617,7 @@ public class CComboBox extends Composite {
     getDisplay().asyncExec(new Runnable() {
       final boolean m_selectAll = selectAll;
 
+      @Override
       public void run() {
         if (!m_text.isDisposed()) {
           m_text.setFocus();

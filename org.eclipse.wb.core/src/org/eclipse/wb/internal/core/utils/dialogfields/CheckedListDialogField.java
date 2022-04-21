@@ -82,6 +82,7 @@ public class CheckedListDialogField extends ListDialogField {
     table.setFont(parent.getFont());
     CheckboxTableViewer tableViewer = new CheckboxTableViewer(table);
     tableViewer.addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent e) {
         doCheckStateChanged(e);
       }

@@ -105,6 +105,7 @@ public abstract class AbstractGridHelper {
   private class RootFigureListener implements IFigureListener {
     private Figure m_rootFigure;
 
+    @Override
     public void figureMoved(Figure source) {
       if (source == m_rootFigure) {
         // correct grid figure bounds according host figure
@@ -114,6 +115,7 @@ public abstract class AbstractGridHelper {
       }
     }
 
+    @Override
     public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
     }
 

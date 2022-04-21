@@ -48,6 +48,7 @@ public class ExecutionUtils {
       final long leftMillis = end - System.currentTimeMillis();
       if (leftMillis >= 0) {
         runIgnore(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             Thread.sleep(leftMillis);
           }
@@ -175,6 +176,7 @@ public class ExecutionUtils {
   public static boolean runLogUI(final RunnableEx runnable) {
     final boolean[] success = new boolean[1];
     Display.getDefault().syncExec(new Runnable() {
+      @Override
       public void run() {
         success[0] = ExecutionUtils.runLog(runnable);
       }
@@ -187,6 +189,7 @@ public class ExecutionUtils {
    */
   public static void runRethrowUI(final RunnableEx runnable) {
     Display.getDefault().syncExec(new Runnable() {
+      @Override
       public void run() {
         ExecutionUtils.runRethrow(runnable);
       }
@@ -199,6 +202,7 @@ public class ExecutionUtils {
    */
   public static void runAsync(final RunnableEx runnable) {
     Display.getDefault().asyncExec(new Runnable() {
+      @Override
       public void run() {
         ExecutionUtils.runLog(runnable);
       }
@@ -212,6 +216,7 @@ public class ExecutionUtils {
   public static <T> T runObjectUI(final RunnableObjectEx<T> runnable) {
     final Object[] result = new Object[1];
     runRethrowUI(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         result[0] = runObject(runnable);
       }
@@ -225,6 +230,7 @@ public class ExecutionUtils {
    */
   public static void runLogLater(final RunnableEx runnable) {
     Display.getDefault().asyncExec(new Runnable() {
+      @Override
       public void run() {
         ExecutionUtils.runLog(runnable);
       }
@@ -258,6 +264,7 @@ public class ExecutionUtils {
   public static <T> T runObject(ObjectInfo object, final RunnableObjectEx<T> runnable) {
     final Object[] result = {null};
     run(object, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         result[0] = runnable.runObject();
       }
@@ -341,6 +348,7 @@ public class ExecutionUtils {
    */
   public static void refresh(ObjectInfo objectInfo) {
     run(objectInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // do nothing, we need just refresh
       }
@@ -353,6 +361,7 @@ public class ExecutionUtils {
    */
   public static void runLater(final ObjectInfo objectInfo, final RunnableEx runnable) {
     Display.getDefault().asyncExec(new Runnable() {
+      @Override
       public void run() {
         ExecutionUtils.run(objectInfo, runnable);
       }

@@ -37,6 +37,7 @@ public final class SubclassPredicate implements Predicate<Object> {
   // Predicate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean apply(Object t) {
     return ReflectionUtils.isAssignableFrom(m_superClass, t);
   }

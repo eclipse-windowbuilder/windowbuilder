@@ -219,6 +219,7 @@ public class SelectionTool extends TargetingTool {
   @Override
   protected IConditional getTargetingConditional() {
     return new IConditional() {
+      @Override
       public boolean evaluate(EditPart editPart) {
         return editPart.isSelectable();
       }

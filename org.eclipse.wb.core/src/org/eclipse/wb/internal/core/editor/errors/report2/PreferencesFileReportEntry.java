@@ -68,6 +68,7 @@ public final class PreferencesFileReportEntry extends FileReportEntry {
       // prepare list of preferences to exclude to pass later into export method
       final List<String> excludesList = Lists.newArrayList();
       node.accept(new IPreferenceNodeVisitor() {
+        @Override
         public boolean visit(IEclipsePreferences childNode) throws BackingStoreException {
           // don't exclude root instance node
           if (childNode.name().equals(InstanceScope.SCOPE)) {

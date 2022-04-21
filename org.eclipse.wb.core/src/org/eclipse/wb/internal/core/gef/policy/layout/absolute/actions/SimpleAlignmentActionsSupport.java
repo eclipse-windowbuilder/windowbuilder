@@ -135,6 +135,7 @@ public abstract class SimpleAlignmentActionsSupport<C extends IAbstractComponent
     }
     // sort objects by their top positions
     Collections.sort(m_components, new Comparator<C>() {
+      @Override
       public int compare(C component1, C component2) {
         return getModelBounds(component1).y - getModelBounds(component2).y;
       }
@@ -177,6 +178,7 @@ public abstract class SimpleAlignmentActionsSupport<C extends IAbstractComponent
     }
     // sort objects by their left positions
     Collections.sort(m_components, new Comparator<C>() {
+      @Override
       public int compare(C component1, C component2) {
         return getModelBounds(component1).x - getModelBounds(component2).x;
       }

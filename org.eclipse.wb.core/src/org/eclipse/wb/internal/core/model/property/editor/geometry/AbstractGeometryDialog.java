@@ -125,6 +125,7 @@ public abstract class AbstractGeometryDialog extends Dialog {
         }
         // add listeners
         spinner.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             try {
               field.setInt(m_object, spinner.getSelection());

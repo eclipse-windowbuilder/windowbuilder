@@ -41,6 +41,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
   public PropertyTableTooltipHelper(PropertyTable table) {
     m_table = table;
     m_table.addListener(SWT.MouseHover, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (event.stateMask == 0) {
           showTooltip();
@@ -48,6 +49,7 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
       }
     });
     m_table.addListener(SWT.MouseExit, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         // check, may be cursor is now on tooltip, so ignore this MouseExit
         {
@@ -102,10 +104,12 @@ class PropertyTableTooltipHelper implements IPropertyTooltipSite {
   // IPropertyTooltipSite
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public PropertyTable getTable() {
     return m_table;
   }
 
+  @Override
   public void hideTooltip() {
     if (m_tooltip != null && !m_tooltip.isDisposed()) {
       m_tooltip.dispose();

@@ -35,10 +35,12 @@ public class SpinnerEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     return new Integer(m_field.getSelection());
   }
 
+  @Override
   public void setValue(Object value) {
     m_field.setSelection(((Integer) value).intValue());
   }

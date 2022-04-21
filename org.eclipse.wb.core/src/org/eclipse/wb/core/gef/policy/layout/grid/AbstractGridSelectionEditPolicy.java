@@ -130,6 +130,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
    */
   protected final MoveHandle createMoveHandle() {
     MoveHandle moveHandle = new MoveHandle(getHost(), new ILocator() {
+      @Override
       public void relocate(Figure target) {
         try {
           Rectangle bounds = getComponentCellBounds_atFeedback();

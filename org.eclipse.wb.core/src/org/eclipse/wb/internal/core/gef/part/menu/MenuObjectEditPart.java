@@ -52,6 +52,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
   // Model
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IMenuObjectInfo getMenuModel() {
     return m_object;
   }
@@ -123,12 +124,14 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
     }
     // selection
     m_selectionListener = new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         refresh();
       }
     };
     // active tool
     m_activeToolListener = new IActiveToolListener() {
+      @Override
       public void toolActivated(Tool tool) {
         // when new Tool loaded, so for example we don't create new Item anymore,
         // we should hide any temporary displayed sub-menus
@@ -139,6 +142,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
     m_objectListener = new IMenuObjectListener() {
       private EditPart m_pendingSelection;
 
+      @Override
       public void refresh() {
         if (m_pendingSelection != null) {
           getViewer().select(m_pendingSelection);
@@ -148,6 +152,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
         }
       }
 
+      @Override
       public void deleting(Object toolkitModel) {
         EditPart objectPart = getViewer().getEditPartByModel(toolkitModel);
         if (objectPart != null) {
@@ -188,6 +193,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
       // Refresh _all_ root MenuObjectEditPart's to close any previously shown drop-downs.
       // Do this in "async" to don't break normal GEF life cycle.
       AsyncExecutor.schedule(new Runnable() {
+        @Override
         public void run() {
           try {
             MenuObjectInfoUtils.m_selectingObject = m_object;

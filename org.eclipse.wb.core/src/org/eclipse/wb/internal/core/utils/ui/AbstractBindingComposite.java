@@ -175,6 +175,7 @@ public abstract class AbstractBindingComposite extends Composite {
    * Shared {@link Listener} used for listening various events in bounds {@link Control}'s.
    */
   private final Listener m_controlModifyListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       notifyUpdateListeners();
     }

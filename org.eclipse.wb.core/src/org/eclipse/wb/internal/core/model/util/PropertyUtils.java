@@ -73,6 +73,7 @@ public final class PropertyUtils {
    */
   public static String getText(final Property property) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         return (String) ReflectionUtils.invokeMethod2(
             property.getEditor(),
@@ -211,6 +212,7 @@ public final class PropertyUtils {
    */
   public static Predicate<Property> getExcludeByTitlePredicate(final String... excludeTitles) {
     return new Predicate<Property>() {
+      @Override
       public boolean apply(Property t) {
         return !ArrayUtils.contains(excludeTitles, t.getTitle());
       }
@@ -221,6 +223,7 @@ public final class PropertyUtils {
    */
   public static Predicate<Property> getIncludeByTitlePredicate(final String... includeTitles) {
     return new Predicate<Property>() {
+      @Override
       public boolean apply(Property t) {
         return ArrayUtils.contains(includeTitles, t.getTitle());
       }

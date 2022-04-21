@@ -36,12 +36,15 @@ public abstract class AbstractLayoutRequestValidator implements ILayoutRequestVa
   // ILayoutRequestValidator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateCreateRequest(EditPart host, CreateRequest request) {
     return validate(host, request.getNewObject());
   }
 
+  @Override
   public boolean validatePasteRequest(final EditPart host, final PasteRequest request) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         ILayoutRequestValidatorHelper validatorHelper = GlobalState.getValidatorHelper();
         List<?> mementos = (List<?>) request.getMemento();
@@ -58,6 +61,7 @@ public abstract class AbstractLayoutRequestValidator implements ILayoutRequestVa
         false);
   }
 
+  @Override
   public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
     for (EditPart editPart : request.getEditParts()) {
       if (!validate(host, editPart.getModel())) {
@@ -67,6 +71,7 @@ public abstract class AbstractLayoutRequestValidator implements ILayoutRequestVa
     return true;
   }
 
+  @Override
   public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
     return validateMoveRequest(host, request);
   }

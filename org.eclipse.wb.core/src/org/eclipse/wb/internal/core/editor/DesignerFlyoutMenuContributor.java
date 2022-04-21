@@ -41,11 +41,13 @@ public final class DesignerFlyoutMenuContributor implements IFlyoutMenuContribut
   // IFlyoutMenuContributor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void contribute(IMenuManager manager) {
     manager.add(new Action("Extract as view") {
       @Override
       public void run() {
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             DesignerPlugin.getActivePage().showView(m_viewId);
           }

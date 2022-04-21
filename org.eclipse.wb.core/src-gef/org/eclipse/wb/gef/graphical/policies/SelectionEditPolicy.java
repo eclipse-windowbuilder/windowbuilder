@@ -65,6 +65,7 @@ public abstract class SelectionEditPolicy extends GraphicalEditPolicy
   // Selection
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void selectionChanged(EditPart editPart) {
     selectionChanged(editPart.getSelected());
   }

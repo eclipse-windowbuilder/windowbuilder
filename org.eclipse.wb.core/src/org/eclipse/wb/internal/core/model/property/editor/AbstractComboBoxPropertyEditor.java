@@ -75,6 +75,7 @@ public abstract class AbstractComboBoxPropertyEditor extends TextDisplayProperty
     m_combo.setFocus();
     // schedule showing drop-down, because we don't have bounds yet
     ExecutionUtils.runAsync(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_combo.comboDropDown(true);
         if (m_dropDelayedText != null) {

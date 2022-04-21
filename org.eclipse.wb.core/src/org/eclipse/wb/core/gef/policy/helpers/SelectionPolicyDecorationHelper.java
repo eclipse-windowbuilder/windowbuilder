@@ -38,6 +38,7 @@ public abstract class SelectionPolicyDecorationHelper {
   public SelectionPolicyDecorationHelper(LayoutEditPolicy layoutPolicy) {
     m_layoutPolicy = layoutPolicy;
     m_layoutPolicy.addEditPartListener(new IEditPartDecorationListener() {
+      @Override
       public void decorate(EditPart child) {
         if (shouldChangePolicy(child)) {
           rememberOldPolicy(child);
@@ -45,6 +46,7 @@ public abstract class SelectionPolicyDecorationHelper {
         }
       }
 
+      @Override
       public void undecorate(EditPart child) {
         if (shouldChangePolicy(child)) {
           restoreOldPolicy(child);

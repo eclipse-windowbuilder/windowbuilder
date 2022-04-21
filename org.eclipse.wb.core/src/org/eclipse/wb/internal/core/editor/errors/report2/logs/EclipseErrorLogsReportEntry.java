@@ -35,6 +35,7 @@ public final class EclipseErrorLogsReportEntry extends FileListReportEntry {
     File logsPathAsFile = logsPath.toFile();
     // get list of .log files
     File[] logFiles = logsPathAsFile.listFiles(new FilenameFilter() {
+      @Override
       public boolean accept(File dir, String name) {
         return name.endsWith(".log");
       }

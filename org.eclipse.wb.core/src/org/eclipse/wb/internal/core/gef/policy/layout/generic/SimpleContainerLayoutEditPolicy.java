@@ -108,6 +108,7 @@ public final class SimpleContainerLayoutEditPolicy extends LayoutEditPolicy {
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
         new IPasteComponentProcessor() {
+          @Override
           public void process(Object component) throws Exception {
             m_container.command_CREATE(component);
           }

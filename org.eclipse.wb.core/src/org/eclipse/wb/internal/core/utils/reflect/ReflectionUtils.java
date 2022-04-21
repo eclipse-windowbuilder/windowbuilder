@@ -346,6 +346,7 @@ public class ReflectionUtils {
   public static boolean isMemberClass(final Class<?> clazz) {
     Assert.isNotNull(clazz);
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         return clazz.isMemberClass();
       }
@@ -1232,6 +1233,7 @@ public class ReflectionUtils {
     Assert.isNotNull(object);
     Assert.isNotNull(name);
     return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+      @Override
       public Object runObject() throws Exception {
         Class<?> refClass = getRefClass(object);
         Object refObject = getRefObject(object);

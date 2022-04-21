@@ -54,6 +54,7 @@ public class ColorsGridComposite extends Canvas {
     super(parent, SWT.NO_MERGE_PAINTS | SWT.NO_BACKGROUND);
     setBackground(getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
     addPaintListener(new PaintListener() {
+      @Override
       public void paintControl(PaintEvent e) {
         onPaint(e);
       }
@@ -71,6 +72,7 @@ public class ColorsGridComposite extends Canvas {
 
   private void addMouseListeners() {
     addMouseMoveListener(new MouseMoveListener() {
+      @Override
       public void mouseMove(MouseEvent e) {
         if (!m_captured) {
           ColorInfo colorUnderMouse = getColorUnderMouse(e);

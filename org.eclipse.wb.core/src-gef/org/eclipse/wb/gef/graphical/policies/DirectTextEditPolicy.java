@@ -67,6 +67,7 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
   private Text m_textWidget;
   private org.eclipse.swt.graphics.Point m_initialSize;
   private final Listener m_mouseDownFilter = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       if (event.widget != m_textWidget) {
         commitEdit();
@@ -100,6 +101,7 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
     relocateTextWidget();
     // listeners
     m_textWidget.addListener(SWT.KeyDown, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (event.keyCode == SWT.ESC) {
           endEdit();
@@ -109,11 +111,13 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
       }
     });
     m_textWidget.addListener(SWT.Modify, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         relocateTextWidget();
       }
     });
     m_textWidget.addListener(SWT.FocusOut, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         commitEdit();
       }
@@ -132,6 +136,7 @@ public abstract class DirectTextEditPolicy extends GraphicalEditPolicy {
       m_initialSize = null;
       // restore focus
       Display.getCurrent().asyncExec(new Runnable() {
+        @Override
         public void run() {
           if (getHost().isActive()) {
             getHost().getViewer().getControl().setFocus();

@@ -83,6 +83,7 @@ public class FontDialogField extends DialogField {
           GridDataFactory.create(m_chooseButton);
           m_chooseButton.setText(m_chooseButtonText);
           m_chooseButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               FontDialog fontDialog = new FontDialog(m_group.getShell());
               fontDialog.setFontList(m_fontDataArray);
@@ -97,6 +98,7 @@ public class FontDialogField extends DialogField {
           GridDataFactory.create(m_defaultButton);
           m_defaultButton.setText(m_defaultButtonText);
           m_defaultButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               setFontDataArray(Display.getDefault().getSystemFont().getFontData());
             }

@@ -55,26 +55,32 @@ public final class PluginFlyoutPreferences implements IFlyoutPreferences {
   // IFlyoutPreferences
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getDockLocation() {
     return m_store.getInt(m_dockLocationKey);
   }
 
+  @Override
   public int getState() {
     return m_store.getInt(m_stateKey);
   }
 
+  @Override
   public int getWidth() {
     return m_store.getInt(m_widthKey);
   }
 
+  @Override
   public void setDockLocation(int location) {
     m_store.setValue(m_dockLocationKey, location);
   }
 
+  @Override
   public void setState(int state) {
     m_store.setValue(m_stateKey, state);
   }
 
+  @Override
   public void setWidth(int width) {
     m_store.setValue(m_widthKey, width);
   }

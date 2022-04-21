@@ -35,10 +35,12 @@ public class SelectionButtonEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     return ValueUtils.booleanToObject(m_field.isSelected());
   }
 
+  @Override
   public void setValue(Object value) {
     m_field.setSelection(ValueUtils.objectToBoolean(value));
   }

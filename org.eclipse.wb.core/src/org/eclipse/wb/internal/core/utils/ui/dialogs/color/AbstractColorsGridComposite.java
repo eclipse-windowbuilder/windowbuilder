@@ -111,18 +111,21 @@ public abstract class AbstractColorsGridComposite extends AbstractColorsComposit
     m_colorsGrids.add(colorsGrid);
     // add listeners
     colorsGrid.addListener(SWT.DefaultSelection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         ColorInfo colorInfo = (ColorInfo) event.data;
         m_colorHintCanvas.setColor(colorInfo);
       }
     });
     colorsGrid.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         ColorInfo colorInfo = (ColorInfo) event.data;
         m_colorDialog.setResultColor(colorInfo);
       }
     });
     colorsGrid.addListener(SWT.MouseDoubleClick, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_colorDialog.closeOk();
       }

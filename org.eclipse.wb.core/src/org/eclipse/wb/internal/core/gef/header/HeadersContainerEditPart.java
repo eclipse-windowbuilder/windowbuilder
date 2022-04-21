@@ -55,6 +55,7 @@ public final class HeadersContainerEditPart extends GraphicalEditPart
     m_horizontal = horizontal;
     //
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         refreshHeaders();
       }
@@ -224,6 +225,7 @@ public final class HeadersContainerEditPart extends GraphicalEditPart
   // IHeaderMenuProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void buildContextMenu(IMenuManager manager) {
     if (m_headersProvider != null) {
       m_headersProvider.buildContextMenu(manager, m_horizontal);

@@ -35,6 +35,7 @@ public final class AlwaysPredicate implements Predicate<Object> {
   // Predicate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean apply(Object t) {
     return m_value;
   }

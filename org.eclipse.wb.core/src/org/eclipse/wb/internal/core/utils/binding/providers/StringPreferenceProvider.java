@@ -33,10 +33,12 @@ public class StringPreferenceProvider extends AbstractPreferenceProvider {
   // IDataProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue(boolean def) {
     return def ? m_store.getDefaultString(m_key) : m_store.getString(m_key);
   }
 
+  @Override
   public void setValue(Object value) {
     m_store.setValue(m_key, ObjectUtils.toString(value));
   }

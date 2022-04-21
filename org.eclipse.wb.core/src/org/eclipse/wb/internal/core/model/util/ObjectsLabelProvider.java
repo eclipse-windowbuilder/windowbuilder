@@ -44,6 +44,7 @@ public final class ObjectsLabelProvider extends LabelProvider {
   @Override
   public Image getImage(final Object element) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+      @Override
       public Image runObject() throws Exception {
         ObjectInfo objectInfo = (ObjectInfo) element;
         Image icon = objectInfo.getPresentation().getIcon();
@@ -65,6 +66,7 @@ public final class ObjectsLabelProvider extends LabelProvider {
   @Override
   public String getText(final Object element) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         ObjectInfo objectInfo = (ObjectInfo) element;
         String text = objectInfo.getPresentation().getText();

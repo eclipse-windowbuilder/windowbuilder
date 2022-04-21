@@ -55,19 +55,23 @@ public class TreeDropListener implements DropTargetListener {
   // DropTargetListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dragEnter(DropTargetEvent event) {
     m_currentEvent = event;
   }
 
+  @Override
   public void dropAccept(DropTargetEvent event) {
     m_currentEvent = event;
   }
 
+  @Override
   public void dragLeave(DropTargetEvent event) {
     m_currentEvent = event;
     clearState();
   }
 
+  @Override
   public void dragOperationChanged(DropTargetEvent event) {
     m_currentEvent = event;
     eraseTargetFeedback();
@@ -77,6 +81,7 @@ public class TreeDropListener implements DropTargetListener {
     updateCommand();
   }
 
+  @Override
   public void dragOver(DropTargetEvent event) {
     boolean needUpdateFeedback =
         !m_isShowingFeedback || event.x != m_currentEvent.x || event.y != m_currentEvent.y;
@@ -92,6 +97,7 @@ public class TreeDropListener implements DropTargetListener {
         DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL | getTargetRequest().getDNDFeedback();
   }
 
+  @Override
   public void drop(DropTargetEvent event) {
     m_currentEvent = event;
     List<Object> models = getModels(getDragSource());
@@ -234,6 +240,7 @@ public class TreeDropListener implements DropTargetListener {
    */
   private IConditional getTargetingConditional() {
     return new IEditPartViewer.IConditional() {
+      @Override
       public boolean evaluate(EditPart editPart) {
         return editPart.getTargetEditPart(getTargetRequest()) != null;
       }

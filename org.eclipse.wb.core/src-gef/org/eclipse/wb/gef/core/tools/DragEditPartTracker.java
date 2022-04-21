@@ -124,6 +124,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
   protected IConditional getTargetingConditional() {
     if (!getViewer().getSelectedEditParts().isEmpty() && getOperationSet().isEmpty()) {
       return new IConditional() {
+        @Override
         public boolean evaluate(EditPart editPart) {
           return false;
         }

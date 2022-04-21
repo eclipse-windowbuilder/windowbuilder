@@ -159,6 +159,7 @@ public class RootFigure extends Figure implements IRootFigure {
   /**
    * Adds the given layer as a child of this {@link IRootFigure}.
    */
+  @Override
   public void addLayer(Layer layer) {
     m_nameToLayer.put(layer.getName(), layer);
     add(layer, null, -1);
@@ -167,6 +168,7 @@ public class RootFigure extends Figure implements IRootFigure {
   /**
    * Adds the given layer as a child of this {@link IRootFigure} with given index.
    */
+  @Override
   public void addLayer(Layer layer, int index) {
     m_nameToLayer.put(layer.getName(), layer);
     add(layer, null, index);
@@ -175,6 +177,7 @@ public class RootFigure extends Figure implements IRootFigure {
   /**
    * Returns the layer identified by the <code>name</code> given in the input.
    */
+  @Override
   public Layer getLayer(String name) {
     return m_nameToLayer.get(name);
   }
@@ -182,6 +185,7 @@ public class RootFigure extends Figure implements IRootFigure {
   /**
    * Return all layer's from this {@link IRootFigure}.
    */
+  @Override
   public List<Layer> getLayers() {
     List<Layer> layers = Lists.newArrayList();
     for (Figure childFigure : getChildren()) {
@@ -193,6 +197,7 @@ public class RootFigure extends Figure implements IRootFigure {
   /**
    * Removes the layer identified by the given key from this {@link IRootFigure}.
    */
+  @Override
   public void removeLayer(String name) {
     removeLayer(getLayer(name));
   }
@@ -200,6 +205,7 @@ public class RootFigure extends Figure implements IRootFigure {
   /**
    * Removes the given layer from this {@link IRootFigure}.
    */
+  @Override
   public void removeLayer(Layer layer) {
     m_nameToLayer.remove(layer.getName());
     remove(layer);

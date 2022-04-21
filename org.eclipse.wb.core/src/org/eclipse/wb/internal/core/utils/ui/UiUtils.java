@@ -116,6 +116,7 @@ public class UiUtils {
       @Override
       public void menuHidden(MenuEvent e) {
         e.display.asyncExec(new Runnable() {
+          @Override
           public void run() {
             menu.dispose();
           }
@@ -245,6 +246,7 @@ public class UiUtils {
     final Shell tableShell = table.getShell();
     //
     final Listener tipControlListener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         Control tipControl = (Control) event.widget;
         Shell tipShell = tipControl.getShell();
@@ -270,6 +272,7 @@ public class UiUtils {
       private Shell m_tipShell = null;
       private Control m_tipControl = null;
 
+      @Override
       public void handleEvent(Event event) {
         switch (event.type) {
           case SWT.Dispose :

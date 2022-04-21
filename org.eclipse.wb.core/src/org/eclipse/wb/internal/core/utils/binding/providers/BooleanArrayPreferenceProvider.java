@@ -38,6 +38,7 @@ public class BooleanArrayPreferenceProvider implements IDataProvider {
   // IDataProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue(boolean def) {
     boolean[] values = new boolean[m_keys.length];
     if (def) {
@@ -54,6 +55,7 @@ public class BooleanArrayPreferenceProvider implements IDataProvider {
     return values;
   }
 
+  @Override
   public void setValue(Object value) {
     // prepare boolean array
     boolean[] values = ValueUtils.objectToBooleanArray(value);

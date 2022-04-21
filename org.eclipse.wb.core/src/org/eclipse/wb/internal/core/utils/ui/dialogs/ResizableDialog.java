@@ -188,10 +188,12 @@ public abstract class ResizableDialog extends Dialog {
 
   private void installDialogBoundsTracker() {
     getShell().addControlListener(new ControlListener() {
+      @Override
       public void controlMoved(ControlEvent e) {
         cachedBounds = getShell().getBounds();
       }
 
+      @Override
       public void controlResized(ControlEvent e) {
         cachedBounds = getShell().getBounds();
       }

@@ -43,12 +43,14 @@ public class AncestorEventTable implements IFigureListener {
   // IFigureListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void figureMoved(Figure source) {
     for (IAncestorListener listener : m_listeners) {
       listener.ancestorMoved(source);
     }
   }
 
+  @Override
   public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
     if (oldParent != null) {
       unhookFigure(oldParent);

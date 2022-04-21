@@ -81,6 +81,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   protected void showSelection() {
     super.showSelection();
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         IAbstractComponentInfo widget = (IAbstractComponentInfo) getHostModel();
         drawFeedbacks(widget, IPositionConstants.LEFT);
@@ -341,6 +342,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
   ////////////////////////////////////////////////////////////////////////////
   protected boolean isAttached(final IAbstractComponentInfo widget, final int side) {
     return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         return m_layout.isAttached(widget, side);
       }

@@ -136,16 +136,19 @@ public class FigureCanvas extends Canvas {
   ////////////////////////////////////////////////////////////////////////////
   private void hookControlEvents() {
     addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         disposeBufferedImage();
       }
     });
     addListener(SWT.Resize, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         handleResize();
       }
     });
     addListener(SWT.Paint, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         handlePaint(event.gc, event.x, event.y, event.width, event.height);
       }

@@ -66,6 +66,7 @@ public abstract class AbstractBindingPreferencesPage extends PreferencePage
     //
     m_composite = createBindingComposite(contents);
     m_composite.setValidationListener(new IValidationListener() {
+      @Override
       public void update(String message) {
         setErrorMessage(message);
         setValid(message == null);
@@ -107,6 +108,7 @@ public abstract class AbstractBindingPreferencesPage extends PreferencePage
   // IWorkbenchPreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void init(IWorkbench workbench) {
   }
 }

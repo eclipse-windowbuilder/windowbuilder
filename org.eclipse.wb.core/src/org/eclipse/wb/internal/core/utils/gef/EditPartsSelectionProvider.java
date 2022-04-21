@@ -36,6 +36,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
   private final IEditPartViewer m_viewer;
   private final EventTable m_eventTable = new EventTable();
   private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
+    @Override
     public void selectionChanged(SelectionChangedEvent event) {
       fireSelectionChanged();
     }
@@ -55,6 +56,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ISelection getSelection() {
     List<Object> models = Lists.newArrayList();
     for (EditPart editPart : m_viewer.getSelectedEditParts()) {
@@ -63,6 +65,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
     return new StructuredSelection(models);
   }
 
+  @Override
   public void setSelection(ISelection selection) {
     // prepare EditPart's for model selection
     List<EditPart> editParts = Lists.newArrayList();
@@ -82,6 +85,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
   // Listeners
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addSelectionChangedListener(ISelectionChangedListener listener) {
     m_eventTable.addListener(ISelectionChangedListener.class, listener);
     if (m_eventTable.getListeners(ISelectionChangedListener.class).size() == 1) {
@@ -89,6 +93,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
     }
   }
 
+  @Override
   public void removeSelectionChangedListener(ISelectionChangedListener listener) {
     m_eventTable.removeListener(ISelectionChangedListener.class, listener);
     if (m_eventTable.getListeners(ISelectionChangedListener.class).isEmpty()) {

@@ -59,6 +59,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   /**
    * @return {@link IObjectPresentation} for visual presentation of this object.
    */
+  @Override
   public abstract IObjectPresentation getPresentation();
 
   ////////////////////////////////////////////////////////////////////////////
@@ -66,6 +67,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObjectInfo getUnderlyingModel() {
     return this;
   }
@@ -129,6 +131,7 @@ public abstract class ObjectInfo implements IObjectInfo {
     return m_parent == null ? this : m_parent.getRoot();
   }
 
+  @Override
   public final ObjectInfo getParent() {
     return m_parent;
   }
@@ -266,6 +269,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    */
   public final void accept(final ObjectInfoVisitor visitor) {
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         accept0(visitor);
       }
@@ -315,6 +319,7 @@ public abstract class ObjectInfo implements IObjectInfo {
     return getBroadcastSupport().getListener(listenerClass);
   }
 
+  @Override
   public final void addBroadcastListener(Object listenerImpl) {
     getBroadcastSupport().addListener(this, listenerImpl);
   }
@@ -345,6 +350,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    */
   public final ObjectEventListener getBroadcastObject() {
     return ExecutionUtils.runObject(new RunnableObjectEx<ObjectEventListener>() {
+      @Override
       public ObjectEventListener runObject() throws Exception {
         return getBroadcastSupport().getListener(ObjectEventListener.class);
       }
@@ -371,6 +377,7 @@ public abstract class ObjectInfo implements IObjectInfo {
    */
   protected void sortPropertyList(List<Property> properties) {
     Collections.sort(properties, new Comparator<Property>() {
+      @Override
       public int compare(Property o1, Property o2) {
         return o1.getTitle().compareTo(o2.getTitle());
       }
@@ -384,6 +391,7 @@ public abstract class ObjectInfo implements IObjectInfo {
     return Lists.newArrayList();
   }
 
+  @Override
   public final Property getPropertyByTitle(String title) throws Exception {
     for (Property property : getPropertyList()) {
       if (title.equals(property.getTitle())) {
@@ -400,6 +408,7 @@ public abstract class ObjectInfo implements IObjectInfo {
   ////////////////////////////////////////////////////////////////////////////
   protected static final String FLAG_DELETING = "we are in process of deleting";
 
+  @Override
   public final boolean isDeleting() {
     return getArbitraryValue(FLAG_DELETING) != null;
   }
@@ -411,9 +420,11 @@ public abstract class ObjectInfo implements IObjectInfo {
     return false;
   }
 
+  @Override
   public void delete() throws Exception {
   }
 
+  @Override
   public final boolean isDeleted() {
     return m_parent != null && !m_parent.m_children.contains(this);
   }
@@ -480,8 +491,10 @@ public abstract class ObjectInfo implements IObjectInfo {
     getBroadcastSupport().cleanUpTargets(ObjectInfo.this);
     // do refresh
     execRefreshOperation(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             refreshCreate0();
           }
@@ -490,8 +503,10 @@ public abstract class ObjectInfo implements IObjectInfo {
     });
     // split fetch operations into separate parts
     execRefreshOperation(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             refresh_fetch();
             refresh_finish();
@@ -521,8 +536,10 @@ public abstract class ObjectInfo implements IObjectInfo {
     Assert.isLegal(isRoot());
     // do refresh
     execRefreshOperation(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             refreshCreate0();
           }
@@ -530,8 +547,10 @@ public abstract class ObjectInfo implements IObjectInfo {
       }
     });
     execRefreshOperation(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             refresh_finish();
           }

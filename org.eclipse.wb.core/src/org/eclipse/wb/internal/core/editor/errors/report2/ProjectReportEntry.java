@@ -53,11 +53,13 @@ public final class ProjectReportEntry implements IReportEntry {
   // IFileReportInfo
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void write(final ZipOutputStream zipStream) throws Exception {
     // prepare project
     m_project.refreshLocal(IResource.DEPTH_INFINITE, null);
     // traverse project files
     m_project.accept(new IResourceVisitor() {
+      @Override
       public boolean visit(IResource resource) throws CoreException {
         try {
           // skip non-local, unresolved files and files with size more than MAX_FILE_SIZE

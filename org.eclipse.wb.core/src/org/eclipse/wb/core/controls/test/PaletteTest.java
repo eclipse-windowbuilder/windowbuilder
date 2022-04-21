@@ -162,10 +162,12 @@ public class PaletteTest implements IColorConstants {
       m_categories.add(category);
     }
 
+    @Override
     public List<ICategory> getCategories() {
       return m_categories;
     }
 
+    @Override
     public void addPopupActions(IMenuManager menuManager, Object target) {
     }
 
@@ -174,12 +176,15 @@ public class PaletteTest implements IColorConstants {
     // Operations
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void selectDefault() {
     }
 
+    @Override
     public void moveCategory(ICategory category, ICategory nextCategory) {
     }
 
+    @Override
     public void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry) {
     }
   }
@@ -217,22 +222,27 @@ public class PaletteTest implements IColorConstants {
     // ICategory
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public String getText() {
       return m_text;
     }
 
+    @Override
     public String getToolTipText() {
       return null;
     }
 
+    @Override
     public boolean isOpen() {
       return m_open;
     }
 
+    @Override
     public void setOpen(boolean b) {
       m_open = b;
     }
 
+    @Override
     public List<IEntry> getEntries() {
       return m_entries;
     }
@@ -263,18 +273,22 @@ public class PaletteTest implements IColorConstants {
     // Access
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean isEnabled() {
       return m_enabled;
     }
 
+    @Override
     public Image getIcon() {
       return m_icon;
     }
 
+    @Override
     public String getText() {
       return m_text;
     }
 
+    @Override
     public String getToolTipText() {
       return null;
     }
@@ -284,6 +298,7 @@ public class PaletteTest implements IColorConstants {
     // Activation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean activate(boolean reload) {
       return true;
     }

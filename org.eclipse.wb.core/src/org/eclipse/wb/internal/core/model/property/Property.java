@@ -138,6 +138,7 @@ public abstract class Property implements IAdaptable {
   // IAdaptable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public <T> T getAdapter(Class<T> adapter) {
     return null;
   }

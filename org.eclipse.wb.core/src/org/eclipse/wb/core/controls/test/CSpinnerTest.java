@@ -74,6 +74,7 @@ public class CSpinnerTest {
       {
         final Label valueLabel = new Label(shell, SWT.NONE);
         spinner.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             updateValueLabel(event, valueLabel);
           }
@@ -83,6 +84,7 @@ public class CSpinnerTest {
       {
         final Label valueLabel = new Label(shell, SWT.NONE);
         new CSpinnerDeferredNotifier(spinner, 500, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             updateValueLabel(event, valueLabel);
           }

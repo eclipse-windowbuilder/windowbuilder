@@ -62,6 +62,7 @@ public class StringsDialog extends TextDialog {
    */
   public String[] getItems() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String[]>() {
+      @Override
       public String[] runObject() throws Exception {
         List<String> strings = Lists.newArrayList();
         BufferedReader br = new BufferedReader(new StringReader(getText()));

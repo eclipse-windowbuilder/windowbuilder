@@ -46,10 +46,12 @@ public final class HtmlPaletteTooltipProvider implements ICustomTooltipProvider 
   // ICustomTooltipProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control createTooltipControl(Composite parent, ICustomTooltipSite site, Figure figure) {
     return HtmlTooltipHelper.createTooltipControl(parent, m_header, m_details);
   }
 
+  @Override
   public void show(Shell shell) {
     // do nothing, show Shell when Browser ready
   }

@@ -59,10 +59,12 @@ public class CheckDialogField extends DialogField {
     if (m_buttonControl == null) {
       assertCompositeNotNull(parent);
       m_selectionListener = new SelectionListener() {
+        @Override
         public void widgetSelected(SelectionEvent e) {
           doModifySelection(e);
         }
 
+        @Override
         public void widgetDefaultSelected(SelectionEvent e) {
           doModifySelection(e);
         }

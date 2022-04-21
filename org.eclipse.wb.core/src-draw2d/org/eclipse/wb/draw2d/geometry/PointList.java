@@ -306,6 +306,7 @@ public final class PointList implements Translatable, Serializable {
    * Moves the origin (0,0) of the coordinate system of all the points to the Point <i>pt</i>. This
    * updates the position of all the points in this PointList.
    */
+  @Override
   public final void translate(Point pt) {
     translate(pt.x, pt.y);
   }
@@ -314,6 +315,7 @@ public final class PointList implements Translatable, Serializable {
    * Moves the origin (0,0) of the coordinate system of all the points to the Dimension
    * <i>dimension</i>. This updates the position of all the points in this PointList.
    */
+  @Override
   public final void translate(Dimension dimension) {
     translate(dimension.width, dimension.height);
   }
@@ -322,6 +324,7 @@ public final class PointList implements Translatable, Serializable {
    * Moves the origin (0,0) of the coordinate system of all the points to the Insets <i>insets</i>.
    * This updates the position of all the points in this PointList.
    */
+  @Override
   public final void translate(Insets insets) {
     translate(insets.left, insets.top);
   }
@@ -336,6 +339,7 @@ public final class PointList implements Translatable, Serializable {
    *          Amount by which all the points will be shifted on the Y axis.
    * @see #translate(Point)
    */
+  @Override
   public void translate(int x, int y) {
     if (x == 0 && y == 0) {
       return;

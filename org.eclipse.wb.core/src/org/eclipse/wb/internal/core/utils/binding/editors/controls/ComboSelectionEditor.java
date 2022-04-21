@@ -36,10 +36,12 @@ public final class ComboSelectionEditor implements IDataEditor {
   // IDataEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getValue() {
     return new Integer(m_combo.getSelectionIndex());
   }
 
+  @Override
   public void setValue(Object value) {
     int index = ((Integer) value).intValue();
     m_combo.select(index);

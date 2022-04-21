@@ -49,6 +49,7 @@ public class DefaultControlActionsManager extends AbstractControlActionsManager 
    * Handler for process "Select all" action.
    */
   private final IHandler SELECTALL_HANDLER = new AbstractHandler() {
+    @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
       selectAllExecuted();
       return null;

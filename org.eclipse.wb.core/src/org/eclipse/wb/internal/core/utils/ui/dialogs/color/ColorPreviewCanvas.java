@@ -42,6 +42,7 @@ public final class ColorPreviewCanvas extends Canvas {
     super(parent, style);
     m_showShortText = showShortText;
     addPaintListener(new PaintListener() {
+      @Override
       public void paintControl(PaintEvent e) {
         onPaint(e.gc);
       }

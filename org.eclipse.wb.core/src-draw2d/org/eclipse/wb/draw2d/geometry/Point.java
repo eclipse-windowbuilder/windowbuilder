@@ -219,6 +219,7 @@ public final class Point implements Translatable, Serializable {
   /**
    * Shifts the location of this Point by the location of the input Point along each of the axes.
    */
+  @Override
   public void translate(Point point) {
     translate(point.x, point.y);
   }
@@ -226,6 +227,7 @@ public final class Point implements Translatable, Serializable {
   /**
    * Shifts this {@link Point} by the values of the {@link Dimension} along each axis.
    */
+  @Override
   public void translate(Dimension dimension) {
     translate(dimension.width, dimension.height);
   }
@@ -233,6 +235,7 @@ public final class Point implements Translatable, Serializable {
   /**
    * Shifts this {@link Point} by the values of the {@link Insets} along each axis.
    */
+  @Override
   public void translate(Insets insets) {
     translate(insets.left, insets.top);
   }
@@ -240,6 +243,7 @@ public final class Point implements Translatable, Serializable {
   /**
    * Shifts this Point by the values supplied along each axes.
    */
+  @Override
   public void translate(int dx, int dy) {
     x += dx;
     y += dy;
