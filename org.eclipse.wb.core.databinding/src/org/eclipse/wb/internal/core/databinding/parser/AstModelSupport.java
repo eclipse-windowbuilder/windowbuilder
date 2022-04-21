@@ -89,10 +89,12 @@ public class AstModelSupport implements IModelSupport {
   // IModelSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final AstObjectInfo getModel() {
     return m_model;
   }
 
+  @Override
   public boolean isRepresentedBy(Expression expression) throws Exception {
     // check object references
     if (m_expression == expression) {

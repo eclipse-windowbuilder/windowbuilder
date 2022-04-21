@@ -60,6 +60,7 @@ public class BindWizardPage extends WizardPage implements IPageListener {
   // IPageListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setTitleImage(Image image) {
   }
 
@@ -87,6 +88,7 @@ public class BindWizardPage extends WizardPage implements IPageListener {
   // WizardPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createControl(Composite parent) {
     m_composite = new Composite(parent, SWT.NONE);
     m_composite.setLayout(new FillLayout());
@@ -100,6 +102,7 @@ public class BindWizardPage extends WizardPage implements IPageListener {
     }
     List<IUiContentProvider> providers =
         ExecutionUtils.runObjectLog(new RunnableObjectEx<List<IUiContentProvider>>() {
+          @Override
           public List<IUiContentProvider> runObject() throws Exception {
             m_binding = m_firstPage.getBinding();
             return m_context.provider.getContentProviders(m_binding, BindWizardPage.this);
@@ -108,6 +111,7 @@ public class BindWizardPage extends WizardPage implements IPageListener {
     m_providerComposite = new UiContentProviderComposite(this, providers, m_composite, SWT.NONE);
     // initial state
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_providerComposite.performInitialize();
       }

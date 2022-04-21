@@ -34,6 +34,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
   // Input
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object[] getElements(Object input) {
     // case collection
     if (input instanceof Collection<?>) {
@@ -57,6 +58,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
   // Parent/Children
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getParent(Object element) {
     if (element instanceof ObjectInfo) {
       ObjectInfo info = (ObjectInfo) element;
@@ -65,6 +67,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
     return null;
   }
 
+  @Override
   public boolean hasChildren(Object element) {
     if (element instanceof ObjectInfo) {
       // prepare info
@@ -74,6 +77,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
       if (presentation != null) {
         // check children
         return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+          @Override
           public Boolean runObject() throws Exception {
             return presentation.isVisible() && !presentation.getChildrenTree().isEmpty();
           }
@@ -83,6 +87,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
     return false;
   }
 
+  @Override
   public Object[] getChildren(Object element) {
     if (element instanceof ObjectInfo) {
       // prepare info
@@ -92,6 +97,7 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
       if (presentation != null) {
         // get children
         return ExecutionUtils.runObjectLog(new RunnableObjectEx<Object[]>() {
+          @Override
           public Object[] runObject() throws Exception {
             return presentation.getChildrenTree().toArray();
           }
@@ -106,9 +112,11 @@ public class ObjectsTreeContentProvider implements ITreeContentProvider {
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
   }
 
+  @Override
   public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
   }
 }

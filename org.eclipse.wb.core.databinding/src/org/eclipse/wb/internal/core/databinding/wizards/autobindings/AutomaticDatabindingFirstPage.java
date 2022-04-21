@@ -90,6 +90,7 @@ public abstract class AutomaticDatabindingFirstPage extends TemplateDesignWizard
     fieldsGroup.doFillIntoGrid(parent, columns);
     // handle change super class
     fieldsGroup.setDialogFieldListener(new IDialogFieldListener() {
+      @Override
       public void dialogFieldChanged(DialogField field) {
         int[] selection = fieldsGroup.getSelection();
         if (selection.length == 1) {

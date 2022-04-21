@@ -82,6 +82,7 @@ public class ObserveElementsWizardPage extends WizardPage {
   // WizardPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createControl(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(container).noMargins().noSpacing();
@@ -97,6 +98,7 @@ public class ObserveElementsWizardPage extends WizardPage {
     GridDataFactory.create(valueLabel).fillH().grabH();
     UiUtils.setBoldFont(valueLabel);
     valueLabel.setText(ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         String text = m_context.observeObject.getPresentation().getTextForBinding();
         String propertyText = m_observeProperty.getPresentation().getTextForBinding();
@@ -108,6 +110,7 @@ public class ObserveElementsWizardPage extends WizardPage {
     }, "<exception, see log>"));
     //
     ISelectionChangedListener listener = new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         handleObserveSelection();
       }

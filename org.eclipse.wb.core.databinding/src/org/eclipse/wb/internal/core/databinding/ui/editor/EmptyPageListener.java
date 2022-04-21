@@ -26,18 +26,23 @@ public class EmptyPageListener implements IPageListener {
   // IPageListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setErrorMessage(String newMessage) {
   }
 
+  @Override
   public void setMessage(String newMessage) {
   }
 
+  @Override
   public void setPageComplete(boolean complete) {
   }
 
+  @Override
   public void setTitle(String title) {
   }
 
+  @Override
   public void setTitleImage(Image image) {
   }
 }

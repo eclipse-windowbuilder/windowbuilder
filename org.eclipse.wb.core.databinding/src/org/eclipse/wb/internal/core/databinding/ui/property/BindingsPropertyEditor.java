@@ -30,6 +30,7 @@ public final class BindingsPropertyEditor extends TextDisplayPropertyEditor
   // IComplexPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Property[] getProperties(Property property) throws Exception {
     AbstractBindingsProperty bindingsProperty = (AbstractBindingsProperty) property;
     return bindingsProperty.getProperties();

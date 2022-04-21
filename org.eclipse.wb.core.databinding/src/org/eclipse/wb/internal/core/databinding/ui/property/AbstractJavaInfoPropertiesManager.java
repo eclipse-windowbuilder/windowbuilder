@@ -39,6 +39,7 @@ public abstract class AbstractJavaInfoPropertiesManager {
   public AbstractJavaInfoPropertiesManager(IDatabindingsProvider provider, JavaInfo javaInfoRoot) {
     m_provider = provider;
     javaInfoRoot.addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         addBindingsProperty(javaInfo, properties);
       }

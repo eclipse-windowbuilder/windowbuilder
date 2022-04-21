@@ -46,10 +46,12 @@ public final class LabelUiContentProvider extends UiContentProviderAdapter {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 2;
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     // create title label
     Label titleLable = new Label(parent, SWT.NONE);

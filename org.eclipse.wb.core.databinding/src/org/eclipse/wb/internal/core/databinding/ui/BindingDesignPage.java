@@ -70,11 +70,13 @@ public class BindingDesignPage implements IEditorPage {
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void initialize(IDesignerEditor designerEditor) {
     m_designerEditor = designerEditor;
     m_designPage = m_designerEditor.getMultiMode().getDesignPage();
   }
 
+  @Override
   public void dispose() {
     // remove information about this editor
     DatabindingRootProcessor.STATES.remove(m_designerEditor.getCompilationUnit());
@@ -86,11 +88,13 @@ public class BindingDesignPage implements IEditorPage {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final DesignerEditorListener m_designPageListener = new DesignerEditorListener() {
+    @Override
     public void reparsed() {
       handleUpdatePage();
     }
   };
 
+  @Override
   public void handleActiveState(boolean activate) {
     if (activate) {
       m_designPage.setSourceModelSynchronizationEnabled(true);
@@ -182,16 +186,19 @@ public class BindingDesignPage implements IEditorPage {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control createControl(Composite parent) {
     m_composite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(m_composite).noMargins().noSpacing();
     return m_composite;
   }
 
+  @Override
   public Control getControl() {
     return m_composite;
   }
 
+  @Override
   public void setFocus() {
     m_composite.setFocus();
   }
@@ -201,10 +208,12 @@ public class BindingDesignPage implements IEditorPage {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return Messages.BindingDesignPage_name;
   }
 
+  @Override
   public Image getImage() {
     return Activator.getImage("paperclip.png");
   }

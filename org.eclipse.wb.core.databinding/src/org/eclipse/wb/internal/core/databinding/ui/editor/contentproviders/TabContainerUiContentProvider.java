@@ -67,10 +67,12 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     m_listener = listener;
   }
 
+  @Override
   public String getErrorMessage() {
     // no errors
     if (m_showEmptyPage) {
@@ -93,10 +95,12 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 1;
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     // create folder
     m_folder = new CTabFolder(parent, SWT.BORDER);
@@ -399,6 +403,7 @@ public abstract class TabContainerUiContentProvider implements IUiContentProvide
     m_listener.calculateFinish();
   }
 
+  @Override
   public void saveToObject() throws Exception {
     List<IUiContentProvider> providers = Lists.newArrayList();
     if (!m_showEmptyPage) {

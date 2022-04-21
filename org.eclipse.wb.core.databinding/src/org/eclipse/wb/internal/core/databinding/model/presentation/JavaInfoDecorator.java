@@ -41,6 +41,7 @@ public abstract class JavaInfoDecorator {
   public JavaInfoDecorator(IDatabindingsProvider provider, ObjectInfo objectInfoRoot) {
     m_provider = provider;
     objectInfoRoot.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+      @Override
       public void invoke(ObjectInfo object, Image[] icon) throws Exception {
         if (hasDecorate(object)) {
           icon[0] = SwtResourceManager.decorateImage(icon[0], IMAGE, SwtResourceManager.TOP_RIGHT);

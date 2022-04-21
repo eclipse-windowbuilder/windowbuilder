@@ -222,6 +222,7 @@ public class EditComposite extends Composite {
   ////////////////////////////////////////////////////////////////////////////
   private class SelectionSynchronizer {
     private final IBindingSelectionListener m_bindingListener = new IBindingSelectionListener() {
+      @Override
       public void selectionChanged(IBindingInfo binding) {
         try {
           setObserveListener(false);
@@ -234,6 +235,7 @@ public class EditComposite extends Composite {
     private final ISelectionChangedListener m_observeListener = new ISelectionChangedListener() {
       boolean m_skipEvent;
 
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         // check self-invoke
         if (m_skipEvent) {
@@ -379,10 +381,12 @@ public class EditComposite extends Composite {
     // TreeListener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void treeCollapsed(TreeExpansionEvent event) {
       handle();
     }
 
+    @Override
     public void treeExpanded(TreeExpansionEvent event) {
       handle();
     }

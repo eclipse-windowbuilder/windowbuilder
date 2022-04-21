@@ -43,6 +43,7 @@ public class ObserveLabelProvider extends LabelProvider {
   @Override
   public String getText(final Object element) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         return getPresentation(element).getText();
       }
@@ -52,6 +53,7 @@ public class ObserveLabelProvider extends LabelProvider {
   @Override
   public Image getImage(final Object element) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+      @Override
       public Image runObject() throws Exception {
         return getPresentation(element).getImage();
       }

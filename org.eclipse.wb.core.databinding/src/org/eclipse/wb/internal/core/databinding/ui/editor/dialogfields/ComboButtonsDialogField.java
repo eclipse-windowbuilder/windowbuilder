@@ -95,10 +95,12 @@ public class ComboButtonsDialogField extends ComboButtonDialogField {
       m_clearButton.setEnabled(isEnabled());
       // configure listener
       m_clearButton.addSelectionListener(new SelectionListener() {
+        @Override
         public void widgetDefaultSelected(SelectionEvent e) {
           changeClearPressed();
         }
 
+        @Override
         public void widgetSelected(SelectionEvent e) {
           changeClearPressed();
         }

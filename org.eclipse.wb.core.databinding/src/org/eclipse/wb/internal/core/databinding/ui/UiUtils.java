@@ -77,6 +77,7 @@ public final class UiUtils {
     }
     // handle resize
     column.addListener(SWT.Resize, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         settings.put(key, column.getWidth());
       }
@@ -240,6 +241,7 @@ public final class UiUtils {
     // IJavaSearchScope
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean encloses(String resourcePath) {
       for (IJavaSearchScope scope : m_scopes) {
         if (scope != null && scope.encloses(resourcePath)) {
@@ -249,6 +251,7 @@ public final class UiUtils {
       return false;
     }
 
+    @Override
     public boolean encloses(IJavaElement element) {
       for (IJavaSearchScope scope : m_scopes) {
         if (scope != null && scope.encloses(element)) {
@@ -258,6 +261,7 @@ public final class UiUtils {
       return false;
     }
 
+    @Override
     public IPath[] enclosingProjectsAndJars() {
       for (IJavaSearchScope scope : m_scopes) {
         if (scope != null) {
@@ -267,17 +271,21 @@ public final class UiUtils {
       return null;
     }
 
+    @Override
     public boolean includesBinaries() {
       return true;
     }
 
+    @Override
     public boolean includesClasspaths() {
       return true;
     }
 
+    @Override
     public void setIncludesBinaries(boolean includesBinaries) {
     }
 
+    @Override
     public void setIncludesClasspaths(boolean includesClasspaths) {
     }
   }

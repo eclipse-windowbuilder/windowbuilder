@@ -62,6 +62,7 @@ public class MultiTargetRunnable implements Runnable {
   // Runnable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void run() {
     for (ChooseClassUiContentProvider target : m_targets) {
       target.setClassName(m_source.getClassName());

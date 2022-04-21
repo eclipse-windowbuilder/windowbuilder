@@ -65,6 +65,7 @@ public final class ObservePropertyEditor extends TextDialogPropertyEditor
     return bindingProperties;
   }
 
+  @Override
   public Property[] getProperties(Property property) throws Exception {
     List<AbstractBindingProperty> properties = updateProperties(property);
     return properties.toArray(new Property[properties.size()]);

@@ -144,12 +144,14 @@ public final class BindingElementsComposite extends Composite {
     m_databindingsProvider.configureBindingViewer(settings, m_bindingViewer);
     // viewer events
     m_bindingViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         IStructuredSelection selection = (IStructuredSelection) event.getSelection();
         handleBindingSelection(selection);
       }
     });
     m_bindingViewer.addDoubleClickListener(new IDoubleClickListener() {
+      @Override
       public void doubleClick(DoubleClickEvent event) {
         if (m_editBindingListener != null && !UiUtils.isEmpty(m_bindingViewer.getSelection())) {
           m_editBindingListener.widgetSelected(null);
@@ -157,6 +159,7 @@ public final class BindingElementsComposite extends Composite {
       }
     });
     m_bindingViewer.getControl().addListener(SWT.KeyDown, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (event.character == SWT.DEL && !UiUtils.isEmpty(m_bindingViewer.getSelection())) {
           deleteBindind();
@@ -460,6 +463,7 @@ public final class BindingElementsComposite extends Composite {
       Shell shell) {
     // prepare message
     String message = ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         String message = databindingsProvider.getBindingPresentationText(binding);
         if (message == null) {
