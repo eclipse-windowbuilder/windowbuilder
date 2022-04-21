@@ -51,11 +51,13 @@ public final class ComponentDescriptionValidatorHandler implements BuilderHandle
   // Builder
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void fullBuild(IProject project, IProgressMonitor monitor) throws CoreException {
     project.deleteMarkers(MARKER_TYPE, false, IResource.DEPTH_INFINITE);
     project.accept(new ValidatorResourceVisitor());
   }
 
+  @Override
   public void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
     delta.accept(new ValidatorDeltaVisitor());
   }
@@ -70,6 +72,7 @@ public final class ComponentDescriptionValidatorHandler implements BuilderHandle
   //
   ////////////////////////////////////////////////////////////////////////////
   private class ValidatorDeltaVisitor implements IResourceDeltaVisitor {
+    @Override
     public boolean visit(IResourceDelta delta) throws CoreException {
       IResource resource = delta.getResource();
       switch (delta.getKind()) {
@@ -87,6 +90,7 @@ public final class ComponentDescriptionValidatorHandler implements BuilderHandle
     }
   }
   private class ValidatorResourceVisitor implements IResourceVisitor {
+    @Override
     public boolean visit(IResource resource) {
       checkXML(resource);
       return true;
@@ -193,14 +197,17 @@ public final class ComponentDescriptionValidatorHandler implements BuilderHandle
     // ErrorHandler
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void error(SAXParseException exception) throws SAXException {
       addMarker(exception, IMarker.SEVERITY_ERROR);
     }
 
+    @Override
     public void fatalError(SAXParseException exception) throws SAXException {
       addMarker(exception, IMarker.SEVERITY_ERROR);
     }
 
+    @Override
     public void warning(SAXParseException exception) throws SAXException {
       addMarker(exception, IMarker.SEVERITY_WARNING);
     }

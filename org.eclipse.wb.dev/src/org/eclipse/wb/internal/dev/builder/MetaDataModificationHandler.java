@@ -49,9 +49,11 @@ public final class MetaDataModificationHandler implements BuilderHandler {
   // Builder
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
     final AtomicBoolean done = new AtomicBoolean();
     delta.accept(new IResourceDeltaVisitor() {
+      @Override
       public boolean visit(IResourceDelta delta) throws CoreException {
         if (!done.get()) {
           IResource resource = delta.getResource();
@@ -63,9 +65,11 @@ public final class MetaDataModificationHandler implements BuilderHandler {
     });
   }
 
+  @Override
   public void fullBuild(IProject project, IProgressMonitor monitor) throws CoreException {
     final AtomicBoolean done = new AtomicBoolean();
     project.accept(new IResourceVisitor() {
+      @Override
       public boolean visit(IResource resource) throws CoreException {
         if (!done.get()) {
           boolean processed = processResource(resource);
@@ -167,6 +171,7 @@ public final class MetaDataModificationHandler implements BuilderHandler {
     IFolder metaDataFolder = project.getFolder("wbp-meta");
     metaDataFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
     final SortedSet<IFile> files = new TreeSet<IFile>(new Comparator<IFile>() {
+      @Override
       public int compare(IFile o1, IFile o2) {
         String location1 = getLocation(o1);
         String location2 = getLocation(o2);
@@ -178,6 +183,7 @@ public final class MetaDataModificationHandler implements BuilderHandler {
       }
     });
     metaDataFolder.accept(new IResourceVisitor() {
+      @Override
       public boolean visit(IResource resource) throws CoreException {
         if (isInterestingResource(resource)) {
           IFile file = (IFile) resource;
