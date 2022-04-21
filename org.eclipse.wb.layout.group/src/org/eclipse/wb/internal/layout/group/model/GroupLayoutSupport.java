@@ -191,6 +191,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
     }
   }
 
+  @Override
   public void saveLayout() throws Exception {
     List<AbstractComponentInfo> components = getLayoutChildren();
     // set new association if needed
@@ -249,6 +250,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
   // Helpers/Misc
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LayoutComponent createLayoutComponent(AbstractComponentInfo component) {
     return new LayoutComponent(ObjectInfoUtils.getId(component), false);
   }
@@ -259,6 +261,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
   @SuppressWarnings("unchecked")
   public final List<AbstractComponentInfo> getLayoutChildren() {
     return (List<AbstractComponentInfo>) CollectionUtils.select(getComponents(), new Predicate() {
+      @Override
       public boolean evaluate(Object object) {
         JavaInfo javaInfo = (JavaInfo) object;
         return !javaInfo.isDeleted() && !javaInfo.isDeleting();
@@ -273,12 +276,14 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
   // Commands support
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void command_create(AbstractComponentInfo newObject) throws Exception {
     getLayoutDesigner().endMoving(true);
     addComponentImpl(newObject);
     saveLayout();
   }
 
+  @Override
   public void command_add(List<AbstractComponentInfo> models) throws Exception {
     getLayoutDesigner().endMoving(true);
     for (AbstractComponentInfo newChild : models) {
@@ -287,6 +292,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
     saveLayout();
   }
 
+  @Override
   public void command_paste(List<JavaInfoMemento> mementos) throws Exception {
     getLayoutDesigner().endMoving(true);
     for (JavaInfoMemento memento : mementos) {
@@ -313,6 +319,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
         m_layout);
   }
 
+  @Override
   public void command_commit() throws Exception {
     getLayoutDesigner().endMoving(true);
     saveLayout();
@@ -349,10 +356,12 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final LayoutDesigner getLayoutDesigner() {
     return m_layoutDesigner;
   }
 
+  @Override
   public final LayoutModel getLayoutModel() {
     return m_layoutModel;
   }
@@ -370,6 +379,7 @@ public abstract class GroupLayoutSupport implements IGroupLayoutInfo, LayoutCons
   // IAdaptable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public <T> T getAdapter(Class<T> adapter) {
     if (JavaInfo.class.isAssignableFrom(adapter)) {
       return adapter.cast(m_layout);

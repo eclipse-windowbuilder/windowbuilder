@@ -521,6 +521,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
         @SuppressWarnings("unchecked")
         List<AbstractComponentInfo> models =
             (List<AbstractComponentInfo>) CollectionUtils.collect(editParts, new Transformer() {
+              @Override
               public Object transform(Object input) {
                 return ((EditPart) input).getModel();
               }
@@ -540,6 +541,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
     t.translate(getClientAreaOffset().getNegated());
   }
 
+  @Override
   public void translateModelToFeedback(Translatable t) {
     PolicyUtils.translateModelToFeedback(this, t);
     t.translate(getClientAreaOffset());
@@ -550,6 +552,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
     return new Point(insets.left, insets.top);
   }
 
+  @Override
   public void addFeedback2(Figure figure) {
     addFeedback(figure);
   }

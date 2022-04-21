@@ -52,12 +52,14 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
   // IFeedbackDrawer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void drawLine(int x1, int y1, int x2, int y2) {
     Polyline line = createLineFeedback(x1, y1, x2, y2);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     m_feedbacks.add(line);
   }
 
+  @Override
   public void fillArc(int x,
       int y,
       final int width,
@@ -79,6 +81,7 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
     m_feedbacks.add(figure);
   }
 
+  @Override
   public void drawLinkBadge(int x, int y, int dimension) {
     final Image image = getImage(dimension);
     Figure figure = new Figure() {

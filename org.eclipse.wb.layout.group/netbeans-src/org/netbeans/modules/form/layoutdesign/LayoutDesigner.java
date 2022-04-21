@@ -2153,6 +2153,7 @@ public class LayoutDesigner implements LayoutConstants {
   class Listener implements LayoutModel.Listener {
     private boolean active = false;
 
+    @Override
     public void layoutChanged(LayoutEvent ev) {
       if (!layoutModel.isUndoRedoInProgress()) {
         deactivate();

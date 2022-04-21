@@ -60,6 +60,7 @@ public class LayoutAssistantSupport {
     });
     // constraints property
     getJavaInfo().addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         if (m_layout.isRelatedComponent(javaInfo)) {
           addConstraintsProperty(properties, (AbstractComponentInfo) javaInfo);
@@ -110,6 +111,7 @@ public class LayoutAssistantSupport {
         m_constraintsDialog = new ConstraintsDialog(propertyTable.getShell(), m_layout, component);
         m_constraintsDialog.create();
         m_constraintsDialog.getShell().addDisposeListener(new DisposeListener() {
+          @Override
           public void widgetDisposed(DisposeEvent e) {
             m_constraintsDialog = null;
           }

@@ -877,6 +877,7 @@ class LayoutAligner implements LayoutConstants {
     }
     // Sort layout components according to their current bounds
     Collections.sort(transferedComponents, new Comparator<LayoutInterval>() {
+      @Override
       public int compare(LayoutInterval interval1, LayoutInterval interval2) {
         LayoutComponent comp = interval1.getComponent();
         int dimension = comp.getLayoutInterval(VERTICAL) == interval1 ? VERTICAL : HORIZONTAL;

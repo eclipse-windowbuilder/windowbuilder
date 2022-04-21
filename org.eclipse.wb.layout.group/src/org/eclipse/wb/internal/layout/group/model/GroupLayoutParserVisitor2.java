@@ -263,6 +263,7 @@ final class GroupLayoutParserVisitor2 extends ASTVisitor implements LayoutConsta
   private LayoutInterval addChild(final AbstractComponentInfo widget,
       final Expression associationExpression) {
     return ExecutionUtils.runObject(new RunnableObjectEx<LayoutInterval>() {
+      @Override
       public LayoutInterval runObject() throws Exception {
         // widget may be already added to parent using previous dimension parsing
         if (widget.getParent() == null && !m_container.getChildren().contains(widget)) {
