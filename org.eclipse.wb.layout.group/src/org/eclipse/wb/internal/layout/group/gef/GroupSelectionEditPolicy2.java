@@ -157,10 +157,12 @@ public class GroupSelectionEditPolicy2 extends SelectionEditPolicy
   // IFeedbacksHelper
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addFeedback2(Figure figure) {
     addFeedback(figure);
   }
 
+  @Override
   public void translateModelToFeedback(Translatable t) {
     PolicyUtils.translateModelToFeedback(this, t);
     t.translate(getClientAreaOffset());

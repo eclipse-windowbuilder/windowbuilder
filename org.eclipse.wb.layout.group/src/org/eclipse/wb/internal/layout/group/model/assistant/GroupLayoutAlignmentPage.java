@@ -77,6 +77,7 @@ public final class GroupLayoutAlignmentPage extends Composite
   // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updatePage() {
     m_toolBarManager.removeAll();
     List<ObjectInfo> sel = Lists.newArrayList();
@@ -93,6 +94,7 @@ public final class GroupLayoutAlignmentPage extends Composite
     m_toolBarManager.update(true);
   }
 
+  @Override
   public boolean isPageValid() {
     return true;
   }

@@ -972,6 +972,7 @@ public class LayoutModel implements LayoutConstants {
     Set<LayoutComponent> roots = new TreeSet<LayoutComponent>(new Comparator<LayoutComponent>() {
       // comparator to ensure stable order of dump; according to tree
       // hierarchy, order within container, name
+      @Override
       public int compare(LayoutComponent lc1, LayoutComponent lc2) {
         if (lc1 == lc2) {
           return 0;

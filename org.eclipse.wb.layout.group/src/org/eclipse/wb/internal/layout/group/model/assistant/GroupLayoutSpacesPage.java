@@ -104,6 +104,7 @@ public final class GroupLayoutSpacesPage extends Composite
   // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updatePage() {
     for (int i = 0; i < m_spaceComposites.length; i++) {
       m_spaceComposites[i].updateUI();
@@ -111,6 +112,7 @@ public final class GroupLayoutSpacesPage extends Composite
     m_componentComposite.updateUI();
   }
 
+  @Override
   public boolean isPageValid() {
     return true;
   }
@@ -151,6 +153,7 @@ public final class GroupLayoutSpacesPage extends Composite
   ////////////////////////////////////////////////////////////////////////////
   private void setComponentSize(final int dimension, final int value) {
     ExecutionUtils.run(m_layout.getAdapter(JavaInfo.class), new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_anchorsSupport.action_setComponentSize(m_javaInfo, dimension, value);
       }
@@ -242,6 +245,7 @@ public final class GroupLayoutSpacesPage extends Composite
       m_dimension = dimension;
     }
 
+    @Override
     public void handleEvent(Event event) {
       if (event.type == SWT.Selection && event.doit) {
         CSpinner spinner = (CSpinner) event.widget;
@@ -295,6 +299,7 @@ public final class GroupLayoutSpacesPage extends Composite
         }
       });
       createSpinnerNotifier(m_spinner, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           if (event.type == SWT.Selection && event.doit) {
             int gapValue = m_spinner.getSelection();
@@ -338,6 +343,7 @@ public final class GroupLayoutSpacesPage extends Composite
     ////////////////////////////////////////////////////////////////////////////
     private void setGapValue(final int gapValue) {
       ExecutionUtils.run(m_layout.getAdapter(JavaInfo.class), new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_anchorsSupport.action_setEmptySpaceProperties(
               m_javaInfo,
