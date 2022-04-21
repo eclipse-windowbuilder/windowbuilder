@@ -84,6 +84,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
   // IGlobalObservableFactory: Observable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObservableInfo createDetailObservable(SingleSelectionObservableInfo masterObservable,
       BindableInfo object,
       Type type) throws Exception {
@@ -127,6 +128,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     return null;
   }
 
+  @Override
   public MapsBeanObservableInfo createObserveMaps(ObservableInfo inputObservable,
       ObservableInfo domainObservable,
       Class<?> elementType,
@@ -142,6 +144,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     return null;
   }
 
+  @Override
   public BeansObservableFactoryInfo createTreeObservableFactory(ObservableInfo inputObservable,
       boolean asList) throws Exception {
     if (asList
@@ -151,6 +154,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     return null;
   }
 
+  @Override
   public TreeBeanAdvisorInfo createTreeBeanAdvisor(ObservableInfo inputObservable) throws Exception {
     if (inputObservable instanceof ListEmfObservableInfo
         || inputObservable instanceof DetailListEmfObservableInfo) {
@@ -159,6 +163,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     return null;
   }
 
+  @Override
   public TreeObservableLabelProviderInfo createTreeLabelProvider(ObservableInfo inputObservable,
       KnownElementsObservableInfo allElementsObservable) throws Exception {
     if (inputObservable instanceof ListEmfObservableInfo
@@ -174,6 +179,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
   // IGlobalObservableFactory: UI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configureChooseElementForViewerInput(ObservableInfo inputObservable,
       ChooseClassAndPropertiesConfiguration configuration) throws Exception {
     if (inputObservable instanceof ListEmfObservableInfo
@@ -181,6 +187,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
       final PropertiesSupport propertiesSupport = getPropertiesSupport(inputObservable);
       configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
       configuration.addPropertiesFilter(new IPropertiesFilter() {
+        @Override
         public List<PropertyAdapter> filterProperties(Class<?> choosenClass,
             List<PropertyAdapter> properties) throws Exception {
           properties = Lists.newArrayList();
@@ -198,6 +205,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     }
   }
 
+  @Override
   public void configureChooseElementForTreeViewerInput(ObservableInfo inputObservable,
       ChooseClassConfiguration configuration) throws Exception {
     if (inputObservable instanceof ListEmfObservableInfo
@@ -206,6 +214,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     }
   }
 
+  @Override
   public void filterElementPropertiesForTreeViewerInput(ObservableInfo inputObservable,
       Class<?> elementType,
       List<PropertyDescriptor> descriptors) throws Exception {
@@ -264,10 +273,12 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
   // Automatic Wizard
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void automaticWizardConfigure(ChooseClassAndPropertiesConfiguration configuration) {
     configuration.setBaseClassName("org.eclipse.emf.ecore.EObject");
   }
 
+  @Override
   public List<PropertyAdapter> automaticWizardGetProperties(IJavaProject javaProject,
       ClassLoader classLoader,
       Class<?> eObjectClass) throws Exception {
@@ -285,6 +296,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
     return null;
   }
 
+  @Override
   public IAutomaticWizardStub automaticWizardCreateStub(IJavaProject javaProject,
       ClassLoader classLoader,
       Class<?> eObjectClass) throws Exception {
@@ -308,6 +320,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
   // Controller
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean moveBean(IObserveInfo observe,
       AstEditor controllerEditor,
       TypeDeclaration controllerRootNode) throws Exception {
@@ -335,6 +348,7 @@ public final class GlobalObservableFactory implements IGlobalObservableFactory {
   // Preferences
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void confgureCodeGenerationPreferencePage(Composite parent, DataBindManager bindManager)
       throws Exception {
     Button generateCodeFor25Button = new Button(parent, SWT.CHECK);

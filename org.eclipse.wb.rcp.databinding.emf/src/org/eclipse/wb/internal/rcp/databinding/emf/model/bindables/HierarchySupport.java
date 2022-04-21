@@ -128,6 +128,7 @@ public class HierarchySupport {
     if (element.sort && element.classInfo != null) {
       element.sort = false;
       Collections.sort(element.classInfo.properties, new Comparator<PropertyInfo>() {
+        @Override
         public int compare(PropertyInfo property1, PropertyInfo property2) {
           return property1.name.compareTo(property2.name);
         }

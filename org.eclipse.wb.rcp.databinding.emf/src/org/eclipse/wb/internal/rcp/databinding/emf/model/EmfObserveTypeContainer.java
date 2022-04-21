@@ -161,23 +161,28 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
         m_observables,
         fragments,
         new ISynchronizeProcessor<VariableDeclarationFragment, EObjectBindableInfo>() {
+          @Override
           public boolean handleObject(EObjectBindableInfo object) {
             return true;
           }
 
+          @Override
           public VariableDeclarationFragment getKeyObject(EObjectBindableInfo eObject) {
             return eObject.getFragment();
           }
 
+          @Override
           public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
             return key0 == key1;
           }
 
+          @Override
           public EObjectBindableInfo findObject(Map<VariableDeclarationFragment, EObjectBindableInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
 
+          @Override
           public EObjectBindableInfo createObject(VariableDeclarationFragment fragment)
               throws Exception {
             try {
@@ -194,6 +199,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
             }
           }
 
+          @Override
           public void update(EObjectBindableInfo object) throws Exception {
           }
         });
@@ -242,6 +248,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     }
   }
 
+  @Override
   public AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       ClassInstanceCreation creation,
@@ -350,6 +357,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     return observableFactory;
   }
 
+  @Override
   public AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       MethodInvocation invocation,
@@ -482,6 +490,7 @@ public final class EmfObserveTypeContainer extends ObserveTypeContainer {
     // prepare master detail observable
     ObservableInfo masterDetailObservable =
         (ObservableInfo) resolver.getModel(expression, new IModelResolverFilter() {
+          @Override
           public boolean accept(IModelSupport modelSupport) throws Exception {
             if (modelSupport instanceof DirectFieldModelSupport) {
               ObservableInfo observable = (ObservableInfo) modelSupport.getModel();

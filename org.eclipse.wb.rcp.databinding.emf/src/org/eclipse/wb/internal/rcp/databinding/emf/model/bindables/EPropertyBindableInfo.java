@@ -102,6 +102,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getParent() {
     return m_parent;
   }
@@ -111,6 +112,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
     return Collections.emptyList();
   }
 
+  @Override
   public List<IObserveInfo> getChildren(ChildrenContext context) {
     if (context == ChildrenContext.ChildrenForPropertiesTable
         && m_propertiesSupport.availableEMFProperties()) {
@@ -165,6 +167,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObservePresentation getPresentation() {
     return m_presentation;
   }
@@ -174,6 +177,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
   // IObserveDecoration
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveDecorator getDecorator() {
     return m_decorator;
   }
@@ -183,6 +187,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
   // ObserveType
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObserveType getType() {
     return EmfObserveTypeContainer.TYPE;
   }
@@ -195,6 +200,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
   private final IObservableFactory m_observableFactory = new IObservableFactory() {
     private Type m_type;
 
+    @Override
     public Type getType() throws Exception {
       if (m_type == null) {
         // calculate type
@@ -207,6 +213,7 @@ public class EPropertyBindableInfo extends BindableInfo implements IObserveDecor
       return m_type;
     }
 
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo eProperty,
         Type type,

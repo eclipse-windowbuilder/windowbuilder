@@ -117,6 +117,7 @@ public final class EObjectBindableInfo extends BindableInfo {
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getParent() {
     return null;
   }
@@ -126,6 +127,7 @@ public final class EObjectBindableInfo extends BindableInfo {
     return Collections.emptyList();
   }
 
+  @Override
   public List<IObserveInfo> getChildren(ChildrenContext context) {
     if (context == ChildrenContext.ChildrenForPropertiesTable) {
       return CoreUtils.cast(m_properties);
@@ -138,6 +140,7 @@ public final class EObjectBindableInfo extends BindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObservePresentation getPresentation() {
     return m_presentation;
   }
@@ -147,6 +150,7 @@ public final class EObjectBindableInfo extends BindableInfo {
   // ObserveType
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObserveType getType() {
     return EmfObserveTypeContainer.TYPE;
   }

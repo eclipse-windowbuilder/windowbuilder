@@ -45,10 +45,12 @@ public class DirectPropertyBindableInfo extends EPropertyBindableInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IObservableFactory m_observableFactory = new IObservableFactory() {
+    @Override
     public Type getType() throws Exception {
       return Type.Detail;
     }
 
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,
