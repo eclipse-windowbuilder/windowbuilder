@@ -79,6 +79,7 @@ public class ResourceRegistryInfo extends JavaInfo {
     }
     // sort all fields
     Collections.sort(fields, new Comparator<KeyFieldInfo>() {
+      @Override
       public int compare(KeyFieldInfo info1, KeyFieldInfo info2) {
         return info1.keyName.compareTo(info2.keyName);
       }

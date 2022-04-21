@@ -113,6 +113,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
   // IHasChildren
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean hasChildren() {
     try {
       if (m_calculateHasChildren) {
@@ -130,6 +131,7 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final IImageElement[] elements() {
     ensureResources();
     return m_resources;
@@ -145,10 +147,12 @@ public class FileImageContainer extends ImageContainer implements IHasChildren {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return DesignerPlugin.getImage("folder_open.gif");
   }
 
+  @Override
   public final String getName() {
     return m_container.getName();
   }

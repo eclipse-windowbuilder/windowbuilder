@@ -92,6 +92,7 @@ public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo
   ////////////////////////////////////////////////////////////////////////////
   private void removeIfCompositeHasNoLayout() {
     addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         removeBroadcastListener(this);
         // if dangling LayoutData, ignore it
@@ -156,6 +157,7 @@ public abstract class LayoutDataInfo extends JavaInfo implements ILayoutDataInfo
    */
   private void contributeLayoutDataProperties_toControl() {
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         if (isActiveForControl(javaInfo)) {
           addLayoutDataProperties(properties);

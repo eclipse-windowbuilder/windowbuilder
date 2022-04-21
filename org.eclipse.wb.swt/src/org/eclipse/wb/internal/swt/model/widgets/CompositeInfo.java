@@ -121,6 +121,7 @@ public class CompositeInfo extends ScrollableInfo
   ////////////////////////////////////////////////////////////////////////////
   private void addBroacastListeners() throws Exception {
     addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         initialize_createAbsoluteLayout();
       }
@@ -158,11 +159,13 @@ public class CompositeInfo extends ScrollableInfo
    */
   private void dontAllowDouble_setLayout() {
     addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         removeBroadcastListener(this);
       }
     });
     addBroadcastListener(new ObjectInfoChildAddBefore() {
+      @Override
       public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
           throws Exception {
         if (parent == m_this && child instanceof LayoutInfo) {
@@ -271,6 +274,7 @@ public class CompositeInfo extends ScrollableInfo
   // IThisMethodParameterEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluateParameter(EvaluationContext context,
       MethodDeclaration methodDeclaration,
       String methodSignature,
@@ -326,6 +330,7 @@ public class CompositeInfo extends ScrollableInfo
   protected TopBoundsSupport createTopBoundsSupport() {
     // return implementation from eRCP or RCP bundles
     return ExecutionUtils.runObject(new RunnableObjectEx<TopBoundsSupport>() {
+      @Override
       public TopBoundsSupport runObject() throws Exception {
         // prepare "impl" class
         Class<?> implClass;
@@ -581,6 +586,7 @@ public class CompositeInfo extends ScrollableInfo
       }
       // we are in process of refresh(), set inherited layout later
       ExecutionUtils.runLater(this, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           setLayout(thisLayout);
         }
@@ -608,6 +614,7 @@ public class CompositeInfo extends ScrollableInfo
                 new ConstructorCreationSupport());
         // we are in process of refresh(), set inherited layout later
         ExecutionUtils.runLater(this, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             setLayout(thisLayout);
           }
@@ -651,10 +658,12 @@ public class CompositeInfo extends ScrollableInfo
   ////////////////////////////////////////////////////////////////////////////
   private Insets m_clientAreaInsets2;
 
+  @Override
   public final List<ControlInfo> getChildrenControls() {
     return getChildren(ControlInfo.class);
   }
 
+  @Override
   public final Insets getClientAreaInsets2() {
     return m_clientAreaInsets2;
   }

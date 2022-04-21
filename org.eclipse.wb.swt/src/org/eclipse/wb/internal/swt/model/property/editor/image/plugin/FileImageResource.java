@@ -47,6 +47,7 @@ public final class FileImageResource extends ImageResource {
   // IImageResource
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ImageInfo getImageInfo() {
     if (m_imageInfo == null) {
       try {
@@ -80,6 +81,7 @@ public final class FileImageResource extends ImageResource {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return m_resource.getName();
   }
@@ -99,6 +101,7 @@ public final class FileImageResource extends ImageResource {
   /**
    * Disposes {@link Image} in {@link ImageInfo}.
    */
+  @Override
   public void dispose() {
     if (m_imageInfo != null) {
       m_imageInfo.getImage().dispose();

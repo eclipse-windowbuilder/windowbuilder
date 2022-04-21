@@ -56,8 +56,10 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
   // IClassLoaderInitializer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void initialize(final ClassLoader classLoader) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Class<?> managerClass = classLoader.loadClass("org.eclipse.wb.swt.ResourceManager");
         Class<?> providerClass =
@@ -67,6 +69,7 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
     });
   }
 
+  @Override
   public void deinitialize(ClassLoader classLoader) {
   }
 
@@ -93,6 +96,7 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
     enhancer.setClassLoader(classLoader);
     enhancer.setSuperclass(providerClass);
     enhancer.setCallback(new MethodInterceptor() {
+      @Override
       public Object intercept(Object obj,
           java.lang.reflect.Method method,
           Object[] args,

@@ -44,6 +44,7 @@ public final class FontPreviewCanvas extends Canvas {
   public FontPreviewCanvas(Composite parent, int style) {
     super(parent, style);
     addListener(SWT.Paint, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         onPaint(event.gc);
       }
@@ -108,6 +109,7 @@ public final class FontPreviewCanvas extends Canvas {
     }
     if (fontInfo != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_image = ToolkitSupport.getFontPreview(fontInfo.getFont());
         }

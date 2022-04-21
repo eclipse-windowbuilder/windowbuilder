@@ -52,6 +52,7 @@ public final class BundleImageResource extends ImageResource {
   // IImageResource
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ImageInfo getImageInfo() {
     if (m_imageInfo == null) {
       // load image
@@ -81,6 +82,7 @@ public final class BundleImageResource extends ImageResource {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return m_name;
   }
@@ -100,6 +102,7 @@ public final class BundleImageResource extends ImageResource {
   /**
    * Disposes {@link Image} in {@link ImageInfo}.
    */
+  @Override
   public void dispose() {
     if (m_imageInfo != null) {
       m_imageInfo.getImage().dispose();

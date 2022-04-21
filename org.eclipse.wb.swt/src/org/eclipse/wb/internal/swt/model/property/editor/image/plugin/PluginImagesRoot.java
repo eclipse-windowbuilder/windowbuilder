@@ -63,6 +63,7 @@ public class PluginImagesRoot implements IImageRoot {
   // IImageRoot
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageElement[] elements() {
     if (m_filterConfigurer.isDirty()) {
       try {
@@ -189,6 +190,7 @@ public class PluginImagesRoot implements IImageRoot {
         }
         //
         Collections.sort(containers, new Comparator<ImageContainer>() {
+          @Override
           public int compare(ImageContainer container1, ImageContainer container2) {
             return container1.getName().compareTo(container2.getName());
           }
@@ -217,6 +219,7 @@ public class PluginImagesRoot implements IImageRoot {
     }
   }
 
+  @Override
   public void dispose() {
     if (m_containers != null) {
       for (ImageContainer container : m_containers) {
@@ -226,6 +229,7 @@ public class PluginImagesRoot implements IImageRoot {
     }
   }
 
+  @Override
   public Object[] getSelectionPath(Object data) {
     String[] parts = (String[]) data;
     String symbolicName = parts[0];

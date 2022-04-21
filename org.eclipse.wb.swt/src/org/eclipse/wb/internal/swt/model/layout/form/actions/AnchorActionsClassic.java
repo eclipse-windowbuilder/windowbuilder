@@ -225,6 +225,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 
   public Image getImageHorizontal(final C control, final int side) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+      @Override
       public Image runObject() throws Exception {
         return getImageHorizontal0(control, side);
       }
@@ -254,6 +255,7 @@ public class AnchorActionsClassic<C extends IControlInfo> {
 
   public Image getImageVertical(final C control, final int side) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+      @Override
       public Image runObject() throws Exception {
         return getImageVertical0(control, side);
       }

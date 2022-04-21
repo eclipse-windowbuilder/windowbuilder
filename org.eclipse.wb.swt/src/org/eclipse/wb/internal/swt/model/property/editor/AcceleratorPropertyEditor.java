@@ -167,6 +167,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
           m_keyStrokeText = new Text(area, SWT.BORDER | SWT.READ_ONLY);
           GridDataFactory.create(m_keyStrokeText).grabH().fillH();
           m_keyStrokeText.addListener(SWT.KeyDown, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               m_accelerator = SWTKeySupport.convertEventToUnmodifiedAccelerator(event);
               displayAccelerator();
@@ -207,6 +208,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
           }
           // add listener
           m_keyCodeList.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               // prepare keyCode
               int keyCode;
@@ -236,6 +238,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
       m_modifierToButton.put(modifier, button);
       // add listener
       button.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           // update modifiers
           if (button.getSelection()) {
@@ -348,6 +351,7 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
       m_keyNameToCode = Maps.newTreeMap();
       // add fields
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           // add key codes from SWT
           for (Field field : SWT.class.getFields()) {

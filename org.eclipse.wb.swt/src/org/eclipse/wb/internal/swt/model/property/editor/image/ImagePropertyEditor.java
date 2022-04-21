@@ -135,6 +135,7 @@ public final class ImagePropertyEditor extends TextDialogPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     if (property.getValue() != Property.UNKNOWN_VALUE) {
       Expression expression = property.getExpression();

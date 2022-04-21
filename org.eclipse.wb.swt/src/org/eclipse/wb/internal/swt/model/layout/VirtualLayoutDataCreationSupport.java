@@ -52,6 +52,7 @@ public final class VirtualLayoutDataCreationSupport extends CreationSupport
     super.setJavaInfo(javaInfo);
     m_javaInfo.setObject(m_dataObject);
     m_control.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object object) throws Exception {
         // check, may be this creation support is not active
         if (m_javaInfo.getCreationSupport() != VirtualLayoutDataCreationSupport.this) {
@@ -107,6 +108,7 @@ public final class VirtualLayoutDataCreationSupport extends CreationSupport
   // IClipboardImplicitCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IClipboardImplicitCreationSupport getImplicitClipboard() {
     return null;
   }

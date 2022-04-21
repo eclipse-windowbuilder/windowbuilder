@@ -233,6 +233,7 @@ public class ContainerSupport extends AbstractSupport {
    */
   public static Rectangle getClientArea(final Object composite) {
     return ExecutionUtils.runObject(new RunnableObjectEx<Rectangle>() {
+      @Override
       public Rectangle runObject() throws Exception {
         Object rectangle = ReflectionUtils.invokeMethod(composite, "getClientArea()");
         return RectangleSupport.getRectangle(rectangle);

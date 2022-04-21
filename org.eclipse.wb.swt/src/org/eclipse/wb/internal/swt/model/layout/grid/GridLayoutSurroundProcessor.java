@@ -46,6 +46,7 @@ public final class GridLayoutSurroundProcessor
   // ISurroundProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean filter(CompositeInfo sourceContainer, CompositeInfo targetContainer)
       throws Exception {
     String targetClassName = targetContainer.getDescription().getComponentClass().getName();
@@ -56,6 +57,7 @@ public final class GridLayoutSurroundProcessor
         && (isComposite || isGroup);
   }
 
+  @Override
   public void move(CompositeInfo sourceContainer,
       CompositeInfo targetContainer,
       List<ControlInfo> components) throws Exception {

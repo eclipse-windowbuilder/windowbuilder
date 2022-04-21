@@ -41,6 +41,7 @@ public final class ImplicitLayoutCreationSupport extends CreationSupport
       IImplicitCreationSupport {
   private final CompositeInfo m_composite;
   private final ObjectInfoChildAddBefore m_objectListener1 = new ObjectInfoChildAddBefore() {
+    @Override
     public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
         throws Exception {
       if (isAddLayout(parent, child) && parent.getChildren().contains(m_javaInfo)) {
@@ -83,6 +84,7 @@ public final class ImplicitLayoutCreationSupport extends CreationSupport
     }
   };
   private final Object m_javaListener = new JavaInfoSetObjectAfter() {
+    @Override
     public void invoke(JavaInfo target, Object object) throws Exception {
       if (target == m_composite) {
         Object layout = ContainerSupport.getLayout(object);
@@ -201,6 +203,7 @@ public final class ImplicitLayoutCreationSupport extends CreationSupport
   // IClipboardImplicitCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IClipboardImplicitCreationSupport getImplicitClipboard() {
     return null;
   }

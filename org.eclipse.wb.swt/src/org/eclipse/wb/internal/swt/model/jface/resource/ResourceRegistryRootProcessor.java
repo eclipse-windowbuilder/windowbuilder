@@ -49,6 +49,7 @@ public final class ResourceRegistryRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
     processRoot(root);
     processComponents(root, components);

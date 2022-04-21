@@ -69,8 +69,10 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
   // IDescriptionProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final AstEditor editor, final ComponentDescription componentDescription) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         new DescriptionProcessor_Single(editor, componentDescription);
       }

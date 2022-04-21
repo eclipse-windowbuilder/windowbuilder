@@ -125,6 +125,7 @@ public class BundleImageContainer extends ImageContainer implements IHasChildren
   // IHasChildren
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean hasChildren() {
     try {
       if (m_calculateHasChildren) {
@@ -142,6 +143,7 @@ public class BundleImageContainer extends ImageContainer implements IHasChildren
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageElement[] elements() {
     ensureResources();
     return m_resources;
@@ -157,10 +159,12 @@ public class BundleImageContainer extends ImageContainer implements IHasChildren
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return DesignerPlugin.getImage("folder_open.gif");
   }
 
+  @Override
   public String getName() {
     return m_name;
   }

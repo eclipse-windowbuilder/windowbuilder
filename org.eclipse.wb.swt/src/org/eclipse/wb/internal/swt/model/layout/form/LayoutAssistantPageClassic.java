@@ -99,6 +99,7 @@ public final class LayoutAssistantPageClassic<C extends IControlInfo> extends Co
   // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isPageValid() {
     for (C object : m_selection) {
       ObjectInfo parent = object.getParent();
@@ -109,6 +110,7 @@ public final class LayoutAssistantPageClassic<C extends IControlInfo> extends Co
     return true;
   }
 
+  @Override
   public void updatePage() {
   }
 }

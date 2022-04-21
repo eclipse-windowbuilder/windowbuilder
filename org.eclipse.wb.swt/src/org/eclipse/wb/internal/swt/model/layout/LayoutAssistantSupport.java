@@ -66,6 +66,7 @@ public abstract class LayoutAssistantSupport
   protected final List<ILayoutDataInfo> getDataList(List<ObjectInfo> objects) {
     List<ILayoutDataInfo> dataList =
         Lists.transform(objects, new Function<ObjectInfo, ILayoutDataInfo>() {
+          @Override
           public ILayoutDataInfo apply(ObjectInfo from) {
             return m_layout.getLayoutData2((IControlInfo) from);
           }

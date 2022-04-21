@@ -62,6 +62,7 @@ public final class AbsoluteLayoutCreationSupport extends CreationSupport {
   public void setJavaInfo(JavaInfo javaInfo) throws Exception {
     super.setJavaInfo(javaInfo);
     m_javaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object object) throws Exception {
         if (target == m_javaInfo.getParentJava()) {
           m_javaInfo.setObject(null);

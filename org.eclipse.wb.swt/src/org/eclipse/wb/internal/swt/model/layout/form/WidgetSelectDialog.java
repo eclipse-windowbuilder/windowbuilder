@@ -102,11 +102,13 @@ public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends Resiza
       }
       m_viewer.setInput(new Object());
       m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           updateButtons();
         }
       });
       m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+        @Override
         public void doubleClick(DoubleClickEvent event) {
           okPressed();
         }
@@ -173,13 +175,16 @@ public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends Resiza
   //
   ////////////////////////////////////////////////////////////////////////////
   private class ControlContentProvider implements IStructuredContentProvider {
+    @Override
     public Object[] getElements(Object inputElement) {
       return m_widgets.toArray();
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
   }
@@ -189,6 +194,7 @@ public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends Resiza
   //
   ////////////////////////////////////////////////////////////////////////////
   private class ControlLabelProvider extends LabelProvider implements ITableLabelProvider {
+    @Override
     @SuppressWarnings("unchecked")
     public String getColumnText(Object element, int columnIndex) {
       C info = (C) element;
@@ -199,6 +205,7 @@ public class WidgetSelectDialog<C extends IAbstractComponentInfo> extends Resiza
       }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Image getColumnImage(Object element, int columnIndex) {
       C info = (C) element;

@@ -45,6 +45,7 @@ public final class AbsoluteLayoutSurroundProcessor
   // ISurroundProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean filter(CompositeInfo sourceContainer, CompositeInfo targetContainer)
       throws Exception {
     String targetClassName = targetContainer.getDescription().getComponentClass().getName();
@@ -55,6 +56,7 @@ public final class AbsoluteLayoutSurroundProcessor
         && (isComposite || isGroup);
   }
 
+  @Override
   public void move(CompositeInfo sourceContainer,
       CompositeInfo targetContainer,
       List<ControlInfo> components) throws Exception {

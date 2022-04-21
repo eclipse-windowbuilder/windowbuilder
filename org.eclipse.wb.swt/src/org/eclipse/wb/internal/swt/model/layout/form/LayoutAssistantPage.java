@@ -52,6 +52,7 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
   private final IFormLayoutInfo<C> m_layout;
   private final PlacementsSupport m_placementsSupport;
   private final IActionImageProvider m_imageProvider = new IActionImageProvider() {
+    @Override
     public Image getActionImage(String imagePath) {
       return FormLayoutInfoImplAutomatic.getImage(imagePath);
     }
@@ -112,6 +113,7 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
   // ILayoutAssistantPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isPageValid() {
     for (C object : m_selection) {
       ObjectInfo parent = object.getParent();
@@ -122,6 +124,7 @@ public final class LayoutAssistantPage<C extends IControlInfo> extends Composite
     return true;
   }
 
+  @Override
   public void updatePage() {
   }
 

@@ -44,40 +44,49 @@ final class FormLayoutVisualDataProvider<C extends IControlInfo> implements IVis
   // IVisualDataProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getBaseline(IAbstractComponentInfo component) {
     return BaselineSupportHelper.getBaseline(component.getObject());
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
     C componentInfo = (C) component;
     return componentInfo.getPreferredSize();
   }
 
+  @Override
   public Dimension getContainerSize() {
     return m_layout.getContainerSize();
   }
 
+  @Override
   public boolean useGridSnapping() {
     return false;
   }
 
+  @Override
   public boolean useFreeSnapping() {
     return true;
   }
 
+  @Override
   public boolean isSuppressingSnapping() {
     return false;
   }
 
+  @Override
   public int getGridStepY() {
     return m_layout.getPreferences().getSnapSensitivity();
   }
 
+  @Override
   public int getGridStepX() {
     return m_layout.getPreferences().getSnapSensitivity();
   }
 
+  @Override
   public int getContainerGapValue(IAbstractComponentInfo component, int direction) {
     if (PlacementUtils.isHorizontalSide(direction)) {
       return m_layout.getPreferences().getHorizontalContainerGap();
@@ -86,12 +95,14 @@ final class FormLayoutVisualDataProvider<C extends IControlInfo> implements IVis
     }
   }
 
+  @Override
   public int getComponentGapValue(IAbstractComponentInfo component1,
       IAbstractComponentInfo component2,
       int direction) {
     return 6;
   }
 
+  @Override
   public Point getClientAreaOffset() {
     return m_layout.getComposite().getClientArea().getLocation();
   }

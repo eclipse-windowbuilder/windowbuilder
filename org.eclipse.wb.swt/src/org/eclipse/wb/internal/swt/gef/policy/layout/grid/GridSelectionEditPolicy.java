@@ -229,6 +229,7 @@ public final class GridSelectionEditPolicy<C extends IControlInfo>
    */
   private void setFillBoth() {
     execute(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         IGridDataInfo gridData = m_layout.getGridData2(m_component);
         gridData.setHorizontalGrab(true);
@@ -244,6 +245,7 @@ public final class GridSelectionEditPolicy<C extends IControlInfo>
    */
   private void flipGrab(final boolean horizontal) {
     execute(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         IGridDataInfo gridData = m_layout.getGridData2(m_component);
         if (horizontal) {
@@ -260,6 +262,7 @@ public final class GridSelectionEditPolicy<C extends IControlInfo>
    */
   private void setAlignment(final boolean horizontal, final int alignment) {
     execute(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         IGridDataInfo gridData = m_layout.getGridData2(m_component);
         if (horizontal) {

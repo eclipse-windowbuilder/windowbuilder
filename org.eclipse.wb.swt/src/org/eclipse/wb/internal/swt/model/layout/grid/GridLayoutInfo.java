@@ -115,6 +115,7 @@ public class GridLayoutInfo extends LayoutInfo
     super.initialize();
     // add listeners
     addBroadcastListener(new ObjectInfoChildTree() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof ControlInfo) {
           visible[0] &= !isFiller((ControlInfo) object);
@@ -122,6 +123,7 @@ public class GridLayoutInfo extends LayoutInfo
       }
     });
     addBroadcastListener(new ObjectInfoChildGraphical() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof ControlInfo) {
           visible[0] &= !isFiller((ControlInfo) object);
@@ -302,6 +304,7 @@ public class GridLayoutInfo extends LayoutInfo
     super.onControlRemoveAfter(control);
   }
 
+  @Override
   public IGridDataInfo getGridData2(ControlInfo control) {
     return getGridData(control);
   }
@@ -377,6 +380,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_deleteColumn(int column, boolean deleteEmptyDims) throws Exception {
     int columnCount = getControlsGridSize().width;
     // update GridData, delete controls
@@ -406,6 +410,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_deleteRow(int row, boolean deleteEmptyDims) throws Exception {
     // update GridData, delete controls
     m_replaceWithFillers = false;
@@ -430,6 +435,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_MOVE_COLUMN(int fromIndex, int toIndex) throws Exception {
     // move column in columns list
     {
@@ -464,6 +470,7 @@ public class GridLayoutInfo extends LayoutInfo
     deleteEmptyColumnsRows(null);
   }
 
+  @Override
   public void command_MOVE_ROW(int fromIndex, int toIndex) throws Exception {
     // move row in rows list
     {
@@ -498,8 +505,10 @@ public class GridLayoutInfo extends LayoutInfo
     deleteEmptyColumnsRows(null);
   }
 
+  @Override
   public void command_normalizeSpanning() throws Exception {
     ExecutionUtils.run(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         command_normalizeSpanning0();
       }
@@ -550,6 +559,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public List<GridColumnInfo<ControlInfo>> getColumns() {
     Dimension size = getControlsGridSize();
     if (m_columns.size() != size.width) {
@@ -563,6 +573,7 @@ public class GridLayoutInfo extends LayoutInfo
     return m_columns;
   }
 
+  @Override
   public List<GridRowInfo<ControlInfo>> getRows() {
     Dimension size = getControlsGridSize();
     if (m_rows.size() != size.height) {
@@ -576,6 +587,7 @@ public class GridLayoutInfo extends LayoutInfo
     return m_rows;
   }
 
+  @Override
   public boolean canChangeDimensions() {
     if (getCreationSupport() instanceof ConstructorCreationSupport) {
       return true;
@@ -586,6 +598,7 @@ public class GridLayoutInfo extends LayoutInfo
     return false;
   }
 
+  @Override
   public boolean isExplicitRow(int row) {
     return row >= getImplicitGridSize().height;
   }
@@ -595,6 +608,7 @@ public class GridLayoutInfo extends LayoutInfo
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void command_CREATE(ControlInfo newControl,
       int column,
       boolean insertColumn,
@@ -613,6 +627,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_MOVE(ControlInfo control,
       int column,
       boolean insertColumn,
@@ -628,6 +643,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_ADD(ControlInfo control,
       int column,
       boolean insertColumn,
@@ -727,6 +743,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_setCells(ControlInfo control, Rectangle cells, boolean forMove)
       throws Exception {
     GridDataInfo gridData = getGridData(control);
@@ -788,6 +805,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public void command_setSizeHint(ControlInfo control, boolean horizontal, Dimension size)
       throws Exception {
     startEdit();
@@ -899,6 +917,7 @@ public class GridLayoutInfo extends LayoutInfo
    * not strongly required by layout itself for final cells. We do this to avoid checks for
    * <code>null</code> in many places.
    */
+  @Override
   public void fixGrid() throws Exception {
     if (JavaInfoUtils.isImplicitlyCreated(this)) {
       return;
@@ -983,24 +1002,29 @@ public class GridLayoutInfo extends LayoutInfo
   private void doAutomaticAlignment(ControlInfo control) throws Exception {
     final IPreferenceStore preferences = getDescription().getToolkit().getPreferences();
     GridAlignmentHelper.doAutomaticAlignment(control, new IAlignmentProcessor<ControlInfo>() {
+      @Override
       public boolean grabEnabled() {
         return preferences.getBoolean(P_ENABLE_GRAB);
       }
 
+      @Override
       public boolean rightEnabled() {
         return preferences.getBoolean(P_ENABLE_RIGHT_ALIGNMENT);
       }
 
+      @Override
       public ControlInfo getComponentAtLeft(ControlInfo component) {
         GridDataInfo gridData = getGridData(component);
         return getControlAt(gridData.x - 1, gridData.y);
       }
 
+      @Override
       public ControlInfo getComponentAtRight(ControlInfo component) {
         GridDataInfo gridData = getGridData(component);
         return getControlAt(gridData.x + 1, gridData.y);
       }
 
+      @Override
       public void setGrabFill(ControlInfo component, boolean horizontal) throws Exception {
         GridDataInfo gridData = getGridData(component);
         if (horizontal) {
@@ -1012,6 +1036,7 @@ public class GridLayoutInfo extends LayoutInfo
         }
       }
 
+      @Override
       public void setRightAlignment(ControlInfo component) throws Exception {
         GridDataInfo gridData = getGridData(component);
         gridData.setHorizontalAlignment(SWT.RIGHT);
@@ -1047,9 +1072,11 @@ public class GridLayoutInfo extends LayoutInfo
   private int[] m_columnWidths;
   private int[] m_rowHeights;
 
+  @Override
   public IGridInfo getGridInfo() {
     if (m_gridInfo == null) {
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           createGridInfo();
         }
@@ -1111,10 +1138,12 @@ public class GridLayoutInfo extends LayoutInfo
       // Dimensions
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public int getColumnCount() {
         return columnIntervals.length;
       }
 
+      @Override
       public int getRowCount() {
         return rowIntervals.length;
       }
@@ -1124,10 +1153,12 @@ public class GridLayoutInfo extends LayoutInfo
       // Intervals
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public Interval[] getColumnIntervals() {
         return columnIntervals;
       }
 
+      @Override
       public Interval[] getRowIntervals() {
         return rowIntervals;
       }
@@ -1137,11 +1168,13 @@ public class GridLayoutInfo extends LayoutInfo
       // Cells
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public Rectangle getComponentCells(IAbstractComponentInfo component) {
         Assert.instanceOf(ControlInfo.class, component);
         return componentToCells.get(component);
       }
 
+      @Override
       public Rectangle getCellsRectangle(Rectangle cells) {
         int x = columnIntervals[cells.x].begin;
         int y = rowIntervals[cells.y].begin;
@@ -1155,10 +1188,12 @@ public class GridLayoutInfo extends LayoutInfo
       // Feedback
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public boolean isRTL() {
         return getComposite().isRTL();
       }
 
+      @Override
       public Insets getInsets() {
         return getComposite().getClientAreaInsets2();
       }
@@ -1168,14 +1203,17 @@ public class GridLayoutInfo extends LayoutInfo
       // Virtual columns
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public boolean hasVirtualColumns() {
         return true;
       }
 
+      @Override
       public int getVirtualColumnSize() {
         return VIRTUAL_SIZE;
       }
 
+      @Override
       public int getVirtualColumnGap() {
         return VIRTUAL_GAP;
       }
@@ -1185,14 +1223,17 @@ public class GridLayoutInfo extends LayoutInfo
       // Virtual columns
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public boolean hasVirtualRows() {
         return true;
       }
 
+      @Override
       public int getVirtualRowSize() {
         return VIRTUAL_SIZE;
       }
 
+      @Override
       public int getVirtualRowGap() {
         return VIRTUAL_GAP;
       }
@@ -1202,6 +1243,7 @@ public class GridLayoutInfo extends LayoutInfo
       // Checks
       //
       ////////////////////////////////////////////////////////////////////////////
+      @Override
       public IAbstractComponentInfo getOccupied(int column, int row) {
         return occupiedCells.get(new Point(column, row));
       }
@@ -1237,6 +1279,7 @@ public class GridLayoutInfo extends LayoutInfo
     }
   }
 
+  @Override
   public boolean isFiller(ControlInfo control) {
     return control != null
         && isLabel(control)

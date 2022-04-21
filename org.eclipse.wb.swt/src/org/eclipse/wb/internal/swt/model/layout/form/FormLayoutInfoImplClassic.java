@@ -723,6 +723,7 @@ public class FormLayoutInfoImplClassic<C extends IControlInfo> extends FormLayou
       }
       // sort controls by their leading positions
       Collections.sort(controlList, new Comparator<IAbstractComponentInfo>() {
+        @Override
         public int compare(IAbstractComponentInfo o1, IAbstractComponentInfo o2) {
           return t.t(o1.getModelBounds()).x - t.t(o2.getModelBounds()).x;
         }

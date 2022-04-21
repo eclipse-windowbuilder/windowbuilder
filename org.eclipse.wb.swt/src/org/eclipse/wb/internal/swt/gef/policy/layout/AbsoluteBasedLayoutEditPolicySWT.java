@@ -69,16 +69,19 @@ public abstract class AbsoluteBasedLayoutEditPolicySWT<C extends IControlInfo>
     return components;
   }
 
+  @Override
   public int getBaseline(IAbstractComponentInfo component) {
     return BaselineSupportHelper.getBaseline(component.getObject());
   }
 
+  @Override
   public Dimension getComponentPreferredSize(IAbstractComponentInfo component) {
     @SuppressWarnings("unchecked")
     C componentInfo = (C) component;
     return componentInfo.getPreferredSize();
   }
 
+  @Override
   public Dimension getContainerSize() {
     IAbstractComponentInfo composite = m_layout.getComposite();
     Rectangle compositeBounds = composite.getModelBounds().getCopy();

@@ -57,6 +57,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
     m_preferences = toolkit.getPreferences();
     m_layoutModel = layout.getUnderlyingModel();
     m_layoutModel.addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         addPropertyChangeListener();
       }
@@ -212,6 +213,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
     final Set<Integer> values = Sets.<Integer>newTreeSet();
     // load persistence
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         fillPercents(getPersistentProperty(keyPercents), values);
       }
@@ -228,6 +230,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
    */
   private void setPersistentProperty(final QualifiedName key, final String value) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         IResource resource = m_layout.getUnderlyingResource();
         resource.setPersistentProperty(key, value);
@@ -275,9 +278,11 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final class PreferenceChangeListener implements IPropertyChangeListener {
+    @Override
     public void propertyChange(final PropertyChangeEvent event) {
       if (IPreferenceConstants.PREF_FORMLAYOUT_MODE.equals(event.getProperty())) {
         ExecutionUtils.runAsync(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             IDesignPageSite.Helper.getSite(m_layoutModel).reparse();
           }

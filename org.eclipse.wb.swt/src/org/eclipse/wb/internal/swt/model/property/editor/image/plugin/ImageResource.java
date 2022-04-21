@@ -28,6 +28,7 @@ public abstract class ImageResource implements IImageResource, IDisposable {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final Image getImage() {
     ImageInfo imageInfo = getImageInfo();
     return imageInfo != null ? imageInfo.getImage() : null;

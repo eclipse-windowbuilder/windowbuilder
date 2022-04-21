@@ -173,6 +173,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
   public void showSourceFeedback(final Request request) {
     if (AbsoluteBasedSelectionEditPolicy.REQ_RESIZE.equals(request.getType())) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           showResizeFeedback((ChangeBoundsRequest) request);
         }
@@ -598,6 +599,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
   public Command getCommand(final Request request) {
     if (AbsoluteBasedSelectionEditPolicy.REQ_RESIZE.equals(request.getType())) {
       return ExecutionUtils.<Command>runObjectLog(new RunnableObjectEx<Command>() {
+        @Override
         public Command runObject() throws Exception {
           return getResizeCommand((ChangeBoundsRequest) request);
         }
@@ -1173,18 +1175,22 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     final Figure figure = getHostFigure();
     // add mouse listener
     mouseTrackListener = new IMouseTrackListener() {
+      @Override
       public void mouseHover(MouseEvent event) {
       }
 
+      @Override
       public void mouseExit(MouseEvent event) {
         mouseQuadrant = -1;
         figure.repaint();
       }
 
+      @Override
       public void mouseEnter(MouseEvent event) {
       }
     };
     mouseMoveListener = new IMouseMoveListener() {
+      @Override
       public void mouseMove(MouseEvent event) {
         int oldQuadrant = mouseQuadrant;
         Rectangle r = figure.getBounds().getCopy();
@@ -1203,9 +1209,11 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
       }
     };
     figureListener = new IFigureListener() {
+      @Override
       public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
       }
 
+      @Override
       public void figureMoved(Figure source) {
         Rectangle bounds = figure.getBounds();
         hoverFigure.setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
@@ -1359,6 +1367,7 @@ public final class FormSelectionEditPolicyClassic<C extends IControlInfo>
     newControls.addAll(components);
     // proceed with sorting
     Collections.sort(newControls, new Comparator<C>() {
+      @Override
       public int compare(C o1, C o2) {
         C component1 = o1;
         C component2 = o2;

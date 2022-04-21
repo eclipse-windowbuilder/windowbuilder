@@ -125,6 +125,7 @@ public final class AbsoluteLayoutInfo extends LayoutInfo
               // schedule auto-size
               final ControlInfo control = (ControlInfo) property.getJavaInfo();
               ExecutionUtils.runLater(control, new RunnableEx() {
+                @Override
                 public void run() throws Exception {
                   commandChangeBounds(control, null, control.getPreferredSize());
                 }
@@ -136,6 +137,7 @@ public final class AbsoluteLayoutInfo extends LayoutInfo
     });
     // Bounds property
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         if (isManagedObject(javaInfo)) {
           ControlInfo control = (ControlInfo) javaInfo;
@@ -345,14 +347,17 @@ public final class AbsoluteLayoutInfo extends LayoutInfo
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void commandCreate(ControlInfo control, ControlInfo nextControl) throws Exception {
     command_CREATE(control, nextControl);
   }
 
+  @Override
   public void commandMove(ControlInfo control, ControlInfo nextControl) throws Exception {
     command_MOVE(control, nextControl);
   }
 
+  @Override
   public void commandChangeBounds(ControlInfo widget, Point location, Dimension size)
       throws Exception {
     commandChangeBounds0(widget, location, size);

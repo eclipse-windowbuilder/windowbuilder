@@ -47,6 +47,7 @@ public final class FormSelectionEditPolicy<C extends IControlInfo>
   // Overrides
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getActionImage(String imageName) {
     return FormLayoutInfoImplAutomatic.getImage(imageName);
   }
