@@ -158,6 +158,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
     final Image[] toReturn = new Image[]{null};
     final Display display = DesignerPlugin.getStandardDisplay();
     display.syncExec(new Runnable() {
+      @Override
       public void run() {
         toReturn[0] = makeShotAwt0(display, component, width, height);
       }
