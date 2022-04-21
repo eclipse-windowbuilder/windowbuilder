@@ -157,6 +157,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
   public void test_generateUniqueName() throws Exception {
     assertSame("base", CodeUtils.generateUniqueName("base", Predicates.<String>alwaysTrue()));
     assertEquals("base_3", CodeUtils.generateUniqueName("base", new Predicate<String>() {
+      @Override
       public boolean apply(String name) {
         return !name.equals("base") && !name.equals("base_1") && !name.equals("base_2");
       }

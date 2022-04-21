@@ -65,6 +65,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
             "}");
     // create
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);
@@ -105,6 +106,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
     // create
     Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_ENABLE_GRAB, false);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);
@@ -144,6 +146,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
             "}");
     // create
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTable.class);
@@ -194,6 +197,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
             "}");
     // create
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTable.class);
@@ -236,6 +240,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
             "}");
     // create
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JLabel.class);
@@ -289,6 +294,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
             "}");
     // create
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JLabel.class);
@@ -343,6 +349,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
         IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT,
         false);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JLabel.class);
@@ -395,6 +402,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);
@@ -450,6 +458,7 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);

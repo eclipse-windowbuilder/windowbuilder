@@ -924,10 +924,12 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
     // open dialog, but cancel
     {
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           action.run();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Cell properties");
           {
@@ -952,10 +954,12 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
     }
     // open dialog, commit changes
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Cell properties");
         {

@@ -216,9 +216,11 @@ public class RequestsTest extends TestCase {
 
   public void test_CreateRequest() throws Exception {
     ICreationFactory factory = new ICreationFactory() {
+      @Override
       public void activate() {
       }
 
+      @Override
       public Object getNewObject() {
         return new Integer(7);
       }

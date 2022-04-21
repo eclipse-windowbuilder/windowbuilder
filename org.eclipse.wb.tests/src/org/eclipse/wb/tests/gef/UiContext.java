@@ -185,6 +185,7 @@ public class UiContext {
    */
   public Button getButtonByTextPrefix(final String prefix) {
     return getButton(getShell(), new Predicate<String>() {
+      @Override
       public boolean apply(String input) {
         return input != null && input.startsWith(prefix);
       }
@@ -196,6 +197,7 @@ public class UiContext {
    */
   public Button getButtonByText(Widget start, final String text) {
     return getButton(start, new Predicate<String>() {
+      @Override
       public boolean apply(String input) {
         return isSameText(input, text);
       }
@@ -676,6 +678,7 @@ public class UiContext {
       @Override
       public void run() {
         m_display.asyncExec(new Runnable() {
+          @Override
           public void run() {
             try {
               checkRunnable.run(UiContext.this);

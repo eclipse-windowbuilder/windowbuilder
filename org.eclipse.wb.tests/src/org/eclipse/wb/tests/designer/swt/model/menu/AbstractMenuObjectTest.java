@@ -44,18 +44,22 @@ public class AbstractMenuObjectTest extends DesignerTestCase {
     super.setUp();
     m_mocksControl = EasyMock.createStrictControl();
     m_menuObject = new AbstractMenuObject(null) {
+      @Override
       public Object getModel() {
         throw new NotImplementedException();
       }
 
+      @Override
       public Image getImage() {
         throw new NotImplementedException();
       }
 
+      @Override
       public Rectangle getBounds() {
         throw new NotImplementedException();
       }
 
+      @Override
       public IMenuPolicy getPolicy() {
         throw new NotImplementedException();
       }

@@ -249,6 +249,7 @@ public class ActionGefTest extends SwingGefTest {
     JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
     // load "action" tool
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         ActionExternalEntryInfo entry = new ActionExternalEntryInfo();
         entry.initialize(m_viewerCanvas, panel);
@@ -256,6 +257,7 @@ public class ActionGefTest extends SwingGefTest {
         m_viewerCanvas.getEditDomain().setActiveTool(tool);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Open type");
         // set filter
@@ -267,6 +269,7 @@ public class ActionGefTest extends SwingGefTest {
         {
           final Table typesTable = context.findFirstWidget(Table.class);
           context.waitFor(new UIPredicate() {
+            @Override
             public boolean check() {
               return typesTable.getItems().length != 0;
             }

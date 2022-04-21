@@ -108,10 +108,12 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
     assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("value");
         TreeItem panelItem = context.getTreeItem("(javax.swing.JPanel)");
@@ -197,10 +199,12 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
     assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("button");
         TreeItem panelItem = context.getTreeItem("(javax.swing.JPanel)");
@@ -267,10 +271,12 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
     assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("button");
         // "button_2" is selected
@@ -368,10 +374,12 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
     assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
     // animate - just open and ensure that dialog opened (no exception during this)
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("labelFor");
         context.clickButton("Cancel");

@@ -922,10 +922,12 @@ public class EditableSupportTest extends AbstractNlsTest {
     }
     // dispose shell, so cancel dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         editableSource.renameKey("frame.name", "frame.title");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         Shell shell = context.useShell("Confirm");
         shell.notifyListeners(SWT.Close, new Event());
@@ -963,10 +965,12 @@ public class EditableSupportTest extends AbstractNlsTest {
     final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
     // yes, keep existing value
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         editableSource.renameKey("frame.name", "frame.title");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.clickButton("Yes, keep existing value");
       }
@@ -1001,10 +1005,12 @@ public class EditableSupportTest extends AbstractNlsTest {
     final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
     // no, use value of renaming key
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         editableSource.renameKey("frame.name", "frame.title");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.clickButton("No, use value of renaming key");
       }
@@ -1048,14 +1054,17 @@ public class EditableSupportTest extends AbstractNlsTest {
    */
   private static IEditableSourceListener createEditableSourceListener(final StringBuffer buffer) {
     return new IEditableSourceListener() {
+      @Override
       public void keyAdded(String key, Object o) {
         buffer.append("keyAdded: " + key + "\n");
       }
 
+      @Override
       public void keyRemoved(String key) {
         buffer.append("keyRemoved: " + key + "\n");
       }
 
+      @Override
       public void keyRenamed(String oldKey, String newKey) {
         buffer.append("keyRenamed: " + oldKey + " -> " + newKey + "\n");
       }

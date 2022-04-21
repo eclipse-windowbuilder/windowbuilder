@@ -229,71 +229,85 @@ public class DebugGraphics extends Graphics {
     super.fillRectangle(x, y, width, height);
   }
 
+  @Override
   public void fillRoundRectangle(Rectangle r, int arcWidth, int arcHeight) {
     m_logger.log("fillRoundRectangle(" + r + ", " + arcWidth + ", " + arcHeight + ")");
     super.fillRoundRectangle(r, arcWidth, arcHeight);
   }
 
+  @Override
   public void fillString(String s, int x, int y) {
     m_logger.log("fillString(|" + s + "|, " + x + ", " + y + ")");
     super.fillString(s, x, y);
   }
 
+  @Override
   public void fillText(String s, int x, int y) {
     m_logger.log("fillText(|" + s + "|, " + x + ", " + y + ")");
     super.fillText(s, x, y);
   }
 
+  @Override
   public void popState() {
     m_logger.log("popState()");
     super.popState();
   }
 
+  @Override
   public void pushState() {
     m_logger.log("pushState()");
     super.pushState();
   }
 
+  @Override
   public void restoreState() {
     m_logger.log("restoreState()");
     super.restoreState();
   }
 
+  @Override
   public void setBackgroundColor(Color color) {
     m_logger.log("setBackgroundColor(" + color + ")");
     super.setBackgroundColor(color);
   }
 
+  @Override
   public void setFont(Font f) {
     m_logger.log("setFont(" + Arrays.toString(f.getFontData()) + ")");
     super.setFont(f);
   }
 
+  @Override
   public void setForegroundColor(Color color) {
     m_logger.log("setForegroundColor(" + color + ")");
     super.setForegroundColor(color);
   }
 
+  @Override
   public void setLineStyle(int style) {
     m_logger.log("setLineStyle(" + style + ")");
     super.setLineStyle(style);
   }
 
+  @Override
   public void setLineWidth(int width) {
     m_logger.log("setLineWidth(" + width + ")");
     super.setLineWidth(width);
   }
 
+  @Override
   protected void setTranslation(int x, int y) {
     m_logger.log("setTranslation(" + x + ", " + y + ")");
     super.setTranslation(x, y);
   }
 
+  @Override
   public void setXORMode(boolean b) {
     m_logger.log("setXORMode(" + b + ")");
     super.setXORMode(b);
   }
 
+  @Override
   public void translate(int dx, int dy) {
     m_logger.log("translate(" + dx + ", " + dy + ")");
     super.translate(dx, dy);

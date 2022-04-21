@@ -198,10 +198,12 @@ public class FrameViewTest extends SwingModelTest {
     assertFalse(frame.isVisible());
     // animate show()
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         view.getTopBoundsSupport().show();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         // now JFrame is visible
         assertTrue(frame.isVisible());

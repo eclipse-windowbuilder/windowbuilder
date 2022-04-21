@@ -41,9 +41,11 @@ public class EditPolicyTest extends GefTestCase {
     assertNull(testPolicy.getListeners(IEditPolicyListener.class));
     //
     IEditPolicyListener listener1 = new IEditPolicyListener() {
+      @Override
       public void activatePolicy(EditPolicy policy) {
       }
 
+      @Override
       public void deactivatePolicy(EditPolicy policy) {
       }
     };
@@ -55,9 +57,11 @@ public class EditPolicyTest extends GefTestCase {
     assertSame(listener1, list.get(0));
     //
     IEditPolicyListener listener2 = new IEditPolicyListener() {
+      @Override
       public void activatePolicy(EditPolicy policy) {
       }
 
+      @Override
       public void deactivatePolicy(EditPolicy policy) {
       }
     };
@@ -85,10 +89,12 @@ public class EditPolicyTest extends GefTestCase {
     final TestLogger actualLogger = new TestLogger();
     TestLogger expectedLogger = new TestLogger();
     IEditPolicyListener listener = new IEditPolicyListener() {
+      @Override
       public void activatePolicy(EditPolicy policy) {
         actualLogger.log("activate = " + policy);
       }
 
+      @Override
       public void deactivatePolicy(EditPolicy policy) {
         actualLogger.log("deactivate = " + policy);
       }

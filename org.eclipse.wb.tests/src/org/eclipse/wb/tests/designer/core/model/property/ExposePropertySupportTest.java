@@ -393,10 +393,12 @@ public class ExposePropertySupportTest extends SwingModelTest {
     final IAction action = getExposeAction(button, "text");
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Expose property");
         // prepare widgets

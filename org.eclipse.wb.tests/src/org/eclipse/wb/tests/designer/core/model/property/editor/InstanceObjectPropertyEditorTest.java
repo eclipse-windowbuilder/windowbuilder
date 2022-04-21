@@ -161,10 +161,12 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
     {
       // open dialog and animate it
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           openPropertyDialog(property);
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           // set filter
           {
@@ -176,6 +178,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
           {
             final Table typesTable = context.findFirstWidget(Table.class);
             context.waitFor(new UIPredicate() {
+              @Override
               public boolean check() {
                 return typesTable.getItems().length != 0;
               }

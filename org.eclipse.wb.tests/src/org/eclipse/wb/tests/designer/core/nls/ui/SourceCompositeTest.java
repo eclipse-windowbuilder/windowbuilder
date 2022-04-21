@@ -62,6 +62,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         Table table = getSourceTable(context, tabItems[0]);
@@ -127,6 +128,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         Table table = getSourceTable(context, tabItems[0]);
@@ -140,10 +142,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
         // don't confirm, no changes expected
         {
           context.executeAndCheck(new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               removeLocaleItem.notifyListeners(SWT.Selection, null);
             }
           }, new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               ctx.useShell("Confirm");
               ctx.clickButton("Cancel");
@@ -160,10 +164,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
         // confirm
         {
           context.executeAndCheck(new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               removeLocaleItem.notifyListeners(SWT.Selection, null);
             }
           }, new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               ctx.useShell("Confirm");
               ctx.clickButton("OK");
@@ -195,6 +201,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         Table table = getSourceTable(context, tabItems[0]);
@@ -209,10 +216,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
         // don't confirm, no changes expected
         {
           context.executeAndCheck(new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               internalizeItem.notifyListeners(SWT.Selection, null);
             }
           }, new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               ctx.useShell("Confirm");
               ctx.clickButton("Cancel");
@@ -225,10 +234,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
         // confirm
         {
           context.executeAndCheck(new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               internalizeItem.notifyListeners(SWT.Selection, null);
             }
           }, new UIRunnable() {
+            @Override
             public void run(UiContext ctx) throws Exception {
               ctx.useShell("Confirm");
               ctx.clickButton("OK");
@@ -263,6 +274,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         Table table = getSourceTable(context, tabItems[0]);
@@ -276,10 +288,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
         assertNotNull(addLocaleItem);
         //
         context.executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext ctx) throws Exception {
             addLocaleItem.notifyListeners(SWT.Selection, null);
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext ctx) throws Exception {
             ctx.useShell("Choose Locale");
             // select 'it' language
@@ -318,12 +332,15 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         context.executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext ctx) throws Exception {
             ctx.clickButton("New locale...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext ctx) throws Exception {
             ctx.useShell("Choose Locale");
             ctx.clickButton("Cancel");
@@ -367,6 +384,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(0, tabFolder.getSelectionIndex());
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
@@ -454,6 +472,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(0, tabFolder.getSelectionIndex());
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
@@ -501,6 +520,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(0, tabFolder.getSelectionIndex());
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
@@ -520,10 +540,12 @@ public class SourceCompositeTest extends AbstractDialogTest {
         }
         // rename "frame.name" -> "frame.title"
         context.executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext ctx) throws Exception {
             editableSource.renameKey("frame.name", "frame.title");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext ctx) throws Exception {
             ctx.useShell("Confirm");
             ctx.clickButton("Yes, keep existing value");
@@ -553,6 +575,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(0, tabFolder.getSelectionIndex());
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
@@ -595,6 +618,7 @@ public class SourceCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         tabFolder.setSelection(0);
         Table table = getSourceTable(context, tabFolder.getItems()[0]);

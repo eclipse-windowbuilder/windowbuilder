@@ -578,6 +578,7 @@ public class MenuTest extends RcpModelTest {
             new ConstructorCreationSupport("bar", true));
     // add to shell
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         newMenuBar.command_CREATE(shell);
       }
@@ -632,6 +633,7 @@ public class MenuTest extends RcpModelTest {
             new ConstructorCreationSupport());
     // add to shell
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         newMenuPopup.command_CREATE(shell);
       }

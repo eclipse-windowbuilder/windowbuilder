@@ -88,6 +88,7 @@ public class ConvertersTest extends DesignerTestCase {
                 new SystemColorValue("scheglov-win", java.awt.SystemColor.textHighlight)})));
     //
     EventQueue.invokeAndWait(new Runnable() {
+      @Override
       public void run() {
         try {
           UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

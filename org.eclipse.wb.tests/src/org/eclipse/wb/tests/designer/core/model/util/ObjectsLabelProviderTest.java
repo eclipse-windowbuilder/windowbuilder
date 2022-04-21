@@ -57,12 +57,14 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
   public void test_decorateImageText() throws Exception {
     TestObjectInfo theObject = new MyObjectInfo();
     theObject.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+      @Override
       public void invoke(ObjectInfo object, Image[] icon) throws Exception {
         icon[0] =
             SwtResourceManager.decorateImage(icon[0], DOWN_ICON, SwtResourceManager.BOTTOM_RIGHT);
       }
     });
     theObject.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+      @Override
       public void invoke(ObjectInfo object, String[] text) throws Exception {
         text[0] = "A: " + text[0] + " :B";
       }
@@ -86,6 +88,7 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
           return DEF_ICON;
         }
 
+        @Override
         public String getText() throws Exception {
           return DEF_TEXT;
         }

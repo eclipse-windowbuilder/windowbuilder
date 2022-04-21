@@ -281,19 +281,23 @@ public class CompoundAssociationTest extends SwingModelTest {
       Association association_2 = mocksControl.createMock(Association.class);
       Association compoundAssociation = new CompoundAssociation(association_1, association_2);
 
+      @Override
       public void configure() throws Exception {
         panel.setAssociation(compoundAssociation);
       }
 
+      @Override
       public void expectations() throws Exception {
         expect(association_1.remove()).andReturn(true);
         expect(association_2.remove()).andReturn(true);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertTrue(compoundAssociation.remove());
       }
 
+      @Override
       public void verify() throws Exception {
         assertNull(panel.getAssociation());
       }

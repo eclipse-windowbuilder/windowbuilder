@@ -106,6 +106,7 @@ public class ParserBroadcastsTest extends SwingModelTest {
   public static final class MyParticipator implements IJavaInfoInitializationParticipator {
     private static int m_refreshCount;
 
+    @Override
     public void process(final JavaInfo javaInfo) throws Exception {
       javaInfo.addBroadcastListener(new ObjectEventListener() {
         @Override

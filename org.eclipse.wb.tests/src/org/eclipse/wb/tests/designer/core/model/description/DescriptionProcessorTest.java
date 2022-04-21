@@ -78,6 +78,7 @@ public class DescriptionProcessorTest extends DesignerTestCase {
   public static final class MyDescriptionProcessor implements IDescriptionProcessor {
     private static int m_processCount;
 
+    @Override
     public void process(AstEditor editor, ComponentDescription componentDescription)
         throws Exception {
       m_processCount++;

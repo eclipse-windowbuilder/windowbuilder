@@ -142,6 +142,7 @@ public class AbstractPropertyTableTest extends DesignerTestCase {
     // IComplexPropertyEditor
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Property[] getProperties(Property property) throws Exception {
       return m_properties;
     }

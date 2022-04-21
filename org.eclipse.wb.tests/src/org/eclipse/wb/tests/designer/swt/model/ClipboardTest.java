@@ -132,6 +132,7 @@ public class ClipboardTest extends RcpModelTest {
     // do paste
     {
       ExecutionUtils.run(shell, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           ControlInfo button = (ControlInfo) memento.create(shell);
           rowLayout.command_CREATE(button, null);
@@ -190,6 +191,7 @@ public class ClipboardTest extends RcpModelTest {
     }
     // do paste
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ControlInfo control = (ControlInfo) memento.create(shell);
         // check that we support "live" image during paste
@@ -243,6 +245,7 @@ public class ClipboardTest extends RcpModelTest {
     }
     // do paste
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // can not apply() before create()
         try {
@@ -293,6 +296,7 @@ public class ClipboardTest extends RcpModelTest {
     {
       ControlInfo control = shell.getChildrenControls().get(0);
       doCopyPaste(control, new PasteProcedure<ControlInfo>() {
+        @Override
         public void run(ControlInfo p) throws Exception {
           rowLayout.command_CREATE(p, null);
         }

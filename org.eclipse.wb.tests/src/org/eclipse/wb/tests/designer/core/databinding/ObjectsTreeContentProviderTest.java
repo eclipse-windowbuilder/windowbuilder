@@ -84,6 +84,7 @@ public class ObjectsTreeContentProviderTest extends DesignerTestCase {
       @Override
       public IObjectPresentation getPresentation() {
         return new DefaultObjectPresentation(this) {
+          @Override
           public String getText() throws Exception {
             return "testObjectPresentation";
           }

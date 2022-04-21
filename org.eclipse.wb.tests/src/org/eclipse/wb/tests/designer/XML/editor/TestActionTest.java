@@ -37,10 +37,12 @@ public class TestActionTest extends XwtGefTest {
     openEditor("<Shell text='My Shell'/>");
     //
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         m_designPageActions.getTestAction().run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         Shell shell = context.useShell("My Shell");
         {

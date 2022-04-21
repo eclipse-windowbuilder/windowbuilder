@@ -86,12 +86,14 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
     List<ObjectInfo> children = child.getParent().getPresentation().getChildrenTree();
     if (expected) {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should be visible it tree: " + child;
         }
       }).contains(child);
     } else {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should not be visible it tree: " + child;
         }
@@ -107,12 +109,14 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
     List<ObjectInfo> children = child.getParent().getPresentation().getChildrenGraphical();
     if (expected) {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should be visible on canvas: " + child;
         }
       }).contains(child);
     } else {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should not be visible on canvas: " + child;
         }
@@ -171,6 +175,7 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
       final Object object,
       final Object reference) throws Exception {
     ExecutionUtils.run(container, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
         flowContainer.command_CREATE(object, reference);
@@ -185,6 +190,7 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
       final Object object,
       final Object reference) throws Exception {
     ExecutionUtils.run(container, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
         flowContainer.command_MOVE(object, reference);
@@ -226,6 +232,7 @@ public abstract class AbstractXmlModelTest extends AbstractXmlObjectTest {
       final PasteProcedure<T> pasteProcedure) throws Exception {
     final XmlObjectMemento memento = XmlObjectMemento.createMemento(source);
     ExecutionUtils.run(source, new RunnableEx() {
+      @Override
       @SuppressWarnings("unchecked")
       public void run() throws Exception {
         T copy = (T) memento.create(source);

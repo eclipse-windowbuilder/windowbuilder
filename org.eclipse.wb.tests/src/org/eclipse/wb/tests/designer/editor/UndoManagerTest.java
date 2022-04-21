@@ -537,10 +537,12 @@ public class UndoManagerTest extends SwingGefTest {
         new BodyDeclarationTarget(typeDeclaration, false));
     // do commit changes
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         m_lastEditor.commitChanges();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Read-only File Encountered");
         context.clickButton(buttonId);

@@ -166,6 +166,7 @@ public class XmlDesignPageTest extends XwtGefTest {
     private static XmlDesignPage designPage;
     private static DesignerState state;
 
+    @Override
     public void process(XmlObjectInfo root) throws Exception {
       state = designPage.getDesignerState();
     }
@@ -296,10 +297,12 @@ public class XmlDesignPageTest extends XwtGefTest {
     }
     // open "Create Report" dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.clickButton("Create Report...");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Create Report");
         context.clickButton("Cancel");
@@ -325,6 +328,7 @@ public class XmlDesignPageTest extends XwtGefTest {
     // run "edit operation" which causes exception
     EnvironmentUtils.setTestingTime(false);
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         throw new Error();
       }
@@ -355,6 +359,7 @@ public class XmlDesignPageTest extends XwtGefTest {
     // run "edit operation" which causes exception
     EnvironmentUtils.setTestingTime(false);
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Throwable e = new Error();
         DesignerExceptionUtils.setSourcePosition(e, 5);
@@ -471,6 +476,7 @@ public class XmlDesignPageTest extends XwtGefTest {
       try {
         EnvironmentUtils.setTestingTime(false);
         ExecutionUtils.run(m_lastObject, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             throw designerException;
           }

@@ -1347,6 +1347,7 @@ public class GridLayoutTest extends XwtModelTest {
     }
     // delete
     ExecutionUtils.run(layout, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         column.delete();
       }
@@ -1471,6 +1472,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_deleteColumn(1, true);
@@ -1507,6 +1509,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_deleteColumn(1, true);
@@ -1572,6 +1575,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_deleteRow(1, true);
@@ -1608,6 +1612,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_deleteRow(1, true);
@@ -1643,6 +1648,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_MOVE_COLUMN(1, 0);
@@ -1676,6 +1682,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_MOVE_COLUMN(0, 2);
@@ -1714,6 +1721,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_MOVE_ROW(1, 0);
@@ -1747,6 +1755,7 @@ public class GridLayoutTest extends XwtModelTest {
     refresh();
     //
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridLayoutInfo layout = getObjectByName("layout");
         layout.command_MOVE_ROW(0, 2);
@@ -2283,6 +2292,7 @@ public class GridLayoutTest extends XwtModelTest {
     //
     ControlInfo composite = getObjectByName("composite");
     doCopyPaste(composite, new PasteProcedure<ControlInfo>() {
+      @Override
       public void run(ControlInfo copy) throws Exception {
         shell.getLayout().command_CREATE(copy, null);
       }

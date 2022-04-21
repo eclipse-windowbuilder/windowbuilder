@@ -142,6 +142,7 @@ public class EnumPropertyEditorTest extends AbstractCoreTest {
         super(EnumPropertyEditor.INSTANCE);
       }
 
+      @Override
       public Class<?> getType() {
         try {
           return m_lastLoader.loadClass("test.Foo");

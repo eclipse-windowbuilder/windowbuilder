@@ -527,6 +527,7 @@ public class PaletteManagerTest extends AbstractPaletteTest {
     {
       final boolean[] exceptionHappened = new boolean[1];
       ILogListener logListener = new ILogListener() {
+        @Override
         public void logging(IStatus status, String plugin) {
           exceptionHappened[0] = true;
           assertEquals(IStatus.ERROR, status.getSeverity());

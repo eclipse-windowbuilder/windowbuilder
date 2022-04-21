@@ -200,6 +200,7 @@ public final class GraphicalRobot {
    */
   public GraphicalRobot toResizeHandle(Object object, final int direction) {
     Predicate<Handle> predicate = new Predicate<Handle>() {
+      @Override
       public boolean apply(Handle handle) {
         if (handle instanceof ResizeHandle) {
           ResizeHandle resizeHandle = (ResizeHandle) handle;
@@ -218,6 +219,7 @@ public final class GraphicalRobot {
    */
   public GraphicalRobot toResizeHandle(Object object, final Object type, final int direction) {
     Predicate<Handle> predicate = new Predicate<Handle>() {
+      @Override
       public boolean apply(Handle handle) {
         if (handle.getDragTrackerTool() instanceof ResizeTracker) {
           ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTrackerTool();
@@ -1119,6 +1121,7 @@ public final class GraphicalRobot {
     }
     // return predicate
     return new Predicate<Figure>() {
+      @Override
       public boolean apply(Figure feedback) {
         if (!(feedback instanceof Polyline)) {
           return false;
@@ -1161,6 +1164,7 @@ public final class GraphicalRobot {
     }
     // return predicate
     return new Predicate<Figure>() {
+      @Override
       public boolean apply(Figure feedback) {
         if (!(feedback instanceof Polyline)) {
           return false;
@@ -1227,6 +1231,7 @@ public final class GraphicalRobot {
     }
     // return predicate
     return new Predicate<Figure>() {
+      @Override
       public boolean apply(Figure feedback) {
         return partBounds.equals(feedback.getBounds());
       }

@@ -263,6 +263,7 @@ public class ActionTest extends RcpModelTest {
       enhancer.setInterfaces(new Class<?>[]{IActionIconProvider.class});
       enhancer.setClassLoader(IActionIconProvider.class.getClassLoader());
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj,
             java.lang.reflect.Method method,
             Object[] args,

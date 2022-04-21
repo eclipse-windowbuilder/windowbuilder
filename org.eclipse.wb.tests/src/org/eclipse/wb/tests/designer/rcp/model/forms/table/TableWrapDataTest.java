@@ -409,6 +409,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
     assertTrue(tableWrapData.getHorizontalGrab());
     // alignment := FILL
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         tableWrapData.setHorizontalAlignment(TableWrapData.FILL);
       }
@@ -427,6 +428,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
         "}");
     // alignment := LEFT
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         tableWrapData.setHorizontalAlignment(TableWrapData.LEFT);
       }
@@ -918,6 +920,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
     assertTrue(tableWrapData.getVerticalGrab());
     // alignment := FILL
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         tableWrapData.setVerticalAlignment(TableWrapData.FILL);
       }
@@ -936,6 +939,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
         "}");
     // alignment := TOP
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         tableWrapData.setVerticalAlignment(TableWrapData.TOP);
       }

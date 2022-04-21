@@ -233,6 +233,7 @@ public class MenuItemTest extends XwtModelTest {
     refresh();
     // set style to SWT.CASCADE
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuItemInfo item = getObjectByName("item");
         GenericProperty styleProperty = (GenericProperty) item.getPropertyByTitle("Style");
@@ -274,6 +275,7 @@ public class MenuItemTest extends XwtModelTest {
     refresh();
     // set style to SWT.CHECK
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuItemInfo item = getObjectByName("item");
         GenericProperty styleProperty = (GenericProperty) item.getPropertyByTitle("Style");
@@ -315,6 +317,7 @@ public class MenuItemTest extends XwtModelTest {
     refresh();
     // set style to SWT.CHECK
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuItemInfo item = getObjectByName("item");
         GenericProperty styleProperty = (GenericProperty) item.getPropertyByTitle("Style");
@@ -352,6 +355,7 @@ public class MenuItemTest extends XwtModelTest {
     refresh();
     // set style to SWT.CHECK
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuItemInfo item = getObjectByName("item");
         GenericProperty styleProperty = (GenericProperty) item.getPropertyByTitle("Style");
@@ -389,6 +393,7 @@ public class MenuItemTest extends XwtModelTest {
     refresh();
     // set style to SWT.SEPARATOR
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuItemInfo item = getObjectByName("item");
         GenericProperty styleProperty = (GenericProperty) item.getPropertyByTitle("Style");
@@ -430,6 +435,7 @@ public class MenuItemTest extends XwtModelTest {
     refresh();
     // set style to SWT.SEPARATOR
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuItemInfo item = getObjectByName("item");
         GenericProperty styleProperty = (GenericProperty) item.getPropertyByTitle("Style");
@@ -525,6 +531,7 @@ public class MenuItemTest extends XwtModelTest {
     assertFalse(itemPolicy_2.validateMove(barInfo));
     // move "subMenu" from "item_2" to "item_1"
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         assertTrue(itemPolicy_1.validateMove(subMenuInfo));
         itemPolicy_1.commandMove(subMenuInfo, null);

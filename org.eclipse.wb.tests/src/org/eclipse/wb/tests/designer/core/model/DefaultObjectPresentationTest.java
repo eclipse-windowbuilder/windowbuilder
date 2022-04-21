@@ -50,6 +50,7 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
     parent.addChild(child_3);
     // filter out "child_2" from "tree children"
     parent.addBroadcastListener(new ObjectInfoChildTree() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object == child_2) {
           visible[0] = false;
@@ -78,6 +79,7 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
     parent.addChild(child_3);
     // move "child_1" to the end
     parent.addBroadcastListener(new ObjectInfoChildrenTree() {
+      @Override
       public void invoke(ObjectInfo p, List<ObjectInfo> children) throws Exception {
         children.remove(child_1);
         children.add(child_1);
@@ -101,6 +103,7 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
     parent.addChild(child_3);
     // filter out "child_2" from "graphical children"
     parent.addBroadcastListener(new ObjectInfoChildGraphical() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object == child_2) {
           visible[0] = false;
@@ -129,6 +132,7 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
     parent.addChild(child_3);
     // move "child_1" to the end
     parent.addBroadcastListener(new ObjectInfoChildrenGraphical() {
+      @Override
       public void invoke(List<ObjectInfo> children) throws Exception {
         children.remove(child_1);
         children.add(child_1);

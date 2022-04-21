@@ -474,11 +474,13 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
     assertTrue(componentEntry.initialize(null, m_lastObject));
     // create tool
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         CreationTool creationTool = (CreationTool) componentEntry.createTool();
         assertNull(creationTool);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Error");
         context.clickButton("OK");

@@ -288,6 +288,7 @@ public class NlsSupportTest extends SwingModelTest {
       LocaleInfo[] locales = m_support.getLocales();
       List<String> localeNames =
           Lists.transform(ImmutableList.copyOf(locales), new Function<LocaleInfo, String>() {
+            @Override
             public String apply(LocaleInfo from) {
               return from.toString();
             }

@@ -102,6 +102,7 @@ public class ContributionItemTest extends AbstractNlsUiTest {
             "  }",
             "}");
     openDialogNLS("", initialSource, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Can't Externalize");
         // click "OK"

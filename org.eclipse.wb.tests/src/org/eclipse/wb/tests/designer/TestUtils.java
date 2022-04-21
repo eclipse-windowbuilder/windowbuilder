@@ -389,6 +389,7 @@ public final class TestUtils {
       final List<String> sourceMethodNames = getSourceMethodNames(clazz);
       Vector<TestCase> tests = getTestsVector(suite);
       Collections.sort(tests, new Comparator<TestCase>() {
+        @Override
         public int compare(TestCase o1, TestCase o2) {
           String method_1 = o1.getName();
           String method_2 = o2.getName();

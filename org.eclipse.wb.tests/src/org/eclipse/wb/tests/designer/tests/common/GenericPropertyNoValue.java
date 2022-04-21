@@ -60,6 +60,7 @@ public class GenericPropertyNoValue extends GenericProperty {
   // GenericProperty
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Class<?> getType() {
     return null;
   }

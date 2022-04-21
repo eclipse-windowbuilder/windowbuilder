@@ -2039,14 +2039,17 @@ public class JavaInfoUtilsTest extends SwingModelTest {
     // do move
     final StatementTarget target = new StatementTarget(getStatement(panel, 0), true);
     IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+      @Override
       public void add() throws Exception {
         panel.addChild(button_2, button_1);
       }
 
+      @Override
       public void move() throws Exception {
         panel.moveChild(button_2, button_1);
       }
 
+      @Override
       public StatementTarget getTarget() throws Exception {
         return target;
       }
@@ -3785,6 +3788,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
       enhancer.setSuperclass(CreationSupport.class);
       enhancer.setInterfaces(new Class<?>[]{IExposedCreationSupport.class});
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
             throws Throwable {
           String signature = ReflectionUtils.getMethodSignature(method);
@@ -3803,6 +3807,7 @@ public class JavaInfoUtilsTest extends SwingModelTest {
       enhancer.setSuperclass(CreationSupport.class);
       enhancer.setInterfaces(new Class<?>[]{IWrapperControlCreationSupport.class});
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
             throws Throwable {
           String signature = ReflectionUtils.getMethodSignature(method);

@@ -236,6 +236,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
     // add new component
     final ComponentInfo newComponent = createJButton();
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         layout.command_CREATE(newComponent, null);
       }
@@ -284,6 +285,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
     // add JPopupMenu
     final JPopupMenuInfo newPopup = (JPopupMenuInfo) createComponent(JPopupMenu.class);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         newPopup.command_CREATE(panel);
       }

@@ -514,6 +514,7 @@ public class MenuTest extends XwtModelTest {
     refresh();
     // add Menu
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuInfo newMenuBar = createObject("org.eclipse.swt.widgets.Menu", "bar");
         newMenuBar.commandCreate(shell);
@@ -537,6 +538,7 @@ public class MenuTest extends XwtModelTest {
     refresh();
     // add Menu
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MenuInfo newMenuBar = createObject("org.eclipse.swt.widgets.Menu");
         newMenuBar.commandCreate(shell);
@@ -587,6 +589,7 @@ public class MenuTest extends XwtModelTest {
     {
       MenuInfo menu = button_1.getChildren(MenuInfo.class).get(0);
       doCopyPaste(menu, new PasteProcedure<MenuInfo>() {
+        @Override
         public void run(MenuInfo copy) throws Exception {
           copy.commandCreate(button_2);
         }
@@ -651,6 +654,7 @@ public class MenuTest extends XwtModelTest {
     final MenuInfo subMenu = item_1.getSubMenu();
     // do move
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         subMenu.commandMove(item_2);
       }
@@ -697,6 +701,7 @@ public class MenuTest extends XwtModelTest {
     final MenuInfo subMenu = getObjectByName("subMenu");
     // do move
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         subMenu.commandMove(button);
       }
@@ -746,6 +751,7 @@ public class MenuTest extends XwtModelTest {
     final MenuItemInfo item = getObjectByName("item");
     // do move
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         subMenu.commandMove(item);
       }
@@ -792,6 +798,7 @@ public class MenuTest extends XwtModelTest {
     final MenuInfo menu = button_1.getChildren(MenuInfo.class).get(0);
     // do move
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         menu.commandMove(button_2);
       }

@@ -184,6 +184,7 @@ public class AbsoluteLayoutTest extends RcpModelTest {
     {
       final boolean[] absoluteLayout_objectSet = new boolean[1];
       shell.addBroadcastListener(new JavaInfoSetObjectAfter() {
+        @Override
         public void invoke(JavaInfo target, Object o) throws Exception {
           if (target == absoluteLayout) {
             assertNull(o);
@@ -256,12 +257,14 @@ public class AbsoluteLayoutTest extends RcpModelTest {
     refresh();
     // set RowLayout for "inner"
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         CompositeInfo inner = getJavaInfoByName("inner");
         LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
         inner.setLayout(rowLayout);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("No, keep 'null' layout");
@@ -296,12 +299,14 @@ public class AbsoluteLayoutTest extends RcpModelTest {
     refresh();
     // set RowLayout for "inner"
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         CompositeInfo inner = getJavaInfoByName("inner");
         LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
         inner.setLayout(rowLayout);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("Yes, use FormLayout");

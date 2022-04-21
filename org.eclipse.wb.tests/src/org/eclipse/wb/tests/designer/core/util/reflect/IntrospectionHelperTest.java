@@ -95,6 +95,7 @@ public class IntrospectionHelperTest extends DesignerTestCase {
   public static class BeanCustomizer extends JPanel implements Customizer {
     private static final long serialVersionUID = 0L;
 
+    @Override
     public void setObject(Object bean) {
     }
   }

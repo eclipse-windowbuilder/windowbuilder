@@ -48,10 +48,12 @@ public class NewSourceDialogTest extends SwingModelTest {
     final NewSourceDialog newSourceDialog = new NewSourceDialog(null, frame);
     //
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         newSourceDialog.open();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         assertNotNull(context.getButtonByText("Classic Eclipse messages class"));
         assertNotNull(context.getButtonByText("Modern Eclipse messages class"));
@@ -77,10 +79,12 @@ public class NewSourceDialogTest extends SwingModelTest {
     final NewSourceDialog newSourceDialog = new NewSourceDialog(null, frame);
     //
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         newSourceDialog.open();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         Button okButton = context.getButtonByText("OK");
         context.selectButton("Direct ResourceBundle usage");

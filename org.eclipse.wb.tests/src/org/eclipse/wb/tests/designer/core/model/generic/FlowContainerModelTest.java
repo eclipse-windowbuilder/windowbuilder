@@ -602,22 +602,26 @@ public class FlowContainerModelTest extends SwingModelTest {
                 StringUtils.EMPTY));
     // CREATE
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         container.command_CREATE(component, nextComponent);
         container.command_CREATE_after(component, nextComponent);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         flowContainer.command_CREATE(component, nextComponent);
       }
     });
     // MOVE
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         container.command_MOVE(component, nextComponent);
         container.command_MOVE_after(component, nextComponent);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         flowContainer.command_MOVE(component, nextComponent);
       }
@@ -643,10 +647,12 @@ public class FlowContainerModelTest extends SwingModelTest {
                 StringUtils.EMPTY));
     // CREATE
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         container.command_CREATE(component, nextComponent);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         flowContainer.command_CREATE(component, nextComponent);
       }
@@ -668,33 +674,39 @@ public class FlowContainerModelTest extends SwingModelTest {
     final FlowContainer flowContainer = new FlowContainerConfigurable(container, configuration);
     // isHorizontal()
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         Predicate<Object> horizontalPredicate = Predicates.alwaysTrue();
         expect(configuration.getHorizontalPredicate()).andReturn(horizontalPredicate);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertTrue(flowContainer.isHorizontal());
       }
     });
     // validateComponent() = true
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         expect(configuration.getComponentValidator()).andReturn(
             ContainerObjectValidators.alwaysTrue());
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertTrue(flowContainer.validateComponent(component));
       }
     });
     // validateReference() = false
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         expect(configuration.getReferenceValidator()).andReturn(
             ContainerObjectValidators.alwaysTrue());
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertTrue(flowContainer.validateReference(reference));
       }

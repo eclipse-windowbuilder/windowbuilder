@@ -292,6 +292,7 @@ public class MenuBarPopupTest extends RcpGefTest {
     // move on "shell": target feedback appears
     canvas.moveTo(shellInfo, 0, 0);
     canvas.assertFeedbacks(new Predicate<Figure>() {
+      @Override
       public boolean apply(Figure t) {
         return t.getSize().width > 200;
       }

@@ -39,6 +39,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
     // listener
     final int[] setValueCount = new int[]{0};
     RunnableEx setValueListener = new RunnableEx() {
+      @Override
       public void run() throws Exception {
         setValueCount[0]++;
       }

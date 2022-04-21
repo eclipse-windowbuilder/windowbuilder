@@ -170,10 +170,12 @@ public class RenameConvertSupportTest extends SwingModelTest {
     final ComponentInfo button = getJavaInfoByName("button");
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         RenameConvertSupport.rename(ImmutableList.of(button));
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Rename/convert");
         context.clickButton("Cancel");
@@ -198,10 +200,12 @@ public class RenameConvertSupportTest extends SwingModelTest {
     assertNotNull(renameAction);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         renameAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Rename/convert");
         try {
@@ -241,10 +245,12 @@ public class RenameConvertSupportTest extends SwingModelTest {
     assertNotNull(renameAction);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         renameAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Rename/convert");
         try {
@@ -291,10 +297,12 @@ public class RenameConvertSupportTest extends SwingModelTest {
     assertNotNull(renameAction);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         renameAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Rename/convert");
         try {

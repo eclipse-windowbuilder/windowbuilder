@@ -858,6 +858,7 @@ public class TableWrapLayoutTest extends XwtModelTest {
     assertEquals("left, grab", column.getTitle());
     // set alignment
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         column.setAlignment(TableWrapData.FILL);
       }
@@ -956,6 +957,7 @@ public class TableWrapLayoutTest extends XwtModelTest {
     assertEquals("top, grab", row.getTitle());
     // set alignment
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         row.setAlignment(TableWrapData.FILL);
       }
@@ -1632,6 +1634,7 @@ public class TableWrapLayoutTest extends XwtModelTest {
     //
     ControlInfo composite = getObjectByName("composite");
     doCopyPaste(composite, new PasteProcedure<ControlInfo>() {
+      @Override
       public void run(ControlInfo copy) throws Exception {
         shell.getLayout().command_CREATE(copy, null);
       }

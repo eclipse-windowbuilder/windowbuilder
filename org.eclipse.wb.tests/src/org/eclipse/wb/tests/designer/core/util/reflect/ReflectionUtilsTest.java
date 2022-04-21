@@ -846,6 +846,7 @@ public class ReflectionUtilsTest extends DesignerTestCase {
           }
         });
         enhancer.setCallback(new MethodInterceptor() {
+          @Override
           public Object intercept(Object obj,
               java.lang.reflect.Method method,
               Object[] args,

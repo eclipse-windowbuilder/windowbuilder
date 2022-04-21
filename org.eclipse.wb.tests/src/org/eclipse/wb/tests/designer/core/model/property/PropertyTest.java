@@ -498,6 +498,7 @@ public class PropertyTest extends SwingModelTest {
     Property enabledProperty = panel.getPropertyByTitle("enabled");
     // add listener that prevents "enabled" modification
     panel.addBroadcastListener(new GenericPropertySetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {
         shouldSetValue[0] &= !"enabled".equals(property.getTitle());
@@ -529,6 +530,7 @@ public class PropertyTest extends SwingModelTest {
     Property enabledProperty = panel.getPropertyByTitle("enabled");
     // add listener that on "enabled" modification modifies also "visible"
     panel.addBroadcastListener(new GenericPropertySetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {
         if ("enabled".equals(property.getTitle())) {
@@ -666,6 +668,7 @@ public class PropertyTest extends SwingModelTest {
     assertEquals(Boolean.TRUE, enabledProperty.getValue());
     // add listener that forces "enabled" value
     panel.addBroadcastListener(new GenericPropertyGetValueEx() {
+      @Override
       public void invoke(GenericPropertyImpl property, Expression expression, Object[] value)
           throws Exception {
         if (property == enabledProperty) {
@@ -696,6 +699,7 @@ public class PropertyTest extends SwingModelTest {
     assertEquals(Boolean.TRUE, enabledProperty.getValue());
     // add listener that forces "enabled" value
     panel.addBroadcastListener(new GenericPropertyGetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
         if (property == enabledProperty) {
           assertSame(Property.UNKNOWN_VALUE, value[0]);
@@ -726,6 +730,7 @@ public class PropertyTest extends SwingModelTest {
     assertEquals(Boolean.TRUE, enabledProperty.getValue());
     // add listener that forces "enabled" value
     panel.addBroadcastListener(new GenericPropertyGetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
         if (property == enabledProperty) {
           assertSame(Property.UNKNOWN_VALUE, value[0]);

@@ -419,10 +419,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
    */
   private static void deleteEventPropertyWithGUI(final Property property) throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         property.setValue(Property.UNKNOWN_VALUE);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("OK");
@@ -489,10 +491,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     String expectedSource = m_lastEditor.getSource();
     // press "Cancel", so don't delete
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("Cancel");
@@ -840,14 +844,17 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
   private static void deleteInnerListener_twoUsages(final Property property,
       final String multiButton) throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         property.setValue(Property.UNKNOWN_VALUE);
       }
     }, new UIRunnable() {
+      @Override
       public void run(final UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("OK");
         ExecutionUtils.runAsync(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             context.useShell("Confirm");
             context.clickButton(multiButton);
@@ -1918,6 +1925,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
     //
     final AtomicReference<String> broSpec = new AtomicReference<String>();
     panel.addBroadcastListener(new JavaInfoEventOpen() {
+      @Override
       public void invoke(JavaInfo javaInfo, String spec) throws Exception {
         broSpec.set(spec);
       }

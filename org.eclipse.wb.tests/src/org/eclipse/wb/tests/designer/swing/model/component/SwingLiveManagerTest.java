@@ -170,6 +170,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
     {
       ILog log = DesignerPlugin.getDefault().getLog();
       ILogListener logListener = new ILogListener() {
+        @Override
         public void logging(IStatus status, String plugin) {
           assertEquals(IStatus.ERROR, status.getSeverity());
           Throwable exception = status.getException();
@@ -205,6 +206,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
     {
       ILog log = DesignerPlugin.getDefault().getLog();
       ILogListener logListener = new ILogListener() {
+        @Override
         public void logging(IStatus status, String plugin) {
           fail();
         }

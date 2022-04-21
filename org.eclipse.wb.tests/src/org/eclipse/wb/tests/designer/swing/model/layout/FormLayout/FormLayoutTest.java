@@ -901,6 +901,7 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
     }
     // do paste
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ComponentInfo newComponent = (ComponentInfo) memento.create(layout);
         layout.command_CREATE(newComponent, 3, false, 3, false);

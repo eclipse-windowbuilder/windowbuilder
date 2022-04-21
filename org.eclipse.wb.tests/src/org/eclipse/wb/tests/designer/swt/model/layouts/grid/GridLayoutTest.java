@@ -1772,6 +1772,7 @@ public class GridLayoutTest extends RcpModelTest {
     }
     // delete
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         column.delete();
       }
@@ -2978,6 +2979,7 @@ public class GridLayoutTest extends RcpModelTest {
     //
     ControlInfo composite = getJavaInfoByName("composite");
     doCopyPaste(composite, new PasteProcedure<ControlInfo>() {
+      @Override
       public void run(ControlInfo copy) throws Exception {
         shell.getLayout().command_CREATE(copy, null);
       }

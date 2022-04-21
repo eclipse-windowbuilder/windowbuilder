@@ -242,6 +242,7 @@ public class TableTest1 {
     // IComplexPropertyEditor
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Property[] getProperties(Property property) throws Exception {
       return m_properties;
     }

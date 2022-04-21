@@ -97,6 +97,7 @@ public class ComponentsTreePageTest extends SwingGefTest {
     // execute edit operation
     final ComponentInfo newButton = createJButton();
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // add new JButton
         ((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
