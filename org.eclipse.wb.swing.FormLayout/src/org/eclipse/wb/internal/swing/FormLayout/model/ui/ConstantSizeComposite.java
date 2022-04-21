@@ -53,6 +53,7 @@ public final class ConstantSizeComposite extends Composite {
       m_valueSpinner.setMaximum(Integer.MAX_VALUE);
       // add listener
       m_valueSpinner.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_currentSize.setValue(m_valueSpinner.getSelection() / m_divider);
           notifySelection();
@@ -70,6 +71,7 @@ public final class ConstantSizeComposite extends Composite {
       }
       // add listener
       m_unitsCombo.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           int unitIndex = m_unitsCombo.getSelectionIndex();
           Unit unit = m_units[unitIndex].getUnit();

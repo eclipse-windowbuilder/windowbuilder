@@ -65,6 +65,7 @@ public final class DefaultComponentFactoryCreateLabelEntryInfo
     ICreationFactory factory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         String source = "createLabel(\"New JGoodies label\")";
         m_javaInfo =
@@ -75,6 +76,7 @@ public final class DefaultComponentFactoryCreateLabelEntryInfo
         m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }

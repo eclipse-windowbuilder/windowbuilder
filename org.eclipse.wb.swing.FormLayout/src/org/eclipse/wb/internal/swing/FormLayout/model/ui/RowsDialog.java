@@ -52,6 +52,7 @@ public final class RowsDialog extends DimensionsDialog<FormRowInfo> {
   private static List<FormRowInfo> createRowsCopy(final FormLayoutInfo layout) {
     final List<FormRowInfo> rows = Lists.newArrayList();
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         for (FormRowInfo row : layout.getRows()) {
           rows.add(row.copy());

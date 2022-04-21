@@ -52,6 +52,7 @@ public final class ColumnsDialog extends DimensionsDialog<FormColumnInfo> {
   private static List<FormColumnInfo> createColumnsCopy(final FormLayoutInfo layout) {
     final List<FormColumnInfo> columns = Lists.newArrayList();
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         for (FormColumnInfo column : layout.getColumns()) {
           columns.add(column.copy());

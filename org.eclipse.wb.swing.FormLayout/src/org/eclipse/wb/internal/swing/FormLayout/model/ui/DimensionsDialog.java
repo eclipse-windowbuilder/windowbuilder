@@ -165,11 +165,13 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
     m_viewer.setInput(m_dimensions);
     // add listeners
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         updateButtons();
       }
     });
     m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+      @Override
       public void doubleClick(DoubleClickEvent event) {
         editSelectedDimension();
       }
@@ -204,23 +206,27 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
     GridLayoutFactory.create(composite).marginsV(0);
     //
     createButton(composite, ModelMessages.DimensionsDialog_insertButton, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         addNewDimension(0);
       }
     });
     createButton(composite, ModelMessages.DimensionsDialog_appendButton, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         addNewDimension(1);
       }
     });
     m_editButton =
         createButton(composite, ModelMessages.DimensionsDialog_editButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             editSelectedDimension();
           }
         });
     m_removeButton =
         createButton(composite, ModelMessages.DimensionsDialog_removeButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             int index = 0;
             for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
@@ -240,6 +246,7 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
     new Label(composite, SWT.NONE);
     m_moveUpButton =
         createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
               int index = m_dimensions.indexOf(dimension);
@@ -252,6 +259,7 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
         });
     m_moveDownButton =
         createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             for (T dimension : GenericsUtils.<T>iterable(m_viewer.getSelection())) {
               int index = m_dimensions.indexOf(dimension);
@@ -399,6 +407,7 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
    * {@link ITableLabelProvider} for {@link FormDimensionInfo}.
    */
   private class DimensionsLabelProvider extends LabelProvider implements ITableLabelProvider {
+    @Override
     public String getColumnText(Object element, int columnIndex) {
       FormDimensionInfo dimension = (FormDimensionInfo) element;
       if (columnIndex == 0) {
@@ -424,6 +433,7 @@ abstract class DimensionsDialog<T extends FormDimensionInfo> extends ResizableTi
       return element.toString();
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
       return null;
     }

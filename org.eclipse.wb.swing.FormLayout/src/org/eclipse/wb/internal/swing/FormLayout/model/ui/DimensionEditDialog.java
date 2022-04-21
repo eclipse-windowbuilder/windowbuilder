@@ -263,6 +263,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
             ? Activator.getImage("navigation/left.gif")
             : Activator.getImage("navigation/up.gif"));
         m_prevButton.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             int index = m_dimensions.indexOf(m_currentDimension);
             setEditDimension(m_dimensions.get(index - 1));
@@ -280,6 +281,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
             ? Activator.getImage("navigation/right.gif")
             : Activator.getImage("navigation/down.gif"));
         m_nextButton.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             int index = m_dimensions.indexOf(m_currentDimension);
             setEditDimension(m_dimensions.get(index + 1));
@@ -303,6 +305,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       }
       // add selection listener
       m_templateCombo.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           try {
             int index = m_templateCombo.getSelectionIndex();
@@ -343,6 +346,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       // add listener
       m_alignmentButtons[i] = button;
       button.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_dimension.setAlignment(description.getAlignment());
           showDimension();
@@ -381,6 +385,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
           m_constantSizeButton.setText(ModelMessages.DimensionEditDialog_18);
           GridDataFactory.create(m_constantSizeButton).hintHC(15);
           m_constantSizeButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               FormSizeInfo size = m_dimension.getSize();
               size.setComponentSize(null);
@@ -394,6 +399,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
         //
         m_constantSizeComposite = new ConstantSizeComposite(constantsComposite, SWT.NONE, m_units);
         m_constantSizeComposite.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             FormSizeInfo size = m_dimension.getSize();
             size.setConstantSize(m_constantSizeComposite.getConstantSize());
@@ -407,6 +413,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
           m_lowerSizeButton = new Button(constantsComposite, SWT.CHECK);
           m_lowerSizeButton.setText(ModelMessages.DimensionEditDialog_19);
           m_lowerSizeButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               FormSizeInfo size = m_dimension.getSize();
               size.setLowerSize(m_lowerSizeButton.getSelection());
@@ -420,6 +427,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
         //
         m_lowerSizeComposite = new ConstantSizeComposite(constantsComposite, SWT.NONE, m_units);
         m_lowerSizeComposite.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             FormSizeInfo size = m_dimension.getSize();
             size.setLowerSize(m_lowerSizeComposite.getConstantSize());
@@ -433,6 +441,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
           m_upperSizeButton = new Button(constantsComposite, SWT.CHECK);
           m_upperSizeButton.setText(ModelMessages.DimensionEditDialog_20);
           m_upperSizeButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               FormSizeInfo size = m_dimension.getSize();
               size.setUpperSize(m_upperSizeButton.getSelection());
@@ -446,6 +455,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
         //
         m_upperSizeComposite = new ConstantSizeComposite(constantsComposite, SWT.NONE, m_units);
         m_upperSizeComposite.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             FormSizeInfo size = m_dimension.getSize();
             size.setUpperSize(m_upperSizeComposite.getConstantSize());
@@ -464,6 +474,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
     m_componentSizeToButton.put(componentSize, button);
     button.setText(text);
     button.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_dimension.getSize().setComponentSize(componentSize);
         showDimension();
@@ -486,6 +497,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       GridDataFactory.create(m_noGrowButton).spanH(2);
       m_noGrowButton.setText("&none");
       m_noGrowButton.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_dimension.setWeight(0.0);
           showDimension();
@@ -498,6 +510,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       GridDataFactory.create(m_growButton).hintHC(15);
       m_growButton.setText("&grow");
       m_growButton.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_dimension.setWeight(1.0);
           showDimension();
@@ -507,6 +520,7 @@ abstract class DimensionEditDialog<T extends FormDimensionInfo> extends Resizabl
       m_growSpinner = new Spinner(composite, SWT.BORDER);
       GridDataFactory.create(m_growSpinner).hintHC(10);
       m_growSpinner.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_dimension.setWeight(m_growSpinner.getSelection());
           showDimension();

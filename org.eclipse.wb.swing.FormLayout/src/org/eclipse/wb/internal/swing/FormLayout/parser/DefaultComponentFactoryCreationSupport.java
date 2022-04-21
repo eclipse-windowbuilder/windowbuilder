@@ -52,6 +52,7 @@ public final class DefaultComponentFactoryCreationSupport extends OpaqueCreation
   // ILiveCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public CreationSupport getLiveComponentCreation() {
     String source = add_getSource(null);
     return new OpaqueCreationSupport(source);

@@ -203,6 +203,7 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
    */
   private void setAlignment(final boolean horizontal, final Alignment alignment) {
     ExecutionUtils.run(m_layout, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_component);
         if (horizontal) {
