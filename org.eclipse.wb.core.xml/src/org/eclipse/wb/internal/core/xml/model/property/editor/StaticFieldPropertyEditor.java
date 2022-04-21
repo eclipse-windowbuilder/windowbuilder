@@ -75,6 +75,7 @@ public final class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
   // IExpressionPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueExpression(GenericProperty property, Object value) throws Exception {
     if (value != Property.UNKNOWN_VALUE) {
       for (int i = 0; i < m_values.length; i++) {
@@ -110,6 +111,7 @@ public final class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     Object value = property.getValue();
     return getValueExpression(property, value);
@@ -157,6 +159,7 @@ public final class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
     initialize(fieldDescriptions);
   }
 
+  @Override
   public void configure(EditorContext context, Map<String, Object> parameters) throws Exception {
     // prepare class
     {

@@ -195,18 +195,22 @@ public class DesignerPalette {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IPaletteSite m_paletteSite = new IPaletteSite() {
+    @Override
     public Shell getShell() {
       return getOperations().getShell();
     }
 
+    @Override
     public PaletteInfo getPalette() {
       return m_manager.getPalette();
     }
 
+    @Override
     public void addCommand(Command command) {
       commands_addWrite(command);
     }
 
+    @Override
     public void editPalette() {
       getOperations().editPalette();
     }
@@ -251,18 +255,22 @@ public class DesignerPalette {
           // Access
           //
           ////////////////////////////////////////////////////////////////////////////
+          @Override
           public boolean isEnabled() {
             return entryInfo.isEnabled();
           }
 
+          @Override
           public Image getIcon() {
             return entryInfo.getIcon();
           }
 
+          @Override
           public String getText() {
             return entryInfo.getName();
           }
 
+          @Override
           public String getToolTipText() {
             return entryInfo.getDescription();
           }
@@ -272,6 +280,7 @@ public class DesignerPalette {
           // Activation
           //
           ////////////////////////////////////////////////////////////////////////////
+          @Override
           public boolean activate(boolean reload) {
             return entryInfo.activate(reload);
           }
@@ -300,10 +309,12 @@ public class DesignerPalette {
       category = new ICategory() {
         private boolean m_open;
 
+        @Override
         public List<IEntry> getEntries() {
           final List<EntryInfo> entryInfoList = Lists.newArrayList(categoryInfo.getEntries());
           // add new EntryInfo's using broadcast
           ExecutionUtils.runIgnore(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               getBroadcastPalette().entries(categoryInfo, entryInfoList);
             }
@@ -321,18 +332,22 @@ public class DesignerPalette {
           return entries;
         }
 
+        @Override
         public String getText() {
           return categoryInfo.getName();
         }
 
+        @Override
         public String getToolTipText() {
           return categoryInfo.getDescription();
         }
 
+        @Override
         public boolean isOpen() {
           return m_open;
         }
 
+        @Override
         public void setOpen(boolean open) {
           m_open = open;
           m_openCategories.put(categoryId, open);
@@ -357,6 +372,7 @@ public class DesignerPalette {
     clearEntryCaches();
     // set IPalette
     IPalette palette = new IPalette() {
+      @Override
       public List<ICategory> getCategories() {
         // check for skipping palette during tests
         if (System.getProperty(FLAG_NO_PALETTE) != null) {
@@ -370,6 +386,7 @@ public class DesignerPalette {
         }
         // add new CategoryInfo's using broadcast
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             getBroadcastPalette().categories(categoryInfoList);
             getBroadcastPalette().categories2(categoryInfoList);
@@ -386,20 +403,24 @@ public class DesignerPalette {
         return categories;
       }
 
+      @Override
       public void addPopupActions(IMenuManager menuManager, Object target) {
         new DesignerPalettePopupActions(getOperations()).addPopupActions(menuManager, target);
       }
 
+      @Override
       public void selectDefault() {
         m_editPartViewer.getEditDomain().loadDefaultTool();
       }
 
+      @Override
       public void moveCategory(ICategory _category, ICategory _nextCategory) {
         CategoryInfo category = m_visualToCategoryInfo.get(_category);
         CategoryInfo nextCategory = m_visualToCategoryInfo.get(_nextCategory);
         commands_addWrite(new CategoryMoveCommand(category, nextCategory));
       }
 
+      @Override
       public void moveEntry(IEntry _entry, ICategory _targetCategory, IEntry _nextEntry) {
         EntryInfo entry = m_visualToEntryInfo.get(_entry);
         CategoryInfo category = m_visualToCategoryInfo.get(_targetCategory);
@@ -432,6 +453,7 @@ public class DesignerPalette {
     if (m_isMainPalette) {
       final EditDomain editDomain = m_editPartViewer.getEditDomain();
       editDomain.setDefaultToolProvider(new IDefaultToolProvider() {
+        @Override
         public void loadDefaultTool() {
           if (m_defaultEntry != null) {
             m_paletteComposite.selectEntry(m_defaultEntry, false);

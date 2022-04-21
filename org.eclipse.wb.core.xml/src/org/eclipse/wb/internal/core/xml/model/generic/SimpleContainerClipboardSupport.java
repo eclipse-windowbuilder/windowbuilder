@@ -41,8 +41,10 @@ public final class SimpleContainerClipboardSupport implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final XmlObjectInfo root) throws Exception {
     root.addBroadcastListener(new XmlObjectClipboardCopy() {
+      @Override
       public void invoke(XmlObjectInfo object, List<ClipboardCommand> commands) throws Exception {
         List<SimpleContainer> containers = getSimpleContainers(object);
         for (int i = 0; i < containers.size(); i++) {

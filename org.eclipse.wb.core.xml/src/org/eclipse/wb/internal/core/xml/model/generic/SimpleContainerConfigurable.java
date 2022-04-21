@@ -45,10 +45,12 @@ public final class SimpleContainerConfigurable implements SimpleContainer {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isEmpty() {
     return getChild() == null;
   }
 
+  @Override
   public Object getChild() {
     for (ObjectInfo child : getContainerChildren()) {
       if (validateComponent(child)) {
@@ -63,6 +65,7 @@ public final class SimpleContainerConfigurable implements SimpleContainer {
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateComponent(Object component) {
     return m_configuration.getComponentValidator().validate(m_container, component);
   }
@@ -84,6 +87,7 @@ public final class SimpleContainerConfigurable implements SimpleContainer {
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void command_CREATE(Object newObject) throws Exception {
     if (!tryDuckTyping("command_CREATE", newObject)) {
       command_CREATE_default(newObject);
@@ -92,6 +96,7 @@ public final class SimpleContainerConfigurable implements SimpleContainer {
     tryDuckTyping("command_TARGET_after", newObject);
   }
 
+  @Override
   public void command_ADD(Object moveObject) throws Exception {
     if (!tryDuckTyping("command_ADD", moveObject)) {
       command_ADD_default(moveObject);

@@ -46,6 +46,7 @@ public final class XmlLoadingContext implements ILoadingContext {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getToolkitId() {
     return m_editorContext.getToolkit().getId();
   }
@@ -55,6 +56,7 @@ public final class XmlLoadingContext implements ILoadingContext {
   // Resources
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public URL getResource(String name) throws Exception {
     // try editor class loader
     {
@@ -74,6 +76,7 @@ public final class XmlLoadingContext implements ILoadingContext {
     return null;
   }
 
+  @Override
   public List<IDescriptionVersionsProvider> getDescriptionVersionsProviders() {
     return m_editorContext.getDescriptionVersionsProviders();
   }
@@ -85,10 +88,12 @@ public final class XmlLoadingContext implements ILoadingContext {
   ////////////////////////////////////////////////////////////////////////////
   private final Map<String, Object> m_globalMap = Maps.newHashMap();
 
+  @Override
   public Object getGlobalValue(String key) {
     return m_globalMap.get(key);
   }
 
+  @Override
   public void putGlobalValue(String key, Object value) {
     m_globalMap.put(key, value);
   }

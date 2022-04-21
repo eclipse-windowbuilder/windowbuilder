@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
  * @coverage XML.gef
  */
 public final class CoreEditPartConfigurator implements IEditPartConfigurator {
+  @Override
   public void configure(EditPart context, EditPart editPart) {
     Object model = editPart.getModel();
     // double click

@@ -236,6 +236,7 @@ final class DesignerPalettePopupActions {
     final String path = getImportExportPath(SWT.SAVE);
     if (path != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_operations.exportPalette(path);
         }
@@ -247,6 +248,7 @@ final class DesignerPalettePopupActions {
     final String path = getImportExportPath(SWT.OPEN);
     if (path != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_operations.importPalette(path);
         }

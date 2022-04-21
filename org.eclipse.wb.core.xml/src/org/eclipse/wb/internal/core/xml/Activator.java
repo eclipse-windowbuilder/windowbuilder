@@ -108,6 +108,7 @@ public class Activator extends AbstractUIPlugin {
     // pre-load palette
     if (System.getProperty(DesignerPalette.FLAG_NO_PALETTE) == null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           ToolkitDescription[] toolkits = DescriptionHelper.getToolkits();
           for (ToolkitDescription toolkitDescription : toolkits) {

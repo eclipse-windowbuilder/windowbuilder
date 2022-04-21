@@ -70,6 +70,7 @@ public final class MethodExpressionAccessor extends ExpressionAccessor {
   private Object askDefaultValue(final XmlObjectInfo object) {
     if (m_getter != null) {
       return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
+        @Override
         public Object runObject() throws Exception {
           Object toolkitObject = object.getObject();
           return m_getter.invoke(toolkitObject);

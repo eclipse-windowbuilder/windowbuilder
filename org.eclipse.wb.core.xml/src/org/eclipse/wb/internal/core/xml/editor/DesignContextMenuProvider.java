@@ -118,6 +118,7 @@ public final class DesignContextMenuProvider extends MultiSelectionContextMenuPr
     // send notification
     if (editPart.getModel() instanceof ObjectInfo) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           ObjectInfo object = (ObjectInfo) editPart.getModel();
           object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);

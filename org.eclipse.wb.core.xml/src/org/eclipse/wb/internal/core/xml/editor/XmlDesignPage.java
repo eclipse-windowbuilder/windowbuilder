@@ -82,6 +82,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     public void partActivated(IWorkbenchPart part) {
       if (part == m_editor) {
         ExecutionUtils.runAsync(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             GlobalStateXml.activate(m_rootObject);
             if (m_active) {
@@ -122,6 +123,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     // dispose model
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_rootObject.refresh_dispose();
           m_rootObject.getBroadcastObject().dispose();
@@ -139,6 +141,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   private void dispose_beforePresentation() {
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_rootObject.getBroadcastObject().dispose_beforePresentation();
         }
@@ -157,6 +160,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   protected void disposeContext(boolean force) {
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_rootObject.getContext().dispose();
         }
@@ -186,6 +190,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   private void checkDependenciesOnDesignPageActivation() {
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           EditorActivatedRequest request = new EditorActivatedRequest();
           m_rootObject.getBroadcast(EditorActivatedListener.class).invoke(request);
@@ -245,6 +250,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   // Control
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control createControl(Composite parent) {
     m_composite = new Composite(parent, SWT.NONE);
     m_composite.setLayout(new FillLayout());
@@ -252,6 +258,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     m_pageBook = new PageBook(m_composite, SWT.NONE);
     // design composite
     ICommandExceptionHandler exceptionHandler = new ICommandExceptionHandler() {
+      @Override
       public void handleException(Throwable exception) {
         handleDesignException(exception);
       }
@@ -270,6 +277,7 @@ public abstract class XmlDesignPage extends XmlEditorPage {
     return new XmlDesignComposite(parent, SWT.NONE, m_editor, exceptionHandler);
   }
 
+  @Override
   public Control getControl() {
     return m_composite;
   }
@@ -321,10 +329,12 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return Messages.XmlDesignPage_name;
   }
 
+  @Override
   public Image getImage() {
     return Activator.getImage("editor_page_design.png");
   }
@@ -406,12 +416,14 @@ public abstract class XmlDesignPage extends XmlEditorPage {
   private void internal_refreshGEF_withProgress() throws Exception {
     final Display display = Display.getCurrent();
     IRunnableWithProgress runnable = new IRunnableWithProgress() {
+      @Override
       public void run(final IProgressMonitor monitor) {
         monitor.beginTask(Messages.XmlDesignPage_progressTitle, 6);
         //
         try {
           DesignPageSite.setProgressMonitor(monitor);
           display.syncExec(new Runnable() {
+            @Override
             public void run() {
               try {
                 internal_refreshGEF(monitor);

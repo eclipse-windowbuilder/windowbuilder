@@ -47,6 +47,7 @@ public abstract class CopyPropertyTopAbstractSupport {
   protected CopyPropertyTopAbstractSupport(ObjectInfo root, String prefix) {
     m_prefix = prefix;
     root.addBroadcastListener(new XmlObjectAddProperties() {
+      @Override
       public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
         // Prepare copy processors.
         List<CopyProcessor> processors = processorsMap.get(object);

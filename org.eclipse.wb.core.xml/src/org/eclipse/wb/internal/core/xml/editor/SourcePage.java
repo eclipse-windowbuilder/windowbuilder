@@ -55,10 +55,12 @@ public final class SourcePage extends XmlEditorPage {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control createControl(Composite parent) {
     return null;
   }
 
+  @Override
   public Control getControl() {
     return m_control;
   }
@@ -68,10 +70,12 @@ public final class SourcePage extends XmlEditorPage {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return Messages.SourcePage_name;
   }
 
+  @Override
   public Image getImage() {
     return Activator.getImage("editor_page_xml.png");
   }

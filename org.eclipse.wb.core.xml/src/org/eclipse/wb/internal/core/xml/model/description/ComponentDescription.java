@@ -56,6 +56,7 @@ public final class ComponentDescription extends AbstractDescription
   ////////////////////////////////////////////////////////////////////////////
   private final Class<?> m_componentClass;
 
+  @Override
   public Class<?> getComponentClass() {
     return m_componentClass;
   }
@@ -67,6 +68,7 @@ public final class ComponentDescription extends AbstractDescription
   ////////////////////////////////////////////////////////////////////////////
   private ToolkitDescription m_toolkit;
 
+  @Override
   public ToolkitDescription getToolkit() {
     return m_toolkit;
   }
@@ -85,6 +87,7 @@ public final class ComponentDescription extends AbstractDescription
   ////////////////////////////////////////////////////////////////////////////
   private Class<?> m_modelClass;
 
+  @Override
   public Class<?> getModelClass() {
     return m_modelClass;
   }
@@ -103,6 +106,7 @@ public final class ComponentDescription extends AbstractDescription
   ////////////////////////////////////////////////////////////////////////////
   private Image m_icon;
 
+  @Override
   public Image getIcon() {
     return m_icon;
   }

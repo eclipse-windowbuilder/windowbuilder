@@ -281,6 +281,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
     // try "enabled"
     if (m_enabledScript != null) {
       boolean enabled = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+        @Override
         public Boolean runObject() throws Exception {
           ClassLoader classLoader = m_context.getClassLoader();
           return (Boolean) ScriptUtils.evaluate(classLoader, m_enabledScript);
@@ -407,6 +408,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
     ICreationFactory factory = new ICreationFactory() {
       private XmlObjectInfo m_object;
 
+      @Override
       public void activate() throws Exception {
         CreationSupport creationSupport = new ElementCreationSupport(m_creationId);
         m_object = XmlObjectUtils.createObject(m_context, m_class, creationSupport);
@@ -414,6 +416,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
         m_object.putArbitraryValue(XmlObjectInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_object;
       }

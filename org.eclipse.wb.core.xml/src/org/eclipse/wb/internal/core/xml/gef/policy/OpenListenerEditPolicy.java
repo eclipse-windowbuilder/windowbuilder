@@ -63,6 +63,7 @@ public final class OpenListenerEditPolicy extends EditPolicy {
   public void performRequest(Request request) {
     if (m_listenerName != null && Request.REQ_OPEN.equals(request.getType())) {
       ExecutionUtils.run(m_object, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           EventsProperty eventsProperty = (EventsProperty) m_object.getPropertyByTitle("Events");
           eventsProperty.openListener(m_listenerName);

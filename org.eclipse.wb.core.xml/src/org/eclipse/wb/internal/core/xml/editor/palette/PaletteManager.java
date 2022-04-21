@@ -134,6 +134,7 @@ public final class PaletteManager {
     m_paletteInfo = new PaletteInfo();
     if (m_toolkitId != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           parseExtensionPalette();
           parseCustomPalette();
@@ -217,6 +218,7 @@ public final class PaletteManager {
   private void commandsRead_fromStream(final InputStream inputStream) throws Exception {
     try {
       ExecutionUtils.runIgnore(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           commandsRead_fromStream0(inputStream);
         }
@@ -235,6 +237,7 @@ public final class PaletteManager {
           final String name,
           final Attributes attributes) {
         ExecutionUtils.runIgnore(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             commandsRead_singleCommand(name, attributes);
           }
@@ -275,6 +278,7 @@ public final class PaletteManager {
    */
   public void commands_add(final Command command) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         command.execute(m_paletteInfo);
         command.addToCommandList(m_commands);
@@ -287,6 +291,7 @@ public final class PaletteManager {
    */
   public void commands_write() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         File commandsFile = commands_getFile();
         PrintWriter writer = new PrintWriter(new FileOutputStream(commandsFile));
@@ -412,6 +417,7 @@ public final class PaletteManager {
       final CategoryInfo _categoryInfo,
       final IConfigurationElement element) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // prepare category
         CategoryInfo categoryInfo = _categoryInfo;

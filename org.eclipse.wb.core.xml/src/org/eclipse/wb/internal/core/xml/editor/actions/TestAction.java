@@ -61,8 +61,10 @@ public final class TestAction extends Action {
   @Override
   public void run() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ExecutionUtils.runDesignTime(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             run0();
           }

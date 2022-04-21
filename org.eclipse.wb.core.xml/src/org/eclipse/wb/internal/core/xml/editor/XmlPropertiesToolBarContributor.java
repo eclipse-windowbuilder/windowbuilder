@@ -36,6 +36,7 @@ public final class XmlPropertiesToolBarContributor implements IPropertiesToolBar
   // IPropertiesToolBarContributor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void contributeToolBar(IToolBarManager manager, final List<ObjectInfo> objects)
       throws Exception {
     addGotoDefinitionAction(manager, objects);

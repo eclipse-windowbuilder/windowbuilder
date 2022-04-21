@@ -85,6 +85,7 @@ public abstract class XmlProperty extends ObjectProperty {
   @Override
   public void setValue(final Object value) throws Exception {
     ExecutionUtils.run(m_object, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         setValueEx(value);
       }

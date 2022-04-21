@@ -34,6 +34,7 @@ public final class LineControl extends Canvas {
   public LineControl(Composite parent, int style) {
     super(parent, style);
     addListener(SWT.Paint, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         GC gc = event.gc;
         gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));

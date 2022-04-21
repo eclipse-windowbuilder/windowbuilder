@@ -259,6 +259,7 @@ public class ElementCreationSupport extends CreationSupport implements ILiveCrea
   // ILiveCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public CreationSupport getLiveComponentCreation() {
     return new ElementCreationSupport(m_creationId, m_addAttributes);
   }

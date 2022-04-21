@@ -84,6 +84,7 @@ public final class ElementVisibilityCommand extends Command {
   @Override
   public void addToCommandList(final List<Command> commands) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         removeCommands(commands, ElementVisibilityCommand.class, m_id);
       }

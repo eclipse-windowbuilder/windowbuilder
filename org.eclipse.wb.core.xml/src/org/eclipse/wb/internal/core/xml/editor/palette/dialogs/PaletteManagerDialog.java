@@ -179,6 +179,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
       GridDataFactory.create(m_filterText).grabH().fillH();
       // listener
       m_filterText.addListener(SWT.Modify, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           refreshFilter();
         }
@@ -192,6 +193,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
       m_filterClearItem.setEnabled(false);
       // listener
       m_filterClearItem.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_filterText.setText("");
         }
@@ -280,10 +282,12 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final ITreeContentProvider m_contentProvider = new ITreeContentProvider() {
+    @Override
     public Object[] getElements(Object inputElement) {
       return getCategoriesWithGoodEntries().toArray();
     }
 
+    @Override
     public Object[] getChildren(Object parentElement) {
       if (parentElement instanceof CategoryInfo) {
         return ((CategoryInfo) parentElement).getEntries().toArray();
@@ -291,6 +295,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
       return ArrayUtils.EMPTY_OBJECT_ARRAY;
     }
 
+    @Override
     public Object getParent(Object element) {
       if (element instanceof EntryInfo) {
         return ((EntryInfo) element).getCategory();
@@ -298,13 +303,16 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
       return null;
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       return getChildren(element).length != 0;
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
 
@@ -361,17 +369,20 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     refreshViewer();
     // listeners
     m_viewer.addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent event) {
         AbstractElementInfo elementInfo = (AbstractElementInfo) event.getElement();
         commands_add(new ElementVisibilityCommand(elementInfo, event.getChecked()));
       }
     });
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         updateButtons();
       }
     });
     m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+      @Override
       public void doubleClick(DoubleClickEvent event) {
         onEdit();
       }
@@ -432,6 +443,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     GridLayoutFactory.create(buttonsComposite).noMargins();
     //
     createButton(buttonsComposite, Messages.PaletteManagerDialog_addCategoryButton, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         onAddCategory();
       }
@@ -441,6 +453,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
             buttonsComposite,
             Messages.PaletteManagerDialog_addEntryButton,
             new Listener() {
+              @Override
               public void handleEvent(Event event) {
                 onAddEntry();
               }
@@ -449,12 +462,14 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     createButtonSeparator(buttonsComposite);
     m_editButton =
         createButton(buttonsComposite, Messages.PaletteManagerDialog_editButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             onEdit();
           }
         });
     m_removeButton =
         createButton(buttonsComposite, Messages.PaletteManagerDialog_removeButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             onRemove();
           }
@@ -463,12 +478,14 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     createButtonSeparator(buttonsComposite);
     m_moveUpButton =
         createButton(buttonsComposite, Messages.PaletteManagerDialog_upButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             onMove(-1);
           }
         });
     m_moveDownButton =
         createButton(buttonsComposite, Messages.PaletteManagerDialog_downButton, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             onMove(+2);
           }
@@ -476,11 +493,13 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
     //
     createButtonSeparator(buttonsComposite);
     createButton(buttonsComposite, Messages.PaletteManagerDialog_collapseAllButton, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_viewer.collapseAll();
       }
     });
     createButton(buttonsComposite, Messages.PaletteManagerDialog_expandAllButton, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_viewer.expandAll();
       }
@@ -686,6 +705,7 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
   private void configureDND() {
     Transfer[] transfers = new Transfer[]{EmptyTransfer.INSTANCE};
     m_viewer.addDragSupport(DND.DROP_MOVE, transfers, new DragSourceListener() {
+      @Override
       public void dragStart(DragSourceEvent event) {
         m_dragElements = getSelectedElements();
         m_dragCategory = m_dragElements.get(0) instanceof CategoryInfo;
@@ -697,9 +717,11 @@ public final class PaletteManagerDialog extends ResizableTitleAreaDialog {
         }
       }
 
+      @Override
       public void dragSetData(DragSourceEvent event) {
       }
 
+      @Override
       public void dragFinished(DragSourceEvent event) {
       }
     });

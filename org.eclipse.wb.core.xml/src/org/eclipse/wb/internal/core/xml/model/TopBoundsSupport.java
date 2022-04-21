@@ -59,6 +59,7 @@ public abstract class TopBoundsSupport implements ITopBoundsSupport {
   /**
    * Sets new size of component.
    */
+  @Override
   public abstract void setSize(int width, int height) throws Exception;
 
   ////////////////////////////////////////////////////////////////////////////
