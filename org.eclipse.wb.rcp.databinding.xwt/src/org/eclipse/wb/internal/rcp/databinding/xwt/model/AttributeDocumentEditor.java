@@ -87,8 +87,10 @@ public class AttributeDocumentEditor implements IDocumentEditor {
   // IDocumentEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void add() throws Exception {
     m_binding.modify(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (m_binding.getModel() instanceof WidgetBindableInfo) {
           WidgetBindableInfo model = (WidgetBindableInfo) m_binding.getModel();
@@ -104,18 +106,22 @@ public class AttributeDocumentEditor implements IDocumentEditor {
     });
   }
 
+  @Override
   public void delete() throws Exception {
     m_binding.modify(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_binding.getTargetElement().removeDocumentAttribute(m_attribute);
       }
     });
   }
 
+  @Override
   public void update() throws Exception {
     final String value = getValue();
     if (!value.equals(m_attribute.getValue())) {
       m_binding.modify(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_attribute.setValue(value);
           m_binding.getConverter().applyChanges(m_attribute);
@@ -125,6 +131,7 @@ public class AttributeDocumentEditor implements IDocumentEditor {
     }
   }
 
+  @Override
   public int getDefinitionOffset() {
     return m_attribute == null ? -1 : m_attribute.getValueOffset();
   }

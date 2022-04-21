@@ -54,10 +54,12 @@ public class ModeContentProvider extends DialogFieldUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     m_dialogField.selectItem(m_binding.getMode());
   }
 
+  @Override
   public void saveToObject() throws Exception {
     m_binding.setMode(m_dialogField.getSelectionIndex());
   }

@@ -63,10 +63,12 @@ public class ConverterUiContentProvider extends ChooseClassUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     setClassName(StringUtils.defaultString(m_converter.getValue(), "N/S"));
   }
 
+  @Override
   public void saveToObject() throws Exception {
     String className = getClassName();
     // check set or clear value

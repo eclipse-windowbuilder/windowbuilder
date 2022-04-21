@@ -32,6 +32,7 @@ public final class DesignPageFactory implements IXmlEditorPageFactory {
   // IXMLEditorPageFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createPages(AbstractXmlEditor editor, List<IXmlEditorPage> pages) {
     if (isXWT(editor)) {
       BindingXmlPage.addPage(pages);

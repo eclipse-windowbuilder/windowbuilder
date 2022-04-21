@@ -88,10 +88,12 @@ public class BindingInfo extends AbstractBindingInfo {
     objectInfo.endEdit();
   }
 
+  @Override
   public IObserveInfo getTarget() {
     return m_target;
   }
 
+  @Override
   public IObserveInfo getTargetProperty() {
     return m_targetProperty;
   }
@@ -107,10 +109,12 @@ public class BindingInfo extends AbstractBindingInfo {
   // Model
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getModel() {
     return m_model;
   }
 
+  @Override
   public IObserveInfo getModelProperty() {
     return m_modelProperty;
   }

@@ -80,6 +80,7 @@ public abstract class ObserveTypeContainer
   // Parser
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       ClassInstanceCreation creation,
@@ -89,6 +90,7 @@ public abstract class ObserveTypeContainer
     return null;
   }
 
+  @Override
   public final AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       MethodInvocation invocation,

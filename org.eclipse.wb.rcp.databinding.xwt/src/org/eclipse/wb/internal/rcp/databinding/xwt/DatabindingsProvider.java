@@ -129,6 +129,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Bindings
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configureBindingViewer(IDialogSettings settings, TableViewer viewer) {
     // prepare table
     Table table = viewer.getTable();
@@ -150,6 +151,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     viewer.setLabelProvider(new BindingLabelProvider());
   }
 
+  @Override
   public List<IBindingInfo> getBindings() {
     return CoreUtils.cast(m_bindings);
   }
@@ -158,10 +160,12 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return m_bindings;
   }
 
+  @Override
   public String getBindingPresentationText(IBindingInfo binding) throws Exception {
     return null;
   }
 
+  @Override
   public void gotoDefinition(IBindingInfo ibinding) {
     BindingInfo binding = (BindingInfo) ibinding;
     int position = binding.getDefinitionOffset();
@@ -176,14 +180,17 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Types
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<ObserveType> getTypes() {
     return ObserveType.TYPES;
   }
 
+  @Override
   public ObserveType getTargetStartType() {
     return ObserveType.WIDGETS;
   }
 
+  @Override
   public ObserveType getModelStartType() {
     return ObserveType.BEANS;
   }
@@ -193,19 +200,23 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Observes
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IBaseLabelProvider createPropertiesViewerLabelProvider(TreeViewer viewer) {
     return new ObserveDecoratingLabelProvider(viewer);
   }
 
+  @Override
   public List<PropertyFilter> getObservePropertyFilters() {
     return org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider.observePropertyFilters();
   }
 
+  @Override
   public List<IObserveInfo> getObserves(ObserveType type) {
     ObserveTypeContainer container = getContainer(type);
     return container == null ? Collections.<IObserveInfo>emptyList() : container.getObservables();
   }
 
+  @Override
   public void synchronizeObserves() throws Exception {
     // XXX synchronize for bindings
     for (ObserveTypeContainer container : m_containers) {
@@ -218,6 +229,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // UI editing
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
       throws Exception {
     List<IUiContentProvider> providers = Lists.newArrayList();
@@ -226,6 +238,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return providers;
   }
 
+  @Override
   public void fillExternalBindingActions(ToolBar toolBar, Menu contextMenu) {
   }
 
@@ -234,6 +247,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Validate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validate(IObserveInfo target,
       IObserveInfo targetProperty,
       IObserveInfo model,
@@ -254,6 +268,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Creation/Editing
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IBindingInfo createBinding(IObserveInfo target,
       IObserveInfo targetProperty,
       IObserveInfo model,
@@ -287,8 +302,10 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return binding;
   }
 
+  @Override
   public void addBinding(final IBindingInfo ibinding) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         BindingInfo binding = (BindingInfo) ibinding;
         binding.create();
@@ -298,8 +315,10 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     });
   }
 
+  @Override
   public void editBinding(final IBindingInfo ibinding) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         BindingInfo binding = (BindingInfo) ibinding;
         binding.getDocumentEditor().update();
@@ -307,8 +326,10 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     });
   }
 
+  @Override
   public void deleteBinding(final IBindingInfo ibinding) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         BindingInfo binding = (BindingInfo) ibinding;
         binding.delete();
@@ -318,8 +339,10 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     });
   }
 
+  @Override
   public void deleteAllBindings() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         for (BindingInfo binding : m_bindings) {
           binding.delete();
@@ -330,21 +353,26 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     });
   }
 
+  @Override
   public void deleteBindings(JavaInfo javaInfo) throws Exception {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public boolean canMoveBinding(IBindingInfo binding, int targetIndex, boolean upDown) {
     return false;
   }
 
+  @Override
   public void moveBinding(IBindingInfo binding, int sourceIndex, int targetIndex, boolean upDown) {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void setBindingPage(Object bindingPage) {
   }
 
+  @Override
   public void refreshDesigner() {
     IEditorPart editor =
         DesignerPlugin.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
@@ -354,6 +382,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     }
   }
 
+  @Override
   public void saveEdit() {
   }
 }

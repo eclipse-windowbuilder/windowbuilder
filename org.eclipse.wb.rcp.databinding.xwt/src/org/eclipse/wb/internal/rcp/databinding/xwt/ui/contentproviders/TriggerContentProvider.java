@@ -54,10 +54,12 @@ public class TriggerContentProvider extends DialogFieldUiContentProvider {
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     m_dialogField.selectItem(m_binding.getTriger());
   }
 
+  @Override
   public void saveToObject() throws Exception {
     m_binding.setTrigger(m_dialogField.getSelectionIndex());
   }
