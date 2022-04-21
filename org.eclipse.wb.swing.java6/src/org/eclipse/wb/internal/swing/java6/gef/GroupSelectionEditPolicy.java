@@ -43,6 +43,7 @@ public final class GroupSelectionEditPolicy extends AbsoluteComplexSelectionEdit
   // Overrides
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getActionImage(String imageName) {
     return GroupLayoutInfo.getImage(imageName);
   }
