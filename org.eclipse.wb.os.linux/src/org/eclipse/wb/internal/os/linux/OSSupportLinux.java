@@ -249,6 +249,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
     final Set<H> disposeImageHandles = Sets.newHashSet();
     // apply shot magic
     _makeShot(shellHandle, new IScreenshotCallback<H>() {
+      @Override
       public void storeImage(H handle, H imageHandle) {
         // get the registered control by handle
         Control imageForControl = m_controlsRegistry.get(handle);
@@ -266,6 +267,7 @@ public abstract class OSSupportLinux<H extends Number> extends OSSupport {
 
   private boolean bindImage(final Control control, final H imageHandle) {
     return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         if (control.getData(WBP_NEED_IMAGE) != null && control.getData(WBP_IMAGE) == null) {
           Image image = createImage(imageHandle);
