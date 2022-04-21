@@ -249,6 +249,7 @@ public final class VirtualEditingSupportInfo {
     // Update
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void updateFromObject() throws Exception {
       if (isEmpty()) {
         calculateFinish();
@@ -341,6 +342,7 @@ public final class VirtualEditingSupportInfo {
     // Update
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void updateFromObject() throws Exception {
       getDialogField().setEnabled(false);
       Class<?> elementType = m_elementTypeProvider.getElementType();

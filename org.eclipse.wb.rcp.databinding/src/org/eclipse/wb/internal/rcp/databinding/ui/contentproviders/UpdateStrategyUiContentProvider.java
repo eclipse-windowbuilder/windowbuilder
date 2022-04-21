@@ -40,10 +40,12 @@ public final class UpdateStrategyUiContentProvider extends ChooseClassUiContentP
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() {
     setClassName(m_strategy.getStringValue());
   }
 
+  @Override
   public void saveToObject() {
     m_strategy.setStringValue(getClassName());
   }

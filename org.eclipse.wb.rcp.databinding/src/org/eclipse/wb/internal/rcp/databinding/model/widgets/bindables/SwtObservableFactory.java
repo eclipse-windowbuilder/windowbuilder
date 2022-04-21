@@ -48,10 +48,12 @@ abstract class SwtObservableFactory implements IObservableFactory {
   // IObservableFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final Type getType() throws Exception {
     return m_type;
   }
 
+  @Override
   public final ObservableInfo createObservable(BindableInfo object,
       BindableInfo property,
       Type type,

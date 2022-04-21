@@ -36,6 +36,7 @@ public final class DesignPageFactory implements IEditorPageFactory {
   // IDesignPageFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createPages(IDesignerEditor editor, List<IEditorPage> pages) {
     if (isRCP(editor)) {
       BindingDesignPage.addPage(pages);

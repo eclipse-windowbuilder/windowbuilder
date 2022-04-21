@@ -159,6 +159,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     previewLabel.setText(Messages.DbCodeGenerationPreferencePage_preview);
     //
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_previewViewer = JdtUiUtils.createJavaSourceViewer(container, SWT.BORDER | SWT.V_SCROLL);
       }
@@ -206,6 +207,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
       m_bindManager.addUpdateEvent(m_accessButtons[i], SWT.Selection);
     }
     m_bindManager.addUpdateRunnable(new Runnable() {
+      @Override
       public void run() {
         boolean state = m_addInvokeButton.getSelection();
         m_assignToFieldButton.setEnabled(state);
@@ -277,6 +279,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
     source.append(Messages.DbCodeGenerationPreferencePage_40);
     // set preview source
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         JdtUiUtils.setJavaSourceForViewer(m_previewViewer, source.toString());
       }
@@ -305,6 +308,7 @@ public final class DbCodeGenerationPreferencePage extends PreferencePage
   // Initialization
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 }

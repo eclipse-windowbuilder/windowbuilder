@@ -41,10 +41,12 @@ public final class DirectModelSupport implements IModelSupport {
   // IModelSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public AstObjectInfo getModel() {
     return m_observable;
   }
 
+  @Override
   public boolean isRepresentedBy(Expression expression) throws Exception {
     if (expression instanceof MethodInvocation) {
       return m_observable.getVariableIdentifier().equals(CoreUtils.getNodeReference(expression));

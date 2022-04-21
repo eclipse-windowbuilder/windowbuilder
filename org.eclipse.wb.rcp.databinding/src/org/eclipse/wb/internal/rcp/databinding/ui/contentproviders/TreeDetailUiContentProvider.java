@@ -40,9 +40,11 @@ public final class TreeDetailUiContentProvider extends ChooseClassUiContentProvi
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
   }
 
+  @Override
   public void saveToObject() throws Exception {
     m_observable.setDetailPropertyType(getChoosenClass());
   }

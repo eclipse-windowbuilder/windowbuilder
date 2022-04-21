@@ -112,10 +112,12 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getParent() {
     return null;
   }
 
+  @Override
   public List<IObserveInfo> getChildren(ChildrenContext context) {
     return Collections.emptyList();
   }
@@ -125,10 +127,12 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObservePresentation getPresentation() {
     return m_presentation;
   }
 
+  @Override
   public IObserveDecorator getDecorator() {
     return m_decorator;
   }
@@ -148,6 +152,7 @@ public final class WidgetPropertyBindableInfo extends BindableInfo implements IO
   // ObserveType
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObserveType getType() {
     return ObserveType.WIDGETS;
   }

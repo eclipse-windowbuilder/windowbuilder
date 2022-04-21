@@ -65,6 +65,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
   // IObservableFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final Type getType() throws Exception {
     return m_type;
   }
@@ -79,6 +80,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
    */
   public static final IObservableFactory SINGLE_SELECTION = new ViewerObservableFactory(
       Type.OnlyValue) {
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,
@@ -97,6 +99,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
    */
   public static final IObservableFactory DETAIL_SINGLE_SELECTION = new ViewerObservableFactory(
       Type.Detail) {
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,
@@ -152,6 +155,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
    */
   public static final IObservableFactory MULTI_SELECTION = new ViewerObservableFactory(
       Type.OnlyList) {
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,
@@ -170,6 +174,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
    */
   public static final IObservableFactory CHECKED_ELEMENTS = new ViewerObservableFactory(
       Type.OnlySet) {
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,
@@ -187,6 +192,7 @@ public abstract class ViewerObservableFactory implements IObservableFactory {
    * Factory with type {@link Type#OnlySet} for create {@link FiltersObservableInfo}.
    */
   public static final IObservableFactory FILTERS = new ViewerObservableFactory(Type.OnlySet) {
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,

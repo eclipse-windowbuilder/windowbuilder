@@ -158,10 +158,12 @@ public class BeanBindableInfo extends BindableInfo {
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final IObserveInfo getParent() {
     return m_parent;
   }
 
+  @Override
   public List<IObserveInfo> getChildren(ChildrenContext context) {
     if (context == ChildrenContext.ChildrenForMasterTable) {
       return CoreUtils.cast(m_children);
@@ -177,6 +179,7 @@ public class BeanBindableInfo extends BindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final IObservePresentation getPresentation() {
     return m_presentation;
   }
@@ -186,6 +189,7 @@ public class BeanBindableInfo extends BindableInfo {
   // ObserveType
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final ObserveType getType() {
     return ObserveType.BEANS;
   }

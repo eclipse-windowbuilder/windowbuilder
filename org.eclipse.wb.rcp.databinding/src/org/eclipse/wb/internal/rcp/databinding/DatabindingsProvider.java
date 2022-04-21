@@ -225,6 +225,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Bindings
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configureBindingViewer(IDialogSettings settings, TableViewer viewer) {
     // prepare table
     Table table = viewer.getTable();
@@ -258,14 +259,17 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return m_rootInfo.getContextInfo().getBindings();
   }
 
+  @Override
   public List<IBindingInfo> getBindings() {
     return CoreUtils.cast(getBindings0());
   }
 
+  @Override
   public String getBindingPresentationText(final IBindingInfo binding) throws Exception {
     return null;
   }
 
+  @Override
   public void gotoDefinition(IBindingInfo ibinding) {
     try {
       AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
@@ -285,14 +289,17 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Types
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<ObserveType> getTypes() {
     return m_types;
   }
 
+  @Override
   public ObserveType getTargetStartType() {
     return m_targetStartType;
   }
 
+  @Override
   public ObserveType getModelStartType() {
     return m_modelStartType;
   }
@@ -302,10 +309,12 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Observes
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IBaseLabelProvider createPropertiesViewerLabelProvider(TreeViewer viewer) {
     return new ObserveDecoratingLabelProvider(viewer);
   }
 
+  @Override
   public List<PropertyFilter> getObservePropertyFilters() {
     return observePropertyFilters();
   }
@@ -345,11 +354,13 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return m_filters;
   }
 
+  @Override
   public List<IObserveInfo> getObserves(ObserveType type) {
     ObserveTypeContainer container = m_typeToContainer.get(type);
     return container == null ? Collections.<IObserveInfo>emptyList() : container.getObservables();
   }
 
+  @Override
   public void synchronizeObserves() throws Exception {
     if (m_synchronizeObserves) {
       for (ObserveTypeContainer container : m_containers) {
@@ -363,6 +374,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // UI editing
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<IUiContentProvider> getContentProviders(IBindingInfo ibinding, IPageListener listener)
       throws Exception {
     AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
@@ -371,6 +383,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return providers;
   }
 
+  @Override
   public void fillExternalBindingActions(ToolBar toolBar, Menu contextMenu) {
     // TODO remove this code?
     if ("".length() > 0 && !m_controller) {
@@ -406,6 +419,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Validate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validate(IObserveInfo target,
       IObserveInfo targetProperty,
       IObserveInfo model,
@@ -612,6 +626,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   // Creation/Editing
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IBindingInfo createBinding(IObserveInfo target,
       IObserveInfo targetProperty,
       IObserveInfo model,
@@ -742,9 +757,11 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     return Type.OnlyValue;
   }
 
+  @Override
   public void addBinding(final IBindingInfo ibinding) {
     // post process
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
         binding.create();
@@ -756,13 +773,16 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     saveEdit();
   }
 
+  @Override
   public void editBinding(IBindingInfo binding) {
     saveEdit();
   }
 
+  @Override
   public void deleteBinding(final IBindingInfo ibinding) {
     // delete
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         AbstractBindingInfo binding = (AbstractBindingInfo) ibinding;
         binding.delete();
@@ -773,9 +793,11 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     saveEdit();
   }
 
+  @Override
   public void deleteAllBindings() {
     // delete all
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         for (AbstractBindingInfo binding : getBindings0()) {
           binding.delete();
@@ -787,16 +809,19 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     saveEdit();
   }
 
+  @Override
   public void deleteBindings(JavaInfo javaInfo) throws Exception {
     if (m_javaInfoDeleteManager != null) {
       m_javaInfoDeleteManager.deleteJavaInfo(javaInfo);
     }
   }
 
+  @Override
   public boolean canMoveBinding(IBindingInfo binding, int targetIndex, boolean upDown) {
     return true;
   }
 
+  @Override
   public void moveBinding(IBindingInfo binding, int sourceIndex, int targetIndex, boolean upDown) {
     // do reorder
     List<IBindingInfo> bindings = getBindings();
@@ -806,13 +831,16 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     saveEdit();
   }
 
+  @Override
   public void setBindingPage(Object bindingPage) {
     m_bindingPage = (BindingDesignPage) bindingPage;
   }
 
+  @Override
   public void refreshDesigner() {
   }
 
+  @Override
   public void saveEdit() {
     saveEdit(false);
   }
@@ -820,6 +848,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
   public void saveEdit(final boolean needReparse) {
     final boolean[] reparse = new boolean[1];
     ExecutionUtils.run(m_javaInfoRoot, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         reparse[0] =
             m_rootInfo.commit(m_astEditor, m_rootNode, m_javaInfoRoot, m_containers, m_controller);
@@ -832,6 +861,7 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
     // check synchronize
     if (!reparse[0]) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           synchronizeObserves();
         }

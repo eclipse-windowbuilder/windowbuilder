@@ -340,6 +340,7 @@ public final class BeanSupport {
       descriptors = getPropertyDescriptors(beanClass);
       m_classToDescriptors.put(beanClass, descriptors);
       Collections.sort(descriptors, new Comparator<PropertyDescriptor>() {
+        @Override
         public int compare(PropertyDescriptor descriptor1, PropertyDescriptor descriptor2) {
           return descriptor1.getName().compareTo(descriptor2.getName());
         }

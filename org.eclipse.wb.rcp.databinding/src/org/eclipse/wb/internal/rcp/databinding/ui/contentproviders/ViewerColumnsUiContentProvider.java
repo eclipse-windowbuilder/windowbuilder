@@ -80,10 +80,12 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 1;
   }
 
+  @Override
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
@@ -91,6 +93,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     m_expandableComposite.setExpanded(true);
     GridDataFactory.create(m_expandableComposite).fillH().grabH().spanH(columns);
     m_expandableComposite.addExpansionListener(new IExpansionListener() {
+      @Override
       public void expansionStateChanging(ExpansionEvent e) {
         m_settings.put(SETTING_KEY, !m_expandableComposite.isExpanded());
         if (m_expandableComposite.isExpanded()) {
@@ -100,6 +103,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
         }
       }
 
+      @Override
       public void expansionStateChanged(ExpansionEvent e) {
         parent.layout();
       }
@@ -141,11 +145,13 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     m_tableViewer.setContentProvider(new ArrayContentProvider());
     m_tableViewer.setLabelProvider(new EditingSupportLabelProvider());
     m_tableViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         calculateButtons();
       }
     });
     m_tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+      @Override
       public void doubleClick(DoubleClickEvent event) {
         if (!event.getSelection().isEmpty()) {
           configureEditingSupport();
@@ -244,12 +250,14 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
     // ITableLabelProvider
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public String getColumnText(Object element, int column) {
       final VirtualEditingSupportInfo editingSupport = (VirtualEditingSupportInfo) element;
       switch (column) {
         case 0 :
           // Viewer column
           return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+            @Override
             public String runObject() throws Exception {
               return editingSupport.getViewerColumn().getPresentation().getText();
             }
@@ -257,6 +265,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
         case 1 :
           // CellEditor
           return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+            @Override
             public String runObject() throws Exception {
               return editingSupport.getCellEditorPresentationText();
             }
@@ -264,6 +273,7 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
         case 2 :
           // Element property
           return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+            @Override
             public String runObject() throws Exception {
               return editingSupport.getElementPropertyPresentationText();
             }
@@ -272,11 +282,13 @@ public class ViewerColumnsUiContentProvider extends UiContentProviderAdapter {
       return null;
     }
 
+    @Override
     public Image getColumnImage(Object element, int column) {
       if (column == 0) {
         // Viewer column
         final VirtualEditingSupportInfo editingSupport = (VirtualEditingSupportInfo) element;
         return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+          @Override
           public Image runObject() throws Exception {
             return editingSupport.getViewerColumn().getPresentation().getImage();
           }

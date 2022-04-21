@@ -55,6 +55,7 @@ public final class InputElementUiContentProvider
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     // prepare input element type
     Class<?> elementType = m_viewerBinding.getElementType();

@@ -80,12 +80,14 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     for (IUiContentProvider provider : m_providers) {
       provider.setCompleteListener(listener);
     }
   }
 
+  @Override
   public String getErrorMessage() {
     for (IUiContentProvider provider : m_providers) {
       String errorMessage = provider.getErrorMessage();
@@ -101,10 +103,12 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 1;
   }
 
+  @Override
   public void createContent(final Composite parent, int columns) {
     // create expandable composite
     m_expandableComposite = new ExpandableComposite(parent, SWT.NONE);
@@ -149,12 +153,14 @@ public final class UpdateStrategyPropertiesUiContentProvider implements IUiConte
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     for (IUiContentProvider provider : m_providers) {
       provider.updateFromObject();
     }
   }
 
+  @Override
   public void saveToObject() throws Exception {
     for (IUiContentProvider provider : m_providers) {
       provider.saveToObject();

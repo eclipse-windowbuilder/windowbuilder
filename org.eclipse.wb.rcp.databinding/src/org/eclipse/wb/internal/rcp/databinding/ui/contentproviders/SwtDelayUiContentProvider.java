@@ -54,10 +54,12 @@ public final class SwtDelayUiContentProvider extends DialogFieldUiContentProvide
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() {
     m_dialogField.setSelection(m_delayValueProvider.getDelayValue());
   }
 
+  @Override
   public void saveToObject() {
     m_delayValueProvider.setDelayValue(m_dialogField.getSelection());
   }

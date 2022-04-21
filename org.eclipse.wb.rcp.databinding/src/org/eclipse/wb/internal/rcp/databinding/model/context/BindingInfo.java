@@ -100,18 +100,22 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
   // IBindingInfo
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final IObserveInfo getTarget() {
     return m_target.getBindableObject();
   }
 
+  @Override
   public final IObserveInfo getTargetProperty() {
     return m_target.getBindableProperty();
   }
 
+  @Override
   public final IObserveInfo getModel() {
     return m_model.getBindableObject();
   }
 
+  @Override
   public final IObserveInfo getModelProperty() {
     return m_model.getBindableProperty();
   }
@@ -155,6 +159,7 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
   // Variable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isField() {
     try {
       return getVariableIdentifier() != null;
@@ -163,9 +168,11 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
     }
   }
 
+  @Override
   public void setField() {
   }
 
+  @Override
   public void setVariableIdentifier(final JavaInfo javaInfoRoot,
       final String newVariable,
       boolean field) {
@@ -176,6 +183,7 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
       //
       if (oldVariable == null && newVariable != null) {
         ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             BodyDeclarationTarget fieldTarget = new BodyDeclarationTarget(rootNode, null, true);
             javaInfoRoot.getEditor().addFieldDeclaration(
@@ -185,6 +193,7 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
         });
       } else if (oldVariable != null && newVariable == null) {
         ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             for (FieldDeclaration field : rootNode.getFields()) {
               VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
@@ -198,6 +207,7 @@ public abstract class BindingInfo extends AbstractBindingInfo implements IASTObj
         });
       } else if (oldVariable != null && newVariable != null && !oldVariable.equals(newVariable)) {
         ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             for (FieldDeclaration field : rootNode.getFields()) {
               VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);

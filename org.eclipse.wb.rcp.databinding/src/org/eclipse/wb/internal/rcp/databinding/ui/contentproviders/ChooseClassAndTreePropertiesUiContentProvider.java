@@ -101,6 +101,7 @@ public abstract class ChooseClassAndTreePropertiesUiContentProvider
       }
     });
     m_orderPropertiesViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         if (!event.getSelection().isEmpty()) {
           m_treeViewer.setSelection(event.getSelection(), true);
@@ -123,6 +124,7 @@ public abstract class ChooseClassAndTreePropertiesUiContentProvider
     m_treeViewer.setContentProvider(new PropertyAdapterContentProvider());
     m_treeViewer.setLabelProvider(new PropertyAdapterLabelProvider(m_treeViewer));
     m_treeViewer.addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent event) {
         if (m_orderPropertiesViewer != null) {
           PropertyAdapter adapter = (PropertyAdapter) event.getElement();
@@ -351,25 +353,31 @@ public abstract class ChooseClassAndTreePropertiesUiContentProvider
     }
   }
   private static class PropertyAdapterContentProvider implements ITreeContentProvider {
+    @Override
     public Object[] getElements(Object input) {
       return ((List<?>) input).toArray();
     }
 
+    @Override
     public Object getParent(Object element) {
       return getAdapter(element).getParent();
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       return !getAdapter(element).getChildren().isEmpty();
     }
 
+    @Override
     public Object[] getChildren(Object element) {
       return getAdapter(element).getChildren().toArray();
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
 
+    @Override
     public void dispose() {
     }
   }
@@ -418,14 +426,17 @@ public abstract class ChooseClassAndTreePropertiesUiContentProvider
     // Decoration
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Color getForeground(Object element) {
       return m_labelProvider.getForeground(getAdapterProperty(element));
     }
 
+    @Override
     public Color getBackground(Object element) {
       return m_labelProvider.getBackground(getAdapterProperty(element));
     }
 
+    @Override
     public Font getFont(Object element) {
       return m_labelProvider.getFont(getAdapterProperty(element));
     }

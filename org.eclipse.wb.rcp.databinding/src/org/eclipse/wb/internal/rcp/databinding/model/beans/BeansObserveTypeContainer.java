@@ -156,25 +156,30 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
         m_observables,
         CoreUtils.getFieldFragments(rootNode),
         new ISynchronizeProcessor<VariableDeclarationFragment, BeanBindableInfo>() {
+          @Override
           public boolean handleObject(BeanBindableInfo bindable) {
             return bindable instanceof FieldBeanBindableInfo
                 && ((FieldBeanBindableInfo) bindable).getFragment() != null;
           }
 
+          @Override
           public VariableDeclarationFragment getKeyObject(BeanBindableInfo bindable) {
             FieldBeanBindableInfo bean = (FieldBeanBindableInfo) bindable;
             return bean.getFragment();
           }
 
+          @Override
           public boolean equals(VariableDeclarationFragment key0, VariableDeclarationFragment key1) {
             return key0 == key1;
           }
 
+          @Override
           public BeanBindableInfo findObject(Map<VariableDeclarationFragment, BeanBindableInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
 
+          @Override
           public BeanBindableInfo createObject(VariableDeclarationFragment fragment)
               throws Exception {
             try {
@@ -192,6 +197,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             }
           }
 
+          @Override
           public void update(BeanBindableInfo bindable) throws Exception {
             FieldBeanBindableInfo bean = (FieldBeanBindableInfo) bindable;
             bean.update(BeansObserveTypeContainer.this);
@@ -231,25 +237,30 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
         m_observables.subList(localCompositeIndex, observableSize),
         getLocalComposites(),
         new ISynchronizeProcessor<JavaInfo, BeanBindableInfo>() {
+          @Override
           public boolean handleObject(BeanBindableInfo bindable) {
             return bindable instanceof FieldBeanBindableInfo
                 && ((FieldBeanBindableInfo) bindable).getFragment() == null;
           }
 
+          @Override
           public JavaInfo getKeyObject(BeanBindableInfo bindable) {
             FieldBeanBindableInfo fieldBindable = (FieldBeanBindableInfo) bindable;
             return fieldBindable.getHostJavaInfo();
           }
 
+          @Override
           public boolean equals(JavaInfo key0, JavaInfo key1) {
             return key0 == key1;
           }
 
+          @Override
           public BeanBindableInfo findObject(Map<JavaInfo, BeanBindableInfo> keyObjectToObject,
               JavaInfo key) throws Exception {
             return null;
           }
 
+          @Override
           public BeanBindableInfo createObject(JavaInfo javaInfo) throws Exception {
             // prepare bean class
             Class<?> componentClass = javaInfo.getDescription().getComponentClass();
@@ -266,6 +277,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
                 javaInfo);
           }
 
+          @Override
           public void update(BeanBindableInfo bindable) throws Exception {
             FieldBeanBindableInfo bean = (FieldBeanBindableInfo) bindable;
             bean.update(BeansObserveTypeContainer.this);
@@ -289,25 +301,30 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
         m_observables.subList(localVariableIndex, observableSize),
         CoreUtils.getLocalFragments(rootNode, DataBindingsRootInfo.INIT_DATA_BINDINGS_METHOD_NAME),
         new ISynchronizeProcessor<VariableDeclarationFragment, BeanBindableInfo>() {
+          @Override
           public boolean handleObject(BeanBindableInfo object) {
             return true;
           }
 
+          @Override
           public VariableDeclarationFragment getKeyObject(BeanBindableInfo bindable) {
             LocalVariableBindableInfo bean = (LocalVariableBindableInfo) bindable;
             return bean.getFragment();
           }
 
+          @Override
           public boolean equals(VariableDeclarationFragment fragment0,
               VariableDeclarationFragment fragment1) {
             return fragment0.getName().getIdentifier().equals(fragment1.getName().getIdentifier());
           }
 
+          @Override
           public BeanBindableInfo findObject(Map<VariableDeclarationFragment, BeanBindableInfo> keyObjectToObject,
               VariableDeclarationFragment key) throws Exception {
             return null;
           }
 
+          @Override
           public BeanBindableInfo createObject(VariableDeclarationFragment fragment)
               throws Exception {
             try {
@@ -322,6 +339,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
             }
           }
 
+          @Override
           public void update(BeanBindableInfo object) throws Exception {
           }
         });
@@ -467,6 +485,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     }
   }
 
+  @Override
   public AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       ClassInstanceCreation creation,
@@ -480,6 +499,7 @@ public final class BeansObserveTypeContainer extends ObserveTypeContainer {
     return null;
   }
 
+  @Override
   public AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       MethodInvocation invocation,
