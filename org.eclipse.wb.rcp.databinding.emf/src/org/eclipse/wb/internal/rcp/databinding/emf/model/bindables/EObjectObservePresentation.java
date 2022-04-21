@@ -51,12 +51,14 @@ public final class EObjectObservePresentation extends ObservePresentation {
   // IObservePresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getText() throws Exception {
     return m_eObject.getReference()
         + " - "
         + ClassUtils.getShortClassName(m_eObject.getObjectType());
   }
 
+  @Override
   public String getTextForBinding() throws Exception {
     return m_eObject.getReference();
   }

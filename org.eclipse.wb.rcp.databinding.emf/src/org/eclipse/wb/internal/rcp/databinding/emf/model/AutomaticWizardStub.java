@@ -54,10 +54,12 @@ public final class AutomaticWizardStub implements IAutomaticWizardStub {
   // IAutomaticWizardStub
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addImports(Collection<String> importList) {
     importList.add("org.eclipse.emf.databinding.EMFObservables");
   }
 
+  @Override
   public String createSourceCode(String fieldName, String propertyName) {
     for (PropertyInfo property : m_properties) {
       if (propertyName.equals(property.name)) {

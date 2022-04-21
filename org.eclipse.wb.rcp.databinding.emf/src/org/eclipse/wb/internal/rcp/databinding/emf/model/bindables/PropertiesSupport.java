@@ -437,6 +437,7 @@ public class PropertiesSupport {
         }
       }
       Collections.sort(newProperties, new Comparator<PropertyInfo>() {
+        @Override
         public int compare(PropertyInfo property1, PropertyInfo property2) {
           return property1.name.compareTo(property2.name);
         }
