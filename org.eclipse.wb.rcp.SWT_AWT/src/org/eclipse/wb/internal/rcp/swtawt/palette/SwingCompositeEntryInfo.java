@@ -79,10 +79,12 @@ public final class SwingCompositeEntryInfo extends ToolEntryInfo {
     ICreationFactory factory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         m_javaInfo = createEmbeddedComposite();
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }
