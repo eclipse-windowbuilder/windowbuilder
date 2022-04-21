@@ -92,12 +92,15 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IListAdapter m_listAdapter = new IListAdapter() {
+    @Override
     public void selectionChanged(ListDialogField field) {
     }
 
+    @Override
     public void doubleClicked(ListDialogField field) {
     }
 
+    @Override
     public void customButtonPressed(ListDialogField field, int index) {
       if (index == 0) {
         handleAdd();
@@ -105,6 +108,7 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
     }
   };
   private final IDialogFieldListener m_changeListener = new IDialogFieldListener() {
+    @Override
     public void dialogFieldChanged(DialogField field) {
       calculateFinish();
     }
@@ -204,6 +208,7 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
   //
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     List<ClassInfo> infos = Lists.newArrayList();
     for (String className : m_validator.getClassNames()) {
@@ -214,6 +219,7 @@ public class ValidationUiContentProvider extends DialogFieldUiContentProvider {
     m_dialogField.setDialogFieldListener(m_changeListener);
   }
 
+  @Override
   public void saveToObject() throws Exception {
     List<String> classNames = Lists.newArrayList();
     //

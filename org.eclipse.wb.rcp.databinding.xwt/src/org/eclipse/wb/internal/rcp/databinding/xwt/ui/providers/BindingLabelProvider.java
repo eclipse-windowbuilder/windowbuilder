@@ -32,8 +32,10 @@ public class BindingLabelProvider extends LabelProvider implements ITableLabelPr
   // ITableLabelProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getColumnText(final Object element, final int column) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         BindingInfo binding = (BindingInfo) element;
         switch (column) {
@@ -53,6 +55,7 @@ public class BindingLabelProvider extends LabelProvider implements ITableLabelPr
     }, "<exception, see log>");
   }
 
+  @Override
   public Image getColumnImage(Object element, int column) {
     Image image = null;
     if (column == 0) {

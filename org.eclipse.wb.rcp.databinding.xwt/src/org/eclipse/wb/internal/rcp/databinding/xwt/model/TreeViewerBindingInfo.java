@@ -40,11 +40,13 @@ public class TreeViewerBindingInfo extends AbstractBindingInfo {
   // Target
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getTarget() {
     // TODO Auto-generated method stub
     return null;
   }
 
+  @Override
   public IObserveInfo getTargetProperty() {
     // TODO Auto-generated method stub
     return null;
@@ -55,11 +57,13 @@ public class TreeViewerBindingInfo extends AbstractBindingInfo {
   // Model
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getModel() {
     // TODO Auto-generated method stub
     return null;
   }
 
+  @Override
   public IObserveInfo getModelProperty() {
     // TODO Auto-generated method stub
     return null;

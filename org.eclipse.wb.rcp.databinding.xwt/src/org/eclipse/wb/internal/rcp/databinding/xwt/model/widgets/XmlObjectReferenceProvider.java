@@ -51,6 +51,7 @@ public class XmlObjectReferenceProvider implements IReferenceProvider {
   // IReferenceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getReference() throws Exception {
     return StringUtils.defaultString(getName(m_objectInfo), m_defaultReference);
   }

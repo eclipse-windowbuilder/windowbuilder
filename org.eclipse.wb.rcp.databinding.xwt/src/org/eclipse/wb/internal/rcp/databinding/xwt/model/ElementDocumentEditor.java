@@ -89,18 +89,22 @@ public class ElementDocumentEditor implements IDocumentEditor {
   // IDocumentEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void add() throws Exception {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void delete() throws Exception {
     m_binding.modify(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_element.remove();
       }
     });
   }
 
+  @Override
   public void update() throws Exception {
     boolean updates = false;
     for (AttributeEditor editor : m_editors) {
@@ -112,6 +116,7 @@ public class ElementDocumentEditor implements IDocumentEditor {
     //
     if (updates) {
       m_binding.modify(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           for (AttributeEditor editor : m_editors) {
             editor.save();
@@ -123,6 +128,7 @@ public class ElementDocumentEditor implements IDocumentEditor {
     }
   }
 
+  @Override
   public int getDefinitionOffset() {
     return m_element.getOffset() + m_element.getTag().length() + 1;
   }

@@ -119,27 +119,33 @@ public class WidgetBindableInfo extends BindableInfo {
         m_children,
         objectInfos,
         new ISynchronizeProcessor<XmlObjectInfo, WidgetBindableInfo>() {
+          @Override
           public boolean handleObject(WidgetBindableInfo object) {
             return true;
           }
 
+          @Override
           public XmlObjectInfo getKeyObject(WidgetBindableInfo widget) {
             return widget.m_xmlObjectInfo;
           }
 
+          @Override
           public boolean equals(XmlObjectInfo key0, XmlObjectInfo key1) {
             return key0 == key1;
           }
 
+          @Override
           public WidgetBindableInfo findObject(Map<XmlObjectInfo, WidgetBindableInfo> keyObjectToObject,
               XmlObjectInfo key) throws Exception {
             return null;
           }
 
+          @Override
           public WidgetBindableInfo createObject(XmlObjectInfo objectInfo) throws Exception {
             return new WidgetBindableInfo(objectInfo, WidgetBindableInfo.this);
           }
 
+          @Override
           public void update(WidgetBindableInfo widget) throws Exception {
             widget.update();
           }
@@ -161,10 +167,12 @@ public class WidgetBindableInfo extends BindableInfo {
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getParent() {
     return m_parent;
   }
 
+  @Override
   public List<IObserveInfo> getChildren(ChildrenContext context) {
     if (context == ChildrenContext.ChildrenForMasterTable) {
       return CoreUtils.cast(m_children);
@@ -180,6 +188,7 @@ public class WidgetBindableInfo extends BindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObservePresentation getPresentation() {
     return m_presentation;
   }
@@ -189,6 +198,7 @@ public class WidgetBindableInfo extends BindableInfo {
   // ObserveType
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObserveType getType() {
     return ObserveType.WIDGETS;
   }

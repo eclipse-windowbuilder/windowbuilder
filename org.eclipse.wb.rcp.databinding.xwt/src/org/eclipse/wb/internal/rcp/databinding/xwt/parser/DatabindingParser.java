@@ -76,6 +76,7 @@ public final class DatabindingParser {
       container.createObservables(m_xmlObjectRoot);
     }
     m_xmlObjectRoot.addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         m_xmlObjectRoot.removeBroadcastListener(this);
         parse();
