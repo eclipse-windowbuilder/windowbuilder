@@ -183,18 +183,22 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
   // IBindingInfo
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final IObserveInfo getTarget() {
     return m_viewerBindable;
   }
 
+  @Override
   public final IObserveInfo getTargetProperty() {
     return m_viewerBindableProperty;
   }
 
+  @Override
   public final IObserveInfo getModel() {
     return m_inputObservable.getBindableObject();
   }
 
+  @Override
   public final IObserveInfo getModelProperty() {
     return m_inputObservable.getBindableProperty();
   }
@@ -235,6 +239,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
             final InputElementUiContentProvider inputElementContentProvider =
                 (InputElementUiContentProvider) contentProvider;
             elementTypeProvider = new VirtualEditingSupportInfo.IElementTypeProvider() {
+              @Override
               public Class<?> getElementType() throws Exception {
                 return inputElementContentProvider.getChoosenClass();
               }
@@ -246,6 +251,7 @@ public abstract class AbstractViewerInputBindingInfo extends AbstractBindingInfo
             final TreeInputElementUiContentProvider inputElementContentProvider =
                 (TreeInputElementUiContentProvider) contentProvider;
             elementTypeProvider = new VirtualEditingSupportInfo.IElementTypeProvider() {
+              @Override
               public Class<?> getElementType() throws Exception {
                 return inputElementContentProvider.getCurrentElementType();
               }

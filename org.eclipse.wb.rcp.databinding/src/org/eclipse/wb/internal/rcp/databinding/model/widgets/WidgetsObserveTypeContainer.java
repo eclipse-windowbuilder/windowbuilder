@@ -232,6 +232,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
     m_observables.add(new WidgetBindableInfo(root, m_provider));
   }
 
+  @Override
   public AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       ClassInstanceCreation creation,
@@ -241,6 +242,7 @@ public final class WidgetsObserveTypeContainer extends ObserveTypeContainer {
     return null;
   }
 
+  @Override
   public AstObjectInfo parseExpression(AstEditor editor,
       String signature,
       MethodInvocation invocation,

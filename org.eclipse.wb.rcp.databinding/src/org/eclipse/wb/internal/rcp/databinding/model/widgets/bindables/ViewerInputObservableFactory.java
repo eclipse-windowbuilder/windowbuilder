@@ -28,10 +28,12 @@ public final class ViewerInputObservableFactory implements IObservableFactory {
   // IObservableFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Type getType() throws Exception {
     return Type.Input;
   }
 
+  @Override
   public ObservableInfo createObservable(BindableInfo object,
       BindableInfo property,
       Type type,

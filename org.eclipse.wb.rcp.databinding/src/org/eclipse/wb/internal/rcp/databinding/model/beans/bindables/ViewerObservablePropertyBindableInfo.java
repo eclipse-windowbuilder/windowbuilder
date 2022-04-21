@@ -74,6 +74,7 @@ public final class ViewerObservablePropertyBindableInfo extends PropertyBindable
   // IObserveDecoration
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveDecorator getDecorator() {
     return m_decorator;
   }

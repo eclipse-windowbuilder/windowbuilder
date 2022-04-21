@@ -96,6 +96,7 @@ public final class DirectPropertyBindableInfo extends PropertyBindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveDecorator getDecorator() {
     return IObserveDecorator.BOLD_ITALIC;
   }

@@ -79,6 +79,7 @@ public final class JavaInfoReferenceProvider implements IReferenceProvider {
   // IReferenceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getReference() throws Exception {
     return m_isControllerReference && m_controllerReference != null
         ? m_controllerReference

@@ -72,6 +72,7 @@ public class BeanPropertyBindableInfo extends PropertyBindableInfo {
   private final IObservableFactory m_observableFactory = new IObservableFactory() {
     private Type m_type;
 
+    @Override
     public Type getType() throws Exception {
       if (m_type == null) {
         // calculate type
@@ -86,6 +87,7 @@ public class BeanPropertyBindableInfo extends PropertyBindableInfo {
       return m_type;
     }
 
+    @Override
     public ObservableInfo createObservable(BindableInfo object,
         BindableInfo property,
         Type type,
@@ -137,6 +139,7 @@ public class BeanPropertyBindableInfo extends PropertyBindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final IObserveDecorator getDecorator() {
     return m_decorator;
   }

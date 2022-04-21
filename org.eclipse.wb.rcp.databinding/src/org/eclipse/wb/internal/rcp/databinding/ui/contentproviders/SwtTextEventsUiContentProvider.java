@@ -79,6 +79,7 @@ public final class SwtTextEventsUiContentProvider extends DialogFieldUiContentPr
     super.createContent(parent, columns);
     CheckboxTableViewer tableViewer = (CheckboxTableViewer) m_dialogField.getTableViewer();
     tableViewer.addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent event) {
         calculateBetterValues(event);
       }
@@ -117,10 +118,12 @@ public final class SwtTextEventsUiContentProvider extends DialogFieldUiContentPr
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() {
     m_dialogField.setCheckedElements(m_observable.getUpdateEvents());
   }
 
+  @Override
   public void saveToObject() {
     m_observable.setUpdateEvents(CoreUtils.<String>cast(m_dialogField.getCheckedElements()));
   }

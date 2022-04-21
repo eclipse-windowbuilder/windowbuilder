@@ -40,11 +40,13 @@ public final class ConverterUiContentProvider extends ChooseClassUiContentProvid
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() {
     ConverterInfo converter = m_strategy.getConverter();
     setClassName(converter == null ? "N/S" : converter.getClassName());
   }
 
+  @Override
   public void saveToObject() {
     String className = getClassName();
     // check set or clear value

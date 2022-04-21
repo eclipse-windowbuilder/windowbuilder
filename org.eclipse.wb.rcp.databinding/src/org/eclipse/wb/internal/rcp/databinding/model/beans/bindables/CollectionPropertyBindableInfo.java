@@ -64,10 +64,12 @@ public final class CollectionPropertyBindableInfo extends PropertyBindableInfo {
   @Override
   public IObservableFactory getObservableFactory() throws Exception {
     return new IObservableFactory() {
+      @Override
       public Type getType() throws Exception {
         return Type.InputCollection;
       }
 
+      @Override
       public ObservableInfo createObservable(BindableInfo object,
           BindableInfo property,
           Type type,
@@ -102,6 +104,7 @@ public final class CollectionPropertyBindableInfo extends PropertyBindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveDecorator getDecorator() {
     return IObserveDecorator.BOLD;
   }

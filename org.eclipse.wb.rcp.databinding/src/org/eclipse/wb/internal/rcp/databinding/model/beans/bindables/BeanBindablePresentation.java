@@ -85,10 +85,12 @@ public final class BeanBindablePresentation extends ObservePresentation {
   // IObservePresentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getText() throws Exception {
     return m_presentation.getReference() + " - " + ClassUtils.getShortClassName(m_objectType);
   }
 
+  @Override
   public String getTextForBinding() throws Exception {
     return m_presentation.getReference();
   }

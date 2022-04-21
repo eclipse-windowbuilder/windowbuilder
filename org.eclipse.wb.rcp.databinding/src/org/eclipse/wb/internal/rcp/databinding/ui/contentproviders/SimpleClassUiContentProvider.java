@@ -39,10 +39,12 @@ public final class SimpleClassUiContentProvider extends ChooseClassUiContentProv
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     setClassName(m_object.getClassName());
   }
 
+  @Override
   public void saveToObject() throws Exception {
     m_object.setClassName(getClassName());
   }

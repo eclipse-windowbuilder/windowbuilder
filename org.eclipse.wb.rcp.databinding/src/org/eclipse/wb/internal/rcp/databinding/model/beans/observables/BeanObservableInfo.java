@@ -59,6 +59,7 @@ public abstract class BeanObservableInfo extends ObservableInfo implements IMast
   // IMasterDetailProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final ObservableInfo getMasterObservable() throws Exception {
     return this;
   }

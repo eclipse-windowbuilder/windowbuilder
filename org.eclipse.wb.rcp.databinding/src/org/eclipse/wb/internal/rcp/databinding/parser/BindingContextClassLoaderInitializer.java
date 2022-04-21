@@ -58,21 +58,26 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
   // IClassLoaderInitializer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void initialize(final ClassLoader classLoader) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         createDefaultBean(configureBindings(classLoader));
       }
     });
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         setDefaultRealm(classLoader);
       }
     });
   }
 
+  @Override
   public void deinitialize(final ClassLoader classLoader) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Object threadLocal = CLASS_LOADER_TO_THREAD_LOCAL.remove(classLoader);
         ReflectionUtils.invokeMethod(threadLocal, "remove()");
@@ -135,9 +140,11 @@ public final class BindingContextClassLoaderInitializer implements IClassLoaderI
         (ProjectClassLoader) classLoaders.get(classLoaders.size() - 1);
     // add bytecode processor
     projectClassLoader.add(new IByteCodeProcessor() {
+      @Override
       public void initialize(ProjectClassLoader classLoader) {
       }
 
+      @Override
       public byte[] process(String className, byte[] bytes) {
         if ("org.eclipse.core.databinding.beans.BeansObservables".equals(className)) {
           return transformBindings(bytes);

@@ -51,6 +51,7 @@ public final class DirectObservableInfo extends DirectPropertyObservableInfo
   // IMasterDetailProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObservableInfo getMasterObservable() throws Exception {
     for (IObserveInfo property : m_bindableObject.getChildren(ChildrenContext.ChildrenForPropertiesTable)) {
       if (DETAIL_PROPERTY_NAME.equals(property.getPresentation().getText())) {

@@ -43,11 +43,13 @@ public final class ValidatorUiContentProvider extends ChooseClassUiContentProvid
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() {
     ValidatorInfo validator = m_strategy.getValidator(m_validatorName);
     setClassName(validator == null ? "N/S" : validator.getClassName());
   }
 
+  @Override
   public void saveToObject() {
     String className = getClassName();
     // check set or clear value

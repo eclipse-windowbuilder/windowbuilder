@@ -145,10 +145,12 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     m_completeListener = listener;
   }
 
+  @Override
   public String getErrorMessage() {
     if (isDesignerMode()) {
       return m_designerPageListener.getErrorMessage();
@@ -161,10 +163,12 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 1;
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     // create folder
     m_tabFolder = new TabFolder(parent, SWT.NONE);
@@ -320,6 +324,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
       }
       //
       new ChooseClassRouter(contentProviderJFaceEditor, new Runnable() {
+        @Override
         public void run() {
           String className = contentProviderJFaceEditor.getClassName();
           if (className.startsWith("listFactory") || className.startsWith("setFactory")) {
@@ -331,6 +336,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     //
     m_labelProviderJFaceEditor = (ChooseClassUiContentProvider) providers.get(providers.size() - 1);
     new ChooseClassRouter(m_labelProviderJFaceEditor, new Runnable() {
+      @Override
       public void run() {
         m_elementTypeJFaceUIProvider.calculateFinish();
       }
@@ -365,6 +371,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
         configuration);
     //
     return new ChooseClassUiContentProvider(configuration) {
+      @Override
       public void updateFromObject() throws Exception {
         Class<?> elementType = m_binding.getElementType();
         if (elementType != null) {
@@ -380,6 +387,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
         if (getErrorMessage() == null) {
           // route choose class events to properties editor
           ExecutionUtils.runLog(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               m_contentLabelProvidersEditor.setElementType(getChoosenClass());
             }
@@ -387,6 +395,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
         }
       }
 
+      @Override
       public void saveToObject() throws Exception {
         // store element type
         Class<?> elementType = getChoosenClass();
@@ -456,6 +465,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     m_designerComposite.performInitialize();
     m_jfaceComposite.performInitialize();
@@ -466,6 +476,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     calculateFinish();
   }
 
+  @Override
   public void saveToObject() throws Exception {
     // check change mode
     boolean editorMode = isDesignerMode();
@@ -605,6 +616,7 @@ public final class TreeInputElementUiContentProvider implements IUiContentProvid
     // Update
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void updateFromObject() throws Exception {
       Class<?> elementType = m_binding.getElementType();
       if (elementType != null) {

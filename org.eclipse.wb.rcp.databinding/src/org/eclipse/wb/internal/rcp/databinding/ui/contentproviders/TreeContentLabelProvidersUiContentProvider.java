@@ -80,10 +80,12 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
   // Complete
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setCompleteListener(ICompleteListener listener) {
     m_listener = listener;
   }
 
+  @Override
   public String getErrorMessage() {
     return m_errorMessage;
   }
@@ -98,10 +100,12 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getNumberOfControls() {
     return 2;
   }
 
+  @Override
   public void createContent(Composite parent, int columns) {
     // properties title
     Label title = new Label(parent, SWT.NONE);
@@ -222,6 +226,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     if (m_binding.isDesignerMode()) {
       Class<?> elementType = m_binding.getElementType();
@@ -274,6 +279,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
     }
   }
 
+  @Override
   public void saveToObject() throws Exception {
     // prepare content provider
     ObservableCollectionTreeContentProviderInfo contentProvider = m_binding.getContentProvider();
@@ -355,11 +361,13 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
    * Tree content provider.
    */
   private static class TreePropertiesContentProvider implements ITreeContentProvider {
+    @Override
     public Object[] getElements(Object input) {
       List<?> list = (List<?>) input;
       return list.toArray();
     }
 
+    @Override
     public Object[] getChildren(Object element) {
       if (element instanceof PropertiesGroup) {
         PropertiesGroup group = (PropertiesGroup) element;
@@ -368,6 +376,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
       return null;
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       if (element instanceof PropertiesGroup) {
         PropertiesGroup group = (PropertiesGroup) element;
@@ -376,6 +385,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
       return false;
     }
 
+    @Override
     public Object getParent(Object element) {
       if (element instanceof TreePropertyWrapper) {
         TreePropertyWrapper wrapper = (TreePropertyWrapper) element;
@@ -384,9 +394,11 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
       return null;
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
   }
@@ -419,6 +431,7 @@ public final class TreeContentLabelProvidersUiContentProvider implements IUiCont
    * {@link ICheckStateListener} listener that supported only one checked element into one group.
    */
   private class PropertiesCheckStateListener implements ICheckStateListener {
+    @Override
     public void checkStateChanged(CheckStateChangedEvent event) {
       CheckboxTreeViewer viewer = (CheckboxTreeViewer) event.getCheckable();
       Object element = event.getElement();

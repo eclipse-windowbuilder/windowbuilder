@@ -81,6 +81,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
                 stream,
                 SwtDatabindingProvider.class.getClassLoader(),
                 new IImageLoader() {
+                  @Override
                   public Image getImage(String name) {
                     return Activator.getImage(name);
                   }
@@ -108,6 +109,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
   // SuperClass
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String[] getSuperClasses() {
     return new String[]{
         "org.eclipse.swt.widgets.Composite",
@@ -115,6 +117,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
         "org.eclipse.swt.widgets.Shell"};
   }
 
+  @Override
   public String getInitialSuperClass() {
     return "org.eclipse.swt.widgets.Composite";
   }
@@ -124,6 +127,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(ChooseClassAndPropertiesConfiguration configuration) {
     configuration.setPropertiesLabelProvider(new PropertyAdapterLabelProvider());
     configuration.setValueScope("beans");
@@ -169,6 +173,7 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
   // Finish
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public InputStream getTemplateFile(String superClassName) {
     String subName = m_firstPage.isCreateControlClass() ? "Controller" : "";
     return Activator.getFile("templates/"
@@ -177,10 +182,12 @@ public class SwtDatabindingProvider extends DefaultAutomaticDatabindingProvider 
         + ".jvt");
   }
 
+  @Override
   public String performSubstitutions(String code, ImportsManager imports) throws Exception {
     // prepare properties
     final List<PropertyAdapter> properties = Lists.newArrayList();
     Display.getDefault().syncExec(new Runnable() {
+      @Override
       public void run() {
         CollectionUtils.addAll(properties, m_propertiesViewer.getCheckedElements());
       }

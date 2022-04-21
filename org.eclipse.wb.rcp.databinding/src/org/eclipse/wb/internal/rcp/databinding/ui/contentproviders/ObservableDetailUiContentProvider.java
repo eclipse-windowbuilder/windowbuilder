@@ -60,6 +60,7 @@ public class ObservableDetailUiContentProvider
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     String propertyReference = m_observable.getDetailPropertyReference();
     // sets property reference and type

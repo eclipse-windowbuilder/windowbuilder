@@ -150,18 +150,22 @@ public final class WidgetBindableInfo extends BindableInfo {
         m_children,
         javaInfos,
         new ISynchronizeProcessor<JavaInfo, WidgetBindableInfo>() {
+          @Override
           public boolean handleObject(WidgetBindableInfo object) {
             return true;
           }
 
+          @Override
           public JavaInfo getKeyObject(WidgetBindableInfo widget) {
             return widget.m_javaInfo;
           }
 
+          @Override
           public boolean equals(JavaInfo key0, JavaInfo key1) {
             return key0 == key1;
           }
 
+          @Override
           public WidgetBindableInfo findObject(Map<JavaInfo, WidgetBindableInfo> javaInfoToWidget,
               JavaInfo javaInfo) throws Exception {
             VariableSupport variableSupport = javaInfo.getVariableSupport();
@@ -175,10 +179,12 @@ public final class WidgetBindableInfo extends BindableInfo {
             return null;
           }
 
+          @Override
           public WidgetBindableInfo createObject(JavaInfo javaInfo) throws Exception {
             return new WidgetBindableInfo(javaInfo, WidgetBindableInfo.this, provider);
           }
 
+          @Override
           public void update(WidgetBindableInfo widget) throws Exception {
             widget.update(provider);
           }
@@ -269,10 +275,12 @@ public final class WidgetBindableInfo extends BindableInfo {
   // Hierarchy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObserveInfo getParent() {
     return m_parent;
   }
 
+  @Override
   public List<IObserveInfo> getChildren(ChildrenContext context) {
     if (context == ChildrenContext.ChildrenForMasterTable) {
       return CoreUtils.cast(m_children);
@@ -288,6 +296,7 @@ public final class WidgetBindableInfo extends BindableInfo {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IObservePresentation getPresentation() {
     return m_presentation;
   }
@@ -297,6 +306,7 @@ public final class WidgetBindableInfo extends BindableInfo {
   // ObserveType
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObserveType getType() {
     return ObserveType.WIDGETS;
   }

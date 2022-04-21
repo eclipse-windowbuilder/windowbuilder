@@ -29,6 +29,7 @@ public final class JFaceDatabindingsFactory implements IDatabindingFactory {
   // IDatabindingFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IDatabindingsProvider createProvider(JavaInfo javaInfoRoot) throws Exception {
     // check root
     if (isRCPRootObject(javaInfoRoot)) {
@@ -43,6 +44,7 @@ public final class JFaceDatabindingsFactory implements IDatabindingFactory {
     return null;
   }
 
+  @Override
   public AbstractUIPlugin getPlugin() {
     return Activator.getDefault();
   }

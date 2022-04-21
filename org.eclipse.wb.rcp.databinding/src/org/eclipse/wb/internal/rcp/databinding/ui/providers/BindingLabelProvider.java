@@ -46,8 +46,10 @@ public final class BindingLabelProvider extends LabelProvider implements ITableL
   // ITableLabelProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getColumnText(final Object element, final int column) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         if (element instanceof BindingInfo) {
           return getBindingColumnText((BindingInfo) element, column);
@@ -102,6 +104,7 @@ public final class BindingLabelProvider extends LabelProvider implements ITableL
     }
   }
 
+  @Override
   public Image getColumnImage(Object element, int column) {
     Image image = null;
     if (column == 0) {

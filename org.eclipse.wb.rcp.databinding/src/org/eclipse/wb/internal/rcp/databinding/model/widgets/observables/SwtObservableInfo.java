@@ -65,10 +65,12 @@ public class SwtObservableInfo extends ObservableInfo implements IDelayValueProv
   // DelayValue
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final int getDelayValue() {
     return m_delayValue;
   }
 
+  @Override
   public final void setDelayValue(int delayValue) {
     Assert.isTrue(delayValue >= 0);
     m_delayValue = delayValue;

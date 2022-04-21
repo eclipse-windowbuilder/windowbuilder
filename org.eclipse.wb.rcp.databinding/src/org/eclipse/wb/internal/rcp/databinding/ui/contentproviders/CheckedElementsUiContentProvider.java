@@ -46,6 +46,7 @@ public final class CheckedElementsUiContentProvider extends ChooseClassUiContent
   // Update
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void updateFromObject() throws Exception {
     // prepare element type
     Class<?> elementType = m_observable.getElementType();
@@ -61,6 +62,7 @@ public final class CheckedElementsUiContentProvider extends ChooseClassUiContent
     }
   }
 
+  @Override
   public void saveToObject() throws Exception {
     m_observable.setElementType(loadClass(getClassName()));
   }

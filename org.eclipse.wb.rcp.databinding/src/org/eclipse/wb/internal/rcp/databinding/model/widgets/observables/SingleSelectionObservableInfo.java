@@ -78,6 +78,7 @@ public final class SingleSelectionObservableInfo extends ViewerObservableInfo
   // IMasterDetailProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ObservableInfo getMasterObservable() throws Exception {
     BindableInfo bindableObject = getBindableObject();
     //
@@ -101,10 +102,12 @@ public final class SingleSelectionObservableInfo extends ViewerObservableInfo
   // DelayValue
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final int getDelayValue() {
     return m_delayValue;
   }
 
+  @Override
   public final void setDelayValue(int delayValue) {
     Assert.isTrue(delayValue >= 0);
     m_delayValue = delayValue;
