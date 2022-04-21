@@ -112,10 +112,12 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final CreationTool[] tools = new CreationTool[1];
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           tools[0] = (CreationTool) entry.createTool();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           // set filter
           {
@@ -126,6 +128,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
           {
             final Table typesTable = context.findFirstWidget(Table.class);
             context.waitFor(new UIPredicate() {
+              @Override
               public boolean check() {
                 return typesTable.getItems().length != 0;
               }
@@ -180,10 +183,12 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final CreationTool[] tools = new CreationTool[1];
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           tools[0] = (CreationTool) entry.createTool();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Open type");
           context.clickButton("Cancel");

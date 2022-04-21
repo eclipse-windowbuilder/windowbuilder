@@ -155,6 +155,7 @@ public class ClipboardTest extends AbstractCoreTest {
     {
       ControlInfo button = getObjectByName("button");
       doCopyPaste(button, new PasteProcedure<ControlInfo>() {
+        @Override
         public void run(ControlInfo copy) throws Exception {
           shell.getLayout().command_CREATE(copy, null);
         }
@@ -340,15 +341,18 @@ public class ClipboardTest extends AbstractCoreTest {
       public void setValue(Object value) throws Exception {
       }
 
+      @Override
       public Object getClipboardObject() throws Exception {
         return Boolean.FALSE;
       }
 
+      @Override
       public void setClipboardObject(Object value) throws Exception {
         m_object.getPropertyByTitle("enabled").setValue(value);
       }
     }
     shell.addBroadcastListener(new XmlObjectAddProperties() {
+      @Override
       public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
         if (object.getDescription().getComponentClass() == Button.class) {
           properties.add(new FooProperty(object));
@@ -357,6 +361,7 @@ public class ClipboardTest extends AbstractCoreTest {
     });
     // do copy/paste
     doCopyPaste(button, new PasteProcedure<ControlInfo>() {
+      @Override
       public void run(ControlInfo copy) throws Exception {
         shell.getLayout().command_CREATE(copy, null);
       }

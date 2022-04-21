@@ -128,10 +128,12 @@ public class CustomizeTest extends SwingModelTest {
     assertNotNull(action);
     // open customize dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Customize");
         context.clickButton("OK");
@@ -171,10 +173,12 @@ public class CustomizeTest extends SwingModelTest {
     assertNotNull(action);
     // open customize dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Customize");
         // change properties
@@ -226,10 +230,12 @@ public class CustomizeTest extends SwingModelTest {
     assertNotNull(action);
     // open customize dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Customize");
         // change properties
@@ -418,10 +424,12 @@ public class CustomizeTest extends SwingModelTest {
     assertNotNull(action);
     // open customize dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Customize");
         // change properties

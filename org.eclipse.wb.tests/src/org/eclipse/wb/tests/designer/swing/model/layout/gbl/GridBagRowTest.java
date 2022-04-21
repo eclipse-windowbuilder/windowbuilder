@@ -316,6 +316,7 @@ public class GridBagRowTest extends AbstractGridBagLayoutTest {
     assertEquals(3, layout.getRows().size());
     // do move
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         layout.getRowOperations().move(2, 0);
       }
@@ -402,6 +403,7 @@ public class GridBagRowTest extends AbstractGridBagLayoutTest {
     assertEquals(3, layout.getRows().size());
     // do move
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         layout.getRowOperations().move(0, 3);
       }

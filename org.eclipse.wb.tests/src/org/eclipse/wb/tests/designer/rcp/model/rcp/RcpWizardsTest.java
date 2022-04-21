@@ -86,10 +86,12 @@ public class RcpWizardsTest extends RcpModelTest {
 
   private void animate_ViewPart() throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         TestUtils.runWizard(new ViewPartWizard(), new StructuredSelection(m_packageFragment));
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("New Eclipse RCP ViewPart");
         context.getTextByLabel("Name:").setText("MyViewPart");
@@ -125,10 +127,12 @@ public class RcpWizardsTest extends RcpModelTest {
 
   private void animate_EditorPart() throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         TestUtils.runWizard(new EditorPartWizard(), new StructuredSelection(m_packageFragment));
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("New Eclipse RCP EditorPart");
         context.getTextByLabel("Name:").setText("MyEditorPart");

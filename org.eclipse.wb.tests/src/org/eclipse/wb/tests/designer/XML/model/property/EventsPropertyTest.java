@@ -407,10 +407,12 @@ public class EventsPropertyTest extends XwtModelTest {
    */
   private static void deleteEventPropertyWithGUI(final Property property) throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         property.setValue(Property.UNKNOWN_VALUE);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("OK");

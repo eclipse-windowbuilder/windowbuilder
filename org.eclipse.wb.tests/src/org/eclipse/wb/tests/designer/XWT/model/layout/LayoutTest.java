@@ -939,6 +939,7 @@ public class LayoutTest extends XwtModelTest {
         "</Shell>");
     // remove "width" attribute
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ControlInfo button = getObjectByName("button");
         XmlObjectInfo rowData = LayoutInfo.getLayoutData(button);
@@ -981,6 +982,7 @@ public class LayoutTest extends XwtModelTest {
         "</Shell>");
     // remove "width" attribute, but there is "left" sub-element, so FormData should not be deleted
     ExecutionUtils.run(m_lastObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ControlInfo button = getObjectByName("button");
         XmlObjectInfo rowData = LayoutInfo.getLayoutData(button);

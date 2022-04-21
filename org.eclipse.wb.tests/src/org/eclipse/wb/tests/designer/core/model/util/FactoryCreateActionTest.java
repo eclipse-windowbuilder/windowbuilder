@@ -535,12 +535,14 @@ public class FactoryCreateActionTest extends SwingModelTest {
    */
   private static <T> T memObj(final T[] value) {
     EasyMock.reportMatcher(new IArgumentMatcher() {
+      @Override
       @SuppressWarnings("unchecked")
       public boolean matches(Object argument) {
         value[0] = (T) argument;
         return true;
       }
 
+      @Override
       public void appendTo(StringBuffer buffer) {
         buffer.append("<memObj>");
       }
@@ -1421,10 +1423,12 @@ public class FactoryCreateActionTest extends SwingModelTest {
     // animate UI
     final IAction createAction = getCreateFactoryAction(button);
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         createAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Create factory");
         context.getTextByLabel("&Class:").setText("StaticFactory");

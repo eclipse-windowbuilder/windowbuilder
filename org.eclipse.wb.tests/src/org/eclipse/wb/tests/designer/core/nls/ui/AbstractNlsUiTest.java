@@ -64,6 +64,7 @@ public class AbstractNlsUiTest extends SwingGefTest {
     openDesign(unit);
     // click on "Externalize strings" item
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.click(m_dialogItem);
       }

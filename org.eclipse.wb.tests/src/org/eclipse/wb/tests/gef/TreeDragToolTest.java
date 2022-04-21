@@ -49,6 +49,7 @@ public class TreeDragToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -92,6 +93,7 @@ public class TreeDragToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -197,6 +199,7 @@ public class TreeDragToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -248,6 +251,7 @@ public class TreeDragToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -255,6 +259,7 @@ public class TreeDragToolTest extends TreeToolTest {
     //
     TreeEditPart parent =
         addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, new ILayoutEditPolicy() {
+          @Override
           public boolean isGoodReferenceChild(Request request, EditPart editPart) {
             return !"child1".equals(editPart.getModel());
           }

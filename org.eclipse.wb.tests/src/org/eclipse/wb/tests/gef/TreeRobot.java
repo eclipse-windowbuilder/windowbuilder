@@ -169,6 +169,7 @@ public final class TreeRobot {
    */
   private Command getDragCommand() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Command>() {
+      @Override
       public Command runObject() throws Exception {
         Object eventManager = ReflectionUtils.getFieldObject(m_viewer, "m_eventManager");
         Object dropListener = ReflectionUtils.getFieldObject(eventManager, "m_dropListener");
@@ -195,6 +196,7 @@ public final class TreeRobot {
 
   private static Event createDNDEvent() {
     return ExecutionUtils.runObject(new RunnableObjectEx<Event>() {
+      @Override
       public Event runObject() throws Exception {
         Class<?> dndClass =
             ReflectionUtils.getClassByName(
@@ -544,6 +546,7 @@ public final class TreeRobot {
   public TreeRobot assertCommandNull() throws Exception {
     final Command command = getCommand();
     assertThat(command).describedAs(new Description() {
+      @Override
       public String value() {
         return "Unexpected command " + command;
       }

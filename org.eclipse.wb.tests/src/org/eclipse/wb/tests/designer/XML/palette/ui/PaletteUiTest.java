@@ -84,12 +84,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Restore default palette...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("OK");
@@ -115,12 +117,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Settings...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette settings");
         context.clickButton("OK");
@@ -143,12 +147,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Add category...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("New palette category");
         m_newId = context.getTextByLabel("&ID:").getText();
@@ -173,12 +179,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Add category...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("New palette category");
         m_newId = context.getTextByLabel("&ID:").getText();
@@ -208,12 +216,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Edit...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Edit palette category");
         context.getTextByLabel("&Name:").setText("System2");
@@ -235,12 +245,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Remove");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("OK");
@@ -268,12 +280,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Add component...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Add component");
         chooseComponentClass(context, "org.eclipse.swt.widgets.Button");
@@ -317,12 +331,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Edit...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Edit component");
         assertEquals("My name", context.getTextByLabel("&Name:").getText());
@@ -344,10 +360,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
   private void chooseComponentClass(final UiContext context_, final String className)
       throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context_.clickButton("Ch&oose...");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         // set filter
         {
@@ -359,6 +377,7 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
         {
           final Table typesTable = context.findFirstWidget(Table.class);
           context.waitFor(new UIPredicate() {
+            @Override
             public boolean check() {
               return typesTable.getItems().length != 0;
             }
@@ -381,12 +400,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     }
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Remove");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Confirm");
         context.clickButton("OK");
@@ -403,12 +424,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         TreeItem selectionItem = context.getTreeItem("Selection");
@@ -434,12 +457,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         TreeItem selectionItem = context.getTreeItem("Selection");
@@ -464,12 +489,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         TreeItem selectionItem = context.getTreeItem("Selection");
@@ -499,12 +526,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // filter
@@ -533,12 +562,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // "System" initially collapsed
@@ -560,12 +591,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         TreeItem systemItem = context.getTreeItem("System");
@@ -589,12 +622,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // prepare palette Tree
@@ -612,10 +647,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 
       private void animateAddCategoryDialog(final UiContext _context) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             _context.clickButton("Add Category...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.useShell("New palette category");
             m_newId = context.getTextByLabel("&ID:").getText();
@@ -637,12 +674,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // prepare palette Tree
@@ -666,10 +705,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 
       private void animateAddComponentDialog(final IAction action) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             action.run();
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.useShell("Add component");
             chooseComponentClass(context, "org.eclipse.swt.widgets.Button");
@@ -692,12 +733,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // set selection
@@ -713,10 +756,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 
       private void animateEditCategoryDialog(final UiContext _context) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             _context.clickButton("Edit...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.useShell("Edit palette category");
             context.getTextByLabel("&Name:").setText("System edited");
@@ -737,12 +782,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // prepare palette Tree
@@ -759,10 +806,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 
       private void animateEditComponentDialog(final UiContext _context) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             _context.clickButton("Edit...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.useShell("Edit component");
             context.getTextByLabel("&Name:").setText("Composite edited");
@@ -784,12 +833,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // set selection
@@ -818,12 +869,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // select "Selection"
@@ -853,12 +906,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // set selection
@@ -874,10 +929,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 
       private void animateRemoveDialog(final UiContext _context) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             _context.clickButton("Remove...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.useShell("Confirm");
             context.clickButton("OK");
@@ -897,12 +954,14 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
     openEditor("<Shell/>");
     // animate dialog
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         IAction action = getContextMenuAction("Palette manager...");
         assertNotNull(action);
         action.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Palette Manager");
         // set selection
@@ -919,10 +978,12 @@ public class PaletteUiTest extends AbstractPaletteUiTest {
 
       private void animateRemoveDialog(final UiContext _context) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             _context.clickButton("Remove...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.useShell("Confirm");
             context.clickButton("OK");

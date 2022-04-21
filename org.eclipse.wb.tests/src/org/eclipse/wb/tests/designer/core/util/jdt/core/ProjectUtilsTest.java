@@ -131,16 +131,20 @@ public class ProjectUtilsTest extends AbstractJavaTest {
    * @author scheglov_ke
    */
   public static class MyNatureClass implements IProjectNature {
+    @Override
     public IProject getProject() {
       return null;
     }
 
+    @Override
     public void setProject(IProject project) {
     }
 
+    @Override
     public void configure() throws CoreException {
     }
 
+    @Override
     public void deconfigure() throws CoreException {
     }
   }

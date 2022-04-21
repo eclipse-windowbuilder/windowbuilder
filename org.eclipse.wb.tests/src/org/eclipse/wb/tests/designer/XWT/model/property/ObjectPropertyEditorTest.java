@@ -85,10 +85,12 @@ public class ObjectPropertyEditorTest extends XwtModelTest {
     assertThat(propertyEditor).isSameAs(ObjectPropertyEditor.INSTANCE);
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("value");
         Button okButton = context.getButtonByText("OK");
@@ -144,10 +146,12 @@ public class ObjectPropertyEditorTest extends XwtModelTest {
     assertEquals("Button - button", getPropertyText(property));
     // animate
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("value");
         // initially "Button" selected, so invalid
@@ -179,10 +183,12 @@ public class ObjectPropertyEditorTest extends XwtModelTest {
     // animate, just check that no exceptions
     final Property property = component.getPropertyByTitle("value");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("value");
         context.clickButton("Cancel");

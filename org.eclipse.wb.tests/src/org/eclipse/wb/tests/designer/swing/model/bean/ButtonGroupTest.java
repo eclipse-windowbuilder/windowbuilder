@@ -572,10 +572,12 @@ public class ButtonGroupTest extends SwingModelTest {
     // set new ButtonGroup
     final IAction newGroupAction = getButtonGroupAction("New custom...", button);
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         newGroupAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         // set filter
         {
@@ -587,6 +589,7 @@ public class ButtonGroupTest extends SwingModelTest {
         {
           final Table typesTable = context.findFirstWidget(Table.class);
           context.waitFor(new UIPredicate() {
+            @Override
             public boolean check() {
               return typesTable.getItems().length != 0;
             }
@@ -629,10 +632,12 @@ public class ButtonGroupTest extends SwingModelTest {
     // set new ButtonGroup
     final IAction newGroupAction = getButtonGroupAction("New custom...", button);
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         newGroupAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         // set filter
         {
@@ -644,6 +649,7 @@ public class ButtonGroupTest extends SwingModelTest {
         {
           final Table typesTable = context.findFirstWidget(Table.class);
           context.waitFor(new UIPredicate() {
+            @Override
             public boolean check() {
               return typesTable.getItems().length != 0;
             }
@@ -684,10 +690,12 @@ public class ButtonGroupTest extends SwingModelTest {
     // set new ButtonGroup
     final IAction newGroupAction = getButtonGroupAction("New custom...", button);
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         newGroupAction.run();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Open type");
         context.clickButton("Cancel");

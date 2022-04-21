@@ -260,6 +260,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
   public static final class MyDescriptionProcessor implements IDescriptionProcessor {
     private static String componentClassName;
 
+    @Override
     public void process(EditorContext context, ComponentDescription componentDescription)
         throws Exception {
       componentClassName = componentDescription.getComponentClass().getName();
@@ -300,6 +301,7 @@ public class ComponentDescriptionHelperTest extends AbstractCoreTest {
   }
 
   public static final class MyDescriptionRulesProvider implements IDescriptionRulesProvider {
+    @Override
     public void addRules(Digester digester, EditorContext context, Class<?> componentClass) {
       digester.addRule("component", new Rule() {
         @Override

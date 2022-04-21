@@ -177,10 +177,12 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
     //
     final Property property = panel.getPropertyByTitle("foo");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         setTextEditorText(property, "notDouble");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("foo");
         context.clickButton("OK");

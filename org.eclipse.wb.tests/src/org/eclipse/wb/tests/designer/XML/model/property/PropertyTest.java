@@ -752,6 +752,7 @@ public class PropertyTest extends AbstractCoreTest {
     Property enabledProperty = panel.getPropertyByTitle("enabled");
     // add listener that prevents "enabled" modification
     panel.addBroadcastListener(new GenericPropertySetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {
         if ("enabled".equals(property.getTitle())) {
@@ -772,6 +773,7 @@ public class PropertyTest extends AbstractCoreTest {
     Property enabledProperty = panel.getPropertyByTitle("enabled");
     // add listener that on "enabled" modification modifies also "visible"
     panel.addBroadcastListener(new GenericPropertySetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {
         if ("enabled".equals(property.getTitle())) {
@@ -792,6 +794,7 @@ public class PropertyTest extends AbstractCoreTest {
     GenericProperty enabledProperty = (GenericProperty) panel.getPropertyByTitle("enabled");
     // add listener that prevents "enabled" modification
     panel.addBroadcastListener(new GenericPropertySetExpression() {
+      @Override
       public void invoke(GenericPropertyImpl property,
           String[] epxression,
           Object[] value,
@@ -823,6 +826,7 @@ public class PropertyTest extends AbstractCoreTest {
     assertEquals(Boolean.TRUE, enabledProperty.getValue());
     // add listener that forces "enabled" value
     panel.addBroadcastListener(new GenericPropertyGetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
         if (property == enabledProperty) {
           assertSame(Property.UNKNOWN_VALUE, value[0]);

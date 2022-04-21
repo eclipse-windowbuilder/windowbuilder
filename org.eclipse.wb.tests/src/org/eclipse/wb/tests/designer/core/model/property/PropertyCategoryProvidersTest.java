@@ -104,6 +104,7 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
    */
   public void test_combine_atLeastNormal() throws Exception {
     PropertyCategoryProvider atLeastNormal = new PropertyCategoryProvider() {
+      @Override
       public PropertyCategory getCategory(Property property) {
         if (property.getCategory() == PropertyCategory.ADVANCED) {
           return PropertyCategory.NORMAL;

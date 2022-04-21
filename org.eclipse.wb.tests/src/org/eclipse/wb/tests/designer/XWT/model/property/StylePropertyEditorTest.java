@@ -507,6 +507,7 @@ public class StylePropertyEditorTest extends XwtModelTest {
     {
       ControlInfo button = getObjectByName("button");
       doCopyPaste(button, new PasteProcedure<ControlInfo>() {
+        @Override
         public void run(ControlInfo copy) throws Exception {
           shell.getLayout().command_CREATE(copy, null);
         }
@@ -622,6 +623,7 @@ public class StylePropertyEditorTest extends XwtModelTest {
     m_editor = (StylePropertyEditor) m_styleProperty.getEditor();
     m_properties = m_editor.getProperties(m_styleProperty);
     Arrays.sort(m_properties, new Comparator<Property>() {
+      @Override
       public int compare(Property o1, Property o2) {
         return o1.getTitle().compareTo(o2.getTitle());
       }

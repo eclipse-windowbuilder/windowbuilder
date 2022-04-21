@@ -111,10 +111,12 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final CreationTool[] tools = new CreationTool[1];
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           tools[0] = (CreationTool) entry.createTool();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Open type");
           context.clickButton("Cancel");
@@ -167,10 +169,12 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final CreationTool[] tools = new CreationTool[1];
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           tools[0] = (CreationTool) entry.createTool();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           animateChooseType(context, "JButton");
           context.clickButton("OK");
@@ -250,10 +254,12 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
       {
         final CreationTool[] tools = new CreationTool[1];
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             tools[0] = (CreationTool) entry.createTool();
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             animateChooseType(context, "MyClass");
             clickOK_andConfirmReparse(context);
@@ -261,10 +267,12 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 
           private void clickOK_andConfirmReparse(final UiContext okContext) throws Exception {
             new UiContext().executeAndCheck(new UIRunnable() {
+              @Override
               public void run(UiContext context) throws Exception {
                 okContext.clickButton("OK");
               }
             }, new UIRunnable() {
+              @Override
               public void run(UiContext context) throws Exception {
                 context.useShell("Unable to load component");
                 context.clickButton("Yes");
@@ -291,6 +299,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final Table typesTable = context.findFirstWidget(Table.class);
       context.waitFor(new UIPredicate() {
+        @Override
         public boolean check() {
           return typesTable.getItems().length != 0;
         }

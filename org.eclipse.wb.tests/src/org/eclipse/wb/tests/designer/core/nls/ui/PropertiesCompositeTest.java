@@ -47,6 +47,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"Properties"});
         List sourcesList = UiContext.findFirstWidget(tabItems[0], List.class);
@@ -72,6 +73,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems =
             assertItems(tabFolder, new String[]{"test.messages", "test.messages2", "Properties"});
@@ -101,6 +103,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         List sourcesList = UiContext.findFirstWidget(tabItems[1], List.class);
@@ -127,6 +130,7 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});
         PropertiesComposite propertiesComposite = (PropertiesComposite) tabItems[1].getControl();
@@ -245,16 +249,19 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
         "  }",
         "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"Properties"});
         List sourcesList = UiContext.findFirstWidget(tabItems[0], List.class);
         assertEquals(0, sourcesList.getItemCount());
         //
         context.executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context2) throws Exception {
             context2.clickButton("&New...");
           }
         }, new UIRunnable() {
+          @Override
           public void run(UiContext context2) throws Exception {
             context2.useShell("New source");
             context2.clickButton("OK");

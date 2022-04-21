@@ -421,6 +421,7 @@ public class ClipboardTest extends SwingModelTest {
     // do paste
     final ComponentInfo[] pastedComponent = new ComponentInfo[1];
     ExecutionUtils.run(container, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ComponentInfo component = (ComponentInfo) memento.create(container);
         flowLayout.add(component, null);

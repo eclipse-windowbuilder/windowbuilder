@@ -54,6 +54,7 @@ public final class MenuFeedbackTester {
     }
     // return predicate
     return new Predicate<Figure>() {
+      @Override
       public boolean apply(Figure feedback) {
         return partBounds.equals(feedback.getBounds());
       }

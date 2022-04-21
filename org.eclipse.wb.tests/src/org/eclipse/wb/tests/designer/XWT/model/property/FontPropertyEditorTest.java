@@ -149,10 +149,12 @@ public class FontPropertyEditorTest extends XwtModelTest {
     // prepare property
     final Property property = button.getPropertyByTitle("font");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Font chooser");
         TabItem tabItem = context.getTabItem("Construction");

@@ -1837,14 +1837,17 @@ public class ActionTest extends SwingModelTest {
       m_constructor = constructor;
     }
 
+    @Override
     public ASTNode getCreation() {
       return null;
     }
 
+    @Override
     public List<Block> getInitializationBlocks() {
       return Lists.newArrayList(m_constructor.getBody());
     }
 
+    @Override
     public ConstructorDescription getConstructorDescription() throws Exception {
       return null;
     }

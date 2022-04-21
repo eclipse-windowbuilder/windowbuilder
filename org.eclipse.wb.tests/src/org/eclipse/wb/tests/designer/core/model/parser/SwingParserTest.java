@@ -527,6 +527,7 @@ public class SwingParserTest extends SwingModelTest {
     // check that JavaEventListener works
     final boolean objectWasSet[] = new boolean[1];
     panel.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object o) throws Exception {
         if (target == panel) {
           objectWasSet[0] = true;

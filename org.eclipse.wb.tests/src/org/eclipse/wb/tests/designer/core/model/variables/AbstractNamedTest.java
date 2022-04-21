@@ -212,10 +212,12 @@ public class AbstractNamedTest extends AbstractVariableTest {
     }
     // duplicate name
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         setTextEditorText(variableProperty, "button_2");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Variable");
         context.clickButton("OK");

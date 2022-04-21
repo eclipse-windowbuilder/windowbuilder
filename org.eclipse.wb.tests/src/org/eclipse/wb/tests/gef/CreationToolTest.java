@@ -37,9 +37,11 @@ public class CreationToolTest extends AbstractCreationToolTest {
   protected void configureTestCase() {
     // create test factory
     ICreationFactory factory = new ICreationFactory() {
+      @Override
       public void activate() {
       }
 
+      @Override
       public Object getNewObject() {
         return "_NewObject_";
       }

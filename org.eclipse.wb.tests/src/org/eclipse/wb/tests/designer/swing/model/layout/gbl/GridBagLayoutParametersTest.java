@@ -68,6 +68,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);
@@ -117,6 +118,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
     // add new component
     ToolkitProvider.DESCRIPTION.getPreferences().setValue(IPreferenceConstants.P_ENABLE_GRAB, false);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);
@@ -163,6 +165,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTable.class);
@@ -219,6 +222,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JLabel.class);
@@ -284,6 +288,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JTextField.class);
@@ -352,6 +357,7 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
         IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT,
         false);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo newComponent = createComponent(JLabel.class);

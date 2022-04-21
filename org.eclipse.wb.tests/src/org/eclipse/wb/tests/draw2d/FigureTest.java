@@ -857,12 +857,15 @@ public class FigureTest extends Draw2dFigureTestCase {
     assertNull(testFigure.getListeners(IMouseListener.class));
     //
     IMouseListener listener1 = new IMouseListener() {
+      @Override
       public void mouseUp(MouseEvent event) {
       }
 
+      @Override
       public void mouseDown(MouseEvent event) {
       }
 
+      @Override
       public void mouseDoubleClick(MouseEvent event) {
       }
     };
@@ -875,12 +878,15 @@ public class FigureTest extends Draw2dFigureTestCase {
     assertSame(listener1, list.get(0));
     //
     IMouseListener listener2 = new IMouseListener() {
+      @Override
       public void mouseUp(MouseEvent event) {
       }
 
+      @Override
       public void mouseDown(MouseEvent event) {
       }
 
+      @Override
       public void mouseDoubleClick(MouseEvent event) {
       }
     };
@@ -914,6 +920,7 @@ public class FigureTest extends Draw2dFigureTestCase {
     assertNull(testFigure.getListeners(IMouseMoveListener.class));
     //
     IMouseMoveListener listener1 = new IMouseMoveListener() {
+      @Override
       public void mouseMove(MouseEvent event) {
       }
     };
@@ -926,6 +933,7 @@ public class FigureTest extends Draw2dFigureTestCase {
     assertSame(listener1, list.get(0));
     //
     IMouseMoveListener listener2 = new IMouseMoveListener() {
+      @Override
       public void mouseMove(MouseEvent event) {
       }
     };
@@ -959,9 +967,11 @@ public class FigureTest extends Draw2dFigureTestCase {
     assertNull(testFigure.getListeners(IFigureListener.class));
     //
     IFigureListener listener1 = new IFigureListener() {
+      @Override
       public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
       }
 
+      @Override
       public void figureMoved(Figure source) {
       }
     };
@@ -974,9 +984,11 @@ public class FigureTest extends Draw2dFigureTestCase {
     assertSame(listener1, list.get(0));
     //
     IFigureListener listener2 = new IFigureListener() {
+      @Override
       public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
       }
 
+      @Override
       public void figureMoved(Figure source) {
       }
     };
@@ -1007,10 +1019,12 @@ public class FigureTest extends Draw2dFigureTestCase {
     final TestLogger actualLogger = new TestLogger();
     //
     IFigureListener listener = new IFigureListener() {
+      @Override
       public void figureReparent(Figure source, Figure oldParent, Figure newParent) {
         actualLogger.log("figureReparent(" + source + ", " + oldParent + ", " + newParent + ")");
       }
 
+      @Override
       public void figureMoved(Figure source) {
         actualLogger.log("figureMoved(" + source + ")");
       }
@@ -1079,6 +1093,7 @@ public class FigureTest extends Draw2dFigureTestCase {
     final TestLogger actualLogger = new TestLogger();
     //
     IAncestorListener listener = new IAncestorListener() {
+      @Override
       public void ancestorMoved(Figure ancestor) {
         actualLogger.log("ancestorMoved(" + ancestor + ")");
       }

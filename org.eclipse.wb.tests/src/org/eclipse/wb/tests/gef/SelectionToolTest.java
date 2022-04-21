@@ -66,6 +66,7 @@ public class SelectionToolTest extends RequestTestCase {
   public void test_Click() throws Exception {
     final RequestsLogger actualLogger = new RequestsLogger();
     m_viewer.addEditPartClickListener(new IEditPartClickListener() {
+      @Override
       public void clickNotify(EditPart editPart) {
         actualLogger.log(editPart, "clickNotify");
       }

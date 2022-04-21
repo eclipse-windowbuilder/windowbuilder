@@ -64,10 +64,12 @@ public class CompositeTopBoundsSupportTest extends XwtModelTest {
     shell.refresh();
     // show
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         shell.getTopBoundsSupport().show();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         Shell wrapperShell = context.useShell("My Shell");
         {
@@ -87,10 +89,12 @@ public class CompositeTopBoundsSupportTest extends XwtModelTest {
     composite.refresh();
     // show
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         composite.getTopBoundsSupport().show();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         Shell wrapperShell = context.useShell("Wrapper Shell");
         {

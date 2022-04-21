@@ -617,6 +617,7 @@ public class EditPartTest extends GefTestCase {
     assertNull(testEditPart.getListeners(IEditPartSelectionListener.class));
     //
     IEditPartSelectionListener listener1 = new IEditPartSelectionListener() {
+      @Override
       public void selectionChanged(EditPart editPart) {
       }
     };
@@ -630,6 +631,7 @@ public class EditPartTest extends GefTestCase {
     assertSame(listener1, list.get(0));
     //
     IEditPartSelectionListener listener2 = new IEditPartSelectionListener() {
+      @Override
       public void selectionChanged(EditPart editPart) {
       }
     };
@@ -661,6 +663,7 @@ public class EditPartTest extends GefTestCase {
   public void test_Selection() throws Exception {
     final TestLogger actualLogger = new TestLogger();
     IEditPartSelectionListener listener = new IEditPartSelectionListener() {
+      @Override
       public void selectionChanged(EditPart editPart) {
         actualLogger.log("selectionChanged(" + editPart + ")");
       }
@@ -710,9 +713,11 @@ public class EditPartTest extends GefTestCase {
     assertNull(testEditPart.getListeners(IEditPartListener.class));
     //
     IEditPartListener listener1 = new IEditPartListener() {
+      @Override
       public void removingChild(EditPart child, int index) {
       }
 
+      @Override
       public void childAdded(EditPart child, int index) {
       }
     };
@@ -725,9 +730,11 @@ public class EditPartTest extends GefTestCase {
     assertSame(listener1, list.get(0));
     //
     IEditPartListener listener2 = new IEditPartListener() {
+      @Override
       public void removingChild(EditPart child, int index) {
       }
 
+      @Override
       public void childAdded(EditPart child, int index) {
       }
     };
@@ -759,10 +766,12 @@ public class EditPartTest extends GefTestCase {
   public void test_Invoke_EditPartListener() throws Exception {
     final TestLogger actualLogger = new TestLogger();
     IEditPartListener listener = new IEditPartListener() {
+      @Override
       public void childAdded(EditPart child, int index) {
         actualLogger.log("childAdded(" + child + ", " + index + ")");
       }
 
+      @Override
       public void removingChild(EditPart child, int index) {
         actualLogger.log("removingChild(" + child + ", " + index + ")");
       }

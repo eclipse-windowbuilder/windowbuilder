@@ -371,18 +371,23 @@ public class UiConfigurationTest extends AbstractBindingTest {
     assertNotNull(binding.getTargetStrategy());
     //
     IPageListener listener = new IPageListener() {
+      @Override
       public void setTitleImage(Image image) {
       }
 
+      @Override
       public void setTitle(String title) {
       }
 
+      @Override
       public void setPageComplete(boolean complete) {
       }
 
+      @Override
       public void setMessage(String newMessage) {
       }
 
+      @Override
       public void setErrorMessage(String newMessage) {
       }
     };

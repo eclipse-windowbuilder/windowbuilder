@@ -247,10 +247,12 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
     {
       final CreationTool[] tools = new CreationTool[1];
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           tools[0] = (CreationTool) entry.createTool();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Select factory");
           waitEventLoop(0);
@@ -319,10 +321,12 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
     {
       final CreationTool[] tools = new CreationTool[1];
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           tools[0] = (CreationTool) entry.createTool();
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Select factory");
           context.clickButton("Cancel");

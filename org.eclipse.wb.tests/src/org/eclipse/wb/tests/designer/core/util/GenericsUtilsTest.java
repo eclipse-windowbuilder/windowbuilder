@@ -115,16 +115,20 @@ public class GenericsUtilsTest extends DesignerTestCase {
     {
       final ISelection selection = new StructuredSelection(objects);
       selectionProvider = new ISelectionProvider() {
+        @Override
         public ISelection getSelection() {
           return selection;
         }
 
+        @Override
         public void setSelection(ISelection _selection) {
         }
 
+        @Override
         public void removeSelectionChangedListener(ISelectionChangedListener listener) {
         }
 
+        @Override
         public void addSelectionChangedListener(ISelectionChangedListener listener) {
         }
       };
@@ -443,6 +447,7 @@ public class GenericsUtilsTest extends DesignerTestCase {
   public void test_getEnumValues_filter() throws Exception {
     MyEnum[] expectedValues = new MyEnum[]{MyEnum.B, MyEnum.C};
     MyEnum[] actualValues = GenericsUtils.getEnumValues(MyEnum.class, new Predicate<MyEnum>() {
+      @Override
       public boolean apply(MyEnum t) {
         return t == MyEnum.B || t == MyEnum.C;
       }

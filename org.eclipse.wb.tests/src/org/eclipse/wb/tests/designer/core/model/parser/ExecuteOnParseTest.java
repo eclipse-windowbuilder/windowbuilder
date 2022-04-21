@@ -3094,6 +3094,7 @@ public class ExecuteOnParseTest extends SwingModelTest {
       super(editor, description, creationSupport);
     }
 
+    @Override
     public Object evaluateParameter(EvaluationContext context,
         MethodDeclaration methodDeclaration,
         String methodSignature,

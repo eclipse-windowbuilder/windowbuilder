@@ -65,12 +65,14 @@ public class FormsApplicationWizardTest extends XwtWizardTest {
   ////////////////////////////////////////////////////////////////////////////
   private void animateWizard() throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         TestUtils.runWizard(
             new FormsApplicationWizard(),
             new StructuredSelection(m_packageFragment));
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("New XWT Application");
         context.getTextByLabel("Name:").setText("MyApp");

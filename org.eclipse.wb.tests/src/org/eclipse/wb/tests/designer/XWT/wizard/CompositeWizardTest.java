@@ -43,10 +43,12 @@ public class CompositeWizardTest extends XwtWizardTest {
   @DisposeProjectAfter
   public void test_forJava() throws Exception {
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         TestUtils.runWizard(new CompositeWizard(), new StructuredSelection(m_packageFragment));
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("New XWT Composite");
         context.getTextByLabel("Name:").setText("MyComposite");

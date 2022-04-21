@@ -710,6 +710,7 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
     // ============================================================================
     //
     ExecutionUtils.run(shell.getRootJava(), new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Class<?> textWidgetClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Text");
         MorphingTargetDescription target = new MorphingTargetDescription(textWidgetClass, null);

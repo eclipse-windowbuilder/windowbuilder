@@ -335,9 +335,11 @@ public abstract class AbstractXmlGefTest extends AbstractXmlObjectTest {
     // load CreationTool
     final XmlObjectInfo finalNewComponent = newComponent;
     ICreationFactory factory = new ICreationFactory() {
+      @Override
       public void activate() {
       }
 
+      @Override
       public Object getNewObject() {
         return finalNewComponent;
       }

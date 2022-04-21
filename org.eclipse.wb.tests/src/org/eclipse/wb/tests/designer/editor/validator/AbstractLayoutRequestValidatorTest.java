@@ -115,10 +115,12 @@ public class AbstractLayoutRequestValidatorTest extends SwingModelTest {
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
       EditPart editPart = mocksControl.createMock(EditPart.class);
 
+      @Override
       public void expectations() throws Exception {
         expect(editPart.getModel()).andReturn(child).anyTimes();
       }
 
+      @Override
       public void codeToTest() throws Exception {
         ChangeBoundsRequest request = new ChangeBoundsRequest();
         request.setEditParts(ImmutableList.of(editPart));
@@ -135,10 +137,12 @@ public class AbstractLayoutRequestValidatorTest extends SwingModelTest {
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
       EditPart editPart = mocksControl.createMock(EditPart.class);
 
+      @Override
       public void expectations() throws Exception {
         expect(editPart.getModel()).andReturn(child).anyTimes();
       }
 
+      @Override
       public void codeToTest() throws Exception {
         ChangeBoundsRequest request = new ChangeBoundsRequest();
         request.setEditParts(ImmutableList.of(editPart));

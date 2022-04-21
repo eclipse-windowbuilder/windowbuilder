@@ -388,6 +388,7 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
       final PasteProcedure<T> pasteProcedure) throws Exception {
     final JavaInfoMemento memento = JavaInfoMemento.createMemento(source);
     ExecutionUtils.run(source, new RunnableEx() {
+      @Override
       @SuppressWarnings("unchecked")
       public void run() throws Exception {
         T copy = (T) memento.create(source);
@@ -494,12 +495,14 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
     List<ObjectInfo> children = child.getParent().getPresentation().getChildrenTree();
     if (expected) {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should be in children: " + child;
         }
       }).contains(child);
     } else {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should not be in children: " + child;
         }
@@ -515,12 +518,14 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
     List<ObjectInfo> children = child.getParent().getPresentation().getChildrenGraphical();
     if (expected) {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should be in children: " + child;
         }
       }).contains(child);
     } else {
       assertThat(children).as(new Description() {
+        @Override
         public String value() {
           return "Should not be in children: " + child;
         }
@@ -548,6 +553,7 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
       final Object object,
       final Object reference) throws Exception {
     ExecutionUtils.run(container, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
         flowContainer.command_CREATE(object, reference);
@@ -562,6 +568,7 @@ public class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
       final Object object,
       final Object reference) throws Exception {
     ExecutionUtils.run(container, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
         flowContainer.command_MOVE(object, reference);

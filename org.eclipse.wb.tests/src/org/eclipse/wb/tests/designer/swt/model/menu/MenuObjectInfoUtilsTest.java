@@ -193,6 +193,7 @@ public class MenuObjectInfoUtilsTest extends DesignerTestCase {
    * @author scheglov_ke
    */
   public static final class MyAdaptableFactory implements IAdaptableFactory {
+    @Override
     public <T> T getAdapter(Object object, Class<T> adapter) {
       assertSame(IMenuItemInfo.class, adapter);
       return adapter.cast(m_tmpItemInfo);

@@ -77,10 +77,12 @@ public class ImagePropertyEditorTest extends XwtModelTest {
     final Property property = shell.getPropertyByTitle("image");
     // change value
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         animateClasspathImageSelection(context, "stop.gif");
       }
@@ -97,10 +99,12 @@ public class ImagePropertyEditorTest extends XwtModelTest {
     final Property property = shell.getPropertyByTitle("image");
     // change value
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         animateClasspathImageSelection(context, "testImage.png");
       }
@@ -117,10 +121,12 @@ public class ImagePropertyEditorTest extends XwtModelTest {
     final Property property = shell.getPropertyByTitle("image");
     // change value
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Image chooser");
         // testImage.png is selected
@@ -156,10 +162,12 @@ public class ImagePropertyEditorTest extends XwtModelTest {
     final Property property = shell.getPropertyByTitle("image");
     // change value
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         animateClasspathImageSelection(context, "testImage.png");
       }

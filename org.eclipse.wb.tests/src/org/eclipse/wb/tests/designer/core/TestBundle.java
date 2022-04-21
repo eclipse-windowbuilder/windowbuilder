@@ -284,6 +284,7 @@ public final class TestBundle {
     // we should wait until OSGi framework notifies all listeners that Bundle was uninstalled
     final AtomicBoolean uninstallEventProcessed = new AtomicBoolean();
     m_context.addBundleListener(new BundleListener() {
+      @Override
       public void bundleChanged(BundleEvent event) {
         if (event.getType() == BundleEvent.UNINSTALLED && event.getBundle() == m_bundle) {
           uninstallEventProcessed.set(true);

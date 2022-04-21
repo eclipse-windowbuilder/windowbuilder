@@ -162,6 +162,7 @@ public class AbstractDialogTest extends AbstractNlsUiTest {
   protected final void openDialogNLS(String initialSource, final NLSDialogRunnable runnable)
       throws Exception {
     openDialogNLS("test", initialSource, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         Shell activeShell = context.useShell("Externalize strings");
         NlsDialog dialog = (NlsDialog) activeShell.getData(ResizableDialog.KEY_DIALOG);

@@ -1459,6 +1459,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
     assertEquals("left, grab", column.getTitle());
     // set alignment
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         column.setAlignment(TableWrapData.FILL);
       }
@@ -1591,6 +1592,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
     assertEquals("top, grab", row.getTitle());
     // set alignment
     ExecutionUtils.run(shell, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         row.setAlignment(TableWrapData.FILL);
       }

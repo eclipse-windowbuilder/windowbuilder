@@ -48,8 +48,10 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
    * Return {@link PropertyCategory#NORMAL} for all properties.
    */
   public static class CategoryProvider2 implements PropertyCategoryProviderProvider {
+    @Override
     public PropertyCategoryProvider get(List<ObjectInfo> objects) {
       return new PropertyCategoryProvider() {
+        @Override
         public PropertyCategory getCategory(Property property) {
           return PropertyCategory.NORMAL;
         }
@@ -102,6 +104,7 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
     private static ComplexProperty m_propertyProcessorWrapper = new ComplexProperty("ALL",
         "(all properties)");
 
+    @Override
     public void process(List<ObjectInfo> objects, List<Property> properties) {
       m_propertyProcessorWrapper.setProperties(properties);
       properties.clear();

@@ -679,10 +679,12 @@ public class ViewerTest extends RcpModelTest {
               "new ArrayContentProvider");
       // open dialog and animate it
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           openPropertyDialog(property);
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Open type");
           // set filter
@@ -694,6 +696,7 @@ public class ViewerTest extends RcpModelTest {
           {
             final Table typesTable = context.findFirstWidget(Table.class);
             context.waitFor(new UIPredicate() {
+              @Override
               public boolean check() {
                 return typesTable.getItems().length != 0;
               }

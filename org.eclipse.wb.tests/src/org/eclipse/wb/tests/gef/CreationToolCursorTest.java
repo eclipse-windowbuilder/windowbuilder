@@ -59,9 +59,11 @@ public class CreationToolCursorTest extends GefCursorTestCase {
     super.setUp();
     // create test factory
     ICreationFactory factory = new ICreationFactory() {
+      @Override
       public void activate() {
       }
 
+      @Override
       public Object getNewObject() {
         return "_NewObject_";
       }
@@ -406,6 +408,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
     }
     //
     m_defaultToolProvider = new IDefaultToolProvider() {
+      @Override
       public Tool getDefaultTool() {
         return new SelectionTool();
       }
@@ -445,6 +448,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
     //
     m_tool = new CreationTool(m_tool.getFactory());
     m_defaultToolProvider = new IDefaultToolProvider() {
+      @Override
       public Tool getDefaultTool() {
         return m_tool;
       }

@@ -84,10 +84,12 @@ public class StringArrayPropertyEditorTest extends XwtModelTest {
     // prepare property
     final Property property = widget.getPropertyByTitle("items");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("items");
         {

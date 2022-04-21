@@ -435,6 +435,7 @@ public class ContainerTest extends SwingModelTest {
     }
     // add copy
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ContainerInfo copy = (ContainerInfo) memento.create(panel);
         ((FlowLayoutInfo) panel.getLayout()).add(copy, null);

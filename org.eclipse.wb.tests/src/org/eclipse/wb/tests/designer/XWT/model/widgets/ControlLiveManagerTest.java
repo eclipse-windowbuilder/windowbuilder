@@ -226,6 +226,7 @@ public class ControlLiveManagerTest extends XwtModelTest {
     // add log listener for exception validation
     ILog log = DesignerPlugin.getDefault().getLog();
     ILogListener logListener = new ILogListener() {
+      @Override
       public void logging(IStatus status, String plugin) {
         assertEquals(IStatus.ERROR, status.getSeverity());
         Throwable exception = status.getException();

@@ -275,6 +275,7 @@ public class StackLayoutTest extends XwtModelTest {
     {
       CompositeInfo composite = (CompositeInfo) getObjectByName("composite");
       doCopyPaste(composite, new PasteProcedure<ControlInfo>() {
+        @Override
         public void run(ControlInfo copy) throws Exception {
           shell.getLayout().command_CREATE(copy, null);
         }

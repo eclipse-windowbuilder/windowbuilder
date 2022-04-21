@@ -148,10 +148,12 @@ public class IntegerPropertyEditorTest extends AbstractTextPropertyEditorTest {
     //
     final Property property = panel.getPropertyByTitle("foo");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         setTextEditorText(property, "notInteger");
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("foo");
         context.clickButton("OK");

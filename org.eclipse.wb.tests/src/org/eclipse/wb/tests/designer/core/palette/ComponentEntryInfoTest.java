@@ -509,11 +509,13 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
     assertTrue(componentEntry.initialize(null, m_lastParseInfo));
     // create tool
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         CreationTool creationTool = (CreationTool) componentEntry.createTool();
         assertNull(creationTool);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Error");
         context.clickButton("OK");
@@ -1073,11 +1075,13 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final AtomicReference<CreationTool> creationToolResult = new AtomicReference<CreationTool>();
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           CreationTool result = (CreationTool) componentEntry.createTool();
           creationToolResult.set(result);
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Generic component creation");
           // initial type
@@ -1096,10 +1100,12 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 
         public void animateChooseButton(final Button chooseButton) throws Exception {
           new UiContext().executeAndCheck(new UIRunnable() {
+            @Override
             public void run(UiContext context) throws Exception {
               context.click(chooseButton);
             }
           }, new UIRunnable() {
+            @Override
             public void run(UiContext context) throws Exception {
               animateOpenTypeSelection(context, "java.lang.String");
               context.clickButton("OK");
@@ -1136,11 +1142,13 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
     {
       final AtomicReference<CreationTool> creationToolResult = new AtomicReference<CreationTool>();
       new UiContext().executeAndCheck(new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           CreationTool result = (CreationTool) componentEntry.createTool();
           creationToolResult.set(result);
         }
       }, new UIRunnable() {
+        @Override
         public void run(UiContext context) throws Exception {
           context.useShell("Generic component creation");
           // initial type
@@ -1159,10 +1167,12 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 
         public void animateChooseButton(final Button chooseButton) throws Exception {
           new UiContext().executeAndCheck(new UIRunnable() {
+            @Override
             public void run(UiContext context) throws Exception {
               context.click(chooseButton);
             }
           }, new UIRunnable() {
+            @Override
             public void run(UiContext context) throws Exception {
               animateOpenTypeSelection(context, "java.lang.String");
               context.clickButton("Cancel");
@@ -1189,10 +1199,12 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
     }
     // animate createTool()
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         componentEntry.createTool();
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Generic component creation");
         // animate "..." button
@@ -1206,18 +1218,22 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 
       public void animateChooseButton(final Button chooseButton) throws Exception {
         new UiContext().executeAndCheck(new UIRunnable() {
+          @Override
           public void run(UiContext context) throws Exception {
             context.click(chooseButton);
           }
         }, new UIRunnable() {
+          @Override
           public void run(final UiContext openTypeContext) throws Exception {
             animateOpenTypeSelection(openTypeContext, "java.lang.String");
             // click OK and close "Error" dialog
             new UiContext().executeAndCheck(new UIRunnable() {
+              @Override
               public void run(UiContext context) throws Exception {
                 openTypeContext.clickButton("OK");
               }
             }, new UIRunnable() {
+              @Override
               public void run(UiContext context) throws Exception {
                 context.useShell("Error");
                 context.clickButton("OK");

@@ -927,6 +927,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     // add new component
     Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -967,6 +968,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     // add new component
     Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1012,6 +1014,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     // add new component
     Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1063,6 +1066,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1124,6 +1128,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1181,6 +1186,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1236,6 +1242,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1293,6 +1300,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1352,6 +1360,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
       preferences.setValue(IPreferenceConstants.P_GAP_COLUMN, 10);
     }
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1409,6 +1418,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
       preferences.setValue(IPreferenceConstants.P_GAP_ROW, 10);
     }
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1466,6 +1476,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
       preferences.setValue(IPreferenceConstants.P_CHANGE_INSETS_FOR_GAPS, false);
     }
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1529,6 +1540,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1588,6 +1600,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1642,6 +1655,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button = createJButton();
@@ -1713,6 +1727,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // do move
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button_00 = panel.getChildrenComponents().get(0);
@@ -1782,6 +1797,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // do move
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button_11 = panel.getChildrenComponents().get(1);
@@ -1852,6 +1868,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     final ComponentInfo button = innerPanel.getChildrenComponents().get(0);
     // move from "innerPanel"
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         gridLayout.command_MOVE(button, 0, false, 0, false);
       }
@@ -1884,6 +1901,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
         "}");
     // move to "innerPanel"
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         flowLayout.move(button, null);
       }
@@ -1912,6 +1930,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
         "}");
     // move again from "innerPanel"
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         gridLayout.command_MOVE(button, 0, false, 0, false);
       }
@@ -1973,6 +1992,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     // do move
     Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button_2 = panel.getChildrenComponents().get(2);
@@ -2030,6 +2050,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     // do move
     Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button_2 = panel.getChildrenComponents().get(2);
@@ -2223,6 +2244,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // set cells
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         ComponentInfo button_0 = panel.getChildrenComponents().get(0);
@@ -2295,6 +2317,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     assertEquals(2, layout.getRows().size());
     // set cells
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ComponentInfo button_0 = panel.getChildrenComponents().get(0);
         layout.command_setCells(button_0, new Rectangle(0, 1, 1, 1));
@@ -2526,6 +2549,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
     panel.refresh();
     // add new component
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
         // use "lazy"

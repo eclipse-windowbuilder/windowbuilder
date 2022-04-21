@@ -390,34 +390,40 @@ public class SimpleContainerModelTest extends SwingModelTest {
     }
     // isEmpty() == true, because no existing children
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         List<ObjectInfo> children = ImmutableList.<ObjectInfo>of();
         expect(container.getSimpleContainerChildren()).andReturn(children);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertTrue(simpleContainer.isEmpty());
       }
     });
     // isEmpty() == false, because return existing child
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         TestObjectInfo existingChild = new TestObjectInfo();
         List<ObjectInfo> children = ImmutableList.<ObjectInfo>of(existingChild);
         expect(container.getSimpleContainerChildren()).andReturn(children);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertFalse(simpleContainer.isEmpty());
       }
     });
     // getChild() == null, because no existing children
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         List<ObjectInfo> children = ImmutableList.<ObjectInfo>of();
         expect(container.getSimpleContainerChildren()).andReturn(children);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertSame(null, simpleContainer.getChild());
       }
@@ -426,11 +432,13 @@ public class SimpleContainerModelTest extends SwingModelTest {
     {
       final TestObjectInfo existingChild = new TestObjectInfo();
       EasyMockTemplate.run(mocksControl, new MockRunnable() {
+        @Override
         public void expectations() throws Exception {
           List<ObjectInfo> children = ImmutableList.<ObjectInfo>of(existingChild);
           expect(container.getSimpleContainerChildren()).andReturn(children);
         }
 
+        @Override
         public void codeToTest() throws Exception {
           assertSame(existingChild, simpleContainer.getChild());
         }
@@ -438,20 +446,24 @@ public class SimpleContainerModelTest extends SwingModelTest {
     }
     // CREATE
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         container.command_CREATE(component);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         simpleContainer.command_CREATE(component);
       }
     });
     // MOVE
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         container.command_ADD(component);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         simpleContainer.command_ADD(component);
       }
@@ -473,11 +485,13 @@ public class SimpleContainerModelTest extends SwingModelTest {
         new SimpleContainerConfigurable(container, configuration);
     // validateComponent() = true
     EasyMockTemplate.run(mocksControl, new MockRunnable() {
+      @Override
       public void expectations() throws Exception {
         ContainerObjectValidator validator = ContainerObjectValidators.alwaysTrue();
         expect(configuration.getComponentValidator()).andReturn(validator);
       }
 
+      @Override
       public void codeToTest() throws Exception {
         assertTrue(simpleContainer.validateComponent(component));
       }

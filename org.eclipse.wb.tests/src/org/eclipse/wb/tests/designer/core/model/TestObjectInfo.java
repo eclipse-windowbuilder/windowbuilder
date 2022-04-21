@@ -61,6 +61,7 @@ public class TestObjectInfo extends ObjectInfo {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final DefaultObjectPresentation m_presentation = new DefaultObjectPresentation(this) {
+    @Override
     public String getText() throws Exception {
       return TestObjectInfo.this.toString();
     }

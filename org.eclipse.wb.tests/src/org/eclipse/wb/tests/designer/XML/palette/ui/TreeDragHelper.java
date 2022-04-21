@@ -99,6 +99,7 @@ public class TreeDragHelper {
 
   private static Event createDNDEvent() {
     return ExecutionUtils.runObject(new RunnableObjectEx<Event>() {
+      @Override
       public Event runObject() throws Exception {
         Class<?> dndClass =
             ReflectionUtils.getClassByName(

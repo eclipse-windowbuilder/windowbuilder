@@ -40,6 +40,7 @@ public class NoopConfigurablePropertyEditor extends TextDisplayPropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorContext context, Map<String, Object> parameters) throws Exception {
   }
 }

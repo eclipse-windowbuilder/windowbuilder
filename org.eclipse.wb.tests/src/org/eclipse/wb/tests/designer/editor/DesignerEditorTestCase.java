@@ -290,9 +290,11 @@ public class DesignerEditorTestCase extends AbstractJavaInfoRelatedTest {
     }
     // load CreationTool
     ICreationFactory factory = new ICreationFactory() {
+      @Override
       public void activate() {
       }
 
+      @Override
       public Object getNewObject() {
         return newComponent;
       }

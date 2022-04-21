@@ -200,11 +200,13 @@ public class ColorPropertyEditorTest extends XwtModelTest {
     // animate dialog
     final Property property = shell.getPropertyByTitle("background");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         ColorPropertyEditor propertyEditor = (ColorPropertyEditor) property.getEditor();
         propertyEditor.activate(null, property, null);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Color chooser");
         context.clickButton("Cancel");
@@ -219,10 +221,12 @@ public class ColorPropertyEditorTest extends XwtModelTest {
     // animate dialog
     final Property property = shell.getPropertyByTitle("background");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         openPropertyDialog(property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Color chooser");
         {
@@ -243,6 +247,7 @@ public class ColorPropertyEditorTest extends XwtModelTest {
     // animate dialog
     final Property property = shell.getPropertyByTitle("background");
     new UiContext().executeAndCheck(new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         PropertyEditorPresentation presentation = property.getEditor().getPresentation();
         ReflectionUtils.invokeMethod(
@@ -253,6 +258,7 @@ public class ColorPropertyEditorTest extends XwtModelTest {
             property);
       }
     }, new UIRunnable() {
+      @Override
       public void run(UiContext context) throws Exception {
         context.useShell("Color chooser");
         {

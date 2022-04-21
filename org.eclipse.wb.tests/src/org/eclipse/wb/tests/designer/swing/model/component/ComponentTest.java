@@ -168,6 +168,7 @@ public class ComponentTest extends SwingModelTest {
     panel.refresh();
     //
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ComponentInfo myPanel = createJavaInfo("test.MyPanel");
         ((FlowLayoutInfo) panel.getLayout()).add(myPanel, null);

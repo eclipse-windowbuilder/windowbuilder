@@ -570,6 +570,7 @@ public class AbsoluteLayoutTest extends XwtModelTest {
     {
       CompositeInfo composite = getObjectByName("composite");
       doCopyPaste(composite, new PasteProcedure<ControlInfo>() {
+        @Override
         public void run(ControlInfo copy) throws Exception {
           shell.getLayout().command_CREATE(copy, null);
         }

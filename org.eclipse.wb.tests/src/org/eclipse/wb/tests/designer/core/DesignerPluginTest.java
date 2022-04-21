@@ -49,6 +49,7 @@ public class DesignerPluginTest extends DesignerTestCase {
     final String message = "Information message";
     ILog log = DesignerPlugin.getDefault().getLog();
     ILogListener logListener = new ILogListener() {
+      @Override
       public void logging(IStatus status, String plugin) {
         assertEquals(IStatus.INFO, status.getSeverity());
         assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
@@ -70,6 +71,7 @@ public class DesignerPluginTest extends DesignerTestCase {
     final Exception exception = new Exception();
     ILog log = DesignerPlugin.getDefault().getLog();
     ILogListener logListener = new ILogListener() {
+      @Override
       public void logging(IStatus status, String plugin) {
         assertEquals(IStatus.ERROR, status.getSeverity());
         assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());

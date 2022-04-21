@@ -76,6 +76,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
     //
     m_viewer.select(shellEditPart);
     m_defaultToolProvider = new IDefaultToolProvider() {
+      @Override
       public Tool getDefaultTool() {
         return new MarqueeSelectionTool();
       }

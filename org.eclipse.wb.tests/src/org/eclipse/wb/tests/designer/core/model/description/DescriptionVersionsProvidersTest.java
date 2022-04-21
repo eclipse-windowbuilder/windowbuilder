@@ -315,11 +315,13 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
   public static class DescriptionVersionsProviderFactory_2
       implements
         IDescriptionVersionsProviderFactory {
+    @Override
     public Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
         throws Exception {
       return ImmutableMap.<String, Object>of("test.version", "2.0");
     }
 
+    @Override
     public IDescriptionVersionsProvider getProvider(IJavaProject javaProject,
         ClassLoader classLoader) throws Exception {
       return new DescriptionVersionsProvider_2();
@@ -343,11 +345,13 @@ public class DescriptionVersionsProvidersTest extends SwingModelTest {
   public static class DescriptionVersionsProviderFactory_default
       implements
         IDescriptionVersionsProviderFactory {
+    @Override
     public Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
         throws Exception {
       return ImmutableMap.<String, Object>of("test.version", "3.0");
     }
 
+    @Override
     public IDescriptionVersionsProvider getProvider(IJavaProject javaProject,
         ClassLoader classLoader) throws Exception {
       return null;

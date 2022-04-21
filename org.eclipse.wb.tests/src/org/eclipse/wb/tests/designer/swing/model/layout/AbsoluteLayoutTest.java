@@ -372,6 +372,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
         IJavaInfoInitializationParticipator {
     private static int m_initializeCount;
 
+    @Override
     public void process(JavaInfo javaInfo) throws Exception {
       if (javaInfo instanceof AbsoluteLayoutInfo) {
         m_initializeCount++;
@@ -1466,6 +1467,7 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
     }
     // add copy
     ExecutionUtils.run(panel, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ContainerInfo copy = (ContainerInfo) memento.create(panel);
         ((FlowLayoutInfo) panel.getLayout()).add(copy, null);

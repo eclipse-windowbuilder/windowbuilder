@@ -33,9 +33,11 @@ public class TreeCreateToolTest extends TreeToolTest {
     super.setUp();
     // create test factory
     ICreationFactory factory = new ICreationFactory() {
+      @Override
       public void activate() {
       }
 
+      @Override
       public Object getNewObject() {
         return "_NewObject_";
       }
@@ -58,6 +60,7 @@ public class TreeCreateToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -152,6 +155,7 @@ public class TreeCreateToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -198,6 +202,7 @@ public class TreeCreateToolTest extends TreeToolTest {
     RequestsLogger actualLogger = new RequestsLogger();
     //
     ILayoutEditPolicy ipolicy = new ILayoutEditPolicy() {
+      @Override
       public boolean isGoodReferenceChild(Request request, EditPart editPart) {
         return true;
       }
@@ -205,6 +210,7 @@ public class TreeCreateToolTest extends TreeToolTest {
     //
     TreeEditPart parent =
         addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, new ILayoutEditPolicy() {
+          @Override
           public boolean isGoodReferenceChild(Request request, EditPart editPart) {
             return !"child1".equals(editPart.getModel());
           }

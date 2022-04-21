@@ -909,14 +909,17 @@ public class AstEditorTest extends AbstractJavaTest {
     final boolean[] aboutNotified = new boolean[1];
     final boolean[] doneNotified = new boolean[1];
     m_lastEditor.setCommitListener(new IASTEditorCommitListener() {
+      @Override
       public void aboutToCommit() {
         aboutNotified[0] = true;
       }
 
+      @Override
       public boolean canEditBaseFile() {
         return true;
       }
 
+      @Override
       public void commitDone() {
         doneNotified[0] = true;
       }
@@ -938,15 +941,18 @@ public class AstEditorTest extends AbstractJavaTest {
     final boolean[] canEditNotified = new boolean[1];
     final boolean[] doneNotified = new boolean[1];
     m_lastEditor.setCommitListener(new IASTEditorCommitListener() {
+      @Override
       public void aboutToCommit() {
         aboutNotified[0] = true;
       }
 
+      @Override
       public boolean canEditBaseFile() {
         canEditNotified[0] = true;
         return canEditValue[0];
       }
 
+      @Override
       public void commitDone() {
         doneNotified[0] = true;
       }
@@ -1229,6 +1235,7 @@ public class AstEditorTest extends AbstractJavaTest {
     assertEquals(
         "new java.util.ArrayList(sizeParameter)",
         getExternalSource(fields[2], new Function<ASTNode, String>() {
+          @Override
           public String apply(ASTNode from) {
             if (m_lastEditor.getSource(from).equals("Constants.SIZE")) {
               return "sizeParameter";

@@ -37,6 +37,7 @@ public class NlsDialogTest extends AbstractDialogTest {
             "  }",
             "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(0, tabFolder.getSelectionIndex());
         assertItems(tabFolder, new String[]{"Properties"});
@@ -62,6 +63,7 @@ public class NlsDialogTest extends AbstractDialogTest {
             "  }",
             "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(2, tabFolder.getSelectionIndex());
         TabItem[] tabItems =
@@ -98,6 +100,7 @@ public class NlsDialogTest extends AbstractDialogTest {
             "  }",
             "}");
     openDialogNLS(initialSource, new NLSDialogRunnable() {
+      @Override
       public void run(UiContext context, NlsDialog dialog, TabFolder tabFolder) throws Exception {
         assertEquals(0, tabFolder.getSelectionIndex());
         TabItem[] tabItems = assertItems(tabFolder, new String[]{"test.messages", "Properties"});

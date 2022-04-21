@@ -203,14 +203,17 @@ public class FigureEventTest extends Draw2dFigureTestCase {
     // IMouseListener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void mouseDown(MouseEvent event) {
       m_logger.log("mouseDown = " + event);
     }
 
+    @Override
     public void mouseUp(MouseEvent event) {
       m_logger.log("mouseUp = " + event);
     }
 
+    @Override
     public void mouseDoubleClick(MouseEvent event) {
       m_logger.log("mouseDoubleClick = " + event);
     }
@@ -220,6 +223,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
     // IMouseMoveListener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void mouseMove(MouseEvent event) {
       m_logger.log("mouseMove = " + event);
     }
