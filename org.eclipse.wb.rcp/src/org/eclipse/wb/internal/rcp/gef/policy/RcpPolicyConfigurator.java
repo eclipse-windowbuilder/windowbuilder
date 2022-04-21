@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
  * @coverage rcp.gef.policy
  */
 public final class RcpPolicyConfigurator implements IEditPartConfigurator {
+  @Override
   public void configure(EditPart context, EditPart editPart) {
     editPart.addRequestProcessor(FieldEditorDropRequestProcessor.INSTANCE);
     // allow drop Action on MenuManager

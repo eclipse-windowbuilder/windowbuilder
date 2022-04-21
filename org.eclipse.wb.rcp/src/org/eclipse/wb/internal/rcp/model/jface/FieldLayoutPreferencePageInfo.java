@@ -48,6 +48,7 @@ public final class FieldLayoutPreferencePageInfo extends PreferencePageInfo {
     super(editor, description, creationSupport);
     // don't show FieldEditor's on design canvas (simplify layout of container Composite's)
     addBroadcastListener(new ObjectInfoChildGraphical() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof FieldEditorInfo) {
           visible[0] = false;

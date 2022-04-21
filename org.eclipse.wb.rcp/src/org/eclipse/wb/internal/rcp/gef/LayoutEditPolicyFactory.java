@@ -29,6 +29,7 @@ public final class LayoutEditPolicyFactory implements ILayoutEditPolicyFactory {
   // ILayoutEditPolicyFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
     if (model instanceof TableWrapLayoutInfo) {
       return new TableWrapLayoutEditPolicy<ControlInfo>((TableWrapLayoutInfo) model);

@@ -66,6 +66,7 @@ public final class ManagedFormInfo extends AbstractComponentInfo {
   @Override
   public Object getComponentObject() {
     return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+      @Override
       public Object runObject() throws Exception {
         return ReflectionUtils.invokeMethod2(getObject(), "getForm");
       }
@@ -80,6 +81,7 @@ public final class ManagedFormInfo extends AbstractComponentInfo {
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ManagedFormInfo.super.refresh_fetch();
       }

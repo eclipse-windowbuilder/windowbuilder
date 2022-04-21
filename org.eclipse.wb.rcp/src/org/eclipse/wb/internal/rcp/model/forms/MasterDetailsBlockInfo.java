@@ -75,6 +75,7 @@ public final class MasterDetailsBlockInfo extends AbstractComponentInfo
   private Object m_ManagedForm;
   private Composite m_ManagedFormBody;
 
+  @Override
   public void render() throws Exception {
     // execute life cycle for MasterDetailsBlock
     ReflectionUtils.invokeMethod(
@@ -82,6 +83,7 @@ public final class MasterDetailsBlockInfo extends AbstractComponentInfo
         "createContent(org.eclipse.ui.forms.IManagedForm)",
         m_ManagedForm);
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         SashForm sashForm = (SashForm) ReflectionUtils.getFieldObject(getObject(), "sashForm");
         sashForm.setWeights(new int[]{100, 1});
@@ -178,6 +180,7 @@ public final class MasterDetailsBlockInfo extends AbstractComponentInfo
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         MasterDetailsBlockInfo.super.refresh_fetch();
       }

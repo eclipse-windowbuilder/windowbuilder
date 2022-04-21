@@ -193,6 +193,7 @@ public final class AbsoluteLayoutPreferencePage extends FieldLayoutPreferencePag
   //	IWorkbenchPreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 }

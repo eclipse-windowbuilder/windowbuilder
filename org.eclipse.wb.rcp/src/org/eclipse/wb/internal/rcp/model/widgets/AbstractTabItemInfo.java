@@ -212,14 +212,17 @@ public abstract class AbstractTabItemInfo extends ItemInfo {
       final AbstractTabFolderInfo tabFolder = getFolder();
       final StatementTarget target = JavaInfoUtils.getTarget(this, control, null);
       IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+        @Override
         public void add() throws Exception {
           tabFolder.addChild(control, getNextJavaInfo());
         }
 
+        @Override
         public void move() throws Exception {
           tabFolder.moveChild(control, getNextJavaInfo());
         }
 
+        @Override
         public StatementTarget getTarget() throws Exception {
           return target;
         }

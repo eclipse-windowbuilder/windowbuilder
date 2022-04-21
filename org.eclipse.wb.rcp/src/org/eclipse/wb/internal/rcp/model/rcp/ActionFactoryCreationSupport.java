@@ -147,6 +147,7 @@ public final class ActionFactoryCreationSupport extends CreationSupport
   ////////////////////////////////////////////////////////////////////////////
   public static final Image DEFAULT_ICON = Activator.getImage("info/Action/workbench_action.gif");
 
+  @Override
   public Image getActionIcon() {
     return DEFAULT_ICON;
   }
@@ -173,6 +174,7 @@ public final class ActionFactoryCreationSupport extends CreationSupport
       enhancer.setClassLoader(editorLoader);
       enhancer.setSuperclass(class_Action);
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj,
             java.lang.reflect.Method method,
             Object[] args,
@@ -238,6 +240,7 @@ public final class ActionFactoryCreationSupport extends CreationSupport
     enhancer.setClassLoader(classLoader);
     enhancer.setSuperclass(imageDescriptorClass);
     enhancer.setCallback(new MethodInterceptor() {
+      @Override
       public Object intercept(Object obj,
           java.lang.reflect.Method method,
           Object[] args,

@@ -40,6 +40,7 @@ public final class TreeColumnInfo extends ItemInfo implements ITreeColumnInfo {
   // Edit
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setWidth(int width) throws Exception {
     getPropertyByTitle("width").setValue(width);
   }

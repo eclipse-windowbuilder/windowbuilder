@@ -192,6 +192,7 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
   private Object m_IWorkbenchWindowConfigurer;
   private Object m_IWorkbenchWindow;
 
+  @Override
   public Object evaluateParameter(EvaluationContext context,
       MethodDeclaration methodDeclaration,
       String methodSignature,
@@ -221,6 +222,7 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
             editorLoader,
             new Class<?>[]{class_IActionBarConfigurer},
             new InvocationHandler() {
+              @Override
               public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 String methodSignature = ReflectionUtils.getMethodSignature(method);
                 if (methodSignature.equals("getWindowConfigurer()")) {
@@ -240,6 +242,7 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
             editorLoader,
             new Class<?>[]{class_IWorkbenchWindowConfigurer},
             new InvocationHandler() {
+              @Override
               public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 String methodSignature = ReflectionUtils.getMethodSignature(method);
                 if (methodSignature.equals("getWindow()")) {
@@ -261,6 +264,7 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
   private Object m_menuManager;
   private Object m_coolBarManager;
 
+  @Override
   public void render() throws Exception {
     m_shell = new Shell();
     GridLayoutFactory.create(m_shell).noMargins();
@@ -345,6 +349,7 @@ public final class ActionBarAdvisorInfo extends AbstractComponentInfo
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ActionBarAdvisorInfo.super.refresh_fetch();
       }

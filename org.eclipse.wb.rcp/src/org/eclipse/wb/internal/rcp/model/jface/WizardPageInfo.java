@@ -57,6 +57,7 @@ public final class WizardPageInfo extends DialogPageInfo implements IJavaInfoRen
   private static Shell m_parentShell;
   private WizardDialog m_wizardDialog;
 
+  @Override
   public void render() throws Exception {
     ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
     // prepare Wizard

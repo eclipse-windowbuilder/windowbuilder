@@ -98,6 +98,7 @@ public final class PageLayoutCreationSupport extends CreationSupport {
     enhancer.setClassLoader(JavaInfoUtils.getClassLoader(m_javaInfo));
     enhancer.setSuperclass(m_javaInfo.getDescription().getComponentClass());
     enhancer.setCallback(new MethodInterceptor() {
+      @Override
       public Object intercept(Object obj,
           java.lang.reflect.Method method,
           Object[] args,

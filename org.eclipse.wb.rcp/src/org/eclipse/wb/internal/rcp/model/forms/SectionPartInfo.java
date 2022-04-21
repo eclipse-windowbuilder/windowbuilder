@@ -112,6 +112,7 @@ public final class SectionPartInfo extends AbstractComponentInfo
   // IThisMethodParameterEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluateParameter(EvaluationContext context,
       MethodDeclaration methodDeclaration,
       String methodSignature,
@@ -142,6 +143,7 @@ public final class SectionPartInfo extends AbstractComponentInfo
     enhancer.setClassLoader(editorLoader);
     enhancer.setSuperclass(class_FormPage);
     enhancer.setCallback(new MethodInterceptor() {
+      @Override
       public Object intercept(Object obj,
           java.lang.reflect.Method method,
           Object[] args,
@@ -276,6 +278,7 @@ public final class SectionPartInfo extends AbstractComponentInfo
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         SectionPartInfo.super.refresh_fetch();
       }
@@ -289,6 +292,7 @@ public final class SectionPartInfo extends AbstractComponentInfo
   ////////////////////////////////////////////////////////////////////////////
   private WrapperByMethod m_wrapper;
 
+  @Override
   public WrapperByMethod getWrapper() {
     if (m_wrapper == null) {
       m_wrapper = new WrapperByMethod(this, "getSection") {

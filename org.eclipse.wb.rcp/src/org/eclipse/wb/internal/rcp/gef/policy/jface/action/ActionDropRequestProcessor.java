@@ -55,9 +55,11 @@ public final class ActionDropRequestProcessor extends RequestProcessor {
       scheduleActionItemSelection(actionDropRequest);
       // prepare CreateRequest, that creates our ActionInfo
       CreateRequest createRequest = new CreateRequest(new ICreationFactory() {
+        @Override
         public void activate() throws Exception {
         }
 
+        @Override
         public Object getNewObject() {
           return action;
         }

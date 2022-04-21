@@ -63,6 +63,7 @@ public final class JFaceApplicationWizardPage extends RcpWizardPage {
   private String getTemplateName() {
     final boolean selection[] = new boolean[1];
     getShell().getDisplay().syncExec(new Runnable() {
+      @Override
       public void run() {
         selection[0] = m_toolBarButton.getSelection();
       }

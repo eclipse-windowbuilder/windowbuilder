@@ -131,6 +131,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
    */
   public boolean isBar() {
     return ExecutionUtils.runObject(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         Menu menu = (Menu) ReflectionUtils.invokeMethod2(getObject(), "getMenu");
         return ControlSupport.isStyle(menu, SWT.BAR);
@@ -146,6 +147,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
   private final IMenuItemInfo m_itemImpl = new MenuItemImpl();
   private final IMenuInfo m_menuImpl = new MenuImpl();
 
+  @Override
   public <T> T getAdapter(Class<T> adapter) {
     if (adapter.isAssignableFrom(IMenuItemInfo.class)) {
       return adapter.cast(m_itemImpl);
@@ -196,6 +198,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Model
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Object getModel() {
       return MenuManagerInfo.this;
     }
@@ -205,10 +208,12 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Presentation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Image getImage() {
       return null;
     }
 
+    @Override
     public Rectangle getBounds() {
       return MenuManagerInfo.this.getBounds();
     }
@@ -218,6 +223,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // IMenuItemInfo
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuInfo getMenu() {
       return m_menuImpl;
     }
@@ -227,6 +233,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Policy
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuPolicy getPolicy() {
       return IMenuPolicy.NOOP;
     }
@@ -247,6 +254,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Model
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Object getModel() {
       return this;
     }
@@ -256,10 +264,12 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Presentation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Image getImage() {
       return m_visualData.m_menuImage;
     }
 
+    @Override
     public Rectangle getBounds() {
       return m_visualData.m_menuBounds;
     }
@@ -269,10 +279,12 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Access
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean isHorizontal() {
       return isBar();
     }
 
+    @Override
     public List<IMenuItemInfo> getItems() {
       List<IMenuItemInfo> items = Lists.newArrayList();
       for (AbstractComponentInfo item : MenuManagerInfo.this.getItems()) {
@@ -287,6 +299,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Policy
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuPolicy getPolicy() {
       return this;
     }
@@ -296,14 +309,17 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Validation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean validateCreate(Object newObject) {
       return newObject instanceof ActionInfo || newObject instanceof IContributionItemInfo;
     }
 
+    @Override
     public boolean validatePaste(final Object mementoObject) {
       return false;
     }
 
+    @Override
     public boolean validateMove(Object object) {
       if (object instanceof IContributionItemInfo) {
         AbstractComponentInfo item = (AbstractComponentInfo) object;
@@ -319,6 +335,7 @@ public final class MenuManagerInfo extends ContributionManagerInfo
     // Operations
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void commandCreate(Object newObject, Object nextObject) throws Exception {
       AbstractComponentInfo nextItem = (AbstractComponentInfo) nextObject;
       AbstractComponentInfo newItem;
@@ -333,10 +350,12 @@ public final class MenuManagerInfo extends ContributionManagerInfo
       MenuObjectInfoUtils.setSelectingObject(newItem);
     }
 
+    @Override
     public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
       return ImmutableList.of();
     }
 
+    @Override
     public void commandMove(Object object, Object nextObject) throws Exception {
       AbstractComponentInfo item = (AbstractComponentInfo) object;
       AbstractComponentInfo nextItem = (AbstractComponentInfo) nextObject;

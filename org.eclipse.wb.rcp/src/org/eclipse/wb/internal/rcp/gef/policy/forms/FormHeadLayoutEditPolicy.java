@@ -99,6 +99,7 @@ public final class FormHeadLayoutEditPolicy extends LayoutEditPolicy {
         request,
         ControlInfo.class,
         new IPasteProcessor<ControlInfo>() {
+          @Override
           public void process(ControlInfo control) throws Exception {
             m_form.setHeadClient(control);
           }

@@ -79,6 +79,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
     }
     // prepare handle
     Handle resizeHandle = new Handle(getHost(), new ILocator() {
+      @Override
       public void relocate(Figure target) {
         // prepare bounds (relative to page)
         Rectangle bounds = m_line.getBounds().getCopy();

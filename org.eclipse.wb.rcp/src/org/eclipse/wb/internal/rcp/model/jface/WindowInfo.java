@@ -135,6 +135,7 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
   // IJavaInfoRendering
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void render() throws Exception {
     Object window = getObject();
     ReflectionUtils.invokeMethod(window, "create()");
@@ -216,6 +217,7 @@ public class WindowInfo extends AbstractComponentInfo implements IJavaInfoRender
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         WindowInfo.super.refresh_fetch();
       }

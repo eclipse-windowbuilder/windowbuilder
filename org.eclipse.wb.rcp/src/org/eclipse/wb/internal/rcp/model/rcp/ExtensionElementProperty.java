@@ -36,11 +36,13 @@ public final class ExtensionElementProperty<T> extends Property {
   ////////////////////////////////////////////////////////////////////////////
   public static final Function<String, String> IDENTITY = Functions.identity();
   public static final Function<Boolean, String> FROM_BOOLEAN = new Function<Boolean, String>() {
+    @Override
     public String apply(Boolean from) {
       return from.toString();
     }
   };
   public static final Function<String, Boolean> TO_BOOLEAN = new Function<String, Boolean>() {
+    @Override
     public Boolean apply(String from) {
       return Boolean.parseBoolean(from);
     }

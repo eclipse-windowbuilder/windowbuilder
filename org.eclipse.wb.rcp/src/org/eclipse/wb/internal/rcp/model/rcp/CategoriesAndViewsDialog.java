@@ -124,11 +124,13 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       m_viewer.setInput("myInput");
       // events
       m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           onSelectionChanged();
         }
       });
       m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+        @Override
         public void doubleClick(DoubleClickEvent event) {
           if (m_editCategoryButton.isEnabled()) {
             editCategory();
@@ -148,6 +150,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
         GridDataFactory.create(m_newCategoryButton).grabH().fillH();
         m_newCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_newCategoryButton);
         m_newCategoryButton.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             newCategory();
           }
@@ -158,6 +161,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
         GridDataFactory.create(m_editCategoryButton).grabH().fillH();
         m_editCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_editCategoryButton);
         m_editCategoryButton.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             editCategory();
           }
@@ -168,6 +172,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
         GridDataFactory.create(m_removeCategoryButton).grabH().fillH();
         m_removeCategoryButton.setText(ModelMessages.CategoriesAndViewsDialog_removeCategoryButton);
         m_removeCategoryButton.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             removeCategory();
           }
@@ -202,10 +207,12 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
    */
   private void setPluginElementComparer() {
     m_viewer.setComparer(new IElementComparer() {
+      @Override
       public int hashCode(Object element) {
         return 0;
       }
 
+      @Override
       public boolean equals(Object a, Object b) {
         if (a instanceof IPluginElement && b instanceof IPluginElement) {
           IPluginElement elementA = (IPluginElement) a;
@@ -283,6 +290,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       public boolean performDrop(Object data) {
         // update "category" attribute of moved "view"
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             if (m_target == OTHER_CATEGORY) {
               m_utils.setAttribute(dragElement[0], "category", null);
@@ -334,6 +342,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     //
     final String categoryName = inputDialog.getValue();
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         String id = m_utils.generateUniqueID(m_utils.getProject().getName() + ".category");
         IPluginElement category = m_utils.createViewCategoryElement(id, categoryName);
@@ -362,6 +371,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     }
     // update category
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_utils.setAttribute(category, "name", newName);
       }
@@ -387,6 +397,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     }
     // remove
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_utils.removeElement(element);
       }
@@ -404,12 +415,14 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
     private List<IPluginElement> m_views;
     private List<IPluginElement> m_categories;
 
+    @Override
     public Object[] getElements(Object inputElement) {
       m_views = m_utils.getExtensionElements("org.eclipse.ui.views", "view");
       m_categories = m_utils.getExtensionElements("org.eclipse.ui.views", "category");
       return ArrayUtils.add(m_categories.toArray(), OTHER_CATEGORY);
     }
 
+    @Override
     public Object[] getChildren(Object parentElement) {
       List<IPluginElement> categoryViews = Lists.newArrayList();
       //
@@ -436,6 +449,7 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       return categoryViews.toArray();
     }
 
+    @Override
     public Object getParent(Object element) {
       if (element instanceof IPluginElement) {
         IPluginElement view = (IPluginElement) element;
@@ -454,13 +468,16 @@ public class CategoriesAndViewsDialog extends ResizableDialog {
       return null;
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       return getChildren(element).length > 0;
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
 
+    @Override
     public void dispose() {
     }
   }

@@ -50,6 +50,7 @@ public final class RcpDescriptionVersionsProviderFactory
   // IDescriptionVersionsProviderFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Map<String, Object> getVersions(IJavaProject javaProject, ClassLoader classLoader)
       throws Exception {
     if (!isRCP(javaProject)) {
@@ -60,6 +61,7 @@ public final class RcpDescriptionVersionsProviderFactory
     return ImmutableMap.<String, Object>of("rcp_version", version);
   }
 
+  @Override
   public IDescriptionVersionsProvider getProvider(IJavaProject javaProject, ClassLoader classLoader)
       throws Exception {
     if (!isRCP(javaProject)) {

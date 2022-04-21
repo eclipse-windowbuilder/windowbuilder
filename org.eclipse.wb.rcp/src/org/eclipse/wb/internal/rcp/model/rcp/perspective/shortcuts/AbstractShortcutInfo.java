@@ -132,6 +132,7 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
   ////////////////////////////////////////////////////////////////////////////
   private ToolItem m_item;
 
+  @Override
   public Object render() throws Exception {
     ToolBar toolBar = m_container.getToolBar();
     m_item = new ToolItem(toolBar, SWT.NONE);

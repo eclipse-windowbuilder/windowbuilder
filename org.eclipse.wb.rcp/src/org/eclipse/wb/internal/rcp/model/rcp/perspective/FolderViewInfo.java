@@ -138,6 +138,7 @@ public final class FolderViewInfo extends AbstractComponentInfo implements IRend
   ////////////////////////////////////////////////////////////////////////////
   private CLabel m_viewLabel;
 
+  @Override
   public Object render() throws Exception {
     CTabFolder folder = m_container.getFolder();
     Composite viewsComposite = m_container.getViewsComposite();

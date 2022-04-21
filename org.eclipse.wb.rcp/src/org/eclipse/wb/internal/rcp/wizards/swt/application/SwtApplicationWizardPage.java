@@ -65,6 +65,7 @@ public final class SwtApplicationWizardPage extends RcpWizardPage {
   private String getTemplateName() {
     final boolean selection[] = new boolean[2];
     getShell().getDisplay().syncExec(new Runnable() {
+      @Override
       public void run() {
         selection[0] = m_openButton.getSelection();
         selection[1] = m_mainButton.getSelection();

@@ -89,6 +89,7 @@ final class WorkbenchWindowAdvisorPropertiesProvider {
    */
   private void addPropertyValueBroadcast() {
     m_actionBar.addBroadcastListener(new GenericPropertyGetValueEx() {
+      @Override
       public void invoke(GenericPropertyImpl property, Expression expression, Object[] value)
           throws Exception {
         if (m_properties.contains(property)) {

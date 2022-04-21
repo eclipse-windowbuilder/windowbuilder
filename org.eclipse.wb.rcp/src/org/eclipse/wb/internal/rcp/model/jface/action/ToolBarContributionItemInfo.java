@@ -46,6 +46,7 @@ public final class ToolBarContributionItemInfo extends ContributionItemInfo {
   @Override
   public Object getComponentObject() {
     return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+      @Override
       public Object runObject() throws Exception {
         ToolBarManagerInfo managerInfo = getChildren(ToolBarManagerInfo.class).get(0);
         Object manager = managerInfo.getObject();

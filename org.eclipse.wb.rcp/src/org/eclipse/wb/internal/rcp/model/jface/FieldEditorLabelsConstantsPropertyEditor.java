@@ -282,15 +282,18 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
         m_textWidget.setText(m_text);
         // add listeners
         m_textWidget.addListener(SWT.Modify, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             validateAll();
           }
         });
         m_textWidget.addListener(SWT.KeyDown, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             if (event.stateMask == SWT.CTRL && event.keyCode == 'f') {
               event.doit = false;
               ExecutionUtils.runLog(new RunnableEx() {
+                @Override
                 public void run() throws Exception {
                   editLineField();
                 }

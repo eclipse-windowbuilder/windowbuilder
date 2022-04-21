@@ -59,15 +59,18 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   // Screen shot
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void makeShots(Object controlObject) throws Exception {
     OSSupport.get().makeShots(controlObject);
   }
 
+  @Override
   public Image getShotImage(Object controlObject) throws Exception {
     Widget widget = (Widget) controlObject;
     return (Image) widget.getData(OSSupport.WBP_IMAGE);
   }
 
+  @Override
   public MenuVisualData fetchMenuVisualData(Object menuObject) throws Exception {
     Menu menu = (Menu) menuObject;
     MenuVisualData menuInfo = new MenuVisualData();
@@ -103,14 +106,17 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
     return menuInfo;
   }
 
+  @Override
   public int getDefaultMenuBarHeight() throws Exception {
     return OSSupport.get().getDefaultMenuBarHeight();
   }
 
+  @Override
   public void beginShot(Object controlObject) {
     OSSupport.get().beginShot(controlObject);
   }
 
+  @Override
   public void endShot(Object controlObject) {
     OSSupport.get().endShot(controlObject);
   }
@@ -120,10 +126,12 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   // Images
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object createToolkitImage(Image image) throws Exception {
     return image;
   }
 
+  @Override
   public Image createSWTImage(Object image) throws Exception {
     // save image to byte stream
     ImageLoader loader = new ImageLoader();
@@ -140,6 +148,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   // Shell
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void showShell(Object shellObject) throws Exception {
     final Shell shell = (Shell) shellObject;
     final Shell mainShell = DesignerPlugin.getShell();
@@ -153,6 +162,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
       public void shellActivated(ShellEvent e) {
         mainShell.removeShellListener(this);
         shell.getDisplay().asyncExec(new Runnable() {
+          @Override
           public void run() {
             shell.setVisible(false);
           }
@@ -193,6 +203,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
   public void updatePreviewFont(Object font) throws Exception {
   	m_fontPreviewShell.updateFont((Font) font);
   }*/
+  @Override
   public String[] getFontFamilies(boolean scalable) throws Exception {
     Set<String> families = Sets.newTreeSet();
     //
@@ -204,6 +215,7 @@ public final class ToolkitSupportImpl implements IToolkitSupport {
     return families.toArray(new String[families.size()]);
   }
 
+  @Override
   public Image getFontPreview(Object font) throws Exception {
     m_fontPreviewShell.updateFont((Font) font);
     return OSSupport.get().makeShot(m_fontPreviewShell);

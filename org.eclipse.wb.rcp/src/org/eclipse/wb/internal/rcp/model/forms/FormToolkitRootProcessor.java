@@ -47,6 +47,7 @@ public final class FormToolkitRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
     root.addBroadcastListener(new JavaEventListener() {
       @Override

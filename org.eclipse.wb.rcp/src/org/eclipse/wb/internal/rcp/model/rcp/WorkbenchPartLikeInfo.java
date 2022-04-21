@@ -85,6 +85,7 @@ public abstract class WorkbenchPartLikeInfo extends AbstractComponentInfo
   private Shell m_shell;
   protected CTabFolder m_tabFolder;
 
+  @Override
   public void render() throws Exception {
     m_shell = new Shell();
     m_shell.setLayout(new FillLayout());
@@ -166,6 +167,7 @@ public abstract class WorkbenchPartLikeInfo extends AbstractComponentInfo
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         WorkbenchPartLikeInfo.super.refresh_fetch();
       }

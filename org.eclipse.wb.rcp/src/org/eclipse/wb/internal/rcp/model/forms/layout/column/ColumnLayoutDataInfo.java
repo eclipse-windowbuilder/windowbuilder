@@ -40,10 +40,12 @@ public final class ColumnLayoutDataInfo extends LayoutDataInfo implements IColum
   // Size
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setWidthHint(int widthHint) throws Exception {
     getPropertyByTitle("widthHint").setValue(widthHint);
   }
 
+  @Override
   public void setHeightHint(int heightHint) throws Exception {
     getPropertyByTitle("heightHint").setValue(heightHint);
   }
@@ -53,10 +55,12 @@ public final class ColumnLayoutDataInfo extends LayoutDataInfo implements IColum
   // Alignment
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getHorizontalAlignment() throws Exception {
     return (Integer) getPropertyByTitle("horizontalAlignment").getValue();
   }
 
+  @Override
   public void setHorizontalAlignment(int horizontalAlignment) throws Exception {
     getPropertyByTitle("horizontalAlignment").setValue(horizontalAlignment);
   }

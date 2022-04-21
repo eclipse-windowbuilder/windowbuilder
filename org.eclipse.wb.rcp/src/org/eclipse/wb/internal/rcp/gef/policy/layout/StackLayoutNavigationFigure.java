@@ -43,9 +43,11 @@ public final class StackLayoutNavigationFigure extends Figure {
   public StackLayoutNavigationFigure(StackLayoutSelectionEditPolicy<?> policy) {
     m_policy = policy;
     addMouseListener(new IMouseListener() {
+      @Override
       public void mouseUp(MouseEvent event) {
       }
 
+      @Override
       public void mouseDown(MouseEvent event) {
         event.consume();
         if (event.x < WIDTH) {
@@ -55,6 +57,7 @@ public final class StackLayoutNavigationFigure extends Figure {
         }
       }
 
+      @Override
       public void mouseDoubleClick(MouseEvent event) {
       }
     });

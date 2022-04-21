@@ -118,6 +118,7 @@ public final class WizardWizardPage extends RcpWizardPage {
             WizardsMessages.WizardWizardPage_upButton,
             WizardsMessages.WizardWizardPage_downButton};
     IListAdapter adapter = new IListAdapter() {
+      @Override
       public void customButtonPressed(ListDialogField field, int index) {
         if (index == 0) {
           Shell shell = getShell();
@@ -133,9 +134,11 @@ public final class WizardWizardPage extends RcpWizardPage {
         }
       }
 
+      @Override
       public void doubleClicked(ListDialogField field) {
       }
 
+      @Override
       public void selectionChanged(ListDialogField field) {
       }
     };

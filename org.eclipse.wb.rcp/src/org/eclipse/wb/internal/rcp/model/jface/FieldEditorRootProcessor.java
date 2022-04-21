@@ -51,6 +51,7 @@ public final class FieldEditorRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
     // configure palette for using {@link FieldEditor_Info}
     if (root.getDescription().getToolkit() == ToolkitProvider.DESCRIPTION) {

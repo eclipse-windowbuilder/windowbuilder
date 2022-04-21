@@ -47,6 +47,7 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
   // Rendering
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void render() throws Exception {
     m_shell = ContainerSupport.createShell();
     ContainerSupport.setFillLayout(m_shell);
@@ -78,6 +79,7 @@ public class DialogPageImplInfo extends DialogPageInfo implements IJavaInfoRende
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         DialogPageImplInfo.super.refresh_fetch();
       }

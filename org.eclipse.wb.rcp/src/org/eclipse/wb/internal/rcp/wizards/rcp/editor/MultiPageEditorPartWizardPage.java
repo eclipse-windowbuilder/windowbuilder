@@ -155,6 +155,7 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
             WizardsMessages.MultiPageEditorPartWizardPage_upButton,
             WizardsMessages.MultiPageEditorPartWizardPage_downButton};
     IListAdapter adapter = new IListAdapter() {
+      @Override
       public void customButtonPressed(ListDialogField field, int index) {
         if (index == 0) {
           Shell shell = getShell();
@@ -167,9 +168,11 @@ public final class MultiPageEditorPartWizardPage extends RcpPartWizardPage {
         }
       }
 
+      @Override
       public void doubleClicked(ListDialogField field) {
       }
 
+      @Override
       public void selectionChanged(ListDialogField field) {
       }
     };

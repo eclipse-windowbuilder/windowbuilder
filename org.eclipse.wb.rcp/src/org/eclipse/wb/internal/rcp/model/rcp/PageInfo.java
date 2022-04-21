@@ -70,6 +70,7 @@ public final class PageInfo extends ViewPartLikeInfo {
             editorLoader,
             new Class<?>[]{pageSiteClass},
             new InvocationHandler() {
+              @Override
               public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 String signature = ReflectionUtils.getMethodSignature(method);
                 if (signature.equals("getActionBars()")) {

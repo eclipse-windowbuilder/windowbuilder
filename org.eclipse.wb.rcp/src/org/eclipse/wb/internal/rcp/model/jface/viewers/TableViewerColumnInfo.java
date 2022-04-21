@@ -82,6 +82,7 @@ public final class TableViewerColumnInfo extends ViewerColumnInfo {
         final ASTNode node = (ASTNode) getValue();
         if (node != null) {
           ExecutionUtils.run(m_this, new RunnableEx() {
+            @Override
             public void run() throws Exception {
               m_this.getEditor().removeEnclosingStatement(node);
             }

@@ -72,6 +72,7 @@ public final class AbstractPositionInfo extends ObjectInfo {
         return Activator.getImage("info/position/element_transparent.png");
       }
 
+      @Override
       public String getText() throws Exception {
         return m_method;
       }

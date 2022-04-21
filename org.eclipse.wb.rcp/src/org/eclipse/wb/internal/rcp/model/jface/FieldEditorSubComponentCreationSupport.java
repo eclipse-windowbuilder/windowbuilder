@@ -79,6 +79,7 @@ public final class FieldEditorSubComponentCreationSupport extends CreationSuppor
     super.setJavaInfo(javaInfo);
     // evaluation
     m_fieldEditor.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object o) throws Exception {
         if (target == m_fieldEditor) {
           Object object = getObject();
@@ -90,6 +91,7 @@ public final class FieldEditorSubComponentCreationSupport extends CreationSuppor
     m_javaInfo.setObject(getObject());
     // icon decorator
     m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+      @Override
       public void invoke(ObjectInfo object, Image[] icon) throws Exception {
         if (object == m_javaInfo) {
           Image decorator = DesignerPlugin.getImage("exposed/decorator.gif");
@@ -158,11 +160,13 @@ public final class FieldEditorSubComponentCreationSupport extends CreationSuppor
   // IClipboardImplicitCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IClipboardImplicitCreationSupport getImplicitClipboard() {
     final String getMethodSignature = m_getMethodSignature;
     return new IClipboardImplicitCreationSupport() {
       private static final long serialVersionUID = 0L;
 
+      @Override
       public JavaInfo find(JavaInfo host) throws Exception {
         for (JavaInfo child : host.getChildrenJava()) {
           if (child.getCreationSupport() instanceof FieldEditorSubComponentCreationSupport) {

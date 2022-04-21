@@ -57,6 +57,7 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
   @Override
   public Image getIcon() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+      @Override
       public Image runObject() throws Exception {
         return m_action.getPresentation().getIcon();
       }

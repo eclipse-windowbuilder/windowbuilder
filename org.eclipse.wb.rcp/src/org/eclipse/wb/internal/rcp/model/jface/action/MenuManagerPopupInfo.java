@@ -56,6 +56,7 @@ public final class MenuManagerPopupInfo extends JavaMenuMenuObject implements IM
   // Model
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getModel() {
     return m_manager;
   }
@@ -65,10 +66,12 @@ public final class MenuManagerPopupInfo extends JavaMenuMenuObject implements IM
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return null;
   }
 
+  @Override
   public Rectangle getBounds() {
     return m_bounds;
   }
@@ -78,6 +81,7 @@ public final class MenuManagerPopupInfo extends JavaMenuMenuObject implements IM
   // IMenuPopupInfo
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IMenuInfo getMenu() {
     return MenuObjectInfoUtils.getMenuInfo(m_manager);
   }
@@ -87,6 +91,7 @@ public final class MenuManagerPopupInfo extends JavaMenuMenuObject implements IM
   // Policy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IMenuPolicy getPolicy() {
     return getMenu().getPolicy();
   }

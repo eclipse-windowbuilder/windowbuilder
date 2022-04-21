@@ -68,6 +68,7 @@ public final class ActionContainerInfo extends ObjectInfo {
   @Override
   public IObjectPresentation getPresentation() {
     return new DefaultObjectPresentation(this) {
+      @Override
       public String getText() throws Exception {
         return "(actions)";
       }
@@ -194,6 +195,7 @@ public final class ActionContainerInfo extends ObjectInfo {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(CreationSupport.class);
         enhancer.setCallback(new MethodInterceptor() {
+          @Override
           public Object intercept(Object obj,
               java.lang.reflect.Method method,
               Object[] args,

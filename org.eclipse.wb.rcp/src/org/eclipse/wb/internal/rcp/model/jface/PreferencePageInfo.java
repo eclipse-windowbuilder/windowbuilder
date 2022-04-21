@@ -53,6 +53,7 @@ public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRende
   Object getShell() {
     if (m_shell == null) {
       return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+        @Override
         public Object runObject() throws Exception {
           return ReflectionUtils.invokeMethod(m_preferenceDialog, "getShell()");
         }
@@ -69,6 +70,7 @@ public class PreferencePageInfo extends DialogPageInfo implements IJavaInfoRende
   private static Object m_parentShell;
   private Object m_preferenceDialog;
 
+  @Override
   public void render() throws Exception {
     ClassLoader editorLoader = JavaInfoUtils.getClassLoader(this);
     // prepare PreferenceNode

@@ -102,6 +102,7 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
             editorLoader,
             new Class<?>[]{actionBarsClass},
             new InvocationHandler() {
+              @Override
               public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 if (ReflectionUtils.getMethodSignature(method).equals("getToolBarManager()")) {
                   return m_toolBarManager;
@@ -148,6 +149,7 @@ public abstract class ViewPartLikeInfo extends WorkbenchPartLikeInfo {
         @Override
         public void widgetSelected(SelectionEvent e) {
           ExecutionUtils.runLog(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               org.eclipse.swt.graphics.Rectangle bounds = m_menuToolItem.getBounds();
               org.eclipse.swt.graphics.Point bottomLeft =

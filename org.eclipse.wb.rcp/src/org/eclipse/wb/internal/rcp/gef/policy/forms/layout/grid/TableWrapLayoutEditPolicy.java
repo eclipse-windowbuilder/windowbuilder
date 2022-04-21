@@ -150,6 +150,7 @@ public final class TableWrapLayoutEditPolicy<C extends IControlInfo>
     return GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
         new IPasteComponentProcessor() {
+          @Override
           public void process(Object component) throws Exception {
             m_layout.command_CREATE(
                 toControl(component),
@@ -407,6 +408,7 @@ public final class TableWrapLayoutEditPolicy<C extends IControlInfo>
   // IHeadersProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LayoutEditPolicy getContainerLayoutPolicy(boolean horizontal) {
     if (horizontal) {
       return new ColumnsLayoutEditPolicy<C>(this, m_layout);
@@ -415,10 +417,12 @@ public final class TableWrapLayoutEditPolicy<C extends IControlInfo>
     }
   }
 
+  @Override
   public List<?> getHeaders(boolean horizontal) {
     return horizontal ? m_layout.getColumns() : m_layout.getRows();
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public EditPart createHeaderEditPart(boolean horizontal, Object model) {
     if (horizontal) {
@@ -428,9 +432,11 @@ public final class TableWrapLayoutEditPolicy<C extends IControlInfo>
     }
   }
 
+  @Override
   public void buildContextMenu(IMenuManager manager, boolean horizontal) {
   }
 
+  @Override
   public void handleDoubleClick(boolean horizontal) {
   }
 }
