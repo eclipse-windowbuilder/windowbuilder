@@ -214,6 +214,7 @@ public final class ConstructorCreationSupport extends CreationSupport
     return m_creation;
   }
 
+  @Override
   public CreationSupport getLiveComponentCreation() {
     return new ConstructorCreationSupport(m_creationId, m_addInvocations);
   }

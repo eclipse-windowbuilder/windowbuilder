@@ -63,10 +63,12 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return DesignerPlugin.getImage("folder_package.gif");
   }
 
+  @Override
   public String getName() {
     return m_packageFragmentRoot.getElementName();
   }
@@ -76,6 +78,7 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageContainer[] elements() {
     return m_packageContainers;
   }
@@ -85,10 +88,12 @@ final class SrcImageContainer implements IImageContainer, IClasspathImageContain
   // Internal access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isEmpty() {
     return m_packageContainers.length == 0;
   }
 
+  @Override
   public void dispose() {
     for (SrcPackageImageContainer container : m_packageContainers) {
       container.dispose();

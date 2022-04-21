@@ -101,6 +101,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
   //
   ////////////////////////////////////////////////////////////////////////////
   protected final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
+    @Override
     public void dialogFieldChanged(DialogField field) {
       validateAll();
     }
@@ -213,6 +214,7 @@ public abstract class AbstractFieldsSourceNewComposite extends AbstractSourceNew
       // create class field
       {
         m_classField = new StringButtonDialogField(new IStringButtonAdapter() {
+          @Override
           public void changeControlPressed(DialogField field) {
             try {
               // prepare dialog parameters

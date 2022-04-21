@@ -50,11 +50,13 @@ final class SrcImageResource implements IImageResource {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     ImageInfo imageInfo = getImageInfo();
     return imageInfo != null ? imageInfo.getImage() : null;
   }
 
+  @Override
   public String getName() {
     return m_file.getFullPath().lastSegment();
   }
@@ -66,6 +68,7 @@ final class SrcImageResource implements IImageResource {
   ////////////////////////////////////////////////////////////////////////////
   private ImageInfo m_imageInfo;
 
+  @Override
   public ImageInfo getImageInfo() {
     if (m_imageInfo == null) {
       try {

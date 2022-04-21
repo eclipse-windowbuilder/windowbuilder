@@ -80,16 +80,19 @@ public final class ClasspathImageRoot implements IImageRoot {
   // IImageRoot
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dispose() {
     for (IClasspathImageContainer container : m_containers) {
       container.dispose();
     }
   }
 
+  @Override
   public IClasspathImageContainer[] elements() {
     return m_containers;
   }
 
+  @Override
   public Object[] getSelectionPath(Object data) {
     if (data instanceof String) {
       // prepare path

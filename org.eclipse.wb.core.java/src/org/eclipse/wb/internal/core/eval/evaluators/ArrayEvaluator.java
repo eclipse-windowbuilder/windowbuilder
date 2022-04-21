@@ -40,6 +40,7 @@ public final class ArrayEvaluator implements IExpressionEvaluator {
   // IExpressionEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluate(EvaluationContext context,
       Expression expression,
       ITypeBinding typeBinding,

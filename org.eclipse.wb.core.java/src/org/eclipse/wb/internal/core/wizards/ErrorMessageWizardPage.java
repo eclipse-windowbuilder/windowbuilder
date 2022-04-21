@@ -37,6 +37,7 @@ public class ErrorMessageWizardPage extends WizardPage {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createControl(Composite parent) {
     Composite composite = new Composite(parent, SWT.NONE);
     setControl(composite);

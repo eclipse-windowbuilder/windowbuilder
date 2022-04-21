@@ -35,6 +35,7 @@ public final class GenericContainersLayoutEditPolicyFactory implements ILayoutEd
   // ILayoutEditPolicyFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
     if (model instanceof JavaInfo) {
       JavaInfo layout = (JavaInfo) model;

@@ -53,6 +53,7 @@ final class NonVisualValidator implements ILayoutRequestValidator {
   // Create/Paste
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateCreateRequest(EditPart host, CreateRequest request) {
     if (!acceptDropNonVisualBeans()) {
       return false;
@@ -60,6 +61,7 @@ final class NonVisualValidator implements ILayoutRequestValidator {
     final Object newObject = request.getNewObject();
     if (newObject instanceof JavaInfo) {
       return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+        @Override
         public Boolean runObject() throws Exception {
           JavaInfo newInfo = (JavaInfo) newObject;
           return validateJavaInfo(newInfo);
@@ -69,11 +71,13 @@ final class NonVisualValidator implements ILayoutRequestValidator {
     return false;
   }
 
+  @Override
   public boolean validatePasteRequest(EditPart host, final PasteRequest request) {
     if (!acceptDropNonVisualBeans()) {
       return false;
     }
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       @SuppressWarnings("unchecked")
       public Boolean runObject() throws Exception {
         List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
@@ -91,10 +95,12 @@ final class NonVisualValidator implements ILayoutRequestValidator {
   // Add/Move
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateAddRequest(EditPart host, ChangeBoundsRequest request) {
     return validateMoveRequest(host, request);
   }
 
+  @Override
   public boolean validateMoveRequest(EditPart host, ChangeBoundsRequest request) {
     for (EditPart part : request.getEditParts()) {
       if (!(part instanceof NonVisualBeanEditPart)) {

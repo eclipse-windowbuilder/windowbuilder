@@ -233,6 +233,7 @@ public abstract class AbstractMorphingSupport<T extends ObjectInfo> {
       // do morph
       {
         RunnableEx runnable = new RunnableEx() {
+          @Override
           public void run() throws Exception {
             morph(target);
           }

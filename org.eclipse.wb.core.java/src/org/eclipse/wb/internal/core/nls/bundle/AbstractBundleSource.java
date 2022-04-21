@@ -75,6 +75,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Usual key generator for *.properties files based sources.
    */
   public static final IKeyGeneratorStrategy KEY_GENERATOR = new IKeyGeneratorStrategy() {
+    @Override
     public final String generateBaseKey(JavaInfo component, GenericProperty property) {
       String typeName = getTypeName(component);
       String componentName = component.getVariableSupport().getComponentName();
@@ -85,6 +86,7 @@ public abstract class AbstractBundleSource extends AbstractSource {
    * Usual key rename strategy.
    */
   public static final IKeyRenameStrategy KEY_RENAME = new IKeyRenameStrategy() {
+    @Override
     public String getNewKey(String oldName, String newName, String oldKey) {
       if (oldName != null && oldKey.contains(oldName)) {
         String newKey = oldKey;

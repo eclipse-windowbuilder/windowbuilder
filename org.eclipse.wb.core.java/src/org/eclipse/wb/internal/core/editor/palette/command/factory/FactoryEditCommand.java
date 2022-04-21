@@ -70,6 +70,7 @@ public final class FactoryEditCommand extends FactoryAbstractCommand {
   @Override
   public void addToCommandList(final List<Command> commands) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         removeCommands(commands, FactoryEditCommand.class, m_id);
       }

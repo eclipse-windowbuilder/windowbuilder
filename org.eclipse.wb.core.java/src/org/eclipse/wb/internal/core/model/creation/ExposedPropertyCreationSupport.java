@@ -65,6 +65,7 @@ public final class ExposedPropertyCreationSupport extends CreationSupport
     // add listeners to remove/add exposed component when "setXXX()" added/removed
     if (setMethod != null) {
       m_hostJavaInfo.addBroadcastListener(new JavaInfoMethodAssociationOnParse() {
+        @Override
         public void invoke(JavaInfo parent, JavaInfo child, MethodDescription methodDescription)
             throws Exception {
           if (parent == m_hostJavaInfo) {
@@ -114,6 +115,7 @@ public final class ExposedPropertyCreationSupport extends CreationSupport
     super.setJavaInfo(javaInfo);
     // evaluation
     m_hostJavaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object o) throws Exception {
         if (target == m_hostJavaInfo) {
           if (m_javaInfo.getObject() == null) {
@@ -134,6 +136,7 @@ public final class ExposedPropertyCreationSupport extends CreationSupport
     });
     // icon decorator
     m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+      @Override
       public void invoke(ObjectInfo object, Image[] icon) throws Exception {
         if (object == m_javaInfo) {
           Image decorator = DesignerPlugin.getImage("exposed/decorator.gif");
@@ -168,6 +171,7 @@ public final class ExposedPropertyCreationSupport extends CreationSupport
   /**
    * @return the {@link JavaInfo} that exposes this {@link JavaInfo}.
    */
+  @Override
   public JavaInfo getHostJavaInfo() {
     return m_hostJavaInfo;
   }
@@ -182,6 +186,7 @@ public final class ExposedPropertyCreationSupport extends CreationSupport
   /**
    * @return <code>true</code> if this {@link JavaInfo} is direct child of host {@link JavaInfo}.
    */
+  @Override
   public boolean isDirect() {
     return m_direct;
   }
@@ -218,11 +223,13 @@ public final class ExposedPropertyCreationSupport extends CreationSupport
   // IClipboardImplicitCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IClipboardImplicitCreationSupport getImplicitClipboard() {
     final String getMethodSignature = m_getMethodSignature;
     return new IClipboardImplicitCreationSupport() {
       private static final long serialVersionUID = 0L;
 
+      @Override
       public JavaInfo find(JavaInfo host) throws Exception {
         for (JavaInfo child : host.getChildrenJava()) {
           if (child.getCreationSupport() instanceof ExposedPropertyCreationSupport) {

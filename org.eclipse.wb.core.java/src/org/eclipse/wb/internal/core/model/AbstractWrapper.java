@@ -43,6 +43,7 @@ public abstract class AbstractWrapper implements IWrapper {
   /**
    * @return wrapper {@link JavaInfo}.
    */
+  @Override
   public JavaInfo getWrapperInfo() {
     return m_wrapperInfo;
   }
@@ -50,6 +51,7 @@ public abstract class AbstractWrapper implements IWrapper {
   /**
    * @return wrapped {@link JavaInfo}.
    */
+  @Override
   public JavaInfo getWrappedInfo() throws Exception {
     if (m_wrappedInfo == null) {
       m_wrappedInfo =

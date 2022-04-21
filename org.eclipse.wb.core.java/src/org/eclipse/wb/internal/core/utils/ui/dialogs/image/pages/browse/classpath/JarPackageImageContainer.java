@@ -43,6 +43,7 @@ final class JarPackageImageContainer extends AbstractJarImageElement implements 
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageElement[] elements() {
     return m_imageEntryList.toArray(new IImageElement[m_imageEntryList.size()]);
   }
@@ -52,10 +53,12 @@ final class JarPackageImageContainer extends AbstractJarImageElement implements 
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE);
   }
 
+  @Override
   public String getName() {
     return m_entryPath.toString().replace('/', '.');
   }

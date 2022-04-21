@@ -45,6 +45,7 @@ public class LayoutPolicyUtils2 {
     @SuppressWarnings("unchecked")
     final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Command>() {
+      @Override
       public Command runObject() throws Exception {
         // prepare models
         final List<JavaInfo> components;

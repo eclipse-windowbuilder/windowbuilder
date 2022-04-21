@@ -360,6 +360,7 @@ public final class ThisCreationSupport extends CreationSupport {
     m_enhancer.setClassLoader(getClassLoader());
     m_enhancer.setSuperclass(componentClass);
     Callback interceptor = new MethodInterceptor() {
+      @Override
       public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
           throws Throwable {
         // if not in AST execution, then ignore
@@ -423,6 +424,7 @@ public final class ThisCreationSupport extends CreationSupport {
    * Filter for intercepting {@link Method}'s. One instance of filter should be used.
    */
   private static final CallbackFilter ENHANCER_FILTER = new CallbackFilter() {
+    @Override
     public int accept(Method method) {
       // ignore inaccessible methods
       if (ReflectionUtils.isPrivate(method) || ReflectionUtils.isPackagePrivate(method)) {
@@ -461,6 +463,7 @@ public final class ThisCreationSupport extends CreationSupport {
     }
     // use as Predicate
     return new Predicate<Method>() {
+      @Override
       public boolean apply(Method method) {
         String declaringClassName = method.getDeclaringClass().getName();
         String declaringPackage = CodeUtils.getPackage(declaringClassName);

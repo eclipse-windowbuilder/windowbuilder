@@ -419,6 +419,7 @@ public class FactoryDescriptionHelper {
    */
   public static boolean isFactoryClass(final AstEditor editor, final String typeName) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         ClassLoader classLoader = EditorState.get(editor).getEditorLoader();
         Class<?> clazz = classLoader.loadClass(typeName);
@@ -435,6 +436,7 @@ public class FactoryDescriptionHelper {
   public static boolean isFactoryInvocation(final AstEditor editor,
       final MethodInvocation invocation) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         IMethodBinding methodBinding = AstNodeUtils.getMethodBinding(invocation);
         Class<?> factoryClass = getFactoryClass(methodBinding);

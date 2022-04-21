@@ -68,10 +68,12 @@ final class SrcPackageImageContainer implements IImageContainer {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE);
   }
 
+  @Override
   public String getName() {
     return m_packageFragment.getElementName();
   }
@@ -81,6 +83,7 @@ final class SrcPackageImageContainer implements IImageContainer {
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageElement[] elements() {
     return m_resources;
   }

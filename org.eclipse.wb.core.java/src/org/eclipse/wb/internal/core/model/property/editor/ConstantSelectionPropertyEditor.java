@@ -195,6 +195,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     m_typeName = (String) parameters.get("type");
     Assert.isNotNull(m_typeName, "'type' attribute in %s.", parameters);
@@ -260,6 +261,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
     }
     // sort fields by name
     Collections.sort(fields, new Comparator<IField>() {
+      @Override
       public int compare(IField field1, IField field2) {
         return field1.getElementName().compareTo(field2.getElementName());
       }
@@ -491,6 +493,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
           m_typesViewer.setInput(new Object());
           // set listeners
           m_typesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+            @Override
             public void selectionChanged(SelectionChangedEvent e) {
               onTypeSelected();
             }
@@ -510,6 +513,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
           m_filterText = new Text(group, SWT.BORDER);
           GridDataFactory.create(m_filterText).grabH().fillH();
           m_filterText.addModifyListener(new ModifyListener() {
+            @Override
             public void modifyText(ModifyEvent e) {
               onFilterModify();
             }
@@ -527,6 +531,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
           m_fieldsViewer.addFilter(new FieldFilter());
           // set listeners
           m_fieldsViewer.addOpenListener(new IOpenListener() {
+            @Override
             public void open(OpenEvent e) {
               okPressed();
             }
@@ -535,6 +540,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
       }
       // initialize selection in viewer's
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           if (m_currentType != null) {
             m_typesViewer.setSelection(new StructuredSelection(m_currentType));
@@ -618,6 +624,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
       m_fieldsViewer.setInput(type);
       // select current IField
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           if (m_currentField != null) {
             m_fieldsViewer.setSelection(new StructuredSelection(m_currentField));
@@ -641,6 +648,7 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
      */
     private void onAddType() {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           IJavaProject javaProject = m_javaInfo.getEditor().getJavaProject();
           IType type = JdtUiUtils.selectType(getShell(), javaProject);
@@ -666,8 +674,10 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
     //
     ////////////////////////////////////////////////////////////////////////////
     private class TypeContentProvider implements IStructuredContentProvider {
+      @Override
       public Object[] getElements(Object inputElement) {
         return ExecutionUtils.runObject(new RunnableObjectEx<Object[]>() {
+          @Override
           public Object[] runObject() throws Exception {
             Set<IType> types = Sets.newHashSet();
             types.addAll(m_additionalTypes);
@@ -678,9 +688,11 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
         });
       }
 
+      @Override
       public void dispose() {
       }
 
+      @Override
       public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       }
     }
@@ -690,18 +702,22 @@ public final class ConstantSelectionPropertyEditor extends AbstractComboProperty
     //
     ////////////////////////////////////////////////////////////////////////////
     private class FieldContentProvider implements IStructuredContentProvider {
+      @Override
       public Object[] getElements(Object inputElement) {
         final IType type = (IType) inputElement;
         return ExecutionUtils.runObject(new RunnableObjectEx<Object[]>() {
+          @Override
           public Object[] runObject() throws Exception {
             return getFields(type).toArray();
           }
         });
       }
 
+      @Override
       public void dispose() {
       }
 
+      @Override
       public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       }
     }

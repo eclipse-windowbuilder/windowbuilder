@@ -88,6 +88,7 @@ final class ReorderDialog extends ResizableDialog {
     // reorder viewer
     m_viewer = CheckboxTableViewer.newCheckList(container, SWT.FULL_SELECTION | SWT.BORDER);
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent e) {
         do_viewer_selectionChanged();
       }

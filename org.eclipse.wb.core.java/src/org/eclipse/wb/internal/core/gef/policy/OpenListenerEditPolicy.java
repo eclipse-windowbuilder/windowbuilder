@@ -65,6 +65,7 @@ public final class OpenListenerEditPolicy extends EditPolicy {
   public void performRequest(Request request) {
     if (!StringUtils.isEmpty(m_listenerName) && Request.REQ_OPEN.equals(request.getType())) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           EventsProperty eventsProperty = (EventsProperty) m_javaInfo.getPropertyByTitle("Events");
           eventsProperty.openStubMethod(m_listenerName);

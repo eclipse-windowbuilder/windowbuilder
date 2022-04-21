@@ -63,6 +63,7 @@ public class WrapperMethodControlCreationSupport extends CreationSupport
   /**
    * @return the {@link JavaInfo} that wraps this {@link JavaInfo}.
    */
+  @Override
   public final JavaInfo getWrapperInfo() {
     return m_wrapper.getWrapperInfo();
   }
@@ -71,6 +72,7 @@ public class WrapperMethodControlCreationSupport extends CreationSupport
   public void setJavaInfo(JavaInfo javaInfo) throws Exception {
     super.setJavaInfo(javaInfo);
     m_javaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object o) throws Exception {
         if (target == m_wrapper.getWrapperInfo()) {
           Object object = m_wrapper.getControlMethod().invoke(o);

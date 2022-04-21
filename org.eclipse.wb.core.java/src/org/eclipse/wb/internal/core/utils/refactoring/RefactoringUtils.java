@@ -291,15 +291,18 @@ public class RefactoringUtils {
     // IRangeComparator
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public int getRangeCount() {
       return m_string.length();
     }
 
+    @Override
     public boolean rangesEqual(int thisIndex, IRangeComparator other, int otherIndex) {
       StringRangeComparator otherComparator = (StringRangeComparator) other;
       return m_string.charAt(thisIndex) == otherComparator.m_string.charAt(otherIndex);
     }
 
+    @Override
     public boolean skipRangeComparison(int length, int maxLength, IRangeComparator other) {
       return false;
     }

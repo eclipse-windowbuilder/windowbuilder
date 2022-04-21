@@ -91,6 +91,7 @@ public final class TabOrderTool extends TargetingTool {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
+    @Override
     public void selectionChanged(SelectionChangedEvent event) {
       // we can receive selection change event during changing to new container, ignore it
       if (m_changingContainer) {

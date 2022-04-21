@@ -235,6 +235,7 @@ public abstract class MorphingSupport<T extends JavaInfo> extends AbstractMorphi
         if (ReflectionUtils.getConstructorBySignature(targetClass, signature) != null) {
           final ClassInstanceCreation creationNode = constructorCreation.getCreation();
           String source = m_editor.getExternalSource(creationNode, new Function<ASTNode, String>() {
+            @Override
             public String apply(ASTNode from) {
               if (from == creationNode.getType()) {
                 return targetClass.getName();

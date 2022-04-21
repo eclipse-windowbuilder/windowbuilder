@@ -183,6 +183,7 @@ public final class RenameConvertSupport {
     if (!m_commands.isEmpty()) {
       JavaInfo anyComponent = m_components.iterator().next();
       ExecutionUtils.run(anyComponent, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           for (RenameCommand command : m_commands.values()) {
             command.execute();
@@ -383,6 +384,7 @@ public final class RenameConvertSupport {
         nameText.setText(variableSupport.getName());
         // listener
         nameText.addListener(SWT.Modify, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             getCommand(javaInfo).setName(nameText.getText());
             validateAll();
@@ -405,6 +407,7 @@ public final class RenameConvertSupport {
           toolItem.setSelection(variableSupport instanceof LocalVariableSupport);
           // listener
           toolItem.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               getCommand(javaInfo).toLocal();
             }
@@ -418,6 +421,7 @@ public final class RenameConvertSupport {
           toolItem.setSelection(variableSupport instanceof FieldVariableSupport);
           // listener
           toolItem.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               getCommand(javaInfo).toField();
             }

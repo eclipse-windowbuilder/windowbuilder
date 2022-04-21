@@ -58,6 +58,7 @@ public final class SubtypesScope implements IJavaSearchScope {
   // Enclosing
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean encloses(String resourcePath) {
     // prepare name of class, without leading "jar" path
     String classPath = resourcePath;
@@ -71,6 +72,7 @@ public final class SubtypesScope implements IJavaSearchScope {
     return m_enclosingResourcePaths.contains(classPath);
   }
 
+  @Override
   public boolean encloses(IJavaElement element) {
     IType type = (IType) element.getAncestor(IJavaElement.TYPE);
     if (type != null) {
@@ -79,6 +81,7 @@ public final class SubtypesScope implements IJavaSearchScope {
     return false;
   }
 
+  @Override
   public IPath[] enclosingProjectsAndJars() {
     return m_hierarchyScope.enclosingProjectsAndJars();
   }
@@ -88,18 +91,22 @@ public final class SubtypesScope implements IJavaSearchScope {
   // Unused methods
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean includesBinaries() {
     return m_hierarchyScope.includesBinaries();
   }
 
+  @Override
   public boolean includesClasspaths() {
     return m_hierarchyScope.includesClasspaths();
   }
 
+  @Override
   public void setIncludesBinaries(boolean includesBinaries) {
     m_hierarchyScope.setIncludesBinaries(includesBinaries);
   }
 
+  @Override
   public void setIncludesClasspaths(boolean includesClasspaths) {
     m_hierarchyScope.setIncludesClasspaths(includesClasspaths);
   }

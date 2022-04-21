@@ -38,6 +38,7 @@ public final class InstanceFactoryRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
     for (JavaInfo javaInfo : components) {
       if (javaInfo instanceof InstanceFactoryInfo) {

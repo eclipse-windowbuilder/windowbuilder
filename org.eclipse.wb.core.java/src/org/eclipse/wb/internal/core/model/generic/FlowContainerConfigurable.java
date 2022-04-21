@@ -45,10 +45,12 @@ public final class FlowContainerConfigurable implements FlowContainer {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isHorizontal() {
     return m_configuration.getHorizontalPredicate().apply(m_container);
   }
 
+  @Override
   public boolean isRtl() {
     return m_configuration.getRtlPredicate().apply(m_container);
   }
@@ -62,10 +64,12 @@ public final class FlowContainerConfigurable implements FlowContainer {
   // Validation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean validateComponent(Object component) {
     return m_configuration.getComponentValidator().validate(m_container, component);
   }
 
+  @Override
   public boolean validateReference(Object reference) {
     return m_configuration.getReferenceValidator().validate(m_container, reference);
   }
@@ -75,6 +79,7 @@ public final class FlowContainerConfigurable implements FlowContainer {
   // Commands
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void command_CREATE(Object newObject, Object referenceObject) throws Exception {
     if (!tryDuckTyping("command_CREATE", newObject, referenceObject)) {
       command_CREATE_default(newObject, referenceObject);
@@ -83,6 +88,7 @@ public final class FlowContainerConfigurable implements FlowContainer {
     tryDuckTyping("command_TARGET_after", newObject, referenceObject);
   }
 
+  @Override
   public void command_MOVE(Object moveObject, Object referenceObject) throws Exception {
     if (!tryDuckTyping("command_MOVE", moveObject, referenceObject)) {
       command_MOVE_default(moveObject, referenceObject);

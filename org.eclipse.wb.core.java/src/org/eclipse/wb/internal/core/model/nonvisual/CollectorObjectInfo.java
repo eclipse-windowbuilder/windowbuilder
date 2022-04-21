@@ -58,6 +58,7 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
 
   protected void installListeners() {
     addBroadcastListener(new ObjectInfoChildTree() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         visible[0] &= isHideInTree() || !getItems().contains(object);
       }
@@ -96,6 +97,7 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
   @Override
   public IObjectPresentation getPresentation() {
     return new DefaultObjectPresentation(this) {
+      @Override
       public String getText() throws Exception {
         return m_caption;
       }
@@ -141,6 +143,7 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
   @Override
   public void delete() throws Exception {
     ExecutionUtils.run(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         List<ObjectInfo> items = getItems();
         for (int i = 0; i < items.size(); i++) {

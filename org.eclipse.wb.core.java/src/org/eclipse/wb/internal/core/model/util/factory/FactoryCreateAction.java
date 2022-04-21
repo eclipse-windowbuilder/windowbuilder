@@ -112,6 +112,7 @@ public final class FactoryCreateAction extends Action {
     setText(ModelMessages.FactoryCreateAction_text);
     // prepare collections for creation/invocations
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         fillCollections();
       }
@@ -261,6 +262,7 @@ public final class FactoryCreateAction extends Action {
     FactoryCreateDialog dialog = new FactoryCreateDialog();
     if (dialog.open() == Window.OK) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           generate(true);
           m_editor.commitChanges();
@@ -564,6 +566,7 @@ public final class FactoryCreateAction extends Action {
    */
   private static String generateUniqueIdentifier(final Set<String> usedIdentifiers, String baseName) {
     String newIdentifier = CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
+      @Override
       public boolean apply(String t) {
         return !usedIdentifiers.contains(t);
       }
@@ -578,6 +581,7 @@ public final class FactoryCreateAction extends Action {
    */
   private String getFactorySource(final AbstractInvocationInfo invocation) {
     return m_editor.getExternalSource(invocation.m_expression, new Function<ASTNode, String>() {
+      @Override
       public String apply(ASTNode from) {
         // replace arguments with parameters
         for (ArgumentInfo argument : invocation.m_arguments) {
@@ -741,8 +745,10 @@ public final class FactoryCreateAction extends Action {
       // class name
       {
         m_classField = new StringButtonDialogField(new IStringButtonAdapter() {
+          @Override
           public void changeControlPressed(DialogField field) {
             ExecutionUtils.runLog(new RunnableEx() {
+              @Override
               public void run() throws Exception {
                 IType type = JdtUiUtils.selectClassType(getShell(), m_editor.getJavaProject());
                 if (type != null) {
@@ -758,6 +764,7 @@ public final class FactoryCreateAction extends Action {
         doCreateField(m_classField, ModelMessages.FactoryCreateAction_classLabel);
         // try to use existing factory
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             ICompilationUnit factoryUnit = findFactoryUnit();
             if (factoryUnit != null) {
@@ -783,6 +790,7 @@ public final class FactoryCreateAction extends Action {
           m_categoryField = new ComboDialogField(SWT.READ_ONLY);
           m_categoryField.setLabelText(ModelMessages.FactoryCreateAction_paletteCategoryLabel);
           m_categoryField.setDialogFieldListener(new IDialogFieldListener() {
+            @Override
             public void dialogFieldChanged(DialogField field) {
               if (m_paletteCategories != null) {
                 int selectionIndex = m_categoryField.getSelectionIndex();
@@ -804,6 +812,7 @@ public final class FactoryCreateAction extends Action {
           GridDataFactory.create(managerButton).fillH();
           managerButton.setText(ModelMessages.FactoryCreateAction_paletteManagerButton);
           managerButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               IPaletteSite.Helper.getSite(m_component).editPalette();
               fillPaletteCategories();
@@ -825,6 +834,7 @@ public final class FactoryCreateAction extends Action {
         GridDataFactory.create(tree).hintC(150, 12).grab().fill();
         // listeners
         tree.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             if (event.detail == SWT.CHECK) {
               TreeItem item = (TreeItem) event.item;
@@ -966,6 +976,7 @@ public final class FactoryCreateAction extends Action {
       super.buttonPressed(buttonId);
       if (buttonId == CREATE_ID) {
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             generate(false);
             validateAll();
@@ -993,6 +1004,7 @@ public final class FactoryCreateAction extends Action {
       // update preview
       if (m_canPreview) {
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             JdtUiUtils.setJavaSourceForViewer(m_previewViewer, getFactoryPreviewSource());
           }

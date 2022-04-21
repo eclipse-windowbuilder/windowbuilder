@@ -59,6 +59,7 @@ public abstract class AbstractDesignWizardPage extends NewTypeWizardPage {
   ////////////////////////////////////////////////////////////////////////////
   protected void doStatusUpdate() {
     DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
+      @Override
       public void run() {
         doPageStatusUpdate();
       }
@@ -80,6 +81,7 @@ public abstract class AbstractDesignWizardPage extends NewTypeWizardPage {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void createControl(Composite parent) {
     initializeDialogUnits(parent);
     // create page control

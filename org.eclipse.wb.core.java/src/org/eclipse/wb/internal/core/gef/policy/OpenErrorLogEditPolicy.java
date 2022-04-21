@@ -105,6 +105,7 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
 
   private void createFigure() {
     ILocator locator = new ILocator() {
+      @Override
       public void relocate(Figure target) {
         Figure componentFigure = m_editPart.getFigure();
         Rectangle componentArea = componentFigure.getClientArea();
@@ -120,13 +121,16 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
     };
     // open "log" on click
     m_figure.addMouseListener(new IMouseListener() {
+      @Override
       public void mouseUp(MouseEvent event) {
       }
 
+      @Override
       public void mouseDown(MouseEvent event) {
         scheduleOpenErrorLog();
       }
 
+      @Override
       public void mouseDoubleClick(MouseEvent event) {
       }
     });
@@ -137,6 +141,7 @@ public final class OpenErrorLogEditPolicy extends EditPolicy {
    */
   private void scheduleOpenErrorLog() {
     ExecutionUtils.runAsync(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         openErrorLog();
       }

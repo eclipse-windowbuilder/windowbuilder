@@ -39,6 +39,7 @@ final class ListenerPropertyEditor extends AbstractComplexEventPropertyEditor {
   // IComplexPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ListenerMethodProperty[] getProperties(Property property) throws Exception {
     JavaInfo javaInfo = ((ListenerProperty) property).getJavaInfo();
     List<ListenerMethodInfo> methods = m_listener.getMethods();

@@ -68,6 +68,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
    */
   public static void install(final EditPart editPart, final AbstractComponentInfo component) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         installEx(editPart, component);
       }
@@ -133,6 +134,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
   @Override
   protected String getText() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         return (String) m_property.getValue();
       }
@@ -142,6 +144,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
   @Override
   protected void setText(final String text) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_property.setValue(text);
       }

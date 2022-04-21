@@ -264,6 +264,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     m_classesViewer.setContentProvider(new ArrayContentProvider());
     m_classesViewer.setLabelProvider(new LabelProvider());
     m_classesViewer.addCheckStateListener(new ICheckStateListener() {
+      @Override
       public void checkStateChanged(CheckStateChangedEvent event) {
         calculateFinish();
       }
@@ -298,6 +299,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     m_categoryText = new Text(container, SWT.BORDER);
     GridDataFactory.create(m_categoryText).fillH().grabH().spanH(2);
     m_categoryText.addModifyListener(new ModifyListener() {
+      @Override
       public void modifyText(ModifyEvent e) {
         calculateFinish();
       }
@@ -626,6 +628,7 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
     }
     // sort element over class name
     Collections.sort(elements, new Comparator<PaletteElementInfo>() {
+      @Override
       public int compare(PaletteElementInfo element0, PaletteElementInfo element1) {
         return element0.className.compareToIgnoreCase(element1.className);
       }
@@ -698,11 +701,13 @@ public class ImportArchiveDialog extends AbstractPaletteDialog {
   private static class LabelProvider extends org.eclipse.jface.viewers.LabelProvider
       implements
         ITableLabelProvider {
+    @Override
     public String getColumnText(Object element, int columnIndex) {
       PaletteElementInfo paletteElement = (PaletteElementInfo) element;
       return paletteElement.name;
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
       return null;
     }

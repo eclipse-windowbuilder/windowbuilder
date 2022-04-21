@@ -131,6 +131,7 @@ public abstract class TabOrderProperty extends Property {
   @Override
   public final void setValue(final Object value) throws Exception {
     ExecutionUtils.run(m_container, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         setValueEx(value);
       }

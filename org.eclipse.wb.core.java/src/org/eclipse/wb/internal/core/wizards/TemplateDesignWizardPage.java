@@ -190,6 +190,7 @@ public abstract class TemplateDesignWizardPage extends AbstractDesignWizardPage 
    */
   protected void loadUIClasses() {
     Display.getDefault().syncExec(new Runnable() {
+      @Override
       public void run() {
         try {
           Class.forName("org.eclipse.wb.internal.draw2d.IColorConstants");

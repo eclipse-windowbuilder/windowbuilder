@@ -93,6 +93,7 @@ public final class ParseErrorsLogReportEntry implements IReportEntry {
   // IReportEntry
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void write(ZipOutputStream zipStream) throws Exception {
     JavaInfo javaInfo = EditorState.getActiveJavaInfo();
     if (javaInfo == null) {

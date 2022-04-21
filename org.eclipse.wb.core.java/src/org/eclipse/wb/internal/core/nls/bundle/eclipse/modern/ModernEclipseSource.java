@@ -65,6 +65,7 @@ public final class ModernEclipseSource extends AbstractPureBundleSource {
   //
   ////////////////////////////////////////////////////////////////////////////
   public static final IKeyGeneratorStrategy MODERN_KEY_GENERATOR = new IKeyGeneratorStrategy() {
+    @Override
     public final String generateBaseKey(JavaInfo component, GenericProperty property) {
       String typeName = getTypeName(component).replace('.', '_');
       String componentName = component.getVariableSupport().getComponentName();

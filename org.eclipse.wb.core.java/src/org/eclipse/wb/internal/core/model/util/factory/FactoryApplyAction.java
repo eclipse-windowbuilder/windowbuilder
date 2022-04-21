@@ -67,6 +67,7 @@ public final class FactoryApplyAction extends Action {
     m_editor = m_component.getEditor();
     // configure presentation
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ComponentDescription componentDescription =
             ComponentDescriptionHelper.getDescription(m_editor, m_description.getReturnClass());
@@ -87,6 +88,7 @@ public final class FactoryApplyAction extends Action {
   @Override
   public void run() {
     ExecutionUtils.run(m_component, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         prepareGenericProperties();
         if (m_component.getCreationSupport() instanceof ConstructorCreationSupport) {

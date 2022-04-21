@@ -85,6 +85,7 @@ final class ListenerMethodPropertyEditor extends TextDisplayPropertyEditor {
   private void openStubMethod(Property property) throws Exception {
     final ListenerMethodProperty methodProperty = (ListenerMethodProperty) property;
     ExecutionUtils.run(methodProperty.getJavaInfo(), new RunnableEx() {
+      @Override
       public void run() throws Exception {
         methodProperty.openStubMethod();
       }

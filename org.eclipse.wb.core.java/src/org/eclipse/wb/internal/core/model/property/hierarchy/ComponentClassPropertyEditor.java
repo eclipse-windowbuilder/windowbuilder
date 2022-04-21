@@ -142,6 +142,7 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
         treeViewer.expandAll();
         // add double click to open class in editor
         treeViewer.addDoubleClickListener(new IDoubleClickListener() {
+          @Override
           public void doubleClick(DoubleClickEvent event) {
             try {
               String className;
@@ -180,10 +181,12 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
   private static class ComponentClassContentProvider implements ITreeContentProvider {
     private List<?> m_classes;
 
+    @Override
     public Object[] getElements(Object inputElement) {
       return new Object[]{m_classes.get(m_classes.size() - 1)};
     }
 
+    @Override
     public Object[] getChildren(Object parentElement) {
       int index = m_classes.indexOf(parentElement);
       if (index == 0) {
@@ -192,18 +195,22 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
       return new Object[]{m_classes.get(index - 1)};
     }
 
+    @Override
     public Object getParent(Object element) {
       int index = m_classes.indexOf(element);
       return m_classes.get(index + 1);
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       return m_classes.indexOf(element) != 0;
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       m_classes = (List<?>) newInput;
     }
@@ -246,6 +253,7 @@ public final class ComponentClassPropertyEditor extends TextDisplayPropertyEdito
     // IFontProvider
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Font getFont(Object element) {
       Class<?> clazz = (Class<?>) element;
       if (clazz == m_componentClass) {

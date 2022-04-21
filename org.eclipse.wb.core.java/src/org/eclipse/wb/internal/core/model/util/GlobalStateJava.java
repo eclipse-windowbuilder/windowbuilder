@@ -107,6 +107,7 @@ public final class GlobalStateJava {
   //
   ////////////////////////////////////////////////////////////////////////////
   private static final IParametersProvider m_parametersProvider = new IParametersProvider() {
+    @Override
     public java.util.Map<String, String> getParameters(Object object) {
       if (object instanceof JavaInfo) {
         return JavaInfoUtils.getParameters((JavaInfo) object);
@@ -117,6 +118,7 @@ public final class GlobalStateJava {
       return null;
     }
 
+    @Override
     public String getParameter(Object object, String name) {
       if (object instanceof JavaInfo) {
         return JavaInfoUtils.getParameter((JavaInfo) object, name);
@@ -127,6 +129,7 @@ public final class GlobalStateJava {
       return null;
     }
 
+    @Override
     public boolean hasTrueParameter(Object object, String name) {
       if (object instanceof JavaInfo) {
         return JavaInfoUtils.hasTrueParameter((JavaInfo) object, name);
@@ -135,10 +138,12 @@ public final class GlobalStateJava {
     }
   };
   private static final IDescriptionHelper m_descriptionHelper = new IDescriptionHelper() {
+    @Override
     public PropertyEditor getEditorForType(Class<?> type) throws Exception {
       return DescriptionPropertiesHelper.getEditorForType(type);
     }
 
+    @Override
     public IComponentDescription getDescription(Object object) {
       if (object instanceof JavaInfo) {
         return ((JavaInfo) object).getDescription();
@@ -148,10 +153,12 @@ public final class GlobalStateJava {
   };
   private static final ILayoutRequestValidatorHelper m_validatorHelper =
       new ILayoutRequestValidatorHelper() {
+        @Override
         public boolean isComponent(Object object) {
           return object instanceof JavaInfo;
         }
 
+        @Override
         public IComponentDescription getPasteComponentDescription(Object _memento) throws Exception {
           JavaInfoMemento memento = (JavaInfoMemento) _memento;
           JavaInfo activeJava = (JavaInfo) GlobalState.getActiveObject();
@@ -160,12 +167,14 @@ public final class GlobalStateJava {
               memento.getComponentClassName());
         }
 
+        @Override
         public Object getPasteComponent(Object _memento) throws Exception {
           JavaInfoMemento memento = (JavaInfoMemento) _memento;
           JavaInfo activeJava = (JavaInfo) GlobalState.getActiveObject();
           return memento.create(activeJava);
         }
 
+        @Override
         public boolean canUseParentForChild(Object parent, Object child) throws Exception {
           if (parent instanceof JavaInfo && child instanceof JavaInfo) {
             JavaInfo parentJava = (JavaInfo) parent;
@@ -175,6 +184,7 @@ public final class GlobalStateJava {
           return true;
         }
 
+        @Override
         public boolean canReference(Object object) {
           if (object instanceof JavaInfo) {
             JavaInfo javaInfo = (JavaInfo) object;
@@ -183,16 +193,19 @@ public final class GlobalStateJava {
           return false;
         }
 
+        @Override
         public boolean canReorder(ObjectInfo component) {
           return ((JavaInfo) component).getCreationSupport().canReorder();
         }
 
+        @Override
         public boolean canReparent(ObjectInfo component) {
           return ((JavaInfo) component).getCreationSupport().canReparent();
         }
       };
   private static final IPasteRequestProcessor m_pasteRequestProcessor =
       new IPasteRequestProcessor() {
+        @Override
         public Command getPasteCommand(PasteRequest request,
             final IPasteComponentProcessor componentProcessor) {
           final List<IObjectInfo> components = getPastingComponents(request);
@@ -212,12 +225,14 @@ public final class GlobalStateJava {
           };
         }
 
+        @Override
         public List<IObjectInfo> getPastingComponents(final PasteRequest request) {
           @SuppressWarnings("unchecked")
           final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
           final List<IObjectInfo> components = Lists.newArrayList();
           // prepare models
           ExecutionUtils.runLog(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               JavaInfo hierarchyModel = (JavaInfo) GlobalState.getActiveObject();
               for (JavaInfoMemento memento : mementos) {
@@ -232,6 +247,7 @@ public final class GlobalStateJava {
         }
       };
   private static final IOrderProcessor m_orderProcessor = new IOrderProcessor() {
+    @Override
     public void move(Object _component, Object _nextComponent) throws Exception {
       JavaInfo component = (JavaInfo) _component;
       JavaInfo nextComponent = (JavaInfo) _nextComponent;
@@ -240,11 +256,13 @@ public final class GlobalStateJava {
     }
   };
   private static final IOtherHelper m_otherHelper = new IOtherHelper() {
+    @Override
     public IJavaProject getJavaProject() {
       JavaInfo javaInfo = (JavaInfo) GlobalState.getActiveObject();
       return javaInfo.getEditor().getJavaProject();
     }
 
+    @Override
     public Object getObject(ObjectInfo model) {
       if (model instanceof JavaInfo) {
         return ((JavaInfo) model).getObject();
@@ -252,10 +270,12 @@ public final class GlobalStateJava {
       return null;
     }
 
+    @Override
     public List<EditorWarning> getWarnings() {
       return getState().getWarnings();
     }
 
+    @Override
     public void addWarning(EditorWarning warning) {
       getState().addWarning(warning);
     }

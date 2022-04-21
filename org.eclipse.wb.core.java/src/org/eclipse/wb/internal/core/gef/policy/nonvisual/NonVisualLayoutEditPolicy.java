@@ -207,6 +207,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
         final JavaInfo info = part.getNonVisualInfo().getJavaInfo();
         BeanFigure figure = new BeanFigure(info.getDescription().getIcon());
         String text = ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+          @Override
           public String runObject() throws Exception {
             return info.getVariableSupport().getTitle();
           }

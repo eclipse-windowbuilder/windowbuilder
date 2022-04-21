@@ -171,8 +171,10 @@ public class JavaInfoUtils {
    */
   public static void scheduleSave(final JavaInfo info) {
     DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
+      @Override
       public void run() {
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             info.getEditor().getModelUnit().getBuffer().save(null, false);
           }
@@ -188,6 +190,7 @@ public class JavaInfoUtils {
     // Do in async because at this time changes may be not committed from ASTEditor to compilation unit.
     // This happens because this method is invoked in internal start/endEdit cycle.
     Display.getDefault().asyncExec(new Runnable() {
+      @Override
       public void run() {
         IDesignPageSite site = IDesignPageSite.Helper.getSite(javaInfo);
         if (site != null) {
@@ -223,6 +226,7 @@ public class JavaInfoUtils {
       final boolean[] forceMoveEnable = new boolean[1];
       final boolean[] forceMoveDisable = new boolean[1];
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           javaInfo.getBroadcastJava().canMove(javaInfo, forceMoveEnable, forceMoveDisable);
         }
@@ -857,6 +861,7 @@ public class JavaInfoUtils {
     // sort children in host JavaInfo (to reorder children that have host as logical parent)
     // only exposed children should be sorted
     Collections.sort(host.getChildren(), new Comparator<ObjectInfo>() {
+      @Override
       public int compare(ObjectInfo o1, ObjectInfo o2) {
         // ignore not exposed
         {
@@ -1479,14 +1484,17 @@ public class JavaInfoUtils {
       final JavaInfo newParent,
       final JavaInfo nextComponent) throws Exception {
     IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+      @Override
       public void add() throws Exception {
         newParent.addChild(component, nextComponent);
       }
 
+      @Override
       public void move() throws Exception {
         newParent.moveChild(component, nextComponent);
       }
 
+      @Override
       public StatementTarget getTarget() throws Exception {
         return JavaInfoUtils.getTarget(newParent, component, nextComponent);
       }
@@ -1503,14 +1511,17 @@ public class JavaInfoUtils {
       final JavaInfo nextComponent,
       final StatementTarget target) throws Exception {
     IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+      @Override
       public void add() throws Exception {
         newParent.addChild(component, nextComponent);
       }
 
+      @Override
       public void move() throws Exception {
         newParent.moveChild(component, nextComponent);
       }
 
+      @Override
       public StatementTarget getTarget() throws Exception {
         return target;
       }
@@ -1699,6 +1710,7 @@ public class JavaInfoUtils {
         });
     // sort original List
     Collections.sort(components, new Comparator<JavaInfo>() {
+      @Override
       public int compare(JavaInfo o1, JavaInfo o2) {
         int index_1 = sortedComponents.indexOf(o1);
         int index_2 = sortedComponents.indexOf(o2);
@@ -1767,6 +1779,7 @@ public class JavaInfoUtils {
     }
     // sort original List
     Collections.sort(nodes, new Comparator<ASTNode>() {
+      @Override
       public int compare(ASTNode o1, ASTNode o2) {
         int index_1 = sortedNodes.indexOf(o1);
         int index_2 = sortedNodes.indexOf(o2);
@@ -2139,6 +2152,7 @@ public class JavaInfoUtils {
             return;
           }
           ExecutionUtils.runIgnore(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               String typeName = AstNodeUtils.getFullyQualifiedName(binding, false);
               if (typeName.indexOf('.') != -1 && !checkedTypes.contains(typeName)) {

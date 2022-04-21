@@ -115,138 +115,172 @@ public final class DesignerMethodBinding implements IMethodBinding {
   // IMethodBinding
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ITypeBinding getDeclaringClass() {
     return m_declaringClass;
   }
 
+  @Override
   public Object getDefaultValue() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding[] getExceptionTypes() {
     return m_exceptionTypes;
   }
 
+  @Override
   public IMethodBinding getMethodDeclaration() {
     return m_methodDeclaration;
   }
 
+  @Override
   public String getName() {
     return m_name;
   }
 
+  @Override
   public IAnnotationBinding[] getParameterAnnotations(int paramIndex) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding[] getParameterTypes() {
     return m_parameterTypes;
   }
 
+  @Override
   public ITypeBinding getReturnType() {
     return m_returnType;
   }
 
+  @Override
   public ITypeBinding getDeclaredReceiverType() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding[] getTypeArguments() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding[] getTypeParameters() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isAnnotationMember() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isConstructor() {
     return m_constructor;
   }
 
+  @Override
   public boolean isDefaultConstructor() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isGenericMethod() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isParameterizedMethod() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isRawMethod() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isSubsignature(IMethodBinding otherMethod) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isVarargs() {
     return m_varargs;
   }
 
+  @Override
   public boolean overrides(IMethodBinding method) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IAnnotationBinding[] getAnnotations() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IJavaElement getJavaElement() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getKey() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getKind() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getModifiers() {
     return m_modifiers;
   }
 
+  @Override
   public boolean isDeprecated() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isEqualTo(IBinding binding) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isSynthetic() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isRecovered() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IBinding getDeclaringMember() {
     return null;
   }
 
+  @Override
   public IVariableBinding[] getSyntheticOuterLocals() {
     return null;
   }
 
+  @Override
   public boolean isCompactConstructor() {
     return false;
   }
 
+  @Override
   public boolean isCanonicalConstructor() {
     return false;
   }
 
+  @Override
   public boolean isSyntheticRecordMethod() {
     return false;
   }

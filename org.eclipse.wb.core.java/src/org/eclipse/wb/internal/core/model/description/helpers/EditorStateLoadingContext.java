@@ -66,10 +66,12 @@ public class EditorStateLoadingContext implements ILoadingContext {
   // ILoadingContext
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getToolkitId() {
     return m_state.getToolkitId();
   }
 
+  @Override
   public URL getResource(String name) throws Exception {
     // try editor class loader
     {
@@ -89,14 +91,17 @@ public class EditorStateLoadingContext implements ILoadingContext {
     return null;
   }
 
+  @Override
   public List<IDescriptionVersionsProvider> getDescriptionVersionsProviders() {
     return m_state.getDescriptionVersionsProviders();
   }
 
+  @Override
   public Object getGlobalValue(String key) {
     return m_state.getEditor().getGlobalValue(key);
   }
 
+  @Override
   public void putGlobalValue(String key, Object value) {
     m_state.getEditor().putGlobalValue(key, value);
   }

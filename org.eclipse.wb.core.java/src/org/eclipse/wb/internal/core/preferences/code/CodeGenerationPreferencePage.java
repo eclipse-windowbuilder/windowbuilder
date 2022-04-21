@@ -142,10 +142,12 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       m_bindManager.bind(
           new GenerationDescriptionEditor(m_variablesTabFolder),
           new IDataProvider() {
+            @Override
             public void setValue(Object value) {
               m_settings.setVariable((VariableSupportDescription) value);
             }
 
+            @Override
             public Object getValue(boolean def) {
               return def ? m_settings.getDefaultVariable() : m_settings.getVariable();
             }
@@ -156,10 +158,12 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       m_bindManager.bind(
           new GenerationDescriptionEditor(m_statementsTabFolder),
           new IDataProvider() {
+            @Override
             public void setValue(Object value) {
               m_settings.setStatement((StatementGeneratorDescription) value);
             }
 
+            @Override
             public Object getValue(boolean def) {
               return def ? m_settings.getDefaultStatement() : m_settings.getStatement();
             }
@@ -207,6 +211,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
     }
     // selection listener
     m_variablesTabFolder.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         showCompatibleStatements();
       }
@@ -299,6 +304,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
    * {@link Listener} for updates in {@link GenerationPropertiesComposite} of variable/statement.
    */
   private final Listener m_descriptionPropertiesListener = new Listener() {
+    @Override
     public void handleEvent(Event event) {
       m_descriptionPropertiesRunnable.run();
     }
@@ -307,8 +313,10 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
    * {@link Runnable} for updates in {@link GenerationPropertiesComposite} of variable/statement.
    */
   private final Runnable m_descriptionPropertiesRunnable = new Runnable() {
+    @Override
     public void run() {
       Display.getCurrent().asyncExec(new Runnable() {
+        @Override
         public void run() {
           updatePreview();
         }
@@ -350,6 +358,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
       return;
     }
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // prepare descriptions
         VariableSupportDescription variableDescription = getSelectedVariable();
@@ -443,6 +452,7 @@ public abstract class CodeGenerationPreferencePage extends PreferencePage
   // IWorkbenchPreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 }

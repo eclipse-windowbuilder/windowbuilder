@@ -78,6 +78,7 @@ public abstract class AbstractBundleSourceNewComposite extends AbstractFieldsSou
       // create property file field
       {
         m_propertyFileField = new StringButtonDialogField(new IStringButtonAdapter() {
+          @Override
           public void changeControlPressed(DialogField field) {
             ElementListSelectionDialog dialog =
                 new ElementListSelectionDialog(getShell(), new JavaElementLabelProvider());

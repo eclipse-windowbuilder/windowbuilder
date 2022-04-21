@@ -149,6 +149,7 @@ public final class NonVisualBeanContainerInfo extends ObjectInfo {
   @Override
   public IObjectPresentation getPresentation() {
     return new DefaultObjectPresentation(this) {
+      @Override
       public String getText() throws Exception {
         return "(non-visual beans)";
       }

@@ -198,6 +198,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
       moveComponents(container);
       moveDone(container, m_components);
       ExecutionUtils.runLogLater(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           container.getBroadcastObject().select(ImmutableList.of(container));
         }

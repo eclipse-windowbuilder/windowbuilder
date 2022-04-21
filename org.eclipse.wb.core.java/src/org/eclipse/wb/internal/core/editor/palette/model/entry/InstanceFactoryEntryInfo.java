@@ -98,6 +98,7 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
     ICreationFactory creationFactory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         CreationSupport creationSupport =
             new InstanceFactoryCreationSupport(factoryInfo, m_methodDescription);
@@ -106,6 +107,7 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
         m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }
@@ -133,6 +135,7 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
     if (factories.size() == 0) {
       final InstanceFactoryInfo[] result = new InstanceFactoryInfo[1];
       ExecutionUtils.run(m_rootJavaInfo, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           result[0] = InstanceFactoryInfo.add(m_rootJavaInfo, m_factoryClass);
         }

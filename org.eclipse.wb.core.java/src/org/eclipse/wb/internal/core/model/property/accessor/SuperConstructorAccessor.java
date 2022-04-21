@@ -69,6 +69,7 @@ public final class SuperConstructorAccessor extends ExpressionAccessor {
       final Expression oldExpression = getExpression(javaInfo);
       if (!editor.getSource(oldExpression).equals(source)) {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editor.replaceExpression(oldExpression, newSource);
           }

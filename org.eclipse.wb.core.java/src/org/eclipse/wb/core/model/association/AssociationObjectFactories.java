@@ -24,6 +24,7 @@ public final class AssociationObjectFactories {
         return "NO";
       }
 
+      @Override
       public AssociationObject create() {
         return AssociationObjects.no();
       }
@@ -37,6 +38,7 @@ public final class AssociationObjectFactories {
         return source;
       }
 
+      @Override
       public AssociationObject create() {
         return new AssociationObject(source, new InvocationChildAssociation(source), required);
       }

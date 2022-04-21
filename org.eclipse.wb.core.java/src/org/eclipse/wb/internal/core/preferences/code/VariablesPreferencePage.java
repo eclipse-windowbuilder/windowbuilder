@@ -272,6 +272,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
           addButton.setText(Messages.VariablesPreferencePage_tsAddButton);
           // operation
           addButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               InputDialog inputDialog =
                   new InputDialog(getShell(),
@@ -297,6 +298,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
           removeButton.setText(Messages.VariablesPreferencePage_tsRemove);
           // operation
           removeButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               ComponentNameDescription description =
                   (ComponentNameDescription) ((IStructuredSelection) m_namesViewer.getSelection()).getFirstElement();
@@ -314,6 +316,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
           // enable/disable
           removeButton.setEnabled(false);
           m_namesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+            @Override
             public void selectionChanged(SelectionChangedEvent event) {
               removeButton.setEnabled(!event.getSelection().isEmpty());
             }
@@ -338,6 +341,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
      * Implementation of {@link ITableLabelProvider} for {@link ComponentNameDescription}.
      */
     private static class NamesLabelProvider extends LabelProvider implements ITableLabelProvider {
+      @Override
       public Image getColumnImage(Object element, int columnIndex) {
         ComponentNameDescription description = (ComponentNameDescription) element;
         if (columnIndex == 3) {
@@ -346,6 +350,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         return null;
       }
 
+      @Override
       public String getColumnText(Object element, int columnIndex) {
         ComponentNameDescription description = (ComponentNameDescription) element;
         if (columnIndex == 0) {
@@ -369,6 +374,7 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
      * Implementation of {@link ICellModifier} for {@link ComponentNameDescription}.
      */
     private class NamesCellModifier implements ICellModifier {
+      @Override
       public Object getValue(Object element, String property) {
         ComponentNameDescription description = (ComponentNameDescription) element;
         if ("name".equals(property)) {
@@ -383,10 +389,12 @@ public abstract class VariablesPreferencePage extends AbstractBindingPreferences
         return null;
       }
 
+      @Override
       public boolean canModify(Object element, String property) {
         return "name".equals(property) || "acronym".equals(property) || "asField".equals(property);
       }
 
+      @Override
       public void modify(Object element, String property, Object value) {
         // prepare description
         ComponentNameDescription description;

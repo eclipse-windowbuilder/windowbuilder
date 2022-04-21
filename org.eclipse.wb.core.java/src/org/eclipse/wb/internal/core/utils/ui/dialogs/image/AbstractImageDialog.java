@@ -164,6 +164,7 @@ public abstract class AbstractImageDialog extends ResizableDialog {
     button.setText(title);
     button.setData(page);
     button.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (button.getSelection()) {
           AbstractImagePage newPage = (AbstractImagePage) button.getData();

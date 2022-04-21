@@ -171,6 +171,7 @@ public abstract class EventsPreferencePage extends PreferencePage
     // create bindings
     {
       m_bindManager.addUpdateRunnable(new Runnable() {
+        @Override
         public void run() {
           {
             boolean inner = m_typeInnerClass.getSelection();
@@ -276,6 +277,7 @@ public abstract class EventsPreferencePage extends PreferencePage
   // Initialization
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 }

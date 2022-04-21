@@ -132,6 +132,7 @@ public final class PropertiesComposite extends Composite {
       m_sourcesList.select(0);
       // install selection listener
       m_sourcesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           updateExternalizeButton();
         }
@@ -192,6 +193,7 @@ public final class PropertiesComposite extends Composite {
       m_propertiesViewer.setGrayedElements(m_support.getComponents().toArray());
       // install check listener
       m_propertiesViewer.addCheckStateListener(new ICheckStateListener() {
+        @Override
         public void checkStateChanged(CheckStateChangedEvent event) {
           Object element = event.getElement();
           // if we change "check" state for component, change state for all its properties
@@ -355,13 +357,16 @@ public final class PropertiesComposite extends Composite {
   //
   ////////////////////////////////////////////////////////////////////////////
   private class SourcesContentProvider implements IStructuredContentProvider {
+    @Override
     public Object[] getElements(Object inputElement) {
       return m_support.getEditableSources().toArray();
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
   }
@@ -386,8 +391,10 @@ public final class PropertiesComposite extends Composite {
       implements
         IStructuredContentProvider,
         ITreeContentProvider {
+    @Override
     public Object[] getElements(Object inputElement) {
       return ExecutionUtils.runObjectLog(new RunnableObjectEx<Object[]>() {
+        @Override
         public Object[] runObject() throws Exception {
           JavaInfo root = m_support.getRoot();
           // show root only if there are properties
@@ -400,6 +407,7 @@ public final class PropertiesComposite extends Composite {
       }, ArrayUtils.EMPTY_OBJECT_ARRAY);
     }
 
+    @Override
     public Object[] getChildren(Object parentElement) {
       if (parentElement instanceof JavaInfo) {
         final JavaInfo component = (JavaInfo) parentElement;
@@ -408,6 +416,7 @@ public final class PropertiesComposite extends Composite {
         children.addAll(m_support.getProperties(component));
         // add children with properties
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             for (JavaInfo child : m_support.getTreeChildren(component)) {
               if (m_support.hasPropertiesInTree(child)) {
@@ -423,10 +432,12 @@ public final class PropertiesComposite extends Composite {
       return ArrayUtils.EMPTY_OBJECT_ARRAY;
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       return getChildren(element).length > 0;
     }
 
+    @Override
     public Object getParent(Object element) {
       if (element instanceof ObjectInfo) {
         return ((ObjectInfo) element).getParent();
@@ -436,9 +447,11 @@ public final class PropertiesComposite extends Composite {
       }
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
 
+    @Override
     public void dispose() {
     }
   }
@@ -451,6 +464,7 @@ public final class PropertiesComposite extends Composite {
     @Override
     public String getText(final Object element) {
       return ExecutionUtils.runObjectLog(new RunnableObjectEx<String>() {
+        @Override
         public String runObject() throws Exception {
           if (element instanceof JavaInfo) {
             JavaInfo component = (JavaInfo) element;
@@ -467,6 +481,7 @@ public final class PropertiesComposite extends Composite {
     @Override
     public Image getImage(final Object element) {
       return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+        @Override
         public Image runObject() throws Exception {
           if (element instanceof JavaInfo) {
             JavaInfo component = (JavaInfo) element;

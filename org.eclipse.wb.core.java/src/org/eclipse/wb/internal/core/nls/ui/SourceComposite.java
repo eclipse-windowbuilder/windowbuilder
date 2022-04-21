@@ -105,16 +105,19 @@ public final class SourceComposite extends Composite {
       // subscribe on events for this source
       m_source = source;
       m_source.addListener(new IEditableSourceListener() {
+        @Override
         public void keyAdded(String key, Object o) {
           m_keys.add(key);
           m_viewer.add(key);
         }
 
+        @Override
         public void keyRemoved(String key) {
           m_keys.remove(key);
           m_viewer.remove(key);
         }
 
+        @Override
         public void keyRenamed(String oldKey, String newKey) {
           if (m_keys.contains(newKey)) {
             m_viewer.remove(oldKey);
@@ -250,6 +253,7 @@ public final class SourceComposite extends Composite {
           // support tabbing between columns while editing
           final int column = i;
           editor.getText().addTraverseListener(new TraverseListener() {
+            @Override
             public void keyTraversed(TraverseEvent e) {
               switch (e.detail) {
                 case SWT.TRAVERSE_TAB_NEXT :
@@ -359,6 +363,7 @@ public final class SourceComposite extends Composite {
     MenuManager menuManager = new MenuManager(null);
     menuManager.setRemoveAllWhenShown(true);
     menuManager.addMenuListener(new IMenuListener() {
+      @Override
       public void menuAboutToShow(IMenuManager manager) {
         IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
         // "Internalize key" action
@@ -378,6 +383,7 @@ public final class SourceComposite extends Composite {
                 }
                 // do internalize
                 ExecutionUtils.runLog(new RunnableEx() {
+                  @Override
                   public void run() throws Exception {
                     m_source.internalizeKey(key);
                   }
@@ -418,6 +424,7 @@ public final class SourceComposite extends Composite {
               }
               // do remove
               ExecutionUtils.runLog(new RunnableEx() {
+                @Override
                 public void run() throws Exception {
                   m_source.removeLocale(locale);
                   createLocaleColumns();
@@ -453,6 +460,7 @@ public final class SourceComposite extends Composite {
    */
   private ITableTooltipProvider createTooltipProvider() {
     return new ITableTooltipProvider() {
+      @Override
       public Control createTooltipControl(TableItem item, Composite parent, int column) {
         if (column == 0) {
           // prepare components
@@ -470,6 +478,7 @@ public final class SourceComposite extends Composite {
               final CLabel label = new CLabel(composite, SWT.NONE);
               setColors(label);
               ExecutionUtils.runLog(new RunnableEx() {
+                @Override
                 public void run() throws Exception {
                   IObjectPresentation presentation = component.getPresentation();
                   label.setImage(presentation.getIcon());
@@ -503,6 +512,7 @@ public final class SourceComposite extends Composite {
    * "under hands".
    */
   private class StringsContentProvider implements IStructuredContentProvider {
+    @Override
     public Object[] getElements(Object inputElement) {
       if (m_currentStringsButton.getSelection()) {
         List<String> elements = Lists.newArrayList();
@@ -518,9 +528,11 @@ public final class SourceComposite extends Composite {
       }
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
   }
@@ -533,6 +545,7 @@ public final class SourceComposite extends Composite {
    * Implementation of {@link ITableLabelProvider} using values from {@link IEditableSource}.
    */
   private class StringsLabelProvider extends LabelProvider implements ITableLabelProvider {
+    @Override
     public String getColumnText(Object element, int columnIndex) {
       String key = (String) element;
       if (columnIndex == 0) {
@@ -543,6 +556,7 @@ public final class SourceComposite extends Composite {
       }
     }
 
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
       if (columnIndex == 0) {
         // use icon of component that has externalize properties with this key
@@ -551,6 +565,7 @@ public final class SourceComposite extends Composite {
         if (!components.isEmpty()) {
           final JavaInfo component = components.iterator().next();
           return ExecutionUtils.runObjectLog(new RunnableObjectEx<Image>() {
+            @Override
             public Image runObject() throws Exception {
               return component.getPresentation().getIcon();
             }
@@ -569,10 +584,12 @@ public final class SourceComposite extends Composite {
    * Implementation of {@link ICellModifier} for modifying values and renaming keys.
    */
   private class StringsCellModifier implements ICellModifier {
+    @Override
     public boolean canModify(Object element, String property) {
       return true;
     }
 
+    @Override
     public Object getValue(Object element, String property) {
       String key = (String) element;
       // check for key property
@@ -589,6 +606,7 @@ public final class SourceComposite extends Composite {
       return value;
     }
 
+    @Override
     public void modify(Object element, String property, Object value) {
       final String stringValue = (String) value;
       // prepare key
@@ -603,6 +621,7 @@ public final class SourceComposite extends Composite {
       if (property.equals("key")) {
         // key change
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             m_source.renameKey(key, stringValue);
           }

@@ -68,6 +68,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
   // IPropertiesMenuContributor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void contributeMenu(IMenuManager manager, Property property) throws Exception {
     if (property instanceof GenericPropertyImpl) {
       GenericPropertyImpl genericProperty = (GenericPropertyImpl) property;
@@ -125,6 +126,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
       final ExposeDialog dialog = new ExposeDialog();
       if (dialog.open() == Window.OK) {
         ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             expose(dialog.isPublic());
           }
@@ -156,6 +158,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
             AstNodeUtils.getVariableDeclarationsAll(m_editor.getAstUnit());
         m_exposedSetterParameter =
             CodeUtils.generateUniqueName(m_property.getTitle(), new Predicate<String>() {
+              @Override
               public boolean apply(String name) {
                 for (VariableDeclaration variable : variables) {
                   if (variable.getName().getIdentifier().equals(name)) {

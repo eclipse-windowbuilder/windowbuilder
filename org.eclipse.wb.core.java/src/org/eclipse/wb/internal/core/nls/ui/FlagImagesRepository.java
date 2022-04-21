@@ -47,6 +47,7 @@ public class FlagImagesRepository {
         List<Locale> locales = Lists.newArrayList();
         Collections.addAll(locales, Locale.getAvailableLocales());
         Collections.sort(locales, new Comparator<Locale>() {
+          @Override
           public int compare(Locale o1, Locale o2) {
             return o1.toString().compareTo(o2.toString());
           }

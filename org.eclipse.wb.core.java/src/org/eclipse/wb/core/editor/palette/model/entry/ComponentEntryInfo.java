@@ -293,6 +293,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
     // try "enabled"
     if (m_enabledScript != null) {
       boolean enabled = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+        @Override
         public Boolean runObject() throws Exception {
           ClassLoader classLoader = JavaInfoUtils.getClassLoader(m_rootJavaInfo);
           return (Boolean) ScriptUtils.evaluate(classLoader, m_enabledScript);
@@ -427,6 +428,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
     ICreationFactory factory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         CreationSupport creationSupport = new ConstructorCreationSupport(m_creationId, true);
         m_javaInfo = JavaInfoUtils.createJavaInfo(m_editor, m_description, creationSupport);
@@ -435,6 +437,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
         m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }

@@ -112,6 +112,7 @@ public final class StylePropertyEditor extends AbstractStylePropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     return getSource(property);
   }
@@ -121,6 +122,7 @@ public final class StylePropertyEditor extends AbstractStylePropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     // prepare class
     m_className = (String) parameters.get("class");
@@ -473,6 +475,7 @@ public final class StylePropertyEditor extends AbstractStylePropertyEditor
   // IValueSourcePropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueSource(Object value) throws Exception {
     Property property = getPropertyForValue(value);
     return getSource(property);

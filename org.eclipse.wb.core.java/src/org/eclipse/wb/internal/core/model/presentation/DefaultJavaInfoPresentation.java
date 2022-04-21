@@ -54,6 +54,7 @@ public class DefaultJavaInfoPresentation extends DefaultObjectPresentation {
     return m_javaInfo.getDescription().getIcon();
   }
 
+  @Override
   public String getText() throws Exception {
     return m_javaInfo.getVariableSupport().getTitle();
   }

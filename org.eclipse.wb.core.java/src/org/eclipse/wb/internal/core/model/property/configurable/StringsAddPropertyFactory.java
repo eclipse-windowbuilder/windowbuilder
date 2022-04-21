@@ -31,6 +31,7 @@ public final class StringsAddPropertyFactory implements IConfigurablePropertyFac
   // IConfigurablePropertyFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Property create(JavaInfo javaInfo, ConfigurablePropertyDescription description)
       throws Exception {
     Property property = new ConfigurableProperty(javaInfo, description.getTitle());

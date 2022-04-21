@@ -33,6 +33,7 @@ public abstract class EditorRelatedAction extends Action implements IEditorActio
   // IEditorActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void setActiveEditor(IAction action, IEditorPart editor) {
     m_editor = null;
     if (editor instanceof DesignerEditor) {
@@ -46,9 +47,11 @@ public abstract class EditorRelatedAction extends Action implements IEditorActio
   // IActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void selectionChanged(IAction action, ISelection selection) {
   }
 
+  @Override
   public void run(IAction action) {
     run();
   }

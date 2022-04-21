@@ -45,6 +45,7 @@ public abstract class AbstractEnumPropertyEditor extends AbstractComboPropertyEd
     return null;
   }
 
+  @Override
   public void setText(Property property, String text) throws Exception {
     for (Enum<?> element : getElements(property)) {
       if (element.toString().equals(text)) {
@@ -102,6 +103,7 @@ public abstract class AbstractEnumPropertyEditor extends AbstractComboPropertyEd
   // IValueSourcePropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueSource(Object value) throws Exception {
     if (value instanceof Enum<?>) {
       Enum<?> element = (Enum<?>) value;
@@ -118,6 +120,7 @@ public abstract class AbstractEnumPropertyEditor extends AbstractComboPropertyEd
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     Object value = property.getValue();
     return getValueSource(value);

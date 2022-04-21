@@ -238,6 +238,7 @@ final class ListenerInfo {
       }
       // sort by name
       Collections.sort(m_methods, new Comparator<ListenerMethodInfo>() {
+        @Override
         public int compare(ListenerMethodInfo method_1, ListenerMethodInfo method_2) {
           return method_1.getName().compareTo(method_2.getName());
         }

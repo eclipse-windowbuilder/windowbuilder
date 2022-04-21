@@ -67,6 +67,7 @@ public final class ComponentEditCommand extends ComponentAbstractCommand {
   @Override
   public void addToCommandList(final List<Command> commands) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         removeCommands(commands, ComponentEditCommand.class, m_id);
       }

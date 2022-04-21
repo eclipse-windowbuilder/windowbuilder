@@ -90,6 +90,7 @@ public final class SetterAccessor extends ExpressionAccessor {
   private Object askDefaultValue(final JavaInfo javaInfo) throws Exception {
     if (m_getter != null && isDefaultEnabled(javaInfo)) {
       return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
+        @Override
         public Object runObject() throws Exception {
           return m_getter.invoke(javaInfo.getObject());
         }
@@ -127,6 +128,7 @@ public final class SetterAccessor extends ExpressionAccessor {
       final AstEditor editor = javaInfo.getEditor();
       if (source == null) {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editor.removeEnclosingStatement(invocation);
           }
@@ -135,6 +137,7 @@ public final class SetterAccessor extends ExpressionAccessor {
         final Expression oldExpression = getExpression(invocation);
         if (!editor.getSource(oldExpression).equals(source)) {
           ExecutionUtils.run(javaInfo, new RunnableEx() {
+            @Override
             public void run() throws Exception {
               javaInfo.replaceExpression(oldExpression, source);
             }
@@ -143,6 +146,7 @@ public final class SetterAccessor extends ExpressionAccessor {
       }
     } else if (source != null) {
       ExecutionUtils.run(javaInfo, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           javaInfo.addMethodInvocation(m_setterSignature, source);
         }
@@ -185,14 +189,17 @@ public final class SetterAccessor extends ExpressionAccessor {
    */
   private final IExposableExpressionAccessor m_exposableAccessor =
       new IExposableExpressionAccessor() {
+        @Override
         public Class<?> getValueClass(JavaInfo javaInfo) {
           return m_setter.getParameterTypes()[0];
         }
 
+        @Override
         public String getGetterCode(JavaInfo javaInfo) throws Exception {
           return m_getter.getName() + "()";
         }
 
+        @Override
         public String getSetterCode(JavaInfo javaInfo, String source) throws Exception {
           return m_setter.getName() + "(" + source + ")";
         }

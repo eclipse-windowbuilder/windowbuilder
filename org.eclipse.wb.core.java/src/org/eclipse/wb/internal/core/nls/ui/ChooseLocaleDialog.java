@@ -177,10 +177,12 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
       {
         // set content provider
         m_localesViewer.setContentProvider(new IStructuredContentProvider() {
+          @Override
           public Object[] getElements(Object inputElement) {
             Locale[] locales = Locale.getAvailableLocales();
             // sort locales by name
             Arrays.sort(locales, new Comparator<Locale>() {
+              @Override
               public int compare(Locale locale_1, Locale locale_2) {
                 return locale_1.toString().compareTo(locale_2.toString());
               }
@@ -189,20 +191,24 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
             return locales;
           }
 
+          @Override
           public void dispose() {
           }
 
+          @Override
           public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
           }
         });
         // set label provider
         {
           class LocalesLabelProvider extends LabelProvider implements ITableLabelProvider {
+            @Override
             public Image getColumnImage(Object element, int columnIndex) {
               Locale locale = (Locale) element;
               return FlagImagesRepository.getFlagImage(locale);
             }
 
+            @Override
             public String getColumnText(Object element, int columnIndex) {
               Locale locale = (Locale) element;
               return locale.toString() + " - " + locale.getDisplayName();
@@ -214,6 +220,7 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
         m_localesViewer.setInput(this);
         // add selection listener that updates separate language/country combo's
         m_localesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+          @Override
           public void selectionChanged(SelectionChangedEvent event) {
             IStructuredSelection selection = (IStructuredSelection) m_localesViewer.getSelection();
             Locale locale = (Locale) selection.getFirstElement();
@@ -224,6 +231,7 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
         });
         // add double click listener for fast select/close
         m_localesViewer.addDoubleClickListener(new IDoubleClickListener() {
+          @Override
           public void doubleClick(DoubleClickEvent event) {
             okPressed();
           }

@@ -95,6 +95,7 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     // factory class
     {
       m_factoryClassField = new StringButtonDialogField(new IStringButtonAdapter() {
+        @Override
         public void changeControlPressed(DialogField field) {
           try {
             String factoryClassName =
@@ -115,12 +116,15 @@ public final class FactoriesAddDialog extends AbstractPaletteDialog {
     {
       m_signaturesField =
           new CheckedListDialogField(new IListAdapter() {
+            @Override
             public void selectionChanged(ListDialogField field) {
             }
 
+            @Override
             public void doubleClicked(ListDialogField field) {
             }
 
+            @Override
             public void customButtonPressed(ListDialogField field, int index) {
             }
           }, new String[]{

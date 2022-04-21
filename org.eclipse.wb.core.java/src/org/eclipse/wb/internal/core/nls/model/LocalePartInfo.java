@@ -75,6 +75,7 @@ public final class LocalePartInfo implements Comparable<LocalePartInfo> {
   // Comparable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int compareTo(LocalePartInfo o) {
     return m_name.compareTo(o.m_name);
   }

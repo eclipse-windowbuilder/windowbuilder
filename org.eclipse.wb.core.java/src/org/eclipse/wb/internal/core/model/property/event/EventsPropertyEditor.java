@@ -47,6 +47,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
   // IComplexPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public AbstractListenerProperty[] getProperties(Property property) throws Exception {
     EventsProperty eventsProperty = (EventsProperty) property;
     JavaInfo javaInfo = eventsProperty.getJavaInfo();
@@ -106,6 +107,7 @@ final class EventsPropertyEditor extends AbstractComplexEventPropertyEditor {
     ListenerInfo.useSimpleNamesWherePossible(listeners);
     // sort listeners by name
     Collections.sort(listeners, new Comparator<ListenerInfo>() {
+      @Override
       public int compare(ListenerInfo listener_1, ListenerInfo listener_2) {
         return listener_1.getName().compareTo(listener_2.getName());
       }

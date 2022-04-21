@@ -36,10 +36,12 @@ public abstract class AbstractActionDelegate
   // IWorkbenchWindowActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbenchWindow window) {
     m_window = window;
   }
 
+  @Override
   public void dispose() {
   }
 
@@ -48,6 +50,7 @@ public abstract class AbstractActionDelegate
   // IObjectActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setActivePart(IAction action, IWorkbenchPart targetPart) {
     m_window = targetPart.getSite().getWorkbenchWindow();
   }
@@ -57,6 +60,7 @@ public abstract class AbstractActionDelegate
   // IWorkbenchWindowActionDelegate + IObjectActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void selectionChanged(IAction action, ISelection selection) {
     if (selection instanceof IStructuredSelection) {
       m_selection = (IStructuredSelection) selection;

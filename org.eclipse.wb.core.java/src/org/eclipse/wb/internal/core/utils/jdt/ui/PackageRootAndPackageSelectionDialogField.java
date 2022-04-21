@@ -34,6 +34,7 @@ public class PackageRootAndPackageSelectionDialogField extends DialogField {
   private final PackageSelectionDialogField m_packageField;
   private boolean m_dialogFieldChanging;
   private final IDialogFieldListener m_validateListener = new IDialogFieldListener() {
+    @Override
     public void dialogFieldChanged(DialogField field) {
       if (!m_dialogFieldChanging) {
         PackageRootAndPackageSelectionDialogField.this.dialogFieldChanged();
@@ -58,6 +59,7 @@ public class PackageRootAndPackageSelectionDialogField extends DialogField {
       m_rootField = PackageRootSelectionDialogField.create(rootLabel, rootButtonLabel);
       m_rootField.setUpdateListener(m_validateListener);
       m_rootField.setListener(new IPackageRootChangeListener() {
+        @Override
         public void rootChanged(IPackageFragmentRoot newRoot) {
           m_packageField.setRoot(m_rootField.getRoot());
         }

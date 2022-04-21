@@ -219,6 +219,7 @@ public final class EditorState {
     dispose_UIManager();
     // dispose class loader
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         AbstractParseFactory.deinitializeClassLoader(m_editorLoader, m_toolkitId);
       }
@@ -235,6 +236,7 @@ public final class EditorState {
    */
   private void dispose_UIManager() {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         UIDefaults defaults = UIManager.getDefaults();
         Collection<Object> values = defaults.values();
@@ -256,6 +258,7 @@ public final class EditorState {
    */
   private void dispose_PropertyEditorManager() {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       @SuppressWarnings("rawtypes")
       public void run() throws Exception {
         Map registry =

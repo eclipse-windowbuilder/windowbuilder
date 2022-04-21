@@ -134,6 +134,7 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
     close();
     if (CONTACT_SUPPORT_ID == buttonId) {
       ExecutionUtils.runAsync(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           handleContactSupport();
         }

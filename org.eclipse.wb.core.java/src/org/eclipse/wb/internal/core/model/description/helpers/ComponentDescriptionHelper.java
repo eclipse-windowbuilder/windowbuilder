@@ -551,6 +551,7 @@ public final class ComponentDescriptionHelper {
       methodDescription.setInitialized(true);
       // do initialize
       ExecutionUtils.runIgnore(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           IMethod method =
               CodeUtils.findMethod(

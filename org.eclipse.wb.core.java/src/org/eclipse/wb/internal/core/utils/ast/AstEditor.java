@@ -1227,6 +1227,7 @@ public final class AstEditor {
     }
     // generate unique name
     return CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
+      @Override
       public boolean apply(String name) {
         return !existingIdentifiers.contains(name);
       }
@@ -1252,6 +1253,7 @@ public final class AstEditor {
     });
     // generate unique name
     return CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
+      @Override
       public boolean apply(String name) {
         return !existingMethods.contains(name);
       }
@@ -1272,6 +1274,7 @@ public final class AstEditor {
     });
     // generate unique name
     return CodeUtils.generateUniqueName(baseName, new Predicate<String>() {
+      @Override
       public boolean apply(String name) {
         return !existingTypes.contains(name);
       }

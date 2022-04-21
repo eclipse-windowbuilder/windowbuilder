@@ -51,6 +51,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
     processRoot(root);
   }
@@ -63,6 +64,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
       }
     });
     rootJavaInfo.addBroadcastListener(new EditorActivatedListener() {
+      @Override
       public void invoke(EditorActivatedRequest request) throws Exception {
         if (JavaInfoUtils.isDependencyChanged(rootJavaInfo)) {
           request.requestReparse();
@@ -71,6 +73,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
     });
     // visibility in tree/GEF
     rootJavaInfo.addBroadcastListener(new ObjectInfoChildTree() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof JavaInfo) {
           JavaInfo javaInfo = (JavaInfo) object;
@@ -87,6 +90,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
       }
     });
     rootJavaInfo.addBroadcastListener(new ObjectInfoChildGraphical() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (object instanceof JavaInfo) {
           JavaInfo javaInfo = (JavaInfo) object;
@@ -105,6 +109,7 @@ public final class JavaInfoRootProcessor implements IRootProcessor {
     });
     // text decoration
     rootJavaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
+      @Override
       public void invoke(ObjectInfo object, String[] text) throws Exception {
         if (object instanceof JavaInfo) {
           JavaInfo javaInfo = (JavaInfo) object;

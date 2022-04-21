@@ -54,6 +54,7 @@ public abstract class TopBoundsSupport implements ITopBoundsSupport {
    */
   public abstract void apply() throws Exception;
 
+  @Override
   public abstract void setSize(int width, int height) throws Exception;
 
   ////////////////////////////////////////////////////////////////////////////

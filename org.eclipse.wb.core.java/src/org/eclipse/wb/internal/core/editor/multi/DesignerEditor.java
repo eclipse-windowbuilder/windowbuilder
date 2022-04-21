@@ -193,6 +193,7 @@ public final class DesignerEditor extends CompilationUnitEditor
    */
   public void showSourcePosition(final int position) {
     ExecutionUtils.runLogLater(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         selectAndReveal(position, 0);
       }
@@ -204,6 +205,7 @@ public final class DesignerEditor extends CompilationUnitEditor
    */
   public void highlightVisitedNodes(final Collection<ASTNode> nodes) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (m_linesHighlighter != null) {
           m_linesHighlighter.setVisitedNodes(nodes);
@@ -215,6 +217,7 @@ public final class DesignerEditor extends CompilationUnitEditor
   /**
    * @return the {@link MultiMode}.
    */
+  @Override
   public IMultiMode getMultiMode() {
     return m_multiMode;
   }
@@ -222,6 +225,7 @@ public final class DesignerEditor extends CompilationUnitEditor
   /**
    * @return the {@link ICompilationUnit} opened in this editor.
    */
+  @Override
   public ICompilationUnit getCompilationUnit() {
     IWorkingCopyManager workingCopyManager = JavaUI.getWorkingCopyManager();
     return workingCopyManager.getWorkingCopy(getEditorInput());
@@ -234,10 +238,12 @@ public final class DesignerEditor extends CompilationUnitEditor
   ////////////////////////////////////////////////////////////////////////////
   private final List<DesignerEditorListener> m_designPageListeners = Lists.newArrayList();
 
+  @Override
   public void addDesignPageListener(DesignerEditorListener listener) {
     m_designPageListeners.add(listener);
   }
 
+  @Override
   public void removeDesignPageListener(DesignerEditorListener listener) {
     m_designPageListeners.remove(listener);
   }
@@ -251,6 +257,7 @@ public final class DesignerEditor extends CompilationUnitEditor
   // IDesignCompositeProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public DesignComposite getDesignComposite() {
     return m_multiMode.getDesignPage().getDesignComposite();
   }

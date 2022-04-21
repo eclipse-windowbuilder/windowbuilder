@@ -64,6 +64,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
   // IExpressionEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluate(EvaluationContext context,
       Expression expression,
       ITypeBinding typeBinding,
@@ -603,6 +604,7 @@ public final class InvocationEvaluator implements IExpressionEvaluator {
    */
   public static String getArguments_toString(final Object[] arguments) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         return ArrayUtils.toString(arguments);
       }

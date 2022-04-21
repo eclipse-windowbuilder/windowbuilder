@@ -126,6 +126,7 @@ public class WrapperMethodInfo extends JavaInfo implements IWrapperInfo {
   ////////////////////////////////////////////////////////////////////////////
   private WrapperByMethod m_wrapper;
 
+  @Override
   public WrapperByMethod getWrapper() {
     if (m_wrapper == null) {
       m_wrapper = createWrapper();

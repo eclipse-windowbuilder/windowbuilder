@@ -49,6 +49,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
   // IPropertiesAccessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   @SuppressWarnings("unchecked")
   public Map<String, String> load(InputStream is, String charset) throws Exception {
     Properties properties = new Properties();
@@ -56,6 +57,7 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
     return (Map) properties;
   }
 
+  @Override
   public void save(OutputStream os, String charset, Map<String, String> map, String comments)
       throws Exception {
     SortedProperties sorted = new SortedProperties();
@@ -99,10 +101,12 @@ public class StandardPropertiesAccessor implements IPropertiesAccessor {
         this.iterator = iterator;
       }
 
+      @Override
       public boolean hasMoreElements() {
         return iterator.hasNext();
       }
 
+      @Override
       public String nextElement() {
         return iterator.next();
       }

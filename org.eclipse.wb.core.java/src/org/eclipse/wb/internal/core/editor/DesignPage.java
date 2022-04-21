@@ -98,6 +98,7 @@ public final class DesignPage implements IDesignPage {
     public void partActivated(IWorkbenchPart part) {
       if (part == m_designerEditor) {
         ExecutionUtils.runAsync(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             if (!isDisposed()) {
               GlobalStateJava.activate(m_rootObject);
@@ -113,9 +114,11 @@ public final class DesignPage implements IDesignPage {
     }
   };
 
+  @Override
   public void initialize(IDesignerEditor designerEditor) {
     m_designerEditor = (DesignerEditor) designerEditor;
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_compilationUnit = m_designerEditor.getCompilationUnit();
         m_undoManager = new UndoManager(DesignPage.this, m_compilationUnit);
@@ -135,6 +138,7 @@ public final class DesignPage implements IDesignPage {
   /**
    * Disposes this {@link DesignPage}.
    */
+  @Override
   public void dispose() {
     m_disposed = true;
     m_undoManager.deactivate();
@@ -147,10 +151,12 @@ public final class DesignPage implements IDesignPage {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return "Design";
   }
 
+  @Override
   public Image getImage() {
     return DesignerPlugin.getImage("editor_design_page.png");
   }
@@ -166,6 +172,7 @@ public final class DesignPage implements IDesignPage {
   /**
    * Creates the SWT control(s) for this page.
    */
+  @Override
   public Control createControl(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(container).noMargins().noSpacing();
@@ -178,6 +185,7 @@ public final class DesignPage implements IDesignPage {
     GridDataFactory.create(m_pageBook).grab().fill();
     // design composite
     ICommandExceptionHandler exceptionHandler = new ICommandExceptionHandler() {
+      @Override
       public void handleException(Throwable exception) {
         handleDesignException(exception);
       }
@@ -202,6 +210,7 @@ public final class DesignPage implements IDesignPage {
     return composite;
   }
 
+  @Override
   public Control getControl() {
     return m_pageBook;
   }
@@ -216,6 +225,7 @@ public final class DesignPage implements IDesignPage {
   /**
    * Asks this page to take focus.
    */
+  @Override
   public void setFocus() {
     m_designComposite.setFocus();
   }
@@ -235,6 +245,7 @@ public final class DesignPage implements IDesignPage {
   /**
    * Handles activation/deactivation of {@link DesignPage} in {@link DesignerEditor}.
    */
+  @Override
   public void handleActiveState(boolean activate) {
     m_active = activate;
     if (activate) {
@@ -244,6 +255,7 @@ public final class DesignPage implements IDesignPage {
     }
   }
 
+  @Override
   public void setSourceModelSynchronizationEnabled(boolean active) {
     if (active) {
       m_undoManager.activate();
@@ -278,6 +290,7 @@ public final class DesignPage implements IDesignPage {
   private void checkDependenciesOnDesignPageActivation() {
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           EditorActivatedRequest request = new EditorActivatedRequest();
           m_rootObject.getBroadcast(EditorActivatedListener.class).invoke(request);
@@ -344,6 +357,7 @@ public final class DesignPage implements IDesignPage {
     // dispose model
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_rootObject.refresh_dispose();
           m_rootObject.getBroadcastObject().dispose();
@@ -361,6 +375,7 @@ public final class DesignPage implements IDesignPage {
   private void dispose_beforePresentation() {
     if (m_rootObject != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_rootObject.getBroadcastObject().dispose_beforePresentation();
         }
@@ -377,6 +392,7 @@ public final class DesignPage implements IDesignPage {
   protected void disposeContext(final boolean force) {
     for (final EditorLifeCycleListener listener : getLifeCycleListeners()) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           listener.disposeContext(DesignPage.this, force);
         }
@@ -387,6 +403,7 @@ public final class DesignPage implements IDesignPage {
   /**
    * Parses {@link ICompilationUnit} and displays it in GEF.
    */
+  @Override
   public void refreshGEF() {
     disposeContext(true);
     m_undoManager.refreshDesignerEditor();
@@ -437,6 +454,7 @@ public final class DesignPage implements IDesignPage {
   private void internal_refreshGEF_withProgress() throws Exception {
     final Display display = Display.getCurrent();
     IRunnableWithProgress runnable = new IRunnableWithProgress() {
+      @Override
       public void run(final IProgressMonitor monitor) throws InvocationTargetException,
           InterruptedException {
         monitor.beginTask("Opening Design page.", 7);
@@ -444,6 +462,7 @@ public final class DesignPage implements IDesignPage {
         try {
           DesignPageSite.setProgressMonitor(monitor);
           display.syncExec(new Runnable() {
+            @Override
             public void run() {
               try {
                 internal_refreshGEF(monitor);
@@ -592,6 +611,7 @@ public final class DesignPage implements IDesignPage {
       @Override
       public void run() {
         ExecutionUtils.runIgnore(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             JavaInfoUtils.rememberDependency(m_rootObject);
           }
@@ -605,6 +625,7 @@ public final class DesignPage implements IDesignPage {
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public DesignerState getDesignerState() {
     return m_designerState;
   }

@@ -144,6 +144,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
   public void setValue(Object value) throws Exception {
     Assert.isTrue(value == UNKNOWN_VALUE, "Unsupported value |%s|.", value);
     ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         removeListenerMethod();
       }
@@ -724,11 +725,13 @@ final class ListenerMethodProperty extends AbstractEventProperty
   /**
    * Opens stub method (or listener method if there are no stub method).
    */
+  @Override
   public void openStubMethod() throws Exception {
     // prepare method as listener method or stub method
     MethodDeclaration method = findStubMethod();
     if (method == null) {
       method = ExecutionUtils.runObject(m_javaInfo, new RunnableObjectEx<MethodDeclaration>() {
+        @Override
         public MethodDeclaration runObject() throws Exception {
           return ensureStubMethod();
         }
@@ -849,6 +852,7 @@ final class ListenerMethodProperty extends AbstractEventProperty
       // try to load ComponentDescription for listener method parameter
       ComponentDescription eventClassDescription =
           ExecutionUtils.runObjectIgnore(new RunnableObjectEx<ComponentDescription>() {
+            @Override
             public ComponentDescription runObject() throws Exception {
               ClassLoader editorLoader = EditorState.get(editor).getEditorLoader();
               String parameterTypeName =

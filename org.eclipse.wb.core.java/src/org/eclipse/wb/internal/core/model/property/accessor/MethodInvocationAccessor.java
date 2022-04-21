@@ -68,12 +68,14 @@ public final class MethodInvocationAccessor extends ExpressionAccessor {
       final AstEditor editor = javaInfo.getEditor();
       if (source == null) {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editor.removeEnclosingStatement(invocation);
           }
         });
       } else {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editor.replaceInvocationArguments(invocation, ImmutableList.of(source));
           }
@@ -81,6 +83,7 @@ public final class MethodInvocationAccessor extends ExpressionAccessor {
       }
     } else if (source != null) {
       ExecutionUtils.run(javaInfo, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           javaInfo.addMethodInvocation(m_methodSignature, source);
         }

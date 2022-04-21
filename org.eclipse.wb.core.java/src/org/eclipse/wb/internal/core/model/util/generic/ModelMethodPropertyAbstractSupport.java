@@ -61,6 +61,7 @@ abstract class ModelMethodPropertyAbstractSupport {
    */
   protected final void install() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         installEx();
       }
@@ -208,6 +209,7 @@ abstract class ModelMethodPropertyAbstractSupport {
       ////////////////////////////////////////////////////////////////////////////
       protected PropertyProcessor() {
         object.addBroadcastListener(new ObjectInfoAddProperties() {
+          @Override
           public void invoke(ObjectInfo target, List<Property> properties) throws Exception {
             if (isPropertyTarget(target)) {
               Property property = createProperty(target);
@@ -269,6 +271,7 @@ abstract class ModelMethodPropertyAbstractSupport {
         // ITypedProperty
         //
         ////////////////////////////////////////////////////////////////////////////
+        @Override
         public Class<?> getType() {
           return type;
         }

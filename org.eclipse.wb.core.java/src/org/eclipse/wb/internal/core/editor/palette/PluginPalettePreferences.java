@@ -83,6 +83,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
   // IPalettePreferences
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Font getCategoryFont() {
     if (m_categoryFont == null) {
       FontData[] fontDataArray = PreferenceConverter.getFontDataArray(m_store, m_categoryFontKey);
@@ -91,6 +92,7 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     return m_categoryFont;
   }
 
+  @Override
   public Font getEntryFont() {
     if (m_entryFont == null) {
       FontData[] fontDataArray = PreferenceConverter.getFontDataArray(m_store, m_entryFontKey);
@@ -99,10 +101,12 @@ public final class PluginPalettePreferences implements IPalettePreferences {
     return m_entryFont;
   }
 
+  @Override
   public boolean isOnlyIcons() {
     return m_store.getBoolean(m_onlyIconsKey);
   }
 
+  @Override
   public int getMinColumns() {
     return m_store.getInt(m_minColumnsKey);
   }

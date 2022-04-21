@@ -101,12 +101,14 @@ public abstract class AbstractParseFactory implements IParseFactory {
   // IParseFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ParseRootContext getRootContext(AstEditor editor,
       TypeDeclaration typeDeclaration,
       ITypeBinding typeBinding) throws Exception {
     return null;
   }
 
+  @Override
   public JavaInfo create(AstEditor editor, Expression expression) throws Exception {
     // (Type) super.someMethodInvocation()
     if (expression instanceof CastExpression) {
@@ -148,6 +150,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
     return null;
   }
 
+  @Override
   public JavaInfo create(final AstEditor editor,
       ClassInstanceCreation creation,
       final IMethodBinding methodBinding,
@@ -175,6 +178,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
               editor,
               typeBinding,
               new RunnableObjectEx<AbstractInvocationDescription>() {
+                @Override
                 public AbstractInvocationDescription runObject() throws Exception {
                   ComponentDescription description =
                       ComponentDescriptionHelper.getDescription(editor, creationClass);
@@ -196,6 +200,7 @@ public abstract class AbstractParseFactory implements IParseFactory {
     return null;
   }
 
+  @Override
   public JavaInfo create(AstEditor editor,
       MethodInvocation invocation,
       IMethodBinding methodBinding,

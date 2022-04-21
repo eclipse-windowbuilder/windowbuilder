@@ -49,18 +49,22 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   private Rectangle m_bounds;
   private Rectangle m_modelBounds;
 
+  @Override
   public final Rectangle getBounds() {
     return m_bounds;
   }
 
+  @Override
   public final void setBounds(Rectangle bounds) {
     m_bounds = bounds;
   }
 
+  @Override
   public final Rectangle getModelBounds() {
     return m_modelBounds;
   }
 
+  @Override
   public final void setModelBounds(Rectangle bounds) {
     m_modelBounds = bounds;
     // set "shot" bounds
@@ -100,6 +104,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   ////////////////////////////////////////////////////////////////////////////
   private Dimension m_preferredSize;
 
+  @Override
   public final Dimension getPreferredSize() {
     if (m_preferredSize == null) {
       return getLivePreferredSize();
@@ -121,6 +126,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   // Baseline
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final int getBaseline() {
     Object object = getObject();
     if (object == null) {
@@ -136,10 +142,12 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   ////////////////////////////////////////////////////////////////////////////
   private Insets m_clientAreaInsets = Insets.ZERO_INSETS;
 
+  @Override
   public final Insets getClientAreaInsets() {
     return m_clientAreaInsets;
   }
 
+  @Override
   public final void setClientAreaInsets(Insets clientAreaInsets) {
     m_clientAreaInsets = clientAreaInsets;
   }
@@ -149,6 +157,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   // Right-to-left
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isRTL() {
     return false;
   }
@@ -160,6 +169,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   ////////////////////////////////////////////////////////////////////////////
   private Image m_image;
 
+  @Override
   public final Image getImage() {
     if (m_image == null && getParent() == null) {
       return getLiveImage();
@@ -258,6 +268,7 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
   ////////////////////////////////////////////////////////////////////////////
   private TopBoundsSupport m_topBoundsSupport;
 
+  @Override
   public final TopBoundsSupport getTopBoundsSupport() {
     if (m_topBoundsSupport == null) {
       m_topBoundsSupport = createTopBoundsSupport();

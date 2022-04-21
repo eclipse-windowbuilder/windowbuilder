@@ -393,6 +393,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
    */
   public final JavaEventListener getBroadcastJava() {
     return ExecutionUtils.runObject(new RunnableObjectEx<JavaEventListener>() {
+      @Override
       public JavaEventListener runObject() throws Exception {
         return getBroadcast(JavaEventListener.class);
       }
@@ -477,6 +478,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
     } else {
       // consider any new object as "ready"
       addBroadcastListener(new JavaInfoSetObjectAfter() {
+        @Override
         public void invoke(JavaInfo target, Object o) throws Exception {
           if (target == m_this && !m_this.isDeleted()) {
             processObjectReady();
@@ -647,6 +649,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
   // HasSourcePosition
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getSourcePosition() {
     return getCreationSupport().getNode().getStartPosition();
   }
@@ -758,6 +761,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
     // try "canDelete" script
     {
       boolean canDeleteBoolean = ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+        @Override
         public Boolean runObject() throws Exception {
           Object canDeleteObject = JavaInfoUtils.executeScriptParameter(m_this, "canDelete");
           if (canDeleteObject == null) {
@@ -801,6 +805,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
     final ObjectInfo parent = getParent();
     ObjectInfo hierarchyObject = parent != null ? parent : this;
     ExecutionUtils.run(hierarchyObject, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         putArbitraryValue(FLAG_DELETING, Boolean.TRUE);
         try {
@@ -1165,6 +1170,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
       public boolean enterFrame(final ASTNode node) {
         // send broadcast
         ExecutionUtils.runRethrow(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editorState.getBroadcast().getListener(ExecutionFlowEnterFrame.class).invoke(node);
           }
@@ -1185,6 +1191,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
         super.leaveFrame(node);
         // send broadcast
         ExecutionUtils.runRethrow(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editorState.getBroadcast().getListener(EvaluationEventListener.class).leaveFrame(node);
           }

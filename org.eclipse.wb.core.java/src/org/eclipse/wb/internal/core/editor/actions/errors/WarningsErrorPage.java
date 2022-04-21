@@ -47,10 +47,12 @@ public final class WarningsErrorPage implements IErrorPage {
   // IErrorPage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getTitle() {
     return Messages.WarningsErrorPage_title;
   }
 
+  @Override
   public final void setRoot(ObjectInfo rootObject) {
     if (rootObject instanceof JavaInfo) {
       JavaInfo javaInfo = (JavaInfo) rootObject;
@@ -62,6 +64,7 @@ public final class WarningsErrorPage implements IErrorPage {
     }
   }
 
+  @Override
   public final boolean hasErrors() {
     return m_collection != null && !m_collection.isEmpty();
   }
@@ -74,6 +77,7 @@ public final class WarningsErrorPage implements IErrorPage {
   private List m_nodesList;
   private Browser m_browser;
 
+  @Override
   public final Control create(Composite parent) {
     Composite container = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(container);
@@ -98,6 +102,7 @@ public final class WarningsErrorPage implements IErrorPage {
       }
       // add selection listener
       m_nodesList.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           showException();
         }

@@ -53,6 +53,7 @@ public class LocaleUtils {
    */
   public static void sortByTitle(LocaleInfo locales[]) {
     Arrays.sort(locales, new Comparator<LocaleInfo>() {
+      @Override
       public int compare(LocaleInfo locale_1, LocaleInfo locale_2) {
         return locale_1.getTitle().compareTo(locale_2.getTitle());
       }

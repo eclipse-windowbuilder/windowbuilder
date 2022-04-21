@@ -144,6 +144,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   ////////////////////////////////////////////////////////////////////////////
   private ToolkitDescriptionJava m_toolkit;
 
+  @Override
   public ToolkitDescriptionJava getToolkit() {
     return m_toolkit;
   }
@@ -161,6 +162,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   ////////////////////////////////////////////////////////////////////////////
   private final Class<?> m_componentClass;
 
+  @Override
   public Class<?> getComponentClass() {
     return m_componentClass;
   }
@@ -171,6 +173,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   ////////////////////////////////////////////////////////////////////////////
   private Class<?> m_modelClass;
 
+  @Override
   public Class<?> getModelClass() {
     return m_modelClass;
   }
@@ -766,6 +769,7 @@ public class ComponentDescription extends AbstractDescription implements ICompon
   ////////////////////////////////////////////////////////////////////////////
   private Image m_icon;
 
+  @Override
   public Image getIcon() {
     return m_icon;
   }

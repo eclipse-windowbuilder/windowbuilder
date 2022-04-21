@@ -75,6 +75,7 @@ public abstract class AbstractArrayObjectInfo extends ItemCollectorObjectInfo {
   @Override
   public IObjectPresentation getPresentation() {
     return new DefaultObjectPresentation(this) {
+      @Override
       public String getText() throws Exception {
         String text = "(array)";
         if (!StringUtils.isEmpty(m_caption)) {

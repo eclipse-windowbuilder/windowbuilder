@@ -60,6 +60,7 @@ public final class StaticFactoryCreationSupport extends AbstractExplicitFactoryC
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public CreationSupport getLiveComponentCreation() {
     FactoryMethodDescription factoryMethodDescription = getDescription();
     return new StaticFactoryCreationSupport(factoryMethodDescription);

@@ -37,11 +37,13 @@ final class JarImageResource extends AbstractJarImageElement implements IImageRe
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     ImageInfo imageInfo = getImageInfo();
     return imageInfo != null ? imageInfo.getImage() : null;
   }
 
+  @Override
   public String getName() {
     return m_entryPath.lastSegment();
   }
@@ -51,6 +53,7 @@ final class JarImageResource extends AbstractJarImageElement implements IImageRe
   // IImageResource
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public ImageInfo getImageInfo() {
     return m_jarContainer.getImage(m_entryPath.toOSString().replace('\\', '/'));
   }

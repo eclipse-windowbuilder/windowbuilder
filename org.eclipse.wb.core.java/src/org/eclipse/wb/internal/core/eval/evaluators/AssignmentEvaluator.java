@@ -30,6 +30,7 @@ public final class AssignmentEvaluator implements IExpressionEvaluator {
   // IExpressionEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluate(EvaluationContext context,
       Expression expression,
       ITypeBinding typeBinding,

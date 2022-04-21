@@ -79,6 +79,7 @@ public final class StaticFactoryEntryInfo extends FactoryEntryInfo {
     ICreationFactory factory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         CreationSupport creationSupport = new StaticFactoryCreationSupport(m_methodDescription);
         m_javaInfo = createJavaInfo(creationSupport);
@@ -86,6 +87,7 @@ public final class StaticFactoryEntryInfo extends FactoryEntryInfo {
         m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }

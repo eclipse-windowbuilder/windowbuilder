@@ -66,6 +66,7 @@ abstract class DefaultMultiMode extends MultiMode {
     // see https://bugs.eclipse.org/bugs/show_bug.cgi?id=199499
     // Switching tabs by Ctrl+PageUp/PageDown must not be caught on the inner tab set
     m_folder.addTraverseListener(new TraverseListener() {
+      @Override
       public void keyTraversed(TraverseEvent e) {
         switch (e.detail) {
           case SWT.TRAVERSE_PAGE_NEXT :
@@ -75,6 +76,7 @@ abstract class DefaultMultiMode extends MultiMode {
             e.detail = SWT.TRAVERSE_NONE;
             // 3.6+
             ExecutionUtils.runIgnore(new RunnableEx() {
+              @Override
               public void run() throws Exception {
                 Control control = m_folder.getParent();
                 ReflectionUtils.invokeMethod(
