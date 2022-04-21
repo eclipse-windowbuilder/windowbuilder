@@ -75,12 +75,14 @@ public final class DoubleFieldEditorEntryInfo extends ToolEntryInfo {
     ICreationFactory factory = new ICreationFactory() {
       private JavaInfo m_javaInfo;
 
+      @Override
       public void activate() throws Exception {
         CreationSupport creationSupport = new ConstructorCreationSupport();
         m_javaInfo = JavaInfoUtils.createJavaInfo(m_editor, TYPE_NAME, creationSupport);
         m_javaInfo.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
       }
 
+      @Override
       public Object getNewObject() {
         return m_javaInfo;
       }

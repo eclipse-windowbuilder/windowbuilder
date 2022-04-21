@@ -91,6 +91,7 @@ public final class PageLayoutAddViewInfo extends AbstractPartInfo {
     @Override
     public void setValue(final Object value) throws Exception {
       ExecutionUtils.run(m_page, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           setStandalone((Boolean) value);
         }
@@ -112,6 +113,7 @@ public final class PageLayoutAddViewInfo extends AbstractPartInfo {
     @Override
     public void setValue(final Object value) throws Exception {
       ExecutionUtils.run(m_page, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           setPlaceholder((Boolean) value);
         }
@@ -235,6 +237,7 @@ public final class PageLayoutAddViewInfo extends AbstractPartInfo {
   // Rendering
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control render() throws Exception {
     CTabFolder folder = PageLayoutInfo.createPartFolder(m_page.getPartsComposite());
     // create CTabItem

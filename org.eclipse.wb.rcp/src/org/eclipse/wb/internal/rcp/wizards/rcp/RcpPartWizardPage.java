@@ -84,6 +84,7 @@ public abstract class RcpPartWizardPage extends RcpWizardPage {
   protected final String getNameText() {
     final String[] text = new String[1];
     getShell().getDisplay().syncExec(new Runnable() {
+      @Override
       public void run() {
         text[0] = m_nameText.getText();
       }

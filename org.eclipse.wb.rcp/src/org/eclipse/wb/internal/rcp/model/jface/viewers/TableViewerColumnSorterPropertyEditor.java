@@ -83,6 +83,7 @@ public final class TableViewerColumnSorterPropertyEditor extends TextDisplayProp
         Activator.getDefault().getBundle(),
         "org.eclipse.wb.swt.TableViewerColumnSorter");
     ExecutionUtils.run(javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         String source =
             CodeUtils.getSource(

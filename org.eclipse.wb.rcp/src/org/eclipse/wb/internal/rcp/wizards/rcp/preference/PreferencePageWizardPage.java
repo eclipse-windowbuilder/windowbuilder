@@ -67,6 +67,7 @@ public final class PreferencePageWizardPage extends RcpWizardPage {
       throws CoreException {
     final String[] template = new String[1];
     getShell().getDisplay().syncExec(new Runnable() {
+      @Override
       public void run() {
         for (Button button : m_buttons) {
           if (button.getSelection()) {

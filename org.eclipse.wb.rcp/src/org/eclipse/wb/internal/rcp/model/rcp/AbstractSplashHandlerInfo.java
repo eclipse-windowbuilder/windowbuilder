@@ -52,6 +52,7 @@ public class AbstractSplashHandlerInfo extends AbstractComponentInfo implements 
   // IJavaInfoRendering
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void render() throws Exception {
     Object window = getObject();
     {
@@ -118,6 +119,7 @@ public class AbstractSplashHandlerInfo extends AbstractComponentInfo implements 
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         AbstractSplashHandlerInfo.super.refresh_fetch();
       }

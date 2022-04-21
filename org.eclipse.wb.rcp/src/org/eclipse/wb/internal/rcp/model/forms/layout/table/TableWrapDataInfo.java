@@ -171,18 +171,22 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   // Location
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getX() {
     return x;
   }
 
+  @Override
   public void setX(int x) {
     this.x = x;
   }
 
+  @Override
   public int getY() {
     return y;
   }
 
+  @Override
   public void setY(int y) {
     this.y = y;
   }
@@ -192,10 +196,12 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   // Span
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getHorizontalSpan() {
     return width;
   }
 
+  @Override
   public void setHorizontalSpan(int width) throws Exception {
     if (this.width != width) {
       this.width = width;
@@ -203,10 +209,12 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
     }
   }
 
+  @Override
   public int getVerticalSpan() {
     return height;
   }
 
+  @Override
   public void setVerticalSpan(int height) throws Exception {
     if (this.height != height) {
       this.height = height;
@@ -219,10 +227,12 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   // Grab
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean getHorizontalGrab() {
     return horizontalGrab;
   }
 
+  @Override
   public void setHorizontalGrab(boolean grab) throws Exception {
     if (horizontalGrab != grab) {
       horizontalGrab = grab;
@@ -242,10 +252,12 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
     }
   }
 
+  @Override
   public boolean getVerticalGrab() {
     return verticalGrab;
   }
 
+  @Override
   public void setVerticalGrab(boolean grab) throws Exception {
     if (verticalGrab != grab) {
       verticalGrab = grab;
@@ -270,10 +282,12 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   // Alignment
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getHorizontalAlignment() {
     return horizontalAlignment;
   }
 
+  @Override
   public void setHorizontalAlignment(int alignment) throws Exception {
     if (horizontalAlignment != alignment) {
       materialize();
@@ -301,10 +315,12 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
     }
   }
 
+  @Override
   public int getVerticalAlignment() {
     return verticalAlignment;
   }
 
+  @Override
   public void setVerticalAlignment(int alignment) throws Exception {
     if (verticalAlignment != alignment) {
       materialize();
@@ -428,6 +444,7 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
   // Images
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getSmallAlignmentImage(boolean horizontal) {
     if (horizontal) {
       switch (horizontalAlignment) {
@@ -492,6 +509,7 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
     }
   }
 
+  @Override
   public void fillHorizontalAlignmentMenu(IMenuManager manager) {
     manager.add(new SetAlignmentAction(this,
         ModelMessages.TableWrapDataInfo_haLeft,
@@ -515,6 +533,7 @@ public final class TableWrapDataInfo extends LayoutDataInfo implements ITableWra
         TableWrapData.FILL));
   }
 
+  @Override
   public void fillVerticalAlignmentMenu(IMenuManager manager) {
     manager.add(new SetAlignmentAction(this,
         ModelMessages.TableWrapDataInfo_vaTop,

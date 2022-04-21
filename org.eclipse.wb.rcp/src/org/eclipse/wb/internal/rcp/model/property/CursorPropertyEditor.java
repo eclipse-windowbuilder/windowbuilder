@@ -95,6 +95,7 @@ public final class CursorPropertyEditor extends AbstractComboPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     String text = getText(property);
     if (text != null) {

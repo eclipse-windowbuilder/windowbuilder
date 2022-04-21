@@ -245,6 +245,7 @@ public abstract class AbstractColumnLayoutInfo extends LayoutInfo {
    */
   private void contributeLayoutDataTypeProperty() {
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo possibleColumn, List<Property> properties) throws Exception {
         if (isOurColumn(possibleColumn)) {
           // prepare ColumnLayoutDataType_Property (existing or new)
@@ -363,6 +364,7 @@ public abstract class AbstractColumnLayoutInfo extends LayoutInfo {
       }
       // OK, set layout data
       ExecutionUtils.run(m_column, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           setLayoutData(m_column, layoutDataClassName);
         }

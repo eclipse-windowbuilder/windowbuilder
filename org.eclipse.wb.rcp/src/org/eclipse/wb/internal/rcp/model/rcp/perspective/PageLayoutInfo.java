@@ -106,6 +106,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
     super(editor, description, creationSupport);
     // move non-visual containers to the end
     addBroadcastListener(new JavaInfoTreeAlmostComplete() {
+      @Override
       public void invoke(JavaInfo root, List<JavaInfo> components) throws Exception {
         moveChild(m_fastViewContainer, null);
         moveChild(m_viewShortcutContainer, null);
@@ -173,6 +174,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
         {
           viewCategories = PdeUtils.getViewCategories();
           Collections.sort(viewCategories, new Comparator<ViewCategoryInfo>() {
+            @Override
             public int compare(ViewCategoryInfo o1, ViewCategoryInfo o2) {
               return getName(o1).compareTo(getName(o2));
             }
@@ -545,6 +547,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         PageLayoutInfo.super.refresh_fetch();
       }
@@ -641,6 +644,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
       final IPageLayoutTopLevelInfo reference) throws Exception {
     final PageLayoutInfo page = this;
     return command(new IPageLayoutCommand<PageLayoutAddViewInfo>() {
+      @Override
       public PageLayoutAddViewInfo execute(AstEditor editor,
           String layoutSource,
           StatementTarget target,
@@ -688,6 +692,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
       final IPageLayoutTopLevelInfo reference) throws Exception {
     final PageLayoutInfo page = this;
     command(new IPageLayoutCommand<PageLayoutAddViewInfo>() {
+      @Override
       public PageLayoutAddViewInfo execute(AstEditor editor,
           String layoutSource,
           final StatementTarget target,
@@ -695,13 +700,16 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
         // move creation Statement
         {
           IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+            @Override
             public StatementTarget getTarget() throws Exception {
               return target;
             }
 
+            @Override
             public void add() throws Exception {
             }
 
+            @Override
             public void move() throws Exception {
               moveChild(part, nextChild);
             }
@@ -744,6 +752,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
       final float ratio,
       final IPageLayoutTopLevelInfo reference) throws Exception {
     return command(new IPageLayoutCommand<PageLayoutCreateFolderInfo>() {
+      @Override
       public PageLayoutCreateFolderInfo execute(AstEditor editor,
           String layoutSource,
           StatementTarget target,
@@ -777,6 +786,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
       }
       // do generate unique
       folderId = CodeUtils.generateUniqueName("folder", new Predicate<String>() {
+        @Override
         public boolean apply(String t) {
           return !usedIDs.contains(t);
         }

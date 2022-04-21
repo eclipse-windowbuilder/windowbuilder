@@ -29,6 +29,7 @@ import org.eclipse.ui.actions.ActionFactory;
  * @coverage rcp.model.rcp
  */
 public class ActionFactoryExpressionEvaluator implements IExpressionEvaluator {
+  @Override
   public Object evaluate(EvaluationContext context,
       Expression expression,
       ITypeBinding typeBinding,

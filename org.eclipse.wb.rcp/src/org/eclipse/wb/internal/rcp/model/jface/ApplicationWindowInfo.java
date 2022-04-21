@@ -48,6 +48,7 @@ public final class ApplicationWindowInfo extends WindowInfo {
       CreationSupport creationSupport) throws Exception {
     super(editor, description, creationSupport);
     addBroadcastListener(new GenericPropertyGetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
         // return status manager's 'message' property as value of ApplicationWindow.status property.
         if (isStatusManagerMessageProperty(property)) {

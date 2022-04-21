@@ -38,6 +38,7 @@ public class PdeProjectClasspathListener implements IProjectClasspathListener {
   // IProjectClasspathListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void addClasspathEntry(IJavaProject javaProject, String jarPathString, String srcPathString)
       throws Exception {
     IProject project = javaProject.getProject();

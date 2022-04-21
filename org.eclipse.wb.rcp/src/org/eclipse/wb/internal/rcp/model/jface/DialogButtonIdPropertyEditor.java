@@ -306,12 +306,14 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
         m_viewer.setLabelProvider(new IdLabelProvider());
         m_viewer.setContentProvider(new ArrayContentProvider());
         m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+          @Override
           public void doubleClick(DoubleClickEvent e) {
             okPressed();
           }
         });
         // show initial elements
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             boolean showStandardIDs = isDialogConstantsQualifiedName(m_property.getExpression());
             // select standard/custom category
@@ -404,6 +406,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
       final String newValue = dialog.m_valueField.getText();
       final JavaInfo javaInfo = m_property.getJavaInfo();
       ExecutionUtils.run(javaInfo, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           AstEditor editor = javaInfo.getEditor();
           TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(javaInfo);
@@ -437,6 +440,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
       }
     }
     private class IdLabelProvider extends LabelProvider implements ITableLabelProvider {
+      @Override
       public String getColumnText(Object element, int columnIndex) {
         if (element instanceof FieldDeclaration) {
           FieldDeclaration fieldDeclaration = (FieldDeclaration) element;
@@ -445,6 +449,7 @@ public final class DialogButtonIdPropertyEditor extends TextDialogPropertyEditor
         return element.toString();
       }
 
+      @Override
       public Image getColumnImage(Object element, int columnIndex) {
         return null;
       }

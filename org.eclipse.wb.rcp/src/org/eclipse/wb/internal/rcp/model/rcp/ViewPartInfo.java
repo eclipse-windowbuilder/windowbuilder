@@ -92,6 +92,7 @@ public final class ViewPartInfo extends ViewPartLikeInfo {
             editorLoader,
             new Class<?>[]{viewSiteClass},
             new InvocationHandler() {
+              @Override
               public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 String signature = ReflectionUtils.getMethodSignature(method);
                 if (signature.equals("toString()")) {

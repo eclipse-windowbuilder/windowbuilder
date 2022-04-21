@@ -112,6 +112,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
       return Activator.getImage("info/perspective/container.gif");
     }
 
+    @Override
     public String getText() throws Exception {
       return getPresentationText();
     }
@@ -159,6 +160,7 @@ public abstract class AbstractShortcutContainerInfo extends ObjectInfo {
     {
       m_toolBar = new ToolBar(m_composite, m_toolBarStyle | SWT.FLAT | SWT.RIGHT);
       m_composite.addPaintListener(new PaintListener() {
+        @Override
         public void paintControl(PaintEvent e) {
           org.eclipse.swt.graphics.Rectangle r = m_toolBar.getBounds();
           GC gc = e.gc;

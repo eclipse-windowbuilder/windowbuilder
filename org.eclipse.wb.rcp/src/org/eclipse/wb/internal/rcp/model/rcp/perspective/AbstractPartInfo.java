@@ -81,10 +81,12 @@ public abstract class AbstractPartInfo extends AbstractComponentInfo
     return 0;
   }
 
+  @Override
   public final String getId() {
     return (String) getInvocationArgument(0);
   }
 
+  @Override
   public final String getIdSource() {
     Expression expression = DomGenerics.arguments(getInvocation()).get(0);
     return getEditor().getSource(expression);

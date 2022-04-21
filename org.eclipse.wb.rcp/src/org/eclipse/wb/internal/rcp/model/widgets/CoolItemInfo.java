@@ -192,14 +192,17 @@ public final class CoolItemInfo extends ItemInfo {
       final CoolBarInfo coolBar = (CoolBarInfo) getParentJava();
       final StatementTarget target = JavaInfoUtils.getTarget(this, control, null);
       IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+        @Override
         public void add() throws Exception {
           coolBar.addChild(control, getNextJavaInfo());
         }
 
+        @Override
         public void move() throws Exception {
           coolBar.moveChild(control, getNextJavaInfo());
         }
 
+        @Override
         public StatementTarget getTarget() throws Exception {
           return target;
         }

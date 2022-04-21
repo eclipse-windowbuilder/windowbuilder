@@ -96,6 +96,7 @@ public final class ScrolledCompositeLayoutEditPolicy extends LayoutEditPolicy {
         request,
         ControlInfo.class,
         new IPasteProcessor<ControlInfo>() {
+          @Override
           public void process(ControlInfo control) throws Exception {
             m_composite.command_CREATE(control);
           }

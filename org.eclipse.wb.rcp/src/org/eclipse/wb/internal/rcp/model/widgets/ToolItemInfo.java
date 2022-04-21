@@ -209,14 +209,17 @@ public final class ToolItemInfo extends ItemInfo {
       final ToolBarInfo toolBar = (ToolBarInfo) getParentJava();
       final StatementTarget target = JavaInfoUtils.getTarget(this, control, null);
       IMoveTargetProvider targetProvider = new IMoveTargetProvider() {
+        @Override
         public void add() throws Exception {
           toolBar.addChild(control, getNextJavaInfo());
         }
 
+        @Override
         public void move() throws Exception {
           toolBar.moveChild(control, getNextJavaInfo());
         }
 
+        @Override
         public StatementTarget getTarget() throws Exception {
           return target;
         }

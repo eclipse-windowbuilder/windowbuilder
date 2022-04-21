@@ -86,6 +86,7 @@ public final class FormToolkitAccessUtils {
         }
         // set object during evaluation
         toolkit.addBroadcastListener(new ExecutionFlowEnterFrame() {
+          @Override
           public void invoke(ASTNode node) throws Exception {
             if (node == method) {
               toolkit.setObject(RcpMethodParameterEvaluator.FORM_TOOLKIT);

@@ -60,6 +60,7 @@ public final class FormToolkitJavaInfoParticipator implements IJavaInfoInitializ
   // IJavaInfoInitializationParticipator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo javaInfo) throws Exception {
     if (javaInfo instanceof InstanceFactoryInfo
         && ReflectionUtils.isSuccessorOf(

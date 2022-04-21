@@ -88,6 +88,7 @@ public class ColumnLayoutInfo extends GenericFlowLayoutInfo
     return editorLoader.loadClass("org.eclipse.ui.forms.widgets.ColumnLayoutData").newInstance();
   }
 
+  @Override
   public IColumnLayoutDataInfo getColumnData2(ControlInfo control) {
     return getColumnData(control);
   }

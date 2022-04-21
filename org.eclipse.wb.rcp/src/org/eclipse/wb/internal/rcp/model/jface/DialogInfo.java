@@ -60,6 +60,7 @@ public class DialogInfo extends WindowInfo {
     super(editor, description, creationSupport);
     // move properties "id", "text" and "default" for Button on top level
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         configureButtonBarProperties(javaInfo, properties);
       }

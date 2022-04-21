@@ -33,6 +33,7 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
   // IAdaptableFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public <T> T getAdapter(Object object, Class<T> adapter) {
     if (adapter.isAssignableFrom(IMenuItemInfo.class) && object instanceof ContributionItemInfo) {
       ContributionItemInfo item = (ContributionItemInfo) object;
@@ -77,6 +78,7 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
     // Model
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Object getModel() {
       return m_item;
     }
@@ -86,10 +88,12 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
     // Presentation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Image getImage() {
       return m_item.getImage();
     }
 
+    @Override
     public Rectangle getBounds() {
       return m_item.getBounds();
     }
@@ -99,6 +103,7 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
     // IMenuItemInfo
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuInfo getMenu() {
       return null;
     }
@@ -108,6 +113,7 @@ public final class MenuManagerAdaptableFactory implements IAdaptableFactory {
     // Policy
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuPolicy getPolicy() {
       return IMenuPolicy.NOOP;
     }

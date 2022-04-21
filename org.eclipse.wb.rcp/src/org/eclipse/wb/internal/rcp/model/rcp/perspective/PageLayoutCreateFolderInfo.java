@@ -134,6 +134,7 @@ public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
     @Override
     public void setValue(final Object value) throws Exception {
       ExecutionUtils.run(m_page, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           setPlaceholder((Boolean) value);
         }
@@ -232,6 +233,7 @@ public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
     return m_folder;
   }
 
+  @Override
   public Object render() throws Exception {
     m_folder = PageLayoutInfo.createPartFolder(m_page.getPartsComposite());
     // create views container, where we will add view icons
@@ -272,6 +274,7 @@ public final class PageLayoutCreateFolderInfo extends AbstractPartInfo {
       enhancer.setClassLoader(JavaInfoUtils.getClassLoader(this));
       enhancer.setSuperclass(getDescription().getComponentClass());
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj,
             java.lang.reflect.Method method,
             Object[] args,

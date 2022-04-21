@@ -54,6 +54,7 @@ public abstract class ExtensionPropertyHelper {
     m_pointID = pointID;
     m_elementName = elementName;
     m_javaInfo.addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         appendExtensionProperty(properties);
       }
@@ -67,6 +68,7 @@ public abstract class ExtensionPropertyHelper {
   ////////////////////////////////////////////////////////////////////////////
   private ComplexProperty m_extensionProperty;
   private final RunnableEx m_refreshListener = new RunnableEx() {
+    @Override
     public void run() throws Exception {
       m_javaInfo.refresh();
     }

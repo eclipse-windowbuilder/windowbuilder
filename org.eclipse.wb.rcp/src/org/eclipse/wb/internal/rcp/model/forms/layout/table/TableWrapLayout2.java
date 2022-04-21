@@ -151,6 +151,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
    *
    * @see ILayoutExtension
    */
+  @Override
   public int computeMinimumWidth(Composite parent, boolean changed) {
     Control[] children = parent.getChildren();
     if (changed) {
@@ -182,6 +183,7 @@ public final class TableWrapLayout2 extends Layout implements ILayoutExtension {
    *
    * @see ILayoutExtension
    */
+  @Override
   public int computeMaximumWidth(Composite parent, boolean changed) {
     Control[] children = parent.getChildren();
     if (changed) {

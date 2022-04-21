@@ -36,6 +36,7 @@ public final class ColumnPixelDataInfo extends ColumnLayoutDataInfo {
     super(editor, description, creationSupport);
     // instead of "column.width" property set "width" property of ColumnPixelData
     addBroadcastListener(new GenericPropertySetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {
         if (property.getJavaInfo() == getParentJava() && property.getTitle().equals("width")) {

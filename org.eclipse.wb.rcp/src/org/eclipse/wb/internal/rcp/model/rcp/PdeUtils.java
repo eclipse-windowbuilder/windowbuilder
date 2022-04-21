@@ -252,6 +252,7 @@ public final class PdeUtils {
   public String generateUniqueID(String baseId) {
     final Set<String> idSet = getIDSet();
     return CodeUtils.generateUniqueName(baseId, new Predicate<String>() {
+      @Override
       public boolean apply(String t) {
         return !idSet.contains(t);
       }
@@ -517,6 +518,7 @@ public final class PdeUtils {
       // close existing ManifestEditor, because it has no page for plugin.xml so will
       // not allow us later work with plugin.xml, in particular - access factory
       ExecutionUtils.runRethrowUI(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           EditorPart manifestEditor = PDEModelUtility.getOpenManifestEditor(m_project);
           if (manifestEditor != null) {
@@ -651,6 +653,7 @@ public final class PdeUtils {
       final String attribute,
       Image defaultIcon) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Image>() {
+      @Override
       public Image runObject() throws Exception {
         String iconPath = getAttribute(element, attribute);
         Assert.isNotNull(iconPath, "No attribute 'icon' in %s.", element);
@@ -766,6 +769,7 @@ public final class PdeUtils {
     public List<ViewInfo> getViews() {
       final List<ViewInfo> views = Lists.newArrayList();
       visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
+        @Override
         public boolean visit(IPluginElement element) {
           String categoryId = getAttribute(element, "category");
           if (ObjectUtils.equals(m_id, categoryId)) {
@@ -794,6 +798,7 @@ public final class PdeUtils {
     final List<ViewCategoryInfo> categories = Lists.newArrayList();
     categories.add(new ViewCategoryInfo(null, "Other"));
     visitExtensions("org.eclipse.ui.views", "category", new IExtensionVisitor() {
+      @Override
       public boolean visit(IPluginElement element) {
         categories.add(createViewCategoryInfo(element));
         return false;
@@ -809,6 +814,7 @@ public final class PdeUtils {
   public static ViewCategoryInfo getViewCategoryInfo(final String categoryId) {
     final ViewCategoryInfo result[] = new ViewCategoryInfo[1];
     visitExtensions("org.eclipse.ui.views", "category", new IExtensionVisitor() {
+      @Override
       public boolean visit(IPluginElement element) {
         if (categoryId != null) {
           String id = getAttribute(element, "id");
@@ -913,6 +919,7 @@ public final class PdeUtils {
   public static List<ViewInfo> getViews() {
     final List<ViewInfo> views = Lists.newArrayList();
     visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
+      @Override
       public boolean visit(IPluginElement element) {
         views.add(createViewInfo(element));
         return false;
@@ -950,6 +957,7 @@ public final class PdeUtils {
     // visit all views
     final ViewInfo result[] = new ViewInfo[1];
     visitExtensions("org.eclipse.ui.views", "view", new IExtensionVisitor() {
+      @Override
       public boolean visit(IPluginElement element) {
         if (viewId != null) {
           String id = getAttribute(element, "id");
@@ -1059,6 +1067,7 @@ public final class PdeUtils {
   public static List<PerspectiveInfo> getPerspectives() {
     final List<PerspectiveInfo> perspectives = Lists.newArrayList();
     visitExtensions("org.eclipse.ui.perspectives", "perspective", new IExtensionVisitor() {
+      @Override
       public boolean visit(IPluginElement element) {
         perspectives.add(createPerspectiveInfo(element));
         return false;
@@ -1087,6 +1096,7 @@ public final class PdeUtils {
     // visit all perspectives
     final PerspectiveInfo result[] = new PerspectiveInfo[1];
     visitExtensions("org.eclipse.ui.perspectives", "perspective", new IExtensionVisitor() {
+      @Override
       public boolean visit(IPluginElement element) {
         String id = getAttribute(element, "id");
         if (perspectiveId.equals(id)) {

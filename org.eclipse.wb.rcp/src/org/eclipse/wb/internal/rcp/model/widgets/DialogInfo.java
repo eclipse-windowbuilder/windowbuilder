@@ -99,6 +99,7 @@ public final class DialogInfo extends AbstractComponentInfo
   // IThisMethodParameterEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluateParameter(EvaluationContext context,
       MethodDeclaration methodDeclaration,
       String methodSignature,
@@ -168,6 +169,7 @@ public final class DialogInfo extends AbstractComponentInfo
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         DialogInfo.super.refresh_fetch();
       }
@@ -199,6 +201,7 @@ public final class DialogInfo extends AbstractComponentInfo
       enhancer.setSuperclass(classLoader.loadClass("org.eclipse.swt.widgets.Dialog"));
       enhancer.setClassLoader(classLoader);
       enhancer.setNamingPolicy(new NamingPolicy() {
+        @Override
         public String getClassName(String prefix, String source, Object key, Predicate names) {
           return prefix + "_";
         }

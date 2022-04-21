@@ -65,6 +65,7 @@ public final class EditorAreaInfo extends ObjectInfo implements IPageLayoutTopLe
         return Activator.getImage("info/perspective/editor.gif");
       }
 
+      @Override
       public String getText() throws Exception {
         return "(editor area)";
       }
@@ -99,10 +100,12 @@ public final class EditorAreaInfo extends ObjectInfo implements IPageLayoutTopLe
     return m_page;
   }
 
+  @Override
   public String getId() {
     return IPageLayout.ID_EDITOR_AREA;
   }
 
+  @Override
   public String getIdSource() {
     return "org.eclipse.ui.IPageLayout.ID_EDITOR_AREA";
   }

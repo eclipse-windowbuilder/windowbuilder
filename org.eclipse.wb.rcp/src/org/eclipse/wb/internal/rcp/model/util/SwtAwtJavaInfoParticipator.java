@@ -51,6 +51,7 @@ public final class SwtAwtJavaInfoParticipator implements IJavaInfoInitialization
   // IJavaInfoInitializationParticipator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo javaInfo) throws Exception {
     if (javaInfo.getCreationSupport() instanceof StaticFactoryCreationSupport) {
       StaticFactoryCreationSupport creationSupport =

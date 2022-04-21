@@ -71,6 +71,7 @@ public final class StackLayoutInfo extends LayoutInfo implements IStackLayoutInf
   ////////////////////////////////////////////////////////////////////////////
   private void showOnlyTopControl_graphicalChild() {
     addBroadcastListener(new ObjectInfoChildGraphical() {
+      @Override
       public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
         if (isManagedObject(object)) {
           ControlInfo control = (ControlInfo) object;
@@ -107,14 +108,17 @@ public final class StackLayoutInfo extends LayoutInfo implements IStackLayoutInf
     return m_stackContainer.getActive();
   }
 
+  @Override
   public ControlInfo getPrevControl() {
     return m_stackContainer.getPrev();
   }
 
+  @Override
   public ControlInfo getNextControl() {
     return m_stackContainer.getNext();
   }
 
+  @Override
   public void show(ControlInfo control) {
     m_stackContainer.setActive(control);
   }

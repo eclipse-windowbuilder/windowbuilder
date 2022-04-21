@@ -258,6 +258,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
               new ConstructorCreationSupport(creation));
       AbstractInvocationDescription methodDescription =
           new RunnableObjectEx<AbstractInvocationDescription>() {
+            @Override
             public AbstractInvocationDescription runObject() throws Exception {
               ComponentDescription description =
                   ComponentDescriptionHelper.getDescription(editor, creationClass);

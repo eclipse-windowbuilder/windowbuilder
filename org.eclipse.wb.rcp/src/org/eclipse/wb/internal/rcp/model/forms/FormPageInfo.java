@@ -62,6 +62,7 @@ public final class FormPageInfo extends EditorPartInfo implements IThisMethodPar
   private Object m_FormToolkit;
   private Object m_FormEditor;
 
+  @Override
   public Object evaluateParameter(EvaluationContext context,
       MethodDeclaration methodDeclaration,
       String methodSignature,
@@ -90,6 +91,7 @@ public final class FormPageInfo extends EditorPartInfo implements IThisMethodPar
       enhancer.setClassLoader(classLoader);
       enhancer.setSuperclass(editorClass);
       enhancer.setCallback(new MethodInterceptor() {
+        @Override
         public Object intercept(Object obj,
             java.lang.reflect.Method method,
             Object[] args,

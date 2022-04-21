@@ -76,6 +76,7 @@ abstract class AbstractShortcutContainerEditPart extends GraphicalEditPart {
   @Override
   protected List<?> getModelChildren() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+      @Override
       public List<?> runObject() throws Exception {
         return m_container.getPresentation().getChildrenGraphical();
       }

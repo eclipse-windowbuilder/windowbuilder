@@ -33,6 +33,7 @@ public class ParseFactorySimpleModelCic implements IParseFactorySimpleModelCic {
   // IParseFactory_simpleModel_CIC
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean accept(AstEditor editor, ClassInstanceCreation creation, ITypeBinding typeBinding)
       throws Exception {
     EditorState state = EditorState.get(editor);
@@ -44,6 +45,7 @@ public class ParseFactorySimpleModelCic implements IParseFactorySimpleModelCic {
     return isModel(typeName, typeBinding) || noModel(typeName, typeBinding);
   }
 
+  @Override
   public JavaInfo create(AstEditor editor, ClassInstanceCreation creation, ITypeBinding typeBinding)
       throws Exception {
     String typeName = AstNodeUtils.getFullyQualifiedName(typeBinding, true);

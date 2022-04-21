@@ -222,6 +222,7 @@ public final class TableWrapSelectionEditPolicy<C extends IControlInfo>
    */
   private void flipGrab(final boolean horizontal) {
     execute(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ITableWrapDataInfo layoutData = m_layout.getTableWrapData2(m_component);
         if (horizontal) {
@@ -238,6 +239,7 @@ public final class TableWrapSelectionEditPolicy<C extends IControlInfo>
    */
   private void setAlignment(final boolean horizontal, final int alignment) {
     execute(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         ITableWrapDataInfo layoutData = m_layout.getTableWrapData2(m_component);
         if (horizontal) {

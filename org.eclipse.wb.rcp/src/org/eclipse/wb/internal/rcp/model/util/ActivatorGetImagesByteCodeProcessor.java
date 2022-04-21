@@ -44,11 +44,13 @@ public final class ActivatorGetImagesByteCodeProcessor implements IByteCodeProce
   // IByteCodeProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void initialize(ProjectClassLoader classLoader) {
     createInternalImageManager(classLoader);
     prepareActivatorInformation(classLoader.getJavaProject().getProject());
   }
 
+  @Override
   public byte[] process(String className, byte[] bytes) {
     if (className.equals(m_activatorClassName)) {
       return transformActivatorClass(bytes);

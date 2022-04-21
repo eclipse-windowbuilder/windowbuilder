@@ -277,12 +277,15 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
             m_listViewer = new ListViewer(percentsGroup, SWT.FULL_SELECTION);
             GridDataFactory.create(m_listViewer.getControl()).grab().fill();
             m_listViewer.setContentProvider(new IStructuredContentProvider() {
+              @Override
               public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
               }
 
+              @Override
               public void dispose() {
               }
 
+              @Override
               public Object[] getElements(Object inputElement) {
                 ensureLoadPreferences();
                 return m_percentsSet.toArray();
@@ -303,6 +306,7 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
                     PreferencesMessages.FormLayoutPreferencePage_newPercentMessage,
                     null,
                     new IInputValidator() {
+                      @Override
                       public String isValid(String newText) {
                         try {
                           int value = Integer.parseInt(newText);
@@ -338,6 +342,7 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
             });
             // selection listener
             m_listViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+              @Override
               public void selectionChanged(SelectionChangedEvent event) {
                 boolean enabled = event != null && !event.getSelection().isEmpty();
                 itemRemove.setEnabled(enabled);
@@ -383,6 +388,7 @@ public final class FormLayoutPreferencePage extends FieldLayoutPreferencePage
   //	IWorkbenchPreferencePage
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void init(IWorkbench workbench) {
   }
 }

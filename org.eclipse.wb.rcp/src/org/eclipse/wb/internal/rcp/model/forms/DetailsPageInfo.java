@@ -74,6 +74,7 @@ public final class DetailsPageInfo extends AbstractComponentInfo implements IJav
   private Object m_ManagedForm;
   private Composite m_ManagedFormBody;
 
+  @Override
   public void render() throws Exception {
     m_toolkit.setObject(ReflectionUtils.invokeMethod(m_ManagedForm, "getToolkit()"));
     // execute life cycle for IDetailsPage
@@ -175,6 +176,7 @@ public final class DetailsPageInfo extends AbstractComponentInfo implements IJav
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         DetailsPageInfo.super.refresh_fetch();
       }

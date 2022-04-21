@@ -80,6 +80,7 @@ public abstract class DialogPageInfo extends AbstractComponentInfo {
   @Override
   protected void refresh_fetch() throws Exception {
     ControlInfo.refresh_fetch(this, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         DialogPageInfo.super.refresh_fetch();
       }
