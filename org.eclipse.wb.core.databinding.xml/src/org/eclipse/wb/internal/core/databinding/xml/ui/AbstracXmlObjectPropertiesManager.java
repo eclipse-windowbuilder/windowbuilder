@@ -32,6 +32,7 @@ public abstract class AbstracXmlObjectPropertiesManager
       XmlObjectInfo xmlObjectRoot) {
     super(provider);
     xmlObjectRoot.addBroadcastListener(new XmlObjectAddProperties() {
+      @Override
       public void invoke(XmlObjectInfo object, List<Property> properties) throws Exception {
         addBindingsProperty(object, properties);
       }

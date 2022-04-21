@@ -146,12 +146,14 @@ public final class BindingXmlPage extends XmlEditorPage {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control createControl(Composite parent) {
     m_composite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.create(m_composite).noMargins().noSpacing();
     return m_composite;
   }
 
+  @Override
   public Control getControl() {
     return m_composite;
   }
@@ -161,10 +163,12 @@ public final class BindingXmlPage extends XmlEditorPage {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return Messages.BindingXmlPage_name;
   }
 
+  @Override
   public Image getImage() {
     return org.eclipse.wb.internal.core.databinding.Activator.getImage("paperclip.png");
   }
