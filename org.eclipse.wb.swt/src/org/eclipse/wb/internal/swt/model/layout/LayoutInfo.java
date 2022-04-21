@@ -89,6 +89,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
    */
   private void addBroadcastListeners() {
     addBroadcastListener(new ObjectInfoTreeComplete() {
+      @Override
       public void invoke() throws Exception {
         CompositeInfo composite = getComposite();
         // validate LayoutData
@@ -104,6 +105,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
       }
     });
     addBroadcastListener(new ObjectInfoChildAddBefore() {
+      @Override
       public void invoke(ObjectInfo parent, ObjectInfo child, ObjectInfo[] nextChild)
           throws Exception {
         // add new LayoutData - remove existing one
@@ -119,6 +121,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
       }
     });
     addBroadcastListener(new ObjectInfoChildAddAfter() {
+      @Override
       public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
         CompositeInfo composite = getComposite();
         // add this layout
@@ -214,6 +217,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
       }
     });
     addBroadcastListener(new JavaInfoAddProperties() {
+      @Override
       public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
         // add layout properties to composite properties
         if (isActiveOnComposite(javaInfo)) {
@@ -287,10 +291,12 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
   /**
    * @return the {@link CompositeInfo} that contains this {@link LayoutInfo}.
    */
+  @Override
   public final CompositeInfo getComposite() {
     return (CompositeInfo) getParent();
   }
 
+  @Override
   public final boolean isActive() {
     CompositeInfo composite = getComposite();
     return isActiveOnComposite(composite);
@@ -303,6 +309,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
     return composite != null && composite.getChildren().contains(this);
   }
 
+  @Override
   public final List<ControlInfo> getControls() {
     List<ControlInfo> controls = Lists.newArrayList();
     CompositeInfo composite = getComposite();
@@ -316,6 +323,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
     return controls;
   }
 
+  @Override
   public boolean isManagedObject(Object object) {
     if (object instanceof ControlInfo
         && isActive()
@@ -495,6 +503,7 @@ public class LayoutInfo extends JavaInfo implements ILayoutInfo<ControlInfo> {
     return objects.get(0);
   }
 
+  @Override
   public ILayoutDataInfo getLayoutData2(IControlInfo control) {
     return getLayoutData((ControlInfo) control);
   }

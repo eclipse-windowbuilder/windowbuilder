@@ -63,6 +63,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
     super(editor, description, creationSupport);
     // after parsing bind this registry into hierarchy
     addBroadcastListener(new JavaInfoTreeAlmostComplete() {
+      @Override
       public void invoke(JavaInfo root, List<JavaInfo> components) throws Exception {
         removeBroadcastListener(this);
         // find and assign FormAttachments
@@ -140,6 +141,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
    *          can be either of IPositionConstants.LEFT, IPositionConstants.RIGHT,
    *          IPositionConstants.TOP, IPositionConstants.BOTTOM
    */
+  @Override
   public FormAttachmentInfo getAttachment(int sideInt) throws Exception {
     materialize();
     FormSide side = FormSide.get(sideInt);
@@ -159,10 +161,12 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
   // Width/height
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setWidth(int value) throws Exception {
     getPropertyByTitle("width").setValue(value);
   }
 
+  @Override
   public void setHeight(int value) throws Exception {
     getPropertyByTitle("height").setValue(value);
   }
@@ -235,6 +239,7 @@ public final class FormDataInfo extends LayoutDataInfo implements IFormDataInfo<
     };
     Collection<?> selectedProperties =
         CollectionUtils.select(Arrays.asList(attachment.getProperties()), new Predicate() {
+          @Override
           public boolean evaluate(Object object) {
             Property property = (Property) object;
             return !property.getTitle().equals("Class")

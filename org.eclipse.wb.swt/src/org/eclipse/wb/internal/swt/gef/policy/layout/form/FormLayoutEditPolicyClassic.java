@@ -136,6 +136,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
   @Override
   protected void showLayoutTargetFeedback(final Request request) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (request instanceof ChangeBoundsRequest) {
           showMoveFeedback((ChangeBoundsRequest) request);
@@ -594,6 +595,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     createCommand.add(GlobalState.getPasteRequestProcessor().getPasteCommand(
         request,
         new IPasteComponentProcessor() {
+          @Override
           @SuppressWarnings("unchecked")
           public void process(Object component) throws Exception {
             layout.commandCreate((C) component, null);
@@ -1544,6 +1546,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
             ? FormUtils.getAttachableControls(layout, control, horizontal)
             : FormUtils.getAttachableControls(layout);
     CollectionUtils.filter(attachableControls, new Predicate() {
+      @Override
       public boolean evaluate(Object input) {
         try {
           EditPart part = getHost().getViewer().getEditPartByModel(input);
@@ -1787,16 +1790,19 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
   private FormHeaderLayoutEditPolicy<C> headersPolicyHorizontal;
   private FormHeaderLayoutEditPolicy<C> headersPolicyVertical;
 
+  @Override
   public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
     return new FormHeaderEditPart<C>(layout, model, isHorizontal, getHostFigure());
   }
 
+  @Override
   public void buildContextMenu(IMenuManager manager, boolean isHorizontal) {
     FormHeaderLayoutEditPolicy<C> headersPolicy =
         isHorizontal ? headersPolicyHorizontal : headersPolicyVertical;
     headersPolicy.buildContextMenu(manager);
   }
 
+  @Override
   public LayoutEditPolicy getContainerLayoutPolicy(boolean isHorizontal) {
     FormHeaderLayoutEditPolicy<C> headersPolicy =
         new FormHeaderLayoutEditPolicy<C>(layout, this, isHorizontal);
@@ -1808,6 +1814,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     return headersPolicy;
   }
 
+  @Override
   public List<?> getHeaders(boolean isHorizontal) {
     List<Integer> values =
         isHorizontal
@@ -1820,6 +1827,7 @@ public class FormLayoutEditPolicyClassic<C extends IControlInfo>
     return results;
   }
 
+  @Override
   public void handleDoubleClick(boolean isHorizontal) {
   }
 }

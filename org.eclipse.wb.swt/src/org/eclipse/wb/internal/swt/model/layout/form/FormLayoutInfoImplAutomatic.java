@@ -529,6 +529,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   // Layout manipulation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void detach(IAbstractComponentInfo widget, int side) throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment(widget, side);
     // do nothing if it is not exist
@@ -540,6 +541,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   }
 
   // XXX
+  @Override
   public void attachAbsolute(IAbstractComponentInfo widget, int side, int distance)
       throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment(widget, side);
@@ -554,6 +556,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     attachment.write();
   }
 
+  @Override
   public void adjustAttachmentOffset(IAbstractComponentInfo widget, int side, int delta)
       throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment(widget, side);
@@ -568,6 +571,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     attachAbsolute(widget, side, distance);
   }
 
+  @Override
   public void attachWidgetSequientially(IAbstractComponentInfo widget,
       IAbstractComponentInfo attachToWidget,
       int side,
@@ -583,6 +587,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     attachment.write();
   }
 
+  @Override
   public void attachWidgetParallelly(IAbstractComponentInfo widget,
       IAbstractComponentInfo attachToWidget,
       int side,
@@ -594,6 +599,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     attachment.write();
   }
 
+  @Override
   public void attachWidgetBaseline(IAbstractComponentInfo widget,
       IAbstractComponentInfo attachToWidget) throws Exception {
     IFormAttachmentInfo<C> attachment = getAttachment(widget, PlacementUtils.getSide(false, true));
@@ -634,6 +640,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   		layoutData.setHeight(preferredSize.height != newHeight ? newHeight : SWT.DEFAULT);
   	}
   }*/
+  @Override
   public void setExplicitSize(IAbstractComponentInfo widget,
       int attachedSide,
       int draggingSide,
@@ -723,6 +730,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     return Activator.getImage("info/layout/FormLayout/" + imageName);
   }
 
+  @Override
   public IAbstractComponentInfo getAttachedToWidget(IAbstractComponentInfo widget, int side)
       throws Exception {
     if (!isAttached(widget, side)) {
@@ -732,6 +740,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
     return attachment.getControl();
   }
 
+  @Override
   public boolean isAttached(IAbstractComponentInfo widget, int side) throws Exception {
     return m_layout.isManagedObject(widget) && !getAttachment(widget, side).isVirtual();
   }
@@ -741,6 +750,7 @@ public final class FormLayoutInfoImplAutomatic<C extends IControlInfo>
   // Layout-defined actions
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void performAction(int actionId) {
   }
 

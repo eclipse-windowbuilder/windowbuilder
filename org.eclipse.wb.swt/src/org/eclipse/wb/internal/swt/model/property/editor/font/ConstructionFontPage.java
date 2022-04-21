@@ -103,6 +103,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
         m_familyList.setItems(m_families);
         // add listener
         m_familyList.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             int index = m_familyList.getSelectionIndex();
             String family = m_families[index];
@@ -121,6 +122,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
         }
         // add listener
         m_styleList.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             int index = m_styleList.getSelectionIndex();
             String fontStyle = m_styleTitles[index];
@@ -138,6 +140,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
         }
         // add listener
         m_sizeList.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             String size = m_sizeList.getSelection()[0];
             m_sizeText.setText(size);
@@ -186,6 +189,7 @@ public final class ConstructionFontPage extends AbstractFontPage {
   public void setFont(final FontInfo fontInfo) {
     if (fontInfo != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           Object font = fontInfo.getFont();
           Object fontData = FontSupport.getFontData(font);

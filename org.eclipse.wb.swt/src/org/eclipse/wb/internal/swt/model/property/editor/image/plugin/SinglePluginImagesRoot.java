@@ -43,10 +43,12 @@ public class SinglePluginImagesRoot implements IImageRoot {
   // IImageRoot
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageElement[] elements() {
     return m_containers;
   }
 
+  @Override
   public void dispose() {
     ImageContainer container = m_containers[0];
     if (container != null) {
@@ -55,6 +57,7 @@ public class SinglePluginImagesRoot implements IImageRoot {
     }
   }
 
+  @Override
   public Object[] getSelectionPath(Object data) {
     String imagePath = (String) data;
     Object[] resource = m_containers[0].findResource(m_symbolicName, imagePath);

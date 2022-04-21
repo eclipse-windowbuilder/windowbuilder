@@ -111,6 +111,7 @@ public abstract class DimensionHeaderEditPart<C extends IControlInfo> extends Gr
   @Override
   protected void refreshVisuals() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         getFigure().setToolTipText(m_dimension.getTitle());
         getFigure().setBackground(COLOR_NORMAL);
@@ -128,6 +129,7 @@ public abstract class DimensionHeaderEditPart<C extends IControlInfo> extends Gr
     super.performRequest(request);
     if (request.getType() == Request.REQ_OPEN) {
       ExecutionUtils.run(m_layout.getUnderlyingModel(), new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_dimension.flipGrab();
         }

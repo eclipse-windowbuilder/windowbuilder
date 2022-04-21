@@ -129,6 +129,7 @@ public final class FontPropertyEditor extends TextDialogPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     // FondData based FontInfo
     FontInfo fontInfo;

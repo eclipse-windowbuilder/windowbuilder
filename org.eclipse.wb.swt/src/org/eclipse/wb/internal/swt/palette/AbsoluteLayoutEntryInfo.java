@@ -62,6 +62,7 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
     ICreationFactory factory = new ICreationFactory() {
       private AbsoluteLayoutInfo m_layout;
 
+      @Override
       public void activate() throws Exception {
         ToolkitDescription toolkit = m_rootJavaInfo.getDescription().getToolkit();
         AbsoluteLayoutCreationSupport creationSupport = new AbsoluteLayoutCreationSupport();
@@ -69,6 +70,7 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
         m_layout.setObject(null); // force initialize
       }
 
+      @Override
       public Object getNewObject() {
         return m_layout;
       }

@@ -37,6 +37,7 @@ public final class SwtMethodParameterEvaluator implements IMethodParameterEvalua
   // IMethodParameterEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluateParameter(EvaluationContext context,
       MethodDeclaration methodDeclaration,
       String methodSignature,

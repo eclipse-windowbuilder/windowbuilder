@@ -85,12 +85,14 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
     final List<Class<?>> classList = Lists.newArrayList();
     final ClassLoader classLoader = JavaInfoUtils.getClassLoader(host);
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Class<?> clazz = classLoader.loadClass("org.eclipse.swt.widgets.Widget");
         classList.add(clazz);
       }
     });
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         Class<?> clazz = classLoader.loadClass("org.eclipse.jface.viewers.Viewer");
         classList.add(clazz);

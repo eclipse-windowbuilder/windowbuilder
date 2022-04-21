@@ -45,6 +45,7 @@ public class AbstractSupport {
    */
   protected static Class<?> loadClass(final String name) {
     return ExecutionUtils.runObject(new RunnableObjectEx<Class<?>>() {
+      @Override
       public Class<?> runObject() throws Exception {
         return GlobalState.getClassLoader().loadClass(name);
       }

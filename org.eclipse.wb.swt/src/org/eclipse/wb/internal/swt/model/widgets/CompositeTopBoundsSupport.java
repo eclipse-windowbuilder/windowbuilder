@@ -196,6 +196,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
   private static Runnable closeOnESC(final Object shell) {
     final Display display = DesignerPlugin.getStandardDisplay();
     final Listener listener = new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (event.keyCode == SWT.ESC) {
           ContainerSupport.closeShell(shell);
@@ -207,6 +208,7 @@ public abstract class CompositeTopBoundsSupport extends TopBoundsSupport {
     display.addFilter(SWT.KeyDown, listener);
     // continuation
     return new Runnable() {
+      @Override
       public void run() {
         display.removeFilter(SWT.KeyDown, listener);
       }

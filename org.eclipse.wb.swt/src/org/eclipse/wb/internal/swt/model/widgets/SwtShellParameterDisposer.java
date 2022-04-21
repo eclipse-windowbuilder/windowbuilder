@@ -47,6 +47,7 @@ public final class SwtShellParameterDisposer implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
     root.addBroadcastListener(new ObjectEventListener() {
       @Override

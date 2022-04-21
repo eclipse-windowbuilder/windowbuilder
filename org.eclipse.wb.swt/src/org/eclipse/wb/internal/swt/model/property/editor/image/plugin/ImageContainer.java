@@ -26,6 +26,7 @@ public abstract class ImageContainer implements IImageContainer, IDisposable {
   // Internal
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public final void dispose() {
     IImageElement[] elements = directElements();
     if (elements != null) {

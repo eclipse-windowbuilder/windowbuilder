@@ -58,6 +58,7 @@ public final class VirtualFormAttachmentCreationSupport extends CreationSupport 
     super.setJavaInfo(javaInfo);
     m_javaInfo.setObject(m_attachmentObject);
     m_formDataInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object object) throws Exception {
         // check if this CreationSupport no more needed
         if (m_javaInfo.getCreationSupport() != VirtualFormAttachmentCreationSupport.this) {

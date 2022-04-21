@@ -68,6 +68,7 @@ public final class RowLayoutInfo extends GenericFlowLayoutInfo
     return (RowDataInfo) getLayoutData(control);
   }
 
+  @Override
   public IRowDataInfo getRowData2(ControlInfo control) {
     return getRowData(control);
   }

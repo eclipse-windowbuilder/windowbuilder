@@ -44,6 +44,7 @@ public final class ImplicitLayoutDataCreationSupport extends CreationSupport
   public ImplicitLayoutDataCreationSupport(ControlInfo controlInfo) {
     m_controlInfo = controlInfo;
     m_controlInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object object) throws Exception {
         if (target == m_controlInfo) {
           m_javaInfo.setObject(ControlSupport.getLayoutData(object));
@@ -123,6 +124,7 @@ public final class ImplicitLayoutDataCreationSupport extends CreationSupport
   // IClipboardImplicitCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IClipboardImplicitCreationSupport getImplicitClipboard() {
     return null;
   }

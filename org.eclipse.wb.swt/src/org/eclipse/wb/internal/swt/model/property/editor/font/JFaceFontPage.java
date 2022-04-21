@@ -93,12 +93,14 @@ public final class JFaceFontPage extends AbstractFontPage {
       }
       // add listeners
       m_fontTable.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           FontInfo fontInfo = m_fonts.get(m_fontTable.getSelectionIndex());
           m_fontDialog.setFontInfo(fontInfo);
         }
       });
       m_fontTable.addListener(SWT.MouseDoubleClick, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           m_fontDialog.closeOk();
         }

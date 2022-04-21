@@ -65,6 +65,7 @@ final class FormHeaderSelectionEditPolicy extends AbstractHeaderSelectionEditPol
    * Implementation of {@link ILocator} to place handle directly on header.
    */
   private class HeaderMoveHandleLocator implements ILocator {
+    @Override
     public void relocate(Figure target) {
       Figure reference = getHostFigure();
       Rectangle bounds = reference.getBounds().getCopy();

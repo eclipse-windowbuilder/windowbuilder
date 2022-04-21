@@ -170,6 +170,7 @@ public final class ColumnHeaderEditPart<C extends IControlInfo> extends Dimensio
   // IHeaderMenuProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void buildContextMenu(IMenuManager manager) {
     // grab
     {

@@ -32,6 +32,7 @@ public final class EditPartFactory implements IEditPartFactory {
   // IEditPartFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public EditPart createEditPart(EditPart context, Object model) {
     // most EditPart's can be created using matching
     return MATCHING_FACTORY.createEditPart(context, model);

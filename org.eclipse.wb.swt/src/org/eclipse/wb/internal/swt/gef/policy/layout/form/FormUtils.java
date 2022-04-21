@@ -53,6 +53,7 @@ public final class FormUtils {
 
   public static <C extends IControlInfo> String getVariableName(final C child) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         return child.getPresentation().getText();
       }

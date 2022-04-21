@@ -97,6 +97,7 @@ public abstract class GridDimensionInfo<C extends IControlInfo> {
   public final boolean getGrab() {
     final boolean result[] = new boolean[]{false};
     processControls(new IGridDataProcessor<C>() {
+      @Override
       public void process(C control, IGridDataInfo gridData) throws Exception {
         result[0] |= getGrab(gridData);
       }
@@ -109,6 +110,7 @@ public abstract class GridDimensionInfo<C extends IControlInfo> {
    */
   public final void setGrab(final boolean grab) {
     processControls(new IGridDataProcessor<C>() {
+      @Override
       public void process(C control, IGridDataInfo gridData) throws Exception {
         setGrab(gridData, grab);
       }
@@ -149,6 +151,7 @@ public abstract class GridDimensionInfo<C extends IControlInfo> {
     final boolean first[] = new boolean[]{true};
     final Integer result[] = new Integer[]{null};
     processControls(new IGridDataProcessor<C>() {
+      @Override
       public void process(C control, IGridDataInfo gridData) throws Exception {
         int alignment = getAlignment(gridData);
         if (first[0]) {
@@ -169,6 +172,7 @@ public abstract class GridDimensionInfo<C extends IControlInfo> {
    */
   public final void setAlignment(final int alignment) {
     processControls(new IGridDataProcessor<C>() {
+      @Override
       public void process(C control, IGridDataInfo gridData) throws Exception {
         setAlignment(gridData, alignment);
       }
@@ -208,6 +212,7 @@ public abstract class GridDimensionInfo<C extends IControlInfo> {
    */
   private void processControls(final IGridDataProcessor<C> processor) {
     ExecutionUtils.runRethrow(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         List<C> toProcess = getControlsToProcess();
         for (C control : toProcess) {

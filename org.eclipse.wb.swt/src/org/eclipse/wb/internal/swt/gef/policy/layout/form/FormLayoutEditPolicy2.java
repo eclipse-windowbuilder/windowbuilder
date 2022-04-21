@@ -185,12 +185,14 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
   // IFeedbackProxy
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Figure addHorizontalFeedbackLine(int y, int x, int width) {
     Polyline line = createLineFeedback(x, y, x + width, y);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     return line;
   }
 
+  @Override
   public Figure addHorizontalMiddleLineFeedback(int y, int x, int width) {
     Polyline line = createLineFeedback(x, y, x + width, y);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
@@ -198,6 +200,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     return line;
   }
 
+  @Override
   public Figure addOutlineFeedback(Rectangle bounds) {
     // prepare bounds
     Rectangle feedbackBounds = bounds.getCopy();
@@ -210,12 +213,14 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     return outline;
   }
 
+  @Override
   public Figure addVerticalFeedbackLine(int x, int y, int height) {
     Polyline line = createLineFeedback(x, y, x, y + height);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
     return line;
   }
 
+  @Override
   public Figure addVerticalMiddleLineFeedback(int x, int y, int height) {
     Polyline line = createLineFeedback(x, y, x, y + height);
     line.setForeground(AbsolutePolicyUtils.COLOR_FEEDBACK);
@@ -377,6 +382,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
       return m_command;
     }
 
+    @Override
     public void boundsChanged(Rectangle bounds,
         final List<? extends IAbstractComponentInfo> components,
         SnapPoint[] snapPoints,
@@ -438,16 +444,19 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
   private FormHeaderLayoutEditPolicy m_headersPolicyHorizontal;
   private FormHeaderLayoutEditPolicy m_headersPolicyVertical;
 
+  @Override
   public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
     return new FormHeaderEditPart(m_layout, model, isHorizontal, getHostFigure());
   }
 
+  @Override
   public void buildContextMenu(IMenuManager manager, boolean isHorizontal) {
     FormHeaderLayoutEditPolicy headersPolicy =
         isHorizontal ? m_headersPolicyHorizontal : m_headersPolicyVertical;
     headersPolicy.buildContextMenu(manager);
   }
 
+  @Override
   public LayoutEditPolicy getContainerLayoutPolicy(boolean isHorizontal) {
     FormHeaderLayoutEditPolicy headersPolicy =
         new FormHeaderLayoutEditPolicy(m_layout, this, isHorizontal);
@@ -459,6 +468,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     return headersPolicy;
   }
 
+  @Override
   public List<?> getHeaders(boolean isHorizontal) {
     FormLayoutPreferences preferences = m_layout.getPreferences();
     List<Integer> values =
@@ -470,6 +480,7 @@ public class FormLayoutEditPolicy2 extends KeyboardMovingLayoutEditPolicy
     return results;
   }
 
+  @Override
   public void handleDoubleClick(boolean isHorizontal) {
   }
 }

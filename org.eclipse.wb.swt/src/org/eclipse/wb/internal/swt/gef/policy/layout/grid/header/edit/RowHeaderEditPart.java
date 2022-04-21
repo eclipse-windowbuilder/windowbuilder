@@ -159,6 +159,7 @@ public final class RowHeaderEditPart<C extends IControlInfo> extends DimensionHe
   // IHeaderMenuProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void buildContextMenu(IMenuManager manager) {
     // grab
     {

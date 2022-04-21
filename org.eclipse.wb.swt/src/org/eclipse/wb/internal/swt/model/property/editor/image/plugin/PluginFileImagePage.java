@@ -109,6 +109,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
     GridDataFactory.create(this).fill().grab();
     m_filterConfigurer = filterConfigurer;
     addDisposeListener(new DisposeListener() {
+      @Override
       public void widgetDisposed(DisposeEvent e) {
         stopUIFilterTimer();
       }
@@ -126,6 +127,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
       }
     });
     m_filterText.addModifyListener(new ModifyListener() {
+      @Override
       public void modifyText(ModifyEvent e) {
         stopUIFilterTimer();
         m_uiFilterTimer = new Timer();
@@ -133,6 +135,7 @@ public class PluginFileImagePage extends AbstractBrowseImagePage {
           @Override
           public void run() {
             Display.getDefault().syncExec(new Runnable() {
+              @Override
               public void run() {
                 handleModifyFilter();
               }

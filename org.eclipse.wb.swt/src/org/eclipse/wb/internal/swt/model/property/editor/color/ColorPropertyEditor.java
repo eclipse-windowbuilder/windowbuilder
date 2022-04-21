@@ -226,6 +226,7 @@ public final class ColorPropertyEditor extends PropertyEditor implements IClipbo
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     // prepare RGB based ColorInfo
     ColorInfo colorInfo;

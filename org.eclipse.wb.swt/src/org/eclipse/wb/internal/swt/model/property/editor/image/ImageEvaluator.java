@@ -52,6 +52,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
   // IExpressionEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluate(EvaluationContext context,
       Expression expression,
       ITypeBinding typeBinding,
@@ -81,6 +82,7 @@ public class ImageEvaluator implements IExpressionEvaluator {
       final IProject project) throws Exception {
     if (project != null) {
       return getPluginImage(invocation, arguments, context, new InputStreamProvider() {
+        @Override
         public InputStream getInputStream(String imagePath) throws Exception {
           IFile file = project.getFile(imagePath);
           return file.exists() ? file.getContents(true) : null;

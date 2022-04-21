@@ -196,6 +196,7 @@ public final class MenuItemInfo extends ItemInfo
         }
         // OK, we have something to change
         ExecutionUtils.run(m_this, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             // add/remove subMenu
             if (becomesCascade) {
@@ -253,6 +254,7 @@ public final class MenuItemInfo extends ItemInfo
   ////////////////////////////////////////////////////////////////////////////
   private final IMenuItemInfo m_itemImpl = new MenuItemImpl();
 
+  @Override
   public <T> T getAdapter(Class<T> adapter) {
     if (adapter.isAssignableFrom(IMenuItemInfo.class)) {
       return adapter.cast(m_itemImpl);
@@ -285,6 +287,7 @@ public final class MenuItemInfo extends ItemInfo
     // Model
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Object getModel() {
       return m_this;
     }
@@ -294,10 +297,12 @@ public final class MenuItemInfo extends ItemInfo
     // Presentation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Image getImage() {
       return m_this.getImage();
     }
 
+    @Override
     public Rectangle getBounds() {
       return m_this.getBounds();
     }
@@ -307,6 +312,7 @@ public final class MenuItemInfo extends ItemInfo
     // IMenuItemInfo
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuInfo getMenu() {
       MenuInfo subMenu = getSubMenu();
       return MenuObjectInfoUtils.getMenuInfo(subMenu);
@@ -317,6 +323,7 @@ public final class MenuItemInfo extends ItemInfo
     // Policy
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public IMenuPolicy getPolicy() {
       return this;
     }
@@ -326,16 +333,19 @@ public final class MenuItemInfo extends ItemInfo
     // Validation
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public boolean validateCreate(Object object) {
       // nothing can be dropped on MenuItem
       return false;
     }
 
+    @Override
     public boolean validatePaste(Object mementoObject) {
       // nothing can be dropped on MenuItem
       return false;
     }
 
+    @Override
     public boolean validateMove(Object object) {
       if (object instanceof MenuInfo) {
         MenuInfo menuInfo = (MenuInfo) object;
@@ -354,13 +364,16 @@ public final class MenuItemInfo extends ItemInfo
     // Operations
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void commandCreate(Object object, Object nextObject) throws Exception {
     }
 
+    @Override
     public List<?> commandPaste(Object mementoObject, Object nextObject) throws Exception {
       return ImmutableList.of();
     }
 
+    @Override
     public void commandMove(Object object, Object nextObject) throws Exception {
       MenuInfo menuInfo = (MenuInfo) object;
       menuInfo.command_ADD(m_this);

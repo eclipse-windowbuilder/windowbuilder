@@ -113,6 +113,7 @@ public final class RegistryFontPage extends AbstractFontPage {
         m_registryList.addPostSelectionChangedListener(new ISelectionChangedListener() {
           FontRegistryInfo m_registryInfo;
 
+          @Override
           public void selectionChanged(SelectionChangedEvent event) {
             FontRegistryInfo registryInfo = getSelectionRegistry();
             if (registryInfo != null && m_registryInfo != registryInfo) {
@@ -138,6 +139,7 @@ public final class RegistryFontPage extends AbstractFontPage {
         m_keyList.addPostSelectionChangedListener(new ISelectionChangedListener() {
           KeyFieldInfo m_keyFieldInfo;
 
+          @Override
           public void selectionChanged(SelectionChangedEvent event) {
             KeyFieldInfo keyFieldInfo = getKeyInfo();
             if (keyFieldInfo != null
@@ -162,6 +164,7 @@ public final class RegistryFontPage extends AbstractFontPage {
         m_methodList.add("getItalic()");
         // add listener
         m_methodList.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             int selectionIndex = m_methodList.getSelectionIndex();
             if (selectionIndex != -1) {
@@ -237,6 +240,7 @@ public final class RegistryFontPage extends AbstractFontPage {
   public void setFont(final FontInfo fontInfo) {
     if (fontInfo != null) {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           if (fontInfo.getData() instanceof Object[]) {
             Object[] data = (Object[]) fontInfo.getData();

@@ -32,6 +32,7 @@ public class FillLayoutSupport extends AbstractSupport {
    */
   public static int getType(final Object layout) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Integer>() {
+      @Override
       public Integer runObject() throws Exception {
         return ReflectionUtils.getFieldInt(layout, "type");
       }
