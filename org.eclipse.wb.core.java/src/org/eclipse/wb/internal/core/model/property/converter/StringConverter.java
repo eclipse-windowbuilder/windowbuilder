@@ -62,6 +62,7 @@ public final class StringConverter extends ExpressionConverter {
 
   private static String toJavaSource_UTF(final JavaInfo javaInfo, final String valueString) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         if (javaInfo != null) {
           IFile file = (IFile) javaInfo.getEditor().getModelUnit().getUnderlyingResource();

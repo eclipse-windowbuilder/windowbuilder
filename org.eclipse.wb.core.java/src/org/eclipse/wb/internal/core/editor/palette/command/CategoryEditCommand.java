@@ -66,6 +66,7 @@ public final class CategoryEditCommand extends CategoryAbstractCommand {
   @Override
   public void addToCommandList(final List<Command> commands) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         removeCommands(commands, CategoryEditCommand.class, m_id);
       }

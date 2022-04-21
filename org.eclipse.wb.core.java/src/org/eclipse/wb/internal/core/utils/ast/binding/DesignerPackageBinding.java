@@ -53,14 +53,17 @@ final class DesignerPackageBinding implements IPackageBinding {
   // IPackageBinding methods
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return m_name;
   }
 
+  @Override
   public boolean isUnnamed() {
     return m_unnamed;
   }
 
+  @Override
   public String[] getNameComponents() {
     throw new IllegalArgumentException();
   }
@@ -70,38 +73,47 @@ final class DesignerPackageBinding implements IPackageBinding {
   // IBinding methods
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int getKind() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getModifiers() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isDeprecated() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isSynthetic() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IJavaElement getJavaElement() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getKey() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isEqualTo(IBinding binding) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isRecovered() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public org.eclipse.jdt.core.dom.IAnnotationBinding[] getAnnotations() {
     throw new IllegalArgumentException();
   }

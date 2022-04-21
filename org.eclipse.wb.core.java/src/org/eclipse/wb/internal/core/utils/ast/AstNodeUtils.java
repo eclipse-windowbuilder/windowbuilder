@@ -104,6 +104,7 @@ public class AstNodeUtils {
    * left-most nodes sorting to the front of the list.
    */
   public static final Comparator<ASTNode> SORT_BY_POSITION = new Comparator<ASTNode>() {
+    @Override
     public int compare(ASTNode o1, ASTNode o2) {
       return o1.getStartPosition() - o2.getStartPosition();
     }
@@ -113,6 +114,7 @@ public class AstNodeUtils {
    * left-most nodes sorting to the back of the list.
    */
   public static final Comparator<ASTNode> SORT_BY_REVERSE_POSITION = new Comparator<ASTNode>() {
+    @Override
     public int compare(ASTNode o1, ASTNode o2) {
       return o2.getStartPosition() - o1.getStartPosition();
     }
@@ -519,6 +521,7 @@ public class AstNodeUtils {
       final boolean runtime) {
     String key = "getFullyQualifiedName_TypeDeclaration";
     return getValue(typeDeclaration, key, new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         ITypeBinding binding = getTypeBinding(typeDeclaration);
         return getFullyQualifiedName(binding, runtime);
@@ -1064,6 +1067,7 @@ public class AstNodeUtils {
       ASTNode unit = invocation.getRoot();
       String key = "getLocalMethodDeclaration.allMethods";
       Set<String> allNames = getValue(unit, key, new RunnableObjectEx<Set<String>>() {
+        @Override
         public Set<String> runObject() throws Exception {
           Set<String> names = Sets.newTreeSet();
           TypeDeclaration typeDeclaration = getEnclosingType(invocation);
@@ -1081,6 +1085,7 @@ public class AstNodeUtils {
     // perform precise search
     String key = "getLocalMethodDeclaration";
     return getValue(invocation, key, new RunnableObjectEx<MethodDeclaration>() {
+      @Override
       public MethodDeclaration runObject() throws Exception {
         return getLocalMethodDeclaration0(invocation);
       }
@@ -1130,6 +1135,7 @@ public class AstNodeUtils {
   public static List<MethodInvocation> getMethodInvocations(final MethodDeclaration methodDeclaration) {
     String key = "getMethodInvocations";
     return getValue(methodDeclaration, key, new RunnableObjectEx<List<MethodInvocation>>() {
+      @Override
       public List<MethodInvocation> runObject() throws Exception {
         return getMethodInvocations0(methodDeclaration);
       }
@@ -1304,6 +1310,7 @@ public class AstNodeUtils {
   public static MethodDeclaration getLocalConstructorDeclaration(final ClassInstanceCreation creation) {
     String key = "getLocalConstructorDeclaration";
     return getValue(creation, key, new RunnableObjectEx<MethodDeclaration>() {
+      @Override
       public MethodDeclaration runObject() throws Exception {
         return getLocalConstructorDeclaration0(creation);
       }
@@ -1336,6 +1343,7 @@ public class AstNodeUtils {
   public static List<ConstructorInvocation> getConstructorInvocations(final MethodDeclaration methodDeclaration) {
     String key = "getConstructorInvocations";
     return getValue(methodDeclaration, key, new RunnableObjectEx<List<ConstructorInvocation>>() {
+      @Override
       public List<ConstructorInvocation> runObject() throws Exception {
         return getConstructorInvocations0(methodDeclaration);
       }

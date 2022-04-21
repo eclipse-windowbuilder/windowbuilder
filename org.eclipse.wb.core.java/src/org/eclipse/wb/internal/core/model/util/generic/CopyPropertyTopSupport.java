@@ -51,6 +51,7 @@ public final class CopyPropertyTopSupport extends CopyPropertyTopAbstractSupport
   @Override
   protected Predicate<JavaInfo> createTargetPredicate(final JavaInfo javaInfo) {
     return new Predicate<JavaInfo>() {
+      @Override
       public boolean apply(JavaInfo t) {
         return t == javaInfo;
       }

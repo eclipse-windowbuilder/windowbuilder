@@ -118,6 +118,7 @@ public class NewSourceDialog extends TitleAreaDialog {
   private void createTypeGroup(final Composite container) {
     // fill typeGroup with SourceDescription's
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         createDescriptionsControls(container);
       }
@@ -169,6 +170,7 @@ public class NewSourceDialog extends TitleAreaDialog {
           @Override
           public void widgetSelected(SelectionEvent e) {
             ExecutionUtils.runLog(new RunnableEx() {
+              @Override
               public void run() throws Exception {
                 populateForSourceIndex(index);
               }
@@ -193,6 +195,7 @@ public class NewSourceDialog extends TitleAreaDialog {
     setTitle(title);
     // show source in async, because Dialog itself manages size during create
     ExecutionUtils.runAsync(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         populateForSourceIndex(0);
       }
@@ -249,6 +252,7 @@ public class NewSourceDialog extends TitleAreaDialog {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final PropertyChangeListener m_propertyChangeListener = new PropertyChangeListener() {
+    @Override
     public void propertyChange(java.beans.PropertyChangeEvent e) {
       validateCurrentSourceComposite();
     }

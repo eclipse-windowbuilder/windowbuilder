@@ -410,6 +410,7 @@ public final class NamesManager {
     }
     // read descriptions
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         XMLMemento rootMemento = XMLMemento.createReadRoot(new StringReader(settingsString));
         IMemento[] mementos = rootMemento.getChildren(TYPE_DESCRIPTION_ID);
@@ -465,6 +466,7 @@ public final class NamesManager {
     }
     // prepare as String
     return ExecutionUtils.runObject(new RunnableObjectEx<String>() {
+      @Override
       public String runObject() throws Exception {
         StringWriter writer = new StringWriter();
         rootMemento.save(writer);

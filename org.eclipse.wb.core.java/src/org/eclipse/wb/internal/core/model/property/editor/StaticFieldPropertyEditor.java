@@ -93,6 +93,7 @@ public class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
   // IValueSourcePropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueSource(Object value) throws Exception {
     if (value != Property.UNKNOWN_VALUE) {
       for (int i = 0; i < m_values.length; i++) {
@@ -116,6 +117,7 @@ public class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     Object value = property.getValue();
     return getValueSource(value);
@@ -167,6 +169,7 @@ public class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
     initialize(new Empty_WarningConsumer(), fieldDescriptions);
   }
 
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     // prepare class
     {
@@ -296,6 +299,7 @@ public class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
    * Implementation of {@link IWarningConsumer} that ignores warnings.
    */
   private static final class Empty_WarningConsumer implements IWarningConsumer {
+    @Override
     public void addWarning(String message, Throwable e) {
     }
   }
@@ -309,6 +313,7 @@ public class StaticFieldPropertyEditor extends AbstractComboPropertyEditor
       m_state = state;
     }
 
+    @Override
     public void addWarning(String message, Throwable e) {
       m_state.addWarning(new EditorWarning(message, e));
     }

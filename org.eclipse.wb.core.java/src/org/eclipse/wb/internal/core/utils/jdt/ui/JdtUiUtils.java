@@ -94,6 +94,7 @@ public final class JdtUiUtils {
   private static AbstractUIPlugin getJavaPlugin() {
     if (m_javaPlugin == null) {
       m_javaPlugin = ExecutionUtils.runObject(new RunnableObjectEx<AbstractUIPlugin>() {
+        @Override
         public AbstractUIPlugin runObject() throws Exception {
           return getJavaPlugin0();
         }
@@ -155,6 +156,7 @@ public final class JdtUiUtils {
       final IJavaProject javaProject,
       final String superTypeName) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<IType>() {
+      @Override
       public IType runObject() throws Exception {
         IType actionType = javaProject.findType(superTypeName);
         SubtypesScope scope = new SubtypesScope(actionType);

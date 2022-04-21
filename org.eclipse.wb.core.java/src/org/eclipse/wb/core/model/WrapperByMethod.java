@@ -87,6 +87,7 @@ public class WrapperByMethod extends AbstractWrapper {
     return new WrapperMethodLiveCreationSupport(this);
   }
 
+  @Override
   public boolean isWrappedInfo(ASTNode node) {
     if (node instanceof MethodInvocation) {
       MethodInvocation invocation = (MethodInvocation) node;

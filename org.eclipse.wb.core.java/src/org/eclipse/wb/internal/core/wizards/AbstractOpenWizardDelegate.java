@@ -28,6 +28,7 @@ public abstract class AbstractOpenWizardDelegate extends AbstractActionDelegate 
   // IActionDelegate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void run(IAction action) {
     openWizard();
   }

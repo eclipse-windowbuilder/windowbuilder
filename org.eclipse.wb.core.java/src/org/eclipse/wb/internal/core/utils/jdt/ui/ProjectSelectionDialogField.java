@@ -110,6 +110,7 @@ public final class ProjectSelectionDialogField extends StringButtonDialogField
   // IDialogFieldListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dialogFieldChanged(DialogField field) {
     setProject(getProjectFromString(getText()));
   }
@@ -162,6 +163,7 @@ public final class ProjectSelectionDialogField extends StringButtonDialogField
     // IStringButtonAdapter
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void changeControlPressed(DialogField field) {
       IJavaProject project = selectProject(m_receiver.m_project);
       if (project != null) {

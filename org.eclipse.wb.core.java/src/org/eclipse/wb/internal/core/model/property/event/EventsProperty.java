@@ -62,6 +62,7 @@ public final class EventsProperty extends AbstractEventProperty {
    */
   private void installDecoratorListener() {
     m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+      @Override
       public void invoke(ObjectInfo object, Image[] icon) throws Exception {
         if (object == m_javaInfo) {
           IPreferenceStore preferences = m_javaInfo.getDescription().getToolkit().getPreferences();

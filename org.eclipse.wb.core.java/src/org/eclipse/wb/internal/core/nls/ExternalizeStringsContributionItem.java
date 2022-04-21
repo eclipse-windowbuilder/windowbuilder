@@ -79,6 +79,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
     }
     // listener
     m_toolItem.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         handleClick(parent, event);
       }
@@ -100,6 +101,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
    */
   private void handleClick(final ToolBar parent, final Event event) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (event.detail == SWT.ARROW && !ArrayUtils.isEmpty(getLocales())) {
           Rectangle bounds = m_toolItem.getBounds();
@@ -136,6 +138,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
         menuItem.setSelection(locale.equals(currentLocale));
         // listener
         menuItem.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             if (menuItem.getSelection()) {
               AbstractSource.setLocaleInfo(m_root, locale);
@@ -191,6 +194,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
    */
   private void displayCurrentLocale() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         if (NlsSupport.get(m_root).getLocales().length == 0) {
           m_toolItem.setImage(DesignerPlugin.getImage(!isSpecialTime()
@@ -211,6 +215,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
    */
   private void updateCurrentLocale() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         NlsSupport support = NlsSupport.get(m_root);
         // do nothing, if no sources/locales
@@ -235,6 +240,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
    */
   private void setCurrentLocale(final LocaleInfo locale) {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         AbstractSource.setLocaleInfo(m_root, locale);
         displayCurrentLocale();

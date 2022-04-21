@@ -58,6 +58,7 @@ public final class MethodPropertyPropertyEditor extends TextDisplayPropertyEdito
   // IComplexPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Property[] getProperties(Property _methodProperty) throws Exception {
     GenericProperty methodProperty = (GenericProperty) _methodProperty;
     // lazily create sub-properties

@@ -78,6 +78,7 @@ public class EnumerationValuesPropertyEditor extends AbstractComboPropertyEditor
   // IValueSourcePropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueSource(Object value) throws Exception {
     if (value != Property.UNKNOWN_VALUE) {
       for (int i = 0; i < m_values.length; i++) {
@@ -95,6 +96,7 @@ public class EnumerationValuesPropertyEditor extends AbstractComboPropertyEditor
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     Object value = property.getValue();
     return getValueSource(value);

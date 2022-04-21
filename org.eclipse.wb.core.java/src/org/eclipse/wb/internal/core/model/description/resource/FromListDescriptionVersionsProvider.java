@@ -52,6 +52,7 @@ public abstract class FromListDescriptionVersionsProvider implements IDescriptio
   // IDescriptionVersionsProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<String> getVersions(Class<?> componentClass) throws Exception {
     if (validate(componentClass)) {
       return m_versions;

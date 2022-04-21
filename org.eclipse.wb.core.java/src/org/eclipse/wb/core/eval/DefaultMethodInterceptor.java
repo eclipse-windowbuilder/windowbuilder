@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 public class DefaultMethodInterceptor implements MethodInterceptor {
   public static final DefaultMethodInterceptor INSTANCE = new DefaultMethodInterceptor();
 
+  @Override
   public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy)
       throws Throwable {
     if (ReflectionUtils.isAbstract(method)) {

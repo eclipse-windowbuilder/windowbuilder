@@ -22,6 +22,7 @@ interface IClasspathImageContainer extends IImageContainer {
   /**
    * @return the children {@link IImageContainer}'s.
    */
+  @Override
   IImageContainer[] elements();
 
   /**

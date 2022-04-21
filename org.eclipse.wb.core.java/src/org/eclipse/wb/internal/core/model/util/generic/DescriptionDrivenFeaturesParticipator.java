@@ -28,6 +28,7 @@ public final class DescriptionDrivenFeaturesParticipator
   // IJavaInfoInitializationParticipator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo javaInfo) throws Exception {
     CopyPropertyTopSupport.install(javaInfo);
     CopyPropertyTopChildSupport.install(javaInfo);

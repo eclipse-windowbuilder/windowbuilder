@@ -53,6 +53,7 @@ public final class LocalStaticFactoriesRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(JavaInfo root, List<JavaInfo> components) throws Exception {
     processRoot(root);
   }
@@ -62,6 +63,7 @@ public final class LocalStaticFactoriesRootProcessor implements IRootProcessor {
    */
   private static void processRoot(final JavaInfo rootJavaInfo) {
     ExecutionUtils.runIgnore(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         installPaletteBroadcastEx(rootJavaInfo);
       }

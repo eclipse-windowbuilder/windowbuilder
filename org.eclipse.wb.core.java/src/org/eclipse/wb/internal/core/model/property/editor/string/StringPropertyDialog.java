@@ -138,6 +138,7 @@ public final class StringPropertyDialog extends ResizableDialog {
       GridDataFactory.create(m_valueText).grab().hintC(80, 8).fill();
       // initial value
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           Object value = m_property.getValue();
           if (value instanceof String) {
@@ -168,12 +169,14 @@ public final class StringPropertyDialog extends ResizableDialog {
         m_nlsButton.setEnabled(!m_editableSupport.getEditableSources().isEmpty());
         // initial state
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             m_nlsButton.setSelection(m_support.isExternalized(m_genericProperty.getExpression()));
           }
         });
         // add selection listener
         m_nlsButton.addListener(SWT.Selection, new Listener() {
+          @Override
           public void handleEvent(Event event) {
             UiUtils.changeControlEnable(m_nlsComposite, m_nlsButton.getSelection());
             updateSourceKey();
@@ -199,6 +202,7 @@ public final class StringPropertyDialog extends ResizableDialog {
           browseButton.setText(ModelMessages.StringPropertyDialog_localizationBrowse);
           // add selection listener
           browseButton.addListener(SWT.Selection, new Listener() {
+            @Override
             public void handleEvent(Event event) {
               StringPropertyKeyDialog keyDialog =
                   new StringPropertyKeyDialog(getShell(),
@@ -270,6 +274,7 @@ public final class StringPropertyDialog extends ResizableDialog {
     final String value = m_valueText.getText();
     if (m_component != null) {
       ExecutionUtils.run(m_component, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           if (m_genericProperty != null) {
             // replace with StringLiteral
@@ -302,6 +307,7 @@ public final class StringPropertyDialog extends ResizableDialog {
       });
     } else {
       ExecutionUtils.runLog(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_property.setValue(value);
         }

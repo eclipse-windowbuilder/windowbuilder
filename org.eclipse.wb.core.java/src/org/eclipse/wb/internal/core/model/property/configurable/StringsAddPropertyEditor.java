@@ -102,6 +102,7 @@ public final class StringsAddPropertyEditor extends TextDialogPropertyEditor
   void setItems(Property _property, final String[] items) throws Exception {
     final JavaInfo javaInfo = ((JavaProperty) _property).getJavaInfo();
     ExecutionUtils.run(javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         setItems0(items, javaInfo);
       }
@@ -148,6 +149,7 @@ public final class StringsAddPropertyEditor extends TextDialogPropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     {
       String addMethodName = (String) parameters.get("addMethod");

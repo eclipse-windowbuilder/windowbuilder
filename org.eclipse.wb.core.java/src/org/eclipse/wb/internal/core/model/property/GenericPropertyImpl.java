@@ -115,6 +115,7 @@ public final class GenericPropertyImpl extends GenericProperty {
   // Type
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Class<?> getType() {
     return m_type;
   }
@@ -205,6 +206,7 @@ public final class GenericPropertyImpl extends GenericProperty {
     }
     // "normal" property
     ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         setValueEx(value);
       }
@@ -230,6 +232,7 @@ public final class GenericPropertyImpl extends GenericProperty {
         final AbstractSource source = support.getKeySource(key);
         if (source != null) {
           ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+            @Override
             public void run() throws Exception {
               source.useKey(m_this, key);
             }
@@ -244,6 +247,7 @@ public final class GenericPropertyImpl extends GenericProperty {
       if (expression != null) {
         if (support.isExternalized(expression)) {
           ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+            @Override
             public void run() throws Exception {
               String string = value == UNKNOWN_VALUE ? null : (String) value;
               support.setValue(expression, string);

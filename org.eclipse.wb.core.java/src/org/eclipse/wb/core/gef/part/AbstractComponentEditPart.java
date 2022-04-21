@@ -199,6 +199,7 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart {
   @Override
   protected List<?> getModelChildren() {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<List<?>>() {
+      @Override
       public List<?> runObject() throws Exception {
         return m_component.getPresentation().getChildrenGraphical();
       }
@@ -266,6 +267,7 @@ public abstract class AbstractComponentEditPart extends GraphicalEditPart {
 
         private void runDelayedEvents() {
           ExecutionUtils.runLogLater(new RunnableEx() {
+            @Override
             public void run() throws Exception {
               if (isEnabled()) {
                 Control viewerControl = getViewer().getControl();

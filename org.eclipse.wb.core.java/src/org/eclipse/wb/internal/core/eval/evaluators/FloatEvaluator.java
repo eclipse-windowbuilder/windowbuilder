@@ -38,6 +38,7 @@ public final class FloatEvaluator implements IExpressionEvaluator {
   // IExpressionEvaluator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object evaluate(EvaluationContext context,
       Expression expression,
       ITypeBinding typeBinding,

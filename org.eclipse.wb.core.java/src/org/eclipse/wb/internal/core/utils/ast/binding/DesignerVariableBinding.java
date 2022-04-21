@@ -75,82 +75,102 @@ final class DesignerVariableBinding implements IVariableBinding {
   // IVariableBinding
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Object getConstantValue() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding getDeclaringClass() {
     return m_declaringClass;
   }
 
+  @Override
   public IMethodBinding getDeclaringMethod() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getName() {
     return m_name;
   }
 
+  @Override
   public ITypeBinding getType() {
     return m_type;
   }
 
+  @Override
   public IVariableBinding getVariableDeclaration() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getVariableId() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isEnumConstant() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isField() {
     return m_field;
   }
 
+  @Override
   public boolean isParameter() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IAnnotationBinding[] getAnnotations() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IJavaElement getJavaElement() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getKey() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getKind() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getModifiers() {
     return m_modifiers;
   }
 
+  @Override
   public boolean isDeprecated() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isEqualTo(IBinding binding) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isSynthetic() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isRecovered() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isEffectivelyFinal() {
     throw new IllegalArgumentException();
   }

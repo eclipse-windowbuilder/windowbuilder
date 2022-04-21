@@ -154,6 +154,7 @@ public final class PackageRootSelectionDialogField extends StringButtonDialogFie
   // IDialogFieldListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dialogFieldChanged(DialogField field) {
     setRoot(getRootFromString(getText()));
   }
@@ -225,6 +226,7 @@ public final class PackageRootSelectionDialogField extends StringButtonDialogFie
     // IStringButtonAdapter
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void changeControlPressed(DialogField field) {
       IPackageFragmentRoot root = selectSourceFolder(m_receiver.m_root);
       if (root != null) {
@@ -250,6 +252,7 @@ public final class PackageRootSelectionDialogField extends StringButtonDialogFie
       dialog.setComparator(new JavaElementComparator());
       //
       dialog.setValidator(new ISelectionStatusValidator() {
+        @Override
         public IStatus validate(Object[] selection) {
           if (selection.length == 1) {
             Object element = selection[0];

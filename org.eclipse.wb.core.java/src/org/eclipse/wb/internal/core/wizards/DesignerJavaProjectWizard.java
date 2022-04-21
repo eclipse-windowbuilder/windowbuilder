@@ -112,6 +112,7 @@ public class DesignerJavaProjectWizard extends DesignerNewElementWizard
     ExceptionHandler.perform(e, getShell(), title, message);
   }
 
+  @Override
   public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
     fConfigElement = cfig;
   }

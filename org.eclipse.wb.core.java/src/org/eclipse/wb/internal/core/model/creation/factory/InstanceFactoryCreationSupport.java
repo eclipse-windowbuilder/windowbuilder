@@ -91,6 +91,7 @@ public final class InstanceFactoryCreationSupport extends AbstractExplicitFactor
     return m_factory;
   }
 
+  @Override
   public CreationSupport getLiveComponentCreation() {
     FactoryMethodDescription factoryMethodDescription = getDescription();
     return new LiveCreationSupport(factoryMethodDescription);
@@ -212,6 +213,7 @@ public final class InstanceFactoryCreationSupport extends AbstractExplicitFactor
         throws Exception {
       // evaluates "(our.factory.Type) null" into factory object
       IExpressionEvaluator evaluator = new IExpressionEvaluator() {
+        @Override
         public Object evaluate(EvaluationContext _context,
             Expression expression,
             ITypeBinding typeBinding,
@@ -246,6 +248,7 @@ public final class InstanceFactoryCreationSupport extends AbstractExplicitFactor
       return "((" + m_factoryTypeName + ") null).";
     }
 
+    @Override
     public CreationSupport getLiveComponentCreation() {
       throw new NotImplementedException();
     }

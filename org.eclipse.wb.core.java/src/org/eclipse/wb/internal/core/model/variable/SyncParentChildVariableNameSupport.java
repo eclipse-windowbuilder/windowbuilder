@@ -44,6 +44,7 @@ public abstract class SyncParentChildVariableNameSupport<T extends JavaInfo> {
     m_childInfo = layoutData;
     // materialization of child JavaInfo
     m_childInfo.addBroadcastListener(new JavaInfoSetVariable() {
+      @Override
       public void invoke(JavaInfo javaInfo, VariableSupport oldVariable, VariableSupport newVariable)
           throws Exception {
         if (javaInfo == m_childInfo

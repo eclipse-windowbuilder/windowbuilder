@@ -63,6 +63,7 @@ public final class InstanceListPropertyEditor extends AbstractListPropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     // prepare m_classes
     m_types = getParameterAsArray(parameters, "types");

@@ -231,6 +231,7 @@ public final class InnerClassPropertyEditor extends TextDialogPropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     // mode
     {

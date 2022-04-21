@@ -157,6 +157,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
   // IValueSourcePropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueSource(Object value) throws Exception {
     if (value instanceof Date) {
       String source;
@@ -179,6 +180,7 @@ public final class DatePropertyEditor extends AbstractTextPropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     m_state = state;
     // functions

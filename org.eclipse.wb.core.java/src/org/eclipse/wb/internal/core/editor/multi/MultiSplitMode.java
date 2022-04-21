@@ -133,6 +133,7 @@ final class MultiSplitMode extends DefaultMultiMode {
     final Composite designControl = (Composite) m_designPage.getControl();
     final Display display = sourceControl.getDisplay();
     display.addFilter(SWT.MouseDown, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         if (sourceControl.isDisposed()) {
           display.removeFilter(SWT.MouseDown, this);
@@ -163,15 +164,18 @@ final class MultiSplitMode extends DefaultMultiMode {
     m_editor.super_getSourceViewer().getDocument().addDocumentListener(new IDocumentListener() {
       private int m_lastModificationId;
 
+      @Override
       public void documentAboutToBeChanged(DocumentEvent event) {
       }
 
+      @Override
       public void documentChanged(DocumentEvent event) {
         final int modificationId = ++m_lastModificationId;
         int delay = getSyncDelay();
         if (delay > 0) {
           delay = Math.max(delay, 250);
           Display.getCurrent().timerExec(delay, new Runnable() {
+            @Override
             public void run() {
               if (modificationId == m_lastModificationId) {
                 if (m_sourcePage.isActive()) {

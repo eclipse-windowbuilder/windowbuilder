@@ -68,6 +68,7 @@ public final class MethodsOperationRule extends AbstractDesignerRule {
   private void processRegexp(final String signature) throws Exception {
     final Pattern pattern = Pattern.compile(StringUtils.substring(signature, 1, -1));
     process(new Predicate<String>() {
+      @Override
       public boolean apply(String t) {
         return pattern.matcher(t).matches();
       }
@@ -76,6 +77,7 @@ public final class MethodsOperationRule extends AbstractDesignerRule {
 
   private void processSingleSignature(final String signature) throws Exception {
     process(new Predicate<String>() {
+      @Override
       public boolean apply(String t) {
         return signature.equals(t);
       }

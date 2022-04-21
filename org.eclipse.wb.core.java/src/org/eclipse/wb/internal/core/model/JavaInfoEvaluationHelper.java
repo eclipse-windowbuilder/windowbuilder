@@ -194,6 +194,7 @@ public abstract class JavaInfoEvaluationHelper {
       m_context.putArbitraryValue(KEY_EDITOR, editor);
       // evaluator for JavaInfo objects
       m_context.addEvaluator(new IExpressionEvaluator() {
+        @Override
         public Object evaluate(EvaluationContext context,
             Expression expression,
             ITypeBinding typeBinding,

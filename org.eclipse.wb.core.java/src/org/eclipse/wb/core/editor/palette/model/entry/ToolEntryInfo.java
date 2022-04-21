@@ -31,6 +31,7 @@ public abstract class ToolEntryInfo extends EntryInfo {
   @Override
   public final boolean activate(final boolean reload) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         // prepare tool
         Tool tool;

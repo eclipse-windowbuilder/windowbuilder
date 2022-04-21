@@ -56,6 +56,7 @@ public final class FileImagePage extends AbstractImagePage {
     GridLayoutFactory.create(this).columns(2);
     // add dispose listener
     addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         for (ImageInfo imageInfo : m_pathToImageInfo.values()) {
           imageInfo.getImage().dispose();
@@ -68,6 +69,7 @@ public final class FileImagePage extends AbstractImagePage {
       GridDataFactory.create(m_pathText).grabH().hintHC(50).fillH();
       // add listener
       m_pathText.addListener(SWT.Modify, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           updateImageInfo();
         }
@@ -79,6 +81,7 @@ public final class FileImagePage extends AbstractImagePage {
       GridDataFactory.create(button).hintHU(IDialogConstants.BUTTON_WIDTH).fill();
       button.setText(Messages.FileImagePage_browseButton);
       button.addListener(SWT.Selection, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN);
           fileDialog.setFilterPath(m_pathText.getText());

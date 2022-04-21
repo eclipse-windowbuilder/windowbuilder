@@ -113,6 +113,7 @@ public final class EditableSource implements IEditableSource {
   ////////////////////////////////////////////////////////////////////////////
   private ICommandQueue m_commandQueue;
 
+  @Override
   public void setCommandQueue(ICommandQueue commandQueue) {
     m_commandQueue = commandQueue;
   }
@@ -124,6 +125,7 @@ public final class EditableSource implements IEditableSource {
   ////////////////////////////////////////////////////////////////////////////
   private IKeyGeneratorStrategy m_keyGeneratorStrategy;
 
+  @Override
   public void setKeyGeneratorStrategy(IKeyGeneratorStrategy keyGeneratorStrategy) {
     m_keyGeneratorStrategy = keyGeneratorStrategy;
   }
@@ -135,12 +137,14 @@ public final class EditableSource implements IEditableSource {
   ////////////////////////////////////////////////////////////////////////////
   private final List<IEditableSourceListener> m_listeners = Lists.newArrayList();
 
+  @Override
   public void addListener(IEditableSourceListener listener) {
     if (!m_listeners.contains(listener)) {
       m_listeners.add(listener);
     }
   }
 
+  @Override
   public void removeListener(IEditableSourceListener listener) {
     m_listeners.remove(listener);
   }
@@ -168,10 +172,12 @@ public final class EditableSource implements IEditableSource {
   // IEditableSource: access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getShortTitle() {
     return m_shortTitle;
   }
 
+  @Override
   public String getLongTitle() {
     return m_longTitle;
   }
@@ -181,10 +187,12 @@ public final class EditableSource implements IEditableSource {
   // IEditableSource: locales
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public LocaleInfo[] getLocales() {
     return m_localeToInfo.keySet().toArray(new LocaleInfo[m_localeToInfo.keySet().size()]);
   }
 
+  @Override
   public void addLocale(LocaleInfo locale, LocaleInfo baseLocale) {
     // prepare base key -> value map
     Map<String, String> keyToValue;
@@ -200,6 +208,7 @@ public final class EditableSource implements IEditableSource {
     m_commandQueue.addCommand(new AddLocaleCommand(this, locale, keyToValue));
   }
 
+  @Override
   public void removeLocale(LocaleInfo locale) {
     m_localeToInfo.remove(locale);
     // add command
@@ -211,14 +220,17 @@ public final class EditableSource implements IEditableSource {
   // IEditableSource: keys
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Set<String> getKeys() {
     return m_keys;
   }
 
+  @Override
   public Set<String> getFormKeys() {
     return m_formKeys;
   }
 
+  @Override
   public void renameKey(String oldKey, String newKey) {
     // if keys are equal, ignore replace request
     if (oldKey.equals(newKey)) {
@@ -273,6 +285,7 @@ public final class EditableSource implements IEditableSource {
     fire_keyRenamed(oldKey, newKey);
   }
 
+  @Override
   public void externalize(StringPropertyInfo propertyInfo, boolean copyToAllLocales) {
     // prepare property "properties" ;-)
     JavaInfo component = propertyInfo.getComponent();
@@ -313,6 +326,7 @@ public final class EditableSource implements IEditableSource {
     fire_keyAdded(key, propertyInfo);
   }
 
+  @Override
   public void internalizeKey(String key) {
     m_formKeys.remove(key);
     m_keys.remove(key);
@@ -332,6 +346,7 @@ public final class EditableSource implements IEditableSource {
     fire_keyRemoved(key);
   }
 
+  @Override
   public void addKey(String key, String value) {
     // add key to set
     m_keys.add(key);
@@ -346,6 +361,7 @@ public final class EditableSource implements IEditableSource {
     fire_keyAdded(key, null);
   }
 
+  @Override
   public Set<JavaInfo> getComponentsByKey(String key) {
     return m_keyToComponentsSupport.getComponentsByKey(key);
   }
@@ -355,6 +371,7 @@ public final class EditableSource implements IEditableSource {
   // IEditableSource: values
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValue(LocaleInfo locale, String key) {
     EditableLocaleInfo editableLocale = getEditableLocale(locale);
     if (editableLocale != null) {
@@ -363,6 +380,7 @@ public final class EditableSource implements IEditableSource {
     return null;
   }
 
+  @Override
   public void setValue(LocaleInfo locale, String key, String value) {
     EditableLocaleInfo editableLocale = getEditableLocale(locale);
     boolean changed = editableLocale.setValue(key, value);

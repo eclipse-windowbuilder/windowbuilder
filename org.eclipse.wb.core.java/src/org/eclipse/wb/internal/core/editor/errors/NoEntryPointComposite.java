@@ -107,6 +107,7 @@ public final class NoEntryPointComposite extends Composite {
       m_viewer.setContentProvider(new ArrayContentProvider());
       // listeners
       m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+        @Override
         public void doubleClick(DoubleClickEvent event) {
           markSelectedMethod();
         }
@@ -187,6 +188,7 @@ public final class NoEntryPointComposite extends Composite {
    */
   private static void sortMethods(List<IMethod> methods) {
     Collections.sort(methods, new Comparator<IMethod>() {
+      @Override
       public int compare(IMethod o1, IMethod o2) {
         return getPriority(o1) - getPriority(o2);
       }
@@ -208,6 +210,7 @@ public final class NoEntryPointComposite extends Composite {
 
   private void markSelectedMethod() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         markSelectedMethodEx();
       }

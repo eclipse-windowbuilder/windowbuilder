@@ -76,6 +76,7 @@ public final class ExpressionListPropertyEditor extends AbstractListPropertyEdit
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     // initialize parameters
     initializeParameters(parameters);

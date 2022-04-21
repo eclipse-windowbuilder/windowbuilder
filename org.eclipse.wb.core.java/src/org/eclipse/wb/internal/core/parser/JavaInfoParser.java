@@ -148,6 +148,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     checkJavaVersion(modelUnit);
     final JavaInfoParser parser = new JavaInfoParser(modelUnit);
     return ExecutionUtils.runDesignTime(new RunnableObjectEx<JavaInfo>() {
+      @Override
       public JavaInfo runObject() throws Exception {
         return parser.parse();
       }
@@ -161,6 +162,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     final JavaInfoParser parser = new JavaInfoParser(editor);
     parser.m_editorState.setFlowDescription(new ExecutionFlowDescription(rootMethod));
     return ExecutionUtils.runDesignTime(new RunnableObjectEx<JavaInfo>() {
+      @Override
       public JavaInfo runObject() throws Exception {
         return parser.parseRootMethods();
       }
@@ -483,6 +485,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     getRootComponents_preferredRoot(rootComponents);
     // in general case there are more than one root, select biggest hierarchy
     Collections.sort(rootComponents, new Comparator<JavaInfo>() {
+      @Override
       public int compare(JavaInfo o1, JavaInfo o2) {
         return getComponentsTreeSize(o2) - getComponentsTreeSize(o1);
       }
@@ -544,6 +547,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     public boolean enterFrame(final ASTNode node) {
       // send broadcast
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_editorState.getBroadcast().getListener(ExecutionFlowEnterFrame.class).invoke(node);
         }
@@ -575,6 +579,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
       super.leaveFrame(node);
       // send broadcast
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_editorState.getBroadcast().getListener(EvaluationEventListener.class).leaveFrame(node);
         }
@@ -589,6 +594,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
     @Override
     public void postVisit(final ASTNode node) {
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           // try to create JavaInfo using generic Expression
           if (node instanceof Expression
@@ -1110,6 +1116,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 
     private void createVariableSupport(final Expression variable, final Expression initializer) {
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           JavaInfo javaInfo = getJavaInfo(initializer);
           if (javaInfo != null) {
@@ -1368,6 +1375,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
    * @return the {@link JavaInfo} for given {@link Expression} or <code>null</code> if given
    *         {@link Expression} does not represent {@link JavaInfo}.
    */
+  @Override
   public JavaInfo getJavaInfo(Expression expression) {
     return m_javaInfoResolver.getJavaInfo(expression);
   }

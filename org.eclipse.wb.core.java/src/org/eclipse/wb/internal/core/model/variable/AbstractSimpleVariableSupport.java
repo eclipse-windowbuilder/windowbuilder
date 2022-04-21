@@ -499,6 +499,7 @@ public abstract class AbstractSimpleVariableSupport extends AbstractNamedVariabl
    */
   private void hookTextRenameEvent() {
     m_javaInfo.addBroadcastListener(new GenericPropertySetValue() {
+      @Override
       public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
           throws Exception {
         if (property.getJavaInfo().getVariableSupport() == m_this && value[0] instanceof String) {

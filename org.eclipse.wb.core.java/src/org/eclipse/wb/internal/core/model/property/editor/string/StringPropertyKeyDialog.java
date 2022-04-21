@@ -169,6 +169,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     m_sourcesViewer.setInput(m_editableSupport.getEditableSources());
     // selection listener
     m_sourcesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         IStructuredSelection selection = (IStructuredSelection) event.getSelection();
         if (!selection.isEmpty()) {
@@ -195,6 +196,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       m_filterPatternText = new Text(valuesGroup, SWT.BORDER);
       GridDataFactory.create(m_filterPatternText).grabH().fill();
       m_filterPatternText.addListener(SWT.Modify, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           refreshValuesViewer();
         }
@@ -220,6 +222,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
       m_valuesViewer.setComparator(new ViewerComparator());
       // listeners
       m_valuesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           IStructuredSelection selection = (IStructuredSelection) event.getSelection();
           m_selectedKey = (String) selection.getFirstElement();
@@ -227,6 +230,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
         }
       });
       m_valuesViewer.addDoubleClickListener(new IDoubleClickListener() {
+        @Override
         public void doubleClick(DoubleClickEvent event) {
           okPressed();
         }
@@ -278,6 +282,7 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
     button.setText(text);
     button.setSelection(getDialogSettings().getBoolean(text));
     button.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         getDialogSettings().put(text, button.getSelection());
         refreshValuesViewer();
@@ -355,10 +360,12 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
    * Implementation of {@link ITableLabelProvider} for {@link #m_valuesViewer}.
    */
   private class ValuesLabelProvider extends LabelProvider implements ITableLabelProvider {
+    @Override
     public Image getColumnImage(Object element, int columnIndex) {
       return null;
     }
 
+    @Override
     public String getColumnText(Object element, int columnIndex) {
       String key = (String) element;
       if (columnIndex == 0) {

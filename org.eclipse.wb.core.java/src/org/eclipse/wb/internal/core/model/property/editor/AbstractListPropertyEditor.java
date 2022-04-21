@@ -64,6 +64,7 @@ public abstract class AbstractListPropertyEditor extends AbstractComboPropertyEd
   // IValueSourcePropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getValueSource(Object value) throws Exception {
     // return expression for value
     if (value != Property.UNKNOWN_VALUE) {
@@ -81,6 +82,7 @@ public abstract class AbstractListPropertyEditor extends AbstractComboPropertyEd
   // IClipboardSourceProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getClipboardSource(GenericProperty property) throws Exception {
     Object value = property.getValue();
     return getValueSource(value);
@@ -119,6 +121,7 @@ public abstract class AbstractListPropertyEditor extends AbstractComboPropertyEd
   private static Object evaluateExpression(final GenericProperty genericProperty,
       final String expression) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
+      @Override
       public Object runObject() throws Exception {
         JavaInfo javaInfo = genericProperty.getJavaInfo();
         ClassLoader classLoader = JavaInfoUtils.getClassLoader(javaInfo);

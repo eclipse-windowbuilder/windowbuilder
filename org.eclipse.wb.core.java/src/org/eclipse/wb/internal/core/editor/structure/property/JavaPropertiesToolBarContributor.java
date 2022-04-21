@@ -48,6 +48,7 @@ public final class JavaPropertiesToolBarContributor implements IPropertiesToolBa
   // IPropertiesToolBarContributor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void contributeToolBar(IToolBarManager manager, final List<ObjectInfo> objects)
       throws Exception {
     addGotoDefinitionAction(manager, objects);
@@ -80,6 +81,7 @@ public final class JavaPropertiesToolBarContributor implements IPropertiesToolBa
         @Override
         public void run() {
           ExecutionUtils.run(javaInfo, new RunnableEx() {
+            @Override
             public void run() throws Exception {
               if (variableSupport.canConvertLocalToField()) {
                 variableSupport.convertLocalToField();

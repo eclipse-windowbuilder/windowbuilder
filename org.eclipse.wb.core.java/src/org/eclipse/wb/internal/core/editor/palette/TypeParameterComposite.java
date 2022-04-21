@@ -75,6 +75,7 @@ public class TypeParameterComposite extends Composite {
       @Override
       public void widgetSelected(SelectionEvent e) {
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             chooseType();
           }

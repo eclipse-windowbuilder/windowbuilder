@@ -39,6 +39,7 @@ public class WizardUtils {
    */
   public static IJavaElement getJavaElement(IStructuredSelection selection) {
     NewContainerWizardPage tmp = new NewContainerWizardPage("__tmp") {
+      @Override
       public void createControl(Composite parent) {
       }
     };

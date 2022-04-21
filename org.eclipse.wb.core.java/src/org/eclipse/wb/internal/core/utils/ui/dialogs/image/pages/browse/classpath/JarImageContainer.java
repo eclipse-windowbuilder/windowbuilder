@@ -85,10 +85,12 @@ final class JarImageContainer implements IClasspathImageContainer {
   // IImageElement
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Image getImage() {
     return JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_JAR);
   }
 
+  @Override
   public String getName() {
     return m_root.getElementName();
   }
@@ -98,6 +100,7 @@ final class JarImageContainer implements IClasspathImageContainer {
   // IImageContainer
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IImageContainer[] elements() {
     return m_packagePathToEntryMap.values().toArray(
         new IImageContainer[m_packagePathToEntryMap.size()]);
@@ -108,10 +111,12 @@ final class JarImageContainer implements IClasspathImageContainer {
   // Internal access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean isEmpty() {
     return m_packagePathToEntryMap.isEmpty();
   }
 
+  @Override
   public void dispose() {
     try {
       m_jarFile.close();

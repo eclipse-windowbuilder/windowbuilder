@@ -25,18 +25,22 @@ public interface ICreationSupportPermissions {
    * Implementation of {@link ICreationSupportPermissions} that does not allow any operation.
    */
   ICreationSupportPermissions FALSE = new ICreationSupportPermissions() {
+    @Override
     public boolean canDelete(JavaInfo javaInfo) {
       return false;
     }
 
+    @Override
     public void delete(JavaInfo javaInfo) throws Exception {
       throw new NotImplementedException();
     }
 
+    @Override
     public boolean canReorder(JavaInfo javaInfo) {
       return false;
     }
 
+    @Override
     public boolean canReparent(JavaInfo javaInfo) {
       return false;
     }

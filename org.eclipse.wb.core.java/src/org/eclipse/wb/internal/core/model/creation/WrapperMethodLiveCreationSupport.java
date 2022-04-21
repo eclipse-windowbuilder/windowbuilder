@@ -42,6 +42,7 @@ public class WrapperMethodLiveCreationSupport extends WrapperMethodCreationSuppo
   // Access
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public CreationSupport getLiveComponentCreation() {
     return new LiveCreationSupport();
   }

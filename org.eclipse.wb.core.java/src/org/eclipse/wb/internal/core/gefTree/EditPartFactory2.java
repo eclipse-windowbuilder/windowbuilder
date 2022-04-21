@@ -43,6 +43,7 @@ public final class EditPartFactory2 implements IEditPartFactory {
   // IEditPartFactory
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public EditPart createEditPart(EditPart context, Object model) {
     if (model == null) {
       return null;

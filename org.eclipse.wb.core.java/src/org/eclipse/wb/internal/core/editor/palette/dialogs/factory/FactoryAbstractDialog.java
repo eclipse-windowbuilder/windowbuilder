@@ -91,6 +91,7 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
     // factory class
     {
       m_factoryClassField = new StringButtonDialogField(new IStringButtonAdapter() {
+        @Override
         public void changeControlPressed(DialogField field) {
           try {
             String factoryClassName =
@@ -110,6 +111,7 @@ public abstract class FactoryAbstractDialog extends AbstractPaletteElementDialog
     // method signature
     {
       m_methodSignatureField = new StringButtonDialogField(new IStringButtonAdapter() {
+        @Override
         public void changeControlPressed(DialogField field) {
           try {
             ElementListSelectionDialog dialog =

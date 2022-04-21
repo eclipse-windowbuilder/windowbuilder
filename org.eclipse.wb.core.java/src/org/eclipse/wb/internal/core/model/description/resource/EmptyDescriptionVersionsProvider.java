@@ -40,6 +40,7 @@ public final class EmptyDescriptionVersionsProvider implements IDescriptionVersi
   // IDescriptionVersionsProvider
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public List<String> getVersions(Class<?> componentClass) throws Exception {
     return ImmutableList.of();
   }

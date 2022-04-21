@@ -53,6 +53,7 @@ public abstract class AbstractDescription implements IAdaptable {
   // IAdaptable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public <T> T getAdapter(Class<T> adapter) {
     return null;
   }

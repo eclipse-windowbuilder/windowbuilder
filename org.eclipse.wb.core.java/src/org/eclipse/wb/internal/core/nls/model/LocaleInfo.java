@@ -85,6 +85,7 @@ public final class LocaleInfo implements Comparable<LocaleInfo> {
   // Comparable
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public int compareTo(LocaleInfo o) {
     if (m_locale == null) {
       if (o.m_locale == null) {

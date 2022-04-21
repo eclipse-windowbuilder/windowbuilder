@@ -106,6 +106,7 @@ public abstract class AbstractStylePropertyEditor extends TextDisplayPropertyEdi
   // Properties
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Property[] getProperties(Property mainProperty) throws Exception {
     ObjectInfo objectInfo = mainProperty.getAdapter(ObjectInfo.class);
     Property[] properties = (Property[]) objectInfo.getArbitraryValue(this);

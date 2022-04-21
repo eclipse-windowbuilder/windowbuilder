@@ -118,6 +118,7 @@ final class MultiPagesMode extends DefaultMultiMode {
   private void maximizeOnActivation() {
     if (DesignerPlugin.getPreferences().getBoolean(IPreferenceConstants.P_EDITOR_MAX_DESIGN)) {
       DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
+        @Override
         public void run() {
           IWorkbenchPage page = m_editor.getSite().getPage();
           if (!page.isPageZoomed()) {

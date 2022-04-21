@@ -52,9 +52,11 @@ public final class SourcePage implements IEditorPage {
   // Life cycle
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void initialize(IDesignerEditor designerPage) {
   }
 
+  @Override
   public void dispose() {
   }
 
@@ -65,6 +67,7 @@ public final class SourcePage implements IEditorPage {
   ////////////////////////////////////////////////////////////////////////////
   private boolean m_active = false;
 
+  @Override
   public void handleActiveState(boolean activate) {
     if (m_active == activate) {
       return;
@@ -79,6 +82,7 @@ public final class SourcePage implements IEditorPage {
   // GUI
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Control createControl(Composite parent) {
     m_composite = new Composite(parent, SWT.NONE);
     m_composite.setLayout(new FillLayout());
@@ -86,10 +90,12 @@ public final class SourcePage implements IEditorPage {
     return m_composite;
   }
 
+  @Override
   public Control getControl() {
     return m_composite;
   }
 
+  @Override
   public void setFocus() {
     getTextWidget().setFocus();
   }
@@ -110,10 +116,12 @@ public final class SourcePage implements IEditorPage {
   // Presentation
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getName() {
     return Messages.SourcePage_name;
   }
 
+  @Override
   public Image getImage() {
     return DesignerPlugin.getImage("editor_source_page.png");
   }

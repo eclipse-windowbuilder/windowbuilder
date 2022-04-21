@@ -61,6 +61,7 @@ public abstract class MultiMode implements IMultiMode {
   /**
    * @return the {@link DesignPage}.
    */
+  @Override
   public final DesignPage getDesignPage() {
     return m_designPage;
   }
@@ -78,16 +79,19 @@ public abstract class MultiMode implements IMultiMode {
   /**
    * Activates "Source" page of editor.
    */
+  @Override
   public abstract void showSource();
 
   /**
    * Activates "Design" page of editor.
    */
+  @Override
   public abstract void showDesign();
 
   /**
    * Switches between "Source" and "Design" pages.
    */
+  @Override
   public abstract void switchSourceDesign();
 
   ////////////////////////////////////////////////////////////////////////////

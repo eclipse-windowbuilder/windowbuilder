@@ -100,6 +100,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
     final boolean initialize =
         !(newProjectHandle.equals(fCurrProject) && newProjectLocation.equals(fCurrProjectLocation));
     IRunnableWithProgress op = new IRunnableWithProgress() {
+      @Override
       public void run(IProgressMonitor monitor) throws InvocationTargetException,
           InterruptedException {
         try {
@@ -173,6 +174,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
       return;
     }
     IRunnableWithProgress op = new IRunnableWithProgress() {
+      @Override
       public void run(IProgressMonitor monitor) throws InvocationTargetException,
           InterruptedException {
         boolean noProgressMonitor = Platform.getLocation().equals(fCurrProjectLocation);
@@ -435,6 +437,7 @@ public class DesignerNewProjectCreationWizardPage extends JavaCapabilityConfigur
       return !JavaConventions.validateCompilationUnitName(name).matches(IStatus.ERROR);
     }
 
+    @Override
     public boolean visit(IResourceProxy proxy) throws CoreException {
       if (proxy.getType() == IResource.FILE) {
         String name = proxy.getName();

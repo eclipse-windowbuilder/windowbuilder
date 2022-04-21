@@ -84,6 +84,7 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
   //
   ////////////////////////////////////////////////////////////////////////////
   IPropertyChangeListener m_preferenceListener = new IPropertyChangeListener() {
+    @Override
     public void propertyChange(PropertyChangeEvent event) {
       trackPreferences_getCurrentValues();
       m_textWidget.redraw();
@@ -129,6 +130,7 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
     }
     // paint
     ExecutionUtils.runAsync(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         m_textWidget.redraw();
       }
@@ -140,16 +142,20 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
   // IPainter
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setPositionManager(IPaintPositionManager manager) {
     m_positionManager = manager;
   }
 
+  @Override
   public void paint(int reason) {
   }
 
+  @Override
   public void deactivate(boolean redraw) {
   }
 
+  @Override
   public void dispose() {
     DesignerPlugin.getPreferences().removePropertyChangeListener(m_preferenceListener);
   }
@@ -159,6 +165,7 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
   // LineBackgroundListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void lineGetBackground(LineBackgroundEvent event) {
     if (!m_shouldHighlight) {
       return;

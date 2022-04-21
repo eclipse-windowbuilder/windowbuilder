@@ -173,6 +173,7 @@ public final class ExposeComponentSupport {
       final ExposeDialog dialog = new ExposeDialog(m_component);
       if (dialog.open() == Window.OK) {
         ExecutionUtils.run(m_component, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             expose(m_component, dialog.getName(), dialog.isPublic() ? "public" : "protected");
           }

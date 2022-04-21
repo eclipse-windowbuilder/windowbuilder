@@ -72,6 +72,7 @@ public class AbstractWrapperEditPart extends GraphicalEditPart {
   @Override
   protected void refreshVisuals() {
     Display.getCurrent().asyncExec(new Runnable() {
+      @Override
       public void run() {
         refreshVisuals0();
       }

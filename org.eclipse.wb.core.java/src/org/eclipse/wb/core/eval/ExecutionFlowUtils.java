@@ -372,6 +372,7 @@ public final class ExecutionFlowUtils {
     enhancer.setClassLoader(ExecutionFlowUtils.class.getClassLoader());
     enhancer.setSuperclass(ASTVisitor.class);
     enhancer.setCallback(new MethodInterceptor() {
+      @Override
       public Object intercept(Object obj,
           java.lang.reflect.Method method,
           Object[] args,
@@ -461,6 +462,7 @@ public final class ExecutionFlowUtils {
    */
   private static boolean shouldVisitAnonymousClassDeclaration(final AnonymousClassDeclaration anonymous) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         for (ExecutionFlowProvider provider : getExecutionFlowProviders()) {
           if (provider.shouldVisit(anonymous)) {

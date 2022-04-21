@@ -49,6 +49,7 @@ public final class ComponentSubclassPredicate implements Predicate<Object> {
   // Predicate
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public boolean apply(Object t) {
     if (t instanceof JavaInfo) {
       JavaInfo javaInfo = (JavaInfo) t;

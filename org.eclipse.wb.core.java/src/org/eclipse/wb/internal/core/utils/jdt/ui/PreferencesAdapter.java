@@ -37,6 +37,7 @@ public class PreferencesAdapter implements IPreferenceStore {
     /*
      * @see org.eclipse.core.runtime.Preferences.IPropertyChangeListener#propertyChange(org.eclipse.core.runtime.Preferences.PropertyChangeEvent)
      */
+    @Override
     public void propertyChange(Preferences.PropertyChangeEvent event) {
       firePropertyChangeEvent(event.getProperty(), event.getOldValue(), event.getNewValue());
     }
@@ -71,6 +72,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void addPropertyChangeListener(IPropertyChangeListener listener) {
     if (fListeners.size() == 0) {
       fPreferences.addPropertyChangeListener(fListener);
@@ -81,6 +83,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void removePropertyChangeListener(IPropertyChangeListener listener) {
     fListeners.remove(listener);
     if (fListeners.size() == 0) {
@@ -91,6 +94,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean contains(String name) {
     return fPreferences.contains(name);
   }
@@ -98,6 +102,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void firePropertyChangeEvent(String name, Object oldValue, Object newValue) {
     if (!fSilent) {
       final PropertyChangeEvent event = new PropertyChangeEvent(this, name, oldValue, newValue);
@@ -105,6 +110,7 @@ public class PreferencesAdapter implements IPreferenceStore {
       for (int i = 0; i < listeners.length; i++) {
         final IPropertyChangeListener listener = (IPropertyChangeListener) listeners[i];
         Runnable runnable = new Runnable() {
+          @Override
           public void run() {
             listener.propertyChange(event);
           }
@@ -123,6 +129,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean getBoolean(String name) {
     return fPreferences.getBoolean(name);
   }
@@ -130,6 +137,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean getDefaultBoolean(String name) {
     return fPreferences.getDefaultBoolean(name);
   }
@@ -137,6 +145,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public double getDefaultDouble(String name) {
     return fPreferences.getDefaultDouble(name);
   }
@@ -144,6 +153,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public float getDefaultFloat(String name) {
     return fPreferences.getDefaultFloat(name);
   }
@@ -151,6 +161,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public int getDefaultInt(String name) {
     return fPreferences.getDefaultInt(name);
   }
@@ -158,6 +169,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public long getDefaultLong(String name) {
     return fPreferences.getDefaultLong(name);
   }
@@ -165,6 +177,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getDefaultString(String name) {
     return fPreferences.getDefaultString(name);
   }
@@ -172,6 +185,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public double getDouble(String name) {
     return fPreferences.getDouble(name);
   }
@@ -179,6 +193,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public float getFloat(String name) {
     return fPreferences.getFloat(name);
   }
@@ -186,6 +201,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public int getInt(String name) {
     return fPreferences.getInt(name);
   }
@@ -193,6 +209,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public long getLong(String name) {
     return fPreferences.getLong(name);
   }
@@ -200,6 +217,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getString(String name) {
     return fPreferences.getString(name);
   }
@@ -207,6 +225,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean isDefault(String name) {
     return fPreferences.isDefault(name);
   }
@@ -214,6 +233,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean needsSaving() {
     return fPreferences.needsSaving();
   }
@@ -221,6 +241,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void putValue(String name, String value) {
     try {
       fSilent = true;
@@ -233,6 +254,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setDefault(String name, double value) {
     fPreferences.setDefault(name, value);
   }
@@ -240,6 +262,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setDefault(String name, float value) {
     fPreferences.setDefault(name, value);
   }
@@ -247,6 +270,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setDefault(String name, int value) {
     fPreferences.setDefault(name, value);
   }
@@ -254,6 +278,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setDefault(String name, long value) {
     fPreferences.setDefault(name, value);
   }
@@ -261,6 +286,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setDefault(String name, String defaultObject) {
     fPreferences.setDefault(name, defaultObject);
   }
@@ -268,6 +294,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setDefault(String name, boolean value) {
     fPreferences.setDefault(name, value);
   }
@@ -275,6 +302,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setToDefault(String name) {
     fPreferences.setToDefault(name);
   }
@@ -282,6 +310,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setValue(String name, double value) {
     fPreferences.setValue(name, value);
   }
@@ -289,6 +318,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setValue(String name, float value) {
     fPreferences.setValue(name, value);
   }
@@ -296,6 +326,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setValue(String name, int value) {
     fPreferences.setValue(name, value);
   }
@@ -303,6 +334,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setValue(String name, long value) {
     fPreferences.setValue(name, value);
   }
@@ -310,6 +342,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setValue(String name, String value) {
     fPreferences.setValue(name, value);
   }
@@ -317,6 +350,7 @@ public class PreferencesAdapter implements IPreferenceStore {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void setValue(String name, boolean value) {
     fPreferences.setValue(name, value);
   }

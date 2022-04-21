@@ -123,6 +123,7 @@ public final class PackageSelectionDialogField extends StringButtonDialogField
   // IDialogFieldListener
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void dialogFieldChanged(DialogField field) {
     updatePackage();
   }
@@ -186,6 +187,7 @@ public final class PackageSelectionDialogField extends StringButtonDialogField
     // IStringButtonAdapter
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void changeControlPressed(DialogField field) {
       ElementListSelectionDialog dialog =
           new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),

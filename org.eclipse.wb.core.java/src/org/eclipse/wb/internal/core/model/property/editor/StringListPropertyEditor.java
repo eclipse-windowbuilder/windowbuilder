@@ -82,6 +82,7 @@ public final class StringListPropertyEditor extends AbstractListPropertyEditor {
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     m_strings = getParameterAsArray(parameters, "strings");
     m_ignoreCase = "true".equals(parameters.get("ignoreCase"));

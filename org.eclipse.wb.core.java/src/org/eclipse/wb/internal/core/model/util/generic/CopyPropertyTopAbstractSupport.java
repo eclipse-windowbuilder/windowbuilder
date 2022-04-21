@@ -108,6 +108,7 @@ public abstract class CopyPropertyTopAbstractSupport {
       m_copyTitle = copyTitle;
       m_category = category;
       someJavaInfo.addBroadcastListener(new JavaInfoAddProperties() {
+        @Override
         public void invoke(JavaInfo javaInfo, List<Property> properties) throws Exception {
           if (m_targetPredicate.apply(javaInfo)) {
             Property source = PropertyUtils.getByPath(properties, m_sourcePath);

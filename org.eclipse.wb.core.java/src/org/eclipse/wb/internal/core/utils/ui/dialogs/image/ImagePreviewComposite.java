@@ -64,6 +64,7 @@ public class ImagePreviewComposite extends Composite {
       GridDataFactory.create(m_imageCanvas).grab().fill();
       // paint listener
       m_imageCanvas.addListener(SWT.Paint, new Listener() {
+        @Override
         public void handleEvent(Event event) {
           Rectangle clientArea = m_imageCanvas.getClientArea();
           GC gc = event.gc;

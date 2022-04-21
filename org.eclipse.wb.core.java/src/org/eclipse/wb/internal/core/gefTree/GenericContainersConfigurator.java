@@ -41,6 +41,7 @@ public final class GenericContainersConfigurator implements IEditPartConfigurato
   // IEditPartConfigurator
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditPart context, EditPart editPart) {
     if (editPart.getModel() instanceof JavaInfo) {
       JavaInfo component = (JavaInfo) editPart.getModel();

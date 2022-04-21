@@ -72,6 +72,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
       final Display display = getShell().getDisplay();
       if (display != null) {
         display.asyncExec(new Runnable() {
+          @Override
           public void run() {
             try {
               IDE.setDefaultEditor(resource, editorId);
@@ -109,6 +110,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
   @Override
   public boolean performFinish() {
     IWorkspaceRunnable op = new IWorkspaceRunnable() {
+      @Override
       public void run(IProgressMonitor monitor) throws CoreException {
         try {
           finishPage(monitor);
@@ -145,6 +147,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
     return true;
   }
 
+  @Override
   public void init(IWorkbench workbench, IStructuredSelection currentSelection) {
     fWorkbench = workbench;
     fSelection = currentSelection;
@@ -191,6 +194,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
     // IThreadListener
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void threadChange(Thread thread) {
       if (fTransfer) {
         Job.getJobManager().transferRule(fRule, thread);
@@ -202,6 +206,7 @@ public abstract class DesignerNewElementWizard extends Wizard implements INewWiz
     // IRunnableWithProgress
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public void run(IProgressMonitor monitor) throws InvocationTargetException,
         InterruptedException {
       try {

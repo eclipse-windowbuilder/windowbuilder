@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.editor.errors.report2.IReportEntriesProvider
  * @coverage core.editor.errors.report2
  */
 public final class LogsReportEntriesProvider implements IReportEntriesProvider {
+  @Override
   public void addEntries(IErrorReport report) {
     report.addEntry(new EclipseErrorLogsReportEntry());
     report.addEntry(new ParseErrorsLogReportEntry());

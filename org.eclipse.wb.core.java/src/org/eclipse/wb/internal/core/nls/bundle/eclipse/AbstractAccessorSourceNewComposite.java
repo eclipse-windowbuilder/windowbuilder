@@ -83,6 +83,7 @@ public abstract class AbstractAccessorSourceNewComposite extends AbstractBundleS
     // create class field
     {
       m_accessorClassField = new StringButtonDialogField(new IStringButtonAdapter() {
+        @Override
         public void changeControlPressed(DialogField field) {
           try {
             // prepare dialog parameters

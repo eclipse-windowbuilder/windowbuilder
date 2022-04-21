@@ -62,6 +62,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
     //
     GridLayoutFactory.create(this);
     addListener(SWT.Dispose, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         m_root.dispose();
       }
@@ -76,6 +77,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
       m_viewer.setLabelProvider(new ImageLabelProvider());
       // add listeners
       m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+        @Override
         public void selectionChanged(SelectionChangedEvent event) {
           IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
           if (selection.getFirstElement() instanceof IImageResource) {
@@ -87,6 +89,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
         }
       });
       m_viewer.addDoubleClickListener(new IDoubleClickListener() {
+        @Override
         public void doubleClick(DoubleClickEvent event) {
           m_imageDialog.closeOk();
         }
@@ -133,6 +136,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
    * @author scheglov_ke
    */
   private static final class ImageContentProvider implements ITreeContentProvider {
+    @Override
     public Object[] getElements(Object inputElement) {
       try {
         IImageRoot root = (IImageRoot) inputElement;
@@ -142,6 +146,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
       return ArrayUtils.EMPTY_OBJECT_ARRAY;
     }
 
+    @Override
     public boolean hasChildren(Object element) {
       if (element instanceof IHasChildren) {
         IHasChildren tester = (IHasChildren) element;
@@ -150,6 +155,7 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
       return getChildren(element).length != 0;
     }
 
+    @Override
     public Object[] getChildren(Object parentElement) {
       try {
         if (parentElement instanceof IImageContainer) {
@@ -161,13 +167,16 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
       return ArrayUtils.EMPTY_OBJECT_ARRAY;
     }
 
+    @Override
     public Object getParent(Object element) {
       return null;
     }
 
+    @Override
     public void dispose() {
     }
 
+    @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
     }
   }

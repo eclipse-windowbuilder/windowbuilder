@@ -135,6 +135,7 @@ public final class GenericPropertyComposite extends GenericProperty {
   @Override
   public void setValue(final Object value) throws Exception {
     ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         for (GenericProperty property : m_properties) {
           property.setValue(value);
@@ -148,6 +149,7 @@ public final class GenericPropertyComposite extends GenericProperty {
   // GenericProperty
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Class<?> getType() {
     Class<?> commonType = null;
     for (GenericProperty property : m_properties) {
@@ -196,6 +198,7 @@ public final class GenericPropertyComposite extends GenericProperty {
   @Override
   public void setExpression(final String source, final Object value) throws Exception {
     ExecutionUtils.run(m_javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         for (GenericProperty property : m_properties) {
           property.setExpression(source, value);

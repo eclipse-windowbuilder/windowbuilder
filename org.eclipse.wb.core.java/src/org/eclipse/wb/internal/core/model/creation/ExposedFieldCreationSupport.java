@@ -77,6 +77,7 @@ public final class ExposedFieldCreationSupport extends CreationSupport
     super.setJavaInfo(javaInfo);
     // evaluation
     m_hostJavaInfo.addBroadcastListener(new JavaInfoSetObjectAfter() {
+      @Override
       public void invoke(JavaInfo target, Object o) throws Exception {
         if (target == m_hostJavaInfo) {
           if (m_javaInfo.getObject() == null) {
@@ -90,6 +91,7 @@ public final class ExposedFieldCreationSupport extends CreationSupport
     });
     // icon decorator
     m_javaInfo.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
+      @Override
       public void invoke(ObjectInfo object, Image[] icon) throws Exception {
         if (object == m_javaInfo) {
           Image decorator = DesignerPlugin.getImage("exposed/decorator.gif");
@@ -148,6 +150,7 @@ public final class ExposedFieldCreationSupport extends CreationSupport
   /**
    * @return the {@link JavaInfo} that exposes this {@link JavaInfo}.
    */
+  @Override
   public JavaInfo getHostJavaInfo() {
     return m_hostJavaInfo;
   }
@@ -162,6 +165,7 @@ public final class ExposedFieldCreationSupport extends CreationSupport
   /**
    * @return <code>true</code> if this {@link JavaInfo} is direct child of host {@link JavaInfo}.
    */
+  @Override
   public boolean isDirect() {
     return m_direct;
   }
@@ -190,11 +194,13 @@ public final class ExposedFieldCreationSupport extends CreationSupport
   // IClipboardImplicitCreationSupport
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public IClipboardImplicitCreationSupport getImplicitClipboard() {
     final String fieldName = m_fieldName;
     return new IClipboardImplicitCreationSupport() {
       private static final long serialVersionUID = 0L;
 
+      @Override
       public JavaInfo find(JavaInfo host) throws Exception {
         for (JavaInfo child : host.getChildrenJava()) {
           if (child.getCreationSupport() instanceof ExposedFieldCreationSupport) {

@@ -79,6 +79,7 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
       final String argumentSource = source != null ? source : defaultArguments.get(m_index);
       if (!isSameSource(editor, oldArgumentExpression, argumentSource)) {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             editor.replaceExpression(oldArgumentExpression, argumentSource);
             if (isDefaultArguments(javaInfo, invocation)) {
@@ -89,6 +90,7 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
       }
     } else if (source != null) {
       ExecutionUtils.run(javaInfo, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           String argumentsSource = getNewInvocationArguments();
           javaInfo.addMethodInvocation(m_methodSignature, argumentsSource);

@@ -49,6 +49,7 @@ public class CopyAction extends Action {
   public CopyAction(IEditPartViewer viewer) {
     m_viewer = viewer;
     m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+      @Override
       public void selectionChanged(SelectionChangedEvent event) {
         firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
       }
@@ -67,6 +68,7 @@ public class CopyAction extends Action {
   @Override
   public void run() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         List<EditPart> editParts = m_viewer.getSelectedEditParts();
         m_mementos = getMementos(editParts);
@@ -107,6 +109,7 @@ public class CopyAction extends Action {
    */
   static boolean hasMementos(final List<EditPart> editParts) {
     return ExecutionUtils.runObjectLog(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         // selection required
         if (editParts.isEmpty()) {
@@ -141,6 +144,7 @@ public class CopyAction extends Action {
   @SuppressWarnings({"unchecked", "rawtypes"})
   static List<JavaInfoMemento> getMementos(final List<EditPart> editParts) {
     return (List<JavaInfoMemento>) ExecutionUtils.runObjectLog(new RunnableObjectEx() {
+      @Override
       public Object runObject() throws Exception {
         return getMemento0(editParts);
       }

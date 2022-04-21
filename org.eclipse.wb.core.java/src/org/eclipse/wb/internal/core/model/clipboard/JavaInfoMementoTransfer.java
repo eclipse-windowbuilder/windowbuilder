@@ -82,6 +82,7 @@ public class JavaInfoMementoTransfer extends ByteArrayTransfer {
   public void javaToNative(final Object object, final TransferData transferData) {
     if (isSupportedType(transferData)) {
       ExecutionUtils.runRethrow(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           byte[] bytes = convertObjectToBytes(object);
           JavaInfoMementoTransfer.super.javaToNative(bytes, transferData);
@@ -94,6 +95,7 @@ public class JavaInfoMementoTransfer extends ByteArrayTransfer {
   public Object nativeToJava(final TransferData transferData) {
     if (isSupportedType(transferData)) {
       return ExecutionUtils.runObject(new RunnableObjectEx<Object>() {
+        @Override
         public Object runObject() throws Exception {
           byte[] bytes = (byte[]) JavaInfoMementoTransfer.super.nativeToJava(transferData);
           return convertBytesToObject(bytes);

@@ -201,6 +201,7 @@ public final class InstanceObjectPropertyEditor extends TextDialogPropertyEditor
   // IComplexPropertyEditor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Property[] getProperties(Property property) throws Exception {
     JavaInfo instanceInfo = getInstanceInfo(property);
     if (instanceInfo != null) {
@@ -219,6 +220,7 @@ public final class InstanceObjectPropertyEditor extends TextDialogPropertyEditor
   // IConfigurablePropertyObject
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void configure(EditorState state, Map<String, Object> parameters) throws Exception {
     // class
     {
@@ -263,6 +265,7 @@ public final class InstanceObjectPropertyEditor extends TextDialogPropertyEditor
   private void setValueSource(final GenericProperty property, final String source) throws Exception {
     final JavaInfo javaInfo = property.getJavaInfo();
     ExecutionUtils.run(javaInfo, new RunnableEx() {
+      @Override
       public void run() throws Exception {
         // remove old instance info
         {

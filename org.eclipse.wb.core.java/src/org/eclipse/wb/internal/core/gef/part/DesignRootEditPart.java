@@ -164,6 +164,7 @@ public final class DesignRootEditPart extends GraphicalEditPart {
     // IPreferredSizeProvider
     //
     ////////////////////////////////////////////////////////////////////////////
+    @Override
     public Dimension getPreferredSize(Dimension originalPreferredSize) {
       Rectangle preferred = new Rectangle();
       for (Figure figure : getChildren()) {

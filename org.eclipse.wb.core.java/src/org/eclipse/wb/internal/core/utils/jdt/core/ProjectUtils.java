@@ -141,6 +141,7 @@ public final class ProjectUtils {
   public static void waitForAutoBuild() {
     while (true) {
       boolean success = ExecutionUtils.runIgnore(new RunnableEx() {
+        @Override
         public void run() throws Exception {
           IJobManager jobManager = Job.getJobManager();
           jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
@@ -255,6 +256,7 @@ public final class ProjectUtils {
    */
   public static boolean hasType(final IJavaProject project, final String className) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         return project.findType(className) != null;
       }
@@ -476,6 +478,7 @@ public final class ProjectUtils {
    */
   public static boolean hasNature(final IProject project, final String natureId) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Boolean>() {
+      @Override
       public Boolean runObject() throws Exception {
         return project.hasNature(natureId);
       }

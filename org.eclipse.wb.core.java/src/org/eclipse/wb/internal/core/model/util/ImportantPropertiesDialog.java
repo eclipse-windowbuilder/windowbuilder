@@ -56,6 +56,7 @@ public class ImportantPropertiesDialog extends ResizableDialog {
     if (preferences.getBoolean(IPreferenceConstants.P_GENERAL_IMPORTANT_PROPERTIES_AFTER_ADD)
         && javaInfo.getArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT) == Boolean.TRUE) {
       Display.getDefault().asyncExec(new Runnable() {
+        @Override
         public void run() {
           ImportantPropertiesDialog dialog =
               new ImportantPropertiesDialog(DesignerPlugin.getShell(), javaInfo);

@@ -192,174 +192,217 @@ public final class DesignerTypeBinding implements ITypeBinding {
   // ITypeBinding
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public String getBinaryName() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isPrimitive() {
     return m_primitive;
   }
 
+  @Override
   public boolean isNullType() {
     return m_nullType;
   }
 
+  @Override
   public boolean isArray() {
     return m_array;
   }
 
+  @Override
   public ITypeBinding getElementType() {
     return m_elementType;
   }
 
+  @Override
   public int getDimensions() {
     return m_dimensions;
   }
 
+  @Override
   public boolean isClass() {
     return m_class;
   }
 
+  @Override
   public boolean isInterface() {
     return m_interface;
   }
 
+  @Override
   public boolean isEnum() {
     return m_enum;
   }
 
+  @Override
   public boolean isAnnotation() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding[] getTypeParameters() {
     return m_typeParameters;
   }
 
+  @Override
   public boolean isTypeVariable() {
     return m_typeVariable;
   }
 
+  @Override
   public ITypeBinding[] getTypeBounds() {
     return m_typeBounds;
   }
 
+  @Override
   public boolean isParameterizedType() {
     return m_parameterizedType;
   }
 
+  @Override
   public ITypeBinding[] getTypeArguments() {
     return m_typeArguments;
   }
 
+  @Override
   public ITypeBinding getErasure() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isRawType() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isWildcardType() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding getBound() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isUpperbound() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getName() {
     return m_name;
   }
 
+  @Override
   public IPackageBinding getPackage() {
     return m_packageBinding;
   }
 
+  @Override
   public ITypeBinding getDeclaringClass() {
     return m_declaringClass;
   }
 
+  @Override
   public ITypeBinding getSuperclass() {
     return m_superclass;
   }
 
+  @Override
   public ITypeBinding[] getInterfaces() {
     return m_interfaces;
   }
 
+  @Override
   public int getModifiers() {
     return m_modifiers;
   }
 
+  @Override
   public int getDeclaredModifiers() {
     return m_declaredModifiers;
   }
 
+  @Override
   public boolean isTopLevel() {
     return m_topLevel;
   }
 
+  @Override
   public boolean isNested() {
     return m_nested;
   }
 
+  @Override
   public boolean isMember() {
     return m_member;
   }
 
+  @Override
   public boolean isLocal() {
     return m_local;
   }
 
+  @Override
   public boolean isAnonymous() {
     return m_anonymous;
   }
 
+  @Override
   public ITypeBinding[] getDeclaredTypes() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IVariableBinding[] getDeclaredFields() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IMethodBinding[] getDeclaredMethods() {
     return m_declaredMethods;
   }
 
+  @Override
   public boolean isFromSource() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getQualifiedName() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public int getKind() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isDeprecated() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isSynthetic() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IJavaElement getJavaElement() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public String getKey() {
     return m_key;
   }
 
+  @Override
   public boolean isEqualTo(IBinding binding) {
     throw new IllegalArgumentException();
   }
@@ -392,34 +435,42 @@ public final class DesignerTypeBinding implements ITypeBinding {
   //
   // New in Eclipse 3.1
   //
+  @Override
   public boolean isAssignmentCompatible(ITypeBinding type) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isCastCompatible(ITypeBinding type) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isGenericType() {
     return m_genericType;
   }
 
+  @Override
   public boolean isSubTypeCompatible(ITypeBinding type) {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding getTypeDeclaration() {
     return m_typeDeclaration;
   }
 
+  @Override
   public IMethodBinding getDeclaringMethod() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding getWildcard() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public boolean isCapture() {
     throw new IllegalArgumentException();
   }
@@ -427,10 +478,12 @@ public final class DesignerTypeBinding implements ITypeBinding {
   //
   // New in Eclipse 3.2M5
   //
+  @Override
   public ITypeBinding getComponentType() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IAnnotationBinding[] getAnnotations() {
     throw new IllegalArgumentException();
   }
@@ -438,6 +491,7 @@ public final class DesignerTypeBinding implements ITypeBinding {
   //
   // New in Eclipse 3.3M2
   //
+  @Override
   public ITypeBinding createArrayType(int dimension) {
     throw new IllegalArgumentException();
   }
@@ -445,6 +499,7 @@ public final class DesignerTypeBinding implements ITypeBinding {
   //
   // New in Eclipse 3.3M6
   //
+  @Override
   public boolean isRecovered() {
     throw new IllegalArgumentException();
   }
@@ -452,31 +507,38 @@ public final class DesignerTypeBinding implements ITypeBinding {
   //
   // New in Eclipse 3.5M4
   //
+  @Override
   public int getRank() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public ITypeBinding getGenericTypeOfWildcardType() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IMethodBinding getFunctionalInterfaceMethod() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IAnnotationBinding[] getTypeAnnotations() {
     throw new IllegalArgumentException();
   }
 
+  @Override
   public IBinding getDeclaringMember() {
     return null;
   }
 
+  @Override
   public boolean isIntersectionType() {
     // TODO Auto-generated method stub
     return false;
   }
 
+  @Override
   public boolean isRecord() {
     // TODO Auto-generated method stub
     return false;

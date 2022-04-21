@@ -41,6 +41,7 @@ public final class NonVisualBeanRootProcessor implements IRootProcessor {
   // IRootProcessor
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void process(final JavaInfo root, List<JavaInfo> components) throws Exception {
     // check initial root state
     Assert.isNull(NonVisualBeanContainerInfo.find(root));

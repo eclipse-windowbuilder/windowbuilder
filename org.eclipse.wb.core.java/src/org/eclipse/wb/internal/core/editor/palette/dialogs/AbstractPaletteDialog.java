@@ -69,6 +69,7 @@ public abstract class AbstractPaletteDialog extends AbstractValidationTitleAreaD
     }
     // show all items
     Display.getCurrent().asyncExec(new Runnable() {
+      @Override
       public void run() {
         UiUtils.setVisibleItemCount(
             categoryField.getComboControl(null),

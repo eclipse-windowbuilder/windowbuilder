@@ -38,6 +38,7 @@ public class CoreExceptionRewriter2 implements IExceptionRewriter {
   // IExceptionRewriter
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public Throwable rewrite(Throwable e) {
     Throwable rootException = DesignerExceptionUtils.getRootCause(e);
     if (rootException instanceof AnonymousEvaluationError) {

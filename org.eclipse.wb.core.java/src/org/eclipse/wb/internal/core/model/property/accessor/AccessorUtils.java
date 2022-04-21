@@ -52,6 +52,7 @@ public class AccessorUtils {
    */
   public static IAccessibleExpressionAccessor IAccessibleExpressionAccessor_forMethod(final Method method) {
     return new IAccessibleExpressionAccessor() {
+      @Override
       public boolean isAccessible(JavaInfo javaInfo) {
         return Modifier.isPublic(method.getModifiers())
             || javaInfo.getCreationSupport() instanceof ThisCreationSupport;
@@ -65,6 +66,7 @@ public class AccessorUtils {
    */
   public static IAccessibleExpressionAccessor IAccessibleExpressionAccessor_forField(final Field field) {
     return new IAccessibleExpressionAccessor() {
+      @Override
       public boolean isAccessible(JavaInfo javaInfo) {
         return Modifier.isPublic(field.getModifiers())
             || javaInfo.getCreationSupport() instanceof ThisCreationSupport;

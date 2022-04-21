@@ -78,6 +78,7 @@ public final class NlsDialog extends ResizableDialog {
       @Override
       public void sourceAdded(final IEditableSource source) {
         ExecutionUtils.runLog(new RunnableEx() {
+          @Override
           public void run() throws Exception {
             int tabIndex = m_tabFolder.getItemCount() - 1;
             createStringsTab(source, tabIndex);
@@ -101,6 +102,7 @@ public final class NlsDialog extends ResizableDialog {
     m_tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
     //
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         createStringsTabs();
         createPropertiesTab();
@@ -138,6 +140,7 @@ public final class NlsDialog extends ResizableDialog {
     List<IEditableSource> sources = m_editableSupport.getEditableSources();
     List<IEditableSource> sourcesList = new ArrayList<IEditableSource>(sources);
     Collections.sort(sourcesList, new Comparator<IEditableSource>() {
+      @Override
       public int compare(IEditableSource source_1, IEditableSource source_2) {
         return source_1.getShortTitle().compareTo(source_2.getShortTitle());
       }
@@ -204,6 +207,7 @@ public final class NlsDialog extends ResizableDialog {
     getButton(IDialogConstants.OK_ID).setEnabled(false);
     try {
       ExecutionUtils.run(m_root, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           m_support.applyEditable(m_editableSupport);
         }

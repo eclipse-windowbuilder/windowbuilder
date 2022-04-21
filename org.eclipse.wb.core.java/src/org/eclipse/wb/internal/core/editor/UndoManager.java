@@ -109,10 +109,12 @@ public final class UndoManager {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final IASTEditorCommitListener m_editorListener = new IASTEditorCommitListener() {
+    @Override
     public void aboutToCommit() {
       removeBufferListener();
     }
 
+    @Override
     public boolean canEditBaseFile() {
       if (m_unitFile.isReadOnly()) {
         ResourcesPlugin.getWorkspace().validateEdit(
@@ -123,6 +125,7 @@ public final class UndoManager {
       return true;
     }
 
+    @Override
     public void commitDone() {
       addBufferListener();
     }
@@ -158,8 +161,10 @@ public final class UndoManager {
       m_objectPathHelper = new ObjectPathHelper(m_componentsProvider);
       // listen for tree expansion state
       m_componentsTree.setExpandListener(new Runnable() {
+        @Override
         public void run() {
           Display.getCurrent().asyncExec(new Runnable() {
+            @Override
             public void run() {
               rememberState();
             }
@@ -175,6 +180,7 @@ public final class UndoManager {
   //
   ////////////////////////////////////////////////////////////////////////////
   private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
+    @Override
     public void selectionChanged(SelectionChangedEvent event) {
       rememberState();
     }
@@ -308,6 +314,7 @@ public final class UndoManager {
   ////////////////////////////////////////////////////////////////////////////
   private int m_bufferChangeCount = 0;
   private final IBufferChangedListener m_bufferListener = new IBufferChangedListener() {
+    @Override
     public void bufferChanged(BufferChangedEvent event) {
       if (!m_designPage.isActiveEditor()) {
         return;
@@ -321,6 +328,7 @@ public final class UndoManager {
   private void scheduleRefresh_onBufferChange() {
     final int bufferChangeCount = ++m_bufferChangeCount;
     Runnable runnable = new Runnable() {
+      @Override
       public void run() {
         if (isStillInSave()) {
           Display.getDefault().timerExec(1, this);

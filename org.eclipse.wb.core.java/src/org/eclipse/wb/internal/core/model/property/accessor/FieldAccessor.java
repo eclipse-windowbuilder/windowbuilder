@@ -86,6 +86,7 @@ public final class FieldAccessor extends ExpressionAccessor {
    */
   private Object getFieldValue(final JavaInfo javaInfo) {
     return ExecutionUtils.runObjectIgnore(new RunnableObjectEx<Object>() {
+      @Override
       public Object runObject() throws Exception {
         Object object = javaInfo.getObject();
         return ReflectionUtils.getFieldObject(object, m_fieldName);
@@ -110,6 +111,7 @@ public final class FieldAccessor extends ExpressionAccessor {
     if (source == null) {
       if (hasAssignment) {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             javaInfo.removeFieldAssignments(m_fieldName);
           }
@@ -120,6 +122,7 @@ public final class FieldAccessor extends ExpressionAccessor {
       final Expression oldExpression = getExpression(assignment);
       if (!javaInfo.getEditor().getSource(oldExpression).equals(source)) {
         ExecutionUtils.run(javaInfo, new RunnableEx() {
+          @Override
           public void run() throws Exception {
             javaInfo.getEditor().replaceExpression(oldExpression, source);
           }
@@ -127,6 +130,7 @@ public final class FieldAccessor extends ExpressionAccessor {
       }
     } else {
       ExecutionUtils.run(javaInfo, new RunnableEx() {
+        @Override
         public void run() throws Exception {
           javaInfo.addFieldAssignment(m_fieldName, source);
         }
@@ -169,14 +173,17 @@ public final class FieldAccessor extends ExpressionAccessor {
    */
   private final IExposableExpressionAccessor m_exposableAccessor =
       new IExposableExpressionAccessor() {
+        @Override
         public Class<?> getValueClass(JavaInfo javaInfo) {
           return m_field.getType();
         }
 
+        @Override
         public String getGetterCode(JavaInfo javaInfo) throws Exception {
           return m_fieldName;
         }
 
+        @Override
         public String getSetterCode(JavaInfo javaInfo, String source) throws Exception {
           return m_fieldName + " = " + source;
         }

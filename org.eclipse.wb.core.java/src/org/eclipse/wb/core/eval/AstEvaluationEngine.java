@@ -61,6 +61,7 @@ public final class AstEvaluationEngine {
       return evaluate0(context, expression);
     } catch (final Throwable e) {
       Object result = ExecutionUtils.runObjectLog(new RunnableObjectEx<Object>() {
+        @Override
         public Object runObject() throws Exception {
           return context.evaluationFailed(expression, e);
         }

@@ -103,6 +103,7 @@ public final class MultipleConstructorsComposite extends Composite {
       m_constructorsViewer.setContentProvider(new ArrayContentProvider());
       // listeners
       m_constructorsViewer.addDoubleClickListener(new IDoubleClickListener() {
+        @Override
         public void doubleClick(DoubleClickEvent event) {
           markSelectedConstructor();
         }
@@ -180,6 +181,7 @@ public final class MultipleConstructorsComposite extends Composite {
 
   private void markSelectedConstructor() {
     ExecutionUtils.runLog(new RunnableEx() {
+      @Override
       public void run() throws Exception {
         markSelectedConstructorEx();
       }

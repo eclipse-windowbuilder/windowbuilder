@@ -48,6 +48,7 @@ public final class GenerationDescriptionEditor implements IDataEditor {
   // IDialogField
   //
   ////////////////////////////////////////////////////////////////////////////
+  @Override
   public void setValue(Object value) {
     for (TabItem tabItem : m_tabFolder.getItems()) {
       if (tabItem.getData() == value) {
@@ -57,6 +58,7 @@ public final class GenerationDescriptionEditor implements IDataEditor {
     }
   }
 
+  @Override
   public Object getValue() {
     return m_tabFolder.getSelection()[0].getData();
   }
@@ -77,6 +79,7 @@ public final class GenerationDescriptionEditor implements IDataEditor {
   private void trackTabFolderSelection() {
     updateTabFolderSelection();
     m_tabFolder.addListener(SWT.Selection, new Listener() {
+      @Override
       public void handleEvent(Event event) {
         updateTabFolderSelection();
       }
